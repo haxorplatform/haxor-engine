@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+  <!-- Output SWF options -->
+  <output>
+    <movie outputType="Application" />
+    <movie input="" />
+    <movie path="deploy\HaxorEngine.js" />
+    <movie fps="0" />
+    <movie width="0" />
+    <movie height="0" />
+    <movie version="1" />
+    <movie minorVersion="0" />
+    <movie platform="JavaScript" />
+    <movie background="#FFFFFF" />
+  </output>
+  <!-- Other classes to be compiled into your SWF -->
+  <classpaths>
+    <class path="source" />
+  </classpaths>
+  <!-- Build options -->
+  <build>
+    <option directives="" />
+    <option flashStrict="False" />
+    <option noInlineOnDebug="False" />
+    <option mainClass="haxor.Main" />
+    <option enabledebug="False" />
+    <option additional="-xml docs/docs.xml&#xA;" />
+  </build>
+  <!-- haxelib libraries -->
+  <haxelib>
+    <!-- example: <library name="..." /> -->
+  </haxelib>
+  <!-- Class files to compile (other referenced classes will automatically be included) -->
+  <compileTargets>
+    <compile path="src\thelab\haxor\Main.hx" />
+    <compile path="source\Main.hx" />
+    <compile path="lib\BasicNetwork.hx" />
+    <compile path="examples\engine\BasicNetwork.hx" />
+    <compile path="examples\examples\Examples.hx" />
+    <compile path="source\thelab\haxor\HaxorMain.hx" />
+    <compile path="source\thelab\haxor\Main.hx" />
+    <compile path="source\haxor\Main.hx" />
+  </compileTargets>
+  <!-- Paths to exclude from the Project Explorer tree -->
+  <hiddenPaths>
+    <hidden path="obj" />
+  </hiddenPaths>
+  <!-- Executed before build -->
+  <preBuildCommand />
+  <!-- Executed after build -->
+  <postBuildCommand alwaysRun="False">$(ProjectDir)\PackLib.bat
+$(ProjectDir)\InstallLocal.bat</postBuildCommand>
+  <!-- Other project options -->
+  <options>
+    <option showHiddenPaths="False" />
+    <option testMovie="Webserver" />
+    <option testMovieCommand="deploy/index.html" />
+  </options>
+  <!-- Plugin storage -->
+  <storage />
+</project>
