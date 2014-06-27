@@ -20,17 +20,8 @@ Enjoy the ride :)
 # Dependencies
 
 - All Features uses only JS functionalities.
-- Non Haxe Dependencies (be sure to include them in HTML <script> tags):
-- LZMA Compression : https://github.com/nmrugg/LZMA-JS 
-- WebRTC P2P Client: http://peerjs.com/
-- WebRTC P2P Server: http://peerjs.com/
-- WebSocket Server : https://github.com/LearnBoost/websocket.io
-
-# Contact
-  
-- Any doubts and/or suggestions and maybe complains:  
-
-- [author]   Eduardo Pons - haxor@thelaborat.org  
-- [website]  haxor.thelaborat.org  
-- [twitter]  www.twitter.com/HaxorEngine  
-- [facebook] www.facebook.com/HaxorEngine  
+- Non Haxe Dependencies (be sure to include them in HTML `<script>` tags)
+  - LZMA Compression : https://github.com/nmrugg/LZMA-JS 
+  - WebRTC P2P Client: http://peerjs.com/
+  - WebRTC P2P Server: http://peerjs.com/
+  - WebSocket Server : https://github.com/LearnBoost/websocket.io
