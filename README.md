@@ -6,25 +6,16 @@ quality rich applications for the next generation browsers.
 
 # Get Started
 
-1) Install Haxor with the command 'haxelib install haxor' 
-2) If you are starting, examples are in the [haxor_library] bitbucket. 
-   You can download the zip from there. 
-3) Get the project template here [http://goo.gl/KNtRaC] or in [haxor_library] 
-4) Build the project and check your browser console.log
-
-There is some info on the 'Application' class workflow.
-
+Follow the instructions on the site [http://haxor.thelaborat.org/download.html]
 
 # Considerations
 
-This version is a prototype of the future 1.0 version.
-Code conventions, naming of classes/methods/variables will change a lot during this phase.
+This version is a prototype of the future 1.0 version.  
+Code conventions, naming of classes/methods/variables will change a lot during this phase.  
 Beware!!  
 Each new version has a great probability of breaking the last one.  
 Expect things to blow anytime and everywhere!  
-Use [haxor_library] repository to grab assets to quickly test features or see examples.
-  
-haxor_library [https://bitbucket.org/eduardo_costa/haxor_library]  
+Use [haxor_library] repository to grab assets to quickly test features or see examples.  
   
 Enjoy the ride :)
 
@@ -39,9 +30,9 @@ Enjoy the ride :)
 
 # Contact
 
-Any doubts and/or suggestions and maybe complains:
+Any doubts and/or suggestions and maybe complains:  
 
-[author]   Eduardo Pons - haxor@thelaborat.org
-[website]  haxor.thelaborat.org
-[twitter]  www.twitter.com/HaxorEngine
-[facebook] www.faceboo.com/HaxorEngine
+[author]   Eduardo Pons - haxor@thelaborat.org  
+[website]  haxor.thelaborat.org  
+[twitter]  www.twitter.com/HaxorEngine  
+[facebook] www.faceboo.com/HaxorEngine  
