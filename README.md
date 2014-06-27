@@ -1,12 +1,11 @@
 ![](http://i.imgur.com/vKlQyP4.png)
 
-Combine the power of HaXe language and WebGL to allow the development of high 
-quality rich applications for the next generation browsers.
+Combine the power of HaXe language and WebGL to allow the development of high quality rich applications for the next generation browsers.  
 
 # Get Started
-
-Follow the instructions on the site [http://haxor.thelaborat.org/download.html]
-
+  
+Follow the instructions on the site [http://haxor.thelaborat.org/download.html]  
+  
 # Considerations
 
 This version is a prototype of the future 1.0 version.  
@@ -22,10 +21,10 @@ Enjoy the ride :)
 
 - All Features uses only JS functionalities.
 - Non Haxe Dependencies (be sure to include them in HTML <script> tags):
-  - LZMA Compression : https://github.com/nmrugg/LZMA-JS 
-  - WebRTC P2P Client: http://peerjs.com/
-  - WebRTC P2P Server: http://peerjs.com/
-  - WebSocket Server : https://github.com/LearnBoost/websocket.io
+- LZMA Compression : https://github.com/nmrugg/LZMA-JS 
+- WebRTC P2P Client: http://peerjs.com/
+- WebRTC P2P Server: http://peerjs.com/
+- WebSocket Server : https://github.com/LearnBoost/websocket.io
 
 # Contact
   
