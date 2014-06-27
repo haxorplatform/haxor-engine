@@ -1,5 +1,4 @@
 ![](http://i.imgur.com/vKlQyP4.png)
-# Haxor Engine
 
 Combine the power of HaXe language and WebGL to allow the development of high 
 quality rich applications for the next generation browsers.
@@ -29,10 +28,10 @@ Enjoy the ride :)
   - WebSocket Server : https://github.com/LearnBoost/websocket.io
 
 # Contact
+  
+- Any doubts and/or suggestions and maybe complains:  
 
-Any doubts and/or suggestions and maybe complains:  
-
-[author]   Eduardo Pons - haxor@thelaborat.org  
-[website]  haxor.thelaborat.org  
-[twitter]  www.twitter.com/HaxorEngine  
-[facebook] www.faceboo.com/HaxorEngine  
+- [author]   Eduardo Pons - haxor@thelaborat.org  
+- [website]  haxor.thelaborat.org  
+- [twitter]  www.twitter.com/HaxorEngine  
+- [facebook] www.facebook.com/HaxorEngine  
