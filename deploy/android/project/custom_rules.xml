@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<target name="-post-build" depends="" >
+		
+		<exec executable="adb" dir="">
+            <arg value="shell" />
+			<arg value="am" />
+			<arg value="force-stop" />			
+			<arg value="haxor.api.android/haxor.api.android.Main" />
+        </exec>
+		
+		<exec executable="adb" dir="">
+            <arg value="install" />
+			<arg value="bin/HelloWorld-debug-unaligned.apk"/>                       
+        </exec>
+		
+		
+		<!--
+		<exec executable="adb" dir="">
+            <arg value="shell" />
+			<arg value="am" />
+			<arg value="start" />
+			<arg value="-n" />
+			<arg value="haxor.api.android/haxor.api.android.Main" />
+        </exec>
+		-->
+	</target>
+</project>

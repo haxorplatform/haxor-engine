@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+  <!-- Output SWF options -->
+  <output>
+    <movie outputType="Application" />
+    <movie input="" />
+    <movie path="deploy\android\" />
+    <movie fps="0" />
+    <movie width="0" />
+    <movie height="0" />
+    <movie version="1" />
+    <movie minorVersion="0" />
+    <movie platform="Java" />
+    <movie background="#FFFFFF" />
+  </output>
+  <!-- Other classes to be compiled into your SWF -->
+  <classpaths>
+    <class path="source" />
+  </classpaths>
+  <!-- Build options -->
+  <build>
+    <option directives="android" />
+    <option flashStrict="False" />
+    <option noInlineOnDebug="False" />
+    <option mainClass="Main" />
+    <option enabledebug="False" />
+    <option additional="-D no-compilation&#xA;-java-lib &quot;%ANDROID_HOME%\platforms\android-13\android.jar&quot;" />
+  </build>
+  <!-- haxelib libraries -->
+  <haxelib>
+    <library name="" />
+    <library name="" />
+  </haxelib>
+  <!-- Class files to compile (other referenced classes will automatically be included) -->
+  <compileTargets>
+    <compile path="src\Main.hx" />
+    <compile path="src\MainAndroid.hx" />
+    <compile path="source\Main.hx" />
+  </compileTargets>
+  <!-- Paths to exclude from the Project Explorer tree -->
+  <hiddenPaths>
+    <hidden path="obj" />
+  </hiddenPaths>
+  <!-- Executed before build -->
+  <preBuildCommand>CleanAndroid.bat</preBuildCommand>
+  <!-- Executed after build -->
+  <postBuildCommand alwaysRun="False">BuildAndroid.bat</postBuildCommand>
+  <!-- Other project options -->
+  <options>
+    <option showHiddenPaths="False" />
+    <option testMovie="Custom" />
+    <option testMovieCommand="RunAndroid.bat" />
+  </options>
+  <!-- Plugin storage -->
+  <storage />
+</project>

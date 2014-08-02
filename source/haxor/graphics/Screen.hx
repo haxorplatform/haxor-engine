@@ -1,96 +1,81 @@
-/*
-HAXOR HTML5 ENGINE (c) 2013 - 2014 by Eduardo Pons - eduardo@thelaborat.org
-
-HAXOR HTML5 ENGINE is licensed under a
-Creative Commons Attribution-NoDerivs 3.0 Unported License.
-
-You should have received a copy of the license along with this
-work.  If not, see <http://creativecommons.org/licenses/by-nd/3.0/>.
- */
 package haxor.graphics;
-import js.Browser;
-import js.html.CanvasElement;
-import js.html.DivElement;
-import js.html.Element;
-import haxor.core.Application;
-import haxor.core.Engine;
+
+
+import haxor.core.BaseApplication;
+import haxor.graphics.Screen.CursorMode;
 
 /**
- * ...
- * @author Eduardo Pons
+ * Flag that indicates the behaviour of the mouse cursor.
+ */
+enum CursorMode
+{
+	Show;
+	Hide;
+	Lock;
+}
+
+/**
+ * Class that handles screen related data and functionalities.
+ * @author Eduardo Pons - eduardo@thelaborat.org
  */
 @:allow(haxor)
 class Screen
-{
-	static private var m_target : Element;
+{		
 	
 	/**
-	 * 
+	 * Screen width of the application rendering area.
 	 */
-	static public var width(get_width, never) : Int;
-	static function get_width():Int { return m_width; }
-	static private var m_width : Int = 0;
+	static public var width(get_width, null):Float;
+	static private inline function get_width():Float { return m_width; }
+	static private var m_width:Float;
 	
 	/**
-	 * 
+	 * Screen width of the application rendering area.
 	 */
-	static public var height(get_height, never) : Int;
-	static function get_height():Int { return m_height; }
-	static private var m_height : Int = 0;
-
+	static public var height(get_height, null):Float;
+	static inline private function get_height():Float { return m_height; }
+	static private var m_height:Float;
+	
 	/**
-	 * 
-	 * @param	p_element
-	 * @return
+	 * Fullscreen flag.
 	 */
-	static public function IsFullscreen(p_element : Element):Bool
+	static public var fullscreen(get_fullscreen, set_fullscreen):Bool;
+	static inline private function get_fullscreen():Bool { return m_fullscreen; }
+	static private function set_fullscreen(v:Bool):Bool { m_fullscreen = m_application.OnFullscreenRequest(v); return m_fullscreen; }
+	static private var m_fullscreen:Bool;
+	
+	/**
+	 * Cursor mode
+	 */
+	static public var cursor(get_cursor, set_cursor):CursorMode;
+	static private inline function get_cursor():CursorMode { return m_cursor; }
+	static private function set_cursor(v:CursorMode):CursorMode 
 	{
-		
-		if (p_element == null) return false;
-		var d:Dynamic = Browser.document;
-		if (d.fullscreenElement != null) 				return p_element == d.fullscreenElement;
-		if (d.mozFullScreenElement != null) 			return p_element == d.mozFullScreenElement;
-		if (d.msFullScreenElement != null) 				return p_element == d.msFullScreenElement;
-		if (d.oFullScreenElement != null) 				return p_element == d.oFullScreenElement;
-		if (d.webkitCurrentFullScreenElement != null)   return p_element == d.webkitCurrentFullScreenElement;
-		return false;
-	}
-	
-	/**
-	 * 
-	 * @param	p_element
-	 * @return
-	 */
-	static public function SetFullscreen(p_element : Element,p_flag : Bool,p_keyboard:Bool = true):Void
-	{
-		if (p_element == null) return;
-		var is_fs : Bool = IsFullscreen(p_element);
-		if (is_fs == p_flag) return;
-		var c : Dynamic = p_element;
-		var d : Dynamic = Browser.document;
-		if (p_flag)
-		{	
-			if (c.requestFullScreen != null) 		p_keyboard ? c.requestFullScreen(Element.ALLOW_KEYBOARD_INPUT) 		 : c.requestFullScreen();		else			
-			if (c.mozRequestFullScreen != null) 	p_keyboard ? c.mozRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) 	 : c.mozRequestFullScreen();	else
-			if (c.msRequestFullScreen != null) 		p_keyboard ? c.msRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) 	 : c.msRequestFullScreen();		else
-			if (c.oRequestFullScreen != null) 		p_keyboard ? c.oRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) 	 : c.oRequestFullScreen();		else
-			if (c.webkitRequestFullScreen != null) 	p_keyboard ? c.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT) : c.webkitRequestFullScreen();			
+		if (v == CursorMode.Lock)
+		{
+			var is_locked : Bool = m_application.OnPointerLockRequest(true);
+			if (!is_locked) { return m_cursor = CursorMode.Show; }
+			m_application.OnPointerVisibilityRequest(false);
+			return m_cursor = CursorMode.Lock;
 		}
-		else 
-		{	
-			if (d.cancelFullScreen) 		d.cancelFullScreen();			else
-			if (d.mozCancelFullScreen)  	d.mozCancelFullScreen();		else
-			if (d.msCancelFullScreen)  		d.msCancelFullScreen();			else
-			if (d.oCancelFullScreen)  		d.oCancelFullScreen();			else
-			if (d.webkitCancelFullScreen) 	d.webkitCancelFullScreen();			
-		}		
+		m_application.OnPointerLockRequest(false);
+		var is_visible : Bool = m_application.OnPointerVisibilityRequest(v == CursorMode.Show);
+		return m_cursor = is_visible ? CursorMode.Show : CursorMode.Hide;
+	}
+	static private var m_cursor:CursorMode;
+	
+	static private var m_application : BaseApplication;
+	
+	static function Initialize():Void
+	{
+		m_width  		= 0;
+		m_height 		= 0;
+		m_fullscreen 	= false;
+		m_cursor 		= CursorMode.Show;
+		m_application 	= null;
 	}
 	
-	/**
-	 * 
-	 */
-	static public var fullscreen(get_fullscreen, set_fullscreen):Bool;	
-	static private function get_fullscreen():Bool { return IsFullscreen(m_target); }
-	static private function set_fullscreen(v:Bool):Bool {  SetFullscreen(m_target, v); return v; }
+	
+	
 	
 }

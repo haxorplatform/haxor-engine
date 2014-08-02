@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:12
+-keep class haxor.platform.android.Entry { <init>(...); }
+
