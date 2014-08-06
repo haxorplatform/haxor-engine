@@ -27,7 +27,7 @@ class Console
 			trace(p_msg); 
 			#end
 			
-			#if java
+			#if android
 			Sys.stdout().writeString(p_msg+"\n");
 			Sys.stdout().flush();
 			untyped __java__('

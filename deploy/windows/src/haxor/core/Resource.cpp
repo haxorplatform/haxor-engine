@@ -12,8 +12,8 @@
 #ifndef INCLUDED_haxor_component_Component
 #include <haxor/component/Component.h>
 #endif
-#ifndef INCLUDED_haxor_context_HaxorContext
-#include <haxor/context/HaxorContext.h>
+#ifndef INCLUDED_haxor_context_EngineContext
+#include <haxor/context/EngineContext.h>
 #endif
 #ifndef INCLUDED_haxor_context_Process
 #include <haxor/context/Process.h>
@@ -44,7 +44,7 @@ HX_STACK_ARG(__o_p_name,"p_name")
 ::String p_name = __o_p_name.Default(HX_CSTRING(""));
 {
 	HX_STACK_LINE(96)
-	int _g = (::haxor::context::HaxorContext_obj::uid)++;		HX_STACK_VAR(_g,"_g");
+	int _g = (::haxor::context::EngineContext_obj::uid)++;		HX_STACK_VAR(_g,"_g");
 	HX_STACK_LINE(96)
 	this->m_uid = _g;
 	HX_STACK_LINE(97)
@@ -83,7 +83,7 @@ HX_STACK_ARG(__o_p_name,"p_name")
 		this->m_name = p_name;
 	}
 	HX_STACK_LINE(112)
-	::haxor::context::HaxorContext_obj::resources->Add(hx::ObjectPtr<OBJ_>(this));
+	::haxor::context::EngineContext_obj::resources->Add(hx::ObjectPtr<OBJ_>(this));
 }
 ;
 	return null();
@@ -160,9 +160,39 @@ bool Resource_obj::get_destroyed( ){
 
 HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,get_destroyed,return )
 
+::Class Resource_obj::GetType( ){
+	HX_STACK_FRAME("haxor.core.Resource","GetType",0x861a1b93,"haxor.core.Resource.GetType","haxor/core/Resource.hx",119,0x735dd04d)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(119)
+	return this->m_type_class;
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,GetType,return )
+
+::String Resource_obj::GetTypeName( ){
+	HX_STACK_FRAME("haxor.core.Resource","GetTypeName",0x44837f7e,"haxor.core.Resource.GetTypeName","haxor/core/Resource.hx",125,0x735dd04d)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(125)
+	return this->m_type_name;
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,GetTypeName,return )
+
+::String Resource_obj::GetTypeFullName( ){
+	HX_STACK_FRAME("haxor.core.Resource","GetTypeFullName",0xfd911e2d,"haxor.core.Resource.GetTypeFullName","haxor/core/Resource.hx",131,0x735dd04d)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(131)
+	return this->m_type_full_name;
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,GetTypeFullName,return )
+
 Void Resource_obj::OnDestroy( ){
 {
-		HX_STACK_FRAME("haxor.core.Resource","OnDestroy",0xfe2a2d7e,"haxor.core.Resource.OnDestroy","haxor/core/Resource.hx",118,0x735dd04d)
+		HX_STACK_FRAME("haxor.core.Resource","OnDestroy",0xfe2a2d7e,"haxor.core.Resource.OnDestroy","haxor/core/Resource.hx",136,0x735dd04d)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -190,7 +220,7 @@ Void Resource_obj::Destroy( ::haxor::core::Resource p_target){
 			b->UpdateContextFlag(false);
 		}
 		HX_STACK_LINE(26)
-		::haxor::context::HaxorContext_obj::disposables->Add(p_target);
+		::haxor::context::EngineContext_obj::disposables->Add(p_target);
 	}
 return null();
 }
@@ -257,6 +287,7 @@ Dynamic Resource_obj::__Field(const ::String &inName,bool inCallProp)
 	case 7:
 		if (HX_FIELD_EQ(inName,"Destroy") ) { return Destroy_dyn(); }
 		if (HX_FIELD_EQ(inName,"get_uid") ) { return get_uid_dyn(); }
+		if (HX_FIELD_EQ(inName,"GetType") ) { return GetType_dyn(); }
 		break;
 	case 8:
 		if (HX_FIELD_EQ(inName,"get_name") ) { return get_name_dyn(); }
@@ -270,6 +301,7 @@ Dynamic Resource_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"application") ) { return inCallProp ? get_application() : application; }
 		if (HX_FIELD_EQ(inName,"m_destroyed") ) { return m_destroyed; }
 		if (HX_FIELD_EQ(inName,"m_type_name") ) { return m_type_name; }
+		if (HX_FIELD_EQ(inName,"GetTypeName") ) { return GetTypeName_dyn(); }
 		break;
 	case 12:
 		if (HX_FIELD_EQ(inName,"m_type_class") ) { return m_type_class; }
@@ -282,6 +314,7 @@ Dynamic Resource_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 15:
 		if (HX_FIELD_EQ(inName,"get_application") ) { return get_application_dyn(); }
+		if (HX_FIELD_EQ(inName,"GetTypeFullName") ) { return GetTypeFullName_dyn(); }
 		break;
 	case 16:
 		if (HX_FIELD_EQ(inName,"m_type_full_name") ) { return m_type_full_name; }
@@ -384,6 +417,9 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("m_type_full_name"),
 	HX_CSTRING("m_type_class"),
 	HX_CSTRING("m_is_behaviour"),
+	HX_CSTRING("GetType"),
+	HX_CSTRING("GetTypeName"),
+	HX_CSTRING("GetTypeFullName"),
 	HX_CSTRING("OnDestroy"),
 	String(null()) };
 

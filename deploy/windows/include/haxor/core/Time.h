@@ -40,6 +40,11 @@ class HXCPP_CLASS_ATTRIBUTES  Time_obj : public hx::Object{
 		static Dynamic get_delta_dyn();
 
 		static Float m_delta;
+		static Float elapsed;
+		static Float get_elapsed( );
+		static Dynamic get_elapsed_dyn();
+
+		static Float m_elapsed;
 		static int fps;
 		static int get_fps( );
 		static Dynamic get_fps_dyn();
@@ -50,11 +55,18 @@ class HXCPP_CLASS_ATTRIBUTES  Time_obj : public hx::Object{
 		static Dynamic get_ups_dyn();
 
 		static int m_ups;
-		static Float m_frames;
+		static int frame;
+		static int get_frame( );
+		static Dynamic get_frame_dyn();
+
+		static int m_frame;
+		static Float m_frame_count;
 		static Float m_updates;
 		static Float m_stats_clock;
 		static Float m_start_clock;
 		static Float m_last_clock;
+		static Float m_last_frame_clock;
+		static Float m_frame_delta;
 		static Void Initialize( );
 		static Dynamic Initialize_dyn();
 

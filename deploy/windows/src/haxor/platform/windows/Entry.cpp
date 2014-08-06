@@ -15,9 +15,6 @@
 #ifndef INCLUDED_haxor_component_Component
 #include <haxor/component/Component.h>
 #endif
-#ifndef INCLUDED_haxor_context_HaxorContext
-#include <haxor/context/HaxorContext.h>
-#endif
 #ifndef INCLUDED_haxor_core_Application
 #include <haxor/core/Application.h>
 #endif
@@ -26,6 +23,9 @@
 #endif
 #ifndef INCLUDED_haxor_core_Console
 #include <haxor/core/Console.h>
+#endif
+#ifndef INCLUDED_haxor_core_Engine
+#include <haxor/core/Engine.h>
 #endif
 #ifndef INCLUDED_haxor_core_Entity
 #include <haxor/core/Entity.h>
@@ -38,6 +38,18 @@
 #endif
 #ifndef INCLUDED_haxor_platform_OSWindow
 #include <haxor/platform/OSWindow.h>
+#endif
+#ifndef INCLUDED_haxor_platform_graphics_GL
+#include <haxor/platform/graphics/GL.h>
+#endif
+#ifndef INCLUDED_haxor_platform_graphics_GraphicContext
+#include <haxor/platform/graphics/GraphicContext.h>
+#endif
+#ifndef INCLUDED_haxor_platform_graphics_OpenGL
+#include <haxor/platform/graphics/OpenGL.h>
+#endif
+#ifndef INCLUDED_haxor_platform_graphics_WinGL
+#include <haxor/platform/graphics/WinGL.h>
 #endif
 #ifndef INCLUDED_haxor_platform_windows_Entry
 #include <haxor/platform/windows/Entry.h>
@@ -72,9 +84,7 @@ Dynamic Entry_obj::__Create(hx::DynamicArray inArgs)
 
 Void Entry_obj::Initialize( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Entry","Initialize",0x071ef046,"haxor.platform.windows.Entry.Initialize","haxor/platform/windows/Entry.hx",33,0x9902f0c7)
-		HX_STACK_LINE(34)
-		::haxor::context::HaxorContext_obj::Initialize();
+		HX_STACK_FRAME("haxor.platform.windows.Entry","Initialize",0x071ef046,"haxor.platform.windows.Entry.Initialize","haxor/platform/windows/Entry.hx",35,0x9902f0c7)
 		HX_STACK_LINE(36)
 		::String app_class_type = HX_CSTRING("");		HX_STACK_VAR(app_class_type,"app_class_type");
 		HX_STACK_LINE(38)
@@ -160,23 +170,34 @@ Void Entry_obj::Initialize( ){
 			return null();
 		}
 		HX_STACK_LINE(81)
+		::haxor::core::Engine_obj::Initialize();
+		HX_STACK_LINE(83)
 		::haxor::core::Application app;		HX_STACK_VAR(app,"app");
-		HX_STACK_LINE(82)
+		HX_STACK_LINE(84)
 		::haxor::core::Entity e = ::haxor::core::Entity_obj::__new(HX_CSTRING("application"));		HX_STACK_VAR(e,"e");
-		HX_STACK_LINE(83)
-		Dynamic _g3 = e->AddComponent(app_class);		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(83)
-		app = _g3;
 		HX_STACK_LINE(85)
+		Dynamic _g3 = e->AddComponent(app_class);		HX_STACK_VAR(_g3,"_g3");
+		HX_STACK_LINE(85)
+		app = _g3;
+		HX_STACK_LINE(87)
 		if ((!(::Std_obj::is(app,hx::ClassOf< ::haxor::core::BaseApplication >())))){
-			HX_STACK_LINE(87)
+			HX_STACK_LINE(89)
 			::haxor::core::Console_obj::Log(((HX_CSTRING("Haxor> Error. Class [") + app_class_type) + HX_CSTRING("] does not extends Application!")),null());
-			HX_STACK_LINE(88)
+			HX_STACK_LINE(90)
 			return null();
 		}
-		HX_STACK_LINE(91)
+		HX_STACK_LINE(93)
 		::haxor::platform::windows::Window wnd = ::haxor::platform::windows::Window_obj::__new(app,app_title,(int)0,(int)0,(int)800,(int)600);		HX_STACK_VAR(wnd,"wnd");
-		HX_STACK_LINE(92)
+		HX_STACK_LINE(95)
+		::haxor::platform::graphics::GL_obj::Initialize(app);
+		HX_STACK_LINE(96)
+		::haxor::platform::graphics::GL_obj::m_gl->Initialize(wnd);
+		HX_STACK_LINE(98)
+		if ((app->Load())){
+			HX_STACK_LINE(98)
+			app->LoadComplete();
+		}
+		HX_STACK_LINE(100)
 		wnd->Run();
 	}
 return null();

@@ -1,4 +1,5 @@
 package haxor.context;
+import haxor.core.Console;
 import haxor.core.Resource;
 
 
@@ -50,6 +51,7 @@ class Process<T>
 	public function new(p_name : String,p_size : Int) 
 	{
 		name     		= p_name;
+		Console.Log("\tProcess ["+p_name+"] created.",4);
 		_cid_    		= m_cid++;
 		list     		= [];		
 		m_length 		= 0;		
@@ -69,8 +71,7 @@ class Process<T>
 		var iid : Int = p_item.m_pid[_cid_];
 		if (iid >= 0) return;		
 		list[m_length] = cast p_item;
-		p_item.m_pid[_cid_] = m_length++;		
-		trace(name+" " + m_length);
+		p_item.m_pid[_cid_] = m_length++;				
 	}
 	
 	/**
@@ -79,7 +80,6 @@ class Process<T>
 	 */
 	public function Remove(p_item : Resource):Resource
 	{	
-		
 		var iid : Int = p_item.m_pid[_cid_];
 		if (iid < 0) return p_item;
 		p_item.m_pid[_cid_] = -1;

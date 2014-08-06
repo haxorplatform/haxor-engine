@@ -69,6 +69,15 @@ class HXCPP_CLASS_ATTRIBUTES  Resource_obj : public hx::Object{
 		::String m_type_full_name;
 		::Class m_type_class;
 		bool m_is_behaviour;
+		virtual ::Class GetType( );
+		Dynamic GetType_dyn();
+
+		virtual ::String GetTypeName( );
+		Dynamic GetTypeName_dyn();
+
+		virtual ::String GetTypeFullName( );
+		Dynamic GetTypeFullName_dyn();
+
 		virtual Void OnDestroy( );
 		Dynamic OnDestroy_dyn();
 

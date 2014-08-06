@@ -2,14 +2,19 @@
 
 #include <haxor/platform/windows/Window.h>
 #include <haxor/platform/windows/Entry.h>
-#include <haxor/platform/graphics/Graphics.h>
 #include <haxor/platform/graphics/OpenGL.h>
 #include <haxor/platform/graphics/WinGL.h>
 #include <haxor/platform/graphics/GraphicContext.h>
 #include <haxor/platform/graphics/GraphicAPI.h>
+#include <haxor/platform/graphics/GL.h>
 #include <haxor/platform/OSWindow.h>
-#include <haxor/graphics/Screen.h>
+#include <haxor/io/UInt16Array.h>
+#include <haxor/io/FloatArray.h>
+#include <haxor/io/BaseArray.h>
+#include <haxor/graphics/mesh/MeshAttrib.h>
+#include <haxor/graphics/mesh/Mesh.h>
 #include <haxor/graphics/CursorMode.h>
+#include <haxor/graphics/Screen.h>
 #include <haxor/core/Time.h>
 #include <haxor/core/Scene.h>
 #include <haxor/core/IResizeable.h>
@@ -20,7 +25,8 @@
 #include <haxor/core/ApplicationProtocol.h>
 #include <haxor/core/Platform.h>
 #include <haxor/context/Process.h>
-#include <haxor/context/HaxorContext.h>
+#include <haxor/context/MeshContext.h>
+#include <haxor/context/EngineContext.h>
 #include <haxe/io/Eof.h>
 #include <haxe/Timer.h>
 #include <haxe/Log.h>
@@ -48,14 +54,19 @@ __files__boot();
 hx::RegisterResources( hx::GetResources() );
 ::haxor::platform::windows::Window_obj::__register();
 ::haxor::platform::windows::Entry_obj::__register();
-::haxor::platform::graphics::Graphics_obj::__register();
 ::haxor::platform::graphics::OpenGL_obj::__register();
 ::haxor::platform::graphics::WinGL_obj::__register();
 ::haxor::platform::graphics::GraphicContext_obj::__register();
 ::haxor::platform::graphics::GraphicAPI_obj::__register();
+::haxor::platform::graphics::GL_obj::__register();
 ::haxor::platform::OSWindow_obj::__register();
-::haxor::graphics::Screen_obj::__register();
+::haxor::io::UInt16Array_obj::__register();
+::haxor::io::FloatArray_obj::__register();
+::haxor::io::BaseArray_obj::__register();
+::haxor::graphics::mesh::MeshAttrib_obj::__register();
+::haxor::graphics::mesh::Mesh_obj::__register();
 ::haxor::graphics::CursorMode_obj::__register();
+::haxor::graphics::Screen_obj::__register();
 ::haxor::core::Time_obj::__register();
 ::haxor::core::Scene_obj::__register();
 ::haxor::core::IResizeable_obj::__register();
@@ -66,7 +77,8 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::ApplicationProtocol_obj::__register();
 ::haxor::core::Platform_obj::__register();
 ::haxor::context::Process_obj::__register();
-::haxor::context::HaxorContext_obj::__register();
+::haxor::context::MeshContext_obj::__register();
+::haxor::context::EngineContext_obj::__register();
 ::haxe::io::Eof_obj::__register();
 ::haxe::Timer_obj::__register();
 ::haxe::Log_obj::__register();
@@ -103,7 +115,8 @@ hx::RegisterResources( hx::GetResources() );
 ::Type_obj::__boot();
 ::haxe::Timer_obj::__boot();
 ::haxe::io::Eof_obj::__boot();
-::haxor::context::HaxorContext_obj::__boot();
+::haxor::context::EngineContext_obj::__boot();
+::haxor::context::MeshContext_obj::__boot();
 ::haxor::context::Process_obj::__boot();
 ::haxor::core::Platform_obj::__boot();
 ::haxor::core::ApplicationProtocol_obj::__boot();
@@ -114,14 +127,19 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::IResizeable_obj::__boot();
 ::haxor::core::Scene_obj::__boot();
 ::haxor::core::Time_obj::__boot();
-::haxor::graphics::CursorMode_obj::__boot();
 ::haxor::graphics::Screen_obj::__boot();
+::haxor::graphics::CursorMode_obj::__boot();
+::haxor::graphics::mesh::Mesh_obj::__boot();
+::haxor::graphics::mesh::MeshAttrib_obj::__boot();
+::haxor::io::BaseArray_obj::__boot();
+::haxor::io::FloatArray_obj::__boot();
+::haxor::io::UInt16Array_obj::__boot();
 ::haxor::platform::OSWindow_obj::__boot();
+::haxor::platform::graphics::GL_obj::__boot();
 ::haxor::platform::graphics::GraphicAPI_obj::__boot();
 ::haxor::platform::graphics::GraphicContext_obj::__boot();
 ::haxor::platform::graphics::WinGL_obj::__boot();
 ::haxor::platform::graphics::OpenGL_obj::__boot();
-::haxor::platform::graphics::Graphics_obj::__boot();
 ::haxor::platform::windows::Entry_obj::__boot();
 ::haxor::platform::windows::Window_obj::__boot();
 }

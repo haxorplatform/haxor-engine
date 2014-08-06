@@ -45,11 +45,11 @@ namespace graphics{
 
 Void WinGL_obj::__construct(::haxor::core::BaseApplication p_application)
 {
-HX_STACK_FRAME("haxor.platform.graphics.WinGL","new",0x140421df,"haxor.platform.graphics.WinGL.new","haxor/platform/graphics/WinGL.hx",47,0xd2011392)
+HX_STACK_FRAME("haxor.platform.graphics.WinGL","new",0x140421df,"haxor.platform.graphics.WinGL.new","haxor/platform/graphics/WinGL.hx",48,0xd2011392)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_application,"p_application")
 {
-	HX_STACK_LINE(47)
+	HX_STACK_LINE(48)
 	super::__construct(p_application);
 }
 ;
@@ -70,9 +70,9 @@ Dynamic WinGL_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::platform::windows::Window WinGL_obj::get_window( ){
-	HX_STACK_FRAME("haxor.platform.graphics.WinGL","get_window",0x5b86701a,"haxor.platform.graphics.WinGL.get_window","haxor/platform/graphics/WinGL.hx",54,0xd2011392)
+	HX_STACK_FRAME("haxor.platform.graphics.WinGL","get_window",0x5b86701a,"haxor.platform.graphics.WinGL.get_window","haxor/platform/graphics/WinGL.hx",55,0xd2011392)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(54)
+	HX_STACK_LINE(55)
 	return this->m_window;
 }
 
@@ -80,18 +80,18 @@ Dynamic WinGL_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(WinGL_obj,get_window,return )
 
 bool WinGL_obj::Initialize( ::haxor::platform::windows::Window p_window){
-	HX_STACK_FRAME("haxor.platform.graphics.WinGL","Initialize",0xfbdea1d1,"haxor.platform.graphics.WinGL.Initialize","haxor/platform/graphics/WinGL.hx",61,0xd2011392)
+	HX_STACK_FRAME("haxor.platform.graphics.WinGL","Initialize",0xfbdea1d1,"haxor.platform.graphics.WinGL.Initialize","haxor/platform/graphics/WinGL.hx",62,0xd2011392)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_window,"p_window")
-	HX_STACK_LINE(62)
+	HX_STACK_LINE(63)
 	::String _g = ::Std_obj::string(p_window);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(62)
+	HX_STACK_LINE(63)
 	::String _g1 = (HX_CSTRING("Graphics> Initialize. hwnd[") + _g);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(62)
+	HX_STACK_LINE(63)
 	::String _g2 = (_g1 + HX_CSTRING("]"));		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(62)
+	HX_STACK_LINE(63)
 	::haxor::core::Console_obj::Log(_g2,(int)1);
-	HX_STACK_LINE(64)
+	HX_STACK_LINE(65)
 			
 		{
 			if (p_window->hwnd == NULL) 
@@ -159,9 +159,20 @@ bool WinGL_obj::Initialize( ::haxor::platform::windows::Window p_window){
 			
 			printf("  Rendering Context [0x%x]\n", hrc);
 			
+			//Make current to init glew.
+			Focus();
+			
+			//glewExperimental = GL_TRUE;
+			GLenum glerr = glewInit();
+			if (glerr != GLEW_OK)
+			{
+				fprintf(stderr, "Graphics> GLEW Error: %s\n", glewGetErrorString(glerr));
+				return false;
+			}
+			
 		}
 		;
-	HX_STACK_LINE(134)
+	HX_STACK_LINE(146)
 	return true;
 }
 
@@ -170,13 +181,13 @@ HX_DEFINE_DYNAMIC_FUNC1(WinGL_obj,Initialize,return )
 
 Void WinGL_obj::CheckExtensions( ){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.WinGL","CheckExtensions",0xc139fedb,"haxor.platform.graphics.WinGL.CheckExtensions","haxor/platform/graphics/WinGL.hx",142,0xd2011392)
+		HX_STACK_FRAME("haxor.platform.graphics.WinGL","CheckExtensions",0xc139fedb,"haxor.platform.graphics.WinGL.CheckExtensions","haxor/platform/graphics/WinGL.hx",154,0xd2011392)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(143)
+		HX_STACK_LINE(155)
 		
 		if (hdc == NULL) return null();
 		;
-		HX_STACK_LINE(146)
+		HX_STACK_LINE(158)
 		::haxor::core::Console_obj::Log(HX_CSTRING("Graphics> Available Extensions:"),(int)1);
 	}
 return null();
@@ -185,9 +196,9 @@ return null();
 
 Void WinGL_obj::Focus( ){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.WinGL","Focus",0x353dbef7,"haxor.platform.graphics.WinGL.Focus","haxor/platform/graphics/WinGL.hx",154,0xd2011392)
+		HX_STACK_FRAME("haxor.platform.graphics.WinGL","Focus",0x353dbef7,"haxor.platform.graphics.WinGL.Focus","haxor/platform/graphics/WinGL.hx",166,0xd2011392)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(154)
+		HX_STACK_LINE(166)
 		
 		wglMakeCurrent(hdc, hrc);
 		;
@@ -198,9 +209,9 @@ return null();
 
 Void WinGL_obj::Flush( ){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.WinGL","Flush",0x334fc1e3,"haxor.platform.graphics.WinGL.Flush","haxor/platform/graphics/WinGL.hx",164,0xd2011392)
+		HX_STACK_FRAME("haxor.platform.graphics.WinGL","Flush",0x334fc1e3,"haxor.platform.graphics.WinGL.Flush","haxor/platform/graphics/WinGL.hx",176,0xd2011392)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(164)
+		HX_STACK_LINE(176)
 		
 		SwapBuffers(hdc);
 		;

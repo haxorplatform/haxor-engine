@@ -17,10 +17,10 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_graphics_AndroidGL(haxor.platform.graphics.AndroidGL __temp_me1838, haxor.core.BaseApplication p_application)
+	public static   void __hx_ctor_haxor_platform_graphics_AndroidGL(haxor.platform.graphics.AndroidGL __temp_me26108, haxor.core.BaseApplication p_application)
 	{
-		haxor.platform.graphics.GraphicContext.__hx_ctor_haxor_platform_graphics_GraphicContext(__temp_me1838, p_application);
-		__temp_me1838.api = haxor.platform.graphics.GraphicAPI.OpenGLES;
+		haxor.platform.graphics.GraphicContext.__hx_ctor_haxor_platform_graphics_GraphicContext(__temp_me26108, p_application);
+		__temp_me26108.api = haxor.platform.graphics.GraphicAPI.OpenGLES;
 	}
 	
 	
@@ -38,16 +38,18 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 	
 	public  android.opengl.GLSurfaceView c;
 	
+	public  int[] m_ids;
+	
 	public   boolean Initialize(haxor.platform.android.Entry p_entry, java.lang.Object p_version)
 	{
-		int __temp_p_version1835 = ( (( p_version == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_version)) )) );
+		int __temp_p_version26107 = ( (( p_version == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_version)) )) );
 		if (( p_entry == null )) 
 		{
 			haxor.core.Console.Log("Graphics> Invalid Entry Activity.", null);
 			return false;
 		}
 		
-		int cv = __temp_p_version1835;
+		int cv = __temp_p_version26107;
 		
 		 c = new android.opengl.GLSurfaceView(p_entry.getApplication());
 		 ;
@@ -69,12 +71,12 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 		android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
 		display.getMetrics(metrics);
 
-		
 		w = metrics.widthPixels;
 		h = metrics.heightPixels;
 		
 		;
-		haxor.core.Console.Log(( ( ( ( ( ( "Graphics> Initialize Android GLES version[" + __temp_p_version1835 ) + "] Resolution[" ) + w ) + "," ) + h ) + "]" ), 1);
+		this.m_ids = new int[((int) (1) )];
+		haxor.core.Console.Log(( ( ( ( ( ( "Graphics> Initialize Android GLES version[" + __temp_p_version26107 ) + "] Resolution[" ) + w ) + "," ) + h ) + "]" ), 1);
 		return true;
 	}
 	
@@ -102,35 +104,54 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 	}
 	
 	
-	@Override public   void Resize()
+	@Override public   void Clear(double p_r, double p_g, double p_b, double p_a, double p_depth)
 	{
-		{
-		}
-		
+		android.opengl.GLES20.glClearDepthf(((float) (p_depth) ));
+		android.opengl.GLES20.glClearColor(((float) (p_r) ), ((float) (p_g) ), ((float) (p_b) ), ((float) (p_a) ));
+		android.opengl.GLES20.glClear(((int) (( android.opengl.GLES20.GL_COLOR_BUFFER_BIT | android.opengl.GLES20.GL_DEPTH_BUFFER_BIT )) ));
 	}
 	
 	
-	@Override public   void Clear(double p_r, double p_g, double p_b, java.lang.Object p_a, java.lang.Object p_depth)
+	@Override public   int CreateBuffer()
 	{
-		double __temp_p_depth1837 = ( (( p_depth == null )) ? (((double) (1.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_depth)) )) );
-		double __temp_p_a1836 = ( (( p_a == null )) ? (((double) (1.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_a)) )) );
-		android.opengl.GLES20.glClearDepthf(((float) (__temp_p_depth1837) ));
-		android.opengl.GLES20.glClearColor(((float) (p_r) ), ((float) (p_g) ), ((float) (p_b) ), ((float) (__temp_p_a1836) ));
-		android.opengl.GLES20.glClear(((int) (( android.opengl.GLES20.GL_COLOR_BUFFER_BIT | android.opengl.GLES20.GL_DEPTH_BUFFER_BIT )) ));
+		this.m_ids[0] = -1;
+		android.opengl.GLES20.glGenBuffers(((int) (1) ), ((int[]) (this.m_ids) ), ((int) (0) ));
+		haxor.core.Console.Log(( "GLES20> " + this.m_ids.length ), null);
+		return this.m_ids[0];
+	}
+	
+	
+	@Override public   void DeleteBuffer(int p_id)
+	{
+		this.m_ids[0] = p_id;
+		android.opengl.GLES20.glDeleteBuffers(((int) (1) ), ((int[]) (this.m_ids) ), ((int) (0) ));
 	}
 	
 	
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef1923 = true;
+			boolean __temp_executeDef26221 = true;
 			switch (field.hashCode())
 			{
+				case 103598054:
+				{
+					if (field.equals("m_ids")) 
+					{
+						__temp_executeDef26221 = false;
+						this.m_ids = ((int[]) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
 				case 99:
 				{
 					if (field.equals("c")) 
 					{
-						__temp_executeDef1923 = false;
+						__temp_executeDef26221 = false;
 						this.c = ((android.opengl.GLSurfaceView) (value) );
 						return value;
 					}
@@ -141,7 +162,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				
 			}
 			
-			if (__temp_executeDef1923) 
+			if (__temp_executeDef26221) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -158,15 +179,15 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef1924 = true;
+			boolean __temp_executeDef26222 = true;
 			switch (field.hashCode())
 			{
-				case 65193517:
+				case -1081856533:
 				{
-					if (field.equals("Clear")) 
+					if (field.equals("DeleteBuffer")) 
 					{
-						__temp_executeDef1924 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Clear"))) );
+						__temp_executeDef26222 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteBuffer"))) );
 					}
 					
 					break;
@@ -177,7 +198,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				{
 					if (field.equals("c")) 
 					{
-						__temp_executeDef1924 = false;
+						__temp_executeDef26222 = false;
 						return this.c;
 					}
 					
@@ -185,12 +206,36 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				}
 				
 				
-				case -1850570540:
+				case 1213974652:
 				{
-					if (field.equals("Resize")) 
+					if (field.equals("CreateBuffer")) 
 					{
-						__temp_executeDef1924 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Resize"))) );
+						__temp_executeDef26222 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateBuffer"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 103598054:
+				{
+					if (field.equals("m_ids")) 
+					{
+						__temp_executeDef26222 = false;
+						return this.m_ids;
+					}
+					
+					break;
+				}
+				
+				
+				case 65193517:
+				{
+					if (field.equals("Clear")) 
+					{
+						__temp_executeDef26222 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Clear"))) );
 					}
 					
 					break;
@@ -201,7 +246,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef1924 = false;
+						__temp_executeDef26222 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Initialize"))) );
 					}
 					
@@ -213,7 +258,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				{
 					if (field.equals("CheckExtensions")) 
 					{
-						__temp_executeDef1924 = false;
+						__temp_executeDef26222 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CheckExtensions"))) );
 					}
 					
@@ -225,7 +270,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				{
 					if (field.equals("OnPause")) 
 					{
-						__temp_executeDef1924 = false;
+						__temp_executeDef26222 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnPause"))) );
 					}
 					
@@ -237,7 +282,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				{
 					if (field.equals("OnResume")) 
 					{
-						__temp_executeDef1924 = false;
+						__temp_executeDef26222 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnResume"))) );
 					}
 					
@@ -247,7 +292,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				
 			}
 			
-			if (__temp_executeDef1924) 
+			if (__temp_executeDef26222) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -264,15 +309,15 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash1926 = field.hashCode();
-			boolean __temp_executeDef1925 = true;
-			switch (__temp_hash1926)
+			int __temp_hash26224 = field.hashCode();
+			boolean __temp_executeDef26223 = true;
+			switch (__temp_hash26224)
 			{
-				case 65193517:case -1850570540:case -1602602212:
+				case -1081856533:case 1213974652:case 65193517:case -1602602212:
 				{
-					if (( (( ( __temp_hash1926 == 65193517 ) && field.equals("Clear") )) || ( (( ( __temp_hash1926 == -1850570540 ) && field.equals("Resize") )) || field.equals("CheckExtensions") ) )) 
+					if (( (( ( __temp_hash26224 == -1081856533 ) && field.equals("DeleteBuffer") )) || ( (( ( __temp_hash26224 == 1213974652 ) && field.equals("CreateBuffer") )) || ( (( ( __temp_hash26224 == 65193517 ) && field.equals("Clear") )) || field.equals("CheckExtensions") ) ) )) 
 					{
-						__temp_executeDef1925 = false;
+						__temp_executeDef26223 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -284,7 +329,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef1925 = false;
+						__temp_executeDef26223 = false;
 						return this.Initialize(((haxor.platform.android.Entry) (dynargs.__get(0)) ), dynargs.__get(1));
 					}
 					
@@ -296,7 +341,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				{
 					if (field.equals("OnResume")) 
 					{
-						__temp_executeDef1925 = false;
+						__temp_executeDef26223 = false;
 						this.OnResume();
 					}
 					
@@ -308,7 +353,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				{
 					if (field.equals("OnPause")) 
 					{
-						__temp_executeDef1925 = false;
+						__temp_executeDef26223 = false;
 						this.OnPause();
 					}
 					
@@ -318,7 +363,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 				
 			}
 			
-			if (__temp_executeDef1925) 
+			if (__temp_executeDef26223) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
@@ -331,6 +376,7 @@ public  class AndroidGL extends haxor.platform.graphics.GraphicContext
 	
 	@Override public   void __hx_getFields(haxe.root.Array<java.lang.String> baseArr)
 	{
+		baseArr.push("m_ids");
 		baseArr.push("c");
 		{
 			super.__hx_getFields(baseArr);

@@ -1,10 +1,12 @@
 #if windows
 package haxor.platform.windows;
+import haxor.platform.graphics.GL;
+import haxor.core.Engine;
 import haxor.core.Application;
 import haxor.core.BaseApplication;
 import haxor.core.Entity;
 import haxor.core.Console;
-import haxor.context.HaxorContext;
+import haxor.context.EngineContext;
 import cpp.Lib;
 import haxe.Int32;
 import haxe.Int64;
@@ -31,8 +33,6 @@ class Entry
 	 */
 	static public function Initialize():Void
 	{
-		HaxorContext.Initialize();
-		
 		var app_class_type : String = "";
 		
 		var app_title : String = "Haxor";
@@ -78,18 +78,28 @@ class Entry
 			return; 
 		}
 		
+		Engine.Initialize();
+		
 		var app : Application;
 		var e : Entity = new Entity("application");
 		app = e.AddComponent(cast app_class);
-		
+				
 		if (!Std.is(app, BaseApplication))
 		{ 
 			Console.Log("Haxor> Error. Class [" + app_class_type+"] does not extends Application!"); 
 			return; 
 		}
 		
-		var wnd : Window = new Window(app,app_title,0,0,800,600);
+		var wnd : Window = new Window(app, app_title, 0, 0, 800, 600);
+		
+		GL.Initialize(app);		
+		GL.m_gl.Initialize(wnd);
+		
+		if (app.Load()) app.LoadComplete();
+		
 		wnd.Run();
+		
+		
 		
 	}
 	

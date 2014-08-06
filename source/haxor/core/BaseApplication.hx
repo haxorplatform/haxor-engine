@@ -4,8 +4,20 @@ import haxe.Timer;
 import haxor.component.Behaviour;
 import haxor.component.Component;
 import haxor.graphics.Screen;
-import haxor.platform.graphics.Graphics;
+import haxor.platform.graphics.GL;
 
+
+#if html
+typedef EntryPoint  = haxor.platform.html.Entry;
+#end
+
+#if android
+ typedef EntryPoint = haxor.platform.android.Entry;
+#end
+
+#if windows
+typedef EntryPoint  =  haxor.platform.windows.Entry;
+#end
 
 
 /**
@@ -87,33 +99,27 @@ class BaseApplication extends Behaviour
 	{
 		m_fps = v;
 		var f : Float = cast v;
-		m_mspf = 
-		//(1.0 / f) * 1000.0;
-		Math.ffloor((1.0 / f) * 1000.0);
+		
+		//clock precision adjustment for html platform.
+		#if html
+		f += 6.0;
+		#end
+		
+		m_mspf = (((1.0 / f) * 1000.0));		
 		return v; 
-	}
-	private var m_mspf : Float;
-	private var m_fps  : Int;
-	
+	}	
 	/**
-	 * Returns the reference to the application engine.
+	 * Milliseconds per frame.
 	 */
-	public var engine(get_engine, null):Engine;
-	private inline function get_engine():Engine { return m_engine; }
-	private var m_engine : Engine;
-	
+	private var m_mspf : Float;
+	/**
+	 * Frames per second.
+	 */
+	private var m_fps  : Int;
 	/**
 	 * Time to next frame;
 	 */
 	private var m_frame_ms : Float;
-	
-	/**
-	 * Reference to the Graphics context of this application.
-	 */
-	public var graphics(get_graphics, null):Graphics;
-	private inline function get_graphics():Graphics { return m_graphics; }	
-	private var m_graphics : Graphics;
-	
 	
 	/**
 	 * Platform this application is currently running.
@@ -134,19 +140,15 @@ class BaseApplication extends Behaviour
 	public function new() 
 	{
 		super();
-		m_instance = this;
-		m_scenes   = [];
-		Time.Initialize();
-		Screen.Initialize();
-		Screen.m_application = this;
-				
+		m_instance 		= this;
+		m_scenes   		= [];
 		fps 			= 60;
-		m_frame_ms	    = Time.clock;
+		m_frame_ms	    = 0.0;		
 		m_platform 		= Platform.Unknown;
 		
-		m_graphics  	= new Graphics(this);		
-		m_engine		= new Engine(this);
-				
+		Time.Initialize();
+		Screen.m_application = this;
+		Screen.Initialize();
 		
 	}
 	
@@ -191,8 +193,8 @@ class BaseApplication extends Behaviour
 	{	
 		Time.Update();	
 		CheckResize();		
-		m_engine.Update();
-		m_engine.Collect();
+		Engine.Update();
+		Engine.Collect();
 	}
 	
 	/**
@@ -200,19 +202,18 @@ class BaseApplication extends Behaviour
 	 */
 	private  function Render():Void 
 	{			
-		var c : Float = Timer.stamp() * 1000.0;
-		if ((c - m_frame_ms) >= m_mspf) 
-		{
-			Time.Render();
-			m_frame_ms = c;
-			m_graphics.Focus();			
-			m_engine.Render();
-			m_graphics.Flush();
+		if ((Time.m_clock - m_frame_ms) >= m_mspf)
+		{	
+			m_frame_ms = Time.m_clock;
+			Time.Render();			
+			GL.Focus();			
+			Engine.Render();
+			GL.Flush();
 		}		
 	}
 	
 	/**
-	 * Destroy Callback
+	 * Application Quit Callback
 	 */
 	private function OnQuit():Void	{ }
 	
@@ -242,9 +243,9 @@ class BaseApplication extends Behaviour
 	 */
 	private function OnResize():Void 
 	{
-		Console.Log("Application> Resize [" + Screen.m_width + "," + Screen.m_height + "]", 4);
-		m_graphics.Resize();
-		m_engine.Resize();
+		Console.Log("Application> Resize [" + Screen.m_width + "," + Screen.m_height + "]", 5);
+		GL.Resize();
+		Engine.Resize();
 	}
 	
 	/**

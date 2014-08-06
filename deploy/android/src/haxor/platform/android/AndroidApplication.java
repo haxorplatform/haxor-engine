@@ -17,10 +17,10 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_AndroidApplication(haxor.platform.android.AndroidApplication __temp_me1811)
+	public static   void __hx_ctor_haxor_platform_android_AndroidApplication(haxor.platform.android.AndroidApplication __temp_me26077)
 	{
-		haxor.core.BaseApplication.__hx_ctor_haxor_core_BaseApplication(__temp_me1811);
-		__temp_me1811.m_platform = haxor.core.Platform.Android;
+		haxor.core.BaseApplication.__hx_ctor_haxor_core_BaseApplication(__temp_me26077);
+		__temp_me26077.m_platform = haxor.core.Platform.Android;
 	}
 	
 	
@@ -40,27 +40,27 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 	
 	@Override public   void OnFocus()
 	{
-		this.m_graphics.OnResume();
+		haxor.platform.graphics.GL.m_gl.OnResume();
 	}
 	
 	
 	@Override public   void OnUnfocus()
 	{
-		this.m_graphics.OnPause();
+		haxor.platform.graphics.GL.m_gl.OnPause();
 	}
 	
 	
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef1877 = true;
+			boolean __temp_executeDef26147 = true;
 			switch (field.hashCode())
 			{
 				case 770090528:
 				{
 					if (field.equals("m_entry")) 
 					{
-						__temp_executeDef1877 = false;
+						__temp_executeDef26147 = false;
 						this.m_entry = ((haxor.platform.android.Entry) (value) );
 						return value;
 					}
@@ -71,7 +71,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				
 			}
 			
-			if (__temp_executeDef1877) 
+			if (__temp_executeDef26147) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -88,14 +88,14 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef1878 = true;
+			boolean __temp_executeDef26148 = true;
 			switch (field.hashCode())
 			{
 				case -1244160288:
 				{
 					if (field.equals("OnUnfocus")) 
 					{
-						__temp_executeDef1878 = false;
+						__temp_executeDef26148 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnUnfocus"))) );
 					}
 					
@@ -107,7 +107,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("m_entry")) 
 					{
-						__temp_executeDef1878 = false;
+						__temp_executeDef26148 = false;
 						return this.m_entry;
 					}
 					
@@ -119,7 +119,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("OnFocus")) 
 					{
-						__temp_executeDef1878 = false;
+						__temp_executeDef26148 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnFocus"))) );
 					}
 					
@@ -129,7 +129,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				
 			}
 			
-			if (__temp_executeDef1878) 
+			if (__temp_executeDef26148) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

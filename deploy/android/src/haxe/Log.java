@@ -22,7 +22,7 @@ public  class Log extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_Log(haxe.Log __temp_me1818)
+	public static   void __hx_ctor_haxe_Log(haxe.Log __temp_me26084)
 	{
 		{
 		}

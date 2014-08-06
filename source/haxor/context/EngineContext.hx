@@ -1,4 +1,5 @@
 package haxor.context;
+import haxor.core.Console;
 import haxor.core.IDisposable;
 import haxor.core.IRenderable;
 import haxor.core.IResizeable;
@@ -10,7 +11,7 @@ import haxor.core.Resource;
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 @:allow(haxor)
-class HaxorContext
+class EngineContext
 {
 	
 	/**
@@ -54,15 +55,24 @@ class HaxorContext
 	static private var disposables : Process<IDisposable>;
 	
 	/**
+	 * Reference to the mesh context.
+	 */
+	static private var mesh : MeshContext;
+	
+	/**
 	 * Initializes the Haxor context.
 	 */
 	static private function Initialize():Void
 	{
+		Console.Log("Haxor> Engine Context Initialize.",3);
 		update      = new Process("process.update", 	 maxNodes);
 		render      = new Process("process.render", 	 maxNodes);
 		resize      = new Process("process.resize", 	 maxNodes);
 		resources   = new Process("process.resources",   maxNodes);
-		disposables = new Process("process.disposbales", maxNodes);
+		disposables = new Process("process.disposables", maxNodes);
+		
+		
+		mesh = new MeshContext();
 	}
 	
 }

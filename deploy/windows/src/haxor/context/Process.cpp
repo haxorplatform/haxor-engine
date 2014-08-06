@@ -1,10 +1,10 @@
 #include <hxcpp.h>
 
-#ifndef INCLUDED_haxe_Log
-#include <haxe/Log.h>
-#endif
 #ifndef INCLUDED_haxor_context_Process
 #include <haxor/context/Process.h>
+#endif
+#ifndef INCLUDED_haxor_core_Console
+#include <haxor/core/Console.h>
 #endif
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
@@ -17,35 +17,37 @@ namespace context{
 
 Void Process_obj::__construct(::String p_name,int p_size)
 {
-HX_STACK_FRAME("haxor.context.Process","new",0x44f4a996,"haxor.context.Process.new","haxor/context/Process.hx",51,0x5f329a1c)
+HX_STACK_FRAME("haxor.context.Process","new",0x44f4a996,"haxor.context.Process.new","haxor/context/Process.hx",52,0x5f329a1c)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_name,"p_name")
 HX_STACK_ARG(p_size,"p_size")
 {
-	HX_STACK_LINE(52)
+	HX_STACK_LINE(53)
 	this->name = p_name;
-	HX_STACK_LINE(53)
-	int _g = (::haxor::context::Process_obj::m_cid)++;		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(53)
-	this->_cid_ = _g;
 	HX_STACK_LINE(54)
-	this->list = Dynamic( Array_obj<Dynamic>::__new());
+	::haxor::core::Console_obj::Log(((HX_CSTRING("\tProcess [") + p_name) + HX_CSTRING("] created.")),(int)4);
 	HX_STACK_LINE(55)
-	this->m_length = (int)0;
+	int _g = (::haxor::context::Process_obj::m_cid)++;		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(55)
+	this->_cid_ = _g;
 	HX_STACK_LINE(56)
+	this->list = Dynamic( Array_obj<Dynamic>::__new());
+	HX_STACK_LINE(57)
+	this->m_length = (int)0;
+	HX_STACK_LINE(58)
 	{
-		HX_STACK_LINE(56)
+		HX_STACK_LINE(58)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(56)
+		HX_STACK_LINE(58)
 		while((true)){
-			HX_STACK_LINE(56)
+			HX_STACK_LINE(58)
 			if ((!(((_g1 < p_size))))){
-				HX_STACK_LINE(56)
+				HX_STACK_LINE(58)
 				break;
 			}
-			HX_STACK_LINE(56)
-			int i = (_g1)++;		HX_STACK_VAR(i,"i");
 			HX_STACK_LINE(58)
+			int i = (_g1)++;		HX_STACK_VAR(i,"i");
+			HX_STACK_LINE(60)
 			this->list->__Field(HX_CSTRING("push"),true)(null());
 		}
 	}
@@ -68,9 +70,9 @@ Dynamic Process_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 int Process_obj::get_length( ){
-	HX_STACK_FRAME("haxor.context.Process","get_length",0xf24f5e39,"haxor.context.Process.get_length","haxor/context/Process.hx",31,0x5f329a1c)
+	HX_STACK_FRAME("haxor.context.Process","get_length",0xf24f5e39,"haxor.context.Process.get_length","haxor/context/Process.hx",32,0x5f329a1c)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(31)
+	HX_STACK_LINE(32)
 	return this->m_length;
 }
 
@@ -79,22 +81,20 @@ HX_DEFINE_DYNAMIC_FUNC0(Process_obj,get_length,return )
 
 Void Process_obj::Add( ::haxor::core::Resource p_item){
 {
-		HX_STACK_FRAME("haxor.context.Process","Add",0x44d28337,"haxor.context.Process.Add","haxor/context/Process.hx",68,0x5f329a1c)
+		HX_STACK_FRAME("haxor.context.Process","Add",0x44d28337,"haxor.context.Process.Add","haxor/context/Process.hx",70,0x5f329a1c)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
-		HX_STACK_LINE(69)
+		HX_STACK_LINE(71)
 		int iid = p_item->m_pid->__get(this->_cid_);		HX_STACK_VAR(iid,"iid");
-		HX_STACK_LINE(70)
+		HX_STACK_LINE(72)
 		if (((iid >= (int)0))){
-			HX_STACK_LINE(70)
+			HX_STACK_LINE(72)
 			return null();
 		}
-		HX_STACK_LINE(71)
-		hx::IndexRef((this->list).mPtr,this->m_length) = p_item;
-		HX_STACK_LINE(72)
-		p_item->m_pid[this->_cid_] = (this->m_length)++;
 		HX_STACK_LINE(73)
-		::haxe::Log_obj::trace(((this->name + HX_CSTRING(" ")) + this->m_length),hx::SourceInfo(HX_CSTRING("Process.hx"),73,HX_CSTRING("haxor.context.Process"),HX_CSTRING("Add")));
+		hx::IndexRef((this->list).mPtr,this->m_length) = p_item;
+		HX_STACK_LINE(74)
+		p_item->m_pid[this->_cid_] = (this->m_length)++;
 	}
 return null();
 }
@@ -103,7 +103,7 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC1(Process_obj,Add,(void))
 
 ::haxor::core::Resource Process_obj::Remove( ::haxor::core::Resource p_item){
-	HX_STACK_FRAME("haxor.context.Process","Remove",0x2b7b5cee,"haxor.context.Process.Remove","haxor/context/Process.hx",81,0x5f329a1c)
+	HX_STACK_FRAME("haxor.context.Process","Remove",0x2b7b5cee,"haxor.context.Process.Remove","haxor/context/Process.hx",82,0x5f329a1c)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_item,"p_item")
 	HX_STACK_LINE(83)

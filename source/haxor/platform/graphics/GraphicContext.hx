@@ -1,5 +1,6 @@
 package haxor.platform.graphics;
 import haxor.core.BaseApplication;
+import haxor.platform.Types.MeshBufferId;
 
 
 /**
@@ -58,9 +59,22 @@ class GraphicContext
 	public function Flush():Void { }
 	
 	/**
+	 * Creates a buffer in the GPU and returns its identifier.
+	 * @return
+	 */
+	public function CreateBuffer():MeshBufferId { return GL.NULL_ID; }
+	
+	/**
+	 * Deletes a buffer from the GPU
+	 * @param	p_id
+	 */
+	public function DeleteBuffer(p_id : MeshBufferId):Void { }
+	
+	/**
 	 * Destroys the context.
 	 */
 	public function Destroy():Void { }
+	
 	
 	/**
 	 * Callback called when the application container changed size.
@@ -74,6 +88,6 @@ class GraphicContext
 	 * @param	p_b
 	 * @param	p_a
 	 */
-	public function Clear(p_r : Float, p_g:Float, p_b:Float, p_a:Float = 1.0,p_depth:Float=1.0):Void { 	}
+	public function Clear(p_r : Float, p_g:Float, p_b:Float, p_a:Float,p_depth:Float):Void { 	}
 	
 }

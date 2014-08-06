@@ -1,5 +1,5 @@
 package haxor.component;
-import haxor.context.HaxorContext;
+import haxor.context.EngineContext;
 import haxor.core.Entity;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;

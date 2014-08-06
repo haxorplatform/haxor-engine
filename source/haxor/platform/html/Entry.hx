@@ -1,6 +1,8 @@
 #if html
 package haxor.platform.html;
-import haxor.context.HaxorContext;
+import haxor.core.Engine;
+import haxor.platform.graphics.GL;
+import haxor.context.EngineContext;
 import haxor.core.Entity;
 import haxor.core.Time;
 import haxor.core.BaseApplication;
@@ -36,9 +38,7 @@ class Entry
 	 * @param	p_event
 	 */
 	static function OnWindowLoad(p_event:Event):Void
-	{
-		HaxorContext.Initialize();
-		
+	{	
 		var script_list : NodeList = Browser.document.getElementsByTagName("SCRIPT");
 		
 		var attrib : String = "";
@@ -87,7 +87,7 @@ class Entry
 			return; 
 		}
 		
-		
+		Engine.Initialize();
 		
 		var e : Entity = new Entity("application");
 		m_application  = e.AddComponent(cast app_class);
@@ -101,8 +101,9 @@ class Entry
 		
 		Console.Log("Haxor> Application [" + app_class_type+"] created successfully!", 1);
 		
-		m_application.graphics.Initialize(app_container_id);
-		m_application.graphics.CheckExtensions();
+		GL.Initialize(m_application);
+		GL.m_gl.Initialize(app_container_id);
+		
 		
 		if (Browser.window.requestAnimationFrame != null)
 		{

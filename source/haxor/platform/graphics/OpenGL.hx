@@ -1,5 +1,6 @@
 #if (windows || osx || linux)
 package haxor.platform.graphics;
+import haxor.platform.Types.MeshBufferId;
 import haxor.core.Time;
 import haxor.core.Console;
 import haxor.platform.graphics.GraphicContext;
@@ -30,14 +31,14 @@ WinGL
 	}
 	
 	/**
-	 * Clears the current buffer with the chosen color and depth.
+	 * See GraphicsContext.
 	 * @param	p_r
 	 * @param	p_g
 	 * @param	p_b
 	 * @param	p_a
 	 * @param	p_depth
 	 */
-	override public function Clear(p_r:Float, p_g:Float, p_b:Float, p_a:Float = 1.0, p_depth:Float = 1.0):Void 
+	override public function Clear(p_r:Float, p_g:Float, p_b:Float, p_a:Float, p_depth:Float):Void 
 	{	
 		untyped __cpp__('
 		glClearDepth(p_depth); 
@@ -46,6 +47,31 @@ WinGL
 		');
 	}
 	
+	/**
+	 * See GraphicsContext.
+	 * @return
+	 */
+	override public function CreateBuffer():MeshBufferId 
+	{	
+		untyped __cpp__('
+		GLuint id;
+		glGenBuffers(1, &id);
+		return (Int) id;
+		');
+		return GL.NULL_ID;
+	}
+	
+	/**
+	 * See GraphicsContext.
+	 * @param	p_id
+	 */
+	override public function DeleteBuffer(p_id:MeshBufferId):Void 
+	{
+		untyped __cpp__('
+		GLuint id = p_id;
+		glDeleteBuffers(1, &id);		
+		');		
+	}
 }
 
 

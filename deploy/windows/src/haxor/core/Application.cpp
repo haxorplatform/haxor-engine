@@ -26,10 +26,10 @@ namespace core{
 
 Void Application_obj::__construct()
 {
-HX_STACK_FRAME("haxor.core.Application","new",0xa1b5acbf,"haxor.core.Application.new","haxor/core/Application.hx",17,0xf410b3f1)
+HX_STACK_FRAME("haxor.core.Application","new",0xa1b5acbf,"haxor.core.Application.new","haxor/core/Application.hx",18,0xf410b3f1)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(17)
+	HX_STACK_LINE(18)
 	super::__construct();
 }
 ;

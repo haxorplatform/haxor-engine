@@ -1,8 +1,11 @@
 #if android
 package haxor.platform.android;
+import haxor.core.Engine;
+import java.lang.Thread;
+import java.lang.Throwable;
 import haxor.core.Time;
-import haxor.platform.graphics.Graphics;
-import haxor.context.HaxorContext;
+import haxor.platform.graphics.GL;
+import haxor.context.EngineContext;
 import haxor.core.Entity;
 import haxor.graphics.Screen;
 import haxor.core.Console;
@@ -15,27 +18,12 @@ import android.os.Bundle;
 import java.javax.microedition.khronos.opengles.GL10;
 import java.javax.microedition.khronos.egl.EGLConfig;
 
-/*
-import android.opengl.GLES20;
-
-
-
-import haxe.Timer;
-import java.internal.Runtime;
-import java.io.NativeOutput;
-
-import java.Lib;
-
-import javax.microedition.khronos.opengles.GL10;
-
-//*/
-
 
 /**
  * Entry point class that controls the initialization of Android projects. 
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
-class Entry extends Activity implements GLSurfaceView_Renderer implements Runnable
+class Entry extends Activity implements GLSurfaceView_Renderer implements Runnable implements Thread_UncaughtExceptionHandler
 {
 	
 	/**
@@ -70,7 +58,7 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 			//decorView.setSystemUiVisibility(uiOptions);
 		');
 		
-		HaxorContext.Initialize();
+		Thread.setDefaultUncaughtExceptionHandler(this);
 		
 		var app_class_type : String = untyped __java__("getString(R.string.app_type)");
 		
@@ -96,6 +84,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 			Console.Log("Haxor> Error Class [" + app_class_type+"] not found! Try adding 'import " + app_class_type+"' in your Main file."); 
 			return; 
 		}
+		
+		Engine.Initialize();
 				
 		var e: Entity = new Entity("application");
 		m_application = e.AddComponent(cast app_class);
@@ -106,25 +96,34 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 			return; 
 		}
 		
-		m_application.graphics.Initialize(this);
-		m_application.graphics.CheckExtensions();
-		
-		m_handler = new Handler();
+		GL.Initialize(m_application);
+		GL.m_gl.Initialize(this);
+				
+		m_handler 	= new Handler();
 		m_handler.postDelayed(this,cast 0);
-		m_active = true;
+		m_active 	= true;
 		
-		if (m_application.Load())
-		{
-			m_application.LoadComplete();
-		}
+		
 		
     }
+	
+	/**
+	 * Handles and report global exceptions within the Thread.
+	 * @param	thread
+	 * @param	ex
+	 */
+	public function uncaughtException(thread : Thread,ex :  Throwable):Void
+	{
+		Console.Log("Haxor> Error. " + ex.getMessage()+"\n");
+		ex.printStackTrace();
+	}
 	
 	@:overload()
 	override public function onStart() : Void
 	{
 		super.onStart();		
-		Console.Log("OnStart");
+		Console.Log("OnStart", 5);
+		
 		
 	}
 	
@@ -133,8 +132,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	{
 		super.onPause();
 		
-		Console.Log("OnPause",4);
-		//m_application.OnUnfocus();		
+		Console.Log("OnPause",5);
+		//m_application.OnUnfocus();
 		m_active = false;
 	}
 	
@@ -142,7 +141,7 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	override public function onResume() : Void
 	{
 		super.onResume();		
-		Console.Log("OnResume",4);
+		Console.Log("OnResume",5);
 		m_active = true;
 		//m_application.OnFocus();		
 		if(m_active)m_handler.postDelayed(this,cast 0);
@@ -151,14 +150,14 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	@:overload()
 	override public function onDestroy():Void
 	{
-		Console.Log("OnDestroy",4);
+		Console.Log("OnDestroy",5);
 		super.onDestroy();		
 	}
 	
 	@:overload()
 	override public function onStop():Void
 	{
-		Console.Log("OnStop",4);		
+		Console.Log("OnStop",5);		
 		m_active = false;
 		super.onStop();		
 	}
@@ -177,6 +176,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	
 	public function onSurfaceChanged(gl:GL10, width:Int, height:Int):Void
 	{
+		if (width <= 0) return;
+		if (height <= 0) return;
 		Screen.m_width  = cast width;
 		Screen.m_height = cast height;
 		if(m_active)m_application.OnResize();
@@ -184,7 +185,12 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	
 	public function onSurfaceCreated(gl:GL10, config:EGLConfig):Void
 	{
+		Console.Log("OnCreated", 5);
 		
+		if (m_application.Load())
+		{
+			m_application.LoadComplete();
+		}
 	}
 }
 

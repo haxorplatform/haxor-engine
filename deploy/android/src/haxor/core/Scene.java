@@ -17,9 +17,9 @@ public  class Scene extends haxor.core.Resource
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Scene(haxor.core.Scene __temp_me1829, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_core_Scene(haxor.core.Scene __temp_me26096, java.lang.String p_name)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me1829, p_name);
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me26096, p_name);
 	}
 	
 	

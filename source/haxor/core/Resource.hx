@@ -1,6 +1,6 @@
 package haxor.core;
 import haxor.component.Behaviour;
-import haxor.context.HaxorContext;
+import haxor.context.EngineContext;
 
 /**
  * Base class for all haxor objects.
@@ -23,7 +23,7 @@ class Resource implements IDisposable
 			var b : Behaviour = cast p_target;
 			b.UpdateContextFlag(false);
 		}		
-		HaxorContext.disposables.Add(p_target);
+		EngineContext.disposables.Add(p_target);
 	}
 	
 	/**
@@ -93,7 +93,7 @@ class Resource implements IDisposable
 	 */
 	public function new(p_name:String = ""):Void
 	{	
-		m_uid  		= HaxorContext.uid++;
+		m_uid  		= EngineContext.uid++;
 		m_destroyed = false;
 		_cid_  		= 0;
 		m_pid  		= [ -1, -1, -1, -1, -1, -1];
@@ -109,8 +109,26 @@ class Resource implements IDisposable
 		
 		m_name 				 = p_name == "" ? (m_type_name+m_uid) : p_name;
 		
-		HaxorContext.resources.Add(this);
+		EngineContext.resources.Add(this);
 	}
+	
+	/**
+	 * Returns the reference for this object's Class instance.
+	 * @return
+	 */
+	public inline function GetType():Class<Dynamic> { return m_type_class; }
+	
+	/**
+	 * Returns this class type name without package.
+	 * @return
+	 */
+	public inline function GetTypeName():String { return m_type_name; }
+	
+	/**
+	 * Returns this class full type name which includes its packages.
+	 * @return
+	 */
+	public inline function GetTypeFullName():String { return m_type_full_name; }
 	
 	/**
 	 * Method called when the resource is destroyed by the engine.

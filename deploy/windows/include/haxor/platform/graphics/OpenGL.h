@@ -39,7 +39,11 @@ class HXCPP_CLASS_ATTRIBUTES  OpenGL_obj : public ::haxor::platform::graphics::W
 		static void __register();
 		::String __ToString() const { return HX_CSTRING("OpenGL"); }
 
-		virtual Void Clear( Float p_r,Float p_g,Float p_b,hx::Null< Float >  p_a,hx::Null< Float >  p_depth);
+		virtual Void Clear( Float p_r,Float p_g,Float p_b,Float p_a,Float p_depth);
+
+		virtual int CreateBuffer( );
+
+		virtual Void DeleteBuffer( int p_id);
 
 };
 

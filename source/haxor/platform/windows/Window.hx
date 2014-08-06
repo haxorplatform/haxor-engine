@@ -1,5 +1,6 @@
 #if windows
 package haxor.platform.windows;
+import haxor.platform.graphics.GL;
 import haxor.core.Console;
 import haxor.core.Application;
 import haxor.graphics.Screen;
@@ -253,15 +254,8 @@ class Window extends OSWindow
 		
 		printf("Window> hwnd[%d]\\n",hwnd); 
 		
-		');
-		
-		m_application.graphics.Initialize(this);
-		m_application.graphics.CheckExtensions();
-		
+		');		
 		m_build = true;
-		
-		if (m_application.Load()) m_application.LoadComplete();		
-		
 	}
 	
 	/**

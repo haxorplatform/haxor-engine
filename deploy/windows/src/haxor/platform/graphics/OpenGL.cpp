@@ -15,6 +15,9 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
+#ifndef INCLUDED_haxor_platform_graphics_GL
+#include <haxor/platform/graphics/GL.h>
+#endif
 #ifndef INCLUDED_haxor_platform_graphics_GraphicAPI
 #include <haxor/platform/graphics/GraphicAPI.h>
 #endif
@@ -33,13 +36,13 @@ namespace graphics{
 
 Void OpenGL_obj::__construct(::haxor::core::BaseApplication p_application)
 {
-HX_STACK_FRAME("haxor.platform.graphics.OpenGL","new",0xa0d46c35,"haxor.platform.graphics.OpenGL.new","haxor/platform/graphics/OpenGL.hx",27,0x3c17389a)
+HX_STACK_FRAME("haxor.platform.graphics.OpenGL","new",0xa0d46c35,"haxor.platform.graphics.OpenGL.new","haxor/platform/graphics/OpenGL.hx",28,0x3c17389a)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_application,"p_application")
 {
-	HX_STACK_LINE(28)
-	super::__construct(p_application);
 	HX_STACK_LINE(29)
+	super::__construct(p_application);
+	HX_STACK_LINE(30)
 	this->api = ::haxor::platform::graphics::GraphicAPI_obj::OpenGL;
 }
 ;
@@ -59,22 +62,49 @@ Dynamic OpenGL_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct(inArgs[0]);
 	return result;}
 
-Void OpenGL_obj::Clear( Float p_r,Float p_g,Float p_b,hx::Null< Float >  __o_p_a,hx::Null< Float >  __o_p_depth){
-Float p_a = __o_p_a.Default(1.0);
-Float p_depth = __o_p_depth.Default(1.0);
-	HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Clear",0x1247dc82,"haxor.platform.graphics.OpenGL.Clear","haxor/platform/graphics/OpenGL.hx",42,0x3c17389a)
-	HX_STACK_THIS(this)
-	HX_STACK_ARG(p_r,"p_r")
-	HX_STACK_ARG(p_g,"p_g")
-	HX_STACK_ARG(p_b,"p_b")
-	HX_STACK_ARG(p_a,"p_a")
-	HX_STACK_ARG(p_depth,"p_depth")
+Void OpenGL_obj::Clear( Float p_r,Float p_g,Float p_b,Float p_a,Float p_depth){
 {
-		HX_STACK_LINE(42)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Clear",0x1247dc82,"haxor.platform.graphics.OpenGL.Clear","haxor/platform/graphics/OpenGL.hx",43,0x3c17389a)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(p_r,"p_r")
+		HX_STACK_ARG(p_g,"p_g")
+		HX_STACK_ARG(p_b,"p_b")
+		HX_STACK_ARG(p_a,"p_a")
+		HX_STACK_ARG(p_depth,"p_depth")
+		HX_STACK_LINE(43)
 		
 		glClearDepth(p_depth); 
 		glClearColor(p_r, p_g, p_b, p_a); 						
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		;
+	}
+return null();
+}
+
+
+int OpenGL_obj::CreateBuffer( ){
+	HX_STACK_FRAME("haxor.platform.graphics.OpenGL","CreateBuffer",0x1f060ac7,"haxor.platform.graphics.OpenGL.CreateBuffer","haxor/platform/graphics/OpenGL.hx",55,0x3c17389a)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(56)
+	
+		GLuint id;
+		glGenBuffers(1, &id);
+		return (Int) id;
+		;
+	HX_STACK_LINE(61)
+	return ::haxor::platform::graphics::GL_obj::NULL_ID;
+}
+
+
+Void OpenGL_obj::DeleteBuffer( int p_id){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","DeleteBuffer",0x6348f136,"haxor.platform.graphics.OpenGL.DeleteBuffer","haxor/platform/graphics/OpenGL.hx",70,0x3c17389a)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(p_id,"p_id")
+		HX_STACK_LINE(70)
+		
+		GLuint id = p_id;
+		glDeleteBuffers(1, &id);		
 		;
 	}
 return null();
@@ -91,6 +121,10 @@ Dynamic OpenGL_obj::__Field(const ::String &inName,bool inCallProp)
 	switch(inName.length) {
 	case 5:
 		if (HX_FIELD_EQ(inName,"Clear") ) { return Clear_dyn(); }
+		break;
+	case 12:
+		if (HX_FIELD_EQ(inName,"CreateBuffer") ) { return CreateBuffer_dyn(); }
+		if (HX_FIELD_EQ(inName,"DeleteBuffer") ) { return DeleteBuffer_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -114,6 +148,8 @@ static hx::StorageInfo *sMemberStorageInfo = 0;
 
 static ::String sMemberFields[] = {
 	HX_CSTRING("Clear"),
+	HX_CSTRING("CreateBuffer"),
+	HX_CSTRING("DeleteBuffer"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

@@ -21,16 +21,16 @@ public  class StringRefl
 	public static   java.lang.Object handleGetField(java.lang.String str, java.lang.String f, boolean throwErrors)
 	{
 		{
-			java.lang.String __temp_svar1937 = (f);
-			int __temp_hash1939 = __temp_svar1937.hashCode();
-			boolean __temp_executeDef1938 = true;
-			switch (__temp_hash1939)
+			java.lang.String __temp_svar26235 = (f);
+			int __temp_hash26237 = __temp_svar26235.hashCode();
+			boolean __temp_executeDef26236 = true;
+			switch (__temp_hash26237)
 			{
 				case -1106363674:
 				{
-					if (__temp_svar1937.equals("length")) 
+					if (__temp_svar26235.equals("length")) 
 					{
-						__temp_executeDef1938 = false;
+						__temp_executeDef26236 = false;
 						return str.length();
 					}
 					
@@ -40,9 +40,9 @@ public  class StringRefl
 				
 				case 530542161:case -891529231:case 109648666:case -467511597:case 1943291465:case 397153782:case -1361633751:case -1137582698:case -399551817:
 				{
-					if (( (( ( __temp_hash1939 == 530542161 ) && __temp_svar1937.equals("substring") )) || ( (( ( __temp_hash1939 == -891529231 ) && __temp_svar1937.equals("substr") )) || ( (( ( __temp_hash1939 == 109648666 ) && __temp_svar1937.equals("split") )) || ( (( ( __temp_hash1939 == -467511597 ) && __temp_svar1937.equals("lastIndexOf") )) || ( (( ( __temp_hash1939 == 1943291465 ) && __temp_svar1937.equals("indexOf") )) || ( (( ( __temp_hash1939 == 397153782 ) && __temp_svar1937.equals("charCodeAt") )) || ( (( ( __temp_hash1939 == -1361633751 ) && __temp_svar1937.equals("charAt") )) || ( (( ( __temp_hash1939 == -1137582698 ) && __temp_svar1937.equals("toLowerCase") )) || __temp_svar1937.equals("toUpperCase") ) ) ) ) ) ) ) )) 
+					if (( (( ( __temp_hash26237 == 530542161 ) && __temp_svar26235.equals("substring") )) || ( (( ( __temp_hash26237 == -891529231 ) && __temp_svar26235.equals("substr") )) || ( (( ( __temp_hash26237 == 109648666 ) && __temp_svar26235.equals("split") )) || ( (( ( __temp_hash26237 == -467511597 ) && __temp_svar26235.equals("lastIndexOf") )) || ( (( ( __temp_hash26237 == 1943291465 ) && __temp_svar26235.equals("indexOf") )) || ( (( ( __temp_hash26237 == 397153782 ) && __temp_svar26235.equals("charCodeAt") )) || ( (( ( __temp_hash26237 == -1361633751 ) && __temp_svar26235.equals("charAt") )) || ( (( ( __temp_hash26237 == -1137582698 ) && __temp_svar26235.equals("toLowerCase") )) || __temp_svar26235.equals("toUpperCase") ) ) ) ) ) ) ) )) 
 					{
-						__temp_executeDef1938 = false;
+						__temp_executeDef26236 = false;
 						return new haxe.lang.Closure(((java.lang.Object) (str) ), haxe.lang.Runtime.toString(f));
 					}
 					
@@ -52,7 +52,7 @@ public  class StringRefl
 				
 			}
 			
-			if (__temp_executeDef1938) 
+			if (__temp_executeDef26236) 
 			{
 				if (throwErrors) 
 				{

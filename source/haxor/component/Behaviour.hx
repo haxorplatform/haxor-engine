@@ -1,5 +1,5 @@
 package haxor.component;
-import haxor.context.HaxorContext;
+import haxor.context.EngineContext;
 import haxor.core.IRenderable;
 import haxor.core.IResizeable;
 import haxor.core.IUpdateable;
@@ -76,8 +76,8 @@ class Behaviour extends Component
 	
 	private function UpdateContextFlag(p_flag:Bool):Void
 	{
-		if (m_is_updateable) { if(p_flag) HaxorContext.update.Add(this); else HaxorContext.update.Remove(this); }
-		if (m_is_renderable) { if(p_flag) HaxorContext.render.Add(this); else HaxorContext.render.Remove(this); }
-		if (m_is_resizeable) { if(p_flag) HaxorContext.resize.Add(this); else HaxorContext.resize.Remove(this); }
+		if (m_is_updateable) { if(p_flag) EngineContext.update.Add(this); else EngineContext.update.Remove(this); }
+		if (m_is_renderable) { if(p_flag) EngineContext.render.Add(this); else EngineContext.render.Remove(this); }
+		if (m_is_resizeable) { if(p_flag) EngineContext.resize.Add(this); else EngineContext.resize.Remove(this); }
 	}
 }

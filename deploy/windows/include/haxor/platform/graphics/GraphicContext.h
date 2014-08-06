@@ -54,13 +54,19 @@ class HXCPP_CLASS_ATTRIBUTES  GraphicContext_obj : public hx::Object{
 		virtual Void Flush( );
 		Dynamic Flush_dyn();
 
+		virtual int CreateBuffer( );
+		Dynamic CreateBuffer_dyn();
+
+		virtual Void DeleteBuffer( int p_id);
+		Dynamic DeleteBuffer_dyn();
+
 		virtual Void Destroy( );
 		Dynamic Destroy_dyn();
 
 		virtual Void Resize( );
 		Dynamic Resize_dyn();
 
-		virtual Void Clear( Float p_r,Float p_g,Float p_b,hx::Null< Float >  p_a,hx::Null< Float >  p_depth);
+		virtual Void Clear( Float p_r,Float p_g,Float p_b,Float p_a,Float p_depth);
 		Dynamic Clear_dyn();
 
 };

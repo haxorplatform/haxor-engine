@@ -9,8 +9,8 @@
 #ifndef INCLUDED_haxor_component_Component
 #include <haxor/component/Component.h>
 #endif
-#ifndef INCLUDED_haxor_context_HaxorContext
-#include <haxor/context/HaxorContext.h>
+#ifndef INCLUDED_haxor_context_EngineContext
+#include <haxor/context/EngineContext.h>
 #endif
 #ifndef INCLUDED_haxor_context_Process
 #include <haxor/context/Process.h>
@@ -138,11 +138,11 @@ Void Behaviour_obj::UpdateContextFlag( bool p_flag){
 			HX_STACK_LINE(79)
 			if ((p_flag)){
 				HX_STACK_LINE(79)
-				::haxor::context::HaxorContext_obj::update->Add(hx::ObjectPtr<OBJ_>(this));
+				::haxor::context::EngineContext_obj::update->Add(hx::ObjectPtr<OBJ_>(this));
 			}
 			else{
 				HX_STACK_LINE(79)
-				::haxor::context::HaxorContext_obj::update->Remove(hx::ObjectPtr<OBJ_>(this));
+				::haxor::context::EngineContext_obj::update->Remove(hx::ObjectPtr<OBJ_>(this));
 			}
 		}
 		HX_STACK_LINE(80)
@@ -150,11 +150,11 @@ Void Behaviour_obj::UpdateContextFlag( bool p_flag){
 			HX_STACK_LINE(80)
 			if ((p_flag)){
 				HX_STACK_LINE(80)
-				::haxor::context::HaxorContext_obj::render->Add(hx::ObjectPtr<OBJ_>(this));
+				::haxor::context::EngineContext_obj::render->Add(hx::ObjectPtr<OBJ_>(this));
 			}
 			else{
 				HX_STACK_LINE(80)
-				::haxor::context::HaxorContext_obj::render->Remove(hx::ObjectPtr<OBJ_>(this));
+				::haxor::context::EngineContext_obj::render->Remove(hx::ObjectPtr<OBJ_>(this));
 			}
 		}
 		HX_STACK_LINE(81)
@@ -162,11 +162,11 @@ Void Behaviour_obj::UpdateContextFlag( bool p_flag){
 			HX_STACK_LINE(81)
 			if ((p_flag)){
 				HX_STACK_LINE(81)
-				::haxor::context::HaxorContext_obj::resize->Add(hx::ObjectPtr<OBJ_>(this));
+				::haxor::context::EngineContext_obj::resize->Add(hx::ObjectPtr<OBJ_>(this));
 			}
 			else{
 				HX_STACK_LINE(81)
-				::haxor::context::HaxorContext_obj::resize->Remove(hx::ObjectPtr<OBJ_>(this));
+				::haxor::context::EngineContext_obj::resize->Remove(hx::ObjectPtr<OBJ_>(this));
 			}
 		}
 	}

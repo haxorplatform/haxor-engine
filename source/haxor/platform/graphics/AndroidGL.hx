@@ -1,5 +1,11 @@
 #if android
 package haxor.platform.graphics;
+import haxor.io.FloatArray;
+import haxor.io.Int32Array;
+import haxor.io.UInt16Array;
+
+import java.NativeArray;
+import haxor.platform.Types.MeshBufferId;
 import haxor.platform.android.Entry;
 import haxor.core.Console;
 import haxor.platform.graphics.GraphicContext.GraphicAPI;
@@ -10,15 +16,18 @@ import android.opengl.GLSurfaceView;
 
 
 /**
- * Wrapper for all WebGL API commands and context management.
+ * Wrapper for all Android GLES API commands and context management.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
+@:allow(haxor)
 class AndroidGL extends GraphicContext
 {	
 	private var c : GLSurfaceView;
 	
+	private var m_ids : NativeArray<Int>;
+	
 	/**
-	 * Creates a new WebGL context.
+	 * Creates a new Android GLES context.
 	 * @param	p_application
 	 */
 	override public function new(p_application : BaseApplication):Void
@@ -28,7 +37,7 @@ class AndroidGL extends GraphicContext
 	}
 	
 	/**
-	 * Initializes the WebGL context passing its creation flags.
+	 * Initializes the GLES context passing its setup attributes.
 	 * @param	p_application
 	 * @param	p_canvas
 	 * @param	p_alpha
@@ -65,11 +74,12 @@ class AndroidGL extends GraphicContext
 		android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
 		display.getMetrics(metrics);
 
-		
 		w = metrics.widthPixels;
 		h = metrics.heightPixels;
 		
 		');
+		
+		m_ids = new NativeArray<Int>(1);
 		
 		Console.Log("Graphics> Initialize Android GLES version["+p_version+"] Resolution["+w+","+h+"]",1);
 		
@@ -79,54 +89,55 @@ class AndroidGL extends GraphicContext
 	/**
 	 * Callback for OnPause
 	 */
-	public function OnPause():Void
-	{
-		untyped __java__ ('c.onPause()');
-	}
+	function OnPause():Void { untyped __java__ ('c.onPause()'); }
 	
 	/**
 	 * Callback for OnResume
 	 */
-	public function OnResume():Void
-	{
-		untyped __java__ ('c.onResume()');
-	}
+	function OnResume():Void { untyped __java__ ('c.onResume()'); }
 	
 	/**
-	 * Checks for available extensions and constants and activate them.
+	 * See GraphicsContext.
 	 */
 	override public function CheckExtensions():Void 
 	{
-		if (c == null) return;
-		
+		if (c == null) return;		
 		Console.Log("Graphics> Available Extensions.",1);
-		
-		
 	}
 	
 	/**
-	 * Resizes the canvas when the application suffers a OnResize event.
-	 * @param	p_width
-	 * @param	p_height
-	 */
-	override public function Resize():Void
-	{
-		
-	}
-	
-	/**
-	 * Clears the current buffer with the chosen color and depth.
+	 * See GraphicsContext.
 	 * @param	p_r
 	 * @param	p_g
 	 * @param	p_b
 	 * @param	p_a
 	 * @param	p_depth
 	 */
-	override public function Clear(p_r:Float, p_g:Float, p_b:Float, p_a:Float = 1.0, p_depth:Float = 1.0):Void 
+	override public function Clear(p_r:Float, p_g:Float, p_b:Float, p_a:Float, p_depth:Float):Void 
 	{
 		GLES20.glClearDepthf(p_depth);
 		GLES20.glClearColor(p_r, p_g, p_b, p_a);
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+	}
+	
+	/**
+	 * See GraphicsContext.
+	 * @return
+	 */
+	override public function CreateBuffer():MeshBufferId 
+	{	
+		GLES20.glGenBuffers(1,m_ids,0);
+		return m_ids[0];		
+	}
+	
+	/**
+	 * See GraphicsContext.
+	 * @param	p_id
+	 */
+	override public function DeleteBuffer(p_id:MeshBufferId):Void 
+	{
+		m_ids[0] = p_id;
+		GLES20.glDeleteBuffers(1,m_ids, 0);
 	}
 	
 }

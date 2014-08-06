@@ -1,6 +1,7 @@
 #if android
 
 package haxor.platform.android;
+import haxor.platform.graphics.GL;
 import haxor.core.BaseApplication;
 
 
@@ -29,12 +30,12 @@ class AndroidApplication extends BaseApplication
 	
 	override function OnFocus():Void 
 	{		
-		graphics.OnResume();
+		GL.m_gl.OnResume();
 	}
 	
 	override function OnUnfocus():Void 
 	{
-		graphics.OnPause();
+		GL.m_gl.OnPause();
 	}
 	
 		

@@ -1,4 +1,5 @@
 package haxor.core;
+import haxor.core.BaseApplication.EntryPoint;
 
 #if html
 import js.Browser;
@@ -29,6 +30,8 @@ haxor.platform.windows.WinApplication
 #end
 
 {
+	
+	
 	
 	
 		

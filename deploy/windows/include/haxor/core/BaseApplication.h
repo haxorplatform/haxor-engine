@@ -10,15 +10,10 @@ HX_DECLARE_CLASS2(haxor,component,Behaviour)
 HX_DECLARE_CLASS2(haxor,component,Component)
 HX_DECLARE_CLASS2(haxor,core,ApplicationProtocol)
 HX_DECLARE_CLASS2(haxor,core,BaseApplication)
-HX_DECLARE_CLASS2(haxor,core,Engine)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Platform)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS2(haxor,core,Scene)
-HX_DECLARE_CLASS3(haxor,platform,graphics,GraphicContext)
-HX_DECLARE_CLASS3(haxor,platform,graphics,Graphics)
-HX_DECLARE_CLASS3(haxor,platform,graphics,OpenGL)
-HX_DECLARE_CLASS3(haxor,platform,graphics,WinGL)
 namespace haxor{
 namespace core{
 
@@ -60,17 +55,7 @@ class HXCPP_CLASS_ATTRIBUTES  BaseApplication_obj : public ::haxor::component::B
 
 		Float m_mspf;
 		int m_fps;
-		::haxor::core::Engine engine;
-		virtual ::haxor::core::Engine get_engine( );
-		Dynamic get_engine_dyn();
-
-		::haxor::core::Engine m_engine;
 		Float m_frame_ms;
-		::haxor::platform::graphics::Graphics graphics;
-		virtual ::haxor::platform::graphics::Graphics get_graphics( );
-		Dynamic get_graphics_dyn();
-
-		::haxor::platform::graphics::Graphics m_graphics;
 		::haxor::core::Platform platform;
 		virtual ::haxor::core::Platform get_platform( );
 		Dynamic get_platform_dyn();

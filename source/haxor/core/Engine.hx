@@ -1,9 +1,12 @@
 package haxor.core;
 import haxor.component.Behaviour;
-import haxor.context.HaxorContext;
+import haxor.context.EngineContext;
 import haxor.context.Process;
 import haxor.graphics.Screen;
 
+/**
+ * Engine execution state.
+ */
 enum EngineState
 {
 	Play;
@@ -12,7 +15,7 @@ enum EngineState
 
 
 /**
- * ...
+ * Class that describes the update and rendering engine.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 @:allow(haxor)
@@ -22,51 +25,46 @@ class Engine
 	/**
 	 * Engine execution state.
 	 */
-	public var state : EngineState;
-	
-	/**
-	 * Reference to the created application.
-	 */
-	private var m_application : BaseApplication;
-	
+	static private var state : EngineState;
+		
 	/**
 	 * Creates the engine.
 	 * @param	p_application
 	 */
-	public function new(p_application:BaseApplication) 
+	static private function Initialize():Void
 	{
-		m_application = p_application;
-		state = EngineState.Play;
+		Console.Log("Haxor> Engine Initialize.",3);
+		EngineContext.Initialize();		
+		state 		  = EngineState.Play;
 	}
 	
 	/**
 	 * Calls the destroy callback for destroyed elements.
 	 */
-	public function Collect():Void
+	static private function Collect():Void
 	{
-		
-		var dispose_p : Process<IDisposable> = HaxorContext.disposables;						
-		for (i in 0...HaxorContext.collectRate)
+		var dp : Process<IDisposable> = EngineContext.disposables;						
+		for (i in 0...EngineContext.collectRate)
 		{
-			if (dispose_p.length <= 0) break;
-			var o : IDisposable = dispose_p.list[0];
+			if (dp.length <= 0) break;
+			var o : IDisposable = dp.list[0];
 			o.OnDestroy();
-			dispose_p.Remove(cast o);
+			dp.Remove(cast o);
 		}
 	}
 	
 	/**
 	 * Update callback. Runs at the minimum latency allowed by the platform.
 	 */
-	public function Update():Void
+	static private function Update():Void
 	{
 		if (state == EngineState.Editor) return;
 		
-		var update_p : Process<IUpdateable> = HaxorContext.update;				
+		var up : Process<IUpdateable> = EngineContext.update;				
 		
-		for (i in 0...update_p.length)
+		for (i in 0...up.length)
 		{
-			var r : Resource = cast update_p.list[i];
+			var r : Resource = cast up.list[i];
 			if (r.m_destroyed) continue;
 			if (r.m_is_behaviour)
 			{
@@ -74,37 +72,36 @@ class Engine
 				if (!b.m_is_awake) { b.OnAwake(); b.m_is_awake = true; }
 				if (!b.m_is_start) { b.OnStart(); b.m_is_start = true; }
 			}			
-			update_p.list[i].OnUpdate();
+			up.list[i].OnUpdate();
 		}
 	}
 	
 	/**
 	 * Render callback. Runs at the FPS specified at the Application class.
 	 */
-	public function Render():Void
-	{
-		
-		var render_p : Process<IRenderable> = HaxorContext.render;				
-		for (i in 0...render_p.length)
+	static private function Render():Void
+	{		
+		var rp : Process<IRenderable> = EngineContext.render;			
+		for (i in 0...rp.length)
 		{
-			var r : Resource = cast render_p.list[i];
+			var r : Resource = cast rp.list[i];
 			if (r.m_destroyed) continue;
-			render_p.list[i].OnRender();
+			rp.list[i].OnRender();
 		}
 	}
 	
 	/**
 	 * Resize callback.
 	 */
-	public function Resize():Void
+	static private function Resize():Void
 	{
 		if (state == EngineState.Editor) return;
-		var resize_p : Process<IResizeable> = HaxorContext.resize;				
-		for (i in 0...resize_p.length)
+		var rp : Process<IResizeable> = EngineContext.resize;				
+		for (i in 0...rp.length)
 		{
-			var r : Resource = cast resize_p.list[i];
+			var r : Resource = cast rp.list[i];
 			if (r.m_destroyed) continue;
-			resize_p.list[i].OnResize(Screen.m_width, Screen.m_height);
+			rp.list[i].OnResize(Screen.m_width, Screen.m_height);
 		}
 	}
 	

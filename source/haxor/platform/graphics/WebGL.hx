@@ -1,5 +1,6 @@
 #if html
 package haxor.platform.graphics;
+import haxor.platform.Types.MeshBufferId;
 import js.html.Event;
 import haxe.ds.EnumValueMap;
 import haxor.platform.html.HTMLApplication;
@@ -38,7 +39,11 @@ class WebGL extends GraphicContext
 		api = GraphicAPI.WebGL;
 	}
 	
-	
+	/**
+	 * Creates the 3D rendering context by adding a [canvas] element in the choosen DOM Element container.
+	 * @param	p_container_id
+	 * @return
+	 */
 	public function Initialize(p_container_id : String):Bool
 	{
 		
@@ -90,7 +95,7 @@ class WebGL extends GraphicContext
 	}
 	
 	/**
-	 * Checks for available extensions and constants and activate them.
+	 * See GraphicsContext.
 	 */
 	override public function CheckExtensions():Void 
 	{
@@ -126,7 +131,7 @@ class WebGL extends GraphicContext
 	}
 	
 	/**
-	 * Adjusts the Canvas3D when the container Element changes size.
+	 * See GraphicsContext.
 	 */
 	override public function Resize():Void 
 	{
@@ -135,7 +140,7 @@ class WebGL extends GraphicContext
 	}
 	
 	/**
-	 * Clears the current buffer with the chosen color and depth.
+	 * See GraphicsContext.
 	 * @param	p_r
 	 * @param	p_g
 	 * @param	p_b
@@ -147,6 +152,24 @@ class WebGL extends GraphicContext
 		c.clearDepth(p_depth);
 		c.clearColor(p_r, p_g, p_b, p_a);
 		c.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
+	}
+	
+	/**
+	 * See GraphicsContext.
+	 * @return
+	 */
+	override public function CreateBuffer():MeshBufferId 
+	{
+		return c.createBuffer();
+	}
+	
+	/**
+	 * See GraphicsContext.
+	 * @param	p_id
+	 */
+	override public function DeleteBuffer(p_id:MeshBufferId):Void 
+	{
+		c.deleteBuffer(p_id);
 	}
 	
 }

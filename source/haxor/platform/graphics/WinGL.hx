@@ -1,5 +1,6 @@
 #if windows
 package haxor.platform.graphics;
+import cpp.Pointer;
 import haxor.platform.OSWindow;
 import haxor.core.Console;
 import haxor.platform.windows.Window;
@@ -9,8 +10,7 @@ import cpp.Lib;
 
 @:headerCode('
 #include <windows.h>
-#include <gl/gl.h>                                // Header File For The OpenGL32 Library
-#include <gl/glu.h>                               // Header File For The GLu32 Library
+#include "gl/glew.h"                              // Header File For The GLEW Library
 
 
 ')
@@ -35,6 +35,7 @@ int     pf;
   <lib name="gdi32.lib" if="windows"/>
   <lib name="opengl32.lib" if="windows"/>
   <lib name="kernel32.lib" if="windows"/>
+  <lib name="lib/glew32.lib" if="windows"/>
 </target>
 
 ')
@@ -127,6 +128,17 @@ class WinGL extends GraphicContext
 			}
 			
 			printf("  Rendering Context [0x%x]\\n", hrc);
+			
+			//Make current to init glew.
+			Focus();
+			
+			//glewExperimental = GL_TRUE;
+			GLenum glerr = glewInit();
+			if (glerr != GLEW_OK)
+			{
+				fprintf(stderr, "Graphics> GLEW Error: %s\\n", glewGetErrorString(glerr));
+				return false;
+			}
 			
 		}
 		');

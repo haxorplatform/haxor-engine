@@ -5,16 +5,6 @@ import haxor.core.BaseApplication;
 import haxor.graphics.Screen.CursorMode;
 
 /**
- * Flag that indicates the behaviour of the mouse cursor.
- */
-enum CursorMode
-{
-	Show;
-	Hide;
-	Lock;
-}
-
-/**
  * Class that handles screen related data and functionalities.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
@@ -33,14 +23,14 @@ class Screen
 	 * Screen width of the application rendering area.
 	 */
 	static public var height(get_height, null):Float;
-	static inline private function get_height():Float { return m_height; }
+	static private inline function get_height():Float { return m_height; }
 	static private var m_height:Float;
 	
 	/**
 	 * Fullscreen flag.
 	 */
 	static public var fullscreen(get_fullscreen, set_fullscreen):Bool;
-	static inline private function get_fullscreen():Bool { return m_fullscreen; }
+	static private inline function get_fullscreen():Bool { return m_fullscreen; }
 	static private function set_fullscreen(v:Bool):Bool { m_fullscreen = m_application.OnFullscreenRequest(v); return m_fullscreen; }
 	static private var m_fullscreen:Bool;
 	
@@ -78,4 +68,25 @@ class Screen
 	
 	
 	
+}
+
+/**
+ * Flag that indicates the behaviour of the mouse cursor.
+ */
+enum CursorMode
+{
+	/**
+	 * Shows the cursor.
+	 */
+	Show;
+	
+	/**
+	 * Hide the cursor.
+	 */
+	Hide;
+	
+	/**
+	 * Hides the cursor and locks its movement.
+	 */
+	Lock;
 }
