@@ -1,4 +1,5 @@
 package haxor.graphics;
+import haxor.platform.graphics.GL;
 
 /**
  * File that describes the enumerations used for Graphics context.
@@ -13,27 +14,27 @@ class RenderQueue
 	/**
 	 * Background layer.
 	 */
-	static public var Background 	= 0;
+	static public inline var Background : Int 	= 0;
 	
 	/**
 	 * Opaque objects layer.
 	 */
-	static public var Opaque 		= 1000;
+	static public inline var Opaque : Int 		= 1000;
 	
 	/**
 	 * Transparent objects layer.
 	 */
-	static public var Transparent 	= 2000;
+	static public inline var Transparent : Int 	= 2000;
 	
 	/**
 	 * Overlay objects layer.
 	 */
-	static public var Overlay 		= 3000;
+	static public inline var Overlay : Int 		= 3000;
 	
 	/**
 	 * UI layer.
 	 */
-	static public var Interface 	= 4000;
+	static public inline var Interface : Int 	= 4000;
 }
 
 /**
@@ -45,120 +46,120 @@ class BlendMode
 	/**
 	 * Multiplies the target pixel by zero.
 	 */
-	static public var Zero 				: Int 	= 0;
+	static public inline var Zero 						: Int 	= GL.ZERO;
 	
 	/**
 	 * Multiplies the target pixel by one.
 	 */
-	static public var One 				: Int	= 1;
+	static public inline var One 						: Int	= GL.ONE;
 	
 	/**
 	 * Multiplies the incoming pixel by its color.
 	 */
-	static public var SrcColor 			: Int	= 0x0300;
+	static public inline var SrcColor 					: Int	= GL.SRC_COLOR;
 	
 	/**
 	 * Multiplies the incoming pixel by its reverse color.
 	 */
-	static public var OneMinusSrcColor 	: Int	= 0x0301;
+	static public inline var OneMinusSrcColor 			: Int	= GL.ONE_MINUS_SRC_COLOR;
 	
 	/**
 	 * Multiplies the incoming pixel by its alpha.
 	 */
-	static public var SrcAlpha 			: Int	= 0x0302;
+	static public inline var SrcAlpha 					: Int	= GL.SRC_ALPHA;
 	
 	/**
 	 * Multiplies the incoming pixel by its reverse alpha.
 	 */
-	static public var OneMinusSrcAlpha 	: Int	= 0x0303;
+	static public inline var OneMinusSrcAlpha 			: Int	= GL.ONE_MINUS_SRC_ALPHA;
 	
 	/**
 	 * Multiplies the incoming pixel by the screen's pixel alpha.
 	 */
-	static public var DstAlpha 			: Int	= 0x0304;
+	static public inline var DstAlpha 					: Int	= GL.DST_ALPHA;
 	
 	/**
 	 * Multiplies the incoming pixel by the screen's reverse pixel alpha.
 	 */
-	static public var OneMinusDstAlpha 	: Int	= 0x0305;
+	static public inline var OneMinusDstAlpha 			: Int	= GL.ONE_MINUS_DST_ALPHA;
 	
 	/**
 	 * Multiplies the incoming pixel by the screen's pixel color.
 	 */
-	static public var DstColor 			: Int	= 0x0306;
+	static public inline var DstColor 					: Int	= GL.DST_COLOR;
 	
 	/**
 	 * Multiplies the incoming pixel by the screen's reverse pixel color.
 	 */
-	static public var OneMinusDstColor 	: Int	= 0x0307;
+	static public inline var OneMinusDstColor 			: Int	= GL.ONE_MINUS_DST_COLOR;
 	
 	/**
 	 *  (f,f,f,1); f = min(Asrc, 1 − Adst)
 	 */
-	static public var SrcAlphaSaturate 	: Int	= 0x0308;
+	static public inline var SrcAlphaSaturate 			: Int	= GL.SRC_ALPHA_SATURATE;
 	
 }
 
 /**
  * Storage type of the mesh.
  */
-enum MeshMode
+class MeshMode
 {
 	/**
 	 * Static IO mode.
 	 */
-	Static;
+	static public inline var StaticDraw : Int = GL.STATIC_DRAW;
 	
 	/**
 	 * Stream IO mode.
 	 */
-	Stream;
+	static public inline var StreamDraw : Int = GL.STREAM_DRAW;
 	
 	/**
 	 * Dynamic IO mode.
 	 */
-	Dynamic;	
+	static public inline var DynamicDraw : Int = GL.DYNAMIC_DRAW;
 }
 
 /**
  * Geometry primitive that will describe the mesh vertices.
  */
-enum MeshPrimitive
+class MeshPrimitive
 {
 	/**
 	 * Point.
 	 */
-	Points;
+	static public inline var Points : Int = GL.POINTS;
 	
 	/**
 	 * Triangle.
 	 */
-	Triangles;
+	static public inline var Triangles : Int = GL.TRIANGLES;
 	
 	/**
 	 * TriangleStrip.
 	 */
-	TriangleStrip;
+	static public inline var TriangleStrip : Int = GL.TRIANGLE_STRIP;
 	
 	/**
 	 * Triangle Fan.
 	 */
-	TriangleFan;
+	static public inline var TriangleFan : Int = GL.TRIANGLE_FAN;
 	
 	/**
 	 * Line.
 	 */
-	Lines;
+	static public inline var Lines : Int = GL.LINES;
 	
 	/**
 	 * Line Loop.
 	 */
-	LineLoop;
+	static public inline var LineLoop : Int = GL.LINE_LOOP;
 	
 	/**
 	 * Line Strip.
 	 */
-	LineStrip;
+	static public inline var LineStrip : Int = GL.LINE_STRIP;
 }
 
 /**
@@ -170,17 +171,17 @@ class CullMode
 	/**
 	 * No culling. All triangles are rendered.
 	 */
-	static public var None:Int  = 0;
+	static public inline var None:Int  = 0;
 	
 	/**
 	 * Don't render front facing triangles.
 	 */
-	static public var Front:Int = 1;
+	static public inline var Front:Int = 1;
 	
 	/**
 	 * Don't render back facing triangles.
 	 */
-	static public var Back:Int  = 2;
+	static public inline var Back:Int  = 2;
 }  
 
 /**
@@ -192,40 +193,86 @@ class DepthTest
 	/**
 	 * 
 	 */
-	static public var Never        :Int = 0x0200;
+	static public inline var Never        :Int = GL.NEVER;
 	
 	/**
 	 * 
 	 */
-	static public var Less         :Int = 0x0201;
+	static public inline var Less         :Int = GL.LESS;
 	
 	/**
 	 * 
 	 */
-	static public var Equal        :Int = 0x0202;
+	static public inline var Equal        :Int = GL.EQUAL;
 	
 	/**
 	 * 
 	 */
-	static public var LessEqual    :Int = 0x0203;
+	static public inline var LessEqual    :Int = GL.LEQUAL;
 	
 	/**
 	 * 
 	 */
-	static public var Greater      :Int = 0x0204;
+	static public inline var Greater      :Int = GL.GREATER;
 	
 	/**
 	 * 
 	 */
-	static public var NotEqual     :Int = 0x0205;
+	static public inline var NotEqual     :Int = GL.NOTEQUAL;
 	
 	/**
 	 * 
 	 */
-	static public var GreaterEqual :Int = 0x0206;
+	static public inline var GreaterEqual :Int = GL.GEQUAL;
 	
 	/**
 	 * 
 	 */
-	static public var Always       :Int = 0x0207;
+	static public inline var Always       :Int = GL.ALWAYS;
 } 
+
+/**
+ * Internal class to inform the type of data of a BaseArray without strings.
+ */
+class BufferPrimitive
+{
+	/**
+	 * Unsigned Int 8 / UByte
+	 */
+	static public inline var U8 : Int = 0;
+	
+	/**
+	 * Unsigned Int 16
+	 */
+	static public inline var U16 : Int = 1;
+	
+	/**
+	 * Unsigned Int 32
+	 */
+	static public inline var U32 : Int = 2;
+	
+	/**
+	 * Int 8 / Byte
+	 */
+	static public inline var I8 : Int = 3;
+	
+	/**
+	 * Int 16
+	 */
+	static public inline var I16 : Int = 4;
+	
+	/**
+	 * Int 32
+	 */
+	static public inline var I32 : Int = 5;
+	
+	/**
+	 * Float
+	 */
+	static public inline var F32 : Int = 6;
+	
+	/**
+	 * Double
+	 */
+	static public inline var F64 : Int = 7;
+}

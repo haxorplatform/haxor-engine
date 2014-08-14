@@ -17,16 +17,16 @@ public  class BaseApplication extends haxor.component.Behaviour
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_BaseApplication(haxor.core.BaseApplication __temp_me26076)
+	public static   void __hx_ctor_haxor_core_BaseApplication(haxor.core.BaseApplication __temp_me4431)
 	{
-		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me26076);
-		haxor.core.BaseApplication.m_instance = __temp_me26076;
-		__temp_me26076.m_scenes = new haxe.root.Array<haxor.core.Scene>(new haxor.core.Scene[]{});
-		__temp_me26076.set_fps(60);
-		__temp_me26076.m_frame_ms = 0.0;
-		__temp_me26076.m_platform = haxor.core.Platform.Unknown;
+		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me4431);
+		haxor.core.BaseApplication.m_instance = __temp_me4431;
+		__temp_me4431.m_scenes = new haxe.root.Array<haxor.core.Scene>(new haxor.core.Scene[]{});
+		__temp_me4431.set_fps(60);
+		__temp_me4431.m_frame_ms = 0.0;
+		__temp_me4431.m_platform = haxor.core.Platform.Unknown;
 		haxor.core.Time.Initialize();
-		haxor.graphics.Screen.m_application = __temp_me26076;
+		haxor.graphics.Screen.m_application = __temp_me4431;
 		haxor.graphics.Screen.Initialize();
 	}
 	
@@ -49,7 +49,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 	
 	public   haxor.core.ApplicationProtocol get_protocol()
 	{
-		return haxor.core.ApplicationProtocol.Unknown;
+		return haxor.core.ApplicationProtocol.None;
 	}
 	
 	
@@ -103,9 +103,19 @@ public  class BaseApplication extends haxor.component.Behaviour
 	
 	public  haxe.root.Array<haxor.core.Scene> m_scenes;
 	
-	public   void LoadScene(java.lang.String p_name, java.lang.Object p_clear)
+	public   void LoadScene(java.lang.String p_name)
 	{
-		boolean __temp_p_clear26075 = ( (( p_clear == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_clear)) );
+		{
+		}
+		
+	}
+	
+	
+	public   void DestroyScene(java.lang.String p_name)
+	{
+		{
+		}
+		
 	}
 	
 	
@@ -265,14 +275,14 @@ public  class BaseApplication extends haxor.component.Behaviour
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef26142 = true;
+			boolean __temp_executeDef4516 = true;
 			switch (field.hashCode())
 			{
 				case -1499590326:
 				{
 					if (field.equals("m_frame_ms")) 
 					{
-						__temp_executeDef26142 = false;
+						__temp_executeDef4516 = false;
 						this.m_frame_ms = ((double) (value) );
 						return value;
 					}
@@ -285,7 +295,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("fps")) 
 					{
-						__temp_executeDef26142 = false;
+						__temp_executeDef4516 = false;
 						this.set_fps(((int) (value) ));
 						return value;
 					}
@@ -298,7 +308,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_fps")) 
 					{
-						__temp_executeDef26142 = false;
+						__temp_executeDef4516 = false;
 						this.m_fps = ((int) (value) );
 						return value;
 					}
@@ -311,7 +321,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_mspf")) 
 					{
-						__temp_executeDef26142 = false;
+						__temp_executeDef4516 = false;
 						this.m_mspf = ((double) (value) );
 						return value;
 					}
@@ -322,7 +332,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef26142) 
+			if (__temp_executeDef4516) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -339,14 +349,14 @@ public  class BaseApplication extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef26143 = true;
+			boolean __temp_executeDef4517 = true;
 			switch (field.hashCode())
 			{
 				case -1506799239:
 				{
 					if (field.equals("m_scenes")) 
 					{
-						__temp_executeDef26143 = false;
+						__temp_executeDef4517 = false;
 						this.m_scenes = ((haxe.root.Array<haxor.core.Scene>) (value) );
 						return value;
 					}
@@ -359,7 +369,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_vendor")) 
 					{
-						__temp_executeDef26143 = false;
+						__temp_executeDef4517 = false;
 						this.m_vendor = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -372,7 +382,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_platform")) 
 					{
-						__temp_executeDef26143 = false;
+						__temp_executeDef4517 = false;
 						this.m_platform = ((haxor.core.Platform) (value) );
 						return value;
 					}
@@ -385,7 +395,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("fps")) 
 					{
-						__temp_executeDef26143 = false;
+						__temp_executeDef4517 = false;
 						this.set_fps(((int) (haxe.lang.Runtime.toInt(value)) ));
 						return value;
 					}
@@ -398,7 +408,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("platform")) 
 					{
-						__temp_executeDef26143 = false;
+						__temp_executeDef4517 = false;
 						this.platform = ((haxor.core.Platform) (value) );
 						return value;
 					}
@@ -411,7 +421,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_mspf")) 
 					{
-						__temp_executeDef26143 = false;
+						__temp_executeDef4517 = false;
 						this.m_mspf = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -424,7 +434,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_frame_ms")) 
 					{
-						__temp_executeDef26143 = false;
+						__temp_executeDef4517 = false;
 						this.m_frame_ms = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -437,7 +447,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_fps")) 
 					{
-						__temp_executeDef26143 = false;
+						__temp_executeDef4517 = false;
 						this.m_fps = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -448,7 +458,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef26143) 
+			if (__temp_executeDef4517) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -465,14 +475,14 @@ public  class BaseApplication extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef26144 = true;
+			boolean __temp_executeDef4518 = true;
 			switch (field.hashCode())
 			{
 				case 1461662450:
 				{
 					if (field.equals("GetContainerHeight")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetContainerHeight"))) );
 					}
 					
@@ -484,7 +494,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("protocol")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return this.get_protocol();
 					}
 					
@@ -496,7 +506,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("GetContainerWidth")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetContainerWidth"))) );
 					}
 					
@@ -508,7 +518,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("get_protocol")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_protocol"))) );
 					}
 					
@@ -520,7 +530,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnMousePosition")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnMousePosition"))) );
 					}
 					
@@ -532,7 +542,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("vendor")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return this.get_vendor();
 					}
 					
@@ -544,7 +554,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnPointerVisibilityRequest")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnPointerVisibilityRequest"))) );
 					}
 					
@@ -556,7 +566,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("get_vendor")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_vendor"))) );
 					}
 					
@@ -568,7 +578,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnPointerLockRequest")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnPointerLockRequest"))) );
 					}
 					
@@ -580,7 +590,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_vendor")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return this.m_vendor;
 					}
 					
@@ -592,7 +602,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnFullscreenRequest")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnFullscreenRequest"))) );
 					}
 					
@@ -604,7 +614,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("fps")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return this.get_fps();
 					}
 					
@@ -616,7 +626,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnFullscreenExit")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnFullscreenExit"))) );
 					}
 					
@@ -628,7 +638,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("get_fps")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_fps"))) );
 					}
 					
@@ -640,7 +650,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnFullscreenEnter")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnFullscreenEnter"))) );
 					}
 					
@@ -652,7 +662,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("set_fps")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_fps"))) );
 					}
 					
@@ -664,7 +674,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnResize")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnResize"))) );
 					}
 					
@@ -676,7 +686,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_mspf")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return this.m_mspf;
 					}
 					
@@ -688,7 +698,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("CheckResize")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CheckResize"))) );
 					}
 					
@@ -700,7 +710,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_fps")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return this.m_fps;
 					}
 					
@@ -712,7 +722,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnUnfocus")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnUnfocus"))) );
 					}
 					
@@ -724,7 +734,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_frame_ms")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return this.m_frame_ms;
 					}
 					
@@ -736,7 +746,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnFocus")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnFocus"))) );
 					}
 					
@@ -748,7 +758,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("platform")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						if (handleProperties) 
 						{
 							return this.get_platform();
@@ -768,7 +778,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnQuit")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnQuit"))) );
 					}
 					
@@ -780,7 +790,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("get_platform")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_platform"))) );
 					}
 					
@@ -792,7 +802,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("Render")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Render"))) );
 					}
 					
@@ -804,7 +814,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_platform")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return this.m_platform;
 					}
 					
@@ -816,7 +826,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("Update")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Update"))) );
 					}
 					
@@ -828,7 +838,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_scenes")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return this.m_scenes;
 					}
 					
@@ -840,7 +850,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("LoadComplete")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("LoadComplete"))) );
 					}
 					
@@ -852,7 +862,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("LoadScene")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("LoadScene"))) );
 					}
 					
@@ -864,8 +874,20 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Initialize"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1161901870:
+				{
+					if (field.equals("DestroyScene")) 
+					{
+						__temp_executeDef4518 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DestroyScene"))) );
 					}
 					
 					break;
@@ -876,7 +898,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("Load")) 
 					{
-						__temp_executeDef26144 = false;
+						__temp_executeDef4518 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Load"))) );
 					}
 					
@@ -886,7 +908,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef26144) 
+			if (__temp_executeDef4518) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -903,14 +925,14 @@ public  class BaseApplication extends haxor.component.Behaviour
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef26145 = true;
+			boolean __temp_executeDef4519 = true;
 			switch (field.hashCode())
 			{
 				case -1499590326:
 				{
 					if (field.equals("m_frame_ms")) 
 					{
-						__temp_executeDef26145 = false;
+						__temp_executeDef4519 = false;
 						return this.m_frame_ms;
 					}
 					
@@ -922,7 +944,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("fps")) 
 					{
-						__temp_executeDef26145 = false;
+						__temp_executeDef4519 = false;
 						return ((double) (this.get_fps()) );
 					}
 					
@@ -934,7 +956,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_fps")) 
 					{
-						__temp_executeDef26145 = false;
+						__temp_executeDef4519 = false;
 						return ((double) (this.m_fps) );
 					}
 					
@@ -946,7 +968,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("m_mspf")) 
 					{
-						__temp_executeDef26145 = false;
+						__temp_executeDef4519 = false;
 						return this.m_mspf;
 					}
 					
@@ -956,7 +978,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef26145) 
+			if (__temp_executeDef4519) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -973,14 +995,14 @@ public  class BaseApplication extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef26146 = true;
+			boolean __temp_executeDef4520 = true;
 			switch (field.hashCode())
 			{
 				case 1461662450:
 				{
 					if (field.equals("GetContainerHeight")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.GetContainerHeight();
 					}
 					
@@ -992,7 +1014,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("get_protocol")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.get_protocol();
 					}
 					
@@ -1004,7 +1026,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("GetContainerWidth")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.GetContainerWidth();
 					}
 					
@@ -1016,7 +1038,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("get_vendor")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.get_vendor();
 					}
 					
@@ -1028,7 +1050,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnMousePosition")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						this.OnMousePosition(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -1040,7 +1062,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("get_fps")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.get_fps();
 					}
 					
@@ -1052,7 +1074,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnPointerVisibilityRequest")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.OnPointerVisibilityRequest(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
@@ -1064,7 +1086,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("set_fps")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.set_fps(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -1076,7 +1098,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnPointerLockRequest")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.OnPointerLockRequest(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
@@ -1088,7 +1110,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("get_platform")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.get_platform();
 					}
 					
@@ -1100,7 +1122,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnFullscreenRequest")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						return this.OnFullscreenRequest(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
@@ -1112,8 +1134,8 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("LoadScene")) 
 					{
-						__temp_executeDef26146 = false;
-						this.LoadScene(haxe.lang.Runtime.toString(dynargs.__get(0)), dynargs.__get(1));
+						__temp_executeDef4520 = false;
+						this.LoadScene(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
 					break;
@@ -1124,7 +1146,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnFullscreenExit")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						this.OnFullscreenExit();
 					}
 					
@@ -1132,12 +1154,12 @@ public  class BaseApplication extends haxor.component.Behaviour
 				}
 				
 				
-				case 2373894:
+				case -1161901870:
 				{
-					if (field.equals("Load")) 
+					if (field.equals("DestroyScene")) 
 					{
-						__temp_executeDef26146 = false;
-						return this.Load();
+						__temp_executeDef4520 = false;
+						this.DestroyScene(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
 					break;
@@ -1148,7 +1170,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnFullscreenEnter")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						this.OnFullscreenEnter();
 					}
 					
@@ -1156,12 +1178,12 @@ public  class BaseApplication extends haxor.component.Behaviour
 				}
 				
 				
-				case -1430411344:
+				case 2373894:
 				{
-					if (field.equals("Initialize")) 
+					if (field.equals("Load")) 
 					{
-						__temp_executeDef26146 = false;
-						this.Initialize();
+						__temp_executeDef4520 = false;
+						return this.Load();
 					}
 					
 					break;
@@ -1172,7 +1194,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnResize")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						this.OnResize();
 					}
 					
@@ -1180,12 +1202,12 @@ public  class BaseApplication extends haxor.component.Behaviour
 				}
 				
 				
-				case 848652383:
+				case -1430411344:
 				{
-					if (field.equals("LoadComplete")) 
+					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef26146 = false;
-						this.LoadComplete();
+						__temp_executeDef4520 = false;
+						this.Initialize();
 					}
 					
 					break;
@@ -1196,7 +1218,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("CheckResize")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						this.CheckResize();
 					}
 					
@@ -1204,12 +1226,12 @@ public  class BaseApplication extends haxor.component.Behaviour
 				}
 				
 				
-				case -1754979095:
+				case 848652383:
 				{
-					if (field.equals("Update")) 
+					if (field.equals("LoadComplete")) 
 					{
-						__temp_executeDef26146 = false;
-						this.Update();
+						__temp_executeDef4520 = false;
+						this.LoadComplete();
 					}
 					
 					break;
@@ -1220,7 +1242,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnUnfocus")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						this.OnUnfocus();
 					}
 					
@@ -1228,12 +1250,12 @@ public  class BaseApplication extends haxor.component.Behaviour
 				}
 				
 				
-				case -1850724938:
+				case -1754979095:
 				{
-					if (field.equals("Render")) 
+					if (field.equals("Update")) 
 					{
-						__temp_executeDef26146 = false;
-						this.Render();
+						__temp_executeDef4520 = false;
+						this.Update();
 					}
 					
 					break;
@@ -1244,8 +1266,20 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnFocus")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						this.OnFocus();
+					}
+					
+					break;
+				}
+				
+				
+				case -1850724938:
+				{
+					if (field.equals("Render")) 
+					{
+						__temp_executeDef4520 = false;
+						this.Render();
 					}
 					
 					break;
@@ -1256,7 +1290,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				{
 					if (field.equals("OnQuit")) 
 					{
-						__temp_executeDef26146 = false;
+						__temp_executeDef4520 = false;
 						this.OnQuit();
 					}
 					
@@ -1266,7 +1300,7 @@ public  class BaseApplication extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef26146) 
+			if (__temp_executeDef4520) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

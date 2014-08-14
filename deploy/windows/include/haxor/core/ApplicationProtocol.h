@@ -29,8 +29,8 @@ class ApplicationProtocol_obj : public hx::EnumBase_obj
 		static inline ::haxor::core::ApplicationProtocol HTTP_dyn() { return HTTP; }
 		static ::haxor::core::ApplicationProtocol HTTPS;
 		static inline ::haxor::core::ApplicationProtocol HTTPS_dyn() { return HTTPS; }
-		static ::haxor::core::ApplicationProtocol Unknown;
-		static inline ::haxor::core::ApplicationProtocol Unknown_dyn() { return Unknown; }
+		static ::haxor::core::ApplicationProtocol None;
+		static inline ::haxor::core::ApplicationProtocol None_dyn() { return None; }
 };
 
 } // end namespace haxor

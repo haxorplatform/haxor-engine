@@ -10,6 +10,8 @@ namespace core{
 
 ::haxor::core::Platform Platform_obj::HTML;
 
+::haxor::core::Platform Platform_obj::Linux;
+
 ::haxor::core::Platform Platform_obj::MacOS;
 
 ::haxor::core::Platform Platform_obj::NodeJS;
@@ -24,13 +26,14 @@ HX_DEFINE_CREATE_ENUM(Platform_obj)
 
 int Platform_obj::__FindIndex(::String inName)
 {
-	if (inName==HX_CSTRING("Android")) return 2;
-	if (inName==HX_CSTRING("HTML")) return 5;
-	if (inName==HX_CSTRING("MacOS")) return 3;
-	if (inName==HX_CSTRING("NodeJS")) return 6;
+	if (inName==HX_CSTRING("Android")) return 3;
+	if (inName==HX_CSTRING("HTML")) return 6;
+	if (inName==HX_CSTRING("Linux")) return 2;
+	if (inName==HX_CSTRING("MacOS")) return 4;
+	if (inName==HX_CSTRING("NodeJS")) return 7;
 	if (inName==HX_CSTRING("Unknown")) return 0;
 	if (inName==HX_CSTRING("Windows")) return 1;
-	if (inName==HX_CSTRING("iOS")) return 4;
+	if (inName==HX_CSTRING("iOS")) return 5;
 	return super::__FindIndex(inName);
 }
 
@@ -38,6 +41,7 @@ int Platform_obj::__FindArgCount(::String inName)
 {
 	if (inName==HX_CSTRING("Android")) return 0;
 	if (inName==HX_CSTRING("HTML")) return 0;
+	if (inName==HX_CSTRING("Linux")) return 0;
 	if (inName==HX_CSTRING("MacOS")) return 0;
 	if (inName==HX_CSTRING("NodeJS")) return 0;
 	if (inName==HX_CSTRING("Unknown")) return 0;
@@ -50,6 +54,7 @@ Dynamic Platform_obj::__Field(const ::String &inName,bool inCallProp)
 {
 	if (inName==HX_CSTRING("Android")) return Android;
 	if (inName==HX_CSTRING("HTML")) return HTML;
+	if (inName==HX_CSTRING("Linux")) return Linux;
 	if (inName==HX_CSTRING("MacOS")) return MacOS;
 	if (inName==HX_CSTRING("NodeJS")) return NodeJS;
 	if (inName==HX_CSTRING("Unknown")) return Unknown;
@@ -61,6 +66,7 @@ Dynamic Platform_obj::__Field(const ::String &inName,bool inCallProp)
 static ::String sStaticFields[] = {
 	HX_CSTRING("Unknown"),
 	HX_CSTRING("Windows"),
+	HX_CSTRING("Linux"),
 	HX_CSTRING("Android"),
 	HX_CSTRING("MacOS"),
 	HX_CSTRING("iOS"),
@@ -71,6 +77,7 @@ static ::String sStaticFields[] = {
 static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Platform_obj::Android,"Android");
 	HX_MARK_MEMBER_NAME(Platform_obj::HTML,"HTML");
+	HX_MARK_MEMBER_NAME(Platform_obj::Linux,"Linux");
 	HX_MARK_MEMBER_NAME(Platform_obj::MacOS,"MacOS");
 	HX_MARK_MEMBER_NAME(Platform_obj::NodeJS,"NodeJS");
 	HX_MARK_MEMBER_NAME(Platform_obj::Unknown,"Unknown");
@@ -83,6 +90,7 @@ static void sVisitStatic(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Platform_obj::__mClass,"__mClass");
 	HX_VISIT_MEMBER_NAME(Platform_obj::Android,"Android");
 	HX_VISIT_MEMBER_NAME(Platform_obj::HTML,"HTML");
+	HX_VISIT_MEMBER_NAME(Platform_obj::Linux,"Linux");
 	HX_VISIT_MEMBER_NAME(Platform_obj::MacOS,"MacOS");
 	HX_VISIT_MEMBER_NAME(Platform_obj::NodeJS,"NodeJS");
 	HX_VISIT_MEMBER_NAME(Platform_obj::Unknown,"Unknown");
@@ -113,13 +121,14 @@ hx::Static(__mClass) = hx::RegisterClass(HX_CSTRING("haxor.core.Platform"), hx::
 
 void Platform_obj::__boot()
 {
-hx::Static(Android) = hx::CreateEnum< Platform_obj >(HX_CSTRING("Android"),2);
-hx::Static(HTML) = hx::CreateEnum< Platform_obj >(HX_CSTRING("HTML"),5);
-hx::Static(MacOS) = hx::CreateEnum< Platform_obj >(HX_CSTRING("MacOS"),3);
-hx::Static(NodeJS) = hx::CreateEnum< Platform_obj >(HX_CSTRING("NodeJS"),6);
+hx::Static(Android) = hx::CreateEnum< Platform_obj >(HX_CSTRING("Android"),3);
+hx::Static(HTML) = hx::CreateEnum< Platform_obj >(HX_CSTRING("HTML"),6);
+hx::Static(Linux) = hx::CreateEnum< Platform_obj >(HX_CSTRING("Linux"),2);
+hx::Static(MacOS) = hx::CreateEnum< Platform_obj >(HX_CSTRING("MacOS"),4);
+hx::Static(NodeJS) = hx::CreateEnum< Platform_obj >(HX_CSTRING("NodeJS"),7);
 hx::Static(Unknown) = hx::CreateEnum< Platform_obj >(HX_CSTRING("Unknown"),0);
 hx::Static(Windows) = hx::CreateEnum< Platform_obj >(HX_CSTRING("Windows"),1);
-hx::Static(iOS) = hx::CreateEnum< Platform_obj >(HX_CSTRING("iOS"),4);
+hx::Static(iOS) = hx::CreateEnum< Platform_obj >(HX_CSTRING("iOS"),5);
 }
 
 

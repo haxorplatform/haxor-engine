@@ -27,6 +27,7 @@ enum Platform
 {
 	Unknown;
 	Windows;
+	Linux;
 	Android;
 	MacOS;
 	iOS;
@@ -39,7 +40,7 @@ enum Platform
  */
 enum ApplicationProtocol
 {
-	Unknown;
+	None;
 	File;
 	HTTP;
 	HTTPS;
@@ -68,7 +69,7 @@ class BaseApplication extends Behaviour
 		if (js.Browser.window.location.protocol.toLowerCase() == "http:")  return ApplicationProtocol.HTTP;
 		if (js.Browser.window.location.protocol.toLowerCase() == "https:") return ApplicationProtocol.HTTPS;		
 		#end
-		return ApplicationProtocol.Unknown;
+		return ApplicationProtocol.None;
 	}
 	
 	/**
@@ -153,11 +154,19 @@ class BaseApplication extends Behaviour
 	}
 	
 	/**
-	 * Loads a new scene in the current context. If the 'clear' flag is set the current scene is destroyed before the new one is called.
+	 * Loads a new scene in the current context and keep it together with the current one.
 	 * @param	p_name
-	 * @param	p_clear_current
 	 */
-	public function LoadScene(p_name : String,p_clear : Bool = true):Void
+	public function LoadScene(p_name : String):Void
+	{
+		//TODO
+	}
+	
+	/**
+	 * Destroys the scene referenced by name.
+	 * @param	p_name
+	 */
+	public function DestroyScene(p_name : String):Void
 	{
 		//TODO
 	}
@@ -182,7 +191,7 @@ class BaseApplication extends Behaviour
 	 */
 	public function LoadComplete():Void
 	{	
-		Console.Log("Application> Initialize.", 3);
+		Console.Log("Application> Initialize.", 3);		
 		Initialize();
 	}
 	

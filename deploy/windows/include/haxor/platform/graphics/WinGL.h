@@ -20,6 +20,7 @@ HX_DECLARE_CLASS3(haxor,platform,windows,Window)
 #include "gl/glew.h"                              // Header File For The GLEW Library
 
 
+
 
 namespace haxor{
 namespace platform{

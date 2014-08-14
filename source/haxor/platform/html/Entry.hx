@@ -30,7 +30,7 @@ class Entry
 	/**
 	 * Startup the application entry point.
 	 */
-	static public function Initialize():Void { Browser.window.onload = OnWindowLoad; }
+	static public function Initialize():Void { Console.Initialize(); Browser.window.onload = OnWindowLoad; }
 	
 	
 	/**
@@ -109,6 +109,8 @@ class Entry
 		{
 			Browser.window.requestAnimationFrame(RequestAnimationCallback);
 		}
+		
+		EngineContext.Build();
 		
 		if (m_application.Load())
 		{

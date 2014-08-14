@@ -1,56 +1,47 @@
 package haxor.platform;
 
 
-
-
-
 #if html
 
-
-typedef ArrayBuffer		= js.html.ArrayBufferView;
-typedef Float32Buffer 	= js.html.Float32Array;
-typedef Floa64Buffer 	= js.html.Float64Array;
-typedef Int16Buffer		= js.html.Int16Array;
-typedef Int32Buffer		= js.html.Int32Array;
-typedef UInt16Buffer	= js.html.Uint16Array;
-typedef UInt32Buffer	= js.html.Uint32Array;
-
+typedef ArrayBuffer		= js.html.Uint8Array;
 
 typedef MeshBufferId    = js.html.webgl.Buffer;
 typedef TextureId    	= js.html.webgl.Texture;
+typedef ShaderId		= js.html.webgl.Shader;
+typedef ProgramId		= js.html.webgl.Program;
 
 #end
 
 
 #if android
 
+#if gles3
+typedef GLES = android.opengl.GLES30;
+#else
+typedef GLES = android.opengl.GLES20;
+#end
+
 typedef ArrayBuffer		= java.nio.ByteBuffer;
-typedef Float32Buffer	= java.nio.FloatBuffer;
-typedef Floa64Buffer 	= java.nio.DoubleBuffer;
-typedef Int16Buffer 	= java.nio.ShortBuffer;
-typedef Int32Buffer 	= java.nio.IntBuffer;
-typedef UInt16Buffer	= java.nio.ShortBuffer;
-typedef UInt32Buffer	= java.nio.IntBuffer;
 
 typedef MeshBufferId    = Int;
-
 typedef TextureId    	= Int;
+typedef ShaderId		= Int;
+typedef ProgramId		= Int;
+
+#end
+
+#if ios
 
 #end
 
 
-#if windows
+#if (windows || osx || linux)
 
-typedef ArrayBuffer		= cpp.Pointer<Void>;
-typedef Float32Buffer	= cpp.Pointer<Float>;
-typedef Floa64Buffer 	= cpp.Pointer<Float>;
-typedef Int16Buffer 	= cpp.Pointer<Int>;
-typedef Int32Buffer 	= cpp.Pointer<Int>;
-typedef UInt16Buffer	= cpp.Pointer<UInt>;
-typedef UInt32Buffer	= cpp.Pointer<UInt>;
-//*/
+typedef ArrayBuffer		= haxe.io.Bytes;
+
 typedef MeshBufferId    = Int;
-
 typedef TextureId    	= Int;
+typedef ShaderId		= Int;
+typedef ProgramId		= Int;
 
 #end

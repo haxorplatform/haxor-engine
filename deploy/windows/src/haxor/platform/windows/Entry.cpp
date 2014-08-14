@@ -15,6 +15,9 @@
 #ifndef INCLUDED_haxor_component_Component
 #include <haxor/component/Component.h>
 #endif
+#ifndef INCLUDED_haxor_context_EngineContext
+#include <haxor/context/EngineContext.h>
+#endif
 #ifndef INCLUDED_haxor_core_Application
 #include <haxor/core/Application.h>
 #endif
@@ -86,118 +89,122 @@ Void Entry_obj::Initialize( ){
 {
 		HX_STACK_FRAME("haxor.platform.windows.Entry","Initialize",0x071ef046,"haxor.platform.windows.Entry.Initialize","haxor/platform/windows/Entry.hx",35,0x9902f0c7)
 		HX_STACK_LINE(36)
-		::String app_class_type = HX_CSTRING("");		HX_STACK_VAR(app_class_type,"app_class_type");
+		::haxor::core::Console_obj::Initialize();
 		HX_STACK_LINE(38)
-		::String app_title = HX_CSTRING("Haxor");		HX_STACK_VAR(app_title,"app_title");
+		::String app_class_type = HX_CSTRING("");		HX_STACK_VAR(app_class_type,"app_class_type");
 		HX_STACK_LINE(40)
-		Array< ::String > args = ::Sys_obj::args();		HX_STACK_VAR(args,"args");
+		::String app_title = HX_CSTRING("Haxor");		HX_STACK_VAR(app_title,"app_title");
 		HX_STACK_LINE(42)
+		Array< ::String > args = ::Sys_obj::args();		HX_STACK_VAR(args,"args");
+		HX_STACK_LINE(44)
 		{
-			HX_STACK_LINE(42)
+			HX_STACK_LINE(44)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(42)
+			HX_STACK_LINE(44)
 			int _g = args->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(42)
+			HX_STACK_LINE(44)
 			while((true)){
-				HX_STACK_LINE(42)
+				HX_STACK_LINE(44)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(42)
+					HX_STACK_LINE(44)
 					break;
 				}
-				HX_STACK_LINE(42)
+				HX_STACK_LINE(44)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(45)
+				HX_STACK_LINE(47)
 				int _g2 = args->__get(i).toLowerCase().indexOf(HX_CSTRING("-v"),null());		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(45)
+				HX_STACK_LINE(47)
 				if (((_g2 >= (int)0))){
-					HX_STACK_LINE(47)
+					HX_STACK_LINE(49)
 					int vl = (args->__get(i).length - (int)1);		HX_STACK_VAR(vl,"vl");
-					HX_STACK_LINE(48)
+					HX_STACK_LINE(50)
 					::haxor::core::Console_obj::verbose = vl;
 				}
-				HX_STACK_LINE(51)
+				HX_STACK_LINE(53)
 				::String _g11 = args->__get(i).toLowerCase();		HX_STACK_VAR(_g11,"_g11");
-				HX_STACK_LINE(51)
+				HX_STACK_LINE(53)
 				if (((_g11 == HX_CSTRING("-hx")))){
-					HX_STACK_LINE(53)
+					HX_STACK_LINE(55)
 					int p = (i + (int)1);		HX_STACK_VAR(p,"p");
-					HX_STACK_LINE(54)
+					HX_STACK_LINE(56)
 					if (((p >= args->length))){
-						HX_STACK_LINE(54)
+						HX_STACK_LINE(56)
 						app_class_type = HX_CSTRING("");
 					}
 					else{
-						HX_STACK_LINE(54)
+						HX_STACK_LINE(56)
 						app_class_type = args->__get(p);
 					}
 				}
-				HX_STACK_LINE(57)
+				HX_STACK_LINE(59)
 				::String _g21 = args->__get(i).toLowerCase();		HX_STACK_VAR(_g21,"_g21");
-				HX_STACK_LINE(57)
+				HX_STACK_LINE(59)
 				if (((_g21 == HX_CSTRING("-t")))){
-					HX_STACK_LINE(59)
+					HX_STACK_LINE(61)
 					int p = (i + (int)1);		HX_STACK_VAR(p,"p");
-					HX_STACK_LINE(60)
+					HX_STACK_LINE(62)
 					if (((p >= args->length))){
-						HX_STACK_LINE(60)
+						HX_STACK_LINE(62)
 						app_title = HX_CSTRING("");
 					}
 					else{
-						HX_STACK_LINE(60)
+						HX_STACK_LINE(62)
 						app_title = args->__get(p);
 					}
 				}
 			}
 		}
-		HX_STACK_LINE(64)
+		HX_STACK_LINE(66)
 		if (((app_class_type == HX_CSTRING("")))){
-			HX_STACK_LINE(66)
+			HX_STACK_LINE(68)
 			::haxor::core::Console_obj::Log(HX_CSTRING("Haxor> Application type not found. Default to [Main]"),null());
-			HX_STACK_LINE(67)
+			HX_STACK_LINE(69)
 			app_class_type = HX_CSTRING("Main");
 		}
-		HX_STACK_LINE(70)
-		::haxor::core::Console_obj::Log(((((HX_CSTRING("Haxor> Windows Platform Init verbose[") + ::haxor::core::Console_obj::verbose) + HX_CSTRING("] application[")) + app_class_type) + HX_CSTRING("]")),(int)1);
 		HX_STACK_LINE(72)
-		::Class app_class = ::Type_obj::resolveClass(app_class_type);		HX_STACK_VAR(app_class,"app_class");
+		::haxor::core::Console_obj::Log(((((HX_CSTRING("Haxor> Windows Platform Init verbose[") + ::haxor::core::Console_obj::verbose) + HX_CSTRING("] application[")) + app_class_type) + HX_CSTRING("]")),(int)1);
 		HX_STACK_LINE(74)
+		::Class app_class = ::Type_obj::resolveClass(app_class_type);		HX_STACK_VAR(app_class,"app_class");
+		HX_STACK_LINE(76)
 		if (((app_class == null()))){
-			HX_STACK_LINE(76)
-			::haxor::core::Console_obj::Log(((((HX_CSTRING("Haxor> Error. Class [") + app_class_type) + HX_CSTRING("] not found! Try adding 'import ")) + app_class_type) + HX_CSTRING("' in your Main file.")),null());
-			HX_STACK_LINE(77)
-			::Sys_obj::command(HX_CSTRING("pause"),null());
 			HX_STACK_LINE(78)
+			::haxor::core::Console_obj::Log(((((HX_CSTRING("Haxor> Error. Class [") + app_class_type) + HX_CSTRING("] not found! Try adding 'import ")) + app_class_type) + HX_CSTRING("' in your Main file.")),null());
+			HX_STACK_LINE(79)
+			::Sys_obj::command(HX_CSTRING("pause"),null());
+			HX_STACK_LINE(80)
 			return null();
 		}
-		HX_STACK_LINE(81)
-		::haxor::core::Engine_obj::Initialize();
 		HX_STACK_LINE(83)
+		::haxor::core::Engine_obj::Initialize();
+		HX_STACK_LINE(85)
 		::haxor::core::Application app;		HX_STACK_VAR(app,"app");
-		HX_STACK_LINE(84)
+		HX_STACK_LINE(86)
 		::haxor::core::Entity e = ::haxor::core::Entity_obj::__new(HX_CSTRING("application"));		HX_STACK_VAR(e,"e");
-		HX_STACK_LINE(85)
-		Dynamic _g3 = e->AddComponent(app_class);		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(85)
-		app = _g3;
 		HX_STACK_LINE(87)
+		Dynamic _g3 = e->AddComponent(app_class);		HX_STACK_VAR(_g3,"_g3");
+		HX_STACK_LINE(87)
+		app = _g3;
+		HX_STACK_LINE(89)
 		if ((!(::Std_obj::is(app,hx::ClassOf< ::haxor::core::BaseApplication >())))){
-			HX_STACK_LINE(89)
+			HX_STACK_LINE(91)
 			::haxor::core::Console_obj::Log(((HX_CSTRING("Haxor> Error. Class [") + app_class_type) + HX_CSTRING("] does not extends Application!")),null());
-			HX_STACK_LINE(90)
+			HX_STACK_LINE(92)
 			return null();
 		}
-		HX_STACK_LINE(93)
-		::haxor::platform::windows::Window wnd = ::haxor::platform::windows::Window_obj::__new(app,app_title,(int)0,(int)0,(int)800,(int)600);		HX_STACK_VAR(wnd,"wnd");
 		HX_STACK_LINE(95)
+		::haxor::platform::windows::Window wnd = ::haxor::platform::windows::Window_obj::__new(app,app_title,(int)0,(int)0,(int)800,(int)600);		HX_STACK_VAR(wnd,"wnd");
+		HX_STACK_LINE(97)
 		::haxor::platform::graphics::GL_obj::Initialize(app);
-		HX_STACK_LINE(96)
-		::haxor::platform::graphics::GL_obj::m_gl->Initialize(wnd);
 		HX_STACK_LINE(98)
+		::haxor::platform::graphics::GL_obj::m_gl->Initialize(wnd);
+		HX_STACK_LINE(100)
+		::haxor::context::EngineContext_obj::Build();
+		HX_STACK_LINE(102)
 		if ((app->Load())){
-			HX_STACK_LINE(98)
+			HX_STACK_LINE(102)
 			app->LoadComplete();
 		}
-		HX_STACK_LINE(100)
+		HX_STACK_LINE(104)
 		wnd->Run();
 	}
 return null();

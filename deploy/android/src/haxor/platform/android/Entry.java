@@ -36,7 +36,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 	}
 	
 	
-	public  haxor.core.BaseApplication m_application;
+	public  haxor.platform.android.AndroidApplication m_application;
 	
 	public  android.os.Handler m_handler;
 	
@@ -45,6 +45,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 	@Override public   void onCreate(android.os.Bundle savedInstanceState)
 	{
 		super.onCreate(((android.os.Bundle) (savedInstanceState) ));
+		haxor.core.Console.Initialize();
 		
 			requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
 			getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN, android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN); 
@@ -89,7 +90,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 		
 		haxor.core.Engine.Initialize();
 		haxor.core.Entity e = new haxor.core.Entity(haxe.lang.Runtime.toString("application"));
-		this.m_application = ((haxor.core.BaseApplication) (e.AddComponent(((java.lang.Class<haxor.component.Component>) (((java.lang.Class) (app_class) )) ))) );
+		this.m_application = ((haxor.platform.android.AndroidApplication) (e.AddComponent(((java.lang.Class<haxor.component.Component>) (((java.lang.Class) (app_class) )) ))) );
 		if ( ! (( this.m_application instanceof haxor.core.BaseApplication )) ) 
 		{
 			haxor.core.Console.Log(( ( "Haxor> Error. Class [" + app_class_type ) + "] does not extends Application!" ), null);
@@ -100,7 +101,6 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 		haxor.platform.graphics.GL.m_gl.Initialize(this, null);
 		this.m_handler = new android.os.Handler();
 		this.m_handler.postDelayed(((java.lang.Runnable) (this) ), ((long) (0) ));
-		this.m_active = true;
 	}
 	
 	
@@ -142,6 +142,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 	@Override public   void onDestroy()
 	{
 		haxor.core.Console.Log("OnDestroy", 5);
+		this.m_active = false;
 		super.onDestroy();
 	}
 	
@@ -187,19 +188,16 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 			return ;
 		}
 		
-		haxor.graphics.Screen.m_width = ((double) (width) );
-		haxor.graphics.Screen.m_height = ((double) (height) );
-		if (this.m_active) 
-		{
-			this.m_application.OnResize();
-		}
-		
+		this.m_application.m_screen_width = ((double) (width) );
+		this.m_application.m_screen_height = ((double) (height) );
 	}
 	
 	
 	public   void onSurfaceCreated(javax.microedition.khronos.opengles.GL10 gl, javax.microedition.khronos.egl.EGLConfig config)
 	{
 		haxor.core.Console.Log("OnCreated", 5);
+		haxor.context.EngineContext.Build();
+		this.m_active = true;
 		if (this.m_application.Load()) 
 		{
 			this.m_application.LoadComplete();
@@ -277,14 +275,14 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 	public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef26213 = true;
+			boolean __temp_executeDef4651 = true;
 			switch (field.hashCode())
 			{
 				case -2021681384:
 				{
 					if (field.equals("m_active")) 
 					{
-						__temp_executeDef26213 = false;
+						__temp_executeDef4651 = false;
 						this.m_active = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -297,8 +295,8 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("m_application")) 
 					{
-						__temp_executeDef26213 = false;
-						this.m_application = ((haxor.core.BaseApplication) (value) );
+						__temp_executeDef4651 = false;
+						this.m_application = ((haxor.platform.android.AndroidApplication) (value) );
 						return value;
 					}
 					
@@ -310,7 +308,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("m_handler")) 
 					{
-						__temp_executeDef26213 = false;
+						__temp_executeDef4651 = false;
 						this.m_handler = ((android.os.Handler) (value) );
 						return value;
 					}
@@ -321,7 +319,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				
 			}
 			
-			if (__temp_executeDef26213) 
+			if (__temp_executeDef4651) 
 			{
 				return this.__hx_lookupSetField(field, value);
 			}
@@ -338,14 +336,14 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 	public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef26214 = true;
+			boolean __temp_executeDef4652 = true;
 			switch (field.hashCode())
 			{
 				case 1316941135:
 				{
 					if (field.equals("obtainStyledAttributes")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("obtainStyledAttributes"))) );
 					}
 					
@@ -357,7 +355,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("m_application")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return this.m_application;
 					}
 					
@@ -369,7 +367,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getString")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getString"))) );
 					}
 					
@@ -381,7 +379,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("m_handler")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return this.m_handler;
 					}
 					
@@ -393,7 +391,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getText")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getText"))) );
 					}
 					
@@ -405,7 +403,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("m_active")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return this.m_active;
 					}
 					
@@ -413,12 +411,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1682247576:
+				case -1182174803:
 				{
-					if (field.equals("getBaseContext")) 
+					if (field.equals("unregisterComponentCallbacks")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getBaseContext"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("unregisterComponentCallbacks"))) );
 					}
 					
 					break;
@@ -429,7 +427,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onCreate")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreate"))) );
 					}
 					
@@ -437,12 +435,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 287807097:
+				case 153870420:
 				{
-					if (field.equals("getAssets")) 
+					if (field.equals("registerComponentCallbacks")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getAssets"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("registerComponentCallbacks"))) );
 					}
 					
 					break;
@@ -453,7 +451,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("uncaughtException")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("uncaughtException"))) );
 					}
 					
@@ -461,12 +459,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1992675473:
+				case -1682247576:
 				{
-					if (field.equals("getResources")) 
+					if (field.equals("getBaseContext")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getResources"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getBaseContext"))) );
 					}
 					
 					break;
@@ -477,7 +475,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onStart")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onStart"))) );
 					}
 					
@@ -485,12 +483,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 482608509:
+				case 287807097:
 				{
-					if (field.equals("getPackageManager")) 
+					if (field.equals("getAssets")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPackageManager"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getAssets"))) );
 					}
 					
 					break;
@@ -501,7 +499,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onPause")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onPause"))) );
 					}
 					
@@ -509,12 +507,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1618976105:
+				case 482608509:
 				{
-					if (field.equals("getContentResolver")) 
+					if (field.equals("getPackageManager")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getContentResolver"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPackageManager"))) );
 					}
 					
 					break;
@@ -525,7 +523,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onResume")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onResume"))) );
 					}
 					
@@ -533,12 +531,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -37915296:
+				case 1618976105:
 				{
-					if (field.equals("getMainLooper")) 
+					if (field.equals("getContentResolver")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getMainLooper"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getContentResolver"))) );
 					}
 					
 					break;
@@ -549,7 +547,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onDestroy")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onDestroy"))) );
 					}
 					
@@ -557,12 +555,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1852215349:
+				case -37915296:
 				{
-					if (field.equals("getApplicationContext")) 
+					if (field.equals("getMainLooper")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getApplicationContext"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getMainLooper"))) );
 					}
 					
 					break;
@@ -573,7 +571,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onStop")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onStop"))) );
 					}
 					
@@ -581,12 +579,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1598090635:
+				case 1852215349:
 				{
-					if (field.equals("getClassLoader")) 
+					if (field.equals("getApplicationContext")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getClassLoader"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getApplicationContext"))) );
 					}
 					
 					break;
@@ -597,7 +595,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("run")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("run"))) );
 					}
 					
@@ -605,12 +603,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 268490427:
+				case -1598090635:
 				{
-					if (field.equals("getPackageName")) 
+					if (field.equals("getClassLoader")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPackageName"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getClassLoader"))) );
 					}
 					
 					break;
@@ -621,7 +619,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onDrawFrame")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onDrawFrame"))) );
 					}
 					
@@ -629,12 +627,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1710913560:
+				case 268490427:
 				{
-					if (field.equals("getApplicationInfo")) 
+					if (field.equals("getPackageName")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getApplicationInfo"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPackageName"))) );
 					}
 					
 					break;
@@ -645,7 +643,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onSurfaceChanged")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onSurfaceChanged"))) );
 					}
 					
@@ -653,12 +651,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1083904387:
+				case -1710913560:
 				{
-					if (field.equals("getPackageResourcePath")) 
+					if (field.equals("getApplicationInfo")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPackageResourcePath"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getApplicationInfo"))) );
 					}
 					
 					break;
@@ -669,7 +667,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onSurfaceCreated")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onSurfaceCreated"))) );
 					}
 					
@@ -677,12 +675,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1084591074:
+				case 1083904387:
 				{
-					if (field.equals("getPackageCodePath")) 
+					if (field.equals("getPackageResourcePath")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPackageCodePath"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPackageResourcePath"))) );
 					}
 					
 					break;
@@ -693,7 +691,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("startIntentSender")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startIntentSender"))) );
 					}
 					
@@ -701,12 +699,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -926474083:
+				case 1084591074:
 				{
-					if (field.equals("getSharedPreferences")) 
+					if (field.equals("getPackageCodePath")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getSharedPreferences"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPackageCodePath"))) );
 					}
 					
 					break;
@@ -717,7 +715,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("startActivities")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActivities"))) );
 					}
 					
@@ -725,12 +723,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1508512636:
+				case -926474083:
 				{
-					if (field.equals("openFileInput")) 
+					if (field.equals("getSharedPreferences")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("openFileInput"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getSharedPreferences"))) );
 					}
 					
 					break;
@@ -741,7 +739,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("startActivity")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActivity"))) );
 					}
 					
@@ -749,12 +747,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 659102599:
+				case -1508512636:
 				{
-					if (field.equals("openFileOutput")) 
+					if (field.equals("openFileInput")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("openFileOutput"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("openFileInput"))) );
 					}
 					
 					break;
@@ -765,7 +763,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getSystemService")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getSystemService"))) );
 					}
 					
@@ -773,12 +771,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1764172231:
+				case 659102599:
 				{
-					if (field.equals("deleteFile")) 
+					if (field.equals("openFileOutput")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("deleteFile"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("openFileOutput"))) );
 					}
 					
 					break;
@@ -789,7 +787,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onApplyThemeResource")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onApplyThemeResource"))) );
 					}
 					
@@ -797,12 +795,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -310813865:
+				case 1764172231:
 				{
-					if (field.equals("getFileStreamPath")) 
+					if (field.equals("deleteFile")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getFileStreamPath"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("deleteFile"))) );
 					}
 					
 					break;
@@ -813,7 +811,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getIntent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getIntent"))) );
 					}
 					
@@ -821,12 +819,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -735773638:
+				case -310813865:
 				{
-					if (field.equals("fileList")) 
+					if (field.equals("getFileStreamPath")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("fileList"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getFileStreamPath"))) );
 					}
 					
 					break;
@@ -837,7 +835,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("setIntent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setIntent"))) );
 					}
 					
@@ -845,12 +843,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1343252492:
+				case -735773638:
 				{
-					if (field.equals("getFilesDir")) 
+					if (field.equals("fileList")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getFilesDir"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("fileList"))) );
 					}
 					
 					break;
@@ -861,7 +859,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getApplication")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getApplication"))) );
 					}
 					
@@ -869,12 +867,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1819058441:
+				case 1343252492:
 				{
-					if (field.equals("getExternalFilesDir")) 
+					if (field.equals("getFilesDir")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getExternalFilesDir"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getFilesDir"))) );
 					}
 					
 					break;
@@ -885,7 +883,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("isChild")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isChild"))) );
 					}
 					
@@ -893,12 +891,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 672376852:
+				case -1819058441:
 				{
-					if (field.equals("getObbDir")) 
+					if (field.equals("getExternalFilesDir")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getObbDir"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getExternalFilesDir"))) );
 					}
 					
 					break;
@@ -909,7 +907,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getParent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getParent"))) );
 					}
 					
@@ -917,12 +915,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1644385057:
+				case 672376852:
 				{
-					if (field.equals("getCacheDir")) 
+					if (field.equals("getObbDir")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getCacheDir"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getObbDir"))) );
 					}
 					
 					break;
@@ -933,7 +931,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getWindowManager")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getWindowManager"))) );
 					}
 					
@@ -941,12 +939,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1517925876:
+				case 1644385057:
 				{
-					if (field.equals("getExternalCacheDir")) 
+					if (field.equals("getCacheDir")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getExternalCacheDir"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getCacheDir"))) );
 					}
 					
 					break;
@@ -957,7 +955,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getWindow")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getWindow"))) );
 					}
 					
@@ -965,12 +963,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1249364649:
+				case -1517925876:
 				{
-					if (field.equals("getDir")) 
+					if (field.equals("getExternalCacheDir")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getDir"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getExternalCacheDir"))) );
 					}
 					
 					break;
@@ -981,7 +979,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getLoaderManager")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getLoaderManager"))) );
 					}
 					
@@ -989,12 +987,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1511505468:
+				case -1249364649:
 				{
-					if (field.equals("openOrCreateDatabase")) 
+					if (field.equals("getDir")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("openOrCreateDatabase"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getDir"))) );
 					}
 					
 					break;
@@ -1005,7 +1003,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getCurrentFocus")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getCurrentFocus"))) );
 					}
 					
@@ -1013,12 +1011,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -263511994:
+				case -1511505468:
 				{
-					if (field.equals("deleteDatabase")) 
+					if (field.equals("openOrCreateDatabase")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("deleteDatabase"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("openOrCreateDatabase"))) );
 					}
 					
 					break;
@@ -1029,7 +1027,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onRestoreInstanceState")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onRestoreInstanceState"))) );
 					}
 					
@@ -1037,12 +1035,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1167476406:
+				case -263511994:
 				{
-					if (field.equals("getDatabasePath")) 
+					if (field.equals("deleteDatabase")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getDatabasePath"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("deleteDatabase"))) );
 					}
 					
 					break;
@@ -1053,7 +1051,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onPostCreate")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onPostCreate"))) );
 					}
 					
@@ -1061,12 +1059,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -459145031:
+				case 1167476406:
 				{
-					if (field.equals("databaseList")) 
+					if (field.equals("getDatabasePath")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("databaseList"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getDatabasePath"))) );
 					}
 					
 					break;
@@ -1077,7 +1075,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onRestart")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onRestart"))) );
 					}
 					
@@ -1085,12 +1083,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1465089868:
+				case -459145031:
 				{
-					if (field.equals("getWallpaper")) 
+					if (field.equals("databaseList")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getWallpaper"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("databaseList"))) );
 					}
 					
 					break;
@@ -1101,7 +1099,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onPostResume")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onPostResume"))) );
 					}
 					
@@ -1109,12 +1107,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 179180263:
+				case 1465089868:
 				{
-					if (field.equals("peekWallpaper")) 
+					if (field.equals("getWallpaper")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("peekWallpaper"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getWallpaper"))) );
 					}
 					
 					break;
@@ -1125,7 +1123,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onNewIntent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onNewIntent"))) );
 					}
 					
@@ -1133,12 +1131,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1668935462:
+				case 179180263:
 				{
-					if (field.equals("getWallpaperDesiredMinimumWidth")) 
+					if (field.equals("peekWallpaper")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getWallpaperDesiredMinimumWidth"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("peekWallpaper"))) );
 					}
 					
 					break;
@@ -1149,7 +1147,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onSaveInstanceState")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onSaveInstanceState"))) );
 					}
 					
@@ -1157,12 +1155,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -235603001:
+				case 1668935462:
 				{
-					if (field.equals("getWallpaperDesiredMinimumHeight")) 
+					if (field.equals("getWallpaperDesiredMinimumWidth")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getWallpaperDesiredMinimumHeight"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getWallpaperDesiredMinimumWidth"))) );
 					}
 					
 					break;
@@ -1173,7 +1171,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onUserLeaveHint")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onUserLeaveHint"))) );
 					}
 					
@@ -1181,12 +1179,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1280884800:
+				case -235603001:
 				{
-					if (field.equals("setWallpaper")) 
+					if (field.equals("getWallpaperDesiredMinimumHeight")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setWallpaper"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getWallpaperDesiredMinimumHeight"))) );
 					}
 					
 					break;
@@ -1197,7 +1195,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onCreateThumbnail")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreateThumbnail"))) );
 					}
 					
@@ -1205,12 +1203,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 64372277:
+				case -1280884800:
 				{
-					if (field.equals("clearWallpaper")) 
+					if (field.equals("setWallpaper")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("clearWallpaper"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setWallpaper"))) );
 					}
 					
 					break;
@@ -1221,8 +1219,32 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onCreateDescription")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreateDescription"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 64372277:
+				{
+					if (field.equals("clearWallpaper")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("clearWallpaper"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1173492971:
+				{
+					if (field.equals("onProvideAssistData")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onProvideAssistData"))) );
 					}
 					
 					break;
@@ -1233,7 +1255,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("sendBroadcast")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendBroadcast"))) );
 					}
 					
@@ -1245,7 +1267,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onConfigurationChanged")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onConfigurationChanged"))) );
 					}
 					
@@ -1257,7 +1279,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("sendOrderedBroadcast")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendOrderedBroadcast"))) );
 					}
 					
@@ -1269,7 +1291,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getChangingConfigurations")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getChangingConfigurations"))) );
 					}
 					
@@ -1277,12 +1299,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -932916176:
+				case -1290704234:
 				{
-					if (field.equals("sendStickyBroadcast")) 
+					if (field.equals("sendBroadcastAsUser")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendStickyBroadcast"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendBroadcastAsUser"))) );
 					}
 					
 					break;
@@ -1293,7 +1315,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getLastNonConfigurationInstance")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getLastNonConfigurationInstance"))) );
 					}
 					
@@ -1301,12 +1323,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 150234245:
+				case 1937989817:
 				{
-					if (field.equals("sendStickyOrderedBroadcast")) 
+					if (field.equals("sendOrderedBroadcastAsUser")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendStickyOrderedBroadcast"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendOrderedBroadcastAsUser"))) );
 					}
 					
 					break;
@@ -1317,7 +1339,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onRetainNonConfigurationInstance")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onRetainNonConfigurationInstance"))) );
 					}
 					
@@ -1325,12 +1347,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 166794164:
+				case -932916176:
 				{
-					if (field.equals("removeStickyBroadcast")) 
+					if (field.equals("sendStickyBroadcast")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("removeStickyBroadcast"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendStickyBroadcast"))) );
 					}
 					
 					break;
@@ -1341,7 +1363,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onLowMemory")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onLowMemory"))) );
 					}
 					
@@ -1349,12 +1371,36 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1039717966:
+				case 150234245:
 				{
-					if (field.equals("registerReceiver")) 
+					if (field.equals("sendStickyOrderedBroadcast")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("registerReceiver"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendStickyOrderedBroadcast"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 694704898:
+				{
+					if (field.equals("onTrimMemory")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onTrimMemory"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 166794164:
+				{
+					if (field.equals("removeStickyBroadcast")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("removeStickyBroadcast"))) );
 					}
 					
 					break;
@@ -1365,7 +1411,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getFragmentManager")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getFragmentManager"))) );
 					}
 					
@@ -1373,12 +1419,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1102112331:
+				case -150413459:
 				{
-					if (field.equals("unregisterReceiver")) 
+					if (field.equals("sendStickyBroadcastAsUser")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("unregisterReceiver"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendStickyBroadcastAsUser"))) );
 					}
 					
 					break;
@@ -1389,7 +1435,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onAttachFragment")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onAttachFragment"))) );
 					}
 					
@@ -1397,12 +1443,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1849706483:
+				case 1646140418:
 				{
-					if (field.equals("startService")) 
+					if (field.equals("sendStickyOrderedBroadcastAsUser")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startService"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("sendStickyOrderedBroadcastAsUser"))) );
 					}
 					
 					break;
@@ -1413,7 +1459,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("managedQuery")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("managedQuery"))) );
 					}
 					
@@ -1421,12 +1467,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 699379795:
+				case -824153103:
 				{
-					if (field.equals("stopService")) 
+					if (field.equals("removeStickyBroadcastAsUser")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("stopService"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("removeStickyBroadcastAsUser"))) );
 					}
 					
 					break;
@@ -1437,7 +1483,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("startManagingCursor")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startManagingCursor"))) );
 					}
 					
@@ -1445,12 +1491,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1418030008:
+				case -1039717966:
 				{
-					if (field.equals("bindService")) 
+					if (field.equals("registerReceiver")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("bindService"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("registerReceiver"))) );
 					}
 					
 					break;
@@ -1461,7 +1507,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("stopManagingCursor")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("stopManagingCursor"))) );
 					}
 					
@@ -1469,12 +1515,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1531153537:
+				case 1102112331:
 				{
-					if (field.equals("unbindService")) 
+					if (field.equals("unregisterReceiver")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("unbindService"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("unregisterReceiver"))) );
 					}
 					
 					break;
@@ -1485,7 +1531,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("findViewById")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("findViewById"))) );
 					}
 					
@@ -1493,12 +1539,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1057779028:
+				case 1849706483:
 				{
-					if (field.equals("startInstrumentation")) 
+					if (field.equals("startService")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startInstrumentation"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startService"))) );
 					}
 					
 					break;
@@ -1509,7 +1555,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getActionBar")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getActionBar"))) );
 					}
 					
@@ -1517,12 +1563,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 686218487:
+				case 699379795:
 				{
-					if (field.equals("checkPermission")) 
+					if (field.equals("stopService")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("stopService"))) );
 					}
 					
 					break;
@@ -1533,7 +1579,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("setContentView")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setContentView"))) );
 					}
 					
@@ -1541,12 +1587,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1635525003:
+				case 1418030008:
 				{
-					if (field.equals("checkCallingPermission")) 
+					if (field.equals("bindService")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkCallingPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("bindService"))) );
 					}
 					
 					break;
@@ -1557,7 +1603,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("addContentView")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("addContentView"))) );
 					}
 					
@@ -1565,12 +1611,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 680571322:
+				case -1531153537:
 				{
-					if (field.equals("checkCallingOrSelfPermission")) 
+					if (field.equals("unbindService")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkCallingOrSelfPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("unbindService"))) );
 					}
 					
 					break;
@@ -1581,7 +1627,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("setFinishOnTouchOutside")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setFinishOnTouchOutside"))) );
 					}
 					
@@ -1589,12 +1635,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1031360687:
+				case -1057779028:
 				{
-					if (field.equals("enforcePermission")) 
+					if (field.equals("startInstrumentation")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforcePermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startInstrumentation"))) );
 					}
 					
 					break;
@@ -1605,7 +1651,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("setDefaultKeyMode")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setDefaultKeyMode"))) );
 					}
 					
@@ -1613,12 +1659,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1024076303:
+				case 686218487:
 				{
-					if (field.equals("enforceCallingPermission")) 
+					if (field.equals("checkPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceCallingPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkPermission"))) );
 					}
 					
 					break;
@@ -1629,7 +1675,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onKeyDown")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onKeyDown"))) );
 					}
 					
@@ -1637,12 +1683,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1062272608:
+				case 1635525003:
 				{
-					if (field.equals("enforceCallingOrSelfPermission")) 
+					if (field.equals("checkCallingPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceCallingOrSelfPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkCallingPermission"))) );
 					}
 					
 					break;
@@ -1653,7 +1699,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onKeyLongPress")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onKeyLongPress"))) );
 					}
 					
@@ -1661,12 +1707,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 2009377951:
+				case 680571322:
 				{
-					if (field.equals("grantUriPermission")) 
+					if (field.equals("checkCallingOrSelfPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("grantUriPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkCallingOrSelfPermission"))) );
 					}
 					
 					break;
@@ -1677,7 +1723,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onKeyUp")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onKeyUp"))) );
 					}
 					
@@ -1685,12 +1731,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -745473163:
+				case -1031360687:
 				{
-					if (field.equals("revokeUriPermission")) 
+					if (field.equals("enforcePermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("revokeUriPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforcePermission"))) );
 					}
 					
 					break;
@@ -1701,7 +1747,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onKeyMultiple")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onKeyMultiple"))) );
 					}
 					
@@ -1709,12 +1755,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1704998113:
+				case -1024076303:
 				{
-					if (field.equals("checkCallingUriPermission")) 
+					if (field.equals("enforceCallingPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkCallingUriPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceCallingPermission"))) );
 					}
 					
 					break;
@@ -1725,7 +1771,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onBackPressed")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onBackPressed"))) );
 					}
 					
@@ -1733,12 +1779,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -866740080:
+				case -1062272608:
 				{
-					if (field.equals("checkCallingOrSelfUriPermission")) 
+					if (field.equals("enforceCallingOrSelfPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkCallingOrSelfUriPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceCallingOrSelfPermission"))) );
 					}
 					
 					break;
@@ -1749,7 +1795,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onKeyShortcut")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onKeyShortcut"))) );
 					}
 					
@@ -1757,12 +1803,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -135772109:
+				case 2009377951:
 				{
-					if (field.equals("checkUriPermission")) 
+					if (field.equals("grantUriPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkUriPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("grantUriPermission"))) );
 					}
 					
 					break;
@@ -1773,7 +1819,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onTouchEvent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onTouchEvent"))) );
 					}
 					
@@ -1781,12 +1827,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -330828551:
+				case -745473163:
 				{
-					if (field.equals("enforceCallingUriPermission")) 
+					if (field.equals("revokeUriPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceCallingUriPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("revokeUriPermission"))) );
 					}
 					
 					break;
@@ -1797,7 +1843,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onTrackballEvent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onTrackballEvent"))) );
 					}
 					
@@ -1805,12 +1851,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -70617366:
+				case -1704998113:
 				{
-					if (field.equals("enforceCallingOrSelfUriPermission")) 
+					if (field.equals("checkCallingUriPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceCallingOrSelfUriPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkCallingUriPermission"))) );
 					}
 					
 					break;
@@ -1821,7 +1867,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onGenericMotionEvent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onGenericMotionEvent"))) );
 					}
 					
@@ -1829,12 +1875,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1703419801:
+				case -866740080:
 				{
-					if (field.equals("enforceUriPermission")) 
+					if (field.equals("checkCallingOrSelfUriPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceUriPermission"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkCallingOrSelfUriPermission"))) );
 					}
 					
 					break;
@@ -1845,7 +1891,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onUserInteraction")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onUserInteraction"))) );
 					}
 					
@@ -1853,12 +1899,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -362061147:
+				case -135772109:
 				{
-					if (field.equals("createPackageContext")) 
+					if (field.equals("checkUriPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("createPackageContext"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("checkUriPermission"))) );
 					}
 					
 					break;
@@ -1869,7 +1915,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onWindowAttributesChanged")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onWindowAttributesChanged"))) );
 					}
 					
@@ -1877,12 +1923,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 873989413:
+				case -330828551:
 				{
-					if (field.equals("isRestricted")) 
+					if (field.equals("enforceCallingUriPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isRestricted"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceCallingUriPermission"))) );
 					}
 					
 					break;
@@ -1893,7 +1939,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onContentChanged")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onContentChanged"))) );
 					}
 					
@@ -1901,12 +1947,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1794099687:
+				case -70617366:
 				{
-					if (field.equals("attachBaseContext")) 
+					if (field.equals("enforceCallingOrSelfUriPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("attachBaseContext"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceCallingOrSelfUriPermission"))) );
 					}
 					
 					break;
@@ -1917,7 +1963,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onWindowFocusChanged")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onWindowFocusChanged"))) );
 					}
 					
@@ -1925,12 +1971,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1405040263:
+				case 1703419801:
 				{
-					if (field.equals("setTheme")) 
+					if (field.equals("enforceUriPermission")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setTheme"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enforceUriPermission"))) );
 					}
 					
 					break;
@@ -1941,7 +1987,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onAttachedToWindow")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onAttachedToWindow"))) );
 					}
 					
@@ -1949,12 +1995,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1966152723:
+				case -362061147:
 				{
-					if (field.equals("getTheme")) 
+					if (field.equals("createPackageContext")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getTheme"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("createPackageContext"))) );
 					}
 					
 					break;
@@ -1965,7 +2011,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onDetachedFromWindow")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onDetachedFromWindow"))) );
 					}
 					
@@ -1973,12 +2019,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 212266186:
+				case -1430292747:
 				{
-					if (field.equals("onActionModeFinished")) 
+					if (field.equals("createConfigurationContext")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onActionModeFinished"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("createConfigurationContext"))) );
 					}
 					
 					break;
@@ -1989,7 +2035,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("hasWindowFocus")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("hasWindowFocus"))) );
 					}
 					
@@ -1997,12 +2043,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -67491543:
+				case 1322564265:
 				{
-					if (field.equals("onActionModeStarted")) 
+					if (field.equals("createDisplayContext")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onActionModeStarted"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("createDisplayContext"))) );
 					}
 					
 					break;
@@ -2013,7 +2059,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("dispatchKeyEvent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("dispatchKeyEvent"))) );
 					}
 					
@@ -2021,12 +2067,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 2071350888:
+				case 873989413:
 				{
-					if (field.equals("onWindowStartingActionMode")) 
+					if (field.equals("isRestricted")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onWindowStartingActionMode"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isRestricted"))) );
 					}
 					
 					break;
@@ -2037,7 +2083,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("dispatchKeyShortcutEvent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("dispatchKeyShortcutEvent"))) );
 					}
 					
@@ -2045,12 +2091,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -543019269:
+				case 1237840316:
 				{
-					if (field.equals("startActionMode")) 
+					if (field.equals("applyOverrideConfiguration")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActionMode"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("applyOverrideConfiguration"))) );
 					}
 					
 					break;
@@ -2061,7 +2107,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("dispatchTouchEvent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("dispatchTouchEvent"))) );
 					}
 					
@@ -2069,12 +2115,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 3095028:
+				case -1794099687:
 				{
-					if (field.equals("dump")) 
+					if (field.equals("attachBaseContext")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("dump"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("attachBaseContext"))) );
 					}
 					
 					break;
@@ -2085,7 +2131,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("dispatchTrackballEvent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("dispatchTrackballEvent"))) );
 					}
 					
@@ -2093,12 +2139,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 414896384:
+				case -1992675473:
 				{
-					if (field.equals("onCreateView")) 
+					if (field.equals("getResources")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreateView"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getResources"))) );
 					}
 					
 					break;
@@ -2109,7 +2155,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("dispatchGenericMotionEvent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("dispatchGenericMotionEvent"))) );
 					}
 					
@@ -2117,12 +2163,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1839722072:
+				case 1405040263:
 				{
-					if (field.equals("runOnUiThread")) 
+					if (field.equals("setTheme")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("runOnUiThread"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setTheme"))) );
 					}
 					
 					break;
@@ -2133,7 +2179,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("dispatchPopulateAccessibilityEvent")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("dispatchPopulateAccessibilityEvent"))) );
 					}
 					
@@ -2141,12 +2187,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1116694285:
+				case 1966152723:
 				{
-					if (field.equals("getVolumeControlStream")) 
+					if (field.equals("getTheme")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getVolumeControlStream"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getTheme"))) );
 					}
 					
 					break;
@@ -2157,7 +2203,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onCreatePanelView")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreatePanelView"))) );
 					}
 					
@@ -2165,12 +2211,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1865144703:
+				case 371289675:
 				{
-					if (field.equals("setVolumeControlStream")) 
+					if (field.equals("getParentActivityIntent")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setVolumeControlStream"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getParentActivityIntent"))) );
 					}
 					
 					break;
@@ -2181,7 +2227,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onCreatePanelMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreatePanelMenu"))) );
 					}
 					
@@ -2189,12 +2235,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1505790081:
+				case 734140363:
 				{
-					if (field.equals("setSecondaryProgress")) 
+					if (field.equals("navigateUpToFromChild")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setSecondaryProgress"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("navigateUpToFromChild"))) );
 					}
 					
 					break;
@@ -2205,7 +2251,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onPreparePanel")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onPreparePanel"))) );
 					}
 					
@@ -2213,12 +2259,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 988242095:
+				case -983058553:
 				{
-					if (field.equals("setProgress")) 
+					if (field.equals("navigateUpTo")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setProgress"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("navigateUpTo"))) );
 					}
 					
 					break;
@@ -2229,7 +2275,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onMenuOpened")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onMenuOpened"))) );
 					}
 					
@@ -2237,12 +2283,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -2111537609:
+				case -708684318:
 				{
-					if (field.equals("setProgressBarIndeterminate")) 
+					if (field.equals("shouldUpRecreateTask")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setProgressBarIndeterminate"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("shouldUpRecreateTask"))) );
 					}
 					
 					break;
@@ -2253,7 +2299,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onMenuItemSelected")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onMenuItemSelected"))) );
 					}
 					
@@ -2261,12 +2307,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1664506711:
+				case 212266186:
 				{
-					if (field.equals("setProgressBarIndeterminateVisibility")) 
+					if (field.equals("onActionModeFinished")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setProgressBarIndeterminateVisibility"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onActionModeFinished"))) );
 					}
 					
 					break;
@@ -2277,7 +2323,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onPanelClosed")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onPanelClosed"))) );
 					}
 					
@@ -2285,12 +2331,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 656974614:
+				case -67491543:
 				{
-					if (field.equals("setProgressBarVisibility")) 
+					if (field.equals("onActionModeStarted")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setProgressBarVisibility"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onActionModeStarted"))) );
 					}
 					
 					break;
@@ -2301,7 +2347,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("invalidateOptionsMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("invalidateOptionsMenu"))) );
 					}
 					
@@ -2309,12 +2355,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 341659737:
+				case 2071350888:
 				{
-					if (field.equals("onChildTitleChanged")) 
+					if (field.equals("onWindowStartingActionMode")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onChildTitleChanged"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onWindowStartingActionMode"))) );
 					}
 					
 					break;
@@ -2325,7 +2371,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onCreateOptionsMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreateOptionsMenu"))) );
 					}
 					
@@ -2333,12 +2379,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -858812229:
+				case -543019269:
 				{
-					if (field.equals("onTitleChanged")) 
+					if (field.equals("startActionMode")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onTitleChanged"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActionMode"))) );
 					}
 					
 					break;
@@ -2349,7 +2395,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onPrepareOptionsMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onPrepareOptionsMenu"))) );
 					}
 					
@@ -2357,12 +2403,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -2097116191:
+				case -1617961863:
 				{
-					if (field.equals("getTitleColor")) 
+					if (field.equals("setImmersive")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getTitleColor"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setImmersive"))) );
 					}
 					
 					break;
@@ -2373,7 +2419,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onOptionsItemSelected")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onOptionsItemSelected"))) );
 					}
 					
@@ -2381,12 +2427,108 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1966196898:
+				case -1978929999:
 				{
-					if (field.equals("getTitle")) 
+					if (field.equals("isImmersive")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getTitle"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isImmersive"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 908285739:
+				{
+					if (field.equals("onNavigateUp")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onNavigateUp"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 3095028:
+				{
+					if (field.equals("dump")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("dump"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 2041958567:
+				{
+					if (field.equals("onNavigateUpFromChild")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onNavigateUpFromChild"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 414896384:
+				{
+					if (field.equals("onCreateView")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreateView"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1341989308:
+				{
+					if (field.equals("onCreateNavigateUpTaskStack")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreateNavigateUpTaskStack"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1839722072:
+				{
+					if (field.equals("runOnUiThread")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("runOnUiThread"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -644869585:
+				{
+					if (field.equals("onPrepareNavigateUpTaskStack")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onPrepareNavigateUpTaskStack"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1116694285:
+				{
+					if (field.equals("getVolumeControlStream")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getVolumeControlStream"))) );
 					}
 					
 					break;
@@ -2397,7 +2539,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onOptionsMenuClosed")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onOptionsMenuClosed"))) );
 					}
 					
@@ -2405,12 +2547,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1322984979:
+				case -1865144703:
 				{
-					if (field.equals("setTitleColor")) 
+					if (field.equals("setVolumeControlStream")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setTitleColor"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setVolumeControlStream"))) );
 					}
 					
 					break;
@@ -2421,7 +2563,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("openOptionsMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("openOptionsMenu"))) );
 					}
 					
@@ -2429,12 +2571,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1405084438:
+				case -1505790081:
 				{
-					if (field.equals("setTitle")) 
+					if (field.equals("setSecondaryProgress")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setTitle"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setSecondaryProgress"))) );
 					}
 					
 					break;
@@ -2445,7 +2587,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("closeOptionsMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("closeOptionsMenu"))) );
 					}
 					
@@ -2453,12 +2595,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1349592514:
+				case 988242095:
 				{
-					if (field.equals("getPreferences")) 
+					if (field.equals("setProgress")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPreferences"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setProgress"))) );
 					}
 					
 					break;
@@ -2469,7 +2611,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onCreateContextMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreateContextMenu"))) );
 					}
 					
@@ -2477,12 +2619,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 588448114:
+				case -2111537609:
 				{
-					if (field.equals("getComponentName")) 
+					if (field.equals("setProgressBarIndeterminate")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getComponentName"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setProgressBarIndeterminate"))) );
 					}
 					
 					break;
@@ -2493,7 +2635,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("registerForContextMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("registerForContextMenu"))) );
 					}
 					
@@ -2501,12 +2643,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1926606354:
+				case -1664506711:
 				{
-					if (field.equals("getLocalClassName")) 
+					if (field.equals("setProgressBarIndeterminateVisibility")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getLocalClassName"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setProgressBarIndeterminateVisibility"))) );
 					}
 					
 					break;
@@ -2517,7 +2659,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("unregisterForContextMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("unregisterForContextMenu"))) );
 					}
 					
@@ -2525,12 +2667,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1839775080:
+				case 656974614:
 				{
-					if (field.equals("moveTaskToBack")) 
+					if (field.equals("setProgressBarVisibility")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("moveTaskToBack"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setProgressBarVisibility"))) );
 					}
 					
 					break;
@@ -2541,7 +2683,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("openContextMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("openContextMenu"))) );
 					}
 					
@@ -2549,12 +2691,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1203468463:
+				case 341659737:
 				{
-					if (field.equals("isTaskRoot")) 
+					if (field.equals("onChildTitleChanged")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isTaskRoot"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onChildTitleChanged"))) );
 					}
 					
 					break;
@@ -2565,7 +2707,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("closeContextMenu")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("closeContextMenu"))) );
 					}
 					
@@ -2573,12 +2715,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 815142006:
+				case -858812229:
 				{
-					if (field.equals("getTaskId")) 
+					if (field.equals("onTitleChanged")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getTaskId"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onTitleChanged"))) );
 					}
 					
 					break;
@@ -2589,7 +2731,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onContextItemSelected")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onContextItemSelected"))) );
 					}
 					
@@ -2597,12 +2739,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 2003595768:
+				case -2097116191:
 				{
-					if (field.equals("getRequestedOrientation")) 
+					if (field.equals("getTitleColor")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getRequestedOrientation"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getTitleColor"))) );
 					}
 					
 					break;
@@ -2613,7 +2755,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onContextMenuClosed")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onContextMenuClosed"))) );
 					}
 					
@@ -2621,12 +2763,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -239099644:
+				case 1966196898:
 				{
-					if (field.equals("setRequestedOrientation")) 
+					if (field.equals("getTitle")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setRequestedOrientation"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getTitle"))) );
 					}
 					
 					break;
@@ -2637,7 +2779,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onCreateDialog")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onCreateDialog"))) );
 					}
 					
@@ -2645,12 +2787,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1999993080:
+				case -1322984979:
 				{
-					if (field.equals("createPendingResult")) 
+					if (field.equals("setTitleColor")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("createPendingResult"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setTitleColor"))) );
 					}
 					
 					break;
@@ -2661,7 +2803,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onPrepareDialog")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onPrepareDialog"))) );
 					}
 					
@@ -2669,12 +2811,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1656256565:
+				case 1405084438:
 				{
-					if (field.equals("onActivityResult")) 
+					if (field.equals("setTitle")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onActivityResult"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setTitle"))) );
 					}
 					
 					break;
@@ -2685,7 +2827,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("showDialog")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("showDialog"))) );
 					}
 					
@@ -2693,12 +2835,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -105029392:
+				case 1349592514:
 				{
-					if (field.equals("finishActivityFromChild")) 
+					if (field.equals("getPreferences")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("finishActivityFromChild"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPreferences"))) );
 					}
 					
 					break;
@@ -2709,7 +2851,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("dismissDialog")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("dismissDialog"))) );
 					}
 					
@@ -2717,12 +2859,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -869293886:
+				case 588448114:
 				{
-					if (field.equals("finishActivity")) 
+					if (field.equals("getComponentName")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("finishActivity"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getComponentName"))) );
 					}
 					
 					break;
@@ -2733,7 +2875,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("removeDialog")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("removeDialog"))) );
 					}
 					
@@ -2741,12 +2883,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1328467905:
+				case -1926606354:
 				{
-					if (field.equals("finishFromChild")) 
+					if (field.equals("getLocalClassName")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("finishFromChild"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getLocalClassName"))) );
 					}
 					
 					break;
@@ -2757,7 +2899,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onSearchRequested")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onSearchRequested"))) );
 					}
 					
@@ -2765,12 +2907,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1274442605:
+				case -1839775080:
 				{
-					if (field.equals("finish")) 
+					if (field.equals("moveTaskToBack")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("finish"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("moveTaskToBack"))) );
 					}
 					
 					break;
@@ -2781,7 +2923,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("startSearch")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startSearch"))) );
 					}
 					
@@ -2789,12 +2931,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -796853009:
+				case -1203468463:
 				{
-					if (field.equals("recreate")) 
+					if (field.equals("isTaskRoot")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("recreate"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isTaskRoot"))) );
 					}
 					
 					break;
@@ -2805,7 +2947,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("triggerSearch")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("triggerSearch"))) );
 					}
 					
@@ -2813,12 +2955,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 527193556:
+				case 815142006:
 				{
-					if (field.equals("isChangingConfigurations")) 
+					if (field.equals("getTaskId")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isChangingConfigurations"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getTaskId"))) );
 					}
 					
 					break;
@@ -2829,7 +2971,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("takeKeyEvents")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("takeKeyEvents"))) );
 					}
 					
@@ -2837,12 +2979,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1769775205:
+				case 2003595768:
 				{
-					if (field.equals("isFinishing")) 
+					if (field.equals("getRequestedOrientation")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isFinishing"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getRequestedOrientation"))) );
 					}
 					
 					break;
@@ -2853,7 +2995,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("requestWindowFeature")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("requestWindowFeature"))) );
 					}
 					
@@ -2861,12 +3003,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -854558288:
+				case -239099644:
 				{
-					if (field.equals("setVisible")) 
+					if (field.equals("setRequestedOrientation")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setVisible"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setRequestedOrientation"))) );
 					}
 					
 					break;
@@ -2877,7 +3019,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("setFeatureDrawableResource")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setFeatureDrawableResource"))) );
 					}
 					
@@ -2885,12 +3027,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1770569149:
+				case 1999993080:
 				{
-					if (field.equals("getCallingActivity")) 
+					if (field.equals("createPendingResult")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getCallingActivity"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("createPendingResult"))) );
 					}
 					
 					break;
@@ -2901,7 +3043,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("setFeatureDrawableUri")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setFeatureDrawableUri"))) );
 					}
 					
@@ -2909,12 +3051,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1666360360:
+				case -1656256565:
 				{
-					if (field.equals("getCallingPackage")) 
+					if (field.equals("onActivityResult")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getCallingPackage"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("onActivityResult"))) );
 					}
 					
 					break;
@@ -2925,7 +3067,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("setFeatureDrawable")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setFeatureDrawable"))) );
 					}
 					
@@ -2933,12 +3075,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 546971423:
+				case -105029392:
 				{
-					if (field.equals("setResult")) 
+					if (field.equals("finishActivityFromChild")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setResult"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("finishActivityFromChild"))) );
 					}
 					
 					break;
@@ -2949,7 +3091,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("setFeatureDrawableAlpha")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setFeatureDrawableAlpha"))) );
 					}
 					
@@ -2957,12 +3099,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 1293072352:
+				case -869293886:
 				{
-					if (field.equals("overridePendingTransition")) 
+					if (field.equals("finishActivity")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("overridePendingTransition"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("finishActivity"))) );
 					}
 					
 					break;
@@ -2973,7 +3115,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getLayoutInflater")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getLayoutInflater"))) );
 					}
 					
@@ -2981,12 +3123,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1329640609:
+				case -1328467905:
 				{
-					if (field.equals("startIntentSenderFromChild")) 
+					if (field.equals("finishFromChild")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startIntentSenderFromChild"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("finishFromChild"))) );
 					}
 					
 					break;
@@ -2997,7 +3139,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("getMenuInflater")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getMenuInflater"))) );
 					}
 					
@@ -3005,12 +3147,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -866373557:
+				case 1392170715:
 				{
-					if (field.equals("startActivityFromFragment")) 
+					if (field.equals("finishAffinity")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActivityFromFragment"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("finishAffinity"))) );
 					}
 					
 					break;
@@ -3021,7 +3163,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("startActivityForResult")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActivityForResult"))) );
 					}
 					
@@ -3029,12 +3171,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case 585556225:
+				case -1274442605:
 				{
-					if (field.equals("startActivityFromChild")) 
+					if (field.equals("finish")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActivityFromChild"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("finish"))) );
 					}
 					
 					break;
@@ -3045,7 +3187,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("startIntentSenderForResult")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startIntentSenderForResult"))) );
 					}
 					
@@ -3053,12 +3195,12 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				}
 				
 				
-				case -1588251967:
+				case -796853009:
 				{
-					if (field.equals("startNextMatchingActivity")) 
+					if (field.equals("recreate")) 
 					{
-						__temp_executeDef26214 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startNextMatchingActivity"))) );
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("recreate"))) );
 					}
 					
 					break;
@@ -3069,8 +3211,152 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("startActivityIfNeeded")) 
 					{
-						__temp_executeDef26214 = false;
+						__temp_executeDef4652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActivityIfNeeded"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 527193556:
+				{
+					if (field.equals("isChangingConfigurations")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isChangingConfigurations"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1588251967:
+				{
+					if (field.equals("startNextMatchingActivity")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startNextMatchingActivity"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1129785329:
+				{
+					if (field.equals("isDestroyed")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isDestroyed"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 585556225:
+				{
+					if (field.equals("startActivityFromChild")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActivityFromChild"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1769775205:
+				{
+					if (field.equals("isFinishing")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isFinishing"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -866373557:
+				{
+					if (field.equals("startActivityFromFragment")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startActivityFromFragment"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -854558288:
+				{
+					if (field.equals("setVisible")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setVisible"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1329640609:
+				{
+					if (field.equals("startIntentSenderFromChild")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("startIntentSenderFromChild"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1770569149:
+				{
+					if (field.equals("getCallingActivity")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getCallingActivity"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1293072352:
+				{
+					if (field.equals("overridePendingTransition")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("overridePendingTransition"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1666360360:
+				{
+					if (field.equals("getCallingPackage")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getCallingPackage"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 546971423:
+				{
+					if (field.equals("setResult")) 
+					{
+						__temp_executeDef4652 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setResult"))) );
 					}
 					
 					break;
@@ -3079,7 +3365,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				
 			}
 			
-			if (__temp_executeDef26214) 
+			if (__temp_executeDef4652) 
 			{
 				return this.__hx_lookupField(field, throwErrors, isCheck);
 			}
@@ -3108,15 +3394,15 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 	public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash26217 = field.hashCode();
-			boolean __temp_executeDef26216 = true;
-			switch (__temp_hash26217)
+			int __temp_hash4655 = field.hashCode();
+			boolean __temp_executeDef4654 = true;
+			switch (__temp_hash4655)
 			{
-				case 1316941135:case 804029191:case -75125341:case -1682247576:case 287807097:case -1992675473:case 482608509:case 1618976105:case -37915296:case 1852215349:case -1598090635:case 268490427:case -1710913560:case 1083904387:case 1084591074:case -926474083:case -1508512636:case 659102599:case 1764172231:case -310813865:case -735773638:case 1343252492:case -1819058441:case 672376852:case 1644385057:case -1517925876:case -1249364649:case -1511505468:case -263511994:case 1167476406:case -459145031:case 1465089868:case 179180263:case 1668935462:case -235603001:case -1280884800:case 64372277:case -1411698151:case -839041412:case -932916176:case 150234245:case 166794164:case -1039717966:case 1102112331:case 1849706483:case 699379795:case 1418030008:case -1531153537:case -1057779028:case 686218487:case 1635525003:case 680571322:case -1031360687:case -1024076303:case -1062272608:case 2009377951:case -745473163:case -1704998113:case -866740080:case -135772109:case -330828551:case -70617366:case 1703419801:case -362061147:case 873989413:case -1794099687:case 1405040263:case 1966152723:case 212266186:case -67491543:case 2071350888:case -543019269:case 3095028:case 414896384:case -1839722072:case 1116694285:case -1865144703:case -1505790081:case 988242095:case -2111537609:case -1664506711:case 656974614:case 341659737:case -858812229:case -2097116191:case 1966196898:case -1322984979:case 1405084438:case 1349592514:case 588448114:case -1926606354:case -1839775080:case -1203468463:case 815142006:case 2003595768:case -239099644:case 1999993080:case -1656256565:case -105029392:case -869293886:case -1328467905:case -1274442605:case -796853009:case 527193556:case 1769775205:case -854558288:case 1770569149:case -1666360360:case 546971423:case 1293072352:case -1329640609:case -866373557:case 585556225:case -1588251967:case 1958974435:case -341841389:case 1573355445:case 787950656:case -1395437173:case -1962306676:case 135951602:case -19899622:case 1755155232:case -92666217:case -2090796143:case -1592164992:case -1880505174:case 1691320007:case -1293521172:case -256832398:case 343003813:case 1625405840:case -1231984413:case -248582501:case -923278914:case -1638191466:case -1938366716:case 1334053505:case 1098769576:case -1253184269:case -1876267003:case 2118525043:case 1889345738:case 631391277:case -1716174379:case -1491259806:case -1596160798:case 1263193393:case -1239149108:case -1501207065:case -75258692:case -80536568:case -80264882:case -1799963504:case -1302619065:case -1668716022:case -1201364299:case -120595857:case -27421163:case 1790234574:case -2005472885:case -61833202:case -1528005877:case 1879450554:case -1470901650:case -1963844248:case 383432300:case -2096275793:case 1719579098:case -1125672858:case -1111243300:case -129342928:case -1344707909:case 1605657351:case 520351938:case -43737053:case -981406758:case 232075101:case 1493874940:case 188662599:case 1341702384:case 2131946362:case -1229553702:case 814154857:case 336447348:case -511943417:case -1244087722:case 1369329346:case -1245042166:case -1459179776:case 1356972381:case 1420304705:case -1562281103:case 186555060:case -1491459488:case -918269635:case 622310444:case -1861181648:case 204442875:case -1186339443:case -1222787755:case -531855260:case 908263142:case 1400060391:case 700591008:case 2056036882:case 913984538:case 297635230:case 512252306:case -282942360:case -1399675440:case -1528850031:case -346076689:case -1319473805:case -1012956543:case -1401315045:case 1463983852:case -1340212393:case -1336895037:case 1046116283:
+				case 1316941135:case 804029191:case -75125341:case -1182174803:case 153870420:case -1682247576:case 287807097:case 482608509:case 1618976105:case -37915296:case 1852215349:case -1598090635:case 268490427:case -1710913560:case 1083904387:case 1084591074:case -926474083:case -1508512636:case 659102599:case 1764172231:case -310813865:case -735773638:case 1343252492:case -1819058441:case 672376852:case 1644385057:case -1517925876:case -1249364649:case -1511505468:case -263511994:case 1167476406:case -459145031:case 1465089868:case 179180263:case 1668935462:case -235603001:case -1280884800:case 64372277:case -1411698151:case -839041412:case -1290704234:case 1937989817:case -932916176:case 150234245:case 166794164:case -150413459:case 1646140418:case -824153103:case -1039717966:case 1102112331:case 1849706483:case 699379795:case 1418030008:case -1531153537:case -1057779028:case 686218487:case 1635525003:case 680571322:case -1031360687:case -1024076303:case -1062272608:case 2009377951:case -745473163:case -1704998113:case -866740080:case -135772109:case -330828551:case -70617366:case 1703419801:case -362061147:case -1430292747:case 1322564265:case 873989413:case 1237840316:case -1794099687:case -1992675473:case 1405040263:case 1966152723:case 371289675:case 734140363:case -983058553:case -708684318:case 212266186:case -67491543:case 2071350888:case -543019269:case -1617961863:case -1978929999:case 3095028:case 414896384:case -1839722072:case 1116694285:case -1865144703:case -1505790081:case 988242095:case -2111537609:case -1664506711:case 656974614:case 341659737:case -858812229:case -2097116191:case 1966196898:case -1322984979:case 1405084438:case 1349592514:case 588448114:case -1926606354:case -1839775080:case -1203468463:case 815142006:case 2003595768:case -239099644:case 1999993080:case -1656256565:case -105029392:case -869293886:case -1328467905:case 1392170715:case -1274442605:case -796853009:case 527193556:case -1129785329:case 1769775205:case -854558288:case 1770569149:case -1666360360:case 546971423:case 1293072352:case -1329640609:case -866373557:case 585556225:case -1588251967:case 1958974435:case -341841389:case 1573355445:case 787950656:case -1395437173:case -1962306676:case 135951602:case -19899622:case 1755155232:case -92666217:case -2090796143:case -1592164992:case -1880505174:case 1691320007:case -1293521172:case -256832398:case 343003813:case 1625405840:case -1231984413:case -248582501:case -923278914:case -1638191466:case -1938366716:case 1334053505:case 1098769576:case -1253184269:case -1876267003:case 2118525043:case 1889345738:case -644869585:case 1341989308:case 2041958567:case 908285739:case 631391277:case -1716174379:case -1491259806:case -1596160798:case 1263193393:case -1239149108:case -1501207065:case -75258692:case -80536568:case -80264882:case -1799963504:case -1302619065:case -1668716022:case -1201364299:case -120595857:case -27421163:case 1790234574:case -2005472885:case -61833202:case -1528005877:case 1879450554:case -1470901650:case -1963844248:case 383432300:case -2096275793:case 1719579098:case -1125672858:case -1111243300:case -129342928:case -1344707909:case 1605657351:case 520351938:case -43737053:case -981406758:case 232075101:case 1493874940:case 188662599:case 1341702384:case 2131946362:case -1229553702:case 814154857:case 336447348:case -511943417:case 694704898:case -1244087722:case 1369329346:case -1245042166:case -1459179776:case 1356972381:case -1173492971:case 1420304705:case -1562281103:case 186555060:case -1491459488:case -918269635:case 622310444:case -1861181648:case 204442875:case -1186339443:case -1222787755:case -531855260:case 908263142:case 1400060391:case 700591008:case 2056036882:case 913984538:case 297635230:case 512252306:case -282942360:case -1399675440:case -1528850031:case -346076689:case -1319473805:case -1012956543:case -1401315045:case 1463983852:case -1340212393:case -1336895037:case 1046116283:
 				{
-					if (( (( ( __temp_hash26217 == 1316941135 ) && field.equals("obtainStyledAttributes") )) || ( (( ( __temp_hash26217 == 804029191 ) && field.equals("getString") )) || ( (( ( __temp_hash26217 == -75125341 ) && field.equals("getText") )) || ( (( ( __temp_hash26217 == -1682247576 ) && field.equals("getBaseContext") )) || ( (( ( __temp_hash26217 == 287807097 ) && field.equals("getAssets") )) || ( (( ( __temp_hash26217 == -1992675473 ) && field.equals("getResources") )) || ( (( ( __temp_hash26217 == 482608509 ) && field.equals("getPackageManager") )) || ( (( ( __temp_hash26217 == 1618976105 ) && field.equals("getContentResolver") )) || ( (( ( __temp_hash26217 == -37915296 ) && field.equals("getMainLooper") )) || ( (( ( __temp_hash26217 == 1852215349 ) && field.equals("getApplicationContext") )) || ( (( ( __temp_hash26217 == -1598090635 ) && field.equals("getClassLoader") )) || ( (( ( __temp_hash26217 == 268490427 ) && field.equals("getPackageName") )) || ( (( ( __temp_hash26217 == -1710913560 ) && field.equals("getApplicationInfo") )) || ( (( ( __temp_hash26217 == 1083904387 ) && field.equals("getPackageResourcePath") )) || ( (( ( __temp_hash26217 == 1084591074 ) && field.equals("getPackageCodePath") )) || ( (( ( __temp_hash26217 == -926474083 ) && field.equals("getSharedPreferences") )) || ( (( ( __temp_hash26217 == -1508512636 ) && field.equals("openFileInput") )) || ( (( ( __temp_hash26217 == 659102599 ) && field.equals("openFileOutput") )) || ( (( ( __temp_hash26217 == 1764172231 ) && field.equals("deleteFile") )) || ( (( ( __temp_hash26217 == -310813865 ) && field.equals("getFileStreamPath") )) || ( (( ( __temp_hash26217 == -735773638 ) && field.equals("fileList") )) || ( (( ( __temp_hash26217 == 1343252492 ) && field.equals("getFilesDir") )) || ( (( ( __temp_hash26217 == -1819058441 ) && field.equals("getExternalFilesDir") )) || ( (( ( __temp_hash26217 == 672376852 ) && field.equals("getObbDir") )) || ( (( ( __temp_hash26217 == 1644385057 ) && field.equals("getCacheDir") )) || ( (( ( __temp_hash26217 == -1517925876 ) && field.equals("getExternalCacheDir") )) || ( (( ( __temp_hash26217 == -1249364649 ) && field.equals("getDir") )) || ( (( ( __temp_hash26217 == -1511505468 ) && field.equals("openOrCreateDatabase") )) || ( (( ( __temp_hash26217 == -263511994 ) && field.equals("deleteDatabase") )) || ( (( ( __temp_hash26217 == 1167476406 ) && field.equals("getDatabasePath") )) || ( (( ( __temp_hash26217 == -459145031 ) && field.equals("databaseList") )) || ( (( ( __temp_hash26217 == 1465089868 ) && field.equals("getWallpaper") )) || ( (( ( __temp_hash26217 == 179180263 ) && field.equals("peekWallpaper") )) || ( (( ( __temp_hash26217 == 1668935462 ) && field.equals("getWallpaperDesiredMinimumWidth") )) || ( (( ( __temp_hash26217 == -235603001 ) && field.equals("getWallpaperDesiredMinimumHeight") )) || ( (( ( __temp_hash26217 == -1280884800 ) && field.equals("setWallpaper") )) || ( (( ( __temp_hash26217 == 64372277 ) && field.equals("clearWallpaper") )) || ( (( ( __temp_hash26217 == -1411698151 ) && field.equals("sendBroadcast") )) || ( (( ( __temp_hash26217 == -839041412 ) && field.equals("sendOrderedBroadcast") )) || ( (( ( __temp_hash26217 == -932916176 ) && field.equals("sendStickyBroadcast") )) || ( (( ( __temp_hash26217 == 150234245 ) && field.equals("sendStickyOrderedBroadcast") )) || ( (( ( __temp_hash26217 == 166794164 ) && field.equals("removeStickyBroadcast") )) || ( (( ( __temp_hash26217 == -1039717966 ) && field.equals("registerReceiver") )) || ( (( ( __temp_hash26217 == 1102112331 ) && field.equals("unregisterReceiver") )) || ( (( ( __temp_hash26217 == 1849706483 ) && field.equals("startService") )) || ( (( ( __temp_hash26217 == 699379795 ) && field.equals("stopService") )) || ( (( ( __temp_hash26217 == 1418030008 ) && field.equals("bindService") )) || ( (( ( __temp_hash26217 == -1531153537 ) && field.equals("unbindService") )) || ( (( ( __temp_hash26217 == -1057779028 ) && field.equals("startInstrumentation") )) || ( (( ( __temp_hash26217 == 686218487 ) && field.equals("checkPermission") )) || ( (( ( __temp_hash26217 == 1635525003 ) && field.equals("checkCallingPermission") )) || ( (( ( __temp_hash26217 == 680571322 ) && field.equals("checkCallingOrSelfPermission") )) || ( (( ( __temp_hash26217 == -1031360687 ) && field.equals("enforcePermission") )) || ( (( ( __temp_hash26217 == -1024076303 ) && field.equals("enforceCallingPermission") )) || ( (( ( __temp_hash26217 == -1062272608 ) && field.equals("enforceCallingOrSelfPermission") )) || ( (( ( __temp_hash26217 == 2009377951 ) && field.equals("grantUriPermission") )) || ( (( ( __temp_hash26217 == -745473163 ) && field.equals("revokeUriPermission") )) || ( (( ( __temp_hash26217 == -1704998113 ) && field.equals("checkCallingUriPermission") )) || ( (( ( __temp_hash26217 == -866740080 ) && field.equals("checkCallingOrSelfUriPermission") )) || ( (( ( __temp_hash26217 == -135772109 ) && field.equals("checkUriPermission") )) || ( (( ( __temp_hash26217 == -330828551 ) && field.equals("enforceCallingUriPermission") )) || ( (( ( __temp_hash26217 == -70617366 ) && field.equals("enforceCallingOrSelfUriPermission") )) || ( (( ( __temp_hash26217 == 1703419801 ) && field.equals("enforceUriPermission") )) || ( (( ( __temp_hash26217 == -362061147 ) && field.equals("createPackageContext") )) || ( (( ( __temp_hash26217 == 873989413 ) && field.equals("isRestricted") )) || ( (( ( __temp_hash26217 == -1794099687 ) && field.equals("attachBaseContext") )) || ( (( ( __temp_hash26217 == 1405040263 ) && field.equals("setTheme") )) || ( (( ( __temp_hash26217 == 1966152723 ) && field.equals("getTheme") )) || ( (( ( __temp_hash26217 == 212266186 ) && field.equals("onActionModeFinished") )) || ( (( ( __temp_hash26217 == -67491543 ) && field.equals("onActionModeStarted") )) || ( (( ( __temp_hash26217 == 2071350888 ) && field.equals("onWindowStartingActionMode") )) || ( (( ( __temp_hash26217 == -543019269 ) && field.equals("startActionMode") )) || ( (( ( __temp_hash26217 == 3095028 ) && field.equals("dump") )) || ( (( ( __temp_hash26217 == 414896384 ) && field.equals("onCreateView") )) || ( (( ( __temp_hash26217 == -1839722072 ) && field.equals("runOnUiThread") )) || ( (( ( __temp_hash26217 == 1116694285 ) && field.equals("getVolumeControlStream") )) || ( (( ( __temp_hash26217 == -1865144703 ) && field.equals("setVolumeControlStream") )) || ( (( ( __temp_hash26217 == -1505790081 ) && field.equals("setSecondaryProgress") )) || ( (( ( __temp_hash26217 == 988242095 ) && field.equals("setProgress") )) || ( (( ( __temp_hash26217 == -2111537609 ) && field.equals("setProgressBarIndeterminate") )) || ( (( ( __temp_hash26217 == -1664506711 ) && field.equals("setProgressBarIndeterminateVisibility") )) || ( (( ( __temp_hash26217 == 656974614 ) && field.equals("setProgressBarVisibility") )) || ( (( ( __temp_hash26217 == 341659737 ) && field.equals("onChildTitleChanged") )) || ( (( ( __temp_hash26217 == -858812229 ) && field.equals("onTitleChanged") )) || ( (( ( __temp_hash26217 == -2097116191 ) && field.equals("getTitleColor") )) || ( (( ( __temp_hash26217 == 1966196898 ) && field.equals("getTitle") )) || ( (( ( __temp_hash26217 == -1322984979 ) && field.equals("setTitleColor") )) || ( (( ( __temp_hash26217 == 1405084438 ) && field.equals("setTitle") )) || ( (( ( __temp_hash26217 == 1349592514 ) && field.equals("getPreferences") )) || ( (( ( __temp_hash26217 == 588448114 ) && field.equals("getComponentName") )) || ( (( ( __temp_hash26217 == -1926606354 ) && field.equals("getLocalClassName") )) || ( (( ( __temp_hash26217 == -1839775080 ) && field.equals("moveTaskToBack") )) || ( (( ( __temp_hash26217 == -1203468463 ) && field.equals("isTaskRoot") )) || ( (( ( __temp_hash26217 == 815142006 ) && field.equals("getTaskId") )) || ( (( ( __temp_hash26217 == 2003595768 ) && field.equals("getRequestedOrientation") )) || ( (( ( __temp_hash26217 == -239099644 ) && field.equals("setRequestedOrientation") )) || ( (( ( __temp_hash26217 == 1999993080 ) && field.equals("createPendingResult") )) || ( (( ( __temp_hash26217 == -1656256565 ) && field.equals("onActivityResult") )) || ( (( ( __temp_hash26217 == -105029392 ) && field.equals("finishActivityFromChild") )) || ( (( ( __temp_hash26217 == -869293886 ) && field.equals("finishActivity") )) || ( (( ( __temp_hash26217 == -1328467905 ) && field.equals("finishFromChild") )) || ( (( ( __temp_hash26217 == -1274442605 ) && field.equals("finish") )) || ( (( ( __temp_hash26217 == -796853009 ) && field.equals("recreate") )) || ( (( ( __temp_hash26217 == 527193556 ) && field.equals("isChangingConfigurations") )) || ( (( ( __temp_hash26217 == 1769775205 ) && field.equals("isFinishing") )) || ( (( ( __temp_hash26217 == -854558288 ) && field.equals("setVisible") )) || ( (( ( __temp_hash26217 == 1770569149 ) && field.equals("getCallingActivity") )) || ( (( ( __temp_hash26217 == -1666360360 ) && field.equals("getCallingPackage") )) || ( (( ( __temp_hash26217 == 546971423 ) && field.equals("setResult") )) || ( (( ( __temp_hash26217 == 1293072352 ) && field.equals("overridePendingTransition") )) || ( (( ( __temp_hash26217 == -1329640609 ) && field.equals("startIntentSenderFromChild") )) || ( (( ( __temp_hash26217 == -866373557 ) && field.equals("startActivityFromFragment") )) || ( (( ( __temp_hash26217 == 585556225 ) && field.equals("startActivityFromChild") )) || ( (( ( __temp_hash26217 == -1588251967 ) && field.equals("startNextMatchingActivity") )) || ( (( ( __temp_hash26217 == 1958974435 ) && field.equals("startActivityIfNeeded") )) || ( (( ( __temp_hash26217 == -341841389 ) && field.equals("startIntentSenderForResult") )) || ( (( ( __temp_hash26217 == 1573355445 ) && field.equals("startActivityForResult") )) || ( (( ( __temp_hash26217 == 787950656 ) && field.equals("getMenuInflater") )) || ( (( ( __temp_hash26217 == -1395437173 ) && field.equals("getLayoutInflater") )) || ( (( ( __temp_hash26217 == -1962306676 ) && field.equals("setFeatureDrawableAlpha") )) || ( (( ( __temp_hash26217 == 135951602 ) && field.equals("setFeatureDrawable") )) || ( (( ( __temp_hash26217 == -19899622 ) && field.equals("setFeatureDrawableUri") )) || ( (( ( __temp_hash26217 == 1755155232 ) && field.equals("setFeatureDrawableResource") )) || ( (( ( __temp_hash26217 == -92666217 ) && field.equals("requestWindowFeature") )) || ( (( ( __temp_hash26217 == -2090796143 ) && field.equals("takeKeyEvents") )) || ( (( ( __temp_hash26217 == -1592164992 ) && field.equals("triggerSearch") )) || ( (( ( __temp_hash26217 == -1880505174 ) && field.equals("startSearch") )) || ( (( ( __temp_hash26217 == 1691320007 ) && field.equals("onSearchRequested") )) || ( (( ( __temp_hash26217 == -1293521172 ) && field.equals("removeDialog") )) || ( (( ( __temp_hash26217 == -256832398 ) && field.equals("dismissDialog") )) || ( (( ( __temp_hash26217 == 343003813 ) && field.equals("showDialog") )) || ( (( ( __temp_hash26217 == 1625405840 ) && field.equals("onPrepareDialog") )) || ( (( ( __temp_hash26217 == -1231984413 ) && field.equals("onCreateDialog") )) || ( (( ( __temp_hash26217 == -248582501 ) && field.equals("onContextMenuClosed") )) || ( (( ( __temp_hash26217 == -923278914 ) && field.equals("onContextItemSelected") )) || ( (( ( __temp_hash26217 == -1638191466 ) && field.equals("closeContextMenu") )) || ( (( ( __temp_hash26217 == -1938366716 ) && field.equals("openContextMenu") )) || ( (( ( __temp_hash26217 == 1334053505 ) && field.equals("unregisterForContextMenu") )) || ( (( ( __temp_hash26217 == 1098769576 ) && field.equals("registerForContextMenu") )) || ( (( ( __temp_hash26217 == -1253184269 ) && field.equals("onCreateContextMenu") )) || ( (( ( __temp_hash26217 == -1876267003 ) && field.equals("closeOptionsMenu") )) || ( (( ( __temp_hash26217 == 2118525043 ) && field.equals("openOptionsMenu") )) || ( (( ( __temp_hash26217 == 1889345738 ) && field.equals("onOptionsMenuClosed") )) || ( (( ( __temp_hash26217 == 631391277 ) && field.equals("onOptionsItemSelected") )) || ( (( ( __temp_hash26217 == -1716174379 ) && field.equals("onPrepareOptionsMenu") )) || ( (( ( __temp_hash26217 == -1491259806 ) && field.equals("onCreateOptionsMenu") )) || ( (( ( __temp_hash26217 == -1596160798 ) && field.equals("invalidateOptionsMenu") )) || ( (( ( __temp_hash26217 == 1263193393 ) && field.equals("onPanelClosed") )) || ( (( ( __temp_hash26217 == -1239149108 ) && field.equals("onMenuItemSelected") )) || ( (( ( __temp_hash26217 == -1501207065 ) && field.equals("onMenuOpened") )) || ( (( ( __temp_hash26217 == -75258692 ) && field.equals("onPreparePanel") )) || ( (( ( __temp_hash26217 == -80536568 ) && field.equals("onCreatePanelMenu") )) || ( (( ( __temp_hash26217 == -80264882 ) && field.equals("onCreatePanelView") )) || ( (( ( __temp_hash26217 == -1799963504 ) && field.equals("dispatchPopulateAccessibilityEvent") )) || ( (( ( __temp_hash26217 == -1302619065 ) && field.equals("dispatchGenericMotionEvent") )) || ( (( ( __temp_hash26217 == -1668716022 ) && field.equals("dispatchTrackballEvent") )) || ( (( ( __temp_hash26217 == -1201364299 ) && field.equals("dispatchTouchEvent") )) || ( (( ( __temp_hash26217 == -120595857 ) && field.equals("dispatchKeyShortcutEvent") )) || ( (( ( __temp_hash26217 == -27421163 ) && field.equals("dispatchKeyEvent") )) || ( (( ( __temp_hash26217 == 1790234574 ) && field.equals("hasWindowFocus") )) || ( (( ( __temp_hash26217 == -2005472885 ) && field.equals("onDetachedFromWindow") )) || ( (( ( __temp_hash26217 == -61833202 ) && field.equals("onAttachedToWindow") )) || ( (( ( __temp_hash26217 == -1528005877 ) && field.equals("onWindowFocusChanged") )) || ( (( ( __temp_hash26217 == 1879450554 ) && field.equals("onContentChanged") )) || ( (( ( __temp_hash26217 == -1470901650 ) && field.equals("onWindowAttributesChanged") )) || ( (( ( __temp_hash26217 == -1963844248 ) && field.equals("onUserInteraction") )) || ( (( ( __temp_hash26217 == 383432300 ) && field.equals("onGenericMotionEvent") )) || ( (( ( __temp_hash26217 == -2096275793 ) && field.equals("onTrackballEvent") )) || ( (( ( __temp_hash26217 == 1719579098 ) && field.equals("onTouchEvent") )) || ( (( ( __temp_hash26217 == -1125672858 ) && field.equals("onKeyShortcut") )) || ( (( ( __temp_hash26217 == -1111243300 ) && field.equals("onBackPressed") )) || ( (( ( __temp_hash26217 == -129342928 ) && field.equals("onKeyMultiple") )) || ( (( ( __temp_hash26217 == -1344707909 ) && field.equals("onKeyUp") )) || ( (( ( __temp_hash26217 == 1605657351 ) && field.equals("onKeyLongPress") )) || ( (( ( __temp_hash26217 == 520351938 ) && field.equals("onKeyDown") )) || ( (( ( __temp_hash26217 == -43737053 ) && field.equals("setDefaultKeyMode") )) || ( (( ( __temp_hash26217 == -981406758 ) && field.equals("setFinishOnTouchOutside") )) || ( (( ( __temp_hash26217 == 232075101 ) && field.equals("addContentView") )) || ( (( ( __temp_hash26217 == 1493874940 ) && field.equals("setContentView") )) || ( (( ( __temp_hash26217 == 188662599 ) && field.equals("getActionBar") )) || ( (( ( __temp_hash26217 == 1341702384 ) && field.equals("findViewById") )) || ( (( ( __temp_hash26217 == 2131946362 ) && field.equals("stopManagingCursor") )) || ( (( ( __temp_hash26217 == -1229553702 ) && field.equals("startManagingCursor") )) || ( (( ( __temp_hash26217 == 814154857 ) && field.equals("managedQuery") )) || ( (( ( __temp_hash26217 == 336447348 ) && field.equals("onAttachFragment") )) || ( (( ( __temp_hash26217 == -511943417 ) && field.equals("getFragmentManager") )) || ( (( ( __temp_hash26217 == -1244087722 ) && field.equals("onLowMemory") )) || ( (( ( __temp_hash26217 == 1369329346 ) && field.equals("onRetainNonConfigurationInstance") )) || ( (( ( __temp_hash26217 == -1245042166 ) && field.equals("getLastNonConfigurationInstance") )) || ( (( ( __temp_hash26217 == -1459179776 ) && field.equals("getChangingConfigurations") )) || ( (( ( __temp_hash26217 == 1356972381 ) && field.equals("onConfigurationChanged") )) || ( (( ( __temp_hash26217 == 1420304705 ) && field.equals("onCreateDescription") )) || ( (( ( __temp_hash26217 == -1562281103 ) && field.equals("onCreateThumbnail") )) || ( (( ( __temp_hash26217 == 186555060 ) && field.equals("onUserLeaveHint") )) || ( (( ( __temp_hash26217 == -1491459488 ) && field.equals("onSaveInstanceState") )) || ( (( ( __temp_hash26217 == -918269635 ) && field.equals("onNewIntent") )) || ( (( ( __temp_hash26217 == 622310444 ) && field.equals("onPostResume") )) || ( (( ( __temp_hash26217 == -1861181648 ) && field.equals("onRestart") )) || ( (( ( __temp_hash26217 == 204442875 ) && field.equals("onPostCreate") )) || ( (( ( __temp_hash26217 == -1186339443 ) && field.equals("onRestoreInstanceState") )) || ( (( ( __temp_hash26217 == -1222787755 ) && field.equals("getCurrentFocus") )) || ( (( ( __temp_hash26217 == -531855260 ) && field.equals("getLoaderManager") )) || ( (( ( __temp_hash26217 == 908263142 ) && field.equals("getWindow") )) || ( (( ( __temp_hash26217 == 1400060391 ) && field.equals("getWindowManager") )) || ( (( ( __temp_hash26217 == 700591008 ) && field.equals("getParent") )) || ( (( ( __temp_hash26217 == 2056036882 ) && field.equals("isChild") )) || ( (( ( __temp_hash26217 == 913984538 ) && field.equals("getApplication") )) || ( (( ( __temp_hash26217 == 297635230 ) && field.equals("setIntent") )) || ( (( ( __temp_hash26217 == 512252306 ) && field.equals("getIntent") )) || ( (( ( __temp_hash26217 == -282942360 ) && field.equals("onApplyThemeResource") )) || ( (( ( __temp_hash26217 == -1399675440 ) && field.equals("getSystemService") )) || ( (( ( __temp_hash26217 == -1528850031 ) && field.equals("startActivity") )) || ( (( ( __temp_hash26217 == -346076689 ) && field.equals("startActivities") )) || ( (( ( __temp_hash26217 == -1319473805 ) && field.equals("startIntentSender") )) || ( (( ( __temp_hash26217 == -1012956543 ) && field.equals("onStop") )) || ( (( ( __temp_hash26217 == -1401315045 ) && field.equals("onDestroy") )) || ( (( ( __temp_hash26217 == 1463983852 ) && field.equals("onResume") )) || ( (( ( __temp_hash26217 == -1340212393 ) && field.equals("onPause") )) || ( (( ( __temp_hash26217 == -1336895037 ) && field.equals("onStart") )) || field.equals("onCreate") ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )) 
+					if (( (( ( __temp_hash4655 == 1316941135 ) && field.equals("obtainStyledAttributes") )) || ( (( ( __temp_hash4655 == 804029191 ) && field.equals("getString") )) || ( (( ( __temp_hash4655 == -75125341 ) && field.equals("getText") )) || ( (( ( __temp_hash4655 == -1182174803 ) && field.equals("unregisterComponentCallbacks") )) || ( (( ( __temp_hash4655 == 153870420 ) && field.equals("registerComponentCallbacks") )) || ( (( ( __temp_hash4655 == -1682247576 ) && field.equals("getBaseContext") )) || ( (( ( __temp_hash4655 == 287807097 ) && field.equals("getAssets") )) || ( (( ( __temp_hash4655 == 482608509 ) && field.equals("getPackageManager") )) || ( (( ( __temp_hash4655 == 1618976105 ) && field.equals("getContentResolver") )) || ( (( ( __temp_hash4655 == -37915296 ) && field.equals("getMainLooper") )) || ( (( ( __temp_hash4655 == 1852215349 ) && field.equals("getApplicationContext") )) || ( (( ( __temp_hash4655 == -1598090635 ) && field.equals("getClassLoader") )) || ( (( ( __temp_hash4655 == 268490427 ) && field.equals("getPackageName") )) || ( (( ( __temp_hash4655 == -1710913560 ) && field.equals("getApplicationInfo") )) || ( (( ( __temp_hash4655 == 1083904387 ) && field.equals("getPackageResourcePath") )) || ( (( ( __temp_hash4655 == 1084591074 ) && field.equals("getPackageCodePath") )) || ( (( ( __temp_hash4655 == -926474083 ) && field.equals("getSharedPreferences") )) || ( (( ( __temp_hash4655 == -1508512636 ) && field.equals("openFileInput") )) || ( (( ( __temp_hash4655 == 659102599 ) && field.equals("openFileOutput") )) || ( (( ( __temp_hash4655 == 1764172231 ) && field.equals("deleteFile") )) || ( (( ( __temp_hash4655 == -310813865 ) && field.equals("getFileStreamPath") )) || ( (( ( __temp_hash4655 == -735773638 ) && field.equals("fileList") )) || ( (( ( __temp_hash4655 == 1343252492 ) && field.equals("getFilesDir") )) || ( (( ( __temp_hash4655 == -1819058441 ) && field.equals("getExternalFilesDir") )) || ( (( ( __temp_hash4655 == 672376852 ) && field.equals("getObbDir") )) || ( (( ( __temp_hash4655 == 1644385057 ) && field.equals("getCacheDir") )) || ( (( ( __temp_hash4655 == -1517925876 ) && field.equals("getExternalCacheDir") )) || ( (( ( __temp_hash4655 == -1249364649 ) && field.equals("getDir") )) || ( (( ( __temp_hash4655 == -1511505468 ) && field.equals("openOrCreateDatabase") )) || ( (( ( __temp_hash4655 == -263511994 ) && field.equals("deleteDatabase") )) || ( (( ( __temp_hash4655 == 1167476406 ) && field.equals("getDatabasePath") )) || ( (( ( __temp_hash4655 == -459145031 ) && field.equals("databaseList") )) || ( (( ( __temp_hash4655 == 1465089868 ) && field.equals("getWallpaper") )) || ( (( ( __temp_hash4655 == 179180263 ) && field.equals("peekWallpaper") )) || ( (( ( __temp_hash4655 == 1668935462 ) && field.equals("getWallpaperDesiredMinimumWidth") )) || ( (( ( __temp_hash4655 == -235603001 ) && field.equals("getWallpaperDesiredMinimumHeight") )) || ( (( ( __temp_hash4655 == -1280884800 ) && field.equals("setWallpaper") )) || ( (( ( __temp_hash4655 == 64372277 ) && field.equals("clearWallpaper") )) || ( (( ( __temp_hash4655 == -1411698151 ) && field.equals("sendBroadcast") )) || ( (( ( __temp_hash4655 == -839041412 ) && field.equals("sendOrderedBroadcast") )) || ( (( ( __temp_hash4655 == -1290704234 ) && field.equals("sendBroadcastAsUser") )) || ( (( ( __temp_hash4655 == 1937989817 ) && field.equals("sendOrderedBroadcastAsUser") )) || ( (( ( __temp_hash4655 == -932916176 ) && field.equals("sendStickyBroadcast") )) || ( (( ( __temp_hash4655 == 150234245 ) && field.equals("sendStickyOrderedBroadcast") )) || ( (( ( __temp_hash4655 == 166794164 ) && field.equals("removeStickyBroadcast") )) || ( (( ( __temp_hash4655 == -150413459 ) && field.equals("sendStickyBroadcastAsUser") )) || ( (( ( __temp_hash4655 == 1646140418 ) && field.equals("sendStickyOrderedBroadcastAsUser") )) || ( (( ( __temp_hash4655 == -824153103 ) && field.equals("removeStickyBroadcastAsUser") )) || ( (( ( __temp_hash4655 == -1039717966 ) && field.equals("registerReceiver") )) || ( (( ( __temp_hash4655 == 1102112331 ) && field.equals("unregisterReceiver") )) || ( (( ( __temp_hash4655 == 1849706483 ) && field.equals("startService") )) || ( (( ( __temp_hash4655 == 699379795 ) && field.equals("stopService") )) || ( (( ( __temp_hash4655 == 1418030008 ) && field.equals("bindService") )) || ( (( ( __temp_hash4655 == -1531153537 ) && field.equals("unbindService") )) || ( (( ( __temp_hash4655 == -1057779028 ) && field.equals("startInstrumentation") )) || ( (( ( __temp_hash4655 == 686218487 ) && field.equals("checkPermission") )) || ( (( ( __temp_hash4655 == 1635525003 ) && field.equals("checkCallingPermission") )) || ( (( ( __temp_hash4655 == 680571322 ) && field.equals("checkCallingOrSelfPermission") )) || ( (( ( __temp_hash4655 == -1031360687 ) && field.equals("enforcePermission") )) || ( (( ( __temp_hash4655 == -1024076303 ) && field.equals("enforceCallingPermission") )) || ( (( ( __temp_hash4655 == -1062272608 ) && field.equals("enforceCallingOrSelfPermission") )) || ( (( ( __temp_hash4655 == 2009377951 ) && field.equals("grantUriPermission") )) || ( (( ( __temp_hash4655 == -745473163 ) && field.equals("revokeUriPermission") )) || ( (( ( __temp_hash4655 == -1704998113 ) && field.equals("checkCallingUriPermission") )) || ( (( ( __temp_hash4655 == -866740080 ) && field.equals("checkCallingOrSelfUriPermission") )) || ( (( ( __temp_hash4655 == -135772109 ) && field.equals("checkUriPermission") )) || ( (( ( __temp_hash4655 == -330828551 ) && field.equals("enforceCallingUriPermission") )) || ( (( ( __temp_hash4655 == -70617366 ) && field.equals("enforceCallingOrSelfUriPermission") )) || ( (( ( __temp_hash4655 == 1703419801 ) && field.equals("enforceUriPermission") )) || ( (( ( __temp_hash4655 == -362061147 ) && field.equals("createPackageContext") )) || ( (( ( __temp_hash4655 == -1430292747 ) && field.equals("createConfigurationContext") )) || ( (( ( __temp_hash4655 == 1322564265 ) && field.equals("createDisplayContext") )) || ( (( ( __temp_hash4655 == 873989413 ) && field.equals("isRestricted") )) || ( (( ( __temp_hash4655 == 1237840316 ) && field.equals("applyOverrideConfiguration") )) || ( (( ( __temp_hash4655 == -1794099687 ) && field.equals("attachBaseContext") )) || ( (( ( __temp_hash4655 == -1992675473 ) && field.equals("getResources") )) || ( (( ( __temp_hash4655 == 1405040263 ) && field.equals("setTheme") )) || ( (( ( __temp_hash4655 == 1966152723 ) && field.equals("getTheme") )) || ( (( ( __temp_hash4655 == 371289675 ) && field.equals("getParentActivityIntent") )) || ( (( ( __temp_hash4655 == 734140363 ) && field.equals("navigateUpToFromChild") )) || ( (( ( __temp_hash4655 == -983058553 ) && field.equals("navigateUpTo") )) || ( (( ( __temp_hash4655 == -708684318 ) && field.equals("shouldUpRecreateTask") )) || ( (( ( __temp_hash4655 == 212266186 ) && field.equals("onActionModeFinished") )) || ( (( ( __temp_hash4655 == -67491543 ) && field.equals("onActionModeStarted") )) || ( (( ( __temp_hash4655 == 2071350888 ) && field.equals("onWindowStartingActionMode") )) || ( (( ( __temp_hash4655 == -543019269 ) && field.equals("startActionMode") )) || ( (( ( __temp_hash4655 == -1617961863 ) && field.equals("setImmersive") )) || ( (( ( __temp_hash4655 == -1978929999 ) && field.equals("isImmersive") )) || ( (( ( __temp_hash4655 == 3095028 ) && field.equals("dump") )) || ( (( ( __temp_hash4655 == 414896384 ) && field.equals("onCreateView") )) || ( (( ( __temp_hash4655 == -1839722072 ) && field.equals("runOnUiThread") )) || ( (( ( __temp_hash4655 == 1116694285 ) && field.equals("getVolumeControlStream") )) || ( (( ( __temp_hash4655 == -1865144703 ) && field.equals("setVolumeControlStream") )) || ( (( ( __temp_hash4655 == -1505790081 ) && field.equals("setSecondaryProgress") )) || ( (( ( __temp_hash4655 == 988242095 ) && field.equals("setProgress") )) || ( (( ( __temp_hash4655 == -2111537609 ) && field.equals("setProgressBarIndeterminate") )) || ( (( ( __temp_hash4655 == -1664506711 ) && field.equals("setProgressBarIndeterminateVisibility") )) || ( (( ( __temp_hash4655 == 656974614 ) && field.equals("setProgressBarVisibility") )) || ( (( ( __temp_hash4655 == 341659737 ) && field.equals("onChildTitleChanged") )) || ( (( ( __temp_hash4655 == -858812229 ) && field.equals("onTitleChanged") )) || ( (( ( __temp_hash4655 == -2097116191 ) && field.equals("getTitleColor") )) || ( (( ( __temp_hash4655 == 1966196898 ) && field.equals("getTitle") )) || ( (( ( __temp_hash4655 == -1322984979 ) && field.equals("setTitleColor") )) || ( (( ( __temp_hash4655 == 1405084438 ) && field.equals("setTitle") )) || ( (( ( __temp_hash4655 == 1349592514 ) && field.equals("getPreferences") )) || ( (( ( __temp_hash4655 == 588448114 ) && field.equals("getComponentName") )) || ( (( ( __temp_hash4655 == -1926606354 ) && field.equals("getLocalClassName") )) || ( (( ( __temp_hash4655 == -1839775080 ) && field.equals("moveTaskToBack") )) || ( (( ( __temp_hash4655 == -1203468463 ) && field.equals("isTaskRoot") )) || ( (( ( __temp_hash4655 == 815142006 ) && field.equals("getTaskId") )) || ( (( ( __temp_hash4655 == 2003595768 ) && field.equals("getRequestedOrientation") )) || ( (( ( __temp_hash4655 == -239099644 ) && field.equals("setRequestedOrientation") )) || ( (( ( __temp_hash4655 == 1999993080 ) && field.equals("createPendingResult") )) || ( (( ( __temp_hash4655 == -1656256565 ) && field.equals("onActivityResult") )) || ( (( ( __temp_hash4655 == -105029392 ) && field.equals("finishActivityFromChild") )) || ( (( ( __temp_hash4655 == -869293886 ) && field.equals("finishActivity") )) || ( (( ( __temp_hash4655 == -1328467905 ) && field.equals("finishFromChild") )) || ( (( ( __temp_hash4655 == 1392170715 ) && field.equals("finishAffinity") )) || ( (( ( __temp_hash4655 == -1274442605 ) && field.equals("finish") )) || ( (( ( __temp_hash4655 == -796853009 ) && field.equals("recreate") )) || ( (( ( __temp_hash4655 == 527193556 ) && field.equals("isChangingConfigurations") )) || ( (( ( __temp_hash4655 == -1129785329 ) && field.equals("isDestroyed") )) || ( (( ( __temp_hash4655 == 1769775205 ) && field.equals("isFinishing") )) || ( (( ( __temp_hash4655 == -854558288 ) && field.equals("setVisible") )) || ( (( ( __temp_hash4655 == 1770569149 ) && field.equals("getCallingActivity") )) || ( (( ( __temp_hash4655 == -1666360360 ) && field.equals("getCallingPackage") )) || ( (( ( __temp_hash4655 == 546971423 ) && field.equals("setResult") )) || ( (( ( __temp_hash4655 == 1293072352 ) && field.equals("overridePendingTransition") )) || ( (( ( __temp_hash4655 == -1329640609 ) && field.equals("startIntentSenderFromChild") )) || ( (( ( __temp_hash4655 == -866373557 ) && field.equals("startActivityFromFragment") )) || ( (( ( __temp_hash4655 == 585556225 ) && field.equals("startActivityFromChild") )) || ( (( ( __temp_hash4655 == -1588251967 ) && field.equals("startNextMatchingActivity") )) || ( (( ( __temp_hash4655 == 1958974435 ) && field.equals("startActivityIfNeeded") )) || ( (( ( __temp_hash4655 == -341841389 ) && field.equals("startIntentSenderForResult") )) || ( (( ( __temp_hash4655 == 1573355445 ) && field.equals("startActivityForResult") )) || ( (( ( __temp_hash4655 == 787950656 ) && field.equals("getMenuInflater") )) || ( (( ( __temp_hash4655 == -1395437173 ) && field.equals("getLayoutInflater") )) || ( (( ( __temp_hash4655 == -1962306676 ) && field.equals("setFeatureDrawableAlpha") )) || ( (( ( __temp_hash4655 == 135951602 ) && field.equals("setFeatureDrawable") )) || ( (( ( __temp_hash4655 == -19899622 ) && field.equals("setFeatureDrawableUri") )) || ( (( ( __temp_hash4655 == 1755155232 ) && field.equals("setFeatureDrawableResource") )) || ( (( ( __temp_hash4655 == -92666217 ) && field.equals("requestWindowFeature") )) || ( (( ( __temp_hash4655 == -2090796143 ) && field.equals("takeKeyEvents") )) || ( (( ( __temp_hash4655 == -1592164992 ) && field.equals("triggerSearch") )) || ( (( ( __temp_hash4655 == -1880505174 ) && field.equals("startSearch") )) || ( (( ( __temp_hash4655 == 1691320007 ) && field.equals("onSearchRequested") )) || ( (( ( __temp_hash4655 == -1293521172 ) && field.equals("removeDialog") )) || ( (( ( __temp_hash4655 == -256832398 ) && field.equals("dismissDialog") )) || ( (( ( __temp_hash4655 == 343003813 ) && field.equals("showDialog") )) || ( (( ( __temp_hash4655 == 1625405840 ) && field.equals("onPrepareDialog") )) || ( (( ( __temp_hash4655 == -1231984413 ) && field.equals("onCreateDialog") )) || ( (( ( __temp_hash4655 == -248582501 ) && field.equals("onContextMenuClosed") )) || ( (( ( __temp_hash4655 == -923278914 ) && field.equals("onContextItemSelected") )) || ( (( ( __temp_hash4655 == -1638191466 ) && field.equals("closeContextMenu") )) || ( (( ( __temp_hash4655 == -1938366716 ) && field.equals("openContextMenu") )) || ( (( ( __temp_hash4655 == 1334053505 ) && field.equals("unregisterForContextMenu") )) || ( (( ( __temp_hash4655 == 1098769576 ) && field.equals("registerForContextMenu") )) || ( (( ( __temp_hash4655 == -1253184269 ) && field.equals("onCreateContextMenu") )) || ( (( ( __temp_hash4655 == -1876267003 ) && field.equals("closeOptionsMenu") )) || ( (( ( __temp_hash4655 == 2118525043 ) && field.equals("openOptionsMenu") )) || ( (( ( __temp_hash4655 == 1889345738 ) && field.equals("onOptionsMenuClosed") )) || ( (( ( __temp_hash4655 == -644869585 ) && field.equals("onPrepareNavigateUpTaskStack") )) || ( (( ( __temp_hash4655 == 1341989308 ) && field.equals("onCreateNavigateUpTaskStack") )) || ( (( ( __temp_hash4655 == 2041958567 ) && field.equals("onNavigateUpFromChild") )) || ( (( ( __temp_hash4655 == 908285739 ) && field.equals("onNavigateUp") )) || ( (( ( __temp_hash4655 == 631391277 ) && field.equals("onOptionsItemSelected") )) || ( (( ( __temp_hash4655 == -1716174379 ) && field.equals("onPrepareOptionsMenu") )) || ( (( ( __temp_hash4655 == -1491259806 ) && field.equals("onCreateOptionsMenu") )) || ( (( ( __temp_hash4655 == -1596160798 ) && field.equals("invalidateOptionsMenu") )) || ( (( ( __temp_hash4655 == 1263193393 ) && field.equals("onPanelClosed") )) || ( (( ( __temp_hash4655 == -1239149108 ) && field.equals("onMenuItemSelected") )) || ( (( ( __temp_hash4655 == -1501207065 ) && field.equals("onMenuOpened") )) || ( (( ( __temp_hash4655 == -75258692 ) && field.equals("onPreparePanel") )) || ( (( ( __temp_hash4655 == -80536568 ) && field.equals("onCreatePanelMenu") )) || ( (( ( __temp_hash4655 == -80264882 ) && field.equals("onCreatePanelView") )) || ( (( ( __temp_hash4655 == -1799963504 ) && field.equals("dispatchPopulateAccessibilityEvent") )) || ( (( ( __temp_hash4655 == -1302619065 ) && field.equals("dispatchGenericMotionEvent") )) || ( (( ( __temp_hash4655 == -1668716022 ) && field.equals("dispatchTrackballEvent") )) || ( (( ( __temp_hash4655 == -1201364299 ) && field.equals("dispatchTouchEvent") )) || ( (( ( __temp_hash4655 == -120595857 ) && field.equals("dispatchKeyShortcutEvent") )) || ( (( ( __temp_hash4655 == -27421163 ) && field.equals("dispatchKeyEvent") )) || ( (( ( __temp_hash4655 == 1790234574 ) && field.equals("hasWindowFocus") )) || ( (( ( __temp_hash4655 == -2005472885 ) && field.equals("onDetachedFromWindow") )) || ( (( ( __temp_hash4655 == -61833202 ) && field.equals("onAttachedToWindow") )) || ( (( ( __temp_hash4655 == -1528005877 ) && field.equals("onWindowFocusChanged") )) || ( (( ( __temp_hash4655 == 1879450554 ) && field.equals("onContentChanged") )) || ( (( ( __temp_hash4655 == -1470901650 ) && field.equals("onWindowAttributesChanged") )) || ( (( ( __temp_hash4655 == -1963844248 ) && field.equals("onUserInteraction") )) || ( (( ( __temp_hash4655 == 383432300 ) && field.equals("onGenericMotionEvent") )) || ( (( ( __temp_hash4655 == -2096275793 ) && field.equals("onTrackballEvent") )) || ( (( ( __temp_hash4655 == 1719579098 ) && field.equals("onTouchEvent") )) || ( (( ( __temp_hash4655 == -1125672858 ) && field.equals("onKeyShortcut") )) || ( (( ( __temp_hash4655 == -1111243300 ) && field.equals("onBackPressed") )) || ( (( ( __temp_hash4655 == -129342928 ) && field.equals("onKeyMultiple") )) || ( (( ( __temp_hash4655 == -1344707909 ) && field.equals("onKeyUp") )) || ( (( ( __temp_hash4655 == 1605657351 ) && field.equals("onKeyLongPress") )) || ( (( ( __temp_hash4655 == 520351938 ) && field.equals("onKeyDown") )) || ( (( ( __temp_hash4655 == -43737053 ) && field.equals("setDefaultKeyMode") )) || ( (( ( __temp_hash4655 == -981406758 ) && field.equals("setFinishOnTouchOutside") )) || ( (( ( __temp_hash4655 == 232075101 ) && field.equals("addContentView") )) || ( (( ( __temp_hash4655 == 1493874940 ) && field.equals("setContentView") )) || ( (( ( __temp_hash4655 == 188662599 ) && field.equals("getActionBar") )) || ( (( ( __temp_hash4655 == 1341702384 ) && field.equals("findViewById") )) || ( (( ( __temp_hash4655 == 2131946362 ) && field.equals("stopManagingCursor") )) || ( (( ( __temp_hash4655 == -1229553702 ) && field.equals("startManagingCursor") )) || ( (( ( __temp_hash4655 == 814154857 ) && field.equals("managedQuery") )) || ( (( ( __temp_hash4655 == 336447348 ) && field.equals("onAttachFragment") )) || ( (( ( __temp_hash4655 == -511943417 ) && field.equals("getFragmentManager") )) || ( (( ( __temp_hash4655 == 694704898 ) && field.equals("onTrimMemory") )) || ( (( ( __temp_hash4655 == -1244087722 ) && field.equals("onLowMemory") )) || ( (( ( __temp_hash4655 == 1369329346 ) && field.equals("onRetainNonConfigurationInstance") )) || ( (( ( __temp_hash4655 == -1245042166 ) && field.equals("getLastNonConfigurationInstance") )) || ( (( ( __temp_hash4655 == -1459179776 ) && field.equals("getChangingConfigurations") )) || ( (( ( __temp_hash4655 == 1356972381 ) && field.equals("onConfigurationChanged") )) || ( (( ( __temp_hash4655 == -1173492971 ) && field.equals("onProvideAssistData") )) || ( (( ( __temp_hash4655 == 1420304705 ) && field.equals("onCreateDescription") )) || ( (( ( __temp_hash4655 == -1562281103 ) && field.equals("onCreateThumbnail") )) || ( (( ( __temp_hash4655 == 186555060 ) && field.equals("onUserLeaveHint") )) || ( (( ( __temp_hash4655 == -1491459488 ) && field.equals("onSaveInstanceState") )) || ( (( ( __temp_hash4655 == -918269635 ) && field.equals("onNewIntent") )) || ( (( ( __temp_hash4655 == 622310444 ) && field.equals("onPostResume") )) || ( (( ( __temp_hash4655 == -1861181648 ) && field.equals("onRestart") )) || ( (( ( __temp_hash4655 == 204442875 ) && field.equals("onPostCreate") )) || ( (( ( __temp_hash4655 == -1186339443 ) && field.equals("onRestoreInstanceState") )) || ( (( ( __temp_hash4655 == -1222787755 ) && field.equals("getCurrentFocus") )) || ( (( ( __temp_hash4655 == -531855260 ) && field.equals("getLoaderManager") )) || ( (( ( __temp_hash4655 == 908263142 ) && field.equals("getWindow") )) || ( (( ( __temp_hash4655 == 1400060391 ) && field.equals("getWindowManager") )) || ( (( ( __temp_hash4655 == 700591008 ) && field.equals("getParent") )) || ( (( ( __temp_hash4655 == 2056036882 ) && field.equals("isChild") )) || ( (( ( __temp_hash4655 == 913984538 ) && field.equals("getApplication") )) || ( (( ( __temp_hash4655 == 297635230 ) && field.equals("setIntent") )) || ( (( ( __temp_hash4655 == 512252306 ) && field.equals("getIntent") )) || ( (( ( __temp_hash4655 == -282942360 ) && field.equals("onApplyThemeResource") )) || ( (( ( __temp_hash4655 == -1399675440 ) && field.equals("getSystemService") )) || ( (( ( __temp_hash4655 == -1528850031 ) && field.equals("startActivity") )) || ( (( ( __temp_hash4655 == -346076689 ) && field.equals("startActivities") )) || ( (( ( __temp_hash4655 == -1319473805 ) && field.equals("startIntentSender") )) || ( (( ( __temp_hash4655 == -1012956543 ) && field.equals("onStop") )) || ( (( ( __temp_hash4655 == -1401315045 ) && field.equals("onDestroy") )) || ( (( ( __temp_hash4655 == 1463983852 ) && field.equals("onResume") )) || ( (( ( __temp_hash4655 == -1340212393 ) && field.equals("onPause") )) || ( (( ( __temp_hash4655 == -1336895037 ) && field.equals("onStart") )) || field.equals("onCreate") ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )) 
 					{
-						__temp_executeDef26216 = false;
+						__temp_executeDef4654 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -3128,7 +3414,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("uncaughtException")) 
 					{
-						__temp_executeDef26216 = false;
+						__temp_executeDef4654 = false;
 						this.uncaughtException(((java.lang.Thread) (dynargs.__get(0)) ), ((java.lang.Throwable) (dynargs.__get(1)) ));
 					}
 					
@@ -3140,7 +3426,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onSurfaceCreated")) 
 					{
-						__temp_executeDef26216 = false;
+						__temp_executeDef4654 = false;
 						this.onSurfaceCreated(((javax.microedition.khronos.opengles.GL10) (dynargs.__get(0)) ), ((javax.microedition.khronos.egl.EGLConfig) (dynargs.__get(1)) ));
 					}
 					
@@ -3152,7 +3438,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("run")) 
 					{
-						__temp_executeDef26216 = false;
+						__temp_executeDef4654 = false;
 						this.run();
 					}
 					
@@ -3164,7 +3450,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onSurfaceChanged")) 
 					{
-						__temp_executeDef26216 = false;
+						__temp_executeDef4654 = false;
 						this.onSurfaceChanged(((javax.microedition.khronos.opengles.GL10) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -3176,7 +3462,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				{
 					if (field.equals("onDrawFrame")) 
 					{
-						__temp_executeDef26216 = false;
+						__temp_executeDef4654 = false;
 						this.onDrawFrame(((javax.microedition.khronos.opengles.GL10) (dynargs.__get(0)) ));
 					}
 					
@@ -3186,7 +3472,7 @@ public  class Entry extends android.app.Activity implements haxe.lang.IHxObject,
 				
 			}
 			
-			if (__temp_executeDef26216) 
+			if (__temp_executeDef4654) 
 			{
 				return ((haxe.lang.Function) (this.__hx_getField(field, true, false, false)) ).__hx_invokeDynamic(dynargs);
 			}

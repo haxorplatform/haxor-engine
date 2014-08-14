@@ -40,6 +40,9 @@ class HXCPP_CLASS_ATTRIBUTES  Type_obj : public hx::Object{
 		static Dynamic createInstance( ::Class cl,Dynamic args);
 		static Dynamic createInstance_dyn();
 
+		static Dynamic createEnum( ::Enum e,::String constr,Dynamic params);
+		static Dynamic createEnum_dyn();
+
 };
 
 

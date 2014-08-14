@@ -24,8 +24,6 @@ class GraphicAPI_obj : public hx::EnumBase_obj
 		::String GetEnumName( ) const { return HX_CSTRING("haxor.platform.graphics.GraphicAPI"); }
 		::String __ToString() const { return HX_CSTRING("GraphicAPI.") + tag; }
 
-		static ::haxor::platform::graphics::GraphicAPI DirectX;
-		static inline ::haxor::platform::graphics::GraphicAPI DirectX_dyn() { return DirectX; }
 		static ::haxor::platform::graphics::GraphicAPI None;
 		static inline ::haxor::platform::graphics::GraphicAPI None_dyn() { return None; }
 		static ::haxor::platform::graphics::GraphicAPI OpenGL;

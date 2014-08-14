@@ -1,7 +1,10 @@
 #include <hxcpp.h>
 
-#ifndef INCLUDED_haxor_io_BaseArray
-#include <haxor/io/BaseArray.h>
+#ifndef INCLUDED_haxe_io_Bytes
+#include <haxe/io/Bytes.h>
+#endif
+#ifndef INCLUDED_haxor_io_Buffer
+#include <haxor/io/Buffer.h>
 #endif
 #ifndef INCLUDED_haxor_io_FloatArray
 #include <haxor/io/FloatArray.h>
@@ -9,39 +12,14 @@
 namespace haxor{
 namespace io{
 
-Void FloatArray_obj::__construct(int p_capacity)
+Void FloatArray_obj::__construct(int p_length)
 {
-HX_STACK_FRAME("haxor.io.FloatArray","new",0x4aef304b,"haxor.io.FloatArray.new","haxor/io/FloatArray.hx",55,0xf103c6e5)
+HX_STACK_FRAME("haxor.io.FloatArray","new",0x4aef304b,"haxor.io.FloatArray.new","haxor/io/FloatArray.hx",46,0xf103c6e5)
 HX_STACK_THIS(this)
-HX_STACK_ARG(p_capacity,"p_capacity")
+HX_STACK_ARG(p_length,"p_length")
 {
-	HX_STACK_LINE(68)
-	this->m_length = p_capacity;
-	HX_STACK_LINE(69)
-	Array< Float > arr = Array_obj< Float >::__new();		HX_STACK_VAR(arr,"arr");
-	HX_STACK_LINE(70)
-	{
-		HX_STACK_LINE(70)
-		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(70)
-		int _g = this->m_length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(70)
-		while((true)){
-			HX_STACK_LINE(70)
-			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(70)
-				break;
-			}
-			HX_STACK_LINE(70)
-			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(70)
-			arr->push(0.0);
-		}
-	}
-	HX_STACK_LINE(71)
-	::cpp::Pointer< Float > _g = ::cpp::Pointer_obj::fromArray(arr,(int)0);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(71)
-	this->b = _g;
+	HX_STACK_LINE(46)
+	super::__construct(p_length);
 }
 ;
 	return null();
@@ -50,9 +28,9 @@ HX_STACK_ARG(p_capacity,"p_capacity")
 //FloatArray_obj::~FloatArray_obj() { }
 
 Dynamic FloatArray_obj::__CreateEmpty() { return  new FloatArray_obj; }
-hx::ObjectPtr< FloatArray_obj > FloatArray_obj::__new(int p_capacity)
+hx::ObjectPtr< FloatArray_obj > FloatArray_obj::__new(int p_length)
 {  hx::ObjectPtr< FloatArray_obj > result = new FloatArray_obj();
-	result->__construct(p_capacity);
+	result->__construct(p_length);
 	return result;}
 
 Dynamic FloatArray_obj::__Create(hx::DynamicArray inArgs)
@@ -60,102 +38,58 @@ Dynamic FloatArray_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct(inArgs[0]);
 	return result;}
 
-int FloatArray_obj::get_length( ){
-	HX_STACK_FRAME("haxor.io.FloatArray","get_length",0xd7fc4824,"haxor.io.FloatArray.get_length","haxor/io/FloatArray.hx",36,0xf103c6e5)
+int FloatArray_obj::get_bytesPerElement( ){
+	HX_STACK_FRAME("haxor.io.FloatArray","get_bytesPerElement",0xc4ef5cac,"haxor.io.FloatArray.get_bytesPerElement","haxor/io/FloatArray.hx",30,0xf103c6e5)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(36)
-	return this->m_length;
+	HX_STACK_LINE(30)
+	return (int)4;
 }
 
 
-::String FloatArray_obj::get_type( ){
-	HX_STACK_FRAME("haxor.io.FloatArray","get_type",0x0d6dba78,"haxor.io.FloatArray.get_type","haxor/io/FloatArray.hx",43,0xf103c6e5)
+Float FloatArray_obj::Get( int p_index){
+	HX_STACK_FRAME("haxor.io.FloatArray","Get",0x4ad19861,"haxor.io.FloatArray.Get","haxor/io/FloatArray.hx",63,0xf103c6e5)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(43)
-	return HX_CSTRING("float");
-}
-
-
-::haxor::io::FloatArray FloatArray_obj::Clone( ){
-	HX_STACK_FRAME("haxor.io.FloatArray","Clone",0x8bb3f3e8,"haxor.io.FloatArray.Clone","haxor/io/FloatArray.hx",80,0xf103c6e5)
-	HX_STACK_THIS(this)
-	HX_STACK_LINE(81)
-	::haxor::io::FloatArray a = ::haxor::io::FloatArray_obj::__new(this->m_length);		HX_STACK_VAR(a,"a");
-	HX_STACK_LINE(82)
-	{
-		HX_STACK_LINE(82)
-		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(82)
-		int _g = this->m_length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(82)
-		while((true)){
-			HX_STACK_LINE(82)
-			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(82)
-				break;
-			}
-			HX_STACK_LINE(82)
-			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(84)
-			Float n = this->b->__get(i);		HX_STACK_VAR(n,"n");
-			HX_STACK_LINE(85)
-			hx::__ArrayImplRef(a->b,i) = n;
-		}
-	}
-	HX_STACK_LINE(87)
-	return a;
-}
-
-
-HX_DEFINE_DYNAMIC_FUNC0(FloatArray_obj,Clone,return )
-
-Void FloatArray_obj::Fill( Array< Float > p_data){
-{
-		HX_STACK_FRAME("haxor.io.FloatArray","Fill",0x2bed8858,"haxor.io.FloatArray.Fill","haxor/io/FloatArray.hx",96,0xf103c6e5)
-		HX_STACK_THIS(this)
-		HX_STACK_ARG(p_data,"p_data")
-		HX_STACK_LINE(96)
-		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(96)
-		int _g = p_data->length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(96)
-		while((true)){
-			HX_STACK_LINE(96)
-			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(96)
-				break;
-			}
-			HX_STACK_LINE(96)
-			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(98)
-			hx::__ArrayImplRef(this->b,i) = p_data->__get(i);
-		}
-	}
-return null();
-}
-
-
-HX_DEFINE_DYNAMIC_FUNC1(FloatArray_obj,Fill,(void))
-
-Float FloatArray_obj::Get( int k){
-	HX_STACK_FRAME("haxor.io.FloatArray","Get",0x4ad19861,"haxor.io.FloatArray.Get","haxor/io/FloatArray.hx",116,0xf103c6e5)
-	HX_STACK_THIS(this)
-	HX_STACK_ARG(k,"k")
-	HX_STACK_LINE(116)
-	return this->b->__get(k);
+	HX_STACK_ARG(p_index,"p_index")
+	HX_STACK_LINE(69)
+	::haxe::io::Bytes aux = this->m_buffer;		HX_STACK_VAR(aux,"aux");
+	HX_STACK_LINE(70)
+	int p = (p_index * (int)4);		HX_STACK_VAR(p,"p");
+	HX_STACK_LINE(71)
+	
+		float v = 0.0;
+		char* ptr = (char*)(&v);
+		ptr[0] = (char) aux->b[p];
+		ptr[1] = (char) aux->b[p+1];
+		ptr[2] = (char) aux->b[p+2];
+		ptr[3] = (char) aux->b[p+3];
+		return v;
+		;
+	HX_STACK_LINE(80)
+	return 0.0;
 }
 
 
 HX_DEFINE_DYNAMIC_FUNC1(FloatArray_obj,Get,return )
 
-Void FloatArray_obj::Set( int k,Float v){
+Void FloatArray_obj::Set( int p_index,Float p_value){
 {
-		HX_STACK_FRAME("haxor.io.FloatArray","Set",0x4adab36d,"haxor.io.FloatArray.Set","haxor/io/FloatArray.hx",135,0xf103c6e5)
+		HX_STACK_FRAME("haxor.io.FloatArray","Set",0x4adab36d,"haxor.io.FloatArray.Set","haxor/io/FloatArray.hx",94,0xf103c6e5)
 		HX_STACK_THIS(this)
-		HX_STACK_ARG(k,"k")
-		HX_STACK_ARG(v,"v")
-		HX_STACK_LINE(135)
-		hx::__ArrayImplRef(this->b,k) = v;
+		HX_STACK_ARG(p_index,"p_index")
+		HX_STACK_ARG(p_value,"p_value")
+		HX_STACK_LINE(100)
+		::haxe::io::Bytes aux = this->m_buffer;		HX_STACK_VAR(aux,"aux");
+		HX_STACK_LINE(101)
+		int p = (p_index * (int)4);		HX_STACK_VAR(p,"p");
+		HX_STACK_LINE(102)
+		
+		float v   = p_value;
+		char * ptr = (char * )( & v);		
+		aux->b[p]   = ptr[0];
+		aux->b[p+1] = ptr[1];
+		aux->b[p+2] = ptr[2];
+		aux->b[p+3] = ptr[3];
+		;
 	}
 return null();
 }
@@ -163,108 +97,97 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC2(FloatArray_obj,Set,(void))
 
-::haxor::io::FloatArray FloatArray_obj::Create( Array< Float > p_data){
-	HX_STACK_FRAME("haxor.io.FloatArray","Create",0x1f830011,"haxor.io.FloatArray.Create","haxor/io/FloatArray.hx",22,0xf103c6e5)
+Void FloatArray_obj::SetRange( Array< Float > p_data,hx::Null< int >  __o_p_offset){
+int p_offset = __o_p_offset.Default(0);
+	HX_STACK_FRAME("haxor.io.FloatArray","SetRange",0x0cafd710,"haxor.io.FloatArray.SetRange","haxor/io/FloatArray.hx",124,0xf103c6e5)
+	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_data,"p_data")
-	HX_STACK_LINE(23)
-	::haxor::io::FloatArray a = ::haxor::io::FloatArray_obj::__new(p_data->length);		HX_STACK_VAR(a,"a");
-	HX_STACK_LINE(24)
-	a->Fill(p_data);
-	HX_STACK_LINE(25)
-	return a;
+	HX_STACK_ARG(p_offset,"p_offset")
+{
+		HX_STACK_LINE(124)
+		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+		HX_STACK_LINE(124)
+		int _g = p_data->length;		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(124)
+		while((true)){
+			HX_STACK_LINE(124)
+			if ((!(((_g1 < _g))))){
+				HX_STACK_LINE(124)
+				break;
+			}
+			HX_STACK_LINE(124)
+			int i = (_g1)++;		HX_STACK_VAR(i,"i");
+			HX_STACK_LINE(124)
+			this->Set((i + p_offset),p_data->__get(i));
+		}
+	}
+return null();
 }
 
 
-STATIC_HX_DEFINE_DYNAMIC_FUNC1(FloatArray_obj,Create,return )
+HX_DEFINE_DYNAMIC_FUNC2(FloatArray_obj,SetRange,(void))
+
+::haxor::io::FloatArray FloatArray_obj::Alloc( Array< Float > p_data){
+	HX_STACK_FRAME("haxor.io.FloatArray","Alloc",0x64e48500,"haxor.io.FloatArray.Alloc","haxor/io/FloatArray.hx",20,0xf103c6e5)
+	HX_STACK_ARG(p_data,"p_data")
+	HX_STACK_LINE(21)
+	::haxor::io::FloatArray b = ::haxor::io::FloatArray_obj::__new(p_data->length);		HX_STACK_VAR(b,"b");
+	HX_STACK_LINE(22)
+	b->SetRange(p_data,null());
+	HX_STACK_LINE(23)
+	return b;
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(FloatArray_obj,Alloc,return )
 
 
 FloatArray_obj::FloatArray_obj()
 {
 }
 
-void FloatArray_obj::__Mark(HX_MARK_PARAMS)
-{
-	HX_MARK_BEGIN_CLASS(FloatArray);
-	HX_MARK_MEMBER_NAME(m_length,"m_length");
-	HX_MARK_MEMBER_NAME(b,"b");
-	HX_MARK_END_CLASS();
-}
-
-void FloatArray_obj::__Visit(HX_VISIT_PARAMS)
-{
-	HX_VISIT_MEMBER_NAME(m_length,"m_length");
-	HX_VISIT_MEMBER_NAME(b,"b");
-}
-
 Dynamic FloatArray_obj::__Field(const ::String &inName,bool inCallProp)
 {
 	switch(inName.length) {
-	case 1:
-		if (HX_FIELD_EQ(inName,"b") ) { return b; }
-		break;
 	case 3:
 		if (HX_FIELD_EQ(inName,"Get") ) { return Get_dyn(); }
 		if (HX_FIELD_EQ(inName,"Set") ) { return Set_dyn(); }
 		break;
-	case 4:
-		if (HX_FIELD_EQ(inName,"Fill") ) { return Fill_dyn(); }
-		break;
 	case 5:
-		if (HX_FIELD_EQ(inName,"Clone") ) { return Clone_dyn(); }
-		break;
-	case 6:
-		if (HX_FIELD_EQ(inName,"Create") ) { return Create_dyn(); }
+		if (HX_FIELD_EQ(inName,"Alloc") ) { return Alloc_dyn(); }
 		break;
 	case 8:
-		if (HX_FIELD_EQ(inName,"m_length") ) { return m_length; }
-		if (HX_FIELD_EQ(inName,"get_type") ) { return get_type_dyn(); }
+		if (HX_FIELD_EQ(inName,"SetRange") ) { return SetRange_dyn(); }
 		break;
-	case 10:
-		if (HX_FIELD_EQ(inName,"get_length") ) { return get_length_dyn(); }
+	case 19:
+		if (HX_FIELD_EQ(inName,"get_bytesPerElement") ) { return get_bytesPerElement_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
 
 Dynamic FloatArray_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool inCallProp)
 {
-	switch(inName.length) {
-	case 1:
-		if (HX_FIELD_EQ(inName,"b") ) { b=inValue.Cast< ::cpp::Pointer< Float > >(); return inValue; }
-		break;
-	case 8:
-		if (HX_FIELD_EQ(inName,"m_length") ) { m_length=inValue.Cast< int >(); return inValue; }
-	}
 	return super::__SetField(inName,inValue,inCallProp);
 }
 
 void FloatArray_obj::__GetFields(Array< ::String> &outFields)
 {
-	outFields->push(HX_CSTRING("m_length"));
-	outFields->push(HX_CSTRING("b"));
 	super::__GetFields(outFields);
 };
 
 static ::String sStaticFields[] = {
-	HX_CSTRING("Create"),
+	HX_CSTRING("Alloc"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE
-static hx::StorageInfo sMemberStorageInfo[] = {
-	{hx::fsInt,(int)offsetof(FloatArray_obj,m_length),HX_CSTRING("m_length")},
-	{hx::fsObject /*::cpp::Pointer< Float >*/ ,(int)offsetof(FloatArray_obj,b),HX_CSTRING("b")},
-	{ hx::fsUnknown, 0, null()}
-};
+static hx::StorageInfo *sMemberStorageInfo = 0;
 #endif
 
 static ::String sMemberFields[] = {
-	HX_CSTRING("get_length"),
-	HX_CSTRING("m_length"),
-	HX_CSTRING("get_type"),
-	HX_CSTRING("b"),
-	HX_CSTRING("Clone"),
-	HX_CSTRING("Fill"),
+	HX_CSTRING("get_bytesPerElement"),
 	HX_CSTRING("Get"),
 	HX_CSTRING("Set"),
+	HX_CSTRING("SetRange"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

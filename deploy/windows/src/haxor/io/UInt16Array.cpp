@@ -1,7 +1,10 @@
 #include <hxcpp.h>
 
-#ifndef INCLUDED_haxor_io_BaseArray
-#include <haxor/io/BaseArray.h>
+#ifndef INCLUDED_haxe_io_Bytes
+#include <haxe/io/Bytes.h>
+#endif
+#ifndef INCLUDED_haxor_io_Buffer
+#include <haxor/io/Buffer.h>
 #endif
 #ifndef INCLUDED_haxor_io_UInt16Array
 #include <haxor/io/UInt16Array.h>
@@ -9,39 +12,14 @@
 namespace haxor{
 namespace io{
 
-Void UInt16Array_obj::__construct(int p_capacity)
+Void UInt16Array_obj::__construct(int p_length)
 {
-HX_STACK_FRAME("haxor.io.UInt16Array","new",0xd0603430,"haxor.io.UInt16Array.new","haxor/io/UInt16Array.hx",51,0xf538efe0)
+HX_STACK_FRAME("haxor.io.UInt16Array","new",0xd0603430,"haxor.io.UInt16Array.new","haxor/io/UInt16Array.hx",45,0xf538efe0)
 HX_STACK_THIS(this)
-HX_STACK_ARG(p_capacity,"p_capacity")
+HX_STACK_ARG(p_length,"p_length")
 {
-	HX_STACK_LINE(64)
-	this->m_length = p_capacity;
-	HX_STACK_LINE(65)
-	Array< int > arr = Array_obj< int >::__new();		HX_STACK_VAR(arr,"arr");
-	HX_STACK_LINE(66)
-	{
-		HX_STACK_LINE(66)
-		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(66)
-		int _g = this->m_length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(66)
-		while((true)){
-			HX_STACK_LINE(66)
-			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(66)
-				break;
-			}
-			HX_STACK_LINE(66)
-			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(66)
-			arr->push((int)0);
-		}
-	}
-	HX_STACK_LINE(67)
-	::cpp::Pointer< int > _g = ::cpp::Pointer_obj::fromArray(arr,(int)0);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(67)
-	this->b = _g;
+	HX_STACK_LINE(45)
+	super::__construct(p_length);
 }
 ;
 	return null();
@@ -50,9 +28,9 @@ HX_STACK_ARG(p_capacity,"p_capacity")
 //UInt16Array_obj::~UInt16Array_obj() { }
 
 Dynamic UInt16Array_obj::__CreateEmpty() { return  new UInt16Array_obj; }
-hx::ObjectPtr< UInt16Array_obj > UInt16Array_obj::__new(int p_capacity)
+hx::ObjectPtr< UInt16Array_obj > UInt16Array_obj::__new(int p_length)
 {  hx::ObjectPtr< UInt16Array_obj > result = new UInt16Array_obj();
-	result->__construct(p_capacity);
+	result->__construct(p_length);
 	return result;}
 
 Dynamic UInt16Array_obj::__Create(hx::DynamicArray inArgs)
@@ -60,216 +38,152 @@ Dynamic UInt16Array_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct(inArgs[0]);
 	return result;}
 
-int UInt16Array_obj::get_length( ){
-	HX_STACK_FRAME("haxor.io.UInt16Array","get_length",0x1421badf,"haxor.io.UInt16Array.get_length","haxor/io/UInt16Array.hx",34,0xf538efe0)
+int UInt16Array_obj::get_bytesPerElement( ){
+	HX_STACK_FRAME("haxor.io.UInt16Array","get_bytesPerElement",0xfbf13a91,"haxor.io.UInt16Array.get_bytesPerElement","haxor/io/UInt16Array.hx",37,0xf538efe0)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(34)
-	return this->m_length;
+	HX_STACK_LINE(37)
+	return (int)2;
 }
 
 
-::String UInt16Array_obj::get_type( ){
-	HX_STACK_FRAME("haxor.io.UInt16Array","get_type",0xd02b7873,"haxor.io.UInt16Array.get_type","haxor/io/UInt16Array.hx",38,0xf538efe0)
+int UInt16Array_obj::Get( int p_index){
+	HX_STACK_FRAME("haxor.io.UInt16Array","Get",0xd0429c46,"haxor.io.UInt16Array.Get","haxor/io/UInt16Array.hx",62,0xf538efe0)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(38)
-	return HX_CSTRING("int");
-}
-
-
-::haxor::io::UInt16Array UInt16Array_obj::Clone( ){
-	HX_STACK_FRAME("haxor.io.UInt16Array","Clone",0x12597b0d,"haxor.io.UInt16Array.Clone","haxor/io/UInt16Array.hx",76,0xf538efe0)
-	HX_STACK_THIS(this)
+	HX_STACK_ARG(p_index,"p_index")
+	HX_STACK_LINE(68)
+	::haxe::io::Bytes aux = this->m_buffer;		HX_STACK_VAR(aux,"aux");
+	HX_STACK_LINE(69)
+	int p = (p_index * (int)2);		HX_STACK_VAR(p,"p");
+	HX_STACK_LINE(70)
+	
+		int v = 0;
+		char* ptr = (char*)(&v);
+		ptr[0] = (char) aux->b[p];
+		ptr[1] = (char) aux->b[p+1];		
+		return v;
+		;
 	HX_STACK_LINE(77)
-	::haxor::io::UInt16Array a = ::haxor::io::UInt16Array_obj::__new(this->m_length);		HX_STACK_VAR(a,"a");
-	HX_STACK_LINE(78)
-	{
-		HX_STACK_LINE(78)
-		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(78)
-		int _g = this->m_length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(78)
-		while((true)){
-			HX_STACK_LINE(78)
-			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(78)
-				break;
-			}
-			HX_STACK_LINE(78)
-			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(78)
-			int v = this->b->__get(i);		HX_STACK_VAR(v,"v");
-			HX_STACK_LINE(78)
-			hx::__ArrayImplRef(a->b,i) = v;
-			HX_STACK_LINE(78)
-			v;
-		}
-	}
-	HX_STACK_LINE(79)
-	return a;
+	return (int)0;
 }
 
 
-HX_DEFINE_DYNAMIC_FUNC0(UInt16Array_obj,Clone,return )
+HX_DEFINE_DYNAMIC_FUNC1(UInt16Array_obj,Get,return )
 
-Void UInt16Array_obj::Set( Array< int > p_data){
+Void UInt16Array_obj::Set( int p_index,int p_value){
 {
-		HX_STACK_FRAME("haxor.io.UInt16Array","Set",0xd04bb752,"haxor.io.UInt16Array.Set","haxor/io/UInt16Array.hx",89,0xf538efe0)
+		HX_STACK_FRAME("haxor.io.UInt16Array","Set",0xd04bb752,"haxor.io.UInt16Array.Set","haxor/io/UInt16Array.hx",91,0xf538efe0)
 		HX_STACK_THIS(this)
-		HX_STACK_ARG(p_data,"p_data")
-		HX_STACK_LINE(89)
+		HX_STACK_ARG(p_index,"p_index")
+		HX_STACK_ARG(p_value,"p_value")
+		HX_STACK_LINE(97)
+		::haxe::io::Bytes aux = this->m_buffer;		HX_STACK_VAR(aux,"aux");
+		HX_STACK_LINE(98)
+		int p = (p_index * (int)2);		HX_STACK_VAR(p,"p");
+		HX_STACK_LINE(99)
+		
+		int v   = p_value;
+		char* ptr = (char*)(&v);
+		aux->b[p]   = ptr[0];
+		aux->b[p+1] = ptr[1];		
+		;
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC2(UInt16Array_obj,Set,(void))
+
+Void UInt16Array_obj::SetRange( Array< int > p_data,hx::Null< int >  __o_p_offset){
+int p_offset = __o_p_offset.Default(0);
+	HX_STACK_FRAME("haxor.io.UInt16Array","SetRange",0xcf6d950b,"haxor.io.UInt16Array.SetRange","haxor/io/UInt16Array.hx",119,0xf538efe0)
+	HX_STACK_THIS(this)
+	HX_STACK_ARG(p_data,"p_data")
+	HX_STACK_ARG(p_offset,"p_offset")
+{
+		HX_STACK_LINE(119)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(89)
+		HX_STACK_LINE(119)
 		int _g = p_data->length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(89)
+		HX_STACK_LINE(119)
 		while((true)){
-			HX_STACK_LINE(89)
+			HX_STACK_LINE(119)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(89)
+				HX_STACK_LINE(119)
 				break;
 			}
-			HX_STACK_LINE(89)
+			HX_STACK_LINE(119)
 			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(89)
-			int v = p_data->__get(i);		HX_STACK_VAR(v,"v");
-			HX_STACK_LINE(89)
-			hx::__ArrayImplRef(this->b,i) = v;
-			HX_STACK_LINE(89)
-			v;
+			HX_STACK_LINE(119)
+			this->Set((i + p_offset),p_data->__get(i));
 		}
 	}
 return null();
 }
 
 
-HX_DEFINE_DYNAMIC_FUNC1(UInt16Array_obj,Set,(void))
+HX_DEFINE_DYNAMIC_FUNC2(UInt16Array_obj,SetRange,(void))
 
-int UInt16Array_obj::array_get( int k){
-	HX_STACK_FRAME("haxor.io.UInt16Array","array_get",0x951b9380,"haxor.io.UInt16Array.array_get","haxor/io/UInt16Array.hx",102,0xf538efe0)
-	HX_STACK_THIS(this)
-	HX_STACK_ARG(k,"k")
-	HX_STACK_LINE(102)
-	return this->b->__get(k);
-}
-
-
-HX_DEFINE_DYNAMIC_FUNC1(UInt16Array_obj,array_get,return )
-
-int UInt16Array_obj::array_set( int k,int v){
-	HX_STACK_FRAME("haxor.io.UInt16Array","array_set",0x9524ae8c,"haxor.io.UInt16Array.array_set","haxor/io/UInt16Array.hx",108,0xf538efe0)
-	HX_STACK_THIS(this)
-	HX_STACK_ARG(k,"k")
-	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(116)
-	hx::__ArrayImplRef(this->b,k) = v;
-	HX_STACK_LINE(118)
-	return v;
-}
-
-
-HX_DEFINE_DYNAMIC_FUNC2(UInt16Array_obj,array_set,return )
-
-::haxor::io::UInt16Array UInt16Array_obj::Create( Array< int > p_data){
-	HX_STACK_FRAME("haxor.io.UInt16Array","Create",0x69b3b94c,"haxor.io.UInt16Array.Create","haxor/io/UInt16Array.hx",20,0xf538efe0)
+::haxor::io::UInt16Array UInt16Array_obj::Alloc( Array< int > p_data){
+	HX_STACK_FRAME("haxor.io.UInt16Array","Alloc",0xeb8a0c25,"haxor.io.UInt16Array.Alloc","haxor/io/UInt16Array.hx",19,0xf538efe0)
 	HX_STACK_ARG(p_data,"p_data")
+	HX_STACK_LINE(20)
+	::haxor::io::UInt16Array b = ::haxor::io::UInt16Array_obj::__new(p_data->length);		HX_STACK_VAR(b,"b");
 	HX_STACK_LINE(21)
-	::haxor::io::UInt16Array a = ::haxor::io::UInt16Array_obj::__new(p_data->length);		HX_STACK_VAR(a,"a");
+	b->SetRange(p_data,null());
 	HX_STACK_LINE(22)
-	a->Set(p_data);
-	HX_STACK_LINE(23)
-	return a;
+	return b;
 }
 
 
-STATIC_HX_DEFINE_DYNAMIC_FUNC1(UInt16Array_obj,Create,return )
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(UInt16Array_obj,Alloc,return )
 
 
 UInt16Array_obj::UInt16Array_obj()
 {
 }
 
-void UInt16Array_obj::__Mark(HX_MARK_PARAMS)
-{
-	HX_MARK_BEGIN_CLASS(UInt16Array);
-	HX_MARK_MEMBER_NAME(m_length,"m_length");
-	HX_MARK_MEMBER_NAME(b,"b");
-	HX_MARK_END_CLASS();
-}
-
-void UInt16Array_obj::__Visit(HX_VISIT_PARAMS)
-{
-	HX_VISIT_MEMBER_NAME(m_length,"m_length");
-	HX_VISIT_MEMBER_NAME(b,"b");
-}
-
 Dynamic UInt16Array_obj::__Field(const ::String &inName,bool inCallProp)
 {
 	switch(inName.length) {
-	case 1:
-		if (HX_FIELD_EQ(inName,"b") ) { return b; }
-		break;
 	case 3:
+		if (HX_FIELD_EQ(inName,"Get") ) { return Get_dyn(); }
 		if (HX_FIELD_EQ(inName,"Set") ) { return Set_dyn(); }
 		break;
 	case 5:
-		if (HX_FIELD_EQ(inName,"Clone") ) { return Clone_dyn(); }
-		break;
-	case 6:
-		if (HX_FIELD_EQ(inName,"Create") ) { return Create_dyn(); }
+		if (HX_FIELD_EQ(inName,"Alloc") ) { return Alloc_dyn(); }
 		break;
 	case 8:
-		if (HX_FIELD_EQ(inName,"m_length") ) { return m_length; }
-		if (HX_FIELD_EQ(inName,"get_type") ) { return get_type_dyn(); }
+		if (HX_FIELD_EQ(inName,"SetRange") ) { return SetRange_dyn(); }
 		break;
-	case 9:
-		if (HX_FIELD_EQ(inName,"array_get") ) { return array_get_dyn(); }
-		if (HX_FIELD_EQ(inName,"array_set") ) { return array_set_dyn(); }
-		break;
-	case 10:
-		if (HX_FIELD_EQ(inName,"get_length") ) { return get_length_dyn(); }
+	case 19:
+		if (HX_FIELD_EQ(inName,"get_bytesPerElement") ) { return get_bytesPerElement_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
 
 Dynamic UInt16Array_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool inCallProp)
 {
-	switch(inName.length) {
-	case 1:
-		if (HX_FIELD_EQ(inName,"b") ) { b=inValue.Cast< ::cpp::Pointer< int > >(); return inValue; }
-		break;
-	case 8:
-		if (HX_FIELD_EQ(inName,"m_length") ) { m_length=inValue.Cast< int >(); return inValue; }
-	}
 	return super::__SetField(inName,inValue,inCallProp);
 }
 
 void UInt16Array_obj::__GetFields(Array< ::String> &outFields)
 {
-	outFields->push(HX_CSTRING("m_length"));
-	outFields->push(HX_CSTRING("b"));
 	super::__GetFields(outFields);
 };
 
 static ::String sStaticFields[] = {
-	HX_CSTRING("Create"),
+	HX_CSTRING("Alloc"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE
-static hx::StorageInfo sMemberStorageInfo[] = {
-	{hx::fsInt,(int)offsetof(UInt16Array_obj,m_length),HX_CSTRING("m_length")},
-	{hx::fsObject /*::cpp::Pointer< int >*/ ,(int)offsetof(UInt16Array_obj,b),HX_CSTRING("b")},
-	{ hx::fsUnknown, 0, null()}
-};
+static hx::StorageInfo *sMemberStorageInfo = 0;
 #endif
 
 static ::String sMemberFields[] = {
-	HX_CSTRING("get_length"),
-	HX_CSTRING("m_length"),
-	HX_CSTRING("get_type"),
-	HX_CSTRING("b"),
-	HX_CSTRING("Clone"),
+	HX_CSTRING("get_bytesPerElement"),
+	HX_CSTRING("Get"),
 	HX_CSTRING("Set"),
-	HX_CSTRING("array_get"),
-	HX_CSTRING("array_set"),
+	HX_CSTRING("SetRange"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

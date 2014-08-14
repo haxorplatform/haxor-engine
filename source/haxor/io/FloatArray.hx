@@ -1,140 +1,127 @@
 package haxor.io;
-import haxe.io.BytesBuffer;
-import haxe.io.BytesInput;
-import haxor.core.Console;
-import haxor.platform.Types.Float32Buffer;
 
-
+#if (windows || osx || linux)
+import haxe.io.Bytes;
+#end
 
 /**
- * Class that describes a list of Floats with 4 bytes aligment.
+ * Class that describes a set of bytes represented as 4 byte floats.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
-@:allow(haxor)
-class FloatArray extends BaseArray
+class FloatArray extends Buffer
 {
+		
 	/**
-	 * Creates a FloatArray using the native array of the platform.
+	 * Allocates a new FloatBuffer using the passed data as content.
 	 * @param	p_data
 	 * @return
 	 */
-	static public function Create(p_data : Array<Float>):FloatArray
+	static public function Alloc(p_data : Array<Float>):FloatArray
 	{
-		var a : FloatArray = new FloatArray(p_data.length);
-		a.Fill(p_data);		
-		return a;
+		var b : FloatArray = new FloatArray(p_data.length);
+		b.SetRange(p_data);
+		return b;
 	}
-		
-	#if android	
-	override inline function get_length():Int { return b.capacity(); }	
-	#end
-	#if html	
-	override inline function get_length():Int { return b.length; }
-	#end
-	
-	#if windows
-	override inline function get_length():Int { return m_length; }	
-	private var m_length : Int;
-	#end
 	
 	/**
-	 * Type of array content.
-	 */	
-	override inline function get_type():String { return "float"; }
-		
-	/**
-	 * Internal buffer.
+	 * Floats uses 4 bytes.
+	 * @return
 	 */
-	public var b : Float32Buffer;
+	override inline function get_bytesPerElement():Int { return 4; }
 	
+	#if html
+	private var aux : js.html.Float32Array;
+	#end
+	
+	#if android
+	private var aux : java.nio.FloatBuffer;
+	#end
+
 	/**
-	 * 
-	 * @param	p_capacity
+	 * Creates a new FloatBuffer with 'length' elements.
+	 * @param	p_length
 	 */
-	public function new(p_capacity:Int):Void
-	{ 		
+	public function new(p_length : Int) 
+	{
+		super(p_length);
+				
 		#if html
-		b = new Float32Buffer(p_capacity);
+		aux = new js.html.Float32Array(m_buffer.buffer);
 		#end
 		
 		#if android
-		b = java.nio.ByteBuffer
-		.allocateDirect(p_capacity * 4)
-		.order(java.nio.ByteOrder.nativeOrder())
-		.asFloatBuffer();	
+		aux = m_buffer.asFloatBuffer();
+		#end
+	}
+	
+	/**
+	 * Gets a value at the position.
+	 * @param	p_index
+	 * @return
+	 */
+	public function Get(p_index : Int):Float
+	{
+		#if html
+		return aux[p_index];		
 		#end
 		
 		#if windows
-		m_length = p_capacity;
-		var arr : Array<Float> = [];
-		for (i in 0...m_length) arr.push(0.0);
-		b = cpp.Pointer.fromArray(arr,0);
+		var aux : Bytes = m_buffer;
+		var p:Int = p_index * 4;
+		untyped __cpp__('
+		float v = 0.0;
+		char* ptr = (char*)(&v);
+		ptr[0] = (char) aux->b[p];
+		ptr[1] = (char) aux->b[p+1];
+		ptr[2] = (char) aux->b[p+2];
+		ptr[3] = (char) aux->b[p+3];
+		return v;
+		');		
+		return 0.0;
+		#end
+		
+		#if android
+		return aux.get(p_index);
 		#end
 	}
 	
 	/**
-	 * Creates a new array with the same content.
-	 * @return
+	 * Sets a single value at a position.
+	 * @param	p_index
+	 * @param	p_value
 	 */
-	public function Clone():FloatArray
+	public function Set(p_index : Int, p_value : Float):Void
 	{
-		var a : FloatArray = new FloatArray(length);		
-		for (i in 0...length)
-		{
-			var n : Float = Get(i);
-			a.Set(i,n);
-		}
-		return a;
+		#if html
+		aux[p_index] = p_value;
+		#end
+		
+		#if windows
+		var aux : Bytes = m_buffer;
+		var p:Int = p_index * 4;
+		untyped __cpp__('
+		float v   = p_value;
+		char * ptr = (char * )( & v);		
+		aux->b[p]   = ptr[0];
+		aux->b[p+1] = ptr[1];
+		aux->b[p+2] = ptr[2];
+		aux->b[p+3] = ptr[3];
+		');				
+		#end
+		
+		#if android
+		aux.put(p_index, p_value);
+		#end
 	}
 	
 	/**
-	 * Sets the Array contents with the passed data.
+	 * Sets a range of values starting at offset.
 	 * @param	p_data
-	 */	
-	public function Fill(p_data : Array<Float>):Void
-	{	
-		for (i in 0...p_data.length)
-		{
-			Set(i, p_data[i]);
-		}
+	 * @param	p_offset
+	 */
+	public function SetRange(p_data : Array<Float>, p_offset : Int = 0):Void
+	{
+		for (i in 0...p_data.length) Set(i + p_offset, p_data[i]);
 	}
 	
-	/**
-	 * 
-	 * @param	k
-	 * @return
-	 */
-	public inline function Get(k:Int) : Float
-	{ 
-		#if html
-		return b[k];
-		#end		
-		#if android		
-		return b.get(k);
-		#end
-		#if windows
-		return b[k];
-		#end
-	}
-	
-	/**
-	 * 
-	 * @param	k
-	 * @param	v
-	 * @return
-	 */
-	public inline function Set(k:Int, v:Float):Void 
-	{ 			
-		#if html
-		b[k] = v; 
-		#end		
-		#if android								
-		b.put(k, v);
-		#end
-		#if windows
-		b[k] = v; 
-		#end		
-	}
 }
-
-

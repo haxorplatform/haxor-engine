@@ -10,7 +10,7 @@ HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,MeshAttrib)
-HX_DECLARE_CLASS2(haxor,io,BaseArray)
+HX_DECLARE_CLASS2(haxor,io,Buffer)
 HX_DECLARE_CLASS2(haxor,io,UInt16Array)
 namespace haxor{
 namespace graphics{
@@ -39,7 +39,6 @@ class HXCPP_CLASS_ATTRIBUTES  Mesh_obj : public ::haxor::core::Resource_obj{
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("Mesh"); }
 
-		typedef ::String __array_access;
 		virtual ::haxor::io::UInt16Array get_topology( );
 		Dynamic get_topology_dyn();
 
@@ -51,6 +50,14 @@ class HXCPP_CLASS_ATTRIBUTES  Mesh_obj : public ::haxor::core::Resource_obj{
 		Dynamic get_indexed_dyn();
 
 		bool m_indexed;
+		virtual int get_mode( );
+		Dynamic get_mode_dyn();
+
+		virtual int set_mode( int v);
+		Dynamic set_mode_dyn();
+
+		int m_mode;
+		int primitive;
 		Array< ::String > attribs;
 		virtual Array< ::String > get_attribs( );
 		Dynamic get_attribs_dyn();
@@ -60,7 +67,7 @@ class HXCPP_CLASS_ATTRIBUTES  Mesh_obj : public ::haxor::core::Resource_obj{
 		Dynamic get_vcount_dyn();
 
 		int m_vcount;
-		virtual Void Clear( );
+		virtual Void Clear( hx::Null< bool >  p_from_gpu);
 		Dynamic Clear_dyn();
 
 		virtual bool Exists( ::String p_name);
@@ -75,8 +82,10 @@ class HXCPP_CLASS_ATTRIBUTES  Mesh_obj : public ::haxor::core::Resource_obj{
 		virtual Void Remove( ::String p_name);
 		Dynamic Remove_dyn();
 
-		virtual Void Set( ::String p_name,::haxor::io::BaseArray p_data,hx::Null< int >  p_offset);
+		virtual Void Set( ::String p_name,::haxor::io::Buffer p_data,hx::Null< int >  p_offset);
 		Dynamic Set_dyn();
+
+		virtual Void OnDestroy( );
 
 };
 

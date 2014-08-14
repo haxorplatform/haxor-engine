@@ -17,6 +17,8 @@ HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,IRenderable)
 HX_DECLARE_CLASS2(haxor,core,IUpdateable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
+HX_DECLARE_CLASS3(haxor,graphics,material,Material)
+HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
 HX_DECLARE_CLASS3(haxor,platform,windows,WinApplication)
 
 
@@ -38,6 +40,8 @@ class HXCPP_CLASS_ATTRIBUTES  Main_obj : public ::haxor::core::Application_obj{
 		HX_DO_RTTI;
 		static void __boot();
 		static void __register();
+		void __Mark(HX_MARK_PARAMS);
+		void __Visit(HX_VISIT_PARAMS);
 		inline operator ::haxor::core::IUpdateable_obj *()
 			{ return new ::haxor::core::IUpdateable_delegate_< Main_obj >(this); }
 		inline operator ::haxor::core::IRenderable_obj *()
@@ -45,6 +49,8 @@ class HXCPP_CLASS_ATTRIBUTES  Main_obj : public ::haxor::core::Application_obj{
 		hx::Object *__ToInterface(const hx::type_info &inType);
 		::String __ToString() const { return HX_CSTRING("Main"); }
 
+		::haxor::graphics::mesh::Mesh mesh;
+		::haxor::graphics::material::Material mat;
 		virtual bool Load( );
 
 		virtual Void Initialize( );
@@ -52,6 +58,8 @@ class HXCPP_CLASS_ATTRIBUTES  Main_obj : public ::haxor::core::Application_obj{
 		virtual Void OnUpdate( );
 		Dynamic OnUpdate_dyn();
 
+		bool init;
+		int vb;
 		virtual Void OnRender( );
 		Dynamic OnRender_dyn();
 

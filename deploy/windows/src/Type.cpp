@@ -105,6 +105,18 @@ Dynamic Type_obj::createInstance( ::Class cl,Dynamic args){
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC2(Type_obj,createInstance,return )
 
+Dynamic Type_obj::createEnum( ::Enum e,::String constr,Dynamic params){
+	HX_STACK_FRAME("Type","createEnum",0xd8d56d31,"Type.createEnum","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Type.hx",91,0x7ddcae72)
+	HX_STACK_ARG(e,"e")
+	HX_STACK_ARG(constr,"constr")
+	HX_STACK_ARG(params,"params")
+	HX_STACK_LINE(91)
+	return e->ConstructEnum(constr,params);
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(Type_obj,createEnum,return )
+
 
 Type_obj::Type_obj()
 {
@@ -115,6 +127,9 @@ Dynamic Type_obj::__Field(const ::String &inName,bool inCallProp)
 	switch(inName.length) {
 	case 8:
 		if (HX_FIELD_EQ(inName,"getClass") ) { return getClass_dyn(); }
+		break;
+	case 10:
+		if (HX_FIELD_EQ(inName,"createEnum") ) { return createEnum_dyn(); }
 		break;
 	case 12:
 		if (HX_FIELD_EQ(inName,"getClassName") ) { return getClassName_dyn(); }
@@ -141,6 +156,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("getClassName"),
 	HX_CSTRING("resolveClass"),
 	HX_CSTRING("createInstance"),
+	HX_CSTRING("createEnum"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE

@@ -7,8 +7,6 @@ namespace haxor{
 namespace platform{
 namespace graphics{
 
-::haxor::platform::graphics::GraphicAPI GraphicAPI_obj::DirectX;
-
 ::haxor::platform::graphics::GraphicAPI GraphicAPI_obj::None;
 
 ::haxor::platform::graphics::GraphicAPI GraphicAPI_obj::OpenGL;
@@ -21,17 +19,15 @@ HX_DEFINE_CREATE_ENUM(GraphicAPI_obj)
 
 int GraphicAPI_obj::__FindIndex(::String inName)
 {
-	if (inName==HX_CSTRING("DirectX")) return 3;
 	if (inName==HX_CSTRING("None")) return 0;
 	if (inName==HX_CSTRING("OpenGL")) return 1;
 	if (inName==HX_CSTRING("OpenGLES")) return 2;
-	if (inName==HX_CSTRING("WebGL")) return 4;
+	if (inName==HX_CSTRING("WebGL")) return 3;
 	return super::__FindIndex(inName);
 }
 
 int GraphicAPI_obj::__FindArgCount(::String inName)
 {
-	if (inName==HX_CSTRING("DirectX")) return 0;
 	if (inName==HX_CSTRING("None")) return 0;
 	if (inName==HX_CSTRING("OpenGL")) return 0;
 	if (inName==HX_CSTRING("OpenGLES")) return 0;
@@ -41,7 +37,6 @@ int GraphicAPI_obj::__FindArgCount(::String inName)
 
 Dynamic GraphicAPI_obj::__Field(const ::String &inName,bool inCallProp)
 {
-	if (inName==HX_CSTRING("DirectX")) return DirectX;
 	if (inName==HX_CSTRING("None")) return None;
 	if (inName==HX_CSTRING("OpenGL")) return OpenGL;
 	if (inName==HX_CSTRING("OpenGLES")) return OpenGLES;
@@ -53,12 +48,10 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("None"),
 	HX_CSTRING("OpenGL"),
 	HX_CSTRING("OpenGLES"),
-	HX_CSTRING("DirectX"),
 	HX_CSTRING("WebGL"),
 	::String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {
-	HX_MARK_MEMBER_NAME(GraphicAPI_obj::DirectX,"DirectX");
 	HX_MARK_MEMBER_NAME(GraphicAPI_obj::None,"None");
 	HX_MARK_MEMBER_NAME(GraphicAPI_obj::OpenGL,"OpenGL");
 	HX_MARK_MEMBER_NAME(GraphicAPI_obj::OpenGLES,"OpenGLES");
@@ -68,7 +61,6 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 #ifdef HXCPP_VISIT_ALLOCS
 static void sVisitStatic(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(GraphicAPI_obj::__mClass,"__mClass");
-	HX_VISIT_MEMBER_NAME(GraphicAPI_obj::DirectX,"DirectX");
 	HX_VISIT_MEMBER_NAME(GraphicAPI_obj::None,"None");
 	HX_VISIT_MEMBER_NAME(GraphicAPI_obj::OpenGL,"OpenGL");
 	HX_VISIT_MEMBER_NAME(GraphicAPI_obj::OpenGLES,"OpenGLES");
@@ -98,11 +90,10 @@ hx::Static(__mClass) = hx::RegisterClass(HX_CSTRING("haxor.platform.graphics.Gra
 
 void GraphicAPI_obj::__boot()
 {
-hx::Static(DirectX) = hx::CreateEnum< GraphicAPI_obj >(HX_CSTRING("DirectX"),3);
 hx::Static(None) = hx::CreateEnum< GraphicAPI_obj >(HX_CSTRING("None"),0);
 hx::Static(OpenGL) = hx::CreateEnum< GraphicAPI_obj >(HX_CSTRING("OpenGL"),1);
 hx::Static(OpenGLES) = hx::CreateEnum< GraphicAPI_obj >(HX_CSTRING("OpenGLES"),2);
-hx::Static(WebGL) = hx::CreateEnum< GraphicAPI_obj >(HX_CSTRING("WebGL"),4);
+hx::Static(WebGL) = hx::CreateEnum< GraphicAPI_obj >(HX_CSTRING("WebGL"),3);
 }
 
 

@@ -6,7 +6,7 @@
 #endif
 
 HX_DECLARE_CLASS3(haxor,graphics,mesh,MeshAttrib)
-HX_DECLARE_CLASS2(haxor,io,BaseArray)
+HX_DECLARE_CLASS2(haxor,io,Buffer)
 namespace haxor{
 namespace graphics{
 namespace mesh{
@@ -34,10 +34,13 @@ class HXCPP_CLASS_ATTRIBUTES  MeshAttrib_obj : public hx::Object{
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("MeshAttrib"); }
 
-		int id;
-		::String name;
-		::haxor::io::BaseArray data;
-		::String type;
+		int _cid_;
+		int _loc_;
+		virtual ::String get_name( );
+		Dynamic get_name_dyn();
+
+		::String m_name;
+		::haxor::io::Buffer data;
 		int offset;
 		virtual int get_count( );
 		Dynamic get_count_dyn();

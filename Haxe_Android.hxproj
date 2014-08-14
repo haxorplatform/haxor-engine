@@ -19,12 +19,12 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="android" />
+    <option directives="android&#xA;gl_debug" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="Main" />
     <option enabledebug="False" />
-    <option additional="-D no-compilation&#xA;-java-lib &quot;%ANDROID_HOME%\platforms\android-13\android.jar&quot;" />
+    <option additional="-D no-compilation&#xA;-java-lib &quot;%ANDROID_HOME%\platforms\android-18\android.jar&quot;" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

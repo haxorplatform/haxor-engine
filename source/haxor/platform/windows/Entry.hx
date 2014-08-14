@@ -33,6 +33,8 @@ class Entry
 	 */
 	static public function Initialize():Void
 	{
+		Console.Initialize();
+		
 		var app_class_type : String = "";
 		
 		var app_title : String = "Haxor";
@@ -94,6 +96,8 @@ class Entry
 		
 		GL.Initialize(app);		
 		GL.m_gl.Initialize(wnd);
+		
+		EngineContext.Build();
 		
 		if (app.Load()) app.LoadComplete();
 		

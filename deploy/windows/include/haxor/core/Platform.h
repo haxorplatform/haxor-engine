@@ -27,6 +27,8 @@ class Platform_obj : public hx::EnumBase_obj
 		static inline ::haxor::core::Platform Android_dyn() { return Android; }
 		static ::haxor::core::Platform HTML;
 		static inline ::haxor::core::Platform HTML_dyn() { return HTML; }
+		static ::haxor::core::Platform Linux;
+		static inline ::haxor::core::Platform Linux_dyn() { return Linux; }
 		static ::haxor::core::Platform MacOS;
 		static inline ::haxor::core::Platform MacOS_dyn() { return MacOS; }
 		static ::haxor::core::Platform NodeJS;

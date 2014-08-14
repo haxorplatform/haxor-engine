@@ -12,7 +12,7 @@ namespace core{
 
 ::haxor::core::ApplicationProtocol ApplicationProtocol_obj::HTTPS;
 
-::haxor::core::ApplicationProtocol ApplicationProtocol_obj::Unknown;
+::haxor::core::ApplicationProtocol ApplicationProtocol_obj::None;
 
 HX_DEFINE_CREATE_ENUM(ApplicationProtocol_obj)
 
@@ -21,7 +21,7 @@ int ApplicationProtocol_obj::__FindIndex(::String inName)
 	if (inName==HX_CSTRING("File")) return 1;
 	if (inName==HX_CSTRING("HTTP")) return 2;
 	if (inName==HX_CSTRING("HTTPS")) return 3;
-	if (inName==HX_CSTRING("Unknown")) return 0;
+	if (inName==HX_CSTRING("None")) return 0;
 	return super::__FindIndex(inName);
 }
 
@@ -30,7 +30,7 @@ int ApplicationProtocol_obj::__FindArgCount(::String inName)
 	if (inName==HX_CSTRING("File")) return 0;
 	if (inName==HX_CSTRING("HTTP")) return 0;
 	if (inName==HX_CSTRING("HTTPS")) return 0;
-	if (inName==HX_CSTRING("Unknown")) return 0;
+	if (inName==HX_CSTRING("None")) return 0;
 	return super::__FindArgCount(inName);
 }
 
@@ -39,12 +39,12 @@ Dynamic ApplicationProtocol_obj::__Field(const ::String &inName,bool inCallProp)
 	if (inName==HX_CSTRING("File")) return File;
 	if (inName==HX_CSTRING("HTTP")) return HTTP;
 	if (inName==HX_CSTRING("HTTPS")) return HTTPS;
-	if (inName==HX_CSTRING("Unknown")) return Unknown;
+	if (inName==HX_CSTRING("None")) return None;
 	return super::__Field(inName,inCallProp);
 }
 
 static ::String sStaticFields[] = {
-	HX_CSTRING("Unknown"),
+	HX_CSTRING("None"),
 	HX_CSTRING("File"),
 	HX_CSTRING("HTTP"),
 	HX_CSTRING("HTTPS"),
@@ -54,7 +54,7 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(ApplicationProtocol_obj::File,"File");
 	HX_MARK_MEMBER_NAME(ApplicationProtocol_obj::HTTP,"HTTP");
 	HX_MARK_MEMBER_NAME(ApplicationProtocol_obj::HTTPS,"HTTPS");
-	HX_MARK_MEMBER_NAME(ApplicationProtocol_obj::Unknown,"Unknown");
+	HX_MARK_MEMBER_NAME(ApplicationProtocol_obj::None,"None");
 };
 
 #ifdef HXCPP_VISIT_ALLOCS
@@ -63,7 +63,7 @@ static void sVisitStatic(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(ApplicationProtocol_obj::File,"File");
 	HX_VISIT_MEMBER_NAME(ApplicationProtocol_obj::HTTP,"HTTP");
 	HX_VISIT_MEMBER_NAME(ApplicationProtocol_obj::HTTPS,"HTTPS");
-	HX_VISIT_MEMBER_NAME(ApplicationProtocol_obj::Unknown,"Unknown");
+	HX_VISIT_MEMBER_NAME(ApplicationProtocol_obj::None,"None");
 };
 #endif
 
@@ -92,7 +92,7 @@ void ApplicationProtocol_obj::__boot()
 hx::Static(File) = hx::CreateEnum< ApplicationProtocol_obj >(HX_CSTRING("File"),1);
 hx::Static(HTTP) = hx::CreateEnum< ApplicationProtocol_obj >(HX_CSTRING("HTTP"),2);
 hx::Static(HTTPS) = hx::CreateEnum< ApplicationProtocol_obj >(HX_CSTRING("HTTPS"),3);
-hx::Static(Unknown) = hx::CreateEnum< ApplicationProtocol_obj >(HX_CSTRING("Unknown"),0);
+hx::Static(None) = hx::CreateEnum< ApplicationProtocol_obj >(HX_CSTRING("None"),0);
 }
 
 

@@ -15,13 +15,7 @@ import js.html.EventTarget;
 import js.html.XMLHttpRequest;
 import js.html.Element;
 
-enum ApplicationProtocol
-{
-	Unknown;
-	File;
-	HTTP;
-	HTTPS;
-}
+
 
 /**
  * Class that defines a base Application for HTML projects.
@@ -46,8 +40,16 @@ class HTMLApplication extends BaseApplication
 		m_platform 			= Platform.HTML;				
 	}
 	
+	/**
+	 * See BaseApplication.
+	 * @return
+	 */
 	override function GetContainerWidth():Float { return m_container.clientWidth; }
 	
+	/**
+	 * See BaseApplication.
+	 * @return
+	 */
 	override function GetContainerHeight():Float { return m_container.clientHeight; }
 	
 	/*

@@ -62,8 +62,11 @@ class HXCPP_CLASS_ATTRIBUTES  BaseApplication_obj : public ::haxor::component::B
 
 		::haxor::core::Platform m_platform;
 		Array< ::Dynamic > m_scenes;
-		virtual Void LoadScene( ::String p_name,hx::Null< bool >  p_clear);
+		virtual Void LoadScene( ::String p_name);
 		Dynamic LoadScene_dyn();
+
+		virtual Void DestroyScene( ::String p_name);
+		Dynamic DestroyScene_dyn();
 
 		virtual bool Load( );
 		Dynamic Load_dyn();

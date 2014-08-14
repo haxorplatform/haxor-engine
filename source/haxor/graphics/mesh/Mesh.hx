@@ -1,14 +1,14 @@
 package haxor.graphics.mesh;
 import haxor.context.EngineContext;
+import haxor.context.MeshContext;
 import haxor.core.Console;
 import haxor.core.Resource;
-import haxor.io.BaseArray;
-import haxor.io.FloatArray;
+import haxor.graphics.Enums.MeshMode;
+import haxor.graphics.Enums.MeshPrimitive;
+import haxor.io.Buffer;
 import haxor.io.UInt16Array;
 import haxor.platform.graphics.GL;
-import haxor.platform.Types.Float32Buffer;
 import haxor.platform.Types.MeshBufferId;
-import haxor.platform.Types.UInt16Buffer;
 
 
 
@@ -17,7 +17,7 @@ import haxor.platform.Types.UInt16Buffer;
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 @:allow(haxor)
-class Mesh extends Resource implements ArrayAccess<String>
+class Mesh extends Resource
 {
 	
 	/**
@@ -35,13 +35,13 @@ class Mesh extends Resource implements ArrayAccess<String>
 		{ 
 			m_topology_attrib.data = null;
 			m_indexed = false; 
-			//Graphics.DeleteBuffer(m_topology_attrib);
+			EngineContext.mesh.RemoveAttrib(m_topology_attrib);			
 		}
 		else
 		{			
 			m_topology_attrib.data   = v;
 			m_indexed = true;
-			//Graphics.UpdateBuffer(m_topology_attrib);
+			EngineContext.mesh.UpdateAttrib(m_topology_attrib,m_mode,true);
 		}		
 		return v;
 	}	
@@ -52,8 +52,28 @@ class Mesh extends Resource implements ArrayAccess<String>
 	 * Flag that indicates if this mesh uses index buffers.
 	 */
 	public var indexed(get_indexed, never) : Bool;
-	private function get_indexed():Bool { return m_indexed; }
+	private inline function get_indexed():Bool { return m_indexed; }
 	private var m_indexed : Bool;
+	
+	/**
+	 * Flag that indicates the type of buffer usage.
+	 */
+	public var mode(get_mode, set_mode):Int;	
+	private inline function get_mode():Int { return m_mode; }
+	private function set_mode(v:Int):Int 
+	{		
+		if (m_mode == v) return v;
+		m_mode = v;	
+		if(m_indexed) EngineContext.mesh.UpdateAttrib(m_topology_attrib,m_mode,true);
+		for (i in 0...m_attribs.length) EngineContext.mesh.UpdateAttrib(m_attribs[i],m_mode,false);
+		return v;
+	}
+	private var m_mode : Int;
+	
+	/**
+	 * The primitive this mesh will draw.
+	 */
+	public var primitive : Int;
 	
 	/**
 	 * List of attibutes that defines this mesh.
@@ -74,28 +94,43 @@ class Mesh extends Resource implements ArrayAccess<String>
 	 */
 	public function new():Void
 	{
-		super();		
+		super();
+		_cid_ 		= EngineContext.mesh.mid++;
 		m_attribs 	= [];
 		m_indexed	= false;
 		m_vcount    = 0;
+		m_mode		= MeshMode.DynamicDraw;
+		primitive	= MeshPrimitive.Triangles;
 		m_topology_attrib 		 = new MeshAttrib();
-		m_topology_attrib.name 	 = "$topology";
+		m_topology_attrib.m_name = "$topology";
 		m_topology_attrib.offset = 1;
-		m_topology_attrib.type 	 = "int";
+		
 	}
 	
 	/**
-	 * Removes all attributes from this mesh and clears the GPU memory.
+	 * Clears all attributes from this mesh. If the 'gpu' flag is set, it alsos removes the attrib buffers from gpu.
+	 * This way the mesh can be clean only for GC collection or both GPU and GC collection.
+	 * Either way the local data will be lost.
+	 * @param	p_from_gpu
 	 */
-	public function Clear():Void
+	public function Clear(p_from_gpu:Bool=true):Void
 	{
 		for (i in 0...m_attribs.length)
 		{
-			//Graphics.DeleteBuffer(m_attribs[i]);
-		}
-		m_attribs = [];
+			m_attribs[i].data   = null;			
+			m_attribs[i].m_name = "";
+			if (p_from_gpu) EngineContext.mesh.RemoveAttrib(m_attribs[i]);
+		}		
+		//m_attribs = [];
 		m_vcount  = 0;
-		topology  = null;
+		if (p_from_gpu)
+		{
+			topology  = null;
+		}
+		else
+		{
+			m_topology_attrib.data = null;
+		}
 	}
 	
 	/**
@@ -138,7 +173,7 @@ class Mesh extends Resource implements ArrayAccess<String>
 		var a : MeshAttrib = GetAttribute(p_name);
 		if (a == null) return;
 		m_attribs.remove(a);
-		//Graphics.DeleteBuffer(a);
+		EngineContext.mesh.RemoveAttrib(a);
 	}
 	
 	/**
@@ -148,7 +183,7 @@ class Mesh extends Resource implements ArrayAccess<String>
 	 * @param	p_data
 	 * @param	p_offset
 	 */		
-	public function Set(p_name : String, p_data : BaseArray,p_offset : Int = 3):Void
+	public function Set(p_name : String, p_data : Buffer,p_offset : Int = 3):Void
 	{	
 		if (p_data == null) 	{ Console.Log("Mesh> [" + name+"] tried to set null array.",1); return; }		
 		if (p_data.length <= 0)	{ Console.Log("Mesh> [" + name+"] tried to set empty array.", 1); return;	}		
@@ -156,7 +191,7 @@ class Mesh extends Resource implements ArrayAccess<String>
 		if (a == null)
 		{
 			a 		 = new MeshAttrib();			
-			a.name   = p_name;			
+			a.m_name = p_name;			
 			m_attribs.push(a);
 		}		
 		a.offset = p_offset;							
@@ -166,12 +201,17 @@ class Mesh extends Resource implements ArrayAccess<String>
 		{
 			var c: Int = m_attribs[i].count;
 			m_vcount = m_vcount < c ? m_vcount : c;
-		}
-		var bid : MeshBufferId = GL.CreateBuffer();
-		Console.Log(">>> "+bid);
-		//Graphics.UpdateBuffer(a);
+		}	
+		EngineContext.mesh.UpdateAttrib(a,m_mode,false);
 	}
 	
+	/**
+	 * Callback called when the mesh is destroyed.
+	 */
+	override public function OnDestroy():Void 
+	{
+		Clear();
+	}
 	
 	
 }
@@ -180,29 +220,32 @@ class Mesh extends Resource implements ArrayAccess<String>
 /**
  * Class that describes a mesh attribute holder. It will handle the raw buffer which will contains (Float, Vector3, Color,...) data.
  */
+@:allow(haxor)
 class MeshAttrib
 {
 	
 	/**
 	 * Unique id used to sample cached buffer ids.
 	 */
-	public var id : Int;
+	private var _cid_ : Int;
+	
+	/**
+	 * Shader location if this attrib is part of the default attribs.
+	 */
+	private var _loc_ : Int;
 	
 	/**
 	 * Attribute Name.
 	 */
-	public var name : String;
+	public var name(get_name, never) : String;
+	private inline function get_name():String { return m_name; }
+	private var m_name : String;
 	
 	/**
 	 * Attribute Data.
 	 */
-	public var data : BaseArray;
-	
-	/**
-	 * Type data content.
-	 */
-	public var type : String;
-	
+	public var data : Buffer;
+		
 	/**
 	 * Data offset (1 = Floats, 3 = Vector3,...)
 	 */
@@ -216,9 +259,9 @@ class MeshAttrib
 	
 	public function new():Void
 	{
-		id 	   = EngineContext.mesh.aid++;
-		name   = "";
-		type   = "";
+		_cid_  = EngineContext.mesh.aid++;
+		_loc_  = -1;
+		m_name = "";
 		data   = null;
 		offset = 0;
 	}

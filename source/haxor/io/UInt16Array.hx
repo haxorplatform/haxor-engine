@@ -1,122 +1,122 @@
 package haxor.io;
-import haxor.core.Console;
-import haxor.platform.Types.UInt16Buffer;
 
-
+#if (windows || osx || linux)
+import haxe.io.Bytes;
+#end
 
 /**
- * Class that describes a list of Unsigned Int with 2 bytes aligment.
+ * Class that describes a set of bytes represented as 2 byte ints.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
-@:allow(haxor)
-class UInt16Array extends BaseArray implements ArrayAccess<Int>
+class UInt16Array extends Buffer
 {
 	/**
-	 * Creates a UInt16Array using the native array of the platform.
+	 * Allocates a new FloatBuffer using the passed data as content.
 	 * @param	p_data
 	 * @return
 	 */
-	static public function Create(p_data : Array<Int>):UInt16Array
+	static public function Alloc(p_data : Array<Int>):UInt16Array
 	{
-		var a : UInt16Array = new UInt16Array(p_data.length);
-		a.Set(p_data);		
-		return a;
-	}
-		
-	#if android	
-	override inline function get_length():Int { return b.capacity(); }	
-	#end
-	#if html	
-	override inline function get_length():Int { return b.length; }
-	#end
-	
-	#if windows
-	override inline function get_length():Int { return m_length; }	
-	private var m_length : Int;
-	#end
-	
-	override inline function get_type():String { return "int"; }
-	
-	
-	/**
-	 * Internal array.
-	 */
-	private var b : UInt16Buffer;
-	
-	/**
-	 * 
-	 * @param	p_capacity
-	 */
-	public function new(p_capacity:Int):Void
-	{ 
-		#if html
-		b = new UInt16Buffer(p_capacity);
-		#end
-		
-		#if android
-		b = java.nio.ByteBuffer
-		.allocateDirect(p_capacity * 2)
-		.order(java.nio.ByteOrder.nativeOrder())
-		.asShortBuffer();	
-		#end
-		
-		#if windows
-		m_length = p_capacity;
-		var arr : Array<UInt> = [];
-		for (i in 0...m_length) arr.push(0);
-		b = cpp.Pointer.fromArray(arr,0);
-		#end
+		var b : UInt16Array = new UInt16Array(p_data.length);
+		b.SetRange(p_data);
+		return b;
 	}
 	
+	#if html
+	private var aux : js.html.Uint16Array;
+	#end
+	
+	#if android
+	private var aux : java.nio.ShortBuffer;
+	#end
+
 	/**
-	 * Creates a new array with the same content.
+	 * Shorts uses 2 bytes.
 	 * @return
 	 */
-	public function Clone():UInt16Array
+	override inline function get_bytesPerElement():Int { return 2; }
+	
+	/**
+	 * Creates a new FloatBuffer with 'length' elements.
+	 * @param	p_length
+	 */
+	public function new(p_length : Int) 
 	{
-		var a : UInt16Array = new UInt16Array(length);
-		for (i in 0...length) a.array_set(i,array_get(i));
-		return a;
+		super(p_length);		
+		
+		#if html
+		aux = new js.html.Uint16Array(m_buffer.buffer);
+		#end
+		
+		#if android
+		aux = m_buffer.asShortBuffer();
+		#end
 	}
 	
 	/**
-	 * Sets the Array contents with the passed data.
-	 * @param	p_data
+	 * Returns a value at the informed index.
+	 * @param	p_index
+	 * @return
 	 */
-	@:overload(function(p_data : UInt16Array):Void { })
-	public function Set(p_data : Array<Int>):Void
-	{		
-		for (i in 0...p_data.length) array_set(i,p_data[i]);
-	}
-	
-	@:arrayAccess 
-	public inline function array_get(k:Int) : Int
-	{ 
+	public function Get(p_index : Int):Int
+	{
 		#if html
-		return b[k];
-		#end		
+		return aux[p_index];		
+		#end
+		
+		#if windows
+		var aux : Bytes = m_buffer;
+		var p:Int = p_index * 2;
+		untyped __cpp__('
+		int v = 0;
+		char* ptr = (char*)(&v);
+		ptr[0] = (char) aux->b[p];
+		ptr[1] = (char) aux->b[p+1];		
+		return v;
+		');		
+		return 0;
+		#end
+		
 		#if android
-		return cast b.get(k);
-		#end		
-		#if windows
-		return b[k];
+		return cast aux.get(p_index);
 		#end
 	}
 	
-	@:arrayAccess 
-	public inline function array_set(k:Int, v:Int):Int 
-	{ 			
+	/**
+	 * Sets a value at the informed index.
+	 * @param	p_index
+	 * @param	p_value
+	 */
+	public function Set(p_index : Int, p_value : Int):Void
+	{
 		#if html
-		b[k] = v; 
-		#end		
-		#if android		
-		b.put(k, v);
-		#end		
-		#if windows
-		b[k] = v; 
+		aux[p_index] = p_value;
 		#end
-		return v; 
+		
+		#if windows
+		var aux : Bytes = m_buffer;
+		var p:Int = p_index * 2;
+		untyped __cpp__('
+		int v   = p_value;
+		char* ptr = (char*)(&v);
+		aux->b[p]   = ptr[0];
+		aux->b[p+1] = ptr[1];		
+		');				
+		#end
+		
+		#if android
+		aux.put(p_index, p_value);
+		#end
 	}
+	
+	/**
+	 * Sets a range of values starting at offset.
+	 * @param	p_data
+	 * @param	p_offset
+	 */
+	public function SetRange(p_data : Array<Int>, p_offset : Int = 0):Void
+	{
+		for (i in 0...p_data.length) Set(i + p_offset, p_data[i]);
+	}
+	
 }
-
-

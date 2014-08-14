@@ -1,22 +1,22 @@
 package ;
-
-
-
-
 import haxor.core.Application;
 import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
 import haxor.core.Time;
+import haxor.graphics.Enums.BlendMode;
+import haxor.graphics.Enums.CullMode;
+import haxor.graphics.Enums.MeshPrimitive;
+import haxor.graphics.Graphics;
+import haxor.graphics.material.Material;
+import haxor.graphics.material.Shader;
 import haxor.graphics.mesh.Mesh;
 import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.platform.graphics.GL;
-
-
-
-
+import haxor.platform.graphics.GraphicContext.GraphicAPI;
+import haxor.platform.Types.MeshBufferId;
 
 
 
@@ -28,8 +28,14 @@ import haxor.platform.graphics.GL;
 class Main extends Application implements IUpdateable implements IRenderable
 {
 	
-	static function main() { EntryPoint.Initialize(); }
+	static public function main():Void 
+	{ 
+		EntryPoint.Initialize();
+	}
 	
+	public var mesh : Mesh;
+	
+	public var mat : Material;
 	
 	override public function Load():Bool 
 	{	
@@ -40,30 +46,64 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{
 		Console.Log("Initialize!");	
 		
-		Console.Log("mesh create");
+		
+		var s : Float = 0.8;
+		
+		var vl : FloatArray  =  FloatArray.Alloc([ 
+		-s, -s, 0.5, 
+		 s, -s, 0.5, 
+		 0,  s, 0.5 
+		 ]);
+		
+		var cl : FloatArray  =  FloatArray.Alloc([
+		1.0,  0.0, 0.0,1.0,
+		0.0,  1.0, 0.0,1.0,
+		0.0,  0.0, 1.0, 1.0,
+		0.0,  0.0, 1.0,1.0
+		]);
 		
 		
+		var il : UInt16Array =  UInt16Array.Alloc([0, 1, 2]);
 		
-		var m : Mesh = new Mesh();
+		var m : Mesh = mesh = new Mesh(); 
+		m.Set("vertex", vl, 3);
+		//m.Set("color", cl, 4);
 		
+		m.topology = il;
 		
-		var f32 : FloatArray = FloatArray.Create([0.0, 1.1, 2.2, 3.3]);
-		var i16 : UInt16Array = UInt16Array.Create([2, 3, 4, 5]);
+		var ss : String = 
+		'
+		<shader id="haxor/debug">
+			<vertex>			
+			attribute vec3 vertex;
+			attribute vec4 color;			
+			varying vec4 v_color;			
+			void main(void) 
+			{ 
+				v_color = color;
+				gl_Position = vec4(vertex, 1.0);				
+			}			
+			</vertex>			
+			<fragment>					
+			varying vec4 v_color;			
+			void main(void) 
+			{ 
+				gl_FragColor = v_color;
+			}			
+			</fragment>
+		</shader>
+		';
 		
-		f32.Set(0, 1.1);
-		Console.Log(f32.Get(0)+"!!!");
+		var shd : Shader = new Shader(ss);
 		
-		m.Set("factor", f32, 1);
-		m.Set("idx", i16, 1);
+		mat = new Material("DebugMaterial");
+		mat.blend = true;
+		mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
+		mat.shader = shd;
 		
-		m.topology = UInt16Array.Create([0, 1, 2, 2, 1, 3]);
-		
-		for (i in 0...m.attribs.length)
-		{
-			var a : MeshAttrib = m.GetAttribute(m.attribs[i]);
-			trace(a.name+" " + a.type+" " + a.offset+" "+a.data.length);
-		}
 		//*/
+		
+		
 	}
 	
 	
@@ -73,12 +113,24 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 	}
 	
+	var init : Bool = false;
+	
+	var vb : MeshBufferId;
+		
 	public function OnRender():Void
 	{
 		
 		//Console.Log("ups["+Time.ups+"] fps["+Time.fps+"] elapsed["+Time.elapsed+"] frames["+Time.frame+"]");
 		
-		GL.Clear(1.0, 0.0, 1.0,1.0,1.0);
+		GL.ClearColor(1.0, 0.0, 1.0, 1.0);
+		GL.ClearDepth(1.0);
+		GL.Clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
+		
+	
+		if (mesh == null) return;
+		if (mat == null) return;
+		Graphics.RenderMesh(mesh, mat);		
+		
 	}
 	
 	

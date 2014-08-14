@@ -85,7 +85,7 @@ class ShaderAPI
 		if (p == null) { Console.LogError("Shader> Error! Could not create program @ " + p_shader.name); return; }
 		if (vs != null) c.attachShader(p, vs);
 		if (fs != null) c.attachShader(p, fs);		
-		for (i in 0...m_attribs.length)	c.bindAttribLocation(p, i, m_attribs[i]);				
+		for (i in 0...m_attribs.length)	c.bindAttribLocation(p, i, m_attribs[i]);
 		c.linkProgram(p);
 				
 		if (!c.getProgramParameter(p, GL.LINK_STATUS))

@@ -6,6 +6,10 @@
 #endif
 
 HX_DECLARE_CLASS2(haxor,context,MeshContext)
+HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,Resource)
+HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
+HX_DECLARE_CLASS3(haxor,graphics,mesh,MeshAttrib)
 namespace haxor{
 namespace context{
 
@@ -33,7 +37,30 @@ class HXCPP_CLASS_ATTRIBUTES  MeshContext_obj : public hx::Object{
 		::String __ToString() const { return HX_CSTRING("MeshContext"); }
 
 		int aid;
+		int mid;
+		Array< ::String > attribs;
 		Array< int > buffers;
+		Array< bool > activated;
+		int active_max;
+		::haxor::graphics::mesh::Mesh current;
+		virtual Void Initialize( );
+		Dynamic Initialize_dyn();
+
+		virtual Void Bind( ::haxor::graphics::mesh::Mesh p_mesh);
+		Dynamic Bind_dyn();
+
+		virtual Void Unbind( );
+		Dynamic Unbind_dyn();
+
+		virtual Void Draw( ::haxor::graphics::mesh::Mesh m);
+		Dynamic Draw_dyn();
+
+		virtual Void RemoveAttrib( ::haxor::graphics::mesh::MeshAttrib p_attrib);
+		Dynamic RemoveAttrib_dyn();
+
+		virtual Void UpdateAttrib( ::haxor::graphics::mesh::MeshAttrib a,int p_mode,bool p_is_index);
+		Dynamic UpdateAttrib_dyn();
+
 };
 
 } // end namespace haxor

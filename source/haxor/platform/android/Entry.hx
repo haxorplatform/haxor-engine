@@ -29,9 +29,9 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	/**
 	 * Not needed in android dev.
 	 */
-	static public function Initialize():Void { }
+	static public function Initialize():Void {  }
 	
-	private var m_application : BaseApplication;
+	private var m_application : AndroidApplication;
 	
 	private var m_handler : Handler;
 	
@@ -45,6 +45,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	override public function onCreate(savedInstanceState : Bundle) : Void
     {
         super.onCreate(savedInstanceState);
+		
+		Console.Initialize();
 		
 		untyped __java__('
 			requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
@@ -101,7 +103,7 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 				
 		m_handler 	= new Handler();
 		m_handler.postDelayed(this,cast 0);
-		m_active 	= true;
+		
 		
 		
 		
@@ -122,9 +124,7 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	override public function onStart() : Void
 	{
 		super.onStart();		
-		Console.Log("OnStart", 5);
-		
-		
+		Console.Log("OnStart", 5);		
 	}
 	
 	@:overload()
@@ -150,7 +150,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	@:overload()
 	override public function onDestroy():Void
 	{
-		Console.Log("OnDestroy",5);
+		Console.Log("OnDestroy", 5);
+		m_active = false;
 		super.onDestroy();		
 	}
 	
@@ -176,16 +177,20 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	
 	public function onSurfaceChanged(gl:GL10, width:Int, height:Int):Void
 	{
-		if (width <= 0) return;
+		if (width <= 0)  return;
 		if (height <= 0) return;
-		Screen.m_width  = cast width;
-		Screen.m_height = cast height;
-		if(m_active)m_application.OnResize();
+		m_application.m_screen_width  = cast width;
+		m_application.m_screen_height = cast height;
+		//if(m_active)m_application.OnResize();
 	}
 	
 	public function onSurfaceCreated(gl:GL10, config:EGLConfig):Void
 	{
 		Console.Log("OnCreated", 5);
+		
+		EngineContext.Build();
+		
+		m_active 	= true;
 		
 		if (m_application.Load())
 		{

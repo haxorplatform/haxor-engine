@@ -5,24 +5,24 @@
 #include <hxcpp.h>
 #endif
 
-#include <haxor/io/BaseArray.h>
-HX_DECLARE_CLASS2(haxor,io,BaseArray)
+#include <haxor/io/Buffer.h>
+HX_DECLARE_CLASS2(haxor,io,Buffer)
 HX_DECLARE_CLASS2(haxor,io,FloatArray)
 namespace haxor{
 namespace io{
 
 
-class HXCPP_CLASS_ATTRIBUTES  FloatArray_obj : public ::haxor::io::BaseArray_obj{
+class HXCPP_CLASS_ATTRIBUTES  FloatArray_obj : public ::haxor::io::Buffer_obj{
 	public:
-		typedef ::haxor::io::BaseArray_obj super;
+		typedef ::haxor::io::Buffer_obj super;
 		typedef FloatArray_obj OBJ_;
 		FloatArray_obj();
-		Void __construct(int p_capacity);
+		Void __construct(int p_length);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< FloatArray_obj > __new(int p_capacity);
+		static hx::ObjectPtr< FloatArray_obj > __new(int p_length);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~FloatArray_obj();
@@ -30,30 +30,21 @@ class HXCPP_CLASS_ATTRIBUTES  FloatArray_obj : public ::haxor::io::BaseArray_obj
 		HX_DO_RTTI;
 		static void __boot();
 		static void __register();
-		void __Mark(HX_MARK_PARAMS);
-		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("FloatArray"); }
 
-		virtual int get_length( );
+		virtual int get_bytesPerElement( );
 
-		int m_length;
-		virtual ::String get_type( );
-
-		::cpp::Pointer< Float > b;
-		virtual ::haxor::io::FloatArray Clone( );
-		Dynamic Clone_dyn();
-
-		virtual Void Fill( Array< Float > p_data);
-		Dynamic Fill_dyn();
-
-		virtual Float Get( int k);
+		virtual Float Get( int p_index);
 		Dynamic Get_dyn();
 
-		virtual Void Set( int k,Float v);
+		virtual Void Set( int p_index,Float p_value);
 		Dynamic Set_dyn();
 
-		static ::haxor::io::FloatArray Create( Array< Float > p_data);
-		static Dynamic Create_dyn();
+		virtual Void SetRange( Array< Float > p_data,hx::Null< int >  p_offset);
+		Dynamic SetRange_dyn();
+
+		static ::haxor::io::FloatArray Alloc( Array< Float > p_data);
+		static Dynamic Alloc_dyn();
 
 };
 

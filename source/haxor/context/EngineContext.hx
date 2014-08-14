@@ -60,19 +60,34 @@ class EngineContext
 	static private var mesh : MeshContext;
 	
 	/**
+	 * Reference to the Material context.
+	 */
+	static private var material : MaterialContext;
+	
+	/**
 	 * Initializes the Haxor context.
 	 */
 	static private function Initialize():Void
 	{
+		
 		Console.Log("Haxor> Engine Context Initialize.",3);
 		update      = new Process("process.update", 	 maxNodes);
 		render      = new Process("process.render", 	 maxNodes);
 		resize      = new Process("process.resize", 	 maxNodes);
 		resources   = new Process("process.resources",   maxNodes);
 		disposables = new Process("process.disposables", maxNodes);
-		
-		
-		mesh = new MeshContext();
+				
+		mesh 		= new MeshContext();
+		material	= new MaterialContext();
+	}
+	
+	/**
+	 * Method called to initialize contexts that uses the graphics context.
+	 */
+	static private function Build():Void
+	{
+		mesh.Initialize();
+		material.Initialize();
 	}
 	
 }
