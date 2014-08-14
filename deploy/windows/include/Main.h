@@ -51,6 +51,7 @@ class HXCPP_CLASS_ATTRIBUTES  Main_obj : public ::haxor::core::Application_obj{
 
 		::haxor::graphics::mesh::Mesh mesh;
 		::haxor::graphics::material::Material mat;
+		::String ss;
 		virtual bool Load( );
 
 		virtual Void Initialize( );

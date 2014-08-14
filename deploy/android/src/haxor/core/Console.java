@@ -22,7 +22,7 @@ public  class Console extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Console(haxor.core.Console __temp_me4454)
+	public static   void __hx_ctor_haxor_core_Console(haxor.core.Console __temp_me21741)
 	{
 		{
 		}
@@ -50,8 +50,8 @@ public  class Console extends haxe.lang.HxObject
 	
 	public static   void Log(java.lang.String p_msg, java.lang.Object p_level)
 	{
-		int __temp_p_level4453 = ( (( p_level == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p_level)) )) );
-		if (( haxor.core.Console.verbose >= __temp_p_level4453 )) 
+		int __temp_p_level21740 = ( (( p_level == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p_level)) )) );
+		if (( haxor.core.Console.verbose >= __temp_p_level21740 )) 
 		{
 			haxe.root.Sys.stdout().writeString(( p_msg + "\n" ));
 			haxe.root.Sys.stdout().flush();

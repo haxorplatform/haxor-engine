@@ -166,7 +166,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 					HX_STACK_LINE(22)
 					if ((!(has_color))){
 						HX_STACK_LINE(22)
-						::haxor::platform::graphics::GL_obj::m_gl->VertexAttrib4f((int)5,1.0,1.0,1.0,0.5);
+						::haxor::platform::graphics::GL_obj::m_gl->VertexAttrib4f((int)5,1.0,1.0,1.0,1.0);
 					}
 					HX_STACK_LINE(22)
 					if ((_this->current->m_indexed)){

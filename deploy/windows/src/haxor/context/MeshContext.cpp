@@ -206,7 +206,7 @@ Void MeshContext_obj::Bind( ::haxor::graphics::mesh::Mesh p_mesh){
 				HX_STACK_LINE(130)
 				if ((!(has_color))){
 					HX_STACK_LINE(130)
-					::haxor::platform::graphics::GL_obj::m_gl->VertexAttrib4f((int)5,1.0,1.0,1.0,0.5);
+					::haxor::platform::graphics::GL_obj::m_gl->VertexAttrib4f((int)5,1.0,1.0,1.0,1.0);
 				}
 				HX_STACK_LINE(132)
 				if ((this->current->m_indexed)){

@@ -237,8 +237,10 @@ class MaterialContext
 		if (s.m_hasError)
 		{
 			Console.LogError("Shader> Compile Error @ [" + s.name + "]");
-			if (vs_err != "") Console.Log("[vertex]\n" + vs_err);
-			if (fs_err != "") Console.Log("[fragment]\n" + fs_err);
+			//if (vs_err != "") 
+			Console.Log("[vertex]\n" + vs_err);
+			//if (fs_err != "") 
+			Console.Log("[fragment]\n" + fs_err);
 		}
 		GL.Assert("Shader> Init");
 	}

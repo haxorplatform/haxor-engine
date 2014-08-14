@@ -5,6 +5,7 @@
 #include <hxcpp.h>
 #endif
 
+HX_DECLARE_CLASS2(haxe,io,Bytes)
 HX_DECLARE_CLASS2(haxe,io,BytesBuffer)
 namespace haxe{
 namespace io{
@@ -33,6 +34,9 @@ class HXCPP_CLASS_ATTRIBUTES  BytesBuffer_obj : public hx::Object{
 		::String __ToString() const { return HX_CSTRING("BytesBuffer"); }
 
 		Array< unsigned char > b;
+		virtual ::haxe::io::Bytes getBytes( );
+		Dynamic getBytes_dyn();
+
 };
 
 } // end namespace haxe

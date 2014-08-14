@@ -18,7 +18,7 @@ public  class Time extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Time(haxor.core.Time __temp_me4458)
+	public static   void __hx_ctor_haxor_core_Time(haxor.core.Time __temp_me21745)
 	{
 		{
 		}

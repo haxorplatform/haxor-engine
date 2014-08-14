@@ -18,7 +18,7 @@ public  class Graphics extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me4466)
+	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me21753)
 	{
 		{
 		}
@@ -83,13 +83,10 @@ public  class Graphics extends haxe.lang.HxObject
 							{
 								_this1.activated.__set(loc, true);
 								_this1.active_max = ((int) (java.lang.Math.max(((double) (_this1.active_max) ), ((double) (loc) ))) );
-								haxe.Log.trace.__hx_invoke2_o(0.0, ( "EnableVertexAttrib " + loc ), 0.0, new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"className", "fileName", "methodName"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{"haxor.context.MeshContext", "MeshContext.hx", "Bind"}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{"lineNumber"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (((double) (131) )) )})));
 								haxor.platform.graphics.GL.m_gl.EnableVertexAttrib(loc);
 							}
 							
-							haxe.Log.trace.__hx_invoke2_o(0.0, ( "BindBuffer " + ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a._cid_))) ) ), 0.0, new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"className", "fileName", "methodName"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{"haxor.context.MeshContext", "MeshContext.hx", "Bind"}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{"lineNumber"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (((double) (135) )) )})));
 							haxor.platform.graphics.GL.m_gl.BindBuffer(34962, ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a._cid_))) ));
-							haxe.Log.trace.__hx_invoke2_o(0.0, ( ( ( ( ( "VertexAttribPointer " + loc ) + " " ) + a.offset ) + " " ) + type ), 0.0, new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"className", "fileName", "methodName"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{"haxor.context.MeshContext", "MeshContext.hx", "Bind"}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{"lineNumber"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (((double) (138) )) )})));
 							haxor.platform.graphics.GL.m_gl.VertexAttribPointer(loc, a.offset, type, false, 0, 0);
 						}
 						
@@ -97,7 +94,7 @@ public  class Graphics extends haxe.lang.HxObject
 					
 					if ( ! (has_color) ) 
 					{
-						haxor.platform.graphics.GL.m_gl.VertexAttrib4f(5, 1.0, 1.0, 1.0, 0.5);
+						haxor.platform.graphics.GL.m_gl.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
 					}
 					
 					if (_this1.current.m_indexed) 
@@ -115,13 +112,11 @@ public  class Graphics extends haxe.lang.HxObject
 		
 		if (p_mesh.m_indexed) 
 		{
-			haxe.Log.trace.__hx_invoke2_o(0.0, ( ( ( "DrawElements " + p_mesh.primitive ) + " " ) + p_mesh.m_topology_attrib.data.m_length ), 0.0, new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"className", "fileName", "methodName"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{"haxor.context.MeshContext", "MeshContext.hx", "Draw"}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{"lineNumber"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (((double) (181) )) )})));
 			haxor.platform.graphics.GL.m_gl.DrawElements(p_mesh.primitive, p_mesh.m_topology_attrib.data.m_length, 5123, 0);
 			haxor.platform.graphics.GL.m_gl.Assert("Mesh DrawElements");
 		}
 		 else 
 		{
-			haxe.Log.trace.__hx_invoke2_o(0.0, ( ( ( "DrawArrays " + p_mesh.primitive ) + " " ) + p_mesh.m_vcount ), 0.0, new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"className", "fileName", "methodName"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{"haxor.context.MeshContext", "MeshContext.hx", "Draw"}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{"lineNumber"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (((double) (187) )) )})));
 			haxor.platform.graphics.GL.m_gl.DrawArrays(p_mesh.primitive, 0, p_mesh.m_vcount);
 			haxor.platform.graphics.GL.m_gl.Assert("Mesh DrawArrays");
 		}

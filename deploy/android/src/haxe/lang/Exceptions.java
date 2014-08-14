@@ -22,7 +22,7 @@ public  class Exceptions extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_lang_Exceptions(haxe.lang.Exceptions __temp_me4484)
+	public static   void __hx_ctor_haxe_lang_Exceptions(haxe.lang.Exceptions __temp_me21776)
 	{
 		{
 		}

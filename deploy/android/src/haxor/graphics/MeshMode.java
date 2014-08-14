@@ -24,7 +24,7 @@ public  class MeshMode extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_MeshMode(haxor.graphics.MeshMode __temp_me4461)
+	public static   void __hx_ctor_haxor_graphics_MeshMode(haxor.graphics.MeshMode __temp_me21748)
 	{
 		{
 		}

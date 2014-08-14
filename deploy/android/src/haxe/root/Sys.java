@@ -18,7 +18,7 @@ public  class Sys extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__Sys(haxe.root.Sys __temp_me4438)
+	public static   void __hx_ctor__Sys(haxe.root.Sys __temp_me21726)
 	{
 		{
 		}

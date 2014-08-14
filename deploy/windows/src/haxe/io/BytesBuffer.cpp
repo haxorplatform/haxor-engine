@@ -1,5 +1,8 @@
 #include <hxcpp.h>
 
+#ifndef INCLUDED_haxe_io_Bytes
+#include <haxe/io/Bytes.h>
+#endif
 #ifndef INCLUDED_haxe_io_BytesBuffer
 #include <haxe/io/BytesBuffer.h>
 #endif
@@ -33,6 +36,20 @@ Dynamic BytesBuffer_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct();
 	return result;}
 
+::haxe::io::Bytes BytesBuffer_obj::getBytes( ){
+	HX_STACK_FRAME("haxe.io.BytesBuffer","getBytes",0x1e9f7258,"haxe.io.BytesBuffer.getBytes","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/haxe/io/BytesBuffer.hx",173,0xb4f6d0e0)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(189)
+	::haxe::io::Bytes bytes = ::haxe::io::Bytes_obj::__new(this->b->length,this->b);		HX_STACK_VAR(bytes,"bytes");
+	HX_STACK_LINE(191)
+	this->b = null();
+	HX_STACK_LINE(192)
+	return bytes;
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(BytesBuffer_obj,getBytes,return )
+
 
 BytesBuffer_obj::BytesBuffer_obj()
 {
@@ -55,6 +72,9 @@ Dynamic BytesBuffer_obj::__Field(const ::String &inName,bool inCallProp)
 	switch(inName.length) {
 	case 1:
 		if (HX_FIELD_EQ(inName,"b") ) { return b; }
+		break;
+	case 8:
+		if (HX_FIELD_EQ(inName,"getBytes") ) { return getBytes_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -86,6 +106,7 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 
 static ::String sMemberFields[] = {
 	HX_CSTRING("b"),
+	HX_CSTRING("getBytes"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

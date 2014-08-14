@@ -89,6 +89,23 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(Type_obj,getClassName,return )
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Type_obj,resolveClass,return )
 
+::Enum Type_obj::resolveEnum( ::String name){
+	HX_STACK_FRAME("Type","resolveEnum",0x26394079,"Type.resolveEnum","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Type.hx",73,0x7ddcae72)
+	HX_STACK_ARG(name,"name")
+	HX_STACK_LINE(74)
+	::Class result = ::Class_obj::Resolve(name);		HX_STACK_VAR(result,"result");
+	HX_STACK_LINE(75)
+	if (((  (((result != null()))) ? bool(!(result->__IsEnum())) : bool(false) ))){
+		HX_STACK_LINE(76)
+		return null();
+	}
+	HX_STACK_LINE(77)
+	return result;
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(Type_obj,resolveEnum,return )
+
 Dynamic Type_obj::createInstance( ::Class cl,Dynamic args){
 	HX_STACK_FRAME("Type","createInstance",0xab84f9c5,"Type.createInstance","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Type.hx",80,0x7ddcae72)
 	HX_STACK_ARG(cl,"cl")
@@ -131,6 +148,9 @@ Dynamic Type_obj::__Field(const ::String &inName,bool inCallProp)
 	case 10:
 		if (HX_FIELD_EQ(inName,"createEnum") ) { return createEnum_dyn(); }
 		break;
+	case 11:
+		if (HX_FIELD_EQ(inName,"resolveEnum") ) { return resolveEnum_dyn(); }
+		break;
 	case 12:
 		if (HX_FIELD_EQ(inName,"getClassName") ) { return getClassName_dyn(); }
 		if (HX_FIELD_EQ(inName,"resolveClass") ) { return resolveClass_dyn(); }
@@ -155,6 +175,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("getClass"),
 	HX_CSTRING("getClassName"),
 	HX_CSTRING("resolveClass"),
+	HX_CSTRING("resolveEnum"),
 	HX_CSTRING("createInstance"),
 	HX_CSTRING("createEnum"),
 	String(null()) };

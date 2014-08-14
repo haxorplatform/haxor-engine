@@ -22,6 +22,16 @@ Dynamic StringTools_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct();
 	return result;}
 
+::String StringTools_obj::urlEncode( ::String s){
+	HX_STACK_FRAME("StringTools","urlEncode",0x06afdce1,"StringTools.urlEncode","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/StringTools.hx",46,0x1cb4d9a1)
+	HX_STACK_ARG(s,"s")
+	HX_STACK_LINE(46)
+	return s.__URLEncode();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(StringTools_obj,urlEncode,return )
+
 ::String StringTools_obj::replace( ::String s,::String sub,::String by){
 	HX_STACK_FRAME("StringTools","replace",0x6d651f30,"StringTools.replace","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/StringTools.hx",303,0x1cb4d9a1)
 	HX_STACK_ARG(s,"s")
@@ -44,6 +54,9 @@ Dynamic StringTools_obj::__Field(const ::String &inName,bool inCallProp)
 	switch(inName.length) {
 	case 7:
 		if (HX_FIELD_EQ(inName,"replace") ) { return replace_dyn(); }
+		break;
+	case 9:
+		if (HX_FIELD_EQ(inName,"urlEncode") ) { return urlEncode_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -59,6 +72,7 @@ void StringTools_obj::__GetFields(Array< ::String> &outFields)
 };
 
 static ::String sStaticFields[] = {
+	HX_CSTRING("urlEncode"),
 	HX_CSTRING("replace"),
 	String(null()) };
 

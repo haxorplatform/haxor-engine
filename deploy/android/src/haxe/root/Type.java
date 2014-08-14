@@ -18,7 +18,7 @@ public  class Type extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__Type(haxe.root.Type __temp_me4439)
+	public static   void __hx_ctor__Type(haxe.root.Type __temp_me21727)
 	{
 		{
 		}
@@ -73,16 +73,16 @@ public  class Type extends haxe.lang.HxObject
 		}
 		
 		{
-			java.lang.String __temp_svar4537 = (name);
-			int __temp_hash4539 = __temp_svar4537.hashCode();
-			boolean __temp_executeDef4538 = true;
-			switch (__temp_hash4539)
+			java.lang.String __temp_svar21829 = (name);
+			int __temp_hash21831 = __temp_svar21829.hashCode();
+			boolean __temp_executeDef21830 = true;
+			switch (__temp_hash21831)
 			{
 				case -672261858:case 104431:
 				{
-					if (( (( ( __temp_hash4539 == -672261858 ) && __temp_svar4537.equals("Integer") )) || __temp_svar4537.equals("int") )) 
+					if (( (( ( __temp_hash21831 == -672261858 ) && __temp_svar21829.equals("Integer") )) || __temp_svar21829.equals("int") )) 
 					{
-						__temp_executeDef4538 = false;
+						__temp_executeDef21830 = false;
 						return "Int";
 					}
 					
@@ -92,9 +92,9 @@ public  class Type extends haxe.lang.HxObject
 				
 				case -1939501217:
 				{
-					if (__temp_svar4537.equals("Object")) 
+					if (__temp_svar21829.equals("Object")) 
 					{
-						__temp_executeDef4538 = false;
+						__temp_executeDef21830 = false;
 						return "Dynamic";
 					}
 					
@@ -104,9 +104,9 @@ public  class Type extends haxe.lang.HxObject
 				
 				case 2052876273:case -1325958191:
 				{
-					if (( (( ( __temp_hash4539 == 2052876273 ) && __temp_svar4537.equals("Double") )) || __temp_svar4537.equals("double") )) 
+					if (( (( ( __temp_hash21831 == 2052876273 ) && __temp_svar21829.equals("Double") )) || __temp_svar21829.equals("double") )) 
 					{
-						__temp_executeDef4538 = false;
+						__temp_executeDef21830 = false;
 						return "Float";
 					}
 					
@@ -116,7 +116,7 @@ public  class Type extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef4538) 
+			if (__temp_executeDef21830) 
 			{
 				return name;
 			}

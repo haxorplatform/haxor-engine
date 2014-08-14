@@ -14,6 +14,7 @@ import haxor.graphics.material.Shader;
 import haxor.graphics.mesh.Mesh;
 import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
+import haxor.net.Web;
 import haxor.platform.graphics.GL;
 import haxor.platform.graphics.GraphicContext.GraphicAPI;
 import haxor.platform.Types.MeshBufferId;
@@ -37,9 +38,46 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	public var mat : Material;
 	
+	public var ss : String;
+	
 	override public function Load():Bool 
 	{	
-		return true;
+		Web.root = "https://dl.dropboxusercontent.com/u/20655747/haxor/resources/";
+		
+		Web.Load("./shader/unlit/NDC.shader", function(d:String, p:Float):Void
+		{	
+			if (p >= 1.0)
+			{
+				ss = d;				
+				LoadComplete();
+			}
+		});
+		//*/
+		/*
+		Web.Load("./asset/dungeon/module0/asset.dae",function(d:String, p:Float):Void
+		{			
+			if (p >= 1.0)
+			{
+				if (d != null)
+				{
+					Console.Log(d.substr(0, 50));
+				}
+			}
+		});
+		//*/
+		Web.Load("./texture/logo.png",function(d:String, p:Float):Void
+		{			
+			if (p >= 1.0)
+			{
+				if (d != null)
+				{
+					Console.Log(d.substr(0, 50));
+				}
+			}
+		});
+		
+		//*/
+		return false;
 	}
 	
 	override public function Initialize():Void 
@@ -52,48 +90,50 @@ class Main extends Application implements IUpdateable implements IRenderable
 		var vl : FloatArray  =  FloatArray.Alloc([ 
 		-s, -s, 0.5, 
 		 s, -s, 0.5, 
-		 0,  s, 0.5 
+		 s,  s, 0.5,
+		-s,  s, 0.5
 		 ]);
 		
 		var cl : FloatArray  =  FloatArray.Alloc([
 		1.0,  0.0, 0.0,1.0,
 		0.0,  1.0, 0.0,1.0,
-		0.0,  0.0, 1.0, 1.0,
-		0.0,  0.0, 1.0,1.0
+		0.0,  0.0, 1.0,1.0,
+		1.0,  1.0, 0.0,0.5
 		]);
 		
 		
-		var il : UInt16Array =  UInt16Array.Alloc([0, 1, 2]);
+		var il : UInt16Array =  UInt16Array.Alloc([0, 1, 2,0,2,3]);
 		
 		var m : Mesh = mesh = new Mesh(); 
 		m.Set("vertex", vl, 3);
-		//m.Set("color", cl, 4);
+		m.Set("color", cl, 4);
 		
 		m.topology = il;
-		
-		var ss : String = 
-		'
-		<shader id="haxor/debug">
-			<vertex>			
-			attribute vec3 vertex;
-			attribute vec4 color;			
-			varying vec4 v_color;			
-			void main(void) 
-			{ 
-				v_color = color;
-				gl_Position = vec4(vertex, 1.0);				
-			}			
-			</vertex>			
-			<fragment>					
-			varying vec4 v_color;			
-			void main(void) 
-			{ 
-				gl_FragColor = v_color;
-			}			
-			</fragment>
-		</shader>
-		';
-		
+		if (ss == null)
+		{
+			ss = 
+			'
+			<shader id="haxor/debug">
+				<vertex>			
+				attribute vec3 vertex;
+				attribute vec4 color;			
+				varying vec4 v_color;			
+				void main(void) 
+				{ 
+					v_color = color;
+					gl_Position = vec4(vertex, 1.0);				
+				}			
+				</vertex>			
+				<fragment>					
+				varying vec4 v_color;			
+				void main(void) 
+				{ 
+					gl_FragColor = vec4(0.0,0.0,0.0,1.0);
+				}			
+				</fragment>
+			</shader>
+			';
+		}
 		var shd : Shader = new Shader(ss);
 		
 		mat = new Material("DebugMaterial");

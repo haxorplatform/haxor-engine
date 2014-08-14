@@ -18,7 +18,7 @@ public  class HxObject implements haxe.lang.IHxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_lang_HxObject(haxe.lang.HxObject __temp_me4486)
+	public static   void __hx_ctor_haxe_lang_HxObject(haxe.lang.HxObject __temp_me21778)
 	{
 		{
 		}

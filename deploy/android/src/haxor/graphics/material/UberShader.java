@@ -17,9 +17,9 @@ public  class UberShader extends haxor.graphics.material.Shader
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_material_UberShader(haxor.graphics.material.UberShader __temp_me4470, java.lang.String p_source)
+	public static   void __hx_ctor_haxor_graphics_material_UberShader(haxor.graphics.material.UberShader __temp_me21757, java.lang.String p_source)
 	{
-		haxor.graphics.material.Shader.__hx_ctor_haxor_graphics_material_Shader(__temp_me4470, p_source);
+		haxor.graphics.material.Shader.__hx_ctor_haxor_graphics_material_Shader(__temp_me21757, p_source);
 	}
 	
 	

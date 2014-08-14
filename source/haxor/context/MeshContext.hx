@@ -127,7 +127,7 @@ class MeshContext
 				}
 				
 				//Forces color attrib to white if none is found
-				if(!has_color) GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 0.5);
+				if(!has_color) GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
 				
 				if (current.indexed)
 				{	

@@ -320,18 +320,12 @@ Void MaterialContext_obj::InitializeShader( ::haxor::graphics::material::Shader 
 			::String _g4 = (_g3 + HX_CSTRING("]"));		HX_STACK_VAR(_g4,"_g4");
 			HX_STACK_LINE(239)
 			::haxor::core::Console_obj::LogError(_g4,null());
-			HX_STACK_LINE(240)
-			if (((vs_err != HX_CSTRING("")))){
-				HX_STACK_LINE(240)
-				::haxor::core::Console_obj::Log((HX_CSTRING("[vertex]\n") + vs_err),null());
-			}
 			HX_STACK_LINE(241)
-			if (((fs_err != HX_CSTRING("")))){
-				HX_STACK_LINE(241)
-				::haxor::core::Console_obj::Log((HX_CSTRING("[fragment]\n") + fs_err),null());
-			}
+			::haxor::core::Console_obj::Log((HX_CSTRING("[vertex]\n") + vs_err),null());
+			HX_STACK_LINE(243)
+			::haxor::core::Console_obj::Log((HX_CSTRING("[fragment]\n") + fs_err),null());
 		}
-		HX_STACK_LINE(243)
+		HX_STACK_LINE(245)
 		Dynamic();
 	}
 return null();
@@ -341,40 +335,40 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC1(MaterialContext_obj,InitializeShader,(void))
 
 ::String MaterialContext_obj::CreateCompileShader( ::haxor::graphics::material::Shader s,int t,Array< int > c){
-	HX_STACK_FRAME("haxor.context.MaterialContext","CreateCompileShader",0x8fb6fa8b,"haxor.context.MaterialContext.CreateCompileShader","haxor/context/MaterialContext.hx",254,0x0e17e323)
+	HX_STACK_FRAME("haxor.context.MaterialContext","CreateCompileShader",0x8fb6fa8b,"haxor.context.MaterialContext.CreateCompileShader","haxor/context/MaterialContext.hx",256,0x0e17e323)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(s,"s")
 	HX_STACK_ARG(t,"t")
 	HX_STACK_ARG(c,"c")
-	HX_STACK_LINE(255)
+	HX_STACK_LINE(257)
 	int id = ::haxor::platform::graphics::GL_obj::m_gl->CreateShader(t);		HX_STACK_VAR(id,"id");
-	HX_STACK_LINE(256)
+	HX_STACK_LINE(258)
 	::String ss;		HX_STACK_VAR(ss,"ss");
-	HX_STACK_LINE(256)
+	HX_STACK_LINE(258)
 	if (((t == (int)35633))){
-		HX_STACK_LINE(256)
+		HX_STACK_LINE(258)
 		ss = s->m_vss;
 	}
 	else{
-		HX_STACK_LINE(256)
+		HX_STACK_LINE(258)
 		ss = s->m_fss;
 	}
-	HX_STACK_LINE(257)
-	c[s->_cid_] = id;
-	HX_STACK_LINE(258)
-	::haxor::platform::graphics::GL_obj::m_gl->ShaderSource(id,ss);
 	HX_STACK_LINE(259)
+	c[s->_cid_] = id;
+	HX_STACK_LINE(260)
+	::haxor::platform::graphics::GL_obj::m_gl->ShaderSource(id,ss);
+	HX_STACK_LINE(261)
 	::haxor::platform::graphics::GL_obj::m_gl->CompileShader(id);
-	HX_STACK_LINE(260)
+	HX_STACK_LINE(262)
 	int _g = ::haxor::platform::graphics::GL_obj::m_gl->GetShaderParameter(id,(int)35713);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(260)
+	HX_STACK_LINE(262)
 	if (((_g == (int)0))){
-		HX_STACK_LINE(262)
+		HX_STACK_LINE(264)
 		s->m_hasError = true;
-		HX_STACK_LINE(263)
+		HX_STACK_LINE(265)
 		return ::haxor::platform::graphics::GL_obj::m_gl->GetShaderInfoLog(id);
 	}
-	HX_STACK_LINE(265)
+	HX_STACK_LINE(267)
 	return HX_CSTRING("");
 }
 
@@ -383,96 +377,96 @@ HX_DEFINE_DYNAMIC_FUNC3(MaterialContext_obj,CreateCompileShader,return )
 
 Void MaterialContext_obj::UpdateShader( ::haxor::graphics::material::Material m,::haxor::graphics::material::Shader s0,::haxor::graphics::material::Shader s1){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","UpdateShader",0x64eea7ff,"haxor.context.MaterialContext.UpdateShader","haxor/context/MaterialContext.hx",273,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","UpdateShader",0x64eea7ff,"haxor.context.MaterialContext.UpdateShader","haxor/context/MaterialContext.hx",275,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(m,"m")
 		HX_STACK_ARG(s0,"s0")
 		HX_STACK_ARG(s1,"s1")
-		HX_STACK_LINE(274)
-		int p = this->programs->__get(m->_cid_);		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(275)
-		int vs_id;		HX_STACK_VAR(vs_id,"vs_id");
 		HX_STACK_LINE(276)
-		int fs_id;		HX_STACK_VAR(fs_id,"fs_id");
+		int p = this->programs->__get(m->_cid_);		HX_STACK_VAR(p,"p");
+		HX_STACK_LINE(277)
+		int vs_id;		HX_STACK_VAR(vs_id,"vs_id");
 		HX_STACK_LINE(278)
+		int fs_id;		HX_STACK_VAR(fs_id,"fs_id");
+		HX_STACK_LINE(280)
 		if (((s0 != null()))){
-			HX_STACK_LINE(280)
-			vs_id = this->vertex_shaders->__get(s0->_cid_);
-			HX_STACK_LINE(281)
-			fs_id = this->fragment_shaders->__get(s0->_cid_);
 			HX_STACK_LINE(282)
-			::haxor::platform::graphics::GL_obj::m_gl->DetachShader(p,vs_id);
+			vs_id = this->vertex_shaders->__get(s0->_cid_);
 			HX_STACK_LINE(283)
+			fs_id = this->fragment_shaders->__get(s0->_cid_);
+			HX_STACK_LINE(284)
+			::haxor::platform::graphics::GL_obj::m_gl->DetachShader(p,vs_id);
+			HX_STACK_LINE(285)
 			::haxor::platform::graphics::GL_obj::m_gl->DetachShader(p,fs_id);
 		}
-		HX_STACK_LINE(288)
+		HX_STACK_LINE(290)
 		if (((s1 != null()))){
-			HX_STACK_LINE(290)
-			vs_id = this->vertex_shaders->__get(s1->_cid_);
-			HX_STACK_LINE(291)
-			fs_id = this->fragment_shaders->__get(s1->_cid_);
 			HX_STACK_LINE(292)
-			::haxor::platform::graphics::GL_obj::m_gl->AttachShader(p,vs_id);
+			vs_id = this->vertex_shaders->__get(s1->_cid_);
 			HX_STACK_LINE(293)
-			::haxor::platform::graphics::GL_obj::m_gl->AttachShader(p,fs_id);
+			fs_id = this->fragment_shaders->__get(s1->_cid_);
+			HX_STACK_LINE(294)
+			::haxor::platform::graphics::GL_obj::m_gl->AttachShader(p,vs_id);
 			HX_STACK_LINE(295)
+			::haxor::platform::graphics::GL_obj::m_gl->AttachShader(p,fs_id);
+			HX_STACK_LINE(297)
 			Array< ::String > al = ::haxor::context::EngineContext_obj::mesh->attribs;		HX_STACK_VAR(al,"al");
-			HX_STACK_LINE(296)
+			HX_STACK_LINE(298)
 			{
-				HX_STACK_LINE(296)
+				HX_STACK_LINE(298)
 				int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(296)
+				HX_STACK_LINE(298)
 				int _g = al->length;		HX_STACK_VAR(_g,"_g");
-				HX_STACK_LINE(296)
+				HX_STACK_LINE(298)
 				while((true)){
-					HX_STACK_LINE(296)
+					HX_STACK_LINE(298)
 					if ((!(((_g1 < _g))))){
-						HX_STACK_LINE(296)
+						HX_STACK_LINE(298)
 						break;
 					}
-					HX_STACK_LINE(296)
+					HX_STACK_LINE(298)
 					int i = (_g1)++;		HX_STACK_VAR(i,"i");
-					HX_STACK_LINE(296)
+					HX_STACK_LINE(298)
 					::haxor::platform::graphics::GL_obj::m_gl->BindAttribLocation(p,i,al->__get(i));
 				}
 			}
-			HX_STACK_LINE(297)
+			HX_STACK_LINE(299)
 			::haxor::platform::graphics::GL_obj::m_gl->LinkProgram(p);
-			HX_STACK_LINE(299)
+			HX_STACK_LINE(301)
 			int _g = ::haxor::platform::graphics::GL_obj::m_gl->GetProgramParameter(p,(int)35714);		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(299)
+			HX_STACK_LINE(301)
 			if (((_g == (int)0))){
-				HX_STACK_LINE(301)
+				HX_STACK_LINE(303)
 				::String _g1 = m->get_name();		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(301)
+				HX_STACK_LINE(303)
 				::String _g2 = (HX_CSTRING("Material> [") + _g1);		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(301)
+				HX_STACK_LINE(303)
 				::String _g3 = (_g2 + HX_CSTRING("] Link Error @ ["));		HX_STACK_VAR(_g3,"_g3");
-				HX_STACK_LINE(301)
+				HX_STACK_LINE(303)
 				::String _g4 = s1->get_name();		HX_STACK_VAR(_g4,"_g4");
-				HX_STACK_LINE(301)
+				HX_STACK_LINE(303)
 				::String _g5 = (_g3 + _g4);		HX_STACK_VAR(_g5,"_g5");
-				HX_STACK_LINE(301)
+				HX_STACK_LINE(303)
 				::String _g6 = (_g5 + HX_CSTRING("]"));		HX_STACK_VAR(_g6,"_g6");
-				HX_STACK_LINE(301)
+				HX_STACK_LINE(303)
 				::haxor::core::Console_obj::LogError(_g6,null());
 			}
-			HX_STACK_LINE(307)
+			HX_STACK_LINE(309)
 			{
-				HX_STACK_LINE(307)
+				HX_STACK_LINE(309)
 				int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(307)
+				HX_STACK_LINE(309)
 				int _g2 = this->locations->__get(m->_cid_).StaticCast< Array< int > >()->length;		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(307)
+				HX_STACK_LINE(309)
 				while((true)){
-					HX_STACK_LINE(307)
+					HX_STACK_LINE(309)
 					if ((!(((_g1 < _g2))))){
-						HX_STACK_LINE(307)
+						HX_STACK_LINE(309)
 						break;
 					}
-					HX_STACK_LINE(307)
+					HX_STACK_LINE(309)
 					int i = (_g1)++;		HX_STACK_VAR(i,"i");
-					HX_STACK_LINE(307)
+					HX_STACK_LINE(309)
 					this->locations->__get(m->_cid_).StaticCast< Array< int > >()[i] = (int)-1;
 				}
 			}
@@ -486,7 +480,7 @@ HX_DEFINE_DYNAMIC_FUNC3(MaterialContext_obj,UpdateShader,(void))
 
 Void MaterialContext_obj::UpdateMaterial( ::haxor::graphics::material::Material m){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","UpdateMaterial",0x3662b001,"haxor.context.MaterialContext.UpdateMaterial","haxor/context/MaterialContext.hx",317,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","UpdateMaterial",0x3662b001,"haxor.context.MaterialContext.UpdateMaterial","haxor/context/MaterialContext.hx",319,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(m,"m")
 	}
@@ -497,31 +491,31 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC1(MaterialContext_obj,UpdateMaterial,(void))
 
 int MaterialContext_obj::GetAttribLocation( ::haxor::graphics::mesh::MeshAttrib a){
-	HX_STACK_FRAME("haxor.context.MaterialContext","GetAttribLocation",0x3f3c2f44,"haxor.context.MaterialContext.GetAttribLocation","haxor/context/MaterialContext.hx",326,0x0e17e323)
+	HX_STACK_FRAME("haxor.context.MaterialContext","GetAttribLocation",0x3f3c2f44,"haxor.context.MaterialContext.GetAttribLocation","haxor/context/MaterialContext.hx",328,0x0e17e323)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(a,"a")
-	HX_STACK_LINE(327)
+	HX_STACK_LINE(329)
 	if (((this->current == null()))){
-		HX_STACK_LINE(327)
+		HX_STACK_LINE(329)
 		return (int)-1;
 	}
-	HX_STACK_LINE(328)
-	int p = this->programs->__get(this->current->_cid_);		HX_STACK_VAR(p,"p");
-	HX_STACK_LINE(329)
-	int loc = this->locations->__get(this->current->_cid_).StaticCast< Array< int > >()->__get(a->_cid_);		HX_STACK_VAR(loc,"loc");
 	HX_STACK_LINE(330)
+	int p = this->programs->__get(this->current->_cid_);		HX_STACK_VAR(p,"p");
+	HX_STACK_LINE(331)
+	int loc = this->locations->__get(this->current->_cid_).StaticCast< Array< int > >()->__get(a->_cid_);		HX_STACK_VAR(loc,"loc");
+	HX_STACK_LINE(332)
 	if (((loc == (int)-1))){
-		HX_STACK_LINE(332)
+		HX_STACK_LINE(334)
 		int _g = ::haxor::platform::graphics::GL_obj::m_gl->GetAttribLocation(p,a->m_name);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(332)
+		HX_STACK_LINE(334)
 		loc = _g;
-		HX_STACK_LINE(333)
+		HX_STACK_LINE(335)
 		if (((loc < (int)0))){
-			HX_STACK_LINE(333)
+			HX_STACK_LINE(335)
 			this->locations->__get(this->current->_cid_).StaticCast< Array< int > >()[a->_cid_] = (int)-2;
 		}
 	}
-	HX_STACK_LINE(335)
+	HX_STACK_LINE(337)
 	return loc;
 }
 
@@ -530,18 +524,18 @@ HX_DEFINE_DYNAMIC_FUNC1(MaterialContext_obj,GetAttribLocation,return )
 
 Void MaterialContext_obj::Bind( ::haxor::graphics::material::Material m){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","Bind",0x93355eae,"haxor.context.MaterialContext.Bind","haxor/context/MaterialContext.hx",344,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","Bind",0x93355eae,"haxor.context.MaterialContext.Bind","haxor/context/MaterialContext.hx",346,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(m,"m")
-		HX_STACK_LINE(344)
+		HX_STACK_LINE(346)
 		if (((m != this->current))){
-			HX_STACK_LINE(347)
+			HX_STACK_LINE(349)
 			this->current = m;
-			HX_STACK_LINE(348)
+			HX_STACK_LINE(350)
 			if (((m != null()))){
-				HX_STACK_LINE(350)
+				HX_STACK_LINE(352)
 				this->UpdateFlags(m);
-				HX_STACK_LINE(351)
+				HX_STACK_LINE(353)
 				::haxor::platform::graphics::GL_obj::m_gl->UseProgram(this->programs->__get(m->_cid_));
 			}
 		}
@@ -554,7 +548,7 @@ HX_DEFINE_DYNAMIC_FUNC1(MaterialContext_obj,Bind,(void))
 
 Void MaterialContext_obj::Unbind( ){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","Unbind",0x442b43c7,"haxor.context.MaterialContext.Unbind","haxor/context/MaterialContext.hx",361,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","Unbind",0x442b43c7,"haxor.context.MaterialContext.Unbind","haxor/context/MaterialContext.hx",363,0x0e17e323)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -565,19 +559,19 @@ HX_DEFINE_DYNAMIC_FUNC0(MaterialContext_obj,Unbind,(void))
 
 Void MaterialContext_obj::DestroyMaterial( ::haxor::graphics::material::Material m){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","DestroyMaterial",0xd30a9a70,"haxor.context.MaterialContext.DestroyMaterial","haxor/context/MaterialContext.hx",370,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","DestroyMaterial",0xd30a9a70,"haxor.context.MaterialContext.DestroyMaterial","haxor/context/MaterialContext.hx",372,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(m,"m")
-		HX_STACK_LINE(371)
+		HX_STACK_LINE(373)
 		int p = this->programs->__get(m->_cid_);		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(372)
+		HX_STACK_LINE(374)
 		if (((m->m_shader != null()))){
-			HX_STACK_LINE(374)
+			HX_STACK_LINE(376)
 			::haxor::platform::graphics::GL_obj::m_gl->DetachShader(p,this->vertex_shaders->__get(m->m_shader->_cid_));
-			HX_STACK_LINE(375)
+			HX_STACK_LINE(377)
 			::haxor::platform::graphics::GL_obj::m_gl->DetachShader(p,this->fragment_shaders->__get(m->m_shader->_cid_));
 		}
-		HX_STACK_LINE(377)
+		HX_STACK_LINE(379)
 		::haxor::platform::graphics::GL_obj::m_gl->DeleteProgram(p);
 	}
 return null();
@@ -588,12 +582,12 @@ HX_DEFINE_DYNAMIC_FUNC1(MaterialContext_obj,DestroyMaterial,(void))
 
 Void MaterialContext_obj::DestroyShader( ::haxor::graphics::material::Shader s){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","DestroyShader",0xac09c8ae,"haxor.context.MaterialContext.DestroyShader","haxor/context/MaterialContext.hx",385,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","DestroyShader",0xac09c8ae,"haxor.context.MaterialContext.DestroyShader","haxor/context/MaterialContext.hx",387,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(s,"s")
-		HX_STACK_LINE(386)
+		HX_STACK_LINE(388)
 		::haxor::platform::graphics::GL_obj::m_gl->DeleteShader(this->vertex_shaders->__get(s->_cid_));
-		HX_STACK_LINE(387)
+		HX_STACK_LINE(389)
 		::haxor::platform::graphics::GL_obj::m_gl->DeleteShader(this->fragment_shaders->__get(s->_cid_));
 	}
 return null();

@@ -136,6 +136,11 @@ class BaseApplication extends Behaviour
 	private var m_scenes : Array<Scene>;
 	
 	/**
+	 * Flag that allows the initialization.
+	 */
+	private var m_init_allowed : Bool;
+	
+	/**
 	 * Creates a new Application and register it in the global list.
 	 */
 	public function new() 
@@ -144,7 +149,8 @@ class BaseApplication extends Behaviour
 		m_instance 		= this;
 		m_scenes   		= [];
 		fps 			= 60;
-		m_frame_ms	    = 0.0;		
+		m_frame_ms	    = 0.0;	
+		m_init_allowed  = false;
 		m_platform 		= Platform.Unknown;
 		
 		Time.Initialize();
@@ -191,8 +197,7 @@ class BaseApplication extends Behaviour
 	 */
 	public function LoadComplete():Void
 	{	
-		Console.Log("Application> Initialize.", 3);		
-		Initialize();
+		m_init_allowed = true;		
 	}
 	
 	/**
@@ -211,6 +216,13 @@ class BaseApplication extends Behaviour
 	 */
 	private  function Render():Void 
 	{			
+		if (m_init_allowed)
+		{
+			Console.Log("Application> Initialize.", 3);		
+			Initialize();
+			m_init_allowed = false;
+		}
+		
 		if ((Time.m_clock - m_frame_ms) >= m_mspf)
 		{	
 			m_frame_ms = Time.m_clock;

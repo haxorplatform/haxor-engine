@@ -175,6 +175,7 @@ haxor.core.BaseApplication = function() {
 	this.m_scenes = [];
 	this.set_fps(60);
 	this.m_frame_ms = 0.0;
+	this.m_init_allowed = false;
 	this.m_platform = haxor.core.Platform.Unknown;
 	haxor.core.Time.Initialize();
 	haxor.graphics.Screen.m_application = this;
@@ -223,8 +224,7 @@ haxor.core.BaseApplication.prototype = $extend(haxor.component.Behaviour.prototy
 	,Initialize: function() {
 	}
 	,LoadComplete: function() {
-		haxor.core.Console.Log("Application> Initialize.",3);
-		this.Initialize();
+		this.m_init_allowed = true;
 	}
 	,Update: function() {
 		haxor.core.Time.Update();
@@ -233,6 +233,11 @@ haxor.core.BaseApplication.prototype = $extend(haxor.component.Behaviour.prototy
 		haxor.core.Engine.Collect();
 	}
 	,Render: function() {
+		if(this.m_init_allowed) {
+			haxor.core.Console.Log("Application> Initialize.",3);
+			this.Initialize();
+			this.m_init_allowed = false;
+		}
 		if(haxor.core.Time.m_clock - this.m_frame_ms >= this.m_mspf) {
 			this.m_frame_ms = haxor.core.Time.m_clock;
 			haxor.core.Time.Render();
@@ -339,20 +344,28 @@ Main.main = function() {
 Main.__super__ = haxor.core.Application;
 Main.prototype = $extend(haxor.core.Application.prototype,{
 	Load: function() {
-		return true;
+		var _g = this;
+		haxor.platform.html.Web.root = "https://dl.dropboxusercontent.com/u/20655747/haxor/resources/";
+		haxor.platform.html.Web.Load("./shader/unlit/NDC.shader",function(d,p) {
+			if(p >= 1.0) {
+				_g.ss = d;
+				_g.LoadComplete();
+			}
+		});
+		return false;
 	}
 	,Initialize: function() {
 		haxor.core.Console.Log("Initialize!");
 		var s = 0.8;
-		var vl = haxor.io.FloatArray.Alloc([-s,-s,0.5,s,-s,0.5,0,s,0.5]);
-		var cl = haxor.io.FloatArray.Alloc([1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0]);
-		var il = haxor.io.UInt16Array.Alloc([0,1,2]);
+		var vl = haxor.io.FloatArray.Alloc([-s,-s,0.5,s,-s,0.5,s,s,0.5,-s,s,0.5]);
+		var cl = haxor.io.FloatArray.Alloc([1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.5]);
+		var il = haxor.io.UInt16Array.Alloc([0,1,2,0,2,3]);
 		var m = this.mesh = new haxor.graphics.mesh.Mesh();
 		m.Set("vertex",vl,3);
 		m.Set("color",cl,4);
 		m.set_topology(il);
-		var ss = "\r\n\t\t<shader id=\"haxor/debug\">\r\n\t\t\t<vertex>\t\t\t\r\n\t\t\tattribute vec3 vertex;\r\n\t\t\tattribute vec4 color;\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{ \r\n\t\t\t\tv_color = color;\r\n\t\t\t\tgl_Position = vec4(vertex, 1.0);\t\t\t\t\r\n\t\t\t}\t\t\t\r\n\t\t\t</vertex>\t\t\t\r\n\t\t\t<fragment>\t\t\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{ \r\n\t\t\t\tgl_FragColor = v_color;\r\n\t\t\t}\t\t\t\r\n\t\t\t</fragment>\r\n\t\t</shader>\r\n\t\t";
-		var shd = new haxor.graphics.material.Shader(ss);
+		if(this.ss == null) this.ss = "\r\n\t\t\t<shader id=\"haxor/debug\">\r\n\t\t\t\t<vertex>\t\t\t\r\n\t\t\t\tattribute vec3 vertex;\r\n\t\t\t\tattribute vec4 color;\t\t\t\r\n\t\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\t\tvoid main(void) \r\n\t\t\t\t{ \r\n\t\t\t\t\tv_color = color;\r\n\t\t\t\t\tgl_Position = vec4(vertex, 1.0);\t\t\t\t\r\n\t\t\t\t}\t\t\t\r\n\t\t\t\t</vertex>\t\t\t\r\n\t\t\t\t<fragment>\t\t\t\t\t\r\n\t\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\t\tvoid main(void) \r\n\t\t\t\t{ \r\n\t\t\t\t\tgl_FragColor = vec4(0.0,0.0,0.0,1.0);\r\n\t\t\t\t}\t\t\t\r\n\t\t\t\t</fragment>\r\n\t\t\t</shader>\r\n\t\t\t";
+		var shd = new haxor.graphics.material.Shader(this.ss);
 		this.mat = new haxor.graphics.material.Material("DebugMaterial");
 		this.mat.blend = true;
 		this.mat.SetBlending(770,771);
@@ -970,8 +983,8 @@ haxor.context.MaterialContext.prototype = {
 		fs_err = this.CreateCompileShader(s,35632,this.fragment_shaders);
 		if(s.m_hasError) {
 			haxor.core.Console.LogError("Shader> Compile Error @ [" + s.get_name() + "]");
-			if(vs_err != "") haxor.core.Console.Log("[vertex]\n" + vs_err);
-			if(fs_err != "") haxor.core.Console.Log("[fragment]\n" + fs_err);
+			haxor.core.Console.Log("[vertex]\n" + vs_err);
+			haxor.core.Console.Log("[fragment]\n" + fs_err);
 		}
 		null;
 	}
@@ -1110,7 +1123,7 @@ haxor.context.MeshContext.prototype = {
 					haxor.platform.graphics.GL.m_gl.BindBuffer(34962,this.buffers[a._cid_]);
 					haxor.platform.graphics.GL.m_gl.VertexAttribPointer(loc,a.offset,type,false,0,0);
 				}
-				if(!has_color) haxor.platform.graphics.GL.m_gl.VertexAttrib4f(5,1.0,1.0,1.0,0.5);
+				if(!has_color) haxor.platform.graphics.GL.m_gl.VertexAttrib4f(5,1.0,1.0,1.0,1.0);
 				if(this.current.m_indexed) {
 					a = this.current.m_topology_attrib;
 					haxor.platform.graphics.GL.m_gl.BindBuffer(34963,this.buffers[a._cid_]);
@@ -2472,6 +2485,32 @@ haxor.platform.html.Entry.RequestAnimationCallback = function(p_time) {
 	window.requestAnimationFrame(haxor.platform.html.Entry.RequestAnimationCallback);
 	return true;
 };
+haxor.platform.html.Web = function() { };
+$hxClasses["haxor.platform.html.Web"] = haxor.platform.html.Web;
+haxor.platform.html.Web.__name__ = ["haxor","platform","html","Web"];
+haxor.platform.html.Web.CreateRequest = function(p_url,p_binary) {
+	if(p_url.indexOf("./") >= 0) p_url = StringTools.replace(p_url,"./",haxor.platform.html.Web.root);
+	var req = new XMLHttpRequest();
+	if(req.withCredentials) req.withCredentials = false;
+	if($bind(req,req.overrideMimeType) != null) req.overrideMimeType(p_binary?"application/octet-stream":"text/plain");
+	req.open("get",p_url,true);
+	return req;
+};
+haxor.platform.html.Web.Load = function(p_url,p_callback) {
+	var req = haxor.platform.html.Web.CreateRequest(p_url,false);
+	req.onprogress = function(e) {
+		var f;
+		if(e.total <= 0) f = 0; else f = e.loaded / (e.total + 5);
+		p_callback(null,f);
+	};
+	req.onload = function(e1) {
+		p_callback(req.responseText,1.0);
+	};
+	req.onerror = function(e2) {
+		p_callback(null,1.0);
+	};
+	req.send();
+};
 var js = {};
 js.Boot = function() { };
 $hxClasses["js.Boot"] = js.Boot;
@@ -2999,5 +3038,6 @@ haxor.platform.graphics.GL.VERTEX_ATTRIB_ARRAY_TYPE = 34341;
 haxor.platform.graphics.GL.VERTEX_SHADER = 35633;
 haxor.platform.graphics.GL.VIEWPORT = 2978;
 haxor.platform.graphics.GL.ZERO = 0;
+haxor.platform.html.Web.root = "";
 Main.main();
 })();

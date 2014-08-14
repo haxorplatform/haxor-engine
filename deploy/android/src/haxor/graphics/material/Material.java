@@ -17,23 +17,23 @@ public  class Material extends haxor.core.Resource
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_material_Material(haxor.graphics.material.Material __temp_me4468, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_graphics_material_Material(haxor.graphics.material.Material __temp_me21755, java.lang.String p_name)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me4468, p_name);
-		__temp_me4468.grab = false;
-		__temp_me4468._cid_ = haxor.context.EngineContext.material.mid++;
-		__temp_me4468.queue = 1000;
-		__temp_me4468.zfunc = 515;
-		__temp_me4468.ztest = true;
-		__temp_me4468.zwrite = true;
-		__temp_me4468.blend = false;
-		__temp_me4468.blendSrc = 1;
-		__temp_me4468.blendDst = 0;
-		__temp_me4468.invert = false;
-		__temp_me4468.cull = 2;
-		__temp_me4468.lighting = false;
-		__temp_me4468.grab = false;
-		haxor.context.EngineContext.material.InitializeMaterial(__temp_me4468);
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me21755, p_name);
+		__temp_me21755.grab = false;
+		__temp_me21755._cid_ = haxor.context.EngineContext.material.mid++;
+		__temp_me21755.queue = 1000;
+		__temp_me21755.zfunc = 515;
+		__temp_me21755.ztest = true;
+		__temp_me21755.zwrite = true;
+		__temp_me21755.blend = false;
+		__temp_me21755.blendSrc = 1;
+		__temp_me21755.blendDst = 0;
+		__temp_me21755.invert = false;
+		__temp_me21755.cull = 2;
+		__temp_me21755.lighting = false;
+		__temp_me21755.grab = false;
+		haxor.context.EngineContext.material.InitializeMaterial(__temp_me21755);
 	}
 	
 	
@@ -119,14 +119,14 @@ public  class Material extends haxor.core.Resource
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef4619 = true;
+			boolean __temp_executeDef21911 = true;
 			switch (field.hashCode())
 			{
 				case 3065202:
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef4619 = false;
+						__temp_executeDef21911 = false;
 						this.cull = ((int) (value) );
 						return value;
 					}
@@ -139,7 +139,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef4619 = false;
+						__temp_executeDef21911 = false;
 						this.zfunc = ((int) (value) );
 						return value;
 					}
@@ -152,7 +152,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef4619 = false;
+						__temp_executeDef21911 = false;
 						this.blendDst = ((int) (value) );
 						return value;
 					}
@@ -165,7 +165,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef4619 = false;
+						__temp_executeDef21911 = false;
 						this.queue = ((int) (value) );
 						return value;
 					}
@@ -178,7 +178,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef4619 = false;
+						__temp_executeDef21911 = false;
 						this.blendSrc = ((int) (value) );
 						return value;
 					}
@@ -189,7 +189,7 @@ public  class Material extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef4619) 
+			if (__temp_executeDef21911) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -206,14 +206,14 @@ public  class Material extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef4620 = true;
+			boolean __temp_executeDef21912 = true;
 			switch (field.hashCode())
 			{
 				case -1502310409:
 				{
 					if (field.equals("m_shader")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.m_shader = ((haxor.graphics.material.Shader) (value) );
 						return value;
 					}
@@ -226,7 +226,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("ztest")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.ztest = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -239,7 +239,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("shader")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.set_shader(((haxor.graphics.material.Shader) (value) ));
 						return value;
 					}
@@ -252,7 +252,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.zfunc = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -265,7 +265,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("grab")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.grab = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -278,7 +278,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("zwrite")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.zwrite = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -291,7 +291,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("lighting")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.lighting = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -304,7 +304,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blend")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.blend = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -317,7 +317,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.cull = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -330,7 +330,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.queue = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -343,7 +343,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("invert")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.invert = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -356,7 +356,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.blendSrc = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -369,7 +369,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef4620 = false;
+						__temp_executeDef21912 = false;
 						this.blendDst = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -380,7 +380,7 @@ public  class Material extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef4620) 
+			if (__temp_executeDef21912) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -397,14 +397,14 @@ public  class Material extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef4621 = true;
+			boolean __temp_executeDef21913 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -416,7 +416,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("ztest")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.ztest;
 					}
 					
@@ -428,7 +428,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("SetBlending")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetBlending"))) );
 					}
 					
@@ -440,7 +440,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.zfunc;
 					}
 					
@@ -452,7 +452,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("m_shader")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.m_shader;
 					}
 					
@@ -464,7 +464,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("zwrite")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.zwrite;
 					}
 					
@@ -476,7 +476,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("set_shader")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_shader"))) );
 					}
 					
@@ -488,7 +488,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blend")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.blend;
 					}
 					
@@ -500,7 +500,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("get_shader")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_shader"))) );
 					}
 					
@@ -512,7 +512,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.queue;
 					}
 					
@@ -524,7 +524,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("shader")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.get_shader();
 					}
 					
@@ -536,7 +536,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.blendSrc;
 					}
 					
@@ -548,7 +548,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("grab")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.grab;
 					}
 					
@@ -560,7 +560,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.blendDst;
 					}
 					
@@ -572,7 +572,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("lighting")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.lighting;
 					}
 					
@@ -584,7 +584,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("invert")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.invert;
 					}
 					
@@ -596,7 +596,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef4621 = false;
+						__temp_executeDef21913 = false;
 						return this.cull;
 					}
 					
@@ -606,7 +606,7 @@ public  class Material extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef4621) 
+			if (__temp_executeDef21913) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -623,14 +623,14 @@ public  class Material extends haxor.core.Resource
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef4622 = true;
+			boolean __temp_executeDef21914 = true;
 			switch (field.hashCode())
 			{
 				case 3065202:
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef4622 = false;
+						__temp_executeDef21914 = false;
 						return ((double) (this.cull) );
 					}
 					
@@ -642,7 +642,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef4622 = false;
+						__temp_executeDef21914 = false;
 						return ((double) (this.zfunc) );
 					}
 					
@@ -654,7 +654,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef4622 = false;
+						__temp_executeDef21914 = false;
 						return ((double) (this.blendDst) );
 					}
 					
@@ -666,7 +666,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef4622 = false;
+						__temp_executeDef21914 = false;
 						return ((double) (this.queue) );
 					}
 					
@@ -678,7 +678,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef4622 = false;
+						__temp_executeDef21914 = false;
 						return ((double) (this.blendSrc) );
 					}
 					
@@ -688,7 +688,7 @@ public  class Material extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef4622) 
+			if (__temp_executeDef21914) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -705,14 +705,14 @@ public  class Material extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef4623 = true;
+			boolean __temp_executeDef21915 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef4623 = false;
+						__temp_executeDef21915 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -724,7 +724,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("get_shader")) 
 					{
-						__temp_executeDef4623 = false;
+						__temp_executeDef21915 = false;
 						return this.get_shader();
 					}
 					
@@ -736,7 +736,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("SetBlending")) 
 					{
-						__temp_executeDef4623 = false;
+						__temp_executeDef21915 = false;
 						this.SetBlending(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -748,7 +748,7 @@ public  class Material extends haxor.core.Resource
 				{
 					if (field.equals("set_shader")) 
 					{
-						__temp_executeDef4623 = false;
+						__temp_executeDef21915 = false;
 						return this.set_shader(((haxor.graphics.material.Shader) (dynargs.__get(0)) ));
 					}
 					
@@ -758,7 +758,7 @@ public  class Material extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef4623) 
+			if (__temp_executeDef21915) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
