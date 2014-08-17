@@ -58,8 +58,7 @@ class Behaviour extends Component
 		m_is_behaviour  = true;
 		m_is_updateable = Std.is(this, IUpdateable);
 		m_is_renderable = Std.is(this, IRenderable);
-		m_is_resizeable = Std.is(this, IResizeable);
-		
+		m_is_resizeable = Std.is(this, IResizeable);		
 		UpdateContextFlag(true);
 	}
 	

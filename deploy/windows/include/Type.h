@@ -37,9 +37,6 @@ class HXCPP_CLASS_ATTRIBUTES  Type_obj : public hx::Object{
 		static ::Class resolveClass( ::String name);
 		static Dynamic resolveClass_dyn();
 
-		static ::Enum resolveEnum( ::String name);
-		static Dynamic resolveEnum_dyn();
-
 		static Dynamic createInstance( ::Class cl,Dynamic args);
 		static Dynamic createInstance_dyn();
 

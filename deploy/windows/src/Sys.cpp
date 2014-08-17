@@ -34,6 +34,19 @@ Array< ::String > Sys_obj::args( ){
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC0(Sys_obj,args,return )
 
+Void Sys_obj::sleep( Float seconds){
+{
+		HX_STACK_FRAME("Sys","sleep",0xfe70aad6,"Sys.sleep","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Sys.hx",65,0x72b36d63)
+		HX_STACK_ARG(seconds,"seconds")
+		HX_STACK_LINE(65)
+		::Sys_obj::_sleep(seconds);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(Sys_obj,sleep,(void))
+
 ::String Sys_obj::escapeArgument( ::String arg){
 	HX_STACK_FRAME("Sys","escapeArgument",0xb9d4397f,"Sys.escapeArgument","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Sys.hx",84,0x72b36d63)
 	HX_STACK_ARG(arg,"arg")
@@ -130,6 +143,8 @@ int Sys_obj::command( ::String cmd,Array< ::String > args){
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC2(Sys_obj,command,return )
 
+Dynamic Sys_obj::_sleep;
+
 Dynamic Sys_obj::sys_command;
 
 
@@ -142,6 +157,12 @@ Dynamic Sys_obj::__Field(const ::String &inName,bool inCallProp)
 	switch(inName.length) {
 	case 4:
 		if (HX_FIELD_EQ(inName,"args") ) { return args_dyn(); }
+		break;
+	case 5:
+		if (HX_FIELD_EQ(inName,"sleep") ) { return sleep_dyn(); }
+		break;
+	case 6:
+		if (HX_FIELD_EQ(inName,"_sleep") ) { return _sleep; }
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"command") ) { return command_dyn(); }
@@ -158,6 +179,9 @@ Dynamic Sys_obj::__Field(const ::String &inName,bool inCallProp)
 Dynamic Sys_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool inCallProp)
 {
 	switch(inName.length) {
+	case 6:
+		if (HX_FIELD_EQ(inName,"_sleep") ) { _sleep=inValue.Cast< Dynamic >(); return inValue; }
+		break;
 	case 11:
 		if (HX_FIELD_EQ(inName,"sys_command") ) { sys_command=inValue.Cast< Dynamic >(); return inValue; }
 	}
@@ -171,8 +195,10 @@ void Sys_obj::__GetFields(Array< ::String> &outFields)
 
 static ::String sStaticFields[] = {
 	HX_CSTRING("args"),
+	HX_CSTRING("sleep"),
 	HX_CSTRING("escapeArgument"),
 	HX_CSTRING("command"),
+	HX_CSTRING("_sleep"),
 	HX_CSTRING("sys_command"),
 	String(null()) };
 
@@ -185,12 +211,14 @@ static ::String sMemberFields[] = {
 
 static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Sys_obj::__mClass,"__mClass");
+	HX_MARK_MEMBER_NAME(Sys_obj::_sleep,"_sleep");
 	HX_MARK_MEMBER_NAME(Sys_obj::sys_command,"sys_command");
 };
 
 #ifdef HXCPP_VISIT_ALLOCS
 static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Sys_obj::__mClass,"__mClass");
+	HX_VISIT_MEMBER_NAME(Sys_obj::_sleep,"_sleep");
 	HX_VISIT_MEMBER_NAME(Sys_obj::sys_command,"sys_command");
 };
 
@@ -214,6 +242,7 @@ void Sys_obj::__register()
 
 void Sys_obj::__boot()
 {
+	_sleep= ::cpp::Lib_obj::load(HX_CSTRING("std"),HX_CSTRING("sys_sleep"),(int)1);
 	sys_command= ::cpp::Lib_obj::load(HX_CSTRING("std"),HX_CSTRING("sys_command"),(int)1);
 }
 

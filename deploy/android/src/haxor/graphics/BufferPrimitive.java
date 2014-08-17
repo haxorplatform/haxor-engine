@@ -29,7 +29,7 @@ public  class BufferPrimitive extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_BufferPrimitive(haxor.graphics.BufferPrimitive __temp_me21752)
+	public static   void __hx_ctor_haxor_graphics_BufferPrimitive(haxor.graphics.BufferPrimitive __temp_me27900)
 	{
 		{
 		}

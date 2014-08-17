@@ -1,16 +1,7 @@
 #include <hxcpp.h>
 
-#ifndef INCLUDED_Std
-#include <Std.h>
-#endif
 #ifndef INCLUDED_StringTools
 #include <StringTools.h>
-#endif
-#ifndef INCLUDED_haxe_Http
-#include <haxe/Http.h>
-#endif
-#ifndef INCLUDED_haxe_Log
-#include <haxe/Log.h>
 #endif
 #ifndef INCLUDED_haxor_platform_windows_LoadTask
 #include <haxor/platform/windows/LoadTask.h>
@@ -24,7 +15,7 @@ namespace windows{
 
 Void LoadTask_obj::__construct(::String p_url,::String p_method,::String p_data,Dynamic p_ondata,Dynamic p_onerror)
 {
-HX_STACK_FRAME("haxor.platform.windows.LoadTask","new",0xc39d3a57,"haxor.platform.windows.LoadTask.new","haxor/platform/windows/Web.hx",73,0x2cb2b125)
+HX_STACK_FRAME("haxor.platform.windows.LoadTask","new",0xc39d3a57,"haxor.platform.windows.LoadTask.new","haxor/platform/windows/Web.hx",67,0x2cb2b125)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_url,"p_url")
 HX_STACK_ARG(p_method,"p_method")
@@ -32,17 +23,17 @@ HX_STACK_ARG(p_data,"p_data")
 HX_STACK_ARG(p_ondata,"p_ondata")
 HX_STACK_ARG(p_onerror,"p_onerror")
 {
-	HX_STACK_LINE(74)
+	HX_STACK_LINE(68)
 	::String _g = ::StringTools_obj::replace(p_url,HX_CSTRING("./"),::haxor::platform::windows::Web_obj::root);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(74)
+	HX_STACK_LINE(68)
 	this->url = _g;
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(69)
 	this->method = p_method;
-	HX_STACK_LINE(76)
+	HX_STACK_LINE(70)
 	this->data = p_data;
-	HX_STACK_LINE(77)
+	HX_STACK_LINE(71)
 	this->ondata = p_ondata;
-	HX_STACK_LINE(78)
+	HX_STACK_LINE(72)
 	this->onerror = p_onerror;
 }
 ;
@@ -64,34 +55,8 @@ Dynamic LoadTask_obj::__Create(hx::DynamicArray inArgs)
 
 Void LoadTask_obj::Run( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.LoadTask","Run",0xc3880922,"haxor.platform.windows.LoadTask.Run","haxor/platform/windows/Web.hx",82,0x2cb2b125)
+		HX_STACK_FRAME("haxor.platform.windows.LoadTask","Run",0xc3880922,"haxor.platform.windows.LoadTask.Run","haxor/platform/windows/Web.hx",76,0x2cb2b125)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(83)
-		::haxe::Log_obj::trace(((HX_CSTRING("Web> Load from [") + this->url) + HX_CSTRING("]")),hx::SourceInfo(HX_CSTRING("Web.hx"),83,HX_CSTRING("haxor.platform.windows.LoadTask"),HX_CSTRING("Run")));
-		HX_STACK_LINE(84)
-		try
-		{
-		HX_STACK_CATCHABLE(Dynamic, 0);
-		{
-			HX_STACK_LINE(86)
-			::String d = ::haxe::Http_obj::requestUrl(this->url);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(87)
-			this->ondata(d);
-		}
-		}
-		catch(Dynamic __e){
-			{
-				HX_STACK_BEGIN_CATCH
-				Dynamic err = __e;{
-					HX_STACK_LINE(91)
-					::String _g = ::Std_obj::string(err);		HX_STACK_VAR(_g,"_g");
-					HX_STACK_LINE(91)
-					::String _g1 = (_g + HX_CSTRING(""));		HX_STACK_VAR(_g1,"_g1");
-					HX_STACK_LINE(91)
-					this->onerror(_g1);
-				}
-			}
-		}
 	}
 return null();
 }

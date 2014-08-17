@@ -1,8 +1,5 @@
 #include <hxcpp.h>
 
-#ifndef INCLUDED_cpp_vm_Thread
-#include <cpp/vm/Thread.h>
-#endif
 #ifndef INCLUDED_haxor_platform_windows_LoadTask
 #include <haxor/platform/windows/LoadTask.h>
 #endif
@@ -39,25 +36,25 @@ Array< ::Dynamic > Web_obj::q;
 
 Void Web_obj::Load( ::String p_url,Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Web","Load",0x7de2eaba,"haxor.platform.windows.Web.Load","haxor/platform/windows/Web.hx",33,0x2cb2b125)
+		HX_STACK_FRAME("haxor.platform.windows.Web","Load",0x7de2eaba,"haxor.platform.windows.Web.Load","haxor/platform/windows/Web.hx",27,0x2cb2b125)
 		HX_STACK_ARG(p_url,"p_url")
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(33)
+		HX_STACK_LINE(27)
 		Dynamic p_callback1 = Dynamic( Array_obj<Dynamic>::__new().Add(p_callback));		HX_STACK_VAR(p_callback1,"p_callback1");
-		HX_STACK_LINE(35)
+		HX_STACK_LINE(29)
 		if (((::haxor::platform::windows::Web_obj::q == null()))){
-			HX_STACK_LINE(35)
+			HX_STACK_LINE(29)
 			::haxor::platform::windows::Web_obj::q = Array_obj< ::Dynamic >::__new();
 		}
-		HX_STACK_LINE(36)
+		HX_STACK_LINE(30)
 		p_callback1->__GetItem((int)0)(null(),0.0).Cast< Void >();
 
 		HX_BEGIN_LOCAL_FUNC_S1(hx::LocalFunc,_Function_1_1,Dynamic,p_callback1)
 		Void run(::String d){
-			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/platform/windows/Web.hx",39,0x2cb2b125)
+			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/platform/windows/Web.hx",33,0x2cb2b125)
 			HX_STACK_ARG(d,"d")
 			{
-				HX_STACK_LINE(39)
+				HX_STACK_LINE(33)
 				p_callback1->__GetItem((int)0)(d,1.0).Cast< Void >();
 			}
 			return null();
@@ -67,27 +64,20 @@ Void Web_obj::Load( ::String p_url,Dynamic p_callback){
 
 		HX_BEGIN_LOCAL_FUNC_S1(hx::LocalFunc,_Function_1_2,Dynamic,p_callback1)
 		Void run(::String err){
-			HX_STACK_FRAME("*","_Function_1_2",0x5200ed38,"*._Function_1_2","haxor/platform/windows/Web.hx",44,0x2cb2b125)
+			HX_STACK_FRAME("*","_Function_1_2",0x5200ed38,"*._Function_1_2","haxor/platform/windows/Web.hx",38,0x2cb2b125)
 			HX_STACK_ARG(err,"err")
 			{
-				HX_STACK_LINE(44)
+				HX_STACK_LINE(38)
 				p_callback1->__GetItem((int)0)(null(),1.0).Cast< Void >();
 			}
 			return null();
 		}
 		HX_END_LOCAL_FUNC1((void))
 
-		HX_STACK_LINE(37)
+		HX_STACK_LINE(31)
 		::haxor::platform::windows::LoadTask ld = ::haxor::platform::windows::LoadTask_obj::__new(p_url,HX_CSTRING("GET"),HX_CSTRING(""), Dynamic(new _Function_1_1(p_callback1)), Dynamic(new _Function_1_2(p_callback1)));		HX_STACK_VAR(ld,"ld");
-		HX_STACK_LINE(46)
+		HX_STACK_LINE(40)
 		::haxor::platform::windows::Web_obj::q->push(ld);
-		HX_STACK_LINE(47)
-		if ((!(::haxor::platform::windows::Web_obj::m_running))){
-			HX_STACK_LINE(47)
-			::cpp::vm::Thread_obj::create(::haxor::platform::windows::Web_obj::QueueUpdate_dyn());
-			HX_STACK_LINE(47)
-			::haxor::platform::windows::Web_obj::m_running = true;
-		}
 	}
 return null();
 }
@@ -97,20 +87,20 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,Load,(void))
 
 Void Web_obj::QueueUpdate( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Web","QueueUpdate",0xcf1d3466,"haxor.platform.windows.Web.QueueUpdate","haxor/platform/windows/Web.hx",51,0x2cb2b125)
-		HX_STACK_LINE(52)
+		HX_STACK_FRAME("haxor.platform.windows.Web","QueueUpdate",0xcf1d3466,"haxor.platform.windows.Web.QueueUpdate","haxor/platform/windows/Web.hx",45,0x2cb2b125)
+		HX_STACK_LINE(46)
 		while((true)){
-			HX_STACK_LINE(52)
+			HX_STACK_LINE(46)
 			if ((!(((::haxor::platform::windows::Web_obj::q->length > (int)0))))){
-				HX_STACK_LINE(52)
+				HX_STACK_LINE(46)
 				break;
 			}
-			HX_STACK_LINE(54)
+			HX_STACK_LINE(48)
 			::haxor::platform::windows::LoadTask ld = ::haxor::platform::windows::Web_obj::q->shift().StaticCast< ::haxor::platform::windows::LoadTask >();		HX_STACK_VAR(ld,"ld");
-			HX_STACK_LINE(55)
+			HX_STACK_LINE(49)
 			ld->Run();
 		}
-		HX_STACK_LINE(57)
+		HX_STACK_LINE(51)
 		::haxor::platform::windows::Web_obj::m_running = false;
 	}
 return null();

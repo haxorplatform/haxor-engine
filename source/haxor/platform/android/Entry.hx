@@ -1,5 +1,6 @@
 #if android
 package haxor.platform.android;
+import java.NativeArray;
 import haxor.core.Engine;
 import java.lang.Thread;
 import java.lang.Throwable;
@@ -17,7 +18,7 @@ import android.os.Handler;
 import android.os.Bundle;
 import java.javax.microedition.khronos.opengles.GL10;
 import java.javax.microedition.khronos.egl.EGLConfig;
-
+import java.lang.StackTraceElement;
 
 /**
  * Entry point class that controls the initialization of Android projects. 
@@ -117,7 +118,11 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	public function uncaughtException(thread : Thread,ex :  Throwable):Void
 	{
 		Console.Log("Haxor> Error. " + ex.getMessage()+"\n");
-		ex.printStackTrace();
+		var st : NativeArray<StackTraceElement> = ex.getStackTrace();
+		for (i in 0...st.length)
+		{
+			Console.Log(st[i].toString());
+		}
 	}
 	
 	@:overload()
@@ -166,13 +171,13 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	
 	public function run():Void
 	{		
-		m_application.Update();		
+		m_application.Update();			
 		if(m_active)m_handler.postDelayed(this,cast 0);
 	}
 	
 	public function onDrawFrame(gl:GL10):Void
 	{	
-		if(m_active)m_application.Render();		
+		if(m_active)m_application.Render();	
 	}
 	
 	public function onSurfaceChanged(gl:GL10, width:Int, height:Int):Void

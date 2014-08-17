@@ -32,12 +32,6 @@ class HXCPP_CLASS_ATTRIBUTES  Lib_obj : public hx::Object{
 		static Dynamic load( ::String lib,::String prim,int nargs);
 		static Dynamic load_dyn();
 
-		static Dynamic loadLazy( ::String lib,::String prim,int nargs);
-		static Dynamic loadLazy_dyn();
-
-		static Void rethrow( Dynamic inExp);
-		static Dynamic rethrow_dyn();
-
 		static Void println( Dynamic v);
 		static Dynamic println_dyn();
 

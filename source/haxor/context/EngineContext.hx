@@ -1,4 +1,5 @@
 package haxor.context;
+import haxor.context.Process.BaseProcess;
 import haxor.core.Console;
 import haxor.core.IDisposable;
 import haxor.core.IRenderable;
@@ -65,6 +66,11 @@ class EngineContext
 	static private var material : MaterialContext;
 	
 	/**
+	 * List of all processes.
+	 */
+	static private var list : Array<BaseProcess>;
+	
+	/**
 	 * Initializes the Haxor context.
 	 */
 	static private function Initialize():Void
@@ -76,7 +82,9 @@ class EngineContext
 		resize      = new Process("process.resize", 	 maxNodes);
 		resources   = new Process("process.resources",   maxNodes);
 		disposables = new Process("process.disposables", maxNodes);
-				
+		
+		list = [update, render, resize, resources, disposables];
+		
 		mesh 		= new MeshContext();
 		material	= new MaterialContext();
 	}
@@ -88,6 +96,18 @@ class EngineContext
 	{
 		mesh.Initialize();
 		material.Initialize();
+	}
+	
+	/**
+	 * Handles the destruction of resources of the engine.
+	 * @param	p_resource
+	 */
+	static private function Destroy(p_resource:Resource):Void
+	{
+		if (p_resource.m_destroyed) return;
+		p_resource.m_destroyed = true;		
+		for (i in 0...list.length) list[i].Remove(p_resource);		
+		EngineContext.disposables.Add(p_resource);		
 	}
 	
 }

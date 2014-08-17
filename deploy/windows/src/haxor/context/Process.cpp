@@ -1,10 +1,10 @@
 #include <hxcpp.h>
 
+#ifndef INCLUDED_haxor_context_BaseProcess
+#include <haxor/context/BaseProcess.h>
+#endif
 #ifndef INCLUDED_haxor_context_Process
 #include <haxor/context/Process.h>
-#endif
-#ifndef INCLUDED_haxor_core_Console
-#include <haxor/core/Console.h>
 #endif
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
@@ -17,37 +17,31 @@ namespace context{
 
 Void Process_obj::__construct(::String p_name,int p_size)
 {
-HX_STACK_FRAME("haxor.context.Process","new",0x44f4a996,"haxor.context.Process.new","haxor/context/Process.hx",52,0x5f329a1c)
+HX_STACK_FRAME("haxor.context.Process","new",0x44f4a996,"haxor.context.Process.new","haxor/context/Process.hx",29,0x5f329a1c)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_name,"p_name")
 HX_STACK_ARG(p_size,"p_size")
 {
-	HX_STACK_LINE(53)
-	this->name = p_name;
-	HX_STACK_LINE(54)
-	::haxor::core::Console_obj::Log(((HX_CSTRING("\tProcess [") + p_name) + HX_CSTRING("] created.")),(int)4);
-	HX_STACK_LINE(55)
-	int _g = (::haxor::context::Process_obj::m_cid)++;		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(55)
-	this->_cid_ = _g;
-	HX_STACK_LINE(56)
+	HX_STACK_LINE(30)
+	super::__construct(p_name);
+	HX_STACK_LINE(31)
 	this->list = Dynamic( Array_obj<Dynamic>::__new());
-	HX_STACK_LINE(57)
+	HX_STACK_LINE(32)
 	this->m_length = (int)0;
-	HX_STACK_LINE(58)
+	HX_STACK_LINE(33)
 	{
-		HX_STACK_LINE(58)
-		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(58)
+		HX_STACK_LINE(33)
+		int _g = (int)0;		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(33)
 		while((true)){
-			HX_STACK_LINE(58)
-			if ((!(((_g1 < p_size))))){
-				HX_STACK_LINE(58)
+			HX_STACK_LINE(33)
+			if ((!(((_g < p_size))))){
+				HX_STACK_LINE(33)
 				break;
 			}
-			HX_STACK_LINE(58)
-			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(60)
+			HX_STACK_LINE(33)
+			int i = (_g)++;		HX_STACK_VAR(i,"i");
+			HX_STACK_LINE(35)
 			this->list->__Field(HX_CSTRING("push"),true)(null());
 		}
 	}
@@ -70,87 +64,77 @@ Dynamic Process_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 int Process_obj::get_length( ){
-	HX_STACK_FRAME("haxor.context.Process","get_length",0xf24f5e39,"haxor.context.Process.get_length","haxor/context/Process.hx",32,0x5f329a1c)
+	HX_STACK_FRAME("haxor.context.Process","get_length",0xf24f5e39,"haxor.context.Process.get_length","haxor/context/Process.hx",20,0x5f329a1c)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(32)
+	HX_STACK_LINE(20)
 	return this->m_length;
 }
 
 
-HX_DEFINE_DYNAMIC_FUNC0(Process_obj,get_length,return )
-
 Void Process_obj::Add( ::haxor::core::Resource p_item){
 {
-		HX_STACK_FRAME("haxor.context.Process","Add",0x44d28337,"haxor.context.Process.Add","haxor/context/Process.hx",70,0x5f329a1c)
+		HX_STACK_FRAME("haxor.context.Process","Add",0x44d28337,"haxor.context.Process.Add","haxor/context/Process.hx",45,0x5f329a1c)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
-		HX_STACK_LINE(71)
+		HX_STACK_LINE(46)
 		int iid = p_item->m_pid->__get(this->_cid_);		HX_STACK_VAR(iid,"iid");
-		HX_STACK_LINE(72)
+		HX_STACK_LINE(47)
 		if (((iid >= (int)0))){
-			HX_STACK_LINE(72)
+			HX_STACK_LINE(47)
 			return null();
 		}
-		HX_STACK_LINE(73)
+		HX_STACK_LINE(48)
 		hx::IndexRef((this->list).mPtr,this->m_length) = p_item;
-		HX_STACK_LINE(74)
+		HX_STACK_LINE(49)
 		p_item->m_pid[this->_cid_] = (this->m_length)++;
 	}
 return null();
 }
 
 
-HX_DEFINE_DYNAMIC_FUNC1(Process_obj,Add,(void))
-
 ::haxor::core::Resource Process_obj::Remove( ::haxor::core::Resource p_item){
-	HX_STACK_FRAME("haxor.context.Process","Remove",0x2b7b5cee,"haxor.context.Process.Remove","haxor/context/Process.hx",82,0x5f329a1c)
+	HX_STACK_FRAME("haxor.context.Process","Remove",0x2b7b5cee,"haxor.context.Process.Remove","haxor/context/Process.hx",57,0x5f329a1c)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_item,"p_item")
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(58)
 	int iid = p_item->m_pid->__get(this->_cid_);		HX_STACK_VAR(iid,"iid");
-	HX_STACK_LINE(84)
+	HX_STACK_LINE(59)
 	if (((iid < (int)0))){
-		HX_STACK_LINE(84)
+		HX_STACK_LINE(59)
 		return p_item;
 	}
-	HX_STACK_LINE(85)
+	HX_STACK_LINE(60)
 	p_item->m_pid[this->_cid_] = (int)-1;
-	HX_STACK_LINE(86)
+	HX_STACK_LINE(61)
 	(this->m_length)--;
-	HX_STACK_LINE(87)
+	HX_STACK_LINE(62)
 	if (((this->m_length <= (int)0))){
-		HX_STACK_LINE(87)
+		HX_STACK_LINE(62)
 		return p_item;
 	}
-	HX_STACK_LINE(88)
+	HX_STACK_LINE(63)
 	hx::IndexRef((this->list).mPtr,iid) = this->list->__GetItem(this->m_length);
-	HX_STACK_LINE(89)
+	HX_STACK_LINE(64)
 	p_item = this->list->__GetItem(iid);
-	HX_STACK_LINE(90)
+	HX_STACK_LINE(65)
 	p_item->m_pid[this->_cid_] = iid;
-	HX_STACK_LINE(91)
+	HX_STACK_LINE(66)
 	return p_item;
 }
 
 
-HX_DEFINE_DYNAMIC_FUNC1(Process_obj,Remove,return )
-
 Void Process_obj::Clear( ){
 {
-		HX_STACK_FRAME("haxor.context.Process","Clear",0x2cfaf423,"haxor.context.Process.Clear","haxor/context/Process.hx",98,0x5f329a1c)
+		HX_STACK_FRAME("haxor.context.Process","Clear",0x2cfaf423,"haxor.context.Process.Clear","haxor/context/Process.hx",73,0x5f329a1c)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(99)
+		HX_STACK_LINE(74)
 		this->m_length = (int)0;
-		HX_STACK_LINE(100)
+		HX_STACK_LINE(75)
 		this->list = Dynamic( Array_obj<Dynamic>::__new());
 	}
 return null();
 }
 
-
-HX_DEFINE_DYNAMIC_FUNC0(Process_obj,Clear,(void))
-
-int Process_obj::m_cid;
 
 
 Process_obj::Process_obj()
@@ -160,23 +144,17 @@ Process_obj::Process_obj()
 void Process_obj::__Mark(HX_MARK_PARAMS)
 {
 	HX_MARK_BEGIN_CLASS(Process);
-	HX_MARK_MEMBER_NAME(name,"name");
 	HX_MARK_MEMBER_NAME(list,"list");
-	HX_MARK_MEMBER_NAME(length,"length");
 	HX_MARK_MEMBER_NAME(m_length,"m_length");
-	HX_MARK_MEMBER_NAME(_cid_,"_cid_");
-	HX_MARK_MEMBER_NAME(m_remove_queue,"m_remove_queue");
+	::haxor::context::BaseProcess_obj::__Mark(HX_MARK_ARG);
 	HX_MARK_END_CLASS();
 }
 
 void Process_obj::__Visit(HX_VISIT_PARAMS)
 {
-	HX_VISIT_MEMBER_NAME(name,"name");
 	HX_VISIT_MEMBER_NAME(list,"list");
-	HX_VISIT_MEMBER_NAME(length,"length");
 	HX_VISIT_MEMBER_NAME(m_length,"m_length");
-	HX_VISIT_MEMBER_NAME(_cid_,"_cid_");
-	HX_VISIT_MEMBER_NAME(m_remove_queue,"m_remove_queue");
+	::haxor::context::BaseProcess_obj::__Visit(HX_VISIT_ARG);
 }
 
 Dynamic Process_obj::__Field(const ::String &inName,bool inCallProp)
@@ -186,16 +164,12 @@ Dynamic Process_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"Add") ) { return Add_dyn(); }
 		break;
 	case 4:
-		if (HX_FIELD_EQ(inName,"name") ) { return name; }
 		if (HX_FIELD_EQ(inName,"list") ) { return list; }
 		break;
 	case 5:
-		if (HX_FIELD_EQ(inName,"m_cid") ) { return m_cid; }
-		if (HX_FIELD_EQ(inName,"_cid_") ) { return _cid_; }
 		if (HX_FIELD_EQ(inName,"Clear") ) { return Clear_dyn(); }
 		break;
 	case 6:
-		if (HX_FIELD_EQ(inName,"length") ) { return inCallProp ? get_length() : length; }
 		if (HX_FIELD_EQ(inName,"Remove") ) { return Remove_dyn(); }
 		break;
 	case 8:
@@ -203,9 +177,6 @@ Dynamic Process_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 10:
 		if (HX_FIELD_EQ(inName,"get_length") ) { return get_length_dyn(); }
-		break;
-	case 14:
-		if (HX_FIELD_EQ(inName,"m_remove_queue") ) { return m_remove_queue; }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -214,60 +185,36 @@ Dynamic Process_obj::__SetField(const ::String &inName,const Dynamic &inValue,bo
 {
 	switch(inName.length) {
 	case 4:
-		if (HX_FIELD_EQ(inName,"name") ) { name=inValue.Cast< ::String >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"list") ) { list=inValue.Cast< Dynamic >(); return inValue; }
-		break;
-	case 5:
-		if (HX_FIELD_EQ(inName,"m_cid") ) { m_cid=inValue.Cast< int >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"_cid_") ) { _cid_=inValue.Cast< int >(); return inValue; }
-		break;
-	case 6:
-		if (HX_FIELD_EQ(inName,"length") ) { length=inValue.Cast< int >(); return inValue; }
 		break;
 	case 8:
 		if (HX_FIELD_EQ(inName,"m_length") ) { m_length=inValue.Cast< int >(); return inValue; }
-		break;
-	case 14:
-		if (HX_FIELD_EQ(inName,"m_remove_queue") ) { m_remove_queue=inValue.Cast< Dynamic >(); return inValue; }
 	}
 	return super::__SetField(inName,inValue,inCallProp);
 }
 
 void Process_obj::__GetFields(Array< ::String> &outFields)
 {
-	outFields->push(HX_CSTRING("name"));
 	outFields->push(HX_CSTRING("list"));
-	outFields->push(HX_CSTRING("length"));
 	outFields->push(HX_CSTRING("m_length"));
-	outFields->push(HX_CSTRING("_cid_"));
-	outFields->push(HX_CSTRING("m_remove_queue"));
 	super::__GetFields(outFields);
 };
 
 static ::String sStaticFields[] = {
-	HX_CSTRING("m_cid"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE
 static hx::StorageInfo sMemberStorageInfo[] = {
-	{hx::fsString,(int)offsetof(Process_obj,name),HX_CSTRING("name")},
 	{hx::fsObject /*Dynamic*/ ,(int)offsetof(Process_obj,list),HX_CSTRING("list")},
-	{hx::fsInt,(int)offsetof(Process_obj,length),HX_CSTRING("length")},
 	{hx::fsInt,(int)offsetof(Process_obj,m_length),HX_CSTRING("m_length")},
-	{hx::fsInt,(int)offsetof(Process_obj,_cid_),HX_CSTRING("_cid_")},
-	{hx::fsObject /*Dynamic*/ ,(int)offsetof(Process_obj,m_remove_queue),HX_CSTRING("m_remove_queue")},
 	{ hx::fsUnknown, 0, null()}
 };
 #endif
 
 static ::String sMemberFields[] = {
-	HX_CSTRING("name"),
 	HX_CSTRING("list"),
-	HX_CSTRING("length"),
 	HX_CSTRING("get_length"),
 	HX_CSTRING("m_length"),
-	HX_CSTRING("_cid_"),
-	HX_CSTRING("m_remove_queue"),
 	HX_CSTRING("Add"),
 	HX_CSTRING("Remove"),
 	HX_CSTRING("Clear"),
@@ -275,13 +222,11 @@ static ::String sMemberFields[] = {
 
 static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Process_obj::__mClass,"__mClass");
-	HX_MARK_MEMBER_NAME(Process_obj::m_cid,"m_cid");
 };
 
 #ifdef HXCPP_VISIT_ALLOCS
 static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Process_obj::__mClass,"__mClass");
-	HX_VISIT_MEMBER_NAME(Process_obj::m_cid,"m_cid");
 };
 
 #endif
@@ -304,7 +249,6 @@ void Process_obj::__register()
 
 void Process_obj::__boot()
 {
-	m_cid= (int)0;
 }
 
 } // end namespace haxor

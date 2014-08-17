@@ -69,13 +69,7 @@ $hxClasses["haxor.core.Resource"] = haxor.core.Resource;
 haxor.core.Resource.__name__ = ["haxor","core","Resource"];
 haxor.core.Resource.__interfaces__ = [haxor.core.IDisposable];
 haxor.core.Resource.Destroy = function(p_target) {
-	if(p_target.m_destroyed) return;
-	p_target.m_destroyed = true;
-	if(p_target.m_is_behaviour) {
-		var b = p_target;
-		b.UpdateContextFlag(false);
-	}
-	haxor.context.EngineContext.disposables.Add(p_target);
+	haxor.context.EngineContext.Destroy(p_target);
 };
 haxor.core.Resource.prototype = {
 	get_application: function() {
@@ -207,7 +201,8 @@ haxor.core.BaseApplication.prototype = $extend(haxor.component.Behaviour.prototy
 	,set_fps: function(v) {
 		this.m_fps = v;
 		var f = v;
-		f += 6.0;
+		if(f >= 60.0) f = 1000000.0;
+		f *= 1.24;
 		this.m_mspf = 1.0 / f * 1000.0;
 		return v;
 	}
@@ -239,7 +234,7 @@ haxor.core.BaseApplication.prototype = $extend(haxor.component.Behaviour.prototy
 			this.m_init_allowed = false;
 		}
 		if(haxor.core.Time.m_clock - this.m_frame_ms >= this.m_mspf) {
-			this.m_frame_ms = haxor.core.Time.m_clock;
+			this.m_frame_ms += haxor.core.Time.m_clock - this.m_frame_ms;
 			haxor.core.Time.Render();
 			haxor.platform.graphics.GL.m_gl.Focus();
 			haxor.core.Engine.Render();
@@ -344,34 +339,41 @@ Main.main = function() {
 Main.__super__ = haxor.core.Application;
 Main.prototype = $extend(haxor.core.Application.prototype,{
 	Load: function() {
-		var _g = this;
 		haxor.platform.html.Web.root = "https://dl.dropboxusercontent.com/u/20655747/haxor/resources/";
-		haxor.platform.html.Web.Load("./shader/unlit/NDC.shader",function(d,p) {
-			if(p >= 1.0) {
-				_g.ss = d;
-				_g.LoadComplete();
-			}
-		});
-		return false;
+		return true;
 	}
 	,Initialize: function() {
 		haxor.core.Console.Log("Initialize!");
+		this.get_application().set_fps(50);
 		var s = 0.8;
 		var vl = haxor.io.FloatArray.Alloc([-s,-s,0.5,s,-s,0.5,s,s,0.5,-s,s,0.5]);
-		var cl = haxor.io.FloatArray.Alloc([1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.5]);
+		var cl = haxor.io.FloatArray.Alloc([1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,1.0]);
 		var il = haxor.io.UInt16Array.Alloc([0,1,2,0,2,3]);
 		var m = this.mesh = new haxor.graphics.mesh.Mesh();
 		m.Set("vertex",vl,3);
 		m.Set("color",cl,4);
 		m.set_topology(il);
-		if(this.ss == null) this.ss = "\r\n\t\t\t<shader id=\"haxor/debug\">\r\n\t\t\t\t<vertex>\t\t\t\r\n\t\t\t\tattribute vec3 vertex;\r\n\t\t\t\tattribute vec4 color;\t\t\t\r\n\t\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\t\tvoid main(void) \r\n\t\t\t\t{ \r\n\t\t\t\t\tv_color = color;\r\n\t\t\t\t\tgl_Position = vec4(vertex, 1.0);\t\t\t\t\r\n\t\t\t\t}\t\t\t\r\n\t\t\t\t</vertex>\t\t\t\r\n\t\t\t\t<fragment>\t\t\t\t\t\r\n\t\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\t\tvoid main(void) \r\n\t\t\t\t{ \r\n\t\t\t\t\tgl_FragColor = vec4(0.0,0.0,0.0,1.0);\r\n\t\t\t\t}\t\t\t\r\n\t\t\t\t</fragment>\r\n\t\t\t</shader>\r\n\t\t\t";
+		if(this.ss == null) this.ss = "\r\n\t\t\t<shader id=\"haxor/debug\">\r\n\t\t\t\t<vertex>\t\t\t\r\n\t\t\t\tattribute vec3 vertex;\r\n\t\t\t\tattribute vec4 color;\t\t\t\r\n\t\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\t\tvoid main(void) \r\n\t\t\t\t{ \r\n\t\t\t\t\tv_color = color;\r\n\t\t\t\t\tgl_Position = vec4(vertex, 1.0);\t\t\t\t\r\n\t\t\t\t}\t\t\t\r\n\t\t\t\t</vertex>\t\t\t\r\n\t\t\t\t<fragment>\t\t\t\t\t\r\n\t\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\t\tvoid main(void) \r\n\t\t\t\t{ \r\n\t\t\t\t\tgl_FragColor = v_color;\r\n\t\t\t\t}\t\t\t\r\n\t\t\t\t</fragment>\r\n\t\t\t</shader>\r\n\t\t\t";
 		var shd = new haxor.graphics.material.Shader(this.ss);
 		this.mat = new haxor.graphics.material.Material("DebugMaterial");
 		this.mat.blend = true;
 		this.mat.SetBlending(770,771);
 		this.mat.set_shader(shd);
+		haxor.core.Console.Log("Start");
+		var t0 = haxor.core.Time.m_clock;
+		var len = 10000000;
+		var max = 4;
+		var total = max;
+	}
+	,OnActivityComplete: function() {
+		haxor.thread.Activity.Run(function(t) {
+			if(t < 3.0) return true;
+			haxor.core.Console.Log("Time: " + t);
+			return false;
+		},true);
 	}
 	,OnUpdate: function() {
+		haxor.core.Console.Log("ups[" + haxor.core.Time.m_ups + "] fps[" + haxor.core.Time.m_fps + "] elapsed[" + haxor.core.Time.m_elapsed + "] frames[" + haxor.core.Time.m_frame + "] a[" + this.get_application().get_fps() + "]");
 	}
 	,OnRender: function() {
 		haxor.platform.graphics.GL.m_gl.ClearColor(1.0,0.0,1.0,1.0);
@@ -595,12 +597,6 @@ Xml.prototype = {
 	,__class__: Xml
 };
 var haxe = {};
-haxe.Timer = function() { };
-$hxClasses["haxe.Timer"] = haxe.Timer;
-haxe.Timer.__name__ = ["haxe","Timer"];
-haxe.Timer.stamp = function() {
-	return new Date().getTime() / 1000;
-};
 haxe.ds = {};
 haxe.ds.StringMap = function() {
 	this.h = { };
@@ -879,12 +875,24 @@ haxor.context.EngineContext.Initialize = function() {
 	haxor.context.EngineContext.resize = new haxor.context.Process("process.resize",haxor.context.EngineContext.maxNodes);
 	haxor.context.EngineContext.resources = new haxor.context.Process("process.resources",haxor.context.EngineContext.maxNodes);
 	haxor.context.EngineContext.disposables = new haxor.context.Process("process.disposables",haxor.context.EngineContext.maxNodes);
+	haxor.context.EngineContext.list = [haxor.context.EngineContext.update,haxor.context.EngineContext.render,haxor.context.EngineContext.resize,haxor.context.EngineContext.resources,haxor.context.EngineContext.disposables];
 	haxor.context.EngineContext.mesh = new haxor.context.MeshContext();
 	haxor.context.EngineContext.material = new haxor.context.MaterialContext();
 };
 haxor.context.EngineContext.Build = function() {
 	haxor.context.EngineContext.mesh.Initialize();
 	haxor.context.EngineContext.material.Initialize();
+};
+haxor.context.EngineContext.Destroy = function(p_resource) {
+	if(p_resource.m_destroyed) return;
+	p_resource.m_destroyed = true;
+	var _g1 = 0;
+	var _g = haxor.context.EngineContext.list.length;
+	while(_g1 < _g) {
+		var i = _g1++;
+		haxor.context.EngineContext.list[i].Remove(p_resource);
+	}
+	haxor.context.EngineContext.disposables.Add(p_resource);
 };
 haxor.context.MaterialContext = function() {
 	this.mid = 0;
@@ -1164,10 +1172,28 @@ haxor.context.MeshContext.prototype = {
 	}
 	,__class__: haxor.context.MeshContext
 };
-haxor.context.Process = function(p_name,p_size) {
+haxor.context.BaseProcess = function(p_name) {
 	this.name = p_name;
 	haxor.core.Console.Log("\tProcess [" + p_name + "] created.",4);
-	this._cid_ = haxor.context.Process.m_cid++;
+	this._cid_ = haxor.context.BaseProcess.m_cid++;
+};
+$hxClasses["haxor.context.BaseProcess"] = haxor.context.BaseProcess;
+haxor.context.BaseProcess.__name__ = ["haxor","context","BaseProcess"];
+haxor.context.BaseProcess.prototype = {
+	get_length: function() {
+		return 0;
+	}
+	,Add: function(p_item) {
+	}
+	,Remove: function(p_item) {
+		return null;
+	}
+	,Clear: function() {
+	}
+	,__class__: haxor.context.BaseProcess
+};
+haxor.context.Process = function(p_name,p_size) {
+	haxor.context.BaseProcess.call(this,p_name);
 	this.list = [];
 	this.m_length = 0;
 	var _g = 0;
@@ -1178,7 +1204,8 @@ haxor.context.Process = function(p_name,p_size) {
 };
 $hxClasses["haxor.context.Process"] = haxor.context.Process;
 haxor.context.Process.__name__ = ["haxor","context","Process"];
-haxor.context.Process.prototype = {
+haxor.context.Process.__super__ = haxor.context.BaseProcess;
+haxor.context.Process.prototype = $extend(haxor.context.BaseProcess.prototype,{
 	get_length: function() {
 		return this.m_length;
 	}
@@ -1204,7 +1231,7 @@ haxor.context.Process.prototype = {
 		this.list = [];
 	}
 	,__class__: haxor.context.Process
-};
+});
 haxor.core.Platform = { __ename__ : true, __constructs__ : ["Unknown","Windows","Linux","Android","MacOS","iOS","HTML","NodeJS"] };
 haxor.core.Platform.Unknown = ["Unknown",0];
 haxor.core.Platform.Unknown.__enum__ = haxor.core.Platform;
@@ -1335,7 +1362,7 @@ haxor.core.Engine.Collect = function() {
 	var _g = haxor.context.EngineContext.collectRate;
 	while(_g1 < _g) {
 		var i = _g1++;
-		if(dp.get_length() <= 0) break;
+		if(dp.m_length <= 0) break;
 		var o = dp.list[0];
 		o.OnDestroy();
 		dp.Remove(o);
@@ -1345,7 +1372,7 @@ haxor.core.Engine.Update = function() {
 	if(haxor.core.Engine.state == haxor.core.EngineState.Editor) return;
 	var up = haxor.context.EngineContext.update;
 	var _g1 = 0;
-	var _g = up.get_length();
+	var _g = up.m_length;
 	while(_g1 < _g) {
 		var i = _g1++;
 		var r = up.list[i];
@@ -1367,7 +1394,7 @@ haxor.core.Engine.Update = function() {
 haxor.core.Engine.Render = function() {
 	var rp = haxor.context.EngineContext.render;
 	var _g1 = 0;
-	var _g = rp.get_length();
+	var _g = rp.m_length;
 	while(_g1 < _g) {
 		var i = _g1++;
 		var r = rp.list[i];
@@ -1379,7 +1406,7 @@ haxor.core.Engine.Resize = function() {
 	if(haxor.core.Engine.state == haxor.core.EngineState.Editor) return;
 	var rp = haxor.context.EngineContext.resize;
 	var _g1 = 0;
-	var _g = rp.get_length();
+	var _g = rp.m_length;
 	while(_g1 < _g) {
 		var i = _g1++;
 		var r = rp.list[i];
@@ -1474,14 +1501,15 @@ haxor.core.Time.get_frame = function() {
 	return haxor.core.Time.m_frame;
 };
 haxor.core.Time.Initialize = function() {
-	var c = haxe.Timer.stamp() * 0.001;
-	c = 0.0;
-	haxor.core.Time.m_clock = c;
-	haxor.core.Time.m_start_clock = c;
-	haxor.core.Time.m_last_clock = c;
-	haxor.core.Time.m_last_frame_clock = c;
-	haxor.core.Time.m_stats_clock = c;
-	haxor.core.Time.m_elapsed = c * 1000.0;
+	haxor.core.Time.m_clock = 0.0;
+	haxor.core.Time.m_clock_dt = 0.0;
+	haxor.core.Time.m_clock_0 = 0.0;
+	haxor.core.Time.m_clock_0 = haxor.core.Time.m_clock;
+	haxor.core.Time.m_start_clock = haxor.core.Time.m_clock;
+	haxor.core.Time.m_last_clock = haxor.core.Time.m_clock;
+	haxor.core.Time.m_last_frame_clock = haxor.core.Time.m_clock;
+	haxor.core.Time.m_stats_clock = haxor.core.Time.m_clock;
+	haxor.core.Time.m_elapsed = 0.0;
 	haxor.core.Time.m_delta = 0.0;
 	haxor.core.Time.m_frame_delta = 0.0;
 	haxor.core.Time.m_ups = 0;
@@ -1492,12 +1520,14 @@ haxor.core.Time.Initialize = function() {
 	null;
 };
 haxor.core.Time.Update = function() {
-	haxor.core.Time.m_delta = (haxor.core.Time.m_clock - haxor.core.Time.m_last_clock) * 0.001;
+	haxor.core.Time.m_clock_dt = haxor.core.Time.m_clock - haxor.core.Time.m_last_clock;
+	if(haxor.core.Time.m_clock_dt <= 0) haxor.core.Time.m_clock_dt = 1.0;
 	haxor.core.Time.m_last_clock = haxor.core.Time.m_clock;
+	haxor.core.Time.m_delta = haxor.core.Time.m_clock_dt * 0.001;
 	haxor.core.Time.m_elapsed = haxor.core.Time.m_clock * 0.001;
 	haxor.core.Time.m_updates += 1.0;
 	if(haxor.core.Time.m_clock - haxor.core.Time.m_stats_clock >= 1000.0) {
-		haxor.core.Time.m_stats_clock = haxor.core.Time.m_clock;
+		haxor.core.Time.m_stats_clock += haxor.core.Time.m_clock - haxor.core.Time.m_stats_clock;
 		haxor.core.Time.m_ups = haxor.core.Time.m_updates;
 		haxor.core.Time.m_fps = haxor.core.Time.m_frame_count;
 		haxor.core.Time.m_updates = 0.0;
@@ -2511,6 +2541,65 @@ haxor.platform.html.Web.Load = function(p_url,p_callback) {
 	};
 	req.send();
 };
+haxor.thread = {};
+haxor.thread.Activity = function(p_callback,p_threaded) {
+	if(p_threaded == null) p_threaded = false;
+	haxor.core.Resource.call(this);
+	if(p_callback == null) return;
+	this.m_time_start = haxor.core.Time.m_elapsed;
+	this.m_elapsed = 0.0;
+	this.m_callback = p_callback;
+	p_threaded = false;
+	if(!p_threaded) haxor.context.EngineContext.update.Add(this); else {
+	}
+};
+$hxClasses["haxor.thread.Activity"] = haxor.thread.Activity;
+haxor.thread.Activity.__name__ = ["haxor","thread","Activity"];
+haxor.thread.Activity.__interfaces__ = [haxor.core.IUpdateable];
+haxor.thread.Activity.Iterate = function(p_offset,p_length,p_callback,p_step,p_threaded) {
+	if(p_threaded == null) p_threaded = false;
+	if(p_step == null) p_step = 1;
+	var it = p_offset;
+	return new haxor.thread.Activity(function(t) {
+		var finished = false;
+		var _g = 0;
+		while(_g < p_step) {
+			var i = _g++;
+			if(!p_callback(it)) {
+				finished = true;
+				break;
+			}
+			it++;
+			if(it >= p_length) return false;
+		}
+		return !finished;
+	},p_threaded);
+};
+haxor.thread.Activity.Delay = function(p_time,p_callback,p_threaded) {
+	if(p_threaded == null) p_threaded = false;
+	return new haxor.thread.Activity(function(t) {
+		if(t >= p_time) {
+			p_callback();
+			return false;
+		}
+		return true;
+	},p_threaded);
+};
+haxor.thread.Activity.Run = function(p_callback,p_threaded) {
+	if(p_threaded == null) p_threaded = false;
+	return new haxor.thread.Activity(p_callback,p_threaded);
+};
+haxor.thread.Activity.__super__ = haxor.core.Resource;
+haxor.thread.Activity.prototype = $extend(haxor.core.Resource.prototype,{
+	get_elapsed: function() {
+		return this.m_elapsed;
+	}
+	,OnUpdate: function() {
+		this.m_elapsed = haxor.core.Time.m_elapsed - this.m_time_start;
+		if(!this.m_callback(this.m_elapsed)) haxor.core.Resource.Destroy(this);
+	}
+	,__class__: haxor.thread.Activity
+});
 var js = {};
 js.Boot = function() { };
 $hxClasses["js.Boot"] = js.Boot;
@@ -2662,8 +2751,6 @@ String.prototype.__class__ = $hxClasses.String = String;
 String.__name__ = ["String"];
 $hxClasses.Array = Array;
 Array.__name__ = ["Array"];
-Date.prototype.__class__ = $hxClasses.Date = Date;
-Date.__name__ = ["Date"];
 var Int = $hxClasses.Int = { __name__ : ["Int"]};
 var Dynamic = $hxClasses.Dynamic = { __name__ : ["Dynamic"]};
 var Float = $hxClasses.Float = Number;
@@ -2694,7 +2781,7 @@ haxe.xml.Parser.escapes = (function($this) {
 haxor.context.EngineContext.uid = 0;
 haxor.context.EngineContext.maxNodes = 1000;
 haxor.context.EngineContext.collectRate = 10;
-haxor.context.Process.m_cid = 0;
+haxor.context.BaseProcess.m_cid = 0;
 haxor.core.Console.m_console = console;
 haxor.core.Console.m_style = "";
 haxor.core.Console.verbose = 0;

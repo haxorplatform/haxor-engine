@@ -56,6 +56,9 @@ class HXCPP_CLASS_ATTRIBUTES  Main_obj : public ::haxor::core::Application_obj{
 
 		virtual Void Initialize( );
 
+		virtual Void OnActivityComplete( );
+		Dynamic OnActivityComplete_dyn();
+
 		virtual Void OnUpdate( );
 		Dynamic OnUpdate_dyn();
 

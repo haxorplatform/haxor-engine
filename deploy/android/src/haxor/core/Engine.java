@@ -18,7 +18,7 @@ public  class Engine extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me21742)
+	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me27890)
 	{
 		{
 		}
@@ -45,7 +45,7 @@ public  class Engine extends haxe.lang.HxObject
 			while (( _g1 < _g ))
 			{
 				int i = _g1++;
-				if (( dp.get_length() <= 0 )) 
+				if (( dp.m_length <= 0 )) 
 				{
 					break;
 				}
@@ -70,7 +70,7 @@ public  class Engine extends haxe.lang.HxObject
 		haxor.context.Process<haxor.core.IUpdateable> up = haxor.context.EngineContext.update;
 		{
 			int _g1 = 0;
-			int _g = up.get_length();
+			int _g = up.m_length;
 			while (( _g1 < _g ))
 			{
 				int i = _g1++;
@@ -110,7 +110,7 @@ public  class Engine extends haxe.lang.HxObject
 		haxor.context.Process<haxor.core.IRenderable> rp = haxor.context.EngineContext.render;
 		{
 			int _g1 = 0;
-			int _g = rp.get_length();
+			int _g = rp.m_length;
 			while (( _g1 < _g ))
 			{
 				int i = _g1++;
@@ -138,7 +138,7 @@ public  class Engine extends haxe.lang.HxObject
 		haxor.context.Process<haxor.core.IResizeable> rp = haxor.context.EngineContext.resize;
 		{
 			int _g1 = 0;
-			int _g = rp.get_length();
+			int _g = rp.m_length;
 			while (( _g1 < _g ))
 			{
 				int i = _g1++;

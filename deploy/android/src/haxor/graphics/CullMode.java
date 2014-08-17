@@ -24,7 +24,7 @@ public  class CullMode extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_CullMode(haxor.graphics.CullMode __temp_me21750)
+	public static   void __hx_ctor_haxor_graphics_CullMode(haxor.graphics.CullMode __temp_me27898)
 	{
 		{
 		}

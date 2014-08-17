@@ -31,12 +31,17 @@ class HXCPP_CLASS_ATTRIBUTES  Sys_obj : public hx::Object{
 		static Array< ::String > args( );
 		static Dynamic args_dyn();
 
+		static Void sleep( Float seconds);
+		static Dynamic sleep_dyn();
+
 		static ::String escapeArgument( ::String arg);
 		static Dynamic escapeArgument_dyn();
 
 		static int command( ::String cmd,Array< ::String > args);
 		static Dynamic command_dyn();
 
+		static Dynamic _sleep;
+		static Dynamic &_sleep_dyn() { return _sleep;}
 		static Dynamic sys_command;
 		static Dynamic &sys_command_dyn() { return sys_command;}
 };

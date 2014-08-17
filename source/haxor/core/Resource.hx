@@ -16,14 +16,7 @@ class Resource implements IDisposable
 	 */
 	static public function Destroy(p_target : Resource):Void
 	{
-		if (p_target.m_destroyed) return;
-		p_target.m_destroyed = true;
-		if (p_target.m_is_behaviour)
-		{
-			var b : Behaviour = cast p_target;
-			b.UpdateContextFlag(false);
-		}		
-		EngineContext.disposables.Add(p_target);
+		EngineContext.Destroy(p_target);
 	}
 	
 	/**

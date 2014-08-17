@@ -9,6 +9,9 @@
 #ifndef INCLUDED_haxor_component_Component
 #include <haxor/component/Component.h>
 #endif
+#ifndef INCLUDED_haxor_context_BaseProcess
+#include <haxor/context/BaseProcess.h>
+#endif
 #ifndef INCLUDED_haxor_context_EngineContext
 #include <haxor/context/EngineContext.h>
 #endif
@@ -56,7 +59,7 @@ HX_STACK_THIS(this)
 	bool _g2 = ::Std_obj::is(hx::ObjectPtr<OBJ_>(this),hx::ClassOf< ::haxor::core::IResizeable >());		HX_STACK_VAR(_g2,"_g2");
 	HX_STACK_LINE(61)
 	this->m_is_resizeable = _g2;
-	HX_STACK_LINE(63)
+	HX_STACK_LINE(62)
 	this->UpdateContextFlag(true);
 }
 ;
@@ -108,7 +111,7 @@ HX_DEFINE_DYNAMIC_FUNC1(Behaviour_obj,set_enabled,return )
 
 Void Behaviour_obj::OnAwake( ){
 {
-		HX_STACK_FRAME("haxor.component.Behaviour","OnAwake",0x3bfadbd8,"haxor.component.Behaviour.OnAwake","haxor/component/Behaviour.hx",69,0x6f707600)
+		HX_STACK_FRAME("haxor.component.Behaviour","OnAwake",0x3bfadbd8,"haxor.component.Behaviour.OnAwake","haxor/component/Behaviour.hx",68,0x6f707600)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -119,7 +122,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Behaviour_obj,OnAwake,(void))
 
 Void Behaviour_obj::OnStart( ){
 {
-		HX_STACK_FRAME("haxor.component.Behaviour","OnStart",0x9735af35,"haxor.component.Behaviour.OnStart","haxor/component/Behaviour.hx",74,0x6f707600)
+		HX_STACK_FRAME("haxor.component.Behaviour","OnStart",0x9735af35,"haxor.component.Behaviour.OnStart","haxor/component/Behaviour.hx",73,0x6f707600)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -130,42 +133,42 @@ HX_DEFINE_DYNAMIC_FUNC0(Behaviour_obj,OnStart,(void))
 
 Void Behaviour_obj::UpdateContextFlag( bool p_flag){
 {
-		HX_STACK_FRAME("haxor.component.Behaviour","UpdateContextFlag",0xcd7efca4,"haxor.component.Behaviour.UpdateContextFlag","haxor/component/Behaviour.hx",78,0x6f707600)
+		HX_STACK_FRAME("haxor.component.Behaviour","UpdateContextFlag",0xcd7efca4,"haxor.component.Behaviour.UpdateContextFlag","haxor/component/Behaviour.hx",77,0x6f707600)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(79)
+		HX_STACK_LINE(78)
 		if ((this->m_is_updateable)){
-			HX_STACK_LINE(79)
+			HX_STACK_LINE(78)
 			if ((p_flag)){
-				HX_STACK_LINE(79)
+				HX_STACK_LINE(78)
 				::haxor::context::EngineContext_obj::update->Add(hx::ObjectPtr<OBJ_>(this));
 			}
 			else{
-				HX_STACK_LINE(79)
+				HX_STACK_LINE(78)
 				::haxor::context::EngineContext_obj::update->Remove(hx::ObjectPtr<OBJ_>(this));
 			}
 		}
-		HX_STACK_LINE(80)
+		HX_STACK_LINE(79)
 		if ((this->m_is_renderable)){
-			HX_STACK_LINE(80)
+			HX_STACK_LINE(79)
 			if ((p_flag)){
-				HX_STACK_LINE(80)
+				HX_STACK_LINE(79)
 				::haxor::context::EngineContext_obj::render->Add(hx::ObjectPtr<OBJ_>(this));
 			}
 			else{
-				HX_STACK_LINE(80)
+				HX_STACK_LINE(79)
 				::haxor::context::EngineContext_obj::render->Remove(hx::ObjectPtr<OBJ_>(this));
 			}
 		}
-		HX_STACK_LINE(81)
+		HX_STACK_LINE(80)
 		if ((this->m_is_resizeable)){
-			HX_STACK_LINE(81)
+			HX_STACK_LINE(80)
 			if ((p_flag)){
-				HX_STACK_LINE(81)
+				HX_STACK_LINE(80)
 				::haxor::context::EngineContext_obj::resize->Add(hx::ObjectPtr<OBJ_>(this));
 			}
 			else{
-				HX_STACK_LINE(81)
+				HX_STACK_LINE(80)
 				::haxor::context::EngineContext_obj::resize->Remove(hx::ObjectPtr<OBJ_>(this));
 			}
 		}

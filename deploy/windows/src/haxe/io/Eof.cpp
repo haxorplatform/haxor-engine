@@ -8,11 +8,6 @@ namespace io{
 
 Void Eof_obj::__construct()
 {
-HX_STACK_FRAME("haxe.io.Eof","new",0x2166e64e,"haxe.io.Eof.new","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/haxe/io/Eof.hx",28,0x4bc8bf8f)
-HX_STACK_THIS(this)
-{
-}
-;
 	return null();
 }
 

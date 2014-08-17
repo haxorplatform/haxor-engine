@@ -97,20 +97,6 @@ bool StringMap_obj::remove( ::String key){
 
 HX_DEFINE_DYNAMIC_FUNC1(StringMap_obj,remove,return )
 
-Dynamic StringMap_obj::keys( ){
-	HX_STACK_FRAME("haxe.ds.StringMap","keys",0x20631ace,"haxe.ds.StringMap.keys","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/haxe/ds/StringMap.hx",47,0x2ed0d0fc)
-	HX_STACK_THIS(this)
-	HX_STACK_LINE(48)
-	Array< ::String > a = Array_obj< ::String >::__new();		HX_STACK_VAR(a,"a");
-	HX_STACK_LINE(49)
-	this->__Internal->__GetFields(a);
-	HX_STACK_LINE(50)
-	return a->iterator();
-}
-
-
-HX_DEFINE_DYNAMIC_FUNC0(StringMap_obj,keys,return )
-
 
 StringMap_obj::StringMap_obj()
 {
@@ -134,9 +120,6 @@ Dynamic StringMap_obj::__Field(const ::String &inName,bool inCallProp)
 	case 3:
 		if (HX_FIELD_EQ(inName,"set") ) { return set_dyn(); }
 		if (HX_FIELD_EQ(inName,"get") ) { return get_dyn(); }
-		break;
-	case 4:
-		if (HX_FIELD_EQ(inName,"keys") ) { return keys_dyn(); }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"exists") ) { return exists_dyn(); }
@@ -179,7 +162,6 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("get"),
 	HX_CSTRING("exists"),
 	HX_CSTRING("remove"),
-	HX_CSTRING("keys"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

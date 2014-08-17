@@ -2,34 +2,17 @@
 <set name="HXCPP_API_LEVEL" value="311" />
 <files id="haxe">
 <compilerflag value="-Iinclude"/>
-  <file name="src/sys/ssl/Socket.cpp">
-   <depend name="include/cpp/Lib.h"/>
-   <depend name="include/haxe/Log.h"/>
-   <depend name="include/haxe/io/Input.h"/>
-   <depend name="include/haxe/io/Output.h"/>
-   <depend name="include/sys/net/Host.h"/>
-   <depend name="include/sys/ssl/Socket.h"/>
-   <depend name="include/sys/ssl/_Socket/SocketInput.h"/>
-   <depend name="include/sys/ssl/_Socket/SocketOutput.h"/>
-  </file>
-  <file name="src/sys/ssl/_Socket/SocketOutput.cpp">
-   <depend name="include/cpp/Lib.h"/>
-   <depend name="include/haxe/io/Bytes.h"/>
-   <depend name="include/haxe/io/Error.h"/>
-   <depend name="include/haxe/io/Output.h"/>
-   <depend name="include/sys/ssl/_Socket/SocketOutput.h"/>
-  </file>
-  <file name="src/sys/ssl/_Socket/SocketInput.cpp">
-   <depend name="include/cpp/Lib.h"/>
-   <depend name="include/haxe/io/Bytes.h"/>
-   <depend name="include/haxe/io/Eof.h"/>
-   <depend name="include/haxe/io/Error.h"/>
-   <depend name="include/haxe/io/Input.h"/>
-   <depend name="include/sys/ssl/_Socket/SocketInput.h"/>
-  </file>
-  <file name="src/sys/net/Host.cpp">
-   <depend name="include/cpp/Lib.h"/>
-   <depend name="include/sys/net/Host.h"/>
+  <file name="src/haxor/thread/Activity.cpp">
+   <depend name="include/Sys.h"/>
+   <depend name="include/cpp/vm/Thread.h"/>
+   <depend name="include/haxor/context/BaseProcess.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/Process.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/Time.h"/>
+   <depend name="include/haxor/thread/Activity.h"/>
   </file>
   <file name="src/haxor/platform/windows/Window.cpp">
    <depend name="include/haxor/component/Behaviour.h"/>
@@ -43,15 +26,11 @@
    <depend name="include/haxor/platform/windows/Window.h"/>
   </file>
   <file name="src/haxor/platform/windows/LoadTask.cpp">
-   <depend name="include/Std.h"/>
    <depend name="include/StringTools.h"/>
-   <depend name="include/haxe/Http.h"/>
-   <depend name="include/haxe/Log.h"/>
    <depend name="include/haxor/platform/windows/LoadTask.h"/>
    <depend name="include/haxor/platform/windows/Web.h"/>
   </file>
   <file name="src/haxor/platform/windows/Web.cpp">
-   <depend name="include/cpp/vm/Thread.h"/>
    <depend name="include/haxor/platform/windows/LoadTask.h"/>
    <depend name="include/haxor/platform/windows/Web.h"/>
   </file>
@@ -271,6 +250,7 @@
   <file name="src/haxor/core/Engine.cpp">
    <depend name="include/haxor/component/Behaviour.h"/>
    <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/context/BaseProcess.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/Process.h"/>
    <depend name="include/haxor/core/Console.h"/>
@@ -300,7 +280,13 @@
    <depend name="include/haxor/core/Platform.h"/>
   </file>
   <file name="src/haxor/context/Process.cpp">
+   <depend name="include/haxor/context/BaseProcess.h"/>
    <depend name="include/haxor/context/Process.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+  </file>
+  <file name="src/haxor/context/BaseProcess.cpp">
+   <depend name="include/haxor/context/BaseProcess.h"/>
    <depend name="include/haxor/core/Console.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
@@ -338,42 +324,20 @@
    <depend name="include/haxor/platform/graphics/WinGL.h"/>
   </file>
   <file name="src/haxor/context/EngineContext.cpp">
+   <depend name="include/haxor/context/BaseProcess.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/MaterialContext.h"/>
    <depend name="include/haxor/context/MeshContext.h"/>
    <depend name="include/haxor/context/Process.h"/>
    <depend name="include/haxor/core/Console.h"/>
-  </file>
-  <file name="src/haxe/io/Input.cpp">
-   <depend name="include/haxe/io/Bytes.h"/>
-   <depend name="include/haxe/io/Error.h"/>
-   <depend name="include/haxe/io/Input.h"/>
-  </file>
-  <file name="src/haxe/io/Error.cpp">
-   <depend name="include/haxe/io/Error.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
   </file>
   <file name="src/haxe/io/Eof.cpp">
    <depend name="include/haxe/io/Eof.h"/>
   </file>
-  <file name="src/haxe/io/BytesOutput.cpp">
-   <depend name="include/haxe/io/Bytes.h"/>
-   <depend name="include/haxe/io/BytesBuffer.h"/>
-   <depend name="include/haxe/io/BytesOutput.h"/>
-   <depend name="include/haxe/io/Error.h"/>
-   <depend name="include/haxe/io/Output.h"/>
-  </file>
-  <file name="src/haxe/io/Output.cpp">
-   <depend name="include/haxe/io/Bytes.h"/>
-   <depend name="include/haxe/io/Error.h"/>
-   <depend name="include/haxe/io/Output.h"/>
-  </file>
-  <file name="src/haxe/io/BytesBuffer.cpp">
-   <depend name="include/haxe/io/Bytes.h"/>
-   <depend name="include/haxe/io/BytesBuffer.h"/>
-  </file>
   <file name="src/haxe/io/Bytes.cpp">
    <depend name="include/haxe/io/Bytes.h"/>
-   <depend name="include/haxe/io/Error.h"/>
   </file>
   <file name="src/haxe/ds/StringMap.cpp">
    <depend name="include/IMap.h"/>
@@ -381,28 +345,6 @@
   </file>
   <file name="src/haxe/Timer.cpp">
    <depend name="include/haxe/Timer.h"/>
-  </file>
-  <file name="src/haxe/Log.cpp">
-   <depend name="include/Std.h"/>
-   <depend name="include/haxe/Log.h"/>
-  </file>
-  <file name="src/haxe/Http.cpp">
-   <depend name="include/EReg.h"/>
-   <depend name="include/IMap.h"/>
-   <depend name="include/Std.h"/>
-   <depend name="include/StringBuf.h"/>
-   <depend name="include/StringTools.h"/>
-   <depend name="include/haxe/Http.h"/>
-   <depend name="include/haxe/ds/StringMap.h"/>
-   <depend name="include/haxe/io/Bytes.h"/>
-   <depend name="include/haxe/io/BytesBuffer.h"/>
-   <depend name="include/haxe/io/BytesOutput.h"/>
-   <depend name="include/haxe/io/Eof.h"/>
-   <depend name="include/haxe/io/Error.h"/>
-   <depend name="include/haxe/io/Input.h"/>
-   <depend name="include/haxe/io/Output.h"/>
-   <depend name="include/sys/net/Host.h"/>
-   <depend name="include/sys/ssl/Socket.h"/>
   </file>
   <file name="src/cpp/vm/Thread.cpp">
    <depend name="include/cpp/vm/Thread.h"/>
@@ -425,12 +367,11 @@
    <depend name="include/Sys.h"/>
    <depend name="include/cpp/Lib.h"/>
   </file>
+  <file name="src/cpp/Lib.cpp">
+   <depend name="include/cpp/Lib.h"/>
+  </file>
   <file name="src/StringTools.cpp">
    <depend name="include/StringTools.h"/>
-  </file>
-  <file name="src/StringBuf.cpp">
-   <depend name="include/Std.h"/>
-   <depend name="include/StringBuf.h"/>
   </file>
   <file name="src/Std.cpp">
    <depend name="include/Std.h"/>
@@ -452,6 +393,7 @@
    <depend name="include/haxor/core/IRenderable.h"/>
    <depend name="include/haxor/core/IUpdateable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/Time.h"/>
    <depend name="include/haxor/graphics/Graphics.h"/>
    <depend name="include/haxor/graphics/material/Material.h"/>
    <depend name="include/haxor/graphics/material/Shader.h"/>
@@ -466,6 +408,7 @@
    <depend name="include/haxor/platform/windows/Entry.h"/>
    <depend name="include/haxor/platform/windows/Web.h"/>
    <depend name="include/haxor/platform/windows/WinApplication.h"/>
+   <depend name="include/haxor/thread/Activity.h"/>
   </file>
   <file name="src/haxor/core/IUpdateable.cpp">
    <depend name="include/haxor/core/IUpdateable.h"/>
@@ -515,6 +458,7 @@
    <depend name="include/Std.h"/>
    <depend name="include/haxor/component/Behaviour.h"/>
    <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/context/BaseProcess.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/Process.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
@@ -534,6 +478,7 @@
    <depend name="include/Type.h"/>
    <depend name="include/haxor/component/Behaviour.h"/>
    <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/context/BaseProcess.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/Process.h"/>
    <depend name="include/haxor/core/Application.h"/>
@@ -544,13 +489,6 @@
   </file>
   <file name="src/haxor/core/IDisposable.cpp">
    <depend name="include/haxor/core/IDisposable.h"/>
-  </file>
-  <file name="src/EReg.cpp">
-   <depend name="include/EReg.h"/>
-   <depend name="include/cpp/Lib.h"/>
-  </file>
-  <file name="src/cpp/Lib.cpp">
-   <depend name="include/cpp/Lib.h"/>
   </file>
   <file name="src/__boot__.cpp">
   </file>

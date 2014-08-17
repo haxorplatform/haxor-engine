@@ -12,6 +12,9 @@
 #ifndef INCLUDED_haxor_component_Component
 #include <haxor/component/Component.h>
 #endif
+#ifndef INCLUDED_haxor_context_BaseProcess
+#include <haxor/context/BaseProcess.h>
+#endif
 #ifndef INCLUDED_haxor_context_EngineContext
 #include <haxor/context/EngineContext.h>
 #endif
@@ -38,51 +41,51 @@ namespace core{
 
 Void Resource_obj::__construct(::String __o_p_name)
 {
-HX_STACK_FRAME("haxor.core.Resource","new",0x26988423,"haxor.core.Resource.new","haxor/core/Resource.hx",95,0x735dd04d)
+HX_STACK_FRAME("haxor.core.Resource","new",0x26988423,"haxor.core.Resource.new","haxor/core/Resource.hx",88,0x735dd04d)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_name,"p_name")
 ::String p_name = __o_p_name.Default(HX_CSTRING(""));
 {
-	HX_STACK_LINE(96)
+	HX_STACK_LINE(89)
 	int _g = (::haxor::context::EngineContext_obj::uid)++;		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(96)
+	HX_STACK_LINE(89)
 	this->m_uid = _g;
-	HX_STACK_LINE(97)
+	HX_STACK_LINE(90)
 	this->m_destroyed = false;
-	HX_STACK_LINE(98)
+	HX_STACK_LINE(91)
 	this->_cid_ = (int)0;
-	HX_STACK_LINE(99)
+	HX_STACK_LINE(92)
 	this->m_pid = Array_obj< int >::__new().Add((int)-1).Add((int)-1).Add((int)-1).Add((int)-1).Add((int)-1).Add((int)-1);
-	HX_STACK_LINE(100)
+	HX_STACK_LINE(93)
 	this->m_name = p_name;
-	HX_STACK_LINE(102)
+	HX_STACK_LINE(95)
 	bool _g1 = ::Std_obj::is(hx::ObjectPtr<OBJ_>(this),hx::ClassOf< ::haxor::component::Behaviour >());		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(102)
+	HX_STACK_LINE(95)
 	this->m_is_behaviour = _g1;
-	HX_STACK_LINE(105)
+	HX_STACK_LINE(98)
 	::Class _g2 = ::Type_obj::getClass(hx::ObjectPtr<OBJ_>(this));		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(105)
+	HX_STACK_LINE(98)
 	this->m_type_class = _g2;
-	HX_STACK_LINE(106)
+	HX_STACK_LINE(99)
 	::String _g3 = ::Type_obj::getClassName(this->m_type_class);		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(106)
+	HX_STACK_LINE(99)
 	this->m_type_full_name = _g3;
-	HX_STACK_LINE(107)
+	HX_STACK_LINE(100)
 	Array< ::String > nt = this->m_type_full_name.split(HX_CSTRING("."));		HX_STACK_VAR(nt,"nt");
-	HX_STACK_LINE(107)
+	HX_STACK_LINE(100)
 	nt->reverse();
-	HX_STACK_LINE(108)
+	HX_STACK_LINE(101)
 	this->m_type_name = nt->__get((int)0);
-	HX_STACK_LINE(110)
+	HX_STACK_LINE(103)
 	if (((p_name == HX_CSTRING("")))){
-		HX_STACK_LINE(110)
+		HX_STACK_LINE(103)
 		this->m_name = (this->m_type_name + this->m_uid);
 	}
 	else{
-		HX_STACK_LINE(110)
+		HX_STACK_LINE(103)
 		this->m_name = p_name;
 	}
-	HX_STACK_LINE(112)
+	HX_STACK_LINE(105)
 	::haxor::context::EngineContext_obj::resources->Add(hx::ObjectPtr<OBJ_>(this));
 }
 ;
@@ -108,9 +111,9 @@ hx::Object *Resource_obj::__ToInterface(const hx::type_info &inType) {
 }
 
 ::haxor::core::Application Resource_obj::get_application( ){
-	HX_STACK_FRAME("haxor.core.Resource","get_application",0x20c52f2a,"haxor.core.Resource.get_application","haxor/core/Resource.hx",33,0x735dd04d)
+	HX_STACK_FRAME("haxor.core.Resource","get_application",0x20c52f2a,"haxor.core.Resource.get_application","haxor/core/Resource.hx",26,0x735dd04d)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(33)
+	HX_STACK_LINE(26)
 	return ::haxor::core::BaseApplication_obj::m_instance;
 }
 
@@ -118,9 +121,9 @@ hx::Object *Resource_obj::__ToInterface(const hx::type_info &inType) {
 HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,get_application,return )
 
 int Resource_obj::get_uid( ){
-	HX_STACK_FRAME("haxor.core.Resource","get_uid",0xc00b3d6a,"haxor.core.Resource.get_uid","haxor/core/Resource.hx",40,0x735dd04d)
+	HX_STACK_FRAME("haxor.core.Resource","get_uid",0xc00b3d6a,"haxor.core.Resource.get_uid","haxor/core/Resource.hx",33,0x735dd04d)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(40)
+	HX_STACK_LINE(33)
 	return this->m_uid;
 }
 
@@ -128,9 +131,9 @@ int Resource_obj::get_uid( ){
 HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,get_uid,return )
 
 ::String Resource_obj::get_name( ){
-	HX_STACK_FRAME("haxor.core.Resource","get_name",0x4523f731,"haxor.core.Resource.get_name","haxor/core/Resource.hx",47,0x735dd04d)
+	HX_STACK_FRAME("haxor.core.Resource","get_name",0x4523f731,"haxor.core.Resource.get_name","haxor/core/Resource.hx",40,0x735dd04d)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(47)
+	HX_STACK_LINE(40)
 	return this->m_name;
 }
 
@@ -138,12 +141,12 @@ HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,get_uid,return )
 HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,get_name,return )
 
 ::String Resource_obj::set_name( ::String v){
-	HX_STACK_FRAME("haxor.core.Resource","set_name",0xf38150a5,"haxor.core.Resource.set_name","haxor/core/Resource.hx",48,0x735dd04d)
+	HX_STACK_FRAME("haxor.core.Resource","set_name",0xf38150a5,"haxor.core.Resource.set_name","haxor/core/Resource.hx",41,0x735dd04d)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(48)
+	HX_STACK_LINE(41)
 	this->m_name = v;
-	HX_STACK_LINE(48)
+	HX_STACK_LINE(41)
 	return v;
 }
 
@@ -151,9 +154,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,get_name,return )
 HX_DEFINE_DYNAMIC_FUNC1(Resource_obj,set_name,return )
 
 bool Resource_obj::get_destroyed( ){
-	HX_STACK_FRAME("haxor.core.Resource","get_destroyed",0x87393133,"haxor.core.Resource.get_destroyed","haxor/core/Resource.hx",55,0x735dd04d)
+	HX_STACK_FRAME("haxor.core.Resource","get_destroyed",0x87393133,"haxor.core.Resource.get_destroyed","haxor/core/Resource.hx",48,0x735dd04d)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(55)
+	HX_STACK_LINE(48)
 	return this->m_destroyed;
 }
 
@@ -161,9 +164,9 @@ bool Resource_obj::get_destroyed( ){
 HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,get_destroyed,return )
 
 ::Class Resource_obj::GetType( ){
-	HX_STACK_FRAME("haxor.core.Resource","GetType",0x861a1b93,"haxor.core.Resource.GetType","haxor/core/Resource.hx",119,0x735dd04d)
+	HX_STACK_FRAME("haxor.core.Resource","GetType",0x861a1b93,"haxor.core.Resource.GetType","haxor/core/Resource.hx",112,0x735dd04d)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(119)
+	HX_STACK_LINE(112)
 	return this->m_type_class;
 }
 
@@ -171,9 +174,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,get_destroyed,return )
 HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,GetType,return )
 
 ::String Resource_obj::GetTypeName( ){
-	HX_STACK_FRAME("haxor.core.Resource","GetTypeName",0x44837f7e,"haxor.core.Resource.GetTypeName","haxor/core/Resource.hx",125,0x735dd04d)
+	HX_STACK_FRAME("haxor.core.Resource","GetTypeName",0x44837f7e,"haxor.core.Resource.GetTypeName","haxor/core/Resource.hx",118,0x735dd04d)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(125)
+	HX_STACK_LINE(118)
 	return this->m_type_name;
 }
 
@@ -181,9 +184,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,GetType,return )
 HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,GetTypeName,return )
 
 ::String Resource_obj::GetTypeFullName( ){
-	HX_STACK_FRAME("haxor.core.Resource","GetTypeFullName",0xfd911e2d,"haxor.core.Resource.GetTypeFullName","haxor/core/Resource.hx",131,0x735dd04d)
+	HX_STACK_FRAME("haxor.core.Resource","GetTypeFullName",0xfd911e2d,"haxor.core.Resource.GetTypeFullName","haxor/core/Resource.hx",124,0x735dd04d)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(131)
+	HX_STACK_LINE(124)
 	return this->m_type_full_name;
 }
 
@@ -192,7 +195,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,GetTypeFullName,return )
 
 Void Resource_obj::OnDestroy( ){
 {
-		HX_STACK_FRAME("haxor.core.Resource","OnDestroy",0xfe2a2d7e,"haxor.core.Resource.OnDestroy","haxor/core/Resource.hx",136,0x735dd04d)
+		HX_STACK_FRAME("haxor.core.Resource","OnDestroy",0xfe2a2d7e,"haxor.core.Resource.OnDestroy","haxor/core/Resource.hx",129,0x735dd04d)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -203,24 +206,10 @@ HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,OnDestroy,(void))
 
 Void Resource_obj::Destroy( ::haxor::core::Resource p_target){
 {
-		HX_STACK_FRAME("haxor.core.Resource","Destroy",0x8b14a61d,"haxor.core.Resource.Destroy","haxor/core/Resource.hx",18,0x735dd04d)
+		HX_STACK_FRAME("haxor.core.Resource","Destroy",0x8b14a61d,"haxor.core.Resource.Destroy","haxor/core/Resource.hx",19,0x735dd04d)
 		HX_STACK_ARG(p_target,"p_target")
 		HX_STACK_LINE(19)
-		if ((p_target->m_destroyed)){
-			HX_STACK_LINE(19)
-			return null();
-		}
-		HX_STACK_LINE(20)
-		p_target->m_destroyed = true;
-		HX_STACK_LINE(21)
-		if ((p_target->m_is_behaviour)){
-			HX_STACK_LINE(23)
-			::haxor::component::Behaviour b = p_target;		HX_STACK_VAR(b,"b");
-			HX_STACK_LINE(24)
-			b->UpdateContextFlag(false);
-		}
-		HX_STACK_LINE(26)
-		::haxor::context::EngineContext_obj::disposables->Add(p_target);
+		::haxor::context::EngineContext_obj::Destroy(p_target);
 	}
 return null();
 }

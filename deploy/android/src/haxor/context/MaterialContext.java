@@ -18,24 +18,24 @@ public  class MaterialContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_MaterialContext(haxor.context.MaterialContext __temp_me21737)
+	public static   void __hx_ctor_haxor_context_MaterialContext(haxor.context.MaterialContext __temp_me27884)
 	{
-		__temp_me21737.mid = 0;
-		__temp_me21737.sid = 0;
-		__temp_me21737.zfunc = 515;
-		__temp_me21737.ztest = true;
-		__temp_me21737.zwrite = true;
-		__temp_me21737.blend = false;
-		__temp_me21737.blendSrc = 1;
-		__temp_me21737.blendDst = 0;
-		__temp_me21737.invert = false;
-		__temp_me21737.cull = 2;
+		__temp_me27884.mid = 0;
+		__temp_me27884.sid = 0;
+		__temp_me27884.zfunc = 515;
+		__temp_me27884.ztest = true;
+		__temp_me27884.zwrite = true;
+		__temp_me27884.blend = false;
+		__temp_me27884.blendSrc = 1;
+		__temp_me27884.blendDst = 0;
+		__temp_me27884.invert = false;
+		__temp_me27884.cull = 2;
 		int max_buffers = 512;
 		int max_programs = 256;
-		__temp_me21737.locations = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
-		__temp_me21737.programs = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me21737.vertex_shaders = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me21737.fragment_shaders = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me27884.locations = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
+		__temp_me27884.programs = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me27884.vertex_shaders = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me27884.fragment_shaders = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 		{
 			int _g = 0;
 			while (( _g < max_programs ))
@@ -52,10 +52,10 @@ public  class MaterialContext extends haxe.lang.HxObject
 					
 				}
 				
-				__temp_me21737.locations.push(((haxe.root.Array) (l) ));
-				__temp_me21737.programs.push(haxor.platform.graphics.GL.NULL);
-				__temp_me21737.vertex_shaders.push(haxor.platform.graphics.GL.NULL);
-				__temp_me21737.fragment_shaders.push(haxor.platform.graphics.GL.NULL);
+				__temp_me27884.locations.push(((haxe.root.Array) (l) ));
+				__temp_me27884.programs.push(haxor.platform.graphics.GL.NULL);
+				__temp_me27884.vertex_shaders.push(haxor.platform.graphics.GL.NULL);
+				__temp_me27884.fragment_shaders.push(haxor.platform.graphics.GL.NULL);
 			}
 			
 		}
@@ -393,14 +393,14 @@ public  class MaterialContext extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21893 = true;
+			boolean __temp_executeDef28053 = true;
 			switch (field.hashCode())
 			{
 				case 3065202:
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef21893 = false;
+						__temp_executeDef28053 = false;
 						this.cull = ((int) (value) );
 						return value;
 					}
@@ -413,7 +413,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("mid")) 
 					{
-						__temp_executeDef21893 = false;
+						__temp_executeDef28053 = false;
 						this.mid = ((int) (value) );
 						return value;
 					}
@@ -426,7 +426,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef21893 = false;
+						__temp_executeDef28053 = false;
 						this.blendDst = ((int) (value) );
 						return value;
 					}
@@ -439,7 +439,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("sid")) 
 					{
-						__temp_executeDef21893 = false;
+						__temp_executeDef28053 = false;
 						this.sid = ((int) (value) );
 						return value;
 					}
@@ -452,7 +452,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef21893 = false;
+						__temp_executeDef28053 = false;
 						this.blendSrc = ((int) (value) );
 						return value;
 					}
@@ -465,7 +465,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef21893 = false;
+						__temp_executeDef28053 = false;
 						this.zfunc = ((int) (value) );
 						return value;
 					}
@@ -478,7 +478,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef21893 = false;
+						__temp_executeDef28053 = false;
 						this.queue = ((int) (value) );
 						return value;
 					}
@@ -489,7 +489,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef21893) 
+			if (__temp_executeDef28053) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -506,14 +506,14 @@ public  class MaterialContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21894 = true;
+			boolean __temp_executeDef28054 = true;
 			switch (field.hashCode())
 			{
 				case 3065202:
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.cull = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -526,7 +526,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("mid")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.mid = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -539,7 +539,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("invert")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.invert = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -552,7 +552,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("sid")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.sid = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -565,7 +565,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.blendDst = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -578,7 +578,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("vertex_shaders")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.vertex_shaders = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -591,7 +591,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.blendSrc = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -604,7 +604,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("fragment_shaders")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.fragment_shaders = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -617,7 +617,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.queue = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -630,7 +630,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("error_shader")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.error_shader = ((haxor.graphics.material.Shader) (value) );
 						return value;
 					}
@@ -643,7 +643,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blend")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.blend = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -656,7 +656,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("programs")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.programs = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -669,7 +669,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("zwrite")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.zwrite = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -682,7 +682,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("locations")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.locations = ((haxe.root.Array<haxe.root.Array>) (value) );
 						return value;
 					}
@@ -695,7 +695,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.zfunc = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -708,7 +708,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("current")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.current = ((haxor.graphics.material.Material) (value) );
 						return value;
 					}
@@ -721,7 +721,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ztest")) 
 					{
-						__temp_executeDef21894 = false;
+						__temp_executeDef28054 = false;
 						this.ztest = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -732,7 +732,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef21894) 
+			if (__temp_executeDef28054) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -749,14 +749,14 @@ public  class MaterialContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21895 = true;
+			boolean __temp_executeDef28055 = true;
 			switch (field.hashCode())
 			{
 				case -1654730657:
 				{
 					if (field.equals("DestroyShader")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DestroyShader"))) );
 					}
 					
@@ -768,7 +768,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("mid")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.mid;
 					}
 					
@@ -780,7 +780,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DestroyMaterial")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DestroyMaterial"))) );
 					}
 					
@@ -792,7 +792,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("sid")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.sid;
 					}
 					
@@ -804,7 +804,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Unbind")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Unbind"))) );
 					}
 					
@@ -816,7 +816,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("vertex_shaders")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.vertex_shaders;
 					}
 					
@@ -828,7 +828,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Bind")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Bind"))) );
 					}
 					
@@ -840,7 +840,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("fragment_shaders")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.fragment_shaders;
 					}
 					
@@ -852,7 +852,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetAttribLocation")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetAttribLocation"))) );
 					}
 					
@@ -864,7 +864,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("error_shader")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.error_shader;
 					}
 					
@@ -876,7 +876,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateMaterial")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateMaterial"))) );
 					}
 					
@@ -888,7 +888,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("programs")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.programs;
 					}
 					
@@ -900,7 +900,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateShader")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateShader"))) );
 					}
 					
@@ -912,7 +912,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("locations")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.locations;
 					}
 					
@@ -924,7 +924,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateCompileShader")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateCompileShader"))) );
 					}
 					
@@ -936,7 +936,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("current")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.current;
 					}
 					
@@ -948,7 +948,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("InitializeShader")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("InitializeShader"))) );
 					}
 					
@@ -960,7 +960,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ztest")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.ztest;
 					}
 					
@@ -972,7 +972,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("InitializeMaterial")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("InitializeMaterial"))) );
 					}
 					
@@ -984,7 +984,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.zfunc;
 					}
 					
@@ -996,7 +996,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateFlags")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateFlags"))) );
 					}
 					
@@ -1008,7 +1008,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("zwrite")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.zwrite;
 					}
 					
@@ -1020,7 +1020,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Initialize"))) );
 					}
 					
@@ -1032,7 +1032,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blend")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.blend;
 					}
 					
@@ -1044,7 +1044,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.cull;
 					}
 					
@@ -1056,7 +1056,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.queue;
 					}
 					
@@ -1068,7 +1068,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("invert")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.invert;
 					}
 					
@@ -1080,7 +1080,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.blendSrc;
 					}
 					
@@ -1092,7 +1092,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef21895 = false;
+						__temp_executeDef28055 = false;
 						return this.blendDst;
 					}
 					
@@ -1102,7 +1102,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef21895) 
+			if (__temp_executeDef28055) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1119,14 +1119,14 @@ public  class MaterialContext extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21896 = true;
+			boolean __temp_executeDef28056 = true;
 			switch (field.hashCode())
 			{
 				case 3065202:
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef21896 = false;
+						__temp_executeDef28056 = false;
 						return ((double) (this.cull) );
 					}
 					
@@ -1138,7 +1138,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("mid")) 
 					{
-						__temp_executeDef21896 = false;
+						__temp_executeDef28056 = false;
 						return ((double) (this.mid) );
 					}
 					
@@ -1150,7 +1150,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef21896 = false;
+						__temp_executeDef28056 = false;
 						return ((double) (this.blendDst) );
 					}
 					
@@ -1162,7 +1162,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("sid")) 
 					{
-						__temp_executeDef21896 = false;
+						__temp_executeDef28056 = false;
 						return ((double) (this.sid) );
 					}
 					
@@ -1174,7 +1174,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef21896 = false;
+						__temp_executeDef28056 = false;
 						return ((double) (this.blendSrc) );
 					}
 					
@@ -1186,7 +1186,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef21896 = false;
+						__temp_executeDef28056 = false;
 						return ((double) (this.zfunc) );
 					}
 					
@@ -1198,7 +1198,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef21896 = false;
+						__temp_executeDef28056 = false;
 						return ((double) (this.queue) );
 					}
 					
@@ -1208,7 +1208,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef21896) 
+			if (__temp_executeDef28056) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1225,14 +1225,14 @@ public  class MaterialContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef21897 = true;
+			boolean __temp_executeDef28057 = true;
 			switch (field.hashCode())
 			{
 				case -1654730657:
 				{
 					if (field.equals("DestroyShader")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.DestroyShader(((haxor.graphics.material.Shader) (dynargs.__get(0)) ));
 					}
 					
@@ -1244,7 +1244,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.Initialize();
 					}
 					
@@ -1256,7 +1256,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DestroyMaterial")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.DestroyMaterial(((haxor.graphics.material.Material) (dynargs.__get(0)) ));
 					}
 					
@@ -1268,7 +1268,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateFlags")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.UpdateFlags(((haxor.graphics.material.Material) (dynargs.__get(0)) ));
 					}
 					
@@ -1280,7 +1280,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Unbind")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.Unbind();
 					}
 					
@@ -1292,7 +1292,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("InitializeMaterial")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.InitializeMaterial(((haxor.graphics.material.Material) (dynargs.__get(0)) ));
 					}
 					
@@ -1304,7 +1304,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Bind")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.Bind(((haxor.graphics.material.Material) (dynargs.__get(0)) ));
 					}
 					
@@ -1316,7 +1316,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("InitializeShader")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.InitializeShader(((haxor.graphics.material.Shader) (dynargs.__get(0)) ));
 					}
 					
@@ -1328,7 +1328,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetAttribLocation")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						return this.GetAttribLocation(((haxor.graphics.mesh.MeshAttrib) (dynargs.__get(0)) ));
 					}
 					
@@ -1340,7 +1340,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateCompileShader")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						return this.CreateCompileShader(((haxor.graphics.material.Shader) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((haxe.root.Array<java.lang.Object>) (dynargs.__get(2)) ));
 					}
 					
@@ -1352,7 +1352,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateMaterial")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.UpdateMaterial(((haxor.graphics.material.Material) (dynargs.__get(0)) ));
 					}
 					
@@ -1364,7 +1364,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateShader")) 
 					{
-						__temp_executeDef21897 = false;
+						__temp_executeDef28057 = false;
 						this.UpdateShader(((haxor.graphics.material.Material) (dynargs.__get(0)) ), ((haxor.graphics.material.Shader) (dynargs.__get(1)) ), ((haxor.graphics.material.Shader) (dynargs.__get(2)) ));
 					}
 					
@@ -1374,7 +1374,7 @@ public  class MaterialContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef21897) 
+			if (__temp_executeDef28057) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

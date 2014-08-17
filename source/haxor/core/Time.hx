@@ -1,6 +1,10 @@
 package haxor.core;
 import haxe.Timer;
 
+#if android
+import haxe.Int64;
+import java.lang.System;
+#end
 
 /**
  * Class that holds Time information of the application.
@@ -15,6 +19,8 @@ class Time
 	static public var clock(get_clock, null):Float;
 	static private inline function get_clock():Float { return m_clock; }
 	static private var m_clock : Float;
+	static private var m_clock_dt : Float;
+	static private var m_clock_0 : Float;
 	
 	/**
 	 * Returns the delta time in seconds between frames.
@@ -69,18 +75,18 @@ class Time
 	 */
 	static private function Initialize():Void
 	{	
-		var c:Float = Timer.stamp() * 0.001;
+		m_clock 		= 0.0;
+		m_clock_dt		= 0.0;
+		m_clock_0		= 0.0;
+		UpdateClock();
+		m_clock_0		= m_clock;
+		UpdateClock();
 		
-		#if html
-		c = 0.0;
-		#end
-		
-		m_clock 		= c;
-		m_start_clock 	= c;
-		m_last_clock    = c;	
-		m_last_frame_clock = c;
-		m_stats_clock   = c;
-		m_elapsed		= c * 1000.0;
+		m_start_clock 	= m_clock;
+		m_last_clock    = m_clock;	
+		m_last_frame_clock = m_clock;
+		m_stats_clock   = m_clock;
+		m_elapsed		= 0.0;
 		m_delta 		= 0.0;
 		m_frame_delta   = 0.0;
 		m_ups			= 0;
@@ -93,15 +99,17 @@ class Time
 	
 	static private function Update():Void
 	{		
-		UpdateClock();		
-		m_delta 		= (m_clock - m_last_clock)*0.001;
+		UpdateClock();	
+		m_clock_dt		= (m_clock - m_last_clock);
+		if (m_clock_dt <= 0) m_clock_dt = 1.0;
 		m_last_clock 	= m_clock;
-		m_elapsed		= m_clock * 0.001;		
-		m_updates += 1.0;
+		m_delta 		= m_clock_dt*0.001;		
+		m_elapsed		= m_clock*0.001;
+		m_updates 		+= 1.0;
 		
 		if ((m_clock - m_stats_clock) >= 1000.0)
 		{
-			m_stats_clock = m_clock;
+			m_stats_clock += (m_clock - m_stats_clock);
 			m_ups = cast m_updates;
 			m_fps = cast m_frame_count;
 			m_updates = 0.0;
@@ -126,8 +134,15 @@ class Time
 	static private inline function UpdateClock():Void
 	{
 		#if html
-		#else
-		m_clock = (Timer.stamp() * 1000.0) - m_start_clock;
+		#end
+		
+		#if android
+		var t : Float = cast System.nanoTime();
+		m_clock = (t * 0.000001)-m_clock_0;		
+		#end
+		
+		#if (windows || osx || linux)		
+		m_clock = (Timer.stamp() * 1000.0) - m_clock_0;
 		#end
 	}
 	

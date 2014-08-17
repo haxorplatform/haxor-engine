@@ -17,10 +17,10 @@ public  class LoadImageTask extends haxor.platform.android.LoadBytesTask
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_LoadImageTask(haxor.platform.android.LoadImageTask __temp_me21771, java.lang.String p_url, java.lang.String p_method, java.lang.String p_data, haxe.lang.Function p_callback)
+	public static   void __hx_ctor_haxor_platform_android_LoadImageTask(haxor.platform.android.LoadImageTask __temp_me27919, java.lang.String p_url, java.lang.String p_method, java.lang.String p_data, haxe.lang.Function p_callback)
 	{
-		haxor.platform.android.LoadBytesTask.__hx_ctor_haxor_platform_android_LoadBytesTask(__temp_me21771, p_url, p_method, p_data);
-		__temp_me21771.callback = p_callback;
+		haxor.platform.android.LoadBytesTask.__hx_ctor_haxor_platform_android_LoadBytesTask(__temp_me27919, p_url, p_method, p_data);
+		__temp_me27919.callback = p_callback;
 	}
 	
 	
@@ -37,6 +37,13 @@ public  class LoadImageTask extends haxor.platform.android.LoadBytesTask
 	
 	
 	public  haxe.lang.Function callback;
+	
+	@Override public   void OnConnect(java.net.HttpURLConnection p_connection)
+	{
+		this.callback.__hx_invoke2_o(0.0, null, 0.0, haxe.lang.Runtime.undefined);
+		super.OnConnect(p_connection);
+	}
+	
 	
 	@Override public   void OnProgress(double p_ratio, int p_loaded, int p_total)
 	{
@@ -61,14 +68,14 @@ public  class LoadImageTask extends haxor.platform.android.LoadBytesTask
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21957 = true;
+			boolean __temp_executeDef28121 = true;
 			switch (field.hashCode())
 			{
 				case -172220347:
 				{
 					if (field.equals("callback")) 
 					{
-						__temp_executeDef21957 = false;
+						__temp_executeDef28121 = false;
 						this.callback = ((haxe.lang.Function) (value) );
 						return value;
 					}
@@ -79,7 +86,7 @@ public  class LoadImageTask extends haxor.platform.android.LoadBytesTask
 				
 			}
 			
-			if (__temp_executeDef21957) 
+			if (__temp_executeDef28121) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -96,14 +103,14 @@ public  class LoadImageTask extends haxor.platform.android.LoadBytesTask
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21958 = true;
+			boolean __temp_executeDef28122 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef21958 = false;
+						__temp_executeDef28122 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnError"))) );
 					}
 					
@@ -115,7 +122,7 @@ public  class LoadImageTask extends haxor.platform.android.LoadBytesTask
 				{
 					if (field.equals("callback")) 
 					{
-						__temp_executeDef21958 = false;
+						__temp_executeDef28122 = false;
 						return this.callback;
 					}
 					
@@ -127,8 +134,20 @@ public  class LoadImageTask extends haxor.platform.android.LoadBytesTask
 				{
 					if (field.equals("OnComplete")) 
 					{
-						__temp_executeDef21958 = false;
+						__temp_executeDef28122 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnComplete"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -3368469:
+				{
+					if (field.equals("OnConnect")) 
+					{
+						__temp_executeDef28122 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnConnect"))) );
 					}
 					
 					break;
@@ -139,7 +158,7 @@ public  class LoadImageTask extends haxor.platform.android.LoadBytesTask
 				{
 					if (field.equals("OnProgress")) 
 					{
-						__temp_executeDef21958 = false;
+						__temp_executeDef28122 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnProgress"))) );
 					}
 					
@@ -149,7 +168,7 @@ public  class LoadImageTask extends haxor.platform.android.LoadBytesTask
 				
 			}
 			
-			if (__temp_executeDef21958) 
+			if (__temp_executeDef28122) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

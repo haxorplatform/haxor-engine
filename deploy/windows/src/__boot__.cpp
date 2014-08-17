@@ -1,9 +1,6 @@
 #include <hxcpp.h>
 
-#include <sys/ssl/Socket.h>
-#include <sys/ssl/_Socket/SocketOutput.h>
-#include <sys/ssl/_Socket/SocketInput.h>
-#include <sys/net/Host.h>
+#include <haxor/thread/Activity.h>
 #include <haxor/platform/windows/Window.h>
 #include <haxor/platform/windows/LoadTask.h>
 #include <haxor/platform/windows/Web.h>
@@ -42,27 +39,21 @@
 #include <haxor/core/ApplicationProtocol.h>
 #include <haxor/core/Platform.h>
 #include <haxor/context/Process.h>
+#include <haxor/context/BaseProcess.h>
 #include <haxor/context/MeshContext.h>
 #include <haxor/context/MaterialContext.h>
 #include <haxor/context/EngineContext.h>
-#include <haxe/io/Input.h>
-#include <haxe/io/Error.h>
 #include <haxe/io/Eof.h>
-#include <haxe/io/BytesOutput.h>
-#include <haxe/io/Output.h>
-#include <haxe/io/BytesBuffer.h>
 #include <haxe/io/Bytes.h>
 #include <haxe/ds/StringMap.h>
 #include <haxe/Timer.h>
-#include <haxe/Log.h>
-#include <haxe/Http.h>
 #include <cpp/vm/Thread.h>
 #include <Xml.h>
 #include <XmlType.h>
 #include <Type.h>
 #include <Sys.h>
+#include <cpp/Lib.h>
 #include <StringTools.h>
-#include <StringBuf.h>
 #include <Std.h>
 #include <Reflect.h>
 #include <IMap.h>
@@ -76,8 +67,6 @@
 #include <haxor/component/Component.h>
 #include <haxor/core/Resource.h>
 #include <haxor/core/IDisposable.h>
-#include <EReg.h>
-#include <cpp/Lib.h>
 
 void __files__boot();
 
@@ -85,10 +74,7 @@ void __boot_all()
 {
 __files__boot();
 hx::RegisterResources( hx::GetResources() );
-::sys::ssl::Socket_obj::__register();
-::sys::ssl::_Socket::SocketOutput_obj::__register();
-::sys::ssl::_Socket::SocketInput_obj::__register();
-::sys::net::Host_obj::__register();
+::haxor::thread::Activity_obj::__register();
 ::haxor::platform::windows::Window_obj::__register();
 ::haxor::platform::windows::LoadTask_obj::__register();
 ::haxor::platform::windows::Web_obj::__register();
@@ -127,27 +113,21 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::ApplicationProtocol_obj::__register();
 ::haxor::core::Platform_obj::__register();
 ::haxor::context::Process_obj::__register();
+::haxor::context::BaseProcess_obj::__register();
 ::haxor::context::MeshContext_obj::__register();
 ::haxor::context::MaterialContext_obj::__register();
 ::haxor::context::EngineContext_obj::__register();
-::haxe::io::Input_obj::__register();
-::haxe::io::Error_obj::__register();
 ::haxe::io::Eof_obj::__register();
-::haxe::io::BytesOutput_obj::__register();
-::haxe::io::Output_obj::__register();
-::haxe::io::BytesBuffer_obj::__register();
 ::haxe::io::Bytes_obj::__register();
 ::haxe::ds::StringMap_obj::__register();
 ::haxe::Timer_obj::__register();
-::haxe::Log_obj::__register();
-::haxe::Http_obj::__register();
 ::cpp::vm::Thread_obj::__register();
 ::Xml_obj::__register();
 ::XmlType_obj::__register();
 ::Type_obj::__register();
 ::Sys_obj::__register();
+::cpp::Lib_obj::__register();
 ::StringTools_obj::__register();
-::StringBuf_obj::__register();
 ::Std_obj::__register();
 ::Reflect_obj::__register();
 ::IMap_obj::__register();
@@ -161,15 +141,10 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::component::Component_obj::__register();
 ::haxor::core::Resource_obj::__register();
 ::haxor::core::IDisposable_obj::__register();
-::EReg_obj::__register();
-::cpp::Lib_obj::__register();
 ::Xml_obj::__init__();
-::sys::net::Host_obj::__init__();
 ::cpp::Lib_obj::__boot();
-::EReg_obj::__boot();
 ::Xml_obj::__boot();
 ::cpp::vm::Thread_obj::__boot();
-::haxe::Log_obj::__boot();
 ::haxor::core::IDisposable_obj::__boot();
 ::haxor::core::Resource_obj::__boot();
 ::haxor::component::Component_obj::__boot();
@@ -183,24 +158,18 @@ hx::RegisterResources( hx::GetResources() );
 ::IMap_obj::__boot();
 ::Reflect_obj::__boot();
 ::Std_obj::__boot();
-::StringBuf_obj::__boot();
 ::StringTools_obj::__boot();
 ::Sys_obj::__boot();
 ::Type_obj::__boot();
 ::XmlType_obj::__boot();
-::haxe::Http_obj::__boot();
 ::haxe::Timer_obj::__boot();
 ::haxe::ds::StringMap_obj::__boot();
 ::haxe::io::Bytes_obj::__boot();
-::haxe::io::BytesBuffer_obj::__boot();
-::haxe::io::Output_obj::__boot();
-::haxe::io::BytesOutput_obj::__boot();
 ::haxe::io::Eof_obj::__boot();
-::haxe::io::Error_obj::__boot();
-::haxe::io::Input_obj::__boot();
 ::haxor::context::EngineContext_obj::__boot();
 ::haxor::context::MaterialContext_obj::__boot();
 ::haxor::context::MeshContext_obj::__boot();
+::haxor::context::BaseProcess_obj::__boot();
 ::haxor::context::Process_obj::__boot();
 ::haxor::core::Platform_obj::__boot();
 ::haxor::core::ApplicationProtocol_obj::__boot();
@@ -239,9 +208,6 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::platform::windows::Web_obj::__boot();
 ::haxor::platform::windows::LoadTask_obj::__boot();
 ::haxor::platform::windows::Window_obj::__boot();
-::sys::net::Host_obj::__boot();
-::sys::ssl::_Socket::SocketInput_obj::__boot();
-::sys::ssl::_Socket::SocketOutput_obj::__boot();
-::sys::ssl::Socket_obj::__boot();
+::haxor::thread::Activity_obj::__boot();
 }
 

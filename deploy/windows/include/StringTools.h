@@ -28,9 +28,6 @@ class HXCPP_CLASS_ATTRIBUTES  StringTools_obj : public hx::Object{
 		static void __register();
 		::String __ToString() const { return HX_CSTRING("StringTools"); }
 
-		static ::String urlEncode( ::String s);
-		static Dynamic urlEncode_dyn();
-
 		static ::String replace( ::String s,::String sub,::String by);
 		static Dynamic replace_dyn();
 

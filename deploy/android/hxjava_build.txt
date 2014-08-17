@@ -339,6 +339,7 @@ M android.view.inputmethod.CorrectionInfo
 M java.net.SocketOptions
 M java.lang.StackTraceElement
 M haxor.context.Process
+C haxor.context.BaseProcess
 C haxor.context.Process
 M haxe.PosInfos
 M haxor.core.IResizeable
@@ -490,6 +491,10 @@ M java.util.Arrays
 M android.animation.TimeInterpolator
 M android.app.Dialog
 M android.text.InputType
+M haxor.thread.Activity
+C haxor.thread.Activity
+C haxor.thread.Activity_Iterate_40__Fun
+C haxor.thread.Activity_Delay_61__Fun
 M java.nio.DoubleBuffer
 M java.util.RandomAccess
 M haxor.core.Scene
@@ -511,8 +516,7 @@ M java.lang.Exception
 M android.view.WindowManager
 M haxe.root.Main
 C haxe.root.Main
-C haxe.root.Main_Load_47__Fun
-C haxe.root.Main_Load_56__Fun
+C haxe.root.Main_OnActivityComplete_178__Fun
 M android.database.sqlite.SQLiteCursorDriver
 M java.lang.System
 M android.app.Application

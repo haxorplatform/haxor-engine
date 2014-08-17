@@ -22,14 +22,14 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_LoadTask(haxor.platform.android.LoadTask __temp_me21768, java.lang.String p_url, java.lang.String p_method, java.lang.String p_data)
+	public static   void __hx_ctor_haxor_platform_android_LoadTask(haxor.platform.android.LoadTask __temp_me27916, java.lang.String p_url, java.lang.String p_method, java.lang.String p_data)
 	{
-		__temp_me21768.url = haxe.root.StringTools.replace(p_url, "./", haxor.platform.android.Web.root);
-		__temp_me21768.method = p_method;
-		__temp_me21768.data = p_data;
-		haxor.core.Console.Log(( ( "Web> Load from [" + __temp_me21768.url ) + "]" ), 1);
-		__temp_me21768.thread = new java.lang.Thread(((java.lang.Runnable) (__temp_me21768) ));
-		__temp_me21768.thread.start();
+		__temp_me27916.url = haxe.root.StringTools.replace(p_url, "./", haxor.platform.android.Web.root);
+		__temp_me27916.method = p_method;
+		__temp_me27916.data = p_data;
+		haxor.core.Console.Log(( ( "Web> Load from [" + __temp_me27916.url ) + "]" ), 1);
+		__temp_me27916.thread = new java.lang.Thread(((java.lang.Runnable) (__temp_me27916) ));
+		__temp_me27916.thread.start();
 	}
 	
 	
@@ -118,14 +118,14 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21948 = true;
+			boolean __temp_executeDef28112 = true;
 			switch (field.hashCode())
 			{
 				case 1382331801:
 				{
 					if (field.equals("bytesTotal")) 
 					{
-						__temp_executeDef21948 = false;
+						__temp_executeDef28112 = false;
 						this.bytesTotal = ((int) (value) );
 						return value;
 					}
@@ -136,7 +136,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef21948) 
+			if (__temp_executeDef28112) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -153,14 +153,14 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21949 = true;
+			boolean __temp_executeDef28113 = true;
 			switch (field.hashCode())
 			{
 				case 1382331801:
 				{
 					if (field.equals("bytesTotal")) 
 					{
-						__temp_executeDef21949 = false;
+						__temp_executeDef28113 = false;
 						this.bytesTotal = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -173,7 +173,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("thread")) 
 					{
-						__temp_executeDef21949 = false;
+						__temp_executeDef28113 = false;
 						this.thread = ((java.lang.Thread) (value) );
 						return value;
 					}
@@ -186,7 +186,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("stream")) 
 					{
-						__temp_executeDef21949 = false;
+						__temp_executeDef28113 = false;
 						this.stream = ((java.io.InputStream) (value) );
 						return value;
 					}
@@ -199,7 +199,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("url")) 
 					{
-						__temp_executeDef21949 = false;
+						__temp_executeDef28113 = false;
 						this.url = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -212,7 +212,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("contentType")) 
 					{
-						__temp_executeDef21949 = false;
+						__temp_executeDef28113 = false;
 						this.contentType = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -225,7 +225,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("method")) 
 					{
-						__temp_executeDef21949 = false;
+						__temp_executeDef28113 = false;
 						this.method = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -238,7 +238,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef21949 = false;
+						__temp_executeDef28113 = false;
 						this.data = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -249,7 +249,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef21949) 
+			if (__temp_executeDef28113) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -266,14 +266,14 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21950 = true;
+			boolean __temp_executeDef28114 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnError"))) );
 					}
 					
@@ -285,7 +285,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("thread")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return this.thread;
 					}
 					
@@ -297,7 +297,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("OnComplete")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnComplete"))) );
 					}
 					
@@ -309,7 +309,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("url")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return this.url;
 					}
 					
@@ -321,7 +321,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("OnConnect")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnConnect"))) );
 					}
 					
@@ -333,7 +333,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("method")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return this.method;
 					}
 					
@@ -345,7 +345,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("OnProgress")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnProgress"))) );
 					}
 					
@@ -357,7 +357,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return this.data;
 					}
 					
@@ -369,7 +369,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("run")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("run"))) );
 					}
 					
@@ -381,7 +381,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("contentType")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return this.contentType;
 					}
 					
@@ -393,7 +393,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("bytesTotal")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return this.bytesTotal;
 					}
 					
@@ -405,7 +405,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("stream")) 
 					{
-						__temp_executeDef21950 = false;
+						__temp_executeDef28114 = false;
 						return this.stream;
 					}
 					
@@ -415,7 +415,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef21950) 
+			if (__temp_executeDef28114) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -432,14 +432,14 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21951 = true;
+			boolean __temp_executeDef28115 = true;
 			switch (field.hashCode())
 			{
 				case 1382331801:
 				{
 					if (field.equals("bytesTotal")) 
 					{
-						__temp_executeDef21951 = false;
+						__temp_executeDef28115 = false;
 						return ((double) (this.bytesTotal) );
 					}
 					
@@ -449,7 +449,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef21951) 
+			if (__temp_executeDef28115) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -466,14 +466,14 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef21952 = true;
+			boolean __temp_executeDef28116 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef21952 = false;
+						__temp_executeDef28116 = false;
 						this.OnError(((java.lang.Exception) (dynargs.__get(0)) ));
 					}
 					
@@ -485,7 +485,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("run")) 
 					{
-						__temp_executeDef21952 = false;
+						__temp_executeDef28116 = false;
 						this.run();
 					}
 					
@@ -497,7 +497,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("OnComplete")) 
 					{
-						__temp_executeDef21952 = false;
+						__temp_executeDef28116 = false;
 						this.OnComplete();
 					}
 					
@@ -509,7 +509,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("OnProgress")) 
 					{
-						__temp_executeDef21952 = false;
+						__temp_executeDef28116 = false;
 						this.OnProgress(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -521,7 +521,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				{
 					if (field.equals("OnConnect")) 
 					{
-						__temp_executeDef21952 = false;
+						__temp_executeDef28116 = false;
 						this.OnConnect(((java.net.HttpURLConnection) (dynargs.__get(0)) ));
 					}
 					
@@ -531,7 +531,7 @@ public  class LoadTask extends haxe.lang.HxObject implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef21952) 
+			if (__temp_executeDef28116) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

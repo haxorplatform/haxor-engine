@@ -2,24 +2,13 @@ package haxor.context;
 import haxor.core.Console;
 import haxor.core.Resource;
 
-
 /**
- * ...
+ * Class that describes a fast Add/Remove execution list.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 @:allow(haxor)
-class Process<T>
+class Process<T> extends BaseProcess
 {
-	/**
-	 * Class related id.
-	 */
-	static private var m_cid : Int = 0;
-	
-	/**
-	 * Process name.
-	 */
-	public var name : String;
-	
 	/**
 	 * List of elements of this process.
 	 */
@@ -27,21 +16,9 @@ class Process<T>
 	
 	/**
 	 * Returns the length of the process list.
-	 */
-	public var length(get_length, null):Int;
-	private function get_length():Int { return m_length; }	
+	 */	
+	override private inline function get_length():Int { return m_length; }	
 	private var m_length : Int;
-		
-	/**
-	 * Class related id.
-	 */
-	private var _cid_ : Int;
-	
-	/**
-	 * Queue for async element removal.
-	 */
-	private var m_remove_queue : Array<T>;
-	
 	
 	/**
 	 * Creates a new process with a given name and size.
@@ -50,9 +27,7 @@ class Process<T>
 	 */
 	public function new(p_name : String,p_size : Int) 
 	{
-		name     		= p_name;
-		Console.Log("\tProcess ["+p_name+"] created.",4);
-		_cid_    		= m_cid++;
+		super(p_name);
 		list     		= [];		
 		m_length 		= 0;		
 		for (i in 0...p_size)
@@ -66,7 +41,7 @@ class Process<T>
 	 * Adds an element to the process.
 	 * @param	p_item
 	 */
-	public function Add(p_item : Resource):Void
+	override public function Add(p_item : Resource):Void
 	{	
 		var iid : Int = p_item.m_pid[_cid_];
 		if (iid >= 0) return;		
@@ -78,7 +53,7 @@ class Process<T>
 	 * Removes the element from the process.
 	 * @param	p_item
 	 */
-	public function Remove(p_item : Resource):Resource
+	override public function Remove(p_item : Resource):Resource
 	{	
 		var iid : Int = p_item.m_pid[_cid_];
 		if (iid < 0) return p_item;
@@ -94,10 +69,68 @@ class Process<T>
 	/**
 	 * Mark all elements for collections.
 	 */
-	public function Clear():Void
+	override public function Clear():Void
 	{
 		m_length 	= 0;
 		list 		= [];
 	}
+	
+}
+
+/**
+ * Base Class for the Engine processes.
+ */
+@:allow(haxor)
+class BaseProcess
+{
+	/**
+	 * Class related id.
+	 */
+	static private var m_cid : Int = 0;
+	
+	/**
+	 * Class related id.
+	 */
+	private var _cid_ : Int;
+	
+	/**
+	 * Process name.
+	 */
+	public var name : String;
+	
+	/**
+	 * Returns the length of the process list.
+	 */
+	public var length(get_length, null):Int;
+	private function get_length():Int { return 0; }
+	
+	/**
+	 * Creates a new process.
+	 * @param	p_name
+	 */
+	public function new(p_name : String) 
+	{
+		name     		= p_name;
+		Console.Log("\tProcess ["+p_name+"] created.",4);
+		_cid_    		= m_cid++;		
+	}
+	
+	/**
+	 * Adds a new item.
+	 * @param	p_item
+	 */
+	public function Add(p_item : Resource):Void { }
+	
+	/**
+	 * Removes an item.
+	 * @param	p_item
+	 * @return
+	 */
+	public function Remove(p_item : Resource):Resource { return null; }
+	
+	/**
+	 * Clears the process list.
+	 */
+	public function Clear():Void { }
 	
 }

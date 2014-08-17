@@ -26,7 +26,7 @@ public  class RenderQueue extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_RenderQueue(haxor.graphics.RenderQueue __temp_me21746)
+	public static   void __hx_ctor_haxor_graphics_RenderQueue(haxor.graphics.RenderQueue __temp_me27894)
 	{
 		{
 		}

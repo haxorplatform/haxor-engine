@@ -6,6 +6,9 @@
 #ifndef INCLUDED_haxor_component_Component
 #include <haxor/component/Component.h>
 #endif
+#ifndef INCLUDED_haxor_context_BaseProcess
+#include <haxor/context/BaseProcess.h>
+#endif
 #ifndef INCLUDED_haxor_context_EngineContext
 #include <haxor/context/EngineContext.h>
 #endif
@@ -99,9 +102,7 @@ Void Engine_obj::Collect( ){
 				HX_STACK_LINE(47)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
 				HX_STACK_LINE(49)
-				int _g2 = dp->get_length();		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(49)
-				if (((_g2 <= (int)0))){
+				if (((dp->m_length <= (int)0))){
 					HX_STACK_LINE(49)
 					break;
 				}
@@ -135,7 +136,7 @@ Void Engine_obj::Update( ){
 			HX_STACK_LINE(65)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
 			HX_STACK_LINE(65)
-			int _g = up->get_length();		HX_STACK_VAR(_g,"_g");
+			int _g = up->m_length;		HX_STACK_VAR(_g,"_g");
 			HX_STACK_LINE(65)
 			while((true)){
 				HX_STACK_LINE(65)
@@ -192,7 +193,7 @@ Void Engine_obj::Render( ){
 			HX_STACK_LINE(85)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
 			HX_STACK_LINE(85)
-			int _g = rp->get_length();		HX_STACK_VAR(_g,"_g");
+			int _g = rp->m_length;		HX_STACK_VAR(_g,"_g");
 			HX_STACK_LINE(85)
 			while((true)){
 				HX_STACK_LINE(85)
@@ -235,7 +236,7 @@ Void Engine_obj::Resize( ){
 			HX_STACK_LINE(100)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
 			HX_STACK_LINE(100)
-			int _g = rp->get_length();		HX_STACK_VAR(_g,"_g");
+			int _g = rp->m_length;		HX_STACK_VAR(_g,"_g");
 			HX_STACK_LINE(100)
 			while((true)){
 				HX_STACK_LINE(100)

@@ -22,7 +22,7 @@ public  class Web extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_Web(haxor.platform.android.Web __temp_me21767)
+	public static   void __hx_ctor_haxor_platform_android_Web(haxor.platform.android.Web __temp_me27915)
 	{
 		{
 		}

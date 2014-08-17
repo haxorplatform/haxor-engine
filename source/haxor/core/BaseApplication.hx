@@ -99,24 +99,34 @@ class BaseApplication extends Behaviour
 	private function set_fps(v:Int):Int 
 	{
 		m_fps = v;
-		var f : Float = cast v;
+		var f : Float = cast v;		
+		//clock precision adjustment for html/android platform. if bigger than 60fps don't need to control time.
 		
-		//clock precision adjustment for html platform.
-		#if html
-		f += 6.0;
+		#if (html||android)
+		if (f >= 60.0) f = 1000000.0;
 		#end
 		
-		m_mspf = (((1.0 / f) * 1000.0));		
+		#if android
+		f *= 1.35;
+		#end
+		
+		#if html
+		f *= 1.25;
+		#end
+		
+		m_mspf = (((1.0 / f) * 1000.0));				
 		return v; 
 	}	
 	/**
 	 * Milliseconds per frame.
 	 */
 	private var m_mspf : Float;
+	
 	/**
 	 * Frames per second.
 	 */
 	private var m_fps  : Int;
+	
 	/**
 	 * Time to next frame;
 	 */
@@ -126,7 +136,7 @@ class BaseApplication extends Behaviour
 	 * Platform this application is currently running.
 	 */
 	public var platform(get_platform, null):Platform;
-	private function get_platform():Platform { return m_platform; }
+	private inline function get_platform():Platform { return m_platform; }
 	private var m_platform : Platform;
 	
 	
@@ -149,8 +159,8 @@ class BaseApplication extends Behaviour
 		m_instance 		= this;
 		m_scenes   		= [];
 		fps 			= 60;
-		m_frame_ms	    = 0.0;	
-		m_init_allowed  = false;
+		m_frame_ms	    = 0.0;		
+		m_init_allowed  = false;		
 		m_platform 		= Platform.Unknown;
 		
 		Time.Initialize();
@@ -209,6 +219,7 @@ class BaseApplication extends Behaviour
 		CheckResize();		
 		Engine.Update();
 		Engine.Collect();
+		
 	}
 	
 	/**
@@ -221,16 +232,17 @@ class BaseApplication extends Behaviour
 			Console.Log("Application> Initialize.", 3);		
 			Initialize();
 			m_init_allowed = false;
-		}
+		}		
 		
 		if ((Time.m_clock - m_frame_ms) >= m_mspf)
 		{	
-			m_frame_ms = Time.m_clock;
+			m_frame_ms += (Time.m_clock - m_frame_ms);			
 			Time.Render();			
 			GL.Focus();			
 			Engine.Render();
-			GL.Flush();
+			GL.Flush();			
 		}		
+		
 	}
 	
 	/**

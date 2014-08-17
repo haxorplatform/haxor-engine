@@ -18,10 +18,10 @@ public  class Timer extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_Timer(haxe.Timer __temp_me21729)
+	public static   void __hx_ctor_haxe_Timer(haxe.Timer __temp_me27876)
 	{
 		{
-			__temp_me21729.run = ( (( haxe.Timer___hx_ctor_haxe_Timer_113__Fun.__hx_current != null )) ? (haxe.Timer___hx_ctor_haxe_Timer_113__Fun.__hx_current) : (haxe.Timer___hx_ctor_haxe_Timer_113__Fun.__hx_current = ((haxe.Timer___hx_ctor_haxe_Timer_113__Fun) (new haxe.Timer___hx_ctor_haxe_Timer_113__Fun()) )) );
+			__temp_me27876.run = ( (( haxe.Timer___hx_ctor_haxe_Timer_113__Fun.__hx_current != null )) ? (haxe.Timer___hx_ctor_haxe_Timer_113__Fun.__hx_current) : (haxe.Timer___hx_ctor_haxe_Timer_113__Fun.__hx_current = ((haxe.Timer___hx_ctor_haxe_Timer_113__Fun) (new haxe.Timer___hx_ctor_haxe_Timer_113__Fun()) )) );
 		}
 		
 	}
@@ -50,14 +50,14 @@ public  class Timer extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21837 = true;
+			boolean __temp_executeDef27997 = true;
 			switch (field.hashCode())
 			{
 				case 113291:
 				{
 					if (field.equals("run")) 
 					{
-						__temp_executeDef21837 = false;
+						__temp_executeDef27997 = false;
 						this.run = ((haxe.lang.Function) (value) );
 						return value;
 					}
@@ -68,7 +68,7 @@ public  class Timer extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef21837) 
+			if (__temp_executeDef27997) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -85,14 +85,14 @@ public  class Timer extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21838 = true;
+			boolean __temp_executeDef27998 = true;
 			switch (field.hashCode())
 			{
 				case 113291:
 				{
 					if (field.equals("run")) 
 					{
-						__temp_executeDef21838 = false;
+						__temp_executeDef27998 = false;
 						return this.run;
 					}
 					
@@ -102,7 +102,7 @@ public  class Timer extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef21838) 
+			if (__temp_executeDef27998) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

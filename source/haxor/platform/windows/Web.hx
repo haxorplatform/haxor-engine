@@ -1,12 +1,6 @@
 #if windows
 
 package haxor.platform.windows;
-import haxe.remoting.HttpAsyncConnection;
-import cpp.vm.Thread;
-import haxe.Http;
-import cpp.net.Poll;
-import cpp.net.ThreadServer;
-import haxe.remoting.HttpConnection;
 import haxor.core.Console;
 
 /**
@@ -44,7 +38,7 @@ class Web
 			p_callback(null, 1.0);
 		});	
 		q.push(ld);
-		if (!m_running) { Thread.create(QueueUpdate); m_running = true; }
+		//if (!m_running) { Thread.create(QueueUpdate); m_running = true; }
     }
 	
 	static function QueueUpdate():Void
@@ -80,6 +74,7 @@ class LoadTask
 	
 	public function Run():Void
 	{
+		/*
 		trace("Web> Load from ["+url+"]");
 		try
 		{
@@ -89,7 +84,8 @@ class LoadTask
 		catch (err : Dynamic)
 		{
 			onerror(err + "");
-		}	
+		}
+		//*/
 	}
 
 	

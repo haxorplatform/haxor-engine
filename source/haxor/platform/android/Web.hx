@@ -150,7 +150,7 @@ class LoadBytesTask extends LoadTask
 {
 	public var output : ByteArrayOutputStream;
 	
-	override inline function OnConnect(p_connection:HttpURLConnection):Void 
+	override public function OnConnect(p_connection:HttpURLConnection):Void 
 	{
 		output	= new ByteArrayOutputStream();		
 		var con 	: HttpURLConnection = p_connection;								

@@ -17,9 +17,9 @@ public  class LoadBytesTask extends haxor.platform.android.LoadTask
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_LoadBytesTask(haxor.platform.android.LoadBytesTask __temp_me21770, java.lang.String p_url, java.lang.String p_method, java.lang.String p_data)
+	public static   void __hx_ctor_haxor_platform_android_LoadBytesTask(haxor.platform.android.LoadBytesTask __temp_me27918, java.lang.String p_url, java.lang.String p_method, java.lang.String p_data)
 	{
-		haxor.platform.android.LoadTask.__hx_ctor_haxor_platform_android_LoadTask(__temp_me21770, p_url, p_method, p_data);
+		haxor.platform.android.LoadTask.__hx_ctor_haxor_platform_android_LoadTask(__temp_me27918, p_url, p_method, p_data);
 	}
 	
 	
@@ -87,14 +87,14 @@ public  class LoadBytesTask extends haxor.platform.android.LoadTask
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21955 = true;
+			boolean __temp_executeDef28119 = true;
 			switch (field.hashCode())
 			{
 				case -1005512447:
 				{
 					if (field.equals("output")) 
 					{
-						__temp_executeDef21955 = false;
+						__temp_executeDef28119 = false;
 						this.output = ((java.io.ByteArrayOutputStream) (value) );
 						return value;
 					}
@@ -105,7 +105,7 @@ public  class LoadBytesTask extends haxor.platform.android.LoadTask
 				
 			}
 			
-			if (__temp_executeDef21955) 
+			if (__temp_executeDef28119) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -122,14 +122,14 @@ public  class LoadBytesTask extends haxor.platform.android.LoadTask
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef21956 = true;
+			boolean __temp_executeDef28120 = true;
 			switch (field.hashCode())
 			{
 				case -3368469:
 				{
 					if (field.equals("OnConnect")) 
 					{
-						__temp_executeDef21956 = false;
+						__temp_executeDef28120 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnConnect"))) );
 					}
 					
@@ -141,7 +141,7 @@ public  class LoadBytesTask extends haxor.platform.android.LoadTask
 				{
 					if (field.equals("output")) 
 					{
-						__temp_executeDef21956 = false;
+						__temp_executeDef28120 = false;
 						return this.output;
 					}
 					
@@ -151,7 +151,7 @@ public  class LoadBytesTask extends haxor.platform.android.LoadTask
 				
 			}
 			
-			if (__temp_executeDef21956) 
+			if (__temp_executeDef28120) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
