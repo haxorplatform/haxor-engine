@@ -144,6 +144,120 @@ class HXCPP_CLASS_ATTRIBUTES  GraphicContext_obj : public hx::Object{
 		virtual Void UseProgram( int p_program);
 		Dynamic UseProgram_dyn();
 
+		virtual Void Uniform1f( );
+		Dynamic Uniform1f_dyn();
+
+		virtual Void Uniform1fv( );
+		Dynamic Uniform1fv_dyn();
+
+		virtual Void Uniform1i( );
+		Dynamic Uniform1i_dyn();
+
+		virtual Void Uniform1iv( );
+		Dynamic Uniform1iv_dyn();
+
+		virtual Void Uniform2f( );
+		Dynamic Uniform2f_dyn();
+
+		virtual Void Uniform2fv( );
+		Dynamic Uniform2fv_dyn();
+
+		virtual Void Uniform2i( );
+		Dynamic Uniform2i_dyn();
+
+		virtual Void Uniform2iv( );
+		Dynamic Uniform2iv_dyn();
+
+		virtual Void Uniform3f( );
+		Dynamic Uniform3f_dyn();
+
+		virtual Void Uniform3fv( );
+		Dynamic Uniform3fv_dyn();
+
+		virtual Void Uniform3i( );
+		Dynamic Uniform3i_dyn();
+
+		virtual Void Uniform3iv( );
+		Dynamic Uniform3iv_dyn();
+
+		virtual Void Uniform4f( );
+		Dynamic Uniform4f_dyn();
+
+		virtual Void Uniform4fv( );
+		Dynamic Uniform4fv_dyn();
+
+		virtual Void Uniform4i( );
+		Dynamic Uniform4i_dyn();
+
+		virtual Void Uniform4iv( );
+		Dynamic Uniform4iv_dyn();
+
+		virtual Void UniformMatrix2fv( );
+		Dynamic UniformMatrix2fv_dyn();
+
+		virtual Void UniformMatrix3fv( );
+		Dynamic UniformMatrix3fv_dyn();
+
+		virtual Void UniformMatrix4fv( );
+		Dynamic UniformMatrix4fv_dyn();
+
+		virtual Void ActiveTexture( );
+		Dynamic ActiveTexture_dyn();
+
+		virtual Void BindFramebuffer( );
+		Dynamic BindFramebuffer_dyn();
+
+		virtual Void BindRenderbuffer( );
+		Dynamic BindRenderbuffer_dyn();
+
+		virtual Void BindTexture( );
+		Dynamic BindTexture_dyn();
+
+		virtual Void CreateFramebuffer( );
+		Dynamic CreateFramebuffer_dyn();
+
+		virtual Void CreateTexture( );
+		Dynamic CreateTexture_dyn();
+
+		virtual Void DeleteFramebuffer( );
+		Dynamic DeleteFramebuffer_dyn();
+
+		virtual Void DeleteRenderbuffer( );
+		Dynamic DeleteRenderbuffer_dyn();
+
+		virtual Void DeleteTexture( );
+		Dynamic DeleteTexture_dyn();
+
+		virtual Void FramebufferRenderbuffer( );
+		Dynamic FramebufferRenderbuffer_dyn();
+
+		virtual Void FramebufferTexture2D( );
+		Dynamic FramebufferTexture2D_dyn();
+
+		virtual Void GenerateMipmap( );
+		Dynamic GenerateMipmap_dyn();
+
+		virtual Void PixelStorei( );
+		Dynamic PixelStorei_dyn();
+
+		virtual Void RenderbufferStorage( );
+		Dynamic RenderbufferStorage_dyn();
+
+		virtual Void TexImage2D( );
+		Dynamic TexImage2D_dyn();
+
+		virtual Void TexSubImage2D( );
+		Dynamic TexSubImage2D_dyn();
+
+		virtual Void TexStorage2D( int p_target,int p_num_mipmaps,int p_channels,int p_width,int p_height);
+		Dynamic TexStorage2D_dyn();
+
+		virtual Void TexParameterf( );
+		Dynamic TexParameterf_dyn();
+
+		virtual Void TexParameteri( );
+		Dynamic TexParameteri_dyn();
+
 		virtual Void BlendFunc( int p_src,int p_dst);
 		Dynamic BlendFunc_dyn();
 
@@ -173,6 +287,12 @@ class HXCPP_CLASS_ATTRIBUTES  GraphicContext_obj : public hx::Object{
 
 		virtual Void ClearColor( Float p_r,Float p_g,Float p_b,Float p_a);
 		Dynamic ClearColor_dyn();
+
+		virtual Void Viewport( int p_x,int p_y,int p_width,int p_height);
+		Dynamic Viewport_dyn();
+
+		virtual Void ReadPixels( int p_x,int p_y,int p_width,int p_height,int p_format,int p_type,::haxor::io::Buffer p_pixels);
+		Dynamic ReadPixels_dyn();
 
 		virtual int GetErrorCode( );
 		Dynamic GetErrorCode_dyn();

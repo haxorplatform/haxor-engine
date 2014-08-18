@@ -47,6 +47,57 @@ WinGL
 		super(p_application);
 		m_api = GraphicAPI.OpenGL;
 	}
+	
+	override public function CheckExtensions():Void 
+	{
+		Focus();
+		var extstr : String = "";		
+		untyped __cpp__('
+		const char *str = (const char *)glGetString(GL_EXTENSIONS);
+		int len = strlen(str);
+		extstr.__s = str;
+		extstr.length = len;				
+		');		
+		
+		var f : Float = 0.0;
+		var i : Int = 0;
+		
+		var exts : Array<String> = extstr.split(" ");				
+		for (i in 0...exts.length)
+		{
+			var n : String = exts[i];			
+			n = StringTools.replace(n, "GL_", "");
+			if (n == "") continue;
+			Console.Log("\t" + n);
+			switch(n)
+			{
+				case "ARB_texture_half_float":					
+					GL.HALF_FLOAT 	= 0x8D61;
+					GL.TEXTURE_HALF = true;
+					
+				case "ARB_texture_half_float_linear":					
+					GL.TEXTURE_HALF_LINEAR = true;
+				
+				case "EXT_texture_filter_anisotropic":					
+					untyped __cpp__('glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &f);');
+					GL.MAX_ANISOTROPY 		= cast f;
+					GL.TEXTURE_ANISOTROPY 	= true;
+					Console.Log("\t\tMAX_TEXTURE_MAX_ANISOTROPY: " + GL.MAX_ANISOTROPY);
+				
+				case "ARB_texture_float":					
+					GL.TEXTURE_FLOAT = true;	
+				
+				case "ARB_depth_texture":					
+					GL.TEXTURE_DEPTH = true;					
+			}			
+		}
+		
+		
+		untyped __cpp__('glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &i);');
+		GL.MAX_ACTIVE_TEXTURE = i;
+		Console.Log("\tMax Active Textures: " + i);				
+		
+	}
 		
 	//Attribs
 	override public function BindBuffer(p_target:Int, p_id:MeshBufferId):Void 									{ untyped __cpp__('glBindBuffer(p_target,p_id);'); }		
@@ -62,6 +113,7 @@ WinGL
 		var ba : Bytes  = p_data.buffer;
 		untyped __cpp__('glBufferSubData(p_target, p_offset,bl,(void*)&ba->b[0]);'); 
 	}	
+	
 	override public function CreateBuffer():MeshBufferId 														{ untyped __cpp__('GLuint id; glGenBuffers(1, &id); return id;'); return GL.NULL; }	
 	override public function DrawArrays(p_primitive:Int, p_start:Int, p_count:Int):Void 						{ untyped __cpp__('glDrawArrays(p_primitive, p_start, p_count);'); }	
 	override public function DrawElements(p_primitive:Int, p_count:Int, p_type:Int, p_offset:Int):Void 			{ untyped __cpp__('glDrawElements(p_primitive, p_count, p_type,(void*)p_offset);'); }	

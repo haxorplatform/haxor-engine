@@ -62,7 +62,6 @@ C haxe.root.Xml
 C haxe.root.Xml_elementsNamed_226__Fun
 C haxe.root.Xml_elementsNamed_238__Fun
 M android.content.DialogInterface
-M java.nio.charset.Charset
 M java.nio.channels.SelectableChannel
 M haxe.io.Output
 C haxe.io.Output
@@ -92,18 +91,11 @@ M java.nio.channels.ServerSocketChannel
 M haxe.root.EnumValue
 M android.view.ActionProvider
 M java.nio.channels.SelectionKey
-M haxor.platform.android.Web
-C haxor.platform.android.Web
-C haxor.platform.android.LoadTask
-C haxor.platform.android.LoadStringTask
-C haxor.platform.android.LoadBytesTask
-C haxor.platform.android.LoadImageTask
 M haxe.root.Array
 C haxe.root.Array
 C _Array.ArrayIterator
 M android.graphics.PorterDuff
 M android.view.ViewPropertyAnimator
-M java.io.BufferedReader
 M java.nio.channels.spi.SelectorProvider
 M haxor.core.IUpdateable
 C haxor.core.IUpdateable
@@ -140,6 +132,8 @@ M java.net.ServerSocket
 M java.security.Guard
 M android.graphics.MaskFilter
 M android.os.Parcelable
+M haxor.graphics.texture.Bitmap
+C haxor.graphics.texture.Bitmap
 M android.graphics.SurfaceTexture
 M java.lang.ThreadGroup
 M haxor.component.Component
@@ -148,6 +142,7 @@ M android.app.LoaderManager
 M java.lang.reflect.AccessibleObject
 M android.view.WindowId
 M java.nio.channels.ByteChannel
+M android.opengl.GLES11Ext
 M java.lang.Readable
 M android.content.ContentValues
 M java.net.DatagramSocketImplFactory
@@ -158,7 +153,6 @@ C haxor.platform.android.Entry
 M android.graphics.ColorFilter
 M android.view.ViewTreeObserver
 M android.view.inputmethod.CompletionInfo
-M java.nio.charset.CodingErrorAction
 M android.view.ViewGroupOverlay
 M android.app.Fragment
 M java.lang.ClassLoader
@@ -169,7 +163,6 @@ M android.app.PendingIntent
 M java.lang.reflect.Constructor
 M java.lang.Long
 M android.graphics.Canvas
-M java.nio.charset.CoderResult
 M android.view.KeyCharacterMap
 M java.io.FileDescriptor
 M haxe.io.BytesData
@@ -202,16 +195,15 @@ M android.view.MenuItem
 M android.view.ViewManager
 M haxe.ds.HashMap
 M java.security.ProtectionDomain
-M java.util.SortedMap
 M java.lang.StringBuilder
 M java.lang.reflect.Type
 M java.security.CodeSource
 M android.view.LayoutInflater
 M haxe.root.StdTypes
 M android.content.ContentProvider
+M android.opengl.GLES10
 M android.view.AbsSavedState
 M java.javax.microedition.khronos.opengles.GL
-M java.net.HttpURLConnection
 M java.nio.channels.Selector
 M android.view.animation.LayoutAnimationController
 M android.graphics.RectF
@@ -270,6 +262,8 @@ M java.net.NetworkInterface
 M haxe.root.Map
 C haxe.root.IMap
 M java.security.cert.CertPath
+M haxor.context.TextureContext
+C haxor.context.TextureContext
 M android.os.Handler
 M java.net.InetAddress
 M java.net.URLStreamHandler
@@ -380,6 +374,10 @@ C haxor.graphics.MeshPrimitive
 C haxor.graphics.CullMode
 C haxor.graphics.DepthTest
 C haxor.graphics.BufferPrimitive
+E haxor.graphics.PixelFormat
+E haxor.graphics.TextureFilter
+C haxor.graphics.TextureWrap
+E haxor.graphics.TextureType
 M android.content.res.Configuration
 M android.util.DisplayMetrics
 M android.graphics.Shader
@@ -410,7 +408,6 @@ C haxor.core.Resource
 M android.content.pm.PackageManager
 M haxor.platform.graphics.AndroidGL
 C haxor.platform.graphics.AndroidGL
-M java.nio.charset.CharsetDecoder
 M android.view.inputmethod.InputConnection
 M java.nio.channels.DatagramChannel
 M android.os.Vibrator
@@ -429,11 +426,12 @@ M java.lang.ref.ReferenceQueue
 M android.os.Parcel
 M java.lang.SecurityManager
 M java.nio.channels.WritableByteChannel
-M java.nio.charset.CharsetEncoder
 M java.util.Hashtable
 M java.security.PermissionCollection
 M java.lang.ThreadLocal
 M android.util.AndroidException
+M haxor.math.Color
+C haxor.math.Color
 M java.net.URLStreamHandlerFactory
 M android.net.Uri
 M java.net.URL
@@ -441,6 +439,7 @@ M haxor.component.Behaviour
 C haxor.component.Behaviour
 M android.view.Menu
 M java.net.ContentHandlerFactory
+M android.opengl.GLES11
 M android.util.SparseArray
 M java.lang.reflect.Method
 M android.graphics.DrawFilter
@@ -483,8 +482,10 @@ M android.content.pm.ProviderInfo
 M android.database.sqlite.SQLiteQuery
 M android.content.res.XmlResourceParser
 M java.util.Enumeration
+M haxor.graphics.texture.Texture
+C haxor.graphics.texture.Texture
 M haxor.net.Web
-M java.io.InputStreamReader
+C haxor.net.Web
 M haxor.platform.Types
 M haxe.root.Math
 M java.util.Arrays
@@ -516,7 +517,6 @@ M java.lang.Exception
 M android.view.WindowManager
 M haxe.root.Main
 C haxe.root.Main
-C haxe.root.Main_OnActivityComplete_178__Fun
 M android.database.sqlite.SQLiteCursorDriver
 M java.lang.System
 M android.app.Application
@@ -525,6 +525,7 @@ M android.content.pm.ComponentInfo
 M java.nio.IntBuffer
 M android.os.IInterface
 M java.nio.Buffer
+M android.opengl.GLES30
 M java.nio.channels.GatheringByteChannel
 M android.view.InputQueue
 M android.content.ServiceConnection
@@ -572,6 +573,8 @@ M org.xmlpull.v1.XmlPullParser
 M android.animation.LayoutTransition
 M android.os.CancellationSignal
 M android.database.ContentObserver
+M haxor.math.Mathf
+C haxor.math.Mathf
 M android.accounts.Account
 M android.content.ContentResolver
 M java.io.InputStream

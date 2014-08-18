@@ -40,6 +40,8 @@ class HXCPP_CLASS_ATTRIBUTES  OpenGL_obj : public ::haxor::platform::graphics::W
 		static void __register();
 		::String __ToString() const { return HX_CSTRING("OpenGL"); }
 
+		virtual Void CheckExtensions( );
+
 		virtual Void BindBuffer( int p_target,int p_id);
 
 		virtual Void BufferData( int p_target,::haxor::io::Buffer p_data,int p_mode);

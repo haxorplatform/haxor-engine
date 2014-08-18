@@ -2,8 +2,6 @@
 
 #include <haxor/thread/Activity.h>
 #include <haxor/platform/windows/Window.h>
-#include <haxor/platform/windows/LoadTask.h>
-#include <haxor/platform/windows/Web.h>
 #include <haxor/platform/windows/Entry.h>
 #include <haxor/platform/graphics/OpenGL.h>
 #include <haxor/platform/graphics/WinGL.h>
@@ -11,9 +9,14 @@
 #include <haxor/platform/graphics/GraphicAPI.h>
 #include <haxor/platform/graphics/GL.h>
 #include <haxor/platform/OSWindow.h>
+#include <haxor/net/Web.h>
+#include <haxor/math/Mathf.h>
+#include <haxor/math/Color.h>
 #include <haxor/io/UInt16Array.h>
 #include <haxor/io/FloatArray.h>
 #include <haxor/io/Buffer.h>
+#include <haxor/graphics/texture/Texture.h>
+#include <haxor/graphics/texture/Bitmap.h>
 #include <haxor/graphics/mesh/MeshAttrib.h>
 #include <haxor/graphics/mesh/Mesh.h>
 #include <haxor/graphics/material/UberShader.h>
@@ -22,6 +25,10 @@
 #include <haxor/graphics/CursorMode.h>
 #include <haxor/graphics/Screen.h>
 #include <haxor/graphics/Graphics.h>
+#include <haxor/graphics/TextureType.h>
+#include <haxor/graphics/TextureWrap.h>
+#include <haxor/graphics/TextureFilter.h>
+#include <haxor/graphics/PixelFormat.h>
 #include <haxor/graphics/BufferPrimitive.h>
 #include <haxor/graphics/DepthTest.h>
 #include <haxor/graphics/CullMode.h>
@@ -38,6 +45,7 @@
 #include <haxor/core/Console.h>
 #include <haxor/core/ApplicationProtocol.h>
 #include <haxor/core/Platform.h>
+#include <haxor/context/TextureContext.h>
 #include <haxor/context/Process.h>
 #include <haxor/context/BaseProcess.h>
 #include <haxor/context/MeshContext.h>
@@ -76,8 +84,6 @@ __files__boot();
 hx::RegisterResources( hx::GetResources() );
 ::haxor::thread::Activity_obj::__register();
 ::haxor::platform::windows::Window_obj::__register();
-::haxor::platform::windows::LoadTask_obj::__register();
-::haxor::platform::windows::Web_obj::__register();
 ::haxor::platform::windows::Entry_obj::__register();
 ::haxor::platform::graphics::OpenGL_obj::__register();
 ::haxor::platform::graphics::WinGL_obj::__register();
@@ -85,9 +91,14 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::platform::graphics::GraphicAPI_obj::__register();
 ::haxor::platform::graphics::GL_obj::__register();
 ::haxor::platform::OSWindow_obj::__register();
+::haxor::net::Web_obj::__register();
+::haxor::math::Mathf_obj::__register();
+::haxor::math::Color_obj::__register();
 ::haxor::io::UInt16Array_obj::__register();
 ::haxor::io::FloatArray_obj::__register();
 ::haxor::io::Buffer_obj::__register();
+::haxor::graphics::texture::Texture_obj::__register();
+::haxor::graphics::texture::Bitmap_obj::__register();
 ::haxor::graphics::mesh::MeshAttrib_obj::__register();
 ::haxor::graphics::mesh::Mesh_obj::__register();
 ::haxor::graphics::material::UberShader_obj::__register();
@@ -96,6 +107,10 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::CursorMode_obj::__register();
 ::haxor::graphics::Screen_obj::__register();
 ::haxor::graphics::Graphics_obj::__register();
+::haxor::graphics::TextureType_obj::__register();
+::haxor::graphics::TextureWrap_obj::__register();
+::haxor::graphics::TextureFilter_obj::__register();
+::haxor::graphics::PixelFormat_obj::__register();
 ::haxor::graphics::BufferPrimitive_obj::__register();
 ::haxor::graphics::DepthTest_obj::__register();
 ::haxor::graphics::CullMode_obj::__register();
@@ -112,6 +127,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::Console_obj::__register();
 ::haxor::core::ApplicationProtocol_obj::__register();
 ::haxor::core::Platform_obj::__register();
+::haxor::context::TextureContext_obj::__register();
 ::haxor::context::Process_obj::__register();
 ::haxor::context::BaseProcess_obj::__register();
 ::haxor::context::MeshContext_obj::__register();
@@ -171,6 +187,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::context::MeshContext_obj::__boot();
 ::haxor::context::BaseProcess_obj::__boot();
 ::haxor::context::Process_obj::__boot();
+::haxor::context::TextureContext_obj::__boot();
 ::haxor::core::Platform_obj::__boot();
 ::haxor::core::ApplicationProtocol_obj::__boot();
 ::haxor::core::Console_obj::__boot();
@@ -187,6 +204,10 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::CullMode_obj::__boot();
 ::haxor::graphics::DepthTest_obj::__boot();
 ::haxor::graphics::BufferPrimitive_obj::__boot();
+::haxor::graphics::PixelFormat_obj::__boot();
+::haxor::graphics::TextureFilter_obj::__boot();
+::haxor::graphics::TextureWrap_obj::__boot();
+::haxor::graphics::TextureType_obj::__boot();
 ::haxor::graphics::Graphics_obj::__boot();
 ::haxor::graphics::Screen_obj::__boot();
 ::haxor::graphics::CursorMode_obj::__boot();
@@ -195,9 +216,14 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::material::UberShader_obj::__boot();
 ::haxor::graphics::mesh::Mesh_obj::__boot();
 ::haxor::graphics::mesh::MeshAttrib_obj::__boot();
+::haxor::graphics::texture::Bitmap_obj::__boot();
+::haxor::graphics::texture::Texture_obj::__boot();
 ::haxor::io::Buffer_obj::__boot();
 ::haxor::io::FloatArray_obj::__boot();
 ::haxor::io::UInt16Array_obj::__boot();
+::haxor::math::Color_obj::__boot();
+::haxor::math::Mathf_obj::__boot();
+::haxor::net::Web_obj::__boot();
 ::haxor::platform::OSWindow_obj::__boot();
 ::haxor::platform::graphics::GL_obj::__boot();
 ::haxor::platform::graphics::GraphicAPI_obj::__boot();
@@ -205,8 +231,6 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::platform::graphics::WinGL_obj::__boot();
 ::haxor::platform::graphics::OpenGL_obj::__boot();
 ::haxor::platform::windows::Entry_obj::__boot();
-::haxor::platform::windows::Web_obj::__boot();
-::haxor::platform::windows::LoadTask_obj::__boot();
 ::haxor::platform::windows::Window_obj::__boot();
 ::haxor::thread::Activity_obj::__boot();
 }

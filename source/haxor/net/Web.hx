@@ -1,14 +1,32 @@
 package haxor.net;
 
-
 #if html
-typedef Web = haxor.platform.html.Web;
+import haxor.platform.html.Web.LoadDataTask;
 #end
 
 #if android
-typedef Web = haxor.platform.android.Web;
 #end
 
-#if windows
-typedef Web = haxor.platform.windows.Web;
-#end
+/**
+ * Class that handles the loading of data from the Web.
+ * @author Eduardo Pons - eduardo@thelaborat.org
+ */
+class Web
+{
+	/**
+	 * Root path that will replace the './' string in URLs.
+	 */
+	static public var root : String = "";
+	
+	/**
+	 * Loads a string from the informed URL.
+	 * @param	p_url
+	 * @param	p_callback
+	 */
+	static public function Load(p_url:String, p_callback : String->Float->Void):Void
+	{
+		//var ld : LoadDataTask<String> = new LoadDataTask<String>(p_url,false,p_callback);		
+	}
+	
+	
+}

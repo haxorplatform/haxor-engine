@@ -2,7 +2,9 @@ package haxor.io;
 import haxor.platform.Types.ArrayBuffer;
 
 
+
 #if html
+import js.html.Uint8ClampedArray;
 import js.html.Uint8Array;
 #end
 
@@ -14,6 +16,7 @@ import haxe.io.Bytes;
  * Class that manages information as raw bytes.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
+@:allow(haxor)
 class Buffer
 {
 
@@ -56,7 +59,7 @@ class Buffer
 		var len : Int = m_length * bytesPerElement;
 		
 		#if html		
-		m_buffer = new Uint8Array(len);
+		m_buffer = new Uint8ClampedArray(len);
 		#end
 		
 		#if windows

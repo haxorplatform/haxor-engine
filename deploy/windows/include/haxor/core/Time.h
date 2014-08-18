@@ -35,6 +35,8 @@ class HXCPP_CLASS_ATTRIBUTES  Time_obj : public hx::Object{
 		static Dynamic get_clock_dyn();
 
 		static Float m_clock;
+		static Float m_clock_dt;
+		static Float m_clock_0;
 		static Float delta;
 		static Float get_delta( );
 		static Dynamic get_delta_dyn();

@@ -18,7 +18,7 @@ public  class Type extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__Type(haxe.root.Type __temp_me27874)
+	public static   void __hx_ctor__Type(haxe.root.Type __temp_me33795)
 	{
 		{
 		}
@@ -73,16 +73,16 @@ public  class Type extends haxe.lang.HxObject
 		}
 		
 		{
-			java.lang.String __temp_svar27989 = (name);
-			int __temp_hash27991 = __temp_svar27989.hashCode();
-			boolean __temp_executeDef27990 = true;
-			switch (__temp_hash27991)
+			java.lang.String __temp_svar33922 = (name);
+			int __temp_hash33924 = __temp_svar33922.hashCode();
+			boolean __temp_executeDef33923 = true;
+			switch (__temp_hash33924)
 			{
 				case -672261858:case 104431:
 				{
-					if (( (( ( __temp_hash27991 == -672261858 ) && __temp_svar27989.equals("Integer") )) || __temp_svar27989.equals("int") )) 
+					if (( (( ( __temp_hash33924 == -672261858 ) && __temp_svar33922.equals("Integer") )) || __temp_svar33922.equals("int") )) 
 					{
-						__temp_executeDef27990 = false;
+						__temp_executeDef33923 = false;
 						return "Int";
 					}
 					
@@ -92,9 +92,9 @@ public  class Type extends haxe.lang.HxObject
 				
 				case -1939501217:
 				{
-					if (__temp_svar27989.equals("Object")) 
+					if (__temp_svar33922.equals("Object")) 
 					{
-						__temp_executeDef27990 = false;
+						__temp_executeDef33923 = false;
 						return "Dynamic";
 					}
 					
@@ -104,9 +104,9 @@ public  class Type extends haxe.lang.HxObject
 				
 				case 2052876273:case -1325958191:
 				{
-					if (( (( ( __temp_hash27991 == 2052876273 ) && __temp_svar27989.equals("Double") )) || __temp_svar27989.equals("double") )) 
+					if (( (( ( __temp_hash33924 == 2052876273 ) && __temp_svar33922.equals("Double") )) || __temp_svar33922.equals("double") )) 
 					{
-						__temp_executeDef27990 = false;
+						__temp_executeDef33923 = false;
 						return "Float";
 					}
 					
@@ -116,7 +116,7 @@ public  class Type extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef27990) 
+			if (__temp_executeDef33923) 
 			{
 				return name;
 			}

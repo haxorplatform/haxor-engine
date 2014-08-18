@@ -103,7 +103,7 @@ class Entry
 		
 		GL.Initialize(m_application);
 		GL.m_gl.Initialize(app_container_id);
-		
+		GL.m_gl.CheckExtensions();
 		
 		if (Browser.window.requestAnimationFrame != null)
 		{

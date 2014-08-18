@@ -276,3 +276,103 @@ class BufferPrimitive
 	 */
 	static public inline var F64 : Int = 7;
 }
+
+/**
+ * Enumeration that describes the channel format of the Bitmap/Texture.
+ */
+enum PixelFormat
+{
+	Alpha8;
+	Luminance;	
+	RGB8;
+	RGBA8;	
+	Half;
+	Half3;
+	Half4;
+	Float;
+	Float3;
+	Float4;
+	Depth;
+	//RGBA16;
+	//RGBA == L
+	//Alpha16;
+}
+
+
+/**
+ * Texture Filtering enumeration.
+ */
+enum TextureFilter
+{            
+	/**
+	 * Nearest pixel.
+	 */
+	Nearest; 		
+	/**
+	 * Bilinear interpolation.
+	 */
+	Linear; 				 
+	/**
+	 * Nearest downsample with nearest upsample in the mipmap.
+	 */
+	NearestMipmapNearest;
+	/**
+	 * Nearest downsample with linear upsample in the mipmap.
+	 */
+	NearestMipmapLinear;             
+	/**
+	 * Linear downsample with nearest upsample in the mipmap.
+	 */
+	LinearMipmapNearest;             
+	/**
+	 * Linear downsample with linear upsample in the mipmap.
+	 */
+	LinearMipmapLinear;               
+	/**
+	 * Linear downsample with linear upsample in the mipmap.
+	 */
+	Trilinear; 			 	
+}
+
+/**
+ * Wrapping mode bits of the texture. More than one can be combined.
+ */
+class TextureWrap
+{   
+	
+	/**
+	 * Clamp U coordinate.
+	 */
+	static public var ClampX  = 1;
+	/**
+	 * Repeat U coordinate.
+	 */
+	static public var RepeatX = 2;            
+	/**
+	 * Clamp V coordinate.
+	 */
+	static public var ClampY  = 4;           
+	/**
+	 * Repeat V coordinate.
+	 */
+	static public var RepeatY = 8;
+	/**
+	 * Clamp W coordinate. (TBD)
+	 */
+	static public var ClampZ  = 16;          
+	/**
+	 * Repeat W coordinate. (TBD)
+	 */
+	static public var RepeatZ = 32;
+}
+
+/**
+ * Flag that indicates which type of texture the instanced class represents.
+ */
+enum TextureType
+{
+	None;
+	Texture2D;
+	TextureCube;
+	RenderTexture;	
+}

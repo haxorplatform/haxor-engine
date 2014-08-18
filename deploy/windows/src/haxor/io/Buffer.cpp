@@ -11,19 +11,19 @@ namespace io{
 
 Void Buffer_obj::__construct(int p_length)
 {
-HX_STACK_FRAME("haxor.io.Buffer","new",0xda1b4a6e,"haxor.io.Buffer.new","haxor/io/Buffer.hx",54,0x07055222)
+HX_STACK_FRAME("haxor.io.Buffer","new",0xda1b4a6e,"haxor.io.Buffer.new","haxor/io/Buffer.hx",57,0x07055222)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_length,"p_length")
 {
-	HX_STACK_LINE(55)
+	HX_STACK_LINE(58)
 	this->m_length = p_length;
-	HX_STACK_LINE(56)
+	HX_STACK_LINE(59)
 	int _g = this->get_bytesPerElement();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(56)
+	HX_STACK_LINE(59)
 	int len = (this->m_length * _g);		HX_STACK_VAR(len,"len");
-	HX_STACK_LINE(63)
+	HX_STACK_LINE(66)
 	::haxe::io::Bytes _g1 = ::haxe::io::Bytes_obj::alloc(len);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(63)
+	HX_STACK_LINE(66)
 	this->m_buffer = _g1;
 }
 ;
@@ -44,9 +44,9 @@ Dynamic Buffer_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxe::io::Bytes Buffer_obj::get_buffer( ){
-	HX_STACK_FRAME("haxor.io.Buffer","get_buffer",0xe95a307b,"haxor.io.Buffer.get_buffer","haxor/io/Buffer.hx",24,0x07055222)
+	HX_STACK_FRAME("haxor.io.Buffer","get_buffer",0xe95a307b,"haxor.io.Buffer.get_buffer","haxor/io/Buffer.hx",27,0x07055222)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(24)
+	HX_STACK_LINE(27)
 	return this->m_buffer;
 }
 
@@ -54,11 +54,11 @@ Dynamic Buffer_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(Buffer_obj,get_buffer,return )
 
 int Buffer_obj::get_byteLength( ){
-	HX_STACK_FRAME("haxor.io.Buffer","get_byteLength",0xbd506b09,"haxor.io.Buffer.get_byteLength","haxor/io/Buffer.hx",31,0x07055222)
+	HX_STACK_FRAME("haxor.io.Buffer","get_byteLength",0xbd506b09,"haxor.io.Buffer.get_byteLength","haxor/io/Buffer.hx",34,0x07055222)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(31)
+	HX_STACK_LINE(34)
 	int _g = this->get_bytesPerElement();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(31)
+	HX_STACK_LINE(34)
 	return (this->m_length * _g);
 }
 
@@ -66,9 +66,9 @@ int Buffer_obj::get_byteLength( ){
 HX_DEFINE_DYNAMIC_FUNC0(Buffer_obj,get_byteLength,return )
 
 int Buffer_obj::get_bytesPerElement( ){
-	HX_STACK_FRAME("haxor.io.Buffer","get_bytesPerElement",0x16c52ccf,"haxor.io.Buffer.get_bytesPerElement","haxor/io/Buffer.hx",37,0x07055222)
+	HX_STACK_FRAME("haxor.io.Buffer","get_bytesPerElement",0x16c52ccf,"haxor.io.Buffer.get_bytesPerElement","haxor/io/Buffer.hx",40,0x07055222)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(37)
+	HX_STACK_LINE(40)
 	return (int)1;
 }
 
@@ -76,9 +76,9 @@ int Buffer_obj::get_bytesPerElement( ){
 HX_DEFINE_DYNAMIC_FUNC0(Buffer_obj,get_bytesPerElement,return )
 
 int Buffer_obj::get_length( ){
-	HX_STACK_FRAME("haxor.io.Buffer","get_length",0xb7cd0861,"haxor.io.Buffer.get_length","haxor/io/Buffer.hx",44,0x07055222)
+	HX_STACK_FRAME("haxor.io.Buffer","get_length",0xb7cd0861,"haxor.io.Buffer.get_length","haxor/io/Buffer.hx",47,0x07055222)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(44)
+	HX_STACK_LINE(47)
 	return this->m_length;
 }
 
@@ -86,12 +86,12 @@ int Buffer_obj::get_length( ){
 HX_DEFINE_DYNAMIC_FUNC0(Buffer_obj,get_length,return )
 
 int Buffer_obj::GetByte( int p_index){
-	HX_STACK_FRAME("haxor.io.Buffer","GetByte",0x9c9f8fac,"haxor.io.Buffer.GetByte","haxor/io/Buffer.hx",78,0x07055222)
+	HX_STACK_FRAME("haxor.io.Buffer","GetByte",0x9c9f8fac,"haxor.io.Buffer.GetByte","haxor/io/Buffer.hx",81,0x07055222)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_index,"p_index")
-	HX_STACK_LINE(84)
+	HX_STACK_LINE(87)
 	return this->m_buffer->b->__get(p_index);
-	HX_STACK_LINE(91)
+	HX_STACK_LINE(94)
 	return (int)0;
 }
 
@@ -100,11 +100,11 @@ HX_DEFINE_DYNAMIC_FUNC1(Buffer_obj,GetByte,return )
 
 Void Buffer_obj::SetByte( int p_index,int p_value){
 {
-		HX_STACK_FRAME("haxor.io.Buffer","SetByte",0x8fa120b8,"haxor.io.Buffer.SetByte","haxor/io/Buffer.hx",106,0x07055222)
+		HX_STACK_FRAME("haxor.io.Buffer","SetByte",0x8fa120b8,"haxor.io.Buffer.SetByte","haxor/io/Buffer.hx",109,0x07055222)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_index,"p_index")
 		HX_STACK_ARG(p_value,"p_value")
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(109)
 		this->m_buffer->b[p_index] = p_value;
 	}
 return null();

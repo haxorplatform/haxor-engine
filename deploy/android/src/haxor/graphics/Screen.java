@@ -18,7 +18,7 @@ public  class Screen extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_Screen(haxor.graphics.Screen __temp_me27902)
+	public static   void __hx_ctor_haxor_graphics_Screen(haxor.graphics.Screen __temp_me33825)
 	{
 		{
 		}
@@ -95,8 +95,9 @@ public  class Screen extends haxe.lang.HxObject
 	
 	public static  haxor.core.BaseApplication m_application;
 	
-	public static   void Initialize()
+	public static   void Initialize(haxor.core.BaseApplication p_application)
 	{
+		haxor.graphics.Screen.m_application = p_application;
 		haxor.graphics.Screen.m_width = ((double) (0) );
 		haxor.graphics.Screen.m_height = ((double) (0) );
 		haxor.graphics.Screen.m_fullscreen = false;

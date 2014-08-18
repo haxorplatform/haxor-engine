@@ -61,7 +61,7 @@ class HXCPP_CLASS_ATTRIBUTES  Screen_obj : public hx::Object{
 
 		static ::haxor::graphics::CursorMode m_cursor;
 		static ::haxor::core::BaseApplication m_application;
-		static Void Initialize( );
+		static Void Initialize( ::haxor::core::BaseApplication p_application);
 		static Dynamic Initialize_dyn();
 
 };

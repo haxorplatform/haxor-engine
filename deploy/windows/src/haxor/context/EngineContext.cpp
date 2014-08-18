@@ -15,6 +15,9 @@
 #ifndef INCLUDED_haxor_context_Process
 #include <haxor/context/Process.h>
 #endif
+#ifndef INCLUDED_haxor_context_TextureContext
+#include <haxor/context/TextureContext.h>
+#endif
 #ifndef INCLUDED_haxor_core_Console
 #include <haxor/core/Console.h>
 #endif
@@ -61,47 +64,53 @@ int EngineContext_obj::collectRate;
 
 ::haxor::context::Process EngineContext_obj::disposables;
 
+Array< ::Dynamic > EngineContext_obj::list;
+
 ::haxor::context::MeshContext EngineContext_obj::mesh;
 
 ::haxor::context::MaterialContext EngineContext_obj::material;
 
-Array< ::Dynamic > EngineContext_obj::list;
+::haxor::context::TextureContext EngineContext_obj::texture;
 
 Void EngineContext_obj::Initialize( ){
 {
-		HX_STACK_FRAME("haxor.context.EngineContext","Initialize",0x8336921c,"haxor.context.EngineContext.Initialize","haxor/context/EngineContext.hx",77,0x2d4338be)
-		HX_STACK_LINE(79)
-		::haxor::core::Console_obj::Log(HX_CSTRING("Haxor> Engine Context Initialize."),(int)3);
-		HX_STACK_LINE(80)
-		::haxor::context::Process _g = ::haxor::context::Process_obj::__new(HX_CSTRING("process.update"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(80)
-		::haxor::context::EngineContext_obj::update = _g;
-		HX_STACK_LINE(81)
-		::haxor::context::Process _g1 = ::haxor::context::Process_obj::__new(HX_CSTRING("process.render"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(81)
-		::haxor::context::EngineContext_obj::render = _g1;
-		HX_STACK_LINE(82)
-		::haxor::context::Process _g2 = ::haxor::context::Process_obj::__new(HX_CSTRING("process.resize"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(82)
-		::haxor::context::EngineContext_obj::resize = _g2;
-		HX_STACK_LINE(83)
-		::haxor::context::Process _g3 = ::haxor::context::Process_obj::__new(HX_CSTRING("process.resources"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(83)
-		::haxor::context::EngineContext_obj::resources = _g3;
-		HX_STACK_LINE(84)
-		::haxor::context::Process _g4 = ::haxor::context::Process_obj::__new(HX_CSTRING("process.disposables"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g4,"_g4");
-		HX_STACK_LINE(84)
-		::haxor::context::EngineContext_obj::disposables = _g4;
+		HX_STACK_FRAME("haxor.context.EngineContext","Initialize",0x8336921c,"haxor.context.EngineContext.Initialize","haxor/context/EngineContext.hx",84,0x2d4338be)
 		HX_STACK_LINE(86)
+		::haxor::core::Console_obj::Log(HX_CSTRING("Haxor> Engine Context Initialize."),(int)3);
+		HX_STACK_LINE(87)
+		::haxor::context::Process _g = ::haxor::context::Process_obj::__new(HX_CSTRING("process.update"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(87)
+		::haxor::context::EngineContext_obj::update = _g;
+		HX_STACK_LINE(88)
+		::haxor::context::Process _g1 = ::haxor::context::Process_obj::__new(HX_CSTRING("process.render"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g1,"_g1");
+		HX_STACK_LINE(88)
+		::haxor::context::EngineContext_obj::render = _g1;
+		HX_STACK_LINE(89)
+		::haxor::context::Process _g2 = ::haxor::context::Process_obj::__new(HX_CSTRING("process.resize"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g2,"_g2");
+		HX_STACK_LINE(89)
+		::haxor::context::EngineContext_obj::resize = _g2;
+		HX_STACK_LINE(90)
+		::haxor::context::Process _g3 = ::haxor::context::Process_obj::__new(HX_CSTRING("process.resources"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g3,"_g3");
+		HX_STACK_LINE(90)
+		::haxor::context::EngineContext_obj::resources = _g3;
+		HX_STACK_LINE(91)
+		::haxor::context::Process _g4 = ::haxor::context::Process_obj::__new(HX_CSTRING("process.disposables"),::haxor::context::EngineContext_obj::maxNodes);		HX_STACK_VAR(_g4,"_g4");
+		HX_STACK_LINE(91)
+		::haxor::context::EngineContext_obj::disposables = _g4;
+		HX_STACK_LINE(93)
 		::haxor::context::EngineContext_obj::list = Array_obj< ::Dynamic >::__new().Add(::haxor::context::EngineContext_obj::update).Add(::haxor::context::EngineContext_obj::render).Add(::haxor::context::EngineContext_obj::resize).Add(::haxor::context::EngineContext_obj::resources).Add(::haxor::context::EngineContext_obj::disposables);
-		HX_STACK_LINE(88)
+		HX_STACK_LINE(95)
 		::haxor::context::MeshContext _g5 = ::haxor::context::MeshContext_obj::__new();		HX_STACK_VAR(_g5,"_g5");
-		HX_STACK_LINE(88)
+		HX_STACK_LINE(95)
 		::haxor::context::EngineContext_obj::mesh = _g5;
-		HX_STACK_LINE(89)
+		HX_STACK_LINE(96)
 		::haxor::context::MaterialContext _g6 = ::haxor::context::MaterialContext_obj::__new();		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(89)
+		HX_STACK_LINE(96)
 		::haxor::context::EngineContext_obj::material = _g6;
+		HX_STACK_LINE(97)
+		::haxor::context::TextureContext _g7 = ::haxor::context::TextureContext_obj::__new();		HX_STACK_VAR(_g7,"_g7");
+		HX_STACK_LINE(97)
+		::haxor::context::EngineContext_obj::texture = _g7;
 	}
 return null();
 }
@@ -111,11 +120,13 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(EngineContext_obj,Initialize,(void))
 
 Void EngineContext_obj::Build( ){
 {
-		HX_STACK_FRAME("haxor.context.EngineContext","Build",0x61432de2,"haxor.context.EngineContext.Build","haxor/context/EngineContext.hx",96,0x2d4338be)
-		HX_STACK_LINE(97)
+		HX_STACK_FRAME("haxor.context.EngineContext","Build",0x61432de2,"haxor.context.EngineContext.Build","haxor/context/EngineContext.hx",104,0x2d4338be)
+		HX_STACK_LINE(105)
 		::haxor::context::EngineContext_obj::mesh->Initialize();
-		HX_STACK_LINE(98)
+		HX_STACK_LINE(106)
 		::haxor::context::EngineContext_obj::material->Initialize();
+		HX_STACK_LINE(107)
+		::haxor::context::EngineContext_obj::texture->Initialize();
 	}
 return null();
 }
@@ -125,35 +136,35 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(EngineContext_obj,Build,(void))
 
 Void EngineContext_obj::Destroy( ::haxor::core::Resource p_resource){
 {
-		HX_STACK_FRAME("haxor.context.EngineContext","Destroy",0x4f9f94ae,"haxor.context.EngineContext.Destroy","haxor/context/EngineContext.hx",106,0x2d4338be)
+		HX_STACK_FRAME("haxor.context.EngineContext","Destroy",0x4f9f94ae,"haxor.context.EngineContext.Destroy","haxor/context/EngineContext.hx",115,0x2d4338be)
 		HX_STACK_ARG(p_resource,"p_resource")
-		HX_STACK_LINE(107)
+		HX_STACK_LINE(116)
 		if ((p_resource->m_destroyed)){
-			HX_STACK_LINE(107)
+			HX_STACK_LINE(116)
 			return null();
 		}
-		HX_STACK_LINE(108)
+		HX_STACK_LINE(117)
 		p_resource->m_destroyed = true;
-		HX_STACK_LINE(109)
+		HX_STACK_LINE(118)
 		{
-			HX_STACK_LINE(109)
+			HX_STACK_LINE(118)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(109)
+			HX_STACK_LINE(118)
 			int _g = ::haxor::context::EngineContext_obj::list->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(109)
+			HX_STACK_LINE(118)
 			while((true)){
-				HX_STACK_LINE(109)
+				HX_STACK_LINE(118)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(109)
+					HX_STACK_LINE(118)
 					break;
 				}
-				HX_STACK_LINE(109)
+				HX_STACK_LINE(118)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(109)
+				HX_STACK_LINE(118)
 				::haxor::context::EngineContext_obj::list->__get(i).StaticCast< ::haxor::context::BaseProcess >()->Remove(p_resource);
 			}
 		}
-		HX_STACK_LINE(110)
+		HX_STACK_LINE(119)
 		::haxor::context::EngineContext_obj::disposables->Add(p_resource);
 	}
 return null();
@@ -174,8 +185,8 @@ Dynamic EngineContext_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"uid") ) { return uid; }
 		break;
 	case 4:
-		if (HX_FIELD_EQ(inName,"mesh") ) { return mesh; }
 		if (HX_FIELD_EQ(inName,"list") ) { return list; }
+		if (HX_FIELD_EQ(inName,"mesh") ) { return mesh; }
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"Build") ) { return Build_dyn(); }
@@ -186,6 +197,7 @@ Dynamic EngineContext_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"render") ) { return render; }
 		break;
 	case 7:
+		if (HX_FIELD_EQ(inName,"texture") ) { return texture; }
 		if (HX_FIELD_EQ(inName,"Destroy") ) { return Destroy_dyn(); }
 		break;
 	case 8:
@@ -212,13 +224,16 @@ Dynamic EngineContext_obj::__SetField(const ::String &inName,const Dynamic &inVa
 		if (HX_FIELD_EQ(inName,"uid") ) { uid=inValue.Cast< int >(); return inValue; }
 		break;
 	case 4:
-		if (HX_FIELD_EQ(inName,"mesh") ) { mesh=inValue.Cast< ::haxor::context::MeshContext >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"list") ) { list=inValue.Cast< Array< ::Dynamic > >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"mesh") ) { mesh=inValue.Cast< ::haxor::context::MeshContext >(); return inValue; }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"update") ) { update=inValue.Cast< ::haxor::context::Process >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"resize") ) { resize=inValue.Cast< ::haxor::context::Process >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"render") ) { render=inValue.Cast< ::haxor::context::Process >(); return inValue; }
+		break;
+	case 7:
+		if (HX_FIELD_EQ(inName,"texture") ) { texture=inValue.Cast< ::haxor::context::TextureContext >(); return inValue; }
 		break;
 	case 8:
 		if (HX_FIELD_EQ(inName,"maxNodes") ) { maxNodes=inValue.Cast< int >(); return inValue; }
@@ -248,9 +263,10 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("render"),
 	HX_CSTRING("resources"),
 	HX_CSTRING("disposables"),
+	HX_CSTRING("list"),
 	HX_CSTRING("mesh"),
 	HX_CSTRING("material"),
-	HX_CSTRING("list"),
+	HX_CSTRING("texture"),
 	HX_CSTRING("Initialize"),
 	HX_CSTRING("Build"),
 	HX_CSTRING("Destroy"),
@@ -273,9 +289,10 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(EngineContext_obj::render,"render");
 	HX_MARK_MEMBER_NAME(EngineContext_obj::resources,"resources");
 	HX_MARK_MEMBER_NAME(EngineContext_obj::disposables,"disposables");
+	HX_MARK_MEMBER_NAME(EngineContext_obj::list,"list");
 	HX_MARK_MEMBER_NAME(EngineContext_obj::mesh,"mesh");
 	HX_MARK_MEMBER_NAME(EngineContext_obj::material,"material");
-	HX_MARK_MEMBER_NAME(EngineContext_obj::list,"list");
+	HX_MARK_MEMBER_NAME(EngineContext_obj::texture,"texture");
 };
 
 #ifdef HXCPP_VISIT_ALLOCS
@@ -289,9 +306,10 @@ static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(EngineContext_obj::render,"render");
 	HX_VISIT_MEMBER_NAME(EngineContext_obj::resources,"resources");
 	HX_VISIT_MEMBER_NAME(EngineContext_obj::disposables,"disposables");
+	HX_VISIT_MEMBER_NAME(EngineContext_obj::list,"list");
 	HX_VISIT_MEMBER_NAME(EngineContext_obj::mesh,"mesh");
 	HX_VISIT_MEMBER_NAME(EngineContext_obj::material,"material");
-	HX_VISIT_MEMBER_NAME(EngineContext_obj::list,"list");
+	HX_VISIT_MEMBER_NAME(EngineContext_obj::texture,"texture");
 };
 
 #endif

@@ -56,29 +56,27 @@ namespace core{
 
 Void BaseApplication_obj::__construct()
 {
-HX_STACK_FRAME("haxor.core.BaseApplication","new",0xbadb0a2e,"haxor.core.BaseApplication.new","haxor/core/BaseApplication.hx",147,0x69cdc962)
+HX_STACK_FRAME("haxor.core.BaseApplication","new",0xbadb0a2e,"haxor.core.BaseApplication.new","haxor/core/BaseApplication.hx",157,0x69cdc962)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(148)
-	super::__construct();
-	HX_STACK_LINE(149)
-	::haxor::core::BaseApplication_obj::m_instance = hx::ObjectPtr<OBJ_>(this);
-	HX_STACK_LINE(150)
-	this->m_scenes = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(151)
-	this->set_fps((int)60);
-	HX_STACK_LINE(152)
-	this->m_frame_ms = 0.0;
-	HX_STACK_LINE(153)
-	this->m_init_allowed = false;
-	HX_STACK_LINE(154)
-	this->m_platform = ::haxor::core::Platform_obj::Unknown;
-	HX_STACK_LINE(156)
-	::haxor::core::Time_obj::Initialize();
-	HX_STACK_LINE(157)
-	::haxor::graphics::Screen_obj::m_application = hx::ObjectPtr<OBJ_>(this);
 	HX_STACK_LINE(158)
-	::haxor::graphics::Screen_obj::Initialize();
+	super::__construct();
+	HX_STACK_LINE(159)
+	::haxor::core::BaseApplication_obj::m_instance = hx::ObjectPtr<OBJ_>(this);
+	HX_STACK_LINE(160)
+	this->m_scenes = Array_obj< ::Dynamic >::__new();
+	HX_STACK_LINE(161)
+	this->set_fps((int)60);
+	HX_STACK_LINE(162)
+	this->m_frame_ms = 0.0;
+	HX_STACK_LINE(163)
+	this->m_init_allowed = false;
+	HX_STACK_LINE(164)
+	this->m_platform = ::haxor::core::Platform_obj::Unknown;
+	HX_STACK_LINE(166)
+	::haxor::core::Time_obj::Initialize();
+	HX_STACK_LINE(167)
+	::haxor::graphics::Screen_obj::Initialize(hx::ObjectPtr<OBJ_>(this));
 }
 ;
 	return null();
@@ -140,9 +138,9 @@ int BaseApplication_obj::set_fps( int v){
 	this->m_fps = v;
 	HX_STACK_LINE(102)
 	Float f = v;		HX_STACK_VAR(f,"f");
-	HX_STACK_LINE(109)
+	HX_STACK_LINE(117)
 	this->m_mspf = ((Float(1.0) / Float(f)) * 1000.0);
-	HX_STACK_LINE(110)
+	HX_STACK_LINE(118)
 	return v;
 }
 
@@ -150,9 +148,9 @@ int BaseApplication_obj::set_fps( int v){
 HX_DEFINE_DYNAMIC_FUNC1(BaseApplication_obj,set_fps,return )
 
 ::haxor::core::Platform BaseApplication_obj::get_platform( ){
-	HX_STACK_FRAME("haxor.core.BaseApplication","get_platform",0xaa49832e,"haxor.core.BaseApplication.get_platform","haxor/core/BaseApplication.hx",129,0x69cdc962)
+	HX_STACK_FRAME("haxor.core.BaseApplication","get_platform",0xaa49832e,"haxor.core.BaseApplication.get_platform","haxor/core/BaseApplication.hx",139,0x69cdc962)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(129)
+	HX_STACK_LINE(139)
 	return this->m_platform;
 }
 
@@ -161,7 +159,7 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,get_platform,return )
 
 Void BaseApplication_obj::LoadScene( ::String p_name){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","LoadScene",0xcd598d74,"haxor.core.BaseApplication.LoadScene","haxor/core/BaseApplication.hx",167,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","LoadScene",0xcd598d74,"haxor.core.BaseApplication.LoadScene","haxor/core/BaseApplication.hx",176,0x69cdc962)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_name,"p_name")
 	}
@@ -173,7 +171,7 @@ HX_DEFINE_DYNAMIC_FUNC1(BaseApplication_obj,LoadScene,(void))
 
 Void BaseApplication_obj::DestroyScene( ::String p_name){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","DestroyScene",0xc01a3a84,"haxor.core.BaseApplication.DestroyScene","haxor/core/BaseApplication.hx",176,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","DestroyScene",0xc01a3a84,"haxor.core.BaseApplication.DestroyScene","haxor/core/BaseApplication.hx",185,0x69cdc962)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_name,"p_name")
 	}
@@ -184,9 +182,9 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC1(BaseApplication_obj,DestroyScene,(void))
 
 bool BaseApplication_obj::Load( ){
-	HX_STACK_FRAME("haxor.core.BaseApplication","Load",0xae5c20b8,"haxor.core.BaseApplication.Load","haxor/core/BaseApplication.hx",184,0x69cdc962)
+	HX_STACK_FRAME("haxor.core.BaseApplication","Load",0xae5c20b8,"haxor.core.BaseApplication.Load","haxor/core/BaseApplication.hx",193,0x69cdc962)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(184)
+	HX_STACK_LINE(193)
 	return true;
 }
 
@@ -195,7 +193,7 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,Load,return )
 
 Void BaseApplication_obj::Initialize( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","Initialize",0xd9c5f162,"haxor.core.BaseApplication.Initialize","haxor/core/BaseApplication.hx",192,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","Initialize",0xd9c5f162,"haxor.core.BaseApplication.Initialize","haxor/core/BaseApplication.hx",201,0x69cdc962)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -206,9 +204,9 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,Initialize,(void))
 
 Void BaseApplication_obj::LoadComplete( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","LoadComplete",0x8e795591,"haxor.core.BaseApplication.LoadComplete","haxor/core/BaseApplication.hx",200,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","LoadComplete",0x8e795591,"haxor.core.BaseApplication.LoadComplete","haxor/core/BaseApplication.hx",209,0x69cdc962)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(200)
+		HX_STACK_LINE(209)
 		this->m_init_allowed = true;
 	}
 return null();
@@ -219,15 +217,15 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,LoadComplete,(void))
 
 Void BaseApplication_obj::Update( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","Update",0x44c6551b,"haxor.core.BaseApplication.Update","haxor/core/BaseApplication.hx",207,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","Update",0x44c6551b,"haxor.core.BaseApplication.Update","haxor/core/BaseApplication.hx",216,0x69cdc962)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(208)
+		HX_STACK_LINE(217)
 		::haxor::core::Time_obj::Update();
-		HX_STACK_LINE(209)
+		HX_STACK_LINE(218)
 		this->CheckResize();
-		HX_STACK_LINE(210)
+		HX_STACK_LINE(219)
 		::haxor::core::Engine_obj::Update();
-		HX_STACK_LINE(211)
+		HX_STACK_LINE(220)
 		::haxor::core::Engine_obj::Collect();
 	}
 return null();
@@ -238,28 +236,28 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,Update,(void))
 
 Void BaseApplication_obj::Render( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","Render",0xc2ea3a68,"haxor.core.BaseApplication.Render","haxor/core/BaseApplication.hx",218,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","Render",0xc2ea3a68,"haxor.core.BaseApplication.Render","haxor/core/BaseApplication.hx",228,0x69cdc962)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(219)
+		HX_STACK_LINE(229)
 		if ((this->m_init_allowed)){
-			HX_STACK_LINE(221)
+			HX_STACK_LINE(231)
 			::haxor::core::Console_obj::Log(HX_CSTRING("Application> Initialize."),(int)3);
-			HX_STACK_LINE(222)
+			HX_STACK_LINE(232)
 			this->Initialize();
-			HX_STACK_LINE(223)
+			HX_STACK_LINE(233)
 			this->m_init_allowed = false;
 		}
-		HX_STACK_LINE(226)
+		HX_STACK_LINE(236)
 		if ((((::haxor::core::Time_obj::m_clock - this->m_frame_ms) >= this->m_mspf))){
-			HX_STACK_LINE(228)
-			this->m_frame_ms = ::haxor::core::Time_obj::m_clock;
-			HX_STACK_LINE(229)
+			HX_STACK_LINE(238)
+			hx::AddEq(this->m_frame_ms,(::haxor::core::Time_obj::m_clock - this->m_frame_ms));
+			HX_STACK_LINE(239)
 			::haxor::core::Time_obj::Render();
-			HX_STACK_LINE(230)
+			HX_STACK_LINE(240)
 			::haxor::platform::graphics::GL_obj::m_gl->Focus();
-			HX_STACK_LINE(231)
+			HX_STACK_LINE(241)
 			::haxor::core::Engine_obj::Render();
-			HX_STACK_LINE(232)
+			HX_STACK_LINE(242)
 			::haxor::platform::graphics::GL_obj::m_gl->Flush();
 		}
 	}
@@ -271,7 +269,7 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,Render,(void))
 
 Void BaseApplication_obj::OnQuit( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","OnQuit",0xab5517a0,"haxor.core.BaseApplication.OnQuit","haxor/core/BaseApplication.hx",239,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","OnQuit",0xab5517a0,"haxor.core.BaseApplication.OnQuit","haxor/core/BaseApplication.hx",250,0x69cdc962)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -282,7 +280,7 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,OnQuit,(void))
 
 Void BaseApplication_obj::OnFocus( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","OnFocus",0xe5bb5ee7,"haxor.core.BaseApplication.OnFocus","haxor/core/BaseApplication.hx",244,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","OnFocus",0xe5bb5ee7,"haxor.core.BaseApplication.OnFocus","haxor/core/BaseApplication.hx",255,0x69cdc962)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -293,7 +291,7 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,OnFocus,(void))
 
 Void BaseApplication_obj::OnUnfocus( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","OnUnfocus",0x121577ae,"haxor.core.BaseApplication.OnUnfocus","haxor/core/BaseApplication.hx",249,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","OnUnfocus",0x121577ae,"haxor.core.BaseApplication.OnUnfocus","haxor/core/BaseApplication.hx",260,0x69cdc962)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -304,43 +302,43 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,OnUnfocus,(void))
 
 Void BaseApplication_obj::CheckResize( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","CheckResize",0x66ea7c8a,"haxor.core.BaseApplication.CheckResize","haxor/core/BaseApplication.hx",255,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","CheckResize",0x66ea7c8a,"haxor.core.BaseApplication.CheckResize","haxor/core/BaseApplication.hx",266,0x69cdc962)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(256)
+		HX_STACK_LINE(267)
 		bool has_resize = false;		HX_STACK_VAR(has_resize,"has_resize");
-		HX_STACK_LINE(257)
+		HX_STACK_LINE(268)
 		Float _g = this->GetContainerWidth();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(257)
+		HX_STACK_LINE(268)
 		Float _g1 = (::haxor::graphics::Screen_obj::m_width - _g);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(257)
+		HX_STACK_LINE(268)
 		Float _g2 = ::Math_obj::abs(_g1);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(257)
+		HX_STACK_LINE(268)
 		if (((_g2 > 0.0))){
-			HX_STACK_LINE(257)
+			HX_STACK_LINE(268)
 			Float _g3 = this->GetContainerWidth();		HX_STACK_VAR(_g3,"_g3");
-			HX_STACK_LINE(257)
+			HX_STACK_LINE(268)
 			::haxor::graphics::Screen_obj::m_width = _g3;
-			HX_STACK_LINE(257)
+			HX_STACK_LINE(268)
 			has_resize = true;
 		}
-		HX_STACK_LINE(258)
+		HX_STACK_LINE(269)
 		Float _g4 = this->GetContainerHeight();		HX_STACK_VAR(_g4,"_g4");
-		HX_STACK_LINE(258)
+		HX_STACK_LINE(269)
 		Float _g5 = (::haxor::graphics::Screen_obj::m_height - _g4);		HX_STACK_VAR(_g5,"_g5");
-		HX_STACK_LINE(258)
+		HX_STACK_LINE(269)
 		Float _g6 = ::Math_obj::abs(_g5);		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(258)
+		HX_STACK_LINE(269)
 		if (((_g6 > 0.0))){
-			HX_STACK_LINE(258)
+			HX_STACK_LINE(269)
 			Float _g7 = this->GetContainerHeight();		HX_STACK_VAR(_g7,"_g7");
-			HX_STACK_LINE(258)
+			HX_STACK_LINE(269)
 			::haxor::graphics::Screen_obj::m_height = _g7;
-			HX_STACK_LINE(258)
+			HX_STACK_LINE(269)
 			has_resize = true;
 		}
-		HX_STACK_LINE(259)
+		HX_STACK_LINE(270)
 		if ((has_resize)){
-			HX_STACK_LINE(259)
+			HX_STACK_LINE(270)
 			this->OnResize();
 		}
 	}
@@ -352,13 +350,13 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,CheckResize,(void))
 
 Void BaseApplication_obj::OnResize( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","OnResize",0x33088805,"haxor.core.BaseApplication.OnResize","haxor/core/BaseApplication.hx",266,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","OnResize",0x33088805,"haxor.core.BaseApplication.OnResize","haxor/core/BaseApplication.hx",277,0x69cdc962)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(267)
+		HX_STACK_LINE(278)
 		::haxor::core::Console_obj::Log(((((HX_CSTRING("Application> Resize [") + ::haxor::graphics::Screen_obj::m_width) + HX_CSTRING(",")) + ::haxor::graphics::Screen_obj::m_height) + HX_CSTRING("]")),(int)5);
-		HX_STACK_LINE(268)
+		HX_STACK_LINE(279)
 		::haxor::platform::graphics::GL_obj::m_gl->Resize();
-		HX_STACK_LINE(269)
+		HX_STACK_LINE(280)
 		::haxor::core::Engine_obj::Resize();
 	}
 return null();
@@ -369,7 +367,7 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,OnResize,(void))
 
 Void BaseApplication_obj::OnFullscreenEnter( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","OnFullscreenEnter",0x69cab4ac,"haxor.core.BaseApplication.OnFullscreenEnter","haxor/core/BaseApplication.hx",275,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","OnFullscreenEnter",0x69cab4ac,"haxor.core.BaseApplication.OnFullscreenEnter","haxor/core/BaseApplication.hx",286,0x69cdc962)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -380,7 +378,7 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,OnFullscreenEnter,(void))
 
 Void BaseApplication_obj::OnFullscreenExit( ){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","OnFullscreenExit",0xaa67be0a,"haxor.core.BaseApplication.OnFullscreenExit","haxor/core/BaseApplication.hx",280,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","OnFullscreenExit",0xaa67be0a,"haxor.core.BaseApplication.OnFullscreenExit","haxor/core/BaseApplication.hx",291,0x69cdc962)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -390,10 +388,10 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,OnFullscreenExit,(void))
 
 bool BaseApplication_obj::OnFullscreenRequest( bool v){
-	HX_STACK_FRAME("haxor.core.BaseApplication","OnFullscreenRequest",0x4d1933e3,"haxor.core.BaseApplication.OnFullscreenRequest","haxor/core/BaseApplication.hx",286,0x69cdc962)
+	HX_STACK_FRAME("haxor.core.BaseApplication","OnFullscreenRequest",0x4d1933e3,"haxor.core.BaseApplication.OnFullscreenRequest","haxor/core/BaseApplication.hx",297,0x69cdc962)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(286)
+	HX_STACK_LINE(297)
 	return false;
 }
 
@@ -401,10 +399,10 @@ bool BaseApplication_obj::OnFullscreenRequest( bool v){
 HX_DEFINE_DYNAMIC_FUNC1(BaseApplication_obj,OnFullscreenRequest,return )
 
 bool BaseApplication_obj::OnPointerLockRequest( bool v){
-	HX_STACK_FRAME("haxor.core.BaseApplication","OnPointerLockRequest",0x3f05d878,"haxor.core.BaseApplication.OnPointerLockRequest","haxor/core/BaseApplication.hx",292,0x69cdc962)
+	HX_STACK_FRAME("haxor.core.BaseApplication","OnPointerLockRequest",0x3f05d878,"haxor.core.BaseApplication.OnPointerLockRequest","haxor/core/BaseApplication.hx",303,0x69cdc962)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(292)
+	HX_STACK_LINE(303)
 	return false;
 }
 
@@ -412,10 +410,10 @@ bool BaseApplication_obj::OnPointerLockRequest( bool v){
 HX_DEFINE_DYNAMIC_FUNC1(BaseApplication_obj,OnPointerLockRequest,return )
 
 bool BaseApplication_obj::OnPointerVisibilityRequest( bool v){
-	HX_STACK_FRAME("haxor.core.BaseApplication","OnPointerVisibilityRequest",0x706bf871,"haxor.core.BaseApplication.OnPointerVisibilityRequest","haxor/core/BaseApplication.hx",298,0x69cdc962)
+	HX_STACK_FRAME("haxor.core.BaseApplication","OnPointerVisibilityRequest",0x706bf871,"haxor.core.BaseApplication.OnPointerVisibilityRequest","haxor/core/BaseApplication.hx",309,0x69cdc962)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(298)
+	HX_STACK_LINE(309)
 	return false;
 }
 
@@ -424,7 +422,7 @@ HX_DEFINE_DYNAMIC_FUNC1(BaseApplication_obj,OnPointerVisibilityRequest,return )
 
 Void BaseApplication_obj::OnMousePosition( Float p_x,Float p_y){
 {
-		HX_STACK_FRAME("haxor.core.BaseApplication","OnMousePosition",0x27e9c5fd,"haxor.core.BaseApplication.OnMousePosition","haxor/core/BaseApplication.hx",305,0x69cdc962)
+		HX_STACK_FRAME("haxor.core.BaseApplication","OnMousePosition",0x27e9c5fd,"haxor.core.BaseApplication.OnMousePosition","haxor/core/BaseApplication.hx",316,0x69cdc962)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_x,"p_x")
 		HX_STACK_ARG(p_y,"p_y")
@@ -436,9 +434,9 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC2(BaseApplication_obj,OnMousePosition,(void))
 
 Float BaseApplication_obj::GetContainerWidth( ){
-	HX_STACK_FRAME("haxor.core.BaseApplication","GetContainerWidth",0xf173fa69,"haxor.core.BaseApplication.GetContainerWidth","haxor/core/BaseApplication.hx",311,0x69cdc962)
+	HX_STACK_FRAME("haxor.core.BaseApplication","GetContainerWidth",0xf173fa69,"haxor.core.BaseApplication.GetContainerWidth","haxor/core/BaseApplication.hx",322,0x69cdc962)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(311)
+	HX_STACK_LINE(322)
 	return 0.0;
 }
 
@@ -446,9 +444,9 @@ Float BaseApplication_obj::GetContainerWidth( ){
 HX_DEFINE_DYNAMIC_FUNC0(BaseApplication_obj,GetContainerWidth,return )
 
 Float BaseApplication_obj::GetContainerHeight( ){
-	HX_STACK_FRAME("haxor.core.BaseApplication","GetContainerHeight",0x0a569a24,"haxor.core.BaseApplication.GetContainerHeight","haxor/core/BaseApplication.hx",317,0x69cdc962)
+	HX_STACK_FRAME("haxor.core.BaseApplication","GetContainerHeight",0x0a569a24,"haxor.core.BaseApplication.GetContainerHeight","haxor/core/BaseApplication.hx",328,0x69cdc962)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(317)
+	HX_STACK_LINE(328)
 	return 0.0;
 }
 

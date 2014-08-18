@@ -197,14 +197,16 @@ Void Entry_obj::Initialize( ){
 		::haxor::platform::graphics::GL_obj::Initialize(app);
 		HX_STACK_LINE(98)
 		::haxor::platform::graphics::GL_obj::m_gl->Initialize(wnd);
-		HX_STACK_LINE(100)
+		HX_STACK_LINE(99)
+		::haxor::platform::graphics::GL_obj::m_gl->CheckExtensions();
+		HX_STACK_LINE(101)
 		::haxor::context::EngineContext_obj::Build();
-		HX_STACK_LINE(102)
+		HX_STACK_LINE(103)
 		if ((app->Load())){
-			HX_STACK_LINE(102)
+			HX_STACK_LINE(103)
 			app->LoadComplete();
 		}
-		HX_STACK_LINE(104)
+		HX_STACK_LINE(105)
 		wnd->Run();
 	}
 return null();

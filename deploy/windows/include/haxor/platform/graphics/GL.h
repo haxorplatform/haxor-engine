@@ -336,6 +336,16 @@ class HXCPP_CLASS_ATTRIBUTES  GL_obj : public hx::Object{
 		static int VERTEX_SHADER;
 		static int VIEWPORT;
 		static int ZERO;
+		static bool VERTEX_ARRAY_OBJECT;
+		static int HALF_FLOAT;
+		static bool TEXTURE_HALF;
+		static bool TEXTURE_HALF_LINEAR;
+		static int MAX_ANISOTROPY;
+		static bool TEXTURE_ANISOTROPY;
+		static bool TEXTURE_FLOAT;
+		static bool TEXTURE_FLOAT_LINEAR;
+		static bool TEXTURE_DEPTH;
+		static int MAX_ACTIVE_TEXTURE;
 		static int _NULL;
 		static ::haxor::platform::graphics::GraphicAPI get_api( );
 		static Dynamic get_api_dyn();

@@ -111,27 +111,36 @@ class WebGL extends GraphicContext
 		for (i in 0...extensions.length)
 		{
 			if (extensions[i].indexOf("MOZ_") >= 0) continue;
+			if (extensions[i].indexOf("WEBKIT_") >= 0) continue;
 			var ext : Dynamic = c.getExtension(extensions[i]);
 			Console.Log("\t" + extensions[i],1);			
 			switch(extensions[i])
 			{
+				case "OES_vertex_array_object":
+					GL.VERTEX_ARRAY_OBJECT = true;
+					
 				case "OES_texture_half_float":
-					//TextureAPI.HALF_FLOAT_OES = 0x8D61;
+					GL.HALF_FLOAT = 0x8D61;
+					GL.TEXTURE_HALF = true;
 					
 				case "OES_texture_half_float_linear":
-					//TextureAPI.HALF_FLOAT_LINEAR = true;
+					GL.TEXTURE_HALF_LINEAR = true;
 				
 				case "EXT_texture_filter_anisotropic", "WEBKIT_EXT_texture_filter_anisotropic":
-					//TextureAPI.TEXTURE_MAX_ANISOTROPY_EXT = ext.TEXTURE_MAX_ANISOTROPY_EXT;
-					//trace("\t\tMAX_TEXTURE_MAX_ANISOTROPY: " + c.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT));
+					GL.MAX_ANISOTROPY = ext.TEXTURE_MAX_ANISOTROPY_EXT;					
+					GL.TEXTURE_ANISOTROPY = true;
+					Console.Log("\t\tMAX_TEXTURE_MAX_ANISOTROPY: " + c.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT));
 				
 				case "OES_texture_float":
-					//TextureAPI.TEXTURE_FLOAT = true;	
+					GL.TEXTURE_FLOAT = true;	
 				
-				case "WEBGL_depth_texture":
-					//TextureAPI.TEXTURE_DEPTH = true;
-			}					
+				case "OES_depth_texture":
+					GL.TEXTURE_DEPTH = true;
+			}
 		}
+		
+		GL.MAX_ACTIVE_TEXTURE = cast c.getParameter(GL.MAX_TEXTURE_IMAGE_UNITS);
+		Console.Log("\tMax Active Textures: " + GL.MAX_ACTIVE_TEXTURE);
 		
 	}
 	
@@ -185,10 +194,12 @@ class WebGL extends GraphicContext
 	override public /*inline*/ function CullFace(p_face : Int):Void 						{ c.cullFace(p_face); }
 	override public /*inline*/ function FrontFace(p_face : Int):Void 						{ c.frontFace(p_face); }
 	
-	//Clear
+	//Screen
 	override public /*inline*/ function Clear(p_flag : Int):Void 										{ c.clear(p_flag);	}	
 	override public /*inline*/ function ClearDepth(p_value : Float):Void 								{ c.clearDepth(p_value); }	
 	override public /*inline*/ function ClearColor(p_r: Float, p_g:Float, p_b:Float, p_a:Float):Void 	{ c.clearColor(p_r, p_g, p_b, p_a);	}
+	override public /*inline*/ function Viewport(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ c.viewport(p_x, p_y, p_width, p_height); }
+	
 	
 	//Error and Assert
 	override public /*inline*/ function GetErrorCode():Int { return c.getError(); }		

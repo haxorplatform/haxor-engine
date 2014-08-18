@@ -323,6 +323,57 @@ class GL
 	static public inline var VERTEX_SHADER : Int = 0x8B31;
 	static public inline var VIEWPORT : Int = 0x0BA2;
 	static public inline var ZERO : Int = 0;
+
+		
+	/**
+	 * Flag that indicates that the platform supports VAOs.
+	 */
+	static public var VERTEX_ARRAY_OBJECT : Bool = false;
+	
+	/**
+	 * Half Float Extension (if available)
+	 */
+	static public var HALF_FLOAT : Int = GL.FLOAT;
+	
+	/**
+	 * Flag that indicates that the platform supports Texture with half float pixels.
+	 */
+	static public var TEXTURE_HALF : Bool = false;
+	
+	/**
+	 * Flag that indicates if the Half Float texture accepts interpolation.
+	 */
+	static public var TEXTURE_HALF_LINEAR : Bool = false;
+		
+	/**
+	 * Max Aniso Level
+	 */
+	static public var MAX_ANISOTROPY : Int = 1;
+	
+	/**
+	 * Flag that indicates if Texture Anisotropy is available
+	 */
+	static public var TEXTURE_ANISOTROPY : Bool = false;
+		
+	/**
+	 * Flag that indicates that the platform supports Texture with float pixels.
+	 */
+	static public var TEXTURE_FLOAT : Bool = false;
+	
+	/**
+	 * Flag that indicates if the Float texture accepts interpolation.
+	 */
+	static public var TEXTURE_FLOAT_LINEAR : Bool = false;
+	
+	/**
+	 * Flag that indicates if the platform support Depth textures.
+	 */
+	static public var TEXTURE_DEPTH: Bool = false;
+	
+	/**
+	 * Max number of active textures.
+	 */
+	static public var MAX_ACTIVE_TEXTURE : Int = 8;
 	
 	/**
 	 * Invalid Id per platform.
@@ -352,7 +403,6 @@ class GL
 	static function Initialize(p_application : BaseApplication):Void
 	{
 		m_gl = new PlatformGL(p_application);		
-		m_gl.CheckExtensions();		
 	}
 	
 	/**

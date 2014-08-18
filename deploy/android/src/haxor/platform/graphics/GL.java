@@ -301,6 +301,16 @@ public  class GL extends haxe.lang.HxObject
 		haxor.platform.graphics.GL.VERTEX_SHADER = 35633;
 		haxor.platform.graphics.GL.VIEWPORT = 2978;
 		haxor.platform.graphics.GL.ZERO = 0;
+		haxor.platform.graphics.GL.VERTEX_ARRAY_OBJECT = false;
+		haxor.platform.graphics.GL.HALF_FLOAT = 5126;
+		haxor.platform.graphics.GL.TEXTURE_HALF = false;
+		haxor.platform.graphics.GL.TEXTURE_HALF_LINEAR = false;
+		haxor.platform.graphics.GL.MAX_ANISOTROPY = 1;
+		haxor.platform.graphics.GL.TEXTURE_ANISOTROPY = false;
+		haxor.platform.graphics.GL.TEXTURE_FLOAT = false;
+		haxor.platform.graphics.GL.TEXTURE_FLOAT_LINEAR = false;
+		haxor.platform.graphics.GL.TEXTURE_DEPTH = false;
+		haxor.platform.graphics.GL.MAX_ACTIVE_TEXTURE = 8;
 		haxor.platform.graphics.GL.NULL = -1;
 	}
 	public    GL(haxe.lang.EmptyObject empty)
@@ -317,7 +327,7 @@ public  class GL extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_graphics_GL(haxor.platform.graphics.GL __temp_me27923)
+	public static   void __hx_ctor_haxor_platform_graphics_GL(haxor.platform.graphics.GL __temp_me33859)
 	{
 		{
 		}
@@ -915,6 +925,26 @@ public  class GL extends haxe.lang.HxObject
 	
 	public static  int ZERO;
 	
+	public static  boolean VERTEX_ARRAY_OBJECT;
+	
+	public static  int HALF_FLOAT;
+	
+	public static  boolean TEXTURE_HALF;
+	
+	public static  boolean TEXTURE_HALF_LINEAR;
+	
+	public static  int MAX_ANISOTROPY;
+	
+	public static  boolean TEXTURE_ANISOTROPY;
+	
+	public static  boolean TEXTURE_FLOAT;
+	
+	public static  boolean TEXTURE_FLOAT_LINEAR;
+	
+	public static  boolean TEXTURE_DEPTH;
+	
+	public static  int MAX_ACTIVE_TEXTURE;
+	
 	public static  int NULL;
 	
 	
@@ -930,7 +960,6 @@ public  class GL extends haxe.lang.HxObject
 	public static   void Initialize(haxor.core.BaseApplication p_application)
 	{
 		haxor.platform.graphics.GL.m_gl = new haxor.platform.graphics.AndroidGL(((haxor.core.BaseApplication) (p_application) ));
-		haxor.platform.graphics.GL.m_gl.CheckExtensions();
 	}
 	
 	

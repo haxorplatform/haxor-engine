@@ -54,10 +54,18 @@ class Screen
 	}
 	static private var m_cursor:CursorMode;
 	
+	/**
+	 * Reference to the native application.
+	 */
 	static private var m_application : BaseApplication;
 	
-	static function Initialize():Void
+	/**
+	 * Initializes the Screen class to handle screen and pointer functionalities.
+	 * @param	p_application
+	 */
+	static function Initialize(p_application : BaseApplication):Void
 	{
+		m_application   = p_application;
 		m_width  		= 0;
 		m_height 		= 0;
 		m_fullscreen 	= false;

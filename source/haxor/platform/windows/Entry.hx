@@ -96,6 +96,7 @@ class Entry
 		
 		GL.Initialize(app);		
 		GL.m_gl.Initialize(wnd);
+		GL.m_gl.CheckExtensions();
 		
 		EngineContext.Build();
 		

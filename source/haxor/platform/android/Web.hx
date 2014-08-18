@@ -1,6 +1,7 @@
 #if android
 
 package haxor.platform.android;
+import haxor.thread.Task;
 import haxor.io.Buffer;
 import java.StdTypes.Char16;
 import java.StdTypes.Int8;
@@ -20,27 +21,11 @@ import java.io.BufferedReader;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
 import java.lang.StringBuilder;
-/**
- * 
- * @author Eduardo Pons - eduardo@thelaborat.org
- */
-class Web
-{
-	/**
-	 * Root path that will replace the './' string in URLs.
-	 */
-	static public var root : String="";
 
-	/**
-	 * 
-	 * @param	p_url
-	 * @param	p_callback
-	 */
-	static public function Load(p_url:String, p_callback : String->Float->Void):Void { var ld : LoadStringTask = new LoadStringTask(p_url,"GET","",p_callback); }
-    
-}
+//con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
 
-class LoadTask implements Runnable
+/*
+class LoadTask extends Task
 {	
 	public var thread 		: Thread;		
 	public var url 			: String;
@@ -68,7 +53,7 @@ class LoadTask implements Runnable
 			
 			var con : HttpURLConnection = cast (new URL(url)).openConnection();
 			con.setRequestMethod(method);			
-			con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+			
 			//con.setDoInput(true);
 			//con.setDoOutput(true);
 			//if(data !="") {} //send
@@ -96,9 +81,8 @@ class LoadTask implements Runnable
 	}
 }
 
-/**
- * Aux class to handle async string loading.
- */
+
+
 class LoadStringTask extends LoadTask
 {	
 	public var result : String;
@@ -205,5 +189,5 @@ class LoadImageTask extends LoadBytesTask
 		callback(null, 1.0);
 	}
 }
-
+//*/
 #end

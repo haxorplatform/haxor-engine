@@ -24,7 +24,7 @@ public  class EngineContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me27883)
+	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me33804)
 	{
 		{
 		}
@@ -48,11 +48,13 @@ public  class EngineContext extends haxe.lang.HxObject
 	
 	public static  haxor.context.Process<haxor.core.IDisposable> disposables;
 	
+	public static  haxe.root.Array<haxor.context.BaseProcess> list;
+	
 	public static  haxor.context.MeshContext mesh;
 	
 	public static  haxor.context.MaterialContext material;
 	
-	public static  haxe.root.Array<haxor.context.BaseProcess> list;
+	public static  haxor.context.TextureContext texture;
 	
 	public static   void Initialize()
 	{
@@ -65,6 +67,7 @@ public  class EngineContext extends haxe.lang.HxObject
 		haxor.context.EngineContext.list = new haxe.root.Array<haxor.context.BaseProcess>(new haxor.context.BaseProcess[]{haxor.context.EngineContext.update, haxor.context.EngineContext.render, haxor.context.EngineContext.resize, haxor.context.EngineContext.resources, haxor.context.EngineContext.disposables});
 		haxor.context.EngineContext.mesh = new haxor.context.MeshContext();
 		haxor.context.EngineContext.material = new haxor.context.MaterialContext();
+		haxor.context.EngineContext.texture = new haxor.context.TextureContext();
 	}
 	
 	
@@ -72,6 +75,7 @@ public  class EngineContext extends haxe.lang.HxObject
 	{
 		haxor.context.EngineContext.mesh.Initialize();
 		haxor.context.EngineContext.material.Initialize();
+		haxor.context.EngineContext.texture.Initialize();
 	}
 	
 	

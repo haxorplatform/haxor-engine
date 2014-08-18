@@ -10,6 +10,7 @@ HX_DECLARE_CLASS2(haxor,context,EngineContext)
 HX_DECLARE_CLASS2(haxor,context,MaterialContext)
 HX_DECLARE_CLASS2(haxor,context,MeshContext)
 HX_DECLARE_CLASS2(haxor,context,Process)
+HX_DECLARE_CLASS2(haxor,context,TextureContext)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 namespace haxor{
@@ -44,9 +45,10 @@ class HXCPP_CLASS_ATTRIBUTES  EngineContext_obj : public hx::Object{
 		static ::haxor::context::Process render;
 		static ::haxor::context::Process resources;
 		static ::haxor::context::Process disposables;
+		static Array< ::Dynamic > list;
 		static ::haxor::context::MeshContext mesh;
 		static ::haxor::context::MaterialContext material;
-		static Array< ::Dynamic > list;
+		static ::haxor::context::TextureContext texture;
 		static Void Initialize( );
 		static Dynamic Initialize_dyn();
 

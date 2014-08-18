@@ -163,9 +163,8 @@ class BaseApplication extends Behaviour
 		m_init_allowed  = false;		
 		m_platform 		= Platform.Unknown;
 		
-		Time.Initialize();
-		Screen.m_application = this;
-		Screen.Initialize();
+		Time.Initialize();		
+		Screen.Initialize(this);
 		
 	}
 	

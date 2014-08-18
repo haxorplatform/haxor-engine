@@ -134,25 +134,28 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(Screen_obj,set_cursor,return )
 
 ::haxor::core::BaseApplication Screen_obj::m_application;
 
-Void Screen_obj::Initialize( ){
+Void Screen_obj::Initialize( ::haxor::core::BaseApplication p_application){
 {
-		HX_STACK_FRAME("haxor.graphics.Screen","Initialize",0x88b4fd5b,"haxor.graphics.Screen.Initialize","haxor/graphics/Screen.hx",60,0x29014c1b)
-		HX_STACK_LINE(61)
+		HX_STACK_FRAME("haxor.graphics.Screen","Initialize",0x88b4fd5b,"haxor.graphics.Screen.Initialize","haxor/graphics/Screen.hx",67,0x29014c1b)
+		HX_STACK_ARG(p_application,"p_application")
+		HX_STACK_LINE(68)
+		::haxor::graphics::Screen_obj::m_application = p_application;
+		HX_STACK_LINE(69)
 		::haxor::graphics::Screen_obj::m_width = (int)0;
-		HX_STACK_LINE(62)
+		HX_STACK_LINE(70)
 		::haxor::graphics::Screen_obj::m_height = (int)0;
-		HX_STACK_LINE(63)
+		HX_STACK_LINE(71)
 		::haxor::graphics::Screen_obj::m_fullscreen = false;
-		HX_STACK_LINE(64)
+		HX_STACK_LINE(72)
 		::haxor::graphics::Screen_obj::m_cursor = ::haxor::graphics::CursorMode_obj::Show;
-		HX_STACK_LINE(65)
+		HX_STACK_LINE(73)
 		::haxor::graphics::Screen_obj::m_application = null();
 	}
 return null();
 }
 
 
-STATIC_HX_DEFINE_DYNAMIC_FUNC0(Screen_obj,Initialize,(void))
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(Screen_obj,Initialize,(void))
 
 
 Screen_obj::Screen_obj()

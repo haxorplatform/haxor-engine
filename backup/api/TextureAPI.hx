@@ -389,7 +389,8 @@ class TextureAPI
 		var id : js.html.webgl.Texture  = p_texture.gid;
 		var flag:Int 					= p_texture.type;
 		c.bindTexture(flag, id);
-		c.generateMipmap(flag);		
+		c.generateMipmap(flag);	
+		
 	}
 	
 	/**

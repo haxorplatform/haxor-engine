@@ -1,10 +1,11 @@
 package haxor.platform;
 
 
+
 #if html
 
-typedef ArrayBuffer		= js.html.Uint8Array;
-
+typedef BitmapFile		= js.html.Image;
+typedef ArrayBuffer		= js.html.Uint8ClampedArray;
 typedef MeshBufferId    = js.html.webgl.Buffer;
 typedef TextureId    	= js.html.webgl.Texture;
 typedef ShaderId		= js.html.webgl.Shader;
@@ -21,8 +22,9 @@ typedef GLES = android.opengl.GLES30;
 typedef GLES = android.opengl.GLES20;
 #end
 
-typedef ArrayBuffer		= java.nio.ByteBuffer;
+typedef BitmapFile		= haxor.io.Buffer;
 
+typedef ArrayBuffer		= java.nio.ByteBuffer;
 typedef MeshBufferId    = Int;
 typedef TextureId    	= Int;
 typedef ShaderId		= Int;
@@ -37,8 +39,9 @@ typedef ProgramId		= Int;
 
 #if (windows || osx || linux)
 
-typedef ArrayBuffer		= haxe.io.Bytes;
+typedef BitmapFile		= haxor.io.Buffer;
 
+typedef ArrayBuffer		= haxe.io.Bytes;
 typedef MeshBufferId    = Int;
 typedef TextureId    	= Int;
 typedef ShaderId		= Int;

@@ -101,7 +101,7 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		
 		GL.Initialize(m_application);
 		GL.m_gl.Initialize(this);
-				
+						
 		m_handler 	= new Handler();
 		m_handler.postDelayed(this,cast 0);
 		
@@ -192,6 +192,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	public function onSurfaceCreated(gl:GL10, config:EGLConfig):Void
 	{
 		Console.Log("OnCreated", 5);
+		
+		GL.m_gl.CheckExtensions();
 		
 		EngineContext.Build();
 		

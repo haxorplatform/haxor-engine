@@ -55,6 +55,13 @@ class EngineContext
 	 */
 	static private var disposables : Process<IDisposable>;
 	
+	
+	/**
+	 * List of all processes.
+	 */
+	static private var list : Array<BaseProcess>;
+	
+	
 	/**
 	 * Reference to the mesh context.
 	 */
@@ -66,9 +73,9 @@ class EngineContext
 	static private var material : MaterialContext;
 	
 	/**
-	 * List of all processes.
+	 * Reference to the Texture context.
 	 */
-	static private var list : Array<BaseProcess>;
+	static private var texture : TextureContext;
 	
 	/**
 	 * Initializes the Haxor context.
@@ -87,6 +94,7 @@ class EngineContext
 		
 		mesh 		= new MeshContext();
 		material	= new MaterialContext();
+		texture		= new TextureContext();
 	}
 	
 	/**
@@ -96,6 +104,7 @@ class EngineContext
 	{
 		mesh.Initialize();
 		material.Initialize();
+		texture.Initialize();
 	}
 	
 	/**

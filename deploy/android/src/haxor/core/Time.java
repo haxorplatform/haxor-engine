@@ -18,7 +18,7 @@ public  class Time extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Time(haxor.core.Time __temp_me27893)
+	public static   void __hx_ctor_haxor_core_Time(haxor.core.Time __temp_me33815)
 	{
 		{
 		}
@@ -111,15 +111,13 @@ public  class Time extends haxe.lang.HxObject
 		haxor.core.Time.m_clock_0 = 0.0;
 		{
 			double t = ((double) (java.lang.System.nanoTime()) );
-			haxor.core.Time.m_clock = ( t * 0.000001 );
-			haxor.core.Time.m_clock = ( haxor.core.Time.m_clock - haxor.core.Time.m_clock_0 );
+			haxor.core.Time.m_clock = ( ( t * 0.000001 ) - haxor.core.Time.m_clock_0 );
 		}
 		
 		haxor.core.Time.m_clock_0 = haxor.core.Time.m_clock;
 		{
 			double t1 = ((double) (java.lang.System.nanoTime()) );
-			haxor.core.Time.m_clock = ( t1 * 0.000001 );
-			haxor.core.Time.m_clock = ( haxor.core.Time.m_clock - haxor.core.Time.m_clock_0 );
+			haxor.core.Time.m_clock = ( ( t1 * 0.000001 ) - haxor.core.Time.m_clock_0 );
 		}
 		
 		haxor.core.Time.m_start_clock = haxor.core.Time.m_clock;
@@ -136,8 +134,7 @@ public  class Time extends haxe.lang.HxObject
 		haxor.core.Time.m_frame = 0;
 		{
 			double t2 = ((double) (java.lang.System.nanoTime()) );
-			haxor.core.Time.m_clock = ( t2 * 0.000001 );
-			haxor.core.Time.m_clock = ( haxor.core.Time.m_clock - haxor.core.Time.m_clock_0 );
+			haxor.core.Time.m_clock = ( ( t2 * 0.000001 ) - haxor.core.Time.m_clock_0 );
 		}
 		
 	}
@@ -147,8 +144,7 @@ public  class Time extends haxe.lang.HxObject
 	{
 		{
 			double t = ((double) (java.lang.System.nanoTime()) );
-			haxor.core.Time.m_clock = ( t * 0.000001 );
-			haxor.core.Time.m_clock = ( haxor.core.Time.m_clock - haxor.core.Time.m_clock_0 );
+			haxor.core.Time.m_clock = ( ( t * 0.000001 ) - haxor.core.Time.m_clock_0 );
 		}
 		
 		haxor.core.Time.m_clock_dt = ( haxor.core.Time.m_clock - haxor.core.Time.m_last_clock );
@@ -185,8 +181,7 @@ public  class Time extends haxe.lang.HxObject
 	public static   void UpdateClock()
 	{
 		double t = ((double) (java.lang.System.nanoTime()) );
-		haxor.core.Time.m_clock = ( t * 0.000001 );
-		haxor.core.Time.m_clock = ( haxor.core.Time.m_clock - haxor.core.Time.m_clock_0 );
+		haxor.core.Time.m_clock = ( ( t * 0.000001 ) - haxor.core.Time.m_clock_0 );
 	}
 	
 	

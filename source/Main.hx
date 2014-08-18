@@ -8,15 +8,19 @@ import haxor.core.Time;
 import haxor.graphics.Enums.BlendMode;
 import haxor.graphics.Enums.CullMode;
 import haxor.graphics.Enums.MeshPrimitive;
+import haxor.graphics.Enums.PixelFormat;
 import haxor.graphics.Graphics;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.mesh.Mesh;
+import haxor.graphics.texture.Bitmap;
 import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
+import haxor.math.Color;
 import haxor.net.Web;
 import haxor.platform.graphics.GL;
 import haxor.platform.graphics.GraphicContext.GraphicAPI;
+import haxor.platform.Types.BitmapFile;
 import haxor.platform.Types.MeshBufferId;
 import haxor.thread.Activity;
 
@@ -56,7 +60,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 		//*/
 		/*
 		Web.Load("./asset/dungeon/module0/asset.dae",function(d:String, p:Float):Void
-		{			
+		{		
+			trace(p);
 			if (p >= 1.0)
 			{
 				if (d != null)
@@ -79,6 +84,20 @@ class Main extends Application implements IUpdateable implements IRenderable
 		});
 		
 		//*/
+		
+		
+		var bmp : Bitmap = new Bitmap(2, 2, PixelFormat.RGBA8);
+		bmp.SetPixel(0, 0, Color.red);
+		bmp.SetPixel(1, 0, Color.green);
+		bmp.SetPixel(0, 1, Color.blue);
+		bmp.SetPixel(1, 1, Color.yellow);
+		
+		
+		Console.Log(bmp.GetPixel(0, 0).ToString());
+		Console.Log(bmp.GetPixel(1, 0).ToString());
+		Console.Log(bmp.GetPixel(0, 1).ToString());
+		Console.Log(bmp.GetPixel(1, 1).ToString());
+		
 		return true;
 	}
 	
@@ -146,57 +165,15 @@ class Main extends Application implements IUpdateable implements IRenderable
 		mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
 		mat.shader = shd;
 		
-		Console.Log("Start");
-		var t0 : Float = Time.clock;
-		var len : Int = 10000000;
-		var max : Int = 4;
-		var total : Int = max;
-		/*
-		for (i in 0...total)
-		{
-			Activity.Iterate(0, len, function(pos:Int):Bool
-			{
-				var off : Int = i;
-				var it : Int = (pos+off) * max;
-				if (it >= (len - 1))
-				{
-					total--;
-					Console.Log("S: Finished! "+off+" "+(Time.clock-t0)+" ms");
-					if (total <= 0) Console.Log("T: Finished! " + (Time.clock - t0) + " ms");
-					return false;
-				}
-				return true;
-			}, 50000, true);
-		}
-		
-		//*/
 		
 	}
-	
-	private function OnActivityComplete():Void
-	{
-		Activity.Run(function(t:Float):Bool
-		{
-			if (t < 3.0)
-			{
-				return true;
-			}
-			Console.Log("Time: " + t);
-			return false;
-		},true);
-	}
-	
 	
 	public function OnUpdate():Void
 	{	
-		Console.Log("ups["+Time.ups+"] fps["+Time.fps+"] elapsed["+Time.elapsed+"] frames["+Time.frame+"] a["+application.fps+"]");
+	
 		
 		
 	}
-	
-	var init : Bool = false;
-	
-	var vb : MeshBufferId;
 	
 	public function OnRender():Void
 	{

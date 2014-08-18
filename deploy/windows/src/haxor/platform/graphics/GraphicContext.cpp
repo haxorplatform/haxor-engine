@@ -483,9 +483,432 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,UseProgram,(void))
 
+Void GraphicContext_obj::Uniform1f( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform1f",0x25393476,"haxor.platform.graphics.GraphicContext.Uniform1f","haxor/platform/graphics/GraphicContext.hx",97,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform1f,(void))
+
+Void GraphicContext_obj::Uniform1fv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform1fv",0x6cd4b340,"haxor.platform.graphics.GraphicContext.Uniform1fv","haxor/platform/graphics/GraphicContext.hx",98,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform1fv,(void))
+
+Void GraphicContext_obj::Uniform1i( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform1i",0x25393479,"haxor.platform.graphics.GraphicContext.Uniform1i","haxor/platform/graphics/GraphicContext.hx",99,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform1i,(void))
+
+Void GraphicContext_obj::Uniform1iv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform1iv",0x6cd4b5dd,"haxor.platform.graphics.GraphicContext.Uniform1iv","haxor/platform/graphics/GraphicContext.hx",100,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform1iv,(void))
+
+Void GraphicContext_obj::Uniform2f( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform2f",0x25393555,"haxor.platform.graphics.GraphicContext.Uniform2f","haxor/platform/graphics/GraphicContext.hx",101,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform2f,(void))
+
+Void GraphicContext_obj::Uniform2fv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform2fv",0x6cd57581,"haxor.platform.graphics.GraphicContext.Uniform2fv","haxor/platform/graphics/GraphicContext.hx",102,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform2fv,(void))
+
+Void GraphicContext_obj::Uniform2i( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform2i",0x25393558,"haxor.platform.graphics.GraphicContext.Uniform2i","haxor/platform/graphics/GraphicContext.hx",103,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform2i,(void))
+
+Void GraphicContext_obj::Uniform2iv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform2iv",0x6cd5781e,"haxor.platform.graphics.GraphicContext.Uniform2iv","haxor/platform/graphics/GraphicContext.hx",104,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform2iv,(void))
+
+Void GraphicContext_obj::Uniform3f( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform3f",0x25393634,"haxor.platform.graphics.GraphicContext.Uniform3f","haxor/platform/graphics/GraphicContext.hx",105,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform3f,(void))
+
+Void GraphicContext_obj::Uniform3fv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform3fv",0x6cd637c2,"haxor.platform.graphics.GraphicContext.Uniform3fv","haxor/platform/graphics/GraphicContext.hx",106,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform3fv,(void))
+
+Void GraphicContext_obj::Uniform3i( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform3i",0x25393637,"haxor.platform.graphics.GraphicContext.Uniform3i","haxor/platform/graphics/GraphicContext.hx",107,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform3i,(void))
+
+Void GraphicContext_obj::Uniform3iv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform3iv",0x6cd63a5f,"haxor.platform.graphics.GraphicContext.Uniform3iv","haxor/platform/graphics/GraphicContext.hx",108,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform3iv,(void))
+
+Void GraphicContext_obj::Uniform4f( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform4f",0x25393713,"haxor.platform.graphics.GraphicContext.Uniform4f","haxor/platform/graphics/GraphicContext.hx",109,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform4f,(void))
+
+Void GraphicContext_obj::Uniform4fv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform4fv",0x6cd6fa03,"haxor.platform.graphics.GraphicContext.Uniform4fv","haxor/platform/graphics/GraphicContext.hx",110,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform4fv,(void))
+
+Void GraphicContext_obj::Uniform4i( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform4i",0x25393716,"haxor.platform.graphics.GraphicContext.Uniform4i","haxor/platform/graphics/GraphicContext.hx",111,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform4i,(void))
+
+Void GraphicContext_obj::Uniform4iv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Uniform4iv",0x6cd6fca0,"haxor.platform.graphics.GraphicContext.Uniform4iv","haxor/platform/graphics/GraphicContext.hx",112,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,Uniform4iv,(void))
+
+Void GraphicContext_obj::UniformMatrix2fv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","UniformMatrix2fv",0xa5b4e700,"haxor.platform.graphics.GraphicContext.UniformMatrix2fv","haxor/platform/graphics/GraphicContext.hx",113,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,UniformMatrix2fv,(void))
+
+Void GraphicContext_obj::UniformMatrix3fv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","UniformMatrix3fv",0xa5b5a941,"haxor.platform.graphics.GraphicContext.UniformMatrix3fv","haxor/platform/graphics/GraphicContext.hx",114,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,UniformMatrix3fv,(void))
+
+Void GraphicContext_obj::UniformMatrix4fv( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","UniformMatrix4fv",0xa5b66b82,"haxor.platform.graphics.GraphicContext.UniformMatrix4fv","haxor/platform/graphics/GraphicContext.hx",115,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,UniformMatrix4fv,(void))
+
+Void GraphicContext_obj::ActiveTexture( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","ActiveTexture",0x4392c162,"haxor.platform.graphics.GraphicContext.ActiveTexture","haxor/platform/graphics/GraphicContext.hx",118,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,ActiveTexture,(void))
+
+Void GraphicContext_obj::BindFramebuffer( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","BindFramebuffer",0x6212f91d,"haxor.platform.graphics.GraphicContext.BindFramebuffer","haxor/platform/graphics/GraphicContext.hx",119,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,BindFramebuffer,(void))
+
+Void GraphicContext_obj::BindRenderbuffer( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","BindRenderbuffer",0xf51312a6,"haxor.platform.graphics.GraphicContext.BindRenderbuffer","haxor/platform/graphics/GraphicContext.hx",120,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,BindRenderbuffer,(void))
+
+Void GraphicContext_obj::BindTexture( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","BindTexture",0x13f9d50b,"haxor.platform.graphics.GraphicContext.BindTexture","haxor/platform/graphics/GraphicContext.hx",121,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,BindTexture,(void))
+
+Void GraphicContext_obj::CreateFramebuffer( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","CreateFramebuffer",0x3c7e777e,"haxor.platform.graphics.GraphicContext.CreateFramebuffer","haxor/platform/graphics/GraphicContext.hx",122,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,CreateFramebuffer,(void))
+
+Void GraphicContext_obj::CreateTexture( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","CreateTexture",0x740c4eec,"haxor.platform.graphics.GraphicContext.CreateTexture","haxor/platform/graphics/GraphicContext.hx",123,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,CreateTexture,(void))
+
+Void GraphicContext_obj::DeleteFramebuffer( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","DeleteFramebuffer",0xbf96deaf,"haxor.platform.graphics.GraphicContext.DeleteFramebuffer","haxor/platform/graphics/GraphicContext.hx",124,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,DeleteFramebuffer,(void))
+
+Void GraphicContext_obj::DeleteRenderbuffer( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","DeleteRenderbuffer",0x6af80cd4,"haxor.platform.graphics.GraphicContext.DeleteRenderbuffer","haxor/platform/graphics/GraphicContext.hx",125,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,DeleteRenderbuffer,(void))
+
+Void GraphicContext_obj::DeleteTexture( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","DeleteTexture",0xea53099d,"haxor.platform.graphics.GraphicContext.DeleteTexture","haxor/platform/graphics/GraphicContext.hx",126,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,DeleteTexture,(void))
+
+Void GraphicContext_obj::FramebufferRenderbuffer( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","FramebufferRenderbuffer",0xba644550,"haxor.platform.graphics.GraphicContext.FramebufferRenderbuffer","haxor/platform/graphics/GraphicContext.hx",127,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,FramebufferRenderbuffer,(void))
+
+Void GraphicContext_obj::FramebufferTexture2D( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","FramebufferTexture2D",0xe27078b3,"haxor.platform.graphics.GraphicContext.FramebufferTexture2D","haxor/platform/graphics/GraphicContext.hx",128,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,FramebufferTexture2D,(void))
+
+Void GraphicContext_obj::GenerateMipmap( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","GenerateMipmap",0xb9bd2050,"haxor.platform.graphics.GraphicContext.GenerateMipmap","haxor/platform/graphics/GraphicContext.hx",129,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,GenerateMipmap,(void))
+
+Void GraphicContext_obj::PixelStorei( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","PixelStorei",0xf9702cfb,"haxor.platform.graphics.GraphicContext.PixelStorei","haxor/platform/graphics/GraphicContext.hx",130,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,PixelStorei,(void))
+
+Void GraphicContext_obj::RenderbufferStorage( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","RenderbufferStorage",0x2d9a4e72,"haxor.platform.graphics.GraphicContext.RenderbufferStorage","haxor/platform/graphics/GraphicContext.hx",131,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,RenderbufferStorage,(void))
+
+Void GraphicContext_obj::TexImage2D( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","TexImage2D",0x4bbd30f9,"haxor.platform.graphics.GraphicContext.TexImage2D","haxor/platform/graphics/GraphicContext.hx",132,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,TexImage2D,(void))
+
+Void GraphicContext_obj::TexSubImage2D( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","TexSubImage2D",0x1578dcc1,"haxor.platform.graphics.GraphicContext.TexSubImage2D","haxor/platform/graphics/GraphicContext.hx",133,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,TexSubImage2D,(void))
+
+Void GraphicContext_obj::TexStorage2D( int p_target,int p_num_mipmaps,int p_channels,int p_width,int p_height){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","TexStorage2D",0xe99603d9,"haxor.platform.graphics.GraphicContext.TexStorage2D","haxor/platform/graphics/GraphicContext.hx",134,0x2319fee2)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_num_mipmaps,"p_num_mipmaps")
+		HX_STACK_ARG(p_channels,"p_channels")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC5(GraphicContext_obj,TexStorage2D,(void))
+
+Void GraphicContext_obj::TexParameterf( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","TexParameterf",0x2919d511,"haxor.platform.graphics.GraphicContext.TexParameterf","haxor/platform/graphics/GraphicContext.hx",135,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,TexParameterf,(void))
+
+Void GraphicContext_obj::TexParameteri( ){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","TexParameteri",0x2919d514,"haxor.platform.graphics.GraphicContext.TexParameteri","haxor/platform/graphics/GraphicContext.hx",136,0x2319fee2)
+		HX_STACK_THIS(this)
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,TexParameteri,(void))
+
 Void GraphicContext_obj::BlendFunc( int p_src,int p_dst){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","BlendFunc",0x24f70f62,"haxor.platform.graphics.GraphicContext.BlendFunc","haxor/platform/graphics/GraphicContext.hx",97,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","BlendFunc",0x24f70f62,"haxor.platform.graphics.GraphicContext.BlendFunc","haxor/platform/graphics/GraphicContext.hx",139,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_src,"p_src")
 		HX_STACK_ARG(p_dst,"p_dst")
@@ -498,7 +921,7 @@ HX_DEFINE_DYNAMIC_FUNC2(GraphicContext_obj,BlendFunc,(void))
 
 Void GraphicContext_obj::Disable( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Disable",0x98c667d5,"haxor.platform.graphics.GraphicContext.Disable","haxor/platform/graphics/GraphicContext.hx",98,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Disable",0x98c667d5,"haxor.platform.graphics.GraphicContext.Disable","haxor/platform/graphics/GraphicContext.hx",140,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
 	}
@@ -510,7 +933,7 @@ HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,Disable,(void))
 
 Void GraphicContext_obj::Enable( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Enable",0x8b5c8d36,"haxor.platform.graphics.GraphicContext.Enable","haxor/platform/graphics/GraphicContext.hx",99,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Enable",0x8b5c8d36,"haxor.platform.graphics.GraphicContext.Enable","haxor/platform/graphics/GraphicContext.hx",141,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
 	}
@@ -522,7 +945,7 @@ HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,Enable,(void))
 
 Void GraphicContext_obj::DepthMask( bool p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","DepthMask",0xbc34aebc,"haxor.platform.graphics.GraphicContext.DepthMask","haxor/platform/graphics/GraphicContext.hx",100,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","DepthMask",0xbc34aebc,"haxor.platform.graphics.GraphicContext.DepthMask","haxor/platform/graphics/GraphicContext.hx",142,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
 	}
@@ -534,7 +957,7 @@ HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,DepthMask,(void))
 
 Void GraphicContext_obj::DepthFunc( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","DepthFunc",0xb7a35914,"haxor.platform.graphics.GraphicContext.DepthFunc","haxor/platform/graphics/GraphicContext.hx",101,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","DepthFunc",0xb7a35914,"haxor.platform.graphics.GraphicContext.DepthFunc","haxor/platform/graphics/GraphicContext.hx",143,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
 	}
@@ -546,7 +969,7 @@ HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,DepthFunc,(void))
 
 Void GraphicContext_obj::CullFace( int p_face){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","CullFace",0x450218e2,"haxor.platform.graphics.GraphicContext.CullFace","haxor/platform/graphics/GraphicContext.hx",102,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","CullFace",0x450218e2,"haxor.platform.graphics.GraphicContext.CullFace","haxor/platform/graphics/GraphicContext.hx",144,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_face,"p_face")
 	}
@@ -558,7 +981,7 @@ HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,CullFace,(void))
 
 Void GraphicContext_obj::FrontFace( int p_face){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","FrontFace",0x9e1c1513,"haxor.platform.graphics.GraphicContext.FrontFace","haxor/platform/graphics/GraphicContext.hx",103,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","FrontFace",0x9e1c1513,"haxor.platform.graphics.GraphicContext.FrontFace","haxor/platform/graphics/GraphicContext.hx",145,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_face,"p_face")
 	}
@@ -570,7 +993,7 @@ HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,FrontFace,(void))
 
 Void GraphicContext_obj::Clear( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Clear",0xf8a82a3a,"haxor.platform.graphics.GraphicContext.Clear","haxor/platform/graphics/GraphicContext.hx",106,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Clear",0xf8a82a3a,"haxor.platform.graphics.GraphicContext.Clear","haxor/platform/graphics/GraphicContext.hx",148,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
 	}
@@ -582,7 +1005,7 @@ HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,Clear,(void))
 
 Void GraphicContext_obj::ClearDepth( Float p_value){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","ClearDepth",0x3e89e469,"haxor.platform.graphics.GraphicContext.ClearDepth","haxor/platform/graphics/GraphicContext.hx",107,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","ClearDepth",0x3e89e469,"haxor.platform.graphics.GraphicContext.ClearDepth","haxor/platform/graphics/GraphicContext.hx",149,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_value,"p_value")
 	}
@@ -594,7 +1017,7 @@ HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,ClearDepth,(void))
 
 Void GraphicContext_obj::ClearColor( Float p_r,Float p_g,Float p_b,Float p_a){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","ClearColor",0xb1bc64c9,"haxor.platform.graphics.GraphicContext.ClearColor","haxor/platform/graphics/GraphicContext.hx",108,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","ClearColor",0xb1bc64c9,"haxor.platform.graphics.GraphicContext.ClearColor","haxor/platform/graphics/GraphicContext.hx",150,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_r,"p_r")
 		HX_STACK_ARG(p_g,"p_g")
@@ -607,10 +1030,43 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC4(GraphicContext_obj,ClearColor,(void))
 
+Void GraphicContext_obj::Viewport( int p_x,int p_y,int p_width,int p_height){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Viewport",0x35757dd9,"haxor.platform.graphics.GraphicContext.Viewport","haxor/platform/graphics/GraphicContext.hx",151,0x2319fee2)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC4(GraphicContext_obj,Viewport,(void))
+
+Void GraphicContext_obj::ReadPixels( int p_x,int p_y,int p_width,int p_height,int p_format,int p_type,::haxor::io::Buffer p_pixels){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","ReadPixels",0x187b8756,"haxor.platform.graphics.GraphicContext.ReadPixels","haxor/platform/graphics/GraphicContext.hx",152,0x2319fee2)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+		HX_STACK_ARG(p_format,"p_format")
+		HX_STACK_ARG(p_type,"p_type")
+		HX_STACK_ARG(p_pixels,"p_pixels")
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC7(GraphicContext_obj,ReadPixels,(void))
+
 int GraphicContext_obj::GetErrorCode( ){
-	HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","GetErrorCode",0x91d53092,"haxor.platform.graphics.GraphicContext.GetErrorCode","haxor/platform/graphics/GraphicContext.hx",113,0x2319fee2)
+	HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","GetErrorCode",0x91d53092,"haxor.platform.graphics.GraphicContext.GetErrorCode","haxor/platform/graphics/GraphicContext.hx",157,0x2319fee2)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(113)
+	HX_STACK_LINE(157)
 	return (int)0;
 }
 
@@ -618,43 +1074,43 @@ int GraphicContext_obj::GetErrorCode( ){
 HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,GetErrorCode,return )
 
 ::String GraphicContext_obj::GetErrorString( int p_code){
-	HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","GetErrorString",0xe5eb0b76,"haxor.platform.graphics.GraphicContext.GetErrorString","haxor/platform/graphics/GraphicContext.hx",115,0x2319fee2)
+	HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","GetErrorString",0xe5eb0b76,"haxor.platform.graphics.GraphicContext.GetErrorString","haxor/platform/graphics/GraphicContext.hx",159,0x2319fee2)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_code,"p_code")
-	HX_STACK_LINE(116)
+	HX_STACK_LINE(160)
 	switch( (int)(p_code)){
 		case (int)0: {
-			HX_STACK_LINE(118)
+			HX_STACK_LINE(162)
 			return HX_CSTRING("");
 		}
 		;break;
 		case (int)1280: {
-			HX_STACK_LINE(119)
+			HX_STACK_LINE(163)
 			return HX_CSTRING("Invalid Enum.");
 		}
 		;break;
 		case (int)1281: {
-			HX_STACK_LINE(120)
+			HX_STACK_LINE(164)
 			return HX_CSTRING("Numeric argument is out of range.");
 		}
 		;break;
 		case (int)1282: {
-			HX_STACK_LINE(121)
+			HX_STACK_LINE(165)
 			return HX_CSTRING("Operation not allowed in the current state.");
 		}
 		;break;
 		case (int)1286: {
-			HX_STACK_LINE(122)
+			HX_STACK_LINE(166)
 			return HX_CSTRING("Write or Read in FrameBuffer not complete.");
 		}
 		;break;
 		case (int)1285: {
-			HX_STACK_LINE(123)
+			HX_STACK_LINE(167)
 			return HX_CSTRING("Out of Memory.");
 		}
 		;break;
 	}
-	HX_STACK_LINE(125)
+	HX_STACK_LINE(169)
 	return HX_CSTRING("Unknown Error.");
 }
 
@@ -662,11 +1118,11 @@ HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,GetErrorCode,return )
 HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,GetErrorString,return )
 
 ::String GraphicContext_obj::GetError( ){
-	HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","GetError",0x6bd10cc5,"haxor.platform.graphics.GraphicContext.GetError","haxor/platform/graphics/GraphicContext.hx",127,0x2319fee2)
+	HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","GetError",0x6bd10cc5,"haxor.platform.graphics.GraphicContext.GetError","haxor/platform/graphics/GraphicContext.hx",171,0x2319fee2)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(127)
+	HX_STACK_LINE(171)
 	int _g = this->GetErrorCode();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(127)
+	HX_STACK_LINE(171)
 	return this->GetErrorString(_g);
 }
 
@@ -675,20 +1131,20 @@ HX_DEFINE_DYNAMIC_FUNC0(GraphicContext_obj,GetError,return )
 
 Void GraphicContext_obj::Assert( ::String p_log){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Assert",0xded82579,"haxor.platform.graphics.GraphicContext.Assert","haxor/platform/graphics/GraphicContext.hx",129,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","Assert",0xded82579,"haxor.platform.graphics.GraphicContext.Assert","haxor/platform/graphics/GraphicContext.hx",173,0x2319fee2)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_log,"p_log")
-		HX_STACK_LINE(130)
+		HX_STACK_LINE(174)
 		int err = this->GetErrorCode();		HX_STACK_VAR(err,"err");
-		HX_STACK_LINE(131)
+		HX_STACK_LINE(175)
 		if (((err != (int)0))){
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(175)
 			::String _g = this->GetErrorString(err);		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(175)
 			::String _g1 = (HX_CSTRING("GraphicContext> ") + _g);		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(175)
 			::String _g2 = (_g1 + HX_CSTRING(" - "));		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(175)
 			HX_STACK_DO_THROW((_g2 + p_log));
 		}
 	}
@@ -700,11 +1156,11 @@ HX_DEFINE_DYNAMIC_FUNC1(GraphicContext_obj,Assert,(void))
 
 Void GraphicContext_obj::LogError( ){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","LogError",0xf7003a17,"haxor.platform.graphics.GraphicContext.LogError","haxor/platform/graphics/GraphicContext.hx",133,0x2319fee2)
+		HX_STACK_FRAME("haxor.platform.graphics.GraphicContext","LogError",0xf7003a17,"haxor.platform.graphics.GraphicContext.LogError","haxor/platform/graphics/GraphicContext.hx",177,0x2319fee2)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(133)
+		HX_STACK_LINE(177)
 		::String _g = this->GetError();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(133)
+		HX_STACK_LINE(177)
 		::haxor::core::Console_obj::Log(_g,null());
 	}
 return null();
@@ -756,10 +1212,19 @@ Dynamic GraphicContext_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 8:
 		if (HX_FIELD_EQ(inName,"CullFace") ) { return CullFace_dyn(); }
+		if (HX_FIELD_EQ(inName,"Viewport") ) { return Viewport_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetError") ) { return GetError_dyn(); }
 		if (HX_FIELD_EQ(inName,"LogError") ) { return LogError_dyn(); }
 		break;
 	case 9:
+		if (HX_FIELD_EQ(inName,"Uniform1f") ) { return Uniform1f_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform1i") ) { return Uniform1i_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform2f") ) { return Uniform2f_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform2i") ) { return Uniform2i_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform3f") ) { return Uniform3f_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform3i") ) { return Uniform3i_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform4f") ) { return Uniform4f_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform4i") ) { return Uniform4i_dyn(); }
 		if (HX_FIELD_EQ(inName,"BlendFunc") ) { return BlendFunc_dyn(); }
 		if (HX_FIELD_EQ(inName,"DepthMask") ) { return DepthMask_dyn(); }
 		if (HX_FIELD_EQ(inName,"DepthFunc") ) { return DepthFunc_dyn(); }
@@ -770,11 +1235,23 @@ Dynamic GraphicContext_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"BufferData") ) { return BufferData_dyn(); }
 		if (HX_FIELD_EQ(inName,"DrawArrays") ) { return DrawArrays_dyn(); }
 		if (HX_FIELD_EQ(inName,"UseProgram") ) { return UseProgram_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform1fv") ) { return Uniform1fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform1iv") ) { return Uniform1iv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform2fv") ) { return Uniform2fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform2iv") ) { return Uniform2iv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform3fv") ) { return Uniform3fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform3iv") ) { return Uniform3iv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform4fv") ) { return Uniform4fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform4iv") ) { return Uniform4iv_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexImage2D") ) { return TexImage2D_dyn(); }
 		if (HX_FIELD_EQ(inName,"ClearDepth") ) { return ClearDepth_dyn(); }
 		if (HX_FIELD_EQ(inName,"ClearColor") ) { return ClearColor_dyn(); }
+		if (HX_FIELD_EQ(inName,"ReadPixels") ) { return ReadPixels_dyn(); }
 		break;
 	case 11:
 		if (HX_FIELD_EQ(inName,"LinkProgram") ) { return LinkProgram_dyn(); }
+		if (HX_FIELD_EQ(inName,"BindTexture") ) { return BindTexture_dyn(); }
+		if (HX_FIELD_EQ(inName,"PixelStorei") ) { return PixelStorei_dyn(); }
 		break;
 	case 12:
 		if (HX_FIELD_EQ(inName,"CreateBuffer") ) { return CreateBuffer_dyn(); }
@@ -785,6 +1262,7 @@ Dynamic GraphicContext_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"DetachShader") ) { return DetachShader_dyn(); }
 		if (HX_FIELD_EQ(inName,"ShaderSource") ) { return ShaderSource_dyn(); }
 		if (HX_FIELD_EQ(inName,"AttachShader") ) { return AttachShader_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexStorage2D") ) { return TexStorage2D_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetErrorCode") ) { return GetErrorCode_dyn(); }
 		break;
 	case 13:
@@ -793,31 +1271,53 @@ Dynamic GraphicContext_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"CompileShader") ) { return CompileShader_dyn(); }
 		if (HX_FIELD_EQ(inName,"CreateProgram") ) { return CreateProgram_dyn(); }
 		if (HX_FIELD_EQ(inName,"DeleteProgram") ) { return DeleteProgram_dyn(); }
+		if (HX_FIELD_EQ(inName,"ActiveTexture") ) { return ActiveTexture_dyn(); }
+		if (HX_FIELD_EQ(inName,"CreateTexture") ) { return CreateTexture_dyn(); }
+		if (HX_FIELD_EQ(inName,"DeleteTexture") ) { return DeleteTexture_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexSubImage2D") ) { return TexSubImage2D_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexParameterf") ) { return TexParameterf_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexParameteri") ) { return TexParameteri_dyn(); }
 		break;
 	case 14:
 		if (HX_FIELD_EQ(inName,"VertexAttrib3f") ) { return VertexAttrib3f_dyn(); }
 		if (HX_FIELD_EQ(inName,"VertexAttrib4f") ) { return VertexAttrib4f_dyn(); }
+		if (HX_FIELD_EQ(inName,"GenerateMipmap") ) { return GenerateMipmap_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetErrorString") ) { return GetErrorString_dyn(); }
 		break;
 	case 15:
 		if (HX_FIELD_EQ(inName,"CheckExtensions") ) { return CheckExtensions_dyn(); }
+		if (HX_FIELD_EQ(inName,"BindFramebuffer") ) { return BindFramebuffer_dyn(); }
 		break;
 	case 16:
 		if (HX_FIELD_EQ(inName,"GetShaderInfoLog") ) { return GetShaderInfoLog_dyn(); }
+		if (HX_FIELD_EQ(inName,"UniformMatrix2fv") ) { return UniformMatrix2fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"UniformMatrix3fv") ) { return UniformMatrix3fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"UniformMatrix4fv") ) { return UniformMatrix4fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"BindRenderbuffer") ) { return BindRenderbuffer_dyn(); }
 		break;
 	case 17:
 		if (HX_FIELD_EQ(inName,"GetAttribLocation") ) { return GetAttribLocation_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetProgramInfoLog") ) { return GetProgramInfoLog_dyn(); }
+		if (HX_FIELD_EQ(inName,"CreateFramebuffer") ) { return CreateFramebuffer_dyn(); }
+		if (HX_FIELD_EQ(inName,"DeleteFramebuffer") ) { return DeleteFramebuffer_dyn(); }
 		break;
 	case 18:
 		if (HX_FIELD_EQ(inName,"EnableVertexAttrib") ) { return EnableVertexAttrib_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetShaderParameter") ) { return GetShaderParameter_dyn(); }
 		if (HX_FIELD_EQ(inName,"BindAttribLocation") ) { return BindAttribLocation_dyn(); }
+		if (HX_FIELD_EQ(inName,"DeleteRenderbuffer") ) { return DeleteRenderbuffer_dyn(); }
 		break;
 	case 19:
 		if (HX_FIELD_EQ(inName,"DisableVertexAttrib") ) { return DisableVertexAttrib_dyn(); }
 		if (HX_FIELD_EQ(inName,"VertexAttribPointer") ) { return VertexAttribPointer_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetProgramParameter") ) { return GetProgramParameter_dyn(); }
+		if (HX_FIELD_EQ(inName,"RenderbufferStorage") ) { return RenderbufferStorage_dyn(); }
+		break;
+	case 20:
+		if (HX_FIELD_EQ(inName,"FramebufferTexture2D") ) { return FramebufferTexture2D_dyn(); }
+		break;
+	case 23:
+		if (HX_FIELD_EQ(inName,"FramebufferRenderbuffer") ) { return FramebufferRenderbuffer_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -890,6 +1390,44 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("GetProgramParameter"),
 	HX_CSTRING("LinkProgram"),
 	HX_CSTRING("UseProgram"),
+	HX_CSTRING("Uniform1f"),
+	HX_CSTRING("Uniform1fv"),
+	HX_CSTRING("Uniform1i"),
+	HX_CSTRING("Uniform1iv"),
+	HX_CSTRING("Uniform2f"),
+	HX_CSTRING("Uniform2fv"),
+	HX_CSTRING("Uniform2i"),
+	HX_CSTRING("Uniform2iv"),
+	HX_CSTRING("Uniform3f"),
+	HX_CSTRING("Uniform3fv"),
+	HX_CSTRING("Uniform3i"),
+	HX_CSTRING("Uniform3iv"),
+	HX_CSTRING("Uniform4f"),
+	HX_CSTRING("Uniform4fv"),
+	HX_CSTRING("Uniform4i"),
+	HX_CSTRING("Uniform4iv"),
+	HX_CSTRING("UniformMatrix2fv"),
+	HX_CSTRING("UniformMatrix3fv"),
+	HX_CSTRING("UniformMatrix4fv"),
+	HX_CSTRING("ActiveTexture"),
+	HX_CSTRING("BindFramebuffer"),
+	HX_CSTRING("BindRenderbuffer"),
+	HX_CSTRING("BindTexture"),
+	HX_CSTRING("CreateFramebuffer"),
+	HX_CSTRING("CreateTexture"),
+	HX_CSTRING("DeleteFramebuffer"),
+	HX_CSTRING("DeleteRenderbuffer"),
+	HX_CSTRING("DeleteTexture"),
+	HX_CSTRING("FramebufferRenderbuffer"),
+	HX_CSTRING("FramebufferTexture2D"),
+	HX_CSTRING("GenerateMipmap"),
+	HX_CSTRING("PixelStorei"),
+	HX_CSTRING("RenderbufferStorage"),
+	HX_CSTRING("TexImage2D"),
+	HX_CSTRING("TexSubImage2D"),
+	HX_CSTRING("TexStorage2D"),
+	HX_CSTRING("TexParameterf"),
+	HX_CSTRING("TexParameteri"),
 	HX_CSTRING("BlendFunc"),
 	HX_CSTRING("Disable"),
 	HX_CSTRING("Enable"),
@@ -900,6 +1438,8 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("Clear"),
 	HX_CSTRING("ClearDepth"),
 	HX_CSTRING("ClearColor"),
+	HX_CSTRING("Viewport"),
+	HX_CSTRING("ReadPixels"),
 	HX_CSTRING("GetErrorCode"),
 	HX_CSTRING("GetErrorString"),
 	HX_CSTRING("GetError"),

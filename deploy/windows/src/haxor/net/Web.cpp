@@ -1,0 +1,117 @@
+#include <hxcpp.h>
+
+#ifndef INCLUDED_haxor_net_Web
+#include <haxor/net/Web.h>
+#endif
+namespace haxor{
+namespace net{
+
+Void Web_obj::__construct()
+{
+	return null();
+}
+
+//Web_obj::~Web_obj() { }
+
+Dynamic Web_obj::__CreateEmpty() { return  new Web_obj; }
+hx::ObjectPtr< Web_obj > Web_obj::__new()
+{  hx::ObjectPtr< Web_obj > result = new Web_obj();
+	result->__construct();
+	return result;}
+
+Dynamic Web_obj::__Create(hx::DynamicArray inArgs)
+{  hx::ObjectPtr< Web_obj > result = new Web_obj();
+	result->__construct();
+	return result;}
+
+::String Web_obj::root;
+
+Void Web_obj::Load( ::String p_url,Dynamic p_callback){
+{
+		HX_STACK_FRAME("haxor.net.Web","Load",0x1fa4e45d,"haxor.net.Web.Load","haxor/net/Web.hx",27,0x66abd769)
+		HX_STACK_ARG(p_url,"p_url")
+		HX_STACK_ARG(p_callback,"p_callback")
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,Load,(void))
+
+
+Web_obj::Web_obj()
+{
+}
+
+Dynamic Web_obj::__Field(const ::String &inName,bool inCallProp)
+{
+	switch(inName.length) {
+	case 4:
+		if (HX_FIELD_EQ(inName,"root") ) { return root; }
+		if (HX_FIELD_EQ(inName,"Load") ) { return Load_dyn(); }
+	}
+	return super::__Field(inName,inCallProp);
+}
+
+Dynamic Web_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool inCallProp)
+{
+	switch(inName.length) {
+	case 4:
+		if (HX_FIELD_EQ(inName,"root") ) { root=inValue.Cast< ::String >(); return inValue; }
+	}
+	return super::__SetField(inName,inValue,inCallProp);
+}
+
+void Web_obj::__GetFields(Array< ::String> &outFields)
+{
+	super::__GetFields(outFields);
+};
+
+static ::String sStaticFields[] = {
+	HX_CSTRING("root"),
+	HX_CSTRING("Load"),
+	String(null()) };
+
+#if HXCPP_SCRIPTABLE
+static hx::StorageInfo *sMemberStorageInfo = 0;
+#endif
+
+static ::String sMemberFields[] = {
+	String(null()) };
+
+static void sMarkStatics(HX_MARK_PARAMS) {
+	HX_MARK_MEMBER_NAME(Web_obj::__mClass,"__mClass");
+	HX_MARK_MEMBER_NAME(Web_obj::root,"root");
+};
+
+#ifdef HXCPP_VISIT_ALLOCS
+static void sVisitStatics(HX_VISIT_PARAMS) {
+	HX_VISIT_MEMBER_NAME(Web_obj::__mClass,"__mClass");
+	HX_VISIT_MEMBER_NAME(Web_obj::root,"root");
+};
+
+#endif
+
+Class Web_obj::__mClass;
+
+void Web_obj::__register()
+{
+	hx::Static(__mClass) = hx::RegisterClass(HX_CSTRING("haxor.net.Web"), hx::TCanCast< Web_obj> ,sStaticFields,sMemberFields,
+	&__CreateEmpty, &__Create,
+	&super::__SGetClass(), 0, sMarkStatics
+#ifdef HXCPP_VISIT_ALLOCS
+    , sVisitStatics
+#endif
+#ifdef HXCPP_SCRIPTABLE
+    , sMemberStorageInfo
+#endif
+);
+}
+
+void Web_obj::__boot()
+{
+	root= HX_CSTRING("");
+}
+
+} // end namespace haxor
+} // end namespace net

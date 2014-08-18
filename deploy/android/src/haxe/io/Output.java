@@ -18,7 +18,7 @@ public  class Output extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_io_Output(haxe.io.Output __temp_me27879)
+	public static   void __hx_ctor_haxe_io_Output(haxe.io.Output __temp_me33800)
 	{
 		{
 		}
@@ -94,14 +94,14 @@ public  class Output extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef28022 = true;
+			boolean __temp_executeDef33955 = true;
 			switch (field.hashCode())
 			{
 				case 1412235472:
 				{
 					if (field.equals("writeString")) 
 					{
-						__temp_executeDef28022 = false;
+						__temp_executeDef33955 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeString"))) );
 					}
 					
@@ -113,7 +113,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeByte")) 
 					{
-						__temp_executeDef28022 = false;
+						__temp_executeDef33955 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeByte"))) );
 					}
 					
@@ -125,7 +125,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeFullBytes")) 
 					{
-						__temp_executeDef28022 = false;
+						__temp_executeDef33955 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeFullBytes"))) );
 					}
 					
@@ -137,7 +137,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeBytes")) 
 					{
-						__temp_executeDef28022 = false;
+						__temp_executeDef33955 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeBytes"))) );
 					}
 					
@@ -149,7 +149,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("flush")) 
 					{
-						__temp_executeDef28022 = false;
+						__temp_executeDef33955 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("flush"))) );
 					}
 					
@@ -159,7 +159,7 @@ public  class Output extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef28022) 
+			if (__temp_executeDef33955) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -176,14 +176,14 @@ public  class Output extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef28023 = true;
+			boolean __temp_executeDef33956 = true;
 			switch (field.hashCode())
 			{
 				case 1412235472:
 				{
 					if (field.equals("writeString")) 
 					{
-						__temp_executeDef28023 = false;
+						__temp_executeDef33956 = false;
 						this.writeString(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -195,7 +195,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeByte")) 
 					{
-						__temp_executeDef28023 = false;
+						__temp_executeDef33956 = false;
 						this.writeByte(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -207,7 +207,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeFullBytes")) 
 					{
-						__temp_executeDef28023 = false;
+						__temp_executeDef33956 = false;
 						this.writeFullBytes(((haxe.io.Bytes) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -219,7 +219,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeBytes")) 
 					{
-						__temp_executeDef28023 = false;
+						__temp_executeDef33956 = false;
 						return this.writeBytes(((haxe.io.Bytes) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -231,7 +231,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("flush")) 
 					{
-						__temp_executeDef28023 = false;
+						__temp_executeDef33956 = false;
 						this.flush();
 					}
 					
@@ -241,7 +241,7 @@ public  class Output extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef28023) 
+			if (__temp_executeDef33956) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
