@@ -17,15 +17,15 @@ public  class Behaviour extends haxor.component.Component
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_Behaviour(haxor.component.Behaviour __temp_me33786)
+	public static   void __hx_ctor_haxor_component_Behaviour(haxor.component.Behaviour __temp_me42334)
 	{
-		haxor.component.Component.__hx_ctor_haxor_component_Component(__temp_me33786);
-		__temp_me33786.m_enabled = true;
-		__temp_me33786.m_is_behaviour = true;
-		__temp_me33786.m_is_updateable = ( __temp_me33786 instanceof haxor.core.IUpdateable );
-		__temp_me33786.m_is_renderable = ( __temp_me33786 instanceof haxor.core.IRenderable );
-		__temp_me33786.m_is_resizeable = ( __temp_me33786 instanceof haxor.core.IResizeable );
-		__temp_me33786.UpdateContextFlag(true);
+		haxor.component.Component.__hx_ctor_haxor_component_Component(__temp_me42334);
+		__temp_me42334.m_enabled = true;
+		__temp_me42334.m_is_behaviour = true;
+		__temp_me42334.m_is_updateable = ( __temp_me42334 instanceof haxor.core.IUpdateable );
+		__temp_me42334.m_is_renderable = ( __temp_me42334 instanceof haxor.core.IRenderable );
+		__temp_me42334.m_is_resizeable = ( __temp_me42334 instanceof haxor.core.IResizeable );
+		__temp_me42334.UpdateContextFlag(true);
 	}
 	
 	
@@ -137,14 +137,14 @@ public  class Behaviour extends haxor.component.Component
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef33898 = true;
+			boolean __temp_executeDef42461 = true;
 			switch (field.hashCode())
 			{
 				case 270108831:
 				{
 					if (field.equals("m_is_start")) 
 					{
-						__temp_executeDef33898 = false;
+						__temp_executeDef42461 = false;
 						this.m_is_start = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -157,7 +157,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("enabled")) 
 					{
-						__temp_executeDef33898 = false;
+						__temp_executeDef42461 = false;
 						this.set_enabled(haxe.lang.Runtime.toBool(value));
 						return value;
 					}
@@ -170,7 +170,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_awake")) 
 					{
-						__temp_executeDef33898 = false;
+						__temp_executeDef42461 = false;
 						this.m_is_awake = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -183,7 +183,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_enabled")) 
 					{
-						__temp_executeDef33898 = false;
+						__temp_executeDef42461 = false;
 						this.m_enabled = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -196,7 +196,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_resizeable")) 
 					{
-						__temp_executeDef33898 = false;
+						__temp_executeDef42461 = false;
 						this.m_is_resizeable = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -209,7 +209,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_updateable")) 
 					{
-						__temp_executeDef33898 = false;
+						__temp_executeDef42461 = false;
 						this.m_is_updateable = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -222,7 +222,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_renderable")) 
 					{
-						__temp_executeDef33898 = false;
+						__temp_executeDef42461 = false;
 						this.m_is_renderable = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -233,7 +233,7 @@ public  class Behaviour extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef33898) 
+			if (__temp_executeDef42461) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -250,14 +250,14 @@ public  class Behaviour extends haxor.component.Component
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef33899 = true;
+			boolean __temp_executeDef42462 = true;
 			switch (field.hashCode())
 			{
 				case -1599225582:
 				{
 					if (field.equals("UpdateContextFlag")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateContextFlag"))) );
 					}
 					
@@ -269,7 +269,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("enabled")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return this.get_enabled();
 					}
 					
@@ -281,7 +281,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStart"))) );
 					}
 					
@@ -293,7 +293,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("get_enabled")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_enabled"))) );
 					}
 					
@@ -305,7 +305,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("OnAwake")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnAwake"))) );
 					}
 					
@@ -317,7 +317,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("set_enabled")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_enabled"))) );
 					}
 					
@@ -329,7 +329,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_start")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return this.m_is_start;
 					}
 					
@@ -341,7 +341,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_enabled")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return this.m_enabled;
 					}
 					
@@ -353,7 +353,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_awake")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return this.m_is_awake;
 					}
 					
@@ -365,7 +365,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_updateable")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return this.m_is_updateable;
 					}
 					
@@ -377,7 +377,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_resizeable")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return this.m_is_resizeable;
 					}
 					
@@ -389,7 +389,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_renderable")) 
 					{
-						__temp_executeDef33899 = false;
+						__temp_executeDef42462 = false;
 						return this.m_is_renderable;
 					}
 					
@@ -399,7 +399,7 @@ public  class Behaviour extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef33899) 
+			if (__temp_executeDef42462) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -416,14 +416,14 @@ public  class Behaviour extends haxor.component.Component
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef33900 = true;
+			boolean __temp_executeDef42463 = true;
 			switch (field.hashCode())
 			{
 				case -1599225582:
 				{
 					if (field.equals("UpdateContextFlag")) 
 					{
-						__temp_executeDef33900 = false;
+						__temp_executeDef42463 = false;
 						this.UpdateContextFlag(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
@@ -435,7 +435,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("get_enabled")) 
 					{
-						__temp_executeDef33900 = false;
+						__temp_executeDef42463 = false;
 						return this.get_enabled();
 					}
 					
@@ -447,7 +447,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef33900 = false;
+						__temp_executeDef42463 = false;
 						this.OnStart();
 					}
 					
@@ -459,7 +459,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("set_enabled")) 
 					{
-						__temp_executeDef33900 = false;
+						__temp_executeDef42463 = false;
 						return this.set_enabled(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
@@ -471,7 +471,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("OnAwake")) 
 					{
-						__temp_executeDef33900 = false;
+						__temp_executeDef42463 = false;
 						this.OnAwake();
 					}
 					
@@ -481,7 +481,7 @@ public  class Behaviour extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef33900) 
+			if (__temp_executeDef42463) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

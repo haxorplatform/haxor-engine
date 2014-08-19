@@ -18,11 +18,12 @@ public  class Buffer extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_Buffer(haxor.io.Buffer __temp_me33835, int p_length)
+	public static   void __hx_ctor_haxor_io_Buffer(haxor.io.Buffer __temp_me42389, int p_length)
 	{
-		__temp_me33835.m_length = p_length;
-		int len = ( __temp_me33835.m_length * __temp_me33835.get_bytesPerElement() );
-		__temp_me33835.m_buffer = java.nio.ByteBuffer.allocateDirect(((int) (len) )).order(((java.nio.ByteOrder) (java.nio.ByteOrder.nativeOrder()) ));
+		__temp_me42389.m_length = p_length;
+		int len = ( __temp_me42389.m_length * __temp_me42389.get_bytesPerElement() );
+		__temp_me42389.m_offset = 0;
+		__temp_me42389.m_buffer = java.nio.ByteBuffer.allocateDirect(((int) (len) )).order(((java.nio.ByteOrder) (java.nio.ByteOrder.nativeOrder()) ));
 	}
 	
 	
@@ -47,6 +48,10 @@ public  class Buffer extends haxe.lang.HxObject
 	
 	
 	public  java.nio.ByteBuffer m_buffer;
+	
+	public  java.nio.ByteBuffer m_original;
+	
+	public  int m_offset;
 	
 	public  int byteLength;
 	
@@ -86,17 +91,34 @@ public  class Buffer extends haxe.lang.HxObject
 	}
 	
 	
+	public   void SetViewSlice(int p_start, int p_length)
+	{
+		int i0 = ( p_start * this.get_bytesPerElement() );
+		int i1 = ( i0 + ( p_length * this.get_bytesPerElement() ) );
+		this.m_original = this.m_buffer;
+		this.m_buffer.position(((int) (i0) ));
+		this.m_buffer.limit(((int) (i1) ));
+		this.m_buffer = this.m_buffer.slice();
+	}
+	
+	
+	public   void ResetSlice()
+	{
+		this.m_buffer = this.m_original;
+	}
+	
+	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef34043 = true;
+			boolean __temp_executeDef42633 = true;
 			switch (field.hashCode())
 			{
 				case -1705094408:
 				{
 					if (field.equals("m_length")) 
 					{
-						__temp_executeDef34043 = false;
+						__temp_executeDef42633 = false;
 						this.m_length = ((int) (value) );
 						return value;
 					}
@@ -105,12 +127,12 @@ public  class Buffer extends haxe.lang.HxObject
 				}
 				
 				
-				case 281453070:
+				case -1618510683:
 				{
-					if (field.equals("byteLength")) 
+					if (field.equals("m_offset")) 
 					{
-						__temp_executeDef34043 = false;
-						this.byteLength = ((int) (value) );
+						__temp_executeDef42633 = false;
+						this.m_offset = ((int) (value) );
 						return value;
 					}
 					
@@ -122,8 +144,21 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef34043 = false;
+						__temp_executeDef42633 = false;
 						this.length = ((int) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 281453070:
+				{
+					if (field.equals("byteLength")) 
+					{
+						__temp_executeDef42633 = false;
+						this.byteLength = ((int) (value) );
 						return value;
 					}
 					
@@ -135,7 +170,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("bytesPerElement")) 
 					{
-						__temp_executeDef34043 = false;
+						__temp_executeDef42633 = false;
 						this.bytesPerElement = ((int) (value) );
 						return value;
 					}
@@ -146,7 +181,7 @@ public  class Buffer extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef34043) 
+			if (__temp_executeDef42633) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -163,14 +198,14 @@ public  class Buffer extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef34044 = true;
+			boolean __temp_executeDef42634 = true;
 			switch (field.hashCode())
 			{
 				case -1705094408:
 				{
 					if (field.equals("m_length")) 
 					{
-						__temp_executeDef34044 = false;
+						__temp_executeDef42634 = false;
 						this.m_length = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -183,7 +218,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("buffer")) 
 					{
-						__temp_executeDef34044 = false;
+						__temp_executeDef42634 = false;
 						this.buffer = ((java.nio.ByteBuffer) (value) );
 						return value;
 					}
@@ -196,7 +231,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef34044 = false;
+						__temp_executeDef42634 = false;
 						this.length = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -209,7 +244,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef34044 = false;
+						__temp_executeDef42634 = false;
 						this.m_buffer = ((java.nio.ByteBuffer) (value) );
 						return value;
 					}
@@ -222,8 +257,21 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("bytesPerElement")) 
 					{
-						__temp_executeDef34044 = false;
+						__temp_executeDef42634 = false;
 						this.bytesPerElement = ((int) (haxe.lang.Runtime.toInt(value)) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 1524426083:
+				{
+					if (field.equals("m_original")) 
+					{
+						__temp_executeDef42634 = false;
+						this.m_original = ((java.nio.ByteBuffer) (value) );
 						return value;
 					}
 					
@@ -235,8 +283,21 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("byteLength")) 
 					{
-						__temp_executeDef34044 = false;
+						__temp_executeDef42634 = false;
 						this.byteLength = ((int) (haxe.lang.Runtime.toInt(value)) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -1618510683:
+				{
+					if (field.equals("m_offset")) 
+					{
+						__temp_executeDef42634 = false;
+						this.m_offset = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
 					
@@ -246,7 +307,7 @@ public  class Buffer extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef34044) 
+			if (__temp_executeDef42634) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -263,15 +324,15 @@ public  class Buffer extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef34045 = true;
+			boolean __temp_executeDef42635 = true;
 			switch (field.hashCode())
 			{
-				case -645846934:
+				case 305726883:
 				{
-					if (field.equals("SetByte")) 
+					if (field.equals("ResetSlice")) 
 					{
-						__temp_executeDef34045 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetByte"))) );
+						__temp_executeDef42635 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ResetSlice"))) );
 					}
 					
 					break;
@@ -282,7 +343,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("buffer")) 
 					{
-						__temp_executeDef34045 = false;
+						__temp_executeDef42635 = false;
 						if (handleProperties) 
 						{
 							return this.get_buffer();
@@ -298,12 +359,12 @@ public  class Buffer extends haxe.lang.HxObject
 				}
 				
 				
-				case 1589010782:
+				case 119371723:
 				{
-					if (field.equals("GetByte")) 
+					if (field.equals("SetViewSlice")) 
 					{
-						__temp_executeDef34045 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetByte"))) );
+						__temp_executeDef42635 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetViewSlice"))) );
 					}
 					
 					break;
@@ -314,7 +375,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("get_buffer")) 
 					{
-						__temp_executeDef34045 = false;
+						__temp_executeDef42635 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_buffer"))) );
 					}
 					
@@ -322,12 +383,12 @@ public  class Buffer extends haxe.lang.HxObject
 				}
 				
 				
-				case -1705094408:
+				case -645846934:
 				{
-					if (field.equals("m_length")) 
+					if (field.equals("SetByte")) 
 					{
-						__temp_executeDef34045 = false;
-						return this.m_length;
+						__temp_executeDef42635 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetByte"))) );
 					}
 					
 					break;
@@ -338,8 +399,56 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef34045 = false;
+						__temp_executeDef42635 = false;
 						return this.m_buffer;
+					}
+					
+					break;
+				}
+				
+				
+				case 1589010782:
+				{
+					if (field.equals("GetByte")) 
+					{
+						__temp_executeDef42635 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetByte"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1524426083:
+				{
+					if (field.equals("m_original")) 
+					{
+						__temp_executeDef42635 = false;
+						return this.m_original;
+					}
+					
+					break;
+				}
+				
+				
+				case -1705094408:
+				{
+					if (field.equals("m_length")) 
+					{
+						__temp_executeDef42635 = false;
+						return this.m_length;
+					}
+					
+					break;
+				}
+				
+				
+				case -1618510683:
+				{
+					if (field.equals("m_offset")) 
+					{
+						__temp_executeDef42635 = false;
+						return this.m_offset;
 					}
 					
 					break;
@@ -350,7 +459,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef34045 = false;
+						__temp_executeDef42635 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_length"))) );
 					}
 					
@@ -362,7 +471,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("byteLength")) 
 					{
-						__temp_executeDef34045 = false;
+						__temp_executeDef42635 = false;
 						if (handleProperties) 
 						{
 							return this.get_byteLength();
@@ -382,7 +491,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef34045 = false;
+						__temp_executeDef42635 = false;
 						if (handleProperties) 
 						{
 							return this.get_length();
@@ -402,7 +511,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("get_byteLength")) 
 					{
-						__temp_executeDef34045 = false;
+						__temp_executeDef42635 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_byteLength"))) );
 					}
 					
@@ -414,7 +523,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("get_bytesPerElement")) 
 					{
-						__temp_executeDef34045 = false;
+						__temp_executeDef42635 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_bytesPerElement"))) );
 					}
 					
@@ -426,7 +535,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("bytesPerElement")) 
 					{
-						__temp_executeDef34045 = false;
+						__temp_executeDef42635 = false;
 						if (handleProperties) 
 						{
 							return this.get_bytesPerElement();
@@ -444,7 +553,7 @@ public  class Buffer extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef34045) 
+			if (__temp_executeDef42635) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -461,14 +570,14 @@ public  class Buffer extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef34046 = true;
+			boolean __temp_executeDef42636 = true;
 			switch (field.hashCode())
 			{
 				case -1705094408:
 				{
 					if (field.equals("m_length")) 
 					{
-						__temp_executeDef34046 = false;
+						__temp_executeDef42636 = false;
 						return ((double) (this.m_length) );
 					}
 					
@@ -476,20 +585,12 @@ public  class Buffer extends haxe.lang.HxObject
 				}
 				
 				
-				case 281453070:
+				case -1618510683:
 				{
-					if (field.equals("byteLength")) 
+					if (field.equals("m_offset")) 
 					{
-						__temp_executeDef34046 = false;
-						if (handleProperties) 
-						{
-							return ((double) (this.get_byteLength()) );
-						}
-						 else 
-						{
-							return ((double) (this.byteLength) );
-						}
-						
+						__temp_executeDef42636 = false;
+						return ((double) (this.m_offset) );
 					}
 					
 					break;
@@ -500,7 +601,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef34046 = false;
+						__temp_executeDef42636 = false;
 						if (handleProperties) 
 						{
 							return ((double) (this.get_length()) );
@@ -516,11 +617,31 @@ public  class Buffer extends haxe.lang.HxObject
 				}
 				
 				
+				case 281453070:
+				{
+					if (field.equals("byteLength")) 
+					{
+						__temp_executeDef42636 = false;
+						if (handleProperties) 
+						{
+							return ((double) (this.get_byteLength()) );
+						}
+						 else 
+						{
+							return ((double) (this.byteLength) );
+						}
+						
+					}
+					
+					break;
+				}
+				
+				
 				case 1062817258:
 				{
 					if (field.equals("bytesPerElement")) 
 					{
-						__temp_executeDef34046 = false;
+						__temp_executeDef42636 = false;
 						if (handleProperties) 
 						{
 							return ((double) (this.get_bytesPerElement()) );
@@ -538,7 +659,7 @@ public  class Buffer extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef34046) 
+			if (__temp_executeDef42636) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -555,15 +676,15 @@ public  class Buffer extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef34047 = true;
+			boolean __temp_executeDef42637 = true;
 			switch (field.hashCode())
 			{
-				case -645846934:
+				case 305726883:
 				{
-					if (field.equals("SetByte")) 
+					if (field.equals("ResetSlice")) 
 					{
-						__temp_executeDef34047 = false;
-						this.SetByte(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
+						__temp_executeDef42637 = false;
+						this.ResetSlice();
 					}
 					
 					break;
@@ -574,7 +695,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("get_buffer")) 
 					{
-						__temp_executeDef34047 = false;
+						__temp_executeDef42637 = false;
 						return this.get_buffer();
 					}
 					
@@ -582,12 +703,12 @@ public  class Buffer extends haxe.lang.HxObject
 				}
 				
 				
-				case 1589010782:
+				case 119371723:
 				{
-					if (field.equals("GetByte")) 
+					if (field.equals("SetViewSlice")) 
 					{
-						__temp_executeDef34047 = false;
-						return this.GetByte(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef42637 = false;
+						this.SetViewSlice(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
 					break;
@@ -598,7 +719,7 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("get_byteLength")) 
 					{
-						__temp_executeDef34047 = false;
+						__temp_executeDef42637 = false;
 						return this.get_byteLength();
 					}
 					
@@ -606,12 +727,12 @@ public  class Buffer extends haxe.lang.HxObject
 				}
 				
 				
-				case 974314479:
+				case -645846934:
 				{
-					if (field.equals("get_length")) 
+					if (field.equals("SetByte")) 
 					{
-						__temp_executeDef34047 = false;
-						return this.get_length();
+						__temp_executeDef42637 = false;
+						this.SetByte(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
 					break;
@@ -622,8 +743,32 @@ public  class Buffer extends haxe.lang.HxObject
 				{
 					if (field.equals("get_bytesPerElement")) 
 					{
-						__temp_executeDef34047 = false;
+						__temp_executeDef42637 = false;
 						return this.get_bytesPerElement();
+					}
+					
+					break;
+				}
+				
+				
+				case 1589010782:
+				{
+					if (field.equals("GetByte")) 
+					{
+						__temp_executeDef42637 = false;
+						return this.GetByte(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 974314479:
+				{
+					if (field.equals("get_length")) 
+					{
+						__temp_executeDef42637 = false;
+						return this.get_length();
 					}
 					
 					break;
@@ -632,7 +777,7 @@ public  class Buffer extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef34047) 
+			if (__temp_executeDef42637) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
@@ -649,6 +794,8 @@ public  class Buffer extends haxe.lang.HxObject
 		baseArr.push("length");
 		baseArr.push("bytesPerElement");
 		baseArr.push("byteLength");
+		baseArr.push("m_offset");
+		baseArr.push("m_original");
 		baseArr.push("m_buffer");
 		baseArr.push("buffer");
 		{

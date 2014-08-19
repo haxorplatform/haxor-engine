@@ -43,6 +43,8 @@ class HXCPP_CLASS_ATTRIBUTES  UInt16Array_obj : public ::haxor::io::Buffer_obj{
 		virtual Void SetRange( Array< int > p_data,hx::Null< int >  p_offset);
 		Dynamic SetRange_dyn();
 
+		virtual Void SetViewSlice( int p_start,int p_length);
+
 		static ::haxor::io::UInt16Array Alloc( Array< int > p_data);
 		static Dynamic Alloc_dyn();
 

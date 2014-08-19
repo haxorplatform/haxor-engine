@@ -305,13 +305,15 @@ public  class GL extends haxe.lang.HxObject
 		haxor.platform.graphics.GL.HALF_FLOAT = 5126;
 		haxor.platform.graphics.GL.TEXTURE_HALF = false;
 		haxor.platform.graphics.GL.TEXTURE_HALF_LINEAR = false;
-		haxor.platform.graphics.GL.MAX_ANISOTROPY = 1;
-		haxor.platform.graphics.GL.TEXTURE_ANISOTROPY = false;
+		haxor.platform.graphics.GL.TEXTURE_ANISOTROPY = -1;
+		haxor.platform.graphics.GL.TEXTURE_ANISOTROPY_ENABLED = false;
+		haxor.platform.graphics.GL.MAX_TEXTURE_ANISOTROPY = 1;
 		haxor.platform.graphics.GL.TEXTURE_FLOAT = false;
 		haxor.platform.graphics.GL.TEXTURE_FLOAT_LINEAR = false;
-		haxor.platform.graphics.GL.TEXTURE_DEPTH = false;
+		haxor.platform.graphics.GL.TEXTURE_DEPTH_ENABLED = false;
 		haxor.platform.graphics.GL.MAX_ACTIVE_TEXTURE = 8;
-		haxor.platform.graphics.GL.NULL = -1;
+		haxor.platform.graphics.GL.NULL = 0;
+		haxor.platform.graphics.GL.INVALID = -1;
 	}
 	public    GL(haxe.lang.EmptyObject empty)
 	{
@@ -327,7 +329,7 @@ public  class GL extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_graphics_GL(haxor.platform.graphics.GL __temp_me33859)
+	public static   void __hx_ctor_haxor_platform_graphics_GL(haxor.platform.graphics.GL __temp_me42415)
 	{
 		{
 		}
@@ -933,19 +935,23 @@ public  class GL extends haxe.lang.HxObject
 	
 	public static  boolean TEXTURE_HALF_LINEAR;
 	
-	public static  int MAX_ANISOTROPY;
+	public static  int TEXTURE_ANISOTROPY;
 	
-	public static  boolean TEXTURE_ANISOTROPY;
+	public static  boolean TEXTURE_ANISOTROPY_ENABLED;
+	
+	public static  int MAX_TEXTURE_ANISOTROPY;
 	
 	public static  boolean TEXTURE_FLOAT;
 	
 	public static  boolean TEXTURE_FLOAT_LINEAR;
 	
-	public static  boolean TEXTURE_DEPTH;
+	public static  boolean TEXTURE_DEPTH_ENABLED;
 	
 	public static  int MAX_ACTIVE_TEXTURE;
 	
 	public static  int NULL;
+	
+	public static  int INVALID;
 	
 	
 	
@@ -1113,6 +1119,12 @@ public  class GL extends haxe.lang.HxObject
 	}
 	
 	
+	public static   int GetUniformLocation(int p_program, java.lang.String p_name)
+	{
+		return haxor.platform.graphics.GL.m_gl.GetUniformLocation(p_program, p_name);
+	}
+	
+	
 	public static   java.lang.String GetProgramInfoLog(int p_program)
 	{
 		return haxor.platform.graphics.GL.m_gl.GetProgramInfoLog(p_program);
@@ -1134,6 +1146,246 @@ public  class GL extends haxe.lang.HxObject
 	public static   void UseProgram(int p_program)
 	{
 		haxor.platform.graphics.GL.m_gl.UseProgram(p_program);
+	}
+	
+	
+	public static   void ActiveTexture(int p_slot)
+	{
+		haxor.platform.graphics.GL.m_gl.ActiveTexture(p_slot);
+	}
+	
+	
+	public static   void BindFramebuffer(int p_target, int p_id)
+	{
+		haxor.platform.graphics.GL.m_gl.BindFramebuffer(p_target, p_id);
+	}
+	
+	
+	public static   void BindRenderbuffer(int p_target, int p_id)
+	{
+		haxor.platform.graphics.GL.m_gl.BindRenderbuffer(p_target, p_id);
+	}
+	
+	
+	public static   void BindTexture(int p_target, int p_id)
+	{
+		haxor.platform.graphics.GL.m_gl.BindTexture(p_target, p_id);
+	}
+	
+	
+	public static   int CreateFramebuffer()
+	{
+		return haxor.platform.graphics.GL.m_gl.CreateFramebuffer();
+	}
+	
+	
+	public static   int CreateRenderbuffer()
+	{
+		return haxor.platform.graphics.GL.m_gl.CreateRenderbuffer();
+	}
+	
+	
+	public static   int CreateTexture()
+	{
+		return haxor.platform.graphics.GL.m_gl.CreateTexture();
+	}
+	
+	
+	public static   void DeleteFramebuffer(int p_id)
+	{
+		haxor.platform.graphics.GL.m_gl.DeleteFramebuffer(p_id);
+	}
+	
+	
+	public static   void DeleteRenderbuffer(int p_id)
+	{
+		haxor.platform.graphics.GL.m_gl.DeleteRenderbuffer(p_id);
+	}
+	
+	
+	public static   void DeleteTexture(int p_id)
+	{
+		haxor.platform.graphics.GL.m_gl.DeleteTexture(p_id);
+	}
+	
+	
+	public static   void FramebufferRenderbuffer(int p_target, int p_attachment, int p_renderbuffer_target, int p_renderbuffer_id)
+	{
+		haxor.platform.graphics.GL.m_gl.FramebufferRenderbuffer(p_target, p_attachment, p_renderbuffer_target, p_renderbuffer_id);
+	}
+	
+	
+	public static   void FramebufferTexture2D(int p_target, int p_attachment, int p_texture_target, int p_texture_id, int p_miplevel)
+	{
+		haxor.platform.graphics.GL.m_gl.FramebufferTexture2D(p_target, p_attachment, p_texture_target, p_texture_id, p_miplevel);
+	}
+	
+	
+	public static   void GenerateMipmap(int p_target)
+	{
+		haxor.platform.graphics.GL.m_gl.GenerateMipmap(p_target);
+	}
+	
+	
+	public static   void PixelStorei(int p_parameter, int p_value)
+	{
+		haxor.platform.graphics.GL.m_gl.PixelStorei(p_parameter, p_value);
+	}
+	
+	
+	public static   void RenderbufferStorage(int p_target, int p_format, int p_width, int p_height)
+	{
+		haxor.platform.graphics.GL.m_gl.RenderbufferStorage(p_target, p_format, p_width, p_height);
+	}
+	
+	
+	public static   void TexImage2D(int p_target, int p_level, int p_internal_format, int p_width, int p_height, int p_border, int p_format, int p_channel_type, haxor.io.Buffer p_data)
+	{
+		haxor.platform.graphics.GL.m_gl.TexImage2D(p_target, p_level, p_internal_format, p_width, p_height, p_border, p_format, p_channel_type, p_data);
+	}
+	
+	
+	public static   void TexImage2DAlloc(int p_target, int p_level, int p_internal_format, int p_width, int p_height, int p_border, int p_format, int p_channel_type)
+	{
+		haxor.platform.graphics.GL.m_gl.TexImage2DAlloc(p_target, p_level, p_internal_format, p_width, p_height, p_border, p_format, p_channel_type);
+	}
+	
+	
+	public static   void TexSubImage2D(int p_target, int p_level, int p_x, int p_y, int p_width, int p_height, int p_format, int p_channel_type, haxor.io.Buffer p_data)
+	{
+		haxor.platform.graphics.GL.m_gl.TexSubImage2D(p_target, p_level, p_x, p_y, p_width, p_height, p_format, p_channel_type, p_data);
+	}
+	
+	
+	public static   void TexStorage2D(int p_target, int p_num_mipmaps, int p_channels, int p_width, int p_height)
+	{
+		haxor.platform.graphics.GL.m_gl.TexStorage2D(p_target, p_num_mipmaps, p_channels, p_width, p_height);
+	}
+	
+	
+	public static   void TexParameterf(int p_target, int p_parameter, double p_value)
+	{
+		haxor.platform.graphics.GL.m_gl.TexParameterf(p_target, p_parameter, p_value);
+	}
+	
+	
+	public static   void TexParameteri(int p_target, int p_parameter, int p_value)
+	{
+		haxor.platform.graphics.GL.m_gl.TexParameteri(p_target, p_parameter, p_value);
+	}
+	
+	
+	public static   void Uniform1f(int p_location, double p_x)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform1f(p_location, p_x);
+	}
+	
+	
+	public static   void Uniform2f(int p_location, double p_x, double p_y)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform2f(p_location, p_x, p_y);
+	}
+	
+	
+	public static   void Uniform3f(int p_location, double p_x, double p_y, double p_z)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform3f(p_location, p_x, p_y, p_z);
+	}
+	
+	
+	public static   void Uniform4f(int p_location, double p_x, double p_y, double p_z, double p_w)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform4f(p_location, p_x, p_y, p_z, p_w);
+	}
+	
+	
+	public static   void Uniform1i(int p_location, int p_x)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform1i(p_location, p_x);
+	}
+	
+	
+	public static   void Uniform2i(int p_location, int p_x, int p_y)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform2i(p_location, p_x, p_y);
+	}
+	
+	
+	public static   void Uniform3i(int p_location, int p_x, int p_y, int p_z)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform3i(p_location, p_x, p_y, p_z);
+	}
+	
+	
+	public static   void Uniform4i(int p_location, int p_x, int p_y, int p_z, int p_w)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform4i(p_location, p_x, p_y, p_z, p_w);
+	}
+	
+	
+	public static   void Uniform1fv(int p_location, haxor.io.FloatArray p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform1fv(p_location, p_v);
+	}
+	
+	
+	public static   void Uniform2fv(int p_location, haxor.io.FloatArray p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform2fv(p_location, p_v);
+	}
+	
+	
+	public static   void Uniform3fv(int p_location, haxor.io.FloatArray p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform3fv(p_location, p_v);
+	}
+	
+	
+	public static   void Uniform4fv(int p_location, haxor.io.FloatArray p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform4fv(p_location, p_v);
+	}
+	
+	
+	public static   void Uniform1iv(int p_location, haxor.io.Int32Array p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform1iv(p_location, p_v);
+	}
+	
+	
+	public static   void Uniform2iv(int p_location, haxor.io.Int32Array p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform2iv(p_location, p_v);
+	}
+	
+	
+	public static   void Uniform3iv(int p_location, haxor.io.Int32Array p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform3iv(p_location, p_v);
+	}
+	
+	
+	public static   void Uniform4iv(int p_location, haxor.io.Int32Array p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.Uniform4iv(p_location, p_v);
+	}
+	
+	
+	public static   void UniformMatrix2fv(int p_location, boolean p_transpose, haxor.io.FloatArray p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.UniformMatrix2fv(p_location, p_transpose, p_v);
+	}
+	
+	
+	public static   void UniformMatrix3fv(int p_location, boolean p_transpose, haxor.io.FloatArray p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.UniformMatrix3fv(p_location, p_transpose, p_v);
+	}
+	
+	
+	public static   void UniformMatrix4fv(int p_location, boolean p_transpose, haxor.io.FloatArray p_v)
+	{
+		haxor.platform.graphics.GL.m_gl.UniformMatrix4fv(p_location, p_transpose, p_v);
 	}
 	
 	
@@ -1194,6 +1446,24 @@ public  class GL extends haxe.lang.HxObject
 	public static   void ClearColor(double p_r, double p_g, double p_b, double p_a)
 	{
 		haxor.platform.graphics.GL.m_gl.ClearColor(p_r, p_g, p_b, p_a);
+	}
+	
+	
+	public static   void Viewport(int p_x, int p_y, int p_width, int p_height)
+	{
+		haxor.platform.graphics.GL.m_gl.Viewport(p_x, p_y, p_width, p_height);
+	}
+	
+	
+	public static   void Scissor(int p_x, int p_y, int p_width, int p_height)
+	{
+		haxor.platform.graphics.GL.m_gl.Scissor(p_x, p_y, p_width, p_height);
+	}
+	
+	
+	public static   void ReadPixels(int p_x, int p_y, int p_width, int p_height, int p_format, int p_type, haxor.io.Buffer p_pixels)
+	{
+		haxor.platform.graphics.GL.m_gl.ReadPixels(p_x, p_y, p_width, p_height, p_format, p_type, p_pixels);
 	}
 	
 	

@@ -2,11 +2,17 @@ package haxor.platform.graphics;
 import haxor.context.EngineContext;
 import haxor.core.BaseApplication;
 import haxor.io.Buffer;
+import haxor.io.FloatArray;
+import haxor.io.Int32Array;
 import haxor.platform.graphics.GraphicContext.GraphicAPI;
 import haxor.platform.Types.ArrayBuffer;
+import haxor.platform.Types.FrameBufferId;
 import haxor.platform.Types.MeshBufferId;
 import haxor.platform.Types.ProgramId;
+import haxor.platform.Types.RenderBufferId;
 import haxor.platform.Types.ShaderId;
+import haxor.platform.Types.TextureId;
+import haxor.platform.Types.UniformLocation;
 
 #if html
 typedef PlatformGL  = WebGL;
@@ -346,14 +352,19 @@ class GL
 	static public var TEXTURE_HALF_LINEAR : Bool = false;
 		
 	/**
-	 * Max Aniso Level
+	 * Enumeration for the Anisotropy parameter.
 	 */
-	static public var MAX_ANISOTROPY : Int = 1;
+	static public var TEXTURE_ANISOTROPY : Int = -1;
 	
 	/**
 	 * Flag that indicates if Texture Anisotropy is available
 	 */
-	static public var TEXTURE_ANISOTROPY : Bool = false;
+	static public var TEXTURE_ANISOTROPY_ENABLED : Bool = false;
+	
+	/**
+	 * Cap for anisotropy.
+	 */
+	static public var MAX_TEXTURE_ANISOTROPY : Int = 1;
 		
 	/**
 	 * Flag that indicates that the platform supports Texture with float pixels.
@@ -368,7 +379,7 @@ class GL
 	/**
 	 * Flag that indicates if the platform support Depth textures.
 	 */
-	static public var TEXTURE_DEPTH: Bool = false;
+	static public var TEXTURE_DEPTH_ENABLED: Bool = false;
 	
 	/**
 	 * Max number of active textures.
@@ -380,8 +391,10 @@ class GL
 	 */
 	#if html
 	static public var NULL : Dynamic = null;
+	static public var INVALID 	: Dynamic = null;
 	#else		
-	static public var NULL : Int = -1;
+	static public var NULL 		: Int =  0;
+	static public var INVALID 	: Int = -1;
 	#end
 	
 	/**
@@ -596,6 +609,14 @@ class GL
 	static public inline function GetAttribLocation(p_program : ProgramId, p_name : String):Int { return m_gl.GetAttribLocation(p_program,p_name); } 
 	
 	/**
+	 * Returns the location of an uniform inside the Shader program.
+	 * @param	p_program
+	 * @param	p_name
+	 * @return
+	 */
+	static public inline function GetUniformLocation(p_program : ProgramId, p_name : String):UniformLocation { return m_gl.GetUniformLocation(p_program,p_name); }	
+	
+	/**
 	 * Returns log information of the last operation made by the Program. This method can report errors in the Link, Attach and other API commands.
 	 * @param	p_program
 	 * @return
@@ -624,6 +645,335 @@ class GL
 	
 	
 	//=========== Shader ===========
+	
+	//=========== Textures ===========
+	
+	/**
+	 * Assign the bound texture to a given texture slot.
+	 * @param	p_slot
+	 */
+	static public inline function ActiveTexture(p_slot:Int):Void 									{ m_gl.ActiveTexture(p_slot); }	
+	
+	/**
+	 * Makes the informed frame buffer ready to use.
+	 * @param	p_target
+	 * @param	p_id
+	 */
+	static public inline function BindFramebuffer(p_target:Int, p_id:FrameBufferId):Void 			{ m_gl.BindFramebuffer(p_target, p_id); }
+	
+	/**
+	 * Makes the informed render buffer ready to use with the active frame buffer.
+	 * @param	p_target
+	 * @param	p_id
+	 */
+	static public inline function BindRenderbuffer(p_target:Int, p_id:RenderBufferId):Void 			{ m_gl.BindRenderbuffer(p_target, p_id); }
+	
+	/**
+	 * Makes the informed texture ready to use.
+	 * @param	p_target
+	 * @param	p_id
+	 */
+	static public inline function BindTexture(p_target:Int, p_id:TextureId):Void 					{ m_gl.BindTexture(p_target, p_id); }
+	
+	/**
+	 * Creates a new frame buffer id.
+	 * @return
+	 */
+	static public inline function CreateFramebuffer():FrameBufferId 								{ return m_gl.CreateFramebuffer(); }
+	
+	/**
+	 * Creates a new render buffer id.
+	 * @return
+	 */
+	static public inline function CreateRenderbuffer():RenderBufferId 								{ return m_gl.CreateRenderbuffer(); }	
+	
+	/**
+	 * Creates a new texture id.
+	 * @return
+	 */
+	static public inline function CreateTexture():TextureId 										{ return m_gl.CreateTexture(); }	
+	
+	/**
+	 * Deletes the informed frame buffer from the API memory.
+	 * @param	p_id
+	 */
+	static public inline function DeleteFramebuffer(p_id:FrameBufferId):Void 						{ m_gl.DeleteFramebuffer(p_id); }
+	
+	/**
+	 * Deletes the informed render buffer from the API memory.
+	 * @param	p_id
+	 */
+	static public inline function DeleteRenderbuffer(p_id:RenderBufferId):Void 						{ m_gl.DeleteRenderbuffer(p_id); }
+	
+	/**
+	 * Deletes the informed texture from the API memory.
+	 * @param	p_id
+	 */
+	static public inline function DeleteTexture(p_id:TextureId):Void 								{ m_gl.DeleteTexture(p_id); }		
+	
+	/**
+	 * Attach a renderbuffer object to a framebuffer object.
+	 * @param	p_target
+	 * @param	p_attachment
+	 * @param	p_renderbuffer_target
+	 * @param	p_renderbuffer_id
+	 */
+	static public inline function FramebufferRenderbuffer(p_target:Int, p_attachment:Int, p_renderbuffer_target:Int, p_renderbuffer_id:RenderBufferId):Void 
+																									{ m_gl.FramebufferRenderbuffer(p_target, p_attachment, p_renderbuffer_target, p_renderbuffer_id); }		
+	/**
+	 * Attach a texture image to a framebuffer object
+	 * @param	p_target
+	 * @param	p_attachment
+	 * @param	p_texture_target
+	 * @param	p_texture_id
+	 * @param	p_miplevel
+	 */
+	static public inline function FramebufferTexture2D(p_target:Int, p_attachment:Int, p_texture_target:Int, p_texture_id:TextureId, p_miplevel:Int):Void 
+																									{ m_gl.FramebufferTexture2D(p_target, p_attachment, p_texture_target, p_texture_id, p_miplevel); }		
+	/**
+	 * Generates a mipmap set for the bound texture.
+	 * @param	p_target
+	 */
+	static public inline function GenerateMipmap(p_target:Int):Void 								{ m_gl.GenerateMipmap(p_target); }	
+	
+	/**
+	 * Set pixel storage modes.
+	 * @param	p_parameter
+	 * @param	p_value
+	 */
+	static public inline function PixelStorei(p_parameter:Int, p_value:Int):Void 					{ m_gl.PixelStorei(p_parameter, p_value); }	
+	
+	/**
+	 * Create and initialize a renderbuffer object's data store
+	 * @param	p_target
+	 * @param	p_format
+	 * @param	p_width
+	 * @param	p_height
+	 */
+	static public inline function RenderbufferStorage(p_target:Int, p_format:Int, p_width:Int, p_height:Int):Void 
+																									{ m_gl.RenderbufferStorage(p_target, p_format, p_width, p_height); }		
+	/**
+	 * Uploads the informed data buffer to the API memory.
+	 * @param	p_target
+	 * @param	p_level
+	 * @param	p_internal_format
+	 * @param	p_width
+	 * @param	p_height
+	 * @param	p_border
+	 * @param	p_format
+	 * @param	p_channel_type
+	 * @param	p_data
+	 */																							
+	static public inline function TexImage2D(p_target:Int, p_level:Int, p_internal_format:Int, p_width:Int, p_height:Int, p_border:Int, p_format:Int, p_channel_type:Int, p_data:Buffer):Void 
+																									{ m_gl.TexImage2D(p_target, p_level, p_internal_format, p_width, p_height, p_border, p_format, p_channel_type, p_data); }	
+	
+	/**
+	 * Prepares the API memory to receive the specified texture data.
+	 * @param	p_target
+	 * @param	p_level
+	 * @param	p_internal_format
+	 * @param	p_width
+	 * @param	p_height
+	 * @param	p_border
+	 * @param	p_format
+	 * @param	p_channel_type
+	 */
+	static public inline function TexImage2DAlloc(p_target:Int, p_level:Int, p_internal_format:Int, p_width:Int, p_height:Int, p_border:Int, p_format:Int, p_channel_type:Int):Void { m_gl.TexImage2DAlloc(p_target, p_level, p_internal_format, p_width, p_height, p_border, p_format, p_channel_type); }	
+	
+	/**
+	 * Uploads the informed buffer to a section of the original texture memory in the API.
+	 * @param	p_target
+	 * @param	p_level
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_width
+	 * @param	p_height
+	 * @param	p_format
+	 * @param	p_channel_type
+	 * @param	p_data
+	 */																								
+	static public inline function TexSubImage2D(p_target:Int, p_level:Int, p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_channel_type:Int, p_data:Buffer):Void 
+																									{ m_gl.TexSubImage2D(p_target, p_level, p_x, p_y, p_width, p_height, p_format, p_channel_type, p_data); }	
+	
+	/**
+	 * simultaneously specify storage for all levels of a two-dimensional or one-dimensional array texture (not HTML-ish)
+	 * @param	p_target
+	 * @param	p_num_mipmaps
+	 * @param	p_channels
+	 * @param	p_width
+	 * @param	p_height
+	 */																								
+	static public inline function TexStorage2D(p_target:Int, p_num_mipmaps : Int, p_channels : Int, p_width : Int, p_height:Int) 
+																									{ m_gl.TexStorage2D(p_target, p_num_mipmaps, p_channels, p_width, p_height); }	
+	/**
+	 * Sets Float texture parameters.
+	 * @param	p_target
+	 * @param	p_parameter
+	 * @param	p_value
+	 */
+	static public inline function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float):Void 	{ m_gl.TexParameterf(p_target, p_parameter, p_value); }	
+	
+	/**
+	 * Sets Int texture parameters.
+	 * @param	p_target
+	 * @param	p_parameter
+	 * @param	p_value
+	 */
+	static public inline function TexParameteri(p_target:Int, p_parameter:Int, p_value:Int):Void 	{ m_gl.TexParameteri(p_target, p_parameter, p_value); }
+	
+	//=========== Textures ===========
+	
+	//=========== Uniforms ===========
+	
+	/**
+	 * Sets a 1 float uniform.
+	 * @param	p_location
+	 * @param	p_x
+	 */
+	static public inline function Uniform1f(p_location:UniformLocation, p_x:Float):Void 										{ m_gl.Uniform1f(p_location, p_x); }	
+	
+	/**
+	 * Sets a 2 float uniform.
+	 * @param	p_location
+	 * @param	p_x
+	 * @param	p_y
+	 */
+	static public inline function Uniform2f(p_location:UniformLocation, p_x:Float, p_y:Float):Void 							{ m_gl.Uniform2f(p_location, p_x, p_y); }	
+	
+	/**
+	 * Sets a 3 float uniform.
+	 * @param	p_location
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_z
+	 */
+	static public inline function Uniform3f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float):Void 				{ m_gl.Uniform3f(p_location, p_x, p_y, p_z); }		
+	
+	/**
+	 * Sets a 4 float uniform.
+	 * @param	p_location
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_z
+	 * @param	p_w
+	 */
+	static public inline function Uniform4f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float, p_w:Float):Void 		{ m_gl.Uniform4f(p_location, p_x, p_y, p_z, p_w); }		
+	
+	/**
+	 * Sets a 1 int uniform.
+	 * @param	p_location
+	 * @param	p_x
+	 */
+	static public inline function Uniform1i(p_location:UniformLocation, p_x:Int):Void 										{ m_gl.Uniform1i(p_location, p_x); }	
+	
+	/**
+	 * Sets a 2 int uniform.
+	 * @param	p_location
+	 * @param	p_x
+	 * @param	p_y
+	 */
+	static public inline function Uniform2i(p_location:UniformLocation, p_x:Int, p_y:Int):Void 								{ m_gl.Uniform2i(p_location, p_x, p_y); }	
+	
+	/**
+	 * Sets a 3 int uniform.
+	 * @param	p_location
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_z
+	 */
+	static public inline function Uniform3i(p_location:UniformLocation, p_x:Int, p_y:Int, p_z:Int):Void 						{ m_gl.Uniform3i(p_location, p_x, p_y, p_z); }		
+	
+	/**
+	 * Sets a 4 int uniform.
+	 * @param	p_location
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_z
+	 * @param	p_w
+	 */
+	static public inline function Uniform4i(p_location:UniformLocation, p_x:Int, p_y:Int, p_z:Int, p_w:Int):Void 				{ m_gl.Uniform4i(p_location, p_x, p_y, p_z, p_w); }	
+	
+	/**
+	 * Sets a 1 float list of uniforms.
+	 * @param	p_location
+	 * @param	p_v
+	 */
+	static public inline function Uniform1fv(p_location:UniformLocation, p_v:FloatArray):Void 								{ m_gl.Uniform1fv(p_location, p_v); }
+	
+	/**
+	 * Sets a 2 floats list of uniforms.
+	 * @param	p_location
+	 * @param	p_v
+	 */
+	static public inline function Uniform2fv(p_location:UniformLocation, p_v:FloatArray):Void								{ m_gl.Uniform2fv(p_location, p_v); }
+	
+	/**
+	 * Sets a 3 floats list of uniforms.
+	 * @param	p_location
+	 * @param	p_v
+	 */
+	static public inline function Uniform3fv(p_location:UniformLocation, p_v:FloatArray):Void 								{ m_gl.Uniform3fv(p_location, p_v); }
+	
+	/**
+	 * Sets a 4 floats list of uniforms.
+	 * @param	p_location
+	 * @param	p_v
+	 */
+	static public inline function Uniform4fv(p_location:UniformLocation, p_v:FloatArray):Void 								{ m_gl.Uniform4fv(p_location, p_v); }	
+	
+	/**
+	 * Sets a 1 int list of uniforms.
+	 * @param	p_location
+	 * @param	p_v
+	 */
+	static public inline function Uniform1iv(p_location:UniformLocation, p_v:Int32Array):Void 								{ m_gl.Uniform1iv(p_location, p_v); }
+	
+	/**
+	 * Sets a 2 ints list of uniforms.
+	 * @param	p_location
+	 * @param	p_v
+	 */
+	static public inline function Uniform2iv(p_location:UniformLocation, p_v:Int32Array):Void 								{ m_gl.Uniform2iv(p_location, p_v); }	
+	
+	/**
+	 * Sets a 3 ints list of uniforms.
+	 * @param	p_location
+	 * @param	p_v
+	 */
+	static public inline function Uniform3iv(p_location:UniformLocation, p_v:Int32Array):Void 								{ m_gl.Uniform3iv(p_location, p_v); }	
+	
+	/**
+	 * Sets a 4 ints list of uniforms.
+	 * @param	p_location
+	 * @param	p_v
+	 */
+	static public inline function Uniform4iv(p_location:UniformLocation, p_v:Int32Array):Void 								{ m_gl.Uniform4iv(p_location, p_v); }	
+	
+	/**
+	 * Sets a matrix2x2 list of uniforms.
+	 * @param	p_location
+	 * @param	p_transpose
+	 * @param	p_v
+	 */
+	static public inline function UniformMatrix2fv(p_location:UniformLocation, p_transpose:Bool, p_v:FloatArray):Void			{ m_gl.UniformMatrix2fv(p_location, p_transpose, p_v); }
+	
+	/**
+	 * Sets a matrix3x3 list of uniforms.
+	 * @param	p_location
+	 * @param	p_transpose
+	 * @param	p_v
+	 */
+	static public inline function UniformMatrix3fv(p_location:UniformLocation, p_transpose:Bool, p_v:FloatArray):Void			{ m_gl.UniformMatrix3fv(p_location, p_transpose, p_v); }
+	
+	/**
+	 * Sets a matrix4x4 list of uniforms.
+	 * @param	p_location
+	 * @param	p_transpose
+	 * @param	p_v
+	 */
+	static public inline function UniformMatrix4fv(p_location:UniformLocation, p_transpose:Bool, p_v:FloatArray):Void		{ m_gl.UniformMatrix4fv(p_location,p_transpose,p_v); }
+	
+	//=========== Uniforms ===========
 	
 	//=========== Flags ===========
 	
@@ -672,7 +1022,7 @@ class GL
 	
 	//=========== Flags ===========
 	
-	//=========== Clear ===========
+	//=========== Screen ===========
 	
 	/**
 	 * Clears the Color and/or the Depth buffer.
@@ -695,7 +1045,37 @@ class GL
 	 */
 	static public inline function ClearColor(p_r: Float, p_g:Float, p_b:Float, p_a:Float):Void { m_gl.ClearColor(p_r, p_g, p_b, p_a); 	}
 	
-	//=========== Clear ===========
+	/**
+	 * Defines the viewport transform rect.
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_width
+	 * @param	p_height
+	 */
+	static public inline function Viewport(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void { m_gl.Viewport(p_x, p_y, p_width, p_height); }
+	
+	/**
+	 * Defines the scissor clipping rect.
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_width
+	 * @param	p_height
+	 */
+	static public inline function Scissor(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ m_gl.Scissor(p_x, p_y, p_width, p_height); }
+	
+	/**
+	 * Reads the specified portion of the current target buffer and saves it in the informed byte buffer.
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_width
+	 * @param	p_height
+	 * @param	p_format
+	 * @param	p_type
+	 * @param	p_pixels
+	 */
+	static public inline function ReadPixels(p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_type:Int, p_pixels:Buffer):Void { m_gl.ReadPixels(p_x, p_y, p_width, p_height, p_format, p_type, p_pixels); }
+	
+	//=========== Screen ===========
 	
 	//=========== Error ===========
 	

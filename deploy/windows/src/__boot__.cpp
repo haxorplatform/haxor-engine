@@ -13,14 +13,19 @@
 #include <haxor/math/Mathf.h>
 #include <haxor/math/Color.h>
 #include <haxor/io/UInt16Array.h>
+#include <haxor/io/Int32Array.h>
 #include <haxor/io/FloatArray.h>
 #include <haxor/io/Buffer.h>
+#include <haxor/graphics/texture/TextureCube.h>
+#include <haxor/graphics/texture/Texture2D.h>
+#include <haxor/graphics/texture/RenderTexture.h>
 #include <haxor/graphics/texture/Texture.h>
 #include <haxor/graphics/texture/Bitmap.h>
 #include <haxor/graphics/mesh/MeshAttrib.h>
 #include <haxor/graphics/mesh/Mesh.h>
 #include <haxor/graphics/material/UberShader.h>
 #include <haxor/graphics/material/Shader.h>
+#include <haxor/graphics/material/MaterialUniform.h>
 #include <haxor/graphics/material/Material.h>
 #include <haxor/graphics/CursorMode.h>
 #include <haxor/graphics/Screen.h>
@@ -95,14 +100,19 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::math::Mathf_obj::__register();
 ::haxor::math::Color_obj::__register();
 ::haxor::io::UInt16Array_obj::__register();
+::haxor::io::Int32Array_obj::__register();
 ::haxor::io::FloatArray_obj::__register();
 ::haxor::io::Buffer_obj::__register();
+::haxor::graphics::texture::TextureCube_obj::__register();
+::haxor::graphics::texture::Texture2D_obj::__register();
+::haxor::graphics::texture::RenderTexture_obj::__register();
 ::haxor::graphics::texture::Texture_obj::__register();
 ::haxor::graphics::texture::Bitmap_obj::__register();
 ::haxor::graphics::mesh::MeshAttrib_obj::__register();
 ::haxor::graphics::mesh::Mesh_obj::__register();
 ::haxor::graphics::material::UberShader_obj::__register();
 ::haxor::graphics::material::Shader_obj::__register();
+::haxor::graphics::material::MaterialUniform_obj::__register();
 ::haxor::graphics::material::Material_obj::__register();
 ::haxor::graphics::CursorMode_obj::__register();
 ::haxor::graphics::Screen_obj::__register();
@@ -212,14 +222,19 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::Screen_obj::__boot();
 ::haxor::graphics::CursorMode_obj::__boot();
 ::haxor::graphics::material::Material_obj::__boot();
+::haxor::graphics::material::MaterialUniform_obj::__boot();
 ::haxor::graphics::material::Shader_obj::__boot();
 ::haxor::graphics::material::UberShader_obj::__boot();
 ::haxor::graphics::mesh::Mesh_obj::__boot();
 ::haxor::graphics::mesh::MeshAttrib_obj::__boot();
 ::haxor::graphics::texture::Bitmap_obj::__boot();
 ::haxor::graphics::texture::Texture_obj::__boot();
+::haxor::graphics::texture::RenderTexture_obj::__boot();
+::haxor::graphics::texture::Texture2D_obj::__boot();
+::haxor::graphics::texture::TextureCube_obj::__boot();
 ::haxor::io::Buffer_obj::__boot();
 ::haxor::io::FloatArray_obj::__boot();
+::haxor::io::Int32Array_obj::__boot();
 ::haxor::io::UInt16Array_obj::__boot();
 ::haxor::math::Color_obj::__boot();
 ::haxor::math::Mathf_obj::__boot();

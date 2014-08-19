@@ -440,6 +440,48 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC3(Bitmap_obj,SetPixel,(void))
 
+Void Bitmap_obj::Fill( ::haxor::math::Color p_color){
+{
+		HX_STACK_FRAME("haxor.graphics.texture.Bitmap","Fill",0x0b8aa9d8,"haxor.graphics.texture.Bitmap.Fill","haxor/graphics/texture/Bitmap.hx",163,0x9c278704)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(p_color,"p_color")
+		HX_STACK_LINE(163)
+		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+		HX_STACK_LINE(163)
+		int _g = this->m_width;		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(163)
+		while((true)){
+			HX_STACK_LINE(163)
+			if ((!(((_g1 < _g))))){
+				HX_STACK_LINE(163)
+				break;
+			}
+			HX_STACK_LINE(163)
+			int ix = (_g1)++;		HX_STACK_VAR(ix,"ix");
+			HX_STACK_LINE(163)
+			int _g3 = (int)0;		HX_STACK_VAR(_g3,"_g3");
+			HX_STACK_LINE(163)
+			int _g2 = this->m_height;		HX_STACK_VAR(_g2,"_g2");
+			HX_STACK_LINE(163)
+			while((true)){
+				HX_STACK_LINE(163)
+				if ((!(((_g3 < _g2))))){
+					HX_STACK_LINE(163)
+					break;
+				}
+				HX_STACK_LINE(163)
+				int iy = (_g3)++;		HX_STACK_VAR(iy,"iy");
+				HX_STACK_LINE(163)
+				this->SetPixel(ix,iy,p_color);
+			}
+		}
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC1(Bitmap_obj,Fill,(void))
+
 
 Bitmap_obj::Bitmap_obj()
 {
@@ -484,6 +526,9 @@ void Bitmap_obj::__Visit(HX_VISIT_PARAMS)
 Dynamic Bitmap_obj::__Field(const ::String &inName,bool inCallProp)
 {
 	switch(inName.length) {
+	case 4:
+		if (HX_FIELD_EQ(inName,"Fill") ) { return Fill_dyn(); }
+		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"float") ) { return inCallProp ? get_float() : _float; }
 		if (HX_FIELD_EQ(inName,"width") ) { return inCallProp ? get_width() : width; }
@@ -608,6 +653,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("m_format"),
 	HX_CSTRING("GetPixel"),
 	HX_CSTRING("SetPixel"),
+	HX_CSTRING("Fill"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

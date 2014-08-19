@@ -264,6 +264,7 @@ C haxe.root.IMap
 M java.security.cert.CertPath
 M haxor.context.TextureContext
 C haxor.context.TextureContext
+C haxor.context.TextureContext_UploadTexture_276__Fun
 M android.os.Handler
 M java.net.InetAddress
 M java.net.URLStreamHandler
@@ -314,6 +315,8 @@ M java.lang.Runnable
 M android.view.accessibility.AccessibilityRecord
 M android.content.pm.PackageInfo
 M java.util.Date
+M haxor.graphics.texture.TextureCube
+C haxor.graphics.texture.TextureCube
 M android.content.IntentFilter
 M haxe.ds.ObjectMap
 M haxor.graphics.material.Shader
@@ -323,6 +326,9 @@ C haxor.graphics.Screen
 E haxor.graphics.CursorMode
 M haxor.graphics.material.Material
 C haxor.graphics.material.Material
+C haxor.graphics.material.MaterialUniform
+M haxor.graphics.texture.RenderTexture
+C haxor.graphics.texture.RenderTexture
 M android.graphics.Path
 M haxor.io.UInt16Array
 C haxor.io.UInt16Array
@@ -424,6 +430,8 @@ M android.content.pm.FeatureInfo
 M java.util.AbstractList
 M java.lang.ref.ReferenceQueue
 M android.os.Parcel
+M haxor.graphics.texture.Texture2D
+C haxor.graphics.texture.Texture2D
 M java.lang.SecurityManager
 M java.nio.channels.WritableByteChannel
 M java.util.Hashtable
@@ -494,8 +502,8 @@ M android.app.Dialog
 M android.text.InputType
 M haxor.thread.Activity
 C haxor.thread.Activity
-C haxor.thread.Activity_Iterate_40__Fun
-C haxor.thread.Activity_Delay_61__Fun
+C haxor.thread.Activity_Iterate_41__Fun
+C haxor.thread.Activity_Delay_62__Fun
 M java.nio.DoubleBuffer
 M java.util.RandomAccess
 M haxor.core.Scene
@@ -524,6 +532,8 @@ M java.lang.AbstractStringBuilder
 M android.content.pm.ComponentInfo
 M java.nio.IntBuffer
 M android.os.IInterface
+M haxor.io.Int32Array
+C haxor.io.Int32Array
 M java.nio.Buffer
 M android.opengl.GLES30
 M java.nio.channels.GatheringByteChannel

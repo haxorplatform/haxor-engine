@@ -1,5 +1,10 @@
 #if android
 package haxor.platform.graphics;
+import haxor.io.Int32Array;
+import haxor.platform.Types.UniformLocation;
+import haxor.platform.Types.RenderBufferId;
+import haxor.platform.Types.TextureId;
+import haxor.platform.Types.FrameBufferId;
 import haxor.io.Buffer;
 import haxor.platform.Types.ProgramId;
 import haxor.platform.Types.ShaderId;
@@ -132,15 +137,15 @@ class AndroidGL extends GraphicContext
 				
 				case "EXT_texture_filter_anisotropic", "WEBKIT_EXT_texture_filter_anisotropic":					
 					GLES20.glGetFloatv(GLES11Ext.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, fl, 0);
-					GL.MAX_ANISOTROPY = cast fl[0];
-					GL.TEXTURE_ANISOTROPY = true;
-					Console.Log("\t\tMAX_TEXTURE_MAX_ANISOTROPY: " + GL.MAX_ANISOTROPY);
+					GL.MAX_TEXTURE_ANISOTROPY = cast fl[0];
+					GL.TEXTURE_ANISOTROPY_ENABLED = true;
+					Console.Log("\t\tMAX_TEXTURE_MAX_ANISOTROPY: " + GL.MAX_TEXTURE_ANISOTROPY);
 				
 				case "OES_texture_float":
 					GL.TEXTURE_FLOAT = true;	
 				
 				case "WEBGL_depth_texture":
-					GL.TEXTURE_DEPTH = true;					
+					GL.TEXTURE_DEPTH_ENABLED = true;					
 			}			
 		}	
 		
@@ -176,11 +181,60 @@ class AndroidGL extends GraphicContext
 	override public /*inline*/ function BindAttribLocation(p_program : ProgramId, p_location : Int, p_name : String):Void 	{ GLES.glBindAttribLocation(p_program, p_location, p_name); }		
 	override public /*inline*/ function CreateProgram():ProgramId 															{ return GLES.glCreateProgram(); }	
 	override public /*inline*/ function DeleteProgram(p_program : ProgramId):Void 											{ GLES.glDeleteProgram(p_program); } 	
-	override public /*inline*/ function GetAttribLocation(p_program : ProgramId, p_name : String):Int 						{ return GLES.glGetAttribLocation(p_program,p_name); } 
+	override public /*inline*/ function GetAttribLocation(p_program : ProgramId, p_name : String):Int 						{ return GLES.glGetAttribLocation(p_program, p_name); } 
+	override public /*inline*/ function GetUniformLocation(p_program : ProgramId, p_name : String):UniformLocation 			{ return GLES.glGetUniformLocation(p_program,p_name); }
 	override public /*inline*/ function GetProgramInfoLog(p_program : ProgramId):String 									{ return GLES.glGetProgramInfoLog(p_program); }
 	override public /*inline*/ function GetProgramParameter(p_program : ProgramId, p_parameter:Int):Int		 				{ var d : NativeArray<Int> = new NativeArray(1); GLES.glGetProgramiv(p_program, p_parameter, d, 0); return d[0]; }
 	override public /*inline*/ function LinkProgram(p_program:ProgramId):Void 												{ GLES.glLinkProgram(p_program); }
 	override public /*inline*/ function UseProgram(p_program : ProgramId):Void 												{ GLES.glUseProgram(p_program); }
+	
+	//Textures
+	override public /*inline*/ function ActiveTexture(p_slot:Int):Void 														{ GLES.glActiveTexture(p_slot); }	
+	override public /*inline*/ function BindFramebuffer(p_target:Int, p_id:FrameBufferId):Void 								{ GLES.glBindFramebuffer(p_target, p_id); }
+	override public /*inline*/ function BindRenderbuffer(p_target:Int, p_id:RenderBufferId):Void							{ GLES.glBindRenderbuffer(p_target, p_id); }
+	override public /*inline*/ function BindTexture(p_target:Int, p_id:TextureId):Void 										{ GLES.glBindTexture(p_target, p_id); }
+	override public /*inline*/ function CreateFramebuffer():FrameBufferId													{ GLES.glGenFramebuffers(1, m_ids,0);   return m_ids[0]; }
+	override public /*inline*/ function CreateRenderbuffer():RenderBufferId 												{ GLES.glGenRenderbuffers(1, m_ids,0);  return m_ids[0]; }	
+	override public /*inline*/ function CreateTexture():TextureId 															{ GLES.glGenTextures(1, m_ids,0); 		return m_ids[0]; }	
+	override public /*inline*/ function DeleteFramebuffer(p_id:FrameBufferId):Void 											{ m_ids[0] = p_id; GLES.glDeleteFramebuffers(1, m_ids, 0); }
+	override public /*inline*/ function DeleteRenderbuffer(p_id:RenderBufferId):Void 										{ m_ids[0] = p_id; GLES.glDeleteRenderbuffers(1, m_ids, 0); }
+	override public /*inline*/ function DeleteTexture(p_id:TextureId):Void 													{ m_ids[0] = p_id; GLES.glDeleteTextures(1, m_ids, 0); }		
+	override public /*inline*/ function FramebufferRenderbuffer(p_target:Int, p_attachment:Int, p_renderbuffer_target:Int, p_renderbuffer_id:RenderBufferId):Void 			
+																															{ GLES.glFramebufferRenderbuffer(p_target, p_attachment, p_renderbuffer_target, p_renderbuffer_id);  }		
+	override public /*inline*/ function FramebufferTexture2D(p_target:Int, p_attachment:Int, p_texture_target:Int, p_texture_id:TextureId, p_miplevel:Int):Void 					
+																															{ GLES.glFramebufferTexture2D(p_target, p_attachment, p_texture_target, p_texture_id, p_miplevel); }		
+	override public /*inline*/ function GenerateMipmap(p_target:Int):Void 													{ GLES.glGenerateMipmap(p_target); }	
+	override public /*inline*/ function PixelStorei(p_parameter:Int, p_value:Int):Void 										{ GLES.glPixelStorei(p_parameter, p_value); }	
+	override public /*inline*/ function RenderbufferStorage(p_target:Int, p_format:Int, p_width:Int, p_height:Int):Void 	{ GLES.glRenderbufferStorage(p_target, p_format, p_width, p_height); }		
+	override public /*inline*/ function TexImage2D(p_target:Int, p_level:Int, p_internal_format:Int, p_width:Int, p_height:Int, p_border:Int, p_format:Int, p_channel_type:Int, p_data:Buffer):Void 
+																															{ GLES.glTexImage2D(p_target, p_level, p_internal_format, p_width, p_height, p_border, p_format, p_channel_type, p_data.buffer); }	
+	override public /*inline*/ function TexImage2DAlloc(p_target:Int, p_level:Int, p_internal_format:Int, p_width:Int, p_height:Int, p_border:Int, p_format:Int, p_channel_type:Int):Void 
+																															{ GLES.glTexImage2D(p_target, p_level, p_internal_format,p_width,p_height,p_border, p_format, p_channel_type,null); }																																
+	override public /*inline*/ function TexSubImage2D(p_target:Int, p_level:Int, p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_channel_type:Int, p_data:Buffer):Void 
+																															{ GLES.glTexSubImage2D(p_target, p_level, p_x, p_y,p_width,p_height,p_format, p_channel_type, p_data.buffer); }		
+	override public /*inline*/ function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float):Void 					{ GLES.glTexParameterf(p_target, p_parameter, p_value); }	
+	override public /*inline*/ function TexParameteri(p_target:Int, p_parameter:Int, p_value:Int):Void 						{ GLES.glTexParameteri(p_target, p_parameter, p_value); }
+	
+	//Uniforms
+	override public /*inline*/ function Uniform1f(p_location:UniformLocation, p_x:Float):Void 										{ GLES.glUniform1f(p_location,cast p_x); }		
+	override public /*inline*/ function Uniform2f(p_location:UniformLocation, p_x:Float, p_y:Float):Void 							{ GLES.glUniform2f(p_location,cast p_x, cast p_y); }		
+	override public /*inline*/ function Uniform3f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float):Void 				{ GLES.glUniform3f(p_location,cast p_x, cast p_y, cast p_z); }	
+	override public /*inline*/ function Uniform4f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float, p_w:Float):Void 		{ GLES.glUniform4f(p_location,cast p_x, cast p_y, cast p_z, cast p_w); }			
+	override public /*inline*/ function Uniform1i(p_location:UniformLocation,p_x:Int):Void 											{ GLES.glUniform1i(p_location, p_x); }			
+	override public /*inline*/ function Uniform2i(p_location:UniformLocation,p_x:Int,p_y:Int):Void 									{ GLES.glUniform2i(p_location, p_x, p_y); }			
+	override public /*inline*/ function Uniform3i(p_location:UniformLocation,p_x:Int,p_y:Int,p_z:Int):Void 							{ GLES.glUniform3i(p_location, p_x, p_y, p_z); }			
+	override public /*inline*/ function Uniform4i(p_location:UniformLocation,p_x:Int,p_y:Int,p_z:Int,p_w:Int):Void 					{ GLES.glUniform4i(p_location, p_x, p_y, p_z, p_w); }	
+	override public /*inline*/ function Uniform1fv(p_location:UniformLocation, p_v:FloatArray):Void 								{ GLES.glUniform1fv(p_location,p_v.length, p_v.aux); }
+	override public /*inline*/ function Uniform2fv(p_location:UniformLocation,p_v:FloatArray):Void									{ GLES.glUniform2fv(p_location,Std.int(p_v.length/2), p_v.aux); }
+	override public /*inline*/ function Uniform3fv(p_location:UniformLocation,p_v:FloatArray):Void 									{ GLES.glUniform3fv(p_location,Std.int(p_v.length/3), p_v.aux); }
+	override public /*inline*/ function Uniform4fv(p_location:UniformLocation,p_v:FloatArray):Void 									{ GLES.glUniform4fv(p_location,Std.int(p_v.length/4), p_v.aux); }	
+	override public /*inline*/ function Uniform1iv(p_location:UniformLocation, p_v:Int32Array):Void 								{ GLES.glUniform1iv(p_location,p_v.length, p_v.aux); }
+	override public /*inline*/ function Uniform2iv(p_location:UniformLocation,p_v:Int32Array):Void 									{ GLES.glUniform2iv(p_location,Std.int(p_v.length/2), p_v.aux); }	
+	override public /*inline*/ function Uniform3iv(p_location:UniformLocation,p_v:Int32Array):Void 									{ GLES.glUniform3iv(p_location,Std.int(p_v.length/3), p_v.aux); }	
+	override public /*inline*/ function Uniform4iv(p_location:UniformLocation,p_v:Int32Array):Void 									{ GLES.glUniform4iv(p_location,Std.int(p_v.length/4), p_v.aux); }	
+	override public /*inline*/ function UniformMatrix2fv(p_location:UniformLocation,p_transpose:Bool,p_v:FloatArray):Void 			{ GLES.glUniformMatrix2fv(p_location,Std.int(p_v.length/4), p_transpose,  p_v.aux); }
+	override public /*inline*/ function UniformMatrix3fv(p_location:UniformLocation,p_transpose:Bool,p_v:FloatArray):Void 			{ GLES.glUniformMatrix3fv(p_location,Std.int(p_v.length/9), p_transpose,  p_v.aux); }
+	override public /*inline*/ function UniformMatrix4fv(p_location:UniformLocation,p_transpose:Bool,p_v:FloatArray):Void 			{ GLES.glUniformMatrix4fv(p_location,Std.int(p_v.length/16), p_transpose, p_v.aux); }
 	
 	//Flags
 	override public /*inline*/ function BlendFunc(p_src : Int, p_dst : Int):Void 	{ GLES.glBlendFunc(p_src, p_dst); }
@@ -196,6 +250,8 @@ class AndroidGL extends GraphicContext
 	override public /*inline*/ function ClearDepth(p_value : Float):Void 								{ GLES.glClearDepthf(p_value); }	
 	override public /*inline*/ function ClearColor(p_r: Float, p_g:Float, p_b:Float, p_a:Float):Void 	{ GLES.glClearColor(p_r, p_g, p_b, p_a); }
 	override public /*inline*/ function Viewport(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ GLES.glViewport(p_x, p_y, p_width, p_height);	}
+	override public /*inline*/ function Scissor(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ GLES.glScissor(p_x, p_y, p_width, p_height);	}	
+	override public /*inline*/ function ReadPixels(p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_type:Int, p_pixels:Buffer):Void { GLES.glReadPixels(p_x, p_y, p_width, p_height, p_format, p_type, p_pixels.m_buffer); }
 	
 	//Errors and Assert
 	override public /*inline*/ function GetErrorCode():Int { return GLES.glGetError(); }

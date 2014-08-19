@@ -9,11 +9,15 @@ import haxor.graphics.Enums.BlendMode;
 import haxor.graphics.Enums.CullMode;
 import haxor.graphics.Enums.MeshPrimitive;
 import haxor.graphics.Enums.PixelFormat;
+import haxor.graphics.Enums.TextureFilter;
 import haxor.graphics.Graphics;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.mesh.Mesh;
+import haxor.graphics.Screen;
 import haxor.graphics.texture.Bitmap;
+import haxor.graphics.texture.RenderTexture;
+import haxor.graphics.texture.Texture2D;
 import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.math.Color;
@@ -44,6 +48,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 	public var mat : Material;
 	
 	public var ss : String;
+	
+	
 	
 	override public function Load():Bool 
 	{	
@@ -84,28 +90,13 @@ class Main extends Application implements IUpdateable implements IRenderable
 		});
 		
 		//*/
-		
-		
-		var bmp : Bitmap = new Bitmap(2, 2, PixelFormat.RGBA8);
-		bmp.SetPixel(0, 0, Color.red);
-		bmp.SetPixel(1, 0, Color.green);
-		bmp.SetPixel(0, 1, Color.blue);
-		bmp.SetPixel(1, 1, Color.yellow);
-		
-		
-		Console.Log(bmp.GetPixel(0, 0).ToString());
-		Console.Log(bmp.GetPixel(1, 0).ToString());
-		Console.Log(bmp.GetPixel(0, 1).ToString());
-		Console.Log(bmp.GetPixel(1, 1).ToString());
-		
+				
 		return true;
 	}
 	
 	override public function Initialize():Void 
 	{
 		Console.Log("Initialize!");	
-		
-		application.fps = 50;
 		
 		var s : Float = 0.8;
 		
@@ -114,6 +105,13 @@ class Main extends Application implements IUpdateable implements IRenderable
 		 s, -s, 0.5, 
 		 s,  s, 0.5,
 		-s,  s, 0.5
+		 ]);
+		 
+		var uvl : FloatArray  =  FloatArray.Alloc([ 
+		0.0,0.0,
+		1.0,0.0,
+		1.0,1.0,
+		0.0,1.0,
 		 ]);
 		
 		var cl : FloatArray  =  FloatArray.Alloc([
@@ -128,6 +126,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		var m : Mesh = mesh = new Mesh(); 
 		m.Set("vertex", vl, 3);
+		m.Set("uv0", uvl, 2);
 		m.Set("color", cl, 4);
 		
 		m.topology = il;
@@ -138,33 +137,70 @@ class Main extends Application implements IUpdateable implements IRenderable
 			<shader id="haxor/debug">
 				<vertex>			
 				attribute vec3 vertex;
+				attribute vec2 uv0;
 				attribute vec4 color;			
-				varying vec4 v_color;			
+				uniform float Size;
+				uniform float Time;
+				varying vec4 v_color;		
+				varying vec2 v_uv0;
 				void main(void) 
 				{ 
 					v_color = color;
-					gl_Position = vec4(vertex, 1.0);				
+					v_uv0.x = vertex.x / (Size);
+					v_uv0.y = -vertex.y / (Size);
+					v_uv0.x = (v_uv0.x + 1.0) * 0.5;
+					v_uv0.y = (v_uv0.y + 1.0) * 0.5;
+					//v_uv0 = uv0;
+					vec4 v = vec4(vertex,1.0);
+					v.x = v.x*sin(Time);
+					gl_Position = vec4(v);				
 				}			
 				</vertex>			
-				<fragment>					
-				varying vec4 v_color;			
+				<fragment>			
+				uniform sampler2D Texture;
+				uniform vec4 Tint[2];
+				varying vec4 v_color;	
+				varying vec2 v_uv0;
 				void main(void) 
 				{ 
-					gl_FragColor = v_color;
+					vec4 c = texture2D(Texture, v_uv0);
+					//gl_FragColor = vec4(v_uv0.x,v_uv0.y,0.0,1.0);
+					gl_FragColor = c;
 				}			
 				</fragment>
 			</shader>
 			';
 		}
 		
+		var h : Int = 2048;
+		var tex : Texture2D = new Texture2D(1, h, PixelFormat.Float4);
+		var cl : Array<Color> = [Color.red, Color.green, Color.blue, Color.yellow];
+		for (i in 0...h)
+		{
+			var r : Float = i / (h - 1);
+			tex.data.SetPixel(0, i,Color.Sample(cl,r));
+			//tex.data.SetPixel(0, i,new Color(Math.random(),Math.random(),Math.random(),1.0));
+			//tex.data.SetPixel(0, i,cl[i]);
+		}		
+		tex.minFilter = TextureFilter.Nearest;
+		tex.magFilter = TextureFilter.Nearest;
+		tex.Upload(100);
+		//tex.Apply();
 		
-		var shd : Shader = new Shader(ss);
+		
+		//var rtt : RenderTexture = new RenderTexture(128, 128, PixelFormat.RGBA8);
+		
+		
+		var shd : Shader = new Shader(ss);	
 		
 		mat = new Material("DebugMaterial");
 		mat.blend = true;
+		mat.cull = CullMode.None;
 		mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
 		mat.shader = shd;
-		
+		mat.SetFloat("Size", s);
+		mat.SetTexture("Texture", tex);
+		mat.SetFloat4Array("Tint", [0.0, 1.0, 0.0, 0.3,1.0, 0.0, 0.0, 0.3]);
 		
 	}
 	
@@ -178,13 +214,15 @@ class Main extends Application implements IUpdateable implements IRenderable
 	public function OnRender():Void
 	{
 				
-		GL.ClearColor(1.0, 0.0, 1.0, 1.0);
+		GL.Viewport(0, 0,cast Screen.width,cast Screen.height);
+		GL.ClearColor(0.7, 0.3, 1.0, 1.0);
 		GL.ClearDepth(1.0);
 		GL.Clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 		
 	
 		if (mesh == null) return;
 		if (mat == null) return;
+		mat.SetFloat("Time", Time.elapsed);
 		Graphics.RenderMesh(mesh, mat);		
 		
 	}

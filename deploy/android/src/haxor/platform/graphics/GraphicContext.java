@@ -18,10 +18,10 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_graphics_GraphicContext(haxor.platform.graphics.GraphicContext __temp_me33856, haxor.core.BaseApplication p_application)
+	public static   void __hx_ctor_haxor_platform_graphics_GraphicContext(haxor.platform.graphics.GraphicContext __temp_me42412, haxor.core.BaseApplication p_application)
 	{
-		__temp_me33856.m_api = haxor.platform.graphics.GraphicAPI.None;
-		__temp_me33856.m_application = p_application;
+		__temp_me42412.m_api = haxor.platform.graphics.GraphicAPI.None;
+		__temp_me42412.m_application = p_application;
 	}
 	
 	
@@ -115,7 +115,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	
 	public   int CreateBuffer()
 	{
-		return haxor.platform.graphics.GL.NULL;
+		return haxor.platform.graphics.GL.INVALID;
 	}
 	
 	
@@ -193,7 +193,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	
 	public   int CreateShader(int p_type)
 	{
-		return haxor.platform.graphics.GL.NULL;
+		return haxor.platform.graphics.GL.INVALID;
 	}
 	
 	
@@ -251,7 +251,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	
 	public   int CreateProgram()
 	{
-		return haxor.platform.graphics.GL.NULL;
+		return haxor.platform.graphics.GL.INVALID;
 	}
 	
 	
@@ -266,6 +266,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 	public   int GetAttribLocation(int p_program, java.lang.String p_name)
 	{
 		return -1;
+	}
+	
+	
+	public   int GetUniformLocation(int p_program, java.lang.String p_name)
+	{
+		return haxor.platform.graphics.GL.INVALID;
 	}
 	
 	
@@ -297,7 +303,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform1f()
+	public   void Uniform1f(int p_location, double p_x)
 	{
 		{
 		}
@@ -305,7 +311,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform1fv()
+	public   void Uniform2f(int p_location, double p_x, double p_y)
 	{
 		{
 		}
@@ -313,7 +319,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform1i()
+	public   void Uniform3f(int p_location, double p_x, double p_y, double p_z)
 	{
 		{
 		}
@@ -321,7 +327,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform1iv()
+	public   void Uniform4f(int p_location, double p_x, double p_y, double p_z, double p_w)
 	{
 		{
 		}
@@ -329,7 +335,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform2f()
+	public   void Uniform1i(int p_location, int p_x)
 	{
 		{
 		}
@@ -337,7 +343,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform2fv()
+	public   void Uniform2i(int p_location, int p_x, int p_y)
 	{
 		{
 		}
@@ -345,7 +351,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform2i()
+	public   void Uniform3i(int p_location, int p_x, int p_y, int p_z)
 	{
 		{
 		}
@@ -353,7 +359,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform2iv()
+	public   void Uniform4i(int p_location, int p_x, int p_y, int p_z, int p_w)
 	{
 		{
 		}
@@ -361,7 +367,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform3f()
+	public   void Uniform1fv(int p_location, haxor.io.FloatArray p_v)
 	{
 		{
 		}
@@ -369,7 +375,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform3fv()
+	public   void Uniform2fv(int p_location, haxor.io.FloatArray p_v)
 	{
 		{
 		}
@@ -377,7 +383,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform3i()
+	public   void Uniform3fv(int p_location, haxor.io.FloatArray p_v)
 	{
 		{
 		}
@@ -385,7 +391,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform3iv()
+	public   void Uniform4fv(int p_location, haxor.io.FloatArray p_v)
 	{
 		{
 		}
@@ -393,7 +399,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform4f()
+	public   void Uniform1iv(int p_location, haxor.io.Int32Array p_v)
 	{
 		{
 		}
@@ -401,7 +407,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform4fv()
+	public   void Uniform2iv(int p_location, haxor.io.Int32Array p_v)
 	{
 		{
 		}
@@ -409,7 +415,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform4i()
+	public   void Uniform3iv(int p_location, haxor.io.Int32Array p_v)
 	{
 		{
 		}
@@ -417,7 +423,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void Uniform4iv()
+	public   void Uniform4iv(int p_location, haxor.io.Int32Array p_v)
 	{
 		{
 		}
@@ -425,7 +431,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void UniformMatrix2fv()
+	public   void UniformMatrix2fv(int p_location, boolean p_transpose, haxor.io.FloatArray p_v)
 	{
 		{
 		}
@@ -433,7 +439,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void UniformMatrix3fv()
+	public   void UniformMatrix3fv(int p_location, boolean p_transpose, haxor.io.FloatArray p_v)
 	{
 		{
 		}
@@ -441,7 +447,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void UniformMatrix4fv()
+	public   void UniformMatrix4fv(int p_location, boolean p_transpose, haxor.io.FloatArray p_v)
 	{
 		{
 		}
@@ -449,7 +455,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void ActiveTexture()
+	public   void ActiveTexture(int p_slot)
 	{
 		{
 		}
@@ -457,7 +463,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void BindFramebuffer()
+	public   void BindFramebuffer(int p_target, int p_id)
 	{
 		{
 		}
@@ -465,7 +471,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void BindRenderbuffer()
+	public   void BindRenderbuffer(int p_target, int p_id)
 	{
 		{
 		}
@@ -473,7 +479,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void BindTexture()
+	public   void BindTexture(int p_target, int p_id)
 	{
 		{
 		}
@@ -481,7 +487,25 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void CreateFramebuffer()
+	public   int CreateFramebuffer()
+	{
+		return haxor.platform.graphics.GL.INVALID;
+	}
+	
+	
+	public   int CreateRenderbuffer()
+	{
+		return haxor.platform.graphics.GL.INVALID;
+	}
+	
+	
+	public   int CreateTexture()
+	{
+		return haxor.platform.graphics.GL.INVALID;
+	}
+	
+	
+	public   void DeleteFramebuffer(int p_id)
 	{
 		{
 		}
@@ -489,7 +513,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void CreateTexture()
+	public   void DeleteRenderbuffer(int p_id)
 	{
 		{
 		}
@@ -497,7 +521,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void DeleteFramebuffer()
+	public   void DeleteTexture(int p_id)
 	{
 		{
 		}
@@ -505,7 +529,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void DeleteRenderbuffer()
+	public   void FramebufferRenderbuffer(int p_target, int p_attachment, int p_renderbuffer_target, int p_renderbuffer_id)
 	{
 		{
 		}
@@ -513,7 +537,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void DeleteTexture()
+	public   void FramebufferTexture2D(int p_target, int p_attachment, int p_texture_target, int p_texture_id, int p_miplevel)
 	{
 		{
 		}
@@ -521,7 +545,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void FramebufferRenderbuffer()
+	public   void GenerateMipmap(int p_target)
 	{
 		{
 		}
@@ -529,7 +553,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void FramebufferTexture2D()
+	public   void PixelStorei(int p_parameter, int p_value)
 	{
 		{
 		}
@@ -537,7 +561,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void GenerateMipmap()
+	public   void RenderbufferStorage(int p_target, int p_format, int p_width, int p_height)
 	{
 		{
 		}
@@ -545,7 +569,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void PixelStorei()
+	public   void TexImage2DAlloc(int p_target, int p_level, int p_internal_format, int p_width, int p_height, int p_border, int p_format, int p_channel_type)
 	{
 		{
 		}
@@ -553,7 +577,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void RenderbufferStorage()
+	public   void TexImage2D(int p_target, int p_level, int p_internal_format, int p_width, int p_height, int p_border, int p_format, int p_channel_type, haxor.io.Buffer p_data)
 	{
 		{
 		}
@@ -561,15 +585,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void TexImage2D()
-	{
-		{
-		}
-		
-	}
-	
-	
-	public   void TexSubImage2D()
+	public   void TexSubImage2D(int p_target, int p_level, int p_x, int p_y, int p_width, int p_height, int p_format, int p_channel_type, haxor.io.Buffer p_data)
 	{
 		{
 		}
@@ -585,7 +601,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void TexParameterf()
+	public   void TexParameterf(int p_target, int p_parameter, double p_value)
 	{
 		{
 		}
@@ -593,7 +609,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
-	public   void TexParameteri()
+	public   void TexParameteri(int p_target, int p_parameter, int p_value)
 	{
 		{
 		}
@@ -689,6 +705,14 @@ public  class GraphicContext extends haxe.lang.HxObject
 	}
 	
 	
+	public   void Scissor(int p_x, int p_y, int p_width, int p_height)
+	{
+		{
+		}
+		
+	}
+	
+	
 	public   void ReadPixels(int p_x, int p_y, int p_width, int p_height, int p_format, int p_type, haxor.io.Buffer p_pixels)
 	{
 		{
@@ -775,14 +799,14 @@ public  class GraphicContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef34074 = true;
+			boolean __temp_executeDef42670 = true;
 			switch (field.hashCode())
 			{
 				case -983947138:
 				{
 					if (field.equals("m_application")) 
 					{
-						__temp_executeDef34074 = false;
+						__temp_executeDef42670 = false;
 						this.m_application = ((haxor.core.BaseApplication) (value) );
 						return value;
 					}
@@ -795,7 +819,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("m_api")) 
 					{
-						__temp_executeDef34074 = false;
+						__temp_executeDef42670 = false;
 						this.m_api = ((haxor.platform.graphics.GraphicAPI) (value) );
 						return value;
 					}
@@ -806,7 +830,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef34074) 
+			if (__temp_executeDef42670) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -823,14 +847,14 @@ public  class GraphicContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef34075 = true;
+			boolean __temp_executeDef42671 = true;
 			switch (field.hashCode())
 			{
 				case 2054294852:
 				{
 					if (field.equals("LogError")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("LogError"))) );
 					}
 					
@@ -842,7 +866,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("api")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return this.get_api();
 					}
 					
@@ -854,7 +878,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Assert")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Assert"))) );
 					}
 					
@@ -866,7 +890,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("get_api")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_api"))) );
 					}
 					
@@ -878,7 +902,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetError")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetError"))) );
 					}
 					
@@ -890,7 +914,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("m_api")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return this.m_api;
 					}
 					
@@ -902,7 +926,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetErrorString")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetErrorString"))) );
 					}
 					
@@ -914,7 +938,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("m_application")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return this.m_application;
 					}
 					
@@ -926,7 +950,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetErrorCode")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetErrorCode"))) );
 					}
 					
@@ -938,7 +962,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CheckExtensions")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CheckExtensions"))) );
 					}
 					
@@ -950,7 +974,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ReadPixels")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ReadPixels"))) );
 					}
 					
@@ -962,7 +986,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Destroy")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Destroy"))) );
 					}
 					
@@ -970,12 +994,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1261329606:
+				case -711810116:
 				{
-					if (field.equals("Viewport")) 
+					if (field.equals("Scissor")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Viewport"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Scissor"))) );
 					}
 					
 					break;
@@ -986,7 +1010,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Flush")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Flush"))) );
 					}
 					
@@ -994,12 +1018,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1234652470:
+				case 1261329606:
 				{
-					if (field.equals("ClearColor")) 
+					if (field.equals("Viewport")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ClearColor"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Viewport"))) );
 					}
 					
 					break;
@@ -1010,7 +1034,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Focus")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Focus"))) );
 					}
 					
@@ -1018,12 +1042,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1235282070:
+				case 1234652470:
 				{
-					if (field.equals("ClearDepth")) 
+					if (field.equals("ClearColor")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ClearDepth"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ClearColor"))) );
 					}
 					
 					break;
@@ -1034,7 +1058,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Resize")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Resize"))) );
 					}
 					
@@ -1042,12 +1066,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 65193517:
+				case 1235282070:
 				{
-					if (field.equals("Clear")) 
+					if (field.equals("ClearDepth")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Clear"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ClearDepth"))) );
 					}
 					
 					break;
@@ -1058,7 +1082,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BindBuffer")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BindBuffer"))) );
 					}
 					
@@ -1066,12 +1090,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 2131299334:
+				case 65193517:
 				{
-					if (field.equals("FrontFace")) 
+					if (field.equals("Clear")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FrontFace"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Clear"))) );
 					}
 					
 					break;
@@ -1082,7 +1106,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BufferData")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BufferData"))) );
 					}
 					
@@ -1090,12 +1114,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 461794063:
+				case 2131299334:
 				{
-					if (field.equals("CullFace")) 
+					if (field.equals("FrontFace")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CullFace"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FrontFace"))) );
 					}
 					
 					break;
@@ -1106,7 +1130,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BufferSubData")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BufferSubData"))) );
 					}
 					
@@ -1114,12 +1138,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1317758983:
+				case 461794063:
 				{
-					if (field.equals("DepthFunc")) 
+					if (field.equals("CullFace")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DepthFunc"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CullFace"))) );
 					}
 					
 					break;
@@ -1130,7 +1154,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateBuffer")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateBuffer"))) );
 					}
 					
@@ -1138,12 +1162,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1317948463:
+				case 1317758983:
 				{
-					if (field.equals("DepthMask")) 
+					if (field.equals("DepthFunc")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DepthMask"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DepthFunc"))) );
 					}
 					
 					break;
@@ -1154,7 +1178,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DeleteBuffer")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteBuffer"))) );
 					}
 					
@@ -1162,12 +1186,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 2079986083:
+				case 1317948463:
 				{
-					if (field.equals("Enable")) 
+					if (field.equals("DepthMask")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Enable"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DepthMask"))) );
 					}
 					
 					break;
@@ -1178,7 +1202,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DrawArrays")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DrawArrays"))) );
 					}
 					
@@ -1186,12 +1210,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -959006008:
+				case 2079986083:
 				{
-					if (field.equals("Disable")) 
+					if (field.equals("Enable")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Disable"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Enable"))) );
 					}
 					
 					break;
@@ -1202,7 +1226,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DrawElements")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DrawElements"))) );
 					}
 					
@@ -1210,12 +1234,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1395603819:
+				case -959006008:
 				{
-					if (field.equals("BlendFunc")) 
+					if (field.equals("Disable")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BlendFunc"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Disable"))) );
 					}
 					
 					break;
@@ -1226,7 +1250,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("EnableVertexAttrib")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("EnableVertexAttrib"))) );
 					}
 					
@@ -1234,12 +1258,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1452160697:
+				case -1395603819:
 				{
-					if (field.equals("TexParameteri")) 
+					if (field.equals("BlendFunc")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexParameteri"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BlendFunc"))) );
 					}
 					
 					break;
@@ -1250,7 +1274,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DisableVertexAttrib")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DisableVertexAttrib"))) );
 					}
 					
@@ -1258,12 +1282,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1452160700:
+				case -1452160697:
 				{
-					if (field.equals("TexParameterf")) 
+					if (field.equals("TexParameteri")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexParameterf"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexParameteri"))) );
 					}
 					
 					break;
@@ -1274,7 +1298,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("VertexAttrib3f")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("VertexAttrib3f"))) );
 					}
 					
@@ -1282,12 +1306,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1559394874:
+				case -1452160700:
 				{
-					if (field.equals("TexStorage2D")) 
+					if (field.equals("TexParameterf")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexStorage2D"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexParameterf"))) );
 					}
 					
 					break;
@@ -1298,7 +1322,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("VertexAttrib4f")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("VertexAttrib4f"))) );
 					}
 					
@@ -1306,12 +1330,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1480581644:
+				case -1559394874:
 				{
-					if (field.equals("TexSubImage2D")) 
+					if (field.equals("TexStorage2D")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexSubImage2D"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexStorage2D"))) );
 					}
 					
 					break;
@@ -1322,7 +1346,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("VertexAttribPointer")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("VertexAttribPointer"))) );
 					}
 					
@@ -1330,12 +1354,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 768888550:
+				case -1480581644:
 				{
-					if (field.equals("TexImage2D")) 
+					if (field.equals("TexSubImage2D")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexImage2D"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexSubImage2D"))) );
 					}
 					
 					break;
@@ -1346,7 +1370,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CompileShader")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CompileShader"))) );
 					}
 					
@@ -1354,12 +1378,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1800947749:
+				case 768888550:
 				{
-					if (field.equals("RenderbufferStorage")) 
+					if (field.equals("TexImage2D")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("RenderbufferStorage"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexImage2D"))) );
 					}
 					
 					break;
@@ -1370,7 +1394,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateShader")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateShader"))) );
 					}
 					
@@ -1378,12 +1402,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 450629038:
+				case -51526673:
 				{
-					if (field.equals("PixelStorei")) 
+					if (field.equals("TexImage2DAlloc")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("PixelStorei"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TexImage2DAlloc"))) );
 					}
 					
 					break;
@@ -1394,7 +1418,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DeleteShader")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteShader"))) );
 					}
 					
@@ -1402,12 +1426,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1000706173:
+				case 1800947749:
 				{
-					if (field.equals("GenerateMipmap")) 
+					if (field.equals("RenderbufferStorage")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GenerateMipmap"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("RenderbufferStorage"))) );
 					}
 					
 					break;
@@ -1418,7 +1442,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DetachShader")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DetachShader"))) );
 					}
 					
@@ -1426,12 +1450,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 962410336:
+				case 450629038:
 				{
-					if (field.equals("FramebufferTexture2D")) 
+					if (field.equals("PixelStorei")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FramebufferTexture2D"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("PixelStorei"))) );
 					}
 					
 					break;
@@ -1442,7 +1466,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetShaderInfoLog")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetShaderInfoLog"))) );
 					}
 					
@@ -1450,12 +1474,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 683029955:
+				case 1000706173:
 				{
-					if (field.equals("FramebufferRenderbuffer")) 
+					if (field.equals("GenerateMipmap")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FramebufferRenderbuffer"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GenerateMipmap"))) );
 					}
 					
 					break;
@@ -1466,7 +1490,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetShaderParameter")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetShaderParameter"))) );
 					}
 					
@@ -1474,12 +1498,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -823627568:
+				case 962410336:
 				{
-					if (field.equals("DeleteTexture")) 
+					if (field.equals("FramebufferTexture2D")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteTexture"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FramebufferTexture2D"))) );
 					}
 					
 					break;
@@ -1490,7 +1514,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ShaderSource")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ShaderSource"))) );
 					}
 					
@@ -1498,12 +1522,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1756641985:
+				case 683029955:
 				{
-					if (field.equals("DeleteRenderbuffer")) 
+					if (field.equals("FramebufferRenderbuffer")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteRenderbuffer"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FramebufferRenderbuffer"))) );
 					}
 					
 					break;
@@ -1514,7 +1538,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("AttachShader")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("AttachShader"))) );
 					}
 					
@@ -1522,12 +1546,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 32403746:
+				case -823627568:
 				{
-					if (field.equals("DeleteFramebuffer")) 
+					if (field.equals("DeleteTexture")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteFramebuffer"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteTexture"))) );
 					}
 					
 					break;
@@ -1538,7 +1562,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BindAttribLocation")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BindAttribLocation"))) );
 					}
 					
@@ -1546,12 +1570,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1627662431:
+				case 1756641985:
 				{
-					if (field.equals("CreateTexture")) 
+					if (field.equals("DeleteRenderbuffer")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateTexture"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteRenderbuffer"))) );
 					}
 					
 					break;
@@ -1562,7 +1586,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateProgram")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateProgram"))) );
 					}
 					
@@ -1570,12 +1594,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 691390769:
+				case 32403746:
 				{
-					if (field.equals("CreateFramebuffer")) 
+					if (field.equals("DeleteFramebuffer")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateFramebuffer"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteFramebuffer"))) );
 					}
 					
 					break;
@@ -1586,7 +1610,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DeleteProgram")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DeleteProgram"))) );
 					}
 					
@@ -1594,12 +1618,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -316071426:
+				case 1627662431:
 				{
-					if (field.equals("BindTexture")) 
+					if (field.equals("CreateTexture")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BindTexture"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateTexture"))) );
 					}
 					
 					break;
@@ -1610,7 +1634,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetAttribLocation")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetAttribLocation"))) );
 					}
 					
@@ -1618,12 +1642,36 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1967581613:
+				case 710403218:
 				{
-					if (field.equals("BindRenderbuffer")) 
+					if (field.equals("CreateRenderbuffer")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BindRenderbuffer"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateRenderbuffer"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1131050867:
+				{
+					if (field.equals("GetUniformLocation")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetUniformLocation"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 691390769:
+				{
+					if (field.equals("CreateFramebuffer")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateFramebuffer"))) );
 					}
 					
 					break;
@@ -1634,7 +1682,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetProgramInfoLog")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetProgramInfoLog"))) );
 					}
 					
@@ -1642,12 +1690,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1057563824:
+				case -316071426:
 				{
-					if (field.equals("BindFramebuffer")) 
+					if (field.equals("BindTexture")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BindFramebuffer"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BindTexture"))) );
 					}
 					
 					break;
@@ -1658,7 +1706,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetProgramParameter")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetProgramParameter"))) );
 					}
 					
@@ -1666,12 +1714,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1798288619:
+				case -1967581613:
 				{
-					if (field.equals("ActiveTexture")) 
+					if (field.equals("BindRenderbuffer")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ActiveTexture"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BindRenderbuffer"))) );
 					}
 					
 					break;
@@ -1682,7 +1730,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("LinkProgram")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("LinkProgram"))) );
 					}
 					
@@ -1690,12 +1738,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1966618257:
+				case -1057563824:
 				{
-					if (field.equals("UniformMatrix4fv")) 
+					if (field.equals("BindFramebuffer")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UniformMatrix4fv"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BindFramebuffer"))) );
 					}
 					
 					break;
@@ -1706,7 +1754,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UseProgram")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UseProgram"))) );
 					}
 					
@@ -1714,12 +1762,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1966619218:
+				case -1798288619:
 				{
-					if (field.equals("UniformMatrix3fv")) 
+					if (field.equals("ActiveTexture")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UniformMatrix3fv"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ActiveTexture"))) );
 					}
 					
 					break;
@@ -1730,8 +1778,56 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform1f")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform1f"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1966618257:
+				{
+					if (field.equals("UniformMatrix4fv")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UniformMatrix4fv"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1145594632:
+				{
+					if (field.equals("Uniform2f")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform2f"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1966619218:
+				{
+					if (field.equals("UniformMatrix3fv")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UniformMatrix3fv"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1145594663:
+				{
+					if (field.equals("Uniform3f")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform3f"))) );
 					}
 					
 					break;
@@ -1742,7 +1838,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UniformMatrix2fv")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UniformMatrix2fv"))) );
 					}
 					
@@ -1750,12 +1846,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1153694381:
+				case 1145594694:
 				{
-					if (field.equals("Uniform1fv")) 
+					if (field.equals("Uniform4f")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform1fv"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform4f"))) );
 					}
 					
 					break;
@@ -1766,7 +1862,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform4iv")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform4iv"))) );
 					}
 					
@@ -1778,80 +1874,8 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform1i")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform1i"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 1145594697:
-				{
-					if (field.equals("Uniform4i")) 
-					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform4i"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 1153694474:
-				{
-					if (field.equals("Uniform1iv")) 
-					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform1iv"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 1153697264:
-				{
-					if (field.equals("Uniform4fv")) 
-					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform4fv"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 1145594632:
-				{
-					if (field.equals("Uniform2f")) 
-					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform2f"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 1145594694:
-				{
-					if (field.equals("Uniform4f")) 
-					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform4f"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 1153695342:
-				{
-					if (field.equals("Uniform2fv")) 
-					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform2fv"))) );
 					}
 					
 					break;
@@ -1862,7 +1886,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform3iv")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform3iv"))) );
 					}
 					
@@ -1874,20 +1898,8 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform2i")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform2i"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 1145594666:
-				{
-					if (field.equals("Uniform3i")) 
-					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform3i"))) );
 					}
 					
 					break;
@@ -1898,8 +1910,68 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform2iv")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform2iv"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1145594666:
+				{
+					if (field.equals("Uniform3i")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform3i"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1153694474:
+				{
+					if (field.equals("Uniform1iv")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform1iv"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1145594697:
+				{
+					if (field.equals("Uniform4i")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform4i"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1153697264:
+				{
+					if (field.equals("Uniform4fv")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform4fv"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1153694381:
+				{
+					if (field.equals("Uniform1fv")) 
+					{
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform1fv"))) );
 					}
 					
 					break;
@@ -1910,7 +1982,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform3fv")) 
 					{
-						__temp_executeDef34075 = false;
+						__temp_executeDef42671 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform3fv"))) );
 					}
 					
@@ -1918,12 +1990,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1145594663:
+				case 1153695342:
 				{
-					if (field.equals("Uniform3f")) 
+					if (field.equals("Uniform2fv")) 
 					{
-						__temp_executeDef34075 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform3f"))) );
+						__temp_executeDef42671 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Uniform2fv"))) );
 					}
 					
 					break;
@@ -1932,7 +2004,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef34075) 
+			if (__temp_executeDef42671) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1949,14 +2021,14 @@ public  class GraphicContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef34076 = true;
+			boolean __temp_executeDef42672 = true;
 			switch (field.hashCode())
 			{
 				case 2054294852:
 				{
 					if (field.equals("LogError")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.LogError();
 					}
 					
@@ -1968,7 +2040,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("get_api")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.get_api();
 					}
 					
@@ -1980,7 +2052,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Assert")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.Assert(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -1992,7 +2064,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CheckExtensions")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.CheckExtensions();
 					}
 					
@@ -2004,7 +2076,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetError")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.GetError();
 					}
 					
@@ -2016,7 +2088,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Destroy")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.Destroy();
 					}
 					
@@ -2028,7 +2100,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetErrorString")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.GetErrorString(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2040,7 +2112,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Flush")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.Flush();
 					}
 					
@@ -2052,7 +2124,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetErrorCode")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.GetErrorCode();
 					}
 					
@@ -2064,7 +2136,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Focus")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.Focus();
 					}
 					
@@ -2076,7 +2148,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ReadPixels")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.ReadPixels(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(4))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(5))) ), ((haxor.io.Buffer) (dynargs.__get(6)) ));
 					}
 					
@@ -2088,7 +2160,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Resize")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.Resize();
 					}
 					
@@ -2096,12 +2168,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1261329606:
+				case -711810116:
 				{
-					if (field.equals("Viewport")) 
+					if (field.equals("Scissor")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Viewport(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ));
+						__temp_executeDef42672 = false;
+						this.Scissor(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ));
 					}
 					
 					break;
@@ -2112,7 +2184,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BindBuffer")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.BindBuffer(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -2120,12 +2192,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1234652470:
+				case 1261329606:
 				{
-					if (field.equals("ClearColor")) 
+					if (field.equals("Viewport")) 
 					{
-						__temp_executeDef34076 = false;
-						this.ClearColor(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ));
+						__temp_executeDef42672 = false;
+						this.Viewport(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ));
 					}
 					
 					break;
@@ -2136,7 +2208,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BufferData")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.BufferData(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.io.Buffer) (dynargs.__get(1)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -2144,12 +2216,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1235282070:
+				case 1234652470:
 				{
-					if (field.equals("ClearDepth")) 
+					if (field.equals("ClearColor")) 
 					{
-						__temp_executeDef34076 = false;
-						this.ClearDepth(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
+						__temp_executeDef42672 = false;
+						this.ClearColor(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ));
 					}
 					
 					break;
@@ -2160,7 +2232,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BufferSubData")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.BufferSubData(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((haxor.io.Buffer) (dynargs.__get(2)) ));
 					}
 					
@@ -2168,12 +2240,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 65193517:
+				case 1235282070:
 				{
-					if (field.equals("Clear")) 
+					if (field.equals("ClearDepth")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Clear(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef42672 = false;
+						this.ClearDepth(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2184,7 +2256,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateBuffer")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.CreateBuffer();
 					}
 					
@@ -2192,12 +2264,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 2131299334:
+				case 65193517:
 				{
-					if (field.equals("FrontFace")) 
+					if (field.equals("Clear")) 
 					{
-						__temp_executeDef34076 = false;
-						this.FrontFace(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef42672 = false;
+						this.Clear(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2208,7 +2280,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DeleteBuffer")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.DeleteBuffer(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2216,12 +2288,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 461794063:
+				case 2131299334:
 				{
-					if (field.equals("CullFace")) 
+					if (field.equals("FrontFace")) 
 					{
-						__temp_executeDef34076 = false;
-						this.CullFace(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef42672 = false;
+						this.FrontFace(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2232,7 +2304,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DrawArrays")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.DrawArrays(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -2240,12 +2312,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1317758983:
+				case 461794063:
 				{
-					if (field.equals("DepthFunc")) 
+					if (field.equals("CullFace")) 
 					{
-						__temp_executeDef34076 = false;
-						this.DepthFunc(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef42672 = false;
+						this.CullFace(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2256,7 +2328,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DrawElements")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.DrawElements(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ));
 					}
 					
@@ -2264,12 +2336,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1317948463:
+				case 1317758983:
 				{
-					if (field.equals("DepthMask")) 
+					if (field.equals("DepthFunc")) 
 					{
-						__temp_executeDef34076 = false;
-						this.DepthMask(haxe.lang.Runtime.toBool(dynargs.__get(0)));
+						__temp_executeDef42672 = false;
+						this.DepthFunc(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2280,7 +2352,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("EnableVertexAttrib")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.EnableVertexAttrib(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2288,12 +2360,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 2079986083:
+				case 1317948463:
 				{
-					if (field.equals("Enable")) 
+					if (field.equals("DepthMask")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Enable(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef42672 = false;
+						this.DepthMask(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
 					break;
@@ -2304,7 +2376,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DisableVertexAttrib")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.DisableVertexAttrib(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2312,12 +2384,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -959006008:
+				case 2079986083:
 				{
-					if (field.equals("Disable")) 
+					if (field.equals("Enable")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Disable(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef42672 = false;
+						this.Enable(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2328,7 +2400,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("VertexAttrib3f")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.VertexAttrib3f(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ));
 					}
 					
@@ -2336,12 +2408,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1395603819:
+				case -959006008:
 				{
-					if (field.equals("BlendFunc")) 
+					if (field.equals("Disable")) 
 					{
-						__temp_executeDef34076 = false;
-						this.BlendFunc(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
+						__temp_executeDef42672 = false;
+						this.Disable(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2352,7 +2424,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("VertexAttrib4f")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.VertexAttrib4f(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(4))) ));
 					}
 					
@@ -2360,12 +2432,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1452160697:
+				case -1395603819:
 				{
-					if (field.equals("TexParameteri")) 
+					if (field.equals("BlendFunc")) 
 					{
-						__temp_executeDef34076 = false;
-						this.TexParameteri();
+						__temp_executeDef42672 = false;
+						this.BlendFunc(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
 					break;
@@ -2376,7 +2448,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("VertexAttribPointer")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.VertexAttribPointer(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), haxe.lang.Runtime.toBool(dynargs.__get(3)), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(4))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(5))) ));
 					}
 					
@@ -2384,12 +2456,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1452160700:
+				case -1452160697:
 				{
-					if (field.equals("TexParameterf")) 
+					if (field.equals("TexParameteri")) 
 					{
-						__temp_executeDef34076 = false;
-						this.TexParameterf();
+						__temp_executeDef42672 = false;
+						this.TexParameteri(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
 					break;
@@ -2400,7 +2472,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CompileShader")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.CompileShader(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2408,12 +2480,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1559394874:
+				case -1452160700:
 				{
-					if (field.equals("TexStorage2D")) 
+					if (field.equals("TexParameterf")) 
 					{
-						__temp_executeDef34076 = false;
-						this.TexStorage2D(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(4))) ));
+						__temp_executeDef42672 = false;
+						this.TexParameterf(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ));
 					}
 					
 					break;
@@ -2424,7 +2496,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateShader")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.CreateShader(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2432,12 +2504,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1480581644:
+				case -1559394874:
 				{
-					if (field.equals("TexSubImage2D")) 
+					if (field.equals("TexStorage2D")) 
 					{
-						__temp_executeDef34076 = false;
-						this.TexSubImage2D();
+						__temp_executeDef42672 = false;
+						this.TexStorage2D(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(4))) ));
 					}
 					
 					break;
@@ -2448,7 +2520,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DeleteShader")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.DeleteShader(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2456,12 +2528,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 768888550:
+				case -1480581644:
 				{
-					if (field.equals("TexImage2D")) 
+					if (field.equals("TexSubImage2D")) 
 					{
-						__temp_executeDef34076 = false;
-						this.TexImage2D();
+						__temp_executeDef42672 = false;
+						this.TexSubImage2D(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(4))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(5))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(6))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(7))) ), ((haxor.io.Buffer) (dynargs.__get(8)) ));
 					}
 					
 					break;
@@ -2472,7 +2544,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DetachShader")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.DetachShader(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -2480,12 +2552,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1800947749:
+				case 768888550:
 				{
-					if (field.equals("RenderbufferStorage")) 
+					if (field.equals("TexImage2D")) 
 					{
-						__temp_executeDef34076 = false;
-						this.RenderbufferStorage();
+						__temp_executeDef42672 = false;
+						this.TexImage2D(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(4))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(5))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(6))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(7))) ), ((haxor.io.Buffer) (dynargs.__get(8)) ));
 					}
 					
 					break;
@@ -2496,7 +2568,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetShaderInfoLog")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.GetShaderInfoLog(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2504,12 +2576,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 450629038:
+				case -51526673:
 				{
-					if (field.equals("PixelStorei")) 
+					if (field.equals("TexImage2DAlloc")) 
 					{
-						__temp_executeDef34076 = false;
-						this.PixelStorei();
+						__temp_executeDef42672 = false;
+						this.TexImage2DAlloc(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(4))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(5))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(6))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(7))) ));
 					}
 					
 					break;
@@ -2520,7 +2592,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetShaderParameter")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.GetShaderParameter(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -2528,12 +2600,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1000706173:
+				case 1800947749:
 				{
-					if (field.equals("GenerateMipmap")) 
+					if (field.equals("RenderbufferStorage")) 
 					{
-						__temp_executeDef34076 = false;
-						this.GenerateMipmap();
+						__temp_executeDef42672 = false;
+						this.RenderbufferStorage(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ));
 					}
 					
 					break;
@@ -2544,7 +2616,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ShaderSource")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.ShaderSource(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toString(dynargs.__get(1)));
 					}
 					
@@ -2552,12 +2624,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 962410336:
+				case 450629038:
 				{
-					if (field.equals("FramebufferTexture2D")) 
+					if (field.equals("PixelStorei")) 
 					{
-						__temp_executeDef34076 = false;
-						this.FramebufferTexture2D();
+						__temp_executeDef42672 = false;
+						this.PixelStorei(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
 					break;
@@ -2568,7 +2640,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("AttachShader")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.AttachShader(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -2576,12 +2648,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 683029955:
+				case 1000706173:
 				{
-					if (field.equals("FramebufferRenderbuffer")) 
+					if (field.equals("GenerateMipmap")) 
 					{
-						__temp_executeDef34076 = false;
-						this.FramebufferRenderbuffer();
+						__temp_executeDef42672 = false;
+						this.GenerateMipmap(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2592,7 +2664,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BindAttribLocation")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.BindAttribLocation(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), haxe.lang.Runtime.toString(dynargs.__get(2)));
 					}
 					
@@ -2600,12 +2672,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -823627568:
+				case 962410336:
 				{
-					if (field.equals("DeleteTexture")) 
+					if (field.equals("FramebufferTexture2D")) 
 					{
-						__temp_executeDef34076 = false;
-						this.DeleteTexture();
+						__temp_executeDef42672 = false;
+						this.FramebufferTexture2D(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(4))) ));
 					}
 					
 					break;
@@ -2616,7 +2688,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateProgram")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.CreateProgram();
 					}
 					
@@ -2624,12 +2696,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1756641985:
+				case 683029955:
 				{
-					if (field.equals("DeleteRenderbuffer")) 
+					if (field.equals("FramebufferRenderbuffer")) 
 					{
-						__temp_executeDef34076 = false;
-						this.DeleteRenderbuffer();
+						__temp_executeDef42672 = false;
+						this.FramebufferRenderbuffer(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ));
 					}
 					
 					break;
@@ -2640,7 +2712,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DeleteProgram")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.DeleteProgram(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2648,12 +2720,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 32403746:
+				case -823627568:
 				{
-					if (field.equals("DeleteFramebuffer")) 
+					if (field.equals("DeleteTexture")) 
 					{
-						__temp_executeDef34076 = false;
-						this.DeleteFramebuffer();
+						__temp_executeDef42672 = false;
+						this.DeleteTexture(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2664,7 +2736,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetAttribLocation")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.GetAttribLocation(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toString(dynargs.__get(1)));
 					}
 					
@@ -2672,12 +2744,36 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 1627662431:
+				case 1756641985:
 				{
-					if (field.equals("CreateTexture")) 
+					if (field.equals("DeleteRenderbuffer")) 
 					{
-						__temp_executeDef34076 = false;
-						this.CreateTexture();
+						__temp_executeDef42672 = false;
+						this.DeleteRenderbuffer(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1131050867:
+				{
+					if (field.equals("GetUniformLocation")) 
+					{
+						__temp_executeDef42672 = false;
+						return this.GetUniformLocation(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toString(dynargs.__get(1)));
+					}
+					
+					break;
+				}
+				
+				
+				case 32403746:
+				{
+					if (field.equals("DeleteFramebuffer")) 
+					{
+						__temp_executeDef42672 = false;
+						this.DeleteFramebuffer(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -2688,7 +2784,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetProgramInfoLog")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.GetProgramInfoLog(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2696,12 +2792,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case 691390769:
+				case 1627662431:
 				{
-					if (field.equals("CreateFramebuffer")) 
+					if (field.equals("CreateTexture")) 
 					{
-						__temp_executeDef34076 = false;
-						this.CreateFramebuffer();
+						__temp_executeDef42672 = false;
+						return this.CreateTexture();
 					}
 					
 					break;
@@ -2712,7 +2808,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("GetProgramParameter")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						return this.GetProgramParameter(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -2720,12 +2816,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -316071426:
+				case 710403218:
 				{
-					if (field.equals("BindTexture")) 
+					if (field.equals("CreateRenderbuffer")) 
 					{
-						__temp_executeDef34076 = false;
-						this.BindTexture();
+						__temp_executeDef42672 = false;
+						return this.CreateRenderbuffer();
 					}
 					
 					break;
@@ -2736,7 +2832,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("LinkProgram")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.LinkProgram(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2744,12 +2840,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1967581613:
+				case 691390769:
 				{
-					if (field.equals("BindRenderbuffer")) 
+					if (field.equals("CreateFramebuffer")) 
 					{
-						__temp_executeDef34076 = false;
-						this.BindRenderbuffer();
+						__temp_executeDef42672 = false;
+						return this.CreateFramebuffer();
 					}
 					
 					break;
@@ -2760,7 +2856,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UseProgram")) 
 					{
-						__temp_executeDef34076 = false;
+						__temp_executeDef42672 = false;
 						this.UseProgram(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2768,12 +2864,12 @@ public  class GraphicContext extends haxe.lang.HxObject
 				}
 				
 				
-				case -1057563824:
+				case -316071426:
 				{
-					if (field.equals("BindFramebuffer")) 
+					if (field.equals("BindTexture")) 
 					{
-						__temp_executeDef34076 = false;
-						this.BindFramebuffer();
+						__temp_executeDef42672 = false;
+						this.BindTexture(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
 					break;
@@ -2784,92 +2880,20 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform1f")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Uniform1f();
+						__temp_executeDef42672 = false;
+						this.Uniform1f(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
 					break;
 				}
 				
 				
-				case -1798288619:
+				case -1967581613:
 				{
-					if (field.equals("ActiveTexture")) 
+					if (field.equals("BindRenderbuffer")) 
 					{
-						__temp_executeDef34076 = false;
-						this.ActiveTexture();
-					}
-					
-					break;
-				}
-				
-				
-				case 1153694381:
-				{
-					if (field.equals("Uniform1fv")) 
-					{
-						__temp_executeDef34076 = false;
-						this.Uniform1fv();
-					}
-					
-					break;
-				}
-				
-				
-				case -1966618257:
-				{
-					if (field.equals("UniformMatrix4fv")) 
-					{
-						__temp_executeDef34076 = false;
-						this.UniformMatrix4fv();
-					}
-					
-					break;
-				}
-				
-				
-				case 1145594604:
-				{
-					if (field.equals("Uniform1i")) 
-					{
-						__temp_executeDef34076 = false;
-						this.Uniform1i();
-					}
-					
-					break;
-				}
-				
-				
-				case -1966619218:
-				{
-					if (field.equals("UniformMatrix3fv")) 
-					{
-						__temp_executeDef34076 = false;
-						this.UniformMatrix3fv();
-					}
-					
-					break;
-				}
-				
-				
-				case 1153694474:
-				{
-					if (field.equals("Uniform1iv")) 
-					{
-						__temp_executeDef34076 = false;
-						this.Uniform1iv();
-					}
-					
-					break;
-				}
-				
-				
-				case -1966620179:
-				{
-					if (field.equals("UniformMatrix2fv")) 
-					{
-						__temp_executeDef34076 = false;
-						this.UniformMatrix2fv();
+						__temp_executeDef42672 = false;
+						this.BindRenderbuffer(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
 					break;
@@ -2880,92 +2904,20 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform2f")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Uniform2f();
+						__temp_executeDef42672 = false;
+						this.Uniform2f(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ));
 					}
 					
 					break;
 				}
 				
 				
-				case 1153697357:
+				case -1057563824:
 				{
-					if (field.equals("Uniform4iv")) 
+					if (field.equals("BindFramebuffer")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Uniform4iv();
-					}
-					
-					break;
-				}
-				
-				
-				case 1153695342:
-				{
-					if (field.equals("Uniform2fv")) 
-					{
-						__temp_executeDef34076 = false;
-						this.Uniform2fv();
-					}
-					
-					break;
-				}
-				
-				
-				case 1145594697:
-				{
-					if (field.equals("Uniform4i")) 
-					{
-						__temp_executeDef34076 = false;
-						this.Uniform4i();
-					}
-					
-					break;
-				}
-				
-				
-				case 1145594635:
-				{
-					if (field.equals("Uniform2i")) 
-					{
-						__temp_executeDef34076 = false;
-						this.Uniform2i();
-					}
-					
-					break;
-				}
-				
-				
-				case 1153697264:
-				{
-					if (field.equals("Uniform4fv")) 
-					{
-						__temp_executeDef34076 = false;
-						this.Uniform4fv();
-					}
-					
-					break;
-				}
-				
-				
-				case 1153695435:
-				{
-					if (field.equals("Uniform2iv")) 
-					{
-						__temp_executeDef34076 = false;
-						this.Uniform2iv();
-					}
-					
-					break;
-				}
-				
-				
-				case 1145594694:
-				{
-					if (field.equals("Uniform4f")) 
-					{
-						__temp_executeDef34076 = false;
-						this.Uniform4f();
+						__temp_executeDef42672 = false;
+						this.BindFramebuffer(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
 					break;
@@ -2976,32 +2928,92 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform3f")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Uniform3f();
+						__temp_executeDef42672 = false;
+						this.Uniform3f(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ));
 					}
 					
 					break;
 				}
 				
 				
-				case 1153696396:
+				case -1798288619:
 				{
-					if (field.equals("Uniform3iv")) 
+					if (field.equals("ActiveTexture")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Uniform3iv();
+						__temp_executeDef42672 = false;
+						this.ActiveTexture(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
 				}
 				
 				
-				case 1153696303:
+				case 1145594694:
 				{
-					if (field.equals("Uniform3fv")) 
+					if (field.equals("Uniform4f")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Uniform3fv();
+						__temp_executeDef42672 = false;
+						this.Uniform4f(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(4))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case -1966618257:
+				{
+					if (field.equals("UniformMatrix4fv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.UniformMatrix4fv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toBool(dynargs.__get(1)), ((haxor.io.FloatArray) (dynargs.__get(2)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1145594604:
+				{
+					if (field.equals("Uniform1i")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform1i(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case -1966619218:
+				{
+					if (field.equals("UniformMatrix3fv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.UniformMatrix3fv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toBool(dynargs.__get(1)), ((haxor.io.FloatArray) (dynargs.__get(2)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1145594635:
+				{
+					if (field.equals("Uniform2i")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform2i(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case -1966620179:
+				{
+					if (field.equals("UniformMatrix2fv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.UniformMatrix2fv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toBool(dynargs.__get(1)), ((haxor.io.FloatArray) (dynargs.__get(2)) ));
 					}
 					
 					break;
@@ -3012,8 +3024,116 @@ public  class GraphicContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Uniform3i")) 
 					{
-						__temp_executeDef34076 = false;
-						this.Uniform3i();
+						__temp_executeDef42672 = false;
+						this.Uniform3i(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1153697357:
+				{
+					if (field.equals("Uniform4iv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform4iv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.io.Int32Array) (dynargs.__get(1)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1145594697:
+				{
+					if (field.equals("Uniform4i")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform4i(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(3))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(4))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1153696396:
+				{
+					if (field.equals("Uniform3iv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform3iv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.io.Int32Array) (dynargs.__get(1)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1153694381:
+				{
+					if (field.equals("Uniform1fv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform1fv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.io.FloatArray) (dynargs.__get(1)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1153695435:
+				{
+					if (field.equals("Uniform2iv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform2iv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.io.Int32Array) (dynargs.__get(1)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1153695342:
+				{
+					if (field.equals("Uniform2fv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform2fv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.io.FloatArray) (dynargs.__get(1)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1153694474:
+				{
+					if (field.equals("Uniform1iv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform1iv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.io.Int32Array) (dynargs.__get(1)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1153696303:
+				{
+					if (field.equals("Uniform3fv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform3fv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.io.FloatArray) (dynargs.__get(1)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1153697264:
+				{
+					if (field.equals("Uniform4fv")) 
+					{
+						__temp_executeDef42672 = false;
+						this.Uniform4fv(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.io.FloatArray) (dynargs.__get(1)) ));
 					}
 					
 					break;
@@ -3022,7 +3142,7 @@ public  class GraphicContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef34076) 
+			if (__temp_executeDef42672) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

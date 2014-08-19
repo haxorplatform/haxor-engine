@@ -6,12 +6,15 @@
 #ifndef INCLUDED_haxor_math_Color
 #include <haxor/math/Color.h>
 #endif
+#ifndef INCLUDED_hxMath
+#include <hxMath.h>
+#endif
 namespace haxor{
 namespace math{
 
 Void Color_obj::__construct(hx::Null< Float >  __o_p_r,hx::Null< Float >  __o_p_g,hx::Null< Float >  __o_p_b,hx::Null< Float >  __o_p_a)
 {
-HX_STACK_FRAME("haxor.math.Color","new",0x176a4e3b,"haxor.math.Color.new","haxor/math/Color.hx",217,0x18984df5)
+HX_STACK_FRAME("haxor.math.Color","new",0x176a4e3b,"haxor.math.Color.new","haxor/math/Color.hx",235,0x18984df5)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_r,"p_r")
 HX_STACK_ARG(__o_p_g,"p_g")
@@ -22,13 +25,13 @@ Float p_g = __o_p_g.Default(0);
 Float p_b = __o_p_b.Default(0);
 Float p_a = __o_p_a.Default(1);
 {
-	HX_STACK_LINE(218)
+	HX_STACK_LINE(236)
 	this->r = p_r;
-	HX_STACK_LINE(219)
+	HX_STACK_LINE(237)
 	this->g = p_g;
-	HX_STACK_LINE(220)
+	HX_STACK_LINE(238)
 	this->b = p_b;
-	HX_STACK_LINE(221)
+	HX_STACK_LINE(239)
 	this->a = p_a;
 }
 ;
@@ -49,9 +52,9 @@ Dynamic Color_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::math::Color Color_obj::get_clone( ){
-	HX_STACK_FRAME("haxor.math.Color","get_clone",0xa57b43cf,"haxor.math.Color.get_clone","haxor/math/Color.hx",107,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","get_clone",0xa57b43cf,"haxor.math.Color.get_clone","haxor/math/Color.hx",125,0x18984df5)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(107)
+	HX_STACK_LINE(125)
 	return ::haxor::math::Color_obj::__new(this->r,this->g,this->b,this->a);
 }
 
@@ -59,17 +62,17 @@ Dynamic Color_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(Color_obj,get_clone,return )
 
 int Color_obj::get_argb( ){
-	HX_STACK_FRAME("haxor.math.Color","get_argb",0x659bb11a,"haxor.math.Color.get_argb","haxor/math/Color.hx",126,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","get_argb",0x659bb11a,"haxor.math.Color.get_argb","haxor/math/Color.hx",144,0x18984df5)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(127)
+	HX_STACK_LINE(145)
 	int rb = (this->r * 255.0);		HX_STACK_VAR(rb,"rb");
-	HX_STACK_LINE(128)
+	HX_STACK_LINE(146)
 	int gb = (this->g * 255.0);		HX_STACK_VAR(gb,"gb");
-	HX_STACK_LINE(129)
+	HX_STACK_LINE(147)
 	int bb = (this->b * 255.0);		HX_STACK_VAR(bb,"bb");
-	HX_STACK_LINE(130)
+	HX_STACK_LINE(148)
 	int ab = (this->a * 255.0);		HX_STACK_VAR(ab,"ab");
-	HX_STACK_LINE(131)
+	HX_STACK_LINE(149)
 	return (int((int((int((int(ab) << int((int)24))) | int((int(rb) << int((int)16))))) | int((int(gb) << int((int)8))))) | int(bb));
 }
 
@@ -77,18 +80,18 @@ int Color_obj::get_argb( ){
 HX_DEFINE_DYNAMIC_FUNC0(Color_obj,get_argb,return )
 
 int Color_obj::set_argb( int v){
-	HX_STACK_FRAME("haxor.math.Color","set_argb",0x13f90a8e,"haxor.math.Color.set_argb","haxor/math/Color.hx",134,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","set_argb",0x13f90a8e,"haxor.math.Color.set_argb","haxor/math/Color.hx",152,0x18984df5)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(135)
+	HX_STACK_LINE(153)
 	this->a = (((int((int(v) >> int((int)24))) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(136)
+	HX_STACK_LINE(154)
 	this->g = (((int((int(v) >> int((int)16))) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(137)
+	HX_STACK_LINE(155)
 	this->b = (((int((int(v) >> int((int)8))) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(138)
+	HX_STACK_LINE(156)
 	this->r = (((int(v) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(139)
+	HX_STACK_LINE(157)
 	return v;
 }
 
@@ -96,29 +99,29 @@ int Color_obj::set_argb( int v){
 HX_DEFINE_DYNAMIC_FUNC1(Color_obj,set_argb,return )
 
 ::String Color_obj::get_css( ){
-	HX_STACK_FRAME("haxor.math.Color","get_css",0xb01a53b5,"haxor.math.Color.get_css","haxor/math/Color.hx",146,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","get_css",0xb01a53b5,"haxor.math.Color.get_css","haxor/math/Color.hx",164,0x18984df5)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	int _g = ::Std_obj::_int((this->r * (int)255));		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	::String _g1 = (HX_CSTRING("rgba(") + _g);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	::String _g2 = (_g1 + HX_CSTRING(","));		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	int _g3 = ::Std_obj::_int((this->g * (int)255));		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	::String _g4 = (_g2 + _g3);		HX_STACK_VAR(_g4,"_g4");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	::String _g5 = (_g4 + HX_CSTRING(","));		HX_STACK_VAR(_g5,"_g5");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	int _g6 = ::Std_obj::_int((this->b * (int)255));		HX_STACK_VAR(_g6,"_g6");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	::String _g7 = (_g5 + _g6);		HX_STACK_VAR(_g7,"_g7");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	::String _g8 = (_g7 + HX_CSTRING(","));		HX_STACK_VAR(_g8,"_g8");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	::String _g9 = (_g8 + this->a);		HX_STACK_VAR(_g9,"_g9");
-	HX_STACK_LINE(146)
+	HX_STACK_LINE(164)
 	return (_g9 + HX_CSTRING(")"));
 }
 
@@ -126,17 +129,17 @@ HX_DEFINE_DYNAMIC_FUNC1(Color_obj,set_argb,return )
 HX_DEFINE_DYNAMIC_FUNC0(Color_obj,get_css,return )
 
 int Color_obj::get_rgba( ){
-	HX_STACK_FRAME("haxor.math.Color","get_rgba",0x70cff482,"haxor.math.Color.get_rgba","haxor/math/Color.hx",153,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","get_rgba",0x70cff482,"haxor.math.Color.get_rgba","haxor/math/Color.hx",171,0x18984df5)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(154)
+	HX_STACK_LINE(172)
 	int rb = (this->r * 255.0);		HX_STACK_VAR(rb,"rb");
-	HX_STACK_LINE(155)
+	HX_STACK_LINE(173)
 	int gb = (this->g * 255.0);		HX_STACK_VAR(gb,"gb");
-	HX_STACK_LINE(156)
+	HX_STACK_LINE(174)
 	int bb = (this->b * 255.0);		HX_STACK_VAR(bb,"bb");
-	HX_STACK_LINE(157)
+	HX_STACK_LINE(175)
 	int ab = (this->a * 255.0);		HX_STACK_VAR(ab,"ab");
-	HX_STACK_LINE(158)
+	HX_STACK_LINE(176)
 	return (int((int((int((int(rb) << int((int)24))) | int((int(gb) << int((int)16))))) | int((int(bb) << int((int)8))))) | int(ab));
 }
 
@@ -144,18 +147,18 @@ int Color_obj::get_rgba( ){
 HX_DEFINE_DYNAMIC_FUNC0(Color_obj,get_rgba,return )
 
 int Color_obj::set_rgba( int v){
-	HX_STACK_FRAME("haxor.math.Color","set_rgba",0x1f2d4df6,"haxor.math.Color.set_rgba","haxor/math/Color.hx",161,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","set_rgba",0x1f2d4df6,"haxor.math.Color.set_rgba","haxor/math/Color.hx",179,0x18984df5)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(162)
+	HX_STACK_LINE(180)
 	this->r = (((int((int(v) >> int((int)24))) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(163)
+	HX_STACK_LINE(181)
 	this->g = (((int((int(v) >> int((int)16))) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(164)
+	HX_STACK_LINE(182)
 	this->b = (((int((int(v) >> int((int)8))) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(165)
+	HX_STACK_LINE(183)
 	this->a = (((int(v) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(166)
+	HX_STACK_LINE(184)
 	return v;
 }
 
@@ -163,15 +166,15 @@ int Color_obj::set_rgba( int v){
 HX_DEFINE_DYNAMIC_FUNC1(Color_obj,set_rgba,return )
 
 int Color_obj::get_rgb( ){
-	HX_STACK_FRAME("haxor.math.Color","get_rgb",0xb025aaff,"haxor.math.Color.get_rgb","haxor/math/Color.hx",174,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","get_rgb",0xb025aaff,"haxor.math.Color.get_rgb","haxor/math/Color.hx",192,0x18984df5)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(175)
+	HX_STACK_LINE(193)
 	int rb = (this->r * 255.0);		HX_STACK_VAR(rb,"rb");
-	HX_STACK_LINE(176)
+	HX_STACK_LINE(194)
 	int gb = (this->g * 255.0);		HX_STACK_VAR(gb,"gb");
-	HX_STACK_LINE(177)
+	HX_STACK_LINE(195)
 	int bb = (this->b * 255.0);		HX_STACK_VAR(bb,"bb");
-	HX_STACK_LINE(178)
+	HX_STACK_LINE(196)
 	return (int((int((int(rb) << int((int)16))) | int((int(gb) << int((int)8))))) | int(bb));
 }
 
@@ -179,16 +182,16 @@ int Color_obj::get_rgb( ){
 HX_DEFINE_DYNAMIC_FUNC0(Color_obj,get_rgb,return )
 
 int Color_obj::set_rgb( int v){
-	HX_STACK_FRAME("haxor.math.Color","set_rgb",0xa3273c0b,"haxor.math.Color.set_rgb","haxor/math/Color.hx",181,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","set_rgb",0xa3273c0b,"haxor.math.Color.set_rgb","haxor/math/Color.hx",199,0x18984df5)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(182)
+	HX_STACK_LINE(200)
 	this->r = (((int((int(v) >> int((int)16))) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(183)
+	HX_STACK_LINE(201)
 	this->g = (((int((int(v) >> int((int)8))) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(184)
+	HX_STACK_LINE(202)
 	this->b = (((int(v) & int((int)255))) * 0.00392156863);
-	HX_STACK_LINE(185)
+	HX_STACK_LINE(203)
 	return v;
 }
 
@@ -200,22 +203,22 @@ Float p_r = __o_p_r.Default(0);
 Float p_g = __o_p_g.Default(0);
 Float p_b = __o_p_b.Default(0);
 Float p_a = __o_p_a.Default(1);
-	HX_STACK_FRAME("haxor.math.Color","Set",0x1755d15d,"haxor.math.Color.Set","haxor/math/Color.hx",234,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","Set",0x1755d15d,"haxor.math.Color.Set","haxor/math/Color.hx",252,0x18984df5)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_r,"p_r")
 	HX_STACK_ARG(p_g,"p_g")
 	HX_STACK_ARG(p_b,"p_b")
 	HX_STACK_ARG(p_a,"p_a")
 {
-		HX_STACK_LINE(235)
+		HX_STACK_LINE(253)
 		this->r = p_r;
-		HX_STACK_LINE(236)
+		HX_STACK_LINE(254)
 		this->g = p_g;
-		HX_STACK_LINE(237)
+		HX_STACK_LINE(255)
 		this->b = p_b;
-		HX_STACK_LINE(238)
+		HX_STACK_LINE(256)
 		this->a = p_a;
-		HX_STACK_LINE(239)
+		HX_STACK_LINE(257)
 		return hx::ObjectPtr<OBJ_>(this);
 	}
 }
@@ -224,46 +227,46 @@ Float p_a = __o_p_a.Default(1);
 HX_DEFINE_DYNAMIC_FUNC4(Color_obj,Set,return )
 
 ::haxor::math::Color Color_obj::Set4( ::haxor::math::Color p_color){
-	HX_STACK_FRAME("haxor.math.Color","Set4",0x53c16037,"haxor.math.Color.Set4","haxor/math/Color.hx",248,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","Set4",0x53c16037,"haxor.math.Color.Set4","haxor/math/Color.hx",266,0x18984df5)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_color,"p_color")
-	HX_STACK_LINE(249)
+	HX_STACK_LINE(267)
 	if (((p_color == null()))){
-		HX_STACK_LINE(249)
+		HX_STACK_LINE(267)
 		this->r = 0.0;
 	}
 	else{
-		HX_STACK_LINE(249)
+		HX_STACK_LINE(267)
 		this->r = p_color->r;
 	}
-	HX_STACK_LINE(250)
+	HX_STACK_LINE(268)
 	if (((p_color == null()))){
-		HX_STACK_LINE(250)
+		HX_STACK_LINE(268)
 		this->g = 0.0;
 	}
 	else{
-		HX_STACK_LINE(250)
+		HX_STACK_LINE(268)
 		this->g = p_color->g;
 	}
-	HX_STACK_LINE(251)
+	HX_STACK_LINE(269)
 	if (((p_color == null()))){
-		HX_STACK_LINE(251)
+		HX_STACK_LINE(269)
 		this->b = 0.0;
 	}
 	else{
-		HX_STACK_LINE(251)
+		HX_STACK_LINE(269)
 		this->b = p_color->b;
 	}
-	HX_STACK_LINE(252)
+	HX_STACK_LINE(270)
 	if (((p_color == null()))){
-		HX_STACK_LINE(252)
+		HX_STACK_LINE(270)
 		this->a = 1.0;
 	}
 	else{
-		HX_STACK_LINE(252)
+		HX_STACK_LINE(270)
 		this->a = p_color->a;
 	}
-	HX_STACK_LINE(253)
+	HX_STACK_LINE(271)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -271,9 +274,9 @@ HX_DEFINE_DYNAMIC_FUNC4(Color_obj,Set,return )
 HX_DEFINE_DYNAMIC_FUNC1(Color_obj,Set4,return )
 
 Array< Float > Color_obj::ToArray( ){
-	HX_STACK_FRAME("haxor.math.Color","ToArray",0x48bee959,"haxor.math.Color.ToArray","haxor/math/Color.hx",260,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","ToArray",0x48bee959,"haxor.math.Color.ToArray","haxor/math/Color.hx",278,0x18984df5)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(260)
+	HX_STACK_LINE(278)
 	return Array_obj< Float >::__new().Add(this->r).Add(this->g).Add(this->b).Add(this->a);
 }
 
@@ -281,57 +284,57 @@ Array< Float > Color_obj::ToArray( ){
 HX_DEFINE_DYNAMIC_FUNC0(Color_obj,ToArray,return )
 
 ::String Color_obj::ToString( ){
-	HX_STACK_FRAME("haxor.math.Color","ToString",0xb78cf511,"haxor.math.Color.ToString","haxor/math/Color.hx",267,0x18984df5)
+	HX_STACK_FRAME("haxor.math.Color","ToString",0xb78cf511,"haxor.math.Color.ToString","haxor/math/Color.hx",285,0x18984df5)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(268)
+	HX_STACK_LINE(286)
 	Array< Float > a = this->ToArray();		HX_STACK_VAR(a,"a");
-	HX_STACK_LINE(269)
+	HX_STACK_LINE(287)
 	Array< ::String > s = Array_obj< ::String >::__new();		HX_STACK_VAR(s,"s");
-	HX_STACK_LINE(270)
+	HX_STACK_LINE(288)
 	{
-		HX_STACK_LINE(270)
+		HX_STACK_LINE(288)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(270)
+		HX_STACK_LINE(288)
 		int _g = a->length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(270)
+		HX_STACK_LINE(288)
 		while((true)){
-			HX_STACK_LINE(270)
+			HX_STACK_LINE(288)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(270)
+				HX_STACK_LINE(288)
 				break;
 			}
-			HX_STACK_LINE(270)
+			HX_STACK_LINE(288)
 			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(270)
+			HX_STACK_LINE(288)
 			int _g2 = ::Std_obj::_int((a->__get(i) * 100.0));		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(270)
+			HX_STACK_LINE(288)
 			a[i] = (Float(_g2) / Float((int)100));
-			HX_STACK_LINE(270)
+			HX_STACK_LINE(288)
 			s->push((  (((a->__get(i) >= (int)0))) ? ::String((HX_CSTRING(" ") + a->__get(i))) : ::String((a->__get(i) + HX_CSTRING(""))) ));
 		}
 	}
-	HX_STACK_LINE(271)
+	HX_STACK_LINE(289)
 	::String res = HX_CSTRING("[");		HX_STACK_VAR(res,"res");
-	HX_STACK_LINE(272)
+	HX_STACK_LINE(290)
 	{
-		HX_STACK_LINE(272)
+		HX_STACK_LINE(290)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(272)
+		HX_STACK_LINE(290)
 		int _g = a->length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(272)
+		HX_STACK_LINE(290)
 		while((true)){
-			HX_STACK_LINE(272)
+			HX_STACK_LINE(290)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(272)
+				HX_STACK_LINE(290)
 				break;
 			}
-			HX_STACK_LINE(272)
+			HX_STACK_LINE(290)
 			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(274)
+			HX_STACK_LINE(292)
 			hx::AddEq(res,(s->__get(i) + ((  (((i < (a->length - (int)1)))) ? ::String(HX_CSTRING(",")) : ::String(HX_CSTRING("]")) ))));
 		}
 	}
-	HX_STACK_LINE(276)
+	HX_STACK_LINE(294)
 	return res;
 }
 
@@ -596,6 +599,35 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC4(Color_obj,FromBytes,return )
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC3(Color_obj,Lerp,return )
 
+::haxor::math::Color Color_obj::Sample( Array< ::Dynamic > g,Float r){
+	HX_STACK_FRAME("haxor.math.Color","Sample",0x7cf6314f,"haxor.math.Color.Sample","haxor/math/Color.hx",110,0x18984df5)
+	HX_STACK_ARG(g,"g")
+	HX_STACK_ARG(r,"r")
+	HX_STACK_LINE(111)
+	Float pos = (g->length - (int)1);		HX_STACK_VAR(pos,"pos");
+	HX_STACK_LINE(112)
+	hx::MultEq(pos,(r * 0.9999));
+	HX_STACK_LINE(113)
+	int i0 = ::Std_obj::_int(pos);		HX_STACK_VAR(i0,"i0");
+	HX_STACK_LINE(114)
+	int i1 = hx::Mod(((i0 + (int)1)),g->length);		HX_STACK_VAR(i1,"i1");
+	HX_STACK_LINE(115)
+	Float _g = ::Math_obj::ffloor(pos);		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(115)
+	Float _g1 = (pos - _g);		HX_STACK_VAR(_g1,"_g1");
+	HX_STACK_LINE(115)
+	r = _g1;
+	HX_STACK_LINE(116)
+	::haxor::math::Color c0 = g->__get(i0).StaticCast< ::haxor::math::Color >();		HX_STACK_VAR(c0,"c0");
+	HX_STACK_LINE(117)
+	::haxor::math::Color c1 = g->__get(i1).StaticCast< ::haxor::math::Color >();		HX_STACK_VAR(c1,"c1");
+	HX_STACK_LINE(118)
+	return ::haxor::math::Color_obj::Lerp(c0,c1,r);
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Color_obj,Sample,return )
+
 
 Color_obj::Color_obj()
 {
@@ -658,6 +690,7 @@ Dynamic Color_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"gray50") ) { return inCallProp ? get_gray50() : gray50; }
 		if (HX_FIELD_EQ(inName,"gray75") ) { return inCallProp ? get_gray75() : gray75; }
 		if (HX_FIELD_EQ(inName,"gray90") ) { return inCallProp ? get_gray90() : gray90; }
+		if (HX_FIELD_EQ(inName,"Sample") ) { return Sample_dyn(); }
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"get_red") ) { return get_red_dyn(); }
@@ -785,6 +818,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("FromHex"),
 	HX_CSTRING("FromBytes"),
 	HX_CSTRING("Lerp"),
+	HX_CSTRING("Sample"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE

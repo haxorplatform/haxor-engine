@@ -88,6 +88,7 @@ class HXCPP_CLASS_ATTRIBUTES  Texture_obj : public ::haxor::core::Resource_obj{
 		virtual ::haxor::graphics::TextureType get_type( );
 		Dynamic get_type_dyn();
 
+		int __slot;
 		virtual Void Apply( );
 		Dynamic Apply_dyn();
 

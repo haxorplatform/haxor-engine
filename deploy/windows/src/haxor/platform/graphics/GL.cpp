@@ -18,6 +18,12 @@
 #ifndef INCLUDED_haxor_io_Buffer
 #include <haxor/io/Buffer.h>
 #endif
+#ifndef INCLUDED_haxor_io_FloatArray
+#include <haxor/io/FloatArray.h>
+#endif
+#ifndef INCLUDED_haxor_io_Int32Array
+#include <haxor/io/Int32Array.h>
+#endif
 #ifndef INCLUDED_haxor_platform_graphics_GL
 #include <haxor/platform/graphics/GL.h>
 #endif
@@ -653,23 +659,27 @@ bool GL_obj::TEXTURE_HALF;
 
 bool GL_obj::TEXTURE_HALF_LINEAR;
 
-int GL_obj::MAX_ANISOTROPY;
+int GL_obj::TEXTURE_ANISOTROPY;
 
-bool GL_obj::TEXTURE_ANISOTROPY;
+bool GL_obj::TEXTURE_ANISOTROPY_ENABLED;
+
+int GL_obj::MAX_TEXTURE_ANISOTROPY;
 
 bool GL_obj::TEXTURE_FLOAT;
 
 bool GL_obj::TEXTURE_FLOAT_LINEAR;
 
-bool GL_obj::TEXTURE_DEPTH;
+bool GL_obj::TEXTURE_DEPTH_ENABLED;
 
 int GL_obj::MAX_ACTIVE_TEXTURE;
 
 int GL_obj::_NULL;
 
+int GL_obj::INVALID;
+
 ::haxor::platform::graphics::GraphicAPI GL_obj::get_api( ){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","get_api",0xaeb6cd1c,"haxor.platform.graphics.GL.get_api","haxor/platform/graphics/GL.hx",391,0x83cf3744)
-	HX_STACK_LINE(391)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","get_api",0xaeb6cd1c,"haxor.platform.graphics.GL.get_api","haxor/platform/graphics/GL.hx",404,0x83cf3744)
+	HX_STACK_LINE(404)
 	return ::haxor::platform::graphics::GL_obj::m_gl->get_api();
 }
 
@@ -680,11 +690,11 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,get_api,return )
 
 Void GL_obj::Initialize( ::haxor::core::BaseApplication p_application){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","Initialize",0xe247b265,"haxor.platform.graphics.GL.Initialize","haxor/platform/graphics/GL.hx",404,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Initialize",0xe247b265,"haxor.platform.graphics.GL.Initialize","haxor/platform/graphics/GL.hx",417,0x83cf3744)
 		HX_STACK_ARG(p_application,"p_application")
-		HX_STACK_LINE(405)
+		HX_STACK_LINE(418)
 		::haxor::platform::graphics::OpenGL _g = ::haxor::platform::graphics::OpenGL_obj::__new(p_application);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(405)
+		HX_STACK_LINE(418)
 		::haxor::platform::graphics::GL_obj::m_gl = _g;
 	}
 return null();
@@ -695,8 +705,8 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,Initialize,(void))
 
 Void GL_obj::Resize( ){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","Resize",0xfd626c89,"haxor.platform.graphics.GL.Resize","haxor/platform/graphics/GL.hx",411,0x83cf3744)
-		HX_STACK_LINE(411)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Resize",0xfd626c89,"haxor.platform.graphics.GL.Resize","haxor/platform/graphics/GL.hx",424,0x83cf3744)
+		HX_STACK_LINE(424)
 		::haxor::platform::graphics::GL_obj::m_gl->Resize();
 	}
 return null();
@@ -707,10 +717,10 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,Resize,(void))
 
 Void GL_obj::BindBuffer( int p_target,int p_id){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","BindBuffer",0xee4b13b2,"haxor.platform.graphics.GL.BindBuffer","haxor/platform/graphics/GL.hx",420,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","BindBuffer",0xee4b13b2,"haxor.platform.graphics.GL.BindBuffer","haxor/platform/graphics/GL.hx",433,0x83cf3744)
 		HX_STACK_ARG(p_target,"p_target")
 		HX_STACK_ARG(p_id,"p_id")
-		HX_STACK_LINE(420)
+		HX_STACK_LINE(433)
 		::haxor::platform::graphics::GL_obj::m_gl->BindBuffer(p_target,p_id);
 	}
 return null();
@@ -721,11 +731,11 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,BindBuffer,(void))
 
 Void GL_obj::BufferData( int p_target,::haxor::io::Buffer p_data,int p_mode){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","BufferData",0x8900405f,"haxor.platform.graphics.GL.BufferData","haxor/platform/graphics/GL.hx",428,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","BufferData",0x8900405f,"haxor.platform.graphics.GL.BufferData","haxor/platform/graphics/GL.hx",441,0x83cf3744)
 		HX_STACK_ARG(p_target,"p_target")
 		HX_STACK_ARG(p_data,"p_data")
 		HX_STACK_ARG(p_mode,"p_mode")
-		HX_STACK_LINE(428)
+		HX_STACK_LINE(441)
 		::haxor::platform::graphics::GL_obj::m_gl->BufferData(p_target,p_data,p_mode);
 	}
 return null();
@@ -736,11 +746,11 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,BufferData,(void))
 
 Void GL_obj::BufferSubData( int p_target,int p_offset,::haxor::io::Buffer p_data){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","BufferSubData",0xa24090b5,"haxor.platform.graphics.GL.BufferSubData","haxor/platform/graphics/GL.hx",437,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","BufferSubData",0xa24090b5,"haxor.platform.graphics.GL.BufferSubData","haxor/platform/graphics/GL.hx",450,0x83cf3744)
 		HX_STACK_ARG(p_target,"p_target")
 		HX_STACK_ARG(p_offset,"p_offset")
 		HX_STACK_ARG(p_data,"p_data")
-		HX_STACK_LINE(437)
+		HX_STACK_LINE(450)
 		::haxor::platform::graphics::GL_obj::m_gl->BufferSubData(p_target,p_offset,p_data);
 	}
 return null();
@@ -750,8 +760,8 @@ return null();
 STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,BufferSubData,(void))
 
 int GL_obj::CreateBuffer( ){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","CreateBuffer",0xc568ad71,"haxor.platform.graphics.GL.CreateBuffer","haxor/platform/graphics/GL.hx",443,0x83cf3744)
-	HX_STACK_LINE(443)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","CreateBuffer",0xc568ad71,"haxor.platform.graphics.GL.CreateBuffer","haxor/platform/graphics/GL.hx",456,0x83cf3744)
+	HX_STACK_LINE(456)
 	return ::haxor::platform::graphics::GL_obj::m_gl->CreateBuffer();
 }
 
@@ -760,11 +770,11 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,CreateBuffer,return )
 
 Void GL_obj::DrawArrays( int p_primitive,int p_start,int p_count){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","DrawArrays",0xef4074f3,"haxor.platform.graphics.GL.DrawArrays","haxor/platform/graphics/GL.hx",451,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DrawArrays",0xef4074f3,"haxor.platform.graphics.GL.DrawArrays","haxor/platform/graphics/GL.hx",464,0x83cf3744)
 		HX_STACK_ARG(p_primitive,"p_primitive")
 		HX_STACK_ARG(p_start,"p_start")
 		HX_STACK_ARG(p_count,"p_count")
-		HX_STACK_LINE(451)
+		HX_STACK_LINE(464)
 		::haxor::platform::graphics::GL_obj::m_gl->DrawArrays(p_primitive,p_start,p_count);
 	}
 return null();
@@ -775,12 +785,12 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,DrawArrays,(void))
 
 Void GL_obj::DrawElements( int p_primitive,int p_count,int p_type,int p_offset){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","DrawElements",0x2c3672b0,"haxor.platform.graphics.GL.DrawElements","haxor/platform/graphics/GL.hx",460,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DrawElements",0x2c3672b0,"haxor.platform.graphics.GL.DrawElements","haxor/platform/graphics/GL.hx",473,0x83cf3744)
 		HX_STACK_ARG(p_primitive,"p_primitive")
 		HX_STACK_ARG(p_count,"p_count")
 		HX_STACK_ARG(p_type,"p_type")
 		HX_STACK_ARG(p_offset,"p_offset")
-		HX_STACK_LINE(460)
+		HX_STACK_LINE(473)
 		::haxor::platform::graphics::GL_obj::m_gl->DrawElements(p_primitive,p_count,p_type,p_offset);
 	}
 return null();
@@ -791,9 +801,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,DrawElements,(void))
 
 Void GL_obj::DeleteBuffer( int p_id){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","DeleteBuffer",0x09ab93e0,"haxor.platform.graphics.GL.DeleteBuffer","haxor/platform/graphics/GL.hx",466,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DeleteBuffer",0x09ab93e0,"haxor.platform.graphics.GL.DeleteBuffer","haxor/platform/graphics/GL.hx",479,0x83cf3744)
 		HX_STACK_ARG(p_id,"p_id")
-		HX_STACK_LINE(466)
+		HX_STACK_LINE(479)
 		::haxor::platform::graphics::GL_obj::m_gl->DeleteBuffer(p_id);
 	}
 return null();
@@ -804,9 +814,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DeleteBuffer,(void))
 
 Void GL_obj::DisableVertexAttrib( int p_location){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","DisableVertexAttrib",0x0cff0021,"haxor.platform.graphics.GL.DisableVertexAttrib","haxor/platform/graphics/GL.hx",472,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DisableVertexAttrib",0x0cff0021,"haxor.platform.graphics.GL.DisableVertexAttrib","haxor/platform/graphics/GL.hx",485,0x83cf3744)
 		HX_STACK_ARG(p_location,"p_location")
-		HX_STACK_LINE(472)
+		HX_STACK_LINE(485)
 		::haxor::platform::graphics::GL_obj::m_gl->DisableVertexAttrib(p_location);
 	}
 return null();
@@ -817,9 +827,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DisableVertexAttrib,(void))
 
 Void GL_obj::EnableVertexAttrib( int p_location){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","EnableVertexAttrib",0x4b5c2b06,"haxor.platform.graphics.GL.EnableVertexAttrib","haxor/platform/graphics/GL.hx",478,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","EnableVertexAttrib",0x4b5c2b06,"haxor.platform.graphics.GL.EnableVertexAttrib","haxor/platform/graphics/GL.hx",491,0x83cf3744)
 		HX_STACK_ARG(p_location,"p_location")
-		HX_STACK_LINE(478)
+		HX_STACK_LINE(491)
 		::haxor::platform::graphics::GL_obj::m_gl->EnableVertexAttrib(p_location);
 	}
 return null();
@@ -830,12 +840,12 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,EnableVertexAttrib,(void))
 
 Void GL_obj::VertexAttrib3f( int p_location,Float p_x,Float p_y,Float p_z){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","VertexAttrib3f",0xc781c5b6,"haxor.platform.graphics.GL.VertexAttrib3f","haxor/platform/graphics/GL.hx",487,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","VertexAttrib3f",0xc781c5b6,"haxor.platform.graphics.GL.VertexAttrib3f","haxor/platform/graphics/GL.hx",500,0x83cf3744)
 		HX_STACK_ARG(p_location,"p_location")
 		HX_STACK_ARG(p_x,"p_x")
 		HX_STACK_ARG(p_y,"p_y")
 		HX_STACK_ARG(p_z,"p_z")
-		HX_STACK_LINE(487)
+		HX_STACK_LINE(500)
 		::haxor::platform::graphics::GL_obj::m_gl->VertexAttrib3f(p_location,p_x,p_y,p_z);
 	}
 return null();
@@ -846,13 +856,13 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,VertexAttrib3f,(void))
 
 Void GL_obj::VertexAttrib4f( int p_location,Float p_x,Float p_y,Float p_z,Float p_w){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","VertexAttrib4f",0xc781c695,"haxor.platform.graphics.GL.VertexAttrib4f","haxor/platform/graphics/GL.hx",497,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","VertexAttrib4f",0xc781c695,"haxor.platform.graphics.GL.VertexAttrib4f","haxor/platform/graphics/GL.hx",510,0x83cf3744)
 		HX_STACK_ARG(p_location,"p_location")
 		HX_STACK_ARG(p_x,"p_x")
 		HX_STACK_ARG(p_y,"p_y")
 		HX_STACK_ARG(p_z,"p_z")
 		HX_STACK_ARG(p_w,"p_w")
-		HX_STACK_LINE(497)
+		HX_STACK_LINE(510)
 		::haxor::platform::graphics::GL_obj::m_gl->VertexAttrib4f(p_location,p_x,p_y,p_z,p_w);
 	}
 return null();
@@ -863,14 +873,14 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC5(GL_obj,VertexAttrib4f,(void))
 
 Void GL_obj::VertexAttribPointer( int p_location,int p_components_size,int p_type,bool p_normalized,int p_stride,int p_offset){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","VertexAttribPointer",0x852d38da,"haxor.platform.graphics.GL.VertexAttribPointer","haxor/platform/graphics/GL.hx",508,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","VertexAttribPointer",0x852d38da,"haxor.platform.graphics.GL.VertexAttribPointer","haxor/platform/graphics/GL.hx",521,0x83cf3744)
 		HX_STACK_ARG(p_location,"p_location")
 		HX_STACK_ARG(p_components_size,"p_components_size")
 		HX_STACK_ARG(p_type,"p_type")
 		HX_STACK_ARG(p_normalized,"p_normalized")
 		HX_STACK_ARG(p_stride,"p_stride")
 		HX_STACK_ARG(p_offset,"p_offset")
-		HX_STACK_LINE(508)
+		HX_STACK_LINE(521)
 		::haxor::platform::graphics::GL_obj::m_gl->VertexAttribPointer(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset);
 	}
 return null();
@@ -881,9 +891,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC6(GL_obj,VertexAttribPointer,(void))
 
 Void GL_obj::CompileShader( int p_shader){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","CompileShader",0x370e0b03,"haxor.platform.graphics.GL.CompileShader","haxor/platform/graphics/GL.hx",519,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","CompileShader",0x370e0b03,"haxor.platform.graphics.GL.CompileShader","haxor/platform/graphics/GL.hx",532,0x83cf3744)
 		HX_STACK_ARG(p_shader,"p_shader")
-		HX_STACK_LINE(519)
+		HX_STACK_LINE(532)
 		::haxor::platform::graphics::GL_obj::m_gl->CompileShader(p_shader);
 	}
 return null();
@@ -893,9 +903,9 @@ return null();
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,CompileShader,(void))
 
 int GL_obj::CreateShader( int p_type){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","CreateShader",0x11f4af96,"haxor.platform.graphics.GL.CreateShader","haxor/platform/graphics/GL.hx",526,0x83cf3744)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","CreateShader",0x11f4af96,"haxor.platform.graphics.GL.CreateShader","haxor/platform/graphics/GL.hx",539,0x83cf3744)
 	HX_STACK_ARG(p_type,"p_type")
-	HX_STACK_LINE(526)
+	HX_STACK_LINE(539)
 	return ::haxor::platform::graphics::GL_obj::m_gl->CreateShader(p_type);
 }
 
@@ -904,10 +914,10 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,CreateShader,return )
 
 Void GL_obj::DetachShader( int p_program,int p_shader){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","DetachShader",0xbd2c812d,"haxor.platform.graphics.GL.DetachShader","haxor/platform/graphics/GL.hx",533,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DetachShader",0xbd2c812d,"haxor.platform.graphics.GL.DetachShader","haxor/platform/graphics/GL.hx",546,0x83cf3744)
 		HX_STACK_ARG(p_program,"p_program")
 		HX_STACK_ARG(p_shader,"p_shader")
-		HX_STACK_LINE(533)
+		HX_STACK_LINE(546)
 		::haxor::platform::graphics::GL_obj::m_gl->DetachShader(p_program,p_shader);
 	}
 return null();
@@ -918,9 +928,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,DetachShader,(void))
 
 Void GL_obj::DeleteShader( int p_shader){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","DeleteShader",0x56379605,"haxor.platform.graphics.GL.DeleteShader","haxor/platform/graphics/GL.hx",539,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DeleteShader",0x56379605,"haxor.platform.graphics.GL.DeleteShader","haxor/platform/graphics/GL.hx",552,0x83cf3744)
 		HX_STACK_ARG(p_shader,"p_shader")
-		HX_STACK_LINE(539)
+		HX_STACK_LINE(552)
 		::haxor::platform::graphics::GL_obj::m_gl->DeleteShader(p_shader);
 	}
 return null();
@@ -930,9 +940,9 @@ return null();
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DeleteShader,(void))
 
 ::String GL_obj::GetShaderInfoLog( int p_shader){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","GetShaderInfoLog",0x546ebc70,"haxor.platform.graphics.GL.GetShaderInfoLog","haxor/platform/graphics/GL.hx",546,0x83cf3744)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","GetShaderInfoLog",0x546ebc70,"haxor.platform.graphics.GL.GetShaderInfoLog","haxor/platform/graphics/GL.hx",559,0x83cf3744)
 	HX_STACK_ARG(p_shader,"p_shader")
-	HX_STACK_LINE(546)
+	HX_STACK_LINE(559)
 	return ::haxor::platform::graphics::GL_obj::m_gl->GetShaderInfoLog(p_shader);
 }
 
@@ -940,10 +950,10 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DeleteShader,(void))
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,GetShaderInfoLog,return )
 
 int GL_obj::GetShaderParameter( int p_shader,int p_parameter){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","GetShaderParameter",0x8b9e87e3,"haxor.platform.graphics.GL.GetShaderParameter","haxor/platform/graphics/GL.hx",554,0x83cf3744)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","GetShaderParameter",0x8b9e87e3,"haxor.platform.graphics.GL.GetShaderParameter","haxor/platform/graphics/GL.hx",567,0x83cf3744)
 	HX_STACK_ARG(p_shader,"p_shader")
 	HX_STACK_ARG(p_parameter,"p_parameter")
-	HX_STACK_LINE(554)
+	HX_STACK_LINE(567)
 	return ::haxor::platform::graphics::GL_obj::m_gl->GetShaderParameter(p_shader,p_parameter);
 }
 
@@ -952,10 +962,10 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,GetShaderParameter,return )
 
 Void GL_obj::ShaderSource( int p_shader,::String p_source){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","ShaderSource",0x7498fe35,"haxor.platform.graphics.GL.ShaderSource","haxor/platform/graphics/GL.hx",561,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","ShaderSource",0x7498fe35,"haxor.platform.graphics.GL.ShaderSource","haxor/platform/graphics/GL.hx",574,0x83cf3744)
 		HX_STACK_ARG(p_shader,"p_shader")
 		HX_STACK_ARG(p_source,"p_source")
-		HX_STACK_LINE(561)
+		HX_STACK_LINE(574)
 		::haxor::platform::graphics::GL_obj::m_gl->ShaderSource(p_shader,p_source);
 	}
 return null();
@@ -966,10 +976,10 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,ShaderSource,(void))
 
 Void GL_obj::AttachShader( int p_program,int p_shader){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","AttachShader",0x84f6811f,"haxor.platform.graphics.GL.AttachShader","haxor/platform/graphics/GL.hx",568,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","AttachShader",0x84f6811f,"haxor.platform.graphics.GL.AttachShader","haxor/platform/graphics/GL.hx",581,0x83cf3744)
 		HX_STACK_ARG(p_program,"p_program")
 		HX_STACK_ARG(p_shader,"p_shader")
-		HX_STACK_LINE(568)
+		HX_STACK_LINE(581)
 		::haxor::platform::graphics::GL_obj::m_gl->AttachShader(p_program,p_shader);
 	}
 return null();
@@ -980,11 +990,11 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,AttachShader,(void))
 
 Void GL_obj::BindAttribLocation( int p_program,int p_location,::String p_name){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","BindAttribLocation",0x7373c451,"haxor.platform.graphics.GL.BindAttribLocation","haxor/platform/graphics/GL.hx",576,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","BindAttribLocation",0x7373c451,"haxor.platform.graphics.GL.BindAttribLocation","haxor/platform/graphics/GL.hx",589,0x83cf3744)
 		HX_STACK_ARG(p_program,"p_program")
 		HX_STACK_ARG(p_location,"p_location")
 		HX_STACK_ARG(p_name,"p_name")
-		HX_STACK_LINE(576)
+		HX_STACK_LINE(589)
 		::haxor::platform::graphics::GL_obj::m_gl->BindAttribLocation(p_program,p_location,p_name);
 	}
 return null();
@@ -994,8 +1004,8 @@ return null();
 STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,BindAttribLocation,(void))
 
 int GL_obj::CreateProgram( ){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","CreateProgram",0x3897bcf3,"haxor.platform.graphics.GL.CreateProgram","haxor/platform/graphics/GL.hx",582,0x83cf3744)
-	HX_STACK_LINE(582)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","CreateProgram",0x3897bcf3,"haxor.platform.graphics.GL.CreateProgram","haxor/platform/graphics/GL.hx",595,0x83cf3744)
+	HX_STACK_LINE(595)
 	return ::haxor::platform::graphics::GL_obj::m_gl->CreateProgram();
 }
 
@@ -1004,9 +1014,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,CreateProgram,return )
 
 Void GL_obj::DeleteProgram( int p_program){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","DeleteProgram",0xaede77a4,"haxor.platform.graphics.GL.DeleteProgram","haxor/platform/graphics/GL.hx",588,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DeleteProgram",0xaede77a4,"haxor.platform.graphics.GL.DeleteProgram","haxor/platform/graphics/GL.hx",601,0x83cf3744)
 		HX_STACK_ARG(p_program,"p_program")
-		HX_STACK_LINE(588)
+		HX_STACK_LINE(601)
 		::haxor::platform::graphics::GL_obj::m_gl->DeleteProgram(p_program);
 	}
 return null();
@@ -1016,20 +1026,31 @@ return null();
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DeleteProgram,(void))
 
 int GL_obj::GetAttribLocation( int p_program,::String p_name){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","GetAttribLocation",0x8da91660,"haxor.platform.graphics.GL.GetAttribLocation","haxor/platform/graphics/GL.hx",596,0x83cf3744)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","GetAttribLocation",0x8da91660,"haxor.platform.graphics.GL.GetAttribLocation","haxor/platform/graphics/GL.hx",609,0x83cf3744)
 	HX_STACK_ARG(p_program,"p_program")
 	HX_STACK_ARG(p_name,"p_name")
-	HX_STACK_LINE(596)
+	HX_STACK_LINE(609)
 	return ::haxor::platform::graphics::GL_obj::m_gl->GetAttribLocation(p_program,p_name);
 }
 
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,GetAttribLocation,return )
 
-::String GL_obj::GetProgramInfoLog( int p_program){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","GetProgramInfoLog",0xfe8bed53,"haxor.platform.graphics.GL.GetProgramInfoLog","haxor/platform/graphics/GL.hx",603,0x83cf3744)
+int GL_obj::GetUniformLocation( int p_program,::String p_name){
+	HX_STACK_FRAME("haxor.platform.graphics.GL","GetUniformLocation",0xa5177da8,"haxor.platform.graphics.GL.GetUniformLocation","haxor/platform/graphics/GL.hx",617,0x83cf3744)
 	HX_STACK_ARG(p_program,"p_program")
-	HX_STACK_LINE(603)
+	HX_STACK_ARG(p_name,"p_name")
+	HX_STACK_LINE(617)
+	return ::haxor::platform::graphics::GL_obj::m_gl->GetUniformLocation(p_program,p_name);
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,GetUniformLocation,return )
+
+::String GL_obj::GetProgramInfoLog( int p_program){
+	HX_STACK_FRAME("haxor.platform.graphics.GL","GetProgramInfoLog",0xfe8bed53,"haxor.platform.graphics.GL.GetProgramInfoLog","haxor/platform/graphics/GL.hx",624,0x83cf3744)
+	HX_STACK_ARG(p_program,"p_program")
+	HX_STACK_LINE(624)
 	return ::haxor::platform::graphics::GL_obj::m_gl->GetProgramInfoLog(p_program);
 }
 
@@ -1037,10 +1058,10 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,GetAttribLocation,return )
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,GetProgramInfoLog,return )
 
 int GL_obj::GetProgramParameter( int p_program,int p_parameter){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","GetProgramParameter",0xdc13f786,"haxor.platform.graphics.GL.GetProgramParameter","haxor/platform/graphics/GL.hx",611,0x83cf3744)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","GetProgramParameter",0xdc13f786,"haxor.platform.graphics.GL.GetProgramParameter","haxor/platform/graphics/GL.hx",632,0x83cf3744)
 	HX_STACK_ARG(p_program,"p_program")
 	HX_STACK_ARG(p_parameter,"p_parameter")
-	HX_STACK_LINE(611)
+	HX_STACK_LINE(632)
 	return ::haxor::platform::graphics::GL_obj::m_gl->GetProgramParameter(p_program,p_parameter);
 }
 
@@ -1049,9 +1070,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,GetProgramParameter,return )
 
 Void GL_obj::LinkProgram( int p_program){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","LinkProgram",0x6ee01ef5,"haxor.platform.graphics.GL.LinkProgram","haxor/platform/graphics/GL.hx",617,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","LinkProgram",0x6ee01ef5,"haxor.platform.graphics.GL.LinkProgram","haxor/platform/graphics/GL.hx",638,0x83cf3744)
 		HX_STACK_ARG(p_program,"p_program")
-		HX_STACK_LINE(617)
+		HX_STACK_LINE(638)
 		::haxor::platform::graphics::GL_obj::m_gl->LinkProgram(p_program);
 	}
 return null();
@@ -1062,9 +1083,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,LinkProgram,(void))
 
 Void GL_obj::UseProgram( int p_program){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","UseProgram",0xec38ee12,"haxor.platform.graphics.GL.UseProgram","haxor/platform/graphics/GL.hx",623,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","UseProgram",0xec38ee12,"haxor.platform.graphics.GL.UseProgram","haxor/platform/graphics/GL.hx",644,0x83cf3744)
 		HX_STACK_ARG(p_program,"p_program")
-		HX_STACK_LINE(623)
+		HX_STACK_LINE(644)
 		::haxor::platform::graphics::GL_obj::m_gl->UseProgram(p_program);
 	}
 return null();
@@ -1073,12 +1094,599 @@ return null();
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,UseProgram,(void))
 
+Void GL_obj::ActiveTexture( int p_slot){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","ActiveTexture",0xb305adc0,"haxor.platform.graphics.GL.ActiveTexture","haxor/platform/graphics/GL.hx",655,0x83cf3744)
+		HX_STACK_ARG(p_slot,"p_slot")
+		HX_STACK_LINE(655)
+		::haxor::platform::graphics::GL_obj::m_gl->ActiveTexture(p_slot);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,ActiveTexture,(void))
+
+Void GL_obj::BindFramebuffer( int p_target,int p_id){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","BindFramebuffer",0xc56038fb,"haxor.platform.graphics.GL.BindFramebuffer","haxor/platform/graphics/GL.hx",662,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_id,"p_id")
+		HX_STACK_LINE(662)
+		::haxor::platform::graphics::GL_obj::m_gl->BindFramebuffer(p_target,p_id);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,BindFramebuffer,(void))
+
+Void GL_obj::BindRenderbuffer( int p_target,int p_id){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","BindRenderbuffer",0x755db508,"haxor.platform.graphics.GL.BindRenderbuffer","haxor/platform/graphics/GL.hx",669,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_id,"p_id")
+		HX_STACK_LINE(669)
+		::haxor::platform::graphics::GL_obj::m_gl->BindRenderbuffer(p_target,p_id);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,BindRenderbuffer,(void))
+
+Void GL_obj::BindTexture( int p_target,int p_id){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","BindTexture",0x80b64de9,"haxor.platform.graphics.GL.BindTexture","haxor/platform/graphics/GL.hx",676,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_id,"p_id")
+		HX_STACK_LINE(676)
+		::haxor::platform::graphics::GL_obj::m_gl->BindTexture(p_target,p_id);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,BindTexture,(void))
+
+int GL_obj::CreateFramebuffer( ){
+	HX_STACK_FRAME("haxor.platform.graphics.GL","CreateFramebuffer",0xfd81eadc,"haxor.platform.graphics.GL.CreateFramebuffer","haxor/platform/graphics/GL.hx",682,0x83cf3744)
+	HX_STACK_LINE(682)
+	return ::haxor::platform::graphics::GL_obj::m_gl->CreateFramebuffer();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,CreateFramebuffer,return )
+
+int GL_obj::CreateRenderbuffer( ){
+	HX_STACK_FRAME("haxor.platform.graphics.GL","CreateRenderbuffer",0x5ab7a807,"haxor.platform.graphics.GL.CreateRenderbuffer","haxor/platform/graphics/GL.hx",688,0x83cf3744)
+	HX_STACK_LINE(688)
+	return ::haxor::platform::graphics::GL_obj::m_gl->CreateRenderbuffer();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,CreateRenderbuffer,return )
+
+int GL_obj::CreateTexture( ){
+	HX_STACK_FRAME("haxor.platform.graphics.GL","CreateTexture",0xe37f3b4a,"haxor.platform.graphics.GL.CreateTexture","haxor/platform/graphics/GL.hx",694,0x83cf3744)
+	HX_STACK_LINE(694)
+	return ::haxor::platform::graphics::GL_obj::m_gl->CreateTexture();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,CreateTexture,return )
+
+Void GL_obj::DeleteFramebuffer( int p_id){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DeleteFramebuffer",0x809a520d,"haxor.platform.graphics.GL.DeleteFramebuffer","haxor/platform/graphics/GL.hx",700,0x83cf3744)
+		HX_STACK_ARG(p_id,"p_id")
+		HX_STACK_LINE(700)
+		::haxor::platform::graphics::GL_obj::m_gl->DeleteFramebuffer(p_id);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DeleteFramebuffer,(void))
+
+Void GL_obj::DeleteRenderbuffer( int p_id){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DeleteRenderbuffer",0x8cf98bb6,"haxor.platform.graphics.GL.DeleteRenderbuffer","haxor/platform/graphics/GL.hx",706,0x83cf3744)
+		HX_STACK_ARG(p_id,"p_id")
+		HX_STACK_LINE(706)
+		::haxor::platform::graphics::GL_obj::m_gl->DeleteRenderbuffer(p_id);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DeleteRenderbuffer,(void))
+
+Void GL_obj::DeleteTexture( int p_id){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DeleteTexture",0x59c5f5fb,"haxor.platform.graphics.GL.DeleteTexture","haxor/platform/graphics/GL.hx",712,0x83cf3744)
+		HX_STACK_ARG(p_id,"p_id")
+		HX_STACK_LINE(712)
+		::haxor::platform::graphics::GL_obj::m_gl->DeleteTexture(p_id);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DeleteTexture,(void))
+
+Void GL_obj::FramebufferRenderbuffer( int p_target,int p_attachment,int p_renderbuffer_target,int p_renderbuffer_id){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","FramebufferRenderbuffer",0x08e1932e,"haxor.platform.graphics.GL.FramebufferRenderbuffer","haxor/platform/graphics/GL.hx",722,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_attachment,"p_attachment")
+		HX_STACK_ARG(p_renderbuffer_target,"p_renderbuffer_target")
+		HX_STACK_ARG(p_renderbuffer_id,"p_renderbuffer_id")
+		HX_STACK_LINE(722)
+		::haxor::platform::graphics::GL_obj::m_gl->FramebufferRenderbuffer(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,FramebufferRenderbuffer,(void))
+
+Void GL_obj::FramebufferTexture2D( int p_target,int p_attachment,int p_texture_target,int p_texture_id,int p_miplevel){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","FramebufferTexture2D",0xa6f8f415,"haxor.platform.graphics.GL.FramebufferTexture2D","haxor/platform/graphics/GL.hx",732,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_attachment,"p_attachment")
+		HX_STACK_ARG(p_texture_target,"p_texture_target")
+		HX_STACK_ARG(p_texture_id,"p_texture_id")
+		HX_STACK_ARG(p_miplevel,"p_miplevel")
+		HX_STACK_LINE(732)
+		::haxor::platform::graphics::GL_obj::m_gl->FramebufferTexture2D(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC5(GL_obj,FramebufferTexture2D,(void))
+
+Void GL_obj::GenerateMipmap( int p_target){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","GenerateMipmap",0xced90632,"haxor.platform.graphics.GL.GenerateMipmap","haxor/platform/graphics/GL.hx",737,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_LINE(737)
+		::haxor::platform::graphics::GL_obj::m_gl->GenerateMipmap(p_target);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,GenerateMipmap,(void))
+
+Void GL_obj::PixelStorei( int p_parameter,int p_value){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","PixelStorei",0x662ca5d9,"haxor.platform.graphics.GL.PixelStorei","haxor/platform/graphics/GL.hx",744,0x83cf3744)
+		HX_STACK_ARG(p_parameter,"p_parameter")
+		HX_STACK_ARG(p_value,"p_value")
+		HX_STACK_LINE(744)
+		::haxor::platform::graphics::GL_obj::m_gl->PixelStorei(p_parameter,p_value);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,PixelStorei,(void))
+
+Void GL_obj::RenderbufferStorage( int p_target,int p_format,int p_width,int p_height){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","RenderbufferStorage",0xcce7d550,"haxor.platform.graphics.GL.RenderbufferStorage","haxor/platform/graphics/GL.hx",754,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_format,"p_format")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+		HX_STACK_LINE(754)
+		::haxor::platform::graphics::GL_obj::m_gl->RenderbufferStorage(p_target,p_format,p_width,p_height);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,RenderbufferStorage,(void))
+
+Void GL_obj::TexImage2D( int p_target,int p_level,int p_internal_format,int p_width,int p_height,int p_border,int p_format,int p_channel_type,::haxor::io::Buffer p_data){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","TexImage2D",0xaef3fddb,"haxor.platform.graphics.GL.TexImage2D","haxor/platform/graphics/GL.hx",768,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_level,"p_level")
+		HX_STACK_ARG(p_internal_format,"p_internal_format")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+		HX_STACK_ARG(p_border,"p_border")
+		HX_STACK_ARG(p_format,"p_format")
+		HX_STACK_ARG(p_channel_type,"p_channel_type")
+		HX_STACK_ARG(p_data,"p_data")
+		HX_STACK_LINE(768)
+		::haxor::platform::graphics::GL_obj::m_gl->TexImage2D(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC9(GL_obj,TexImage2D,(void))
+
+Void GL_obj::TexImage2DAlloc( int p_target,int p_level,int p_internal_format,int p_width,int p_height,int p_border,int p_format,int p_channel_type){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","TexImage2DAlloc",0xcf5ffc9a,"haxor.platform.graphics.GL.TexImage2DAlloc","haxor/platform/graphics/GL.hx",781,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_level,"p_level")
+		HX_STACK_ARG(p_internal_format,"p_internal_format")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+		HX_STACK_ARG(p_border,"p_border")
+		HX_STACK_ARG(p_format,"p_format")
+		HX_STACK_ARG(p_channel_type,"p_channel_type")
+		HX_STACK_LINE(781)
+		::haxor::platform::graphics::GL_obj::m_gl->TexImage2DAlloc(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC8(GL_obj,TexImage2DAlloc,(void))
+
+Void GL_obj::TexSubImage2D( int p_target,int p_level,int p_x,int p_y,int p_width,int p_height,int p_format,int p_channel_type,::haxor::io::Buffer p_data){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","TexSubImage2D",0x84ebc91f,"haxor.platform.graphics.GL.TexSubImage2D","haxor/platform/graphics/GL.hx",796,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_level,"p_level")
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+		HX_STACK_ARG(p_format,"p_format")
+		HX_STACK_ARG(p_channel_type,"p_channel_type")
+		HX_STACK_ARG(p_data,"p_data")
+		HX_STACK_LINE(796)
+		::haxor::platform::graphics::GL_obj::m_gl->TexSubImage2D(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC9(GL_obj,TexSubImage2D,(void))
+
+Void GL_obj::TexStorage2D( int p_target,int p_num_mipmaps,int p_channels,int p_width,int p_height){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","TexStorage2D",0xa1c34d3b,"haxor.platform.graphics.GL.TexStorage2D","haxor/platform/graphics/GL.hx",807,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_num_mipmaps,"p_num_mipmaps")
+		HX_STACK_ARG(p_channels,"p_channels")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+		HX_STACK_LINE(807)
+		::haxor::platform::graphics::GL_obj::m_gl->TexStorage2D(p_target,p_num_mipmaps,p_channels,p_width,p_height);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC5(GL_obj,TexStorage2D,(void))
+
+Void GL_obj::TexParameterf( int p_target,int p_parameter,Float p_value){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","TexParameterf",0x988cc16f,"haxor.platform.graphics.GL.TexParameterf","haxor/platform/graphics/GL.hx",814,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_parameter,"p_parameter")
+		HX_STACK_ARG(p_value,"p_value")
+		HX_STACK_LINE(814)
+		::haxor::platform::graphics::GL_obj::m_gl->TexParameterf(p_target,p_parameter,p_value);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,TexParameterf,(void))
+
+Void GL_obj::TexParameteri( int p_target,int p_parameter,int p_value){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","TexParameteri",0x988cc172,"haxor.platform.graphics.GL.TexParameteri","haxor/platform/graphics/GL.hx",822,0x83cf3744)
+		HX_STACK_ARG(p_target,"p_target")
+		HX_STACK_ARG(p_parameter,"p_parameter")
+		HX_STACK_ARG(p_value,"p_value")
+		HX_STACK_LINE(822)
+		::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(p_target,p_parameter,p_value);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,TexParameteri,(void))
+
+Void GL_obj::Uniform1f( int p_location,Float p_x){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform1f",0x25ab19d4,"haxor.platform.graphics.GL.Uniform1f","haxor/platform/graphics/GL.hx",833,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_LINE(833)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform1f(p_location,p_x);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform1f,(void))
+
+Void GL_obj::Uniform2f( int p_location,Float p_x,Float p_y){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform2f",0x25ab1ab3,"haxor.platform.graphics.GL.Uniform2f","haxor/platform/graphics/GL.hx",841,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_LINE(841)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform2f(p_location,p_x,p_y);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,Uniform2f,(void))
+
+Void GL_obj::Uniform3f( int p_location,Float p_x,Float p_y,Float p_z){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform3f",0x25ab1b92,"haxor.platform.graphics.GL.Uniform3f","haxor/platform/graphics/GL.hx",850,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_z,"p_z")
+		HX_STACK_LINE(850)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform3f(p_location,p_x,p_y,p_z);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,Uniform3f,(void))
+
+Void GL_obj::Uniform4f( int p_location,Float p_x,Float p_y,Float p_z,Float p_w){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform4f",0x25ab1c71,"haxor.platform.graphics.GL.Uniform4f","haxor/platform/graphics/GL.hx",860,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_z,"p_z")
+		HX_STACK_ARG(p_w,"p_w")
+		HX_STACK_LINE(860)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform4f(p_location,p_x,p_y,p_z,p_w);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC5(GL_obj,Uniform4f,(void))
+
+Void GL_obj::Uniform1i( int p_location,int p_x){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform1i",0x25ab19d7,"haxor.platform.graphics.GL.Uniform1i","haxor/platform/graphics/GL.hx",867,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_LINE(867)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform1i(p_location,p_x);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform1i,(void))
+
+Void GL_obj::Uniform2i( int p_location,int p_x,int p_y){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform2i",0x25ab1ab6,"haxor.platform.graphics.GL.Uniform2i","haxor/platform/graphics/GL.hx",875,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_LINE(875)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform2i(p_location,p_x,p_y);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,Uniform2i,(void))
+
+Void GL_obj::Uniform3i( int p_location,int p_x,int p_y,int p_z){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform3i",0x25ab1b95,"haxor.platform.graphics.GL.Uniform3i","haxor/platform/graphics/GL.hx",884,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_z,"p_z")
+		HX_STACK_LINE(884)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform3i(p_location,p_x,p_y,p_z);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,Uniform3i,(void))
+
+Void GL_obj::Uniform4i( int p_location,int p_x,int p_y,int p_z,int p_w){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform4i",0x25ab1c74,"haxor.platform.graphics.GL.Uniform4i","haxor/platform/graphics/GL.hx",894,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_z,"p_z")
+		HX_STACK_ARG(p_w,"p_w")
+		HX_STACK_LINE(894)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform4i(p_location,p_x,p_y,p_z,p_w);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC5(GL_obj,Uniform4i,(void))
+
+Void GL_obj::Uniform1fv( int p_location,::haxor::io::FloatArray p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform1fv",0xd00b8022,"haxor.platform.graphics.GL.Uniform1fv","haxor/platform/graphics/GL.hx",901,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(901)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform1fv(p_location,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform1fv,(void))
+
+Void GL_obj::Uniform2fv( int p_location,::haxor::io::FloatArray p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform2fv",0xd00c4263,"haxor.platform.graphics.GL.Uniform2fv","haxor/platform/graphics/GL.hx",908,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(908)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform2fv(p_location,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform2fv,(void))
+
+Void GL_obj::Uniform3fv( int p_location,::haxor::io::FloatArray p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform3fv",0xd00d04a4,"haxor.platform.graphics.GL.Uniform3fv","haxor/platform/graphics/GL.hx",915,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(915)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform3fv(p_location,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform3fv,(void))
+
+Void GL_obj::Uniform4fv( int p_location,::haxor::io::FloatArray p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform4fv",0xd00dc6e5,"haxor.platform.graphics.GL.Uniform4fv","haxor/platform/graphics/GL.hx",922,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(922)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform4fv(p_location,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform4fv,(void))
+
+Void GL_obj::Uniform1iv( int p_location,::haxor::io::Int32Array p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform1iv",0xd00b82bf,"haxor.platform.graphics.GL.Uniform1iv","haxor/platform/graphics/GL.hx",929,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(929)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform1iv(p_location,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform1iv,(void))
+
+Void GL_obj::Uniform2iv( int p_location,::haxor::io::Int32Array p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform2iv",0xd00c4500,"haxor.platform.graphics.GL.Uniform2iv","haxor/platform/graphics/GL.hx",936,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(936)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform2iv(p_location,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform2iv,(void))
+
+Void GL_obj::Uniform3iv( int p_location,::haxor::io::Int32Array p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform3iv",0xd00d0741,"haxor.platform.graphics.GL.Uniform3iv","haxor/platform/graphics/GL.hx",943,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(943)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform3iv(p_location,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform3iv,(void))
+
+Void GL_obj::Uniform4iv( int p_location,::haxor::io::Int32Array p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Uniform4iv",0xd00dc982,"haxor.platform.graphics.GL.Uniform4iv","haxor/platform/graphics/GL.hx",950,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(950)
+		::haxor::platform::graphics::GL_obj::m_gl->Uniform4iv(p_location,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,Uniform4iv,(void))
+
+Void GL_obj::UniformMatrix2fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","UniformMatrix2fv",0x25ff8962,"haxor.platform.graphics.GL.UniformMatrix2fv","haxor/platform/graphics/GL.hx",958,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_transpose,"p_transpose")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(958)
+		::haxor::platform::graphics::GL_obj::m_gl->UniformMatrix2fv(p_location,p_transpose,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,UniformMatrix2fv,(void))
+
+Void GL_obj::UniformMatrix3fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","UniformMatrix3fv",0x26004ba3,"haxor.platform.graphics.GL.UniformMatrix3fv","haxor/platform/graphics/GL.hx",966,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_transpose,"p_transpose")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(966)
+		::haxor::platform::graphics::GL_obj::m_gl->UniformMatrix3fv(p_location,p_transpose,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,UniformMatrix3fv,(void))
+
+Void GL_obj::UniformMatrix4fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","UniformMatrix4fv",0x26010de4,"haxor.platform.graphics.GL.UniformMatrix4fv","haxor/platform/graphics/GL.hx",974,0x83cf3744)
+		HX_STACK_ARG(p_location,"p_location")
+		HX_STACK_ARG(p_transpose,"p_transpose")
+		HX_STACK_ARG(p_v,"p_v")
+		HX_STACK_LINE(974)
+		::haxor::platform::graphics::GL_obj::m_gl->UniformMatrix4fv(p_location,p_transpose,p_v);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(GL_obj,UniformMatrix4fv,(void))
+
 Void GL_obj::BlendFunc( int p_src,int p_dst){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","BlendFunc",0x2568f4c0,"haxor.platform.graphics.GL.BlendFunc","haxor/platform/graphics/GL.hx",635,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","BlendFunc",0x2568f4c0,"haxor.platform.graphics.GL.BlendFunc","haxor/platform/graphics/GL.hx",985,0x83cf3744)
 		HX_STACK_ARG(p_src,"p_src")
 		HX_STACK_ARG(p_dst,"p_dst")
-		HX_STACK_LINE(635)
+		HX_STACK_LINE(985)
 		::haxor::platform::graphics::GL_obj::m_gl->BlendFunc(p_src,p_dst);
 	}
 return null();
@@ -1089,9 +1697,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(GL_obj,BlendFunc,(void))
 
 Void GL_obj::Disable( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","Disable",0x06a199b3,"haxor.platform.graphics.GL.Disable","haxor/platform/graphics/GL.hx",641,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Disable",0x06a199b3,"haxor.platform.graphics.GL.Disable","haxor/platform/graphics/GL.hx",991,0x83cf3744)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(641)
+		HX_STACK_LINE(991)
 		::haxor::platform::graphics::GL_obj::m_gl->Disable(p_flag);
 	}
 return null();
@@ -1102,9 +1710,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,Disable,(void))
 
 Void GL_obj::Enable( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","Enable",0xed6ec118,"haxor.platform.graphics.GL.Enable","haxor/platform/graphics/GL.hx",647,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Enable",0xed6ec118,"haxor.platform.graphics.GL.Enable","haxor/platform/graphics/GL.hx",997,0x83cf3744)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(647)
+		HX_STACK_LINE(997)
 		::haxor::platform::graphics::GL_obj::m_gl->Enable(p_flag);
 	}
 return null();
@@ -1115,9 +1723,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,Enable,(void))
 
 Void GL_obj::DepthMask( bool p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","DepthMask",0xbca6941a,"haxor.platform.graphics.GL.DepthMask","haxor/platform/graphics/GL.hx",653,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DepthMask",0xbca6941a,"haxor.platform.graphics.GL.DepthMask","haxor/platform/graphics/GL.hx",1003,0x83cf3744)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(653)
+		HX_STACK_LINE(1003)
 		::haxor::platform::graphics::GL_obj::m_gl->DepthMask(p_flag);
 	}
 return null();
@@ -1128,9 +1736,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DepthMask,(void))
 
 Void GL_obj::DepthFunc( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","DepthFunc",0xb8153e72,"haxor.platform.graphics.GL.DepthFunc","haxor/platform/graphics/GL.hx",659,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","DepthFunc",0xb8153e72,"haxor.platform.graphics.GL.DepthFunc","haxor/platform/graphics/GL.hx",1009,0x83cf3744)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(659)
+		HX_STACK_LINE(1009)
 		::haxor::platform::graphics::GL_obj::m_gl->DepthFunc(p_flag);
 	}
 return null();
@@ -1141,9 +1749,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,DepthFunc,(void))
 
 Void GL_obj::CullFace( int p_face){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","CullFace",0xf6f28944,"haxor.platform.graphics.GL.CullFace","haxor/platform/graphics/GL.hx",665,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","CullFace",0xf6f28944,"haxor.platform.graphics.GL.CullFace","haxor/platform/graphics/GL.hx",1015,0x83cf3744)
 		HX_STACK_ARG(p_face,"p_face")
-		HX_STACK_LINE(665)
+		HX_STACK_LINE(1015)
 		::haxor::platform::graphics::GL_obj::m_gl->CullFace(p_face);
 	}
 return null();
@@ -1154,9 +1762,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,CullFace,(void))
 
 Void GL_obj::FrontFace( int p_face){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","FrontFace",0x9e8dfa71,"haxor.platform.graphics.GL.FrontFace","haxor/platform/graphics/GL.hx",671,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","FrontFace",0x9e8dfa71,"haxor.platform.graphics.GL.FrontFace","haxor/platform/graphics/GL.hx",1021,0x83cf3744)
 		HX_STACK_ARG(p_face,"p_face")
-		HX_STACK_LINE(671)
+		HX_STACK_LINE(1021)
 		::haxor::platform::graphics::GL_obj::m_gl->FrontFace(p_face);
 	}
 return null();
@@ -1167,9 +1775,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,FrontFace,(void))
 
 Void GL_obj::Clear( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","Clear",0x0ee88898,"haxor.platform.graphics.GL.Clear","haxor/platform/graphics/GL.hx",681,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Clear",0x0ee88898,"haxor.platform.graphics.GL.Clear","haxor/platform/graphics/GL.hx",1031,0x83cf3744)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(681)
+		HX_STACK_LINE(1031)
 		::haxor::platform::graphics::GL_obj::m_gl->Clear(p_flag);
 	}
 return null();
@@ -1180,9 +1788,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,Clear,(void))
 
 Void GL_obj::ClearDepth( Float p_value){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","ClearDepth",0xa1c0b14b,"haxor.platform.graphics.GL.ClearDepth","haxor/platform/graphics/GL.hx",687,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","ClearDepth",0xa1c0b14b,"haxor.platform.graphics.GL.ClearDepth","haxor/platform/graphics/GL.hx",1037,0x83cf3744)
 		HX_STACK_ARG(p_value,"p_value")
-		HX_STACK_LINE(687)
+		HX_STACK_LINE(1037)
 		::haxor::platform::graphics::GL_obj::m_gl->ClearDepth(p_value);
 	}
 return null();
@@ -1193,12 +1801,12 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,ClearDepth,(void))
 
 Void GL_obj::ClearColor( Float p_r,Float p_g,Float p_b,Float p_a){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","ClearColor",0x14f331ab,"haxor.platform.graphics.GL.ClearColor","haxor/platform/graphics/GL.hx",696,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","ClearColor",0x14f331ab,"haxor.platform.graphics.GL.ClearColor","haxor/platform/graphics/GL.hx",1046,0x83cf3744)
 		HX_STACK_ARG(p_r,"p_r")
 		HX_STACK_ARG(p_g,"p_g")
 		HX_STACK_ARG(p_b,"p_b")
 		HX_STACK_ARG(p_a,"p_a")
-		HX_STACK_LINE(696)
+		HX_STACK_LINE(1046)
 		::haxor::platform::graphics::GL_obj::m_gl->ClearColor(p_r,p_g,p_b,p_a);
 	}
 return null();
@@ -1207,9 +1815,60 @@ return null();
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,ClearColor,(void))
 
+Void GL_obj::Viewport( int p_x,int p_y,int p_width,int p_height){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Viewport",0xe765ee3b,"haxor.platform.graphics.GL.Viewport","haxor/platform/graphics/GL.hx",1055,0x83cf3744)
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+		HX_STACK_LINE(1055)
+		::haxor::platform::graphics::GL_obj::m_gl->Viewport(p_x,p_y,p_width,p_height);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,Viewport,(void))
+
+Void GL_obj::Scissor( int p_x,int p_y,int p_width,int p_height){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Scissor",0x5a3057e7,"haxor.platform.graphics.GL.Scissor","haxor/platform/graphics/GL.hx",1064,0x83cf3744)
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+		HX_STACK_LINE(1064)
+		::haxor::platform::graphics::GL_obj::m_gl->Scissor(p_x,p_y,p_width,p_height);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,Scissor,(void))
+
+Void GL_obj::ReadPixels( int p_x,int p_y,int p_width,int p_height,int p_format,int p_type,::haxor::io::Buffer p_pixels){
+{
+		HX_STACK_FRAME("haxor.platform.graphics.GL","ReadPixels",0x7bb25438,"haxor.platform.graphics.GL.ReadPixels","haxor/platform/graphics/GL.hx",1076,0x83cf3744)
+		HX_STACK_ARG(p_x,"p_x")
+		HX_STACK_ARG(p_y,"p_y")
+		HX_STACK_ARG(p_width,"p_width")
+		HX_STACK_ARG(p_height,"p_height")
+		HX_STACK_ARG(p_format,"p_format")
+		HX_STACK_ARG(p_type,"p_type")
+		HX_STACK_ARG(p_pixels,"p_pixels")
+		HX_STACK_LINE(1076)
+		::haxor::platform::graphics::GL_obj::m_gl->ReadPixels(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC7(GL_obj,ReadPixels,(void))
+
 ::String GL_obj::GetError( ){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","GetError",0x1dc17d27,"haxor.platform.graphics.GL.GetError","haxor/platform/graphics/GL.hx",712,0x83cf3744)
-	HX_STACK_LINE(712)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","GetError",0x1dc17d27,"haxor.platform.graphics.GL.GetError","haxor/platform/graphics/GL.hx",1092,0x83cf3744)
+	HX_STACK_LINE(1092)
 	return ::haxor::platform::graphics::GL_obj::m_gl->GetError();
 }
 
@@ -1217,8 +1876,8 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC4(GL_obj,ClearColor,(void))
 STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,GetError,return )
 
 int GL_obj::GetErrorCode( ){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","GetErrorCode",0x4a0279f4,"haxor.platform.graphics.GL.GetErrorCode","haxor/platform/graphics/GL.hx",718,0x83cf3744)
-	HX_STACK_LINE(718)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","GetErrorCode",0x4a0279f4,"haxor.platform.graphics.GL.GetErrorCode","haxor/platform/graphics/GL.hx",1098,0x83cf3744)
+	HX_STACK_LINE(1098)
 	return ::haxor::platform::graphics::GL_obj::m_gl->GetErrorCode();
 }
 
@@ -1226,9 +1885,9 @@ int GL_obj::GetErrorCode( ){
 STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,GetErrorCode,return )
 
 ::String GL_obj::GetErrorString( int p_code){
-	HX_STACK_FRAME("haxor.platform.graphics.GL","GetErrorString",0xfb06f158,"haxor.platform.graphics.GL.GetErrorString","haxor/platform/graphics/GL.hx",725,0x83cf3744)
+	HX_STACK_FRAME("haxor.platform.graphics.GL","GetErrorString",0xfb06f158,"haxor.platform.graphics.GL.GetErrorString","haxor/platform/graphics/GL.hx",1105,0x83cf3744)
 	HX_STACK_ARG(p_code,"p_code")
-	HX_STACK_LINE(725)
+	HX_STACK_LINE(1105)
 	return ::haxor::platform::graphics::GL_obj::m_gl->GetErrorString(p_code);
 }
 
@@ -1237,8 +1896,8 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,GetErrorString,return )
 
 Void GL_obj::LogError( ){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","LogError",0xa8f0aa79,"haxor.platform.graphics.GL.LogError","haxor/platform/graphics/GL.hx",731,0x83cf3744)
-		HX_STACK_LINE(731)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","LogError",0xa8f0aa79,"haxor.platform.graphics.GL.LogError","haxor/platform/graphics/GL.hx",1111,0x83cf3744)
+		HX_STACK_LINE(1111)
 		::haxor::platform::graphics::GL_obj::m_gl->LogError();
 	}
 return null();
@@ -1249,7 +1908,7 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,LogError,(void))
 
 Void GL_obj::Assert( ::String p_log){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","Assert",0x40ea595b,"haxor.platform.graphics.GL.Assert","haxor/platform/graphics/GL.hx",737,0x83cf3744)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Assert",0x40ea595b,"haxor.platform.graphics.GL.Assert","haxor/platform/graphics/GL.hx",1117,0x83cf3744)
 		HX_STACK_ARG(p_log,"p_log")
 	}
 return null();
@@ -1260,8 +1919,8 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(GL_obj,Assert,(void))
 
 Void GL_obj::Flush( ){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","Flush",0xc92879cf,"haxor.platform.graphics.GL.Flush","haxor/platform/graphics/GL.hx",751,0x83cf3744)
-		HX_STACK_LINE(751)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Flush",0xc92879cf,"haxor.platform.graphics.GL.Flush","haxor/platform/graphics/GL.hx",1131,0x83cf3744)
+		HX_STACK_LINE(1131)
 		::haxor::platform::graphics::GL_obj::m_gl->Flush();
 	}
 return null();
@@ -1272,8 +1931,8 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(GL_obj,Flush,(void))
 
 Void GL_obj::Focus( ){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.GL","Focus",0xcb1676e3,"haxor.platform.graphics.GL.Focus","haxor/platform/graphics/GL.hx",756,0x83cf3744)
-		HX_STACK_LINE(756)
+		HX_STACK_FRAME("haxor.platform.graphics.GL","Focus",0xcb1676e3,"haxor.platform.graphics.GL.Focus","haxor/platform/graphics/GL.hx",1136,0x83cf3744)
+		HX_STACK_LINE(1136)
 		::haxor::platform::graphics::GL_obj::m_gl->Focus();
 	}
 return null();
@@ -1308,15 +1967,26 @@ Dynamic GL_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"Assert") ) { return Assert_dyn(); }
 		break;
 	case 7:
+		if (HX_FIELD_EQ(inName,"INVALID") ) { return INVALID; }
 		if (HX_FIELD_EQ(inName,"get_api") ) { return get_api_dyn(); }
 		if (HX_FIELD_EQ(inName,"Disable") ) { return Disable_dyn(); }
+		if (HX_FIELD_EQ(inName,"Scissor") ) { return Scissor_dyn(); }
 		break;
 	case 8:
 		if (HX_FIELD_EQ(inName,"CullFace") ) { return CullFace_dyn(); }
+		if (HX_FIELD_EQ(inName,"Viewport") ) { return Viewport_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetError") ) { return GetError_dyn(); }
 		if (HX_FIELD_EQ(inName,"LogError") ) { return LogError_dyn(); }
 		break;
 	case 9:
+		if (HX_FIELD_EQ(inName,"Uniform1f") ) { return Uniform1f_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform2f") ) { return Uniform2f_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform3f") ) { return Uniform3f_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform4f") ) { return Uniform4f_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform1i") ) { return Uniform1i_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform2i") ) { return Uniform2i_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform3i") ) { return Uniform3i_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform4i") ) { return Uniform4i_dyn(); }
 		if (HX_FIELD_EQ(inName,"BlendFunc") ) { return BlendFunc_dyn(); }
 		if (HX_FIELD_EQ(inName,"DepthMask") ) { return DepthMask_dyn(); }
 		if (HX_FIELD_EQ(inName,"DepthFunc") ) { return DepthFunc_dyn(); }
@@ -1329,11 +1999,23 @@ Dynamic GL_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"BufferData") ) { return BufferData_dyn(); }
 		if (HX_FIELD_EQ(inName,"DrawArrays") ) { return DrawArrays_dyn(); }
 		if (HX_FIELD_EQ(inName,"UseProgram") ) { return UseProgram_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexImage2D") ) { return TexImage2D_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform1fv") ) { return Uniform1fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform2fv") ) { return Uniform2fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform3fv") ) { return Uniform3fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform4fv") ) { return Uniform4fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform1iv") ) { return Uniform1iv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform2iv") ) { return Uniform2iv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform3iv") ) { return Uniform3iv_dyn(); }
+		if (HX_FIELD_EQ(inName,"Uniform4iv") ) { return Uniform4iv_dyn(); }
 		if (HX_FIELD_EQ(inName,"ClearDepth") ) { return ClearDepth_dyn(); }
 		if (HX_FIELD_EQ(inName,"ClearColor") ) { return ClearColor_dyn(); }
+		if (HX_FIELD_EQ(inName,"ReadPixels") ) { return ReadPixels_dyn(); }
 		break;
 	case 11:
 		if (HX_FIELD_EQ(inName,"LinkProgram") ) { return LinkProgram_dyn(); }
+		if (HX_FIELD_EQ(inName,"BindTexture") ) { return BindTexture_dyn(); }
+		if (HX_FIELD_EQ(inName,"PixelStorei") ) { return PixelStorei_dyn(); }
 		break;
 	case 12:
 		if (HX_FIELD_EQ(inName,"TEXTURE_HALF") ) { return TEXTURE_HALF; }
@@ -1345,28 +2027,44 @@ Dynamic GL_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"DeleteShader") ) { return DeleteShader_dyn(); }
 		if (HX_FIELD_EQ(inName,"ShaderSource") ) { return ShaderSource_dyn(); }
 		if (HX_FIELD_EQ(inName,"AttachShader") ) { return AttachShader_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexStorage2D") ) { return TexStorage2D_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetErrorCode") ) { return GetErrorCode_dyn(); }
 		break;
 	case 13:
 		if (HX_FIELD_EQ(inName,"TEXTURE_FLOAT") ) { return TEXTURE_FLOAT; }
-		if (HX_FIELD_EQ(inName,"TEXTURE_DEPTH") ) { return TEXTURE_DEPTH; }
 		if (HX_FIELD_EQ(inName,"BufferSubData") ) { return BufferSubData_dyn(); }
 		if (HX_FIELD_EQ(inName,"CompileShader") ) { return CompileShader_dyn(); }
 		if (HX_FIELD_EQ(inName,"CreateProgram") ) { return CreateProgram_dyn(); }
 		if (HX_FIELD_EQ(inName,"DeleteProgram") ) { return DeleteProgram_dyn(); }
+		if (HX_FIELD_EQ(inName,"ActiveTexture") ) { return ActiveTexture_dyn(); }
+		if (HX_FIELD_EQ(inName,"CreateTexture") ) { return CreateTexture_dyn(); }
+		if (HX_FIELD_EQ(inName,"DeleteTexture") ) { return DeleteTexture_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexSubImage2D") ) { return TexSubImage2D_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexParameterf") ) { return TexParameterf_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexParameteri") ) { return TexParameteri_dyn(); }
 		break;
 	case 14:
-		if (HX_FIELD_EQ(inName,"MAX_ANISOTROPY") ) { return MAX_ANISOTROPY; }
 		if (HX_FIELD_EQ(inName,"VertexAttrib3f") ) { return VertexAttrib3f_dyn(); }
 		if (HX_FIELD_EQ(inName,"VertexAttrib4f") ) { return VertexAttrib4f_dyn(); }
+		if (HX_FIELD_EQ(inName,"GenerateMipmap") ) { return GenerateMipmap_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetErrorString") ) { return GetErrorString_dyn(); }
+		break;
+	case 15:
+		if (HX_FIELD_EQ(inName,"BindFramebuffer") ) { return BindFramebuffer_dyn(); }
+		if (HX_FIELD_EQ(inName,"TexImage2DAlloc") ) { return TexImage2DAlloc_dyn(); }
 		break;
 	case 16:
 		if (HX_FIELD_EQ(inName,"GetShaderInfoLog") ) { return GetShaderInfoLog_dyn(); }
+		if (HX_FIELD_EQ(inName,"BindRenderbuffer") ) { return BindRenderbuffer_dyn(); }
+		if (HX_FIELD_EQ(inName,"UniformMatrix2fv") ) { return UniformMatrix2fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"UniformMatrix3fv") ) { return UniformMatrix3fv_dyn(); }
+		if (HX_FIELD_EQ(inName,"UniformMatrix4fv") ) { return UniformMatrix4fv_dyn(); }
 		break;
 	case 17:
 		if (HX_FIELD_EQ(inName,"GetAttribLocation") ) { return GetAttribLocation_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetProgramInfoLog") ) { return GetProgramInfoLog_dyn(); }
+		if (HX_FIELD_EQ(inName,"CreateFramebuffer") ) { return CreateFramebuffer_dyn(); }
+		if (HX_FIELD_EQ(inName,"DeleteFramebuffer") ) { return DeleteFramebuffer_dyn(); }
 		break;
 	case 18:
 		if (HX_FIELD_EQ(inName,"TEXTURE_ANISOTROPY") ) { return TEXTURE_ANISOTROPY; }
@@ -1374,6 +2072,9 @@ Dynamic GL_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"EnableVertexAttrib") ) { return EnableVertexAttrib_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetShaderParameter") ) { return GetShaderParameter_dyn(); }
 		if (HX_FIELD_EQ(inName,"BindAttribLocation") ) { return BindAttribLocation_dyn(); }
+		if (HX_FIELD_EQ(inName,"GetUniformLocation") ) { return GetUniformLocation_dyn(); }
+		if (HX_FIELD_EQ(inName,"CreateRenderbuffer") ) { return CreateRenderbuffer_dyn(); }
+		if (HX_FIELD_EQ(inName,"DeleteRenderbuffer") ) { return DeleteRenderbuffer_dyn(); }
 		break;
 	case 19:
 		if (HX_FIELD_EQ(inName,"VERTEX_ARRAY_OBJECT") ) { return VERTEX_ARRAY_OBJECT; }
@@ -1381,9 +2082,23 @@ Dynamic GL_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"DisableVertexAttrib") ) { return DisableVertexAttrib_dyn(); }
 		if (HX_FIELD_EQ(inName,"VertexAttribPointer") ) { return VertexAttribPointer_dyn(); }
 		if (HX_FIELD_EQ(inName,"GetProgramParameter") ) { return GetProgramParameter_dyn(); }
+		if (HX_FIELD_EQ(inName,"RenderbufferStorage") ) { return RenderbufferStorage_dyn(); }
 		break;
 	case 20:
 		if (HX_FIELD_EQ(inName,"TEXTURE_FLOAT_LINEAR") ) { return TEXTURE_FLOAT_LINEAR; }
+		if (HX_FIELD_EQ(inName,"FramebufferTexture2D") ) { return FramebufferTexture2D_dyn(); }
+		break;
+	case 21:
+		if (HX_FIELD_EQ(inName,"TEXTURE_DEPTH_ENABLED") ) { return TEXTURE_DEPTH_ENABLED; }
+		break;
+	case 22:
+		if (HX_FIELD_EQ(inName,"MAX_TEXTURE_ANISOTROPY") ) { return MAX_TEXTURE_ANISOTROPY; }
+		break;
+	case 23:
+		if (HX_FIELD_EQ(inName,"FramebufferRenderbuffer") ) { return FramebufferRenderbuffer_dyn(); }
+		break;
+	case 26:
+		if (HX_FIELD_EQ(inName,"TEXTURE_ANISOTROPY_ENABLED") ) { return TEXTURE_ANISOTROPY_ENABLED; }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -1395,6 +2110,9 @@ Dynamic GL_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool in
 		if (HX_FIELD_EQ(inName,"NULL") ) { _NULL=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_gl") ) { m_gl=inValue.Cast< ::haxor::platform::graphics::OpenGL >(); return inValue; }
 		break;
+	case 7:
+		if (HX_FIELD_EQ(inName,"INVALID") ) { INVALID=inValue.Cast< int >(); return inValue; }
+		break;
 	case 10:
 		if (HX_FIELD_EQ(inName,"HALF_FLOAT") ) { HALF_FLOAT=inValue.Cast< int >(); return inValue; }
 		break;
@@ -1403,13 +2121,9 @@ Dynamic GL_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool in
 		break;
 	case 13:
 		if (HX_FIELD_EQ(inName,"TEXTURE_FLOAT") ) { TEXTURE_FLOAT=inValue.Cast< bool >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"TEXTURE_DEPTH") ) { TEXTURE_DEPTH=inValue.Cast< bool >(); return inValue; }
-		break;
-	case 14:
-		if (HX_FIELD_EQ(inName,"MAX_ANISOTROPY") ) { MAX_ANISOTROPY=inValue.Cast< int >(); return inValue; }
 		break;
 	case 18:
-		if (HX_FIELD_EQ(inName,"TEXTURE_ANISOTROPY") ) { TEXTURE_ANISOTROPY=inValue.Cast< bool >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"TEXTURE_ANISOTROPY") ) { TEXTURE_ANISOTROPY=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"MAX_ACTIVE_TEXTURE") ) { MAX_ACTIVE_TEXTURE=inValue.Cast< int >(); return inValue; }
 		break;
 	case 19:
@@ -1418,6 +2132,15 @@ Dynamic GL_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool in
 		break;
 	case 20:
 		if (HX_FIELD_EQ(inName,"TEXTURE_FLOAT_LINEAR") ) { TEXTURE_FLOAT_LINEAR=inValue.Cast< bool >(); return inValue; }
+		break;
+	case 21:
+		if (HX_FIELD_EQ(inName,"TEXTURE_DEPTH_ENABLED") ) { TEXTURE_DEPTH_ENABLED=inValue.Cast< bool >(); return inValue; }
+		break;
+	case 22:
+		if (HX_FIELD_EQ(inName,"MAX_TEXTURE_ANISOTROPY") ) { MAX_TEXTURE_ANISOTROPY=inValue.Cast< int >(); return inValue; }
+		break;
+	case 26:
+		if (HX_FIELD_EQ(inName,"TEXTURE_ANISOTROPY_ENABLED") ) { TEXTURE_ANISOTROPY_ENABLED=inValue.Cast< bool >(); return inValue; }
 	}
 	return super::__SetField(inName,inValue,inCallProp);
 }
@@ -1727,13 +2450,15 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("HALF_FLOAT"),
 	HX_CSTRING("TEXTURE_HALF"),
 	HX_CSTRING("TEXTURE_HALF_LINEAR"),
-	HX_CSTRING("MAX_ANISOTROPY"),
 	HX_CSTRING("TEXTURE_ANISOTROPY"),
+	HX_CSTRING("TEXTURE_ANISOTROPY_ENABLED"),
+	HX_CSTRING("MAX_TEXTURE_ANISOTROPY"),
 	HX_CSTRING("TEXTURE_FLOAT"),
 	HX_CSTRING("TEXTURE_FLOAT_LINEAR"),
-	HX_CSTRING("TEXTURE_DEPTH"),
+	HX_CSTRING("TEXTURE_DEPTH_ENABLED"),
 	HX_CSTRING("MAX_ACTIVE_TEXTURE"),
 	HX_CSTRING("NULL"),
+	HX_CSTRING("INVALID"),
 	HX_CSTRING("get_api"),
 	HX_CSTRING("m_gl"),
 	HX_CSTRING("Initialize"),
@@ -1762,10 +2487,51 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("CreateProgram"),
 	HX_CSTRING("DeleteProgram"),
 	HX_CSTRING("GetAttribLocation"),
+	HX_CSTRING("GetUniformLocation"),
 	HX_CSTRING("GetProgramInfoLog"),
 	HX_CSTRING("GetProgramParameter"),
 	HX_CSTRING("LinkProgram"),
 	HX_CSTRING("UseProgram"),
+	HX_CSTRING("ActiveTexture"),
+	HX_CSTRING("BindFramebuffer"),
+	HX_CSTRING("BindRenderbuffer"),
+	HX_CSTRING("BindTexture"),
+	HX_CSTRING("CreateFramebuffer"),
+	HX_CSTRING("CreateRenderbuffer"),
+	HX_CSTRING("CreateTexture"),
+	HX_CSTRING("DeleteFramebuffer"),
+	HX_CSTRING("DeleteRenderbuffer"),
+	HX_CSTRING("DeleteTexture"),
+	HX_CSTRING("FramebufferRenderbuffer"),
+	HX_CSTRING("FramebufferTexture2D"),
+	HX_CSTRING("GenerateMipmap"),
+	HX_CSTRING("PixelStorei"),
+	HX_CSTRING("RenderbufferStorage"),
+	HX_CSTRING("TexImage2D"),
+	HX_CSTRING("TexImage2DAlloc"),
+	HX_CSTRING("TexSubImage2D"),
+	HX_CSTRING("TexStorage2D"),
+	HX_CSTRING("TexParameterf"),
+	HX_CSTRING("TexParameteri"),
+	HX_CSTRING("Uniform1f"),
+	HX_CSTRING("Uniform2f"),
+	HX_CSTRING("Uniform3f"),
+	HX_CSTRING("Uniform4f"),
+	HX_CSTRING("Uniform1i"),
+	HX_CSTRING("Uniform2i"),
+	HX_CSTRING("Uniform3i"),
+	HX_CSTRING("Uniform4i"),
+	HX_CSTRING("Uniform1fv"),
+	HX_CSTRING("Uniform2fv"),
+	HX_CSTRING("Uniform3fv"),
+	HX_CSTRING("Uniform4fv"),
+	HX_CSTRING("Uniform1iv"),
+	HX_CSTRING("Uniform2iv"),
+	HX_CSTRING("Uniform3iv"),
+	HX_CSTRING("Uniform4iv"),
+	HX_CSTRING("UniformMatrix2fv"),
+	HX_CSTRING("UniformMatrix3fv"),
+	HX_CSTRING("UniformMatrix4fv"),
 	HX_CSTRING("BlendFunc"),
 	HX_CSTRING("Disable"),
 	HX_CSTRING("Enable"),
@@ -1776,6 +2542,9 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("Clear"),
 	HX_CSTRING("ClearDepth"),
 	HX_CSTRING("ClearColor"),
+	HX_CSTRING("Viewport"),
+	HX_CSTRING("Scissor"),
+	HX_CSTRING("ReadPixels"),
 	HX_CSTRING("GetError"),
 	HX_CSTRING("GetErrorCode"),
 	HX_CSTRING("GetErrorString"),
@@ -2093,13 +2862,15 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(GL_obj::HALF_FLOAT,"HALF_FLOAT");
 	HX_MARK_MEMBER_NAME(GL_obj::TEXTURE_HALF,"TEXTURE_HALF");
 	HX_MARK_MEMBER_NAME(GL_obj::TEXTURE_HALF_LINEAR,"TEXTURE_HALF_LINEAR");
-	HX_MARK_MEMBER_NAME(GL_obj::MAX_ANISOTROPY,"MAX_ANISOTROPY");
 	HX_MARK_MEMBER_NAME(GL_obj::TEXTURE_ANISOTROPY,"TEXTURE_ANISOTROPY");
+	HX_MARK_MEMBER_NAME(GL_obj::TEXTURE_ANISOTROPY_ENABLED,"TEXTURE_ANISOTROPY_ENABLED");
+	HX_MARK_MEMBER_NAME(GL_obj::MAX_TEXTURE_ANISOTROPY,"MAX_TEXTURE_ANISOTROPY");
 	HX_MARK_MEMBER_NAME(GL_obj::TEXTURE_FLOAT,"TEXTURE_FLOAT");
 	HX_MARK_MEMBER_NAME(GL_obj::TEXTURE_FLOAT_LINEAR,"TEXTURE_FLOAT_LINEAR");
-	HX_MARK_MEMBER_NAME(GL_obj::TEXTURE_DEPTH,"TEXTURE_DEPTH");
+	HX_MARK_MEMBER_NAME(GL_obj::TEXTURE_DEPTH_ENABLED,"TEXTURE_DEPTH_ENABLED");
 	HX_MARK_MEMBER_NAME(GL_obj::MAX_ACTIVE_TEXTURE,"MAX_ACTIVE_TEXTURE");
 	HX_MARK_MEMBER_NAME(GL_obj::_NULL,"NULL");
+	HX_MARK_MEMBER_NAME(GL_obj::INVALID,"INVALID");
 	HX_MARK_MEMBER_NAME(GL_obj::m_gl,"m_gl");
 };
 
@@ -2405,13 +3176,15 @@ static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(GL_obj::HALF_FLOAT,"HALF_FLOAT");
 	HX_VISIT_MEMBER_NAME(GL_obj::TEXTURE_HALF,"TEXTURE_HALF");
 	HX_VISIT_MEMBER_NAME(GL_obj::TEXTURE_HALF_LINEAR,"TEXTURE_HALF_LINEAR");
-	HX_VISIT_MEMBER_NAME(GL_obj::MAX_ANISOTROPY,"MAX_ANISOTROPY");
 	HX_VISIT_MEMBER_NAME(GL_obj::TEXTURE_ANISOTROPY,"TEXTURE_ANISOTROPY");
+	HX_VISIT_MEMBER_NAME(GL_obj::TEXTURE_ANISOTROPY_ENABLED,"TEXTURE_ANISOTROPY_ENABLED");
+	HX_VISIT_MEMBER_NAME(GL_obj::MAX_TEXTURE_ANISOTROPY,"MAX_TEXTURE_ANISOTROPY");
 	HX_VISIT_MEMBER_NAME(GL_obj::TEXTURE_FLOAT,"TEXTURE_FLOAT");
 	HX_VISIT_MEMBER_NAME(GL_obj::TEXTURE_FLOAT_LINEAR,"TEXTURE_FLOAT_LINEAR");
-	HX_VISIT_MEMBER_NAME(GL_obj::TEXTURE_DEPTH,"TEXTURE_DEPTH");
+	HX_VISIT_MEMBER_NAME(GL_obj::TEXTURE_DEPTH_ENABLED,"TEXTURE_DEPTH_ENABLED");
 	HX_VISIT_MEMBER_NAME(GL_obj::MAX_ACTIVE_TEXTURE,"MAX_ACTIVE_TEXTURE");
 	HX_VISIT_MEMBER_NAME(GL_obj::_NULL,"NULL");
+	HX_VISIT_MEMBER_NAME(GL_obj::INVALID,"INVALID");
 	HX_VISIT_MEMBER_NAME(GL_obj::m_gl,"m_gl");
 };
 
@@ -2734,13 +3507,15 @@ void GL_obj::__boot()
 	HALF_FLOAT= (int)5126;
 	TEXTURE_HALF= false;
 	TEXTURE_HALF_LINEAR= false;
-	MAX_ANISOTROPY= (int)1;
-	TEXTURE_ANISOTROPY= false;
+	TEXTURE_ANISOTROPY= (int)-1;
+	TEXTURE_ANISOTROPY_ENABLED= false;
+	MAX_TEXTURE_ANISOTROPY= (int)1;
 	TEXTURE_FLOAT= false;
 	TEXTURE_FLOAT_LINEAR= false;
-	TEXTURE_DEPTH= false;
+	TEXTURE_DEPTH_ENABLED= false;
 	MAX_ACTIVE_TEXTURE= (int)8;
-	_NULL= (int)-1;
+	_NULL= (int)0;
+	INVALID= (int)-1;
 }
 
 } // end namespace haxor

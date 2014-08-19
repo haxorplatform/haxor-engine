@@ -18,7 +18,7 @@ public  class Engine extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me33812)
+	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me42360)
 	{
 		{
 		}

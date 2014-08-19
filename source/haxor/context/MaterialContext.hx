@@ -8,10 +8,13 @@ import haxor.graphics.material.Shader;
 import haxor.graphics.material.UberShader;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.mesh.Mesh.MeshAttrib;
+import haxor.io.FloatArray;
+import haxor.io.Int32Array;
 import haxor.platform.graphics.GL;
 import haxor.platform.Types.MeshBufferId;
 import haxor.platform.Types.ProgramId;
 import haxor.platform.Types.ShaderId;
+import haxor.platform.Types.UniformLocation;
 
 /**
  * Class that handles Material related internal structures and behaviours.
@@ -27,9 +30,14 @@ class MaterialContext
 	private var mid : Int;
 	
 	/**
-	 * Unique shader its.
+	 * Unique shader ids.
 	 */
 	private var sid : Int;
+	
+	/**
+	 * Unique uniform ids.
+	 */
+	private var uid : Int;
 	
 	/**
 	 * List of vertex shaders id for Shader classes.
@@ -55,6 +63,12 @@ class MaterialContext
 	 * List of locations per program.
 	 */
 	private var locations : Array<Array<Int>>;
+	
+	/**
+	 * List of uniform locations by material.
+	 */
+	private var uniforms : Array <Array<UniformLocation>>;
+	
 	
 	/**
 	 * Currently bound material.
@@ -119,7 +133,7 @@ class MaterialContext
 	{
 		mid = 0;
 		sid = 0;		
-		
+		uid = 0;
 		
 		
 		zfunc           = DepthTest.LessEqual;
@@ -134,18 +148,23 @@ class MaterialContext
 		var max_buffers : Int = 512;
 		var max_programs : Int = 256;
 		
-		locations	= [];
-		programs	= [];
-		vertex_shaders 	 = [];
-		fragment_shaders = [];
+		locations			= [];
+		uniforms			= [];
+		programs			= [];
+		vertex_shaders 	 	= [];
+		fragment_shaders 	= [];
+		
 		for (i in 0...max_programs)
 		{
 			var l : Array<Int> = [];
-			for (j in 0...max_buffers) l.push(-1);
+			var ul : Array<UniformLocation> = [];
+			for (j in 0...max_buffers) l.push( -1);
+			for (j in 0...200) ul.push(GL.INVALID);
 			locations.push(l);
-			programs.push(GL.NULL);
-			vertex_shaders.push(GL.NULL);
-			fragment_shaders.push(GL.NULL);
+			uniforms.push(ul);
+			programs.push(GL.INVALID);
+			vertex_shaders.push(GL.INVALID);
+			fragment_shaders.push(GL.INVALID);
 		}		
 		
 	}
@@ -166,7 +185,8 @@ class MaterialContext
 		GL.Enable(GL.CULL_FACE);
 		GL.FrontFace(GL.CCW);
 		GL.CullFace(GL.BACK);
-		
+		//Enables scissor test
+		GL.Enable(GL.SCISSOR_TEST);
 		
 	}
 	
@@ -196,6 +216,7 @@ class MaterialContext
 		if (m.blendDst != blendDst) { blend_change = true; blendDst = m.blendDst; }
 		if (blend_change) GL.BlendFunc(blendSrc, blendDst);
 		
+		
 		if (m.invert != invert) { invert = m.invert; 		GL.FrontFace(invert ? GL.CW : GL.CCW); }
 		if (m.cull != cull) 
 		{ 
@@ -219,7 +240,7 @@ class MaterialContext
 	private function InitializeMaterial(m:Material):Void
 	{
 		programs[m._cid_] = GL.CreateProgram();
-		Console.Log("Material> id["+programs[m._cid_]+"]");
+		Console.Log("Material> id["+programs[m._cid_]+"]",4);
 	}
 	
 	/**
@@ -243,6 +264,32 @@ class MaterialContext
 			Console.Log("[fragment]\n" + fs_err);
 		}
 		GL.Assert("Shader> Init");
+	}
+	
+	/**
+	 * Assigns a location for this uniform if any.
+	 * @param	m
+	 * @param	u
+	 */
+	private function CreateUniform(m:Material, u:MaterialUniform):Void
+	{
+		var p 	: ProgramId 		= programs[m._cid_];				
+		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
+		Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");
+		uniforms[m._cid_][u.__cid] 	= loc;
+		u.__d = true;
+	}
+	
+	/**
+	 * Removes the reference for the uniform location.
+	 * @param	m
+	 * @param	u
+	 */
+	private function DestroyUniform(m:Material, u:MaterialUniform)
+	{
+		var p 	: ProgramId 		= programs[m._cid_];		
+		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
+		uniforms[m._cid_][u.__cid] 	= GL.INVALID;
 	}
 	
 	/**
@@ -303,7 +350,9 @@ class MaterialContext
 				Console.LogError("Material> ["+m.name+"] Link Error @ [" + s1.name + "]");				
 			}
 			
-			//Sets all uniforms to dirty.
+			var ul : Array<MaterialUniform> = m.m_uniforms;
+			//Sets all uniforms to dirty
+			for (i in 0...ul.length) CreateUniform(m, ul[i]);
 			
 			//Clear all attribs cache.
 			for (i in 0...locations[m._cid_].length) locations[m._cid_][i] = -1;
@@ -317,6 +366,7 @@ class MaterialContext
 	 */
 	private function UpdateMaterial(m : Material):Void
 	{	
+		
 	}
 	
 	/**
@@ -346,13 +396,69 @@ class MaterialContext
 		if (m != current) 
 		{ 
 			Unbind(); 
-			current = m; 
+			current = m; 			
 			if (m != null)
 			{
-				UpdateFlags(m);				
-				GL.UseProgram(programs[m._cid_]);
-				//Uniforms
+				var p : ProgramId = programs[m._cid_];
+				UpdateFlags(m);								
+				GL.UseProgram(p);
 			}
+		}
+		
+		if (current != null)
+		{			
+			var ul : Array<MaterialUniform> = current.m_uniforms;			
+			for (i in 0...ul.length)
+			{
+				var u : MaterialUniform = ul[i];					
+				if (u.__d)
+				{
+					u.__d = false;					
+					var loc:UniformLocation = uniforms[current._cid_][u.__cid];
+					if (loc == GL.INVALID) continue;					
+					if (u.isFloat) ApplyFloatUniform(loc, u); else ApplyIntUniform(loc, u);
+				}				
+			}
+		}
+	}
+	
+	/**
+	 * Applies the data from an uniform into the shader.
+	 * @param	p_location
+	 * @param	p_uniform
+	 */
+	private inline function ApplyFloatUniform(p_location:UniformLocation,p_uniform:MaterialUniform):Void
+	{
+		var b : FloatArray = cast p_uniform.data;		
+		var off : Int = p_uniform.offset;
+		switch(off)
+		{
+			case 1:  GL.Uniform1f(p_location, b.Get(0));				
+			case 2:  GL.Uniform2f(p_location, b.Get(0), b.Get(1));
+			case 3:  GL.Uniform3f(p_location, b.Get(0), b.Get(1), b.Get(2));
+			case 4:  GL.Uniform4f(p_location, b.Get(0), b.Get(1), b.Get(2), b.Get(3));			
+			default: GL.Uniform1fv(p_location, b);
+		}
+	}
+	
+	/**
+	 * Applies the data from an uniform into the shader.
+	 * @param	p_location
+	 * @param	p_uniform
+	 */
+	private inline function ApplyIntUniform(p_location:UniformLocation, p_uniform:MaterialUniform):Void
+	{
+		var b : Int32Array = cast p_uniform.data;
+		var off : Int = p_uniform.offset;
+		switch(off)
+		{
+			case 1: 
+				if (p_uniform.texture != null) EngineContext.texture.Activate(p_uniform.texture);
+				GL.Uniform1i(p_location, b.Get(0));
+			case 2:  GL.Uniform2i(p_location, b.Get(0), b.Get(1));
+			case 3:  GL.Uniform3i(p_location, b.Get(0), b.Get(1), b.Get(2));
+			case 4:  GL.Uniform4i(p_location, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
+			default: GL.Uniform1iv(p_location, b);
 		}
 	}
 	

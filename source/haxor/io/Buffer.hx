@@ -25,8 +25,9 @@ class Buffer
 	 */
 	public var buffer(get_buffer, null):ArrayBuffer;
 	private inline function get_buffer():ArrayBuffer { return m_buffer; }
-	private var m_buffer : ArrayBuffer;	
-	
+	private var m_buffer : ArrayBuffer;		
+	private var m_original : ArrayBuffer;		
+	private var m_offset : Int;
 	/**
 	 * Returns the size of the buffer in bytes.
 	 */
@@ -47,6 +48,10 @@ class Buffer
 	private inline function get_length():Int { return m_length; }
 	private var m_length : Int;
 	
+	#if html
+	private var aux : js.html.ArrayBufferView;	
+	private var orig : js.html.ArrayBufferView;
+	#end
 	
 	/**
 	 * Creates a new buffer with 'length' elements with 'offset' bytes each.
@@ -57,9 +62,11 @@ class Buffer
 	{
 		m_length = p_length;
 		var len : Int = m_length * bytesPerElement;
+		m_offset = 0;
 		
 		#if html		
-		m_buffer = new Uint8ClampedArray(len);
+		m_buffer = new Uint8Array(len);
+		aux = m_buffer;
 		#end
 		
 		#if windows
@@ -111,6 +118,56 @@ class Buffer
 		
 		#if android
 		m_buffer.put(p_index, p_value);
+		#end
+	}
+	
+	/**
+	 * Sets the interval of data to be used in API methods like TexSubImage and BufferSubData
+	 * @param	p_start
+	 * @return
+	 */
+	private function SetViewSlice(p_start : Int,p_length:Int):Void
+	{
+		var i0 : Int = p_start * bytesPerElement;
+		var i1 : Int = i0 + p_length * bytesPerElement;
+		#if html				
+		orig = aux;
+		if (bytesPerElement == 1)
+		{
+			var i8 : Uint8Array = cast aux;
+			aux = i8.subarray(i0, i1);
+		}
+		#end
+		
+		#if windows				
+		//Needs to treat in the GL class because of pointers.
+		m_offset = i0;
+		#end
+		
+		#if android		
+		m_original = m_buffer;	
+		m_buffer.position(i0);
+		m_buffer.limit(i1);
+		m_buffer = m_buffer.slice();
+		#end
+	}
+	
+	/**
+	 * Resets the buffer to its original start and end limits.
+	 */
+	private function ResetSlice():Void
+	{
+		#if html		
+		aux = orig;
+		#end
+		
+		#if windows				
+		//Needs to treat in the GL class because of pointers.
+		m_offset = 0;
+		#end
+		
+		#if android
+		m_buffer = m_original;
 		#end
 	}
 	

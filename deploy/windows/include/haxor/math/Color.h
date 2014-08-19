@@ -138,6 +138,9 @@ class HXCPP_CLASS_ATTRIBUTES  Color_obj : public hx::Object{
 		static ::haxor::math::Color Lerp( ::haxor::math::Color a,::haxor::math::Color b,Float r);
 		static Dynamic Lerp_dyn();
 
+		static ::haxor::math::Color Sample( Array< ::Dynamic > g,Float r);
+		static Dynamic Sample_dyn();
+
 };
 
 } // end namespace haxor

@@ -68,7 +68,7 @@ class MeshContext
 		
 		for (i in 0...max_buffers)
 		{			
-			buffers.push(GL.NULL);		
+			buffers.push(GL.INVALID);		
 		}
 	}
 	
@@ -91,6 +91,8 @@ class MeshContext
 		{ 
 			Unbind(); 
 			current = p_mesh; 
+			
+			//VAO
 			
 			var a : MeshAttrib;
 			
@@ -182,9 +184,9 @@ class MeshContext
 	private function RemoveAttrib(p_attrib : MeshAttrib):Void
 	{		
 		var id : MeshBufferId = buffers[p_attrib._cid_];
-		if (id == GL.NULL) return;		
+		if (id == GL.INVALID) return;		
 		GL.DeleteBuffer(id);
-		buffers[p_attrib._cid_] = GL.NULL;
+		buffers[p_attrib._cid_] = GL.INVALID;
 	}
 	
 	/**
@@ -199,7 +201,7 @@ class MeshContext
 		//If this attrib is one of the default attribs of Haxor. Cache its position.
 		a._loc_ = attribs.indexOf(a.name);
 		
-		if (id == GL.NULL)
+		if (id == GL.INVALID)
 		{			
 			id = GL.CreateBuffer();			
 			buffers[a._cid_] = id;			

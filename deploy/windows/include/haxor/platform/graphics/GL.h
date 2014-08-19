@@ -11,6 +11,8 @@ HX_DECLARE_CLASS2(haxor,core,BaseApplication)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS2(haxor,io,Buffer)
+HX_DECLARE_CLASS2(haxor,io,FloatArray)
+HX_DECLARE_CLASS2(haxor,io,Int32Array)
 HX_DECLARE_CLASS3(haxor,platform,graphics,GL)
 HX_DECLARE_CLASS3(haxor,platform,graphics,GraphicAPI)
 HX_DECLARE_CLASS3(haxor,platform,graphics,GraphicContext)
@@ -340,13 +342,15 @@ class HXCPP_CLASS_ATTRIBUTES  GL_obj : public hx::Object{
 		static int HALF_FLOAT;
 		static bool TEXTURE_HALF;
 		static bool TEXTURE_HALF_LINEAR;
-		static int MAX_ANISOTROPY;
-		static bool TEXTURE_ANISOTROPY;
+		static int TEXTURE_ANISOTROPY;
+		static bool TEXTURE_ANISOTROPY_ENABLED;
+		static int MAX_TEXTURE_ANISOTROPY;
 		static bool TEXTURE_FLOAT;
 		static bool TEXTURE_FLOAT_LINEAR;
-		static bool TEXTURE_DEPTH;
+		static bool TEXTURE_DEPTH_ENABLED;
 		static int MAX_ACTIVE_TEXTURE;
 		static int _NULL;
+		static int INVALID;
 		static ::haxor::platform::graphics::GraphicAPI get_api( );
 		static Dynamic get_api_dyn();
 
@@ -429,6 +433,9 @@ class HXCPP_CLASS_ATTRIBUTES  GL_obj : public hx::Object{
 		static int GetAttribLocation( int p_program,::String p_name);
 		static Dynamic GetAttribLocation_dyn();
 
+		static int GetUniformLocation( int p_program,::String p_name);
+		static Dynamic GetUniformLocation_dyn();
+
 		static ::String GetProgramInfoLog( int p_program);
 		static Dynamic GetProgramInfoLog_dyn();
 
@@ -440,6 +447,126 @@ class HXCPP_CLASS_ATTRIBUTES  GL_obj : public hx::Object{
 
 		static Void UseProgram( int p_program);
 		static Dynamic UseProgram_dyn();
+
+		static Void ActiveTexture( int p_slot);
+		static Dynamic ActiveTexture_dyn();
+
+		static Void BindFramebuffer( int p_target,int p_id);
+		static Dynamic BindFramebuffer_dyn();
+
+		static Void BindRenderbuffer( int p_target,int p_id);
+		static Dynamic BindRenderbuffer_dyn();
+
+		static Void BindTexture( int p_target,int p_id);
+		static Dynamic BindTexture_dyn();
+
+		static int CreateFramebuffer( );
+		static Dynamic CreateFramebuffer_dyn();
+
+		static int CreateRenderbuffer( );
+		static Dynamic CreateRenderbuffer_dyn();
+
+		static int CreateTexture( );
+		static Dynamic CreateTexture_dyn();
+
+		static Void DeleteFramebuffer( int p_id);
+		static Dynamic DeleteFramebuffer_dyn();
+
+		static Void DeleteRenderbuffer( int p_id);
+		static Dynamic DeleteRenderbuffer_dyn();
+
+		static Void DeleteTexture( int p_id);
+		static Dynamic DeleteTexture_dyn();
+
+		static Void FramebufferRenderbuffer( int p_target,int p_attachment,int p_renderbuffer_target,int p_renderbuffer_id);
+		static Dynamic FramebufferRenderbuffer_dyn();
+
+		static Void FramebufferTexture2D( int p_target,int p_attachment,int p_texture_target,int p_texture_id,int p_miplevel);
+		static Dynamic FramebufferTexture2D_dyn();
+
+		static Void GenerateMipmap( int p_target);
+		static Dynamic GenerateMipmap_dyn();
+
+		static Void PixelStorei( int p_parameter,int p_value);
+		static Dynamic PixelStorei_dyn();
+
+		static Void RenderbufferStorage( int p_target,int p_format,int p_width,int p_height);
+		static Dynamic RenderbufferStorage_dyn();
+
+		static Void TexImage2D( int p_target,int p_level,int p_internal_format,int p_width,int p_height,int p_border,int p_format,int p_channel_type,::haxor::io::Buffer p_data);
+		static Dynamic TexImage2D_dyn();
+
+		static Void TexImage2DAlloc( int p_target,int p_level,int p_internal_format,int p_width,int p_height,int p_border,int p_format,int p_channel_type);
+		static Dynamic TexImage2DAlloc_dyn();
+
+		static Void TexSubImage2D( int p_target,int p_level,int p_x,int p_y,int p_width,int p_height,int p_format,int p_channel_type,::haxor::io::Buffer p_data);
+		static Dynamic TexSubImage2D_dyn();
+
+		static Void TexStorage2D( int p_target,int p_num_mipmaps,int p_channels,int p_width,int p_height);
+		static Dynamic TexStorage2D_dyn();
+
+		static Void TexParameterf( int p_target,int p_parameter,Float p_value);
+		static Dynamic TexParameterf_dyn();
+
+		static Void TexParameteri( int p_target,int p_parameter,int p_value);
+		static Dynamic TexParameteri_dyn();
+
+		static Void Uniform1f( int p_location,Float p_x);
+		static Dynamic Uniform1f_dyn();
+
+		static Void Uniform2f( int p_location,Float p_x,Float p_y);
+		static Dynamic Uniform2f_dyn();
+
+		static Void Uniform3f( int p_location,Float p_x,Float p_y,Float p_z);
+		static Dynamic Uniform3f_dyn();
+
+		static Void Uniform4f( int p_location,Float p_x,Float p_y,Float p_z,Float p_w);
+		static Dynamic Uniform4f_dyn();
+
+		static Void Uniform1i( int p_location,int p_x);
+		static Dynamic Uniform1i_dyn();
+
+		static Void Uniform2i( int p_location,int p_x,int p_y);
+		static Dynamic Uniform2i_dyn();
+
+		static Void Uniform3i( int p_location,int p_x,int p_y,int p_z);
+		static Dynamic Uniform3i_dyn();
+
+		static Void Uniform4i( int p_location,int p_x,int p_y,int p_z,int p_w);
+		static Dynamic Uniform4i_dyn();
+
+		static Void Uniform1fv( int p_location,::haxor::io::FloatArray p_v);
+		static Dynamic Uniform1fv_dyn();
+
+		static Void Uniform2fv( int p_location,::haxor::io::FloatArray p_v);
+		static Dynamic Uniform2fv_dyn();
+
+		static Void Uniform3fv( int p_location,::haxor::io::FloatArray p_v);
+		static Dynamic Uniform3fv_dyn();
+
+		static Void Uniform4fv( int p_location,::haxor::io::FloatArray p_v);
+		static Dynamic Uniform4fv_dyn();
+
+		static Void Uniform1iv( int p_location,::haxor::io::Int32Array p_v);
+		static Dynamic Uniform1iv_dyn();
+
+		static Void Uniform2iv( int p_location,::haxor::io::Int32Array p_v);
+		static Dynamic Uniform2iv_dyn();
+
+		static Void Uniform3iv( int p_location,::haxor::io::Int32Array p_v);
+		static Dynamic Uniform3iv_dyn();
+
+		static Void Uniform4iv( int p_location,::haxor::io::Int32Array p_v);
+		static Dynamic Uniform4iv_dyn();
+
+		static Void UniformMatrix2fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v);
+		static Dynamic UniformMatrix2fv_dyn();
+
+		static Void UniformMatrix3fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v);
+		static Dynamic UniformMatrix3fv_dyn();
+
+		static Void UniformMatrix4fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v);
+		static Dynamic UniformMatrix4fv_dyn();
 
 		static Void BlendFunc( int p_src,int p_dst);
 		static Dynamic BlendFunc_dyn();
@@ -470,6 +597,15 @@ class HXCPP_CLASS_ATTRIBUTES  GL_obj : public hx::Object{
 
 		static Void ClearColor( Float p_r,Float p_g,Float p_b,Float p_a);
 		static Dynamic ClearColor_dyn();
+
+		static Void Viewport( int p_x,int p_y,int p_width,int p_height);
+		static Dynamic Viewport_dyn();
+
+		static Void Scissor( int p_x,int p_y,int p_width,int p_height);
+		static Dynamic Scissor_dyn();
+
+		static Void ReadPixels( int p_x,int p_y,int p_width,int p_height,int p_format,int p_type,::haxor::io::Buffer p_pixels);
+		static Dynamic ReadPixels_dyn();
 
 		static ::String GetError( );
 		static Dynamic GetError_dyn();

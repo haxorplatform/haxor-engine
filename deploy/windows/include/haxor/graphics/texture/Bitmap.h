@@ -75,6 +75,9 @@ class HXCPP_CLASS_ATTRIBUTES  Bitmap_obj : public ::haxor::core::Resource_obj{
 		virtual Void SetPixel( int p_x,int p_y,::haxor::math::Color p_color);
 		Dynamic SetPixel_dyn();
 
+		virtual Void Fill( ::haxor::math::Color p_color);
+		Dynamic Fill_dyn();
+
 };
 
 } // end namespace haxor

@@ -230,6 +230,7 @@ class TextureAPI
 		{
 			if (p_flag == GL.TEXTURE_2D) c.pixelStorei(GL.UNPACK_FLIP_Y_WEBGL, p_flip_y ? 0 : 1);						
 			c.texImage2D(p_flag, 0, chn_fmt, chn_bit, chn_type, d);			
+			//glFramebufferTexture2D( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, id, 0 );
 		}
 		else
 		{	

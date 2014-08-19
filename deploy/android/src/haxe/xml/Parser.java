@@ -32,7 +32,7 @@ public  class Parser extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_xml_Parser(haxe.xml.Parser __temp_me33803)
+	public static   void __hx_ctor_haxe_xml_Parser(haxe.xml.Parser __temp_me42351)
 	{
 		{
 		}
@@ -52,7 +52,7 @@ public  class Parser extends haxe.lang.HxObject
 	
 	public static   int doParse(java.lang.String str, java.lang.Object p, haxe.root.Xml parent)
 	{
-		int __temp_p33802 = ( (( p == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p)) )) );
+		int __temp_p42350 = ( (( p == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p)) )) );
 		haxe.root.Xml xml = null;
 		int state = 1;
 		int next = 1;
@@ -61,9 +61,9 @@ public  class Parser extends haxe.lang.HxObject
 		int nsubs = 0;
 		int nbrackets = 0;
 		int c = 0;
-		if (( __temp_p33802 < str.length() )) 
+		if (( __temp_p42350 < str.length() )) 
 		{
-			c = ((int) (str.charAt(__temp_p33802)) );
+			c = ((int) (str.charAt(__temp_p42350)) );
 		}
 		 else 
 		{
@@ -114,7 +114,7 @@ public  class Parser extends haxe.lang.HxObject
 						
 						default:
 						{
-							start = __temp_p33802;
+							start = __temp_p42350;
 							state = 13;
 							continue;
 						}
@@ -129,7 +129,7 @@ public  class Parser extends haxe.lang.HxObject
 				{
 					if (( c == 60 )) 
 					{
-						haxe.root.Xml child = haxe.root.Xml.createPCData(( buf.toString() + haxe.lang.StringExt.substr(str, start, ( __temp_p33802 - start )) ));
+						haxe.root.Xml child = haxe.root.Xml.createPCData(( buf.toString() + haxe.lang.StringExt.substr(str, start, ( __temp_p42350 - start )) ));
 						buf = new haxe.root.StringBuf();
 						parent.addChild(child);
 						nsubs++;
@@ -140,10 +140,10 @@ public  class Parser extends haxe.lang.HxObject
 					{
 						if (( c == 38 )) 
 						{
-							buf.addSub(str, start, ( __temp_p33802 - start ));
+							buf.addSub(str, start, ( __temp_p42350 - start ));
 							state = 18;
 							next = 13;
-							start = ( __temp_p33802 + 1 );
+							start = ( __temp_p42350 + 1 );
 						}
 						
 					}
@@ -154,38 +154,38 @@ public  class Parser extends haxe.lang.HxObject
 				
 				case 17:
 				{
-					boolean __temp_boolv33962 = ( c == 93 );
-					boolean __temp_boolv33961 = false;
-					boolean __temp_boolv33960 = false;
-					if (__temp_boolv33962) 
+					boolean __temp_boolv42525 = ( c == 93 );
+					boolean __temp_boolv42524 = false;
+					boolean __temp_boolv42523 = false;
+					if (__temp_boolv42525) 
 					{
-						int __temp_stmt33963 = 0;
+						int __temp_stmt42526 = 0;
 						{
-							int index = ( __temp_p33802 + 1 );
-							__temp_stmt33963 = ( (( index < str.length() )) ? (((int) (str.charAt(index)) )) : (-1) );
+							int index = ( __temp_p42350 + 1 );
+							__temp_stmt42526 = ( (( index < str.length() )) ? (((int) (str.charAt(index)) )) : (-1) );
 						}
 						
-						__temp_boolv33961 = ( __temp_stmt33963 == 93 );
-						if (__temp_boolv33961) 
+						__temp_boolv42524 = ( __temp_stmt42526 == 93 );
+						if (__temp_boolv42524) 
 						{
-							int __temp_stmt33964 = 0;
+							int __temp_stmt42527 = 0;
 							{
-								int index1 = ( __temp_p33802 + 2 );
-								__temp_stmt33964 = ( (( index1 < str.length() )) ? (((int) (str.charAt(index1)) )) : (-1) );
+								int index1 = ( __temp_p42350 + 2 );
+								__temp_stmt42527 = ( (( index1 < str.length() )) ? (((int) (str.charAt(index1)) )) : (-1) );
 							}
 							
-							__temp_boolv33960 = ( __temp_stmt33964 == 62 );
+							__temp_boolv42523 = ( __temp_stmt42527 == 62 );
 						}
 						
 					}
 					
-					boolean __temp_stmt33959 = ( ( __temp_boolv33962 && __temp_boolv33961 ) && __temp_boolv33960 );
-					if (__temp_stmt33959) 
+					boolean __temp_stmt42522 = ( ( __temp_boolv42525 && __temp_boolv42524 ) && __temp_boolv42523 );
+					if (__temp_stmt42522) 
 					{
-						haxe.root.Xml child1 = haxe.root.Xml.createCData(haxe.lang.StringExt.substr(str, start, ( __temp_p33802 - start )));
+						haxe.root.Xml child1 = haxe.root.Xml.createCData(haxe.lang.StringExt.substr(str, start, ( __temp_p42350 - start )));
 						parent.addChild(child1);
 						nsubs++;
-						__temp_p33802 += 2;
+						__temp_p42350 += 2;
 						state = 1;
 					}
 					
@@ -199,88 +199,88 @@ public  class Parser extends haxe.lang.HxObject
 					{
 						case 33:
 						{
-							int __temp_stmt33965 = 0;
+							int __temp_stmt42528 = 0;
 							{
-								int index2 = ( __temp_p33802 + 1 );
-								__temp_stmt33965 = ( (( index2 < str.length() )) ? (((int) (str.charAt(index2)) )) : (-1) );
+								int index2 = ( __temp_p42350 + 1 );
+								__temp_stmt42528 = ( (( index2 < str.length() )) ? (((int) (str.charAt(index2)) )) : (-1) );
 							}
 							
-							if (( __temp_stmt33965 == 91 )) 
+							if (( __temp_stmt42528 == 91 )) 
 							{
-								__temp_p33802 += 2;
-								if ( ! (haxe.lang.Runtime.valEq(haxe.lang.StringExt.substr(str, __temp_p33802, 6).toUpperCase(), "CDATA[")) ) 
+								__temp_p42350 += 2;
+								if ( ! (haxe.lang.Runtime.valEq(haxe.lang.StringExt.substr(str, __temp_p42350, 6).toUpperCase(), "CDATA[")) ) 
 								{
 									throw haxe.lang.HaxeException.wrap("Expected <![CDATA[");
 								}
 								
-								__temp_p33802 += 5;
+								__temp_p42350 += 5;
 								state = 17;
-								start = ( __temp_p33802 + 1 );
+								start = ( __temp_p42350 + 1 );
 							}
 							 else 
 							{
-								int __temp_stmt33968 = 0;
+								int __temp_stmt42531 = 0;
 								{
-									int index3 = ( __temp_p33802 + 1 );
-									__temp_stmt33968 = ( (( index3 < str.length() )) ? (((int) (str.charAt(index3)) )) : (-1) );
+									int index3 = ( __temp_p42350 + 1 );
+									__temp_stmt42531 = ( (( index3 < str.length() )) ? (((int) (str.charAt(index3)) )) : (-1) );
 								}
 								
-								boolean __temp_stmt33967 = ( __temp_stmt33968 == 68 );
-								boolean __temp_boolv33969 = false;
-								if ( ! (__temp_stmt33967) ) 
+								boolean __temp_stmt42530 = ( __temp_stmt42531 == 68 );
+								boolean __temp_boolv42532 = false;
+								if ( ! (__temp_stmt42530) ) 
 								{
-									int __temp_stmt33970 = 0;
+									int __temp_stmt42533 = 0;
 									{
-										int index4 = ( __temp_p33802 + 1 );
-										__temp_stmt33970 = ( (( index4 < str.length() )) ? (((int) (str.charAt(index4)) )) : (-1) );
+										int index4 = ( __temp_p42350 + 1 );
+										__temp_stmt42533 = ( (( index4 < str.length() )) ? (((int) (str.charAt(index4)) )) : (-1) );
 									}
 									
-									__temp_boolv33969 = ( __temp_stmt33970 == 100 );
+									__temp_boolv42532 = ( __temp_stmt42533 == 100 );
 								}
 								
-								boolean __temp_stmt33966 = ( __temp_stmt33967 || __temp_boolv33969 );
-								if (__temp_stmt33966) 
+								boolean __temp_stmt42529 = ( __temp_stmt42530 || __temp_boolv42532 );
+								if (__temp_stmt42529) 
 								{
-									if ( ! (haxe.lang.Runtime.valEq(haxe.lang.StringExt.substr(str, ( __temp_p33802 + 2 ), 6).toUpperCase(), "OCTYPE")) ) 
+									if ( ! (haxe.lang.Runtime.valEq(haxe.lang.StringExt.substr(str, ( __temp_p42350 + 2 ), 6).toUpperCase(), "OCTYPE")) ) 
 									{
 										throw haxe.lang.HaxeException.wrap("Expected <!DOCTYPE");
 									}
 									
-									__temp_p33802 += 8;
+									__temp_p42350 += 8;
 									state = 16;
-									start = ( __temp_p33802 + 1 );
+									start = ( __temp_p42350 + 1 );
 								}
 								 else 
 								{
-									int __temp_stmt33973 = 0;
+									int __temp_stmt42536 = 0;
 									{
-										int index5 = ( __temp_p33802 + 1 );
-										__temp_stmt33973 = ( (( index5 < str.length() )) ? (((int) (str.charAt(index5)) )) : (-1) );
+										int index5 = ( __temp_p42350 + 1 );
+										__temp_stmt42536 = ( (( index5 < str.length() )) ? (((int) (str.charAt(index5)) )) : (-1) );
 									}
 									
-									boolean __temp_stmt33972 = ( __temp_stmt33973 != 45 );
-									boolean __temp_boolv33974 = false;
-									if ( ! (__temp_stmt33972) ) 
+									boolean __temp_stmt42535 = ( __temp_stmt42536 != 45 );
+									boolean __temp_boolv42537 = false;
+									if ( ! (__temp_stmt42535) ) 
 									{
-										int __temp_stmt33975 = 0;
+										int __temp_stmt42538 = 0;
 										{
-											int index6 = ( __temp_p33802 + 2 );
-											__temp_stmt33975 = ( (( index6 < str.length() )) ? (((int) (str.charAt(index6)) )) : (-1) );
+											int index6 = ( __temp_p42350 + 2 );
+											__temp_stmt42538 = ( (( index6 < str.length() )) ? (((int) (str.charAt(index6)) )) : (-1) );
 										}
 										
-										__temp_boolv33974 = ( __temp_stmt33975 != 45 );
+										__temp_boolv42537 = ( __temp_stmt42538 != 45 );
 									}
 									
-									boolean __temp_stmt33971 = ( __temp_stmt33972 || __temp_boolv33974 );
-									if (__temp_stmt33971) 
+									boolean __temp_stmt42534 = ( __temp_stmt42535 || __temp_boolv42537 );
+									if (__temp_stmt42534) 
 									{
 										throw haxe.lang.HaxeException.wrap("Expected <!--");
 									}
 									 else 
 									{
-										__temp_p33802 += 2;
+										__temp_p42350 += 2;
 										state = 15;
-										start = ( __temp_p33802 + 1 );
+										start = ( __temp_p42350 + 1 );
 									}
 									
 								}
@@ -294,7 +294,7 @@ public  class Parser extends haxe.lang.HxObject
 						case 63:
 						{
 							state = 14;
-							start = __temp_p33802;
+							start = __temp_p42350;
 							break;
 						}
 						
@@ -306,7 +306,7 @@ public  class Parser extends haxe.lang.HxObject
 								throw haxe.lang.HaxeException.wrap("Expected node name");
 							}
 							
-							start = ( __temp_p33802 + 1 );
+							start = ( __temp_p42350 + 1 );
 							state = 0;
 							next = 10;
 							break;
@@ -316,7 +316,7 @@ public  class Parser extends haxe.lang.HxObject
 						default:
 						{
 							state = 3;
-							start = __temp_p33802;
+							start = __temp_p42350;
 							continue;
 						}
 						
@@ -330,12 +330,12 @@ public  class Parser extends haxe.lang.HxObject
 				{
 					if ( ! ((( ( ( ( ( ( ( ( c >= 97 ) && ( c <= 122 ) ) || ( ( c >= 65 ) && ( c <= 90 ) ) ) || ( ( c >= 48 ) && ( c <= 57 ) ) ) || ( c == 58 ) ) || ( c == 46 ) ) || ( c == 95 ) ) || ( c == 45 ) ))) ) 
 					{
-						if (( __temp_p33802 == start )) 
+						if (( __temp_p42350 == start )) 
 						{
 							throw haxe.lang.HaxeException.wrap("Expected node name");
 						}
 						
-						xml = haxe.root.Xml.createElement(haxe.lang.StringExt.substr(str, start, ( __temp_p33802 - start )));
+						xml = haxe.root.Xml.createElement(haxe.lang.StringExt.substr(str, start, ( __temp_p42350 - start )));
 						parent.addChild(xml);
 						state = 0;
 						next = 4;
@@ -369,7 +369,7 @@ public  class Parser extends haxe.lang.HxObject
 						default:
 						{
 							state = 5;
-							start = __temp_p33802;
+							start = __temp_p42350;
 							continue;
 						}
 						
@@ -384,12 +384,12 @@ public  class Parser extends haxe.lang.HxObject
 					if ( ! ((( ( ( ( ( ( ( ( c >= 97 ) && ( c <= 122 ) ) || ( ( c >= 65 ) && ( c <= 90 ) ) ) || ( ( c >= 48 ) && ( c <= 57 ) ) ) || ( c == 58 ) ) || ( c == 46 ) ) || ( c == 95 ) ) || ( c == 45 ) ))) ) 
 					{
 						java.lang.String tmp = null;
-						if (( start == __temp_p33802 )) 
+						if (( start == __temp_p42350 )) 
 						{
 							throw haxe.lang.HaxeException.wrap("Expected attribute name");
 						}
 						
-						tmp = haxe.lang.StringExt.substr(str, start, ( __temp_p33802 - start ));
+						tmp = haxe.lang.StringExt.substr(str, start, ( __temp_p42350 - start ));
 						aname = tmp;
 						if (xml.exists(aname)) 
 						{
@@ -435,7 +435,7 @@ public  class Parser extends haxe.lang.HxObject
 						case 34:case 39:
 						{
 							state = 8;
-							start = __temp_p33802;
+							start = __temp_p42350;
 							break;
 						}
 						
@@ -455,7 +455,7 @@ public  class Parser extends haxe.lang.HxObject
 				{
 					if (( c == (( (( start < str.length() )) ? (((int) (str.charAt(start)) )) : (-1) )) )) 
 					{
-						java.lang.String val = haxe.lang.StringExt.substr(str, ( start + 1 ), ( ( __temp_p33802 - start ) - 1 ));
+						java.lang.String val = haxe.lang.StringExt.substr(str, ( start + 1 ), ( ( __temp_p42350 - start ) - 1 ));
 						xml.set(aname, val);
 						state = 0;
 						next = 4;
@@ -467,8 +467,8 @@ public  class Parser extends haxe.lang.HxObject
 				
 				case 9:
 				{
-					__temp_p33802 = haxe.xml.Parser.doParse(str, __temp_p33802, xml);
-					start = __temp_p33802;
+					__temp_p42350 = haxe.xml.Parser.doParse(str, __temp_p42350, xml);
+					start = __temp_p42350;
 					state = 1;
 					break;
 				}
@@ -507,7 +507,7 @@ public  class Parser extends haxe.lang.HxObject
 								parent.addChild(haxe.root.Xml.createPCData(""));
 							}
 							
-							return __temp_p33802;
+							return __temp_p42350;
 						}
 						
 						
@@ -525,12 +525,12 @@ public  class Parser extends haxe.lang.HxObject
 				{
 					if ( ! ((( ( ( ( ( ( ( ( c >= 97 ) && ( c <= 122 ) ) || ( ( c >= 65 ) && ( c <= 90 ) ) ) || ( ( c >= 48 ) && ( c <= 57 ) ) ) || ( c == 58 ) ) || ( c == 46 ) ) || ( c == 95 ) ) || ( c == 45 ) ))) ) 
 					{
-						if (( start == __temp_p33802 )) 
+						if (( start == __temp_p42350 )) 
 						{
 							throw haxe.lang.HaxeException.wrap("Expected node name");
 						}
 						
-						java.lang.String v = haxe.lang.StringExt.substr(str, start, ( __temp_p33802 - start ));
+						java.lang.String v = haxe.lang.StringExt.substr(str, start, ( __temp_p42350 - start ));
 						if ( ! (haxe.lang.Runtime.valEq(v, parent.get_nodeName())) ) 
 						{
 							throw haxe.lang.HaxeException.wrap(( ( "Expected </" + parent.get_nodeName() ) + ">" ));
@@ -547,36 +547,36 @@ public  class Parser extends haxe.lang.HxObject
 				
 				case 15:
 				{
-					boolean __temp_boolv33979 = ( c == 45 );
-					boolean __temp_boolv33978 = false;
-					boolean __temp_boolv33977 = false;
-					if (__temp_boolv33979) 
+					boolean __temp_boolv42542 = ( c == 45 );
+					boolean __temp_boolv42541 = false;
+					boolean __temp_boolv42540 = false;
+					if (__temp_boolv42542) 
 					{
-						int __temp_stmt33980 = 0;
+						int __temp_stmt42543 = 0;
 						{
-							int index7 = ( __temp_p33802 + 1 );
-							__temp_stmt33980 = ( (( index7 < str.length() )) ? (((int) (str.charAt(index7)) )) : (-1) );
+							int index7 = ( __temp_p42350 + 1 );
+							__temp_stmt42543 = ( (( index7 < str.length() )) ? (((int) (str.charAt(index7)) )) : (-1) );
 						}
 						
-						__temp_boolv33978 = ( __temp_stmt33980 == 45 );
-						if (__temp_boolv33978) 
+						__temp_boolv42541 = ( __temp_stmt42543 == 45 );
+						if (__temp_boolv42541) 
 						{
-							int __temp_stmt33981 = 0;
+							int __temp_stmt42544 = 0;
 							{
-								int index8 = ( __temp_p33802 + 2 );
-								__temp_stmt33981 = ( (( index8 < str.length() )) ? (((int) (str.charAt(index8)) )) : (-1) );
+								int index8 = ( __temp_p42350 + 2 );
+								__temp_stmt42544 = ( (( index8 < str.length() )) ? (((int) (str.charAt(index8)) )) : (-1) );
 							}
 							
-							__temp_boolv33977 = ( __temp_stmt33981 == 62 );
+							__temp_boolv42540 = ( __temp_stmt42544 == 62 );
 						}
 						
 					}
 					
-					boolean __temp_stmt33976 = ( ( __temp_boolv33979 && __temp_boolv33978 ) && __temp_boolv33977 );
-					if (__temp_stmt33976) 
+					boolean __temp_stmt42539 = ( ( __temp_boolv42542 && __temp_boolv42541 ) && __temp_boolv42540 );
+					if (__temp_stmt42539) 
 					{
-						parent.addChild(haxe.root.Xml.createComment(haxe.lang.StringExt.substr(str, start, ( __temp_p33802 - start ))));
-						__temp_p33802 += 2;
+						parent.addChild(haxe.root.Xml.createComment(haxe.lang.StringExt.substr(str, start, ( __temp_p42350 - start ))));
+						__temp_p42350 += 2;
 						state = 1;
 					}
 					
@@ -600,7 +600,7 @@ public  class Parser extends haxe.lang.HxObject
 						{
 							if (( ( c == 62 ) && ( nbrackets == 0 ) )) 
 							{
-								parent.addChild(haxe.root.Xml.createDocType(haxe.lang.StringExt.substr(str, start, ( __temp_p33802 - start ))));
+								parent.addChild(haxe.root.Xml.createDocType(haxe.lang.StringExt.substr(str, start, ( __temp_p42350 - start ))));
 								state = 1;
 							}
 							
@@ -614,24 +614,24 @@ public  class Parser extends haxe.lang.HxObject
 				
 				case 14:
 				{
-					boolean __temp_boolv33984 = ( c == 63 );
-					boolean __temp_boolv33983 = false;
-					if (__temp_boolv33984) 
+					boolean __temp_boolv42547 = ( c == 63 );
+					boolean __temp_boolv42546 = false;
+					if (__temp_boolv42547) 
 					{
-						int __temp_stmt33985 = 0;
+						int __temp_stmt42548 = 0;
 						{
-							int index9 = ( __temp_p33802 + 1 );
-							__temp_stmt33985 = ( (( index9 < str.length() )) ? (((int) (str.charAt(index9)) )) : (-1) );
+							int index9 = ( __temp_p42350 + 1 );
+							__temp_stmt42548 = ( (( index9 < str.length() )) ? (((int) (str.charAt(index9)) )) : (-1) );
 						}
 						
-						__temp_boolv33983 = ( __temp_stmt33985 == 62 );
+						__temp_boolv42546 = ( __temp_stmt42548 == 62 );
 					}
 					
-					boolean __temp_stmt33982 = ( __temp_boolv33984 && __temp_boolv33983 );
-					if (__temp_stmt33982) 
+					boolean __temp_stmt42545 = ( __temp_boolv42547 && __temp_boolv42546 );
+					if (__temp_stmt42545) 
 					{
-						__temp_p33802++;
-						java.lang.String str1 = haxe.lang.StringExt.substr(str, ( start + 1 ), ( ( __temp_p33802 - start ) - 2 ));
+						__temp_p42350++;
+						java.lang.String str1 = haxe.lang.StringExt.substr(str, ( start + 1 ), ( ( __temp_p42350 - start ) - 2 ));
 						parent.addChild(haxe.root.Xml.createProcessingInstruction(str1));
 						state = 1;
 					}
@@ -644,7 +644,7 @@ public  class Parser extends haxe.lang.HxObject
 				{
 					if (( c == 59 )) 
 					{
-						java.lang.String s = haxe.lang.StringExt.substr(str, start, ( __temp_p33802 - start ));
+						java.lang.String s = haxe.lang.StringExt.substr(str, start, ( __temp_p42350 - start ));
 						if (( (( (( 0 < s.length() )) ? (((int) (s.charAt(0)) )) : (-1) )) == 35 )) 
 						{
 							java.lang.Object i = null;
@@ -672,7 +672,7 @@ public  class Parser extends haxe.lang.HxObject
 							
 						}
 						
-						start = ( __temp_p33802 + 1 );
+						start = ( __temp_p42350 + 1 );
 						state = next;
 					}
 					
@@ -683,7 +683,7 @@ public  class Parser extends haxe.lang.HxObject
 			}
 			
 			{
-				int index10 =  ++ __temp_p33802;
+				int index10 =  ++ __temp_p42350;
 				if (( index10 < str.length() )) 
 				{
 					c = ((int) (str.charAt(index10)) );
@@ -699,18 +699,18 @@ public  class Parser extends haxe.lang.HxObject
 		
 		if (( state == 1 )) 
 		{
-			start = __temp_p33802;
+			start = __temp_p42350;
 			state = 13;
 		}
 		
 		if (( state == 13 )) 
 		{
-			if (( ( __temp_p33802 != start ) || ( nsubs == 0 ) )) 
+			if (( ( __temp_p42350 != start ) || ( nsubs == 0 ) )) 
 			{
-				parent.addChild(haxe.root.Xml.createPCData(( buf.toString() + haxe.lang.StringExt.substr(str, start, ( __temp_p33802 - start )) )));
+				parent.addChild(haxe.root.Xml.createPCData(( buf.toString() + haxe.lang.StringExt.substr(str, start, ( __temp_p42350 - start )) )));
 			}
 			
-			return __temp_p33802;
+			return __temp_p42350;
 		}
 		
 		throw haxe.lang.HaxeException.wrap("Unexpected end");

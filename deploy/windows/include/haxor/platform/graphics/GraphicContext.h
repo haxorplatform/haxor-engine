@@ -11,6 +11,8 @@ HX_DECLARE_CLASS2(haxor,core,BaseApplication)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS2(haxor,io,Buffer)
+HX_DECLARE_CLASS2(haxor,io,FloatArray)
+HX_DECLARE_CLASS2(haxor,io,Int32Array)
 HX_DECLARE_CLASS3(haxor,platform,graphics,GraphicAPI)
 HX_DECLARE_CLASS3(haxor,platform,graphics,GraphicContext)
 namespace haxor{
@@ -132,6 +134,9 @@ class HXCPP_CLASS_ATTRIBUTES  GraphicContext_obj : public hx::Object{
 		virtual int GetAttribLocation( int p_program,::String p_name);
 		Dynamic GetAttribLocation_dyn();
 
+		virtual int GetUniformLocation( int p_program,::String p_name);
+		Dynamic GetUniformLocation_dyn();
+
 		virtual ::String GetProgramInfoLog( int p_program);
 		Dynamic GetProgramInfoLog_dyn();
 
@@ -144,118 +149,124 @@ class HXCPP_CLASS_ATTRIBUTES  GraphicContext_obj : public hx::Object{
 		virtual Void UseProgram( int p_program);
 		Dynamic UseProgram_dyn();
 
-		virtual Void Uniform1f( );
+		virtual Void Uniform1f( int p_location,Float p_x);
 		Dynamic Uniform1f_dyn();
 
-		virtual Void Uniform1fv( );
-		Dynamic Uniform1fv_dyn();
-
-		virtual Void Uniform1i( );
-		Dynamic Uniform1i_dyn();
-
-		virtual Void Uniform1iv( );
-		Dynamic Uniform1iv_dyn();
-
-		virtual Void Uniform2f( );
+		virtual Void Uniform2f( int p_location,Float p_x,Float p_y);
 		Dynamic Uniform2f_dyn();
 
-		virtual Void Uniform2fv( );
-		Dynamic Uniform2fv_dyn();
-
-		virtual Void Uniform2i( );
-		Dynamic Uniform2i_dyn();
-
-		virtual Void Uniform2iv( );
-		Dynamic Uniform2iv_dyn();
-
-		virtual Void Uniform3f( );
+		virtual Void Uniform3f( int p_location,Float p_x,Float p_y,Float p_z);
 		Dynamic Uniform3f_dyn();
 
-		virtual Void Uniform3fv( );
-		Dynamic Uniform3fv_dyn();
-
-		virtual Void Uniform3i( );
-		Dynamic Uniform3i_dyn();
-
-		virtual Void Uniform3iv( );
-		Dynamic Uniform3iv_dyn();
-
-		virtual Void Uniform4f( );
+		virtual Void Uniform4f( int p_location,Float p_x,Float p_y,Float p_z,Float p_w);
 		Dynamic Uniform4f_dyn();
 
-		virtual Void Uniform4fv( );
-		Dynamic Uniform4fv_dyn();
+		virtual Void Uniform1i( int p_location,int p_x);
+		Dynamic Uniform1i_dyn();
 
-		virtual Void Uniform4i( );
+		virtual Void Uniform2i( int p_location,int p_x,int p_y);
+		Dynamic Uniform2i_dyn();
+
+		virtual Void Uniform3i( int p_location,int p_x,int p_y,int p_z);
+		Dynamic Uniform3i_dyn();
+
+		virtual Void Uniform4i( int p_location,int p_x,int p_y,int p_z,int p_w);
 		Dynamic Uniform4i_dyn();
 
-		virtual Void Uniform4iv( );
+		virtual Void Uniform1fv( int p_location,::haxor::io::FloatArray p_v);
+		Dynamic Uniform1fv_dyn();
+
+		virtual Void Uniform2fv( int p_location,::haxor::io::FloatArray p_v);
+		Dynamic Uniform2fv_dyn();
+
+		virtual Void Uniform3fv( int p_location,::haxor::io::FloatArray p_v);
+		Dynamic Uniform3fv_dyn();
+
+		virtual Void Uniform4fv( int p_location,::haxor::io::FloatArray p_v);
+		Dynamic Uniform4fv_dyn();
+
+		virtual Void Uniform1iv( int p_location,::haxor::io::Int32Array p_v);
+		Dynamic Uniform1iv_dyn();
+
+		virtual Void Uniform2iv( int p_location,::haxor::io::Int32Array p_v);
+		Dynamic Uniform2iv_dyn();
+
+		virtual Void Uniform3iv( int p_location,::haxor::io::Int32Array p_v);
+		Dynamic Uniform3iv_dyn();
+
+		virtual Void Uniform4iv( int p_location,::haxor::io::Int32Array p_v);
 		Dynamic Uniform4iv_dyn();
 
-		virtual Void UniformMatrix2fv( );
+		virtual Void UniformMatrix2fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v);
 		Dynamic UniformMatrix2fv_dyn();
 
-		virtual Void UniformMatrix3fv( );
+		virtual Void UniformMatrix3fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v);
 		Dynamic UniformMatrix3fv_dyn();
 
-		virtual Void UniformMatrix4fv( );
+		virtual Void UniformMatrix4fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v);
 		Dynamic UniformMatrix4fv_dyn();
 
-		virtual Void ActiveTexture( );
+		virtual Void ActiveTexture( int p_slot);
 		Dynamic ActiveTexture_dyn();
 
-		virtual Void BindFramebuffer( );
+		virtual Void BindFramebuffer( int p_target,int p_id);
 		Dynamic BindFramebuffer_dyn();
 
-		virtual Void BindRenderbuffer( );
+		virtual Void BindRenderbuffer( int p_target,int p_id);
 		Dynamic BindRenderbuffer_dyn();
 
-		virtual Void BindTexture( );
+		virtual Void BindTexture( int p_target,int p_id);
 		Dynamic BindTexture_dyn();
 
-		virtual Void CreateFramebuffer( );
+		virtual int CreateFramebuffer( );
 		Dynamic CreateFramebuffer_dyn();
 
-		virtual Void CreateTexture( );
+		virtual int CreateRenderbuffer( );
+		Dynamic CreateRenderbuffer_dyn();
+
+		virtual int CreateTexture( );
 		Dynamic CreateTexture_dyn();
 
-		virtual Void DeleteFramebuffer( );
+		virtual Void DeleteFramebuffer( int p_id);
 		Dynamic DeleteFramebuffer_dyn();
 
-		virtual Void DeleteRenderbuffer( );
+		virtual Void DeleteRenderbuffer( int p_id);
 		Dynamic DeleteRenderbuffer_dyn();
 
-		virtual Void DeleteTexture( );
+		virtual Void DeleteTexture( int p_id);
 		Dynamic DeleteTexture_dyn();
 
-		virtual Void FramebufferRenderbuffer( );
+		virtual Void FramebufferRenderbuffer( int p_target,int p_attachment,int p_renderbuffer_target,int p_renderbuffer_id);
 		Dynamic FramebufferRenderbuffer_dyn();
 
-		virtual Void FramebufferTexture2D( );
+		virtual Void FramebufferTexture2D( int p_target,int p_attachment,int p_texture_target,int p_texture_id,int p_miplevel);
 		Dynamic FramebufferTexture2D_dyn();
 
-		virtual Void GenerateMipmap( );
+		virtual Void GenerateMipmap( int p_target);
 		Dynamic GenerateMipmap_dyn();
 
-		virtual Void PixelStorei( );
+		virtual Void PixelStorei( int p_parameter,int p_value);
 		Dynamic PixelStorei_dyn();
 
-		virtual Void RenderbufferStorage( );
+		virtual Void RenderbufferStorage( int p_target,int p_format,int p_width,int p_height);
 		Dynamic RenderbufferStorage_dyn();
 
-		virtual Void TexImage2D( );
+		virtual Void TexImage2DAlloc( int p_target,int p_level,int p_internal_format,int p_width,int p_height,int p_border,int p_format,int p_channel_type);
+		Dynamic TexImage2DAlloc_dyn();
+
+		virtual Void TexImage2D( int p_target,int p_level,int p_internal_format,int p_width,int p_height,int p_border,int p_format,int p_channel_type,::haxor::io::Buffer p_data);
 		Dynamic TexImage2D_dyn();
 
-		virtual Void TexSubImage2D( );
+		virtual Void TexSubImage2D( int p_target,int p_level,int p_x,int p_y,int p_width,int p_height,int p_format,int p_channel_type,::haxor::io::Buffer p_data);
 		Dynamic TexSubImage2D_dyn();
 
 		virtual Void TexStorage2D( int p_target,int p_num_mipmaps,int p_channels,int p_width,int p_height);
 		Dynamic TexStorage2D_dyn();
 
-		virtual Void TexParameterf( );
+		virtual Void TexParameterf( int p_target,int p_parameter,Float p_value);
 		Dynamic TexParameterf_dyn();
 
-		virtual Void TexParameteri( );
+		virtual Void TexParameteri( int p_target,int p_parameter,int p_value);
 		Dynamic TexParameteri_dyn();
 
 		virtual Void BlendFunc( int p_src,int p_dst);
@@ -290,6 +301,9 @@ class HXCPP_CLASS_ATTRIBUTES  GraphicContext_obj : public hx::Object{
 
 		virtual Void Viewport( int p_x,int p_y,int p_width,int p_height);
 		Dynamic Viewport_dyn();
+
+		virtual Void Scissor( int p_x,int p_y,int p_width,int p_height);
+		Dynamic Scissor_dyn();
 
 		virtual Void ReadPixels( int p_x,int p_y,int p_width,int p_height,int p_format,int p_type,::haxor::io::Buffer p_pixels);
 		Dynamic ReadPixels_dyn();

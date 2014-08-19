@@ -43,6 +43,8 @@ class HXCPP_CLASS_ATTRIBUTES  FloatArray_obj : public ::haxor::io::Buffer_obj{
 		virtual Void SetRange( Array< Float > p_data,hx::Null< int >  p_offset);
 		Dynamic SetRange_dyn();
 
+		virtual Void SetViewSlice( int p_start,int p_length);
+
 		static ::haxor::io::FloatArray Alloc( Array< Float > p_data);
 		static Dynamic Alloc_dyn();
 

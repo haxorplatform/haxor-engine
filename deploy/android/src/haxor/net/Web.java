@@ -22,7 +22,7 @@ public  class Web extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_net_Web(haxor.net.Web __temp_me33855)
+	public static   void __hx_ctor_haxor_net_Web(haxor.net.Web __temp_me42411)
 	{
 		{
 		}

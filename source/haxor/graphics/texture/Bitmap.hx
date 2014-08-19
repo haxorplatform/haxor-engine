@@ -154,4 +154,12 @@ class Bitmap extends Resource
 		if (cc >= 4) b.SetByte(pos+3,cast (p_color.a * Mathf.Float2Byte));
 	}
 	
+	/**
+	 * Fills the data with the same color.
+	 * @param	p_color
+	 */
+	public function Fill(p_color:Color):Void
+	{
+		for (ix in 0...m_width) for (iy in 0...m_height) { SetPixel(ix, iy, p_color); }		
+	}
 }

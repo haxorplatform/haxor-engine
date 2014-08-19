@@ -38,6 +38,8 @@ class HXCPP_CLASS_ATTRIBUTES  Buffer_obj : public hx::Object{
 		Dynamic get_buffer_dyn();
 
 		::haxe::io::Bytes m_buffer;
+		::haxe::io::Bytes m_original;
+		int m_offset;
 		int byteLength;
 		virtual int get_byteLength( );
 		Dynamic get_byteLength_dyn();
@@ -56,6 +58,12 @@ class HXCPP_CLASS_ATTRIBUTES  Buffer_obj : public hx::Object{
 
 		virtual Void SetByte( int p_index,int p_value);
 		Dynamic SetByte_dyn();
+
+		virtual Void SetViewSlice( int p_start,int p_length);
+		Dynamic SetViewSlice_dyn();
+
+		virtual Void ResetSlice( );
+		Dynamic ResetSlice_dyn();
 
 };
 

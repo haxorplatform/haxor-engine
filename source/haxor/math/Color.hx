@@ -101,6 +101,24 @@ class Color
 	}
 	
 	/**
+	 * Linear interpolates the color list.
+	 * @param	g
+	 * @param	r
+	 * @return
+	 */
+	static public function Sample(g: Array<Color>, r:Float):Color
+	{
+		var pos : Float = cast (g.length-1); 
+		pos *= r*0.9999;
+		var i0 : Int = Std.int(pos);
+		var i1 : Int = (i0 + 1)%g.length;
+		r = Mathf.Frac(pos);
+		var c0 : Color = g[i0];
+		var c1 : Color = g[i1];		
+		return Lerp(c0, c1, r);
+	}
+	
+	/**
 	 * Creates a copy of this color instance.
 	 */
 	public var clone(get_clone, null) : Color;

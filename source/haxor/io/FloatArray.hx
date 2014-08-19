@@ -1,5 +1,7 @@
 package haxor.io;
 
+
+
 #if (windows || osx || linux)
 import haxe.io.Bytes;
 #end
@@ -8,6 +10,7 @@ import haxe.io.Bytes;
  * Class that describes a set of bytes represented as 4 byte floats.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
+@:allow(haxor)
 class FloatArray extends Buffer
 {
 		
@@ -30,7 +33,7 @@ class FloatArray extends Buffer
 	override inline function get_bytesPerElement():Int { return 4; }
 	
 	#if html
-	private var aux : js.html.Float32Array;
+	//private var aux : js.html.Float32Array;
 	#end
 	
 	#if android
@@ -62,7 +65,8 @@ class FloatArray extends Buffer
 	public function Get(p_index : Int):Float
 	{
 		#if html
-		return aux[p_index];		
+		var f32 : js.html.Float32Array = cast aux;
+		return f32[p_index];		
 		#end
 		
 		#if windows
@@ -93,7 +97,8 @@ class FloatArray extends Buffer
 	public function Set(p_index : Int, p_value : Float):Void
 	{
 		#if html
-		aux[p_index] = p_value;
+		var f32 : js.html.Float32Array = cast aux;
+		f32[p_index] = p_value;
 		#end
 		
 		#if windows
@@ -122,6 +127,22 @@ class FloatArray extends Buffer
 	public function SetRange(p_data : Array<Float>, p_offset : Int = 0):Void
 	{
 		for (i in 0...p_data.length) Set(i + p_offset, p_data[i]);
+	}
+	
+	/**
+	 * Adjust the slice selection for floats
+	 * @param	p_start
+	 * @param	p_length
+	 */
+	override function SetViewSlice(p_start:Int, p_length:Int):Void 
+	{
+		super.SetViewSlice(p_start, p_length);		
+		#if html
+		var i0 : Int = p_start;
+		var i1 : Int = i0 + p_length;
+		var f32 : js.html.Float32Array = cast aux;		
+		aux = f32.subarray(i0, i1);		
+		#end
 	}
 	
 }

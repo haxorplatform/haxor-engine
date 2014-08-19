@@ -79,7 +79,7 @@ class Texture extends Resource
 	 * Returns the type of texture (2D,Cube,RTT,...)
 	 */
 	public var type(get_type, null):TextureType;
-	private inline function get_type():TextureType { return TextureType.None; }
+	private function get_type():TextureType { return TextureType.None; }
 	
 	/**
 	 * Internal var to distribute this texture in a given 'active' slot.
@@ -100,7 +100,6 @@ class Texture extends Resource
 		m_height 		= 0;		
 		m_aniso 		= 0;		
 		_cid_			= EngineContext.texture.tid++;		
-		EngineContext.texture.Create(this);
 	}
 	
 	/**

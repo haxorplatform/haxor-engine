@@ -6,8 +6,10 @@
 #endif
 
 #include <haxor/core/Resource.h>
+#include <haxor/core/IRenderable.h>
 #include <haxor/core/IUpdateable.h>
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,IRenderable)
 HX_DECLARE_CLASS2(haxor,core,IUpdateable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS2(haxor,thread,Activity)
@@ -20,12 +22,12 @@ class HXCPP_CLASS_ATTRIBUTES  Activity_obj : public ::haxor::core::Resource_obj{
 		typedef ::haxor::core::Resource_obj super;
 		typedef Activity_obj OBJ_;
 		Activity_obj();
-		Void __construct(Dynamic p_callback,hx::Null< bool >  __o_p_threaded);
+		Void __construct(Dynamic p_callback,hx::Null< bool >  __o_p_threaded,hx::Null< bool >  __o_p_graphics_context);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< Activity_obj > __new(Dynamic p_callback,hx::Null< bool >  __o_p_threaded);
+		static hx::ObjectPtr< Activity_obj > __new(Dynamic p_callback,hx::Null< bool >  __o_p_threaded,hx::Null< bool >  __o_p_graphics_context);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~Activity_obj();
@@ -37,6 +39,8 @@ class HXCPP_CLASS_ATTRIBUTES  Activity_obj : public ::haxor::core::Resource_obj{
 		void __Visit(HX_VISIT_PARAMS);
 		inline operator ::haxor::core::IUpdateable_obj *()
 			{ return new ::haxor::core::IUpdateable_delegate_< Activity_obj >(this); }
+		inline operator ::haxor::core::IRenderable_obj *()
+			{ return new ::haxor::core::IRenderable_delegate_< Activity_obj >(this); }
 		hx::Object *__ToInterface(const hx::type_info &inType);
 		::String __ToString() const { return HX_CSTRING("Activity"); }
 
@@ -54,6 +58,12 @@ class HXCPP_CLASS_ATTRIBUTES  Activity_obj : public ::haxor::core::Resource_obj{
 
 		virtual Void OnUpdate( );
 		Dynamic OnUpdate_dyn();
+
+		virtual Void OnRender( );
+		Dynamic OnRender_dyn();
+
+		virtual Void OnRun( );
+		Dynamic OnRun_dyn();
 
 		static ::haxor::thread::Activity Iterate( int p_offset,int p_length,Dynamic p_callback,hx::Null< int >  p_step,hx::Null< bool >  p_threaded);
 		static Dynamic Iterate_dyn();

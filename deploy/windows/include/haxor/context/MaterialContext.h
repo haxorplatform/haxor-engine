@@ -9,6 +9,7 @@ HX_DECLARE_CLASS2(haxor,context,MaterialContext)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
+HX_DECLARE_CLASS3(haxor,graphics,material,MaterialUniform)
 HX_DECLARE_CLASS3(haxor,graphics,material,Shader)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,MeshAttrib)
 namespace haxor{
@@ -39,11 +40,13 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 
 		int mid;
 		int sid;
+		int uid;
 		Array< int > vertex_shaders;
 		Array< int > fragment_shaders;
 		::haxor::graphics::material::Shader error_shader;
 		Array< int > programs;
 		Array< ::Dynamic > locations;
+		Array< ::Dynamic > uniforms;
 		::haxor::graphics::material::Material current;
 		bool ztest;
 		int zfunc;
@@ -66,6 +69,12 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 		virtual Void InitializeShader( ::haxor::graphics::material::Shader s);
 		Dynamic InitializeShader_dyn();
 
+		virtual Void CreateUniform( ::haxor::graphics::material::Material m,::haxor::graphics::material::MaterialUniform u);
+		Dynamic CreateUniform_dyn();
+
+		virtual Void DestroyUniform( ::haxor::graphics::material::Material m,::haxor::graphics::material::MaterialUniform u);
+		Dynamic DestroyUniform_dyn();
+
 		virtual ::String CreateCompileShader( ::haxor::graphics::material::Shader s,int t,Array< int > c);
 		Dynamic CreateCompileShader_dyn();
 
@@ -80,6 +89,12 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 
 		virtual Void Bind( ::haxor::graphics::material::Material m);
 		Dynamic Bind_dyn();
+
+		virtual Void ApplyFloatUniform( int p_location,::haxor::graphics::material::MaterialUniform p_uniform);
+		Dynamic ApplyFloatUniform_dyn();
+
+		virtual Void ApplyIntUniform( int p_location,::haxor::graphics::material::MaterialUniform p_uniform);
+		Dynamic ApplyIntUniform_dyn();
 
 		virtual Void Unbind( );
 		Dynamic Unbind_dyn();

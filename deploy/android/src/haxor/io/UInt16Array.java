@@ -17,10 +17,10 @@ public  class UInt16Array extends haxor.io.Buffer
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_UInt16Array(haxor.io.UInt16Array __temp_me33839, int p_length)
+	public static   void __hx_ctor_haxor_io_UInt16Array(haxor.io.UInt16Array __temp_me42395, int p_length)
 	{
-		haxor.io.Buffer.__hx_ctor_haxor_io_Buffer(__temp_me33839, p_length);
-		__temp_me33839.aux = __temp_me33839.m_buffer.asShortBuffer();
+		haxor.io.Buffer.__hx_ctor_haxor_io_Buffer(__temp_me42395, p_length);
+		__temp_me42395.aux = __temp_me42395.m_buffer.asShortBuffer();
 	}
 	
 	
@@ -66,29 +66,35 @@ public  class UInt16Array extends haxor.io.Buffer
 	
 	public   void SetRange(haxe.root.Array<java.lang.Object> p_data, java.lang.Object p_offset)
 	{
-		int __temp_p_offset33838 = ( (( p_offset == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p_offset)) )) );
+		int __temp_p_offset42394 = ( (( p_offset == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p_offset)) )) );
 		int _g1 = 0;
 		int _g = p_data.length;
 		while (( _g1 < _g ))
 		{
 			int i = _g1++;
-			this.Set(( i + __temp_p_offset33838 ), ((int) (haxe.lang.Runtime.toInt(p_data.__get(i))) ));
+			this.Set(( i + __temp_p_offset42394 ), ((int) (haxe.lang.Runtime.toInt(p_data.__get(i))) ));
 		}
 		
+	}
+	
+	
+	@Override public   void SetViewSlice(int p_start, int p_length)
+	{
+		super.SetViewSlice(p_start, p_length);
 	}
 	
 	
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef34051 = true;
+			boolean __temp_executeDef42646 = true;
 			switch (field.hashCode())
 			{
 				case 96964:
 				{
 					if (field.equals("aux")) 
 					{
-						__temp_executeDef34051 = false;
+						__temp_executeDef42646 = false;
 						this.aux = ((java.nio.ShortBuffer) (value) );
 						return value;
 					}
@@ -99,7 +105,7 @@ public  class UInt16Array extends haxor.io.Buffer
 				
 			}
 			
-			if (__temp_executeDef34051) 
+			if (__temp_executeDef42646) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -116,15 +122,15 @@ public  class UInt16Array extends haxor.io.Buffer
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef34052 = true;
+			boolean __temp_executeDef42647 = true;
 			switch (field.hashCode())
 			{
-				case 1467637275:
+				case 119371723:
 				{
-					if (field.equals("SetRange")) 
+					if (field.equals("SetViewSlice")) 
 					{
-						__temp_executeDef34052 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetRange"))) );
+						__temp_executeDef42647 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetViewSlice"))) );
 					}
 					
 					break;
@@ -135,7 +141,7 @@ public  class UInt16Array extends haxor.io.Buffer
 				{
 					if (field.equals("aux")) 
 					{
-						__temp_executeDef34052 = false;
+						__temp_executeDef42647 = false;
 						return this.aux;
 					}
 					
@@ -143,12 +149,12 @@ public  class UInt16Array extends haxor.io.Buffer
 				}
 				
 				
-				case 83010:
+				case 1467637275:
 				{
-					if (field.equals("Set")) 
+					if (field.equals("SetRange")) 
 					{
-						__temp_executeDef34052 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
+						__temp_executeDef42647 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetRange"))) );
 					}
 					
 					break;
@@ -159,8 +165,20 @@ public  class UInt16Array extends haxor.io.Buffer
 				{
 					if (field.equals("get_bytesPerElement")) 
 					{
-						__temp_executeDef34052 = false;
+						__temp_executeDef42647 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_bytesPerElement"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 83010:
+				{
+					if (field.equals("Set")) 
+					{
+						__temp_executeDef42647 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
 					break;
@@ -171,7 +189,7 @@ public  class UInt16Array extends haxor.io.Buffer
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef34052 = false;
+						__temp_executeDef42647 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Get"))) );
 					}
 					
@@ -181,7 +199,7 @@ public  class UInt16Array extends haxor.io.Buffer
 				
 			}
 			
-			if (__temp_executeDef34052) 
+			if (__temp_executeDef42647) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -198,14 +216,15 @@ public  class UInt16Array extends haxor.io.Buffer
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef34053 = true;
-			switch (field.hashCode())
+			int __temp_hash42649 = field.hashCode();
+			boolean __temp_executeDef42648 = true;
+			switch (__temp_hash42649)
 			{
-				case -829503743:
+				case 119371723:case -829503743:
 				{
-					if (field.equals("get_bytesPerElement")) 
+					if (( (( ( __temp_hash42649 == 119371723 ) && field.equals("SetViewSlice") )) || field.equals("get_bytesPerElement") )) 
 					{
-						__temp_executeDef34053 = false;
+						__temp_executeDef42648 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -217,7 +236,7 @@ public  class UInt16Array extends haxor.io.Buffer
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef34053 = false;
+						__temp_executeDef42648 = false;
 						return this.Get(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -229,7 +248,7 @@ public  class UInt16Array extends haxor.io.Buffer
 				{
 					if (field.equals("SetRange")) 
 					{
-						__temp_executeDef34053 = false;
+						__temp_executeDef42648 = false;
 						this.SetRange(((haxe.root.Array<java.lang.Object>) (dynargs.__get(0)) ), dynargs.__get(1));
 					}
 					
@@ -241,7 +260,7 @@ public  class UInt16Array extends haxor.io.Buffer
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef34053 = false;
+						__temp_executeDef42648 = false;
 						this.Set(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -251,7 +270,7 @@ public  class UInt16Array extends haxor.io.Buffer
 				
 			}
 			
-			if (__temp_executeDef34053) 
+			if (__temp_executeDef42648) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

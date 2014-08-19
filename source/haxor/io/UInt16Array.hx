@@ -8,6 +8,7 @@ import haxe.io.Bytes;
  * Class that describes a set of bytes represented as 2 byte ints.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
+@:allow(haxor)
 class UInt16Array extends Buffer
 {
 	/**
@@ -23,7 +24,7 @@ class UInt16Array extends Buffer
 	}
 	
 	#if html
-	private var aux : js.html.Uint16Array;
+	//private var aux : js.html.Uint16Array;
 	#end
 	
 	#if android
@@ -61,7 +62,8 @@ class UInt16Array extends Buffer
 	public function Get(p_index : Int):Int
 	{
 		#if html
-		return aux[p_index];		
+		var i16 : js.html.Uint16Array=cast aux;
+		return i16[p_index];		
 		#end
 		
 		#if windows
@@ -90,7 +92,8 @@ class UInt16Array extends Buffer
 	public function Set(p_index : Int, p_value : Int):Void
 	{
 		#if html
-		aux[p_index] = p_value;
+		var i16 : js.html.Uint16Array=cast aux;
+		i16[p_index] = p_value;
 		#end
 		
 		#if windows
@@ -119,4 +122,19 @@ class UInt16Array extends Buffer
 		for (i in 0...p_data.length) Set(i + p_offset, p_data[i]);
 	}
 	
+	/**
+	 * Adjust the slice selection for int16
+	 * @param	p_start
+	 * @param	p_length
+	 */
+	override function SetViewSlice(p_start:Int, p_length:Int):Void 
+	{
+		super.SetViewSlice(p_start, p_length);		
+		#if html
+		var i0 : Int = p_start;
+		var i1 : Int = i0 + p_length;
+		var i16 : js.html.Uint16Array = cast aux;		
+		aux = i16.subarray(i0, i1);		
+		#end
+	}
 }

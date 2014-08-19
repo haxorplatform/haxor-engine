@@ -11,6 +11,7 @@ import java.lang.Thread;
 
 import haxor.context.EngineContext;
 import haxor.core.Console;
+import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
 import haxor.core.Time;
@@ -19,7 +20,7 @@ import haxor.core.Time;
  * Class that describes an operation to be run in the execution pool.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
-class Activity extends Resource implements IUpdateable
+class Activity extends Resource implements IUpdateable implements IRenderable
 #if java
 implements Runnable
 #end
@@ -104,7 +105,7 @@ implements Runnable
 	/**
 	 * Creates a new activity handled by the informed callback.
 	 */
-	public function new(p_callback : Float->Bool,p_threaded : Bool=false) :Void
+	public function new(p_callback : Float->Bool, p_threaded : Bool = false, p_graphics_context:Bool = false) :Void
 	{
 		super();
 		if (p_callback == null) { return; }
@@ -116,9 +117,18 @@ implements Runnable
 		p_threaded = false;
 		#end
 		
+		if (p_graphics_context) p_threaded = false;
+		
 		if (!p_threaded)
 		{
-			EngineContext.update.Add(this);
+			if (p_graphics_context)
+			{
+				EngineContext.render.Add(this);
+			}
+			else
+			{
+				EngineContext.update.Add(this);
+			}
 		}
 		else
 		{
@@ -150,10 +160,20 @@ implements Runnable
 	}
 	
 	/**
-	 * Execution loop.
+	 * Execution loop for update based activities.
 	 */
-	public function OnUpdate():Void
-	{		
+	public function OnUpdate():Void { OnRun(); }
+	
+	/**
+	 * Execution loop for render based activities (when graphics context is needed.
+	 */
+	public function OnRender():Void { OnRun(); }
+	
+	/**
+	 * Main execution loop.
+	 */
+	private function OnRun():Void
+	{
 		if (m_cancelled) { Resource.Destroy(this); return; }
 		m_elapsed = Time.elapsed - m_time_start;
 		if (!m_callback(m_elapsed))
