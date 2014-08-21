@@ -4,17 +4,17 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class TextureContext_UploadTexture_276__Fun extends haxe.lang.Function
 {
-	public    TextureContext_UploadTexture_276__Fun(haxe.root.Array<java.lang.Object> py, haxe.root.Array<haxe.lang.Function> p_on_complete1, haxe.root.Array<haxor.graphics.texture.Bitmap> b, haxe.root.Array<java.lang.Object> chn_type, haxe.root.Array<haxor.graphics.texture.Texture2D> p_texture1, haxe.root.Array<java.lang.Object> steps, haxe.root.Array<haxor.context.TextureContext> _g, haxe.root.Array<java.lang.Object> chn_fmt)
+	public    TextureContext_UploadTexture_276__Fun(haxe.root.Array<java.lang.Object> py, haxe.root.Array<haxor.context.TextureContext> _g, haxe.root.Array<java.lang.Object> steps, haxe.root.Array<java.lang.Object> chn_fmt, haxe.root.Array<haxe.lang.Function> p_on_complete1, haxe.root.Array<haxor.graphics.texture.Bitmap> b, haxe.root.Array<java.lang.Object> chn_type, haxe.root.Array<haxor.graphics.texture.Texture2D> p_texture1)
 	{
 		super(1, 0);
 		this.py = py;
+		this._g = _g;
+		this.steps = steps;
+		this.chn_fmt = chn_fmt;
 		this.p_on_complete1 = p_on_complete1;
 		this.b = b;
 		this.chn_type = chn_type;
 		this.p_texture1 = p_texture1;
-		this.steps = steps;
-		this._g = _g;
-		this.chn_fmt = chn_fmt;
 	}
 	
 	
@@ -33,7 +33,7 @@ public  class TextureContext_UploadTexture_276__Fun extends haxe.lang.Function
 		
 		if (( this.p_texture1.__get(0) == this._g.__get(0).bind )) 
 		{
-			java.lang.Object __temp_expr42580 = null;
+			java.lang.Object __temp_expr54310 = null;
 		}
 		 else 
 		{
@@ -80,11 +80,11 @@ public  class TextureContext_UploadTexture_276__Fun extends haxe.lang.Function
 				if (( ((int) (haxe.lang.Runtime.toInt(this.py.__get(0))) ) < 0 )) 
 				{
 					{
-						int __temp_arrIndex42433 = 0;
-						int __temp_arrVal42431 = ((int) (haxe.lang.Runtime.toInt(this.py.__get(__temp_arrIndex42433))) );
-						int __temp_arrRet42432 = __temp_arrVal42431++;
-						this.py.__set(__temp_arrIndex42433, __temp_arrVal42431);
-						int __temp_expr42581 = __temp_arrRet42432;
+						int __temp_arrIndex54163 = 0;
+						int __temp_arrVal54161 = ((int) (haxe.lang.Runtime.toInt(this.py.__get(__temp_arrIndex54163))) );
+						int __temp_arrRet54162 = __temp_arrVal54161++;
+						this.py.__set(__temp_arrIndex54163, __temp_arrVal54161);
+						int __temp_expr54311 = __temp_arrRet54162;
 					}
 					
 					continue;
@@ -110,11 +110,11 @@ public  class TextureContext_UploadTexture_276__Fun extends haxe.lang.Function
 				
 				this.b.__get(0).get_buffer().ResetSlice();
 				{
-					int __temp_arrIndex42436 = 0;
-					int __temp_arrVal42434 = ((int) (haxe.lang.Runtime.toInt(this.py.__get(__temp_arrIndex42436))) );
-					int __temp_arrRet42435 = __temp_arrVal42434++;
-					this.py.__set(__temp_arrIndex42436, __temp_arrVal42434);
-					int __temp_expr42582 = __temp_arrRet42435;
+					int __temp_arrIndex54166 = 0;
+					int __temp_arrVal54164 = ((int) (haxe.lang.Runtime.toInt(this.py.__get(__temp_arrIndex54166))) );
+					int __temp_arrRet54165 = __temp_arrVal54164++;
+					this.py.__set(__temp_arrIndex54166, __temp_arrVal54164);
+					int __temp_expr54312 = __temp_arrRet54165;
 				}
 				
 			}
@@ -127,6 +127,12 @@ public  class TextureContext_UploadTexture_276__Fun extends haxe.lang.Function
 	
 	public  haxe.root.Array<java.lang.Object> py;
 	
+	public  haxe.root.Array<haxor.context.TextureContext> _g;
+	
+	public  haxe.root.Array<java.lang.Object> steps;
+	
+	public  haxe.root.Array<java.lang.Object> chn_fmt;
+	
 	public  haxe.root.Array<haxe.lang.Function> p_on_complete1;
 	
 	public  haxe.root.Array<haxor.graphics.texture.Bitmap> b;
@@ -134,12 +140,6 @@ public  class TextureContext_UploadTexture_276__Fun extends haxe.lang.Function
 	public  haxe.root.Array<java.lang.Object> chn_type;
 	
 	public  haxe.root.Array<haxor.graphics.texture.Texture2D> p_texture1;
-	
-	public  haxe.root.Array<java.lang.Object> steps;
-	
-	public  haxe.root.Array<haxor.context.TextureContext> _g;
-	
-	public  haxe.root.Array<java.lang.Object> chn_fmt;
 	
 }
 

@@ -18,7 +18,7 @@ public  class Screen extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_Screen(haxor.graphics.Screen __temp_me42373)
+	public static   void __hx_ctor_haxor_graphics_Screen(haxor.graphics.Screen __temp_me54091)
 	{
 		{
 		}

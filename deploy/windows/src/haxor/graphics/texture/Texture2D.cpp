@@ -36,25 +36,35 @@ namespace texture{
 
 Void Texture2D_obj::__construct(int p_width,int p_height,::haxor::graphics::PixelFormat p_format)
 {
-HX_STACK_FRAME("haxor.graphics.texture.Texture2D","new",0x8f6670b5,"haxor.graphics.texture.Texture2D.new","haxor/graphics/texture/Texture2D.hx",61,0x654901bc)
+HX_STACK_FRAME("haxor.graphics.texture.Texture2D","new",0x8f6670b5,"haxor.graphics.texture.Texture2D.new","haxor/graphics/texture/Texture2D.hx",78,0x654901bc)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_width,"p_width")
 HX_STACK_ARG(p_height,"p_height")
 HX_STACK_ARG(p_format,"p_format")
 {
-	HX_STACK_LINE(62)
+	HX_STACK_LINE(79)
 	super::__construct();
-	HX_STACK_LINE(63)
+	HX_STACK_LINE(80)
 	this->m_format = p_format;
-	HX_STACK_LINE(64)
+	HX_STACK_LINE(81)
 	this->m_width = p_width;
-	HX_STACK_LINE(65)
+	HX_STACK_LINE(82)
 	this->m_height = p_height;
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(83)
+	if (((p_width <= (int)0))){
+		HX_STACK_LINE(83)
+		return null();
+	}
+	HX_STACK_LINE(84)
+	if (((p_height <= (int)0))){
+		HX_STACK_LINE(84)
+		return null();
+	}
+	HX_STACK_LINE(85)
 	::haxor::graphics::texture::Bitmap _g = ::haxor::graphics::texture::Bitmap_obj::__new(p_width,p_height,p_format);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(85)
 	this->m_data = _g;
-	HX_STACK_LINE(67)
+	HX_STACK_LINE(86)
 	::haxor::context::EngineContext_obj::texture->Create(hx::ObjectPtr<OBJ_>(this));
 }
 ;
@@ -75,9 +85,9 @@ Dynamic Texture2D_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::graphics::texture::Bitmap Texture2D_obj::get_data( ){
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_data",0x67dd1d3e,"haxor.graphics.texture.Texture2D.get_data","haxor/graphics/texture/Texture2D.hx",45,0x654901bc)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_data",0x67dd1d3e,"haxor.graphics.texture.Texture2D.get_data","haxor/graphics/texture/Texture2D.hx",62,0x654901bc)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(45)
+	HX_STACK_LINE(62)
 	return this->m_data;
 }
 
@@ -85,21 +95,21 @@ Dynamic Texture2D_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_data,return )
 
 ::haxor::graphics::TextureType Texture2D_obj::get_type( ){
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_type",0x7282b9ce,"haxor.graphics.texture.Texture2D.get_type","haxor/graphics/texture/Texture2D.hx",52,0x654901bc)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_type",0x7282b9ce,"haxor.graphics.texture.Texture2D.get_type","haxor/graphics/texture/Texture2D.hx",69,0x654901bc)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(52)
+	HX_STACK_LINE(69)
 	return ::haxor::graphics::TextureType_obj::Texture2D;
 }
 
 
 Void Texture2D_obj::Upload( hx::Null< int >  __o_p_steps,Dynamic p_on_complete){
 int p_steps = __o_p_steps.Default(200);
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","Upload",0x636ec0ec,"haxor.graphics.texture.Texture2D.Upload","haxor/graphics/texture/Texture2D.hx",77,0x654901bc)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","Upload",0x636ec0ec,"haxor.graphics.texture.Texture2D.Upload","haxor/graphics/texture/Texture2D.hx",96,0x654901bc)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_steps,"p_steps")
 	HX_STACK_ARG(p_on_complete,"p_on_complete")
 {
-		HX_STACK_LINE(77)
+		HX_STACK_LINE(96)
 		::haxor::context::EngineContext_obj::texture->UploadTexture(hx::ObjectPtr<OBJ_>(this),p_steps,p_on_complete);
 	}
 return null();
@@ -160,6 +170,32 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_red,return )
 
 ::haxor::graphics::texture::Texture2D Texture2D_obj::m_red;
 
+::haxor::graphics::texture::Texture2D Texture2D_obj::FromBitmap( ::haxor::graphics::texture::Bitmap p_bitmap,hx::Null< bool >  __o_p_apply){
+bool p_apply = __o_p_apply.Default(true);
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","FromBitmap",0x07425d64,"haxor.graphics.texture.Texture2D.FromBitmap","haxor/graphics/texture/Texture2D.hx",48,0x654901bc)
+	HX_STACK_ARG(p_bitmap,"p_bitmap")
+	HX_STACK_ARG(p_apply,"p_apply")
+{
+		HX_STACK_LINE(49)
+		::haxor::graphics::texture::Texture2D t = ::haxor::graphics::texture::Texture2D_obj::__new((int)0,(int)0,p_bitmap->m_format);		HX_STACK_VAR(t,"t");
+		HX_STACK_LINE(50)
+		t->m_data = p_bitmap;
+		HX_STACK_LINE(51)
+		t->m_width = p_bitmap->m_width;
+		HX_STACK_LINE(52)
+		t->m_height = p_bitmap->m_height;
+		HX_STACK_LINE(53)
+		::haxor::context::EngineContext_obj::texture->Create(t);
+		HX_STACK_LINE(54)
+		t->Apply();
+		HX_STACK_LINE(55)
+		return t;
+	}
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Texture2D_obj,FromBitmap,return )
+
 
 Texture2D_obj::Texture2D_obj()
 {
@@ -208,6 +244,9 @@ Dynamic Texture2D_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 9:
 		if (HX_FIELD_EQ(inName,"get_white") ) { return get_white_dyn(); }
+		break;
+	case 10:
+		if (HX_FIELD_EQ(inName,"FromBitmap") ) { return FromBitmap_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -242,6 +281,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("m_white"),
 	HX_CSTRING("get_red"),
 	HX_CSTRING("m_red"),
+	HX_CSTRING("FromBitmap"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE

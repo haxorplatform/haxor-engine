@@ -18,7 +18,7 @@ public  class Graphics extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me42372)
+	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me54090)
 	{
 		{
 		}

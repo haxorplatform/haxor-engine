@@ -1,7 +1,37 @@
 #include <hxcpp.h>
 
+#ifndef INCLUDED_haxor_core_IDisposable
+#include <haxor/core/IDisposable.h>
+#endif
+#ifndef INCLUDED_haxor_core_IRenderable
+#include <haxor/core/IRenderable.h>
+#endif
+#ifndef INCLUDED_haxor_core_IUpdateable
+#include <haxor/core/IUpdateable.h>
+#endif
+#ifndef INCLUDED_haxor_core_Resource
+#include <haxor/core/Resource.h>
+#endif
+#ifndef INCLUDED_haxor_graphics_texture_Bitmap
+#include <haxor/graphics/texture/Bitmap.h>
+#endif
 #ifndef INCLUDED_haxor_net_Web
 #include <haxor/net/Web.h>
+#endif
+#ifndef INCLUDED_haxor_platform_windows_BitmapLoader
+#include <haxor/platform/windows/BitmapLoader.h>
+#endif
+#ifndef INCLUDED_haxor_platform_windows_HTTPLoader
+#include <haxor/platform/windows/HTTPLoader.h>
+#endif
+#ifndef INCLUDED_haxor_platform_windows_HTTPRequest
+#include <haxor/platform/windows/HTTPRequest.h>
+#endif
+#ifndef INCLUDED_haxor_thread_Activity
+#include <haxor/thread/Activity.h>
+#endif
+#ifndef INCLUDED_haxor_thread_Task
+#include <haxor/thread/Task.h>
 #endif
 namespace haxor{
 namespace net{
@@ -28,15 +58,31 @@ Dynamic Web_obj::__Create(hx::DynamicArray inArgs)
 
 Void Web_obj::Load( ::String p_url,Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.net.Web","Load",0x1fa4e45d,"haxor.net.Web.Load","haxor/net/Web.hx",27,0x66abd769)
+		HX_STACK_FRAME("haxor.net.Web","Load",0x1fa4e45d,"haxor.net.Web.Load","haxor/net/Web.hx",35,0x66abd769)
 		HX_STACK_ARG(p_url,"p_url")
 		HX_STACK_ARG(p_callback,"p_callback")
+		HX_STACK_LINE(35)
+		::haxor::platform::windows::HTTPLoader ld = ::haxor::platform::windows::HTTPLoader_obj::__new(p_url,false,p_callback);		HX_STACK_VAR(ld,"ld");
 	}
 return null();
 }
 
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,Load,(void))
+
+Void Web_obj::LoadImg( ::String p_url,Dynamic p_callback){
+{
+		HX_STACK_FRAME("haxor.net.Web","LoadImg",0x313237a6,"haxor.net.Web.LoadImg","haxor/net/Web.hx",42,0x66abd769)
+		HX_STACK_ARG(p_url,"p_url")
+		HX_STACK_ARG(p_callback,"p_callback")
+		HX_STACK_LINE(42)
+		::haxor::platform::windows::BitmapLoader ld = ::haxor::platform::windows::BitmapLoader_obj::__new(p_url,p_callback);		HX_STACK_VAR(ld,"ld");
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,LoadImg,(void))
 
 
 Web_obj::Web_obj()
@@ -49,6 +95,9 @@ Dynamic Web_obj::__Field(const ::String &inName,bool inCallProp)
 	case 4:
 		if (HX_FIELD_EQ(inName,"root") ) { return root; }
 		if (HX_FIELD_EQ(inName,"Load") ) { return Load_dyn(); }
+		break;
+	case 7:
+		if (HX_FIELD_EQ(inName,"LoadImg") ) { return LoadImg_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -70,6 +119,7 @@ void Web_obj::__GetFields(Array< ::String> &outFields)
 static ::String sStaticFields[] = {
 	HX_CSTRING("root"),
 	HX_CSTRING("Load"),
+	HX_CSTRING("LoadImg"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE

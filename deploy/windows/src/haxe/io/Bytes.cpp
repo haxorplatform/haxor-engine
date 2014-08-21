@@ -3,6 +3,9 @@
 #ifndef INCLUDED_haxe_io_Bytes
 #include <haxe/io/Bytes.h>
 #endif
+#ifndef INCLUDED_haxe_io_Error
+#include <haxe/io/Error.h>
+#endif
 namespace haxe{
 namespace io{
 
@@ -35,6 +38,56 @@ Dynamic Bytes_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct(inArgs[0],inArgs[1]);
 	return result;}
 
+::haxe::io::Bytes Bytes_obj::sub( int pos,int len){
+	HX_STACK_FRAME("haxe.io.Bytes","sub",0x393cae9d,"haxe.io.Bytes.sub","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/haxe/io/Bytes.hx",127,0x9e78d080)
+	HX_STACK_THIS(this)
+	HX_STACK_ARG(pos,"pos")
+	HX_STACK_ARG(len,"len")
+	HX_STACK_LINE(129)
+	if (((bool((bool((pos < (int)0)) || bool((len < (int)0)))) || bool(((pos + len) > this->length))))){
+		HX_STACK_LINE(129)
+		HX_STACK_DO_THROW(::haxe::io::Error_obj::OutsideBounds);
+	}
+	HX_STACK_LINE(149)
+	Array< unsigned char > _g = this->b->slice(pos,(pos + len));		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(149)
+	return ::haxe::io::Bytes_obj::__new(len,_g);
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC2(Bytes_obj,sub,return )
+
+::String Bytes_obj::getString( int pos,int len){
+	HX_STACK_FRAME("haxe.io.Bytes","getString",0xa16beae4,"haxe.io.Bytes.getString","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/haxe/io/Bytes.hx",261,0x9e78d080)
+	HX_STACK_THIS(this)
+	HX_STACK_ARG(pos,"pos")
+	HX_STACK_ARG(len,"len")
+	HX_STACK_LINE(263)
+	if (((bool((bool((pos < (int)0)) || bool((len < (int)0)))) || bool(((pos + len) > this->length))))){
+		HX_STACK_LINE(263)
+		HX_STACK_DO_THROW(::haxe::io::Error_obj::OutsideBounds);
+	}
+	HX_STACK_LINE(273)
+	::String result = HX_CSTRING("");		HX_STACK_VAR(result,"result");
+	HX_STACK_LINE(274)
+	::__hxcpp_string_of_bytes(this->b,result,pos,len);
+	HX_STACK_LINE(275)
+	return result;
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC2(Bytes_obj,getString,return )
+
+::String Bytes_obj::toString( ){
+	HX_STACK_FRAME("haxe.io.Bytes","toString",0x0291226f,"haxe.io.Bytes.toString","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/haxe/io/Bytes.hx",335,0x9e78d080)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(335)
+	return this->getString((int)0,this->length);
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Bytes_obj,toString,return )
+
 ::haxe::io::Bytes Bytes_obj::alloc( int length){
 	HX_STACK_FRAME("haxe.io.Bytes","alloc",0x2199ead2,"haxe.io.Bytes.alloc","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/haxe/io/Bytes.hx",357,0x9e78d080)
 	HX_STACK_ARG(length,"length")
@@ -51,6 +104,20 @@ Dynamic Bytes_obj::__Create(hx::DynamicArray inArgs)
 
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Bytes_obj,alloc,return )
+
+::haxe::io::Bytes Bytes_obj::ofString( ::String s){
+	HX_STACK_FRAME("haxe.io.Bytes","ofString",0x6e53bb0b,"haxe.io.Bytes.ofString","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/haxe/io/Bytes.hx",382,0x9e78d080)
+	HX_STACK_ARG(s,"s")
+	HX_STACK_LINE(393)
+	Array< unsigned char > a = Array_obj< unsigned char >::__new();		HX_STACK_VAR(a,"a");
+	HX_STACK_LINE(394)
+	::__hxcpp_bytes_of_string(a,s);
+	HX_STACK_LINE(395)
+	return ::haxe::io::Bytes_obj::__new(a->length,a);
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(Bytes_obj,ofString,return )
 
 
 Bytes_obj::Bytes_obj()
@@ -77,11 +144,21 @@ Dynamic Bytes_obj::__Field(const ::String &inName,bool inCallProp)
 	case 1:
 		if (HX_FIELD_EQ(inName,"b") ) { return b; }
 		break;
+	case 3:
+		if (HX_FIELD_EQ(inName,"sub") ) { return sub_dyn(); }
+		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"alloc") ) { return alloc_dyn(); }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"length") ) { return length; }
+		break;
+	case 8:
+		if (HX_FIELD_EQ(inName,"ofString") ) { return ofString_dyn(); }
+		if (HX_FIELD_EQ(inName,"toString") ) { return toString_dyn(); }
+		break;
+	case 9:
+		if (HX_FIELD_EQ(inName,"getString") ) { return getString_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -107,6 +184,7 @@ void Bytes_obj::__GetFields(Array< ::String> &outFields)
 
 static ::String sStaticFields[] = {
 	HX_CSTRING("alloc"),
+	HX_CSTRING("ofString"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE
@@ -120,6 +198,9 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 static ::String sMemberFields[] = {
 	HX_CSTRING("length"),
 	HX_CSTRING("b"),
+	HX_CSTRING("sub"),
+	HX_CSTRING("getString"),
+	HX_CSTRING("toString"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

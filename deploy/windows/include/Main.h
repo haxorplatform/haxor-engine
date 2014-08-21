@@ -19,6 +19,9 @@ HX_DECLARE_CLASS2(haxor,core,IUpdateable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
+HX_DECLARE_CLASS3(haxor,graphics,texture,Bitmap)
+HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
+HX_DECLARE_CLASS3(haxor,graphics,texture,Texture2D)
 HX_DECLARE_CLASS3(haxor,platform,windows,WinApplication)
 
 
@@ -52,6 +55,8 @@ class HXCPP_CLASS_ATTRIBUTES  Main_obj : public ::haxor::core::Application_obj{
 		::haxor::graphics::mesh::Mesh mesh;
 		::haxor::graphics::material::Material mat;
 		::String ss;
+		::haxor::graphics::texture::Texture2D tex;
+		::haxor::graphics::texture::Bitmap bmp;
 		virtual bool Load( );
 
 		virtual Void Initialize( );

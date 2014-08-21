@@ -35,6 +35,19 @@ Dynamic Lib_obj::load( ::String lib,::String prim,int nargs){
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC3(Lib_obj,load,return )
 
+Void Lib_obj::rethrow( Dynamic inExp){
+{
+		HX_STACK_FRAME("cpp.Lib","rethrow",0x3bf8427f,"cpp.Lib.rethrow","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/Lib.hx",64,0xe44b30f2)
+		HX_STACK_ARG(inExp,"inExp")
+		HX_STACK_LINE(64)
+		HX_STACK_DO_THROW(inExp);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(Lib_obj,rethrow,(void))
+
 Void Lib_obj::println( Dynamic v){
 {
 		HX_STACK_FRAME("cpp.Lib","println",0xca016ddb,"cpp.Lib.println","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/Lib.hx",94,0xe44b30f2)
@@ -60,6 +73,7 @@ Dynamic Lib_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"load") ) { return load_dyn(); }
 		break;
 	case 7:
+		if (HX_FIELD_EQ(inName,"rethrow") ) { return rethrow_dyn(); }
 		if (HX_FIELD_EQ(inName,"println") ) { return println_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
@@ -77,6 +91,7 @@ void Lib_obj::__GetFields(Array< ::String> &outFields)
 
 static ::String sStaticFields[] = {
 	HX_CSTRING("load"),
+	HX_CSTRING("rethrow"),
 	HX_CSTRING("println"),
 	String(null()) };
 

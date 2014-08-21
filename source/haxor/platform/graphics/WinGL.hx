@@ -31,15 +31,7 @@ int     pf;
 
 ')
 
-@:buildXml('
-<target id="haxe" tool="linker" toolid="${haxelink}" output="${HAXE_OUTPUT}${DBG}">  
-  <lib name="gdi32.lib" if="windows"/>
-  <lib name="opengl32.lib" if="windows"/>
-  <lib name="kernel32.lib" if="windows"/>
-  <lib name="lib/glew32.lib" if="windows"/>
-</target>
 
-')
 
 
 /**

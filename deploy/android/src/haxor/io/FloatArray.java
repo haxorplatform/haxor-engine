@@ -17,10 +17,10 @@ public  class FloatArray extends haxor.io.Buffer
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_FloatArray(haxor.io.FloatArray __temp_me42391, int p_length)
+	public static   void __hx_ctor_haxor_io_FloatArray(haxor.io.FloatArray __temp_me54110, int p_length)
 	{
-		haxor.io.Buffer.__hx_ctor_haxor_io_Buffer(__temp_me42391, p_length);
-		__temp_me42391.aux = __temp_me42391.m_buffer.asFloatBuffer();
+		haxor.io.Buffer.__hx_ctor_haxor_io_Buffer(__temp_me54110, p_length);
+		__temp_me54110.aux = __temp_me54110.m_buffer.asFloatBuffer();
 	}
 	
 	
@@ -66,13 +66,13 @@ public  class FloatArray extends haxor.io.Buffer
 	
 	public   void SetRange(haxe.root.Array<java.lang.Object> p_data, java.lang.Object p_offset)
 	{
-		int __temp_p_offset42390 = ( (( p_offset == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p_offset)) )) );
+		int __temp_p_offset54109 = ( (( p_offset == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p_offset)) )) );
 		int _g1 = 0;
 		int _g = p_data.length;
 		while (( _g1 < _g ))
 		{
 			int i = _g1++;
-			this.Set(( i + __temp_p_offset42390 ), ((double) (haxe.lang.Runtime.toDouble(p_data.__get(i))) ));
+			this.Set(( i + __temp_p_offset54109 ), ((double) (haxe.lang.Runtime.toDouble(p_data.__get(i))) ));
 		}
 		
 	}
@@ -87,14 +87,14 @@ public  class FloatArray extends haxor.io.Buffer
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef42638 = true;
+			boolean __temp_executeDef54368 = true;
 			switch (field.hashCode())
 			{
 				case 96964:
 				{
 					if (field.equals("aux")) 
 					{
-						__temp_executeDef42638 = false;
+						__temp_executeDef54368 = false;
 						this.aux = ((java.nio.FloatBuffer) (value) );
 						return value;
 					}
@@ -105,7 +105,7 @@ public  class FloatArray extends haxor.io.Buffer
 				
 			}
 			
-			if (__temp_executeDef42638) 
+			if (__temp_executeDef54368) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -122,14 +122,14 @@ public  class FloatArray extends haxor.io.Buffer
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef42639 = true;
+			boolean __temp_executeDef54369 = true;
 			switch (field.hashCode())
 			{
 				case 119371723:
 				{
 					if (field.equals("SetViewSlice")) 
 					{
-						__temp_executeDef42639 = false;
+						__temp_executeDef54369 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetViewSlice"))) );
 					}
 					
@@ -141,7 +141,7 @@ public  class FloatArray extends haxor.io.Buffer
 				{
 					if (field.equals("get_bytesPerElement")) 
 					{
-						__temp_executeDef42639 = false;
+						__temp_executeDef54369 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_bytesPerElement"))) );
 					}
 					
@@ -153,7 +153,7 @@ public  class FloatArray extends haxor.io.Buffer
 				{
 					if (field.equals("SetRange")) 
 					{
-						__temp_executeDef42639 = false;
+						__temp_executeDef54369 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetRange"))) );
 					}
 					
@@ -165,7 +165,7 @@ public  class FloatArray extends haxor.io.Buffer
 				{
 					if (field.equals("aux")) 
 					{
-						__temp_executeDef42639 = false;
+						__temp_executeDef54369 = false;
 						return this.aux;
 					}
 					
@@ -177,7 +177,7 @@ public  class FloatArray extends haxor.io.Buffer
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef42639 = false;
+						__temp_executeDef54369 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
@@ -189,7 +189,7 @@ public  class FloatArray extends haxor.io.Buffer
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef42639 = false;
+						__temp_executeDef54369 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Get"))) );
 					}
 					
@@ -199,7 +199,7 @@ public  class FloatArray extends haxor.io.Buffer
 				
 			}
 			
-			if (__temp_executeDef42639) 
+			if (__temp_executeDef54369) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -216,15 +216,15 @@ public  class FloatArray extends haxor.io.Buffer
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash42641 = field.hashCode();
-			boolean __temp_executeDef42640 = true;
-			switch (__temp_hash42641)
+			int __temp_hash54371 = field.hashCode();
+			boolean __temp_executeDef54370 = true;
+			switch (__temp_hash54371)
 			{
 				case 119371723:case -829503743:
 				{
-					if (( (( ( __temp_hash42641 == 119371723 ) && field.equals("SetViewSlice") )) || field.equals("get_bytesPerElement") )) 
+					if (( (( ( __temp_hash54371 == 119371723 ) && field.equals("SetViewSlice") )) || field.equals("get_bytesPerElement") )) 
 					{
-						__temp_executeDef42640 = false;
+						__temp_executeDef54370 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -236,7 +236,7 @@ public  class FloatArray extends haxor.io.Buffer
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef42640 = false;
+						__temp_executeDef54370 = false;
 						return this.Get(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -248,7 +248,7 @@ public  class FloatArray extends haxor.io.Buffer
 				{
 					if (field.equals("SetRange")) 
 					{
-						__temp_executeDef42640 = false;
+						__temp_executeDef54370 = false;
 						this.SetRange(((haxe.root.Array<java.lang.Object>) (dynargs.__get(0)) ), dynargs.__get(1));
 					}
 					
@@ -260,7 +260,7 @@ public  class FloatArray extends haxor.io.Buffer
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef42640 = false;
+						__temp_executeDef54370 = false;
 						this.Set(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -270,7 +270,7 @@ public  class FloatArray extends haxor.io.Buffer
 				
 			}
 			
-			if (__temp_executeDef42640) 
+			if (__temp_executeDef54370) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

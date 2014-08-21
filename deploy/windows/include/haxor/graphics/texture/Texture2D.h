@@ -58,6 +58,9 @@ class HXCPP_CLASS_ATTRIBUTES  Texture2D_obj : public ::haxor::graphics::texture:
 		static Dynamic get_red_dyn();
 
 		static ::haxor::graphics::texture::Texture2D m_red;
+		static ::haxor::graphics::texture::Texture2D FromBitmap( ::haxor::graphics::texture::Bitmap p_bitmap,hx::Null< bool >  p_apply);
+		static Dynamic FromBitmap_dyn();
+
 };
 
 } // end namespace haxor

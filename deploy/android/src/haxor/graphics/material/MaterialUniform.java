@@ -18,20 +18,20 @@ public  class MaterialUniform extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_material_MaterialUniform(haxor.graphics.material.MaterialUniform __temp_me42375, java.lang.String p_name, boolean p_is_float, int p_length, int p_offset)
+	public static   void __hx_ctor_haxor_graphics_material_MaterialUniform(haxor.graphics.material.MaterialUniform __temp_me54093, java.lang.String p_name, boolean p_is_float, int p_length, int p_offset)
 	{
-		__temp_me42375.__cid = haxor.context.EngineContext.material.uid++;
-		__temp_me42375.__d = true;
-		__temp_me42375.name = p_name;
-		__temp_me42375.isFloat = p_is_float;
-		__temp_me42375.offset = p_offset;
+		__temp_me54093.__cid = haxor.context.EngineContext.material.uid++;
+		__temp_me54093.__d = true;
+		__temp_me54093.name = p_name;
+		__temp_me54093.isFloat = p_is_float;
+		__temp_me54093.offset = p_offset;
 		if (p_is_float) 
 		{
-			__temp_me42375.data = new haxor.io.FloatArray(((int) (p_length) ));
+			__temp_me54093.data = new haxor.io.FloatArray(((int) (p_length) ));
 		}
 		 else 
 		{
-			__temp_me42375.data = new haxor.io.Int32Array(((int) (p_length) ));
+			__temp_me54093.data = new haxor.io.Int32Array(((int) (p_length) ));
 		}
 		
 	}
@@ -66,14 +66,14 @@ public  class MaterialUniform extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef42591 = true;
+			boolean __temp_executeDef54321 = true;
 			switch (field.hashCode())
 			{
 				case -1019779949:
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef42591 = false;
+						__temp_executeDef54321 = false;
 						this.offset = ((int) (value) );
 						return value;
 					}
@@ -86,7 +86,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("__cid")) 
 					{
-						__temp_executeDef42591 = false;
+						__temp_executeDef54321 = false;
 						this.__cid = ((int) (value) );
 						return value;
 					}
@@ -97,7 +97,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef42591) 
+			if (__temp_executeDef54321) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -114,14 +114,14 @@ public  class MaterialUniform extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef42592 = true;
+			boolean __temp_executeDef54322 = true;
 			switch (field.hashCode())
 			{
 				case 2058932050:
 				{
 					if (field.equals("isFloat")) 
 					{
-						__temp_executeDef42592 = false;
+						__temp_executeDef54322 = false;
 						this.isFloat = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -134,7 +134,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("__cid")) 
 					{
-						__temp_executeDef42592 = false;
+						__temp_executeDef54322 = false;
 						this.__cid = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -147,7 +147,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("texture")) 
 					{
-						__temp_executeDef42592 = false;
+						__temp_executeDef54322 = false;
 						this.texture = ((haxor.graphics.texture.Texture) (value) );
 						return value;
 					}
@@ -160,7 +160,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("__d")) 
 					{
-						__temp_executeDef42592 = false;
+						__temp_executeDef54322 = false;
 						this.__d = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -173,7 +173,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef42592 = false;
+						__temp_executeDef54322 = false;
 						this.offset = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -186,7 +186,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef42592 = false;
+						__temp_executeDef54322 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -199,7 +199,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef42592 = false;
+						__temp_executeDef54322 = false;
 						this.data = ((haxor.io.Buffer) (value) );
 						return value;
 					}
@@ -210,7 +210,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef42592) 
+			if (__temp_executeDef54322) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -227,14 +227,14 @@ public  class MaterialUniform extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef42593 = true;
+			boolean __temp_executeDef54323 = true;
 			switch (field.hashCode())
 			{
 				case 2058932050:
 				{
 					if (field.equals("isFloat")) 
 					{
-						__temp_executeDef42593 = false;
+						__temp_executeDef54323 = false;
 						return this.isFloat;
 					}
 					
@@ -246,7 +246,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("__cid")) 
 					{
-						__temp_executeDef42593 = false;
+						__temp_executeDef54323 = false;
 						return this.__cid;
 					}
 					
@@ -258,7 +258,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("texture")) 
 					{
-						__temp_executeDef42593 = false;
+						__temp_executeDef54323 = false;
 						return this.texture;
 					}
 					
@@ -270,7 +270,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("__d")) 
 					{
-						__temp_executeDef42593 = false;
+						__temp_executeDef54323 = false;
 						return this.__d;
 					}
 					
@@ -282,7 +282,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef42593 = false;
+						__temp_executeDef54323 = false;
 						return this.offset;
 					}
 					
@@ -294,7 +294,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef42593 = false;
+						__temp_executeDef54323 = false;
 						return this.name;
 					}
 					
@@ -306,7 +306,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef42593 = false;
+						__temp_executeDef54323 = false;
 						return this.data;
 					}
 					
@@ -316,7 +316,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef42593) 
+			if (__temp_executeDef54323) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -333,14 +333,14 @@ public  class MaterialUniform extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef42594 = true;
+			boolean __temp_executeDef54324 = true;
 			switch (field.hashCode())
 			{
 				case -1019779949:
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef42594 = false;
+						__temp_executeDef54324 = false;
 						return ((double) (this.offset) );
 					}
 					
@@ -352,7 +352,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("__cid")) 
 					{
-						__temp_executeDef42594 = false;
+						__temp_executeDef54324 = false;
 						return ((double) (this.__cid) );
 					}
 					
@@ -362,7 +362,7 @@ public  class MaterialUniform extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef42594) 
+			if (__temp_executeDef54324) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

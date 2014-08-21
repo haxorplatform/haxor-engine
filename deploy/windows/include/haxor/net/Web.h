@@ -5,6 +5,9 @@
 #include <hxcpp.h>
 #endif
 
+HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,Resource)
+HX_DECLARE_CLASS3(haxor,graphics,texture,Bitmap)
 HX_DECLARE_CLASS2(haxor,net,Web)
 namespace haxor{
 namespace net{
@@ -33,6 +36,9 @@ class HXCPP_CLASS_ATTRIBUTES  Web_obj : public hx::Object{
 		static ::String root;
 		static Void Load( ::String p_url,Dynamic p_callback);
 		static Dynamic Load_dyn();
+
+		static Void LoadImg( ::String p_url,Dynamic p_callback);
+		static Dynamic LoadImg_dyn();
 
 };
 

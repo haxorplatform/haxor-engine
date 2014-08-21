@@ -37,7 +37,24 @@ class Texture2D extends Texture
 		return m_red;
 	}
 	static private var m_red : Texture2D;
-		
+	
+	/**
+	 * Creates a new Texture2D from a bitmap reference.
+	 * The pixels are all set but the user must choose if the texture will automatically applied or wait for the best moment to Apply or Upload.
+	 * @param	p_bitmap
+	 * @return
+	 */
+	static public function FromBitmap(p_bitmap : Bitmap,p_apply:Bool=true):Texture2D
+	{
+		var t : Texture2D = new Texture2D(0, 0, p_bitmap.format);
+		t.m_data 	= p_bitmap;
+		t.m_width 	= p_bitmap.width;
+		t.m_height 	= p_bitmap.height;
+		EngineContext.texture.Create(t);		
+		t.Apply();
+		return t;
+	}
+	
 	/**
 	 * Reference to the bitmap which contains the pixels for this Texture.
 	 */
@@ -49,7 +66,7 @@ class Texture2D extends Texture
 	 * Returns the enum for this texture type.
 	 * @return
 	 */
-	override inline function get_type():TextureType {	return TextureType.Texture2D; }
+	override inline function get_type():TextureType { return TextureType.Texture2D; }
 	
 	/**
 	 * 
@@ -63,6 +80,8 @@ class Texture2D extends Texture
 		m_format = p_format;
 		m_width  = p_width;
 		m_height = p_height;
+		if (p_width <= 0)  return;
+		if (p_height <= 0) return;
 		m_data 	 = new Bitmap(p_width, p_height, p_format);
 		EngineContext.texture.Create(this);
 	}

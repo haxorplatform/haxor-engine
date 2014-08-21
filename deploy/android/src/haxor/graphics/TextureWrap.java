@@ -27,7 +27,7 @@ public  class TextureWrap extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_TextureWrap(haxor.graphics.TextureWrap __temp_me42371)
+	public static   void __hx_ctor_haxor_graphics_TextureWrap(haxor.graphics.TextureWrap __temp_me54089)
 	{
 		{
 		}

@@ -1,4 +1,5 @@
 package haxor.thread;
+import haxor.core.Console;
 
 /**
  * Base class for async operations that can run on the main thread or in an extra one.
@@ -10,7 +11,11 @@ class Task extends Activity
 	/**
 	 * Progress of the activity. The user must manually update it to finish the Task.
 	 */
-	public var progress : Float;
+	public var progress(get_progress,set_progress) : Float;
+	private inline function get_progress():Float { return m_progress; }
+	private function set_progress(v:Float):Float { if (Math.abs(v-m_progress) > 0.0) { m_progress = v; m_has_progress = true; } return v; }
+	private var m_progress : Float;
+	private var m_has_progress : Bool;
 
 	/**
 	 * Flag that indicates if the Task has been activated.
@@ -29,23 +34,29 @@ class Task extends Activity
 		if (cb == null) cb = OnExecute;
 		super(cb, p_threaded);
 		m_active = false;
-		progress = 0.0;
+		m_progress = 0.0;
+		m_has_progress = false;
 	}
 	
 	/**
 	 * Callback called when the Task has started.
 	 */
-	public function OnStart():Void { }
+	private function OnStart():Void { }
 	
 	/**
 	 * Callback called while the Task is updated.
 	 */
-	public function OnStep():Void { }
+	private function OnStep():Void { }
 	
 	/**
 	 * Callback called when the Task is completed.
 	 */
-	public function OnComplete():Void { }
+	private function OnComplete():Void { }
+	
+	/**
+	 * Callback called when there was progress between steps.
+	 */
+	private function OnProgress():Void { }
 	
 	/**
 	 * Internal execution step.
@@ -55,7 +66,8 @@ class Task extends Activity
 	private function OnExecute(p_time:Float):Bool
 	{
 		if (!m_active) { m_active = true; OnStart(); }
-		OnStep();
+		OnStep();		
+		if (m_has_progress) { OnProgress(); m_has_progress = false; }
 		if (progress >= 1.0) { OnComplete(); return false; }
 		return true;
 	}

@@ -35,7 +35,7 @@ implements Runnable
 	 * @param	p_threaded
 	 * @return
 	 */
-	static public function Iterate(p_offset : Int, p_length : Int,p_callback : Int->Bool,p_step :Int=1, p_threaded : Bool = false):Activity
+	static public function Iterate(p_offset : Int, p_length : Int,p_callback : Int->Bool,p_step :Int=1, p_threaded : Bool = false,p_graphics_context:Bool=false):Activity
 	{
 		var it : Int = p_offset;
 		return new Activity(function(t : Float):Bool
@@ -48,7 +48,7 @@ implements Runnable
 				if (it >= p_length) return false;
 			}
 			return !finished;		
-		},p_threaded);
+		},p_threaded,p_graphics_context);
 	}
 	
 	/**
@@ -57,7 +57,7 @@ implements Runnable
 	 * @param	p_callback
 	 * @return
 	 */
-	static public function Delay(p_time : Float, p_callback : Void->Void, p_threaded:Bool=false):Activity
+	static public function Delay(p_time : Float, p_callback : Void->Void, p_threaded:Bool=false,p_graphics_context: Bool=false):Activity
 	{
 		return new Activity(function(t : Float):Bool
 		{
@@ -67,7 +67,7 @@ implements Runnable
 				return false;
 			}
 			return true;
-		},p_threaded);
+		},p_threaded,p_graphics_context);
 	}
 	
 	/**
@@ -75,9 +75,25 @@ implements Runnable
 	 * @param	p_callback
 	 * @return
 	 */
-	static public function Run(p_callback : Float->Bool,p_threaded : Bool=false):Activity
+	static public function Run(p_callback : Float->Bool,p_threaded : Bool=false,p_graphics_context:Bool=false):Activity
 	{
-		return new Activity(p_callback,p_threaded);
+		return new Activity(p_callback,p_threaded,p_graphics_context);
+	}
+	
+	/**
+	 * Starts a new Activity and runs the informed callback just once.
+	 * @param	p_callback
+	 * @param	p_threaded
+	 * @param	p_graphics_context
+	 * @return
+	 */
+	static public function RunOnce(p_callback : Void->Void, p_threaded : Bool = false, p_graphics_context:Bool = false):Activity
+	{
+		return new Activity(function(t : Float):Bool
+		{
+			p_callback();
+			return false;
+		},p_threaded,p_graphics_context);
 	}
 	
 	/**
@@ -136,7 +152,8 @@ implements Runnable
 			Thread.create(function():Void
 			{
 				while (true)
-				{					
+				{		
+					if (m_cancelled) break;
 					if (!p_callback(m_elapsed)) break;
 					m_elapsed += 0.0001;
 					Sys.sleep(0.0001);

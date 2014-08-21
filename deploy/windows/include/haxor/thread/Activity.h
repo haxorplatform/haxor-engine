@@ -65,14 +65,17 @@ class HXCPP_CLASS_ATTRIBUTES  Activity_obj : public ::haxor::core::Resource_obj{
 		virtual Void OnRun( );
 		Dynamic OnRun_dyn();
 
-		static ::haxor::thread::Activity Iterate( int p_offset,int p_length,Dynamic p_callback,hx::Null< int >  p_step,hx::Null< bool >  p_threaded);
+		static ::haxor::thread::Activity Iterate( int p_offset,int p_length,Dynamic p_callback,hx::Null< int >  p_step,hx::Null< bool >  p_threaded,hx::Null< bool >  p_graphics_context);
 		static Dynamic Iterate_dyn();
 
-		static ::haxor::thread::Activity Delay( Float p_time,Dynamic p_callback,hx::Null< bool >  p_threaded);
+		static ::haxor::thread::Activity Delay( Float p_time,Dynamic p_callback,hx::Null< bool >  p_threaded,hx::Null< bool >  p_graphics_context);
 		static Dynamic Delay_dyn();
 
-		static ::haxor::thread::Activity Run( Dynamic p_callback,hx::Null< bool >  p_threaded);
+		static ::haxor::thread::Activity Run( Dynamic p_callback,hx::Null< bool >  p_threaded,hx::Null< bool >  p_graphics_context);
 		static Dynamic Run_dyn();
+
+		static ::haxor::thread::Activity RunOnce( Dynamic p_callback,hx::Null< bool >  p_threaded,hx::Null< bool >  p_graphics_context);
+		static Dynamic RunOnce_dyn();
 
 };
 

@@ -24,11 +24,17 @@ import haxor.math.Color;
 import haxor.net.Web;
 import haxor.platform.graphics.GL;
 import haxor.platform.graphics.GraphicContext.GraphicAPI;
-import haxor.platform.Types.BitmapFile;
 import haxor.platform.Types.MeshBufferId;
 import haxor.thread.Activity;
 
+#if android
+import haxor.platform.android.Web.BitmapLoader;
+import haxor.platform.android.Web.HTTPRequest;
+#end
 
+#if windows
+import haxor.platform.windows.Web.HTTPRequest;
+#end
 
 /**
  * ...
@@ -49,11 +55,42 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	public var ss : String;
 	
+	var tex : Texture2D;
 	
+	var bmp : Bitmap;
 	
 	override public function Load():Bool 
 	{	
-		Web.root = "https://dl.dropboxusercontent.com/u/20655747/haxor/resources/";
+		Web.root = "http://haxor.thelaborat.org/resources/";
+		
+		
+		
+		Web.Load("./character/medieval/animations/all_idle01.DAE", function(s:String, p:Float):Void
+		{
+			Console.Log("progress> " + p);
+			if (p >= 1.0)
+			{
+				if (s != null)
+				{
+					Console.Log(s.substr(0, 100));
+				}
+			}
+		});
+		
+		
+		Web.LoadImg("./projects/dungeon/big/DungeonAtlas03.png", function(b:Bitmap, p:Float):Void
+		{
+			Console.Log("p> " + p);
+			if (p >= 1.0)
+			{
+				if (b != null)
+				{
+					bmp = b;	
+					LoadComplete();
+				}
+			}
+		});
+		//*/
 		/*
 		Web.Load("./shader/unlit/NDC.shader", function(d:String, p:Float):Void
 		{	
@@ -91,7 +128,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		//*/
 				
-		return true;
+		return false;
 	}
 	
 	override public function Initialize():Void 
@@ -172,8 +209,9 @@ class Main extends Application implements IUpdateable implements IRenderable
 			';
 		}
 		
+		/*
 		var h : Int = 2048;
-		var tex : Texture2D = new Texture2D(1, h, PixelFormat.Float4);
+		tex = new Texture2D(1, h, PixelFormat.Float4);
 		var cl : Array<Color> = [Color.red, Color.green, Color.blue, Color.yellow];
 		for (i in 0...h)
 		{
@@ -185,11 +223,14 @@ class Main extends Application implements IUpdateable implements IRenderable
 		tex.minFilter = TextureFilter.Nearest;
 		tex.magFilter = TextureFilter.Nearest;
 		tex.Upload(100);
+		//*/
 		//tex.Apply();
 		
 		
 		//var rtt : RenderTexture = new RenderTexture(128, 128, PixelFormat.RGBA8);
 		
+		tex = Texture2D.FromBitmap(bmp, false);
+		tex.Upload(100);
 		
 		var shd : Shader = new Shader(ss);	
 		
