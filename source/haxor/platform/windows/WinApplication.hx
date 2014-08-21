@@ -1,7 +1,7 @@
 #if windows
 package haxor.platform.windows;
 import haxor.core.Console;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 import cpp.Lib;
 import haxe.Timer;
 import haxor.core.BaseApplication;

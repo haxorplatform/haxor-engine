@@ -9,7 +9,7 @@ import haxor.graphics.texture.RenderTexture;
 import haxor.graphics.texture.Texture;
 import haxor.graphics.texture.Texture2D;
 import haxor.graphics.texture.TextureCube;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 import haxor.platform.Types.FrameBufferId;
 import haxor.platform.Types.RenderBufferId;
 import haxor.platform.Types.TextureId;

@@ -12,6 +12,12 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
+#ifndef INCLUDED_haxor_graphics_GL
+#include <haxor/graphics/GL.h>
+#endif
+#ifndef INCLUDED_haxor_graphics_GraphicContext
+#include <haxor/graphics/GraphicContext.h>
+#endif
 #ifndef INCLUDED_haxor_graphics_material_Material
 #include <haxor/graphics/material/Material.h>
 #endif
@@ -33,17 +39,11 @@
 #ifndef INCLUDED_haxor_io_Int32Array
 #include <haxor/io/Int32Array.h>
 #endif
-#ifndef INCLUDED_haxor_platform_graphics_GL
-#include <haxor/platform/graphics/GL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_GraphicContext
-#include <haxor/platform/graphics/GraphicContext.h>
-#endif
 #ifndef INCLUDED_haxor_platform_graphics_OpenGL
 #include <haxor/platform/graphics/OpenGL.h>
 #endif
-#ifndef INCLUDED_haxor_platform_graphics_WinGL
-#include <haxor/platform/graphics/WinGL.h>
+#ifndef INCLUDED_haxor_platform_windows_graphics_WinGL
+#include <haxor/platform/windows/graphics/WinGL.h>
 #endif
 namespace haxor{
 namespace graphics{
@@ -777,12 +777,12 @@ Void Material_obj::OnDestroy( ){
 		HX_STACK_LINE(403)
 		if (((this->m_shader != null()))){
 			HX_STACK_LINE(403)
-			::haxor::platform::graphics::GL_obj::m_gl->DetachShader(p,_this->vertex_shaders->__get(this->m_shader->_cid_));
+			::haxor::graphics::GL_obj::m_gl->DetachShader(p,_this->vertex_shaders->__get(this->m_shader->_cid_));
 			HX_STACK_LINE(403)
-			::haxor::platform::graphics::GL_obj::m_gl->DetachShader(p,_this->fragment_shaders->__get(this->m_shader->_cid_));
+			::haxor::graphics::GL_obj::m_gl->DetachShader(p,_this->fragment_shaders->__get(this->m_shader->_cid_));
 		}
 		HX_STACK_LINE(403)
-		::haxor::platform::graphics::GL_obj::m_gl->DeleteProgram(p);
+		::haxor::graphics::GL_obj::m_gl->DeleteProgram(p);
 	}
 return null();
 }

@@ -10,10 +10,7 @@ obj/mscv16-f32xp/e1c637f2_HTTPRequest.obj
 obj/mscv16-f32xp/dffeab16_Task.obj
 obj/mscv16-f32xp/dffeab16_Activity.obj
 obj/mscv16-f32xp/52619f9f_OpenGL.obj
-obj/mscv16-f32xp/52619f9f_WinGL.obj
-obj/mscv16-f32xp/52619f9f_GraphicContext.obj
-obj/mscv16-f32xp/52619f9f_GraphicAPI.obj
-obj/mscv16-f32xp/52619f9f_GL.obj
+obj/mscv16-f32xp/f4e18e46_WinGL.obj
 obj/mscv16-f32xp/562d668a_OSWindow.obj
 obj/mscv16-f32xp/f847549e_Web.obj
 obj/mscv16-f32xp/9c952602_Mathf.obj
@@ -36,6 +33,9 @@ obj/mscv16-f32xp/7b0fc7a6_Material.obj
 obj/mscv16-f32xp/8eb41c87_CursorMode.obj
 obj/mscv16-f32xp/8eb41c87_Screen.obj
 obj/mscv16-f32xp/8eb41c87_Graphics.obj
+obj/mscv16-f32xp/8eb41c87_GraphicContext.obj
+obj/mscv16-f32xp/8eb41c87_GraphicAPI.obj
+obj/mscv16-f32xp/8eb41c87_GL.obj
 obj/mscv16-f32xp/8eb41c87_TextureType.obj
 obj/mscv16-f32xp/8eb41c87_TextureWrap.obj
 obj/mscv16-f32xp/8eb41c87_TextureFilter.obj

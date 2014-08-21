@@ -39,20 +39,17 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
+#ifndef INCLUDED_haxor_graphics_GL
+#include <haxor/graphics/GL.h>
+#endif
+#ifndef INCLUDED_haxor_graphics_GraphicContext
+#include <haxor/graphics/GraphicContext.h>
+#endif
 #ifndef INCLUDED_haxor_platform_OSWindow
 #include <haxor/platform/OSWindow.h>
 #endif
-#ifndef INCLUDED_haxor_platform_graphics_GL
-#include <haxor/platform/graphics/GL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_GraphicContext
-#include <haxor/platform/graphics/GraphicContext.h>
-#endif
 #ifndef INCLUDED_haxor_platform_graphics_OpenGL
 #include <haxor/platform/graphics/OpenGL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_WinGL
-#include <haxor/platform/graphics/WinGL.h>
 #endif
 #ifndef INCLUDED_haxor_platform_windows_Entry
 #include <haxor/platform/windows/Entry.h>
@@ -62,6 +59,9 @@
 #endif
 #ifndef INCLUDED_haxor_platform_windows_Window
 #include <haxor/platform/windows/Window.h>
+#endif
+#ifndef INCLUDED_haxor_platform_windows_graphics_WinGL
+#include <haxor/platform/windows/graphics/WinGL.h>
 #endif
 namespace haxor{
 namespace platform{
@@ -194,11 +194,11 @@ Void Entry_obj::Initialize( ){
 		HX_STACK_LINE(95)
 		::haxor::platform::windows::Window wnd = ::haxor::platform::windows::Window_obj::__new(app,app_title,(int)0,(int)0,(int)800,(int)600);		HX_STACK_VAR(wnd,"wnd");
 		HX_STACK_LINE(97)
-		::haxor::platform::graphics::GL_obj::Initialize(app);
+		::haxor::graphics::GL_obj::Initialize(app);
 		HX_STACK_LINE(98)
-		::haxor::platform::graphics::GL_obj::m_gl->Initialize(wnd);
+		::haxor::graphics::GL_obj::m_gl->Initialize(wnd);
 		HX_STACK_LINE(99)
-		::haxor::platform::graphics::GL_obj::m_gl->CheckExtensions();
+		::haxor::graphics::GL_obj::m_gl->CheckExtensions();
 		HX_STACK_LINE(101)
 		::haxor::context::EngineContext_obj::Build();
 		HX_STACK_LINE(103)

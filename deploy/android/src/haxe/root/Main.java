@@ -21,9 +21,9 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 	}
 	
 	
-	public static   void __hx_ctor__Main(haxe.root.Main __temp_me54056)
+	public static   void __hx_ctor__Main(haxe.root.Main __temp_me54458)
 	{
-		haxor.core.Application.__hx_ctor_haxor_core_Application(__temp_me54056);
+		haxor.core.Application.__hx_ctor_haxor_core_Application(__temp_me54458);
 	}
 	
 	
@@ -59,8 +59,8 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 	{
 		haxe.root.Array<haxe.root.Main> _g = new haxe.root.Array<haxe.root.Main>(new haxe.root.Main[]{this});
 		haxor.net.Web.root = "http://haxor.thelaborat.org/resources/";
-		haxor.net.Web.Load("./character/medieval/animations/all_idle01.DAE", ( (( haxe.root.Main_Load_63__Fun.__hx_current != null )) ? (haxe.root.Main_Load_63__Fun.__hx_current) : (haxe.root.Main_Load_63__Fun.__hx_current = ((haxe.root.Main_Load_63__Fun) (new haxe.root.Main_Load_63__Fun()) )) ));
-		haxor.net.Web.LoadBitmap("./projects/dungeon/big/DungeonAtlas02.png", new haxe.root.Main_Load_75__Fun(((haxe.root.Array<haxe.root.Main>) (_g) )));
+		haxor.net.Web.Load("./character/medieval/animations/all_idle01.DAE", ( (( haxe.root.Main_Load_68__Fun.__hx_current != null )) ? (haxe.root.Main_Load_68__Fun.__hx_current) : (haxe.root.Main_Load_68__Fun.__hx_current = ((haxe.root.Main_Load_68__Fun) (new haxe.root.Main_Load_68__Fun()) )) ));
+		haxor.net.Web.LoadImg("./projects/dungeon/big/DungeonAtlas03.png", new haxe.root.Main_Load_81__Fun(((haxe.root.Array<haxe.root.Main>) (_g) )));
 		return false;
 	}
 	
@@ -107,10 +107,10 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 	
 	public   void OnRender()
 	{
-		haxor.platform.graphics.GL.m_gl.Viewport(0, 0, ((int) (haxor.graphics.Screen.m_width) ), ((int) (haxor.graphics.Screen.m_height) ));
-		haxor.platform.graphics.GL.m_gl.ClearColor(0.7, 0.3, 1.0, 1.0);
-		haxor.platform.graphics.GL.m_gl.ClearDepth(1.0);
-		haxor.platform.graphics.GL.m_gl.Clear(16640);
+		haxor.graphics.GL.m_gl.Viewport(0, 0, ((int) (haxor.graphics.Screen.m_width) ), ((int) (haxor.graphics.Screen.m_height) ));
+		haxor.graphics.GL.m_gl.ClearColor(0.7, 0.3, 1.0, 1.0);
+		haxor.graphics.GL.m_gl.ClearDepth(1.0);
+		haxor.graphics.GL.m_gl.Clear(16640);
 		if (( this.mesh == null )) 
 		{
 			return ;
@@ -129,14 +129,14 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54203 = true;
+			boolean __temp_executeDef54605 = true;
 			switch (field.hashCode())
 			{
 				case 97669:
 				{
 					if (field.equals("bmp")) 
 					{
-						__temp_executeDef54203 = false;
+						__temp_executeDef54605 = false;
 						this.bmp = ((haxor.graphics.texture.Bitmap) (value) );
 						return value;
 					}
@@ -149,7 +149,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("mesh")) 
 					{
-						__temp_executeDef54203 = false;
+						__temp_executeDef54605 = false;
 						this.mesh = ((haxor.graphics.mesh.Mesh) (value) );
 						return value;
 					}
@@ -162,7 +162,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("tex")) 
 					{
-						__temp_executeDef54203 = false;
+						__temp_executeDef54605 = false;
 						this.tex = ((haxor.graphics.texture.Texture2D) (value) );
 						return value;
 					}
@@ -175,7 +175,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("mat")) 
 					{
-						__temp_executeDef54203 = false;
+						__temp_executeDef54605 = false;
 						this.mat = ((haxor.graphics.material.Material) (value) );
 						return value;
 					}
@@ -188,7 +188,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("ss")) 
 					{
-						__temp_executeDef54203 = false;
+						__temp_executeDef54605 = false;
 						this.ss = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -199,7 +199,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				
 			}
 			
-			if (__temp_executeDef54203) 
+			if (__temp_executeDef54605) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -216,14 +216,14 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54204 = true;
+			boolean __temp_executeDef54606 = true;
 			switch (field.hashCode())
 			{
 				case 1528462453:
 				{
 					if (field.equals("OnRender")) 
 					{
-						__temp_executeDef54204 = false;
+						__temp_executeDef54606 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnRender"))) );
 					}
 					
@@ -235,7 +235,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("mesh")) 
 					{
-						__temp_executeDef54204 = false;
+						__temp_executeDef54606 = false;
 						return this.mesh;
 					}
 					
@@ -247,7 +247,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("OnUpdate")) 
 					{
-						__temp_executeDef54204 = false;
+						__temp_executeDef54606 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnUpdate"))) );
 					}
 					
@@ -259,7 +259,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("mat")) 
 					{
-						__temp_executeDef54204 = false;
+						__temp_executeDef54606 = false;
 						return this.mat;
 					}
 					
@@ -271,7 +271,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef54204 = false;
+						__temp_executeDef54606 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Initialize"))) );
 					}
 					
@@ -283,7 +283,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("ss")) 
 					{
-						__temp_executeDef54204 = false;
+						__temp_executeDef54606 = false;
 						return this.ss;
 					}
 					
@@ -295,7 +295,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("Load")) 
 					{
-						__temp_executeDef54204 = false;
+						__temp_executeDef54606 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Load"))) );
 					}
 					
@@ -307,7 +307,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("tex")) 
 					{
-						__temp_executeDef54204 = false;
+						__temp_executeDef54606 = false;
 						return this.tex;
 					}
 					
@@ -319,7 +319,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("bmp")) 
 					{
-						__temp_executeDef54204 = false;
+						__temp_executeDef54606 = false;
 						return this.bmp;
 					}
 					
@@ -329,7 +329,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				
 			}
 			
-			if (__temp_executeDef54204) 
+			if (__temp_executeDef54606) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -346,15 +346,15 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash54206 = field.hashCode();
-			boolean __temp_executeDef54205 = true;
-			switch (__temp_hash54206)
+			int __temp_hash54608 = field.hashCode();
+			boolean __temp_executeDef54607 = true;
+			switch (__temp_hash54608)
 			{
 				case -1430411344:case 2373894:
 				{
-					if (( (( ( __temp_hash54206 == -1430411344 ) && field.equals("Initialize") )) || field.equals("Load") )) 
+					if (( (( ( __temp_hash54608 == -1430411344 ) && field.equals("Initialize") )) || field.equals("Load") )) 
 					{
-						__temp_executeDef54205 = false;
+						__temp_executeDef54607 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -366,7 +366,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("OnUpdate")) 
 					{
-						__temp_executeDef54205 = false;
+						__temp_executeDef54607 = false;
 						this.OnUpdate();
 					}
 					
@@ -378,7 +378,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				{
 					if (field.equals("OnRender")) 
 					{
-						__temp_executeDef54205 = false;
+						__temp_executeDef54607 = false;
 						this.OnRender();
 					}
 					
@@ -388,7 +388,7 @@ public  class Main extends haxor.core.Application implements haxor.core.IRendera
 				
 			}
 			
-			if (__temp_executeDef54205) 
+			if (__temp_executeDef54607) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

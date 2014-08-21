@@ -1,5 +1,5 @@
 package haxor.graphics;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 
 /**
  * File that describes the enumerations used for Graphics context.

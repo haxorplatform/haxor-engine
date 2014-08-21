@@ -1,8 +1,8 @@
 #if html
 package haxor.platform.html;
-import haxor.core.Engine;
-import haxor.platform.graphics.GL;
 import haxor.context.EngineContext;
+import haxor.graphics.GL;
+import haxor.core.Engine;
 import haxor.core.Entity;
 import haxor.core.Time;
 import haxor.core.BaseApplication;

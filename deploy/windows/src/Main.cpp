@@ -33,6 +33,12 @@
 #ifndef INCLUDED_haxor_core_Time
 #include <haxor/core/Time.h>
 #endif
+#ifndef INCLUDED_haxor_graphics_GL
+#include <haxor/graphics/GL.h>
+#endif
+#ifndef INCLUDED_haxor_graphics_GraphicContext
+#include <haxor/graphics/GraphicContext.h>
+#endif
 #ifndef INCLUDED_haxor_graphics_Graphics
 #include <haxor/graphics/Graphics.h>
 #endif
@@ -69,23 +75,17 @@
 #ifndef INCLUDED_haxor_net_Web
 #include <haxor/net/Web.h>
 #endif
-#ifndef INCLUDED_haxor_platform_graphics_GL
-#include <haxor/platform/graphics/GL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_GraphicContext
-#include <haxor/platform/graphics/GraphicContext.h>
-#endif
 #ifndef INCLUDED_haxor_platform_graphics_OpenGL
 #include <haxor/platform/graphics/OpenGL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_WinGL
-#include <haxor/platform/graphics/WinGL.h>
 #endif
 #ifndef INCLUDED_haxor_platform_windows_Entry
 #include <haxor/platform/windows/Entry.h>
 #endif
 #ifndef INCLUDED_haxor_platform_windows_WinApplication
 #include <haxor/platform/windows/WinApplication.h>
+#endif
+#ifndef INCLUDED_haxor_platform_windows_graphics_WinGL
+#include <haxor/platform/windows/graphics/WinGL.h>
 #endif
 
 Void Main_obj::__construct()
@@ -261,13 +261,13 @@ Void Main_obj::OnRender( ){
 		HX_STACK_FRAME("Main","OnRender",0x0590c4aa,"Main.OnRender","Main.hx",256,0x087e5c05)
 		HX_STACK_THIS(this)
 		HX_STACK_LINE(258)
-		::haxor::platform::graphics::GL_obj::m_gl->Viewport((int)0,(int)0,::haxor::graphics::Screen_obj::m_width,::haxor::graphics::Screen_obj::m_height);
+		::haxor::graphics::GL_obj::m_gl->Viewport((int)0,(int)0,::haxor::graphics::Screen_obj::m_width,::haxor::graphics::Screen_obj::m_height);
 		HX_STACK_LINE(259)
-		::haxor::platform::graphics::GL_obj::m_gl->ClearColor(0.7,0.3,1.0,1.0);
+		::haxor::graphics::GL_obj::m_gl->ClearColor(0.7,0.3,1.0,1.0);
 		HX_STACK_LINE(260)
-		::haxor::platform::graphics::GL_obj::m_gl->ClearDepth(1.0);
+		::haxor::graphics::GL_obj::m_gl->ClearDepth(1.0);
 		HX_STACK_LINE(261)
-		::haxor::platform::graphics::GL_obj::m_gl->Clear((int)16640);
+		::haxor::graphics::GL_obj::m_gl->Clear((int)16640);
 		HX_STACK_LINE(264)
 		if (((this->mesh == null()))){
 			HX_STACK_LINE(264)

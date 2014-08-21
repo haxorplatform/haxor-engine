@@ -2,7 +2,7 @@ package haxor.platform.android;
 import haxe.root.*;
 
 @SuppressWarnings(value={"rawtypes", "unchecked"})
-public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
+public  class LoadTexture2D extends haxor.platform.android.BitmapLoader
 {
 	public    LoadTexture2D(haxe.lang.EmptyObject empty)
 	{
@@ -17,11 +17,11 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_LoadTexture2D(haxor.platform.android.LoadTexture2D __temp_me54148, java.lang.String p_url, boolean p_apply, haxe.lang.Function p_callback)
+	public static   void __hx_ctor_haxor_platform_android_LoadTexture2D(haxor.platform.android.LoadTexture2D __temp_me54552, java.lang.String p_url, boolean p_apply, haxe.lang.Function p_callback)
 	{
-		haxor.platform.android.LoadBitmap.__hx_ctor_haxor_platform_android_LoadBitmap(__temp_me54148, p_url, ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (__temp_me54148) ), haxe.lang.Runtime.toString("OnBitmapCallback"))) ));
-		__temp_me54148.m_t2d_callback = p_callback;
-		__temp_me54148.m_apply = p_apply;
+		haxor.platform.android.BitmapLoader.__hx_ctor_haxor_platform_android_BitmapLoader(__temp_me54552, p_url, ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (__temp_me54552) ), haxe.lang.Runtime.toString("OnBitmapCallback"))) ));
+		__temp_me54552.m_t2d_callback = p_callback;
+		__temp_me54552.m_apply = p_apply;
 	}
 	
 	
@@ -60,7 +60,7 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 				return ;
 			}
 			
-			haxor.thread.Activity.RunOnce(new haxor.platform.android.LoadTexture2D_OnBitmapCallback_58__Fun(((haxe.root.Array<haxor.graphics.texture.Bitmap>) (p_data1) ), ((haxe.root.Array<haxor.platform.android.LoadTexture2D>) (_g) )), false, true);
+			haxor.thread.Activity.RunOnce(new haxor.platform.android.LoadTexture2D_OnBitmapCallback_59__Fun(((haxe.root.Array<haxor.graphics.texture.Bitmap>) (p_data1) ), ((haxe.root.Array<haxor.platform.android.LoadTexture2D>) (_g) )), false, true);
 		}
 		
 	}
@@ -79,14 +79,14 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54422 = true;
+			boolean __temp_executeDef54827 = true;
 			switch (field.hashCode())
 			{
 				case 766451996:
 				{
 					if (field.equals("m_apply")) 
 					{
-						__temp_executeDef54422 = false;
+						__temp_executeDef54827 = false;
 						this.m_apply = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -99,7 +99,7 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 				{
 					if (field.equals("m_t2d_callback")) 
 					{
-						__temp_executeDef54422 = false;
+						__temp_executeDef54827 = false;
 						this.m_t2d_callback = ((haxe.lang.Function) (value) );
 						return value;
 					}
@@ -110,7 +110,7 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 				
 			}
 			
-			if (__temp_executeDef54422) 
+			if (__temp_executeDef54827) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -127,14 +127,14 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54423 = true;
+			boolean __temp_executeDef54828 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef54423 = false;
+						__temp_executeDef54828 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnError"))) );
 					}
 					
@@ -146,7 +146,7 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 				{
 					if (field.equals("m_t2d_callback")) 
 					{
-						__temp_executeDef54423 = false;
+						__temp_executeDef54828 = false;
 						return this.m_t2d_callback;
 					}
 					
@@ -158,7 +158,7 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 				{
 					if (field.equals("OnBitmapCallback")) 
 					{
-						__temp_executeDef54423 = false;
+						__temp_executeDef54828 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBitmapCallback"))) );
 					}
 					
@@ -170,7 +170,7 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 				{
 					if (field.equals("m_apply")) 
 					{
-						__temp_executeDef54423 = false;
+						__temp_executeDef54828 = false;
 						return this.m_apply;
 					}
 					
@@ -180,7 +180,7 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 				
 			}
 			
-			if (__temp_executeDef54423) 
+			if (__temp_executeDef54828) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -197,14 +197,14 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef54424 = true;
+			boolean __temp_executeDef54829 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef54424 = false;
+						__temp_executeDef54829 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -216,7 +216,7 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 				{
 					if (field.equals("OnBitmapCallback")) 
 					{
-						__temp_executeDef54424 = false;
+						__temp_executeDef54829 = false;
 						this.OnBitmapCallback(((haxor.graphics.texture.Bitmap) (dynargs.__get(0)) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -226,7 +226,7 @@ public  class LoadTexture2D extends haxor.platform.android.LoadBitmap
 				
 			}
 			
-			if (__temp_executeDef54424) 
+			if (__temp_executeDef54829) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

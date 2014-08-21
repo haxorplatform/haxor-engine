@@ -17,22 +17,22 @@ public  class HTTPRequest extends haxor.thread.Task
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_HTTPRequest(haxor.platform.android.HTTPRequest __temp_me54145, java.lang.String p_url, java.lang.String p_method, boolean p_binary, java.lang.String p_data)
+	public static   void __hx_ctor_haxor_platform_android_HTTPRequest(haxor.platform.android.HTTPRequest __temp_me54549, java.lang.String p_url, java.lang.String p_method, boolean p_binary, java.lang.String p_data)
 	{
-		haxor.thread.Task.__hx_ctor_haxor_thread_Task(__temp_me54145, true, null);
+		haxor.thread.Task.__hx_ctor_haxor_thread_Task(__temp_me54549, true, null);
 		if (( haxe.lang.StringExt.indexOf(p_url, "./", null) >= 0 )) 
 		{
 			p_url = haxe.root.StringTools.replace(p_url, "./", haxor.net.Web.root);
 		}
 		
-		__temp_me54145.url = p_url;
-		__temp_me54145.binary = p_binary;
-		__temp_me54145.method = p_method.toUpperCase();
-		__temp_me54145.data = p_data;
-		__temp_me54145.contentType = "";
-		__temp_me54145.bytesTotal = 0;
-		__temp_me54145.bytesLoaded = 0;
-		haxor.core.Console.Log(( "HTTPRequest> " + __temp_me54145.url ), 4);
+		__temp_me54549.url = p_url;
+		__temp_me54549.binary = p_binary;
+		__temp_me54549.method = p_method.toUpperCase();
+		__temp_me54549.data = p_data;
+		__temp_me54549.contentType = "";
+		__temp_me54549.bytesTotal = 0;
+		__temp_me54549.bytesLoaded = 0;
+		haxor.core.Console.Log(( "HTTPRequest> " + __temp_me54549.url ), 4);
 	}
 	
 	
@@ -179,14 +179,14 @@ public  class HTTPRequest extends haxor.thread.Task
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54411 = true;
+			boolean __temp_executeDef54816 = true;
 			switch (field.hashCode())
 			{
 				case 1382331801:
 				{
 					if (field.equals("bytesTotal")) 
 					{
-						__temp_executeDef54411 = false;
+						__temp_executeDef54816 = false;
 						this.bytesTotal = ((int) (value) );
 						return value;
 					}
@@ -199,7 +199,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("bytesLoaded")) 
 					{
-						__temp_executeDef54411 = false;
+						__temp_executeDef54816 = false;
 						this.bytesLoaded = ((int) (value) );
 						return value;
 					}
@@ -210,7 +210,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				
 			}
 			
-			if (__temp_executeDef54411) 
+			if (__temp_executeDef54816) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -227,14 +227,14 @@ public  class HTTPRequest extends haxor.thread.Task
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54412 = true;
+			boolean __temp_executeDef54817 = true;
 			switch (field.hashCode())
 			{
 				case -1490720878:
 				{
 					if (field.equals("m_stream")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.m_stream = ((java.io.InputStream) (value) );
 						return value;
 					}
@@ -247,7 +247,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("url")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.url = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -260,7 +260,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.m_buffer = ((byte[]) (value) );
 						return value;
 					}
@@ -273,7 +273,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("binary")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.binary = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -286,7 +286,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("error")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.error = ((java.lang.Exception) (value) );
 						return value;
 					}
@@ -299,7 +299,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("request")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.request = ((java.net.HttpURLConnection) (value) );
 						return value;
 					}
@@ -312,7 +312,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("bytesTotal")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.bytesTotal = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -325,7 +325,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.data = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -338,7 +338,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("bytesLoaded")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.bytesLoaded = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -351,7 +351,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("method")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.method = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -364,7 +364,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("response")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.response = ((java.io.ByteArrayOutputStream) (value) );
 						return value;
 					}
@@ -377,7 +377,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("contentType")) 
 					{
-						__temp_executeDef54412 = false;
+						__temp_executeDef54817 = false;
 						this.contentType = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -388,7 +388,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				
 			}
 			
-			if (__temp_executeDef54412) 
+			if (__temp_executeDef54817) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -405,14 +405,14 @@ public  class HTTPRequest extends haxor.thread.Task
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54413 = true;
+			boolean __temp_executeDef54818 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnError"))) );
 					}
 					
@@ -424,7 +424,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("url")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.url;
 					}
 					
@@ -436,7 +436,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("OnComplete")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnComplete"))) );
 					}
 					
@@ -448,7 +448,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("binary")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.binary;
 					}
 					
@@ -460,7 +460,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("OnStep")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStep"))) );
 					}
 					
@@ -472,7 +472,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("request")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.request;
 					}
 					
@@ -484,7 +484,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStart"))) );
 					}
 					
@@ -496,7 +496,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.data;
 					}
 					
@@ -508,7 +508,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("m_stream")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.m_stream;
 					}
 					
@@ -520,7 +520,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("method")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.method;
 					}
 					
@@ -532,7 +532,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.m_buffer;
 					}
 					
@@ -544,7 +544,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("contentType")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.contentType;
 					}
 					
@@ -556,7 +556,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("error")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.error;
 					}
 					
@@ -568,7 +568,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("response")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.response;
 					}
 					
@@ -580,7 +580,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("bytesTotal")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.bytesTotal;
 					}
 					
@@ -592,7 +592,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("bytesLoaded")) 
 					{
-						__temp_executeDef54413 = false;
+						__temp_executeDef54818 = false;
 						return this.bytesLoaded;
 					}
 					
@@ -602,7 +602,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				
 			}
 			
-			if (__temp_executeDef54413) 
+			if (__temp_executeDef54818) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -619,14 +619,14 @@ public  class HTTPRequest extends haxor.thread.Task
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54414 = true;
+			boolean __temp_executeDef54819 = true;
 			switch (field.hashCode())
 			{
 				case 1382331801:
 				{
 					if (field.equals("bytesTotal")) 
 					{
-						__temp_executeDef54414 = false;
+						__temp_executeDef54819 = false;
 						return ((double) (this.bytesTotal) );
 					}
 					
@@ -638,7 +638,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("bytesLoaded")) 
 					{
-						__temp_executeDef54414 = false;
+						__temp_executeDef54819 = false;
 						return ((double) (this.bytesLoaded) );
 					}
 					
@@ -648,7 +648,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				
 			}
 			
-			if (__temp_executeDef54414) 
+			if (__temp_executeDef54819) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -665,15 +665,15 @@ public  class HTTPRequest extends haxor.thread.Task
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash54416 = field.hashCode();
-			boolean __temp_executeDef54415 = true;
-			switch (__temp_hash54416)
+			int __temp_hash54821 = field.hashCode();
+			boolean __temp_executeDef54820 = true;
+			switch (__temp_hash54821)
 			{
 				case -130994088:case -1929089685:case 327758243:
 				{
-					if (( (( ( __temp_hash54416 == -130994088 ) && field.equals("OnComplete") )) || ( (( ( __temp_hash54416 == -1929089685 ) && field.equals("OnStep") )) || field.equals("OnStart") ) )) 
+					if (( (( ( __temp_hash54821 == -130994088 ) && field.equals("OnComplete") )) || ( (( ( __temp_hash54821 == -1929089685 ) && field.equals("OnStep") )) || field.equals("OnStart") ) )) 
 					{
-						__temp_executeDef54415 = false;
+						__temp_executeDef54820 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -685,7 +685,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef54415 = false;
+						__temp_executeDef54820 = false;
 						this.OnError();
 					}
 					
@@ -695,7 +695,7 @@ public  class HTTPRequest extends haxor.thread.Task
 				
 			}
 			
-			if (__temp_executeDef54415) 
+			if (__temp_executeDef54820) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

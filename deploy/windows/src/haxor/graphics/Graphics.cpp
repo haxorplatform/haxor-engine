@@ -18,6 +18,12 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
+#ifndef INCLUDED_haxor_graphics_GL
+#include <haxor/graphics/GL.h>
+#endif
+#ifndef INCLUDED_haxor_graphics_GraphicContext
+#include <haxor/graphics/GraphicContext.h>
+#endif
 #ifndef INCLUDED_haxor_graphics_Graphics
 #include <haxor/graphics/Graphics.h>
 #endif
@@ -45,17 +51,11 @@
 #ifndef INCLUDED_haxor_io_Int32Array
 #include <haxor/io/Int32Array.h>
 #endif
-#ifndef INCLUDED_haxor_platform_graphics_GL
-#include <haxor/platform/graphics/GL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_GraphicContext
-#include <haxor/platform/graphics/GraphicContext.h>
-#endif
 #ifndef INCLUDED_haxor_platform_graphics_OpenGL
 #include <haxor/platform/graphics/OpenGL.h>
 #endif
-#ifndef INCLUDED_haxor_platform_graphics_WinGL
-#include <haxor/platform/graphics/WinGL.h>
+#ifndef INCLUDED_haxor_platform_windows_graphics_WinGL
+#include <haxor/platform/windows/graphics/WinGL.h>
 #endif
 #ifndef INCLUDED_hxMath
 #include <hxMath.h>
@@ -101,7 +101,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 					HX_STACK_LINE(21)
 					_this->UpdateFlags(p_material);
 					HX_STACK_LINE(21)
-					::haxor::platform::graphics::GL_obj::m_gl->UseProgram(p);
+					::haxor::graphics::GL_obj::m_gl->UseProgram(p);
 				}
 			}
 			HX_STACK_LINE(21)
@@ -132,7 +132,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 							HX_STACK_LINE(21)
 							int loc = _this->uniforms->__get(_this->current->_cid_).StaticCast< Array< int > >()->__get(u->__cid);		HX_STACK_VAR(loc,"loc");
 							HX_STACK_LINE(21)
-							if (((loc == ::haxor::platform::graphics::GL_obj::INVALID))){
+							if (((loc == ::haxor::graphics::GL_obj::INVALID))){
 								HX_STACK_LINE(21)
 								continue;
 							}
@@ -148,7 +148,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 										HX_STACK_LINE(21)
 										Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
 										HX_STACK_LINE(21)
-										::haxor::platform::graphics::GL_obj::m_gl->Uniform1f(loc,p_x);
+										::haxor::graphics::GL_obj::m_gl->Uniform1f(loc,p_x);
 									}
 									;break;
 									case (int)2: {
@@ -157,7 +157,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 										HX_STACK_LINE(21)
 										Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
 										HX_STACK_LINE(21)
-										::haxor::platform::graphics::GL_obj::m_gl->Uniform2f(loc,p_x,p_y);
+										::haxor::graphics::GL_obj::m_gl->Uniform2f(loc,p_x,p_y);
 									}
 									;break;
 									case (int)3: {
@@ -168,7 +168,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 										HX_STACK_LINE(21)
 										Float p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
 										HX_STACK_LINE(21)
-										::haxor::platform::graphics::GL_obj::m_gl->Uniform3f(loc,p_x,p_y,p_z);
+										::haxor::graphics::GL_obj::m_gl->Uniform3f(loc,p_x,p_y,p_z);
 									}
 									;break;
 									case (int)4: {
@@ -181,12 +181,12 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 										HX_STACK_LINE(21)
 										Float p_w = b->Get((int)3);		HX_STACK_VAR(p_w,"p_w");
 										HX_STACK_LINE(21)
-										::haxor::platform::graphics::GL_obj::m_gl->Uniform4f(loc,p_x,p_y,p_z,p_w);
+										::haxor::graphics::GL_obj::m_gl->Uniform4f(loc,p_x,p_y,p_z,p_w);
 									}
 									;break;
 									default: {
 										HX_STACK_LINE(21)
-										::haxor::platform::graphics::GL_obj::m_gl->Uniform1fv(loc,b);
+										::haxor::graphics::GL_obj::m_gl->Uniform1fv(loc,b);
 									}
 								}
 							}
@@ -208,7 +208,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 											HX_STACK_LINE(21)
 											int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
 											HX_STACK_LINE(21)
-											::haxor::platform::graphics::GL_obj::m_gl->Uniform1i(loc,p_x);
+											::haxor::graphics::GL_obj::m_gl->Uniform1i(loc,p_x);
 										}
 									}
 									;break;
@@ -218,7 +218,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 										HX_STACK_LINE(21)
 										int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
 										HX_STACK_LINE(21)
-										::haxor::platform::graphics::GL_obj::m_gl->Uniform2i(loc,p_x,p_y);
+										::haxor::graphics::GL_obj::m_gl->Uniform2i(loc,p_x,p_y);
 									}
 									;break;
 									case (int)3: {
@@ -229,7 +229,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 										HX_STACK_LINE(21)
 										int p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
 										HX_STACK_LINE(21)
-										::haxor::platform::graphics::GL_obj::m_gl->Uniform3i(loc,p_x,p_y,p_z);
+										::haxor::graphics::GL_obj::m_gl->Uniform3i(loc,p_x,p_y,p_z);
 									}
 									;break;
 									case (int)4: {
@@ -242,12 +242,12 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 										HX_STACK_LINE(21)
 										int p_w = b->Get((int)3);		HX_STACK_VAR(p_w,"p_w");
 										HX_STACK_LINE(21)
-										::haxor::platform::graphics::GL_obj::m_gl->Uniform4i(loc,p_x,p_y,p_z,p_w);
+										::haxor::graphics::GL_obj::m_gl->Uniform4i(loc,p_x,p_y,p_z,p_w);
 									}
 									;break;
 									default: {
 										HX_STACK_LINE(21)
-										::haxor::platform::graphics::GL_obj::m_gl->Uniform1iv(loc,b);
+										::haxor::graphics::GL_obj::m_gl->Uniform1iv(loc,b);
 									}
 								}
 							}
@@ -323,25 +323,25 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 								HX_STACK_LINE(22)
 								_this->active_max = _g11;
 								HX_STACK_LINE(22)
-								::haxor::platform::graphics::GL_obj::m_gl->EnableVertexAttrib(loc);
+								::haxor::graphics::GL_obj::m_gl->EnableVertexAttrib(loc);
 							}
 							HX_STACK_LINE(22)
-							::haxor::platform::graphics::GL_obj::m_gl->BindBuffer((int)34962,_this->buffers->__get(a->_cid_));
+							::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34962,_this->buffers->__get(a->_cid_));
 							HX_STACK_LINE(22)
-							::haxor::platform::graphics::GL_obj::m_gl->VertexAttribPointer(loc,a->offset,type,false,(int)0,(int)0);
+							::haxor::graphics::GL_obj::m_gl->VertexAttribPointer(loc,a->offset,type,false,(int)0,(int)0);
 						}
 					}
 					HX_STACK_LINE(22)
 					if ((!(has_color))){
 						HX_STACK_LINE(22)
-						::haxor::platform::graphics::GL_obj::m_gl->VertexAttrib4f((int)5,1.0,1.0,1.0,1.0);
+						::haxor::graphics::GL_obj::m_gl->VertexAttrib4f((int)5,1.0,1.0,1.0,1.0);
 					}
 					HX_STACK_LINE(22)
 					if ((_this->current->m_indexed)){
 						HX_STACK_LINE(22)
 						a = _this->current->m_topology_attrib;
 						HX_STACK_LINE(22)
-						::haxor::platform::graphics::GL_obj::m_gl->BindBuffer((int)34963,_this->buffers->__get(a->_cid_));
+						::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34963,_this->buffers->__get(a->_cid_));
 					}
 					HX_STACK_LINE(22)
 					Dynamic();
@@ -351,13 +351,13 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 		HX_STACK_LINE(23)
 		if ((p_mesh->m_indexed)){
 			HX_STACK_LINE(23)
-			::haxor::platform::graphics::GL_obj::m_gl->DrawElements(p_mesh->primitive,p_mesh->m_topology_attrib->data->m_length,(int)5123,(int)0);
+			::haxor::graphics::GL_obj::m_gl->DrawElements(p_mesh->primitive,p_mesh->m_topology_attrib->data->m_length,(int)5123,(int)0);
 			HX_STACK_LINE(23)
 			Dynamic();
 		}
 		else{
 			HX_STACK_LINE(23)
-			::haxor::platform::graphics::GL_obj::m_gl->DrawArrays(p_mesh->primitive,(int)0,p_mesh->m_vcount);
+			::haxor::graphics::GL_obj::m_gl->DrawArrays(p_mesh->primitive,(int)0,p_mesh->m_vcount);
 			HX_STACK_LINE(23)
 			Dynamic();
 		}

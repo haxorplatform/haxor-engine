@@ -22,7 +22,7 @@ public  class Web extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_net_Web(haxor.net.Web __temp_me54130)
+	public static   void __hx_ctor_haxor_net_Web(haxor.net.Web __temp_me54534)
 	{
 		{
 		}
@@ -34,13 +34,13 @@ public  class Web extends haxe.lang.HxObject
 	
 	public static   void Load(java.lang.String p_url, haxe.lang.Function p_callback)
 	{
-		haxor.platform.android.LoadDataTask<java.lang.String> ld = new haxor.platform.android.LoadDataTask<java.lang.String>(haxe.lang.Runtime.toString(p_url), haxe.lang.Runtime.toBool(false), ((haxe.lang.Function) (p_callback) ));
+		haxor.platform.android.HTTPLoader<java.lang.String> ld = new haxor.platform.android.HTTPLoader<java.lang.String>(haxe.lang.Runtime.toString(p_url), haxe.lang.Runtime.toBool(false), ((haxe.lang.Function) (p_callback) ));
 	}
 	
 	
-	public static   void LoadBitmap(java.lang.String p_url, haxe.lang.Function p_callback)
+	public static   void LoadImg(java.lang.String p_url, haxe.lang.Function p_callback)
 	{
-		haxor.platform.android.LoadBitmap ld = new haxor.platform.android.LoadBitmap(haxe.lang.Runtime.toString(p_url), ((haxe.lang.Function) (p_callback) ));
+		haxor.platform.android.BitmapLoader ld = new haxor.platform.android.BitmapLoader(haxe.lang.Runtime.toString(p_url), ((haxe.lang.Function) (p_callback) ));
 	}
 	
 	

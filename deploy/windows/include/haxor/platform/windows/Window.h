@@ -19,7 +19,6 @@ HX_DECLARE_CLASS3(haxor,platform,windows,Window)
 #include <windows.h>
 #include <stdio.h>
 #include "gl/glew.h"
-
 
 namespace haxor{
 namespace platform{

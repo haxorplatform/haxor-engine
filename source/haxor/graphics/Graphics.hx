@@ -2,7 +2,7 @@ package haxor.graphics;
 import haxor.context.EngineContext;
 import haxor.graphics.material.Material;
 import haxor.graphics.mesh.Mesh;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 
 /**
  * Class that offers high level commands to draw Haxor elements.

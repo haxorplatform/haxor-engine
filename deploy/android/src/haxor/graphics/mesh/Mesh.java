@@ -17,18 +17,18 @@ public  class Mesh extends haxor.core.Resource
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_mesh_Mesh(haxor.graphics.mesh.Mesh __temp_me54098)
+	public static   void __hx_ctor_haxor_graphics_mesh_Mesh(haxor.graphics.mesh.Mesh __temp_me54502)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me54098, null);
-		__temp_me54098._cid_ = haxor.context.EngineContext.mesh.mid++;
-		__temp_me54098.m_attribs = new haxe.root.Array<haxor.graphics.mesh.MeshAttrib>(new haxor.graphics.mesh.MeshAttrib[]{});
-		__temp_me54098.m_indexed = false;
-		__temp_me54098.m_vcount = 0;
-		__temp_me54098.m_mode = 35048;
-		__temp_me54098.primitive = 4;
-		__temp_me54098.m_topology_attrib = new haxor.graphics.mesh.MeshAttrib();
-		__temp_me54098.m_topology_attrib.m_name = "$topology";
-		__temp_me54098.m_topology_attrib.offset = 1;
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me54502, null);
+		__temp_me54502._cid_ = haxor.context.EngineContext.mesh.mid++;
+		__temp_me54502.m_attribs = new haxe.root.Array<haxor.graphics.mesh.MeshAttrib>(new haxor.graphics.mesh.MeshAttrib[]{});
+		__temp_me54502.m_indexed = false;
+		__temp_me54502.m_vcount = 0;
+		__temp_me54502.m_mode = 35048;
+		__temp_me54502.primitive = 4;
+		__temp_me54502.m_topology_attrib = new haxor.graphics.mesh.MeshAttrib();
+		__temp_me54502.m_topology_attrib.m_name = "$topology";
+		__temp_me54502.m_topology_attrib.offset = 1;
 	}
 	
 	
@@ -162,7 +162,7 @@ public  class Mesh extends haxor.core.Resource
 	
 	public   void Clear(java.lang.Object p_from_gpu)
 	{
-		boolean __temp_p_from_gpu54096 = ( (( p_from_gpu == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_from_gpu)) );
+		boolean __temp_p_from_gpu54500 = ( (( p_from_gpu == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_from_gpu)) );
 		{
 			int _g1 = 0;
 			int _g = this.m_attribs.length;
@@ -171,7 +171,7 @@ public  class Mesh extends haxor.core.Resource
 				int i = _g1++;
 				this.m_attribs.__get(i).data = null;
 				this.m_attribs.__get(i).m_name = "";
-				if (__temp_p_from_gpu54096) 
+				if (__temp_p_from_gpu54500) 
 				{
 					haxor.context.EngineContext.mesh.RemoveAttrib(this.m_attribs.__get(i));
 				}
@@ -181,7 +181,7 @@ public  class Mesh extends haxor.core.Resource
 		}
 		
 		this.m_vcount = 0;
-		if (__temp_p_from_gpu54096) 
+		if (__temp_p_from_gpu54500) 
 		{
 			this.set_topology(null);
 		}
@@ -250,7 +250,7 @@ public  class Mesh extends haxor.core.Resource
 	
 	public   void Set(java.lang.String p_name, haxor.io.Buffer p_data, java.lang.Object p_offset)
 	{
-		int __temp_p_offset54097 = ( (( p_offset == null )) ? (((int) (3) )) : (((int) (haxe.lang.Runtime.toInt(p_offset)) )) );
+		int __temp_p_offset54501 = ( (( p_offset == null )) ? (((int) (3) )) : (((int) (haxe.lang.Runtime.toInt(p_offset)) )) );
 		if (( p_data == null )) 
 		{
 			haxor.core.Console.Log(( ( "Mesh> [" + this.get_name() ) + "] tried to set null array." ), 1);
@@ -271,7 +271,7 @@ public  class Mesh extends haxor.core.Resource
 			this.m_attribs.push(a);
 		}
 		
-		a.offset = __temp_p_offset54097;
+		a.offset = __temp_p_offset54501;
 		a.data = p_data;
 		this.m_vcount = this.m_attribs.__get(0).get_count();
 		{
@@ -307,14 +307,14 @@ public  class Mesh extends haxor.core.Resource
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54330 = true;
+			boolean __temp_executeDef54735 = true;
 			switch (field.hashCode())
 			{
 				case -1420606869:
 				{
 					if (field.equals("m_vcount")) 
 					{
-						__temp_executeDef54330 = false;
+						__temp_executeDef54735 = false;
 						this.m_vcount = ((int) (value) );
 						return value;
 					}
@@ -327,7 +327,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("mode")) 
 					{
-						__temp_executeDef54330 = false;
+						__temp_executeDef54735 = false;
 						this.set_mode(((int) (value) ));
 						return value;
 					}
@@ -340,7 +340,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("primitive")) 
 					{
-						__temp_executeDef54330 = false;
+						__temp_executeDef54735 = false;
 						this.primitive = ((int) (value) );
 						return value;
 					}
@@ -353,7 +353,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_mode")) 
 					{
-						__temp_executeDef54330 = false;
+						__temp_executeDef54735 = false;
 						this.m_mode = ((int) (value) );
 						return value;
 					}
@@ -364,7 +364,7 @@ public  class Mesh extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54330) 
+			if (__temp_executeDef54735) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -381,14 +381,14 @@ public  class Mesh extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54331 = true;
+			boolean __temp_executeDef54736 = true;
 			switch (field.hashCode())
 			{
 				case -1420606869:
 				{
 					if (field.equals("m_vcount")) 
 					{
-						__temp_executeDef54331 = false;
+						__temp_executeDef54736 = false;
 						this.m_vcount = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -401,7 +401,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("topology")) 
 					{
-						__temp_executeDef54331 = false;
+						__temp_executeDef54736 = false;
 						this.set_topology(((haxor.io.UInt16Array) (value) ));
 						return value;
 					}
@@ -414,7 +414,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_attribs")) 
 					{
-						__temp_executeDef54331 = false;
+						__temp_executeDef54736 = false;
 						this.m_attribs = ((haxe.root.Array<haxor.graphics.mesh.MeshAttrib>) (value) );
 						return value;
 					}
@@ -427,7 +427,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_topology_attrib")) 
 					{
-						__temp_executeDef54331 = false;
+						__temp_executeDef54736 = false;
 						this.m_topology_attrib = ((haxor.graphics.mesh.MeshAttrib) (value) );
 						return value;
 					}
@@ -440,7 +440,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("attribs")) 
 					{
-						__temp_executeDef54331 = false;
+						__temp_executeDef54736 = false;
 						this.attribs = ((haxe.root.Array<java.lang.String>) (value) );
 						return value;
 					}
@@ -453,7 +453,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_indexed")) 
 					{
-						__temp_executeDef54331 = false;
+						__temp_executeDef54736 = false;
 						this.m_indexed = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -466,7 +466,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("primitive")) 
 					{
-						__temp_executeDef54331 = false;
+						__temp_executeDef54736 = false;
 						this.primitive = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -479,7 +479,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("mode")) 
 					{
-						__temp_executeDef54331 = false;
+						__temp_executeDef54736 = false;
 						this.set_mode(((int) (haxe.lang.Runtime.toInt(value)) ));
 						return value;
 					}
@@ -492,7 +492,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_mode")) 
 					{
-						__temp_executeDef54331 = false;
+						__temp_executeDef54736 = false;
 						this.m_mode = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -503,7 +503,7 @@ public  class Mesh extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54331) 
+			if (__temp_executeDef54736) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -520,14 +520,14 @@ public  class Mesh extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54332 = true;
+			boolean __temp_executeDef54737 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -539,7 +539,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("topology")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.get_topology();
 					}
 					
@@ -551,7 +551,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
@@ -563,7 +563,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_topology")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_topology"))) );
 					}
 					
@@ -575,7 +575,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Remove")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Remove"))) );
 					}
 					
@@ -587,7 +587,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("set_topology")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_topology"))) );
 					}
 					
@@ -599,7 +599,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("GetAttribute")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetAttribute"))) );
 					}
 					
@@ -611,7 +611,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_topology_attrib")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.m_topology_attrib;
 					}
 					
@@ -623,7 +623,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Get"))) );
 					}
 					
@@ -635,7 +635,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("indexed")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.get_indexed();
 					}
 					
@@ -647,7 +647,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Exists")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Exists"))) );
 					}
 					
@@ -659,7 +659,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_indexed")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_indexed"))) );
 					}
 					
@@ -671,7 +671,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Clear")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Clear"))) );
 					}
 					
@@ -683,7 +683,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_indexed")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.m_indexed;
 					}
 					
@@ -695,7 +695,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_vcount")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.m_vcount;
 					}
 					
@@ -707,7 +707,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("mode")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.get_mode();
 					}
 					
@@ -719,7 +719,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_vcount")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_vcount"))) );
 					}
 					
@@ -731,7 +731,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_mode")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_mode"))) );
 					}
 					
@@ -743,7 +743,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("vcount")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.get_vcount();
 					}
 					
@@ -755,7 +755,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("set_mode")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_mode"))) );
 					}
 					
@@ -767,7 +767,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_attribs")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.m_attribs;
 					}
 					
@@ -779,7 +779,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_mode")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.m_mode;
 					}
 					
@@ -791,7 +791,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_attribs")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_attribs"))) );
 					}
 					
@@ -803,7 +803,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("primitive")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						return this.primitive;
 					}
 					
@@ -815,7 +815,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("attribs")) 
 					{
-						__temp_executeDef54332 = false;
+						__temp_executeDef54737 = false;
 						if (handleProperties) 
 						{
 							return this.get_attribs();
@@ -833,7 +833,7 @@ public  class Mesh extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54332) 
+			if (__temp_executeDef54737) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -850,14 +850,14 @@ public  class Mesh extends haxor.core.Resource
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54333 = true;
+			boolean __temp_executeDef54738 = true;
 			switch (field.hashCode())
 			{
 				case -1420606869:
 				{
 					if (field.equals("m_vcount")) 
 					{
-						__temp_executeDef54333 = false;
+						__temp_executeDef54738 = false;
 						return ((double) (this.m_vcount) );
 					}
 					
@@ -869,7 +869,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("mode")) 
 					{
-						__temp_executeDef54333 = false;
+						__temp_executeDef54738 = false;
 						return ((double) (this.get_mode()) );
 					}
 					
@@ -881,7 +881,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("vcount")) 
 					{
-						__temp_executeDef54333 = false;
+						__temp_executeDef54738 = false;
 						return ((double) (this.get_vcount()) );
 					}
 					
@@ -893,7 +893,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("m_mode")) 
 					{
-						__temp_executeDef54333 = false;
+						__temp_executeDef54738 = false;
 						return ((double) (this.m_mode) );
 					}
 					
@@ -905,7 +905,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("primitive")) 
 					{
-						__temp_executeDef54333 = false;
+						__temp_executeDef54738 = false;
 						return ((double) (this.primitive) );
 					}
 					
@@ -915,7 +915,7 @@ public  class Mesh extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54333) 
+			if (__temp_executeDef54738) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -932,14 +932,14 @@ public  class Mesh extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef54334 = true;
+			boolean __temp_executeDef54739 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -951,7 +951,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_topology")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.get_topology();
 					}
 					
@@ -963,7 +963,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						this.Set(haxe.lang.Runtime.toString(dynargs.__get(0)), ((haxor.io.Buffer) (dynargs.__get(1)) ), dynargs.__get(2));
 					}
 					
@@ -975,7 +975,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("set_topology")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.set_topology(((haxor.io.UInt16Array) (dynargs.__get(0)) ));
 					}
 					
@@ -987,7 +987,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Remove")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						this.Remove(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -999,7 +999,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_indexed")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.get_indexed();
 					}
 					
@@ -1011,7 +1011,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("GetAttribute")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.GetAttribute(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -1023,7 +1023,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_mode")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.get_mode();
 					}
 					
@@ -1035,7 +1035,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.Get(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -1047,7 +1047,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("set_mode")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.set_mode(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -1059,7 +1059,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Exists")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.Exists(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -1071,7 +1071,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_attribs")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.get_attribs();
 					}
 					
@@ -1083,7 +1083,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("Clear")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						this.Clear(dynargs.__get(0));
 					}
 					
@@ -1095,7 +1095,7 @@ public  class Mesh extends haxor.core.Resource
 				{
 					if (field.equals("get_vcount")) 
 					{
-						__temp_executeDef54334 = false;
+						__temp_executeDef54739 = false;
 						return this.get_vcount();
 					}
 					
@@ -1105,7 +1105,7 @@ public  class Mesh extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54334) 
+			if (__temp_executeDef54739) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

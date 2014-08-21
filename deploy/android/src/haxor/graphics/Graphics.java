@@ -18,7 +18,7 @@ public  class Graphics extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me54090)
+	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me54494)
 	{
 		{
 		}
@@ -37,7 +37,7 @@ public  class Graphics extends haxe.lang.HxObject
 				{
 					int p = ((int) (haxe.lang.Runtime.toInt(_this.programs.__get(p_material._cid_))) );
 					_this.UpdateFlags(p_material);
-					haxor.platform.graphics.GL.m_gl.UseProgram(p);
+					haxor.graphics.GL.m_gl.UseProgram(p);
 				}
 				
 			}
@@ -56,7 +56,7 @@ public  class Graphics extends haxe.lang.HxObject
 						{
 							u.__d = false;
 							int loc = ((int) (haxe.lang.Runtime.toInt(((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (_this.uniforms.__get(_this.current._cid_)) )) ).__get(u.__cid))) );
-							if (( loc == haxor.platform.graphics.GL.INVALID )) 
+							if (( loc == haxor.graphics.GL.INVALID )) 
 							{
 								continue;
 							}
@@ -70,7 +70,7 @@ public  class Graphics extends haxe.lang.HxObject
 									case 1:
 									{
 										double p_x = b.Get(0);
-										haxor.platform.graphics.GL.m_gl.Uniform1f(loc, p_x);
+										haxor.graphics.GL.m_gl.Uniform1f(loc, p_x);
 										break;
 									}
 									
@@ -79,7 +79,7 @@ public  class Graphics extends haxe.lang.HxObject
 									{
 										double p_x1 = b.Get(0);
 										double p_y = b.Get(1);
-										haxor.platform.graphics.GL.m_gl.Uniform2f(loc, p_x1, p_y);
+										haxor.graphics.GL.m_gl.Uniform2f(loc, p_x1, p_y);
 										break;
 									}
 									
@@ -89,7 +89,7 @@ public  class Graphics extends haxe.lang.HxObject
 										double p_x2 = b.Get(0);
 										double p_y1 = b.Get(1);
 										double p_z = b.Get(2);
-										haxor.platform.graphics.GL.m_gl.Uniform3f(loc, p_x2, p_y1, p_z);
+										haxor.graphics.GL.m_gl.Uniform3f(loc, p_x2, p_y1, p_z);
 										break;
 									}
 									
@@ -100,14 +100,14 @@ public  class Graphics extends haxe.lang.HxObject
 										double p_y2 = b.Get(1);
 										double p_z1 = b.Get(2);
 										double p_w = b.Get(3);
-										haxor.platform.graphics.GL.m_gl.Uniform4f(loc, p_x3, p_y2, p_z1, p_w);
+										haxor.graphics.GL.m_gl.Uniform4f(loc, p_x3, p_y2, p_z1, p_w);
 										break;
 									}
 									
 									
 									default:
 									{
-										haxor.platform.graphics.GL.m_gl.Uniform1fv(loc, b);
+										haxor.graphics.GL.m_gl.Uniform1fv(loc, b);
 										break;
 									}
 									
@@ -129,7 +129,7 @@ public  class Graphics extends haxe.lang.HxObject
 										
 										{
 											int p_x4 = b1.Get(0);
-											haxor.platform.graphics.GL.m_gl.Uniform1i(loc, p_x4);
+											haxor.graphics.GL.m_gl.Uniform1i(loc, p_x4);
 										}
 										
 										break;
@@ -140,7 +140,7 @@ public  class Graphics extends haxe.lang.HxObject
 									{
 										int p_x5 = b1.Get(0);
 										int p_y3 = b1.Get(1);
-										haxor.platform.graphics.GL.m_gl.Uniform2i(loc, p_x5, p_y3);
+										haxor.graphics.GL.m_gl.Uniform2i(loc, p_x5, p_y3);
 										break;
 									}
 									
@@ -150,7 +150,7 @@ public  class Graphics extends haxe.lang.HxObject
 										int p_x6 = b1.Get(0);
 										int p_y4 = b1.Get(1);
 										int p_z2 = b1.Get(2);
-										haxor.platform.graphics.GL.m_gl.Uniform3i(loc, p_x6, p_y4, p_z2);
+										haxor.graphics.GL.m_gl.Uniform3i(loc, p_x6, p_y4, p_z2);
 										break;
 									}
 									
@@ -161,14 +161,14 @@ public  class Graphics extends haxe.lang.HxObject
 										int p_y5 = b1.Get(1);
 										int p_z3 = b1.Get(2);
 										int p_w1 = b1.Get(3);
-										haxor.platform.graphics.GL.m_gl.Uniform4i(loc, p_x7, p_y5, p_z3, p_w1);
+										haxor.graphics.GL.m_gl.Uniform4i(loc, p_x7, p_y5, p_z3, p_w1);
 										break;
 									}
 									
 									
 									default:
 									{
-										haxor.platform.graphics.GL.m_gl.Uniform1iv(loc, b1);
+										haxor.graphics.GL.m_gl.Uniform1iv(loc, b1);
 										break;
 									}
 									
@@ -226,27 +226,27 @@ public  class Graphics extends haxe.lang.HxObject
 							{
 								_this1.activated.__set(loc1, true);
 								_this1.active_max = ((int) (java.lang.Math.max(((double) (_this1.active_max) ), ((double) (loc1) ))) );
-								haxor.platform.graphics.GL.m_gl.EnableVertexAttrib(loc1);
+								haxor.graphics.GL.m_gl.EnableVertexAttrib(loc1);
 							}
 							
-							haxor.platform.graphics.GL.m_gl.BindBuffer(34962, ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a._cid_))) ));
-							haxor.platform.graphics.GL.m_gl.VertexAttribPointer(loc1, a.offset, type, false, 0, 0);
+							haxor.graphics.GL.m_gl.BindBuffer(34962, ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a._cid_))) ));
+							haxor.graphics.GL.m_gl.VertexAttribPointer(loc1, a.offset, type, false, 0, 0);
 						}
 						
 					}
 					
 					if ( ! (has_color) ) 
 					{
-						haxor.platform.graphics.GL.m_gl.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
+						haxor.graphics.GL.m_gl.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
 					}
 					
 					if (_this1.current.m_indexed) 
 					{
 						a = _this1.current.m_topology_attrib;
-						haxor.platform.graphics.GL.m_gl.BindBuffer(34963, ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a._cid_))) ));
+						haxor.graphics.GL.m_gl.BindBuffer(34963, ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a._cid_))) ));
 					}
 					
-					haxor.platform.graphics.GL.m_gl.Assert("Mesh Bind");
+					haxor.graphics.GL.m_gl.Assert("Mesh Bind");
 				}
 				
 			}
@@ -255,13 +255,13 @@ public  class Graphics extends haxe.lang.HxObject
 		
 		if (p_mesh.m_indexed) 
 		{
-			haxor.platform.graphics.GL.m_gl.DrawElements(p_mesh.primitive, p_mesh.m_topology_attrib.data.m_length, 5123, 0);
-			haxor.platform.graphics.GL.m_gl.Assert("Mesh DrawElements");
+			haxor.graphics.GL.m_gl.DrawElements(p_mesh.primitive, p_mesh.m_topology_attrib.data.m_length, 5123, 0);
+			haxor.graphics.GL.m_gl.Assert("Mesh DrawElements");
 		}
 		 else 
 		{
-			haxor.platform.graphics.GL.m_gl.DrawArrays(p_mesh.primitive, 0, p_mesh.m_vcount);
-			haxor.platform.graphics.GL.m_gl.Assert("Mesh DrawArrays");
+			haxor.graphics.GL.m_gl.DrawArrays(p_mesh.primitive, 0, p_mesh.m_vcount);
+			haxor.graphics.GL.m_gl.Assert("Mesh DrawArrays");
 		}
 		
 	}

@@ -18,7 +18,7 @@ public  class Eof extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_io_Eof(haxe.io.Eof __temp_me54067)
+	public static   void __hx_ctor_haxe_io_Eof(haxe.io.Eof __temp_me54469)
 	{
 		{
 		}
@@ -47,14 +47,14 @@ public  class Eof extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54250 = true;
+			boolean __temp_executeDef54652 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef54250 = false;
+						__temp_executeDef54652 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("toString"))) );
 					}
 					
@@ -64,7 +64,7 @@ public  class Eof extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef54250) 
+			if (__temp_executeDef54652) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -81,14 +81,14 @@ public  class Eof extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef54251 = true;
+			boolean __temp_executeDef54653 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef54251 = false;
+						__temp_executeDef54653 = false;
 						return this.toString();
 					}
 					
@@ -98,7 +98,7 @@ public  class Eof extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef54251) 
+			if (__temp_executeDef54653) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

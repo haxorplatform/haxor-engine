@@ -1,6 +1,6 @@
 #if windows
 package haxor.platform.windows;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 import haxor.core.Engine;
 import haxor.core.Application;
 import haxor.core.BaseApplication;

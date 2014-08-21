@@ -22,8 +22,8 @@ import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.math.Color;
 import haxor.net.Web;
-import haxor.platform.graphics.GL;
-import haxor.platform.graphics.GraphicContext.GraphicAPI;
+import haxor.graphics.GL;
+import haxor.graphics.GraphicContext.GraphicAPI;
 import haxor.platform.Types.MeshBufferId;
 import haxor.thread.Activity;
 

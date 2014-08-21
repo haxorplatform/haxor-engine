@@ -12,10 +12,7 @@
 #include <haxor/thread/Task.h>
 #include <haxor/thread/Activity.h>
 #include <haxor/platform/graphics/OpenGL.h>
-#include <haxor/platform/graphics/WinGL.h>
-#include <haxor/platform/graphics/GraphicContext.h>
-#include <haxor/platform/graphics/GraphicAPI.h>
-#include <haxor/platform/graphics/GL.h>
+#include <haxor/platform/windows/graphics/WinGL.h>
 #include <haxor/platform/OSWindow.h>
 #include <haxor/net/Web.h>
 #include <haxor/math/Mathf.h>
@@ -38,6 +35,9 @@
 #include <haxor/graphics/CursorMode.h>
 #include <haxor/graphics/Screen.h>
 #include <haxor/graphics/Graphics.h>
+#include <haxor/graphics/GraphicContext.h>
+#include <haxor/graphics/GraphicAPI.h>
+#include <haxor/graphics/GL.h>
 #include <haxor/graphics/TextureType.h>
 #include <haxor/graphics/TextureWrap.h>
 #include <haxor/graphics/TextureFilter.h>
@@ -117,10 +117,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::thread::Task_obj::__register();
 ::haxor::thread::Activity_obj::__register();
 ::haxor::platform::graphics::OpenGL_obj::__register();
-::haxor::platform::graphics::WinGL_obj::__register();
-::haxor::platform::graphics::GraphicContext_obj::__register();
-::haxor::platform::graphics::GraphicAPI_obj::__register();
-::haxor::platform::graphics::GL_obj::__register();
+::haxor::platform::windows::graphics::WinGL_obj::__register();
 ::haxor::platform::OSWindow_obj::__register();
 ::haxor::net::Web_obj::__register();
 ::haxor::math::Mathf_obj::__register();
@@ -143,6 +140,9 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::CursorMode_obj::__register();
 ::haxor::graphics::Screen_obj::__register();
 ::haxor::graphics::Graphics_obj::__register();
+::haxor::graphics::GraphicContext_obj::__register();
+::haxor::graphics::GraphicAPI_obj::__register();
+::haxor::graphics::GL_obj::__register();
 ::haxor::graphics::TextureType_obj::__register();
 ::haxor::graphics::TextureWrap_obj::__register();
 ::haxor::graphics::TextureFilter_obj::__register();
@@ -265,6 +265,9 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::TextureFilter_obj::__boot();
 ::haxor::graphics::TextureWrap_obj::__boot();
 ::haxor::graphics::TextureType_obj::__boot();
+::haxor::graphics::GL_obj::__boot();
+::haxor::graphics::GraphicAPI_obj::__boot();
+::haxor::graphics::GraphicContext_obj::__boot();
 ::haxor::graphics::Graphics_obj::__boot();
 ::haxor::graphics::Screen_obj::__boot();
 ::haxor::graphics::CursorMode_obj::__boot();
@@ -287,10 +290,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::math::Mathf_obj::__boot();
 ::haxor::net::Web_obj::__boot();
 ::haxor::platform::OSWindow_obj::__boot();
-::haxor::platform::graphics::GL_obj::__boot();
-::haxor::platform::graphics::GraphicAPI_obj::__boot();
-::haxor::platform::graphics::GraphicContext_obj::__boot();
-::haxor::platform::graphics::WinGL_obj::__boot();
+::haxor::platform::windows::graphics::WinGL_obj::__boot();
 ::haxor::platform::graphics::OpenGL_obj::__boot();
 ::haxor::thread::Activity_obj::__boot();
 ::haxor::thread::Task_obj::__boot();

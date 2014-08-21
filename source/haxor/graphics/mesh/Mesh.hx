@@ -7,7 +7,7 @@ import haxor.graphics.Enums.MeshMode;
 import haxor.graphics.Enums.MeshPrimitive;
 import haxor.io.Buffer;
 import haxor.io.UInt16Array;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 import haxor.platform.Types.MeshBufferId;
 
 

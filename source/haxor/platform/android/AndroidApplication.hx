@@ -1,7 +1,7 @@
 #if android
 
 package haxor.platform.android;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 import haxor.core.BaseApplication;
 
 

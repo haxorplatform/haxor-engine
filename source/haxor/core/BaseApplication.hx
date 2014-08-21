@@ -4,7 +4,7 @@ import haxe.Timer;
 import haxor.component.Behaviour;
 import haxor.component.Component;
 import haxor.graphics.Screen;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 
 
 #if html

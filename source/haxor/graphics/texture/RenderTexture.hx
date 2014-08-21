@@ -2,7 +2,7 @@ package haxor.graphics.texture;
 import haxor.context.EngineContext;
 import haxor.graphics.Enums.PixelFormat;
 import haxor.graphics.Enums.TextureType;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 
 /**
  * Class that describes a RenderTexture which can be used as target for offscreen rendering or kernel execution.

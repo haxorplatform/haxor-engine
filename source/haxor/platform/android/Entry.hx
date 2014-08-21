@@ -5,7 +5,7 @@ import haxor.core.Engine;
 import java.lang.Thread;
 import java.lang.Throwable;
 import haxor.core.Time;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 import haxor.context.EngineContext;
 import haxor.core.Entity;
 import haxor.graphics.Screen;

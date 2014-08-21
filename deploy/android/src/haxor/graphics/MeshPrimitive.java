@@ -28,7 +28,7 @@ public  class MeshPrimitive extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_MeshPrimitive(haxor.graphics.MeshPrimitive __temp_me54085)
+	public static   void __hx_ctor_haxor_graphics_MeshPrimitive(haxor.graphics.MeshPrimitive __temp_me54487)
 	{
 		{
 		}

@@ -1,5 +1,6 @@
 #if (windows || osx || linux)
 package haxor.platform.graphics;
+import haxor.graphics.GL;
 import haxor.io.Int32Array;
 import haxor.platform.Types.UniformLocation;
 import haxor.platform.Types.TextureId;
@@ -20,7 +21,7 @@ import haxor.platform.Types.ArrayBuffer;
 import haxor.platform.Types.MeshBufferId;
 import haxor.core.Time;
 import haxor.core.Console;
-import haxor.platform.graphics.GraphicContext;
+import haxor.graphics.GraphicContext;
 import haxor.platform.OSWindow;
 import haxor.core.BaseApplication;
 
@@ -31,7 +32,7 @@ import haxor.core.BaseApplication;
 class OpenGL extends
 
 #if windows
-WinGL
+haxor.platform.windows.graphics.WinGL
 #end
 
 #if linux

@@ -235,9 +235,9 @@ haxor.core.BaseApplication.prototype = $extend(haxor.component.Behaviour.prototy
 		if(haxor.core.Time.m_clock - this.m_frame_ms >= this.m_mspf) {
 			this.m_frame_ms += haxor.core.Time.m_clock - this.m_frame_ms;
 			haxor.core.Time.Render();
-			haxor.platform.graphics.GL.m_gl.Focus();
+			haxor.graphics.GL.m_gl.Focus();
 			haxor.core.Engine.Render();
-			haxor.platform.graphics.GL.m_gl.Flush();
+			haxor.graphics.GL.m_gl.Flush();
 		}
 	}
 	,OnQuit: function() {
@@ -260,7 +260,7 @@ haxor.core.BaseApplication.prototype = $extend(haxor.component.Behaviour.prototy
 	}
 	,OnResize: function() {
 		haxor.core.Console.Log("Application> Resize [" + haxor.graphics.Screen.m_width + "," + haxor.graphics.Screen.m_height + "]",5);
-		haxor.platform.graphics.GL.m_gl.Resize();
+		haxor.graphics.GL.m_gl.Resize();
 		haxor.core.Engine.Resize();
 	}
 	,OnFullscreenEnter: function() {
@@ -337,6 +337,7 @@ Main.main = function() {
 Main.__super__ = haxor.core.Application;
 Main.prototype = $extend(haxor.core.Application.prototype,{
 	Load: function() {
+		var _g = this;
 		haxor.net.Web.root = "http://haxor.thelaborat.org/resources/";
 		haxor.net.Web.Load("./character/medieval/animations/all_idle01.DAE",function(s,p) {
 			haxor.core.Console.Log("progress> " + p);
@@ -344,10 +345,12 @@ Main.prototype = $extend(haxor.core.Application.prototype,{
 				if(s != null) haxor.core.Console.Log(HxOverrides.substr(s,0,100));
 			}
 		});
-		haxor.net.Web.LoadImg("./projects/dungeon/big/DungeonAtlas02.png",function(b,p1) {
+		haxor.net.Web.LoadImg("./projects/dungeon/big/DungeonAtlas03.png",function(b,p1) {
 			haxor.core.Console.Log("p> " + p1);
 			if(p1 >= 1.0) {
 				if(b != null) {
+					_g.bmp = b;
+					_g.LoadComplete();
 				}
 			}
 		});
@@ -381,10 +384,10 @@ Main.prototype = $extend(haxor.core.Application.prototype,{
 	,OnUpdate: function() {
 	}
 	,OnRender: function() {
-		haxor.platform.graphics.GL.m_gl.Viewport(0,0,haxor.graphics.Screen.m_width,haxor.graphics.Screen.m_height);
-		haxor.platform.graphics.GL.m_gl.ClearColor(0.7,0.3,1.0,1.0);
-		haxor.platform.graphics.GL.m_gl.ClearDepth(1.0);
-		haxor.platform.graphics.GL.m_gl.Clear(16640);
+		haxor.graphics.GL.m_gl.Viewport(0,0,haxor.graphics.Screen.m_width,haxor.graphics.Screen.m_height);
+		haxor.graphics.GL.m_gl.ClearColor(0.7,0.3,1.0,1.0);
+		haxor.graphics.GL.m_gl.ClearDepth(1.0);
+		haxor.graphics.GL.m_gl.Clear(16640);
 		if(this.mesh == null) return;
 		if(this.mat == null) return;
 		this.mat.SetFloat("Time",haxor.core.Time.m_elapsed);
@@ -938,13 +941,13 @@ haxor.context.MaterialContext = function() {
 		var _g11 = 0;
 		while(_g11 < 200) {
 			var j1 = _g11++;
-			ul.push(haxor.platform.graphics.GL.INVALID);
+			ul.push(haxor.graphics.GL.INVALID);
 		}
 		this.locations.push(l);
 		this.uniforms.push(ul);
-		this.programs.push(haxor.platform.graphics.GL.INVALID);
-		this.vertex_shaders.push(haxor.platform.graphics.GL.INVALID);
-		this.fragment_shaders.push(haxor.platform.graphics.GL.INVALID);
+		this.programs.push(haxor.graphics.GL.INVALID);
+		this.vertex_shaders.push(haxor.graphics.GL.INVALID);
+		this.fragment_shaders.push(haxor.graphics.GL.INVALID);
 	}
 };
 $hxClasses["haxor.context.MaterialContext"] = haxor.context.MaterialContext;
@@ -952,32 +955,32 @@ haxor.context.MaterialContext.__name__ = ["haxor","context","MaterialContext"];
 haxor.context.MaterialContext.prototype = {
 	Initialize: function() {
 		haxor.core.Console.Log("MaterialContext> Initialize.",3);
-		haxor.platform.graphics.GL.m_gl.DepthFunc(515);
-		haxor.platform.graphics.GL.m_gl.Enable(2929);
-		haxor.platform.graphics.GL.m_gl.DepthMask(true);
-		haxor.platform.graphics.GL.m_gl.Disable(3042);
-		haxor.platform.graphics.GL.m_gl.BlendFunc(1,0);
-		haxor.platform.graphics.GL.m_gl.Enable(2884);
-		haxor.platform.graphics.GL.m_gl.FrontFace(2305);
-		haxor.platform.graphics.GL.m_gl.CullFace(1029);
-		haxor.platform.graphics.GL.m_gl.Enable(3089);
+		haxor.graphics.GL.m_gl.DepthFunc(515);
+		haxor.graphics.GL.m_gl.Enable(2929);
+		haxor.graphics.GL.m_gl.DepthMask(true);
+		haxor.graphics.GL.m_gl.Disable(3042);
+		haxor.graphics.GL.m_gl.BlendFunc(1,0);
+		haxor.graphics.GL.m_gl.Enable(2884);
+		haxor.graphics.GL.m_gl.FrontFace(2305);
+		haxor.graphics.GL.m_gl.CullFace(1029);
+		haxor.graphics.GL.m_gl.Enable(3089);
 	}
 	,UpdateFlags: function(m) {
 		if(m.zfunc != this.zfunc) {
 			this.zfunc = m.zfunc;
-			haxor.platform.graphics.GL.m_gl.DepthFunc(this.zfunc);
+			haxor.graphics.GL.m_gl.DepthFunc(this.zfunc);
 		}
 		if(m.ztest != this.ztest) {
 			this.ztest = m.ztest;
-			if(this.ztest) haxor.platform.graphics.GL.m_gl.Enable(2929); else haxor.platform.graphics.GL.m_gl.Disable(2929);
+			if(this.ztest) haxor.graphics.GL.m_gl.Enable(2929); else haxor.graphics.GL.m_gl.Disable(2929);
 		}
 		if(m.zwrite != this.zwrite) {
 			this.zwrite = m.zwrite;
-			haxor.platform.graphics.GL.m_gl.DepthMask(this.zwrite);
+			haxor.graphics.GL.m_gl.DepthMask(this.zwrite);
 		}
 		if(m.blend != this.blend) {
 			this.blend = m.blend;
-			if(this.blend) haxor.platform.graphics.GL.m_gl.Enable(3042); else haxor.platform.graphics.GL.m_gl.Disable(3042);
+			if(this.blend) haxor.graphics.GL.m_gl.Enable(3042); else haxor.graphics.GL.m_gl.Disable(3042);
 		}
 		var blend_change = false;
 		if(m.blendSrc != this.blendSrc) {
@@ -988,21 +991,21 @@ haxor.context.MaterialContext.prototype = {
 			blend_change = true;
 			this.blendDst = m.blendDst;
 		}
-		if(blend_change) haxor.platform.graphics.GL.m_gl.BlendFunc(this.blendSrc,this.blendDst);
+		if(blend_change) haxor.graphics.GL.m_gl.BlendFunc(this.blendSrc,this.blendDst);
 		if(m.invert != this.invert) {
 			this.invert = m.invert;
-			haxor.platform.graphics.GL.m_gl.FrontFace(this.invert?2304:2305);
+			haxor.graphics.GL.m_gl.FrontFace(this.invert?2304:2305);
 		}
 		if(m.cull != this.cull) {
 			this.cull = m.cull;
-			if(this.cull == 0) haxor.platform.graphics.GL.m_gl.Disable(2884); else {
-				haxor.platform.graphics.GL.m_gl.Enable(2884);
-				haxor.platform.graphics.GL.m_gl.CullFace(this.cull == 1?1028:1029);
+			if(this.cull == 0) haxor.graphics.GL.m_gl.Disable(2884); else {
+				haxor.graphics.GL.m_gl.Enable(2884);
+				haxor.graphics.GL.m_gl.CullFace(this.cull == 1?1028:1029);
 			}
 		}
 	}
 	,InitializeMaterial: function(m) {
-		this.programs[m._cid_] = haxor.platform.graphics.GL.m_gl.CreateProgram();
+		this.programs[m._cid_] = haxor.graphics.GL.m_gl.CreateProgram();
 		haxor.core.Console.Log("Material> id[" + Std.string(this.programs[m._cid_]) + "]",4);
 	}
 	,InitializeShader: function(s) {
@@ -1020,26 +1023,26 @@ haxor.context.MaterialContext.prototype = {
 	}
 	,CreateUniform: function(m,u) {
 		var p = this.programs[m._cid_];
-		var loc = haxor.platform.graphics.GL.m_gl.GetUniformLocation(p,u.name);
+		var loc = haxor.graphics.GL.m_gl.GetUniformLocation(p,u.name);
 		haxor.core.Console.Log("Material> [" + m.get_name() + "] @ [" + Std.string(p) + "] uniform[" + u.name + "] loc[" + Std.string(loc) + "]");
 		this.uniforms[m._cid_][u.__cid] = loc;
 		u.__d = true;
 	}
 	,DestroyUniform: function(m,u) {
 		var p = this.programs[m._cid_];
-		var loc = haxor.platform.graphics.GL.m_gl.GetUniformLocation(p,u.name);
-		this.uniforms[m._cid_][u.__cid] = haxor.platform.graphics.GL.INVALID;
+		var loc = haxor.graphics.GL.m_gl.GetUniformLocation(p,u.name);
+		this.uniforms[m._cid_][u.__cid] = haxor.graphics.GL.INVALID;
 	}
 	,CreateCompileShader: function(s,t,c) {
-		var id = haxor.platform.graphics.GL.m_gl.CreateShader(t);
+		var id = haxor.graphics.GL.m_gl.CreateShader(t);
 		var ss;
 		if(t == 35633) ss = s.m_vss; else ss = s.m_fss;
 		c[s._cid_] = id;
-		haxor.platform.graphics.GL.m_gl.ShaderSource(id,ss);
-		haxor.platform.graphics.GL.m_gl.CompileShader(id);
-		if(haxor.platform.graphics.GL.m_gl.GetShaderParameter(id,35713) == 0) {
+		haxor.graphics.GL.m_gl.ShaderSource(id,ss);
+		haxor.graphics.GL.m_gl.CompileShader(id);
+		if(haxor.graphics.GL.m_gl.GetShaderParameter(id,35713) == 0) {
 			s.m_hasError = true;
-			return haxor.platform.graphics.GL.m_gl.GetShaderInfoLog(id);
+			return haxor.graphics.GL.m_gl.GetShaderInfoLog(id);
 		}
 		return "";
 	}
@@ -1050,23 +1053,23 @@ haxor.context.MaterialContext.prototype = {
 		if(s0 != null) {
 			vs_id = this.vertex_shaders[s0._cid_];
 			fs_id = this.fragment_shaders[s0._cid_];
-			haxor.platform.graphics.GL.m_gl.DetachShader(p,vs_id);
-			haxor.platform.graphics.GL.m_gl.DetachShader(p,fs_id);
+			haxor.graphics.GL.m_gl.DetachShader(p,vs_id);
+			haxor.graphics.GL.m_gl.DetachShader(p,fs_id);
 		}
 		if(s1 != null) {
 			vs_id = this.vertex_shaders[s1._cid_];
 			fs_id = this.fragment_shaders[s1._cid_];
-			haxor.platform.graphics.GL.m_gl.AttachShader(p,vs_id);
-			haxor.platform.graphics.GL.m_gl.AttachShader(p,fs_id);
+			haxor.graphics.GL.m_gl.AttachShader(p,vs_id);
+			haxor.graphics.GL.m_gl.AttachShader(p,fs_id);
 			var al = haxor.context.EngineContext.mesh.attribs;
 			var _g1 = 0;
 			var _g = al.length;
 			while(_g1 < _g) {
 				var i = _g1++;
-				haxor.platform.graphics.GL.m_gl.BindAttribLocation(p,i,al[i]);
+				haxor.graphics.GL.m_gl.BindAttribLocation(p,i,al[i]);
 			}
-			haxor.platform.graphics.GL.m_gl.LinkProgram(p);
-			if(haxor.platform.graphics.GL.m_gl.GetProgramParameter(p,35714) == 0) haxor.core.Console.LogError("Material> [" + m.get_name() + "] Link Error @ [" + s1.get_name() + "]");
+			haxor.graphics.GL.m_gl.LinkProgram(p);
+			if(haxor.graphics.GL.m_gl.GetProgramParameter(p,35714) == 0) haxor.core.Console.LogError("Material> [" + m.get_name() + "] Link Error @ [" + s1.get_name() + "]");
 			var ul = m.m_uniforms;
 			var _g11 = 0;
 			var _g2 = ul.length;
@@ -1089,7 +1092,7 @@ haxor.context.MaterialContext.prototype = {
 		var p = this.programs[this.current._cid_];
 		var loc = this.locations[this.current._cid_][a._cid_];
 		if(loc == -1) {
-			loc = haxor.platform.graphics.GL.m_gl.GetAttribLocation(p,a.m_name);
+			loc = haxor.graphics.GL.m_gl.GetAttribLocation(p,a.m_name);
 			if(loc < 0) this.locations[this.current._cid_][a._cid_] = -2;
 		}
 		return loc;
@@ -1100,7 +1103,7 @@ haxor.context.MaterialContext.prototype = {
 			if(m != null) {
 				var p = this.programs[m._cid_];
 				this.UpdateFlags(m);
-				haxor.platform.graphics.GL.m_gl.UseProgram(p);
+				haxor.graphics.GL.m_gl.UseProgram(p);
 			}
 		}
 		if(this.current != null) {
@@ -1113,7 +1116,7 @@ haxor.context.MaterialContext.prototype = {
 				if(u.__d) {
 					u.__d = false;
 					var loc = this.uniforms[this.current._cid_][u.__cid];
-					if(loc == haxor.platform.graphics.GL.INVALID) continue;
+					if(loc == haxor.graphics.GL.INVALID) continue;
 					if(u.isFloat) this.ApplyFloatUniform(loc,u); else this.ApplyIntUniform(loc,u);
 				}
 			}
@@ -1124,19 +1127,19 @@ haxor.context.MaterialContext.prototype = {
 		var off = p_uniform.offset;
 		switch(off) {
 		case 1:
-			haxor.platform.graphics.GL.Uniform1f(p_location,b.Get(0));
+			haxor.graphics.GL.Uniform1f(p_location,b.Get(0));
 			break;
 		case 2:
-			haxor.platform.graphics.GL.Uniform2f(p_location,b.Get(0),b.Get(1));
+			haxor.graphics.GL.Uniform2f(p_location,b.Get(0),b.Get(1));
 			break;
 		case 3:
-			haxor.platform.graphics.GL.Uniform3f(p_location,b.Get(0),b.Get(1),b.Get(2));
+			haxor.graphics.GL.Uniform3f(p_location,b.Get(0),b.Get(1),b.Get(2));
 			break;
 		case 4:
-			haxor.platform.graphics.GL.Uniform4f(p_location,b.Get(0),b.Get(1),b.Get(2),b.Get(3));
+			haxor.graphics.GL.Uniform4f(p_location,b.Get(0),b.Get(1),b.Get(2),b.Get(3));
 			break;
 		default:
-			haxor.platform.graphics.GL.m_gl.Uniform1fv(p_location,b);
+			haxor.graphics.GL.m_gl.Uniform1fv(p_location,b);
 		}
 	}
 	,ApplyIntUniform: function(p_location,p_uniform) {
@@ -1145,19 +1148,19 @@ haxor.context.MaterialContext.prototype = {
 		switch(off) {
 		case 1:
 			if(p_uniform.texture != null) haxor.context.EngineContext.texture.Activate(p_uniform.texture);
-			haxor.platform.graphics.GL.Uniform1i(p_location,b.Get(0));
+			haxor.graphics.GL.Uniform1i(p_location,b.Get(0));
 			break;
 		case 2:
-			haxor.platform.graphics.GL.Uniform2i(p_location,b.Get(0),b.Get(1));
+			haxor.graphics.GL.Uniform2i(p_location,b.Get(0),b.Get(1));
 			break;
 		case 3:
-			haxor.platform.graphics.GL.Uniform3i(p_location,b.Get(0),b.Get(1),b.Get(2));
+			haxor.graphics.GL.Uniform3i(p_location,b.Get(0),b.Get(1),b.Get(2));
 			break;
 		case 4:
-			haxor.platform.graphics.GL.Uniform4i(p_location,b.Get(0),b.Get(1),b.Get(2),b.Get(3));
+			haxor.graphics.GL.Uniform4i(p_location,b.Get(0),b.Get(1),b.Get(2),b.Get(3));
 			break;
 		default:
-			haxor.platform.graphics.GL.m_gl.Uniform1iv(p_location,b);
+			haxor.graphics.GL.m_gl.Uniform1iv(p_location,b);
 		}
 	}
 	,Unbind: function() {
@@ -1165,14 +1168,14 @@ haxor.context.MaterialContext.prototype = {
 	,DestroyMaterial: function(m) {
 		var p = this.programs[m._cid_];
 		if(m.m_shader != null) {
-			haxor.platform.graphics.GL.m_gl.DetachShader(p,this.vertex_shaders[m.m_shader._cid_]);
-			haxor.platform.graphics.GL.m_gl.DetachShader(p,this.fragment_shaders[m.m_shader._cid_]);
+			haxor.graphics.GL.m_gl.DetachShader(p,this.vertex_shaders[m.m_shader._cid_]);
+			haxor.graphics.GL.m_gl.DetachShader(p,this.fragment_shaders[m.m_shader._cid_]);
 		}
-		haxor.platform.graphics.GL.m_gl.DeleteProgram(p);
+		haxor.graphics.GL.m_gl.DeleteProgram(p);
 	}
 	,DestroyShader: function(s) {
-		haxor.platform.graphics.GL.m_gl.DeleteShader(this.vertex_shaders[s._cid_]);
-		haxor.platform.graphics.GL.m_gl.DeleteShader(this.fragment_shaders[s._cid_]);
+		haxor.graphics.GL.m_gl.DeleteShader(this.vertex_shaders[s._cid_]);
+		haxor.graphics.GL.m_gl.DeleteShader(this.fragment_shaders[s._cid_]);
 	}
 	,__class__: haxor.context.MaterialContext
 };
@@ -1191,7 +1194,7 @@ haxor.context.MeshContext = function() {
 	var _g1 = 0;
 	while(_g1 < max_buffers) {
 		var i1 = _g1++;
-		this.buffers.push(haxor.platform.graphics.GL.INVALID);
+		this.buffers.push(haxor.graphics.GL.INVALID);
 	}
 };
 $hxClasses["haxor.context.MeshContext"] = haxor.context.MeshContext;
@@ -1224,15 +1227,15 @@ haxor.context.MeshContext.prototype = {
 					if(!this.activated[loc]) {
 						this.activated[loc] = true;
 						this.active_max = Math.max(this.active_max,loc);
-						haxor.platform.graphics.GL.m_gl.EnableVertexAttrib(loc);
+						haxor.graphics.GL.m_gl.EnableVertexAttrib(loc);
 					}
-					haxor.platform.graphics.GL.m_gl.BindBuffer(34962,this.buffers[a._cid_]);
-					haxor.platform.graphics.GL.m_gl.VertexAttribPointer(loc,a.offset,type,false,0,0);
+					haxor.graphics.GL.m_gl.BindBuffer(34962,this.buffers[a._cid_]);
+					haxor.graphics.GL.m_gl.VertexAttribPointer(loc,a.offset,type,false,0,0);
 				}
-				if(!has_color) haxor.platform.graphics.GL.m_gl.VertexAttrib4f(5,1.0,1.0,1.0,1.0);
+				if(!has_color) haxor.graphics.GL.m_gl.VertexAttrib4f(5,1.0,1.0,1.0,1.0);
 				if(this.current.m_indexed) {
 					a = this.current.m_topology_attrib;
-					haxor.platform.graphics.GL.m_gl.BindBuffer(34963,this.buffers[a._cid_]);
+					haxor.graphics.GL.m_gl.BindBuffer(34963,this.buffers[a._cid_]);
 				}
 				null;
 			}
@@ -1242,30 +1245,30 @@ haxor.context.MeshContext.prototype = {
 	}
 	,Draw: function(m) {
 		if(m.m_indexed) {
-			haxor.platform.graphics.GL.m_gl.DrawElements(m.primitive,m.m_topology_attrib.data.m_length,5123,0);
+			haxor.graphics.GL.m_gl.DrawElements(m.primitive,m.m_topology_attrib.data.m_length,5123,0);
 			null;
 		} else {
-			haxor.platform.graphics.GL.m_gl.DrawArrays(m.primitive,0,m.m_vcount);
+			haxor.graphics.GL.m_gl.DrawArrays(m.primitive,0,m.m_vcount);
 			null;
 		}
 	}
 	,RemoveAttrib: function(p_attrib) {
 		var id = this.buffers[p_attrib._cid_];
-		if(id == haxor.platform.graphics.GL.INVALID) return;
-		haxor.platform.graphics.GL.m_gl.DeleteBuffer(id);
-		this.buffers[p_attrib._cid_] = haxor.platform.graphics.GL.INVALID;
+		if(id == haxor.graphics.GL.INVALID) return;
+		haxor.graphics.GL.m_gl.DeleteBuffer(id);
+		this.buffers[p_attrib._cid_] = haxor.graphics.GL.INVALID;
 	}
 	,UpdateAttrib: function(a,p_mode,p_is_index) {
 		var id = this.buffers[a._cid_];
 		var target_flag;
 		if(p_is_index) target_flag = 34963; else target_flag = 34962;
 		a._loc_ = HxOverrides.indexOf(this.attribs,a.m_name,0);
-		if(id == haxor.platform.graphics.GL.INVALID) {
-			id = haxor.platform.graphics.GL.m_gl.CreateBuffer();
+		if(id == haxor.graphics.GL.INVALID) {
+			id = haxor.graphics.GL.m_gl.CreateBuffer();
 			this.buffers[a._cid_] = id;
 		}
-		haxor.platform.graphics.GL.m_gl.BindBuffer(target_flag,id);
-		haxor.platform.graphics.GL.m_gl.BufferData(target_flag,a.data,p_mode);
+		haxor.graphics.GL.m_gl.BindBuffer(target_flag,id);
+		haxor.graphics.GL.m_gl.BufferData(target_flag,a.data,p_mode);
 		null;
 	}
 	,__class__: haxor.context.MeshContext
@@ -1371,7 +1374,7 @@ haxor.context.TextureContext.FormatToChannelBits = function(p_format) {
 haxor.context.TextureContext.FormatToChannelType = function(p_format) {
 	switch(p_format[1]) {
 	case 4:case 5:case 6:
-		return haxor.platform.graphics.GL.HALF_FLOAT;
+		return haxor.graphics.GL.HALF_FLOAT;
 	case 7:case 8:case 9:
 		return 5126;
 	case 10:
@@ -1403,7 +1406,7 @@ haxor.context.TextureContext.FormatToChannelLayout = function(p_format) {
 haxor.context.TextureContext.prototype = {
 	Initialize: function() {
 		var _g1 = 0;
-		var _g = haxor.platform.graphics.GL.MAX_ACTIVE_TEXTURE;
+		var _g = haxor.graphics.GL.MAX_ACTIVE_TEXTURE;
 		while(_g1 < _g) {
 			var i = _g1++;
 			this.active.push(null);
@@ -1411,9 +1414,9 @@ haxor.context.TextureContext.prototype = {
 		var _g2 = 0;
 		while(_g2 < 2048) {
 			var i1 = _g2++;
-			this.ids.push(haxor.platform.graphics.GL.INVALID);
-			this.framebuffers.push(haxor.platform.graphics.GL.INVALID);
-			this.renderbuffers.push(haxor.platform.graphics.GL.INVALID);
+			this.ids.push(haxor.graphics.GL.INVALID);
+			this.framebuffers.push(haxor.graphics.GL.INVALID);
+			this.renderbuffers.push(haxor.graphics.GL.INVALID);
 		}
 	}
 	,Alloc: function(p_texture) {
@@ -1425,32 +1428,32 @@ haxor.context.TextureContext.prototype = {
 		var tex_type;
 		if(p_texture.get_type() == haxor.graphics.TextureType.Texture2D) tex_type = 3553; else if(p_texture.get_type() == haxor.graphics.TextureType.RenderTexture) tex_type = 3553; else if(p_texture.get_type() == haxor.graphics.TextureType.TextureCube) tex_type = 34067; else tex_type = 3553;
 		this.Bind(p_texture);
-		haxor.platform.graphics.GL.m_gl.TexImage2DAlloc(tex_type,0,chn_fmt,w,h,0,chn_bit,chn_type);
+		haxor.graphics.GL.m_gl.TexImage2DAlloc(tex_type,0,chn_fmt,w,h,0,chn_bit,chn_type);
 	}
 	,Create: function(p_texture) {
-		p_texture.__slot = p_texture._cid_ % haxor.platform.graphics.GL.MAX_ACTIVE_TEXTURE;
-		var id = haxor.platform.graphics.GL.m_gl.CreateTexture();
+		p_texture.__slot = p_texture._cid_ % haxor.graphics.GL.MAX_ACTIVE_TEXTURE;
+		var id = haxor.graphics.GL.m_gl.CreateTexture();
 		this.ids[p_texture._cid_] = id;
 		this.UpdateParameters(p_texture);
 		if(p_texture.get_type() != haxor.graphics.TextureType.TextureCube) this.Alloc(p_texture);
 		if(p_texture.get_type() == haxor.graphics.TextureType.RenderTexture) {
 			var rt = p_texture;
-			var fb_id = haxor.platform.graphics.GL.m_gl.CreateFramebuffer();
+			var fb_id = haxor.graphics.GL.m_gl.CreateFramebuffer();
 			this.framebuffers[p_texture._cid_] = fb_id;
-			haxor.platform.graphics.GL.m_gl.BindFramebuffer(36160,fb_id);
-			haxor.platform.graphics.GL.m_gl.FramebufferTexture2D(36160,36064,3553,id,0);
+			haxor.graphics.GL.m_gl.BindFramebuffer(36160,fb_id);
+			haxor.graphics.GL.m_gl.FramebufferTexture2D(36160,36064,3553,id,0);
 			if(rt.m_depth != null) {
 				var depth_id = this.ids[rt.m_depth._cid_];
-				haxor.platform.graphics.GL.m_gl.FramebufferTexture2D(36160,36096,3553,depth_id,0);
+				haxor.graphics.GL.m_gl.FramebufferTexture2D(36160,36096,3553,depth_id,0);
 			} else {
-				var rb_id = haxor.platform.graphics.GL.m_gl.CreateRenderbuffer();
+				var rb_id = haxor.graphics.GL.m_gl.CreateRenderbuffer();
 				this.renderbuffers[p_texture._cid_] = rb_id;
-				haxor.platform.graphics.GL.m_gl.BindRenderbuffer(36161,rb_id);
-				haxor.platform.graphics.GL.m_gl.RenderbufferStorage(36161,33189,rt.m_width,rt.m_height);
-				haxor.platform.graphics.GL.m_gl.FramebufferRenderbuffer(36160,36096,36161,rb_id);
+				haxor.graphics.GL.m_gl.BindRenderbuffer(36161,rb_id);
+				haxor.graphics.GL.m_gl.RenderbufferStorage(36161,33189,rt.m_width,rt.m_height);
+				haxor.graphics.GL.m_gl.FramebufferRenderbuffer(36160,36096,36161,rb_id);
 			}
-			haxor.platform.graphics.GL.BindFramebuffer(36160,haxor.platform.graphics.GL.NULL);
-			haxor.platform.graphics.GL.BindRenderbuffer(36161,haxor.platform.graphics.GL.NULL);
+			haxor.graphics.GL.BindFramebuffer(36160,haxor.graphics.GL.NULL);
+			haxor.graphics.GL.BindRenderbuffer(36161,haxor.graphics.GL.NULL);
 			this.Unbind();
 		}
 	}
@@ -1459,73 +1462,73 @@ haxor.context.TextureContext.prototype = {
 		this.bind = p_texture;
 		var id = this.ids[this.bind._cid_];
 		var target = haxor.context.TextureContext.TextureToTarget(this.bind);
-		haxor.platform.graphics.GL.m_gl.BindTexture(target,id);
+		haxor.graphics.GL.m_gl.BindTexture(target,id);
 	}
 	,Unbind: function() {
 		if(this.bind == null) return;
 		var target = haxor.context.TextureContext.TextureToTarget(this.bind);
 		this.bind = null;
-		haxor.platform.graphics.GL.BindTexture(target,haxor.platform.graphics.GL.NULL);
+		haxor.graphics.GL.BindTexture(target,haxor.graphics.GL.NULL);
 	}
 	,UpdateParameters: function(p_texture) {
 		var target;
 		if(p_texture.get_type() == haxor.graphics.TextureType.Texture2D) target = 3553; else if(p_texture.get_type() == haxor.graphics.TextureType.RenderTexture) target = 3553; else if(p_texture.get_type() == haxor.graphics.TextureType.TextureCube) target = 34067; else target = 3553;
 		this.Bind(p_texture);
-		haxor.platform.graphics.GL.m_gl.TexParameteri(target,10242,(p_texture.m_wrap & haxor.graphics.TextureWrap.ClampX) != 0?33071:10497);
-		haxor.platform.graphics.GL.m_gl.TexParameteri(target,10243,(p_texture.m_wrap & haxor.graphics.TextureWrap.ClampY) != 0?33071:10497);
-		if(haxor.platform.graphics.GL.TEXTURE_ANISOTROPY_ENABLED) haxor.platform.graphics.GL.TexParameterf(target,haxor.platform.graphics.GL.TEXTURE_ANISOTROPY,Math.max(1,p_texture.m_aniso));
+		haxor.graphics.GL.m_gl.TexParameteri(target,10242,(p_texture.m_wrap & haxor.graphics.TextureWrap.ClampX) != 0?33071:10497);
+		haxor.graphics.GL.m_gl.TexParameteri(target,10243,(p_texture.m_wrap & haxor.graphics.TextureWrap.ClampY) != 0?33071:10497);
+		if(haxor.graphics.GL.TEXTURE_ANISOTROPY_ENABLED) haxor.graphics.GL.TexParameterf(target,haxor.graphics.GL.TEXTURE_ANISOTROPY,Math.max(1,p_texture.m_aniso));
 		var minf = p_texture.m_minFilter;
 		var magf = p_texture.m_magFilter;
 		if(p_texture.m_format == haxor.graphics.PixelFormat.Half) {
-			if(!haxor.platform.graphics.GL.TEXTURE_HALF_LINEAR) {
+			if(!haxor.graphics.GL.TEXTURE_HALF_LINEAR) {
 				minf = haxor.graphics.TextureFilter.Nearest;
 				magf = haxor.graphics.TextureFilter.Nearest;
 			}
 		}
 		switch(minf[1]) {
 		case 0:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10241,9728);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10241,9728);
 			break;
 		case 3:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10241,9986);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10241,9986);
 			break;
 		case 2:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10241,9984);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10241,9984);
 			break;
 		case 1:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10241,9729);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10241,9729);
 			break;
 		case 5:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10241,9987);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10241,9987);
 			break;
 		case 6:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10241,9987);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10241,9987);
 			break;
 		case 4:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10241,9985);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10241,9985);
 			break;
 		}
 		switch(magf[1]) {
 		case 0:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10240,9728);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10240,9728);
 			break;
 		case 3:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10240,9728);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10240,9728);
 			break;
 		case 2:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10240,9728);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10240,9728);
 			break;
 		case 1:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10240,9729);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10240,9729);
 			break;
 		case 5:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10240,9729);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10240,9729);
 			break;
 		case 6:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10240,9729);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10240,9729);
 			break;
 		case 4:
-			haxor.platform.graphics.GL.m_gl.TexParameteri(target,10240,9729);
+			haxor.graphics.GL.m_gl.TexParameteri(target,10240,9729);
 			break;
 		}
 	}
@@ -1572,7 +1575,7 @@ haxor.context.TextureContext.prototype = {
 				var pos = py * b.m_width * b.m_channels;
 				var len = b.m_width * b.m_channels;
 				b.get_buffer().SetViewSlice(pos,len);
-				haxor.platform.graphics.GL.TexSubImage2D(3553,0,0,py,b.m_width,1,chn_fmt,chn_type,b.get_buffer());
+				haxor.graphics.GL.TexSubImage2D(3553,0,0,py,b.m_width,1,chn_fmt,chn_type,b.get_buffer());
 				b.get_buffer().ResetSlice();
 				py++;
 			}
@@ -1585,36 +1588,36 @@ haxor.context.TextureContext.prototype = {
 		var chn_fmt = haxor.context.TextureContext.FormatToChannelLayout(p_texture.m_format);
 		var chn_bit = haxor.context.TextureContext.FormatToChannelBits(p_texture.m_format);
 		var chn_type = haxor.context.TextureContext.FormatToChannelType(p_texture.m_format);
-		if(p_texture.m_format == haxor.graphics.PixelFormat.Depth) haxor.platform.graphics.GL.m_gl.TexImage2DAlloc(p_target,0,chn_fmt,w,h,0,chn_fmt,chn_type); else if(p_texture.get_type() == haxor.graphics.TextureType.Texture2D) {
+		if(p_texture.m_format == haxor.graphics.PixelFormat.Depth) haxor.graphics.GL.m_gl.TexImage2DAlloc(p_target,0,chn_fmt,w,h,0,chn_fmt,chn_type); else if(p_texture.get_type() == haxor.graphics.TextureType.Texture2D) {
 			var t2d = p_texture;
-			haxor.platform.graphics.GL.TexImage2D(p_target,0,chn_fmt,w,h,0,chn_bit,chn_type,t2d.m_data.get_buffer());
+			haxor.graphics.GL.TexImage2D(p_target,0,chn_fmt,w,h,0,chn_bit,chn_type,t2d.m_data.get_buffer());
 		} else if(p_texture.get_type() == haxor.graphics.TextureType.RenderTexture) {
 			var rt = p_texture;
 			var id = this.ids[rt._cid_];
-			haxor.platform.graphics.GL.m_gl.FramebufferTexture2D(36160,36064,p_target,id,0);
+			haxor.graphics.GL.m_gl.FramebufferTexture2D(36160,36064,p_target,id,0);
 		}
 	}
 	,Activate: function(p_texture) {
 		var slot = p_texture.__slot;
 		if(this.active[p_texture._cid_] == p_texture) return slot;
 		this.active[p_texture._cid_] = p_texture;
-		haxor.platform.graphics.GL.m_gl.ActiveTexture(33984 + slot);
+		haxor.graphics.GL.m_gl.ActiveTexture(33984 + slot);
 		this.Bind(p_texture);
 		return slot;
 	}
 	,BindTarget: function(rt) {
 		if(rt == null) {
 			if(this.target != rt) {
-				haxor.platform.graphics.GL.BindFramebuffer(36160,haxor.platform.graphics.GL.NULL);
-				haxor.platform.graphics.GL.BindRenderbuffer(36161,haxor.platform.graphics.GL.NULL);
+				haxor.graphics.GL.BindFramebuffer(36160,haxor.graphics.GL.NULL);
+				haxor.graphics.GL.BindRenderbuffer(36161,haxor.graphics.GL.NULL);
 				this.target = null;
 			}
 		} else if(this.target != rt) {
 			var fb_id = this.framebuffers[rt._cid_];
-			haxor.platform.graphics.GL.m_gl.BindFramebuffer(36160,fb_id);
+			haxor.graphics.GL.m_gl.BindFramebuffer(36160,fb_id);
 			if(rt.m_depth == null) {
 				var rb_id = this.renderbuffers[rt._cid_];
-				haxor.platform.graphics.GL.m_gl.BindRenderbuffer(36161,rb_id);
+				haxor.graphics.GL.m_gl.BindRenderbuffer(36161,rb_id);
 			}
 			this.target = rt;
 		}
@@ -1623,16 +1626,16 @@ haxor.context.TextureContext.prototype = {
 		this.Bind(p_texture);
 		var target;
 		if(p_texture.get_type() == haxor.graphics.TextureType.Texture2D) target = 3553; else if(p_texture.get_type() == haxor.graphics.TextureType.RenderTexture) target = 3553; else if(p_texture.get_type() == haxor.graphics.TextureType.TextureCube) target = 34067; else target = 3553;
-		haxor.platform.graphics.GL.m_gl.GenerateMipmap(target);
+		haxor.graphics.GL.m_gl.GenerateMipmap(target);
 	}
 	,Destroy: function(p_texture) {
 		var tex_id = this.ids[p_texture._cid_];
-		if(tex_id != haxor.platform.graphics.GL.INVALID) haxor.platform.graphics.GL.m_gl.DeleteTexture(tex_id);
+		if(tex_id != haxor.graphics.GL.INVALID) haxor.graphics.GL.m_gl.DeleteTexture(tex_id);
 		if(p_texture.get_type() == haxor.graphics.TextureType.RenderTexture) {
 			var fb_id = this.framebuffers[p_texture._cid_];
 			var rb_id = this.renderbuffers[p_texture._cid_];
-			if(fb_id != haxor.platform.graphics.GL.INVALID) haxor.platform.graphics.GL.m_gl.DeleteFramebuffer(fb_id);
-			if(rb_id != haxor.platform.graphics.GL.INVALID) haxor.platform.graphics.GL.m_gl.DeleteRenderbuffer(rb_id);
+			if(fb_id != haxor.graphics.GL.INVALID) haxor.graphics.GL.m_gl.DeleteFramebuffer(fb_id);
+			if(rb_id != haxor.graphics.GL.INVALID) haxor.graphics.GL.m_gl.DeleteRenderbuffer(rb_id);
 		}
 	}
 	,__class__: haxor.context.TextureContext
@@ -2019,6 +2022,521 @@ haxor.graphics.TextureType.TextureCube = ["TextureCube",2];
 haxor.graphics.TextureType.TextureCube.__enum__ = haxor.graphics.TextureType;
 haxor.graphics.TextureType.RenderTexture = ["RenderTexture",3];
 haxor.graphics.TextureType.RenderTexture.__enum__ = haxor.graphics.TextureType;
+haxor.graphics.GL = function() { };
+$hxClasses["haxor.graphics.GL"] = haxor.graphics.GL;
+haxor.graphics.GL.__name__ = ["haxor","graphics","GL"];
+haxor.graphics.GL.get_api = function() {
+	return haxor.graphics.GL.m_gl.get_api();
+};
+haxor.graphics.GL.Initialize = function(p_application) {
+	haxor.graphics.GL.m_gl = new haxor.platform.html.graphics.WebGL(p_application);
+};
+haxor.graphics.GL.Resize = function() {
+	haxor.graphics.GL.m_gl.Resize();
+};
+haxor.graphics.GL.BindBuffer = function(p_target,p_id) {
+	haxor.graphics.GL.m_gl.BindBuffer(p_target,p_id);
+};
+haxor.graphics.GL.BufferData = function(p_target,p_data,p_mode) {
+	haxor.graphics.GL.m_gl.BufferData(p_target,p_data,p_mode);
+};
+haxor.graphics.GL.BufferSubData = function(p_target,p_offset,p_data) {
+	haxor.graphics.GL.m_gl.BufferSubData(p_target,p_offset,p_data);
+};
+haxor.graphics.GL.CreateBuffer = function() {
+	return haxor.graphics.GL.m_gl.CreateBuffer();
+};
+haxor.graphics.GL.DrawArrays = function(p_primitive,p_start,p_count) {
+	haxor.graphics.GL.m_gl.DrawArrays(p_primitive,p_start,p_count);
+};
+haxor.graphics.GL.DrawElements = function(p_primitive,p_count,p_type,p_offset) {
+	haxor.graphics.GL.m_gl.DrawElements(p_primitive,p_count,p_type,p_offset);
+};
+haxor.graphics.GL.DeleteBuffer = function(p_id) {
+	haxor.graphics.GL.m_gl.DeleteBuffer(p_id);
+};
+haxor.graphics.GL.DisableVertexAttrib = function(p_location) {
+	haxor.graphics.GL.m_gl.DisableVertexAttrib(p_location);
+};
+haxor.graphics.GL.EnableVertexAttrib = function(p_location) {
+	haxor.graphics.GL.m_gl.EnableVertexAttrib(p_location);
+};
+haxor.graphics.GL.VertexAttrib3f = function(p_location,p_x,p_y,p_z) {
+	haxor.graphics.GL.m_gl.VertexAttrib3f(p_location,p_x,p_y,p_z);
+};
+haxor.graphics.GL.VertexAttrib4f = function(p_location,p_x,p_y,p_z,p_w) {
+	haxor.graphics.GL.m_gl.VertexAttrib4f(p_location,p_x,p_y,p_z,p_w);
+};
+haxor.graphics.GL.VertexAttribPointer = function(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset) {
+	haxor.graphics.GL.m_gl.VertexAttribPointer(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset);
+};
+haxor.graphics.GL.CompileShader = function(p_shader) {
+	haxor.graphics.GL.m_gl.CompileShader(p_shader);
+};
+haxor.graphics.GL.CreateShader = function(p_type) {
+	return haxor.graphics.GL.m_gl.CreateShader(p_type);
+};
+haxor.graphics.GL.DetachShader = function(p_program,p_shader) {
+	haxor.graphics.GL.m_gl.DetachShader(p_program,p_shader);
+};
+haxor.graphics.GL.DeleteShader = function(p_shader) {
+	haxor.graphics.GL.m_gl.DeleteShader(p_shader);
+};
+haxor.graphics.GL.GetShaderInfoLog = function(p_shader) {
+	return haxor.graphics.GL.m_gl.GetShaderInfoLog(p_shader);
+};
+haxor.graphics.GL.GetShaderParameter = function(p_shader,p_parameter) {
+	return haxor.graphics.GL.m_gl.GetShaderParameter(p_shader,p_parameter);
+};
+haxor.graphics.GL.ShaderSource = function(p_shader,p_source) {
+	haxor.graphics.GL.m_gl.ShaderSource(p_shader,p_source);
+};
+haxor.graphics.GL.AttachShader = function(p_program,p_shader) {
+	haxor.graphics.GL.m_gl.AttachShader(p_program,p_shader);
+};
+haxor.graphics.GL.BindAttribLocation = function(p_program,p_location,p_name) {
+	haxor.graphics.GL.m_gl.BindAttribLocation(p_program,p_location,p_name);
+};
+haxor.graphics.GL.CreateProgram = function() {
+	return haxor.graphics.GL.m_gl.CreateProgram();
+};
+haxor.graphics.GL.DeleteProgram = function(p_program) {
+	haxor.graphics.GL.m_gl.DeleteProgram(p_program);
+};
+haxor.graphics.GL.GetAttribLocation = function(p_program,p_name) {
+	return haxor.graphics.GL.m_gl.GetAttribLocation(p_program,p_name);
+};
+haxor.graphics.GL.GetUniformLocation = function(p_program,p_name) {
+	return haxor.graphics.GL.m_gl.GetUniformLocation(p_program,p_name);
+};
+haxor.graphics.GL.GetProgramInfoLog = function(p_program) {
+	return haxor.graphics.GL.m_gl.GetProgramInfoLog(p_program);
+};
+haxor.graphics.GL.GetProgramParameter = function(p_program,p_parameter) {
+	return haxor.graphics.GL.m_gl.GetProgramParameter(p_program,p_parameter);
+};
+haxor.graphics.GL.LinkProgram = function(p_program) {
+	haxor.graphics.GL.m_gl.LinkProgram(p_program);
+};
+haxor.graphics.GL.UseProgram = function(p_program) {
+	haxor.graphics.GL.m_gl.UseProgram(p_program);
+};
+haxor.graphics.GL.ActiveTexture = function(p_slot) {
+	haxor.graphics.GL.m_gl.ActiveTexture(p_slot);
+};
+haxor.graphics.GL.BindFramebuffer = function(p_target,p_id) {
+	haxor.graphics.GL.m_gl.BindFramebuffer(p_target,p_id);
+};
+haxor.graphics.GL.BindRenderbuffer = function(p_target,p_id) {
+	haxor.graphics.GL.m_gl.BindRenderbuffer(p_target,p_id);
+};
+haxor.graphics.GL.BindTexture = function(p_target,p_id) {
+	haxor.graphics.GL.m_gl.BindTexture(p_target,p_id);
+};
+haxor.graphics.GL.CreateFramebuffer = function() {
+	return haxor.graphics.GL.m_gl.CreateFramebuffer();
+};
+haxor.graphics.GL.CreateRenderbuffer = function() {
+	return haxor.graphics.GL.m_gl.CreateRenderbuffer();
+};
+haxor.graphics.GL.CreateTexture = function() {
+	return haxor.graphics.GL.m_gl.CreateTexture();
+};
+haxor.graphics.GL.DeleteFramebuffer = function(p_id) {
+	haxor.graphics.GL.m_gl.DeleteFramebuffer(p_id);
+};
+haxor.graphics.GL.DeleteRenderbuffer = function(p_id) {
+	haxor.graphics.GL.m_gl.DeleteRenderbuffer(p_id);
+};
+haxor.graphics.GL.DeleteTexture = function(p_id) {
+	haxor.graphics.GL.m_gl.DeleteTexture(p_id);
+};
+haxor.graphics.GL.FramebufferRenderbuffer = function(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id) {
+	haxor.graphics.GL.m_gl.FramebufferRenderbuffer(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id);
+};
+haxor.graphics.GL.FramebufferTexture2D = function(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel) {
+	haxor.graphics.GL.m_gl.FramebufferTexture2D(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel);
+};
+haxor.graphics.GL.GenerateMipmap = function(p_target) {
+	haxor.graphics.GL.m_gl.GenerateMipmap(p_target);
+};
+haxor.graphics.GL.PixelStorei = function(p_parameter,p_value) {
+	haxor.graphics.GL.m_gl.PixelStorei(p_parameter,p_value);
+};
+haxor.graphics.GL.RenderbufferStorage = function(p_target,p_format,p_width,p_height) {
+	haxor.graphics.GL.m_gl.RenderbufferStorage(p_target,p_format,p_width,p_height);
+};
+haxor.graphics.GL.TexImage2D = function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data) {
+	haxor.graphics.GL.m_gl.TexImage2D(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data);
+};
+haxor.graphics.GL.TexImage2DAlloc = function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type) {
+	haxor.graphics.GL.m_gl.TexImage2DAlloc(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type);
+};
+haxor.graphics.GL.TexSubImage2D = function(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data) {
+	haxor.graphics.GL.m_gl.TexSubImage2D(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data);
+};
+haxor.graphics.GL.TexStorage2D = function(p_target,p_num_mipmaps,p_channels,p_width,p_height) {
+	haxor.graphics.GL.m_gl.TexStorage2D(p_target,p_num_mipmaps,p_channels,p_width,p_height);
+};
+haxor.graphics.GL.TexParameterf = function(p_target,p_parameter,p_value) {
+	haxor.graphics.GL.m_gl.TexParameterf(p_target,p_parameter,p_value);
+};
+haxor.graphics.GL.TexParameteri = function(p_target,p_parameter,p_value) {
+	haxor.graphics.GL.m_gl.TexParameteri(p_target,p_parameter,p_value);
+};
+haxor.graphics.GL.Uniform1f = function(p_location,p_x) {
+	haxor.graphics.GL.m_gl.Uniform1f(p_location,p_x);
+};
+haxor.graphics.GL.Uniform2f = function(p_location,p_x,p_y) {
+	haxor.graphics.GL.m_gl.Uniform2f(p_location,p_x,p_y);
+};
+haxor.graphics.GL.Uniform3f = function(p_location,p_x,p_y,p_z) {
+	haxor.graphics.GL.m_gl.Uniform3f(p_location,p_x,p_y,p_z);
+};
+haxor.graphics.GL.Uniform4f = function(p_location,p_x,p_y,p_z,p_w) {
+	haxor.graphics.GL.m_gl.Uniform4f(p_location,p_x,p_y,p_z,p_w);
+};
+haxor.graphics.GL.Uniform1i = function(p_location,p_x) {
+	haxor.graphics.GL.m_gl.Uniform1i(p_location,p_x);
+};
+haxor.graphics.GL.Uniform2i = function(p_location,p_x,p_y) {
+	haxor.graphics.GL.m_gl.Uniform2i(p_location,p_x,p_y);
+};
+haxor.graphics.GL.Uniform3i = function(p_location,p_x,p_y,p_z) {
+	haxor.graphics.GL.m_gl.Uniform3i(p_location,p_x,p_y,p_z);
+};
+haxor.graphics.GL.Uniform4i = function(p_location,p_x,p_y,p_z,p_w) {
+	haxor.graphics.GL.m_gl.Uniform4i(p_location,p_x,p_y,p_z,p_w);
+};
+haxor.graphics.GL.Uniform1fv = function(p_location,p_v) {
+	haxor.graphics.GL.m_gl.Uniform1fv(p_location,p_v);
+};
+haxor.graphics.GL.Uniform2fv = function(p_location,p_v) {
+	haxor.graphics.GL.m_gl.Uniform2fv(p_location,p_v);
+};
+haxor.graphics.GL.Uniform3fv = function(p_location,p_v) {
+	haxor.graphics.GL.m_gl.Uniform3fv(p_location,p_v);
+};
+haxor.graphics.GL.Uniform4fv = function(p_location,p_v) {
+	haxor.graphics.GL.m_gl.Uniform4fv(p_location,p_v);
+};
+haxor.graphics.GL.Uniform1iv = function(p_location,p_v) {
+	haxor.graphics.GL.m_gl.Uniform1iv(p_location,p_v);
+};
+haxor.graphics.GL.Uniform2iv = function(p_location,p_v) {
+	haxor.graphics.GL.m_gl.Uniform2iv(p_location,p_v);
+};
+haxor.graphics.GL.Uniform3iv = function(p_location,p_v) {
+	haxor.graphics.GL.m_gl.Uniform3iv(p_location,p_v);
+};
+haxor.graphics.GL.Uniform4iv = function(p_location,p_v) {
+	haxor.graphics.GL.m_gl.Uniform4iv(p_location,p_v);
+};
+haxor.graphics.GL.UniformMatrix2fv = function(p_location,p_transpose,p_v) {
+	haxor.graphics.GL.m_gl.UniformMatrix2fv(p_location,p_transpose,p_v);
+};
+haxor.graphics.GL.UniformMatrix3fv = function(p_location,p_transpose,p_v) {
+	haxor.graphics.GL.m_gl.UniformMatrix3fv(p_location,p_transpose,p_v);
+};
+haxor.graphics.GL.UniformMatrix4fv = function(p_location,p_transpose,p_v) {
+	haxor.graphics.GL.m_gl.UniformMatrix4fv(p_location,p_transpose,p_v);
+};
+haxor.graphics.GL.BlendFunc = function(p_src,p_dst) {
+	haxor.graphics.GL.m_gl.BlendFunc(p_src,p_dst);
+};
+haxor.graphics.GL.Disable = function(p_flag) {
+	haxor.graphics.GL.m_gl.Disable(p_flag);
+};
+haxor.graphics.GL.Enable = function(p_flag) {
+	haxor.graphics.GL.m_gl.Enable(p_flag);
+};
+haxor.graphics.GL.DepthMask = function(p_flag) {
+	haxor.graphics.GL.m_gl.DepthMask(p_flag);
+};
+haxor.graphics.GL.DepthFunc = function(p_flag) {
+	haxor.graphics.GL.m_gl.DepthFunc(p_flag);
+};
+haxor.graphics.GL.CullFace = function(p_face) {
+	haxor.graphics.GL.m_gl.CullFace(p_face);
+};
+haxor.graphics.GL.FrontFace = function(p_face) {
+	haxor.graphics.GL.m_gl.FrontFace(p_face);
+};
+haxor.graphics.GL.Clear = function(p_flag) {
+	haxor.graphics.GL.m_gl.Clear(p_flag);
+};
+haxor.graphics.GL.ClearDepth = function(p_value) {
+	haxor.graphics.GL.m_gl.ClearDepth(p_value);
+};
+haxor.graphics.GL.ClearColor = function(p_r,p_g,p_b,p_a) {
+	haxor.graphics.GL.m_gl.ClearColor(p_r,p_g,p_b,p_a);
+};
+haxor.graphics.GL.Viewport = function(p_x,p_y,p_width,p_height) {
+	haxor.graphics.GL.m_gl.Viewport(p_x,p_y,p_width,p_height);
+};
+haxor.graphics.GL.Scissor = function(p_x,p_y,p_width,p_height) {
+	haxor.graphics.GL.m_gl.Scissor(p_x,p_y,p_width,p_height);
+};
+haxor.graphics.GL.ReadPixels = function(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels) {
+	haxor.graphics.GL.m_gl.ReadPixels(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels);
+};
+haxor.graphics.GL.GetError = function() {
+	return haxor.graphics.GL.m_gl.GetError();
+};
+haxor.graphics.GL.GetErrorCode = function() {
+	return haxor.graphics.GL.m_gl.GetErrorCode();
+};
+haxor.graphics.GL.GetErrorString = function(p_code) {
+	return haxor.graphics.GL.m_gl.GetErrorString(p_code);
+};
+haxor.graphics.GL.LogError = function() {
+	haxor.graphics.GL.m_gl.LogError();
+};
+haxor.graphics.GL.Assert = function(p_log) {
+};
+haxor.graphics.GL.Flush = function() {
+	haxor.graphics.GL.m_gl.Flush();
+};
+haxor.graphics.GL.Focus = function() {
+	haxor.graphics.GL.m_gl.Focus();
+};
+haxor.graphics.GraphicAPI = { __ename__ : true, __constructs__ : ["None","OpenGL","OpenGLES","WebGL"] };
+haxor.graphics.GraphicAPI.None = ["None",0];
+haxor.graphics.GraphicAPI.None.__enum__ = haxor.graphics.GraphicAPI;
+haxor.graphics.GraphicAPI.OpenGL = ["OpenGL",1];
+haxor.graphics.GraphicAPI.OpenGL.__enum__ = haxor.graphics.GraphicAPI;
+haxor.graphics.GraphicAPI.OpenGLES = ["OpenGLES",2];
+haxor.graphics.GraphicAPI.OpenGLES.__enum__ = haxor.graphics.GraphicAPI;
+haxor.graphics.GraphicAPI.WebGL = ["WebGL",3];
+haxor.graphics.GraphicAPI.WebGL.__enum__ = haxor.graphics.GraphicAPI;
+haxor.graphics.GraphicContext = function(p_application) {
+	this.m_api = haxor.graphics.GraphicAPI.None;
+	this.m_application = p_application;
+};
+$hxClasses["haxor.graphics.GraphicContext"] = haxor.graphics.GraphicContext;
+haxor.graphics.GraphicContext.__name__ = ["haxor","graphics","GraphicContext"];
+haxor.graphics.GraphicContext.prototype = {
+	get_api: function() {
+		return this.m_api;
+	}
+	,CheckExtensions: function() {
+	}
+	,Destroy: function() {
+	}
+	,Flush: function() {
+	}
+	,Focus: function() {
+	}
+	,Resize: function() {
+	}
+	,BindBuffer: function(p_target,p_id) {
+	}
+	,BufferData: function(p_target,p_data,p_mode) {
+	}
+	,BufferSubData: function(p_target,p_offset,p_data) {
+	}
+	,CreateBuffer: function() {
+		return haxor.graphics.GL.INVALID;
+	}
+	,DeleteBuffer: function(p_id) {
+	}
+	,DrawArrays: function(p_primitive,p_start,p_count) {
+	}
+	,DrawElements: function(p_primitive,p_count,p_type,p_offset) {
+	}
+	,EnableVertexAttrib: function(p_location) {
+	}
+	,DisableVertexAttrib: function(p_location) {
+	}
+	,VertexAttrib3f: function(p_location,p_x,p_y,p_z) {
+	}
+	,VertexAttrib4f: function(p_location,p_x,p_y,p_z,p_w) {
+	}
+	,VertexAttribPointer: function(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset) {
+	}
+	,CompileShader: function(p_shader) {
+	}
+	,CreateShader: function(p_type) {
+		return haxor.graphics.GL.INVALID;
+	}
+	,DeleteShader: function(p_shader) {
+	}
+	,DetachShader: function(p_program,p_shader) {
+	}
+	,GetShaderInfoLog: function(p_shader) {
+		return "";
+	}
+	,GetShaderParameter: function(p_shader,p_parameter) {
+		return -1;
+	}
+	,ShaderSource: function(p_shader,p_source) {
+	}
+	,AttachShader: function(p_program,p_shader) {
+	}
+	,BindAttribLocation: function(p_program,p_location,p_name) {
+	}
+	,CreateProgram: function() {
+		return haxor.graphics.GL.INVALID;
+	}
+	,DeleteProgram: function(p_program) {
+	}
+	,GetAttribLocation: function(p_program,p_name) {
+		return -1;
+	}
+	,GetUniformLocation: function(p_program,p_name) {
+		return haxor.graphics.GL.INVALID;
+	}
+	,GetProgramInfoLog: function(p_program) {
+		return "";
+	}
+	,GetProgramParameter: function(p_program,p_parameter) {
+		return -1;
+	}
+	,LinkProgram: function(p_program) {
+	}
+	,UseProgram: function(p_program) {
+	}
+	,Uniform1f: function(p_location,p_x) {
+	}
+	,Uniform2f: function(p_location,p_x,p_y) {
+	}
+	,Uniform3f: function(p_location,p_x,p_y,p_z) {
+	}
+	,Uniform4f: function(p_location,p_x,p_y,p_z,p_w) {
+	}
+	,Uniform1i: function(p_location,p_x) {
+	}
+	,Uniform2i: function(p_location,p_x,p_y) {
+	}
+	,Uniform3i: function(p_location,p_x,p_y,p_z) {
+	}
+	,Uniform4i: function(p_location,p_x,p_y,p_z,p_w) {
+	}
+	,Uniform1fv: function(p_location,p_v) {
+	}
+	,Uniform2fv: function(p_location,p_v) {
+	}
+	,Uniform3fv: function(p_location,p_v) {
+	}
+	,Uniform4fv: function(p_location,p_v) {
+	}
+	,Uniform1iv: function(p_location,p_v) {
+	}
+	,Uniform2iv: function(p_location,p_v) {
+	}
+	,Uniform3iv: function(p_location,p_v) {
+	}
+	,Uniform4iv: function(p_location,p_v) {
+	}
+	,UniformMatrix2fv: function(p_location,p_transpose,p_v) {
+	}
+	,UniformMatrix3fv: function(p_location,p_transpose,p_v) {
+	}
+	,UniformMatrix4fv: function(p_location,p_transpose,p_v) {
+	}
+	,ActiveTexture: function(p_slot) {
+	}
+	,BindFramebuffer: function(p_target,p_id) {
+	}
+	,BindRenderbuffer: function(p_target,p_id) {
+	}
+	,BindTexture: function(p_target,p_id) {
+	}
+	,CreateFramebuffer: function() {
+		return haxor.graphics.GL.INVALID;
+	}
+	,CreateRenderbuffer: function() {
+		return haxor.graphics.GL.INVALID;
+	}
+	,CreateTexture: function() {
+		return haxor.graphics.GL.INVALID;
+	}
+	,DeleteFramebuffer: function(p_id) {
+	}
+	,DeleteRenderbuffer: function(p_id) {
+	}
+	,DeleteTexture: function(p_id) {
+	}
+	,FramebufferRenderbuffer: function(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id) {
+	}
+	,FramebufferTexture2D: function(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel) {
+	}
+	,GenerateMipmap: function(p_target) {
+	}
+	,PixelStorei: function(p_parameter,p_value) {
+	}
+	,RenderbufferStorage: function(p_target,p_format,p_width,p_height) {
+	}
+	,TexImage2DAlloc: function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type) {
+	}
+	,TexImage2D: function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data) {
+	}
+	,TexSubImage2D: function(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data) {
+	}
+	,TexStorage2D: function(p_target,p_num_mipmaps,p_channels,p_width,p_height) {
+	}
+	,TexParameterf: function(p_target,p_parameter,p_value) {
+	}
+	,TexParameteri: function(p_target,p_parameter,p_value) {
+	}
+	,BlendFunc: function(p_src,p_dst) {
+	}
+	,Disable: function(p_flag) {
+	}
+	,Enable: function(p_flag) {
+	}
+	,DepthMask: function(p_flag) {
+	}
+	,DepthFunc: function(p_flag) {
+	}
+	,CullFace: function(p_face) {
+	}
+	,FrontFace: function(p_face) {
+	}
+	,Clear: function(p_flag) {
+	}
+	,ClearDepth: function(p_value) {
+	}
+	,ClearColor: function(p_r,p_g,p_b,p_a) {
+	}
+	,Viewport: function(p_x,p_y,p_width,p_height) {
+	}
+	,Scissor: function(p_x,p_y,p_width,p_height) {
+	}
+	,ReadPixels: function(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels) {
+	}
+	,GetErrorCode: function() {
+		return 0;
+	}
+	,GetErrorString: function(p_code) {
+		switch(p_code) {
+		case 0:
+			return "";
+		case 1280:
+			return "Invalid Enum.";
+		case 1281:
+			return "Numeric argument is out of range.";
+		case 1282:
+			return "Operation not allowed in the current state.";
+		case 1286:
+			return "Write or Read in FrameBuffer not complete.";
+		case 1285:
+			return "Out of Memory.";
+		}
+		return "Unknown Error.";
+	}
+	,GetError: function() {
+		return this.GetErrorString(this.GetErrorCode());
+	}
+	,Assert: function(p_log) {
+		var err = this.GetErrorCode();
+		if(err != 0) throw "GraphicContext> " + this.GetErrorString(err) + " - " + p_log;
+	}
+	,LogError: function() {
+		haxor.core.Console.Log(this.GetError());
+	}
+	,__class__: haxor.graphics.GraphicContext
+};
 haxor.graphics.Graphics = function() { };
 $hxClasses["haxor.graphics.Graphics"] = haxor.graphics.Graphics;
 haxor.graphics.Graphics.__name__ = ["haxor","graphics","Graphics"];
@@ -2026,10 +2544,10 @@ haxor.graphics.Graphics.RenderMesh = function(p_mesh,p_material) {
 	haxor.context.EngineContext.material.Bind(p_material);
 	haxor.context.EngineContext.mesh.Bind(p_mesh);
 	if(p_mesh.m_indexed) {
-		haxor.platform.graphics.GL.m_gl.DrawElements(p_mesh.primitive,p_mesh.m_topology_attrib.data.m_length,5123,0);
+		haxor.graphics.GL.m_gl.DrawElements(p_mesh.primitive,p_mesh.m_topology_attrib.data.m_length,5123,0);
 		null;
 	} else {
-		haxor.platform.graphics.GL.m_gl.DrawArrays(p_mesh.primitive,0,p_mesh.m_vcount);
+		haxor.graphics.GL.m_gl.DrawArrays(p_mesh.primitive,0,p_mesh.m_vcount);
 		null;
 	}
 };
@@ -2770,7 +3288,7 @@ haxor.graphics.texture.RenderTexture = function(p_width,p_height,p_format,p_stor
 	this.m_format = p_format;
 	this.m_width = p_width | 0;
 	this.m_height = p_height | 0;
-	var store_depth = p_store_depth && haxor.platform.graphics.GL.TEXTURE_DEPTH_ENABLED;
+	var store_depth = p_store_depth && haxor.graphics.GL.TEXTURE_DEPTH_ENABLED;
 	if(store_depth) this.m_depth = new haxor.graphics.texture.Texture2D(this.m_width,this.m_height,haxor.graphics.PixelFormat.Depth);
 	haxor.context.EngineContext.texture.Create(this);
 };
@@ -3387,858 +3905,6 @@ haxor.net.Web.Load = function(p_url,p_callback) {
 haxor.net.Web.LoadImg = function(p_url,p_callback) {
 	var ld = new haxor.platform.html.BitmapLoader(p_url,p_callback);
 };
-haxor.platform.graphics = {};
-haxor.platform.graphics.GL = function() { };
-$hxClasses["haxor.platform.graphics.GL"] = haxor.platform.graphics.GL;
-haxor.platform.graphics.GL.__name__ = ["haxor","platform","graphics","GL"];
-haxor.platform.graphics.GL.get_api = function() {
-	return haxor.platform.graphics.GL.m_gl.get_api();
-};
-haxor.platform.graphics.GL.Initialize = function(p_application) {
-	haxor.platform.graphics.GL.m_gl = new haxor.platform.graphics.WebGL(p_application);
-};
-haxor.platform.graphics.GL.Resize = function() {
-	haxor.platform.graphics.GL.m_gl.Resize();
-};
-haxor.platform.graphics.GL.BindBuffer = function(p_target,p_id) {
-	haxor.platform.graphics.GL.m_gl.BindBuffer(p_target,p_id);
-};
-haxor.platform.graphics.GL.BufferData = function(p_target,p_data,p_mode) {
-	haxor.platform.graphics.GL.m_gl.BufferData(p_target,p_data,p_mode);
-};
-haxor.platform.graphics.GL.BufferSubData = function(p_target,p_offset,p_data) {
-	haxor.platform.graphics.GL.m_gl.BufferSubData(p_target,p_offset,p_data);
-};
-haxor.platform.graphics.GL.CreateBuffer = function() {
-	return haxor.platform.graphics.GL.m_gl.CreateBuffer();
-};
-haxor.platform.graphics.GL.DrawArrays = function(p_primitive,p_start,p_count) {
-	haxor.platform.graphics.GL.m_gl.DrawArrays(p_primitive,p_start,p_count);
-};
-haxor.platform.graphics.GL.DrawElements = function(p_primitive,p_count,p_type,p_offset) {
-	haxor.platform.graphics.GL.m_gl.DrawElements(p_primitive,p_count,p_type,p_offset);
-};
-haxor.platform.graphics.GL.DeleteBuffer = function(p_id) {
-	haxor.platform.graphics.GL.m_gl.DeleteBuffer(p_id);
-};
-haxor.platform.graphics.GL.DisableVertexAttrib = function(p_location) {
-	haxor.platform.graphics.GL.m_gl.DisableVertexAttrib(p_location);
-};
-haxor.platform.graphics.GL.EnableVertexAttrib = function(p_location) {
-	haxor.platform.graphics.GL.m_gl.EnableVertexAttrib(p_location);
-};
-haxor.platform.graphics.GL.VertexAttrib3f = function(p_location,p_x,p_y,p_z) {
-	haxor.platform.graphics.GL.m_gl.VertexAttrib3f(p_location,p_x,p_y,p_z);
-};
-haxor.platform.graphics.GL.VertexAttrib4f = function(p_location,p_x,p_y,p_z,p_w) {
-	haxor.platform.graphics.GL.m_gl.VertexAttrib4f(p_location,p_x,p_y,p_z,p_w);
-};
-haxor.platform.graphics.GL.VertexAttribPointer = function(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset) {
-	haxor.platform.graphics.GL.m_gl.VertexAttribPointer(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset);
-};
-haxor.platform.graphics.GL.CompileShader = function(p_shader) {
-	haxor.platform.graphics.GL.m_gl.CompileShader(p_shader);
-};
-haxor.platform.graphics.GL.CreateShader = function(p_type) {
-	return haxor.platform.graphics.GL.m_gl.CreateShader(p_type);
-};
-haxor.platform.graphics.GL.DetachShader = function(p_program,p_shader) {
-	haxor.platform.graphics.GL.m_gl.DetachShader(p_program,p_shader);
-};
-haxor.platform.graphics.GL.DeleteShader = function(p_shader) {
-	haxor.platform.graphics.GL.m_gl.DeleteShader(p_shader);
-};
-haxor.platform.graphics.GL.GetShaderInfoLog = function(p_shader) {
-	return haxor.platform.graphics.GL.m_gl.GetShaderInfoLog(p_shader);
-};
-haxor.platform.graphics.GL.GetShaderParameter = function(p_shader,p_parameter) {
-	return haxor.platform.graphics.GL.m_gl.GetShaderParameter(p_shader,p_parameter);
-};
-haxor.platform.graphics.GL.ShaderSource = function(p_shader,p_source) {
-	haxor.platform.graphics.GL.m_gl.ShaderSource(p_shader,p_source);
-};
-haxor.platform.graphics.GL.AttachShader = function(p_program,p_shader) {
-	haxor.platform.graphics.GL.m_gl.AttachShader(p_program,p_shader);
-};
-haxor.platform.graphics.GL.BindAttribLocation = function(p_program,p_location,p_name) {
-	haxor.platform.graphics.GL.m_gl.BindAttribLocation(p_program,p_location,p_name);
-};
-haxor.platform.graphics.GL.CreateProgram = function() {
-	return haxor.platform.graphics.GL.m_gl.CreateProgram();
-};
-haxor.platform.graphics.GL.DeleteProgram = function(p_program) {
-	haxor.platform.graphics.GL.m_gl.DeleteProgram(p_program);
-};
-haxor.platform.graphics.GL.GetAttribLocation = function(p_program,p_name) {
-	return haxor.platform.graphics.GL.m_gl.GetAttribLocation(p_program,p_name);
-};
-haxor.platform.graphics.GL.GetUniformLocation = function(p_program,p_name) {
-	return haxor.platform.graphics.GL.m_gl.GetUniformLocation(p_program,p_name);
-};
-haxor.platform.graphics.GL.GetProgramInfoLog = function(p_program) {
-	return haxor.platform.graphics.GL.m_gl.GetProgramInfoLog(p_program);
-};
-haxor.platform.graphics.GL.GetProgramParameter = function(p_program,p_parameter) {
-	return haxor.platform.graphics.GL.m_gl.GetProgramParameter(p_program,p_parameter);
-};
-haxor.platform.graphics.GL.LinkProgram = function(p_program) {
-	haxor.platform.graphics.GL.m_gl.LinkProgram(p_program);
-};
-haxor.platform.graphics.GL.UseProgram = function(p_program) {
-	haxor.platform.graphics.GL.m_gl.UseProgram(p_program);
-};
-haxor.platform.graphics.GL.ActiveTexture = function(p_slot) {
-	haxor.platform.graphics.GL.m_gl.ActiveTexture(p_slot);
-};
-haxor.platform.graphics.GL.BindFramebuffer = function(p_target,p_id) {
-	haxor.platform.graphics.GL.m_gl.BindFramebuffer(p_target,p_id);
-};
-haxor.platform.graphics.GL.BindRenderbuffer = function(p_target,p_id) {
-	haxor.platform.graphics.GL.m_gl.BindRenderbuffer(p_target,p_id);
-};
-haxor.platform.graphics.GL.BindTexture = function(p_target,p_id) {
-	haxor.platform.graphics.GL.m_gl.BindTexture(p_target,p_id);
-};
-haxor.platform.graphics.GL.CreateFramebuffer = function() {
-	return haxor.platform.graphics.GL.m_gl.CreateFramebuffer();
-};
-haxor.platform.graphics.GL.CreateRenderbuffer = function() {
-	return haxor.platform.graphics.GL.m_gl.CreateRenderbuffer();
-};
-haxor.platform.graphics.GL.CreateTexture = function() {
-	return haxor.platform.graphics.GL.m_gl.CreateTexture();
-};
-haxor.platform.graphics.GL.DeleteFramebuffer = function(p_id) {
-	haxor.platform.graphics.GL.m_gl.DeleteFramebuffer(p_id);
-};
-haxor.platform.graphics.GL.DeleteRenderbuffer = function(p_id) {
-	haxor.platform.graphics.GL.m_gl.DeleteRenderbuffer(p_id);
-};
-haxor.platform.graphics.GL.DeleteTexture = function(p_id) {
-	haxor.platform.graphics.GL.m_gl.DeleteTexture(p_id);
-};
-haxor.platform.graphics.GL.FramebufferRenderbuffer = function(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id) {
-	haxor.platform.graphics.GL.m_gl.FramebufferRenderbuffer(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id);
-};
-haxor.platform.graphics.GL.FramebufferTexture2D = function(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel) {
-	haxor.platform.graphics.GL.m_gl.FramebufferTexture2D(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel);
-};
-haxor.platform.graphics.GL.GenerateMipmap = function(p_target) {
-	haxor.platform.graphics.GL.m_gl.GenerateMipmap(p_target);
-};
-haxor.platform.graphics.GL.PixelStorei = function(p_parameter,p_value) {
-	haxor.platform.graphics.GL.m_gl.PixelStorei(p_parameter,p_value);
-};
-haxor.platform.graphics.GL.RenderbufferStorage = function(p_target,p_format,p_width,p_height) {
-	haxor.platform.graphics.GL.m_gl.RenderbufferStorage(p_target,p_format,p_width,p_height);
-};
-haxor.platform.graphics.GL.TexImage2D = function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data) {
-	haxor.platform.graphics.GL.m_gl.TexImage2D(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data);
-};
-haxor.platform.graphics.GL.TexImage2DAlloc = function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type) {
-	haxor.platform.graphics.GL.m_gl.TexImage2DAlloc(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type);
-};
-haxor.platform.graphics.GL.TexSubImage2D = function(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data) {
-	haxor.platform.graphics.GL.m_gl.TexSubImage2D(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data);
-};
-haxor.platform.graphics.GL.TexStorage2D = function(p_target,p_num_mipmaps,p_channels,p_width,p_height) {
-	haxor.platform.graphics.GL.m_gl.TexStorage2D(p_target,p_num_mipmaps,p_channels,p_width,p_height);
-};
-haxor.platform.graphics.GL.TexParameterf = function(p_target,p_parameter,p_value) {
-	haxor.platform.graphics.GL.m_gl.TexParameterf(p_target,p_parameter,p_value);
-};
-haxor.platform.graphics.GL.TexParameteri = function(p_target,p_parameter,p_value) {
-	haxor.platform.graphics.GL.m_gl.TexParameteri(p_target,p_parameter,p_value);
-};
-haxor.platform.graphics.GL.Uniform1f = function(p_location,p_x) {
-	haxor.platform.graphics.GL.m_gl.Uniform1f(p_location,p_x);
-};
-haxor.platform.graphics.GL.Uniform2f = function(p_location,p_x,p_y) {
-	haxor.platform.graphics.GL.m_gl.Uniform2f(p_location,p_x,p_y);
-};
-haxor.platform.graphics.GL.Uniform3f = function(p_location,p_x,p_y,p_z) {
-	haxor.platform.graphics.GL.m_gl.Uniform3f(p_location,p_x,p_y,p_z);
-};
-haxor.platform.graphics.GL.Uniform4f = function(p_location,p_x,p_y,p_z,p_w) {
-	haxor.platform.graphics.GL.m_gl.Uniform4f(p_location,p_x,p_y,p_z,p_w);
-};
-haxor.platform.graphics.GL.Uniform1i = function(p_location,p_x) {
-	haxor.platform.graphics.GL.m_gl.Uniform1i(p_location,p_x);
-};
-haxor.platform.graphics.GL.Uniform2i = function(p_location,p_x,p_y) {
-	haxor.platform.graphics.GL.m_gl.Uniform2i(p_location,p_x,p_y);
-};
-haxor.platform.graphics.GL.Uniform3i = function(p_location,p_x,p_y,p_z) {
-	haxor.platform.graphics.GL.m_gl.Uniform3i(p_location,p_x,p_y,p_z);
-};
-haxor.platform.graphics.GL.Uniform4i = function(p_location,p_x,p_y,p_z,p_w) {
-	haxor.platform.graphics.GL.m_gl.Uniform4i(p_location,p_x,p_y,p_z,p_w);
-};
-haxor.platform.graphics.GL.Uniform1fv = function(p_location,p_v) {
-	haxor.platform.graphics.GL.m_gl.Uniform1fv(p_location,p_v);
-};
-haxor.platform.graphics.GL.Uniform2fv = function(p_location,p_v) {
-	haxor.platform.graphics.GL.m_gl.Uniform2fv(p_location,p_v);
-};
-haxor.platform.graphics.GL.Uniform3fv = function(p_location,p_v) {
-	haxor.platform.graphics.GL.m_gl.Uniform3fv(p_location,p_v);
-};
-haxor.platform.graphics.GL.Uniform4fv = function(p_location,p_v) {
-	haxor.platform.graphics.GL.m_gl.Uniform4fv(p_location,p_v);
-};
-haxor.platform.graphics.GL.Uniform1iv = function(p_location,p_v) {
-	haxor.platform.graphics.GL.m_gl.Uniform1iv(p_location,p_v);
-};
-haxor.platform.graphics.GL.Uniform2iv = function(p_location,p_v) {
-	haxor.platform.graphics.GL.m_gl.Uniform2iv(p_location,p_v);
-};
-haxor.platform.graphics.GL.Uniform3iv = function(p_location,p_v) {
-	haxor.platform.graphics.GL.m_gl.Uniform3iv(p_location,p_v);
-};
-haxor.platform.graphics.GL.Uniform4iv = function(p_location,p_v) {
-	haxor.platform.graphics.GL.m_gl.Uniform4iv(p_location,p_v);
-};
-haxor.platform.graphics.GL.UniformMatrix2fv = function(p_location,p_transpose,p_v) {
-	haxor.platform.graphics.GL.m_gl.UniformMatrix2fv(p_location,p_transpose,p_v);
-};
-haxor.platform.graphics.GL.UniformMatrix3fv = function(p_location,p_transpose,p_v) {
-	haxor.platform.graphics.GL.m_gl.UniformMatrix3fv(p_location,p_transpose,p_v);
-};
-haxor.platform.graphics.GL.UniformMatrix4fv = function(p_location,p_transpose,p_v) {
-	haxor.platform.graphics.GL.m_gl.UniformMatrix4fv(p_location,p_transpose,p_v);
-};
-haxor.platform.graphics.GL.BlendFunc = function(p_src,p_dst) {
-	haxor.platform.graphics.GL.m_gl.BlendFunc(p_src,p_dst);
-};
-haxor.platform.graphics.GL.Disable = function(p_flag) {
-	haxor.platform.graphics.GL.m_gl.Disable(p_flag);
-};
-haxor.platform.graphics.GL.Enable = function(p_flag) {
-	haxor.platform.graphics.GL.m_gl.Enable(p_flag);
-};
-haxor.platform.graphics.GL.DepthMask = function(p_flag) {
-	haxor.platform.graphics.GL.m_gl.DepthMask(p_flag);
-};
-haxor.platform.graphics.GL.DepthFunc = function(p_flag) {
-	haxor.platform.graphics.GL.m_gl.DepthFunc(p_flag);
-};
-haxor.platform.graphics.GL.CullFace = function(p_face) {
-	haxor.platform.graphics.GL.m_gl.CullFace(p_face);
-};
-haxor.platform.graphics.GL.FrontFace = function(p_face) {
-	haxor.platform.graphics.GL.m_gl.FrontFace(p_face);
-};
-haxor.platform.graphics.GL.Clear = function(p_flag) {
-	haxor.platform.graphics.GL.m_gl.Clear(p_flag);
-};
-haxor.platform.graphics.GL.ClearDepth = function(p_value) {
-	haxor.platform.graphics.GL.m_gl.ClearDepth(p_value);
-};
-haxor.platform.graphics.GL.ClearColor = function(p_r,p_g,p_b,p_a) {
-	haxor.platform.graphics.GL.m_gl.ClearColor(p_r,p_g,p_b,p_a);
-};
-haxor.platform.graphics.GL.Viewport = function(p_x,p_y,p_width,p_height) {
-	haxor.platform.graphics.GL.m_gl.Viewport(p_x,p_y,p_width,p_height);
-};
-haxor.platform.graphics.GL.Scissor = function(p_x,p_y,p_width,p_height) {
-	haxor.platform.graphics.GL.m_gl.Scissor(p_x,p_y,p_width,p_height);
-};
-haxor.platform.graphics.GL.ReadPixels = function(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels) {
-	haxor.platform.graphics.GL.m_gl.ReadPixels(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels);
-};
-haxor.platform.graphics.GL.GetError = function() {
-	return haxor.platform.graphics.GL.m_gl.GetError();
-};
-haxor.platform.graphics.GL.GetErrorCode = function() {
-	return haxor.platform.graphics.GL.m_gl.GetErrorCode();
-};
-haxor.platform.graphics.GL.GetErrorString = function(p_code) {
-	return haxor.platform.graphics.GL.m_gl.GetErrorString(p_code);
-};
-haxor.platform.graphics.GL.LogError = function() {
-	haxor.platform.graphics.GL.m_gl.LogError();
-};
-haxor.platform.graphics.GL.Assert = function(p_log) {
-};
-haxor.platform.graphics.GL.Flush = function() {
-	haxor.platform.graphics.GL.m_gl.Flush();
-};
-haxor.platform.graphics.GL.Focus = function() {
-	haxor.platform.graphics.GL.m_gl.Focus();
-};
-haxor.platform.graphics.GraphicAPI = { __ename__ : true, __constructs__ : ["None","OpenGL","OpenGLES","WebGL"] };
-haxor.platform.graphics.GraphicAPI.None = ["None",0];
-haxor.platform.graphics.GraphicAPI.None.__enum__ = haxor.platform.graphics.GraphicAPI;
-haxor.platform.graphics.GraphicAPI.OpenGL = ["OpenGL",1];
-haxor.platform.graphics.GraphicAPI.OpenGL.__enum__ = haxor.platform.graphics.GraphicAPI;
-haxor.platform.graphics.GraphicAPI.OpenGLES = ["OpenGLES",2];
-haxor.platform.graphics.GraphicAPI.OpenGLES.__enum__ = haxor.platform.graphics.GraphicAPI;
-haxor.platform.graphics.GraphicAPI.WebGL = ["WebGL",3];
-haxor.platform.graphics.GraphicAPI.WebGL.__enum__ = haxor.platform.graphics.GraphicAPI;
-haxor.platform.graphics.GraphicContext = function(p_application) {
-	this.m_api = haxor.platform.graphics.GraphicAPI.None;
-	this.m_application = p_application;
-};
-$hxClasses["haxor.platform.graphics.GraphicContext"] = haxor.platform.graphics.GraphicContext;
-haxor.platform.graphics.GraphicContext.__name__ = ["haxor","platform","graphics","GraphicContext"];
-haxor.platform.graphics.GraphicContext.prototype = {
-	get_api: function() {
-		return this.m_api;
-	}
-	,CheckExtensions: function() {
-	}
-	,Destroy: function() {
-	}
-	,Flush: function() {
-	}
-	,Focus: function() {
-	}
-	,Resize: function() {
-	}
-	,BindBuffer: function(p_target,p_id) {
-	}
-	,BufferData: function(p_target,p_data,p_mode) {
-	}
-	,BufferSubData: function(p_target,p_offset,p_data) {
-	}
-	,CreateBuffer: function() {
-		return haxor.platform.graphics.GL.INVALID;
-	}
-	,DeleteBuffer: function(p_id) {
-	}
-	,DrawArrays: function(p_primitive,p_start,p_count) {
-	}
-	,DrawElements: function(p_primitive,p_count,p_type,p_offset) {
-	}
-	,EnableVertexAttrib: function(p_location) {
-	}
-	,DisableVertexAttrib: function(p_location) {
-	}
-	,VertexAttrib3f: function(p_location,p_x,p_y,p_z) {
-	}
-	,VertexAttrib4f: function(p_location,p_x,p_y,p_z,p_w) {
-	}
-	,VertexAttribPointer: function(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset) {
-	}
-	,CompileShader: function(p_shader) {
-	}
-	,CreateShader: function(p_type) {
-		return haxor.platform.graphics.GL.INVALID;
-	}
-	,DeleteShader: function(p_shader) {
-	}
-	,DetachShader: function(p_program,p_shader) {
-	}
-	,GetShaderInfoLog: function(p_shader) {
-		return "";
-	}
-	,GetShaderParameter: function(p_shader,p_parameter) {
-		return -1;
-	}
-	,ShaderSource: function(p_shader,p_source) {
-	}
-	,AttachShader: function(p_program,p_shader) {
-	}
-	,BindAttribLocation: function(p_program,p_location,p_name) {
-	}
-	,CreateProgram: function() {
-		return haxor.platform.graphics.GL.INVALID;
-	}
-	,DeleteProgram: function(p_program) {
-	}
-	,GetAttribLocation: function(p_program,p_name) {
-		return -1;
-	}
-	,GetUniformLocation: function(p_program,p_name) {
-		return haxor.platform.graphics.GL.INVALID;
-	}
-	,GetProgramInfoLog: function(p_program) {
-		return "";
-	}
-	,GetProgramParameter: function(p_program,p_parameter) {
-		return -1;
-	}
-	,LinkProgram: function(p_program) {
-	}
-	,UseProgram: function(p_program) {
-	}
-	,Uniform1f: function(p_location,p_x) {
-	}
-	,Uniform2f: function(p_location,p_x,p_y) {
-	}
-	,Uniform3f: function(p_location,p_x,p_y,p_z) {
-	}
-	,Uniform4f: function(p_location,p_x,p_y,p_z,p_w) {
-	}
-	,Uniform1i: function(p_location,p_x) {
-	}
-	,Uniform2i: function(p_location,p_x,p_y) {
-	}
-	,Uniform3i: function(p_location,p_x,p_y,p_z) {
-	}
-	,Uniform4i: function(p_location,p_x,p_y,p_z,p_w) {
-	}
-	,Uniform1fv: function(p_location,p_v) {
-	}
-	,Uniform2fv: function(p_location,p_v) {
-	}
-	,Uniform3fv: function(p_location,p_v) {
-	}
-	,Uniform4fv: function(p_location,p_v) {
-	}
-	,Uniform1iv: function(p_location,p_v) {
-	}
-	,Uniform2iv: function(p_location,p_v) {
-	}
-	,Uniform3iv: function(p_location,p_v) {
-	}
-	,Uniform4iv: function(p_location,p_v) {
-	}
-	,UniformMatrix2fv: function(p_location,p_transpose,p_v) {
-	}
-	,UniformMatrix3fv: function(p_location,p_transpose,p_v) {
-	}
-	,UniformMatrix4fv: function(p_location,p_transpose,p_v) {
-	}
-	,ActiveTexture: function(p_slot) {
-	}
-	,BindFramebuffer: function(p_target,p_id) {
-	}
-	,BindRenderbuffer: function(p_target,p_id) {
-	}
-	,BindTexture: function(p_target,p_id) {
-	}
-	,CreateFramebuffer: function() {
-		return haxor.platform.graphics.GL.INVALID;
-	}
-	,CreateRenderbuffer: function() {
-		return haxor.platform.graphics.GL.INVALID;
-	}
-	,CreateTexture: function() {
-		return haxor.platform.graphics.GL.INVALID;
-	}
-	,DeleteFramebuffer: function(p_id) {
-	}
-	,DeleteRenderbuffer: function(p_id) {
-	}
-	,DeleteTexture: function(p_id) {
-	}
-	,FramebufferRenderbuffer: function(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id) {
-	}
-	,FramebufferTexture2D: function(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel) {
-	}
-	,GenerateMipmap: function(p_target) {
-	}
-	,PixelStorei: function(p_parameter,p_value) {
-	}
-	,RenderbufferStorage: function(p_target,p_format,p_width,p_height) {
-	}
-	,TexImage2DAlloc: function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type) {
-	}
-	,TexImage2D: function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data) {
-	}
-	,TexSubImage2D: function(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data) {
-	}
-	,TexStorage2D: function(p_target,p_num_mipmaps,p_channels,p_width,p_height) {
-	}
-	,TexParameterf: function(p_target,p_parameter,p_value) {
-	}
-	,TexParameteri: function(p_target,p_parameter,p_value) {
-	}
-	,BlendFunc: function(p_src,p_dst) {
-	}
-	,Disable: function(p_flag) {
-	}
-	,Enable: function(p_flag) {
-	}
-	,DepthMask: function(p_flag) {
-	}
-	,DepthFunc: function(p_flag) {
-	}
-	,CullFace: function(p_face) {
-	}
-	,FrontFace: function(p_face) {
-	}
-	,Clear: function(p_flag) {
-	}
-	,ClearDepth: function(p_value) {
-	}
-	,ClearColor: function(p_r,p_g,p_b,p_a) {
-	}
-	,Viewport: function(p_x,p_y,p_width,p_height) {
-	}
-	,Scissor: function(p_x,p_y,p_width,p_height) {
-	}
-	,ReadPixels: function(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels) {
-	}
-	,GetErrorCode: function() {
-		return 0;
-	}
-	,GetErrorString: function(p_code) {
-		switch(p_code) {
-		case 0:
-			return "";
-		case 1280:
-			return "Invalid Enum.";
-		case 1281:
-			return "Numeric argument is out of range.";
-		case 1282:
-			return "Operation not allowed in the current state.";
-		case 1286:
-			return "Write or Read in FrameBuffer not complete.";
-		case 1285:
-			return "Out of Memory.";
-		}
-		return "Unknown Error.";
-	}
-	,GetError: function() {
-		return this.GetErrorString(this.GetErrorCode());
-	}
-	,Assert: function(p_log) {
-		var err = this.GetErrorCode();
-		if(err != 0) throw "GraphicContext> " + this.GetErrorString(err) + " - " + p_log;
-	}
-	,LogError: function() {
-		haxor.core.Console.Log(this.GetError());
-	}
-	,__class__: haxor.platform.graphics.GraphicContext
-};
-haxor.platform.graphics.WebGL = function(p_application) {
-	haxor.platform.graphics.GraphicContext.call(this,p_application);
-	this.m_api = haxor.platform.graphics.GraphicAPI.WebGL;
-};
-$hxClasses["haxor.platform.graphics.WebGL"] = haxor.platform.graphics.WebGL;
-haxor.platform.graphics.WebGL.__name__ = ["haxor","platform","graphics","WebGL"];
-haxor.platform.graphics.WebGL.__super__ = haxor.platform.graphics.GraphicContext;
-haxor.platform.graphics.WebGL.prototype = $extend(haxor.platform.graphics.GraphicContext.prototype,{
-	Initialize: function(p_container_id) {
-		var app = this.m_application;
-		app.m_container = this.m_container = window.document.getElementById(p_container_id);
-		if(this.m_container == null) {
-			haxor.core.Console.Log("Graphics> Canvas container not defined id[" + p_container_id + "].");
-			return false;
-		}
-		var _this = window.document;
-		this.m_canvas = _this.createElement("canvas");
-		this.m_canvas.width = this.m_container.clientWidth;
-		this.m_canvas.height = this.m_container.clientHeight;
-		this.m_container.appendChild(this.m_canvas);
-		var ctx_attrib = { };
-		var ctx_attrib_list = ["alpha","antialias","depth","stencil","premultipliedAlpha","preserveDrawingBuffer"];
-		var ctx_attrib_default = [false,false,true,false,true,false];
-		haxor.core.Console.Log("Graphics> Initialize WebGL",1);
-		var _g1 = 0;
-		var _g = ctx_attrib_list.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var a = ctx_attrib_list[i];
-			var ca = this.m_container.getAttribute(ctx_attrib_list[i]);
-			var flag;
-			if(ca == null) flag = ctx_attrib_default[i]; else flag = ca == "true";
-			haxor.core.Console.Log("\t" + ctx_attrib_list[i] + ": " + (flag == null?"null":"" + flag),1);
-			ctx_attrib[a]=flag;
-		}
-		var attribs = ctx_attrib;
-		this.c = js.html._CanvasElement.CanvasUtil.getContextWebGL(this.m_canvas,attribs);
-		if(this.c == null) {
-			haxor.core.Console.Log("Graphics> Could not create RenderingContext3D.");
-			return false;
-		}
-		return true;
-	}
-	,CheckExtensions: function() {
-		if(this.c == null) return;
-		haxor.core.Console.Log("Graphics> Available Extensions.",1);
-		var extensions = this.c.getSupportedExtensions();
-		var _g1 = 0;
-		var _g = extensions.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(extensions[i].indexOf("MOZ_") >= 0) continue;
-			if(extensions[i].indexOf("WEBKIT_") >= 0) continue;
-			var ext = this.c.getExtension(extensions[i]);
-			haxor.core.Console.Log("\t" + extensions[i],1);
-			var _g2 = extensions[i];
-			switch(_g2) {
-			case "OES_vertex_array_object":
-				haxor.platform.graphics.GL.VERTEX_ARRAY_OBJECT = true;
-				break;
-			case "OES_texture_half_float":
-				haxor.platform.graphics.GL.HALF_FLOAT = 36193;
-				haxor.platform.graphics.GL.TEXTURE_HALF = true;
-				break;
-			case "OES_texture_half_float_linear":
-				haxor.platform.graphics.GL.TEXTURE_HALF_LINEAR = true;
-				break;
-			case "EXT_texture_filter_anisotropic":case "WEBKIT_EXT_texture_filter_anisotropic":
-				haxor.platform.graphics.GL.TEXTURE_ANISOTROPY = ext.TEXTURE_MAX_ANISOTROPY_EXT;
-				haxor.platform.graphics.GL.MAX_TEXTURE_ANISOTROPY = this.c.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
-				haxor.platform.graphics.GL.TEXTURE_ANISOTROPY_ENABLED = true;
-				haxor.core.Console.Log("\t\tMax Aniso: " + haxor.platform.graphics.GL.MAX_TEXTURE_ANISOTROPY);
-				break;
-			case "OES_texture_float":
-				haxor.platform.graphics.GL.TEXTURE_FLOAT = true;
-				break;
-			case "OES_depth_texture":
-				haxor.platform.graphics.GL.TEXTURE_DEPTH_ENABLED = true;
-				break;
-			}
-		}
-		haxor.platform.graphics.GL.MAX_ACTIVE_TEXTURE = this.c.getParameter(34930);
-		haxor.core.Console.Log("\tMax Active Textures: " + haxor.platform.graphics.GL.MAX_ACTIVE_TEXTURE);
-	}
-	,Resize: function() {
-		this.m_canvas.width = this.m_container.clientWidth;
-		this.m_canvas.height = this.m_container.clientHeight;
-	}
-	,CreateBuffer: function() {
-		return this.c.createBuffer();
-	}
-	,BindBuffer: function(p_target,p_id) {
-		this.c.bindBuffer(p_target,p_id);
-	}
-	,BufferData: function(p_target,p_data,p_mode) {
-		this.c.bufferData(p_target,p_data.m_buffer,p_mode);
-	}
-	,BufferSubData: function(p_target,p_offset,p_data) {
-		this.c.bufferSubData(p_target,p_offset,p_data.m_buffer);
-	}
-	,DeleteBuffer: function(p_id) {
-		this.c.deleteBuffer(p_id);
-	}
-	,DrawArrays: function(p_primitive,p_start,p_count) {
-		this.c.drawArrays(p_primitive,p_start,p_count);
-	}
-	,DrawElements: function(p_primitive,p_count,p_type,p_offset) {
-		this.c.drawElements(p_primitive,p_count,p_type,p_offset);
-	}
-	,DisableVertexAttrib: function(p_location) {
-		this.c.disableVertexAttribArray(p_location);
-	}
-	,EnableVertexAttrib: function(p_location) {
-		this.c.enableVertexAttribArray(p_location);
-	}
-	,VertexAttrib3f: function(p_location,p_x,p_y,p_z) {
-		this.c.vertexAttrib3f(p_location,p_x,p_y,p_z);
-	}
-	,VertexAttrib4f: function(p_location,p_x,p_y,p_z,p_w) {
-		this.c.vertexAttrib4f(p_location,p_x,p_y,p_z,p_w);
-	}
-	,VertexAttribPointer: function(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset) {
-		this.c.vertexAttribPointer(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset);
-	}
-	,CompileShader: function(p_shader) {
-		this.c.compileShader(p_shader);
-	}
-	,CreateShader: function(p_type) {
-		return this.c.createShader(p_type);
-	}
-	,DetachShader: function(p_program,p_shader) {
-		this.c.detachShader(p_program,p_shader);
-	}
-	,DeleteShader: function(p_shader) {
-		this.c.deleteShader(p_shader);
-	}
-	,GetShaderInfoLog: function(p_shader) {
-		return this.c.getShaderInfoLog(p_shader);
-	}
-	,GetShaderParameter: function(p_shader,p_parameter) {
-		return this.c.getShaderParameter(p_shader,p_parameter);
-	}
-	,ShaderSource: function(p_shader,p_source) {
-		this.c.shaderSource(p_shader,p_source);
-	}
-	,AttachShader: function(p_program,p_shader) {
-		this.c.attachShader(p_program,p_shader);
-	}
-	,BindAttribLocation: function(p_program,p_location,p_name) {
-		this.c.bindAttribLocation(p_program,p_location,p_name);
-	}
-	,CreateProgram: function() {
-		return this.c.createProgram();
-	}
-	,DeleteProgram: function(p_program) {
-		this.c.deleteProgram(p_program);
-	}
-	,GetAttribLocation: function(p_program,p_name) {
-		return this.c.getAttribLocation(p_program,p_name);
-	}
-	,GetUniformLocation: function(p_program,p_name) {
-		return this.c.getUniformLocation(p_program,p_name);
-	}
-	,GetProgramInfoLog: function(p_program) {
-		return this.c.getProgramInfoLog(p_program);
-	}
-	,GetProgramParameter: function(p_program,p_parameter) {
-		return this.c.getProgramParameter(p_program,p_parameter);
-	}
-	,LinkProgram: function(p_program) {
-		this.c.linkProgram(p_program);
-	}
-	,UseProgram: function(p_program) {
-		this.c.useProgram(p_program);
-	}
-	,ActiveTexture: function(p_slot) {
-		this.c.activeTexture(p_slot);
-	}
-	,BindFramebuffer: function(p_target,p_id) {
-		this.c.bindFramebuffer(p_target,p_id);
-	}
-	,BindRenderbuffer: function(p_target,p_id) {
-		this.c.bindRenderbuffer(p_target,p_id);
-	}
-	,BindTexture: function(p_target,p_id) {
-		this.c.bindTexture(p_target,p_id);
-	}
-	,CreateFramebuffer: function() {
-		return this.c.createFramebuffer();
-	}
-	,CreateRenderbuffer: function() {
-		return this.c.createRenderbuffer();
-	}
-	,CreateTexture: function() {
-		return this.c.createTexture();
-	}
-	,DeleteFramebuffer: function(p_id) {
-		this.c.deleteFramebuffer(p_id);
-	}
-	,DeleteRenderbuffer: function(p_id) {
-		this.c.deleteRenderbuffer(p_id);
-	}
-	,DeleteTexture: function(p_id) {
-		this.c.deleteTexture(p_id);
-	}
-	,FramebufferRenderbuffer: function(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id) {
-		this.c.framebufferRenderbuffer(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id);
-	}
-	,FramebufferTexture2D: function(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel) {
-		this.c.framebufferTexture2D(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel);
-	}
-	,GenerateMipmap: function(p_target) {
-		this.c.generateMipmap(p_target);
-	}
-	,PixelStorei: function(p_parameter,p_value) {
-		this.c.pixelStorei(p_parameter,p_value);
-	}
-	,RenderbufferStorage: function(p_target,p_format,p_width,p_height) {
-		this.c.renderbufferStorage(p_target,p_format,p_width,p_height);
-	}
-	,TexImage2D: function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data) {
-		this.c.texImage2D(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data.aux);
-	}
-	,TexImage2DAlloc: function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type) {
-		this.c.texImage2D(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,null);
-	}
-	,TexSubImage2D: function(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data) {
-		this.c.texSubImage2D(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data.aux);
-	}
-	,TexParameterf: function(p_target,p_parameter,p_value) {
-		this.c.texParameterf(p_target,p_parameter,p_value);
-	}
-	,TexParameteri: function(p_target,p_parameter,p_value) {
-		this.c.texParameteri(p_target,p_parameter,p_value);
-	}
-	,BlendFunc: function(p_src,p_dst) {
-		this.c.blendFunc(p_src,p_dst);
-	}
-	,Disable: function(p_flag) {
-		this.c.disable(p_flag);
-	}
-	,Enable: function(p_flag) {
-		this.c.enable(p_flag);
-	}
-	,DepthMask: function(p_flag) {
-		this.c.depthMask(p_flag);
-	}
-	,DepthFunc: function(p_flag) {
-		this.c.depthFunc(p_flag);
-	}
-	,CullFace: function(p_face) {
-		this.c.cullFace(p_face);
-	}
-	,FrontFace: function(p_face) {
-		this.c.frontFace(p_face);
-	}
-	,Uniform1f: function(p_location,p_x) {
-		this.c.uniform1f(p_location,p_x);
-	}
-	,Uniform2f: function(p_location,p_x,p_y) {
-		this.c.uniform2f(p_location,p_x,p_y);
-	}
-	,Uniform3f: function(p_location,p_x,p_y,p_z) {
-		this.c.uniform3f(p_location,p_x,p_y,p_z);
-	}
-	,Uniform4f: function(p_location,p_x,p_y,p_z,p_w) {
-		this.c.uniform4f(p_location,p_x,p_y,p_z,p_w);
-	}
-	,Uniform1i: function(p_location,p_x) {
-		this.c.uniform1i(p_location,p_x);
-	}
-	,Uniform2i: function(p_location,p_x,p_y) {
-		this.c.uniform2i(p_location,p_x,p_y);
-	}
-	,Uniform3i: function(p_location,p_x,p_y,p_z) {
-		this.c.uniform3i(p_location,p_x,p_y,p_z);
-	}
-	,Uniform4i: function(p_location,p_x,p_y,p_z,p_w) {
-		this.c.uniform4i(p_location,p_x,p_y,p_z,p_w);
-	}
-	,Uniform1fv: function(p_location,p_v) {
-		this.c.uniform1fv(p_location,p_v.aux);
-	}
-	,Uniform2fv: function(p_location,p_v) {
-		this.c.uniform2fv(p_location,p_v.aux);
-	}
-	,Uniform3fv: function(p_location,p_v) {
-		this.c.uniform3fv(p_location,p_v.aux);
-	}
-	,Uniform4fv: function(p_location,p_v) {
-		this.c.uniform4fv(p_location,p_v.aux);
-	}
-	,Uniform1iv: function(p_location,p_v) {
-		this.c.uniform1iv(p_location,p_v.aux);
-	}
-	,Uniform2iv: function(p_location,p_v) {
-		this.c.uniform2iv(p_location,p_v.aux);
-	}
-	,Uniform3iv: function(p_location,p_v) {
-		this.c.uniform3iv(p_location,p_v.aux);
-	}
-	,Uniform4iv: function(p_location,p_v) {
-		this.c.uniform4iv(p_location,p_v.aux);
-	}
-	,UniformMatrix2fv: function(p_location,p_transpose,p_v) {
-		this.c.uniformMatrix2fv(p_location,p_transpose,p_v.aux);
-	}
-	,UniformMatrix3fv: function(p_location,p_transpose,p_v) {
-		this.c.uniformMatrix3fv(p_location,p_transpose,p_v.aux);
-	}
-	,UniformMatrix4fv: function(p_location,p_transpose,p_v) {
-		this.c.uniformMatrix4fv(p_location,p_transpose,p_v.aux);
-	}
-	,Clear: function(p_flag) {
-		this.c.clear(p_flag);
-	}
-	,ClearDepth: function(p_value) {
-		this.c.clearDepth(p_value);
-	}
-	,ClearColor: function(p_r,p_g,p_b,p_a) {
-		this.c.clearColor(p_r,p_g,p_b,p_a);
-	}
-	,Viewport: function(p_x,p_y,p_width,p_height) {
-		this.c.viewport(p_x,p_y,p_width,p_height);
-	}
-	,Scissor: function(p_x,p_y,p_width,p_height) {
-		this.c.scissor(p_x,p_y,p_width,p_height);
-	}
-	,ReadPixels: function(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels) {
-		this.c.readPixels(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels.m_buffer);
-	}
-	,GetErrorCode: function() {
-		return this.c.getError();
-	}
-	,__class__: haxor.platform.graphics.WebGL
-});
 haxor.platform.html.Entry = function() { };
 $hxClasses["haxor.platform.html.Entry"] = haxor.platform.html.Entry;
 haxor.platform.html.Entry.__name__ = ["haxor","platform","html","Entry"];
@@ -4284,9 +3950,9 @@ haxor.platform.html.Entry.OnWindowLoad = function(p_event) {
 		return;
 	}
 	haxor.core.Console.Log("Haxor> Application [" + app_class_type + "] created successfully!",1);
-	haxor.platform.graphics.GL.Initialize(haxor.platform.html.Entry.m_application);
-	haxor.platform.graphics.GL.m_gl.Initialize(app_container_id);
-	haxor.platform.graphics.GL.m_gl.CheckExtensions();
+	haxor.graphics.GL.Initialize(haxor.platform.html.Entry.m_application);
+	haxor.graphics.GL.m_gl.Initialize(app_container_id);
+	haxor.graphics.GL.m_gl.CheckExtensions();
 	if(($_=window,$bind($_,$_.requestAnimationFrame)) != null) window.requestAnimationFrame(haxor.platform.html.Entry.RequestAnimationCallback);
 	haxor.context.EngineContext.Build();
 	if(haxor.platform.html.Entry.m_application.Load()) haxor.platform.html.Entry.m_application.LoadComplete();
@@ -4545,6 +4211,343 @@ haxor.platform.html.BitmapLoader.prototype = $extend(haxor.platform.html.HTTPLoa
 	}
 	,__class__: haxor.platform.html.BitmapLoader
 });
+haxor.platform.html.graphics = {};
+haxor.platform.html.graphics.WebGL = function(p_application) {
+	haxor.graphics.GraphicContext.call(this,p_application);
+	this.m_api = haxor.graphics.GraphicAPI.WebGL;
+};
+$hxClasses["haxor.platform.html.graphics.WebGL"] = haxor.platform.html.graphics.WebGL;
+haxor.platform.html.graphics.WebGL.__name__ = ["haxor","platform","html","graphics","WebGL"];
+haxor.platform.html.graphics.WebGL.__super__ = haxor.graphics.GraphicContext;
+haxor.platform.html.graphics.WebGL.prototype = $extend(haxor.graphics.GraphicContext.prototype,{
+	Initialize: function(p_container_id) {
+		var app = this.m_application;
+		app.m_container = this.m_container = window.document.getElementById(p_container_id);
+		if(this.m_container == null) {
+			haxor.core.Console.Log("Graphics> Canvas container not defined id[" + p_container_id + "].");
+			return false;
+		}
+		var _this = window.document;
+		this.m_canvas = _this.createElement("canvas");
+		this.m_canvas.width = this.m_container.clientWidth;
+		this.m_canvas.height = this.m_container.clientHeight;
+		this.m_container.appendChild(this.m_canvas);
+		var ctx_attrib = { };
+		var ctx_attrib_list = ["alpha","antialias","depth","stencil","premultipliedAlpha","preserveDrawingBuffer"];
+		var ctx_attrib_default = [false,false,true,false,true,false];
+		haxor.core.Console.Log("Graphics> Initialize WebGL",1);
+		var _g1 = 0;
+		var _g = ctx_attrib_list.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var a = ctx_attrib_list[i];
+			var ca = this.m_container.getAttribute(ctx_attrib_list[i]);
+			var flag;
+			if(ca == null) flag = ctx_attrib_default[i]; else flag = ca == "true";
+			haxor.core.Console.Log("\t" + ctx_attrib_list[i] + ": " + (flag == null?"null":"" + flag),1);
+			ctx_attrib[a]=flag;
+		}
+		var attribs = ctx_attrib;
+		this.c = js.html._CanvasElement.CanvasUtil.getContextWebGL(this.m_canvas,attribs);
+		if(this.c == null) {
+			haxor.core.Console.Log("Graphics> Could not create RenderingContext3D.");
+			return false;
+		}
+		return true;
+	}
+	,CheckExtensions: function() {
+		if(this.c == null) return;
+		haxor.core.Console.Log("Graphics> Available Extensions.",1);
+		var extensions = this.c.getSupportedExtensions();
+		var _g1 = 0;
+		var _g = extensions.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			if(extensions[i].indexOf("MOZ_") >= 0) continue;
+			if(extensions[i].indexOf("WEBKIT_") >= 0) continue;
+			var ext = this.c.getExtension(extensions[i]);
+			haxor.core.Console.Log("\t" + extensions[i],1);
+			var _g2 = extensions[i];
+			switch(_g2) {
+			case "OES_vertex_array_object":
+				haxor.graphics.GL.VERTEX_ARRAY_OBJECT = true;
+				break;
+			case "OES_texture_half_float":
+				haxor.graphics.GL.HALF_FLOAT = 36193;
+				haxor.graphics.GL.TEXTURE_HALF = true;
+				break;
+			case "OES_texture_half_float_linear":
+				haxor.graphics.GL.TEXTURE_HALF_LINEAR = true;
+				break;
+			case "EXT_texture_filter_anisotropic":case "WEBKIT_EXT_texture_filter_anisotropic":
+				haxor.graphics.GL.TEXTURE_ANISOTROPY = ext.TEXTURE_MAX_ANISOTROPY_EXT;
+				haxor.graphics.GL.MAX_TEXTURE_ANISOTROPY = this.c.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+				haxor.graphics.GL.TEXTURE_ANISOTROPY_ENABLED = true;
+				haxor.core.Console.Log("\t\tMax Aniso: " + haxor.graphics.GL.MAX_TEXTURE_ANISOTROPY);
+				break;
+			case "OES_texture_float":
+				haxor.graphics.GL.TEXTURE_FLOAT = true;
+				break;
+			case "OES_depth_texture":
+				haxor.graphics.GL.TEXTURE_DEPTH_ENABLED = true;
+				break;
+			}
+		}
+		haxor.graphics.GL.MAX_ACTIVE_TEXTURE = this.c.getParameter(34930);
+		haxor.core.Console.Log("\tMax Active Textures: " + haxor.graphics.GL.MAX_ACTIVE_TEXTURE);
+	}
+	,Resize: function() {
+		this.m_canvas.width = this.m_container.clientWidth;
+		this.m_canvas.height = this.m_container.clientHeight;
+	}
+	,CreateBuffer: function() {
+		return this.c.createBuffer();
+	}
+	,BindBuffer: function(p_target,p_id) {
+		this.c.bindBuffer(p_target,p_id);
+	}
+	,BufferData: function(p_target,p_data,p_mode) {
+		this.c.bufferData(p_target,p_data.m_buffer,p_mode);
+	}
+	,BufferSubData: function(p_target,p_offset,p_data) {
+		this.c.bufferSubData(p_target,p_offset,p_data.m_buffer);
+	}
+	,DeleteBuffer: function(p_id) {
+		this.c.deleteBuffer(p_id);
+	}
+	,DrawArrays: function(p_primitive,p_start,p_count) {
+		this.c.drawArrays(p_primitive,p_start,p_count);
+	}
+	,DrawElements: function(p_primitive,p_count,p_type,p_offset) {
+		this.c.drawElements(p_primitive,p_count,p_type,p_offset);
+	}
+	,DisableVertexAttrib: function(p_location) {
+		this.c.disableVertexAttribArray(p_location);
+	}
+	,EnableVertexAttrib: function(p_location) {
+		this.c.enableVertexAttribArray(p_location);
+	}
+	,VertexAttrib3f: function(p_location,p_x,p_y,p_z) {
+		this.c.vertexAttrib3f(p_location,p_x,p_y,p_z);
+	}
+	,VertexAttrib4f: function(p_location,p_x,p_y,p_z,p_w) {
+		this.c.vertexAttrib4f(p_location,p_x,p_y,p_z,p_w);
+	}
+	,VertexAttribPointer: function(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset) {
+		this.c.vertexAttribPointer(p_location,p_components_size,p_type,p_normalized,p_stride,p_offset);
+	}
+	,CompileShader: function(p_shader) {
+		this.c.compileShader(p_shader);
+	}
+	,CreateShader: function(p_type) {
+		return this.c.createShader(p_type);
+	}
+	,DetachShader: function(p_program,p_shader) {
+		this.c.detachShader(p_program,p_shader);
+	}
+	,DeleteShader: function(p_shader) {
+		this.c.deleteShader(p_shader);
+	}
+	,GetShaderInfoLog: function(p_shader) {
+		return this.c.getShaderInfoLog(p_shader);
+	}
+	,GetShaderParameter: function(p_shader,p_parameter) {
+		return this.c.getShaderParameter(p_shader,p_parameter);
+	}
+	,ShaderSource: function(p_shader,p_source) {
+		this.c.shaderSource(p_shader,p_source);
+	}
+	,AttachShader: function(p_program,p_shader) {
+		this.c.attachShader(p_program,p_shader);
+	}
+	,BindAttribLocation: function(p_program,p_location,p_name) {
+		this.c.bindAttribLocation(p_program,p_location,p_name);
+	}
+	,CreateProgram: function() {
+		return this.c.createProgram();
+	}
+	,DeleteProgram: function(p_program) {
+		this.c.deleteProgram(p_program);
+	}
+	,GetAttribLocation: function(p_program,p_name) {
+		return this.c.getAttribLocation(p_program,p_name);
+	}
+	,GetUniformLocation: function(p_program,p_name) {
+		return this.c.getUniformLocation(p_program,p_name);
+	}
+	,GetProgramInfoLog: function(p_program) {
+		return this.c.getProgramInfoLog(p_program);
+	}
+	,GetProgramParameter: function(p_program,p_parameter) {
+		return this.c.getProgramParameter(p_program,p_parameter);
+	}
+	,LinkProgram: function(p_program) {
+		this.c.linkProgram(p_program);
+	}
+	,UseProgram: function(p_program) {
+		this.c.useProgram(p_program);
+	}
+	,ActiveTexture: function(p_slot) {
+		this.c.activeTexture(p_slot);
+	}
+	,BindFramebuffer: function(p_target,p_id) {
+		this.c.bindFramebuffer(p_target,p_id);
+	}
+	,BindRenderbuffer: function(p_target,p_id) {
+		this.c.bindRenderbuffer(p_target,p_id);
+	}
+	,BindTexture: function(p_target,p_id) {
+		this.c.bindTexture(p_target,p_id);
+	}
+	,CreateFramebuffer: function() {
+		return this.c.createFramebuffer();
+	}
+	,CreateRenderbuffer: function() {
+		return this.c.createRenderbuffer();
+	}
+	,CreateTexture: function() {
+		return this.c.createTexture();
+	}
+	,DeleteFramebuffer: function(p_id) {
+		this.c.deleteFramebuffer(p_id);
+	}
+	,DeleteRenderbuffer: function(p_id) {
+		this.c.deleteRenderbuffer(p_id);
+	}
+	,DeleteTexture: function(p_id) {
+		this.c.deleteTexture(p_id);
+	}
+	,FramebufferRenderbuffer: function(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id) {
+		this.c.framebufferRenderbuffer(p_target,p_attachment,p_renderbuffer_target,p_renderbuffer_id);
+	}
+	,FramebufferTexture2D: function(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel) {
+		this.c.framebufferTexture2D(p_target,p_attachment,p_texture_target,p_texture_id,p_miplevel);
+	}
+	,GenerateMipmap: function(p_target) {
+		this.c.generateMipmap(p_target);
+	}
+	,PixelStorei: function(p_parameter,p_value) {
+		this.c.pixelStorei(p_parameter,p_value);
+	}
+	,RenderbufferStorage: function(p_target,p_format,p_width,p_height) {
+		this.c.renderbufferStorage(p_target,p_format,p_width,p_height);
+	}
+	,TexImage2D: function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data) {
+		this.c.texImage2D(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,p_data.aux);
+	}
+	,TexImage2DAlloc: function(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type) {
+		this.c.texImage2D(p_target,p_level,p_internal_format,p_width,p_height,p_border,p_format,p_channel_type,null);
+	}
+	,TexSubImage2D: function(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data) {
+		this.c.texSubImage2D(p_target,p_level,p_x,p_y,p_width,p_height,p_format,p_channel_type,p_data.aux);
+	}
+	,TexParameterf: function(p_target,p_parameter,p_value) {
+		this.c.texParameterf(p_target,p_parameter,p_value);
+	}
+	,TexParameteri: function(p_target,p_parameter,p_value) {
+		this.c.texParameteri(p_target,p_parameter,p_value);
+	}
+	,BlendFunc: function(p_src,p_dst) {
+		this.c.blendFunc(p_src,p_dst);
+	}
+	,Disable: function(p_flag) {
+		this.c.disable(p_flag);
+	}
+	,Enable: function(p_flag) {
+		this.c.enable(p_flag);
+	}
+	,DepthMask: function(p_flag) {
+		this.c.depthMask(p_flag);
+	}
+	,DepthFunc: function(p_flag) {
+		this.c.depthFunc(p_flag);
+	}
+	,CullFace: function(p_face) {
+		this.c.cullFace(p_face);
+	}
+	,FrontFace: function(p_face) {
+		this.c.frontFace(p_face);
+	}
+	,Uniform1f: function(p_location,p_x) {
+		this.c.uniform1f(p_location,p_x);
+	}
+	,Uniform2f: function(p_location,p_x,p_y) {
+		this.c.uniform2f(p_location,p_x,p_y);
+	}
+	,Uniform3f: function(p_location,p_x,p_y,p_z) {
+		this.c.uniform3f(p_location,p_x,p_y,p_z);
+	}
+	,Uniform4f: function(p_location,p_x,p_y,p_z,p_w) {
+		this.c.uniform4f(p_location,p_x,p_y,p_z,p_w);
+	}
+	,Uniform1i: function(p_location,p_x) {
+		this.c.uniform1i(p_location,p_x);
+	}
+	,Uniform2i: function(p_location,p_x,p_y) {
+		this.c.uniform2i(p_location,p_x,p_y);
+	}
+	,Uniform3i: function(p_location,p_x,p_y,p_z) {
+		this.c.uniform3i(p_location,p_x,p_y,p_z);
+	}
+	,Uniform4i: function(p_location,p_x,p_y,p_z,p_w) {
+		this.c.uniform4i(p_location,p_x,p_y,p_z,p_w);
+	}
+	,Uniform1fv: function(p_location,p_v) {
+		this.c.uniform1fv(p_location,p_v.aux);
+	}
+	,Uniform2fv: function(p_location,p_v) {
+		this.c.uniform2fv(p_location,p_v.aux);
+	}
+	,Uniform3fv: function(p_location,p_v) {
+		this.c.uniform3fv(p_location,p_v.aux);
+	}
+	,Uniform4fv: function(p_location,p_v) {
+		this.c.uniform4fv(p_location,p_v.aux);
+	}
+	,Uniform1iv: function(p_location,p_v) {
+		this.c.uniform1iv(p_location,p_v.aux);
+	}
+	,Uniform2iv: function(p_location,p_v) {
+		this.c.uniform2iv(p_location,p_v.aux);
+	}
+	,Uniform3iv: function(p_location,p_v) {
+		this.c.uniform3iv(p_location,p_v.aux);
+	}
+	,Uniform4iv: function(p_location,p_v) {
+		this.c.uniform4iv(p_location,p_v.aux);
+	}
+	,UniformMatrix2fv: function(p_location,p_transpose,p_v) {
+		this.c.uniformMatrix2fv(p_location,p_transpose,p_v.aux);
+	}
+	,UniformMatrix3fv: function(p_location,p_transpose,p_v) {
+		this.c.uniformMatrix3fv(p_location,p_transpose,p_v.aux);
+	}
+	,UniformMatrix4fv: function(p_location,p_transpose,p_v) {
+		this.c.uniformMatrix4fv(p_location,p_transpose,p_v.aux);
+	}
+	,Clear: function(p_flag) {
+		this.c.clear(p_flag);
+	}
+	,ClearDepth: function(p_value) {
+		this.c.clearDepth(p_value);
+	}
+	,ClearColor: function(p_r,p_g,p_b,p_a) {
+		this.c.clearColor(p_r,p_g,p_b,p_a);
+	}
+	,Viewport: function(p_x,p_y,p_width,p_height) {
+		this.c.viewport(p_x,p_y,p_width,p_height);
+	}
+	,Scissor: function(p_x,p_y,p_width,p_height) {
+		this.c.scissor(p_x,p_y,p_width,p_height);
+	}
+	,ReadPixels: function(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels) {
+		this.c.readPixels(p_x,p_y,p_width,p_height,p_format,p_type,p_pixels.m_buffer);
+	}
+	,GetErrorCode: function() {
+		return this.c.getError();
+	}
+	,__class__: haxor.platform.html.graphics.WebGL
+});
 var js = {};
 js.Boot = function() { };
 $hxClasses["js.Boot"] = js.Boot;
@@ -4781,6 +4784,312 @@ haxor.graphics.TextureWrap.ClampY = 4;
 haxor.graphics.TextureWrap.RepeatY = 8;
 haxor.graphics.TextureWrap.ClampZ = 16;
 haxor.graphics.TextureWrap.RepeatZ = 32;
+haxor.graphics.GL.ACTIVE_ATTRIBUTES = 35721;
+haxor.graphics.GL.ACTIVE_TEXTURE = 34016;
+haxor.graphics.GL.ACTIVE_UNIFORMS = 35718;
+haxor.graphics.GL.ALIASED_LINE_WIDTH_RANGE = 33902;
+haxor.graphics.GL.ALIASED_POINT_SIZE_RANGE = 33901;
+haxor.graphics.GL.ALPHA = 6406;
+haxor.graphics.GL.ALPHA_BITS = 3413;
+haxor.graphics.GL.ALWAYS = 519;
+haxor.graphics.GL.ARRAY_BUFFER = 34962;
+haxor.graphics.GL.ARRAY_BUFFER_BINDING = 34964;
+haxor.graphics.GL.ATTACHED_SHADERS = 35717;
+haxor.graphics.GL.BACK = 1029;
+haxor.graphics.GL.BLEND = 3042;
+haxor.graphics.GL.BLEND_COLOR = 32773;
+haxor.graphics.GL.BLEND_DST_ALPHA = 32970;
+haxor.graphics.GL.BLEND_DST_RGB = 32968;
+haxor.graphics.GL.BLEND_EQUATION = 32777;
+haxor.graphics.GL.BLEND_EQUATION_ALPHA = 34877;
+haxor.graphics.GL.BLEND_EQUATION_RGB = 32777;
+haxor.graphics.GL.BLEND_SRC_ALPHA = 32971;
+haxor.graphics.GL.BLEND_SRC_RGB = 32969;
+haxor.graphics.GL.BLUE_BITS = 3412;
+haxor.graphics.GL.BOOL = 35670;
+haxor.graphics.GL.BOOL_VEC2 = 35671;
+haxor.graphics.GL.BOOL_VEC3 = 35672;
+haxor.graphics.GL.BOOL_VEC4 = 35673;
+haxor.graphics.GL.BROWSER_DEFAULT_WEBGL = 37444;
+haxor.graphics.GL.BUFFER_SIZE = 34660;
+haxor.graphics.GL.BUFFER_USAGE = 34661;
+haxor.graphics.GL.BYTE = 5120;
+haxor.graphics.GL.CCW = 2305;
+haxor.graphics.GL.CLAMP_TO_EDGE = 33071;
+haxor.graphics.GL.COLOR_ATTACHMENT0 = 36064;
+haxor.graphics.GL.COLOR_BUFFER_BIT = 16384;
+haxor.graphics.GL.COLOR_CLEAR_VALUE = 3106;
+haxor.graphics.GL.COLOR_WRITEMASK = 3107;
+haxor.graphics.GL.COMPILE_STATUS = 35713;
+haxor.graphics.GL.COMPRESSED_TEXTURE_FORMATS = 34467;
+haxor.graphics.GL.CONSTANT_ALPHA = 32771;
+haxor.graphics.GL.CONSTANT_COLOR = 32769;
+haxor.graphics.GL.CONTEXT_LOST_WEBGL = 37442;
+haxor.graphics.GL.CULL_FACE = 2884;
+haxor.graphics.GL.CULL_FACE_MODE = 2885;
+haxor.graphics.GL.CURRENT_PROGRAM = 35725;
+haxor.graphics.GL.CURRENT_VERTEX_ATTRIB = 34342;
+haxor.graphics.GL.CW = 2304;
+haxor.graphics.GL.DECR = 7683;
+haxor.graphics.GL.DECR_WRAP = 34056;
+haxor.graphics.GL.DELETE_STATUS = 35712;
+haxor.graphics.GL.DEPTH_ATTACHMENT = 36096;
+haxor.graphics.GL.DEPTH_BITS = 3414;
+haxor.graphics.GL.DEPTH_BUFFER_BIT = 256;
+haxor.graphics.GL.DEPTH_CLEAR_VALUE = 2931;
+haxor.graphics.GL.DEPTH_COMPONENT = 6402;
+haxor.graphics.GL.DEPTH_COMPONENT16 = 33189;
+haxor.graphics.GL.DEPTH_FUNC = 2932;
+haxor.graphics.GL.DEPTH_RANGE = 2928;
+haxor.graphics.GL.DEPTH_STENCIL = 34041;
+haxor.graphics.GL.DEPTH_STENCIL_ATTACHMENT = 33306;
+haxor.graphics.GL.DEPTH_TEST = 2929;
+haxor.graphics.GL.DEPTH_WRITEMASK = 2930;
+haxor.graphics.GL.DITHER = 3024;
+haxor.graphics.GL.DONT_CARE = 4352;
+haxor.graphics.GL.DST_ALPHA = 772;
+haxor.graphics.GL.DST_COLOR = 774;
+haxor.graphics.GL.DYNAMIC_DRAW = 35048;
+haxor.graphics.GL.ELEMENT_ARRAY_BUFFER = 34963;
+haxor.graphics.GL.ELEMENT_ARRAY_BUFFER_BINDING = 34965;
+haxor.graphics.GL.EQUAL = 514;
+haxor.graphics.GL.FASTEST = 4353;
+haxor.graphics.GL.FLOAT = 5126;
+haxor.graphics.GL.FLOAT_MAT2 = 35674;
+haxor.graphics.GL.FLOAT_MAT3 = 35675;
+haxor.graphics.GL.FLOAT_MAT4 = 35676;
+haxor.graphics.GL.FLOAT_VEC2 = 35664;
+haxor.graphics.GL.FLOAT_VEC3 = 35665;
+haxor.graphics.GL.FLOAT_VEC4 = 35666;
+haxor.graphics.GL.FRAGMENT_SHADER = 35632;
+haxor.graphics.GL.FRAMEBUFFER = 36160;
+haxor.graphics.GL.FRAMEBUFFER_ATTACHMENT_OBJECT_NAME = 36049;
+haxor.graphics.GL.FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE = 36048;
+haxor.graphics.GL.FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE = 36051;
+haxor.graphics.GL.FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL = 36050;
+haxor.graphics.GL.FRAMEBUFFER_BINDING = 36006;
+haxor.graphics.GL.FRAMEBUFFER_COMPLETE = 36053;
+haxor.graphics.GL.FRAMEBUFFER_INCOMPLETE_ATTACHMENT = 36054;
+haxor.graphics.GL.FRAMEBUFFER_INCOMPLETE_DIMENSIONS = 36057;
+haxor.graphics.GL.FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = 36055;
+haxor.graphics.GL.FRAMEBUFFER_UNSUPPORTED = 36061;
+haxor.graphics.GL.FRONT = 1028;
+haxor.graphics.GL.FRONT_AND_BACK = 1032;
+haxor.graphics.GL.FRONT_FACE = 2886;
+haxor.graphics.GL.FUNC_ADD = 32774;
+haxor.graphics.GL.FUNC_REVERSE_SUBTRACT = 32779;
+haxor.graphics.GL.FUNC_SUBTRACT = 32778;
+haxor.graphics.GL.GENERATE_MIPMAP_HINT = 33170;
+haxor.graphics.GL.GEQUAL = 518;
+haxor.graphics.GL.GREATER = 516;
+haxor.graphics.GL.GREEN_BITS = 3411;
+haxor.graphics.GL.HIGH_FLOAT = 36338;
+haxor.graphics.GL.HIGH_INT = 36341;
+haxor.graphics.GL.INCR = 7682;
+haxor.graphics.GL.INCR_WRAP = 34055;
+haxor.graphics.GL.INT = 5124;
+haxor.graphics.GL.INT_VEC2 = 35667;
+haxor.graphics.GL.INT_VEC3 = 35668;
+haxor.graphics.GL.INT_VEC4 = 35669;
+haxor.graphics.GL.INVALID_ENUM = 1280;
+haxor.graphics.GL.INVALID_FRAMEBUFFER_OPERATION = 1286;
+haxor.graphics.GL.INVALID_OPERATION = 1282;
+haxor.graphics.GL.INVALID_VALUE = 1281;
+haxor.graphics.GL.INVERT = 5386;
+haxor.graphics.GL.KEEP = 7680;
+haxor.graphics.GL.LEQUAL = 515;
+haxor.graphics.GL.LESS = 513;
+haxor.graphics.GL.LINEAR = 9729;
+haxor.graphics.GL.LINEAR_MIPMAP_LINEAR = 9987;
+haxor.graphics.GL.LINEAR_MIPMAP_NEAREST = 9985;
+haxor.graphics.GL.LINES = 1;
+haxor.graphics.GL.LINE_LOOP = 2;
+haxor.graphics.GL.LINE_STRIP = 3;
+haxor.graphics.GL.LINE_WIDTH = 2849;
+haxor.graphics.GL.LINK_STATUS = 35714;
+haxor.graphics.GL.LOW_FLOAT = 36336;
+haxor.graphics.GL.LOW_INT = 36339;
+haxor.graphics.GL.LUMINANCE = 6409;
+haxor.graphics.GL.LUMINANCE_ALPHA = 6410;
+haxor.graphics.GL.MAX_COMBINED_TEXTURE_IMAGE_UNITS = 35661;
+haxor.graphics.GL.MAX_CUBE_MAP_TEXTURE_SIZE = 34076;
+haxor.graphics.GL.MAX_FRAGMENT_UNIFORM_VECTORS = 36349;
+haxor.graphics.GL.MAX_RENDERBUFFER_SIZE = 34024;
+haxor.graphics.GL.MAX_TEXTURE_IMAGE_UNITS = 34930;
+haxor.graphics.GL.MAX_TEXTURE_SIZE = 3379;
+haxor.graphics.GL.MAX_VARYING_VECTORS = 36348;
+haxor.graphics.GL.MAX_VERTEX_ATTRIBS = 34921;
+haxor.graphics.GL.MAX_VERTEX_TEXTURE_IMAGE_UNITS = 35660;
+haxor.graphics.GL.MAX_VERTEX_UNIFORM_VECTORS = 36347;
+haxor.graphics.GL.MAX_VIEWPORT_DIMS = 3386;
+haxor.graphics.GL.MEDIUM_FLOAT = 36337;
+haxor.graphics.GL.MEDIUM_INT = 36340;
+haxor.graphics.GL.MIRRORED_REPEAT = 33648;
+haxor.graphics.GL.NEAREST = 9728;
+haxor.graphics.GL.NEAREST_MIPMAP_LINEAR = 9986;
+haxor.graphics.GL.NEAREST_MIPMAP_NEAREST = 9984;
+haxor.graphics.GL.NEVER = 512;
+haxor.graphics.GL.NICEST = 4354;
+haxor.graphics.GL.NONE = 0;
+haxor.graphics.GL.NOTEQUAL = 517;
+haxor.graphics.GL.NO_ERROR_GL = 0;
+haxor.graphics.GL.ONE = 1;
+haxor.graphics.GL.ONE_MINUS_CONSTANT_ALPHA = 32772;
+haxor.graphics.GL.ONE_MINUS_CONSTANT_COLOR = 32770;
+haxor.graphics.GL.ONE_MINUS_DST_ALPHA = 773;
+haxor.graphics.GL.ONE_MINUS_DST_COLOR = 775;
+haxor.graphics.GL.ONE_MINUS_SRC_ALPHA = 771;
+haxor.graphics.GL.ONE_MINUS_SRC_COLOR = 769;
+haxor.graphics.GL.OUT_OF_MEMORY = 1285;
+haxor.graphics.GL.PACK_ALIGNMENT = 3333;
+haxor.graphics.GL.POINTS = 0;
+haxor.graphics.GL.POLYGON_OFFSET_FACTOR = 32824;
+haxor.graphics.GL.POLYGON_OFFSET_FILL = 32823;
+haxor.graphics.GL.POLYGON_OFFSET_UNITS = 10752;
+haxor.graphics.GL.RED_BITS = 3410;
+haxor.graphics.GL.RENDERBUFFER = 36161;
+haxor.graphics.GL.RENDERBUFFER_ALPHA_SIZE = 36179;
+haxor.graphics.GL.RENDERBUFFER_BINDING = 36007;
+haxor.graphics.GL.RENDERBUFFER_BLUE_SIZE = 36178;
+haxor.graphics.GL.RENDERBUFFER_DEPTH_SIZE = 36180;
+haxor.graphics.GL.RENDERBUFFER_GREEN_SIZE = 36177;
+haxor.graphics.GL.RENDERBUFFER_HEIGHT = 36163;
+haxor.graphics.GL.RENDERBUFFER_INTERNAL_FORMAT = 36164;
+haxor.graphics.GL.RENDERBUFFER_RED_SIZE = 36176;
+haxor.graphics.GL.RENDERBUFFER_STENCIL_SIZE = 36181;
+haxor.graphics.GL.RENDERBUFFER_WIDTH = 36162;
+haxor.graphics.GL.RENDERER = 7937;
+haxor.graphics.GL.REPEAT = 10497;
+haxor.graphics.GL.REPLACE = 7681;
+haxor.graphics.GL.RGB = 6407;
+haxor.graphics.GL.RGB565 = 36194;
+haxor.graphics.GL.RGB5_A1 = 32855;
+haxor.graphics.GL.RGBA = 6408;
+haxor.graphics.GL.RGBA4 = 32854;
+haxor.graphics.GL.SAMPLER_2D = 35678;
+haxor.graphics.GL.SAMPLER_CUBE = 35680;
+haxor.graphics.GL.SAMPLES = 32937;
+haxor.graphics.GL.SAMPLE_ALPHA_TO_COVERAGE = 32926;
+haxor.graphics.GL.SAMPLE_BUFFERS = 32936;
+haxor.graphics.GL.SAMPLE_COVERAGE = 32928;
+haxor.graphics.GL.SAMPLE_COVERAGE_INVERT = 32939;
+haxor.graphics.GL.SAMPLE_COVERAGE_VALUE = 32938;
+haxor.graphics.GL.SCISSOR_BOX = 3088;
+haxor.graphics.GL.SCISSOR_TEST = 3089;
+haxor.graphics.GL.SHADER_TYPE = 35663;
+haxor.graphics.GL.SHADING_LANGUAGE_VERSION = 35724;
+haxor.graphics.GL.SHORT = 5122;
+haxor.graphics.GL.SRC_ALPHA = 770;
+haxor.graphics.GL.SRC_ALPHA_SATURATE = 776;
+haxor.graphics.GL.SRC_COLOR = 768;
+haxor.graphics.GL.STATIC_DRAW = 35044;
+haxor.graphics.GL.STENCIL_ATTACHMENT = 36128;
+haxor.graphics.GL.STENCIL_BACK_FAIL = 34817;
+haxor.graphics.GL.STENCIL_BACK_FUNC = 34816;
+haxor.graphics.GL.STENCIL_BACK_PASS_DEPTH_FAIL = 34818;
+haxor.graphics.GL.STENCIL_BACK_PASS_DEPTH_PASS = 34819;
+haxor.graphics.GL.STENCIL_BACK_REF = 36003;
+haxor.graphics.GL.STENCIL_BACK_VALUE_MASK = 36004;
+haxor.graphics.GL.STENCIL_BACK_WRITEMASK = 36005;
+haxor.graphics.GL.STENCIL_BITS = 3415;
+haxor.graphics.GL.STENCIL_BUFFER_BIT = 1024;
+haxor.graphics.GL.STENCIL_CLEAR_VALUE = 2961;
+haxor.graphics.GL.STENCIL_FAIL = 2964;
+haxor.graphics.GL.STENCIL_FUNC = 2962;
+haxor.graphics.GL.STENCIL_INDEX = 6401;
+haxor.graphics.GL.STENCIL_INDEX8 = 36168;
+haxor.graphics.GL.STENCIL_PASS_DEPTH_FAIL = 2965;
+haxor.graphics.GL.STENCIL_PASS_DEPTH_PASS = 2966;
+haxor.graphics.GL.STENCIL_REF = 2967;
+haxor.graphics.GL.STENCIL_TEST = 2960;
+haxor.graphics.GL.STENCIL_VALUE_MASK = 2963;
+haxor.graphics.GL.STENCIL_WRITEMASK = 2968;
+haxor.graphics.GL.STREAM_DRAW = 35040;
+haxor.graphics.GL.SUBPIXEL_BITS = 3408;
+haxor.graphics.GL.TEXTURE = 5890;
+haxor.graphics.GL.TEXTURE0 = 33984;
+haxor.graphics.GL.TEXTURE1 = 33985;
+haxor.graphics.GL.TEXTURE10 = 33994;
+haxor.graphics.GL.TEXTURE11 = 33995;
+haxor.graphics.GL.TEXTURE12 = 33996;
+haxor.graphics.GL.TEXTURE13 = 33997;
+haxor.graphics.GL.TEXTURE14 = 33998;
+haxor.graphics.GL.TEXTURE15 = 33999;
+haxor.graphics.GL.TEXTURE16 = 34000;
+haxor.graphics.GL.TEXTURE17 = 34001;
+haxor.graphics.GL.TEXTURE18 = 34002;
+haxor.graphics.GL.TEXTURE19 = 34003;
+haxor.graphics.GL.TEXTURE2 = 33986;
+haxor.graphics.GL.TEXTURE20 = 34004;
+haxor.graphics.GL.TEXTURE21 = 34005;
+haxor.graphics.GL.TEXTURE22 = 34006;
+haxor.graphics.GL.TEXTURE23 = 34007;
+haxor.graphics.GL.TEXTURE24 = 34008;
+haxor.graphics.GL.TEXTURE25 = 34009;
+haxor.graphics.GL.TEXTURE26 = 34010;
+haxor.graphics.GL.TEXTURE27 = 34011;
+haxor.graphics.GL.TEXTURE28 = 34012;
+haxor.graphics.GL.TEXTURE29 = 34013;
+haxor.graphics.GL.TEXTURE3 = 33987;
+haxor.graphics.GL.TEXTURE30 = 34014;
+haxor.graphics.GL.TEXTURE31 = 34015;
+haxor.graphics.GL.TEXTURE4 = 33988;
+haxor.graphics.GL.TEXTURE5 = 33989;
+haxor.graphics.GL.TEXTURE6 = 33990;
+haxor.graphics.GL.TEXTURE7 = 33991;
+haxor.graphics.GL.TEXTURE8 = 33992;
+haxor.graphics.GL.TEXTURE9 = 33993;
+haxor.graphics.GL.TEXTURE_2D = 3553;
+haxor.graphics.GL.TEXTURE_BINDING_2D = 32873;
+haxor.graphics.GL.TEXTURE_BINDING_CUBE_MAP = 34068;
+haxor.graphics.GL.TEXTURE_CUBE_MAP = 34067;
+haxor.graphics.GL.TEXTURE_CUBE_MAP_NEGATIVE_X = 34070;
+haxor.graphics.GL.TEXTURE_CUBE_MAP_NEGATIVE_Y = 34072;
+haxor.graphics.GL.TEXTURE_CUBE_MAP_NEGATIVE_Z = 34074;
+haxor.graphics.GL.TEXTURE_CUBE_MAP_POSITIVE_X = 34069;
+haxor.graphics.GL.TEXTURE_CUBE_MAP_POSITIVE_Y = 34071;
+haxor.graphics.GL.TEXTURE_CUBE_MAP_POSITIVE_Z = 34073;
+haxor.graphics.GL.TEXTURE_MAG_FILTER = 10240;
+haxor.graphics.GL.TEXTURE_MIN_FILTER = 10241;
+haxor.graphics.GL.TEXTURE_WRAP_S = 10242;
+haxor.graphics.GL.TEXTURE_WRAP_T = 10243;
+haxor.graphics.GL.TRIANGLES = 4;
+haxor.graphics.GL.TRIANGLE_FAN = 6;
+haxor.graphics.GL.TRIANGLE_STRIP = 5;
+haxor.graphics.GL.UNPACK_ALIGNMENT = 3317;
+haxor.graphics.GL.UNPACK_COLORSPACE_CONVERSION_WEBGL = 37443;
+haxor.graphics.GL.UNPACK_FLIP_Y_WEBGL = 37440;
+haxor.graphics.GL.UNPACK_PREMULTIPLY_ALPHA_WEBGL = 37441;
+haxor.graphics.GL.UNSIGNED_BYTE = 5121;
+haxor.graphics.GL.UNSIGNED_INT = 5125;
+haxor.graphics.GL.UNSIGNED_SHORT = 5123;
+haxor.graphics.GL.UNSIGNED_SHORT_4_4_4_4 = 32819;
+haxor.graphics.GL.UNSIGNED_SHORT_5_5_5_1 = 32820;
+haxor.graphics.GL.UNSIGNED_SHORT_5_6_5 = 33635;
+haxor.graphics.GL.VALIDATE_STATUS = 35715;
+haxor.graphics.GL.VENDOR = 7936;
+haxor.graphics.GL.VERSION = 7938;
+haxor.graphics.GL.VERTEX_ATTRIB_ARRAY_BUFFER_BINDING = 34975;
+haxor.graphics.GL.VERTEX_ATTRIB_ARRAY_ENABLED = 34338;
+haxor.graphics.GL.VERTEX_ATTRIB_ARRAY_NORMALIZED = 34922;
+haxor.graphics.GL.VERTEX_ATTRIB_ARRAY_POINTER = 34373;
+haxor.graphics.GL.VERTEX_ATTRIB_ARRAY_SIZE = 34339;
+haxor.graphics.GL.VERTEX_ATTRIB_ARRAY_STRIDE = 34340;
+haxor.graphics.GL.VERTEX_ATTRIB_ARRAY_TYPE = 34341;
+haxor.graphics.GL.VERTEX_SHADER = 35633;
+haxor.graphics.GL.VIEWPORT = 2978;
+haxor.graphics.GL.ZERO = 0;
+haxor.graphics.GL.VERTEX_ARRAY_OBJECT = false;
+haxor.graphics.GL.HALF_FLOAT = 5126;
+haxor.graphics.GL.TEXTURE_HALF = false;
+haxor.graphics.GL.TEXTURE_HALF_LINEAR = false;
+haxor.graphics.GL.TEXTURE_ANISOTROPY = -1;
+haxor.graphics.GL.TEXTURE_ANISOTROPY_ENABLED = false;
+haxor.graphics.GL.MAX_TEXTURE_ANISOTROPY = 1;
+haxor.graphics.GL.TEXTURE_FLOAT = false;
+haxor.graphics.GL.TEXTURE_FLOAT_LINEAR = false;
+haxor.graphics.GL.TEXTURE_DEPTH_ENABLED = false;
+haxor.graphics.GL.MAX_ACTIVE_TEXTURE = 8;
 haxor.math.Mathf.Epsilon = 1e-005;
 haxor.math.Mathf.NaN = Math.NaN;
 haxor.math.Mathf.Infinity = Math.POSITIVE_INFINITY;
@@ -4802,311 +5111,5 @@ haxor.math.Mathf.Float2Byte = 255.0;
 haxor.math.Mathf.Float2Short = 65536.0;
 haxor.math.Mathf.Float2Long = 4294967296.0;
 haxor.net.Web.root = "";
-haxor.platform.graphics.GL.ACTIVE_ATTRIBUTES = 35721;
-haxor.platform.graphics.GL.ACTIVE_TEXTURE = 34016;
-haxor.platform.graphics.GL.ACTIVE_UNIFORMS = 35718;
-haxor.platform.graphics.GL.ALIASED_LINE_WIDTH_RANGE = 33902;
-haxor.platform.graphics.GL.ALIASED_POINT_SIZE_RANGE = 33901;
-haxor.platform.graphics.GL.ALPHA = 6406;
-haxor.platform.graphics.GL.ALPHA_BITS = 3413;
-haxor.platform.graphics.GL.ALWAYS = 519;
-haxor.platform.graphics.GL.ARRAY_BUFFER = 34962;
-haxor.platform.graphics.GL.ARRAY_BUFFER_BINDING = 34964;
-haxor.platform.graphics.GL.ATTACHED_SHADERS = 35717;
-haxor.platform.graphics.GL.BACK = 1029;
-haxor.platform.graphics.GL.BLEND = 3042;
-haxor.platform.graphics.GL.BLEND_COLOR = 32773;
-haxor.platform.graphics.GL.BLEND_DST_ALPHA = 32970;
-haxor.platform.graphics.GL.BLEND_DST_RGB = 32968;
-haxor.platform.graphics.GL.BLEND_EQUATION = 32777;
-haxor.platform.graphics.GL.BLEND_EQUATION_ALPHA = 34877;
-haxor.platform.graphics.GL.BLEND_EQUATION_RGB = 32777;
-haxor.platform.graphics.GL.BLEND_SRC_ALPHA = 32971;
-haxor.platform.graphics.GL.BLEND_SRC_RGB = 32969;
-haxor.platform.graphics.GL.BLUE_BITS = 3412;
-haxor.platform.graphics.GL.BOOL = 35670;
-haxor.platform.graphics.GL.BOOL_VEC2 = 35671;
-haxor.platform.graphics.GL.BOOL_VEC3 = 35672;
-haxor.platform.graphics.GL.BOOL_VEC4 = 35673;
-haxor.platform.graphics.GL.BROWSER_DEFAULT_WEBGL = 37444;
-haxor.platform.graphics.GL.BUFFER_SIZE = 34660;
-haxor.platform.graphics.GL.BUFFER_USAGE = 34661;
-haxor.platform.graphics.GL.BYTE = 5120;
-haxor.platform.graphics.GL.CCW = 2305;
-haxor.platform.graphics.GL.CLAMP_TO_EDGE = 33071;
-haxor.platform.graphics.GL.COLOR_ATTACHMENT0 = 36064;
-haxor.platform.graphics.GL.COLOR_BUFFER_BIT = 16384;
-haxor.platform.graphics.GL.COLOR_CLEAR_VALUE = 3106;
-haxor.platform.graphics.GL.COLOR_WRITEMASK = 3107;
-haxor.platform.graphics.GL.COMPILE_STATUS = 35713;
-haxor.platform.graphics.GL.COMPRESSED_TEXTURE_FORMATS = 34467;
-haxor.platform.graphics.GL.CONSTANT_ALPHA = 32771;
-haxor.platform.graphics.GL.CONSTANT_COLOR = 32769;
-haxor.platform.graphics.GL.CONTEXT_LOST_WEBGL = 37442;
-haxor.platform.graphics.GL.CULL_FACE = 2884;
-haxor.platform.graphics.GL.CULL_FACE_MODE = 2885;
-haxor.platform.graphics.GL.CURRENT_PROGRAM = 35725;
-haxor.platform.graphics.GL.CURRENT_VERTEX_ATTRIB = 34342;
-haxor.platform.graphics.GL.CW = 2304;
-haxor.platform.graphics.GL.DECR = 7683;
-haxor.platform.graphics.GL.DECR_WRAP = 34056;
-haxor.platform.graphics.GL.DELETE_STATUS = 35712;
-haxor.platform.graphics.GL.DEPTH_ATTACHMENT = 36096;
-haxor.platform.graphics.GL.DEPTH_BITS = 3414;
-haxor.platform.graphics.GL.DEPTH_BUFFER_BIT = 256;
-haxor.platform.graphics.GL.DEPTH_CLEAR_VALUE = 2931;
-haxor.platform.graphics.GL.DEPTH_COMPONENT = 6402;
-haxor.platform.graphics.GL.DEPTH_COMPONENT16 = 33189;
-haxor.platform.graphics.GL.DEPTH_FUNC = 2932;
-haxor.platform.graphics.GL.DEPTH_RANGE = 2928;
-haxor.platform.graphics.GL.DEPTH_STENCIL = 34041;
-haxor.platform.graphics.GL.DEPTH_STENCIL_ATTACHMENT = 33306;
-haxor.platform.graphics.GL.DEPTH_TEST = 2929;
-haxor.platform.graphics.GL.DEPTH_WRITEMASK = 2930;
-haxor.platform.graphics.GL.DITHER = 3024;
-haxor.platform.graphics.GL.DONT_CARE = 4352;
-haxor.platform.graphics.GL.DST_ALPHA = 772;
-haxor.platform.graphics.GL.DST_COLOR = 774;
-haxor.platform.graphics.GL.DYNAMIC_DRAW = 35048;
-haxor.platform.graphics.GL.ELEMENT_ARRAY_BUFFER = 34963;
-haxor.platform.graphics.GL.ELEMENT_ARRAY_BUFFER_BINDING = 34965;
-haxor.platform.graphics.GL.EQUAL = 514;
-haxor.platform.graphics.GL.FASTEST = 4353;
-haxor.platform.graphics.GL.FLOAT = 5126;
-haxor.platform.graphics.GL.FLOAT_MAT2 = 35674;
-haxor.platform.graphics.GL.FLOAT_MAT3 = 35675;
-haxor.platform.graphics.GL.FLOAT_MAT4 = 35676;
-haxor.platform.graphics.GL.FLOAT_VEC2 = 35664;
-haxor.platform.graphics.GL.FLOAT_VEC3 = 35665;
-haxor.platform.graphics.GL.FLOAT_VEC4 = 35666;
-haxor.platform.graphics.GL.FRAGMENT_SHADER = 35632;
-haxor.platform.graphics.GL.FRAMEBUFFER = 36160;
-haxor.platform.graphics.GL.FRAMEBUFFER_ATTACHMENT_OBJECT_NAME = 36049;
-haxor.platform.graphics.GL.FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE = 36048;
-haxor.platform.graphics.GL.FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE = 36051;
-haxor.platform.graphics.GL.FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL = 36050;
-haxor.platform.graphics.GL.FRAMEBUFFER_BINDING = 36006;
-haxor.platform.graphics.GL.FRAMEBUFFER_COMPLETE = 36053;
-haxor.platform.graphics.GL.FRAMEBUFFER_INCOMPLETE_ATTACHMENT = 36054;
-haxor.platform.graphics.GL.FRAMEBUFFER_INCOMPLETE_DIMENSIONS = 36057;
-haxor.platform.graphics.GL.FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = 36055;
-haxor.platform.graphics.GL.FRAMEBUFFER_UNSUPPORTED = 36061;
-haxor.platform.graphics.GL.FRONT = 1028;
-haxor.platform.graphics.GL.FRONT_AND_BACK = 1032;
-haxor.platform.graphics.GL.FRONT_FACE = 2886;
-haxor.platform.graphics.GL.FUNC_ADD = 32774;
-haxor.platform.graphics.GL.FUNC_REVERSE_SUBTRACT = 32779;
-haxor.platform.graphics.GL.FUNC_SUBTRACT = 32778;
-haxor.platform.graphics.GL.GENERATE_MIPMAP_HINT = 33170;
-haxor.platform.graphics.GL.GEQUAL = 518;
-haxor.platform.graphics.GL.GREATER = 516;
-haxor.platform.graphics.GL.GREEN_BITS = 3411;
-haxor.platform.graphics.GL.HIGH_FLOAT = 36338;
-haxor.platform.graphics.GL.HIGH_INT = 36341;
-haxor.platform.graphics.GL.INCR = 7682;
-haxor.platform.graphics.GL.INCR_WRAP = 34055;
-haxor.platform.graphics.GL.INT = 5124;
-haxor.platform.graphics.GL.INT_VEC2 = 35667;
-haxor.platform.graphics.GL.INT_VEC3 = 35668;
-haxor.platform.graphics.GL.INT_VEC4 = 35669;
-haxor.platform.graphics.GL.INVALID_ENUM = 1280;
-haxor.platform.graphics.GL.INVALID_FRAMEBUFFER_OPERATION = 1286;
-haxor.platform.graphics.GL.INVALID_OPERATION = 1282;
-haxor.platform.graphics.GL.INVALID_VALUE = 1281;
-haxor.platform.graphics.GL.INVERT = 5386;
-haxor.platform.graphics.GL.KEEP = 7680;
-haxor.platform.graphics.GL.LEQUAL = 515;
-haxor.platform.graphics.GL.LESS = 513;
-haxor.platform.graphics.GL.LINEAR = 9729;
-haxor.platform.graphics.GL.LINEAR_MIPMAP_LINEAR = 9987;
-haxor.platform.graphics.GL.LINEAR_MIPMAP_NEAREST = 9985;
-haxor.platform.graphics.GL.LINES = 1;
-haxor.platform.graphics.GL.LINE_LOOP = 2;
-haxor.platform.graphics.GL.LINE_STRIP = 3;
-haxor.platform.graphics.GL.LINE_WIDTH = 2849;
-haxor.platform.graphics.GL.LINK_STATUS = 35714;
-haxor.platform.graphics.GL.LOW_FLOAT = 36336;
-haxor.platform.graphics.GL.LOW_INT = 36339;
-haxor.platform.graphics.GL.LUMINANCE = 6409;
-haxor.platform.graphics.GL.LUMINANCE_ALPHA = 6410;
-haxor.platform.graphics.GL.MAX_COMBINED_TEXTURE_IMAGE_UNITS = 35661;
-haxor.platform.graphics.GL.MAX_CUBE_MAP_TEXTURE_SIZE = 34076;
-haxor.platform.graphics.GL.MAX_FRAGMENT_UNIFORM_VECTORS = 36349;
-haxor.platform.graphics.GL.MAX_RENDERBUFFER_SIZE = 34024;
-haxor.platform.graphics.GL.MAX_TEXTURE_IMAGE_UNITS = 34930;
-haxor.platform.graphics.GL.MAX_TEXTURE_SIZE = 3379;
-haxor.platform.graphics.GL.MAX_VARYING_VECTORS = 36348;
-haxor.platform.graphics.GL.MAX_VERTEX_ATTRIBS = 34921;
-haxor.platform.graphics.GL.MAX_VERTEX_TEXTURE_IMAGE_UNITS = 35660;
-haxor.platform.graphics.GL.MAX_VERTEX_UNIFORM_VECTORS = 36347;
-haxor.platform.graphics.GL.MAX_VIEWPORT_DIMS = 3386;
-haxor.platform.graphics.GL.MEDIUM_FLOAT = 36337;
-haxor.platform.graphics.GL.MEDIUM_INT = 36340;
-haxor.platform.graphics.GL.MIRRORED_REPEAT = 33648;
-haxor.platform.graphics.GL.NEAREST = 9728;
-haxor.platform.graphics.GL.NEAREST_MIPMAP_LINEAR = 9986;
-haxor.platform.graphics.GL.NEAREST_MIPMAP_NEAREST = 9984;
-haxor.platform.graphics.GL.NEVER = 512;
-haxor.platform.graphics.GL.NICEST = 4354;
-haxor.platform.graphics.GL.NONE = 0;
-haxor.platform.graphics.GL.NOTEQUAL = 517;
-haxor.platform.graphics.GL.NO_ERROR_GL = 0;
-haxor.platform.graphics.GL.ONE = 1;
-haxor.platform.graphics.GL.ONE_MINUS_CONSTANT_ALPHA = 32772;
-haxor.platform.graphics.GL.ONE_MINUS_CONSTANT_COLOR = 32770;
-haxor.platform.graphics.GL.ONE_MINUS_DST_ALPHA = 773;
-haxor.platform.graphics.GL.ONE_MINUS_DST_COLOR = 775;
-haxor.platform.graphics.GL.ONE_MINUS_SRC_ALPHA = 771;
-haxor.platform.graphics.GL.ONE_MINUS_SRC_COLOR = 769;
-haxor.platform.graphics.GL.OUT_OF_MEMORY = 1285;
-haxor.platform.graphics.GL.PACK_ALIGNMENT = 3333;
-haxor.platform.graphics.GL.POINTS = 0;
-haxor.platform.graphics.GL.POLYGON_OFFSET_FACTOR = 32824;
-haxor.platform.graphics.GL.POLYGON_OFFSET_FILL = 32823;
-haxor.platform.graphics.GL.POLYGON_OFFSET_UNITS = 10752;
-haxor.platform.graphics.GL.RED_BITS = 3410;
-haxor.platform.graphics.GL.RENDERBUFFER = 36161;
-haxor.platform.graphics.GL.RENDERBUFFER_ALPHA_SIZE = 36179;
-haxor.platform.graphics.GL.RENDERBUFFER_BINDING = 36007;
-haxor.platform.graphics.GL.RENDERBUFFER_BLUE_SIZE = 36178;
-haxor.platform.graphics.GL.RENDERBUFFER_DEPTH_SIZE = 36180;
-haxor.platform.graphics.GL.RENDERBUFFER_GREEN_SIZE = 36177;
-haxor.platform.graphics.GL.RENDERBUFFER_HEIGHT = 36163;
-haxor.platform.graphics.GL.RENDERBUFFER_INTERNAL_FORMAT = 36164;
-haxor.platform.graphics.GL.RENDERBUFFER_RED_SIZE = 36176;
-haxor.platform.graphics.GL.RENDERBUFFER_STENCIL_SIZE = 36181;
-haxor.platform.graphics.GL.RENDERBUFFER_WIDTH = 36162;
-haxor.platform.graphics.GL.RENDERER = 7937;
-haxor.platform.graphics.GL.REPEAT = 10497;
-haxor.platform.graphics.GL.REPLACE = 7681;
-haxor.platform.graphics.GL.RGB = 6407;
-haxor.platform.graphics.GL.RGB565 = 36194;
-haxor.platform.graphics.GL.RGB5_A1 = 32855;
-haxor.platform.graphics.GL.RGBA = 6408;
-haxor.platform.graphics.GL.RGBA4 = 32854;
-haxor.platform.graphics.GL.SAMPLER_2D = 35678;
-haxor.platform.graphics.GL.SAMPLER_CUBE = 35680;
-haxor.platform.graphics.GL.SAMPLES = 32937;
-haxor.platform.graphics.GL.SAMPLE_ALPHA_TO_COVERAGE = 32926;
-haxor.platform.graphics.GL.SAMPLE_BUFFERS = 32936;
-haxor.platform.graphics.GL.SAMPLE_COVERAGE = 32928;
-haxor.platform.graphics.GL.SAMPLE_COVERAGE_INVERT = 32939;
-haxor.platform.graphics.GL.SAMPLE_COVERAGE_VALUE = 32938;
-haxor.platform.graphics.GL.SCISSOR_BOX = 3088;
-haxor.platform.graphics.GL.SCISSOR_TEST = 3089;
-haxor.platform.graphics.GL.SHADER_TYPE = 35663;
-haxor.platform.graphics.GL.SHADING_LANGUAGE_VERSION = 35724;
-haxor.platform.graphics.GL.SHORT = 5122;
-haxor.platform.graphics.GL.SRC_ALPHA = 770;
-haxor.platform.graphics.GL.SRC_ALPHA_SATURATE = 776;
-haxor.platform.graphics.GL.SRC_COLOR = 768;
-haxor.platform.graphics.GL.STATIC_DRAW = 35044;
-haxor.platform.graphics.GL.STENCIL_ATTACHMENT = 36128;
-haxor.platform.graphics.GL.STENCIL_BACK_FAIL = 34817;
-haxor.platform.graphics.GL.STENCIL_BACK_FUNC = 34816;
-haxor.platform.graphics.GL.STENCIL_BACK_PASS_DEPTH_FAIL = 34818;
-haxor.platform.graphics.GL.STENCIL_BACK_PASS_DEPTH_PASS = 34819;
-haxor.platform.graphics.GL.STENCIL_BACK_REF = 36003;
-haxor.platform.graphics.GL.STENCIL_BACK_VALUE_MASK = 36004;
-haxor.platform.graphics.GL.STENCIL_BACK_WRITEMASK = 36005;
-haxor.platform.graphics.GL.STENCIL_BITS = 3415;
-haxor.platform.graphics.GL.STENCIL_BUFFER_BIT = 1024;
-haxor.platform.graphics.GL.STENCIL_CLEAR_VALUE = 2961;
-haxor.platform.graphics.GL.STENCIL_FAIL = 2964;
-haxor.platform.graphics.GL.STENCIL_FUNC = 2962;
-haxor.platform.graphics.GL.STENCIL_INDEX = 6401;
-haxor.platform.graphics.GL.STENCIL_INDEX8 = 36168;
-haxor.platform.graphics.GL.STENCIL_PASS_DEPTH_FAIL = 2965;
-haxor.platform.graphics.GL.STENCIL_PASS_DEPTH_PASS = 2966;
-haxor.platform.graphics.GL.STENCIL_REF = 2967;
-haxor.platform.graphics.GL.STENCIL_TEST = 2960;
-haxor.platform.graphics.GL.STENCIL_VALUE_MASK = 2963;
-haxor.platform.graphics.GL.STENCIL_WRITEMASK = 2968;
-haxor.platform.graphics.GL.STREAM_DRAW = 35040;
-haxor.platform.graphics.GL.SUBPIXEL_BITS = 3408;
-haxor.platform.graphics.GL.TEXTURE = 5890;
-haxor.platform.graphics.GL.TEXTURE0 = 33984;
-haxor.platform.graphics.GL.TEXTURE1 = 33985;
-haxor.platform.graphics.GL.TEXTURE10 = 33994;
-haxor.platform.graphics.GL.TEXTURE11 = 33995;
-haxor.platform.graphics.GL.TEXTURE12 = 33996;
-haxor.platform.graphics.GL.TEXTURE13 = 33997;
-haxor.platform.graphics.GL.TEXTURE14 = 33998;
-haxor.platform.graphics.GL.TEXTURE15 = 33999;
-haxor.platform.graphics.GL.TEXTURE16 = 34000;
-haxor.platform.graphics.GL.TEXTURE17 = 34001;
-haxor.platform.graphics.GL.TEXTURE18 = 34002;
-haxor.platform.graphics.GL.TEXTURE19 = 34003;
-haxor.platform.graphics.GL.TEXTURE2 = 33986;
-haxor.platform.graphics.GL.TEXTURE20 = 34004;
-haxor.platform.graphics.GL.TEXTURE21 = 34005;
-haxor.platform.graphics.GL.TEXTURE22 = 34006;
-haxor.platform.graphics.GL.TEXTURE23 = 34007;
-haxor.platform.graphics.GL.TEXTURE24 = 34008;
-haxor.platform.graphics.GL.TEXTURE25 = 34009;
-haxor.platform.graphics.GL.TEXTURE26 = 34010;
-haxor.platform.graphics.GL.TEXTURE27 = 34011;
-haxor.platform.graphics.GL.TEXTURE28 = 34012;
-haxor.platform.graphics.GL.TEXTURE29 = 34013;
-haxor.platform.graphics.GL.TEXTURE3 = 33987;
-haxor.platform.graphics.GL.TEXTURE30 = 34014;
-haxor.platform.graphics.GL.TEXTURE31 = 34015;
-haxor.platform.graphics.GL.TEXTURE4 = 33988;
-haxor.platform.graphics.GL.TEXTURE5 = 33989;
-haxor.platform.graphics.GL.TEXTURE6 = 33990;
-haxor.platform.graphics.GL.TEXTURE7 = 33991;
-haxor.platform.graphics.GL.TEXTURE8 = 33992;
-haxor.platform.graphics.GL.TEXTURE9 = 33993;
-haxor.platform.graphics.GL.TEXTURE_2D = 3553;
-haxor.platform.graphics.GL.TEXTURE_BINDING_2D = 32873;
-haxor.platform.graphics.GL.TEXTURE_BINDING_CUBE_MAP = 34068;
-haxor.platform.graphics.GL.TEXTURE_CUBE_MAP = 34067;
-haxor.platform.graphics.GL.TEXTURE_CUBE_MAP_NEGATIVE_X = 34070;
-haxor.platform.graphics.GL.TEXTURE_CUBE_MAP_NEGATIVE_Y = 34072;
-haxor.platform.graphics.GL.TEXTURE_CUBE_MAP_NEGATIVE_Z = 34074;
-haxor.platform.graphics.GL.TEXTURE_CUBE_MAP_POSITIVE_X = 34069;
-haxor.platform.graphics.GL.TEXTURE_CUBE_MAP_POSITIVE_Y = 34071;
-haxor.platform.graphics.GL.TEXTURE_CUBE_MAP_POSITIVE_Z = 34073;
-haxor.platform.graphics.GL.TEXTURE_MAG_FILTER = 10240;
-haxor.platform.graphics.GL.TEXTURE_MIN_FILTER = 10241;
-haxor.platform.graphics.GL.TEXTURE_WRAP_S = 10242;
-haxor.platform.graphics.GL.TEXTURE_WRAP_T = 10243;
-haxor.platform.graphics.GL.TRIANGLES = 4;
-haxor.platform.graphics.GL.TRIANGLE_FAN = 6;
-haxor.platform.graphics.GL.TRIANGLE_STRIP = 5;
-haxor.platform.graphics.GL.UNPACK_ALIGNMENT = 3317;
-haxor.platform.graphics.GL.UNPACK_COLORSPACE_CONVERSION_WEBGL = 37443;
-haxor.platform.graphics.GL.UNPACK_FLIP_Y_WEBGL = 37440;
-haxor.platform.graphics.GL.UNPACK_PREMULTIPLY_ALPHA_WEBGL = 37441;
-haxor.platform.graphics.GL.UNSIGNED_BYTE = 5121;
-haxor.platform.graphics.GL.UNSIGNED_INT = 5125;
-haxor.platform.graphics.GL.UNSIGNED_SHORT = 5123;
-haxor.platform.graphics.GL.UNSIGNED_SHORT_4_4_4_4 = 32819;
-haxor.platform.graphics.GL.UNSIGNED_SHORT_5_5_5_1 = 32820;
-haxor.platform.graphics.GL.UNSIGNED_SHORT_5_6_5 = 33635;
-haxor.platform.graphics.GL.VALIDATE_STATUS = 35715;
-haxor.platform.graphics.GL.VENDOR = 7936;
-haxor.platform.graphics.GL.VERSION = 7938;
-haxor.platform.graphics.GL.VERTEX_ATTRIB_ARRAY_BUFFER_BINDING = 34975;
-haxor.platform.graphics.GL.VERTEX_ATTRIB_ARRAY_ENABLED = 34338;
-haxor.platform.graphics.GL.VERTEX_ATTRIB_ARRAY_NORMALIZED = 34922;
-haxor.platform.graphics.GL.VERTEX_ATTRIB_ARRAY_POINTER = 34373;
-haxor.platform.graphics.GL.VERTEX_ATTRIB_ARRAY_SIZE = 34339;
-haxor.platform.graphics.GL.VERTEX_ATTRIB_ARRAY_STRIDE = 34340;
-haxor.platform.graphics.GL.VERTEX_ATTRIB_ARRAY_TYPE = 34341;
-haxor.platform.graphics.GL.VERTEX_SHADER = 35633;
-haxor.platform.graphics.GL.VIEWPORT = 2978;
-haxor.platform.graphics.GL.ZERO = 0;
-haxor.platform.graphics.GL.VERTEX_ARRAY_OBJECT = false;
-haxor.platform.graphics.GL.HALF_FLOAT = 5126;
-haxor.platform.graphics.GL.TEXTURE_HALF = false;
-haxor.platform.graphics.GL.TEXTURE_HALF_LINEAR = false;
-haxor.platform.graphics.GL.TEXTURE_ANISOTROPY = -1;
-haxor.platform.graphics.GL.TEXTURE_ANISOTROPY_ENABLED = false;
-haxor.platform.graphics.GL.MAX_TEXTURE_ANISOTROPY = 1;
-haxor.platform.graphics.GL.TEXTURE_FLOAT = false;
-haxor.platform.graphics.GL.TEXTURE_FLOAT_LINEAR = false;
-haxor.platform.graphics.GL.TEXTURE_DEPTH_ENABLED = false;
-haxor.platform.graphics.GL.MAX_ACTIVE_TEXTURE = 8;
 Main.main();
 })();

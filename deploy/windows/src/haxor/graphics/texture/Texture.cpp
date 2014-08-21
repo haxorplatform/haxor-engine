@@ -12,6 +12,12 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
+#ifndef INCLUDED_haxor_graphics_GL
+#include <haxor/graphics/GL.h>
+#endif
+#ifndef INCLUDED_haxor_graphics_GraphicContext
+#include <haxor/graphics/GraphicContext.h>
+#endif
 #ifndef INCLUDED_haxor_graphics_PixelFormat
 #include <haxor/graphics/PixelFormat.h>
 #endif
@@ -27,17 +33,11 @@
 #ifndef INCLUDED_haxor_graphics_texture_Texture
 #include <haxor/graphics/texture/Texture.h>
 #endif
-#ifndef INCLUDED_haxor_platform_graphics_GL
-#include <haxor/platform/graphics/GL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_GraphicContext
-#include <haxor/platform/graphics/GraphicContext.h>
-#endif
 #ifndef INCLUDED_haxor_platform_graphics_OpenGL
 #include <haxor/platform/graphics/OpenGL.h>
 #endif
-#ifndef INCLUDED_haxor_platform_graphics_WinGL
-#include <haxor/platform/graphics/WinGL.h>
+#ifndef INCLUDED_haxor_platform_windows_graphics_WinGL
+#include <haxor/platform/windows/graphics/WinGL.h>
 #endif
 #ifndef INCLUDED_hxMath
 #include <hxMath.h>
@@ -224,18 +224,18 @@ int Texture_obj::set_wrap( int v){
 				}
 			}
 			HX_STACK_LINE(43)
-			::haxor::platform::graphics::GL_obj::m_gl->BindTexture(target1,id);
+			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(43)
-		::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(43)
-		::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(43)
-		if ((::haxor::platform::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
+		if ((::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
 			HX_STACK_LINE(43)
 			Float p_value = ::Math_obj::max((int)1,this->m_aniso);		HX_STACK_VAR(p_value,"p_value");
 			HX_STACK_LINE(43)
-			::haxor::platform::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::platform::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
+			::haxor::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
 		}
 		HX_STACK_LINE(43)
 		::haxor::graphics::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
@@ -244,7 +244,7 @@ int Texture_obj::set_wrap( int v){
 		HX_STACK_LINE(43)
 		if (((this->m_format == ::haxor::graphics::PixelFormat_obj::Half))){
 			HX_STACK_LINE(43)
-			if ((!(::haxor::platform::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
+			if ((!(::haxor::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
 				HX_STACK_LINE(43)
 				minf = ::haxor::graphics::TextureFilter_obj::Nearest;
 				HX_STACK_LINE(43)
@@ -255,37 +255,37 @@ int Texture_obj::set_wrap( int v){
 		switch( (int)(minf->__Index())){
 			case (int)0: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9728);
 			}
 			;break;
 			case (int)3: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9986);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9986);
 			}
 			;break;
 			case (int)2: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9984);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9984);
 			}
 			;break;
 			case (int)1: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9729);
 			}
 			;break;
 			case (int)5: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
 			}
 			;break;
 			case (int)6: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
 			}
 			;break;
 			case (int)4: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9985);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9985);
 			}
 			;break;
 		}
@@ -293,37 +293,37 @@ int Texture_obj::set_wrap( int v){
 		switch( (int)(magf->__Index())){
 			case (int)0: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)3: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)2: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)1: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)5: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)6: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)4: {
 				HX_STACK_LINE(43)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 		}
@@ -438,18 +438,18 @@ int Texture_obj::set_aniso( int v){
 				}
 			}
 			HX_STACK_LINE(51)
-			::haxor::platform::graphics::GL_obj::m_gl->BindTexture(target1,id);
+			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(51)
-		::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(51)
-		::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(51)
-		if ((::haxor::platform::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
+		if ((::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
 			HX_STACK_LINE(51)
 			Float p_value = ::Math_obj::max((int)1,this->m_aniso);		HX_STACK_VAR(p_value,"p_value");
 			HX_STACK_LINE(51)
-			::haxor::platform::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::platform::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
+			::haxor::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
 		}
 		HX_STACK_LINE(51)
 		::haxor::graphics::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
@@ -458,7 +458,7 @@ int Texture_obj::set_aniso( int v){
 		HX_STACK_LINE(51)
 		if (((this->m_format == ::haxor::graphics::PixelFormat_obj::Half))){
 			HX_STACK_LINE(51)
-			if ((!(::haxor::platform::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
+			if ((!(::haxor::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
 				HX_STACK_LINE(51)
 				minf = ::haxor::graphics::TextureFilter_obj::Nearest;
 				HX_STACK_LINE(51)
@@ -469,37 +469,37 @@ int Texture_obj::set_aniso( int v){
 		switch( (int)(minf->__Index())){
 			case (int)0: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9728);
 			}
 			;break;
 			case (int)3: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9986);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9986);
 			}
 			;break;
 			case (int)2: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9984);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9984);
 			}
 			;break;
 			case (int)1: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9729);
 			}
 			;break;
 			case (int)5: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
 			}
 			;break;
 			case (int)6: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
 			}
 			;break;
 			case (int)4: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9985);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9985);
 			}
 			;break;
 		}
@@ -507,37 +507,37 @@ int Texture_obj::set_aniso( int v){
 		switch( (int)(magf->__Index())){
 			case (int)0: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)3: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)2: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)1: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)5: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)6: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)4: {
 				HX_STACK_LINE(51)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 		}
@@ -652,18 +652,18 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 				}
 			}
 			HX_STACK_LINE(60)
-			::haxor::platform::graphics::GL_obj::m_gl->BindTexture(target1,id);
+			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(60)
-		::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(60)
-		::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(60)
-		if ((::haxor::platform::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
+		if ((::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
 			HX_STACK_LINE(60)
 			Float p_value = ::Math_obj::max((int)1,this->m_aniso);		HX_STACK_VAR(p_value,"p_value");
 			HX_STACK_LINE(60)
-			::haxor::platform::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::platform::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
+			::haxor::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
 		}
 		HX_STACK_LINE(60)
 		::haxor::graphics::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
@@ -672,7 +672,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 		HX_STACK_LINE(60)
 		if (((this->m_format == ::haxor::graphics::PixelFormat_obj::Half))){
 			HX_STACK_LINE(60)
-			if ((!(::haxor::platform::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
+			if ((!(::haxor::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
 				HX_STACK_LINE(60)
 				minf = ::haxor::graphics::TextureFilter_obj::Nearest;
 				HX_STACK_LINE(60)
@@ -683,37 +683,37 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 		switch( (int)(minf->__Index())){
 			case (int)0: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9728);
 			}
 			;break;
 			case (int)3: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9986);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9986);
 			}
 			;break;
 			case (int)2: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9984);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9984);
 			}
 			;break;
 			case (int)1: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9729);
 			}
 			;break;
 			case (int)5: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
 			}
 			;break;
 			case (int)6: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
 			}
 			;break;
 			case (int)4: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9985);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9985);
 			}
 			;break;
 		}
@@ -721,37 +721,37 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 		switch( (int)(magf->__Index())){
 			case (int)0: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)3: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)2: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)1: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)5: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)6: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)4: {
 				HX_STACK_LINE(60)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 		}
@@ -866,18 +866,18 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 				}
 			}
 			HX_STACK_LINE(68)
-			::haxor::platform::graphics::GL_obj::m_gl->BindTexture(target1,id);
+			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(68)
-		::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(68)
-		::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(68)
-		if ((::haxor::platform::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
+		if ((::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
 			HX_STACK_LINE(68)
 			Float p_value = ::Math_obj::max((int)1,this->m_aniso);		HX_STACK_VAR(p_value,"p_value");
 			HX_STACK_LINE(68)
-			::haxor::platform::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::platform::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
+			::haxor::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
 		}
 		HX_STACK_LINE(68)
 		::haxor::graphics::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
@@ -886,7 +886,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 		HX_STACK_LINE(68)
 		if (((this->m_format == ::haxor::graphics::PixelFormat_obj::Half))){
 			HX_STACK_LINE(68)
-			if ((!(::haxor::platform::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
+			if ((!(::haxor::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
 				HX_STACK_LINE(68)
 				minf = ::haxor::graphics::TextureFilter_obj::Nearest;
 				HX_STACK_LINE(68)
@@ -897,37 +897,37 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 		switch( (int)(minf->__Index())){
 			case (int)0: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9728);
 			}
 			;break;
 			case (int)3: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9986);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9986);
 			}
 			;break;
 			case (int)2: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9984);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9984);
 			}
 			;break;
 			case (int)1: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9729);
 			}
 			;break;
 			case (int)5: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
 			}
 			;break;
 			case (int)6: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9987);
 			}
 			;break;
 			case (int)4: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9985);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10241,(int)9985);
 			}
 			;break;
 		}
@@ -935,37 +935,37 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 		switch( (int)(magf->__Index())){
 			case (int)0: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)3: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)2: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9728);
 			}
 			;break;
 			case (int)1: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)5: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)6: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 			case (int)4: {
 				HX_STACK_LINE(68)
-				::haxor::platform::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
+				::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10240,(int)9729);
 			}
 			;break;
 		}

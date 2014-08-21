@@ -33,20 +33,20 @@
 #ifndef INCLUDED_haxor_core_Time
 #include <haxor/core/Time.h>
 #endif
+#ifndef INCLUDED_haxor_graphics_GL
+#include <haxor/graphics/GL.h>
+#endif
+#ifndef INCLUDED_haxor_graphics_GraphicContext
+#include <haxor/graphics/GraphicContext.h>
+#endif
 #ifndef INCLUDED_haxor_graphics_Screen
 #include <haxor/graphics/Screen.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_GL
-#include <haxor/platform/graphics/GL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_GraphicContext
-#include <haxor/platform/graphics/GraphicContext.h>
 #endif
 #ifndef INCLUDED_haxor_platform_graphics_OpenGL
 #include <haxor/platform/graphics/OpenGL.h>
 #endif
-#ifndef INCLUDED_haxor_platform_graphics_WinGL
-#include <haxor/platform/graphics/WinGL.h>
+#ifndef INCLUDED_haxor_platform_windows_graphics_WinGL
+#include <haxor/platform/windows/graphics/WinGL.h>
 #endif
 #ifndef INCLUDED_hxMath
 #include <hxMath.h>
@@ -254,11 +254,11 @@ Void BaseApplication_obj::Render( ){
 			HX_STACK_LINE(239)
 			::haxor::core::Time_obj::Render();
 			HX_STACK_LINE(240)
-			::haxor::platform::graphics::GL_obj::m_gl->Focus();
+			::haxor::graphics::GL_obj::m_gl->Focus();
 			HX_STACK_LINE(241)
 			::haxor::core::Engine_obj::Render();
 			HX_STACK_LINE(242)
-			::haxor::platform::graphics::GL_obj::m_gl->Flush();
+			::haxor::graphics::GL_obj::m_gl->Flush();
 		}
 	}
 return null();
@@ -355,7 +355,7 @@ Void BaseApplication_obj::OnResize( ){
 		HX_STACK_LINE(278)
 		::haxor::core::Console_obj::Log(((((HX_CSTRING("Application> Resize [") + ::haxor::graphics::Screen_obj::m_width) + HX_CSTRING(",")) + ::haxor::graphics::Screen_obj::m_height) + HX_CSTRING("]")),(int)5);
 		HX_STACK_LINE(279)
-		::haxor::platform::graphics::GL_obj::m_gl->Resize();
+		::haxor::graphics::GL_obj::m_gl->Resize();
 		HX_STACK_LINE(280)
 		::haxor::core::Engine_obj::Resize();
 	}

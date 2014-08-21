@@ -15,6 +15,9 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
+#ifndef INCLUDED_haxor_graphics_GL
+#include <haxor/graphics/GL.h>
+#endif
 #ifndef INCLUDED_haxor_graphics_PixelFormat
 #include <haxor/graphics/PixelFormat.h>
 #endif
@@ -29,9 +32,6 @@
 #endif
 #ifndef INCLUDED_haxor_graphics_texture_Texture2D
 #include <haxor/graphics/texture/Texture2D.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_GL
-#include <haxor/platform/graphics/GL.h>
 #endif
 namespace haxor{
 namespace graphics{
@@ -60,7 +60,7 @@ bool p_store_depth = __o_p_store_depth.Default(false);
 	HX_STACK_LINE(40)
 	this->m_height = _g1;
 	HX_STACK_LINE(42)
-	bool store_depth = (bool(p_store_depth) && bool(::haxor::platform::graphics::GL_obj::TEXTURE_DEPTH_ENABLED));		HX_STACK_VAR(store_depth,"store_depth");
+	bool store_depth = (bool(p_store_depth) && bool(::haxor::graphics::GL_obj::TEXTURE_DEPTH_ENABLED));		HX_STACK_VAR(store_depth,"store_depth");
 	HX_STACK_LINE(44)
 	if ((store_depth)){
 		HX_STACK_LINE(46)

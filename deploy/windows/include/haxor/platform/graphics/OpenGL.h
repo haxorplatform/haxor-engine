@@ -5,26 +5,26 @@
 #include <hxcpp.h>
 #endif
 
-#include <haxor/platform/graphics/WinGL.h>
+#include <haxor/platform/windows/graphics/WinGL.h>
 HX_DECLARE_CLASS2(haxor,component,Behaviour)
 HX_DECLARE_CLASS2(haxor,component,Component)
 HX_DECLARE_CLASS2(haxor,core,BaseApplication)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
+HX_DECLARE_CLASS2(haxor,graphics,GraphicContext)
 HX_DECLARE_CLASS2(haxor,io,Buffer)
 HX_DECLARE_CLASS2(haxor,io,FloatArray)
 HX_DECLARE_CLASS2(haxor,io,Int32Array)
-HX_DECLARE_CLASS3(haxor,platform,graphics,GraphicContext)
 HX_DECLARE_CLASS3(haxor,platform,graphics,OpenGL)
-HX_DECLARE_CLASS3(haxor,platform,graphics,WinGL)
+HX_DECLARE_CLASS4(haxor,platform,windows,graphics,WinGL)
 namespace haxor{
 namespace platform{
 namespace graphics{
 
 
-class HXCPP_CLASS_ATTRIBUTES  OpenGL_obj : public ::haxor::platform::graphics::WinGL_obj{
+class HXCPP_CLASS_ATTRIBUTES  OpenGL_obj : public ::haxor::platform::windows::graphics::WinGL_obj{
 	public:
-		typedef ::haxor::platform::graphics::WinGL_obj super;
+		typedef ::haxor::platform::windows::graphics::WinGL_obj super;
 		typedef OpenGL_obj OBJ_;
 		OpenGL_obj();
 		Void __construct(::haxor::core::BaseApplication p_application);

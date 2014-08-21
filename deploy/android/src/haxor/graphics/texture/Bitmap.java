@@ -17,110 +17,110 @@ public  class Bitmap extends haxor.core.Resource
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_texture_Bitmap(haxor.graphics.texture.Bitmap __temp_me54100, int p_width, int p_height, haxor.graphics.PixelFormat p_format)
+	public static   void __hx_ctor_haxor_graphics_texture_Bitmap(haxor.graphics.texture.Bitmap __temp_me54504, int p_width, int p_height, haxor.graphics.PixelFormat p_format)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me54100, null);
-		__temp_me54100.m_width = p_width;
-		__temp_me54100.m_height = p_height;
-		__temp_me54100.m_format = p_format;
-		__temp_me54100.m_float = false;
-		__temp_me54100.m_channels = 1;
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me54504, null);
+		__temp_me54504.m_width = p_width;
+		__temp_me54504.m_height = p_height;
+		__temp_me54504.m_format = p_format;
+		__temp_me54504.m_float = false;
+		__temp_me54504.m_channels = 1;
 		switch (haxe.root.Type.enumIndex(p_format))
 		{
 			case 1:
 			{
-				__temp_me54100.m_channels = 1;
+				__temp_me54504.m_channels = 1;
 				break;
 			}
 			
 			
 			case 0:
 			{
-				__temp_me54100.m_channels = 1;
+				__temp_me54504.m_channels = 1;
 				break;
 			}
 			
 			
 			case 2:
 			{
-				__temp_me54100.m_channels = 3;
+				__temp_me54504.m_channels = 3;
 				break;
 			}
 			
 			
 			case 3:
 			{
-				__temp_me54100.m_channels = 4;
+				__temp_me54504.m_channels = 4;
 				break;
 			}
 			
 			
 			case 10:
 			{
-				__temp_me54100.m_channels = 1;
-				__temp_me54100.m_float = true;
+				__temp_me54504.m_channels = 1;
+				__temp_me54504.m_float = true;
 				break;
 			}
 			
 			
 			case 7:
 			{
-				__temp_me54100.m_channels = 1;
-				__temp_me54100.m_float = true;
+				__temp_me54504.m_channels = 1;
+				__temp_me54504.m_float = true;
 				break;
 			}
 			
 			
 			case 4:
 			{
-				__temp_me54100.m_channels = 1;
-				__temp_me54100.m_float = true;
+				__temp_me54504.m_channels = 1;
+				__temp_me54504.m_float = true;
 				break;
 			}
 			
 			
 			case 8:
 			{
-				__temp_me54100.m_channels = 3;
-				__temp_me54100.m_float = true;
+				__temp_me54504.m_channels = 3;
+				__temp_me54504.m_float = true;
 				break;
 			}
 			
 			
 			case 5:
 			{
-				__temp_me54100.m_channels = 3;
-				__temp_me54100.m_float = true;
+				__temp_me54504.m_channels = 3;
+				__temp_me54504.m_float = true;
 				break;
 			}
 			
 			
 			case 9:
 			{
-				__temp_me54100.m_channels = 4;
-				__temp_me54100.m_float = true;
+				__temp_me54504.m_channels = 4;
+				__temp_me54504.m_float = true;
 				break;
 			}
 			
 			
 			case 6:
 			{
-				__temp_me54100.m_channels = 4;
-				__temp_me54100.m_float = true;
+				__temp_me54504.m_channels = 4;
+				__temp_me54504.m_float = true;
 				break;
 			}
 			
 			
 		}
 		
-		int len = ( ( __temp_me54100.m_width * __temp_me54100.m_height ) * __temp_me54100.m_channels );
-		if (__temp_me54100.m_float) 
+		int len = ( ( __temp_me54504.m_width * __temp_me54504.m_height ) * __temp_me54504.m_channels );
+		if (__temp_me54504.m_float) 
 		{
-			__temp_me54100.m_buffer = new haxor.io.FloatArray(((int) (len) ));
+			__temp_me54504.m_buffer = new haxor.io.FloatArray(((int) (len) ));
 		}
 		 else 
 		{
-			__temp_me54100.m_buffer = new haxor.io.Buffer(((int) (len) ));
+			__temp_me54504.m_buffer = new haxor.io.Buffer(((int) (len) ));
 		}
 		
 	}
@@ -398,14 +398,14 @@ public  class Bitmap extends haxor.core.Resource
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54340 = true;
+			boolean __temp_executeDef54745 = true;
 			switch (field.hashCode())
 			{
 				case 1578008418:
 				{
 					if (field.equals("m_channels")) 
 					{
-						__temp_executeDef54340 = false;
+						__temp_executeDef54745 = false;
 						this.m_channels = ((int) (value) );
 						return value;
 					}
@@ -418,7 +418,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef54340 = false;
+						__temp_executeDef54745 = false;
 						this.width = ((int) (value) );
 						return value;
 					}
@@ -431,7 +431,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("channels")) 
 					{
-						__temp_executeDef54340 = false;
+						__temp_executeDef54745 = false;
 						this.channels = ((int) (value) );
 						return value;
 					}
@@ -444,7 +444,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_width")) 
 					{
-						__temp_executeDef54340 = false;
+						__temp_executeDef54745 = false;
 						this.m_width = ((int) (value) );
 						return value;
 					}
@@ -457,7 +457,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_height")) 
 					{
-						__temp_executeDef54340 = false;
+						__temp_executeDef54745 = false;
 						this.m_height = ((int) (value) );
 						return value;
 					}
@@ -470,7 +470,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef54340 = false;
+						__temp_executeDef54745 = false;
 						this.height = ((int) (value) );
 						return value;
 					}
@@ -481,7 +481,7 @@ public  class Bitmap extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54340) 
+			if (__temp_executeDef54745) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -498,14 +498,14 @@ public  class Bitmap extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54341 = true;
+			boolean __temp_executeDef54746 = true;
 			switch (field.hashCode())
 			{
 				case -1867509751:
 				{
 					if (field.equals("m_format")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.m_format = ((haxor.graphics.PixelFormat) (value) );
 						return value;
 					}
@@ -518,7 +518,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("buffer")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.buffer = ((haxor.io.Buffer) (value) );
 						return value;
 					}
@@ -531,7 +531,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("format")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.format = ((haxor.graphics.PixelFormat) (value) );
 						return value;
 					}
@@ -544,7 +544,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.m_buffer = ((haxor.io.Buffer) (value) );
 						return value;
 					}
@@ -557,7 +557,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_channels")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.m_channels = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -570,7 +570,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("float")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this._float = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -583,7 +583,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("channels")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.channels = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -596,7 +596,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_float")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.m_float = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -609,7 +609,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_height")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.m_height = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -622,7 +622,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.width = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -635,7 +635,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.height = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -648,7 +648,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_width")) 
 					{
-						__temp_executeDef54341 = false;
+						__temp_executeDef54746 = false;
 						this.m_width = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -659,7 +659,7 @@ public  class Bitmap extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54341) 
+			if (__temp_executeDef54746) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -676,14 +676,14 @@ public  class Bitmap extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54342 = true;
+			boolean __temp_executeDef54747 = true;
 			switch (field.hashCode())
 			{
 				case 2189731:
 				{
 					if (field.equals("Fill")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Fill"))) );
 					}
 					
@@ -695,7 +695,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("buffer")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						if (handleProperties) 
 						{
 							return this.get_buffer();
@@ -715,7 +715,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("SetPixel")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetPixel"))) );
 					}
 					
@@ -727,7 +727,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_buffer")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_buffer"))) );
 					}
 					
@@ -739,7 +739,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("GetPixel")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetPixel"))) );
 					}
 					
@@ -751,7 +751,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return this.m_buffer;
 					}
 					
@@ -763,7 +763,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_format")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return this.m_format;
 					}
 					
@@ -775,7 +775,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("float")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						if (handleProperties) 
 						{
 							return this.get_float();
@@ -795,7 +795,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_format")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_format"))) );
 					}
 					
@@ -807,7 +807,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_float")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_float"))) );
 					}
 					
@@ -819,7 +819,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("format")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						if (handleProperties) 
 						{
 							return this.get_format();
@@ -839,7 +839,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_float")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return this.m_float;
 					}
 					
@@ -851,7 +851,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_channels")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return this.m_channels;
 					}
 					
@@ -863,7 +863,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						if (handleProperties) 
 						{
 							return this.get_width();
@@ -883,7 +883,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_channels")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_channels"))) );
 					}
 					
@@ -895,7 +895,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_width")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_width"))) );
 					}
 					
@@ -907,7 +907,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("channels")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						if (handleProperties) 
 						{
 							return this.get_channels();
@@ -927,7 +927,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_width")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return this.m_width;
 					}
 					
@@ -939,7 +939,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_height")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return this.m_height;
 					}
 					
@@ -951,7 +951,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						if (handleProperties) 
 						{
 							return this.get_height();
@@ -971,7 +971,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_height")) 
 					{
-						__temp_executeDef54342 = false;
+						__temp_executeDef54747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_height"))) );
 					}
 					
@@ -981,7 +981,7 @@ public  class Bitmap extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54342) 
+			if (__temp_executeDef54747) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -998,14 +998,14 @@ public  class Bitmap extends haxor.core.Resource
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54343 = true;
+			boolean __temp_executeDef54748 = true;
 			switch (field.hashCode())
 			{
 				case 1578008418:
 				{
 					if (field.equals("m_channels")) 
 					{
-						__temp_executeDef54343 = false;
+						__temp_executeDef54748 = false;
 						return ((double) (this.m_channels) );
 					}
 					
@@ -1017,7 +1017,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef54343 = false;
+						__temp_executeDef54748 = false;
 						if (handleProperties) 
 						{
 							return ((double) (this.get_width()) );
@@ -1037,7 +1037,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("channels")) 
 					{
-						__temp_executeDef54343 = false;
+						__temp_executeDef54748 = false;
 						if (handleProperties) 
 						{
 							return ((double) (this.get_channels()) );
@@ -1057,7 +1057,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_width")) 
 					{
-						__temp_executeDef54343 = false;
+						__temp_executeDef54748 = false;
 						return ((double) (this.m_width) );
 					}
 					
@@ -1069,7 +1069,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("m_height")) 
 					{
-						__temp_executeDef54343 = false;
+						__temp_executeDef54748 = false;
 						return ((double) (this.m_height) );
 					}
 					
@@ -1081,7 +1081,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef54343 = false;
+						__temp_executeDef54748 = false;
 						if (handleProperties) 
 						{
 							return ((double) (this.get_height()) );
@@ -1099,7 +1099,7 @@ public  class Bitmap extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54343) 
+			if (__temp_executeDef54748) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1116,14 +1116,14 @@ public  class Bitmap extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef54344 = true;
+			boolean __temp_executeDef54749 = true;
 			switch (field.hashCode())
 			{
 				case 2189731:
 				{
 					if (field.equals("Fill")) 
 					{
-						__temp_executeDef54344 = false;
+						__temp_executeDef54749 = false;
 						this.Fill(((haxor.math.Color) (dynargs.__get(0)) ));
 					}
 					
@@ -1135,7 +1135,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_buffer")) 
 					{
-						__temp_executeDef54344 = false;
+						__temp_executeDef54749 = false;
 						return this.get_buffer();
 					}
 					
@@ -1147,7 +1147,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("SetPixel")) 
 					{
-						__temp_executeDef54344 = false;
+						__temp_executeDef54749 = false;
 						this.SetPixel(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((haxor.math.Color) (dynargs.__get(2)) ));
 					}
 					
@@ -1159,7 +1159,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_float")) 
 					{
-						__temp_executeDef54344 = false;
+						__temp_executeDef54749 = false;
 						return this.get_float();
 					}
 					
@@ -1171,7 +1171,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("GetPixel")) 
 					{
-						__temp_executeDef54344 = false;
+						__temp_executeDef54749 = false;
 						return this.GetPixel(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -1183,7 +1183,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_width")) 
 					{
-						__temp_executeDef54344 = false;
+						__temp_executeDef54749 = false;
 						return this.get_width();
 					}
 					
@@ -1195,7 +1195,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_format")) 
 					{
-						__temp_executeDef54344 = false;
+						__temp_executeDef54749 = false;
 						return this.get_format();
 					}
 					
@@ -1207,7 +1207,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_height")) 
 					{
-						__temp_executeDef54344 = false;
+						__temp_executeDef54749 = false;
 						return this.get_height();
 					}
 					
@@ -1219,7 +1219,7 @@ public  class Bitmap extends haxor.core.Resource
 				{
 					if (field.equals("get_channels")) 
 					{
-						__temp_executeDef54344 = false;
+						__temp_executeDef54749 = false;
 						return this.get_channels();
 					}
 					
@@ -1229,7 +1229,7 @@ public  class Bitmap extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef54344) 
+			if (__temp_executeDef54749) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

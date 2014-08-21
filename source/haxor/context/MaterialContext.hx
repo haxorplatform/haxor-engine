@@ -10,7 +10,7 @@ import haxor.graphics.mesh.Mesh;
 import haxor.graphics.mesh.Mesh.MeshAttrib;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 import haxor.platform.Types.MeshBufferId;
 import haxor.platform.Types.ProgramId;
 import haxor.platform.Types.ShaderId;

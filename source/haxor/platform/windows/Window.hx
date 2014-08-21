@@ -1,6 +1,6 @@
 #if windows
 package haxor.platform.windows;
-import haxor.platform.graphics.GL;
+import haxor.graphics.GL;
 import haxor.core.Console;
 import haxor.core.Application;
 import haxor.graphics.Screen;
@@ -14,9 +14,8 @@ import haxor.platform.OSWindow;
 #include <windows.h>
 #include <stdio.h>
 #include "gl/glew.h"
-
 ')
-//<flag value = "/FORCE"/>
+
 @:buildXml('
 <target id="haxe" tool="linker" toolid="${haxelink}" output="${HAXE_OUTPUT}${DBG}">  
   <lib name="gdi32.lib" if="windows"/>
@@ -24,7 +23,10 @@ import haxor.platform.OSWindow;
   <lib name="kernel32.lib" if="windows"/>
   <lib name="lib/glew32.lib" if="windows"/>
   
-  <flag value= "/ignore:4006"/>
+  <flag value = "/ignore:4006"/>
+  <flag value = "/FORCE"/>
+  
+  
 </target>
 ')
 
@@ -235,12 +237,13 @@ class Window extends OSWindow
 		wc.cbClsExtra    = 0;
 		wc.cbWndExtra    = 0;
 		wc.hInstance     = hInstance;
-		wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
+		//wc.hIcon         = (HICON)NULL;//(HICON) LoadImage((HINSTANCE) NULL, "icon.ico", IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+		//wc.hIconSm       = (HICON)NULL;//(HICON)LoadImage((HINSTANCE)NULL, "icon.ico",IMAGE_ICON,0,0,LR_LOADFROMFILE);
 		wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
 		wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
 		wc.lpszMenuName  = NULL;
 		wc.lpszClassName = "HaxeWindow";
-		wc.hIconSm       = LoadIcon(NULL, IDI_APPLICATION);
+		
 		
 		if (!RegisterClassEx( & wc)) 
 		{ 

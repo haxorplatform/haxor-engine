@@ -94,10 +94,10 @@ M android.view.ActionProvider
 M java.nio.channels.SelectionKey
 M haxor.platform.android.Web
 C haxor.platform.android.HTTPRequest
-C haxor.platform.android.LoadDataTask
-C haxor.platform.android.LoadBitmap
+C haxor.platform.android.HTTPLoader
+C haxor.platform.android.BitmapLoader
 C haxor.platform.android.LoadTexture2D
-C haxor.platform.android.LoadTexture2D_OnBitmapCallback_58__Fun
+C haxor.platform.android.LoadTexture2D_OnBitmapCallback_59__Fun
 M haxe.root.Array
 C haxe.root.Array
 C _Array.ArrayIterator
@@ -124,9 +124,6 @@ M android.opengl.GLES20
 M android.database.DataSetObserver
 M android.opengl.GLSurfaceView
 M android.util.Pair
-M haxor.platform.graphics.GraphicContext
-C haxor.platform.graphics.GraphicContext
-E haxor.platform.graphics.GraphicAPI
 M java.lang.Process
 M android.view.ViewOverlay
 M android.content.Context
@@ -196,8 +193,6 @@ M java.security.Principal
 M java.lang.Cloneable
 M android.view.MenuInflater
 M java.util.Collection
-M haxor.platform.graphics.GL
-C haxor.platform.graphics.GL
 M haxe.root.Type
 C haxe.root.ValueType
 C haxe.root.Type
@@ -227,6 +222,8 @@ M java.lang.Thread
 M java.net.SocketImpl
 M android.widget.Adapter
 M android.util.AndroidRuntimeException
+M haxor.platform.android.graphics.AndroidGL
+C haxor.platform.android.graphics.AndroidGL
 M haxe.io.Error
 C haxe.io.Error
 M java.net.Socket
@@ -323,6 +320,8 @@ M java.security.PublicKey
 M java.nio.channels.FileChannel
 M android.graphics.PathEffect
 M android.database.sqlite.SQLiteTransactionListener
+M haxor.graphics.GL
+C haxor.graphics.GL
 M java.io.Reader
 M java.Boot
 M java.lang.Runnable
@@ -426,8 +425,6 @@ E haxe.lang.EmptyObject
 M haxor.core.Resource
 C haxor.core.Resource
 M android.content.pm.PackageManager
-M haxor.platform.graphics.AndroidGL
-C haxor.platform.graphics.AndroidGL
 M java.nio.charset.CharsetDecoder
 M android.view.inputmethod.InputConnection
 M java.nio.channels.DatagramChannel
@@ -543,8 +540,8 @@ M java.lang.Exception
 M android.view.WindowManager
 M haxe.root.Main
 C haxe.root.Main
-C haxe.root.Main_Load_63__Fun
-C haxe.root.Main_Load_75__Fun
+C haxe.root.Main_Load_68__Fun
+C haxe.root.Main_Load_81__Fun
 M android.database.sqlite.SQLiteCursorDriver
 M java.lang.System
 M android.app.Application
@@ -583,6 +580,9 @@ M android.graphics.Rect
 M java.lang.Byte
 M java.lang.Integer
 M android.view.ActionMode
+M haxor.graphics.GraphicContext
+E haxor.graphics.GraphicAPI
+C haxor.graphics.GraphicContext
 M haxor.core.Console
 C haxor.core.Console
 M java.io.FilenameFilter
