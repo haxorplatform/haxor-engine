@@ -162,6 +162,12 @@ class Vector3
 	private inline function get_length():Float { return Math.sqrt(x * x + y * y + z * z); }
 	
 	/**
+	 * Returns the squared length.
+	 */
+	public var lengthSqr(get_lengthSqr, null) : Float;	
+	private inline function get_lengthSqr():Float { return (x * x + y * y + z * z); }
+	
+	/**
 	 * Returns a copy of this vector normalized.
 	 */
 	public var normalized(get_normalized, null) : Vector3;

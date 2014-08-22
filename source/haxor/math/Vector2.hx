@@ -73,7 +73,13 @@ class Vector2
 	 * Returns the length of the vector.
 	 */
 	public var length(get_length, null) : Float;	
-	private inline function get_length():Float { return Math.sqrt(x * x + y * y); }	
+	private inline function get_length():Float { return Math.sqrt(x * x + y * y); }
+	
+	/**
+	 * Returns the squared length.
+	 */
+	public var lengthSqr(get_lengthSqr, null) : Float;	
+	private inline function get_lengthSqr():Float { return (x * x + y * y); }
 	
 	/**
 	 * Returns a copy of this vector, normalized.

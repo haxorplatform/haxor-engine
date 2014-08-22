@@ -59,34 +59,7 @@ class Quaternion
 	{
 		// quaternion to return
 		var qm : Quaternion = new Quaternion();
-		// Calculate angle between them.
-		var cosHalfTheta : Float = p_a.w * p_b.w + p_a.x * p_b.x + p_a.y * p_b.y + p_a.z * p_b.z;
-		// if qa=qb or qa=-qb then theta = 0 and we can return qa
-		if (Math.abs(cosHalfTheta) >= 1.0)
-		{
-			qm.w = p_a.w;qm.x = p_a.x;qm.y = p_a.y;qm.z = p_a.z;
-			return qm;
-		}
-		// Calculate temporary values.
-		var halfTheta 	 : Float = Math.acos(cosHalfTheta);
-		var sinHalfTheta : Float = Math.sqrt(1.0 - cosHalfTheta*cosHalfTheta);
-		// if theta = 180 degrees then result is not fully defined
-		// we could rotate around any axis normal to qa or qb
-		if (Math.abs(sinHalfTheta) < 0.001)
-		{ // fabs is floating point absolute
-			qm.w = (p_a.w * 0.5 + p_b.w * 0.5);
-			qm.x = (p_a.x * 0.5 + p_b.x * 0.5);
-			qm.y = (p_a.y * 0.5 + p_b.y * 0.5);
-			qm.z = (p_a.z * 0.5 + p_b.z * 0.5);
-			return qm;
-		}
-		var ratioA : Float = Math.sin((1.0 - p_ratio) * halfTheta) / sinHalfTheta;
-		var ratioB : Float = Math.sin(p_ratio * halfTheta) / sinHalfTheta; 
-		//calculate Quaternion.
-		qm.w = (p_a.w * ratioA + p_b.w * ratioB);
-		qm.x = (p_a.x * ratioA + p_b.x * ratioB);
-		qm.y = (p_a.y * ratioA + p_b.y * ratioB);
-		qm.z = (p_a.z * ratioA + p_b.z * ratioB);
+		//TODO
 		return qm;
 	}
 	
@@ -97,7 +70,7 @@ class Quaternion
 	 * @return
 	 */
 	static public function FromAxisAngle(p_axis : Vector3, p_angle : Float) : Quaternion	
-	{
+	{		
 		p_angle = p_angle * 0.5 * Mathf.Deg2Rad;
 		var l:Float = p_axis.length;
 		if (Mathf.Abs(l - 1.0) > Mathf.Epsilon) p_axis.Normalize();
@@ -164,7 +137,7 @@ class Quaternion
 	private function get_matrix():Matrix4
 	{
 		Normalize();
-		var m : Matrix4 = Matrix4.temp;// Matrix4.identity;
+		var m : Matrix4 = Matrix4.identity;
 		var x2:Float = x * x;
 		var y2:Float = y * y;
 		var z2:Float = z * z;		
@@ -173,48 +146,25 @@ class Quaternion
 		var yz:Float = y * z;
 		var xw:Float = w * x;
 		var yw:Float = w * y;
-		var zw:Float = w * z;
+		var zw:Float = w * z;		
 		m.m00 = 1.0 - 2.0 * ( y2 + z2 );
 		m.m01 =       2.0 * ( xy - zw );
-		m.m02 =       2.0 * ( xz + yw );		
-		m.m10 =       2.0 * ( xy + zw );
+		m.m02 =       2.0 * ( xz + yw );				
+		m.m10 =       2.0 * ( xy + zw );		
 		m.m11 = 1.0 - 2.0 * ( x2 + z2 );
-		m.m12 =       2.0 * ( yz - xw );		
+		m.m12 =       2.0 * ( yz - xw );				
 		m.m20 =       2.0 * ( xz - yw );
 		m.m21 =       2.0 * ( yz + xw );
-		m.m22 = 1.0 - 2.0 * ( x2 + y2 );
+		m.m22 = 1.0 - 2.0 * ( x2 + y2 );		
 		m.m30 = m.m31 = m.m32 = 0.0; m.m33 = 1.0;
 		return m;
 	}	
 	
+	/**
+	 * Get/Set the euler angles for this quaternion.
+	 */
 	public var euler(get_euler, null) : Vector3;
-	private function get_euler():Vector3 
-	{ 
-		Normalize();
-		var test : Float = x * y + z * w;
-		var a : Vector3 = new Vector3();
-		if (test > 0.499) 
-		{ // singularity at north pole
-			a.x = 2.0 * Mathf.Atan2(x,w) * Mathf.Rad2Deg;
-			a.y = Mathf.HalfPI * Mathf.Rad2Deg;
-			a.z = 0;
-			return a;
-		}
-		if (test < -0.499) 
-		{ // singularity at south pole
-			a.x = -2.0 * Mathf.Atan2(x,w) * Mathf.Rad2Deg;
-			a.y = - Mathf.HalfPI * Mathf.Rad2Deg;
-			a.z = 0;
-			return a;
-		}
-		var sqx : Float = x * x;
-		var sqy : Float = y * y;
-		var sqz : Float = z * z;		
-		a.x = Mathf.Atan2(2.0 * y * w - 2.0 * x * z , 1.0 - 2.0 * sqy - 2.0 * sqz) * Mathf.Rad2Deg;
-		a.y = Mathf.Asin(2.0 * test) * Mathf.Rad2Deg;
-		a.z = Mathf.Atan2(2.0 * x * w - 2.0 * y * z , 1.0 - 2.0 * sqx - 2.0 * sqz) * Mathf.Rad2Deg;		
-		return a;
-	}
+	private function get_euler():Vector3 { return new Vector3(pitch, yaw, roll);	}
 		
 	/**
 	 * Returns a copy of this quaternion.
@@ -239,7 +189,26 @@ class Quaternion
 	 */
 	public var normalized(get_normalized, null) : Quaternion;
 	private inline function get_normalized():Quaternion { return clone.Normalize(); }
-		
+	
+	/**
+	 * Returns the roll angle
+	 */
+	public var roll(get_roll, null) : Float;	
+	private inline function get_roll():Float { return Math.atan2(2.0 * (x*y + w*z), w*w + x*x - y*y - z*z); }
+	
+	/**
+	 * Returns the pitch angle
+	 */
+	public var pitch(get_pitch, null) : Float;	
+	private inline function get_pitch():Float { return Math.atan2(2.0 * (y * z + w * x), w * w - x * x - y * y + z * z); }
+	
+	/**
+	 * Returns the yam angle
+	 */
+	public var yam(get_yam, null) : Float;	
+	private inline function get_yam():Float { return Math.asin(-2.0 * (x*z - w*y)); }
+	
+	
 	/**
 	 * X component.
 	 */
@@ -328,7 +297,7 @@ class Quaternion
 		var vx:Float = (w * p_v.x) + (x * p_v.w) + (y * p_v.z) - (z * p_v.y);
 		var vy:Float = (w * p_v.y) + (y * p_v.w) + (z * p_v.x) - (x * p_v.z);
 		var vz:Float = (w * p_v.z) + (z * p_v.w) + (x * p_v.y) - (y * p_v.x);
-		var vw:Float = (w * p_v.w) - (x * p_v.x) - (y * p_v.y) - (z * p_v.z);   
+		var vw:Float = (w * p_v.w) - (x * p_v.x) - (y * p_v.y) - (z * p_v.z);   				
 		x = vx; y = vy;	z = vz; w = vw;		
 		return p_normalize ? Normalize() : this;
 	}

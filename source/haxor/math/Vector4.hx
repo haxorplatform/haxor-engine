@@ -78,6 +78,12 @@ class Vector4
 	private inline function get_length():Float { return Math.sqrt(x * x + y * y + z * z + w*w); }
 	
 	/**
+	 * Returns the squared length.
+	 */
+	public var lengthSqr(get_lengthSqr, null) : Float;	
+	private inline function get_lengthSqr():Float { return (x * x + y * y + z * z + w * w); }
+	
+	/**
 	 * Returns a copy of this vector normalized.
 	 */
 	public var normalized(get_normalized, null) : Vector4;

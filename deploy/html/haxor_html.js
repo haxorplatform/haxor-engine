@@ -3985,6 +3985,9 @@ haxor.math.Vector2.prototype = {
 	,get_length: function() {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
+	,get_lengthSqr: function() {
+		return this.x * this.x + this.y * this.y;
+	}
 	,get_normalized: function() {
 		return new haxor.math.Vector2(this.x,this.y).Normalize();
 	}
@@ -4155,6 +4158,9 @@ haxor.math.Vector3.prototype = {
 	,get_length: function() {
 		return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
 	}
+	,get_lengthSqr: function() {
+		return this.x * this.x + this.y * this.y + this.z * this.z;
+	}
 	,get_normalized: function() {
 		return new haxor.math.Vector3(this.x,this.y,this.z).Normalize();
 	}
@@ -4309,6 +4315,9 @@ haxor.math.Vector4.prototype = {
 	}
 	,get_length: function() {
 		return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
+	}
+	,get_lengthSqr: function() {
+		return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w;
 	}
 	,get_normalized: function() {
 		return new haxor.math.Vector4(this.x,this.y,this.z,this.w).Normalize();

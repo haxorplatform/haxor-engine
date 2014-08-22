@@ -1,14 +1,4 @@
-/*
-HAXOR HTML5 ENGINE (c) 2013 - 2014 by Eduardo Pons - eduardo@thelaborat.org
-
-HAXOR HTML5 ENGINE is licensed under a
-Creative Commons Attribution-NoDerivs 3.0 Unported License.
-
-You should have received a copy of the license along with this
-work.  If not, see <http://creativecommons.org/licenses/by-nd/3.0/>.
- */
 package haxor.math;
-import js.html.Float32Array;
 
 
 /**
@@ -17,28 +7,12 @@ import js.html.Float32Array;
  */
 class Matrix4 
 {
-	
-	static private var m_temp : Array<Matrix4>;
-	static private var m_nexttemp : Int;	
-	static public var temp(get_temp, never):Matrix4;
-	static private function get_temp():Matrix4
-	{
-		if (m_temp == null)
-		{
-			m_temp = [];
-			m_nexttemp = 0;
-			for (i in 0...150000) m_temp.push(Matrix4.identity);			
-		}
-		var m :Matrix4 = m_temp[m_nexttemp];
-		m_nexttemp = (m_nexttemp + 1) % m_temp.length;
-		return m;
-	}
-	
+		
 	/**
-	 * 
+	 * Returns a new Identity matrix.
 	 */
 	static public var identity(get_identity, null):Matrix4;	
-	static private function get_identity():Matrix4 { return new Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+	static private inline function get_identity():Matrix4 { return new Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
 	
 	/**
 	 * 
@@ -95,6 +69,12 @@ class Matrix4
 		return l;
 	}
 	
+	/**
+	 * Returns a new matrix with the inverse transform of the informed matrix.
+	 * @param	p_matrix
+	 * @param	p_result
+	 * @return
+	 */
 	static public function GetInverseTransform(p_matrix : Matrix4, p_result : Matrix4 = null):Matrix4
 	{
 		var result:Matrix4 = p_result == null ? Matrix4.identity : p_result;
@@ -152,11 +132,30 @@ class Matrix4
 	 */
 	static public function LookAt(p_from : Vector3, p_at : Vector3, p_up : Vector3=null):Matrix4
 	{
+		/*
+		detail::tvec3<T, P> const f(normalize(center - eye));
+		detail::tvec3<T, P> const s(normalize(cross(f, up)));
+		detail::tvec3<T, P> const u(cross(s, f));
+
+		detail::tmat4x4<T, P> Result(1);
+		Result[0][0] = s.x;
+		Result[1][0] = s.y;
+		Result[2][0] = s.z;
+		Result[0][1] = u.x;
+		Result[1][1] = u.y;
+		Result[2][1] = u.z;
+		Result[0][2] =-f.x;
+		Result[1][2] =-f.y;
+		Result[2][2] =-f.z;
+		Result[3][0] =-dot(s, eye);
+		Result[3][1] =-dot(u, eye);
+		Result[3][2] = dot(f, eye);
+		//*/
+		
 		p_up = p_up == null ? Vector3.up : p_up;
-		var vz : Vector3 = p_at.clone.Sub(p_from).Normalize().Invert();
-		var vx : Vector3 = 
-		Vector3.Cross(p_up, vz).Normalize();
-		var vy : Vector3 = Vector3.Cross(vz, vx);		
+		var vz : Vector3 = p_at.clone.Sub(p_from).Normalize();
+		var vx : Vector3 = Vector3.Cross(vz, p_up).Normalize();
+		var vy : Vector3 = Vector3.Cross(vx, vz);
 		var m : Matrix4 = new Matrix4();		
 		m.Set(
 		vx.x, vy.x, vz.x, -Vector3.Dot(vx, p_from),
@@ -167,28 +166,10 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Returns a copy of this matrix.
 	 */
 	public var clone(get_clone, never):Matrix4;
 	private function get_clone():Matrix4 { return new Matrix4(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33); }
-	
-	
-	public var euler(get_euler, null):Vector3;
-	private function get_euler():Vector3
-	{
-		var m :Matrix4 = rotation;
-		var e : Vector3 = Vector3.zero;
-		e.x = Mathf.Atan2(m.m12, m.m22);
-		var c2 : Float = Mathf.Sqrt((m.m00 * m.m00) + (m.m01 * m.m01));
-		e.y = Mathf.Atan2( -m.m02, c2);
-		var s1 : Float = Mathf.Sin(e.x);
-		var c1 : Float = Mathf.Cos(e.x);
-		e.z = Mathf.Atan2((s1 * m.m20) - (c1 * m.m10), c1 * m.m11 - s1 * m.m21);
-		e.x = e.x * Mathf.Rad2Deg;
-		e.y = e.y * Mathf.Rad2Deg;
-		e.z = e.z * Mathf.Rad2Deg;
-		return e;
-	}
 	
 	/**
 	 * 
@@ -196,7 +177,7 @@ class Matrix4
 	public var quaternion(get_quaternion, null):Quaternion;	
 	private function get_quaternion():Quaternion
 	{
-		var b : Float32Array = ToBuffer();
+		var b : Array<Float> = ToArray();
 		var m:Matrix4 = ToRotation();
 				
 		var q : Quaternion = new Quaternion();				
@@ -263,59 +244,38 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Returns the trace of this matrix.
 	 */
 	public var trace(get_trace, never):Float;
-	private function get_trace():Float { return m00 + m11 + m22 + m33; }
+	private inline function get_trace():Float { return m00 + m11 + m22 + m33; }
 	
 	
 	/**
-	 * 
+	 * Returns the rotation component of this matrix as copy.
 	 */
 	public var rotation(get_rotation, null):Matrix4;
-	private function get_rotation():Matrix4
-	{		
-		var m : Matrix4 = clone;
-		return m.ToRotation();
-	}
+	private function get_rotation():Matrix4 { return clone.ToRotation(); }
 		
 	/**
-	 * 
+	 * Returns the scale component of this matrix as copy.
 	 */
 	public var scale(get_scale, null):Matrix4;
-	private function get_scale():Matrix4
+	private inline function get_scale():Matrix4
 	{
-		//var d0:Float = Math.sqrt(m00 * m00 + m01 * m01 + m02 * m02);
-		//var d1:Float = Math.sqrt(m10 * m10 + m11 * m11 + m12 * m12);
-		//var d2:Float = Math.sqrt(m20 * m20 + m21 * m21 + m22 * m22);
 		var d0:Float = Math.sqrt(m00 * m00 + m10 * m10 + m20 * m20);
 		var d1:Float = Math.sqrt(m01 * m01 + m11 * m11 + m21 * m21);
 		var d2:Float = Math.sqrt(m02 * m02 + m12 * m12 + m22 * m22);
-		return Matrix4.temp.Set(d0, 0, 0, 0,   0, d1, 0, 0,   0, 0, d2, 0,   0, 0, 0, 1);
+		return new Matrix4(d0, 0, 0, 0,   0, d1, 0, 0,   0, 0, d2, 0,   0, 0, 0, 1);
 	}
 	
 	/**
-	 * 
+	 * Returns the translation component of this matrix as copy.
 	 */
 	public var translation(get_translation, null):Matrix4;
-	private function get_translation():Matrix4
-	{
-		var t0:Float = m03;
-		var t1:Float = m13;
-		var t2:Float = m23;
-		return new Matrix4(1,0,0,t0,  0,1, 0,t1,   0, 0, 1,t2,  0, 0, 0, 1);
-	}
-	
-	public var transform(get_transform, never):Array<Dynamic>;
-	private function get_transform():Array<Dynamic>
-	{
-		return [GetColumn(3).xyz, quaternion, diagonalLR];
-	}
-	 
-	
+	private inline function get_translation():Matrix4 { return new Matrix4(1,0,0,m03,  0,1, 0,m13,   0, 0, 1,m23,  0, 0, 0, 1); }
 	
 	/**
-	 * 
+	 * Returns the inverse transform of this matrix.
 	 */
 	public var inverseTransform(get_inverseTransform, null):Matrix4;
 	private function get_inverseTransform():Matrix4
@@ -348,48 +308,25 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Returns a copy of this matrix as transposed.
 	 */
 	public var transposed(get_transposed, null):Matrix4;
 	private function get_transposed():Matrix4	
 	{ return new Matrix4(m00,m10,m20,m30, m01,m11,m21,m31, m02,m12,m22,m32, m03,m13,m23,m33); }
 	
 	/**
-	 * 
+	 * Returns an Array<Float> of this matrix converted to Row Major.
 	 */
 	public function ToRowMajor() : Array<Float> { return [m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33]; }
 	
 	/**
-	 * 
+	 * Returns an Array<Float> of this matrix converted to Column Major. 
 	 */
 	public function ToColumnMajor() : Array<Float> { return [m00,m10,m20,m30, m01,m11,m21,m31, m02,m12,m22,m32, m03,m13,m23,m33]; }
 	
-	/*
-	public var m00(get_m00, set_m00) : Float; private function get_m00():Float { return m[ 0]; }	private function set_m00(v:Float):Float { m[ 0] = v; return v; }
-	public var m01(get_m01, set_m01) : Float; private function get_m01():Float { return m[ 1]; }	private function set_m01(v:Float):Float { m[ 1] = v; return v; }
-	public var m02(get_m02, set_m02) : Float; private function get_m02():Float { return m[ 2]; }	private function set_m02(v:Float):Float { m[ 2] = v; return v; }
-	public var m03(get_m03, set_m03) : Float; private function get_m03():Float { return m[ 3]; }	private function set_m03(v:Float):Float { m[ 3] = v; return v; }
-	
-	public var m10(get_m10, set_m10) : Float; private function get_m10():Float { return m[ 4]; }	private function set_m10(v:Float):Float { m[ 4] = v; return v; }
-	public var m11(get_m11, set_m11) : Float; private function get_m11():Float { return m[ 5]; }	private function set_m11(v:Float):Float { m[ 5] = v; return v; }
-	public var m12(get_m12, set_m12) : Float; private function get_m12():Float { return m[ 6]; }	private function set_m12(v:Float):Float { m[ 6] = v; return v; }
-	public var m13(get_m13, set_m13) : Float; private function get_m13():Float { return m[ 7]; }	private function set_m13(v:Float):Float { m[ 7] = v; return v; }
-	
-	public var m20(get_m20, set_m20) : Float; private function get_m20():Float { return m[ 8]; }	private function set_m20(v:Float):Float { m[ 8] = v; return v; }
-	public var m21(get_m21, set_m21) : Float; private function get_m21():Float { return m[ 9]; }	private function set_m21(v:Float):Float { m[ 9] = v; return v; }
-	public var m22(get_m22, set_m22) : Float; private function get_m22():Float { return m[10]; }	private function set_m22(v:Float):Float { m[ 9] = v; return v; }
-	public var m23(get_m23, set_m23) : Float; private function get_m23():Float { return m[11]; }	private function set_m23(v:Float):Float { m[10] = v; return v; }
-	
-	public var m30(get_m30, set_m30) : Float; private function get_m30():Float { return m[12]; }	private function set_m30(v:Float):Float { m[11] = v; return v; }
-	public var m31(get_m31, set_m31) : Float; private function get_m31():Float { return m[13]; }	private function set_m31(v:Float):Float { m[12] = v; return v; }
-	public var m32(get_m32, set_m32) : Float; private function get_m32():Float { return m[14]; }	private function set_m32(v:Float):Float { m[13] = v; return v; }
-	public var m33(get_m33, set_m33) : Float; private function get_m33():Float { return m[15]; }	private function set_m33(v:Float):Float { m[14] = v; return v; }
-	
-	public var m : Float32Array;
-	//*/
-	
-	private var m : Float32Array;
-	
+	/**
+	 * Components
+	 */
 	public var m00 : Float;
 	public var m01 : Float;
 	public var m02 : Float;
@@ -408,7 +345,7 @@ class Matrix4
 	public var m33 : Float;
 	
 	/**
-	 * 
+	 * Creates a new Matrix4.
 	 * @param	p_m00
 	 * @param	p_m01
 	 * @param	p_m02
@@ -431,16 +368,6 @@ class Matrix4
 						p_m20:Float = 0, p_m21:Float = 0, p_m22:Float = 0, p_m23:Float = 0,
 						p_m30:Float = 0, p_m31:Float = 0, p_m32:Float = 0, p_m33:Float = 0)
 	{
-		/*
-		m = new Float32Array([
-		p_m00, p_m01, p_m02, p_m03,
-		p_m10, p_m11, p_m12, p_m13,
-		p_m20, p_m21, p_m22, p_m23,
-		p_m30, p_m31, p_m32, p_m33
-		]);	
-		//*/
-		m = new Float32Array(16);
-		
 		m00 = p_m00;
 		m01 = p_m01;
 		m02 = p_m02;
@@ -457,14 +384,10 @@ class Matrix4
 		m31 = p_m31;
 		m32 = p_m32;
 		m33 = p_m33;
-		
-		
-		
-		
 	}
 	
 	/**
-	 * 
+	 * Returns a line of this matrix as Vector4.
 	 * @param	p_index
 	 * @return
 	 */
@@ -474,7 +397,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Sets a line of this matrix.
 	 * @param	p_index
 	 * @param	p_x
 	 * @param	p_y
@@ -494,7 +417,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Returns a column of this matrix as Vector4.
 	 * @param	p_index
 	 * @return
 	 */
@@ -504,7 +427,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Sets a line of this matrix.
 	 * @param	p_index
 	 * @param	p_x
 	 * @param	p_y
@@ -524,16 +447,14 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Returns a diagonal of this matrix from top-left to bottom-right.
 	 */
 	public var diagonalLR(get_diagonalLR, set_diagonalLR) : Vector4;
-	//private function get_diagonalLR():Vector4 { return new Vector4(m[0], m[5], m[10], m[15]); }
-	//private function set_diagonalLR(v:Vector4):Vector4 { m[0] = v.x; m[5] = v.y; m[10] = v.z; m[15] = v.w; return v; }
 	private function get_diagonalLR():Vector4 { return new Vector4(m00, m11, m22, m33); }
 	private function set_diagonalLR(v:Vector4):Vector4 { m00 = v.x; m11 = v.y; m22 = v.z; m33 = v.w; return v; }
 	
 	/**
-	 * 
+	 * Resets this matrix to identity. Returns its own reference.
 	 * @return
 	 */
 	public function SetIdentity():Matrix4
@@ -543,7 +464,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Sets all values of this matrix. Returns its own reference.
 	 * @param	p_m00
 	 * @param	p_m01
 	 * @param	p_m02
@@ -565,26 +486,7 @@ class Matrix4
 	                    p_m10:Float = 0, p_m11:Float = 0, p_m12:Float = 0, p_m13:Float = 0,
 	                    p_m20:Float = 0, p_m21:Float = 0, p_m22:Float = 0, p_m23:Float = 0,
 	                    p_m30:Float = 0, p_m31:Float = 0, p_m32:Float = 0, p_m33:Float = 0):Matrix4
-	{
-		/*
-		m[ 0] = p_m00;
-		m[ 1] = p_m01;
-		m[ 2] = p_m02;
-		m[ 3] = p_m03;
-		m[ 4] = p_m10;
-		m[ 5] = p_m11;
-		m[ 6] = p_m12;
-		m[ 7] = p_m13;
-		m[ 8] = p_m20;
-		m[ 9] = p_m21;
-		m[10] = p_m22;
-		m[11] = p_m23;
-		m[12] = p_m30;
-		m[13] = p_m31;
-		m[14] = p_m32;
-		m[15] = p_m33;
-		//*/
-		
+	{	
 		m00 = p_m00;
 		m01 = p_m01;
 		m02 = p_m02;
@@ -601,14 +503,14 @@ class Matrix4
 		m31 = p_m31;
 		m32 = p_m32;
 		m33 = p_m33;
-		
-		
-		
-		
-		
 		return this;
 	}
 	
+	/**
+	 * Returns an element of the matrix by index.
+	 * @param	p_index
+	 * @return
+	 */
 	public function GetIndex(p_index : Int):Float
 	{
 		switch(p_index)
@@ -633,7 +535,12 @@ class Matrix4
 		return 0;
 	}
 	
-	public function SetIndex(p_index : Int, p_value : Float):Void
+	/**
+	 * Sets an individual value of this matrix by index.  Returns its own reference.
+	 * @param	p_index
+	 * @param	p_value
+	 */
+	public function SetIndex(p_index : Int, p_value : Float):Matrix4
 	{
 		switch(p_index)
 		{
@@ -654,34 +561,34 @@ class Matrix4
 			case 14: m32 = p_value;
 			case 15: m33 = p_value;
 		}
+		return this;
 	}
 	
 	/**
-	 * 
+	 * Sets a value of this matrix indexed by row and column.  Returns its own reference.
 	 * @param	p_row
 	 * @param	p_col
 	 * @param	p_value
 	 */
-	public function SetRowCol(p_row:Int,p_col:Int, p_value:Float):Void
+	public function SetRowCol(p_row:Int,p_col:Int, p_value:Float):Matrix4
 	{
-		//m[p_col + (p_row << 2)] = p_value;
 		SetIndex(p_col + (p_row << 2), p_value);
+		return this;
 	}
 	
 	/**
-	 * 
+	 * Sets a value of this matrix indexed by row and column.
 	 * @param	p_row
 	 * @param	p_col
 	 * @return
 	 */
 	public function GetRowCol(p_row:Int,p_col:Int):Float
 	{
-		//return m[p_col + (p_row << 2)];
-		return GetIndex(p_col + (p_row << 2));
+		return GetIndex(p_col + (p_row << 2));		
 	}
 	
 	/**
-	 * 
+	 * SWap 2 columns.  Returns its own reference.
 	 * @param	p_a
 	 * @param	p_b
 	 * @return
@@ -704,7 +611,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Swap 2 rows.  Returns its own reference.
 	 * @param	p_a
 	 * @param	p_b
 	 * @return
@@ -727,7 +634,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transposes this matrix.  Returns its own reference.
 	 * @return
 	 */
 	public function Transpose():Matrix4
@@ -755,6 +662,10 @@ class Matrix4
 		return this;
 	}
 	
+	/**
+	 * Sets all values to the rotation component of this matrix.   Returns its own reference.
+	 * @return
+	 */
 	public function ToRotation():Matrix4
 	{
 		var tmp : Vector3 = new Vector3();		
@@ -765,6 +676,11 @@ class Matrix4
 		return this;
 	}
 	
+	/**
+	 * Applies a rotation to the informed vector.
+	 * @param	p_vector
+	 * @return
+	 */
 	public function Rotate(p_vector : Vector3):Vector3
 	{
 		var tmp : Vector3 = new Vector3();
@@ -784,6 +700,13 @@ class Matrix4
 		return p_vector;
 	}
 	
+	/**
+	 * Sets the values of this matrix to a TRS matrix. Returns its own reference.
+	 * @param	p_position
+	 * @param	p_rotation
+	 * @param	p_scale
+	 * @return
+	 */
 	public function SetTRS(p_position : Vector3, p_rotation : Quaternion, p_scale:Vector3 = null):Matrix4
 	{
 		var sx:Float = p_scale == null ? 1.0 : p_scale.x;			
@@ -802,7 +725,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Multiplies the informed matrix using only the transform "sector" of the 2 matrix.  Returns its own reference.
 	 * @param	p_matrix
 	 * @return
 	 */
@@ -829,7 +752,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Multiplies the informed matrix using only the 3x4 "sector" of the 2 matrix. The last row is unchanged. Returns its own reference.
 	 * @param	p_matrix
 	 * @return
 	 */
@@ -856,7 +779,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Multiplies the informed matrix using only all the 4x4 area of the 2 matrix. Returns its own reference.
 	 * @param	p_matrix
 	 * @return
 	 */
@@ -890,8 +813,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
-	 * 
+	 * Transforms the informed vector. Returns the same instance of it.
 	 * @param	p_point
 	 */
 	public function Transform4x4(p_point : Vector4):Vector4
@@ -908,7 +830,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transforms the informed vector. Returns the same instance of it.
 	 * @param	p_point
 	 */
 	public function Transform3x4(p_point:Vector3):Vector3
@@ -923,7 +845,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transforms the informed vector with only the 3x3 sector. Returns the same instance of it.
 	 * @param	p_point
 	 */
 	public function Transform3x3(p_point:Vector3):Vector3
@@ -938,7 +860,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transforms the informed vector. Returns the same instance of it.
 	 * @param	p_point
 	 */
 	public function Transform2x3(p_point:Vector2):Void
@@ -950,7 +872,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transforms the informed vector. Returns the same instance of it.
 	 * @param	p_point
 	 */
 	public function Transform2x2(p_point:Vector2):Void
@@ -962,7 +884,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transforms this matrix into a frustum matrix. Returns its own reference.
 	 * @param	p_left
 	 * @param	p_right
 	 * @param	p_top
@@ -990,7 +912,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transforms this matrix into a frustum inverse matrix.  Returns its own reference.
 	 * @param	p_left
 	 * @param	p_right
 	 * @param	p_top
@@ -1018,7 +940,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transforms this matrix into a orthographic matrix.  Returns its own reference.
 	 * @param	p_left
 	 * @param	p_right
 	 * @param	p_top
@@ -1044,7 +966,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transforms this matrix into a perspective projection matrix. Returns its own reference.
 	 * @param	p_fov
 	 * @param	p_aspect
 	 * @param	p_near
@@ -1061,7 +983,7 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Transforms this matrix into a perspective projection inverse matrix. Returns its own reference.
 	 * @param	p_fov
 	 * @param	p_aspect
 	 * @param	p_near
@@ -1078,45 +1000,20 @@ class Matrix4
 	}
 	
 	/**
-	 * 
+	 * Returns all values as an Array<Float>
 	 * @return
 	 */
 	public function ToArray() : Array<Float> { return [	m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33]; }
 	
 	/**
-	 * 
+	 * Returns this matrix as string.
 	 * @return
 	 */
-	public function ToBuffer() : Float32Array 
-	{ 
-		m[ 0] = m00;
-		m[ 1] = m01;
-		m[ 2] = m02;
-		m[ 3] = m03;
-		m[ 4] = m10;
-		m[ 5] = m11;
-		m[ 6] = m12;
-		m[ 7] = m13;
-		m[ 8] = m20;
-		m[ 9] = m21;
-		m[10] = m22;
-		m[11] = m23;
-		m[12] = m30;
-		m[13] = m31;
-		m[14] = m32;
-		m[15] = m33;		
-		return m; 
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public function ToString(p_linear : Bool=true):String
+	public function ToString(p_linear : Bool=true,p_places:Int=2):String
 	{
 		var a : Array<Float> = ToArray();
 		var s : Array<String> = [];
-		for (i in 0...a.length) { a[i] = Std.int(a[i] * 100.0) / 100; s.push(a[i] >= 0 ? " " + a[i] : a[i] + ""); }
+		for (i in 0...a.length) { a[i] = Mathf.RoundPlaces(a[i],p_places); s.push(a[i] >= 0 ? " " + a[i] : a[i] + ""); }
 		var res:String = "";
 		for (i in 0...4)
 		{
