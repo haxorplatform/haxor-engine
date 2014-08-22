@@ -212,7 +212,7 @@ Void TextureContext_obj::Alloc( ::haxor::graphics::texture::Texture p_texture){
 			HX_STACK_LINE(104)
 			this->bind = p_texture;
 			HX_STACK_LINE(104)
-			int id = this->ids->__get(this->bind->_cid_);		HX_STACK_VAR(id,"id");
+			int id = this->ids->__get(this->bind->__cid);		HX_STACK_VAR(id,"id");
 			HX_STACK_LINE(104)
 			int target;		HX_STACK_VAR(target,"target");
 			HX_STACK_LINE(104)
@@ -267,11 +267,11 @@ Void TextureContext_obj::Create( ::haxor::graphics::texture::Texture p_texture){
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_texture,"p_texture")
 		HX_STACK_LINE(114)
-		p_texture->__slot = hx::Mod(p_texture->_cid_,::haxor::graphics::GL_obj::MAX_ACTIVE_TEXTURE);
+		p_texture->__slot = hx::Mod(p_texture->__cid,::haxor::graphics::GL_obj::MAX_ACTIVE_TEXTURE);
 		HX_STACK_LINE(116)
 		int id = ::haxor::graphics::GL_obj::m_gl->CreateTexture();		HX_STACK_VAR(id,"id");
 		HX_STACK_LINE(119)
-		this->ids[p_texture->_cid_] = id;
+		this->ids[p_texture->__cid] = id;
 		HX_STACK_LINE(121)
 		{
 			HX_STACK_LINE(121)
@@ -314,7 +314,7 @@ Void TextureContext_obj::Create( ::haxor::graphics::texture::Texture p_texture){
 				HX_STACK_LINE(121)
 				this->bind = p_texture;
 				HX_STACK_LINE(121)
-				int id1 = this->ids->__get(this->bind->_cid_);		HX_STACK_VAR(id1,"id1");
+				int id1 = this->ids->__get(this->bind->__cid);		HX_STACK_VAR(id1,"id1");
 				HX_STACK_LINE(121)
 				int target1;		HX_STACK_VAR(target1,"target1");
 				HX_STACK_LINE(121)
@@ -472,7 +472,7 @@ Void TextureContext_obj::Create( ::haxor::graphics::texture::Texture p_texture){
 			HX_STACK_LINE(133)
 			int fb_id = ::haxor::graphics::GL_obj::m_gl->CreateFramebuffer();		HX_STACK_VAR(fb_id,"fb_id");
 			HX_STACK_LINE(134)
-			this->framebuffers[p_texture->_cid_] = fb_id;
+			this->framebuffers[p_texture->__cid] = fb_id;
 			HX_STACK_LINE(136)
 			::haxor::graphics::GL_obj::m_gl->BindFramebuffer((int)36160,fb_id);
 			HX_STACK_LINE(140)
@@ -480,7 +480,7 @@ Void TextureContext_obj::Create( ::haxor::graphics::texture::Texture p_texture){
 			HX_STACK_LINE(142)
 			if (((rt->m_depth != null()))){
 				HX_STACK_LINE(144)
-				int depth_id = this->ids->__get(rt->m_depth->_cid_);		HX_STACK_VAR(depth_id,"depth_id");
+				int depth_id = this->ids->__get(rt->m_depth->__cid);		HX_STACK_VAR(depth_id,"depth_id");
 				HX_STACK_LINE(145)
 				::haxor::graphics::GL_obj::m_gl->FramebufferTexture2D((int)36160,(int)36096,(int)3553,depth_id,(int)0);
 			}
@@ -488,7 +488,7 @@ Void TextureContext_obj::Create( ::haxor::graphics::texture::Texture p_texture){
 				HX_STACK_LINE(149)
 				int rb_id = ::haxor::graphics::GL_obj::m_gl->CreateRenderbuffer();		HX_STACK_VAR(rb_id,"rb_id");
 				HX_STACK_LINE(150)
-				this->renderbuffers[p_texture->_cid_] = rb_id;
+				this->renderbuffers[p_texture->__cid] = rb_id;
 				HX_STACK_LINE(151)
 				::haxor::graphics::GL_obj::m_gl->BindRenderbuffer((int)36161,rb_id);
 				HX_STACK_LINE(152)
@@ -568,7 +568,7 @@ Void TextureContext_obj::Bind( ::haxor::graphics::texture::Texture p_texture){
 		HX_STACK_LINE(170)
 		this->bind = p_texture;
 		HX_STACK_LINE(171)
-		int id = this->ids->__get(this->bind->_cid_);		HX_STACK_VAR(id,"id");
+		int id = this->ids->__get(this->bind->__cid);		HX_STACK_VAR(id,"id");
 		HX_STACK_LINE(172)
 		int target;		HX_STACK_VAR(target,"target");
 		HX_STACK_LINE(172)
@@ -715,7 +715,7 @@ Void TextureContext_obj::UpdateParameters( ::haxor::graphics::texture::Texture p
 			HX_STACK_LINE(196)
 			this->bind = p_texture;
 			HX_STACK_LINE(196)
-			int id = this->ids->__get(this->bind->_cid_);		HX_STACK_VAR(id,"id");
+			int id = this->ids->__get(this->bind->__cid);		HX_STACK_VAR(id,"id");
 			HX_STACK_LINE(196)
 			int target1;		HX_STACK_VAR(target1,"target1");
 			HX_STACK_LINE(196)
@@ -908,7 +908,7 @@ Void TextureContext_obj::Update( ::haxor::graphics::texture::Texture p_texture){
 			HX_STACK_LINE(246)
 			this->bind = p_texture;
 			HX_STACK_LINE(246)
-			int id = this->ids->__get(this->bind->_cid_);		HX_STACK_VAR(id,"id");
+			int id = this->ids->__get(this->bind->__cid);		HX_STACK_VAR(id,"id");
 			HX_STACK_LINE(246)
 			int target1;		HX_STACK_VAR(target1,"target1");
 			HX_STACK_LINE(246)
@@ -1049,7 +1049,7 @@ Void TextureContext_obj::UploadTexture( ::haxor::graphics::texture::Texture2D p_
 					HX_STACK_LINE(279)
 					_g->__get((int)0).StaticCast< ::haxor::context::TextureContext >()->bind = p_texture1->__get((int)0).StaticCast< ::haxor::graphics::texture::Texture2D >();
 					HX_STACK_LINE(279)
-					int id = _g->__get((int)0).StaticCast< ::haxor::context::TextureContext >()->ids->__get(_g->__get((int)0).StaticCast< ::haxor::context::TextureContext >()->bind->_cid_);		HX_STACK_VAR(id,"id");
+					int id = _g->__get((int)0).StaticCast< ::haxor::context::TextureContext >()->ids->__get(_g->__get((int)0).StaticCast< ::haxor::context::TextureContext >()->bind->__cid);		HX_STACK_VAR(id,"id");
 					HX_STACK_LINE(279)
 					int target;		HX_STACK_VAR(target,"target");
 					HX_STACK_LINE(279)
@@ -1187,7 +1187,7 @@ Void TextureContext_obj::WriteTexture( int p_target,::haxor::graphics::texture::
 					HX_STACK_LINE(323)
 					::haxor::graphics::texture::RenderTexture rt = p_texture;		HX_STACK_VAR(rt,"rt");
 					HX_STACK_LINE(324)
-					int id = this->ids->__get(rt->_cid_);		HX_STACK_VAR(id,"id");
+					int id = this->ids->__get(rt->__cid);		HX_STACK_VAR(id,"id");
 					HX_STACK_LINE(325)
 					::haxor::graphics::GL_obj::m_gl->FramebufferTexture2D((int)36160,(int)36064,p_target,id,(int)0);
 				}
@@ -1207,12 +1207,12 @@ int TextureContext_obj::Activate( ::haxor::graphics::texture::Texture p_texture)
 	HX_STACK_LINE(337)
 	int slot = p_texture->__slot;		HX_STACK_VAR(slot,"slot");
 	HX_STACK_LINE(338)
-	if (((this->active->__get(p_texture->_cid_).StaticCast< ::haxor::graphics::texture::Texture >() == p_texture))){
+	if (((this->active->__get(p_texture->__cid).StaticCast< ::haxor::graphics::texture::Texture >() == p_texture))){
 		HX_STACK_LINE(338)
 		return slot;
 	}
 	HX_STACK_LINE(339)
-	this->active[p_texture->_cid_] = p_texture;
+	this->active[p_texture->__cid] = p_texture;
 	HX_STACK_LINE(340)
 	::haxor::graphics::GL_obj::m_gl->ActiveTexture(((int)33984 + slot));
 	HX_STACK_LINE(341)
@@ -1224,7 +1224,7 @@ int TextureContext_obj::Activate( ::haxor::graphics::texture::Texture p_texture)
 		HX_STACK_LINE(341)
 		this->bind = p_texture;
 		HX_STACK_LINE(341)
-		int id = this->ids->__get(this->bind->_cid_);		HX_STACK_VAR(id,"id");
+		int id = this->ids->__get(this->bind->__cid);		HX_STACK_VAR(id,"id");
 		HX_STACK_LINE(341)
 		int target;		HX_STACK_VAR(target,"target");
 		HX_STACK_LINE(341)
@@ -1292,13 +1292,13 @@ Void TextureContext_obj::BindTarget( ::haxor::graphics::texture::RenderTexture r
 			HX_STACK_LINE(363)
 			if (((this->target != rt))){
 				HX_STACK_LINE(365)
-				int fb_id = this->framebuffers->__get(rt->_cid_);		HX_STACK_VAR(fb_id,"fb_id");
+				int fb_id = this->framebuffers->__get(rt->__cid);		HX_STACK_VAR(fb_id,"fb_id");
 				HX_STACK_LINE(366)
 				::haxor::graphics::GL_obj::m_gl->BindFramebuffer((int)36160,fb_id);
 				HX_STACK_LINE(367)
 				if (((rt->m_depth == null()))){
 					HX_STACK_LINE(369)
-					int rb_id = this->renderbuffers->__get(rt->_cid_);		HX_STACK_VAR(rb_id,"rb_id");
+					int rb_id = this->renderbuffers->__get(rt->__cid);		HX_STACK_VAR(rb_id,"rb_id");
 					HX_STACK_LINE(370)
 					::haxor::graphics::GL_obj::m_gl->BindRenderbuffer((int)36161,rb_id);
 				}
@@ -1327,7 +1327,7 @@ Void TextureContext_obj::UpdateMipmaps( ::haxor::graphics::texture::Texture p_te
 			HX_STACK_LINE(383)
 			this->bind = p_texture;
 			HX_STACK_LINE(383)
-			int id = this->ids->__get(this->bind->_cid_);		HX_STACK_VAR(id,"id");
+			int id = this->ids->__get(this->bind->__cid);		HX_STACK_VAR(id,"id");
 			HX_STACK_LINE(383)
 			int target;		HX_STACK_VAR(target,"target");
 			HX_STACK_LINE(383)
@@ -1413,7 +1413,7 @@ Void TextureContext_obj::Destroy( ::haxor::graphics::texture::Texture p_texture)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_texture,"p_texture")
 		HX_STACK_LINE(394)
-		int tex_id = this->ids->__get(p_texture->_cid_);		HX_STACK_VAR(tex_id,"tex_id");
+		int tex_id = this->ids->__get(p_texture->__cid);		HX_STACK_VAR(tex_id,"tex_id");
 		HX_STACK_LINE(395)
 		if (((tex_id != ::haxor::graphics::GL_obj::INVALID))){
 			HX_STACK_LINE(395)
@@ -1424,9 +1424,9 @@ Void TextureContext_obj::Destroy( ::haxor::graphics::texture::Texture p_texture)
 		HX_STACK_LINE(396)
 		if (((_g == ::haxor::graphics::TextureType_obj::RenderTexture))){
 			HX_STACK_LINE(398)
-			int fb_id = this->framebuffers->__get(p_texture->_cid_);		HX_STACK_VAR(fb_id,"fb_id");
+			int fb_id = this->framebuffers->__get(p_texture->__cid);		HX_STACK_VAR(fb_id,"fb_id");
 			HX_STACK_LINE(399)
-			int rb_id = this->renderbuffers->__get(p_texture->_cid_);		HX_STACK_VAR(rb_id,"rb_id");
+			int rb_id = this->renderbuffers->__get(p_texture->__cid);		HX_STACK_VAR(rb_id,"rb_id");
 			HX_STACK_LINE(400)
 			if (((fb_id != ::haxor::graphics::GL_obj::INVALID))){
 				HX_STACK_LINE(400)

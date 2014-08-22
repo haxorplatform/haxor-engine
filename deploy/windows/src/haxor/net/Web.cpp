@@ -15,17 +15,29 @@
 #ifndef INCLUDED_haxor_graphics_texture_Bitmap
 #include <haxor/graphics/texture/Bitmap.h>
 #endif
+#ifndef INCLUDED_haxor_graphics_texture_Texture
+#include <haxor/graphics/texture/Texture.h>
+#endif
+#ifndef INCLUDED_haxor_graphics_texture_Texture2D
+#include <haxor/graphics/texture/Texture2D.h>
+#endif
+#ifndef INCLUDED_haxor_net_HTTPRequestTask
+#include <haxor/net/HTTPRequestTask.h>
+#endif
+#ifndef INCLUDED_haxor_net_Texture2DLoader
+#include <haxor/net/Texture2DLoader.h>
+#endif
 #ifndef INCLUDED_haxor_net_Web
 #include <haxor/net/Web.h>
 #endif
-#ifndef INCLUDED_haxor_platform_windows_BitmapLoader
-#include <haxor/platform/windows/BitmapLoader.h>
+#ifndef INCLUDED_haxor_platform_windows_net_BitmapLoader
+#include <haxor/platform/windows/net/BitmapLoader.h>
 #endif
-#ifndef INCLUDED_haxor_platform_windows_HTTPLoader
-#include <haxor/platform/windows/HTTPLoader.h>
+#ifndef INCLUDED_haxor_platform_windows_net_HTTPLoader
+#include <haxor/platform/windows/net/HTTPLoader.h>
 #endif
-#ifndef INCLUDED_haxor_platform_windows_HTTPRequest
-#include <haxor/platform/windows/HTTPRequest.h>
+#ifndef INCLUDED_haxor_platform_windows_net_HTTPRequest
+#include <haxor/platform/windows/net/HTTPRequest.h>
 #endif
 #ifndef INCLUDED_haxor_thread_Activity
 #include <haxor/thread/Activity.h>
@@ -58,11 +70,11 @@ Dynamic Web_obj::__Create(hx::DynamicArray inArgs)
 
 Void Web_obj::Load( ::String p_url,Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.net.Web","Load",0x1fa4e45d,"haxor.net.Web.Load","haxor/net/Web.hx",35,0x66abd769)
+		HX_STACK_FRAME("haxor.net.Web","Load",0x1fa4e45d,"haxor.net.Web.Load","haxor/net/Web.hx",37,0x66abd769)
 		HX_STACK_ARG(p_url,"p_url")
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(35)
-		::haxor::platform::windows::HTTPLoader ld = ::haxor::platform::windows::HTTPLoader_obj::__new(p_url,false,p_callback);		HX_STACK_VAR(ld,"ld");
+		HX_STACK_LINE(37)
+		::haxor::platform::windows::net::HTTPLoader ld = ::haxor::platform::windows::net::HTTPLoader_obj::__new(p_url,false,p_callback);		HX_STACK_VAR(ld,"ld");
 	}
 return null();
 }
@@ -72,17 +84,32 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,Load,(void))
 
 Void Web_obj::LoadImg( ::String p_url,Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.net.Web","LoadImg",0x313237a6,"haxor.net.Web.LoadImg","haxor/net/Web.hx",42,0x66abd769)
+		HX_STACK_FRAME("haxor.net.Web","LoadImg",0x313237a6,"haxor.net.Web.LoadImg","haxor/net/Web.hx",44,0x66abd769)
 		HX_STACK_ARG(p_url,"p_url")
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(42)
-		::haxor::platform::windows::BitmapLoader ld = ::haxor::platform::windows::BitmapLoader_obj::__new(p_url,p_callback);		HX_STACK_VAR(ld,"ld");
+		HX_STACK_LINE(44)
+		::haxor::platform::windows::net::BitmapLoader ld = ::haxor::platform::windows::net::BitmapLoader_obj::__new(p_url,p_callback);		HX_STACK_VAR(ld,"ld");
 	}
 return null();
 }
 
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,LoadImg,(void))
+
+Void Web_obj::LoadTexture2D( ::String p_url,bool p_apply,Dynamic p_callback){
+{
+		HX_STACK_FRAME("haxor.net.Web","LoadTexture2D",0x4ac82950,"haxor.net.Web.LoadTexture2D","haxor/net/Web.hx",51,0x66abd769)
+		HX_STACK_ARG(p_url,"p_url")
+		HX_STACK_ARG(p_apply,"p_apply")
+		HX_STACK_ARG(p_callback,"p_callback")
+		HX_STACK_LINE(51)
+		::haxor::net::Texture2DLoader ld = ::haxor::net::Texture2DLoader_obj::__new(p_url,p_apply,p_callback);		HX_STACK_VAR(ld,"ld");
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(Web_obj,LoadTexture2D,(void))
 
 
 Web_obj::Web_obj()
@@ -98,6 +125,9 @@ Dynamic Web_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"LoadImg") ) { return LoadImg_dyn(); }
+		break;
+	case 13:
+		if (HX_FIELD_EQ(inName,"LoadTexture2D") ) { return LoadTexture2D_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -120,6 +150,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("root"),
 	HX_CSTRING("Load"),
 	HX_CSTRING("LoadImg"),
+	HX_CSTRING("LoadTexture2D"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE

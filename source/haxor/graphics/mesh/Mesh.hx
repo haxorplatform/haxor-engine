@@ -95,7 +95,7 @@ class Mesh extends Resource
 	public function new():Void
 	{
 		super();
-		_cid_ 		= EngineContext.mesh.mid++;
+		__cid 		= EngineContext.mesh.mid++;
 		m_attribs 	= [];
 		m_indexed	= false;
 		m_vcount    = 0;
@@ -227,7 +227,7 @@ class MeshAttrib
 	/**
 	 * Unique id used to sample cached buffer ids.
 	 */
-	private var _cid_ : Int;
+	private var __cid : Int;
 	
 	/**
 	 * Shader location if this attrib is part of the default attribs.
@@ -259,7 +259,7 @@ class MeshAttrib
 	
 	public function new():Void
 	{
-		_cid_  = EngineContext.mesh.aid++;
+		__cid  = EngineContext.mesh.aid++;
 		_loc_  = -1;
 		m_name = "";
 		data   = null;

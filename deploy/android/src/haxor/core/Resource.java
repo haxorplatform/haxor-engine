@@ -18,34 +18,34 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Resource(haxor.core.Resource __temp_me54452, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_core_Resource(haxor.core.Resource __temp_me55656, java.lang.String p_name)
 	{
 		if (( p_name == null )) 
 		{
 			p_name = "";
 		}
 		
-		__temp_me54452.m_uid = haxor.context.EngineContext.uid++;
-		__temp_me54452.m_destroyed = false;
-		__temp_me54452._cid_ = 0;
-		__temp_me54452.m_pid = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{-1, -1, -1, -1, -1, -1});
-		__temp_me54452.m_name = p_name;
-		__temp_me54452.m_is_behaviour = ( __temp_me54452 instanceof haxor.component.Behaviour );
-		__temp_me54452.m_type_class = ((java.lang.Class) (haxe.root.Type.getClass(__temp_me54452)) );
-		__temp_me54452.m_type_full_name = haxe.root.Type.getClassName(__temp_me54452.m_type_class);
-		haxe.root.Array<java.lang.String> nt = haxe.lang.StringExt.split(__temp_me54452.m_type_full_name, ".");
+		__temp_me55656.m_uid = haxor.context.EngineContext.uid++;
+		__temp_me55656.m_destroyed = false;
+		__temp_me55656.__cid = 0;
+		__temp_me55656.m_pid = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{-1, -1, -1, -1, -1, -1});
+		__temp_me55656.m_name = p_name;
+		__temp_me55656.m_is_behaviour = ( __temp_me55656 instanceof haxor.component.Behaviour );
+		__temp_me55656.m_type_class = ((java.lang.Class) (haxe.root.Type.getClass(__temp_me55656)) );
+		__temp_me55656.m_type_full_name = haxe.root.Type.getClassName(__temp_me55656.m_type_class);
+		haxe.root.Array<java.lang.String> nt = haxe.lang.StringExt.split(__temp_me55656.m_type_full_name, ".");
 		nt.reverse();
-		__temp_me54452.m_type_name = nt.__get(0);
+		__temp_me55656.m_type_name = nt.__get(0);
 		if (haxe.lang.Runtime.valEq(p_name, "")) 
 		{
-			__temp_me54452.m_name = ( __temp_me54452.m_type_name + __temp_me54452.m_uid );
+			__temp_me55656.m_name = ( __temp_me55656.m_type_name + __temp_me55656.m_uid );
 		}
 		 else 
 		{
-			__temp_me54452.m_name = p_name;
+			__temp_me55656.m_name = p_name;
 		}
 		
-		haxor.context.EngineContext.resources.Add(__temp_me54452);
+		haxor.context.EngineContext.resources.Add(__temp_me55656);
 	}
 	
 	
@@ -112,7 +112,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 	
 	public  boolean m_destroyed;
 	
-	public  int _cid_;
+	public  int __cid;
 	
 	public  haxe.root.Array<java.lang.Object> m_pid;
 	
@@ -153,15 +153,15 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54584 = true;
+			boolean __temp_executeDef55788 = true;
 			switch (field.hashCode())
 			{
-				case 90787904:
+				case 90663134:
 				{
-					if (field.equals("_cid_")) 
+					if (field.equals("__cid")) 
 					{
-						__temp_executeDef54584 = false;
-						this._cid_ = ((int) (value) );
+						__temp_executeDef55788 = false;
+						this.__cid = ((int) (value) );
 						return value;
 					}
 					
@@ -173,7 +173,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("uid")) 
 					{
-						__temp_executeDef54584 = false;
+						__temp_executeDef55788 = false;
 						this.uid = ((int) (value) );
 						return value;
 					}
@@ -186,7 +186,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_uid")) 
 					{
-						__temp_executeDef54584 = false;
+						__temp_executeDef55788 = false;
 						this.m_uid = ((int) (value) );
 						return value;
 					}
@@ -197,7 +197,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				
 			}
 			
-			if (__temp_executeDef54584) 
+			if (__temp_executeDef55788) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -214,14 +214,14 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54585 = true;
+			boolean __temp_executeDef55789 = true;
 			switch (field.hashCode())
 			{
 				case 1202714234:
 				{
 					if (field.equals("m_is_behaviour")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.m_is_behaviour = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -234,7 +234,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("application")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.application = ((haxor.core.Application) (value) );
 						return value;
 					}
@@ -247,7 +247,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_type_class")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.m_type_class = ((java.lang.Class) (value) );
 						return value;
 					}
@@ -260,7 +260,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("uid")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.uid = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -273,7 +273,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_type_full_name")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.m_type_full_name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -286,7 +286,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_uid")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.m_uid = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -299,7 +299,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_type_name")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.m_type_name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -312,7 +312,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.set_name(haxe.lang.Runtime.toString(value));
 						return value;
 					}
@@ -325,7 +325,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_pid")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.m_pid = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -338,7 +338,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_name")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.m_name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -347,12 +347,12 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				}
 				
 				
-				case 90787904:
+				case 90663134:
 				{
-					if (field.equals("_cid_")) 
+					if (field.equals("__cid")) 
 					{
-						__temp_executeDef54585 = false;
-						this._cid_ = ((int) (haxe.lang.Runtime.toInt(value)) );
+						__temp_executeDef55789 = false;
+						this.__cid = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
 					
@@ -364,7 +364,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("destroyed")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.destroyed = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -377,7 +377,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_destroyed")) 
 					{
-						__temp_executeDef54585 = false;
+						__temp_executeDef55789 = false;
 						this.m_destroyed = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -388,7 +388,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				
 			}
 			
-			if (__temp_executeDef54585) 
+			if (__temp_executeDef55789) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -405,14 +405,14 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54586 = true;
+			boolean __temp_executeDef55790 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -424,7 +424,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("application")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						if (handleProperties) 
 						{
 							return this.get_application();
@@ -444,7 +444,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("GetTypeFullName")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetTypeFullName"))) );
 					}
 					
@@ -456,7 +456,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("get_application")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_application"))) );
 					}
 					
@@ -468,7 +468,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("GetTypeName")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetTypeName"))) );
 					}
 					
@@ -480,7 +480,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("uid")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						if (handleProperties) 
 						{
 							return this.get_uid();
@@ -500,7 +500,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("GetType")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetType"))) );
 					}
 					
@@ -512,7 +512,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("get_uid")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_uid"))) );
 					}
 					
@@ -524,7 +524,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_is_behaviour")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return this.m_is_behaviour;
 					}
 					
@@ -536,7 +536,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_uid")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return this.m_uid;
 					}
 					
@@ -548,7 +548,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_type_class")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return this.m_type_class;
 					}
 					
@@ -560,7 +560,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return this.get_name();
 					}
 					
@@ -572,7 +572,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_type_full_name")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return this.m_type_full_name;
 					}
 					
@@ -584,7 +584,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("get_name")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_name"))) );
 					}
 					
@@ -596,7 +596,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_type_name")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return this.m_type_name;
 					}
 					
@@ -608,7 +608,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("set_name")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_name"))) );
 					}
 					
@@ -620,7 +620,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_pid")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return this.m_pid;
 					}
 					
@@ -632,7 +632,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_name")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return this.m_name;
 					}
 					
@@ -640,12 +640,12 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				}
 				
 				
-				case 90787904:
+				case 90663134:
 				{
-					if (field.equals("_cid_")) 
+					if (field.equals("__cid")) 
 					{
-						__temp_executeDef54586 = false;
-						return this._cid_;
+						__temp_executeDef55790 = false;
+						return this.__cid;
 					}
 					
 					break;
@@ -656,7 +656,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("destroyed")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						if (handleProperties) 
 						{
 							return this.get_destroyed();
@@ -676,7 +676,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_destroyed")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return this.m_destroyed;
 					}
 					
@@ -688,7 +688,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("get_destroyed")) 
 					{
-						__temp_executeDef54586 = false;
+						__temp_executeDef55790 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_destroyed"))) );
 					}
 					
@@ -698,7 +698,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				
 			}
 			
-			if (__temp_executeDef54586) 
+			if (__temp_executeDef55790) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -715,15 +715,15 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54587 = true;
+			boolean __temp_executeDef55791 = true;
 			switch (field.hashCode())
 			{
-				case 90787904:
+				case 90663134:
 				{
-					if (field.equals("_cid_")) 
+					if (field.equals("__cid")) 
 					{
-						__temp_executeDef54587 = false;
-						return ((double) (this._cid_) );
+						__temp_executeDef55791 = false;
+						return ((double) (this.__cid) );
 					}
 					
 					break;
@@ -734,7 +734,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("uid")) 
 					{
-						__temp_executeDef54587 = false;
+						__temp_executeDef55791 = false;
 						if (handleProperties) 
 						{
 							return ((double) (this.get_uid()) );
@@ -754,7 +754,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("m_uid")) 
 					{
-						__temp_executeDef54587 = false;
+						__temp_executeDef55791 = false;
 						return ((double) (this.m_uid) );
 					}
 					
@@ -764,7 +764,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				
 			}
 			
-			if (__temp_executeDef54587) 
+			if (__temp_executeDef55791) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -781,14 +781,14 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef54588 = true;
+			boolean __temp_executeDef55792 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef54588 = false;
+						__temp_executeDef55792 = false;
 						this.OnDestroy();
 					}
 					
@@ -800,7 +800,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("get_application")) 
 					{
-						__temp_executeDef54588 = false;
+						__temp_executeDef55792 = false;
 						return this.get_application();
 					}
 					
@@ -812,7 +812,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("GetTypeFullName")) 
 					{
-						__temp_executeDef54588 = false;
+						__temp_executeDef55792 = false;
 						return this.GetTypeFullName();
 					}
 					
@@ -824,7 +824,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("get_uid")) 
 					{
-						__temp_executeDef54588 = false;
+						__temp_executeDef55792 = false;
 						return this.get_uid();
 					}
 					
@@ -836,7 +836,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("GetTypeName")) 
 					{
-						__temp_executeDef54588 = false;
+						__temp_executeDef55792 = false;
 						return this.GetTypeName();
 					}
 					
@@ -848,7 +848,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("get_name")) 
 					{
-						__temp_executeDef54588 = false;
+						__temp_executeDef55792 = false;
 						return this.get_name();
 					}
 					
@@ -860,7 +860,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("GetType")) 
 					{
-						__temp_executeDef54588 = false;
+						__temp_executeDef55792 = false;
 						return this.GetType();
 					}
 					
@@ -872,7 +872,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("set_name")) 
 					{
-						__temp_executeDef54588 = false;
+						__temp_executeDef55792 = false;
 						return this.set_name(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -884,7 +884,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				{
 					if (field.equals("get_destroyed")) 
 					{
-						__temp_executeDef54588 = false;
+						__temp_executeDef55792 = false;
 						return this.get_destroyed();
 					}
 					
@@ -894,7 +894,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 				
 			}
 			
-			if (__temp_executeDef54588) 
+			if (__temp_executeDef55792) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
@@ -912,7 +912,7 @@ public  class Resource extends haxe.lang.HxObject implements haxor.core.IDisposa
 		baseArr.push("m_type_full_name");
 		baseArr.push("m_type_name");
 		baseArr.push("m_pid");
-		baseArr.push("_cid_");
+		baseArr.push("__cid");
 		baseArr.push("m_destroyed");
 		baseArr.push("destroyed");
 		baseArr.push("m_name");

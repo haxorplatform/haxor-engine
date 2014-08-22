@@ -5,7 +5,7 @@
 #include <hxcpp.h>
 #endif
 
-#include <haxor/platform/windows/HTTPLoader.h>
+#include <haxor/platform/windows/net/HTTPLoader.h>
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,IRenderable)
 HX_DECLARE_CLASS2(haxor,core,IUpdateable)
@@ -13,8 +13,8 @@ HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Bitmap)
 HX_DECLARE_CLASS2(haxor,io,Buffer)
 HX_DECLARE_CLASS3(haxor,platform,windows,BitmapLoader)
-HX_DECLARE_CLASS3(haxor,platform,windows,HTTPLoader)
-HX_DECLARE_CLASS3(haxor,platform,windows,HTTPRequest)
+HX_DECLARE_CLASS4(haxor,platform,windows,net,HTTPLoader)
+HX_DECLARE_CLASS4(haxor,platform,windows,net,HTTPRequest)
 HX_DECLARE_CLASS2(haxor,thread,Activity)
 HX_DECLARE_CLASS2(haxor,thread,Task)
 
@@ -31,9 +31,9 @@ namespace platform{
 namespace windows{
 
 
-class HXCPP_CLASS_ATTRIBUTES  BitmapLoader_obj : public ::haxor::platform::windows::HTTPLoader_obj{
+class HXCPP_CLASS_ATTRIBUTES  BitmapLoader_obj : public ::haxor::platform::windows::net::HTTPLoader_obj{
 	public:
-		typedef ::haxor::platform::windows::HTTPLoader_obj super;
+		typedef ::haxor::platform::windows::net::HTTPLoader_obj super;
 		typedef BitmapLoader_obj OBJ_;
 		BitmapLoader_obj();
 		Void __construct(::String p_url,Dynamic p_callback);

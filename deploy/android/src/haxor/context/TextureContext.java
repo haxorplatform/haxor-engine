@@ -18,15 +18,15 @@ public  class TextureContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_TextureContext(haxor.context.TextureContext __temp_me54477)
+	public static   void __hx_ctor_haxor_context_TextureContext(haxor.context.TextureContext __temp_me55681)
 	{
-		__temp_me54477.tid = 0;
-		__temp_me54477.bind = null;
-		__temp_me54477.target = null;
-		__temp_me54477.active = new haxe.root.Array<haxor.graphics.texture.Texture>(new haxor.graphics.texture.Texture[]{});
-		__temp_me54477.ids = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me54477.framebuffers = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me54477.renderbuffers = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me55681.tid = 0;
+		__temp_me55681.bind = null;
+		__temp_me55681.target = null;
+		__temp_me55681.active = new haxe.root.Array<haxor.graphics.texture.Texture>(new haxor.graphics.texture.Texture[]{});
+		__temp_me55681.ids = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me55681.framebuffers = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me55681.renderbuffers = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 	}
 	
 	
@@ -284,12 +284,12 @@ public  class TextureContext extends haxe.lang.HxObject
 		
 		if (( p_texture == this.bind )) 
 		{
-			java.lang.Object __temp_expr54700 = null;
+			java.lang.Object __temp_expr55904 = null;
 		}
 		 else 
 		{
 			this.bind = p_texture;
-			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind._cid_))) );
+			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind.__cid))) );
 			int target = 0;
 			{
 				haxor.graphics.texture.Texture p_texture1 = this.bind;
@@ -329,9 +329,9 @@ public  class TextureContext extends haxe.lang.HxObject
 	
 	public   void Create(haxor.graphics.texture.Texture p_texture)
 	{
-		p_texture.__slot = ( p_texture._cid_ % haxor.graphics.GL.MAX_ACTIVE_TEXTURE );
+		p_texture.__slot = ( p_texture.__cid % haxor.graphics.GL.MAX_ACTIVE_TEXTURE );
 		int id = haxor.graphics.GL.m_gl.CreateTexture();
-		this.ids.__set(p_texture._cid_, id);
+		this.ids.__set(p_texture.__cid, id);
 		{
 			int target = 0;
 			if (( p_texture.get_type() == haxor.graphics.TextureType.Texture2D )) 
@@ -361,12 +361,12 @@ public  class TextureContext extends haxe.lang.HxObject
 			
 			if (( p_texture == this.bind )) 
 			{
-				java.lang.Object __temp_expr54701 = null;
+				java.lang.Object __temp_expr55905 = null;
 			}
 			 else 
 			{
 				this.bind = p_texture;
-				int id1 = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind._cid_))) );
+				int id1 = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind.__cid))) );
 				int target1 = 0;
 				{
 					haxor.graphics.texture.Texture p_texture1 = this.bind;
@@ -537,18 +537,18 @@ public  class TextureContext extends haxe.lang.HxObject
 		{
 			haxor.graphics.texture.RenderTexture rt = ((haxor.graphics.texture.RenderTexture) (p_texture) );
 			int fb_id = haxor.graphics.GL.m_gl.CreateFramebuffer();
-			this.framebuffers.__set(p_texture._cid_, fb_id);
+			this.framebuffers.__set(p_texture.__cid, fb_id);
 			haxor.graphics.GL.m_gl.BindFramebuffer(36160, fb_id);
 			haxor.graphics.GL.m_gl.FramebufferTexture2D(36160, 36064, 3553, id, 0);
 			if (( rt.m_depth != null )) 
 			{
-				int depth_id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(rt.m_depth._cid_))) );
+				int depth_id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(rt.m_depth.__cid))) );
 				haxor.graphics.GL.m_gl.FramebufferTexture2D(36160, 36096, 3553, depth_id, 0);
 			}
 			 else 
 			{
 				int rb_id = haxor.graphics.GL.m_gl.CreateRenderbuffer();
-				this.renderbuffers.__set(p_texture._cid_, rb_id);
+				this.renderbuffers.__set(p_texture.__cid, rb_id);
 				haxor.graphics.GL.m_gl.BindRenderbuffer(36161, rb_id);
 				haxor.graphics.GL.m_gl.RenderbufferStorage(36161, 33189, rt.m_width, rt.m_height);
 				haxor.graphics.GL.m_gl.FramebufferRenderbuffer(36160, 36096, 36161, rb_id);
@@ -558,7 +558,7 @@ public  class TextureContext extends haxe.lang.HxObject
 			haxor.graphics.GL.m_gl.BindRenderbuffer(36161, haxor.graphics.GL.NULL);
 			if (( this.bind == null )) 
 			{
-				java.lang.Object __temp_expr54702 = null;
+				java.lang.Object __temp_expr55906 = null;
 			}
 			 else 
 			{
@@ -609,7 +609,7 @@ public  class TextureContext extends haxe.lang.HxObject
 		}
 		
 		this.bind = p_texture;
-		int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind._cid_))) );
+		int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind.__cid))) );
 		int target = 0;
 		{
 			haxor.graphics.texture.Texture p_texture1 = this.bind;
@@ -716,12 +716,12 @@ public  class TextureContext extends haxe.lang.HxObject
 		
 		if (( p_texture == this.bind )) 
 		{
-			java.lang.Object __temp_expr54703 = null;
+			java.lang.Object __temp_expr55907 = null;
 		}
 		 else 
 		{
 			this.bind = p_texture;
-			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind._cid_))) );
+			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind.__cid))) );
 			int target1 = 0;
 			{
 				haxor.graphics.texture.Texture p_texture1 = this.bind;
@@ -914,12 +914,12 @@ public  class TextureContext extends haxe.lang.HxObject
 		
 		if (( p_texture == this.bind )) 
 		{
-			java.lang.Object __temp_expr54704 = null;
+			java.lang.Object __temp_expr55908 = null;
 		}
 		 else 
 		{
 			this.bind = p_texture;
-			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind._cid_))) );
+			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind.__cid))) );
 			int target1 = 0;
 			{
 				haxor.graphics.texture.Texture p_texture1 = this.bind;
@@ -1011,7 +1011,7 @@ public  class TextureContext extends haxe.lang.HxObject
 			steps.__set(0, 1);
 		}
 		
-		haxor.thread.Activity ua = new haxor.thread.Activity(((haxe.lang.Function) (new haxor.context.TextureContext_UploadTexture_276__Fun(((haxe.root.Array<java.lang.Object>) (steps) ), ((haxe.root.Array<java.lang.Object>) (chn_type) ), ((haxe.root.Array<java.lang.Object>) (py) ), ((haxe.root.Array<haxor.graphics.texture.Texture2D>) (p_texture1) ), ((haxe.root.Array<java.lang.Object>) (chn_fmt) ), ((haxe.root.Array<haxor.context.TextureContext>) (_g) ), ((haxe.root.Array<haxor.graphics.texture.Bitmap>) (b) ), ((haxe.root.Array<haxe.lang.Function>) (p_on_complete1) ))) ), ((java.lang.Object) (false) ), ((java.lang.Object) (true) ));
+		haxor.thread.Activity ua = new haxor.thread.Activity(((haxe.lang.Function) (new haxor.context.TextureContext_UploadTexture_276__Fun(((haxe.root.Array<java.lang.Object>) (chn_fmt) ), ((haxe.root.Array<haxe.lang.Function>) (p_on_complete1) ), ((haxe.root.Array<haxor.context.TextureContext>) (_g) ), ((haxe.root.Array<java.lang.Object>) (chn_type) ), ((haxe.root.Array<haxor.graphics.texture.Texture2D>) (p_texture1) ), ((haxe.root.Array<haxor.graphics.texture.Bitmap>) (b) ), ((haxe.root.Array<java.lang.Object>) (py) ), ((haxe.root.Array<java.lang.Object>) (steps) ))) ), ((java.lang.Object) (false) ), ((java.lang.Object) (true) ));
 	}
 	
 	
@@ -1042,7 +1042,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				if (( p_texture.get_type() == haxor.graphics.TextureType.RenderTexture )) 
 				{
 					haxor.graphics.texture.RenderTexture rt = ((haxor.graphics.texture.RenderTexture) (p_texture) );
-					int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(rt._cid_))) );
+					int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(rt.__cid))) );
 					haxor.graphics.GL.m_gl.FramebufferTexture2D(36160, 36064, p_target, id, 0);
 				}
 				
@@ -1056,21 +1056,21 @@ public  class TextureContext extends haxe.lang.HxObject
 	public   int Activate(haxor.graphics.texture.Texture p_texture)
 	{
 		int slot = p_texture.__slot;
-		if (( this.active.__get(p_texture._cid_) == p_texture )) 
+		if (( this.active.__get(p_texture.__cid) == p_texture )) 
 		{
 			return slot;
 		}
 		
-		this.active.__set(p_texture._cid_, p_texture);
+		this.active.__set(p_texture.__cid, p_texture);
 		haxor.graphics.GL.m_gl.ActiveTexture(( 33984 + slot ));
 		if (( p_texture == this.bind )) 
 		{
-			java.lang.Object __temp_expr54705 = null;
+			java.lang.Object __temp_expr55909 = null;
 		}
 		 else 
 		{
 			this.bind = p_texture;
-			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind._cid_))) );
+			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind.__cid))) );
 			int target = 0;
 			{
 				haxor.graphics.texture.Texture p_texture1 = this.bind;
@@ -1124,11 +1124,11 @@ public  class TextureContext extends haxe.lang.HxObject
 		{
 			if (( this.target != rt )) 
 			{
-				int fb_id = ((int) (haxe.lang.Runtime.toInt(this.framebuffers.__get(rt._cid_))) );
+				int fb_id = ((int) (haxe.lang.Runtime.toInt(this.framebuffers.__get(rt.__cid))) );
 				haxor.graphics.GL.m_gl.BindFramebuffer(36160, fb_id);
 				if (( rt.m_depth == null )) 
 				{
-					int rb_id = ((int) (haxe.lang.Runtime.toInt(this.renderbuffers.__get(rt._cid_))) );
+					int rb_id = ((int) (haxe.lang.Runtime.toInt(this.renderbuffers.__get(rt.__cid))) );
 					haxor.graphics.GL.m_gl.BindRenderbuffer(36161, rb_id);
 				}
 				
@@ -1144,12 +1144,12 @@ public  class TextureContext extends haxe.lang.HxObject
 	{
 		if (( p_texture == this.bind )) 
 		{
-			java.lang.Object __temp_expr54706 = null;
+			java.lang.Object __temp_expr55910 = null;
 		}
 		 else 
 		{
 			this.bind = p_texture;
-			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind._cid_))) );
+			int id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(this.bind.__cid))) );
 			int target = 0;
 			{
 				haxor.graphics.texture.Texture p_texture1 = this.bind;
@@ -1215,7 +1215,7 @@ public  class TextureContext extends haxe.lang.HxObject
 	
 	public   void Destroy(haxor.graphics.texture.Texture p_texture)
 	{
-		int tex_id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(p_texture._cid_))) );
+		int tex_id = ((int) (haxe.lang.Runtime.toInt(this.ids.__get(p_texture.__cid))) );
 		if (( tex_id != haxor.graphics.GL.INVALID )) 
 		{
 			haxor.graphics.GL.m_gl.DeleteTexture(tex_id);
@@ -1223,8 +1223,8 @@ public  class TextureContext extends haxe.lang.HxObject
 		
 		if (( p_texture.get_type() == haxor.graphics.TextureType.RenderTexture )) 
 		{
-			int fb_id = ((int) (haxe.lang.Runtime.toInt(this.framebuffers.__get(p_texture._cid_))) );
-			int rb_id = ((int) (haxe.lang.Runtime.toInt(this.renderbuffers.__get(p_texture._cid_))) );
+			int fb_id = ((int) (haxe.lang.Runtime.toInt(this.framebuffers.__get(p_texture.__cid))) );
+			int rb_id = ((int) (haxe.lang.Runtime.toInt(this.renderbuffers.__get(p_texture.__cid))) );
 			if (( fb_id != haxor.graphics.GL.INVALID )) 
 			{
 				haxor.graphics.GL.m_gl.DeleteFramebuffer(fb_id);
@@ -1243,14 +1243,14 @@ public  class TextureContext extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54707 = true;
+			boolean __temp_executeDef55911 = true;
 			switch (field.hashCode())
 			{
 				case 114831:
 				{
 					if (field.equals("tid")) 
 					{
-						__temp_executeDef54707 = false;
+						__temp_executeDef55911 = false;
 						this.tid = ((int) (value) );
 						return value;
 					}
@@ -1261,7 +1261,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef54707) 
+			if (__temp_executeDef55911) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -1278,14 +1278,14 @@ public  class TextureContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54708 = true;
+			boolean __temp_executeDef55912 = true;
 			switch (field.hashCode())
 			{
 				case 3023933:
 				{
 					if (field.equals("bind")) 
 					{
-						__temp_executeDef54708 = false;
+						__temp_executeDef55912 = false;
 						this.bind = ((haxor.graphics.texture.Texture) (value) );
 						return value;
 					}
@@ -1298,7 +1298,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("tid")) 
 					{
-						__temp_executeDef54708 = false;
+						__temp_executeDef55912 = false;
 						this.tid = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -1311,7 +1311,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("active")) 
 					{
-						__temp_executeDef54708 = false;
+						__temp_executeDef55912 = false;
 						this.active = ((haxe.root.Array<haxor.graphics.texture.Texture>) (value) );
 						return value;
 					}
@@ -1324,7 +1324,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ids")) 
 					{
-						__temp_executeDef54708 = false;
+						__temp_executeDef55912 = false;
 						this.ids = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -1337,7 +1337,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef54708 = false;
+						__temp_executeDef55912 = false;
 						this.target = ((haxor.graphics.texture.RenderTexture) (value) );
 						return value;
 					}
@@ -1350,7 +1350,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("framebuffers")) 
 					{
-						__temp_executeDef54708 = false;
+						__temp_executeDef55912 = false;
 						this.framebuffers = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -1363,7 +1363,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("renderbuffers")) 
 					{
-						__temp_executeDef54708 = false;
+						__temp_executeDef55912 = false;
 						this.renderbuffers = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -1374,7 +1374,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef54708) 
+			if (__temp_executeDef55912) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -1391,14 +1391,14 @@ public  class TextureContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54709 = true;
+			boolean __temp_executeDef55913 = true;
 			switch (field.hashCode())
 			{
 				case -1072941094:
 				{
 					if (field.equals("Destroy")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Destroy"))) );
 					}
 					
@@ -1410,7 +1410,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("tid")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return this.tid;
 					}
 					
@@ -1422,7 +1422,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateMipmaps")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateMipmaps"))) );
 					}
 					
@@ -1434,7 +1434,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ids")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return this.ids;
 					}
 					
@@ -1446,7 +1446,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BindTarget")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BindTarget"))) );
 					}
 					
@@ -1458,7 +1458,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("framebuffers")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return this.framebuffers;
 					}
 					
@@ -1470,7 +1470,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Activate")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Activate"))) );
 					}
 					
@@ -1482,7 +1482,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("renderbuffers")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return this.renderbuffers;
 					}
 					
@@ -1494,7 +1494,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("WriteTexture")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("WriteTexture"))) );
 					}
 					
@@ -1506,7 +1506,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return this.target;
 					}
 					
@@ -1518,7 +1518,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UploadTexture")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UploadTexture"))) );
 					}
 					
@@ -1530,7 +1530,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("active")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return this.active;
 					}
 					
@@ -1542,7 +1542,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Update")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Update"))) );
 					}
 					
@@ -1554,7 +1554,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("bind")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return this.bind;
 					}
 					
@@ -1566,7 +1566,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateParameters")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateParameters"))) );
 					}
 					
@@ -1578,7 +1578,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Initialize"))) );
 					}
 					
@@ -1590,7 +1590,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Unbind")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Unbind"))) );
 					}
 					
@@ -1602,7 +1602,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Alloc")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Alloc"))) );
 					}
 					
@@ -1614,7 +1614,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Bind")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Bind"))) );
 					}
 					
@@ -1626,7 +1626,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Create")) 
 					{
-						__temp_executeDef54709 = false;
+						__temp_executeDef55913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Create"))) );
 					}
 					
@@ -1636,7 +1636,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef54709) 
+			if (__temp_executeDef55913) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1653,14 +1653,14 @@ public  class TextureContext extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54710 = true;
+			boolean __temp_executeDef55914 = true;
 			switch (field.hashCode())
 			{
 				case 114831:
 				{
 					if (field.equals("tid")) 
 					{
-						__temp_executeDef54710 = false;
+						__temp_executeDef55914 = false;
 						return ((double) (this.tid) );
 					}
 					
@@ -1670,7 +1670,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef54710) 
+			if (__temp_executeDef55914) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1687,14 +1687,14 @@ public  class TextureContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef54711 = true;
+			boolean __temp_executeDef55915 = true;
 			switch (field.hashCode())
 			{
 				case -1072941094:
 				{
 					if (field.equals("Destroy")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.Destroy(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -1706,7 +1706,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.Initialize();
 					}
 					
@@ -1718,7 +1718,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateMipmaps")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.UpdateMipmaps(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -1730,7 +1730,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Alloc")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.Alloc(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -1742,7 +1742,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("BindTarget")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.BindTarget(((haxor.graphics.texture.RenderTexture) (dynargs.__get(0)) ));
 					}
 					
@@ -1754,7 +1754,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Create")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.Create(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -1766,7 +1766,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Activate")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						return this.Activate(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -1778,7 +1778,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Bind")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.Bind(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -1790,7 +1790,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("WriteTexture")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.WriteTexture(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.graphics.texture.Texture) (dynargs.__get(1)) ));
 					}
 					
@@ -1802,7 +1802,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Unbind")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.Unbind();
 					}
 					
@@ -1814,7 +1814,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UploadTexture")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.UploadTexture(((haxor.graphics.texture.Texture2D) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((haxe.lang.Function) (dynargs.__get(2)) ));
 					}
 					
@@ -1826,7 +1826,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateParameters")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.UpdateParameters(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -1838,7 +1838,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Update")) 
 					{
-						__temp_executeDef54711 = false;
+						__temp_executeDef55915 = false;
 						this.Update(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -1848,7 +1848,7 @@ public  class TextureContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef54711) 
+			if (__temp_executeDef55915) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

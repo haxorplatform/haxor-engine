@@ -231,51 +231,7 @@ class DepthTest
 	static public inline var Always       :Int = GL.ALWAYS;
 } 
 
-/**
- * Internal class to inform the type of data of a BaseArray without strings.
- */
-class BufferPrimitive
-{
-	/**
-	 * Unsigned Int 8 / UByte
-	 */
-	static public inline var U8 : Int = 0;
-	
-	/**
-	 * Unsigned Int 16
-	 */
-	static public inline var U16 : Int = 1;
-	
-	/**
-	 * Unsigned Int 32
-	 */
-	static public inline var U32 : Int = 2;
-	
-	/**
-	 * Int 8 / Byte
-	 */
-	static public inline var I8 : Int = 3;
-	
-	/**
-	 * Int 16
-	 */
-	static public inline var I16 : Int = 4;
-	
-	/**
-	 * Int 32
-	 */
-	static public inline var I32 : Int = 5;
-	
-	/**
-	 * Float
-	 */
-	static public inline var F32 : Int = 6;
-	
-	/**
-	 * Double
-	 */
-	static public inline var F64 : Int = 7;
-}
+
 
 /**
  * Enumeration that describes the channel format of the Bitmap/Texture.

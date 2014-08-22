@@ -111,12 +111,12 @@ class TextureContext
 	 */
 	private function Create(p_texture:Texture):Void
 	{
-		p_texture.__slot = p_texture._cid_ % GL.MAX_ACTIVE_TEXTURE;
+		p_texture.__slot = p_texture.__cid % GL.MAX_ACTIVE_TEXTURE;
 		
 		var id : TextureId = GL.CreateTexture();
 		
 		
-		ids[p_texture._cid_] = id;
+		ids[p_texture.__cid] = id;
 		
 		UpdateParameters(p_texture);
 		
@@ -131,7 +131,7 @@ class TextureContext
 			var rt : RenderTexture = cast p_texture;
 			
 			var fb_id : FrameBufferId = GL.CreateFramebuffer();
-			framebuffers[p_texture._cid_] = fb_id;
+			framebuffers[p_texture.__cid] = fb_id;
 			
 			GL.BindFramebuffer(GL.FRAMEBUFFER,fb_id);
 			
@@ -141,13 +141,13 @@ class TextureContext
 			
 			if (rt.depth != null)
 			{
-				var depth_id : TextureId = ids[rt.depth._cid_];
+				var depth_id : TextureId = ids[rt.depth.__cid];
 				GL.FramebufferTexture2D(GL.FRAMEBUFFER, GL.DEPTH_ATTACHMENT, GL.TEXTURE_2D,depth_id, 0);							
 			}
 			else
 			{
 				var rb_id : RenderBufferId = GL.CreateRenderbuffer();
-				renderbuffers[p_texture._cid_] = rb_id;
+				renderbuffers[p_texture.__cid] = rb_id;
 				GL.BindRenderbuffer(GL.RENDERBUFFER, rb_id);
 				GL.RenderbufferStorage(GL.RENDERBUFFER, GL.DEPTH_COMPONENT16, rt.width, rt.height);
 				GL.FramebufferRenderbuffer(GL.FRAMEBUFFER, GL.DEPTH_ATTACHMENT, GL.RENDERBUFFER, rb_id);
@@ -168,7 +168,7 @@ class TextureContext
 	{
 		if (p_texture == bind) return;
 		bind = p_texture;
-		var id 		: TextureId = ids[bind._cid_];		
+		var id 		: TextureId = ids[bind.__cid];		
 		var target 	: Int 		= TextureToTarget(bind);		
 		GL.BindTexture(target,id);
 	}
@@ -321,7 +321,7 @@ class TextureContext
 			if (p_texture.type == TextureType.RenderTexture)
 			{
 				var rt : RenderTexture = cast p_texture;
-				var id : TextureId = ids[rt._cid_];
+				var id : TextureId = ids[rt.__cid];
 				GL.FramebufferTexture2D(GL.FRAMEBUFFER, GL.COLOR_ATTACHMENT0,p_target,id,0);
 			}
 		}	
@@ -335,8 +335,8 @@ class TextureContext
 	private function Activate(p_texture : Texture):Int
 	{
 		var slot : Int = p_texture.__slot;
-		if (active[p_texture._cid_] == p_texture) return slot;		
-		active[p_texture._cid_] = p_texture;		
+		if (active[p_texture.__cid] == p_texture) return slot;		
+		active[p_texture.__cid] = p_texture;		
 		GL.ActiveTexture(GL.TEXTURE0 + slot);		
 		Bind(p_texture);
 		return slot;
@@ -362,11 +362,11 @@ class TextureContext
 		{
 			if (target != rt) 
 			{ 
-				var fb_id : FrameBufferId = framebuffers[rt._cid_];
+				var fb_id : FrameBufferId = framebuffers[rt.__cid];
 				GL.BindFramebuffer(GL.FRAMEBUFFER, fb_id); 				
 				if (rt.depth == null)
 				{
-					var rb_id : RenderBufferId = renderbuffers[rt._cid_];
+					var rb_id : RenderBufferId = renderbuffers[rt.__cid];
 					GL.BindRenderbuffer(GL.RENDERBUFFER, rb_id);
 				}
 				target = rt; 
@@ -391,12 +391,12 @@ class TextureContext
 	 */
 	public function Destroy(p_texture:Texture):Void
 	{
-		var tex_id : TextureId = ids[p_texture._cid_];
+		var tex_id : TextureId = ids[p_texture.__cid];
 		if (tex_id != GL.INVALID) GL.DeleteTexture(tex_id);
 		if (p_texture.type == TextureType.RenderTexture)
 		{
-			var fb_id : FrameBufferId 	= framebuffers[p_texture._cid_];
-			var rb_id : RenderBufferId	= renderbuffers[p_texture._cid_];			
+			var fb_id : FrameBufferId 	= framebuffers[p_texture.__cid];
+			var rb_id : RenderBufferId	= renderbuffers[p_texture.__cid];			
 			if (fb_id != GL.INVALID) GL.DeleteFramebuffer(fb_id);
 			if (rb_id != GL.INVALID) GL.DeleteRenderbuffer(rb_id);
 		}		

@@ -33,7 +33,7 @@ class Shader extends Resource
 	public function new(p_source:String) 
 	{
 		super();
-		_cid_ 		= EngineContext.material.sid++;
+		__cid 		= EngineContext.material.sid++;
 		
 		//Adjustments to correct malformed <vertex>/<fragment> tags
 		//Must use RegExp :)
@@ -57,7 +57,7 @@ class Shader extends Resource
 		
 		name = x.get("id");
 		
-		if ((name == null) || (name == "")) name = "Shader"+_cid_;
+		if ((name == null) || (name == "")) name = "Shader"+__cid;
 		
 		var vs : Xml = x.elementsNamed("vertex").next();
 		var fs : Xml = x.elementsNamed("fragment").next();

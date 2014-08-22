@@ -18,7 +18,7 @@ public  class Graphics extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me54494)
+	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me55697)
 	{
 		{
 		}
@@ -35,7 +35,7 @@ public  class Graphics extends haxe.lang.HxObject
 				_this.current = p_material;
 				if (( p_material != null )) 
 				{
-					int p = ((int) (haxe.lang.Runtime.toInt(_this.programs.__get(p_material._cid_))) );
+					int p = ((int) (haxe.lang.Runtime.toInt(_this.programs.__get(p_material.__cid))) );
 					_this.UpdateFlags(p_material);
 					haxor.graphics.GL.m_gl.UseProgram(p);
 				}
@@ -55,7 +55,7 @@ public  class Graphics extends haxe.lang.HxObject
 						if (u.__d) 
 						{
 							u.__d = false;
-							int loc = ((int) (haxe.lang.Runtime.toInt(((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (_this.uniforms.__get(_this.current._cid_)) )) ).__get(u.__cid))) );
+							int loc = ((int) (haxe.lang.Runtime.toInt(((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (_this.uniforms.__get(_this.current.__cid)) )) ).__get(u.__cid))) );
 							if (( loc == haxor.graphics.GL.INVALID )) 
 							{
 								continue;
@@ -229,7 +229,7 @@ public  class Graphics extends haxe.lang.HxObject
 								haxor.graphics.GL.m_gl.EnableVertexAttrib(loc1);
 							}
 							
-							haxor.graphics.GL.m_gl.BindBuffer(34962, ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a._cid_))) ));
+							haxor.graphics.GL.m_gl.BindBuffer(34962, ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a.__cid))) ));
 							haxor.graphics.GL.m_gl.VertexAttribPointer(loc1, a.offset, type, false, 0, 0);
 						}
 						
@@ -243,7 +243,7 @@ public  class Graphics extends haxe.lang.HxObject
 					if (_this1.current.m_indexed) 
 					{
 						a = _this1.current.m_topology_attrib;
-						haxor.graphics.GL.m_gl.BindBuffer(34963, ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a._cid_))) ));
+						haxor.graphics.GL.m_gl.BindBuffer(34963, ((int) (haxe.lang.Runtime.toInt(_this1.buffers.__get(a.__cid))) ));
 					}
 					
 					haxor.graphics.GL.m_gl.Assert("Mesh Bind");

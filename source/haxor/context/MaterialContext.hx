@@ -239,8 +239,8 @@ class MaterialContext
 	 */
 	private function InitializeMaterial(m:Material):Void
 	{
-		programs[m._cid_] = GL.CreateProgram();
-		Console.Log("Material> id["+programs[m._cid_]+"]",4);
+		programs[m.__cid] = GL.CreateProgram();
+		Console.Log("Material> id["+programs[m.__cid]+"]",4);
 	}
 	
 	/**
@@ -273,10 +273,10 @@ class MaterialContext
 	 */
 	private function CreateUniform(m:Material, u:MaterialUniform):Void
 	{
-		var p 	: ProgramId 		= programs[m._cid_];				
+		var p 	: ProgramId 		= programs[m.__cid];				
 		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
 		Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");
-		uniforms[m._cid_][u.__cid] 	= loc;
+		uniforms[m.__cid][u.__cid] 	= loc;
 		u.__d = true;
 	}
 	
@@ -287,9 +287,9 @@ class MaterialContext
 	 */
 	private function DestroyUniform(m:Material, u:MaterialUniform)
 	{
-		var p 	: ProgramId 		= programs[m._cid_];		
+		var p 	: ProgramId 		= programs[m.__cid];		
 		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
-		uniforms[m._cid_][u.__cid] 	= GL.INVALID;
+		uniforms[m.__cid][u.__cid] 	= GL.INVALID;
 	}
 	
 	/**
@@ -303,7 +303,7 @@ class MaterialContext
 	{
 		var id : ShaderId = GL.CreateShader(t);
 		var ss:String = t == GL.VERTEX_SHADER ? s.m_vss : s.m_fss;
-		c[s._cid_] = id;		
+		c[s.__cid] = id;		
 		GL.ShaderSource(id, ss);		
 		GL.CompileShader(id);			
 		if (GL.GetShaderParameter(id, GL.COMPILE_STATUS)==0)
@@ -320,14 +320,14 @@ class MaterialContext
 	 */
 	private function UpdateShader(m:Material,s0 : Shader,s1 : Shader):Void
 	{
-		var p : ProgramId 			= programs[m._cid_];
+		var p : ProgramId 			= programs[m.__cid];
 		var vs_id : ShaderId;
 		var fs_id : ShaderId;
 		
 		if (s0 != null)
 		{
-			vs_id = vertex_shaders[s0._cid_];
-			fs_id = fragment_shaders[s0._cid_];
+			vs_id = vertex_shaders[s0.__cid];
+			fs_id = fragment_shaders[s0.__cid];
 			GL.DetachShader(p, vs_id);
 			GL.DetachShader(p, fs_id);
 		}
@@ -336,8 +336,8 @@ class MaterialContext
 		
 		if (s1 != null)
 		{
-			vs_id = vertex_shaders[s1._cid_];
-			fs_id = fragment_shaders[s1._cid_];
+			vs_id = vertex_shaders[s1.__cid];
+			fs_id = fragment_shaders[s1.__cid];
 			GL.AttachShader(p, vs_id);
 			GL.AttachShader(p, fs_id);
 			
@@ -355,7 +355,7 @@ class MaterialContext
 			for (i in 0...ul.length) CreateUniform(m, ul[i]);
 			
 			//Clear all attribs cache.
-			for (i in 0...locations[m._cid_].length) locations[m._cid_][i] = -1;
+			for (i in 0...locations[m.__cid].length) locations[m.__cid][i] = -1;
 		}
 		
 	}
@@ -377,12 +377,12 @@ class MaterialContext
 	private function GetAttribLocation(a : MeshAttrib):Int
 	{
 		if (current == null) return -1;		
-		var p : ProgramId 	= programs[current._cid_];
-		var loc : Int 		= locations[current._cid_][a._cid_];
+		var p : ProgramId 	= programs[current.__cid];
+		var loc : Int 		= locations[current.__cid][a.__cid];
 		if (loc == -1)
 		{
 			loc = GL.GetAttribLocation(p, a.name);
-			if (loc < 0) locations[current._cid_][a._cid_] = -2;
+			if (loc < 0) locations[current.__cid][a.__cid] = -2;
 		}
 		return loc;
 	}
@@ -399,7 +399,7 @@ class MaterialContext
 			current = m; 			
 			if (m != null)
 			{
-				var p : ProgramId = programs[m._cid_];
+				var p : ProgramId = programs[m.__cid];
 				UpdateFlags(m);								
 				GL.UseProgram(p);
 			}
@@ -414,7 +414,7 @@ class MaterialContext
 				if (u.__d)
 				{
 					u.__d = false;					
-					var loc:UniformLocation = uniforms[current._cid_][u.__cid];
+					var loc:UniformLocation = uniforms[current.__cid][u.__cid];
 					if (loc == GL.INVALID) continue;					
 					if (u.isFloat) ApplyFloatUniform(loc, u); else ApplyIntUniform(loc, u);
 				}				
@@ -476,11 +476,11 @@ class MaterialContext
 	 */
 	private inline function DestroyMaterial(m : Material):Void
 	{
-		var p : ProgramId = programs[m._cid_];
+		var p : ProgramId = programs[m.__cid];
 		if (m.shader != null)
 		{	
-			GL.DetachShader(p, vertex_shaders[m.shader._cid_]);
-			GL.DetachShader(p, fragment_shaders[m.shader._cid_]);			
+			GL.DetachShader(p, vertex_shaders[m.shader.__cid]);
+			GL.DetachShader(p, fragment_shaders[m.shader.__cid]);			
 		}
 		GL.DeleteProgram(p);
 	}
@@ -491,7 +491,7 @@ class MaterialContext
 	 */
 	private inline function DestroyShader(s : Shader):Void
 	{
-		GL.DeleteShader(vertex_shaders[s._cid_]);
-		GL.DeleteShader(fragment_shaders[s._cid_]);
+		GL.DeleteShader(vertex_shaders[s.__cid]);
+		GL.DeleteShader(fragment_shaders[s.__cid]);
 	}
 }

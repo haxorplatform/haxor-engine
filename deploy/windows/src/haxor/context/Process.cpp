@@ -77,7 +77,7 @@ Void Process_obj::Add( ::haxor::core::Resource p_item){
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
 		HX_STACK_LINE(46)
-		int iid = p_item->m_pid->__get(this->_cid_);		HX_STACK_VAR(iid,"iid");
+		int iid = p_item->m_pid->__get(this->__cid);		HX_STACK_VAR(iid,"iid");
 		HX_STACK_LINE(47)
 		if (((iid >= (int)0))){
 			HX_STACK_LINE(47)
@@ -86,7 +86,7 @@ Void Process_obj::Add( ::haxor::core::Resource p_item){
 		HX_STACK_LINE(48)
 		hx::IndexRef((this->list).mPtr,this->m_length) = p_item;
 		HX_STACK_LINE(49)
-		p_item->m_pid[this->_cid_] = (this->m_length)++;
+		p_item->m_pid[this->__cid] = (this->m_length)++;
 	}
 return null();
 }
@@ -97,14 +97,14 @@ return null();
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_item,"p_item")
 	HX_STACK_LINE(58)
-	int iid = p_item->m_pid->__get(this->_cid_);		HX_STACK_VAR(iid,"iid");
+	int iid = p_item->m_pid->__get(this->__cid);		HX_STACK_VAR(iid,"iid");
 	HX_STACK_LINE(59)
 	if (((iid < (int)0))){
 		HX_STACK_LINE(59)
 		return p_item;
 	}
 	HX_STACK_LINE(60)
-	p_item->m_pid[this->_cid_] = (int)-1;
+	p_item->m_pid[this->__cid] = (int)-1;
 	HX_STACK_LINE(61)
 	(this->m_length)--;
 	HX_STACK_LINE(62)
@@ -117,7 +117,7 @@ return null();
 	HX_STACK_LINE(64)
 	p_item = this->list->__GetItem(iid);
 	HX_STACK_LINE(65)
-	p_item->m_pid[this->_cid_] = iid;
+	p_item->m_pid[this->__cid] = iid;
 	HX_STACK_LINE(66)
 	return p_item;
 }

@@ -62,7 +62,7 @@ HX_STACK_ARG(p_name,"p_name")
 	HX_STACK_LINE(117)
 	int _g = (::haxor::context::EngineContext_obj::material->mid)++;		HX_STACK_VAR(_g,"_g");
 	HX_STACK_LINE(117)
-	this->_cid_ = _g;
+	this->__cid = _g;
 	HX_STACK_LINE(118)
 	this->m_uniforms = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(119)
@@ -773,13 +773,13 @@ Void Material_obj::OnDestroy( ){
 		HX_STACK_LINE(403)
 		::haxor::context::MaterialContext _this = ::haxor::context::EngineContext_obj::material;		HX_STACK_VAR(_this,"_this");
 		HX_STACK_LINE(403)
-		int p = _this->programs->__get(this->_cid_);		HX_STACK_VAR(p,"p");
+		int p = _this->programs->__get(this->__cid);		HX_STACK_VAR(p,"p");
 		HX_STACK_LINE(403)
 		if (((this->m_shader != null()))){
 			HX_STACK_LINE(403)
-			::haxor::graphics::GL_obj::m_gl->DetachShader(p,_this->vertex_shaders->__get(this->m_shader->_cid_));
+			::haxor::graphics::GL_obj::m_gl->DetachShader(p,_this->vertex_shaders->__get(this->m_shader->__cid));
 			HX_STACK_LINE(403)
-			::haxor::graphics::GL_obj::m_gl->DetachShader(p,_this->fragment_shaders->__get(this->m_shader->_cid_));
+			::haxor::graphics::GL_obj::m_gl->DetachShader(p,_this->fragment_shaders->__get(this->m_shader->__cid));
 		}
 		HX_STACK_LINE(403)
 		::haxor::graphics::GL_obj::m_gl->DeleteProgram(p);

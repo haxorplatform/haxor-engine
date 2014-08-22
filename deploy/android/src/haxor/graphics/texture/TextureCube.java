@@ -17,12 +17,12 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_texture_TextureCube(haxor.graphics.texture.TextureCube __temp_me54511)
+	public static   void __hx_ctor_haxor_graphics_texture_TextureCube(haxor.graphics.texture.TextureCube __temp_me55714)
 	{
-		__temp_me54511.m_faces = new haxe.root.Array<haxor.graphics.texture.Texture>(new haxor.graphics.texture.Texture[]{null, null, null, null, null, null});
-		__temp_me54511.m_is_cross = false;
-		haxor.graphics.texture.Texture.__hx_ctor_haxor_graphics_texture_Texture(__temp_me54511);
-		haxor.context.EngineContext.texture.Create(__temp_me54511);
+		__temp_me55714.m_faces = new haxe.root.Array<haxor.graphics.texture.Texture>(new haxor.graphics.texture.Texture[]{null, null, null, null, null, null});
+		__temp_me55714.m_is_cross = false;
+		haxor.graphics.texture.Texture.__hx_ctor_haxor_graphics_texture_Texture(__temp_me55714);
+		haxor.context.EngineContext.texture.Create(__temp_me55714);
 	}
 	
 	
@@ -205,14 +205,14 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54765 = true;
+			boolean __temp_executeDef55969 = true;
 			switch (field.hashCode())
 			{
 				case 255286397:
 				{
 					if (field.equals("m_is_cross")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.m_is_cross = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -225,7 +225,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("px")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.set_px(((haxor.graphics.texture.Texture) (value) ));
 						return value;
 					}
@@ -238,7 +238,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("m_faces")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.m_faces = ((haxe.root.Array<haxor.graphics.texture.Texture>) (value) );
 						return value;
 					}
@@ -251,7 +251,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_px")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.p_px = ((haxor.graphics.texture.Texture) (value) );
 						return value;
 					}
@@ -264,7 +264,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_nz")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.p_nz = ((haxor.graphics.texture.Texture) (value) );
 						return value;
 					}
@@ -277,7 +277,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("nx")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.set_nx(((haxor.graphics.texture.Texture) (value) ));
 						return value;
 					}
@@ -290,7 +290,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("nz")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.set_nz(((haxor.graphics.texture.Texture) (value) ));
 						return value;
 					}
@@ -303,7 +303,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_nx")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.p_nx = ((haxor.graphics.texture.Texture) (value) );
 						return value;
 					}
@@ -316,7 +316,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_pz")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.p_pz = ((haxor.graphics.texture.Texture) (value) );
 						return value;
 					}
@@ -329,7 +329,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("py")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.set_py(((haxor.graphics.texture.Texture) (value) ));
 						return value;
 					}
@@ -342,7 +342,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("pz")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.set_pz(((haxor.graphics.texture.Texture) (value) ));
 						return value;
 					}
@@ -355,7 +355,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_py")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.p_py = ((haxor.graphics.texture.Texture) (value) );
 						return value;
 					}
@@ -368,7 +368,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_ny")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.p_ny = ((haxor.graphics.texture.Texture) (value) );
 						return value;
 					}
@@ -381,7 +381,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("ny")) 
 					{
-						__temp_executeDef54765 = false;
+						__temp_executeDef55969 = false;
 						this.set_ny(((haxor.graphics.texture.Texture) (value) ));
 						return value;
 					}
@@ -392,7 +392,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				
 			}
 			
-			if (__temp_executeDef54765) 
+			if (__temp_executeDef55969) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -409,14 +409,14 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54766 = true;
+			boolean __temp_executeDef55970 = true;
 			switch (field.hashCode())
 			{
 				case 2043460517:
 				{
 					if (field.equals("InvalidateCross")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("InvalidateCross"))) );
 					}
 					
@@ -428,7 +428,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("px")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.get_px();
 					}
 					
@@ -440,7 +440,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -452,7 +452,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_px")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_px"))) );
 					}
 					
@@ -464,7 +464,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("m_is_cross")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.m_is_cross;
 					}
 					
@@ -476,7 +476,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_px")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_px"))) );
 					}
 					
@@ -488,7 +488,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("m_faces")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.m_faces;
 					}
 					
@@ -500,7 +500,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_px")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.p_px;
 					}
 					
@@ -512,7 +512,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_nz")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.p_nz;
 					}
 					
@@ -524,7 +524,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("nx")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.get_nx();
 					}
 					
@@ -536,7 +536,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_nz")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_nz"))) );
 					}
 					
@@ -548,7 +548,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_nx")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_nx"))) );
 					}
 					
@@ -560,7 +560,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_nz")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_nz"))) );
 					}
 					
@@ -572,7 +572,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_nx")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_nx"))) );
 					}
 					
@@ -584,7 +584,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("nz")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.get_nz();
 					}
 					
@@ -596,7 +596,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_nx")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.p_nx;
 					}
 					
@@ -608,7 +608,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_pz")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.p_pz;
 					}
 					
@@ -620,7 +620,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("py")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.get_py();
 					}
 					
@@ -632,7 +632,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_pz")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_pz"))) );
 					}
 					
@@ -644,7 +644,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_py")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_py"))) );
 					}
 					
@@ -656,7 +656,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_pz")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_pz"))) );
 					}
 					
@@ -668,7 +668,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_py")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_py"))) );
 					}
 					
@@ -680,7 +680,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("pz")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.get_pz();
 					}
 					
@@ -692,7 +692,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_py")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.p_py;
 					}
 					
@@ -704,7 +704,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("p_ny")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.p_ny;
 					}
 					
@@ -716,7 +716,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("ny")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return this.get_ny();
 					}
 					
@@ -728,7 +728,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_ny")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_ny"))) );
 					}
 					
@@ -740,7 +740,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_ny")) 
 					{
-						__temp_executeDef54766 = false;
+						__temp_executeDef55970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_ny"))) );
 					}
 					
@@ -750,7 +750,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				
 			}
 			
-			if (__temp_executeDef54766) 
+			if (__temp_executeDef55970) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -767,14 +767,14 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef54767 = true;
+			boolean __temp_executeDef55971 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -786,7 +786,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_px")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.get_px();
 					}
 					
@@ -798,7 +798,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("InvalidateCross")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						this.InvalidateCross();
 					}
 					
@@ -810,7 +810,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_px")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.set_px(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -822,7 +822,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_nz")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.set_nz(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -834,7 +834,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_nx")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.get_nx();
 					}
 					
@@ -846,7 +846,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_nz")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.get_nz();
 					}
 					
@@ -858,7 +858,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_nx")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.set_nx(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -870,7 +870,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_pz")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.set_pz(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -882,7 +882,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_py")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.get_py();
 					}
 					
@@ -894,7 +894,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_pz")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.get_pz();
 					}
 					
@@ -906,7 +906,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_py")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.set_py(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -918,7 +918,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("set_ny")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.set_ny(((haxor.graphics.texture.Texture) (dynargs.__get(0)) ));
 					}
 					
@@ -930,7 +930,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_ny")) 
 					{
-						__temp_executeDef54767 = false;
+						__temp_executeDef55971 = false;
 						return this.get_ny();
 					}
 					
@@ -940,7 +940,7 @@ public  class TextureCube extends haxor.graphics.texture.Texture
 				
 			}
 			
-			if (__temp_executeDef54767) 
+			if (__temp_executeDef55971) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

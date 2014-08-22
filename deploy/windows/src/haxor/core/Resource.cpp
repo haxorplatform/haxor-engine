@@ -53,7 +53,7 @@ HX_STACK_ARG(__o_p_name,"p_name")
 	HX_STACK_LINE(90)
 	this->m_destroyed = false;
 	HX_STACK_LINE(91)
-	this->_cid_ = (int)0;
+	this->__cid = (int)0;
 	HX_STACK_LINE(92)
 	this->m_pid = Array_obj< int >::__new().Add((int)-1).Add((int)-1).Add((int)-1).Add((int)-1).Add((int)-1).Add((int)-1);
 	HX_STACK_LINE(93)
@@ -231,7 +231,7 @@ void Resource_obj::__Mark(HX_MARK_PARAMS)
 	HX_MARK_MEMBER_NAME(m_name,"m_name");
 	HX_MARK_MEMBER_NAME(destroyed,"destroyed");
 	HX_MARK_MEMBER_NAME(m_destroyed,"m_destroyed");
-	HX_MARK_MEMBER_NAME(_cid_,"_cid_");
+	HX_MARK_MEMBER_NAME(__cid,"__cid");
 	HX_MARK_MEMBER_NAME(m_pid,"m_pid");
 	HX_MARK_MEMBER_NAME(m_type_name,"m_type_name");
 	HX_MARK_MEMBER_NAME(m_type_full_name,"m_type_full_name");
@@ -248,7 +248,7 @@ void Resource_obj::__Visit(HX_VISIT_PARAMS)
 	HX_VISIT_MEMBER_NAME(m_name,"m_name");
 	HX_VISIT_MEMBER_NAME(destroyed,"destroyed");
 	HX_VISIT_MEMBER_NAME(m_destroyed,"m_destroyed");
-	HX_VISIT_MEMBER_NAME(_cid_,"_cid_");
+	HX_VISIT_MEMBER_NAME(__cid,"__cid");
 	HX_VISIT_MEMBER_NAME(m_pid,"m_pid");
 	HX_VISIT_MEMBER_NAME(m_type_name,"m_type_name");
 	HX_VISIT_MEMBER_NAME(m_type_full_name,"m_type_full_name");
@@ -267,7 +267,7 @@ Dynamic Resource_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"m_uid") ) { return m_uid; }
-		if (HX_FIELD_EQ(inName,"_cid_") ) { return _cid_; }
+		if (HX_FIELD_EQ(inName,"__cid") ) { return __cid; }
 		if (HX_FIELD_EQ(inName,"m_pid") ) { return m_pid; }
 		break;
 	case 6:
@@ -322,7 +322,7 @@ Dynamic Resource_obj::__SetField(const ::String &inName,const Dynamic &inValue,b
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"m_uid") ) { m_uid=inValue.Cast< int >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"_cid_") ) { _cid_=inValue.Cast< int >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"__cid") ) { __cid=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_pid") ) { m_pid=inValue.Cast< Array< int > >(); return inValue; }
 		break;
 	case 6:
@@ -357,7 +357,7 @@ void Resource_obj::__GetFields(Array< ::String> &outFields)
 	outFields->push(HX_CSTRING("m_name"));
 	outFields->push(HX_CSTRING("destroyed"));
 	outFields->push(HX_CSTRING("m_destroyed"));
-	outFields->push(HX_CSTRING("_cid_"));
+	outFields->push(HX_CSTRING("__cid"));
 	outFields->push(HX_CSTRING("m_pid"));
 	outFields->push(HX_CSTRING("m_type_name"));
 	outFields->push(HX_CSTRING("m_type_full_name"));
@@ -378,7 +378,7 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 	{hx::fsString,(int)offsetof(Resource_obj,m_name),HX_CSTRING("m_name")},
 	{hx::fsBool,(int)offsetof(Resource_obj,destroyed),HX_CSTRING("destroyed")},
 	{hx::fsBool,(int)offsetof(Resource_obj,m_destroyed),HX_CSTRING("m_destroyed")},
-	{hx::fsInt,(int)offsetof(Resource_obj,_cid_),HX_CSTRING("_cid_")},
+	{hx::fsInt,(int)offsetof(Resource_obj,__cid),HX_CSTRING("__cid")},
 	{hx::fsObject /*Array< int >*/ ,(int)offsetof(Resource_obj,m_pid),HX_CSTRING("m_pid")},
 	{hx::fsString,(int)offsetof(Resource_obj,m_type_name),HX_CSTRING("m_type_name")},
 	{hx::fsString,(int)offsetof(Resource_obj,m_type_full_name),HX_CSTRING("m_type_full_name")},
@@ -400,7 +400,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("destroyed"),
 	HX_CSTRING("get_destroyed"),
 	HX_CSTRING("m_destroyed"),
-	HX_CSTRING("_cid_"),
+	HX_CSTRING("__cid"),
 	HX_CSTRING("m_pid"),
 	HX_CSTRING("m_type_name"),
 	HX_CSTRING("m_type_full_name"),

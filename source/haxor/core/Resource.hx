@@ -51,7 +51,7 @@ class Resource implements IDisposable
 	/**
 	 * Class related id.
 	 */
-	private var _cid_ : Int;
+	private var __cid : Int;
 	
 	/**
 	 * Array of process ids.
@@ -88,7 +88,7 @@ class Resource implements IDisposable
 	{	
 		m_uid  		= EngineContext.uid++;
 		m_destroyed = false;
-		_cid_  		= 0;
+		__cid  		= 0;
 		m_pid  		= [ -1, -1, -1, -1, -1, -1];
 		m_name 		= p_name;
 		

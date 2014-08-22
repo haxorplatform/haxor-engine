@@ -17,20 +17,20 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_texture_RenderTexture(haxor.graphics.texture.RenderTexture __temp_me54507, int p_width, int p_height, haxor.graphics.PixelFormat p_format, java.lang.Object p_store_depth)
+	public static   void __hx_ctor_haxor_graphics_texture_RenderTexture(haxor.graphics.texture.RenderTexture __temp_me55710, int p_width, int p_height, haxor.graphics.PixelFormat p_format, java.lang.Object p_store_depth)
 	{
-		haxor.graphics.texture.Texture.__hx_ctor_haxor_graphics_texture_Texture(__temp_me54507);
-		boolean __temp_p_store_depth54506 = ( (( p_store_depth == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_store_depth)) );
-		__temp_me54507.m_format = p_format;
-		__temp_me54507.m_width = ((int) (p_width) );
-		__temp_me54507.m_height = ((int) (p_height) );
-		boolean store_depth = ( __temp_p_store_depth54506 && haxor.graphics.GL.TEXTURE_DEPTH_ENABLED );
+		haxor.graphics.texture.Texture.__hx_ctor_haxor_graphics_texture_Texture(__temp_me55710);
+		boolean __temp_p_store_depth55709 = ( (( p_store_depth == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_store_depth)) );
+		__temp_me55710.m_format = p_format;
+		__temp_me55710.m_width = ((int) (p_width) );
+		__temp_me55710.m_height = ((int) (p_height) );
+		boolean store_depth = ( __temp_p_store_depth55709 && haxor.graphics.GL.TEXTURE_DEPTH_ENABLED );
 		if (store_depth) 
 		{
-			__temp_me54507.m_depth = new haxor.graphics.texture.Texture2D(((int) (__temp_me54507.m_width) ), ((int) (__temp_me54507.m_height) ), ((haxor.graphics.PixelFormat) (haxor.graphics.PixelFormat.Depth) ));
+			__temp_me55710.m_depth = new haxor.graphics.texture.Texture2D(((int) (__temp_me55710.m_width) ), ((int) (__temp_me55710.m_height) ), ((haxor.graphics.PixelFormat) (haxor.graphics.PixelFormat.Depth) ));
 		}
 		
-		haxor.context.EngineContext.texture.Create(__temp_me54507);
+		haxor.context.EngineContext.texture.Create(__temp_me55710);
 	}
 	
 	
@@ -65,14 +65,14 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54759 = true;
+			boolean __temp_executeDef55963 = true;
 			switch (field.hashCode())
 			{
 				case 768895089:
 				{
 					if (field.equals("m_depth")) 
 					{
-						__temp_executeDef54759 = false;
+						__temp_executeDef55963 = false;
 						this.m_depth = ((haxor.graphics.texture.Texture2D) (value) );
 						return value;
 					}
@@ -83,7 +83,7 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 				
 			}
 			
-			if (__temp_executeDef54759) 
+			if (__temp_executeDef55963) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -100,14 +100,14 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54760 = true;
+			boolean __temp_executeDef55964 = true;
 			switch (field.hashCode())
 			{
 				case 1976688259:
 				{
 					if (field.equals("get_type")) 
 					{
-						__temp_executeDef54760 = false;
+						__temp_executeDef55964 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_type"))) );
 					}
 					
@@ -119,7 +119,7 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("depth")) 
 					{
-						__temp_executeDef54760 = false;
+						__temp_executeDef55964 = false;
 						return this.get_depth();
 					}
 					
@@ -131,7 +131,7 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("m_depth")) 
 					{
-						__temp_executeDef54760 = false;
+						__temp_executeDef55964 = false;
 						return this.m_depth;
 					}
 					
@@ -143,7 +143,7 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_depth")) 
 					{
-						__temp_executeDef54760 = false;
+						__temp_executeDef55964 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_depth"))) );
 					}
 					
@@ -153,7 +153,7 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 				
 			}
 			
-			if (__temp_executeDef54760) 
+			if (__temp_executeDef55964) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -170,14 +170,14 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef54761 = true;
+			boolean __temp_executeDef55965 = true;
 			switch (field.hashCode())
 			{
 				case 1976688259:
 				{
 					if (field.equals("get_type")) 
 					{
-						__temp_executeDef54761 = false;
+						__temp_executeDef55965 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -189,7 +189,7 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_depth")) 
 					{
-						__temp_executeDef54761 = false;
+						__temp_executeDef55965 = false;
 						return this.get_depth();
 					}
 					
@@ -199,7 +199,7 @@ public  class RenderTexture extends haxor.graphics.texture.Texture
 				
 			}
 			
-			if (__temp_executeDef54761) 
+			if (__temp_executeDef55965) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

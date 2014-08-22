@@ -63,7 +63,7 @@ class HXCPP_CLASS_ATTRIBUTES  Resource_obj : public hx::Object{
 		Dynamic get_destroyed_dyn();
 
 		bool m_destroyed;
-		int _cid_;
+		int __cid;
 		Array< int > m_pid;
 		::String m_type_name;
 		::String m_type_full_name;

@@ -97,7 +97,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 				HX_STACK_LINE(21)
 				if (((p_material != null()))){
 					HX_STACK_LINE(21)
-					int p = _this->programs->__get(p_material->_cid_);		HX_STACK_VAR(p,"p");
+					int p = _this->programs->__get(p_material->__cid);		HX_STACK_VAR(p,"p");
 					HX_STACK_LINE(21)
 					_this->UpdateFlags(p_material);
 					HX_STACK_LINE(21)
@@ -130,7 +130,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 							HX_STACK_LINE(21)
 							u->__d = false;
 							HX_STACK_LINE(21)
-							int loc = _this->uniforms->__get(_this->current->_cid_).StaticCast< Array< int > >()->__get(u->__cid);		HX_STACK_VAR(loc,"loc");
+							int loc = _this->uniforms->__get(_this->current->__cid).StaticCast< Array< int > >()->__get(u->__cid);		HX_STACK_VAR(loc,"loc");
 							HX_STACK_LINE(21)
 							if (((loc == ::haxor::graphics::GL_obj::INVALID))){
 								HX_STACK_LINE(21)
@@ -326,7 +326,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 								::haxor::graphics::GL_obj::m_gl->EnableVertexAttrib(loc);
 							}
 							HX_STACK_LINE(22)
-							::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34962,_this->buffers->__get(a->_cid_));
+							::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34962,_this->buffers->__get(a->__cid));
 							HX_STACK_LINE(22)
 							::haxor::graphics::GL_obj::m_gl->VertexAttribPointer(loc,a->offset,type,false,(int)0,(int)0);
 						}
@@ -341,7 +341,7 @@ Void Graphics_obj::RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::gra
 						HX_STACK_LINE(22)
 						a = _this->current->m_topology_attrib;
 						HX_STACK_LINE(22)
-						::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34963,_this->buffers->__get(a->_cid_));
+						::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34963,_this->buffers->__get(a->__cid));
 					}
 					HX_STACK_LINE(22)
 					Dynamic();

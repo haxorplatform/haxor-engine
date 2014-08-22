@@ -41,7 +41,7 @@ HX_STACK_THIS(this)
 	HX_STACK_LINE(98)
 	int _g = (::haxor::context::EngineContext_obj::mesh->mid)++;		HX_STACK_VAR(_g,"_g");
 	HX_STACK_LINE(98)
-	this->_cid_ = _g;
+	this->__cid = _g;
 	HX_STACK_LINE(99)
 	this->m_attribs = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(100)

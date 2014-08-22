@@ -21,20 +21,15 @@ import haxor.graphics.texture.Texture2D;
 import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.math.Color;
+import haxor.math.Vector2;
+import haxor.math.Vector3;
+import haxor.math.Vector4;
 import haxor.net.Web;
 import haxor.graphics.GL;
 import haxor.graphics.GraphicContext.GraphicAPI;
 import haxor.platform.Types.MeshBufferId;
 import haxor.thread.Activity;
 
-#if android
-import haxor.platform.android.Web.BitmapLoader;
-import haxor.platform.android.Web.HTTPRequest;
-#end
-
-#if windows
-import haxor.platform.windows.Web.HTTPRequest;
-#end
 
 /**
  * ...
@@ -67,18 +62,10 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		Web.Load("./character/medieval/animations/all_idle01.DAE", function(s:String, p:Float):Void
 		{
-			Console.Log("progress> " + p);
-			if (p >= 1.0)
-			{
-				if (s != null)
-				{
-					Console.Log(s.substr(0, 100));
-				}
-			}
 		});
 		
 		
-		Web.LoadImg("./projects/dungeon/big/DungeonAtlas03.png", function(b:Bitmap, p:Float):Void
+		Web.LoadImg("./projects/dungeon/big/DungeonAtlas01.jpg", function(b:Bitmap, p:Float):Void
 		{
 			Console.Log("p> " + p);
 			if (p >= 1.0)
@@ -226,6 +213,12 @@ class Main extends Application implements IUpdateable implements IRenderable
 		//*/
 		//tex.Apply();
 		
+		var c  : Color;
+		var v2 : Vector2;
+		var v3 : Vector3;
+		var v4 : Vector4;
+		
+		
 		
 		//var rtt : RenderTexture = new RenderTexture(128, 128, PixelFormat.RGBA8);
 		
@@ -255,7 +248,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 	public function OnRender():Void
 	{
 				
-		GL.Viewport(0, 0,cast Screen.width,cast Screen.height);
+		GL.Viewport(0, 0, cast Screen.width, cast Screen.height);
+		GL.Scissor(0, 0, cast Screen.width / 2,cast Screen.height);
 		GL.ClearColor(0.7, 0.3, 1.0, 1.0);
 		GL.ClearDepth(1.0);
 		GL.Clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);

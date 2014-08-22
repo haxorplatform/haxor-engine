@@ -17,19 +17,19 @@ public  class Task extends haxor.thread.Activity
 	}
 	
 	
-	public static   void __hx_ctor_haxor_thread_Task(haxor.thread.Task __temp_me54548, java.lang.Object p_threaded, haxe.lang.Function p_callback)
+	public static   void __hx_ctor_haxor_thread_Task(haxor.thread.Task __temp_me55750, java.lang.Object p_threaded, haxe.lang.Function p_callback)
 	{
-		boolean __temp_p_threaded54547 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
+		boolean __temp_p_threaded55749 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
 		haxe.lang.Function cb = p_callback;
 		if (( cb == null )) 
 		{
-			cb = ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (__temp_me54548) ), haxe.lang.Runtime.toString("OnExecute"))) );
+			cb = ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (__temp_me55750) ), haxe.lang.Runtime.toString("OnExecute"))) );
 		}
 		
-		haxor.thread.Activity.__hx_ctor_haxor_thread_Activity(__temp_me54548, cb, __temp_p_threaded54547, null);
-		__temp_me54548.m_active = false;
-		__temp_me54548.m_progress = 0.0;
-		__temp_me54548.m_has_progress = false;
+		haxor.thread.Activity.__hx_ctor_haxor_thread_Activity(__temp_me55750, cb, __temp_p_threaded55749, null);
+		__temp_me55750.m_active = false;
+		__temp_me55750.m_progress = 0.0;
+		__temp_me55750.m_has_progress = false;
 	}
 	
 	
@@ -139,14 +139,14 @@ public  class Task extends haxor.thread.Activity
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54811 = true;
+			boolean __temp_executeDef56009 = true;
 			switch (field.hashCode())
 			{
 				case -855695937:
 				{
 					if (field.equals("m_progress")) 
 					{
-						__temp_executeDef54811 = false;
+						__temp_executeDef56009 = false;
 						this.m_progress = ((double) (value) );
 						return value;
 					}
@@ -159,7 +159,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("progress")) 
 					{
-						__temp_executeDef54811 = false;
+						__temp_executeDef56009 = false;
 						this.set_progress(value);
 						return value;
 					}
@@ -170,7 +170,7 @@ public  class Task extends haxor.thread.Activity
 				
 			}
 			
-			if (__temp_executeDef54811) 
+			if (__temp_executeDef56009) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -187,14 +187,14 @@ public  class Task extends haxor.thread.Activity
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54812 = true;
+			boolean __temp_executeDef56010 = true;
 			switch (field.hashCode())
 			{
 				case -2021681384:
 				{
 					if (field.equals("m_active")) 
 					{
-						__temp_executeDef54812 = false;
+						__temp_executeDef56010 = false;
 						this.m_active = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -207,7 +207,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("progress")) 
 					{
-						__temp_executeDef54812 = false;
+						__temp_executeDef56010 = false;
 						this.set_progress(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -220,7 +220,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("active")) 
 					{
-						__temp_executeDef54812 = false;
+						__temp_executeDef56010 = false;
 						this.active = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -233,7 +233,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("m_progress")) 
 					{
-						__temp_executeDef54812 = false;
+						__temp_executeDef56010 = false;
 						this.m_progress = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -246,7 +246,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("m_has_progress")) 
 					{
-						__temp_executeDef54812 = false;
+						__temp_executeDef56010 = false;
 						this.m_has_progress = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -257,7 +257,7 @@ public  class Task extends haxor.thread.Activity
 				
 			}
 			
-			if (__temp_executeDef54812) 
+			if (__temp_executeDef56010) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -274,14 +274,14 @@ public  class Task extends haxor.thread.Activity
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54813 = true;
+			boolean __temp_executeDef56011 = true;
 			switch (field.hashCode())
 			{
 				case 2020677750:
 				{
 					if (field.equals("OnExecute")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnExecute"))) );
 					}
 					
@@ -293,7 +293,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("progress")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return this.get_progress();
 					}
 					
@@ -305,7 +305,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("OnProgress")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnProgress"))) );
 					}
 					
@@ -317,7 +317,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("get_progress")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_progress"))) );
 					}
 					
@@ -329,7 +329,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("OnComplete")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnComplete"))) );
 					}
 					
@@ -341,7 +341,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("set_progress")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_progress"))) );
 					}
 					
@@ -353,7 +353,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("OnStep")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStep"))) );
 					}
 					
@@ -365,7 +365,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("m_progress")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return this.m_progress;
 					}
 					
@@ -377,7 +377,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStart"))) );
 					}
 					
@@ -389,7 +389,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("m_has_progress")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return this.m_has_progress;
 					}
 					
@@ -401,7 +401,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("m_active")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return this.m_active;
 					}
 					
@@ -413,7 +413,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("active")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						if (handleProperties) 
 						{
 							return this.get_active();
@@ -433,7 +433,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("get_active")) 
 					{
-						__temp_executeDef54813 = false;
+						__temp_executeDef56011 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_active"))) );
 					}
 					
@@ -443,7 +443,7 @@ public  class Task extends haxor.thread.Activity
 				
 			}
 			
-			if (__temp_executeDef54813) 
+			if (__temp_executeDef56011) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -460,14 +460,14 @@ public  class Task extends haxor.thread.Activity
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54814 = true;
+			boolean __temp_executeDef56012 = true;
 			switch (field.hashCode())
 			{
 				case -855695937:
 				{
 					if (field.equals("m_progress")) 
 					{
-						__temp_executeDef54814 = false;
+						__temp_executeDef56012 = false;
 						return this.m_progress;
 					}
 					
@@ -479,7 +479,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("progress")) 
 					{
-						__temp_executeDef54814 = false;
+						__temp_executeDef56012 = false;
 						return this.get_progress();
 					}
 					
@@ -489,7 +489,7 @@ public  class Task extends haxor.thread.Activity
 				
 			}
 			
-			if (__temp_executeDef54814) 
+			if (__temp_executeDef56012) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -506,14 +506,14 @@ public  class Task extends haxor.thread.Activity
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef54815 = true;
+			boolean __temp_executeDef56013 = true;
 			switch (field.hashCode())
 			{
 				case 2020677750:
 				{
 					if (field.equals("OnExecute")) 
 					{
-						__temp_executeDef54815 = false;
+						__temp_executeDef56013 = false;
 						return this.OnExecute(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -525,7 +525,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("get_progress")) 
 					{
-						__temp_executeDef54815 = false;
+						__temp_executeDef56013 = false;
 						return this.get_progress();
 					}
 					
@@ -537,7 +537,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("OnProgress")) 
 					{
-						__temp_executeDef54815 = false;
+						__temp_executeDef56013 = false;
 						this.OnProgress();
 					}
 					
@@ -549,7 +549,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("set_progress")) 
 					{
-						__temp_executeDef54815 = false;
+						__temp_executeDef56013 = false;
 						return this.set_progress(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -561,7 +561,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("OnComplete")) 
 					{
-						__temp_executeDef54815 = false;
+						__temp_executeDef56013 = false;
 						this.OnComplete();
 					}
 					
@@ -573,7 +573,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("get_active")) 
 					{
-						__temp_executeDef54815 = false;
+						__temp_executeDef56013 = false;
 						return this.get_active();
 					}
 					
@@ -585,7 +585,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("OnStep")) 
 					{
-						__temp_executeDef54815 = false;
+						__temp_executeDef56013 = false;
 						this.OnStep();
 					}
 					
@@ -597,7 +597,7 @@ public  class Task extends haxor.thread.Activity
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef54815 = false;
+						__temp_executeDef56013 = false;
 						this.OnStart();
 					}
 					
@@ -607,7 +607,7 @@ public  class Task extends haxor.thread.Activity
 				
 			}
 			
-			if (__temp_executeDef54815) 
+			if (__temp_executeDef56013) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

@@ -27,7 +27,7 @@ HX_STACK_THIS(this)
 	HX_STACK_LINE(262)
 	int _g = (::haxor::context::EngineContext_obj::mesh->aid)++;		HX_STACK_VAR(_g,"_g");
 	HX_STACK_LINE(262)
-	this->_cid_ = _g;
+	this->__cid = _g;
 	HX_STACK_LINE(263)
 	this->_loc_ = (int)-1;
 	HX_STACK_LINE(264)
@@ -91,7 +91,7 @@ MeshAttrib_obj::MeshAttrib_obj()
 void MeshAttrib_obj::__Mark(HX_MARK_PARAMS)
 {
 	HX_MARK_BEGIN_CLASS(MeshAttrib);
-	HX_MARK_MEMBER_NAME(_cid_,"_cid_");
+	HX_MARK_MEMBER_NAME(__cid,"__cid");
 	HX_MARK_MEMBER_NAME(_loc_,"_loc_");
 	HX_MARK_MEMBER_NAME(m_name,"m_name");
 	HX_MARK_MEMBER_NAME(data,"data");
@@ -101,7 +101,7 @@ void MeshAttrib_obj::__Mark(HX_MARK_PARAMS)
 
 void MeshAttrib_obj::__Visit(HX_VISIT_PARAMS)
 {
-	HX_VISIT_MEMBER_NAME(_cid_,"_cid_");
+	HX_VISIT_MEMBER_NAME(__cid,"__cid");
 	HX_VISIT_MEMBER_NAME(_loc_,"_loc_");
 	HX_VISIT_MEMBER_NAME(m_name,"m_name");
 	HX_VISIT_MEMBER_NAME(data,"data");
@@ -116,7 +116,7 @@ Dynamic MeshAttrib_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"data") ) { return data; }
 		break;
 	case 5:
-		if (HX_FIELD_EQ(inName,"_cid_") ) { return _cid_; }
+		if (HX_FIELD_EQ(inName,"__cid") ) { return __cid; }
 		if (HX_FIELD_EQ(inName,"_loc_") ) { return _loc_; }
 		if (HX_FIELD_EQ(inName,"count") ) { return get_count(); }
 		break;
@@ -140,7 +140,7 @@ Dynamic MeshAttrib_obj::__SetField(const ::String &inName,const Dynamic &inValue
 		if (HX_FIELD_EQ(inName,"data") ) { data=inValue.Cast< ::haxor::io::Buffer >(); return inValue; }
 		break;
 	case 5:
-		if (HX_FIELD_EQ(inName,"_cid_") ) { _cid_=inValue.Cast< int >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"__cid") ) { __cid=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"_loc_") ) { _loc_=inValue.Cast< int >(); return inValue; }
 		break;
 	case 6:
@@ -152,7 +152,7 @@ Dynamic MeshAttrib_obj::__SetField(const ::String &inName,const Dynamic &inValue
 
 void MeshAttrib_obj::__GetFields(Array< ::String> &outFields)
 {
-	outFields->push(HX_CSTRING("_cid_"));
+	outFields->push(HX_CSTRING("__cid"));
 	outFields->push(HX_CSTRING("_loc_"));
 	outFields->push(HX_CSTRING("name"));
 	outFields->push(HX_CSTRING("m_name"));
@@ -167,7 +167,7 @@ static ::String sStaticFields[] = {
 
 #if HXCPP_SCRIPTABLE
 static hx::StorageInfo sMemberStorageInfo[] = {
-	{hx::fsInt,(int)offsetof(MeshAttrib_obj,_cid_),HX_CSTRING("_cid_")},
+	{hx::fsInt,(int)offsetof(MeshAttrib_obj,__cid),HX_CSTRING("__cid")},
 	{hx::fsInt,(int)offsetof(MeshAttrib_obj,_loc_),HX_CSTRING("_loc_")},
 	{hx::fsString,(int)offsetof(MeshAttrib_obj,m_name),HX_CSTRING("m_name")},
 	{hx::fsObject /*::haxor::io::Buffer*/ ,(int)offsetof(MeshAttrib_obj,data),HX_CSTRING("data")},
@@ -177,7 +177,7 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 #endif
 
 static ::String sMemberFields[] = {
-	HX_CSTRING("_cid_"),
+	HX_CSTRING("__cid"),
 	HX_CSTRING("_loc_"),
 	HX_CSTRING("get_name"),
 	HX_CSTRING("m_name"),

@@ -34,7 +34,7 @@ class HXCPP_CLASS_ATTRIBUTES  MeshAttrib_obj : public hx::Object{
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("MeshAttrib"); }
 
-		int _cid_;
+		int __cid;
 		int _loc_;
 		virtual ::String get_name( );
 		Dynamic get_name_dyn();

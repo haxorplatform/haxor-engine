@@ -17,10 +17,10 @@ public  class Int32Array extends haxor.io.Buffer
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_Int32Array(haxor.io.Int32Array __temp_me54516, int p_length)
+	public static   void __hx_ctor_haxor_io_Int32Array(haxor.io.Int32Array __temp_me55719, int p_length)
 	{
-		haxor.io.Buffer.__hx_ctor_haxor_io_Buffer(__temp_me54516, p_length);
-		__temp_me54516.aux = __temp_me54516.m_buffer.asIntBuffer();
+		haxor.io.Buffer.__hx_ctor_haxor_io_Buffer(__temp_me55719, p_length);
+		__temp_me55719.aux = __temp_me55719.m_buffer.asIntBuffer();
 	}
 	
 	
@@ -66,13 +66,13 @@ public  class Int32Array extends haxor.io.Buffer
 	
 	public   void SetRange(haxe.root.Array<java.lang.Object> p_data, java.lang.Object p_offset)
 	{
-		int __temp_p_offset54515 = ( (( p_offset == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p_offset)) )) );
+		int __temp_p_offset55718 = ( (( p_offset == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(p_offset)) )) );
 		int _g1 = 0;
 		int _g = p_data.length;
 		while (( _g1 < _g ))
 		{
 			int i = _g1++;
-			this.Set(( i + __temp_p_offset54515 ), ((int) (haxe.lang.Runtime.toInt(p_data.__get(i))) ));
+			this.Set(( i + __temp_p_offset55718 ), ((int) (haxe.lang.Runtime.toInt(p_data.__get(i))) ));
 		}
 		
 	}
@@ -87,14 +87,14 @@ public  class Int32Array extends haxor.io.Buffer
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54777 = true;
+			boolean __temp_executeDef55981 = true;
 			switch (field.hashCode())
 			{
 				case 96964:
 				{
 					if (field.equals("aux")) 
 					{
-						__temp_executeDef54777 = false;
+						__temp_executeDef55981 = false;
 						this.aux = ((java.nio.IntBuffer) (value) );
 						return value;
 					}
@@ -105,7 +105,7 @@ public  class Int32Array extends haxor.io.Buffer
 				
 			}
 			
-			if (__temp_executeDef54777) 
+			if (__temp_executeDef55981) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -122,14 +122,14 @@ public  class Int32Array extends haxor.io.Buffer
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef54778 = true;
+			boolean __temp_executeDef55982 = true;
 			switch (field.hashCode())
 			{
 				case 119371723:
 				{
 					if (field.equals("SetViewSlice")) 
 					{
-						__temp_executeDef54778 = false;
+						__temp_executeDef55982 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetViewSlice"))) );
 					}
 					
@@ -141,7 +141,7 @@ public  class Int32Array extends haxor.io.Buffer
 				{
 					if (field.equals("aux")) 
 					{
-						__temp_executeDef54778 = false;
+						__temp_executeDef55982 = false;
 						return this.aux;
 					}
 					
@@ -153,7 +153,7 @@ public  class Int32Array extends haxor.io.Buffer
 				{
 					if (field.equals("SetRange")) 
 					{
-						__temp_executeDef54778 = false;
+						__temp_executeDef55982 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetRange"))) );
 					}
 					
@@ -165,7 +165,7 @@ public  class Int32Array extends haxor.io.Buffer
 				{
 					if (field.equals("get_bytesPerElement")) 
 					{
-						__temp_executeDef54778 = false;
+						__temp_executeDef55982 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_bytesPerElement"))) );
 					}
 					
@@ -177,7 +177,7 @@ public  class Int32Array extends haxor.io.Buffer
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef54778 = false;
+						__temp_executeDef55982 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
@@ -189,7 +189,7 @@ public  class Int32Array extends haxor.io.Buffer
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef54778 = false;
+						__temp_executeDef55982 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Get"))) );
 					}
 					
@@ -199,7 +199,7 @@ public  class Int32Array extends haxor.io.Buffer
 				
 			}
 			
-			if (__temp_executeDef54778) 
+			if (__temp_executeDef55982) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -216,15 +216,15 @@ public  class Int32Array extends haxor.io.Buffer
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash54780 = field.hashCode();
-			boolean __temp_executeDef54779 = true;
-			switch (__temp_hash54780)
+			int __temp_hash55984 = field.hashCode();
+			boolean __temp_executeDef55983 = true;
+			switch (__temp_hash55984)
 			{
 				case 119371723:case -829503743:
 				{
-					if (( (( ( __temp_hash54780 == 119371723 ) && field.equals("SetViewSlice") )) || field.equals("get_bytesPerElement") )) 
+					if (( (( ( __temp_hash55984 == 119371723 ) && field.equals("SetViewSlice") )) || field.equals("get_bytesPerElement") )) 
 					{
-						__temp_executeDef54779 = false;
+						__temp_executeDef55983 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -236,7 +236,7 @@ public  class Int32Array extends haxor.io.Buffer
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef54779 = false;
+						__temp_executeDef55983 = false;
 						return this.Get(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -248,7 +248,7 @@ public  class Int32Array extends haxor.io.Buffer
 				{
 					if (field.equals("SetRange")) 
 					{
-						__temp_executeDef54779 = false;
+						__temp_executeDef55983 = false;
 						this.SetRange(((haxe.root.Array<java.lang.Object>) (dynargs.__get(0)) ), dynargs.__get(1));
 					}
 					
@@ -260,7 +260,7 @@ public  class Int32Array extends haxor.io.Buffer
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef54779 = false;
+						__temp_executeDef55983 = false;
 						this.Set(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -270,7 +270,7 @@ public  class Int32Array extends haxor.io.Buffer
 				
 			}
 			
-			if (__temp_executeDef54779) 
+			if (__temp_executeDef55983) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

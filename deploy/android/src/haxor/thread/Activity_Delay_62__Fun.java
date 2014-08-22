@@ -4,11 +4,11 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class Activity_Delay_62__Fun extends haxe.lang.Function
 {
-	public    Activity_Delay_62__Fun(haxe.root.Array<haxe.lang.Function> p_callback1, haxe.root.Array<java.lang.Object> p_time1)
+	public    Activity_Delay_62__Fun(haxe.root.Array<java.lang.Object> p_time1, haxe.root.Array<haxe.lang.Function> p_callback1)
 	{
 		super(1, 0);
-		this.p_callback1 = p_callback1;
 		this.p_time1 = p_time1;
+		this.p_callback1 = p_callback1;
 	}
 	
 	
@@ -25,9 +25,9 @@ public  class Activity_Delay_62__Fun extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<haxe.lang.Function> p_callback1;
-	
 	public  haxe.root.Array<java.lang.Object> p_time1;
+	
+	public  haxe.root.Array<haxe.lang.Function> p_callback1;
 	
 }
 

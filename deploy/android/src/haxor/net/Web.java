@@ -22,7 +22,7 @@ public  class Web extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_net_Web(haxor.net.Web __temp_me54534)
+	public static   void __hx_ctor_haxor_net_Web(haxor.net.Web __temp_me55756)
 	{
 		{
 		}
@@ -34,13 +34,19 @@ public  class Web extends haxe.lang.HxObject
 	
 	public static   void Load(java.lang.String p_url, haxe.lang.Function p_callback)
 	{
-		haxor.platform.android.HTTPLoader<java.lang.String> ld = new haxor.platform.android.HTTPLoader<java.lang.String>(haxe.lang.Runtime.toString(p_url), haxe.lang.Runtime.toBool(false), ((haxe.lang.Function) (p_callback) ));
+		haxor.platform.android.net.HTTPLoader<java.lang.String> ld = new haxor.platform.android.net.HTTPLoader<java.lang.String>(haxe.lang.Runtime.toString(p_url), haxe.lang.Runtime.toBool(false), ((haxe.lang.Function) (p_callback) ));
 	}
 	
 	
 	public static   void LoadImg(java.lang.String p_url, haxe.lang.Function p_callback)
 	{
-		haxor.platform.android.BitmapLoader ld = new haxor.platform.android.BitmapLoader(haxe.lang.Runtime.toString(p_url), ((haxe.lang.Function) (p_callback) ));
+		haxor.platform.android.net.BitmapLoader ld = new haxor.platform.android.net.BitmapLoader(haxe.lang.Runtime.toString(p_url), ((haxe.lang.Function) (p_callback) ));
+	}
+	
+	
+	public static   void LoadTexture2D(java.lang.String p_url, boolean p_apply, haxe.lang.Function p_callback)
+	{
+		haxor.net.Texture2DLoader ld = new haxor.net.Texture2DLoader(haxe.lang.Runtime.toString(p_url), haxe.lang.Runtime.toBool(p_apply), ((haxe.lang.Function) (p_callback) ));
 	}
 	
 	

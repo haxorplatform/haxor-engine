@@ -27,11 +27,11 @@
 #ifndef INCLUDED_haxor_platform_windows_BitmapLoader
 #include <haxor/platform/windows/BitmapLoader.h>
 #endif
-#ifndef INCLUDED_haxor_platform_windows_HTTPLoader
-#include <haxor/platform/windows/HTTPLoader.h>
+#ifndef INCLUDED_haxor_platform_windows_net_HTTPLoader
+#include <haxor/platform/windows/net/HTTPLoader.h>
 #endif
-#ifndef INCLUDED_haxor_platform_windows_HTTPRequest
-#include <haxor/platform/windows/HTTPRequest.h>
+#ifndef INCLUDED_haxor_platform_windows_net_HTTPRequest
+#include <haxor/platform/windows/net/HTTPRequest.h>
 #endif
 #ifndef INCLUDED_haxor_thread_Activity
 #include <haxor/thread/Activity.h>
@@ -194,14 +194,14 @@ void BitmapLoader_obj::__Mark(HX_MARK_PARAMS)
 {
 	HX_MARK_BEGIN_CLASS(BitmapLoader);
 	HX_MARK_MEMBER_NAME(m_bitmap_callback,"m_bitmap_callback");
-	::haxor::platform::windows::HTTPLoader_obj::__Mark(HX_MARK_ARG);
+	::haxor::platform::windows::net::HTTPLoader_obj::__Mark(HX_MARK_ARG);
 	HX_MARK_END_CLASS();
 }
 
 void BitmapLoader_obj::__Visit(HX_VISIT_PARAMS)
 {
 	HX_VISIT_MEMBER_NAME(m_bitmap_callback,"m_bitmap_callback");
-	::haxor::platform::windows::HTTPLoader_obj::__Visit(HX_VISIT_ARG);
+	::haxor::platform::windows::net::HTTPLoader_obj::__Visit(HX_VISIT_ARG);
 }
 
 Dynamic BitmapLoader_obj::__Field(const ::String &inName,bool inCallProp)

@@ -198,7 +198,7 @@ Void MeshContext_obj::Bind( ::haxor::graphics::mesh::Mesh p_mesh){
 							::haxor::graphics::GL_obj::m_gl->EnableVertexAttrib(loc);
 						}
 						HX_STACK_LINE(126)
-						::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34962,this->buffers->__get(a->_cid_));
+						::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34962,this->buffers->__get(a->__cid));
 						HX_STACK_LINE(127)
 						::haxor::graphics::GL_obj::m_gl->VertexAttribPointer(loc,a->offset,type,false,(int)0,(int)0);
 					}
@@ -213,7 +213,7 @@ Void MeshContext_obj::Bind( ::haxor::graphics::mesh::Mesh p_mesh){
 					HX_STACK_LINE(136)
 					a = this->current->m_topology_attrib;
 					HX_STACK_LINE(137)
-					::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34963,this->buffers->__get(a->_cid_));
+					::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34963,this->buffers->__get(a->__cid));
 				}
 				HX_STACK_LINE(140)
 				Dynamic();
@@ -268,7 +268,7 @@ Void MeshContext_obj::RemoveAttrib( ::haxor::graphics::mesh::MeshAttrib p_attrib
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_attrib,"p_attrib")
 		HX_STACK_LINE(186)
-		int id = this->buffers->__get(p_attrib->_cid_);		HX_STACK_VAR(id,"id");
+		int id = this->buffers->__get(p_attrib->__cid);		HX_STACK_VAR(id,"id");
 		HX_STACK_LINE(187)
 		if (((id == ::haxor::graphics::GL_obj::INVALID))){
 			HX_STACK_LINE(187)
@@ -277,7 +277,7 @@ Void MeshContext_obj::RemoveAttrib( ::haxor::graphics::mesh::MeshAttrib p_attrib
 		HX_STACK_LINE(188)
 		::haxor::graphics::GL_obj::m_gl->DeleteBuffer(id);
 		HX_STACK_LINE(189)
-		this->buffers[p_attrib->_cid_] = ::haxor::graphics::GL_obj::INVALID;
+		this->buffers[p_attrib->__cid] = ::haxor::graphics::GL_obj::INVALID;
 	}
 return null();
 }
@@ -293,7 +293,7 @@ Void MeshContext_obj::UpdateAttrib( ::haxor::graphics::mesh::MeshAttrib a,int p_
 		HX_STACK_ARG(p_mode,"p_mode")
 		HX_STACK_ARG(p_is_index,"p_is_index")
 		HX_STACK_LINE(198)
-		int id = this->buffers->__get(a->_cid_);		HX_STACK_VAR(id,"id");
+		int id = this->buffers->__get(a->__cid);		HX_STACK_VAR(id,"id");
 		HX_STACK_LINE(199)
 		int target_flag;		HX_STACK_VAR(target_flag,"target_flag");
 		HX_STACK_LINE(199)
@@ -316,7 +316,7 @@ Void MeshContext_obj::UpdateAttrib( ::haxor::graphics::mesh::MeshAttrib a,int p_
 			HX_STACK_LINE(206)
 			id = _g1;
 			HX_STACK_LINE(207)
-			this->buffers[a->_cid_] = id;
+			this->buffers[a->__cid] = id;
 		}
 		HX_STACK_LINE(210)
 		::haxor::graphics::GL_obj::m_gl->BindBuffer(target_flag,id);

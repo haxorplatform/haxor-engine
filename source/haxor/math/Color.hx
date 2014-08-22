@@ -9,59 +9,59 @@ class Color
 	/**
 	 * Red pixel.
 	 */
-	static public var red    (get_red    , null):Color;	static private function get_red    ():Color { return new Color(1.0, 0, 0, 1); }
+	static public var red    (get_red    , null):Color;	static private inline function get_red    ():Color { return new Color(1.0, 0, 0, 1); }
 	/**
 	 * Yellow pixel.
 	 */
-	static public var yellow (get_yellow , null):Color;	static private function get_yellow ():Color { return new Color(1, 1, 0, 1); }
+	static public var yellow (get_yellow , null):Color;	static private inline function get_yellow ():Color { return new Color(1, 1, 0, 1); }
 	/**
 	 * Green pixel.
 	 */
-	static public var green  (get_green  , null):Color;	static private function get_green  ():Color { return new Color(0, 1, 0, 1); }
+	static public var green  (get_green  , null):Color;	static private inline function get_green  ():Color { return new Color(0, 1, 0, 1); }
 	/**
 	 * Cyan pixel.
 	 */
-	static public var cyan   (get_cyan   , null):Color;	static private function get_cyan   ():Color { return new Color(0, 1, 1, 1); }
+	static public var cyan   (get_cyan   , null):Color;	static private inline function get_cyan   ():Color { return new Color(0, 1, 1, 1); }
 	/**
 	 * Blue pixel.
 	 */
-	static public var blue   (get_blue   , null):Color;	static private function get_blue   ():Color { return new Color(0, 0, 1, 1); }
+	static public var blue   (get_blue   , null):Color;	static private inline function get_blue   ():Color { return new Color(0, 0, 1, 1); }
 	/**
 	 * Magenta pixel.
 	 */
-	static public var magenta(get_magenta, null):Color;	static private function get_magenta():Color { return new Color(1, 0, 1, 1); }
+	static public var magenta(get_magenta, null):Color;	static private inline function get_magenta():Color { return new Color(1, 0, 1, 1); }
 	/**
 	 * Black pixel.
 	 */
-	static public var black  (get_black  , null):Color;	static private function get_black  ():Color { return new Color(0, 0, 0, 1); }
+	static public var black  (get_black  , null):Color;	static private inline function get_black  ():Color { return new Color(0, 0, 0, 1); }
 	/**
 	 * White pixel.
 	 */
-	static public var white  (get_white  , null):Color;	static private function get_white  ():Color { return new Color(1, 1, 1, 1); }
+	static public var white  (get_white  , null):Color;	static private inline function get_white  ():Color { return new Color(1, 1, 1, 1); }
 	/**
 	 * Transparent pixel.
 	 */
-	static public var empty  (get_empty  , null):Color;	static private function get_empty  ():Color { return new Color(0, 0, 0, 0); }
+	static public var empty  (get_empty  , null):Color;	static private inline function get_empty  ():Color { return new Color(0, 0, 0, 0); }
 	/**
 	 * 10% Gray pixel
 	 */
-	static public var gray10 (get_gray10 , null):Color;	static private function get_gray10 ():Color { return new Color(0.1, 0.1, 0.1, 1); }
+	static public var gray10 (get_gray10 , null):Color;	static private inline function get_gray10 ():Color { return new Color(0.1, 0.1, 0.1, 1); }
 	/**
 	 * 25% Gray pixel
 	 */
-	static public var gray25 (get_gray25 , null):Color;	static private function get_gray25 ():Color { return new Color(0.25, 0.25, 0.25, 1); }
+	static public var gray25 (get_gray25 , null):Color;	static private inline function get_gray25 ():Color { return new Color(0.25, 0.25, 0.25, 1); }
 	/**
 	 * 50% Gray pixel
 	 */
-	static public var gray50 (get_gray50 , null):Color;	static private function get_gray50 ():Color { return new Color(0.5, 0.5, 0.5, 1); }
+	static public var gray50 (get_gray50 , null):Color;	static private inline function get_gray50 ():Color { return new Color(0.5, 0.5, 0.5, 1); }
 	/**
 	 * 75% Gray pixel
 	 */
-	static public var gray75 (get_gray75 , null):Color;	static private function get_gray75 ():Color { return new Color(0.75, 0.75, 0.75, 1); }
+	static public var gray75 (get_gray75 , null):Color;	static private inline function get_gray75 ():Color { return new Color(0.75, 0.75, 0.75, 1); }
 	/**
 	 * 90% Gray pixel
 	 */
-	static public var gray90 (get_gray90 , null):Color;	static private function get_gray90 ():Color { return new Color(0.9, 0.9, 0.9, 1); }
+	static public var gray90 (get_gray90 , null):Color;	static private inline function get_gray90 ():Color { return new Color(0.9, 0.9, 0.9, 1); }
 	
 	/**
 	 * Creates a new Color instance from a Hexadecimal string representation.
@@ -127,14 +127,14 @@ class Color
 	/**
 	 * Returns this color represented as Vector3 with the RGB channels.
 	 */
-	//public var xyz(get_xyz, null):Vector3;
-	//private function get_xyz():Vector3 { return new Vector3(r, g, b); }
+	public var xyz(get_xyz, null):Vector3;
+	private inline function get_xyz():Vector3 { return new Vector3(r, g, b); }
 	
 	/**
 	 * Returns this color represented as Vector4 with the RGBA channels.
 	 */
-	//public var xyzw(get_xyzw, null):Vector4;
-	//private function get_xyzw():Vector4 { return new Vector4(r, g, b, a); }	
+	public var xyzw(get_xyzw, null):Vector4;
+	private inline function get_xyzw():Vector4 { return new Vector4(r, g, b, a); }	
 	
 	/**
 	 * Get/Set the Int32 representation of this color with the ARGB channels.
@@ -204,6 +204,18 @@ class Color
 	}
 	
 	/**
+	 * Returns the luminance value of the Color.
+	 */
+	public var luminance(get_luminance, null):Float;
+	private inline function get_luminance():Float { return (r * 0.3) + (g * 0.59) + (b * 0.11); }
+	
+	/**
+	 * Returns a copy of this Color with a negative transform applied.
+	 */
+	public var negative(get_negative, null) : Color;
+	private inline function get_negative():Color { return new Color(1.0-r,1.0-g,1.0-b,1.0-a); }
+	
+	/**
 	 * Red Channel.
 	 */
 	public var r:Float;
@@ -258,18 +270,74 @@ class Color
 	}
 	
 	/**
+	 * Sets all components of this color using a Vector3 as template. Returns its own reference.
+	 * @param	v
+	 * @return
+	 */
+	public function Set3(v:Vector3):Color { r = v.x; g = v.y; b = v.z; return this; }
+	
+	/**
+	 * Sets all components of this color using a Vector4 as template. Returns its own reference.
+	 * @param	v
+	 * @return
+	 */
+	public function Set4(v:Vector4):Color { r = v.x; g = v.y; b = v.z;  a = v.w; return this; }
+	
+	/**
 	 * Sets all color channels using a Color instance as template.
 	 * @param	p_color
 	 * @return
 	 */
-	public function Set4(p_color : Color = null) : Color
-	{
-		r = p_color == null ? 0.0 : p_color.r;
-		g = p_color == null ? 0.0 : p_color.g;
-		b = p_color == null ? 0.0 : p_color.b;		
-		a = p_color == null ? 1.0 : p_color.a;
-		return this;
-	}
+	public function SetColor(p_color : Color) : Color { r = p_color.r; g = p_color.g; b = p_color.b; a = p_color.a; return this; }
+	
+	/**
+	 * Returns one of its coordinates indexed by an integer where 0 == x, 1 == y and 2 == z.
+	 * @param	p
+	 * @return
+	 */
+	public function Get(p : Int):Float { return p == 0 ? r  : (p == 1 ? g : (p == 2 ? b : a)); }
+	
+	/**
+	 * Adds this vector with another one, component-wise. Returns its own reference.
+	 * @param	p_v
+	 * @return
+	 */
+	public function Add(p_v : Color):Color { r += p_v.r; g += p_v.g; b += p_v.b; a += p_v.a; return this; }
+	
+	/**
+	 * Subtracts this vector with another one, component-wise. Returns its own reference.
+	 * @param	p_v
+	 * @return
+	 */
+	public function Sub(p_v : Color):Color { r -= p_v.r; g -= p_v.g; b -= p_v.b; a -= p_v.a; return this; }
+	
+	/**
+	 * Multiplies this vector with another one, component-wise. Returns its own reference.
+	 * @param	p_v
+	 * @return
+	 */
+	public function Multiply(p_v : Color):Color { r *= p_v.r; g *= p_v.g; b *= p_v.b; a *= p_v.a; return this; }
+	
+	/**
+	 * Multiplies this color with another one ignoring alpha channel, component-wise. Returns its own reference.
+	 * @param	p_v
+	 * @return
+	 */
+	public function MultiplyRGB(p_v : Color):Color { r *= p_v.r; g *= p_v.g; b *= p_v.b; return this; }
+	
+	/**
+	 * Scales this vector using the informed scalar. Returns its own reference.
+	 * @param	p_s
+	 * @return
+	 */
+	public function Scale(p_s : Float):Color { r *= p_s; g *= p_s; b *= p_s; a *= p_s; return this; }
+	
+	/**
+	 * Scales this vector using the informed scalar ignoring alpha. Returns its own reference.
+	 * @param	p_s
+	 * @return
+	 */
+	public function ScaleRGB(p_s : Float):Color { r *= p_s; g *= p_s; b *= p_s; return this; }
 	
 	/**
 	 * Returns all channels as an Array of Floats.
@@ -281,18 +349,7 @@ class Color
 	 * Outputs this color channels values as String.
 	 * @return
 	 */
-	public function ToString():String
-	{
-		var a : Array<Float> = ToArray();
-		var s : Array<String> = [];
-		for (i in 0...a.length) { a[i] = Std.int(a[i] * 100.0) / 100; s.push(a[i] >= 0 ? " " + a[i] : a[i] + ""); }
-		var res:String = "[";
-		for (i in 0...a.length)
-		{
-			res += s[i] + ((i < (a.length-1)) ? "," : "]");			
-		}
-		return res;
-	}
+	public function ToString(p_places:Int=2):String { return "["+Mathf.RoundPlaces(r,p_places)+","+Mathf.RoundPlaces(g,p_places)+","+Mathf.RoundPlaces(b,p_places)+","+Mathf.RoundPlaces(a,p_places)+"]"; }
 	
 	
 }

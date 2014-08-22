@@ -114,7 +114,7 @@ class Material extends Resource
 	public function new(p_name)
 	{
 		super(p_name);	
-		_cid_ 			= EngineContext.material.mid++;
+		__cid 			= EngineContext.material.mid++;
 		m_uniforms		= [];
 		queue           = RenderQueue.Opaque;
 		zfunc           = DepthTest.LessEqual;
@@ -160,11 +160,7 @@ class Material extends Resource
 	 * @param	p_name
 	 * @param	p_v
 	 */
-	public function SetFloat(p_name : String, p_v : Float):Void  
-	{ 
-		var u : MaterialUniform = FetchUniform(p_name, true, 1,1,true);
-		var b : FloatArray = cast u.data; b.Set(0, p_v); 
-	}
+	public function SetFloat(p_name : String, p_v : Float):Void {  var u : MaterialUniform = FetchUniform(p_name, true, 1,1,true);	var b : FloatArray = cast u.data; b.Set(0, p_v); }
 	
 	/**
 	 * Sets 4 floats uniform.
@@ -174,11 +170,7 @@ class Material extends Resource
 	 * @param	p_z
 	 * @param	p_w
 	 */
-	public function SetFloat4(p_name : String, p_x:Float, p_y:Float, p_z:Float,p_w:Float):Void
-	{
-		var u : MaterialUniform = FetchUniform(p_name, true, 4,4, true);		
-		var b : FloatArray = cast u.data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); b.Set(3, p_w);		
-	}
+	public function SetFloat4(p_name : String, p_x:Float, p_y:Float, p_z:Float,p_w:Float):Void { var u : MaterialUniform = FetchUniform(p_name, true, 4,4, true); var b : FloatArray = cast u.data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); b.Set(3, p_w);	}
 	
 	/**
 	 * Sets 3 float uniform.
@@ -188,11 +180,7 @@ class Material extends Resource
 	 * @param	p_z
 	 * @param	p_w
 	 */
-	public function SetFloat3(p_name : String, p_x:Float, p_y:Float, p_z:Float):Void
-	{
-		var u : MaterialUniform = FetchUniform(p_name, true, 3,3,true);		
-		var b : FloatArray = cast u.data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z);
-	}
+	public function SetFloat3(p_name : String, p_x:Float, p_y:Float, p_z:Float):Void { var u : MaterialUniform = FetchUniform(p_name, true, 3,3,true); var b : FloatArray = cast u.data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); }
 	
 	/**
 	 * Sets 2 float uniform.
@@ -200,11 +188,7 @@ class Material extends Resource
 	 * @param	p_x
 	 * @param	p_y
 	 */
-	public function SetFloat2(p_name : String, p_x:Float, p_y:Float):Void
-	{
-		var u : MaterialUniform = FetchUniform(p_name, true, 2,2,true);
-		var b : FloatArray = cast u.data; b.Set(0, p_x); b.Set(1, p_y);
-	}
+	public function SetFloat2(p_name : String, p_x:Float, p_y:Float):Void { var u : MaterialUniform = FetchUniform(p_name, true, 2,2,true); var b : FloatArray = cast u.data; b.Set(0, p_x); b.Set(1, p_y); }
 	
 	/**
 	 * Sets a list of float uniform.
@@ -233,7 +217,6 @@ class Material extends Resource
 	 * @param	p_list
 	 */
 	public function SetFloat4Array(p_name:String, p_list : Array<Float>):Void { var u : MaterialUniform = FetchUniform(p_name, true, p_list.length,4,true); var b : FloatArray = cast u.data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	
 	
 	
 	/**

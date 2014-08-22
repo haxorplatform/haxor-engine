@@ -48,7 +48,7 @@ HX_STACK_ARG(p_source,"p_source")
 	HX_STACK_LINE(36)
 	int _g = (::haxor::context::EngineContext_obj::material->sid)++;		HX_STACK_VAR(_g,"_g");
 	HX_STACK_LINE(36)
-	this->_cid_ = _g;
+	this->__cid = _g;
 	HX_STACK_LINE(40)
 	int vt0 = p_source.indexOf(HX_CSTRING("<vertex"),null());		HX_STACK_VAR(vt0,"vt0");
 	HX_STACK_LINE(41)
@@ -108,7 +108,7 @@ HX_STACK_ARG(p_source,"p_source")
 	HX_STACK_LINE(60)
 	if (((  ((!(((_g8 == null()))))) ? bool(_Function_1_1::Block(this)) : bool(true) ))){
 		HX_STACK_LINE(60)
-		this->set_name((HX_CSTRING("Shader") + this->_cid_));
+		this->set_name((HX_CSTRING("Shader") + this->__cid));
 	}
 	HX_STACK_LINE(62)
 	::Xml vs = x->elementsNamed(HX_CSTRING("vertex"))->__Field(HX_CSTRING("next"),true)();		HX_STACK_VAR(vs,"vs");
@@ -197,9 +197,9 @@ Void Shader_obj::OnDestroy( ){
 		HX_STACK_LINE(96)
 		::haxor::context::MaterialContext _this = ::haxor::context::EngineContext_obj::material;		HX_STACK_VAR(_this,"_this");
 		HX_STACK_LINE(96)
-		::haxor::graphics::GL_obj::m_gl->DeleteShader(_this->vertex_shaders->__get(this->_cid_));
+		::haxor::graphics::GL_obj::m_gl->DeleteShader(_this->vertex_shaders->__get(this->__cid));
 		HX_STACK_LINE(96)
-		::haxor::graphics::GL_obj::m_gl->DeleteShader(_this->fragment_shaders->__get(this->_cid_));
+		::haxor::graphics::GL_obj::m_gl->DeleteShader(_this->fragment_shaders->__get(this->__cid));
 	}
 return null();
 }

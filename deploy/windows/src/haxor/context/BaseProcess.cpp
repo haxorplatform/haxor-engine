@@ -28,7 +28,7 @@ HX_STACK_ARG(p_name,"p_name")
 	HX_STACK_LINE(115)
 	int _g = (::haxor::context::BaseProcess_obj::m_cid)++;		HX_STACK_VAR(_g,"_g");
 	HX_STACK_LINE(115)
-	this->_cid_ = _g;
+	this->__cid = _g;
 }
 ;
 	return null();
@@ -101,7 +101,7 @@ BaseProcess_obj::BaseProcess_obj()
 void BaseProcess_obj::__Mark(HX_MARK_PARAMS)
 {
 	HX_MARK_BEGIN_CLASS(BaseProcess);
-	HX_MARK_MEMBER_NAME(_cid_,"_cid_");
+	HX_MARK_MEMBER_NAME(__cid,"__cid");
 	HX_MARK_MEMBER_NAME(name,"name");
 	HX_MARK_MEMBER_NAME(length,"length");
 	HX_MARK_END_CLASS();
@@ -109,7 +109,7 @@ void BaseProcess_obj::__Mark(HX_MARK_PARAMS)
 
 void BaseProcess_obj::__Visit(HX_VISIT_PARAMS)
 {
-	HX_VISIT_MEMBER_NAME(_cid_,"_cid_");
+	HX_VISIT_MEMBER_NAME(__cid,"__cid");
 	HX_VISIT_MEMBER_NAME(name,"name");
 	HX_VISIT_MEMBER_NAME(length,"length");
 }
@@ -125,7 +125,7 @@ Dynamic BaseProcess_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"m_cid") ) { return m_cid; }
-		if (HX_FIELD_EQ(inName,"_cid_") ) { return _cid_; }
+		if (HX_FIELD_EQ(inName,"__cid") ) { return __cid; }
 		if (HX_FIELD_EQ(inName,"Clear") ) { return Clear_dyn(); }
 		break;
 	case 6:
@@ -146,7 +146,7 @@ Dynamic BaseProcess_obj::__SetField(const ::String &inName,const Dynamic &inValu
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"m_cid") ) { m_cid=inValue.Cast< int >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"_cid_") ) { _cid_=inValue.Cast< int >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"__cid") ) { __cid=inValue.Cast< int >(); return inValue; }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"length") ) { length=inValue.Cast< int >(); return inValue; }
@@ -156,7 +156,7 @@ Dynamic BaseProcess_obj::__SetField(const ::String &inName,const Dynamic &inValu
 
 void BaseProcess_obj::__GetFields(Array< ::String> &outFields)
 {
-	outFields->push(HX_CSTRING("_cid_"));
+	outFields->push(HX_CSTRING("__cid"));
 	outFields->push(HX_CSTRING("name"));
 	outFields->push(HX_CSTRING("length"));
 	super::__GetFields(outFields);
@@ -168,7 +168,7 @@ static ::String sStaticFields[] = {
 
 #if HXCPP_SCRIPTABLE
 static hx::StorageInfo sMemberStorageInfo[] = {
-	{hx::fsInt,(int)offsetof(BaseProcess_obj,_cid_),HX_CSTRING("_cid_")},
+	{hx::fsInt,(int)offsetof(BaseProcess_obj,__cid),HX_CSTRING("__cid")},
 	{hx::fsString,(int)offsetof(BaseProcess_obj,name),HX_CSTRING("name")},
 	{hx::fsInt,(int)offsetof(BaseProcess_obj,length),HX_CSTRING("length")},
 	{ hx::fsUnknown, 0, null()}
@@ -176,7 +176,7 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 #endif
 
 static ::String sMemberFields[] = {
-	HX_CSTRING("_cid_"),
+	HX_CSTRING("__cid"),
 	HX_CSTRING("name"),
 	HX_CSTRING("length"),
 	HX_CSTRING("get_length"),

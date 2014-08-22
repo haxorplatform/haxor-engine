@@ -123,7 +123,7 @@ class MeshContext
 						active_max = cast Math.max(active_max, loc);						
 						GL.EnableVertexAttrib(loc);
 					}
-					GL.BindBuffer(GL.ARRAY_BUFFER, buffers[a._cid_]);					
+					GL.BindBuffer(GL.ARRAY_BUFFER, buffers[a.__cid]);					
 					GL.VertexAttribPointer(loc, a.offset, type, false, 0, 0);
 										
 				}
@@ -134,7 +134,7 @@ class MeshContext
 				if (current.indexed)
 				{	
 					a = current.m_topology_attrib;					
-					GL.BindBuffer(GL.ELEMENT_ARRAY_BUFFER,buffers[a._cid_]);
+					GL.BindBuffer(GL.ELEMENT_ARRAY_BUFFER,buffers[a.__cid]);
 				}
 				
 				GL.Assert("Mesh Bind");
@@ -183,10 +183,10 @@ class MeshContext
 	 */
 	private function RemoveAttrib(p_attrib : MeshAttrib):Void
 	{		
-		var id : MeshBufferId = buffers[p_attrib._cid_];
+		var id : MeshBufferId = buffers[p_attrib.__cid];
 		if (id == GL.INVALID) return;		
 		GL.DeleteBuffer(id);
-		buffers[p_attrib._cid_] = GL.INVALID;
+		buffers[p_attrib.__cid] = GL.INVALID;
 	}
 	
 	/**
@@ -195,7 +195,7 @@ class MeshContext
 	 */
 	private function UpdateAttrib(a : MeshAttrib,p_mode : Int,p_is_index : Bool):Void
 	{
-		var id : MeshBufferId = buffers[a._cid_];
+		var id : MeshBufferId = buffers[a.__cid];
 		var target_flag : Int = p_is_index ? GL.ELEMENT_ARRAY_BUFFER : GL.ARRAY_BUFFER;
 		
 		//If this attrib is one of the default attribs of Haxor. Cache its position.
@@ -204,7 +204,7 @@ class MeshContext
 		if (id == GL.INVALID)
 		{			
 			id = GL.CreateBuffer();			
-			buffers[a._cid_] = id;			
+			buffers[a.__cid] = id;			
 		}			
 		
 		GL.BindBuffer(target_flag, id);		

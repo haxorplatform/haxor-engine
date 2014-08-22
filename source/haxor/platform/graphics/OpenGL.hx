@@ -1,29 +1,28 @@
 #if (windows || osx || linux)
 package haxor.platform.graphics;
-import haxor.graphics.GL;
-import haxor.io.Int32Array;
-import haxor.platform.Types.UniformLocation;
-import haxor.platform.Types.TextureId;
-import haxor.platform.Types.RenderBufferId;
-import haxor.platform.Types.FrameBufferId;
-import haxor.io.Buffer;
-import haxe.io.BytesData;
+import cpp.NativeArray;
+import cpp.Pointer;
 import haxe.io.Bytes;
 import haxe.io.BytesBuffer;
-import haxor.io.UInt16Array;
-import haxor.io.FloatArray;
-import haxor.graphics.Enums.BufferPrimitive;
-import cpp.NativeArray;
-import haxor.platform.Types.ProgramId;
-import haxor.platform.Types.ShaderId;
-import cpp.Pointer;
-import haxor.platform.Types.ArrayBuffer;
-import haxor.platform.Types.MeshBufferId;
-import haxor.core.Time;
-import haxor.core.Console;
-import haxor.graphics.GraphicContext;
-import haxor.platform.OSWindow;
+import haxe.io.BytesData;
 import haxor.core.BaseApplication;
+import haxor.core.Console;
+import haxor.core.Time;
+import haxor.graphics.GL;
+import haxor.graphics.GraphicContext;
+import haxor.io.Buffer;
+import haxor.io.FloatArray;
+import haxor.io.Int32Array;
+import haxor.io.UInt16Array;
+import haxor.platform.OSWindow;
+import haxor.platform.Types.ArrayBuffer;
+import haxor.platform.Types.FrameBufferId;
+import haxor.platform.Types.MeshBufferId;
+import haxor.platform.Types.ProgramId;
+import haxor.platform.Types.RenderBufferId;
+import haxor.platform.Types.ShaderId;
+import haxor.platform.Types.TextureId;
+import haxor.platform.Types.UniformLocation;
 
 /**
  * Wrapper for OpenGL API commands and context management.

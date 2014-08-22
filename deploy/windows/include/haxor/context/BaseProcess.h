@@ -34,7 +34,7 @@ class HXCPP_CLASS_ATTRIBUTES  BaseProcess_obj : public hx::Object{
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("BaseProcess"); }
 
-		int _cid_;
+		int __cid;
 		::String name;
 		int length;
 		virtual int get_length( );

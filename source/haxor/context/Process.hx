@@ -43,10 +43,10 @@ class Process<T> extends BaseProcess
 	 */
 	override public function Add(p_item : Resource):Void
 	{	
-		var iid : Int = p_item.m_pid[_cid_];
+		var iid : Int = p_item.m_pid[__cid];
 		if (iid >= 0) return;		
 		list[m_length] = cast p_item;
-		p_item.m_pid[_cid_] = m_length++;				
+		p_item.m_pid[__cid] = m_length++;				
 	}
 	
 	/**
@@ -55,14 +55,14 @@ class Process<T> extends BaseProcess
 	 */
 	override public function Remove(p_item : Resource):Resource
 	{	
-		var iid : Int = p_item.m_pid[_cid_];
+		var iid : Int = p_item.m_pid[__cid];
 		if (iid < 0) return p_item;
-		p_item.m_pid[_cid_] = -1;
+		p_item.m_pid[__cid] = -1;
 		m_length--;
 		if (m_length <= 0) return p_item;
 		list[iid] = list[m_length];
 		p_item = cast list[iid];
-		p_item.m_pid[_cid_] = iid;
+		p_item.m_pid[__cid] = iid;
 		return p_item;
 	}
 	
@@ -91,7 +91,7 @@ class BaseProcess
 	/**
 	 * Class related id.
 	 */
-	private var _cid_ : Int;
+	private var __cid : Int;
 	
 	/**
 	 * Process name.
@@ -112,7 +112,7 @@ class BaseProcess
 	{
 		name     		= p_name;
 		Console.Log("\tProcess ["+p_name+"] created.",4);
-		_cid_    		= m_cid++;		
+		__cid    		= m_cid++;		
 	}
 	
 	/**

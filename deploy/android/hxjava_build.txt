@@ -92,12 +92,6 @@ M java.nio.channels.ServerSocketChannel
 M haxe.root.EnumValue
 M android.view.ActionProvider
 M java.nio.channels.SelectionKey
-M haxor.platform.android.Web
-C haxor.platform.android.HTTPRequest
-C haxor.platform.android.HTTPLoader
-C haxor.platform.android.BitmapLoader
-C haxor.platform.android.LoadTexture2D
-C haxor.platform.android.LoadTexture2D_OnBitmapCallback_59__Fun
 M haxe.root.Array
 C haxe.root.Array
 C _Array.ArrayIterator
@@ -174,6 +168,8 @@ M android.view.KeyCharacterMap
 M java.io.FileDescriptor
 M haxe.io.BytesData
 M android.graphics.Movie
+M haxor.net.HTTPRequestTask
+C haxor.net.HTTPRequestTask
 M haxor.core.IRenderable
 C haxor.core.IRenderable
 M haxe.root.Sys
@@ -183,6 +179,8 @@ M java.security.Timestamp
 M android.content.ContentProviderOperation
 M haxe.io.Eof
 C haxe.io.Eof
+M haxor.platform.android.net.BitmapLoader
+C haxor.platform.android.net.BitmapLoader
 M android.view.ContextMenu
 M java.lang.ref.WeakReference
 M android.util.AttributeSet
@@ -270,6 +268,8 @@ C haxor.core.IDisposable
 M java.net.NetworkInterface
 M haxe.root.Map
 C haxe.root.IMap
+M haxor.platform.android.net.HTTPRequest
+C haxor.platform.android.net.HTTPRequest
 M java.security.cert.CertPath
 M haxor.context.TextureContext
 C haxor.context.TextureContext
@@ -392,7 +392,6 @@ C haxor.graphics.MeshMode
 C haxor.graphics.MeshPrimitive
 C haxor.graphics.CullMode
 C haxor.graphics.DepthTest
-C haxor.graphics.BufferPrimitive
 E haxor.graphics.PixelFormat
 E haxor.graphics.TextureFilter
 C haxor.graphics.TextureWrap
@@ -495,6 +494,9 @@ M haxor.io.Buffer
 C haxor.io.Buffer
 M java.lang.Package
 M java.io.ByteArrayOutputStream
+M haxor.net.Texture2DLoader
+C haxor.net.Texture2DLoader
+C haxor.net.Texture2DLoader_OnBitmapCallback_53__Fun
 M java.types.Char16
 M java.io.OutputStream
 M android.view.View
@@ -540,8 +542,8 @@ M java.lang.Exception
 M android.view.WindowManager
 M haxe.root.Main
 C haxe.root.Main
-C haxe.root.Main_Load_68__Fun
-C haxe.root.Main_Load_81__Fun
+C haxe.root.Main_Load_60__Fun
+C haxe.root.Main_Load_65__Fun
 M android.database.sqlite.SQLiteCursorDriver
 M java.lang.System
 M android.app.Application
@@ -583,6 +585,8 @@ M android.view.ActionMode
 M haxor.graphics.GraphicContext
 E haxor.graphics.GraphicAPI
 C haxor.graphics.GraphicContext
+M haxor.platform.android.net.HTTPLoader
+C haxor.platform.android.net.HTTPLoader
 M haxor.core.Console
 C haxor.core.Console
 M java.io.FilenameFilter

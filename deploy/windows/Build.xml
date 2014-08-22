@@ -65,66 +65,6 @@
    <depend name="include/haxor/platform/windows/Window.h"/>
    <depend name="include/haxor/platform/windows/graphics/WinGL.h"/>
   </file>
-  <file name="src/haxor/platform/windows/BitmapLoader.cpp">
-   <depend name="include/haxe/io/Bytes.h"/>
-   <depend name="include/haxor/core/IDisposable.h"/>
-   <depend name="include/haxor/core/IRenderable.h"/>
-   <depend name="include/haxor/core/IUpdateable.h"/>
-   <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/graphics/PixelFormat.h"/>
-   <depend name="include/haxor/graphics/texture/Bitmap.h"/>
-   <depend name="include/haxor/io/Buffer.h"/>
-   <depend name="include/haxor/platform/windows/BitmapLoader.h"/>
-   <depend name="include/haxor/platform/windows/HTTPLoader.h"/>
-   <depend name="include/haxor/platform/windows/HTTPRequest.h"/>
-   <depend name="include/haxor/thread/Activity.h"/>
-   <depend name="include/haxor/thread/Task.h"/>
-  </file>
-  <file name="src/haxor/platform/windows/HTTPLoader.cpp">
-   <depend name="include/haxor/core/IDisposable.h"/>
-   <depend name="include/haxor/core/IRenderable.h"/>
-   <depend name="include/haxor/core/IUpdateable.h"/>
-   <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/io/Buffer.h"/>
-   <depend name="include/haxor/platform/windows/HTTPLoader.h"/>
-   <depend name="include/haxor/platform/windows/HTTPRequest.h"/>
-   <depend name="include/haxor/thread/Activity.h"/>
-   <depend name="include/haxor/thread/Task.h"/>
-  </file>
-  <file name="src/haxor/platform/windows/HTTPRequest.cpp">
-   <depend name="include/StringTools.h"/>
-   <depend name="include/haxe/Http.h"/>
-   <depend name="include/haxor/core/Console.h"/>
-   <depend name="include/haxor/core/IDisposable.h"/>
-   <depend name="include/haxor/core/IRenderable.h"/>
-   <depend name="include/haxor/core/IUpdateable.h"/>
-   <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/net/Web.h"/>
-   <depend name="include/haxor/platform/windows/HTTPRequest.h"/>
-   <depend name="include/haxor/thread/Activity.h"/>
-   <depend name="include/haxor/thread/Task.h"/>
-  </file>
-  <file name="src/haxor/thread/Task.cpp">
-   <depend name="include/haxor/core/IDisposable.h"/>
-   <depend name="include/haxor/core/IRenderable.h"/>
-   <depend name="include/haxor/core/IUpdateable.h"/>
-   <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/thread/Activity.h"/>
-   <depend name="include/haxor/thread/Task.h"/>
-  </file>
-  <file name="src/haxor/thread/Activity.cpp">
-   <depend name="include/Sys.h"/>
-   <depend name="include/cpp/vm/Thread.h"/>
-   <depend name="include/haxor/context/BaseProcess.h"/>
-   <depend name="include/haxor/context/EngineContext.h"/>
-   <depend name="include/haxor/context/Process.h"/>
-   <depend name="include/haxor/core/IDisposable.h"/>
-   <depend name="include/haxor/core/IRenderable.h"/>
-   <depend name="include/haxor/core/IUpdateable.h"/>
-   <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/core/Time.h"/>
-   <depend name="include/haxor/thread/Activity.h"/>
-  </file>
   <file name="src/haxor/platform/graphics/OpenGL.cpp">
    <depend name="include/StringTools.h"/>
    <depend name="include/haxe/io/Bytes.h"/>
@@ -165,12 +105,105 @@
    <depend name="include/haxor/core/IUpdateable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/graphics/texture/Bitmap.h"/>
+   <depend name="include/haxor/graphics/texture/Texture.h"/>
+   <depend name="include/haxor/graphics/texture/Texture2D.h"/>
+   <depend name="include/haxor/net/HTTPRequestTask.h"/>
+   <depend name="include/haxor/net/Texture2DLoader.h"/>
    <depend name="include/haxor/net/Web.h"/>
-   <depend name="include/haxor/platform/windows/BitmapLoader.h"/>
-   <depend name="include/haxor/platform/windows/HTTPLoader.h"/>
-   <depend name="include/haxor/platform/windows/HTTPRequest.h"/>
+   <depend name="include/haxor/platform/windows/net/BitmapLoader.h"/>
+   <depend name="include/haxor/platform/windows/net/HTTPLoader.h"/>
+   <depend name="include/haxor/platform/windows/net/HTTPRequest.h"/>
    <depend name="include/haxor/thread/Activity.h"/>
    <depend name="include/haxor/thread/Task.h"/>
+  </file>
+  <file name="src/haxor/net/Texture2DLoader.cpp">
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IRenderable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/graphics/texture/Bitmap.h"/>
+   <depend name="include/haxor/graphics/texture/Texture.h"/>
+   <depend name="include/haxor/graphics/texture/Texture2D.h"/>
+   <depend name="include/haxor/net/HTTPRequestTask.h"/>
+   <depend name="include/haxor/net/Texture2DLoader.h"/>
+   <depend name="include/haxor/platform/windows/net/BitmapLoader.h"/>
+   <depend name="include/haxor/platform/windows/net/HTTPLoader.h"/>
+   <depend name="include/haxor/platform/windows/net/HTTPRequest.h"/>
+   <depend name="include/haxor/thread/Activity.h"/>
+   <depend name="include/haxor/thread/Task.h"/>
+  </file>
+  <file name="src/haxor/platform/windows/net/BitmapLoader.cpp">
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IRenderable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/graphics/PixelFormat.h"/>
+   <depend name="include/haxor/graphics/texture/Bitmap.h"/>
+   <depend name="include/haxor/io/Buffer.h"/>
+   <depend name="include/haxor/net/HTTPRequestTask.h"/>
+   <depend name="include/haxor/platform/windows/net/BitmapLoader.h"/>
+   <depend name="include/haxor/platform/windows/net/HTTPLoader.h"/>
+   <depend name="include/haxor/platform/windows/net/HTTPRequest.h"/>
+   <depend name="include/haxor/thread/Activity.h"/>
+   <depend name="include/haxor/thread/Task.h"/>
+  </file>
+  <file name="src/haxor/platform/windows/net/HTTPLoader.cpp">
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IRenderable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/io/Buffer.h"/>
+   <depend name="include/haxor/net/HTTPRequestTask.h"/>
+   <depend name="include/haxor/platform/windows/net/HTTPLoader.h"/>
+   <depend name="include/haxor/platform/windows/net/HTTPRequest.h"/>
+   <depend name="include/haxor/thread/Activity.h"/>
+   <depend name="include/haxor/thread/Task.h"/>
+  </file>
+  <file name="src/haxor/platform/windows/net/HTTPRequest.cpp">
+   <depend name="include/haxe/Http.h"/>
+   <depend name="include/haxor/core/Console.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IRenderable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/net/HTTPRequestTask.h"/>
+   <depend name="include/haxor/platform/windows/net/HTTPRequest.h"/>
+   <depend name="include/haxor/thread/Activity.h"/>
+   <depend name="include/haxor/thread/Task.h"/>
+  </file>
+  <file name="src/haxor/net/HTTPRequestTask.cpp">
+   <depend name="include/StringTools.h"/>
+   <depend name="include/haxor/core/Console.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IRenderable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/net/HTTPRequestTask.h"/>
+   <depend name="include/haxor/net/Web.h"/>
+   <depend name="include/haxor/thread/Activity.h"/>
+   <depend name="include/haxor/thread/Task.h"/>
+  </file>
+  <file name="src/haxor/thread/Task.cpp">
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IRenderable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/thread/Activity.h"/>
+   <depend name="include/haxor/thread/Task.h"/>
+  </file>
+  <file name="src/haxor/thread/Activity.cpp">
+   <depend name="include/Sys.h"/>
+   <depend name="include/cpp/vm/Thread.h"/>
+   <depend name="include/haxor/context/BaseProcess.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/Process.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IRenderable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/Time.h"/>
+   <depend name="include/haxor/thread/Activity.h"/>
   </file>
   <file name="src/haxor/math/Mathf.cpp">
    <depend name="include/Std.h"/>
@@ -398,9 +431,6 @@
   </file>
   <file name="src/haxor/graphics/PixelFormat.cpp">
    <depend name="include/haxor/graphics/PixelFormat.h"/>
-  </file>
-  <file name="src/haxor/graphics/BufferPrimitive.cpp">
-   <depend name="include/haxor/graphics/BufferPrimitive.h"/>
   </file>
   <file name="src/haxor/graphics/DepthTest.cpp">
    <depend name="include/haxor/graphics/DepthTest.h"/>

@@ -72,7 +72,7 @@ HX_STACK_THIS(this)
 	HX_STACK_LINE(102)
 	int _g = (::haxor::context::EngineContext_obj::texture->tid)++;		HX_STACK_VAR(_g,"_g");
 	HX_STACK_LINE(102)
-	this->_cid_ = _g;
+	this->__cid = _g;
 }
 ;
 	return null();
@@ -186,7 +186,7 @@ int Texture_obj::set_wrap( int v){
 			HX_STACK_LINE(43)
 			_this->bind = hx::ObjectPtr<OBJ_>(this);
 			HX_STACK_LINE(43)
-			int id = _this->ids->__get(_this->bind->_cid_);		HX_STACK_VAR(id,"id");
+			int id = _this->ids->__get(_this->bind->__cid);		HX_STACK_VAR(id,"id");
 			HX_STACK_LINE(43)
 			int target1;		HX_STACK_VAR(target1,"target1");
 			HX_STACK_LINE(43)
@@ -400,7 +400,7 @@ int Texture_obj::set_aniso( int v){
 			HX_STACK_LINE(51)
 			_this->bind = hx::ObjectPtr<OBJ_>(this);
 			HX_STACK_LINE(51)
-			int id = _this->ids->__get(_this->bind->_cid_);		HX_STACK_VAR(id,"id");
+			int id = _this->ids->__get(_this->bind->__cid);		HX_STACK_VAR(id,"id");
 			HX_STACK_LINE(51)
 			int target1;		HX_STACK_VAR(target1,"target1");
 			HX_STACK_LINE(51)
@@ -614,7 +614,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 			HX_STACK_LINE(60)
 			_this->bind = hx::ObjectPtr<OBJ_>(this);
 			HX_STACK_LINE(60)
-			int id = _this->ids->__get(_this->bind->_cid_);		HX_STACK_VAR(id,"id");
+			int id = _this->ids->__get(_this->bind->__cid);		HX_STACK_VAR(id,"id");
 			HX_STACK_LINE(60)
 			int target1;		HX_STACK_VAR(target1,"target1");
 			HX_STACK_LINE(60)
@@ -828,7 +828,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 			HX_STACK_LINE(68)
 			_this->bind = hx::ObjectPtr<OBJ_>(this);
 			HX_STACK_LINE(68)
-			int id = _this->ids->__get(_this->bind->_cid_);		HX_STACK_VAR(id,"id");
+			int id = _this->ids->__get(_this->bind->__cid);		HX_STACK_VAR(id,"id");
 			HX_STACK_LINE(68)
 			int target1;		HX_STACK_VAR(target1,"target1");
 			HX_STACK_LINE(68)

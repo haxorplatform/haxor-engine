@@ -6,15 +6,17 @@
 #include <sys/net/Host.h>
 #include <haxor/platform/windows/Window.h>
 #include <haxor/platform/windows/Entry.h>
-#include <haxor/platform/windows/BitmapLoader.h>
-#include <haxor/platform/windows/HTTPLoader.h>
-#include <haxor/platform/windows/HTTPRequest.h>
-#include <haxor/thread/Task.h>
-#include <haxor/thread/Activity.h>
 #include <haxor/platform/graphics/OpenGL.h>
 #include <haxor/platform/windows/graphics/WinGL.h>
 #include <haxor/platform/OSWindow.h>
 #include <haxor/net/Web.h>
+#include <haxor/net/Texture2DLoader.h>
+#include <haxor/platform/windows/net/BitmapLoader.h>
+#include <haxor/platform/windows/net/HTTPLoader.h>
+#include <haxor/platform/windows/net/HTTPRequest.h>
+#include <haxor/net/HTTPRequestTask.h>
+#include <haxor/thread/Task.h>
+#include <haxor/thread/Activity.h>
 #include <haxor/math/Mathf.h>
 #include <haxor/math/Color.h>
 #include <haxor/io/UInt16Array.h>
@@ -42,7 +44,6 @@
 #include <haxor/graphics/TextureWrap.h>
 #include <haxor/graphics/TextureFilter.h>
 #include <haxor/graphics/PixelFormat.h>
-#include <haxor/graphics/BufferPrimitive.h>
 #include <haxor/graphics/DepthTest.h>
 #include <haxor/graphics/CullMode.h>
 #include <haxor/graphics/MeshPrimitive.h>
@@ -111,15 +112,17 @@ hx::RegisterResources( hx::GetResources() );
 ::sys::net::Host_obj::__register();
 ::haxor::platform::windows::Window_obj::__register();
 ::haxor::platform::windows::Entry_obj::__register();
-::haxor::platform::windows::BitmapLoader_obj::__register();
-::haxor::platform::windows::HTTPLoader_obj::__register();
-::haxor::platform::windows::HTTPRequest_obj::__register();
-::haxor::thread::Task_obj::__register();
-::haxor::thread::Activity_obj::__register();
 ::haxor::platform::graphics::OpenGL_obj::__register();
 ::haxor::platform::windows::graphics::WinGL_obj::__register();
 ::haxor::platform::OSWindow_obj::__register();
 ::haxor::net::Web_obj::__register();
+::haxor::net::Texture2DLoader_obj::__register();
+::haxor::platform::windows::net::BitmapLoader_obj::__register();
+::haxor::platform::windows::net::HTTPLoader_obj::__register();
+::haxor::platform::windows::net::HTTPRequest_obj::__register();
+::haxor::net::HTTPRequestTask_obj::__register();
+::haxor::thread::Task_obj::__register();
+::haxor::thread::Activity_obj::__register();
 ::haxor::math::Mathf_obj::__register();
 ::haxor::math::Color_obj::__register();
 ::haxor::io::UInt16Array_obj::__register();
@@ -147,7 +150,6 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::TextureWrap_obj::__register();
 ::haxor::graphics::TextureFilter_obj::__register();
 ::haxor::graphics::PixelFormat_obj::__register();
-::haxor::graphics::BufferPrimitive_obj::__register();
 ::haxor::graphics::DepthTest_obj::__register();
 ::haxor::graphics::CullMode_obj::__register();
 ::haxor::graphics::MeshPrimitive_obj::__register();
@@ -260,7 +262,6 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::MeshPrimitive_obj::__boot();
 ::haxor::graphics::CullMode_obj::__boot();
 ::haxor::graphics::DepthTest_obj::__boot();
-::haxor::graphics::BufferPrimitive_obj::__boot();
 ::haxor::graphics::PixelFormat_obj::__boot();
 ::haxor::graphics::TextureFilter_obj::__boot();
 ::haxor::graphics::TextureWrap_obj::__boot();
@@ -288,15 +289,17 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::io::UInt16Array_obj::__boot();
 ::haxor::math::Color_obj::__boot();
 ::haxor::math::Mathf_obj::__boot();
+::haxor::thread::Activity_obj::__boot();
+::haxor::thread::Task_obj::__boot();
+::haxor::net::HTTPRequestTask_obj::__boot();
+::haxor::platform::windows::net::HTTPRequest_obj::__boot();
+::haxor::platform::windows::net::HTTPLoader_obj::__boot();
+::haxor::platform::windows::net::BitmapLoader_obj::__boot();
+::haxor::net::Texture2DLoader_obj::__boot();
 ::haxor::net::Web_obj::__boot();
 ::haxor::platform::OSWindow_obj::__boot();
 ::haxor::platform::windows::graphics::WinGL_obj::__boot();
 ::haxor::platform::graphics::OpenGL_obj::__boot();
-::haxor::thread::Activity_obj::__boot();
-::haxor::thread::Task_obj::__boot();
-::haxor::platform::windows::HTTPRequest_obj::__boot();
-::haxor::platform::windows::HTTPLoader_obj::__boot();
-::haxor::platform::windows::BitmapLoader_obj::__boot();
 ::haxor::platform::windows::Entry_obj::__boot();
 ::haxor::platform::windows::Window_obj::__boot();
 ::sys::net::Host_obj::__boot();
