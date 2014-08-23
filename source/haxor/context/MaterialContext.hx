@@ -436,7 +436,8 @@ class MaterialContext
 			case 1:  GL.Uniform1f(p_location, b.Get(0));				
 			case 2:  GL.Uniform2f(p_location, b.Get(0), b.Get(1));
 			case 3:  GL.Uniform3f(p_location, b.Get(0), b.Get(1), b.Get(2));
-			case 4:  GL.Uniform4f(p_location, b.Get(0), b.Get(1), b.Get(2), b.Get(3));			
+			case 4:  GL.Uniform4f(p_location, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
+			case 16: GL.UniformMatrix4fv(p_location, false, b);
 			default: GL.Uniform1fv(p_location, b);
 		}
 	}
@@ -494,4 +495,6 @@ class MaterialContext
 		GL.DeleteShader(vertex_shaders[s.__cid]);
 		GL.DeleteShader(fragment_shaders[s.__cid]);
 	}
+	
+	
 }

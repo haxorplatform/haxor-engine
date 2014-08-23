@@ -17,11 +17,11 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 	}
 	
 	
-	public static   void __hx_ctor_haxor_net_Texture2DLoader(haxor.net.Texture2DLoader __temp_me55755, java.lang.String p_url, boolean p_apply, haxe.lang.Function p_callback)
+	public static   void __hx_ctor_haxor_net_Texture2DLoader(haxor.net.Texture2DLoader __temp_me56232, java.lang.String p_url, boolean p_apply, haxe.lang.Function p_callback)
 	{
-		haxor.platform.android.net.BitmapLoader.__hx_ctor_haxor_platform_android_net_BitmapLoader(__temp_me55755, p_url, ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (__temp_me55755) ), haxe.lang.Runtime.toString("OnBitmapCallback"))) ));
-		__temp_me55755.m_t2d_callback = p_callback;
-		__temp_me55755.m_apply = p_apply;
+		haxor.platform.android.net.BitmapLoader.__hx_ctor_haxor_platform_android_net_BitmapLoader(__temp_me56232, p_url, ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (__temp_me56232) ), haxe.lang.Runtime.toString("OnBitmapCallback"))) ));
+		__temp_me56232.m_t2d_callback = p_callback;
+		__temp_me56232.m_apply = p_apply;
 	}
 	
 	
@@ -80,14 +80,14 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56026 = true;
+			boolean __temp_executeDef56586 = true;
 			switch (field.hashCode())
 			{
 				case 766451996:
 				{
 					if (field.equals("m_apply")) 
 					{
-						__temp_executeDef56026 = false;
+						__temp_executeDef56586 = false;
 						this.m_apply = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -100,7 +100,7 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 				{
 					if (field.equals("m_t2d_callback")) 
 					{
-						__temp_executeDef56026 = false;
+						__temp_executeDef56586 = false;
 						this.m_t2d_callback = ((haxe.lang.Function) (value) );
 						return value;
 					}
@@ -111,7 +111,7 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 				
 			}
 			
-			if (__temp_executeDef56026) 
+			if (__temp_executeDef56586) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -128,14 +128,14 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56027 = true;
+			boolean __temp_executeDef56587 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef56027 = false;
+						__temp_executeDef56587 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnError"))) );
 					}
 					
@@ -147,7 +147,7 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 				{
 					if (field.equals("m_t2d_callback")) 
 					{
-						__temp_executeDef56027 = false;
+						__temp_executeDef56587 = false;
 						return this.m_t2d_callback;
 					}
 					
@@ -159,7 +159,7 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 				{
 					if (field.equals("OnBitmapCallback")) 
 					{
-						__temp_executeDef56027 = false;
+						__temp_executeDef56587 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBitmapCallback"))) );
 					}
 					
@@ -171,7 +171,7 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 				{
 					if (field.equals("m_apply")) 
 					{
-						__temp_executeDef56027 = false;
+						__temp_executeDef56587 = false;
 						return this.m_apply;
 					}
 					
@@ -181,7 +181,7 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 				
 			}
 			
-			if (__temp_executeDef56027) 
+			if (__temp_executeDef56587) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -198,14 +198,14 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef56028 = true;
+			boolean __temp_executeDef56588 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef56028 = false;
+						__temp_executeDef56588 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -217,7 +217,7 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 				{
 					if (field.equals("OnBitmapCallback")) 
 					{
-						__temp_executeDef56028 = false;
+						__temp_executeDef56588 = false;
 						this.OnBitmapCallback(((haxor.graphics.texture.Bitmap) (dynargs.__get(0)) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -227,7 +227,7 @@ public  class Texture2DLoader extends haxor.platform.android.net.BitmapLoader
 				
 			}
 			
-			if (__temp_executeDef56028) 
+			if (__temp_executeDef56588) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

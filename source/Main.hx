@@ -1,4 +1,6 @@
 package ;
+import haxor.component.Camera;
+import haxor.component.Transform;
 import haxor.core.Application;
 import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
@@ -19,8 +21,13 @@ import haxor.graphics.texture.Bitmap;
 import haxor.graphics.texture.RenderTexture;
 import haxor.graphics.texture.Texture2D;
 import haxor.io.FloatArray;
+import haxor.io.Int32Array;
 import haxor.io.UInt16Array;
 import haxor.math.Color;
+import haxor.math.Mathf;
+import haxor.math.Matrix4;
+import haxor.math.Quaternion;
+import haxor.math.Random;
 import haxor.math.Vector2;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
@@ -59,7 +66,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		Web.root = "http://haxor.thelaborat.org/resources/";
 		
 		
-		
+		/*
 		Web.Load("./character/medieval/animations/all_idle01.DAE", function(s:String, p:Float):Void
 		{
 		});
@@ -115,7 +122,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		//*/
 				
-		return false;
+		return true;
 	}
 	
 	override public function Initialize():Void 
@@ -165,6 +172,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 				attribute vec4 color;			
 				uniform float Size;
 				uniform float Time;
+				uniform mat4 ViewMatrix;
 				varying vec4 v_color;		
 				varying vec2 v_uv0;
 				void main(void) 
@@ -176,7 +184,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 					v_uv0.y = (v_uv0.y + 1.0) * 0.5;
 					//v_uv0 = uv0;
 					vec4 v = vec4(vertex,1.0);
-					v.x = v.x*sin(Time);
+					v.x = v.x * sin(Time);
+					v_color = ViewMatrix[3];
 					gl_Position = vec4(v);				
 				}			
 				</vertex>			
@@ -189,7 +198,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 				{ 
 					vec4 c = texture2D(Texture, v_uv0);
 					//gl_FragColor = vec4(v_uv0.x,v_uv0.y,0.0,1.0);
-					gl_FragColor = c;
+					gl_FragColor = v_color;
 				}			
 				</fragment>
 			</shader>
@@ -213,29 +222,23 @@ class Main extends Application implements IUpdateable implements IRenderable
 		//*/
 		//tex.Apply();
 		
-		var c  : Color;
-		var v2 : Vector2;
-		var v3 : Vector3;
-		var v4 : Vector4;
-		
-		
-		
 		//var rtt : RenderTexture = new RenderTexture(128, 128, PixelFormat.RGBA8);
-		
-		tex = Texture2D.FromBitmap(bmp, false);
-		tex.Upload(100);
+		if (bmp != null)
+		{
+			tex = Texture2D.FromBitmap(bmp, false);
+			tex.Upload(100);
+		}
 		
 		var shd : Shader = new Shader(ss);	
 		
-		mat = new Material("DebugMaterial");
-		mat.blend = true;
-		mat.cull = CullMode.None;
-		mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
+		mat = Material.Transparent();
 		mat.shader = shd;
 		mat.SetFloat("Size", s);
 		mat.SetTexture("Texture", tex);
 		mat.SetFloat4Array("Tint", [0.0, 1.0, 0.0, 0.3,1.0, 0.0, 0.0, 0.3]);
 		
+		var cam : Camera;
+		var trf : Transform;
 	}
 	
 	public function OnUpdate():Void
@@ -249,7 +252,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{
 				
 		GL.Viewport(0, 0, cast Screen.width, cast Screen.height);
-		GL.Scissor(0, 0, cast Screen.width / 2,cast Screen.height);
+		GL.Scissor(0, 0, cast Screen.width, cast Screen.height);
 		GL.ClearColor(0.7, 0.3, 1.0, 1.0);
 		GL.ClearDepth(1.0);
 		GL.Clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
@@ -257,8 +260,11 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 		if (mesh == null) return;
 		if (mat == null) return;
+		//mat.SetMatrix4("ViewMatrix", 
 		mat.SetFloat("Time", Time.elapsed);
 		Graphics.RenderMesh(mesh, mat);		
+		
+		
 		
 	}
 	

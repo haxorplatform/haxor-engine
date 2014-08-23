@@ -49,7 +49,6 @@ class MeshContext
 	 * Currently bound mesh.
 	 */
 	private var current : Mesh;
-
 	
 	/**
 	 * Creates the Mesh context to handle internal structures.

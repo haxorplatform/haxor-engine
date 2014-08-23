@@ -14,11 +14,10 @@ import haxor.thread.Task;
 
 @:headerCode('
 
-#ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
-#define STBI_NO_HDR
-#include "stb/stb_image.h"                              // Header File For STB Image lib.
-#endif
+#define STB_IMAGE_STATIC
+#include "stb/stb_image.h"  
+
 
 ')
 
@@ -61,15 +60,21 @@ class BitmapLoader extends HTTPLoader<Buffer>
 			var h : Int = 0;
 			var byte_length : Int = 0;
 			var cc : Int = 0;
+			/*
 			untyped __cpp__('
 			unsigned char * img_buffer = (stbi_uc * ) stbi_load_from_memory( & file_bl->b[0], file_len, & w, & h, & cc, 0);			
 			');						
+			//*/
+			
 			byte_length = w * h * cc;			
 			var buffer : Buffer = new Buffer(byte_length);
 			var bytes : ArrayBuffer = buffer.m_buffer;
+			/*
 			untyped __cpp__('
 			for (int i = 0; i < byte_length;i++) bytes->b[i] = img_buffer[i];
+			stbi_image_free(img_buffer);
 			');		
+			//*/
 			var fmt : PixelFormat = PixelFormat.RGBA8;
 			switch(cc)
 			{

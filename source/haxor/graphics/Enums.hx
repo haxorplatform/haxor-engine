@@ -332,3 +332,35 @@ enum TextureType
 	TextureCube;
 	RenderTexture;	
 }
+
+/**
+ * Clear bits for the Camera component.
+ * @author Eduardo Pons
+ */
+class ClearFlag 
+{	
+	/**
+	 * Don't Clear.
+	 */
+	static public var None:Int			= 0;
+	/**
+	 * Clear only the Color buffer.
+	 */
+	static public var Color:Int			= 1;	
+	/**
+	 * Clear only the DepthBuffer.
+	 */
+	static public var Depth:Int			= 2;
+	/**
+	 * Clear the background using only a skybox texture.
+	 */
+	static public var Skybox:Int		= 4; 
+	/**
+	 * Clear the Depth and Color buffer.
+	 */
+	static public var ColorDepth:Int 	= 3;
+	/**
+	 * Clear the Depth and render the skybox.
+	 */
+	static public var SkyboxDepth:Int 	= 6;
+}

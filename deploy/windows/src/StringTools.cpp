@@ -111,6 +111,18 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(StringTools_obj,ltrim,return )
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(StringTools_obj,rtrim,return )
 
+::String StringTools_obj::trim( ::String s){
+	HX_STACK_FRAME("StringTools","trim",0x2908d066,"StringTools.trim","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/StringTools.hx",226,0x1cb4d9a1)
+	HX_STACK_ARG(s,"s")
+	HX_STACK_LINE(232)
+	::String _g = ::StringTools_obj::rtrim(s);		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(232)
+	return ::StringTools_obj::ltrim(_g);
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(StringTools_obj,trim,return )
+
 ::String StringTools_obj::replace( ::String s,::String sub,::String by){
 	HX_STACK_FRAME("StringTools","replace",0x6d651f30,"StringTools.replace","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/StringTools.hx",303,0x1cb4d9a1)
 	HX_STACK_ARG(s,"s")
@@ -131,6 +143,9 @@ StringTools_obj::StringTools_obj()
 Dynamic StringTools_obj::__Field(const ::String &inName,bool inCallProp)
 {
 	switch(inName.length) {
+	case 4:
+		if (HX_FIELD_EQ(inName,"trim") ) { return trim_dyn(); }
+		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"ltrim") ) { return ltrim_dyn(); }
 		if (HX_FIELD_EQ(inName,"rtrim") ) { return rtrim_dyn(); }
@@ -160,6 +175,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("isSpace"),
 	HX_CSTRING("ltrim"),
 	HX_CSTRING("rtrim"),
+	HX_CSTRING("trim"),
 	HX_CSTRING("replace"),
 	String(null()) };
 

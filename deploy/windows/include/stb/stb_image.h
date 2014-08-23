@@ -578,7 +578,7 @@ static unsigned char *stbi_load_main(stbi__context *s, int *x, int *y, int *comp
 
 #ifndef STBI_NO_STDIO
 
-FILE *stbi__fopen(char const *filename, char const *mode)
+STBIDEF FILE *stbi__fopen(char const *filename, char const *mode)
 {
    FILE *f;
 #if defined(_MSC_VER) && _MSC_VER >= 1400
@@ -631,7 +631,7 @@ unsigned char *stbi_load_from_callbacks(stbi_io_callbacks const *clbk, void *use
 
 #ifndef STBI_NO_HDR
 
-float *stbi_loadf_main(stbi__context *s, int *x, int *y, int *comp, int req_comp)
+STBIDEF float *stbi_loadf_main(stbi__context *s, int *x, int *y, int *comp, int req_comp)
 {
    unsigned char *data;
    #ifndef STBI_NO_HDR

@@ -6,6 +6,8 @@
 #endif
 
 HX_DECLARE_CLASS2(haxor,math,Color)
+HX_DECLARE_CLASS2(haxor,math,Vector3)
+HX_DECLARE_CLASS2(haxor,math,Vector4)
 namespace haxor{
 namespace math{
 
@@ -36,6 +38,14 @@ class HXCPP_CLASS_ATTRIBUTES  Color_obj : public hx::Object{
 		virtual ::haxor::math::Color get_clone( );
 		Dynamic get_clone_dyn();
 
+		::haxor::math::Vector3 xyz;
+		virtual ::haxor::math::Vector3 get_xyz( );
+		Dynamic get_xyz_dyn();
+
+		::haxor::math::Vector4 xyzw;
+		virtual ::haxor::math::Vector4 get_xyzw( );
+		Dynamic get_xyzw_dyn();
+
 		virtual int get_argb( );
 		Dynamic get_argb_dyn();
 
@@ -57,6 +67,14 @@ class HXCPP_CLASS_ATTRIBUTES  Color_obj : public hx::Object{
 		virtual int set_rgb( int v);
 		Dynamic set_rgb_dyn();
 
+		Float luminance;
+		virtual Float get_luminance( );
+		Dynamic get_luminance_dyn();
+
+		::haxor::math::Color negative;
+		virtual ::haxor::math::Color get_negative( );
+		Dynamic get_negative_dyn();
+
 		Float r;
 		Float g;
 		Float b;
@@ -64,14 +82,45 @@ class HXCPP_CLASS_ATTRIBUTES  Color_obj : public hx::Object{
 		virtual ::haxor::math::Color Set( hx::Null< Float >  p_r,hx::Null< Float >  p_g,hx::Null< Float >  p_b,hx::Null< Float >  p_a);
 		Dynamic Set_dyn();
 
-		virtual ::haxor::math::Color Set4( ::haxor::math::Color p_color);
+		virtual ::haxor::math::Color Set3( ::haxor::math::Vector3 v);
+		Dynamic Set3_dyn();
+
+		virtual ::haxor::math::Color Set4( ::haxor::math::Vector4 v);
 		Dynamic Set4_dyn();
+
+		virtual ::haxor::math::Color SetColor( ::haxor::math::Color p_color);
+		Dynamic SetColor_dyn();
+
+		virtual Float Get( int p);
+		Dynamic Get_dyn();
+
+		virtual ::haxor::math::Color Add( ::haxor::math::Color p_v);
+		Dynamic Add_dyn();
+
+		virtual ::haxor::math::Color Sub( ::haxor::math::Color p_v);
+		Dynamic Sub_dyn();
+
+		virtual ::haxor::math::Color Multiply( ::haxor::math::Color p_v);
+		Dynamic Multiply_dyn();
+
+		virtual ::haxor::math::Color MultiplyRGB( ::haxor::math::Color p_v);
+		Dynamic MultiplyRGB_dyn();
+
+		virtual ::haxor::math::Color Scale( Float p_s);
+		Dynamic Scale_dyn();
+
+		virtual ::haxor::math::Color ScaleRGB( Float p_s);
+		Dynamic ScaleRGB_dyn();
 
 		virtual Array< Float > ToArray( );
 		Dynamic ToArray_dyn();
 
-		virtual ::String ToString( );
+		virtual ::String ToString( hx::Null< int >  p_places);
 		Dynamic ToString_dyn();
+
+		static ::haxor::math::Color temp;
+		static ::haxor::math::Color get_temp( );
+		static Dynamic get_temp_dyn();
 
 		static ::haxor::math::Color red;
 		static ::haxor::math::Color get_red( );

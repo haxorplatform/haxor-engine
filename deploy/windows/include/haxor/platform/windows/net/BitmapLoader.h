@@ -20,11 +20,10 @@ HX_DECLARE_CLASS2(haxor,thread,Activity)
 HX_DECLARE_CLASS2(haxor,thread,Task)
 
 
-#ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
-#define STBI_NO_HDR
-#include "stb/stb_image.h"                              // Header File For STB Image lib.
-#endif
+#define STB_IMAGE_STATIC
+#include "stb/stb_image.h"  
+
 
 
 namespace haxor{

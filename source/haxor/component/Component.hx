@@ -52,4 +52,9 @@ class Component extends Resource
 	 */
 	private function OnBuild():Void { }
 	
+	/**
+	 * Callback called when the Transform of the Entity changed.
+	 */
+	private function OnTransformUpdate():Void { }
+	
 }

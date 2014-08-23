@@ -32,13 +32,13 @@ public  class Std
 		
 		java.lang.String name = clt.getName();
 		{
-			java.lang.String __temp_svar55813 = (name);
-			int __temp_hash55815 = __temp_svar55813.hashCode();
-			switch (__temp_hash55815)
+			java.lang.String __temp_svar56290 = (name);
+			int __temp_hash56292 = __temp_svar56290.hashCode();
+			switch (__temp_hash56292)
 			{
 				case 761287205:case -1325958191:
 				{
-					if (( (( ( __temp_hash55815 == 761287205 ) && __temp_svar55813.equals("java.lang.Double") )) || __temp_svar55813.equals("double") )) 
+					if (( (( ( __temp_hash56292 == 761287205 ) && __temp_svar56290.equals("java.lang.Double") )) || __temp_svar56290.equals("double") )) 
 					{
 						return haxe.lang.Runtime.isDouble(v);
 					}
@@ -49,7 +49,7 @@ public  class Std
 				
 				case 1063877011:
 				{
-					if (__temp_svar55813.equals("java.lang.Object")) 
+					if (__temp_svar56290.equals("java.lang.Object")) 
 					{
 						return true;
 					}
@@ -60,7 +60,7 @@ public  class Std
 				
 				case -2056817302:case 104431:
 				{
-					if (( (( ( __temp_hash55815 == -2056817302 ) && __temp_svar55813.equals("java.lang.Integer") )) || __temp_svar55813.equals("int") )) 
+					if (( (( ( __temp_hash56292 == -2056817302 ) && __temp_svar56290.equals("java.lang.Integer") )) || __temp_svar56290.equals("int") )) 
 					{
 						return haxe.lang.Runtime.isInt(v);
 					}
@@ -71,7 +71,7 @@ public  class Std
 				
 				case 344809556:case 64711720:
 				{
-					if (( (( ( __temp_hash55815 == 344809556 ) && __temp_svar55813.equals("java.lang.Boolean") )) || __temp_svar55813.equals("boolean") )) 
+					if (( (( ( __temp_hash56292 == 344809556 ) && __temp_svar56290.equals("java.lang.Boolean") )) || __temp_svar56290.equals("boolean") )) 
 					{
 						return v instanceof java.lang.Boolean;
 					}
@@ -166,6 +166,112 @@ public  class Std
 			return isNeg ? -ret : ret;
 		else
 			return null;
+	
+	}
+	
+	
+	public static   double parseFloat(java.lang.String x)
+	{
+		
+		if (x == null) return java.lang.Double.NaN;
+
+		x = x.trim();
+		double ret = 0.0;
+		double div = 0.0;
+		double e = 0.0;
+
+		int len = x.length();
+		boolean foundAny = false;
+		boolean isNeg = false;
+		for (int i = 0; i < len; i++)
+		{
+			char c = x.charAt(i);
+			if (!foundAny)
+			{
+				switch(c)
+				{
+					case '-':
+						isNeg = true;
+						continue;
+          case '+':
+					case '\n':
+					case '\t':
+					case '\r':
+					case ' ':
+					if (isNeg) return java.lang.Double.NaN;
+						continue;
+				}
+			}
+
+			if (c == '.') {
+				if (div != 0.0)
+					break;
+				div = 1.0;
+
+				continue;
+			}
+
+			if (c >= '0' && c <= '9')
+			{
+				if (!foundAny && c == '0')
+				{
+					foundAny = true;
+					continue;
+				}
+				ret *= 10.0; foundAny = true; div *= 10.0;
+
+				ret += ((int) (c - '0'));
+			} else if (foundAny && c == 'E' || c == 'e') {
+				boolean eNeg = false;
+				boolean eFoundAny = false;
+
+				char next = x.charAt(i + 1);
+				if (i + 1 < len)
+				{
+					if (next == '-')
+					{
+						eNeg = true;
+						i++;
+					} else if (next == '+') {
+						i++;
+					}
+				}
+
+				while (++i < len)
+				{
+					c = x.charAt(i);
+					if (c >= '0' && c <= '9')
+					{
+						if (!eFoundAny && c == '0')
+							continue;
+						eFoundAny = true;
+						e *= 10.0;
+						e += ((int) (c - '0'));
+					} else {
+						break;
+					}
+				}
+
+				if (eNeg) e = -e;
+			} else {
+				break;
+			}
+		}
+
+		if (div == 0.0) div = 1.0;
+
+		if (foundAny)
+		{
+			ret = isNeg ? -(ret / div) : (ret / div);
+			if (e != 0.0)
+			{
+				return ret * Math.pow(10.0, e);
+			} else {
+				return ret;
+			}
+		} else {
+			return java.lang.Double.NaN;
+		}
 	
 	}
 	

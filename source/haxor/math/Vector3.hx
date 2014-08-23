@@ -1,4 +1,5 @@
 package haxor.math;
+import haxor.context.EngineContext;
 
 /**
  * Class that represents a 3 float tuple.
@@ -6,6 +7,12 @@ package haxor.math;
  */
 class Vector3
 {	
+	/**
+	 * Returns a temporary cached instance of this class for local calculations speedup.  [warning] The data isn't setup in any way.
+	 */
+	static public var temp(get_temp, null):Vector3; 
+	static private inline function get_temp():Vector3 { return EngineContext.data.v3; }
+	
 	/**
 	 * Returns a new Vector3(0,0,0).
 	 */
@@ -64,12 +71,14 @@ class Vector3
 	 * @param	Vector3 p_b
 	 * @return
 	 */
-	static public function Cross(p_a : Vector3,p_b : Vector3): Vector3
+	static public function Cross(p_a : Vector3,p_b : Vector3,p_result:Vector3=null): Vector3
 	{
-		return new Vector3(
+		p_result = p_result == null ? new Vector3() : p_result;
+		return p_result.Set(		
 		p_a.y * p_b.z - p_a.z * p_b.y,
 		p_a.z * p_b.x - p_a.x * p_b.z,
-		p_a.x * p_b.y - p_a.y * p_b.x);
+		p_a.x * p_b.y - p_a.y * p_b.x
+		);
 	}
 	
 	/**
@@ -79,9 +88,10 @@ class Vector3
 	 * @param	p_r
 	 * @return
 	 */
-	static public function Lerp(p_a : Vector3, p_b : Vector3, p_r:Float):Vector3
+	static public function Lerp(p_a : Vector3, p_b : Vector3, p_r:Float,p_result:Vector3=null):Vector3
 	{
-		return new Vector3(
+		p_result = p_result == null ? new Vector3() : p_result;
+		return p_result.Set(
 		p_a.x + (p_b.x - p_a.x) * p_r,
 		p_a.y + (p_b.y - p_a.y) * p_r,
 		p_a.z + (p_b.z - p_a.z) * p_r
@@ -350,4 +360,17 @@ class Vector3
 	 */
 	public function ToString(p_places:Int=2):String { return "["+Mathf.RoundPlaces(x,p_places)+","+Mathf.RoundPlaces(y,p_places)+","+Mathf.RoundPlaces(z,p_places)+"]"; }
 	
+	/**
+	 * Parses a string with the required delimiter into a new instance.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function Parse(p_data : String,p_delimiter:String=" "):Vector3
+	{
+		var tk : Array<String> = p_data.split(p_delimiter);		
+		return Vector3.zero.Set(
+		Std.parseFloat(StringTools.trim(tk[0])),
+		Std.parseFloat(StringTools.trim(tk[1])),
+		Std.parseFloat(StringTools.trim(tk[2])));				
+	}
 }

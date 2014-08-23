@@ -130,7 +130,7 @@ HX_DEFINE_DYNAMIC_FUNC2(Texture2D_obj,Upload,(void))
 	HX_STACK_LINE(20)
 	::haxor::graphics::texture::Texture2D_obj::m_white = _g;
 	HX_STACK_LINE(21)
-	::haxor::math::Color _g1 = ::haxor::math::Color_obj::get_white();		HX_STACK_VAR(_g1,"_g1");
+	::haxor::math::Color _g1 = ::haxor::math::Color_obj::__new((int)1,(int)1,(int)1,(int)1);		HX_STACK_VAR(_g1,"_g1");
 	HX_STACK_LINE(21)
 	::haxor::graphics::texture::Texture2D_obj::m_white->m_data->Fill(_g1);
 	HX_STACK_LINE(22)
@@ -156,7 +156,7 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_white,return )
 	HX_STACK_LINE(34)
 	::haxor::graphics::texture::Texture2D_obj::m_red = _g;
 	HX_STACK_LINE(35)
-	::haxor::math::Color _g1 = ::haxor::math::Color_obj::get_red();		HX_STACK_VAR(_g1,"_g1");
+	::haxor::math::Color _g1 = ::haxor::math::Color_obj::__new(1.0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g1,"_g1");
 	HX_STACK_LINE(35)
 	::haxor::graphics::texture::Texture2D_obj::m_red->m_data->Fill(_g1);
 	HX_STACK_LINE(36)

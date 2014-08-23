@@ -1,5 +1,6 @@
 package haxor.graphics.material;
 import haxor.context.EngineContext;
+import haxor.context.ShaderContext;
 import haxor.core.Resource;
 
 /**
@@ -9,6 +10,20 @@ import haxor.core.Resource;
 @:allow(haxor)
 class Shader extends Resource
 {
+	/**
+	 * Returns a reference to the Flat shader (only vertex color and Tint).
+	 */
+	static public var Flat(get_Flat, null):Shader;
+	static private inline function get_Flat():Shader { return (m_flat_shader == null ? (m_flat_shader = new Shader(ShaderContext.flat_source)) : m_flat_shader);	}
+	static private var m_flat_shader : Shader;
+	
+	/**
+	 * Returns a reference to the Flat shader (only vertex color and Tint).
+	 */
+	static public var FlatTexture(get_FlatTexture, null):Shader;
+	static private inline function get_FlatTexture():Shader { return (m_flat_texture_shader == null ? (m_flat_texture_shader = new Shader(ShaderContext.flat_texture_source)) : m_flat_texture_shader);	}
+	static private var m_flat_texture_shader : Shader;
+	
 	/**
 	 * String containing the VertexShader source.
 	 */

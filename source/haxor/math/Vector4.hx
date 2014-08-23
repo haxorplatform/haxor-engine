@@ -1,4 +1,5 @@
 package haxor.math;
+import haxor.context.EngineContext;
 
 /**
  * Class that represents a 4 float tuple.
@@ -6,6 +7,12 @@ package haxor.math;
  */
 class Vector4
 {
+	/**
+	 * Returns a temporary cached instance of this class for local calculations speedup.  [warning] The data isn't setup in any way.
+	 */
+	static public var temp(get_temp, null):Vector4; 
+	static private inline function get_temp():Vector4 { return EngineContext.data.v4; }
+	
 	/**
 	 * Returns a new Vector4(0,0,0,0).
 	 */
@@ -226,7 +233,20 @@ class Vector4
 	 */
 	public function ToString(p_places:Int=2):String { return "["+Mathf.RoundPlaces(x,p_places)+","+Mathf.RoundPlaces(y,p_places)+","+Mathf.RoundPlaces(z,p_places)+","+Mathf.RoundPlaces(w,p_places)+"]"; }
 		
-	
+	/**
+	 * Parses a string with the required delimiter into a new instance.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function Parse(p_data : String,p_delimiter:String=" "):Vector4
+	{
+		var tk : Array<String> = p_data.split(p_delimiter);		
+		return Vector4.zero.Set(
+		Std.parseFloat(StringTools.trim(tk[0])),
+		Std.parseFloat(StringTools.trim(tk[1])),
+		Std.parseFloat(StringTools.trim(tk[2])),
+		Std.parseFloat(StringTools.trim(tk[3])));				
+	}
 	
 	
 }

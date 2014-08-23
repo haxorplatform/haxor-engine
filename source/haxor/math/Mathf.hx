@@ -1,4 +1,5 @@
 package haxor.math;
+import haxor.context.EngineContext;
 
 
 /**
@@ -190,12 +191,26 @@ class Mathf
 	static public inline function Min(a:Float, b:Float):Float { return Math.min(a, b); }
 	
 	/**
+	 * Returns the Min value inside the list.
+	 * @param	v
+	 * @return
+	 */
+	static public inline function MinRange(v:Array<Float>):Float { if (v.length <= 0) return 0.0; var n:Float = v[0]; for (i in 1...v.length) n = Math.min(n, v[i]); return n; }
+	
+	/**
 	 * Returns the Max value between the informed numbers.
 	 * @param	a
 	 * @param	b
 	 * @return
 	 */
 	static public inline function Max(a:Float, b:Float):Float { return Math.max(a, b); }
+	
+	/**
+	 * Returns the Max value inside the list.
+	 * @param	v
+	 * @return
+	 */
+	static public inline function MaxRange(v:Array<Float>):Float { if (v.length <= 0) return 0.0; var n:Float = v[0]; for (i in 1...v.length) n = Math.max(n, v[i]); return n; }
 	
 	/**
 	 * Returns the Min value between the informed numbers converted to integer.
@@ -384,6 +399,5 @@ class Mathf
 	}
 		
 		
-			
 		
 }

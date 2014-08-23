@@ -18,16 +18,28 @@ public  class Color extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_math_Color(haxor.math.Color __temp_me55734, java.lang.Object p_r, java.lang.Object p_g, java.lang.Object p_b, java.lang.Object p_a)
+	public static   void __hx_ctor_haxor_math_Color(haxor.math.Color __temp_me56140, java.lang.Object p_r, java.lang.Object p_g, java.lang.Object p_b, java.lang.Object p_a)
 	{
-		double __temp_p_a55733 = ( (( p_a == null )) ? (((double) (1) )) : (((double) (haxe.lang.Runtime.toDouble(p_a)) )) );
-		double __temp_p_b55732 = ( (( p_b == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_b)) )) );
-		double __temp_p_g55731 = ( (( p_g == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_g)) )) );
-		double __temp_p_r55730 = ( (( p_r == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_r)) )) );
-		__temp_me55734.r = __temp_p_r55730;
-		__temp_me55734.g = __temp_p_g55731;
-		__temp_me55734.b = __temp_p_b55732;
-		__temp_me55734.a = __temp_p_a55733;
+		double __temp_p_a56139 = ( (( p_a == null )) ? (((double) (1) )) : (((double) (haxe.lang.Runtime.toDouble(p_a)) )) );
+		double __temp_p_b56138 = ( (( p_b == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_b)) )) );
+		double __temp_p_g56137 = ( (( p_g == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_g)) )) );
+		double __temp_p_r56136 = ( (( p_r == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_r)) )) );
+		__temp_me56140.r = __temp_p_r56136;
+		__temp_me56140.g = __temp_p_g56137;
+		__temp_me56140.b = __temp_p_b56138;
+		__temp_me56140.a = __temp_p_a56139;
+	}
+	
+	
+	public static  haxor.math.Color temp;
+	
+	public static   haxor.math.Color get_temp()
+	{
+		{
+			haxor.context.DataContext _this = haxor.context.EngineContext.data;
+			return _this.m_c.__get(_this.m_nc = ( (( _this.m_nc + 1 )) % _this.m_c.length ));
+		}
+		
 	}
 	
 	
@@ -161,41 +173,41 @@ public  class Color extends haxe.lang.HxObject
 	
 	public static   haxor.math.Color FromBytes(java.lang.Object p_r, java.lang.Object p_g, java.lang.Object p_b, java.lang.Object p_a)
 	{
-		double __temp_p_a55729 = ( (( p_a == null )) ? (((double) (255.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_a)) )) );
-		double __temp_p_b55728 = ( (( p_b == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_b)) )) );
-		double __temp_p_g55727 = ( (( p_g == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_g)) )) );
-		double __temp_p_r55726 = ( (( p_r == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_r)) )) );
-		return new haxor.math.Color(((java.lang.Object) (( __temp_p_r55726 * 0.00392156863 )) ), ((java.lang.Object) (( __temp_p_g55727 * 0.00392156863 )) ), ((java.lang.Object) (( __temp_p_b55728 * 0.00392156863 )) ), ((java.lang.Object) (( __temp_p_a55729 * 0.00392156863 )) ));
+		double __temp_p_a56135 = ( (( p_a == null )) ? (((double) (255.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_a)) )) );
+		double __temp_p_b56134 = ( (( p_b == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_b)) )) );
+		double __temp_p_g56133 = ( (( p_g == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_g)) )) );
+		double __temp_p_r56132 = ( (( p_r == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_r)) )) );
+		return new haxor.math.Color(((java.lang.Object) (( __temp_p_r56132 * 0.00392156863 )) ), ((java.lang.Object) (( __temp_p_g56133 * 0.00392156863 )) ), ((java.lang.Object) (( __temp_p_b56134 * 0.00392156863 )) ), ((java.lang.Object) (( __temp_p_a56135 * 0.00392156863 )) ));
 	}
 	
 	
 	public static   haxor.math.Color Lerp(haxor.math.Color a, haxor.math.Color b, double r)
 	{
-		double __temp_stmt55994 = 0.0;
+		double __temp_stmt56484 = 0.0;
 		{
 			double p_a = a.r;
-			__temp_stmt55994 = ( p_a + ( (( b.r - p_a )) * r ) );
+			__temp_stmt56484 = ( p_a + ( (( b.r - p_a )) * r ) );
 		}
 		
-		double __temp_stmt55995 = 0.0;
+		double __temp_stmt56485 = 0.0;
 		{
 			double p_a1 = a.g;
-			__temp_stmt55995 = ( p_a1 + ( (( b.g - p_a1 )) * r ) );
+			__temp_stmt56485 = ( p_a1 + ( (( b.g - p_a1 )) * r ) );
 		}
 		
-		double __temp_stmt55996 = 0.0;
+		double __temp_stmt56486 = 0.0;
 		{
 			double p_a2 = a.b;
-			__temp_stmt55996 = ( p_a2 + ( (( b.b - p_a2 )) * r ) );
+			__temp_stmt56486 = ( p_a2 + ( (( b.b - p_a2 )) * r ) );
 		}
 		
-		double __temp_stmt55997 = 0.0;
+		double __temp_stmt56487 = 0.0;
 		{
 			double p_a3 = a.a;
-			__temp_stmt55997 = ( p_a3 + ( (( b.a - p_a3 )) * r ) );
+			__temp_stmt56487 = ( p_a3 + ( (( b.a - p_a3 )) * r ) );
 		}
 		
-		return new haxor.math.Color(((java.lang.Object) (__temp_stmt55994) ), ((java.lang.Object) (__temp_stmt55995) ), ((java.lang.Object) (__temp_stmt55996) ), ((java.lang.Object) (__temp_stmt55997) ));
+		return new haxor.math.Color(((java.lang.Object) (__temp_stmt56484) ), ((java.lang.Object) (__temp_stmt56485) ), ((java.lang.Object) (__temp_stmt56486) ), ((java.lang.Object) (__temp_stmt56487) ));
 	}
 	
 	
@@ -229,6 +241,22 @@ public  class Color extends haxe.lang.HxObject
 	public final   haxor.math.Color get_clone()
 	{
 		return new haxor.math.Color(((java.lang.Object) (this.r) ), ((java.lang.Object) (this.g) ), ((java.lang.Object) (this.b) ), ((java.lang.Object) (this.a) ));
+	}
+	
+	
+	public  haxor.math.Vector3 xyz;
+	
+	public final   haxor.math.Vector3 get_xyz()
+	{
+		return new haxor.math.Vector3(((java.lang.Object) (this.r) ), ((java.lang.Object) (this.g) ), ((java.lang.Object) (this.b) ));
+	}
+	
+	
+	public  haxor.math.Vector4 xyzw;
+	
+	public final   haxor.math.Vector4 get_xyzw()
+	{
+		return new haxor.math.Vector4(((java.lang.Object) (this.r) ), ((java.lang.Object) (this.g) ), ((java.lang.Object) (this.b) ), ((java.lang.Object) (this.a) ));
 	}
 	
 	
@@ -304,6 +332,22 @@ public  class Color extends haxe.lang.HxObject
 	}
 	
 	
+	public  double luminance;
+	
+	public final   double get_luminance()
+	{
+		return ( ( ( this.r * 0.3 ) + ( this.g * 0.59 ) ) + ( this.b * 0.11 ) );
+	}
+	
+	
+	public  haxor.math.Color negative;
+	
+	public final   haxor.math.Color get_negative()
+	{
+		return new haxor.math.Color(((java.lang.Object) (( 1.0 - this.r )) ), ((java.lang.Object) (( 1.0 - this.g )) ), ((java.lang.Object) (( 1.0 - this.b )) ), ((java.lang.Object) (( 1.0 - this.a )) ));
+	}
+	
+	
 	public  double r;
 	
 	public  double g;
@@ -314,56 +358,131 @@ public  class Color extends haxe.lang.HxObject
 	
 	public   haxor.math.Color Set(java.lang.Object p_r, java.lang.Object p_g, java.lang.Object p_b, java.lang.Object p_a)
 	{
-		double __temp_p_a55725 = ( (( p_a == null )) ? (((double) (1) )) : (((double) (haxe.lang.Runtime.toDouble(p_a)) )) );
-		double __temp_p_b55724 = ( (( p_b == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_b)) )) );
-		double __temp_p_g55723 = ( (( p_g == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_g)) )) );
-		double __temp_p_r55722 = ( (( p_r == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_r)) )) );
-		this.r = __temp_p_r55722;
-		this.g = __temp_p_g55723;
-		this.b = __temp_p_b55724;
-		this.a = __temp_p_a55725;
+		double __temp_p_a56130 = ( (( p_a == null )) ? (((double) (1) )) : (((double) (haxe.lang.Runtime.toDouble(p_a)) )) );
+		double __temp_p_b56129 = ( (( p_b == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_b)) )) );
+		double __temp_p_g56128 = ( (( p_g == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_g)) )) );
+		double __temp_p_r56127 = ( (( p_r == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_r)) )) );
+		this.r = __temp_p_r56127;
+		this.g = __temp_p_g56128;
+		this.b = __temp_p_b56129;
+		this.a = __temp_p_a56130;
 		return this;
 	}
 	
 	
-	public   haxor.math.Color Set4(haxor.math.Color p_color)
+	public   haxor.math.Color Set3(haxor.math.Vector3 v)
 	{
-		if (( p_color == null )) 
+		this.r = v.x;
+		this.g = v.y;
+		this.b = v.z;
+		return this;
+	}
+	
+	
+	public   haxor.math.Color Set4(haxor.math.Vector4 v)
+	{
+		this.r = v.x;
+		this.g = v.y;
+		this.b = v.z;
+		this.a = v.w;
+		return this;
+	}
+	
+	
+	public   haxor.math.Color SetColor(haxor.math.Color p_color)
+	{
+		this.r = p_color.r;
+		this.g = p_color.g;
+		this.b = p_color.b;
+		this.a = p_color.a;
+		return this;
+	}
+	
+	
+	public   double Get(int p)
+	{
+		if (( p == 0 )) 
 		{
-			this.r = 0.0;
+			return this.r;
 		}
 		 else 
 		{
-			this.r = p_color.r;
+			if (( p == 1 )) 
+			{
+				return this.g;
+			}
+			 else 
+			{
+				if (( p == 2 )) 
+				{
+					return this.b;
+				}
+				 else 
+				{
+					return this.a;
+				}
+				
+			}
+			
 		}
 		
-		if (( p_color == null )) 
-		{
-			this.g = 0.0;
-		}
-		 else 
-		{
-			this.g = p_color.g;
-		}
-		
-		if (( p_color == null )) 
-		{
-			this.b = 0.0;
-		}
-		 else 
-		{
-			this.b = p_color.b;
-		}
-		
-		if (( p_color == null )) 
-		{
-			this.a = 1.0;
-		}
-		 else 
-		{
-			this.a = p_color.a;
-		}
-		
+	}
+	
+	
+	public   haxor.math.Color Add(haxor.math.Color p_v)
+	{
+		this.r += p_v.r;
+		this.g += p_v.g;
+		this.b += p_v.b;
+		this.a += p_v.a;
+		return this;
+	}
+	
+	
+	public   haxor.math.Color Sub(haxor.math.Color p_v)
+	{
+		this.r -= p_v.r;
+		this.g -= p_v.g;
+		this.b -= p_v.b;
+		this.a -= p_v.a;
+		return this;
+	}
+	
+	
+	public   haxor.math.Color Multiply(haxor.math.Color p_v)
+	{
+		this.r *= p_v.r;
+		this.g *= p_v.g;
+		this.b *= p_v.b;
+		this.a *= p_v.a;
+		return this;
+	}
+	
+	
+	public   haxor.math.Color MultiplyRGB(haxor.math.Color p_v)
+	{
+		this.r *= p_v.r;
+		this.g *= p_v.g;
+		this.b *= p_v.b;
+		return this;
+	}
+	
+	
+	public   haxor.math.Color Scale(double p_s)
+	{
+		this.r *= p_s;
+		this.g *= p_s;
+		this.b *= p_s;
+		this.a *= p_s;
+		return this;
+	}
+	
+	
+	public   haxor.math.Color ScaleRGB(double p_s)
+	{
+		this.r *= p_s;
+		this.g *= p_s;
+		this.b *= p_s;
 		return this;
 	}
 	
@@ -374,49 +493,72 @@ public  class Color extends haxe.lang.HxObject
 	}
 	
 	
-	public   java.lang.String ToString()
+	public   java.lang.String ToString(java.lang.Object p_places)
 	{
-		haxe.root.Array<java.lang.Object> a = this.ToArray();
-		haxe.root.Array<java.lang.String> s = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
+		int __temp_p_places56131 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
+		double __temp_stmt56471 = 0.0;
 		{
-			int _g1 = 0;
-			int _g = a.length;
-			while (( _g1 < _g ))
+			double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places56131) ));
+			double __temp_stmt56472 = 0.0;
 			{
-				int i = _g1++;
-				a.__set(i, ( ((double) (((int) (( ((double) (haxe.lang.Runtime.toDouble(a.__get(i))) ) * 100.0 )) )) ) / 100 ));
-				s.push(( (( ((double) (haxe.lang.Runtime.toDouble(a.__get(i))) ) >= 0 )) ? (( " " + haxe.lang.Runtime.toString(((double) (haxe.lang.Runtime.toDouble(a.__get(i))) )) )) : (( haxe.lang.Runtime.toString(((double) (haxe.lang.Runtime.toDouble(a.__get(i))) )) + "" )) ));
+				double p_v = ( this.r * d );
+				__temp_stmt56472 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
+			__temp_stmt56471 = ( __temp_stmt56472 / d );
 		}
 		
-		java.lang.String res = "[";
+		double __temp_stmt56473 = 0.0;
 		{
-			int _g11 = 0;
-			int _g2 = a.length;
-			while (( _g11 < _g2 ))
+			double d1 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places56131) ));
+			double __temp_stmt56474 = 0.0;
 			{
-				int i1 = _g11++;
-				res += ( s.__get(i1) + (( (( i1 < ( a.length - 1 ) )) ? (",") : ("]") )) );
+				double p_v1 = ( this.g * d1 );
+				__temp_stmt56474 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
+			__temp_stmt56473 = ( __temp_stmt56474 / d1 );
 		}
 		
-		return res;
+		double __temp_stmt56475 = 0.0;
+		{
+			double d2 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places56131) ));
+			double __temp_stmt56476 = 0.0;
+			{
+				double p_v2 = ( this.b * d2 );
+				__temp_stmt56476 = ((double) (((int) (( p_v2 + (( (( p_v2 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+			}
+			
+			__temp_stmt56475 = ( __temp_stmt56476 / d2 );
+		}
+		
+		double __temp_stmt56477 = 0.0;
+		{
+			double d3 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places56131) ));
+			double __temp_stmt56478 = 0.0;
+			{
+				double p_v3 = ( this.a * d3 );
+				__temp_stmt56478 = ((double) (((int) (( p_v3 + (( (( p_v3 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+			}
+			
+			__temp_stmt56477 = ( __temp_stmt56478 / d3 );
+		}
+		
+		return ( ( ( ( ( ( ( ( "[" + haxe.lang.Runtime.toString(__temp_stmt56471) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt56473) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt56475) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt56477) ) + "]" );
 	}
 	
 	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef55989 = true;
+			boolean __temp_executeDef56479 = true;
 			switch (field.hashCode())
 			{
 				case 97:
 				{
 					if (field.equals("a")) 
 					{
-						__temp_executeDef55989 = false;
+						__temp_executeDef56479 = false;
 						this.a = ((double) (value) );
 						return value;
 					}
@@ -429,7 +571,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("argb")) 
 					{
-						__temp_executeDef55989 = false;
+						__temp_executeDef56479 = false;
 						this.set_argb(((int) (value) ));
 						return value;
 					}
@@ -442,7 +584,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("b")) 
 					{
-						__temp_executeDef55989 = false;
+						__temp_executeDef56479 = false;
 						this.b = ((double) (value) );
 						return value;
 					}
@@ -455,7 +597,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("rgba")) 
 					{
-						__temp_executeDef55989 = false;
+						__temp_executeDef56479 = false;
 						this.set_rgba(((int) (value) ));
 						return value;
 					}
@@ -468,7 +610,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("g")) 
 					{
-						__temp_executeDef55989 = false;
+						__temp_executeDef56479 = false;
 						this.g = ((double) (value) );
 						return value;
 					}
@@ -481,7 +623,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("rgb")) 
 					{
-						__temp_executeDef55989 = false;
+						__temp_executeDef56479 = false;
 						this.set_rgb(((int) (value) ));
 						return value;
 					}
@@ -494,8 +636,21 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("r")) 
 					{
-						__temp_executeDef55989 = false;
+						__temp_executeDef56479 = false;
 						this.r = ((double) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 1178092792:
+				{
+					if (field.equals("luminance")) 
+					{
+						__temp_executeDef56479 = false;
+						this.luminance = ((double) (value) );
 						return value;
 					}
 					
@@ -505,7 +660,7 @@ public  class Color extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef55989) 
+			if (__temp_executeDef56479) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -522,14 +677,14 @@ public  class Color extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef55990 = true;
+			boolean __temp_executeDef56480 = true;
 			switch (field.hashCode())
 			{
 				case 97:
 				{
 					if (field.equals("a")) 
 					{
-						__temp_executeDef55990 = false;
+						__temp_executeDef56480 = false;
 						this.a = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -542,7 +697,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("clone")) 
 					{
-						__temp_executeDef55990 = false;
+						__temp_executeDef56480 = false;
 						this.clone = ((haxor.math.Color) (value) );
 						return value;
 					}
@@ -555,7 +710,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("b")) 
 					{
-						__temp_executeDef55990 = false;
+						__temp_executeDef56480 = false;
 						this.b = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -564,12 +719,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 3002572:
+				case 119193:
 				{
-					if (field.equals("argb")) 
+					if (field.equals("xyz")) 
 					{
-						__temp_executeDef55990 = false;
-						this.set_argb(((int) (haxe.lang.Runtime.toInt(value)) ));
+						__temp_executeDef56480 = false;
+						this.xyz = ((haxor.math.Vector3) (value) );
 						return value;
 					}
 					
@@ -581,7 +736,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("g")) 
 					{
-						__temp_executeDef55990 = false;
+						__temp_executeDef56480 = false;
 						this.g = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -590,12 +745,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 3498292:
+				case 3695102:
 				{
-					if (field.equals("rgba")) 
+					if (field.equals("xyzw")) 
 					{
-						__temp_executeDef55990 = false;
-						this.set_rgba(((int) (haxe.lang.Runtime.toInt(value)) ));
+						__temp_executeDef56480 = false;
+						this.xyzw = ((haxor.math.Vector4) (value) );
 						return value;
 					}
 					
@@ -607,8 +762,60 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("r")) 
 					{
-						__temp_executeDef55990 = false;
+						__temp_executeDef56480 = false;
 						this.r = ((double) (haxe.lang.Runtime.toDouble(value)) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 3002572:
+				{
+					if (field.equals("argb")) 
+					{
+						__temp_executeDef56480 = false;
+						this.set_argb(((int) (haxe.lang.Runtime.toInt(value)) ));
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 921111605:
+				{
+					if (field.equals("negative")) 
+					{
+						__temp_executeDef56480 = false;
+						this.negative = ((haxor.math.Color) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 3498292:
+				{
+					if (field.equals("rgba")) 
+					{
+						__temp_executeDef56480 = false;
+						this.set_rgba(((int) (haxe.lang.Runtime.toInt(value)) ));
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 1178092792:
+				{
+					if (field.equals("luminance")) 
+					{
+						__temp_executeDef56480 = false;
+						this.luminance = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
 					
@@ -620,7 +827,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("rgb")) 
 					{
-						__temp_executeDef55990 = false;
+						__temp_executeDef56480 = false;
 						this.set_rgb(((int) (haxe.lang.Runtime.toInt(value)) ));
 						return value;
 					}
@@ -631,7 +838,7 @@ public  class Color extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef55990) 
+			if (__temp_executeDef56480) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -648,14 +855,14 @@ public  class Color extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef55991 = true;
+			boolean __temp_executeDef56481 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToString"))) );
 					}
 					
@@ -667,7 +874,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("clone")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						if (handleProperties) 
 						{
 							return this.get_clone();
@@ -687,7 +894,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("ToArray")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToArray"))) );
 					}
 					
@@ -699,7 +906,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_clone"))) );
 					}
 					
@@ -707,12 +914,124 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 2573362:
+				case -827221181:
 				{
-					if (field.equals("Set4")) 
+					if (field.equals("ScaleRGB")) 
 					{
-						__temp_executeDef55991 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set4"))) );
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ScaleRGB"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 119193:
+				{
+					if (field.equals("xyz")) 
+					{
+						__temp_executeDef56481 = false;
+						if (handleProperties) 
+						{
+							return this.get_xyz();
+						}
+						 else 
+						{
+							return this.xyz;
+						}
+						
+					}
+					
+					break;
+				}
+				
+				
+				case 79698218:
+				{
+					if (field.equals("Scale")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Scale"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -74779344:
+				{
+					if (field.equals("get_xyz")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_xyz"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -2064065559:
+				{
+					if (field.equals("MultiplyRGB")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("MultiplyRGB"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 3695102:
+				{
+					if (field.equals("xyzw")) 
+					{
+						__temp_executeDef56481 = false;
+						if (handleProperties) 
+						{
+							return this.get_xyzw();
+						}
+						 else 
+						{
+							return this.xyzw;
+						}
+						
+					}
+					
+					break;
+				}
+				
+				
+				case 718473796:
+				{
+					if (field.equals("Multiply")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Multiply"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1976807751:
+				{
+					if (field.equals("get_xyzw")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_xyzw"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 83488:
+				{
+					if (field.equals("Sub")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Sub"))) );
 					}
 					
 					break;
@@ -723,7 +1042,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("argb")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return this.get_argb();
 					}
 					
@@ -731,12 +1050,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 83010:
+				case 65665:
 				{
-					if (field.equals("Set")) 
+					if (field.equals("Add")) 
 					{
-						__temp_executeDef55991 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Add"))) );
 					}
 					
 					break;
@@ -747,7 +1066,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("get_argb")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_argb"))) );
 					}
 					
@@ -755,12 +1074,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 97:
+				case 71478:
 				{
-					if (field.equals("a")) 
+					if (field.equals("Get")) 
 					{
-						__temp_executeDef55991 = false;
-						return this.a;
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Get"))) );
 					}
 					
 					break;
@@ -771,7 +1090,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("set_argb")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_argb"))) );
 					}
 					
@@ -779,12 +1098,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 98:
+				case 1454199873:
 				{
-					if (field.equals("b")) 
+					if (field.equals("SetColor")) 
 					{
-						__temp_executeDef55991 = false;
-						return this.b;
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetColor"))) );
 					}
 					
 					break;
@@ -795,7 +1114,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("css")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return this.get_css();
 					}
 					
@@ -803,12 +1122,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 103:
+				case 2573362:
 				{
-					if (field.equals("g")) 
+					if (field.equals("Set4")) 
 					{
-						__temp_executeDef55991 = false;
-						return this.g;
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set4"))) );
 					}
 					
 					break;
@@ -819,7 +1138,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("get_css")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_css"))) );
 					}
 					
@@ -827,12 +1146,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 114:
+				case 2573361:
 				{
-					if (field.equals("r")) 
+					if (field.equals("Set3")) 
 					{
-						__temp_executeDef55991 = false;
-						return this.r;
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set3"))) );
 					}
 					
 					break;
@@ -843,7 +1162,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("rgba")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return this.get_rgba();
 					}
 					
@@ -851,12 +1170,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 1985323888:
+				case 83010:
 				{
-					if (field.equals("set_rgb")) 
+					if (field.equals("Set")) 
 					{
-						__temp_executeDef55991 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_rgb"))) );
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
 					break;
@@ -867,7 +1186,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("get_rgba")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_rgba"))) );
 					}
 					
@@ -875,12 +1194,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case -74785692:
+				case 97:
 				{
-					if (field.equals("get_rgb")) 
+					if (field.equals("a")) 
 					{
-						__temp_executeDef55991 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_rgb"))) );
+						__temp_executeDef56481 = false;
+						return this.a;
 					}
 					
 					break;
@@ -891,8 +1210,20 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("set_rgba")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_rgba"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 98:
+				{
+					if (field.equals("b")) 
+					{
+						__temp_executeDef56481 = false;
+						return this.b;
 					}
 					
 					break;
@@ -903,8 +1234,120 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("rgb")) 
 					{
-						__temp_executeDef55991 = false;
+						__temp_executeDef56481 = false;
 						return this.get_rgb();
+					}
+					
+					break;
+				}
+				
+				
+				case 103:
+				{
+					if (field.equals("g")) 
+					{
+						__temp_executeDef56481 = false;
+						return this.g;
+					}
+					
+					break;
+				}
+				
+				
+				case -74785692:
+				{
+					if (field.equals("get_rgb")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_rgb"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 114:
+				{
+					if (field.equals("r")) 
+					{
+						__temp_executeDef56481 = false;
+						return this.r;
+					}
+					
+					break;
+				}
+				
+				
+				case 1985323888:
+				{
+					if (field.equals("set_rgb")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_rgb"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1001943298:
+				{
+					if (field.equals("get_negative")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_negative"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1178092792:
+				{
+					if (field.equals("luminance")) 
+					{
+						__temp_executeDef56481 = false;
+						if (handleProperties) 
+						{
+							return this.get_luminance();
+						}
+						 else 
+						{
+							return this.luminance;
+						}
+						
+					}
+					
+					break;
+				}
+				
+				
+				case 921111605:
+				{
+					if (field.equals("negative")) 
+					{
+						__temp_executeDef56481 = false;
+						if (handleProperties) 
+						{
+							return this.get_negative();
+						}
+						 else 
+						{
+							return this.negative;
+						}
+						
+					}
+					
+					break;
+				}
+				
+				
+				case 1692932943:
+				{
+					if (field.equals("get_luminance")) 
+					{
+						__temp_executeDef56481 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_luminance"))) );
 					}
 					
 					break;
@@ -913,7 +1356,7 @@ public  class Color extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef55991) 
+			if (__temp_executeDef56481) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -930,14 +1373,14 @@ public  class Color extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef55992 = true;
+			boolean __temp_executeDef56482 = true;
 			switch (field.hashCode())
 			{
 				case 97:
 				{
 					if (field.equals("a")) 
 					{
-						__temp_executeDef55992 = false;
+						__temp_executeDef56482 = false;
 						return this.a;
 					}
 					
@@ -949,7 +1392,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("argb")) 
 					{
-						__temp_executeDef55992 = false;
+						__temp_executeDef56482 = false;
 						return ((double) (this.get_argb()) );
 					}
 					
@@ -961,7 +1404,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("b")) 
 					{
-						__temp_executeDef55992 = false;
+						__temp_executeDef56482 = false;
 						return this.b;
 					}
 					
@@ -973,7 +1416,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("rgba")) 
 					{
-						__temp_executeDef55992 = false;
+						__temp_executeDef56482 = false;
 						return ((double) (this.get_rgba()) );
 					}
 					
@@ -985,7 +1428,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("g")) 
 					{
-						__temp_executeDef55992 = false;
+						__temp_executeDef56482 = false;
 						return this.g;
 					}
 					
@@ -997,7 +1440,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("rgb")) 
 					{
-						__temp_executeDef55992 = false;
+						__temp_executeDef56482 = false;
 						return ((double) (this.get_rgb()) );
 					}
 					
@@ -1009,8 +1452,28 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("r")) 
 					{
-						__temp_executeDef55992 = false;
+						__temp_executeDef56482 = false;
 						return this.r;
+					}
+					
+					break;
+				}
+				
+				
+				case 1178092792:
+				{
+					if (field.equals("luminance")) 
+					{
+						__temp_executeDef56482 = false;
+						if (handleProperties) 
+						{
+							return this.get_luminance();
+						}
+						 else 
+						{
+							return this.luminance;
+						}
+						
 					}
 					
 					break;
@@ -1019,7 +1482,7 @@ public  class Color extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef55992) 
+			if (__temp_executeDef56482) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1036,15 +1499,15 @@ public  class Color extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef55993 = true;
+			boolean __temp_executeDef56483 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef55993 = false;
-						return this.ToString();
+						__temp_executeDef56483 = false;
+						return this.ToString(dynargs.__get(0));
 					}
 					
 					break;
@@ -1055,7 +1518,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef55993 = false;
+						__temp_executeDef56483 = false;
 						return this.get_clone();
 					}
 					
@@ -1067,8 +1530,56 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("ToArray")) 
 					{
-						__temp_executeDef55993 = false;
+						__temp_executeDef56483 = false;
 						return this.ToArray();
+					}
+					
+					break;
+				}
+				
+				
+				case -74779344:
+				{
+					if (field.equals("get_xyz")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.get_xyz();
+					}
+					
+					break;
+				}
+				
+				
+				case -827221181:
+				{
+					if (field.equals("ScaleRGB")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.ScaleRGB(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1976807751:
+				{
+					if (field.equals("get_xyzw")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.get_xyzw();
+					}
+					
+					break;
+				}
+				
+				
+				case 79698218:
+				{
+					if (field.equals("Scale")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.Scale(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -1079,7 +1590,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("get_argb")) 
 					{
-						__temp_executeDef55993 = false;
+						__temp_executeDef56483 = false;
 						return this.get_argb();
 					}
 					
@@ -1087,12 +1598,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 2573362:
+				case -2064065559:
 				{
-					if (field.equals("Set4")) 
+					if (field.equals("MultiplyRGB")) 
 					{
-						__temp_executeDef55993 = false;
-						return this.Set4(((haxor.math.Color) (dynargs.__get(0)) ));
+						__temp_executeDef56483 = false;
+						return this.MultiplyRGB(((haxor.math.Color) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -1103,7 +1614,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("set_argb")) 
 					{
-						__temp_executeDef55993 = false;
+						__temp_executeDef56483 = false;
 						return this.set_argb(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -1111,12 +1622,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 83010:
+				case 718473796:
 				{
-					if (field.equals("Set")) 
+					if (field.equals("Multiply")) 
 					{
-						__temp_executeDef55993 = false;
-						return this.Set(dynargs.__get(0), dynargs.__get(1), dynargs.__get(2), dynargs.__get(3));
+						__temp_executeDef56483 = false;
+						return this.Multiply(((haxor.math.Color) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -1127,7 +1638,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("get_css")) 
 					{
-						__temp_executeDef55993 = false;
+						__temp_executeDef56483 = false;
 						return this.get_css();
 					}
 					
@@ -1135,12 +1646,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case 1985323888:
+				case 83488:
 				{
-					if (field.equals("set_rgb")) 
+					if (field.equals("Sub")) 
 					{
-						__temp_executeDef55993 = false;
-						return this.set_rgb(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef56483 = false;
+						return this.Sub(((haxor.math.Color) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -1151,7 +1662,7 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("get_rgba")) 
 					{
-						__temp_executeDef55993 = false;
+						__temp_executeDef56483 = false;
 						return this.get_rgba();
 					}
 					
@@ -1159,12 +1670,12 @@ public  class Color extends haxe.lang.HxObject
 				}
 				
 				
-				case -74785692:
+				case 65665:
 				{
-					if (field.equals("get_rgb")) 
+					if (field.equals("Add")) 
 					{
-						__temp_executeDef55993 = false;
-						return this.get_rgb();
+						__temp_executeDef56483 = false;
+						return this.Add(((haxor.math.Color) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -1175,8 +1686,116 @@ public  class Color extends haxe.lang.HxObject
 				{
 					if (field.equals("set_rgba")) 
 					{
-						__temp_executeDef55993 = false;
+						__temp_executeDef56483 = false;
 						return this.set_rgba(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 71478:
+				{
+					if (field.equals("Get")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.Get(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case -74785692:
+				{
+					if (field.equals("get_rgb")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.get_rgb();
+					}
+					
+					break;
+				}
+				
+				
+				case 1454199873:
+				{
+					if (field.equals("SetColor")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.SetColor(((haxor.math.Color) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1985323888:
+				{
+					if (field.equals("set_rgb")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.set_rgb(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 2573362:
+				{
+					if (field.equals("Set4")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.Set4(((haxor.math.Vector4) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1692932943:
+				{
+					if (field.equals("get_luminance")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.get_luminance();
+					}
+					
+					break;
+				}
+				
+				
+				case 2573361:
+				{
+					if (field.equals("Set3")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.Set3(((haxor.math.Vector3) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case -1001943298:
+				{
+					if (field.equals("get_negative")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.get_negative();
+					}
+					
+					break;
+				}
+				
+				
+				case 83010:
+				{
+					if (field.equals("Set")) 
+					{
+						__temp_executeDef56483 = false;
+						return this.Set(dynargs.__get(0), dynargs.__get(1), dynargs.__get(2), dynargs.__get(3));
 					}
 					
 					break;
@@ -1185,7 +1804,7 @@ public  class Color extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef55993) 
+			if (__temp_executeDef56483) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
@@ -1205,10 +1824,14 @@ public  class Color extends haxe.lang.HxObject
 		baseArr.push("b");
 		baseArr.push("g");
 		baseArr.push("r");
+		baseArr.push("negative");
+		baseArr.push("luminance");
 		baseArr.push("rgb");
 		baseArr.push("rgba");
 		baseArr.push("css");
 		baseArr.push("argb");
+		baseArr.push("xyzw");
+		baseArr.push("xyz");
 		baseArr.push("clone");
 		{
 			super.__hx_getFields(baseArr);

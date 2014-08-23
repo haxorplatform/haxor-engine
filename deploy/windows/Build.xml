@@ -205,13 +205,70 @@
    <depend name="include/haxor/core/Time.h"/>
    <depend name="include/haxor/thread/Activity.h"/>
   </file>
+  <file name="src/haxor/math/Vector4.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/math/Color.h"/>
+   <depend name="include/haxor/math/Vector2.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
+  </file>
+  <file name="src/haxor/math/Vector3.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/math/Color.h"/>
+   <depend name="include/haxor/math/Vector2.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
+  </file>
+  <file name="src/haxor/math/Vector2.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/math/Vector2.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
+  </file>
+  <file name="src/haxor/math/Random.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxor/math/Quaternion.h"/>
+   <depend name="include/haxor/math/Random.h"/>
+   <depend name="include/haxor/math/Vector2.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+  </file>
+  <file name="src/haxor/math/Quaternion.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Quaternion.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
+  </file>
+  <file name="src/haxor/math/Matrix4.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/StringTools.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Quaternion.h"/>
+   <depend name="include/haxor/math/Vector2.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
+  </file>
   <file name="src/haxor/math/Mathf.cpp">
    <depend name="include/Std.h"/>
    <depend name="include/haxor/math/Mathf.h"/>
   </file>
   <file name="src/haxor/math/Color.cpp">
    <depend name="include/Std.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/math/Color.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
   </file>
   <file name="src/haxor/io/UInt16Array.cpp">
    <depend name="include/haxe/io/Bytes.h"/>
@@ -577,6 +634,7 @@
   </file>
   <file name="src/haxor/context/EngineContext.cpp">
    <depend name="include/haxor/context/BaseProcess.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/MaterialContext.h"/>
    <depend name="include/haxor/context/MeshContext.h"/>
@@ -585,6 +643,15 @@
    <depend name="include/haxor/core/Console.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
+  </file>
+  <file name="src/haxor/context/DataContext.cpp">
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/math/Color.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Quaternion.h"/>
+   <depend name="include/haxor/math/Vector2.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
   </file>
   <file name="src/haxe/io/Input.cpp">
    <depend name="include/haxe/io/Bytes.h"/>
@@ -623,6 +690,10 @@
   </file>
   <file name="src/haxe/Timer.cpp">
    <depend name="include/haxe/Timer.h"/>
+  </file>
+  <file name="src/haxe/Log.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxe/Log.h"/>
   </file>
   <file name="src/haxe/Http.cpp">
    <depend name="include/EReg.h"/>
@@ -683,6 +754,7 @@
   </file>
   <file name="src/Main.cpp">
    <depend name="include/Main.h"/>
+   <depend name="include/haxe/Log.h"/>
    <depend name="include/haxor/component/Behaviour.h"/>
    <depend name="include/haxor/component/Component.h"/>
    <depend name="include/haxor/core/Application.h"/>
@@ -706,6 +778,12 @@
    <depend name="include/haxor/io/Buffer.h"/>
    <depend name="include/haxor/io/FloatArray.h"/>
    <depend name="include/haxor/io/UInt16Array.h"/>
+   <depend name="include/haxor/math/Color.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Quaternion.h"/>
+   <depend name="include/haxor/math/Vector2.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
    <depend name="include/haxor/net/Web.h"/>
    <depend name="include/haxor/platform/graphics/OpenGL.h"/>
    <depend name="include/haxor/platform/windows/Entry.h"/>
@@ -851,8 +929,8 @@
   <lib name="kernel32.lib" if="windows"/>
   <lib name="lib/glew32.lib" if="windows"/>
   
-  <flag value = "/ignore:4006"/>
-  <flag value = "/FORCE"/>
+  
+  
   
   
 </target>

@@ -49,14 +49,14 @@ namespace net{
 
 Void BitmapLoader_obj::__construct(::String p_url,Dynamic p_callback)
 {
-HX_STACK_FRAME("haxor.platform.windows.net.BitmapLoader","new",0x6ef557df,"haxor.platform.windows.net.BitmapLoader.new","haxor/platform/windows/net/BitmapLoader.hx",42,0x5c286a4f)
+HX_STACK_FRAME("haxor.platform.windows.net.BitmapLoader","new",0x6ef557df,"haxor.platform.windows.net.BitmapLoader.new","haxor/platform/windows/net/BitmapLoader.hx",41,0x5c286a4f)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_url,"p_url")
 HX_STACK_ARG(p_callback,"p_callback")
 {
-	HX_STACK_LINE(43)
+	HX_STACK_LINE(42)
 	super::__construct(p_url,true,this->OnBufferCallback_dyn());
-	HX_STACK_LINE(44)
+	HX_STACK_LINE(43)
 	this->m_bitmap_callback = p_callback;
 }
 ;
@@ -78,93 +78,85 @@ Dynamic BitmapLoader_obj::__Create(hx::DynamicArray inArgs)
 
 Void BitmapLoader_obj::OnBufferCallback( ::haxor::io::Buffer p_data,Float p_progress){
 {
-		HX_STACK_FRAME("haxor.platform.windows.net.BitmapLoader","OnBufferCallback",0x79d571a5,"haxor.platform.windows.net.BitmapLoader.OnBufferCallback","haxor/platform/windows/net/BitmapLoader.hx",50,0x5c286a4f)
+		HX_STACK_FRAME("haxor.platform.windows.net.BitmapLoader","OnBufferCallback",0x79d571a5,"haxor.platform.windows.net.BitmapLoader.OnBufferCallback","haxor/platform/windows/net/BitmapLoader.hx",49,0x5c286a4f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_data,"p_data")
 		HX_STACK_ARG(p_progress,"p_progress")
-		HX_STACK_LINE(50)
+		HX_STACK_LINE(49)
 		if (((this->m_progress < 1.0))){
-			HX_STACK_LINE(52)
+			HX_STACK_LINE(51)
 			if (((this->m_bitmap_callback_dyn() != null()))){
-				HX_STACK_LINE(52)
+				HX_STACK_LINE(51)
 				this->m_bitmap_callback(null(),(this->m_progress * 0.999));
 			}
 		}
 		else{
-			HX_STACK_LINE(56)
+			HX_STACK_LINE(55)
 			if (((p_data == null()))){
-				HX_STACK_LINE(56)
+				HX_STACK_LINE(55)
 				return null();
 			}
-			HX_STACK_LINE(58)
+			HX_STACK_LINE(57)
 			::haxe::io::Bytes file_bl = p_data->m_buffer;		HX_STACK_VAR(file_bl,"file_bl");
-			HX_STACK_LINE(59)
+			HX_STACK_LINE(58)
 			int file_len = p_data->m_length;		HX_STACK_VAR(file_len,"file_len");
-			HX_STACK_LINE(60)
+			HX_STACK_LINE(59)
 			int w = (int)0;		HX_STACK_VAR(w,"w");
-			HX_STACK_LINE(61)
+			HX_STACK_LINE(60)
 			int h = (int)0;		HX_STACK_VAR(h,"h");
-			HX_STACK_LINE(62)
+			HX_STACK_LINE(61)
 			int byte_length = (int)0;		HX_STACK_VAR(byte_length,"byte_length");
-			HX_STACK_LINE(63)
+			HX_STACK_LINE(62)
 			int cc = (int)0;		HX_STACK_VAR(cc,"cc");
-			HX_STACK_LINE(64)
-			
-			unsigned char * img_buffer = (stbi_uc * ) stbi_load_from_memory( & file_bl->b[0], file_len, & w, & h, & cc, 0);			
-			;
-			HX_STACK_LINE(67)
-			byte_length = ((w * h) * cc);
-			HX_STACK_LINE(68)
-			::haxor::io::Buffer buffer = ::haxor::io::Buffer_obj::__new(byte_length);		HX_STACK_VAR(buffer,"buffer");
 			HX_STACK_LINE(69)
-			::haxe::io::Bytes bytes = buffer->m_buffer;		HX_STACK_VAR(bytes,"bytes");
+			byte_length = ((w * h) * cc);
 			HX_STACK_LINE(70)
-			
-			for (int i = 0; i < byte_length;i++) bytes->b[i] = img_buffer[i];
-			;
-			HX_STACK_LINE(73)
+			::haxor::io::Buffer buffer = ::haxor::io::Buffer_obj::__new(byte_length);		HX_STACK_VAR(buffer,"buffer");
+			HX_STACK_LINE(71)
+			::haxe::io::Bytes bytes = buffer->m_buffer;		HX_STACK_VAR(bytes,"bytes");
+			HX_STACK_LINE(78)
 			::haxor::graphics::PixelFormat fmt = ::haxor::graphics::PixelFormat_obj::RGBA8;		HX_STACK_VAR(fmt,"fmt");
-			HX_STACK_LINE(74)
+			HX_STACK_LINE(79)
 			switch( (int)(cc)){
 				case (int)1: {
-					HX_STACK_LINE(76)
+					HX_STACK_LINE(81)
 					fmt = ::haxor::graphics::PixelFormat_obj::Alpha8;
 				}
 				;break;
 				case (int)3: {
-					HX_STACK_LINE(77)
+					HX_STACK_LINE(82)
 					fmt = ::haxor::graphics::PixelFormat_obj::RGB8;
 				}
 				;break;
 			}
-			HX_STACK_LINE(79)
+			HX_STACK_LINE(84)
 			::haxor::graphics::texture::Bitmap b = ::haxor::graphics::texture::Bitmap_obj::__new(w,h,fmt);		HX_STACK_VAR(b,"b");
-			HX_STACK_LINE(80)
+			HX_STACK_LINE(85)
 			{
-				HX_STACK_LINE(80)
+				HX_STACK_LINE(85)
 				int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(80)
+				HX_STACK_LINE(85)
 				int _g = buffer->get_bytesPerElement();		HX_STACK_VAR(_g,"_g");
-				HX_STACK_LINE(80)
+				HX_STACK_LINE(85)
 				int _g2 = (buffer->m_length * _g);		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(80)
+				HX_STACK_LINE(85)
 				while((true)){
-					HX_STACK_LINE(80)
+					HX_STACK_LINE(85)
 					if ((!(((_g1 < _g2))))){
-						HX_STACK_LINE(80)
+						HX_STACK_LINE(85)
 						break;
 					}
-					HX_STACK_LINE(80)
+					HX_STACK_LINE(85)
 					int i = (_g1)++;		HX_STACK_VAR(i,"i");
-					HX_STACK_LINE(80)
+					HX_STACK_LINE(85)
 					int _g11 = buffer->GetByte(i);		HX_STACK_VAR(_g11,"_g11");
-					HX_STACK_LINE(80)
+					HX_STACK_LINE(85)
 					b->get_buffer()->SetByte(i,_g11);
 				}
 			}
-			HX_STACK_LINE(81)
+			HX_STACK_LINE(86)
 			if (((this->m_bitmap_callback_dyn() != null()))){
-				HX_STACK_LINE(81)
+				HX_STACK_LINE(86)
 				this->m_bitmap_callback(b,1.0);
 			}
 		}
@@ -177,13 +169,13 @@ HX_DEFINE_DYNAMIC_FUNC2(BitmapLoader_obj,OnBufferCallback,(void))
 
 Void BitmapLoader_obj::OnError( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.net.BitmapLoader","OnError",0xe20d4508,"haxor.platform.windows.net.BitmapLoader.OnError","haxor/platform/windows/net/BitmapLoader.hx",85,0x5c286a4f)
+		HX_STACK_FRAME("haxor.platform.windows.net.BitmapLoader","OnError",0xe20d4508,"haxor.platform.windows.net.BitmapLoader.OnError","haxor/platform/windows/net/BitmapLoader.hx",90,0x5c286a4f)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(85)
+		HX_STACK_LINE(90)
 		this->super::OnError();
-		HX_STACK_LINE(85)
+		HX_STACK_LINE(90)
 		if (((this->m_bitmap_callback_dyn() != null()))){
-			HX_STACK_LINE(85)
+			HX_STACK_LINE(90)
 			this->m_bitmap_callback(null(),1.0);
 		}
 	}

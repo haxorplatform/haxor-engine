@@ -78,6 +78,21 @@ class EngineContext
 	static private var texture : TextureContext;
 	
 	/**
+	 * Reference to the Data context.
+	 */
+	static private var data : DataContext;
+	
+	/**
+	 * Reference to the Camera context.
+	 */
+	static private var camera : CameraContext;
+	
+	/**
+	 * Reference to the Gizmo context.
+	 */
+	static private var gizmo : GizmoContext;
+	
+	/**
 	 * Initializes the Haxor context.
 	 */
 	static private function Initialize():Void
@@ -95,6 +110,8 @@ class EngineContext
 		mesh 		= new MeshContext();
 		material	= new MaterialContext();
 		texture		= new TextureContext();
+		data		= new DataContext();
+		gizmo		= new GizmoContext();
 	}
 	
 	/**
@@ -105,6 +122,8 @@ class EngineContext
 		mesh.Initialize();
 		material.Initialize();
 		texture.Initialize();
+		gizmo.Initialize();
+		
 	}
 	
 	/**

@@ -95,6 +95,7 @@ class Engine
 	 */
 	static private function Resize():Void
 	{
+		EngineContext.camera.Resize();
 		if (state == EngineState.Editor) return;
 		var rp : Process<IResizeable> = EngineContext.resize;				
 		for (i in 0...rp.length)

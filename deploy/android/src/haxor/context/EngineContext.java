@@ -24,7 +24,7 @@ public  class EngineContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me55676)
+	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me56081)
 	{
 		{
 		}
@@ -56,6 +56,8 @@ public  class EngineContext extends haxe.lang.HxObject
 	
 	public static  haxor.context.TextureContext texture;
 	
+	public static  haxor.context.DataContext data;
+	
 	public static   void Initialize()
 	{
 		haxor.core.Console.Log("Haxor> Engine Context Initialize.", 3);
@@ -68,6 +70,7 @@ public  class EngineContext extends haxe.lang.HxObject
 		haxor.context.EngineContext.mesh = new haxor.context.MeshContext();
 		haxor.context.EngineContext.material = new haxor.context.MaterialContext();
 		haxor.context.EngineContext.texture = new haxor.context.TextureContext();
+		haxor.context.EngineContext.data = new haxor.context.DataContext();
 	}
 	
 	

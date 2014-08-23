@@ -119,10 +119,10 @@ class AABB2
 	/// <param name="p_point"></param>
 	public function Encapsulate(p_point:Vector2):Void
 	{
-		xMin = Mathf.Min([p_point.x, xMin]);
-		xMax = Mathf.Max([p_point.x, xMax]);
-		yMin = Mathf.Min([p_point.y, yMin]);
-		yMax = Mathf.Max([p_point.y, yMax]);            
+		xMin = Mathf.Min(p_point.x, xMin);
+		xMax = Mathf.Max(p_point.x, xMax);
+		yMin = Mathf.Min(p_point.y, yMin);
+		yMax = Mathf.Max(p_point.y, yMax);            
 	}
 
 	/// <summary>

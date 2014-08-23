@@ -17,6 +17,12 @@
 #include <haxor/net/HTTPRequestTask.h>
 #include <haxor/thread/Task.h>
 #include <haxor/thread/Activity.h>
+#include <haxor/math/Vector4.h>
+#include <haxor/math/Vector3.h>
+#include <haxor/math/Vector2.h>
+#include <haxor/math/Random.h>
+#include <haxor/math/Quaternion.h>
+#include <haxor/math/Matrix4.h>
 #include <haxor/math/Mathf.h>
 #include <haxor/math/Color.h>
 #include <haxor/io/UInt16Array.h>
@@ -65,6 +71,7 @@
 #include <haxor/context/MeshContext.h>
 #include <haxor/context/MaterialContext.h>
 #include <haxor/context/EngineContext.h>
+#include <haxor/context/DataContext.h>
 #include <haxe/io/Input.h>
 #include <haxe/io/Error.h>
 #include <haxe/io/Eof.h>
@@ -74,6 +81,7 @@
 #include <haxe/io/Bytes.h>
 #include <haxe/ds/StringMap.h>
 #include <haxe/Timer.h>
+#include <haxe/Log.h>
 #include <haxe/Http.h>
 #include <cpp/vm/Thread.h>
 #include <Xml.h>
@@ -123,6 +131,12 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::net::HTTPRequestTask_obj::__register();
 ::haxor::thread::Task_obj::__register();
 ::haxor::thread::Activity_obj::__register();
+::haxor::math::Vector4_obj::__register();
+::haxor::math::Vector3_obj::__register();
+::haxor::math::Vector2_obj::__register();
+::haxor::math::Random_obj::__register();
+::haxor::math::Quaternion_obj::__register();
+::haxor::math::Matrix4_obj::__register();
 ::haxor::math::Mathf_obj::__register();
 ::haxor::math::Color_obj::__register();
 ::haxor::io::UInt16Array_obj::__register();
@@ -171,6 +185,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::context::MeshContext_obj::__register();
 ::haxor::context::MaterialContext_obj::__register();
 ::haxor::context::EngineContext_obj::__register();
+::haxor::context::DataContext_obj::__register();
 ::haxe::io::Input_obj::__register();
 ::haxe::io::Error_obj::__register();
 ::haxe::io::Eof_obj::__register();
@@ -180,6 +195,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxe::io::Bytes_obj::__register();
 ::haxe::ds::StringMap_obj::__register();
 ::haxe::Timer_obj::__register();
+::haxe::Log_obj::__register();
 ::haxe::Http_obj::__register();
 ::cpp::vm::Thread_obj::__register();
 ::Xml_obj::__register();
@@ -211,6 +227,7 @@ hx::RegisterResources( hx::GetResources() );
 ::EReg_obj::__boot();
 ::Xml_obj::__boot();
 ::cpp::vm::Thread_obj::__boot();
+::haxe::Log_obj::__boot();
 ::Lambda_obj::__boot();
 ::List_obj::__boot();
 ::haxor::core::IDisposable_obj::__boot();
@@ -241,6 +258,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxe::io::Eof_obj::__boot();
 ::haxe::io::Error_obj::__boot();
 ::haxe::io::Input_obj::__boot();
+::haxor::context::DataContext_obj::__boot();
 ::haxor::context::EngineContext_obj::__boot();
 ::haxor::context::MaterialContext_obj::__boot();
 ::haxor::context::MeshContext_obj::__boot();
@@ -289,6 +307,12 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::io::UInt16Array_obj::__boot();
 ::haxor::math::Color_obj::__boot();
 ::haxor::math::Mathf_obj::__boot();
+::haxor::math::Matrix4_obj::__boot();
+::haxor::math::Quaternion_obj::__boot();
+::haxor::math::Random_obj::__boot();
+::haxor::math::Vector2_obj::__boot();
+::haxor::math::Vector3_obj::__boot();
+::haxor::math::Vector4_obj::__boot();
 ::haxor::thread::Activity_obj::__boot();
 ::haxor::thread::Task_obj::__boot();
 ::haxor::net::HTTPRequestTask_obj::__boot();

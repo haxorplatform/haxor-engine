@@ -33,36 +33,36 @@ namespace material{
 
 Void MaterialUniform_obj::__construct(::String p_name,bool p_is_float,int p_length,int p_offset)
 {
-HX_STACK_FRAME("haxor.graphics.material.MaterialUniform","new",0x09c035af,"haxor.graphics.material.MaterialUniform.new","haxor/graphics/material/Material.hx",455,0xe49118e6)
+HX_STACK_FRAME("haxor.graphics.material.MaterialUniform","new",0x09c035af,"haxor.graphics.material.MaterialUniform.new","haxor/graphics/material/Material.hx",438,0xe49118e6)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_name,"p_name")
 HX_STACK_ARG(p_is_float,"p_is_float")
 HX_STACK_ARG(p_length,"p_length")
 HX_STACK_ARG(p_offset,"p_offset")
 {
-	HX_STACK_LINE(456)
+	HX_STACK_LINE(439)
 	int _g = (::haxor::context::EngineContext_obj::material->uid)++;		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(456)
+	HX_STACK_LINE(439)
 	this->__cid = _g;
-	HX_STACK_LINE(457)
+	HX_STACK_LINE(440)
 	this->__d = true;
-	HX_STACK_LINE(458)
+	HX_STACK_LINE(441)
 	this->name = p_name;
-	HX_STACK_LINE(459)
+	HX_STACK_LINE(442)
 	this->isFloat = p_is_float;
-	HX_STACK_LINE(460)
+	HX_STACK_LINE(443)
 	this->offset = p_offset;
-	HX_STACK_LINE(461)
+	HX_STACK_LINE(444)
 	if ((p_is_float)){
-		HX_STACK_LINE(463)
+		HX_STACK_LINE(446)
 		::haxor::io::FloatArray _g1 = ::haxor::io::FloatArray_obj::__new(p_length);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(463)
+		HX_STACK_LINE(446)
 		this->data = _g1;
 	}
 	else{
-		HX_STACK_LINE(467)
+		HX_STACK_LINE(450)
 		::haxor::io::Int32Array _g2 = ::haxor::io::Int32Array_obj::__new(p_length);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(467)
+		HX_STACK_LINE(450)
 		this->data = _g2;
 	}
 }

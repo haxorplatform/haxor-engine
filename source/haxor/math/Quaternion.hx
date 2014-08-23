@@ -1,4 +1,6 @@
 package haxor.math;
+import haxor.context.DataContext;
+import haxor.context.EngineContext;
 
 /**
  * Class that represents a rotation quaternion.
@@ -6,12 +8,48 @@ package haxor.math;
  */
 class Quaternion
 {
+	/**
+	 * Returns a temporary cached instance of this class for local calculations speedup.  [warning] The data isn't setup in any way.
+	 */
+	static public var temp(get_temp, null):Quaternion; 
+	static private inline function get_temp():Quaternion { return EngineContext.data.q; }
 	
 	/**
 	 * Returns the identity quaternion without any rotation.
 	 */
 	static public var identity(get_identity, null):Quaternion;	
 	static private inline function get_identity():Quaternion { return new Quaternion(0, 0, 0, 1.0); }
+	
+	/**
+	 * Returns a new Quaternion using the informed matrix.
+	 * @param	p_matrix
+	 * @param	p_result
+	 * @return
+	 */
+	static public function FromMatrix(p_matrix : Matrix4,p_result : Quaternion=null):Quaternion
+	{
+		var r : Quaternion = p_result == null ? (new Quaternion()) : p_result;
+		var v : Matrix4 = p_matrix;
+		var fourXSquaredMinus1 : Float = v.m00 - v.m11 - v.m22;
+		var fourYSquaredMinus1 : Float = v.m11 - v.m00 - v.m22;
+		var fourZSquaredMinus1 : Float = v.m22 - v.m00 - v.m11;
+		var fourWSquaredMinus1 : Float = v.m00 + v.m11 + v.m22;
+		var biggestIndex 			 : Int = 0;
+		var fourBiggestSquaredMinus1 : Float = fourWSquaredMinus1;		
+		if(fourXSquaredMinus1 > fourBiggestSquaredMinus1) { fourBiggestSquaredMinus1 = fourXSquaredMinus1; biggestIndex = 1; }
+		if(fourYSquaredMinus1 > fourBiggestSquaredMinus1) {	fourBiggestSquaredMinus1 = fourYSquaredMinus1; biggestIndex = 2; }
+		if(fourZSquaredMinus1 > fourBiggestSquaredMinus1) {	fourBiggestSquaredMinus1 = fourZSquaredMinus1; biggestIndex = 3; }
+		var biggestVal 	: Float = Math.sqrt(fourBiggestSquaredMinus1 + 1.0) * 0.5;
+		var mult 		: Float = 0.25 / biggestVal;
+		switch(biggestIndex)
+		{
+			case 0:	r.w = biggestVal;	r.x = (v.m21 - v.m12) * mult;	r.y = (v.m02 - v.m20) * mult;	r.z = (v.m10 - v.m01) * mult;			
+			case 1:	r.w = (v.m21 - v.m12) * mult;	r.x = biggestVal;	r.y = (v.m10 + v.m01) * mult;	r.z = (v.m02 + v.m20) * mult;			
+			case 2:	r.w = (v.m02 - v.m20) * mult;	r.x = (v.m10 + v.m01) * mult;	r.y = biggestVal;	r.z = (v.m21 + v.m12) * mult;			
+			case 3:	r.w = (v.m10 - v.m01) * mult;	r.x = (v.m02 + v.m20) * mult;	r.y = (v.m21 + v.m12) * mult;	r.z = biggestVal;
+		}
+		return r;
+	}
 	
 	/**
 	 * Returns the Dot product of the informed quaternions.
@@ -28,11 +66,11 @@ class Quaternion
 	 * @param	p_ratio
 	 * @return
 	 */
-	static public function Lerp(p_a:Quaternion, p_b : Quaternion, p_ratio : Float):Quaternion
+	static public function Lerp(p_a:Quaternion, p_b : Quaternion, p_ratio : Float,p_result:Quaternion=null):Quaternion
 	{
-		var c:Quaternion    = new Quaternion();
+		var c:Quaternion    = p_result == null ? new Quaternion() : p_result;
 		var ca : Quaternion = p_a.clone;
-		var dot : Float = p_a.Dot(p_b);
+		var dot : Float = Quaternion.Dot(p_a,p_b);
 		if (dot < 0.0) 
 		{
 			ca.w = -ca.w;
@@ -58,8 +96,39 @@ class Quaternion
 	static public function Slerp(p_a:Quaternion, p_b:Quaternion, p_ratio:Float):Quaternion
 	{
 		// quaternion to return
-		var qm : Quaternion = new Quaternion();
-		//TODO
+		var qm : Quaternion = new Quaternion();		
+		var z : Quaternion = Quaternion.temp.SetQuaternion(p_b);
+		var cosTheta : Float = Dot(p_a, p_b);		
+		// If cosTheta < 0, the interpolation will take the long way around the sphere. 
+		// To fix this, one quat must be negated.
+		if (cosTheta < 0.0)
+		{			
+			z.Invert();    //-y;
+			cosTheta = -cosTheta;
+		}
+
+		// Perform a linear interpolation when cosTheta is close to 1 to avoid side effect of sin(angle) becoming a zero denominator
+		if(cosTheta > 1.0 - Mathf.Epsilon)
+		{
+			// Linear interpolation
+			qm.Set(
+			Mathf.Lerp(p_a.x, z.x, p_ratio),
+			Mathf.Lerp(p_a.y, z.y, p_ratio),
+			Mathf.Lerp(p_a.z, z.z, p_ratio),
+			Mathf.Lerp(p_a.w, z.w, p_ratio));			
+		}
+		else
+		{
+			// Essential Mathematics, page 467
+			var angle : Float = Math.acos(cosTheta);
+			var s  : Float = 1.0/Math.sin(angle);
+			var s0 : Float = Math.sin((1.0 - p_ratio) * angle);
+			var s1 : Float = Math.sin(p_ratio * angle);
+			qm.x = ((s0 * p_a.x) + (s1 * z.x)) * s;
+			qm.y = ((s0 * p_a.y) + (s1 * z.y)) * s;
+			qm.z = ((s0 * p_a.z) + (s1 * z.z)) * s;
+			qm.w = ((s0 * p_a.w) + (s1 * z.w)) * s;
+		}		
 		return qm;
 	}
 	
@@ -78,35 +147,6 @@ class Quaternion
 		return new Quaternion(p_axis.x * s, p_axis.y * s, p_axis.z * s, Mathf.Cos(p_angle));
 	}
 	
-	
-	/**
-	 * 
-	 * @param	p_euler
-	 * @return
-	 */
-	static public function FromEuler(p_euler : Vector3):Quaternion
-	{
-		// Assuming the angles are in radians.
-		var q : Quaternion = new Quaternion();
-		var ax : Float = p_euler.x * Mathf.Rad2Deg;
-		var ay : Float = p_euler.y * Mathf.Rad2Deg;
-		var az : Float = p_euler.z * Mathf.Rad2Deg;		
-		var c1 : Float = Mathf.Cos(ax*0.5);
-		var s1 : Float = Mathf.Sin(ax*0.5);
-		var c2 : Float = Mathf.Cos(ay*0.5);
-		var s2 : Float = Mathf.Sin(ay*0.5);
-		var c3 : Float = Mathf.Cos(az*0.5);
-		var s3 : Float = Mathf.Sin(az*0.5);
-		var c1c2 : Float = c1*c2;
-		var s1s2 : Float = s1*s2;
-		q.w = c1c2 * c3 - s1s2 * s3;
-		q.x = c1c2 * s3 + s1s2 * c3;
-		q.y = s1 * c2 * c3 + c1 * s2 * s3;
-		q.z = c1 * s2 * c3 - s1 * c2 * s3;
-		q.Normalize();
-		return q;
-	}
-	
 	/**
 	 * 
 	 * @param	p_from
@@ -114,10 +154,7 @@ class Quaternion
 	 * @param	p_up
 	 * @return
 	 */
-	static public function LookAt(p_from : Vector3, p_at : Vector3,p_up : Vector3=null) : Quaternion
-	{
-		return Matrix4.LookAt(p_from, p_at, p_up).quaternion;
-	}
+	static public inline function LookAt(p_from : Vector3, p_at : Vector3,p_up : Vector3=null,p_result:Quaternion=null) : Quaternion { return Quaternion.FromMatrix(Matrix4.LookAt(p_from, p_at, p_up,Matrix4.temp),p_result); }
 	
 	/**
 	 * 
@@ -125,46 +162,41 @@ class Quaternion
 	 * @param	p_up
 	 * @return
 	 */
-	static public function LookRotation(p_forward : Vector3, p_up : Vector3) : Quaternion
-	{		
-		return Matrix4.LookRotation(p_forward,p_up).quaternion;
-	}
+	static public inline function LookRotation(p_forward : Vector3, p_up : Vector3 = null) : Quaternion { return Matrix4.LookRotation(p_forward, p_up,Matrix4.temp).quaternion; }
 	
 	/**
-	 * 
+	 * Returns the Matrix4 form of this quaternion.
 	 */
-	public var matrix(get_matrix, null):Matrix4;
-	private function get_matrix():Matrix4
-	{
-		Normalize();
-		var m : Matrix4 = Matrix4.identity;
-		var x2:Float = x * x;
-		var y2:Float = y * y;
-		var z2:Float = z * z;		
-		var xy:Float = x * y;
-		var xz:Float = x * z;
-		var yz:Float = y * z;
-		var xw:Float = w * x;
-		var yw:Float = w * y;
-		var zw:Float = w * z;		
-		m.m00 = 1.0 - 2.0 * ( y2 + z2 );
-		m.m01 =       2.0 * ( xy - zw );
-		m.m02 =       2.0 * ( xz + yw );				
-		m.m10 =       2.0 * ( xy + zw );		
-		m.m11 = 1.0 - 2.0 * ( x2 + z2 );
-		m.m12 =       2.0 * ( yz - xw );				
-		m.m20 =       2.0 * ( xz - yw );
-		m.m21 =       2.0 * ( yz + xw );
-		m.m22 = 1.0 - 2.0 * ( x2 + y2 );		
-		m.m30 = m.m31 = m.m32 = 0.0; m.m33 = 1.0;
-		return m;
-	}	
+	public var matrix(get_matrix, set_matrix):Matrix4;
+	private inline function get_matrix():Matrix4 			{ return Matrix4.FromQuaternion(this); }
+	private inline function set_matrix(v:Matrix4):Matrix4 	{ FromMatrix(v, this); return v; }
 	
 	/**
 	 * Get/Set the euler angles for this quaternion.
 	 */
-	public var euler(get_euler, null) : Vector3;
-	private function get_euler():Vector3 { return new Vector3(pitch, yaw, roll);	}
+	public var euler(get_euler, set_euler) : Vector3;
+	private function get_euler():Vector3 
+	{ 
+		return new Vector3(
+		Math.atan2(2.0 * (y * z + w * x), w * w - x * x - y * y + z * z)  * Mathf.Rad2Deg, 
+		Math.asin(-2.0 * (x*z - w*y)) * Mathf.Rad2Deg,
+		Math.atan2(2.0 * (x * y + w * z), w * w + x * x - y * y - z * z) * Mathf.Rad2Deg
+		);	
+	}
+	private function set_euler(v:Vector3):Vector3
+	{
+		var c : Vector3 = Vector3.temp;
+		var s : Vector3 = Vector3.temp;
+		var k : Float = 0.5 * Mathf.Deg2Rad;
+		var e : Vector3 = Vector3.temp.Set(v.x*k,v.y*k,v.z*k);
+		c.Set(Math.cos(e.x), Math.cos(e.y), Math.cos(e.z));
+		s.Set(Math.sin(e.x), Math.sin(e.y), Math.sin(e.z));		
+		x = (s.x*c.y*c.z) - (c.x*s.y*s.z);
+		y = (c.x*s.y*c.z) + (s.x*c.y*s.z);
+		z = (c.x*c.y*s.z) - (s.x*s.y*c.z);
+		w = (c.x*c.y*c.z) + (s.x*s.y*s.z);		
+		return v;
+	}
 		
 	/**
 	 * Returns a copy of this quaternion.
@@ -189,25 +221,6 @@ class Quaternion
 	 */
 	public var normalized(get_normalized, null) : Quaternion;
 	private inline function get_normalized():Quaternion { return clone.Normalize(); }
-	
-	/**
-	 * Returns the roll angle
-	 */
-	public var roll(get_roll, null) : Float;	
-	private inline function get_roll():Float { return Math.atan2(2.0 * (x*y + w*z), w*w + x*x - y*y - z*z); }
-	
-	/**
-	 * Returns the pitch angle
-	 */
-	public var pitch(get_pitch, null) : Float;	
-	private inline function get_pitch():Float { return Math.atan2(2.0 * (y * z + w * x), w * w - x * x - y * y + z * z); }
-	
-	/**
-	 * Returns the yam angle
-	 */
-	public var yam(get_yam, null) : Float;	
-	private inline function get_yam():Float { return Math.asin(-2.0 * (x*z - w*y)); }
-	
 	
 	/**
 	 * X component.
@@ -238,14 +251,11 @@ class Quaternion
 	 */
 	public function new(p_x:Float=0,p_y:Float=0,p_z:Float=0,p_w:Float=1.0) 
 	{
-		x = p_x;
-		y = p_y;
-		z = p_z;
-		w = p_w;
+		x = p_x; y = p_y; z = p_z; w = p_w; 
 	}
 	
 	/**
-	 * Sets all components of this Vector3. Returns its own reference.
+	 * Sets all components of this Quaternion. Returns its own reference.
 	 * @param	p_x
 	 * @param	p_y
 	 * @param	p_z
@@ -253,6 +263,13 @@ class Quaternion
 	 * @return
 	 */
 	public function Set(p_x:Float = 0, p_y:Float = 0, p_z:Float = 0, p_w:Float = 1.0):Quaternion { x = p_x; y = p_y; z = p_z; w = p_w; return this; }
+	
+	/**
+	 * Sets all components with the template Quaternion. Returns its own reference.
+	 * @param	p_q
+	 * @return
+	 */
+	public function SetQuaternion(p_q:Quaternion):Quaternion { x = p_q.x; y = p_q.y; z = p_q.z; w = p_q.w; return this; }
 	
 	/**
 	 * Normalizes this quaternion.
@@ -278,6 +295,12 @@ class Quaternion
 	 */
 	public var conjugate(get_conjugate, null):Quaternion;
 	private inline function get_conjugate():Quaternion { return new Quaternion(-x, -y, -z, w); }
+	
+	/**
+	 * Returns this Quaternion with the components inverted.
+	 * @return
+	 */
+	public function Invert():Quaternion { x = -x; y = -y; z = -z; w = -w; return this; }
 	
 	/**
 	 * Applies a scalar to this quaternion. Returns its own reference.
@@ -335,8 +358,7 @@ class Quaternion
 		var l:Float = p_axis.length;
 		if (Mathf.Abs(l - 1.0) > Mathf.Epsilon) p_axis.Normalize();
 		var s:Float = Mathf.Sin(p_angle);		
-		Set(p_axis.x * s, p_axis.y * s, p_axis.z * s, Mathf.Cos(p_angle));
-		return this;
+		return Set(p_axis.x * s, p_axis.y * s, p_axis.z * s, Mathf.Cos(p_angle));		
 	}
 	
 	/**
@@ -351,5 +373,19 @@ class Quaternion
 	 */
 	public function ToString(p_places:Int=2):String { return "["+Mathf.RoundPlaces(x,p_places)+","+Mathf.RoundPlaces(y,p_places)+","+Mathf.RoundPlaces(z,p_places)+","+Mathf.RoundPlaces(w,p_places)+"]"; }
 		
+	/**
+	 * Parses a string with the required delimiter into a new instance.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function Parse(p_data : String,p_delimiter:String=" "):Quaternion
+	{
+		var tk : Array<String> = p_data.split(p_delimiter);		
+		return Quaternion.identity.Set(
+		Std.parseFloat(StringTools.trim(tk[0])),
+		Std.parseFloat(StringTools.trim(tk[1])),
+		Std.parseFloat(StringTools.trim(tk[2])),
+		Std.parseFloat(StringTools.trim(tk[3])));				
+	}
 	
 }

@@ -12,6 +12,11 @@ import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.io.UInt16Array;
+import haxor.math.Color;
+import haxor.math.Matrix4;
+import haxor.math.Vector2;
+import haxor.math.Vector3;
+import haxor.math.Vector4;
 
 
 /**
@@ -22,6 +27,52 @@ import haxor.io.UInt16Array;
 @:allow(haxor)
 class Material extends Resource
 {
+	/**
+	 * Shortcut for an AlphaBlended material. Without shader.
+	 * @param	p_ztest
+	 * @param	p_zwrite
+	 * @param	p_double_sided
+	 * @return
+	 */
+	static public inline function Transparent(p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
+	{
+		var m : Material = new Material();
+		if (p_double_sided) m.cull = CullMode.None;
+		m.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
+		m.queue 	= RenderQueue.Transparent;
+		m.ztest 	= p_ztest;
+		m.zwrite 	= p_zwrite;
+		m.blend		= true;
+		return m;
+	}
+	
+	/**
+	 * Shortcut for an Additive material using alpha as intensity. Without shader.
+	 * @param	p_ztest
+	 * @param	p_zwrite
+	 * @param	p_double_sided
+	 * @return
+	 */
+	static public inline function AdditiveAlpha(p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
+	{
+		var m : Material = Transparent(p_ztest, p_zwrite, p_double_sided);
+		m.SetBlending(BlendMode.SrcAlpha, BlendMode.One);
+		return m;
+	}
+	
+	/**
+	 * Shortcut for an Additive material. Without shader.
+	 * @param	p_ztest
+	 * @param	p_zwrite
+	 * @param	p_double_sided
+	 * @return
+	 */
+	static public inline function Additive(p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
+	{
+		var m : Material = Transparent(p_ztest, p_zwrite, p_double_sided);
+		m.SetBlending(BlendMode.One, BlendMode.One);
+		return m;
+	}
 	
 	/**
 	 * Flag that indicates if this material will use Z-Testing.
@@ -111,7 +162,7 @@ class Material extends Resource
 	 * Creates a new Material.
 	 * @param	p_name
 	 */
-	public function new(p_name)
+	public function new(p_name:String="")
 	{
 		super(p_name);	
 		__cid 			= EngineContext.material.mid++;
@@ -154,6 +205,47 @@ class Material extends Resource
 		var b : Int32Array = cast u.data; b.Set(0, p_texture.__slot);
 		u.texture = p_texture;
 	}
+	
+	/**
+	 * Sets a Matrix4 uniform.
+	 * @param	p_name
+	 * @param	p_matrix4
+	 */
+	public function SetMatrix4(p_name:String, p_matrix4:Matrix4):Void 
+	{ 
+		var u : MaterialUniform = FetchUniform(p_name, true, 16, 16, true); 
+		var b : FloatArray = cast u.data; 
+		var l : Array<Float> = EngineContext.data.Matrix4ToArray(p_matrix4);
+		for (i in 0...16) b.Set(i,l[i]);		
+	}
+	
+	/**
+	 * Sets a Color uniform.
+	 * @param	p_name
+	 * @param	p_color
+	 */
+	public inline function SetColor(p_name:String, p_color : Color):Void { SetFloat4(p_name, p_color.r, p_color.g, p_color.b, p_color.a); }
+	
+	/**
+	 * Sets a Vector4 uniform.
+	 * @param	p_name
+	 * @param	p_v
+	 */
+	public inline function SetVector4(p_name:String, p_v : Vector4):Void  { SetFloat4(p_name, p_v.x, p_v.y, p_v.z, p_v.w); }
+	
+	/**
+	 * Sets a Vector3 uniform.
+	 * @param	p_name
+	 * @param	p_v
+	 */
+	public inline function SetVector3(p_name:String, p_v : Vector3):Void  { SetFloat3(p_name, p_v.x, p_v.y, p_v.z); }
+	
+	/**
+	 * Sets a Vector3 uniform.
+	 * @param	p_name
+	 * @param	p_v
+	 */
+	public inline function SetVector2(p_name:String, p_v : Vector2):Void  { SetFloat2(p_name, p_v.x, p_v.y); }
 	
 	/**
 	 * Sets a Float.

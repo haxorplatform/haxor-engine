@@ -144,4 +144,17 @@ class Int32Array extends Buffer
 		#end
 	}
 	
+	/**
+	 * Parses a string with the required delimiter into a new instance.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function Parse(p_data : String,p_delimiter:String=" "):Int32Array
+	{
+		var tk : Array<String> = p_data.split(p_delimiter);
+		var res : Int32Array = new Int32Array(tk.length);
+		for (i in 0...tk.length) res.Set(i,Std.parseInt(StringTools.trim(tk[i])));
+		return res;
+	}
+	
 }

@@ -18,7 +18,7 @@ public  class Sys extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__Sys(haxe.root.Sys __temp_me55666)
+	public static   void __hx_ctor__Sys(haxe.root.Sys __temp_me56069)
 	{
 		{
 		}
@@ -32,16 +32,16 @@ public  class Sys extends haxe.lang.HxObject
 		{
 			java.lang.Thread.sleep(((long) (( seconds * 1000 )) ));
 		}
-		catch (java.lang.Throwable __temp_catchallException55819)
+		catch (java.lang.Throwable __temp_catchallException56296)
 		{
-			java.lang.Object __temp_catchall55820 = __temp_catchallException55819;
-			if (( __temp_catchall55820 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall56297 = __temp_catchallException56296;
+			if (( __temp_catchall56297 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall55820 = ((haxe.lang.HaxeException) (__temp_catchallException55819) ).obj;
+				__temp_catchall56297 = ((haxe.lang.HaxeException) (__temp_catchallException56296) ).obj;
 			}
 			
 			{
-				java.lang.Object e = __temp_catchall55820;
+				java.lang.Object e = __temp_catchall56297;
 				throw haxe.lang.HaxeException.wrap(e);
 			}
 			

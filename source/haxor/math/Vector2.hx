@@ -1,4 +1,5 @@
 package haxor.math;
+import haxor.context.EngineContext;
 
 /**
  * Class that represents a 2 float tuple.
@@ -6,6 +7,12 @@ package haxor.math;
  */
 class Vector2
 {	
+	/**
+	 * Returns a temporary cached instance of this class for local calculations speedup.  [warning] The data isn't setup in any way.
+	 */
+	static public var temp(get_temp, null):Vector2;
+	static private inline function get_temp():Vector2 { return EngineContext.data.v2; }
+	
 	/**
 	 * Returns a new Vector2(0,0);
 	 */
@@ -171,6 +178,13 @@ class Vector2
 	 * @return
 	 */
 	public function Multiply(p_v : Vector2):Vector2 { x *= p_v.x; y *= p_v.y; return this; }
+		
+	/**
+	 * Scales this vector using the informed scalar. Returns its own reference.
+	 * @param	p_s
+	 * @return
+	 */
+	public function Scale(p_s : Float):Vector2 { x *= p_s; y *= p_s; return this; }
 	
 	/**
 	 * Moves this point towards the target using the specified step. If this point reaches target it returns true, otherwise returns false.
@@ -237,6 +251,17 @@ class Vector2
 	 */
 	public function ToString(p_places:Int=2):String { return "["+Mathf.RoundPlaces(x,p_places)+","+Mathf.RoundPlaces(y,p_places)+"]"; }
 	
-	
+	/**
+	 * Parses a string with the required delimiter into a new instance.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function Parse(p_data : String,p_delimiter:String=" "):Vector2
+	{
+		var tk : Array<String> = p_data.split(p_delimiter);		
+		return Vector2.zero.Set(
+		Std.parseFloat(StringTools.trim(tk[0])),
+		Std.parseFloat(StringTools.trim(tk[1])));				
+	}
 	
 }

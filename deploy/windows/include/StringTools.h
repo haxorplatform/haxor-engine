@@ -40,6 +40,9 @@ class HXCPP_CLASS_ATTRIBUTES  StringTools_obj : public hx::Object{
 		static ::String rtrim( ::String s);
 		static Dynamic rtrim_dyn();
 
+		static ::String trim( ::String s);
+		static Dynamic trim_dyn();
+
 		static ::String replace( ::String s,::String sub,::String by);
 		static Dynamic replace_dyn();
 

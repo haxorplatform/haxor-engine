@@ -17,11 +17,11 @@ public  class Entity extends haxor.core.Resource
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Entity(haxor.core.Entity __temp_me55685, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_core_Entity(haxor.core.Entity __temp_me56090, java.lang.String p_name)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me55685, p_name);
-		__temp_me55685.m_enabled = true;
-		__temp_me55685.m_components = new haxe.root.Array<haxor.component.Component>(new haxor.component.Component[]{});
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me56090, p_name);
+		__temp_me56090.m_enabled = true;
+		__temp_me56090.m_components = new haxe.root.Array<haxor.component.Component>(new haxor.component.Component[]{});
 	}
 	
 	
@@ -123,14 +123,14 @@ public  class Entity extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef55919 = true;
+			boolean __temp_executeDef56401 = true;
 			switch (field.hashCode())
 			{
 				case 1825980968:
 				{
 					if (field.equals("m_components")) 
 					{
-						__temp_executeDef55919 = false;
+						__temp_executeDef56401 = false;
 						this.m_components = ((haxe.root.Array<haxor.component.Component>) (value) );
 						return value;
 					}
@@ -143,7 +143,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("enabled")) 
 					{
-						__temp_executeDef55919 = false;
+						__temp_executeDef56401 = false;
 						this.set_enabled(haxe.lang.Runtime.toBool(value));
 						return value;
 					}
@@ -156,7 +156,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("m_enabled")) 
 					{
-						__temp_executeDef55919 = false;
+						__temp_executeDef56401 = false;
 						this.m_enabled = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -167,7 +167,7 @@ public  class Entity extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef55919) 
+			if (__temp_executeDef56401) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -184,14 +184,14 @@ public  class Entity extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef55920 = true;
+			boolean __temp_executeDef56402 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef55920 = false;
+						__temp_executeDef56402 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -203,7 +203,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("enabled")) 
 					{
-						__temp_executeDef55920 = false;
+						__temp_executeDef56402 = false;
 						return this.get_enabled();
 					}
 					
@@ -215,7 +215,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("AddComponent")) 
 					{
-						__temp_executeDef55920 = false;
+						__temp_executeDef56402 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("AddComponent"))) );
 					}
 					
@@ -227,7 +227,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("get_enabled")) 
 					{
-						__temp_executeDef55920 = false;
+						__temp_executeDef56402 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_enabled"))) );
 					}
 					
@@ -239,7 +239,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("m_components")) 
 					{
-						__temp_executeDef55920 = false;
+						__temp_executeDef56402 = false;
 						return this.m_components;
 					}
 					
@@ -251,7 +251,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("set_enabled")) 
 					{
-						__temp_executeDef55920 = false;
+						__temp_executeDef56402 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_enabled"))) );
 					}
 					
@@ -263,7 +263,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("m_enabled")) 
 					{
-						__temp_executeDef55920 = false;
+						__temp_executeDef56402 = false;
 						return this.m_enabled;
 					}
 					
@@ -273,7 +273,7 @@ public  class Entity extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef55920) 
+			if (__temp_executeDef56402) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -290,14 +290,14 @@ public  class Entity extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef55921 = true;
+			boolean __temp_executeDef56403 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef55921 = false;
+						__temp_executeDef56403 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -309,7 +309,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("get_enabled")) 
 					{
-						__temp_executeDef55921 = false;
+						__temp_executeDef56403 = false;
 						return this.get_enabled();
 					}
 					
@@ -321,7 +321,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("AddComponent")) 
 					{
-						__temp_executeDef55921 = false;
+						__temp_executeDef56403 = false;
 						return this.AddComponent(((java.lang.Class<haxor.component.Component>) (dynargs.__get(0)) ));
 					}
 					
@@ -333,7 +333,7 @@ public  class Entity extends haxor.core.Resource
 				{
 					if (field.equals("set_enabled")) 
 					{
-						__temp_executeDef55921 = false;
+						__temp_executeDef56403 = false;
 						return this.set_enabled(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
@@ -343,7 +343,7 @@ public  class Entity extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef55921) 
+			if (__temp_executeDef56403) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

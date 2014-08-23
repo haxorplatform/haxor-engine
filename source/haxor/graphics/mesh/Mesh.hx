@@ -92,9 +92,9 @@ class Mesh extends Resource
 	/**
 	 * Creates a new Mesh object.
 	 */
-	public function new():Void
+	public function new(p_name:String=""):Void
 	{
-		super();
+		super(p_name);
 		__cid 		= EngineContext.mesh.mid++;
 		m_attribs 	= [];
 		m_indexed	= false;

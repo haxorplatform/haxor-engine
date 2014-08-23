@@ -1,4 +1,5 @@
 package haxor.math;
+import haxor.context.EngineContext;
 
 /**
  * Class that describes a RGBA color represented as a float tuple.
@@ -6,6 +7,12 @@ package haxor.math;
  */
 class Color
 {
+	/**
+	 * Returns a temporary cached instance of this class for local calculations speedup.  [warning] The data isn't setup in any way.
+	 */
+	static public var temp(get_temp, null):Color; 
+	static private inline function get_temp():Color { return EngineContext.data.c; }
+	
 	/**
 	 * Red pixel.
 	 */
@@ -351,5 +358,19 @@ class Color
 	 */
 	public function ToString(p_places:Int=2):String { return "["+Mathf.RoundPlaces(r,p_places)+","+Mathf.RoundPlaces(g,p_places)+","+Mathf.RoundPlaces(b,p_places)+","+Mathf.RoundPlaces(a,p_places)+"]"; }
 	
+	/**
+	 * Parses a string with the required delimiter into a new instance.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function Parse(p_data : String,p_delimiter:String=" "):Color
+	{
+		var tk : Array<String> = p_data.split(p_delimiter);		
+		return Color.black.Set(
+		Std.parseFloat(StringTools.trim(tk[0])),
+		Std.parseFloat(StringTools.trim(tk[1])),
+		Std.parseFloat(StringTools.trim(tk[2])),
+		Std.parseFloat(StringTools.trim(tk[3])));				
+	}
 	
 }
