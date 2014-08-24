@@ -27,17 +27,17 @@ class MaterialContext
 	/**
 	 * Unique material ids.
 	 */
-	private var mid : Int;
+	private var mid : UID;
 	
 	/**
 	 * Unique shader ids.
 	 */
-	private var sid : Int;
+	private var sid : UID;
 	
 	/**
 	 * Unique uniform ids.
 	 */
-	private var uid : Int;
+	private var uid : UID;
 	
 	/**
 	 * List of vertex shaders id for Shader classes.
@@ -131,9 +131,9 @@ class MaterialContext
 	 */
 	private function new() 
 	{
-		mid = 0;
-		sid = 0;		
-		uid = 0;
+		mid = new UID();
+		sid = new UID();		
+		uid = new UID();
 		
 		
 		zfunc           = DepthTest.LessEqual;
@@ -290,6 +290,7 @@ class MaterialContext
 		var p 	: ProgramId 		= programs[m.__cid];		
 		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
 		uniforms[m.__cid][u.__cid] 	= GL.INVALID;
+		EngineContext.material.uid.id = u.__cid;
 	}
 	
 	/**
@@ -484,6 +485,8 @@ class MaterialContext
 			GL.DetachShader(p, fragment_shaders[m.shader.__cid]);			
 		}
 		GL.DeleteProgram(p);
+		EngineContext.material.mid.id = m.__cid;
+		for (i in 0...m.m_uniforms.length) uid.id = m.m_uniforms[i].__cid;		
 	}
 	
 	/**
@@ -494,6 +497,7 @@ class MaterialContext
 	{
 		GL.DeleteShader(vertex_shaders[s.__cid]);
 		GL.DeleteShader(fragment_shaders[s.__cid]);
+		EngineContext.material.sid.id = s.__cid;
 	}
 	
 	

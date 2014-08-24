@@ -18,12 +18,12 @@ class MeshContext
 	/**
 	 * Unique attribute ids.
 	 */
-	private var aid : Int;
+	private var aid : UID;
 	
 	/**
 	 * Unique Mesh ids.
 	 */
-	private var mid : Int;
+	private var mid : UID;
 	
 	/**
 	 * Default attribs for shaders.
@@ -55,8 +55,8 @@ class MeshContext
 	 */
 	private function new() 
 	{
-		aid = 0;
-		mid = 0;
+		aid = new UID();
+		mid = new UID();
 		buffers 	= [];		
 		activated 	= [];
 		
@@ -186,6 +186,7 @@ class MeshContext
 		if (id == GL.INVALID) return;		
 		GL.DeleteBuffer(id);
 		buffers[p_attrib.__cid] = GL.INVALID;
+		aid.id = p_attrib.__cid;
 	}
 	
 	/**

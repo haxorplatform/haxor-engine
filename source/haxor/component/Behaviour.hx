@@ -52,8 +52,7 @@ class Behaviour extends Component
 
 	function new() 
 	{
-		super();
-		
+		super();		
 		m_enabled 		= true;
 		m_is_behaviour  = true;
 		m_is_updateable = Std.is(this, IUpdateable);

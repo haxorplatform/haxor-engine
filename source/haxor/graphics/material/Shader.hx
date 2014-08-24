@@ -48,7 +48,7 @@ class Shader extends Resource
 	public function new(p_source:String) 
 	{
 		super();
-		__cid 		= EngineContext.material.sid++;
+		__cid 		= EngineContext.material.sid.id;
 		
 		//Adjustments to correct malformed <vertex>/<fragment> tags
 		//Must use RegExp :)

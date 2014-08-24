@@ -70,25 +70,25 @@ class Random
 	}
 	
 	/**
-	 * Returns a random normalized vector inside a radius 1.0 sphere.
+	 * Returns a random point inside a radius 1.0 sphere.
 	 */
 	static public var sphere(get_sphere, null):Vector3;
 	static private inline function get_sphere():Vector3 { return (new Vector3(interval, interval, interval)).Normalize().Scale(value); }
 		
 	/**
-	 * Returns a random normalized vector on a radius 1.0 sphere.
+	 * Returns a random point on the surface of a radius 1.0 sphere.
 	 */
 	static public var onSphere(get_onSphere, null):Vector3;
 	static private inline function get_onSphere():Vector3 { return (new Vector3(interval, interval, interval)).Normalize(); }
 	
 	/**
-	 * Returns a random normalized vector inside a radius 1.0 circle.
+	 * Returns a random point inside a radius 1.0 circle.
 	 */
 	static public var circle(get_circle, null):Vector2;
 	static private inline function get_circle():Vector2 { return (new Vector2(interval, interval)).Normalize().Scale(value); }
 	
 	/**
-	 * Returns a random normalized vector on a radius 1.0 circle.
+	 * Returns a random point on a radius 1.0 circle.
 	 */
 	static public var onCircle(get_onCircle, null):Vector2;
 	static private inline function get_onCircle():Vector2 { return (new Vector2(interval, interval)).Normalize(); }

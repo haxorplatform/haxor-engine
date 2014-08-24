@@ -21,6 +21,45 @@ class Quaternion
 	static private inline function get_identity():Quaternion { return new Quaternion(0, 0, 0, 1.0); }
 	
 	/**
+	 * Returns the Quaternion represented by the euler rotation.
+	 * @param	p_euler
+	 * @param	p_result
+	 * @return
+	 */
+	static public function FromEuler(p_euler : Vector3, p_result:Quaternion = null):Quaternion
+	{
+		var r : Quaternion = p_result == null ? (new Quaternion()) : p_result;
+		var c : Vector3 = Vector3.temp;
+		var s : Vector3 = Vector3.temp;
+		var k : Float = 0.5 * Mathf.Deg2Rad;
+		var e : Vector3 = Vector3.temp.Set(p_euler.x*k,p_euler.y*k,p_euler.z*k);
+		c.Set(Math.cos(e.x), Math.cos(e.y), Math.cos(e.z));
+		s.Set(Math.sin(e.x), Math.sin(e.y), Math.sin(e.z));		
+		r.x = (s.x*c.y*c.z) - (c.x*s.y*s.z);
+		r.y = (c.x*s.y*c.z) + (s.x*c.y*s.z);
+		r.z = (c.x*c.y*s.z) - (s.x*s.y*c.z);
+		r.w = (c.x*c.y*c.z) + (s.x*s.y*s.z);
+		return r;
+	}
+	
+	/**
+	 * Returns the euler rotation from the informed quaternion.
+	 * @param	p_quaternion
+	 * @param	p_result
+	 * @return
+	 */
+	static public function ToEuler(p_quaternion : Quaternion, p_result:Vector3 = null):Vector3
+	{
+		var q : Quaternion = p_quaternion;
+		var r : Vector3 = p_result == null ? (new Vector3()) : p_result;
+		return r.Set(
+		Math.atan2(2.0 * (q.y * q.z + q.w * q.x), q.w * q.w - q.x * q.x - q.y * q.y + q.z * q.z)  * Mathf.Rad2Deg, 
+		Math.asin(-2.0 * (q.x*q.z - q.w*q.y)) * Mathf.Rad2Deg,
+		Math.atan2(2.0 * (q.x * q.y + q.w * q.z), q.w * q.w + q.x * q.x - q.y * q.y - q.z * q.z) * Mathf.Rad2Deg
+		);			
+	}
+	
+	/**
 	 * Returns a new Quaternion using the informed matrix.
 	 * @param	p_matrix
 	 * @param	p_result
@@ -58,6 +97,32 @@ class Quaternion
 	 * @return
 	 */
 	static public inline function Dot(p_a : Quaternion, p_b : Quaternion) : Float { return ((p_a.x * p_b.x) + (p_a.y * p_b.y) + (p_a.z * p_b.z) + (p_a.w * p_b.w)); }
+	
+	/**
+	 * Returns the quaternion that rotates from A to B.
+	 * @param	p_a
+	 * @param	p_b
+	 * @return
+	 */
+	static public function DeltaRotation(p_a : Quaternion, p_b : Quaternion,p_result:Quaternion=null):Quaternion
+	{
+		var r : Quaternion = p_result == null ? (new Quaternion()) : p_result;
+		Quaternion.Inverse(p_a, r);
+		r.Multiply(p_b);
+		return r;
+	}
+	
+	/**
+	 * Returns the inverse rotation of this quaternion.
+	 * @param	p_q
+	 * @return
+	 */
+	static public function Inverse(p_q : Quaternion,p_result:Quaternion=null):Quaternion
+	{
+		var d : Float = 1.0/Dot(p_q, p_q);
+		var r : Quaternion = p_result == null ? (new Quaternion()) : p_result;
+		return r.Set( -p_q.x * d, -p_q.y*d, -p_q.z*d, p_q.w*d);
+	}
 	
 	/**
 	 * Linear interpolates 2 quaternions with its rotation adjusted.
@@ -157,7 +222,7 @@ class Quaternion
 	static public inline function LookAt(p_from : Vector3, p_at : Vector3,p_up : Vector3=null,p_result:Quaternion=null) : Quaternion { return Quaternion.FromMatrix(Matrix4.LookAt(p_from, p_at, p_up,Matrix4.temp),p_result); }
 	
 	/**
-	 * 
+	 * Returns the rotation that look towards the informed direction.
 	 * @param	p_forward
 	 * @param	p_up
 	 * @return
@@ -175,28 +240,8 @@ class Quaternion
 	 * Get/Set the euler angles for this quaternion.
 	 */
 	public var euler(get_euler, set_euler) : Vector3;
-	private function get_euler():Vector3 
-	{ 
-		return new Vector3(
-		Math.atan2(2.0 * (y * z + w * x), w * w - x * x - y * y + z * z)  * Mathf.Rad2Deg, 
-		Math.asin(-2.0 * (x*z - w*y)) * Mathf.Rad2Deg,
-		Math.atan2(2.0 * (x * y + w * z), w * w + x * x - y * y - z * z) * Mathf.Rad2Deg
-		);	
-	}
-	private function set_euler(v:Vector3):Vector3
-	{
-		var c : Vector3 = Vector3.temp;
-		var s : Vector3 = Vector3.temp;
-		var k : Float = 0.5 * Mathf.Deg2Rad;
-		var e : Vector3 = Vector3.temp.Set(v.x*k,v.y*k,v.z*k);
-		c.Set(Math.cos(e.x), Math.cos(e.y), Math.cos(e.z));
-		s.Set(Math.sin(e.x), Math.sin(e.y), Math.sin(e.z));		
-		x = (s.x*c.y*c.z) - (c.x*s.y*s.z);
-		y = (c.x*s.y*c.z) + (s.x*c.y*s.z);
-		z = (c.x*c.y*s.z) - (s.x*s.y*c.z);
-		w = (c.x*c.y*c.z) + (s.x*s.y*s.z);		
-		return v;
-	}
+	private function get_euler():Vector3 { return ToEuler(this); }
+	private function set_euler(v:Vector3):Vector3 { FromEuler(v, this);	return v; }
 		
 	/**
 	 * Returns a copy of this quaternion.
@@ -297,6 +342,12 @@ class Quaternion
 	private inline function get_conjugate():Quaternion { return new Quaternion(-x, -y, -z, w); }
 	
 	/**
+	 * Returns the inverse of this quaternion.
+	 */
+	public var inverse(get_inverse, null):Quaternion;
+	private inline function get_inverse():Quaternion { return Inverse(this); }
+	
+	/**
 	 * Returns this Quaternion with the components inverted.
 	 * @return
 	 */
@@ -315,7 +366,7 @@ class Quaternion
 	 * @param	p_normalize
 	 * @return
 	 */
-	public function Multiply(p_v:Quaternion,p_normalize:Bool=true):Quaternion
+	public function Multiply(p_v:Quaternion,p_normalize:Bool=false):Quaternion
 	{
 		var vx:Float = (w * p_v.x) + (x * p_v.w) + (y * p_v.z) - (z * p_v.y);
 		var vy:Float = (w * p_v.y) + (y * p_v.w) + (z * p_v.x) - (x * p_v.z);
@@ -330,21 +381,29 @@ class Quaternion
 	 * @param	p_v
 	 * @return
 	 */
-	public function Multiply3(p_v:Vector3):Vector3
+	public function Rotate(p_v:Vector3):Vector3
 	{
 		var l : Float = Math.sqrt(p_v.x * p_v.x + p_v.y * p_v.y + p_v.z * p_v.z);
-		var nl : Float = 1.0 / l;
+		var nl : Float = l<=0.0 ? 0.0 : (1.0 / l);
 		p_v.x *= nl;
 		p_v.y *= nl;
 		p_v.z *= nl;
-		var qv:Quaternion = new Quaternion(p_v.x, p_v.y, p_v.z, 0);
-		var a:Quaternion = clone;		
-		a.Multiply(qv.Multiply(conjugate));
+		var qv:Quaternion 	= Quaternion.temp.Set(p_v.x, p_v.y, p_v.z, 0);
+		var a:Quaternion 	= Quaternion.temp.SetQuaternion(this);		
+		var c:Quaternion	= Quaternion.temp.Set( -x, -y, -z, w);
+		a.Multiply(qv.Multiply(c));
 		p_v.x = a.x*l;
 		p_v.y = a.y*l;
 		p_v.z = a.z*l;
 		return p_v;
 	}
+	
+	/**
+	 * Sets this quaternion as a delta rotation that moves from this quaternion to the target one. Returns its own reference.
+	 * @param	p_q
+	 * @return
+	 */
+	public inline function Delta(p_q : Quaternion):Quaternion { return SetQuaternion(DeltaRotation(this, p_q, Quaternion.temp));	}
 	
 	/**
 	 * Resets this quaternion structure so it represents the axis/angle rotation. Returns its own reference.

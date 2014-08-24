@@ -1,9 +1,11 @@
 package ;
 import haxor.component.Camera;
 import haxor.component.Transform;
+import haxor.context.UID;
 import haxor.core.Application;
 import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
+import haxor.core.Entity;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
 import haxor.core.Time;
@@ -222,6 +224,48 @@ class Main extends Application implements IUpdateable implements IRenderable
 		//*/
 		//tex.Apply();
 		
+		var t0 : Transform = (new Entity("T0")).transform;
+		var t1 : Transform = (new Entity("T1")).transform;
+		var t2 : Transform = (new Entity("T2")).transform;
+		
+		t1.parent = t0;
+		t2.parent = t1;
+		
+		t0.localScale = new Vector3(2.0, 1.0, 1.0);
+		
+		t0.localPosition = new Vector3(0,0,0);
+		t1.localPosition = new Vector3(10,0,0);
+		t2.localPosition = new Vector3(10,0,0);
+		
+		trace(t0.ToString() + " " + t0.ToString(true));		
+		trace(t1.ToString() + " " + t1.ToString(true));
+		trace(t2.ToString() + " " + t2.ToString(true));
+		
+		
+		trace("===");
+		
+		t0.Translate(10, 0, 0);
+		
+		trace(t0.ToString() + " " + t0.ToString(true));		
+		trace(t1.ToString() + " " + t1.ToString(true));
+		trace(t2.ToString() + " " + t2.ToString(true));
+		
+		trace("====");
+		
+		Transform.root.euler = new Vector3(0, 90, 0);
+		
+		trace(t0.ToString() + " " + t0.ToString(true));		
+		trace(t1.ToString() + " " + t1.ToString(true));
+		trace(t2.ToString() + " " + t2.ToString(true));
+		
+		/*
+		var q30 : Quaternion = Quaternion.FromAxisAngle(Vector3.up, 30.0);
+		var v0:Vector3 = new Vector3(10, 0, 0);
+		trace(v0.ToString());
+		q30.Rotate(v0);	trace(v0.ToString());
+		q30.Rotate(v0);	trace(v0.ToString());
+		q30.Rotate(v0);	trace(v0.ToString());
+		//*/
 		//var rtt : RenderTexture = new RenderTexture(128, 128, PixelFormat.RGBA8);
 		if (bmp != null)
 		{
@@ -237,8 +281,6 @@ class Main extends Application implements IUpdateable implements IRenderable
 		mat.SetTexture("Texture", tex);
 		mat.SetFloat4Array("Tint", [0.0, 1.0, 0.0, 0.3,1.0, 0.0, 0.0, 0.3]);
 		
-		var cam : Camera;
-		var trf : Transform;
 	}
 	
 	public function OnUpdate():Void

@@ -99,7 +99,7 @@ class Texture extends Resource
 		m_width 		= 0;
 		m_height 		= 0;		
 		m_aniso 		= 0;		
-		__cid			= EngineContext.texture.tid++;		
+		__cid			= EngineContext.texture.tid.id;		
 	}
 	
 	/**

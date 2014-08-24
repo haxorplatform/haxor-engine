@@ -30,13 +30,14 @@ class Component extends Resource
 	 * Container entity of this component.
 	 */
 	public var entity(get_entity, null):Entity;
-	private inline function get_entity():Entity { return m_entity; }
-	/**
-	 * Reference to the entity that contains this component.
-	 */
+	private inline function get_entity():Entity { return m_entity; }	
 	private var m_entity : Entity;
 
-	
+	/**
+	 * Reference to the Entity transform component.
+	 */
+	public var transform(get_transform, null):Transform;
+	private inline function get_transform():Transform { return entity.transform; }	
 	
 	/**
 	 * Hidden constructor. Instantiation is controlled internally.

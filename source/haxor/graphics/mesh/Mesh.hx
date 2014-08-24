@@ -95,7 +95,7 @@ class Mesh extends Resource
 	public function new(p_name:String=""):Void
 	{
 		super(p_name);
-		__cid 		= EngineContext.mesh.mid++;
+		__cid 		= EngineContext.mesh.mid.id;
 		m_attribs 	= [];
 		m_indexed	= false;
 		m_vcount    = 0;
@@ -211,6 +211,7 @@ class Mesh extends Resource
 	override public function OnDestroy():Void 
 	{
 		Clear();
+		EngineContext.mesh.mid.id = __cid;
 	}
 	
 	
@@ -259,7 +260,7 @@ class MeshAttrib
 	
 	public function new():Void
 	{
-		__cid  = EngineContext.mesh.aid++;
+		__cid  = EngineContext.mesh.aid.id;
 		_loc_  = -1;
 		m_name = "";
 		data   = null;

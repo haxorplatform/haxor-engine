@@ -88,6 +88,11 @@ class EngineContext
 	static private var camera : CameraContext;
 	
 	/**
+	 * Reference to the Trasnform context.
+	 */
+	static private var transform : TransformContext;
+	
+	/**
 	 * Reference to the Gizmo context.
 	 */
 	static private var gizmo : GizmoContext;
@@ -112,6 +117,8 @@ class EngineContext
 		texture		= new TextureContext();
 		data		= new DataContext();
 		gizmo		= new GizmoContext();
+		camera		= new CameraContext();
+		transform   = new TransformContext();
 	}
 	
 	/**
@@ -122,8 +129,8 @@ class EngineContext
 		mesh.Initialize();
 		material.Initialize();
 		texture.Initialize();
-		gizmo.Initialize();
-		
+		gizmo.Initialize();	
+		transform.Initialize();
 	}
 	
 	/**

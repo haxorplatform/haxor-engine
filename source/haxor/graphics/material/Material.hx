@@ -165,7 +165,7 @@ class Material extends Resource
 	public function new(p_name:String="")
 	{
 		super(p_name);	
-		__cid 			= EngineContext.material.mid++;
+		__cid 			= EngineContext.material.mid.id;
 		m_uniforms		= [];
 		queue           = RenderQueue.Opaque;
 		zfunc           = DepthTest.LessEqual;
@@ -528,7 +528,7 @@ class MaterialUniform
 	 */
 	private function new(p_name:String,p_is_float : Bool,p_length:Int,p_offset:Int):Void
 	{
-		__cid   = EngineContext.material.uid++;
+		__cid   = EngineContext.material.uid.id;
 		__d		= true;
 		name  	= p_name;
 		isFloat = p_is_float;

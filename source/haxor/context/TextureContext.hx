@@ -27,7 +27,7 @@ class TextureContext
 	/**
 	 * Unique Texture ids.
 	 */
-	private var tid : Int;
+	private var tid : UID;
 	
 	/**
 	 * Texture ids for all Texture instances.
@@ -66,7 +66,7 @@ class TextureContext
 	 */
 	public function new() 
 	{
-		tid 	= 0;
+		tid 	= new UID();
 		bind 	= null;
 		target  = null;
 		active 	= [];		
@@ -399,7 +399,8 @@ class TextureContext
 			var rb_id : RenderBufferId	= renderbuffers[p_texture.__cid];			
 			if (fb_id != GL.INVALID) GL.DeleteFramebuffer(fb_id);
 			if (rb_id != GL.INVALID) GL.DeleteRenderbuffer(rb_id);
-		}		
+		}
+		EngineContext.texture.tid.id = p_texture.__cid;
 	}
 	
 	/**

@@ -270,6 +270,15 @@ class Vector3
 	public function Add(p_v : Vector3):Vector3 { x += p_v.x; y += p_v.y; z += p_v.z; return this; }
 	
 	/**
+	 * Adds a Vector3 component-wise to this instane. Returns its own instance.
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_z
+	 * @return
+	 */
+	public function Add3(p_x : Float,p_y:Float,p_z:Float):Vector3 { x += p_x; y += p_y; z += p_z; return this; }
+	
+	/**
 	 * Subtracts this vector with another one, component-wise. Returns its own reference.
 	 * @param	p_v
 	 * @return
