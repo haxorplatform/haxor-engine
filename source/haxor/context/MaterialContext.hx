@@ -174,7 +174,7 @@ class MaterialContext
 	 */
 	private function Initialize():Void
 	{
-		Console.Log("MaterialContext> Initialize.", 3);		
+		//Console.Log("MaterialContext> Initialize.", 3);		
 		
 		//Set the default flags of the API
 		GL.DepthFunc(GL.LEQUAL);
@@ -240,7 +240,7 @@ class MaterialContext
 	private function InitializeMaterial(m:Material):Void
 	{
 		programs[m.__cid] = GL.CreateProgram();
-		Console.Log("Material> id["+programs[m.__cid]+"]",4);
+		//Console.Log("Material> id["+programs[m.__cid]+"]",4);
 	}
 	
 	/**
@@ -275,7 +275,7 @@ class MaterialContext
 	{
 		var p 	: ProgramId 		= programs[m.__cid];				
 		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
-		Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");
+		//Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");
 		uniforms[m.__cid][u.__cid] 	= loc;
 		u.__d = true;
 	}

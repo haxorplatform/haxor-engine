@@ -42,11 +42,7 @@ class Component extends Resource
 	/**
 	 * Hidden constructor. Instantiation is controlled internally.
 	 */
-	private function new() 
-	{
-		super("");		
-		OnBuild();
-	}
+	private function new() { super("");	}
 	
 	/**
 	 * Method called when the component is created.

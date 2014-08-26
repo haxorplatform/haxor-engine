@@ -191,6 +191,13 @@ class Vector4
 	public function Multiply(p_v : Vector4):Vector4 { x *= p_v.x; y *= p_v.y; z *= p_v.z; w *= p_v.w; return this; }
 	
 	/**
+	 * Scales this vector using the informed scalar. Returns its own reference.
+	 * @param	p_s
+	 * @return
+	 */
+	public function Scale(p_s : Float):Vector4 { x *= p_s; y *= p_s; z *= p_s; w *= p_s; return this; }
+	
+	/**
 	 * Normalizes the vector and returns its own reference.
 	 * @return
 	 */

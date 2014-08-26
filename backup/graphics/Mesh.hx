@@ -194,7 +194,7 @@ class Mesh extends Resource
 		else
 		if (Std.is(p_data, Array))
 		{
-			var d : Dynamic = p_data[0];			
+			var d : Dynamic = p_data[0];
 			if (Std.is(d, Float))   { f =  FToF32(cast p_data); p_element_size = 1; } else
 			if (Std.is(d, Vector2)) { f = V2ToF32(cast p_data); p_element_size = 2; } else
 			if (Std.is(d, Vector3)) { f = V3ToF32(cast p_data); p_element_size = 3; } else

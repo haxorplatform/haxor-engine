@@ -90,9 +90,6 @@ class MeshTemplate<VL,NL,UL0,UL1,TL,BL> extends Mesh
 		}
 		m_bounds = b;
 	}
-	
-	
-	
 }
 
 class SkinnedMesh3 extends Mesh3

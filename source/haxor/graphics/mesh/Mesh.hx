@@ -6,8 +6,10 @@ import haxor.core.Resource;
 import haxor.graphics.Enums.MeshMode;
 import haxor.graphics.Enums.MeshPrimitive;
 import haxor.io.Buffer;
+import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.graphics.GL;
+import haxor.math.AABB3;
 import haxor.platform.Types.MeshBufferId;
 
 
@@ -90,6 +92,14 @@ class Mesh extends Resource
 	private var m_vcount : Int;
 	
 	/**
+	 * Reference to the bounding box of this mesh.
+	 */
+	public var bounds(get_bounds, set_bounds) : AABB3;	
+	private function get_bounds():AABB3	{ return m_bounds; }
+	private function set_bounds(v:AABB3):AABB3 { return m_bounds.SetAABB3(v); }
+	private var m_bounds : AABB3;
+	
+	/**
 	 * Creates a new Mesh object.
 	 */
 	public function new(p_name:String=""):Void
@@ -99,6 +109,7 @@ class Mesh extends Resource
 		m_attribs 	= [];
 		m_indexed	= false;
 		m_vcount    = 0;
+		m_bounds	= AABB3.empty;
 		m_mode		= MeshMode.DynamicDraw;
 		primitive	= MeshPrimitive.Triangles;
 		m_topology_attrib 		 = new MeshAttrib();
@@ -183,10 +194,10 @@ class Mesh extends Resource
 	 * @param	p_data
 	 * @param	p_offset
 	 */		
-	public function Set(p_name : String, p_data : Buffer,p_offset : Int = 3):Void
+	public function Set(p_name : String, p_data : Buffer,p_offset : Int = 0):MeshAttrib
 	{	
-		if (p_data == null) 	{ Console.Log("Mesh> [" + name+"] tried to set null array.",1); return; }		
-		if (p_data.length <= 0)	{ Console.Log("Mesh> [" + name+"] tried to set empty array.", 1); return;	}		
+		if (p_data == null) 	{ Console.Log("Mesh> [" + name+"] tried to set null array.",1); return null; }		
+		//if (p_data.length <= 0)	{ Console.Log("Mesh> [" + name+"] tried to set empty array.", 1); return;	}		
 		var a : MeshAttrib = GetAttribute(p_name);
 		if (a == null)
 		{
@@ -194,7 +205,7 @@ class Mesh extends Resource
 			a.m_name = p_name;			
 			m_attribs.push(a);
 		}		
-		a.offset = p_offset;							
+		if (p_offset > 0) a.offset = p_offset;		
 		a.data   = p_data;		
 		m_vcount = m_attribs[0].count;
 		for (i in 1...m_attribs.length)
@@ -202,7 +213,37 @@ class Mesh extends Resource
 			var c: Int = m_attribs[i].count;
 			m_vcount = m_vcount < c ? m_vcount : c;
 		}	
-		EngineContext.mesh.UpdateAttrib(a,m_mode,false);
+		EngineContext.mesh.UpdateAttrib(a, m_mode, false);
+		return a;
+	}
+	
+	/**
+	 * Generates a bounding box using a given attrib of this mesh.
+	 * @param	p_attrib
+	 * @return
+	 */
+	public function GenerateAttribBounds(p_attrib:String,p_result:AABB3=null):AABB3
+	{
+		var b : AABB3 = p_result == null ? AABB3.empty : p_result;		
+		var a : MeshAttrib = GetAttribute(p_attrib);
+		if (a == null) return b.Set(0, 0, 0, 0, 0, 0);		
+		var step : Int = a.offset;
+		if (step <= 0) return b.Set(0, 0, 0, 0, 0, 0);		
+		var i:Int = step;			
+		var f : FloatArray = cast a.data;
+		var vx : Float = step > 0 ? f.Get(0) : 0;
+		var vy : Float = step > 1 ? f.Get(1) : 0;
+		var vz : Float = step > 2 ? f.Get(2) : 0;		
+		b.Set(vx, vx, vy, vy, vz, vz);
+		while (i < f.length)
+		{
+			vx = step > 0 ? f.Get(i)   : 0;
+			vy = step > 1 ? f.Get(i+1) : 0;
+			vz = step > 2 ? f.Get(i+2) : 0;
+			b.Encapsulate3(vx, vy, vz);
+			i += step;
+		}
+		return b;
 	}
 	
 	/**

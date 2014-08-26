@@ -312,7 +312,7 @@ class Asset
 			var rf32 : Float32Array = new Float32Array(512 * 512 * 4);
 			for (i in 0...rf32.length) rf32[i] = Math.random();
 			var random_texture : KernelTexture = new KernelTexture(512, 512, TextureFormat.Float4);
-			random_texture.wrap = TextureWrap.RepeatX | TextureWrap.RepeatY;		
+			random_texture.wrap = TextureWrap.RepeatX | TextureWrap.RepeatY;
 			random_texture.WriteRange(rf32);
 			Add("haxor/texture/random", random_texture);
 		}

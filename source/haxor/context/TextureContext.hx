@@ -10,6 +10,7 @@ import haxor.graphics.texture.Texture;
 import haxor.graphics.texture.Texture2D;
 import haxor.graphics.texture.TextureCube;
 import haxor.graphics.GL;
+import haxor.io.Buffer;
 import haxor.platform.Types.FrameBufferId;
 import haxor.platform.Types.RenderBufferId;
 import haxor.platform.Types.TextureId;
@@ -242,7 +243,7 @@ class TextureContext
 	 */
 	private function Update(p_texture:Texture):Void
 	{
-		var target:Int = TextureToTarget(p_texture);		
+		var target:Int = TextureToTarget(p_texture);
 		Bind(p_texture);		
 		if (target == GL.TEXTURE_CUBE_MAP)
 		{
@@ -264,35 +265,34 @@ class TextureContext
 	 * Upload all pixels of the Texture2D async.
 	 * @param	p_texture
 	 */
-	private function UploadTexture(p_texture:Texture2D,p_steps:Int,p_on_complete:Void->Void):Void
-	{
-		var b : Bitmap 		= p_texture.data;
-		var py : Int 		= -180;
+	private function UploadTexture(p_texture:Texture2D,p_x:Int,p_y:Int,p_width:Int,p_height:Int,p_steps:Int,p_on_complete:Void->Void):Void
+	{	
+		var b : Bitmap = p_texture.data;
+		var py : Int 		= p_y;
 		var chn_fmt  : Int 	= FormatToChannelLayout(p_texture.m_format);
 		var chn_bit  : Int 	= FormatToChannelBits(p_texture.m_format);
-		var chn_type : Int  = FormatToChannelType(p_texture.m_format);
-		var steps 	 : Int  = Std.int(p_texture.height / p_steps);
+		var chn_type : Int  = FormatToChannelType(p_texture.m_format);	
+		var steps 	 : Int  = Std.int(p_height / p_steps);
 		if (steps <= 1) steps = 1;
 		var ua : Activity = new Activity(function(t : Float):Bool
 		{
-			if (py >= b.height) { if (p_on_complete != null) p_on_complete(); return false; }
+			if (py >= p_height) { if (p_on_complete != null) p_on_complete(); return false; }
 			Bind(p_texture);
 			for (i in 0...steps)
 			{
 				if (py < 0) { py++; continue; }
-				if (py >= b.height) { if (p_on_complete != null) p_on_complete(); return false; }
-				var pos : Int = py * b.width * b.channels;
-				var len : Int = b.width * b.channels;				
+				if (py >= b.height) { if (p_on_complete != null) p_on_complete(); return false; }				
+				var pos : Int = (p_x + py * p_width) * b.channels;
+				var len : Int = p_width * b.channels;				
 				b.buffer.SetViewSlice(pos, len);
-				GL.TexSubImage2D(GL.TEXTURE_2D, 0, 0, py, b.width, 1, chn_fmt, chn_type, b.buffer);
-				b.buffer.ResetSlice();
-				//trace(py + " " + pos + " " + len + " " + " " + steps);
+				GL.TexSubImage2D(GL.TEXTURE_2D, 0, p_x, py, p_width, 1, chn_fmt, chn_type, b.buffer);
+				b.buffer.ResetSlice();				
 				py++;				
-				
 			}
 			return true;
 		},false,true);
 	}
+	
 	
 	/**
 	 * Writes the contents of a texture to the API memory.

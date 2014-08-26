@@ -27,6 +27,19 @@ class FloatArray extends Buffer
 	}
 	
 	/**
+	 * Creates a new FloatArray using the Base64 encoded data.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function FromBase64(p_data : String):FloatArray
+	{
+		var b : FloatArray = new FloatArray(Std.int(p_data.length/4));
+		b.SetString(p_data);
+		b.DecodeBase64();
+		return b;
+	}
+	
+	/**
 	 * Floats uses 4 bytes.
 	 * @return
 	 */
@@ -41,13 +54,12 @@ class FloatArray extends Buffer
 	#end
 
 	/**
-	 * Creates a new FloatBuffer with 'length' elements.
+	 * Resizes this buffer.
 	 * @param	p_length
 	 */
-	public function new(p_length : Int) 
+	override public function Resize(p_length:Int):Void 
 	{
-		super(p_length);
-				
+		super.Resize(p_length);
 		#if html
 		aux = new js.html.Float32Array(m_buffer.buffer);
 		#end

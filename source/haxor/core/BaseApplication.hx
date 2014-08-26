@@ -266,8 +266,11 @@ class BaseApplication extends Behaviour
 	{		
 		var has_resize : Bool = false;		
 		if (Math.abs(Screen.m_width  - GetContainerWidth()) > 0.0)  { Screen.m_width   = GetContainerWidth();  has_resize = true;	}
-		if (Math.abs(Screen.m_height - GetContainerHeight()) > 0.0) { Screen.m_height  = GetContainerHeight(); has_resize = true;	}
-		if (has_resize) OnResize();
+		if (Math.abs(Screen.m_height - GetContainerHeight()) > 0.0) { Screen.m_height  = GetContainerHeight(); has_resize = true;	}		
+		if (has_resize)
+		{
+			OnResize();
+		}
 	}
 	
 	/**

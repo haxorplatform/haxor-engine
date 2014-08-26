@@ -1,4 +1,6 @@
 package haxor.context;
+import haxor.math.AABB2;
+import haxor.math.AABB3;
 import haxor.math.Color;
 import haxor.math.Matrix4;
 import haxor.math.Quaternion;
@@ -71,6 +73,22 @@ class DataContext
 	private var m_nq : Int;
 	
 	/**
+	 * Temp aux vars of AABB3.
+	 */
+	private var aabb3(get_aabb3, null):AABB3; 
+	private inline function get_aabb3():AABB3 { return m_aabb3[m_naabb3 = (m_naabb3 + 1) % m_aabb3.length]; }
+	private var m_aabb3 : Array<AABB3>;
+	private var m_naabb3 : Int;
+	
+	/**
+	 * Temp aux vars of AABB2.
+	 */
+	private var aabb2(get_aabb2, null):AABB2; 
+	private inline function get_aabb2():AABB2 { return m_aabb2[m_naabb2 = (m_naabb2 + 1) % m_aabb2.length]; }
+	private var m_aabb2 : Array<AABB2>;
+	private var m_naabb2 : Int;
+	
+	/**
 	 * Temp aux vars of Quaternion.
 	 */
 	private var m4(get_m4, null):Matrix4; 
@@ -90,13 +108,17 @@ class DataContext
 		m_c 	= [];
 		m_q 	= [];
 		m_m4	= [];
+		m_aabb3 = [];
+		m_aabb2 = [];
 		
-		m_nv2 	= 0;
-		m_nv3 	= 0;
-		m_nv4 	= 0;
-		m_nc 	= 0;
-		m_nq 	= 0;
-		m_nm4	= 0;
+		m_nv2 	 = 0;
+		m_nv3 	 = 0;
+		m_nv4 	 = 0;
+		m_nc 	 = 0;
+		m_nq 	 = 0;
+		m_nm4	 = 0;
+		m_naabb3 = 0;
+		m_naabb2 = 0;
 		
 		m4l	    = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 		
@@ -110,6 +132,8 @@ class DataContext
 			m_c.push(Color.black);
 			m_q.push(Quaternion.identity);
 			m_m4.push(Matrix4.identity);
+			m_aabb3.push(AABB3.empty);
+			m_aabb2.push(AABB2.empty);
 		}
 	}
 	

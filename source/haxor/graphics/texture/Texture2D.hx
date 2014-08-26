@@ -2,7 +2,9 @@ package haxor.graphics.texture;
 import haxor.context.EngineContext;
 import haxor.graphics.Enums.PixelFormat;
 import haxor.graphics.Enums.TextureType;
+import haxor.graphics.Enums.TextureWrap;
 import haxor.math.Color;
+import haxor.math.Random;
 
 /**
  * Class that represents a 2D texture.
@@ -37,6 +39,25 @@ class Texture2D extends Texture
 		return m_red;
 	}
 	static private var m_red : Texture2D;
+	
+	/**
+	 * Random Texture with 512x512 pixels.
+	 */
+	static public var random(get_random, never):Texture2D;
+	static private function get_random():Texture2D
+	{
+		if (m_random != null) return m_random;
+		m_random = new Texture2D(512, 512, PixelFormat.Float4);		
+		m_random.wrap = TextureWrap.RepeatX | TextureWrap.RepeatY;
+		for (i in 0...m_random.width)
+		for (j in 0...m_random.height)
+		{
+			m_random.data.Set(j, i, Random.value, Random.value, Random.value, Random.value);
+		}
+		m_random.Upload(10);
+		return m_random;
+	}
+	static private var m_random : Texture2D;
 	
 	/**
 	 * Creates a new Texture2D from a bitmap reference.
@@ -93,7 +114,7 @@ class Texture2D extends Texture
 	 */
 	public function Upload(p_steps : Int=200,p_on_complete:Void->Void=null):Void
 	{
-		EngineContext.texture.UploadTexture(this, p_steps,p_on_complete);
+		EngineContext.texture.UploadTexture(this,0,0,width,height, p_steps,p_on_complete);
 	}
 	
 }

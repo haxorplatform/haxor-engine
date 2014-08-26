@@ -25,9 +25,9 @@ class Process<T> extends BaseProcess
 	 * @param	p_name
 	 * @param	p_size
 	 */
-	public function new(p_name : String,p_size : Int) 
+	public function new(p_name : String,p_size : Int,p_update_cid:Bool=true) 
 	{
-		super(p_name);
+		super(p_name,p_update_cid);
 		list     		= [];		
 		m_length 		= 0;		
 		for (i in 0...p_size)
@@ -44,7 +44,8 @@ class Process<T> extends BaseProcess
 	override public function Add(p_item : Resource):Void
 	{	
 		var iid : Int = p_item.m_pid[__cid];
-		if (iid >= 0) return;		
+		if (iid >= 0) return;
+		if (m_length >= list.length) { list.push(null); }
 		list[m_length] = cast p_item;
 		p_item.m_pid[__cid] = m_length++;				
 	}
@@ -108,11 +109,12 @@ class BaseProcess
 	 * Creates a new process.
 	 * @param	p_name
 	 */
-	public function new(p_name : String) 
+	public function new(p_name : String,p_update_cid:Bool=true) 
 	{
-		name     		= p_name;
-		Console.Log("\tProcess ["+p_name+"] created.",4);
-		__cid    		= m_cid++;		
+		name     		= p_name;		
+		__cid    		= m_cid;		
+		Console.Log("\tProcess ["+p_name+"]["+__cid+"] created.",4);
+		if (p_update_cid) m_cid++;		
 	}
 	
 	/**

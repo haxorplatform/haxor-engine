@@ -28,32 +28,34 @@ import haxor.math.Vector4;
 class Material extends Resource
 {
 	/**
-	 * Shortcut for an AlphaBlended material. Without shader.
+	 * Shortcut for an AlphaBlended material.
 	 * @param	p_ztest
 	 * @param	p_zwrite
 	 * @param	p_double_sided
 	 * @return
 	 */
-	static public inline function Transparent(p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
+	static public inline function Transparent(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
 		var m : Material = new Material();
 		if (p_double_sided) m.cull = CullMode.None;
 		m.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
+		m.shader	= p_texture == null ? Shader.FlatTexture : Shader.Flat;
 		m.queue 	= RenderQueue.Transparent;
 		m.ztest 	= p_ztest;
 		m.zwrite 	= p_zwrite;
 		m.blend		= true;
+		if(p_texture!=null) m.SetTexture("DiffuseTexture", p_texture);
 		return m;
 	}
 	
 	/**
-	 * Shortcut for an Additive material using alpha as intensity. Without shader.
+	 * Shortcut for an Additive material using alpha as intensity.
 	 * @param	p_ztest
 	 * @param	p_zwrite
 	 * @param	p_double_sided
 	 * @return
 	 */
-	static public inline function AdditiveAlpha(p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
+	static public inline function AdditiveAlpha(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
 		var m : Material = Transparent(p_ztest, p_zwrite, p_double_sided);
 		m.SetBlending(BlendMode.SrcAlpha, BlendMode.One);
@@ -61,13 +63,13 @@ class Material extends Resource
 	}
 	
 	/**
-	 * Shortcut for an Additive material. Without shader.
+	 * Shortcut for an Additive material.
 	 * @param	p_ztest
 	 * @param	p_zwrite
 	 * @param	p_double_sided
 	 * @return
 	 */
-	static public inline function Additive(p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
+	static public inline function Additive(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
 		var m : Material = Transparent(p_ztest, p_zwrite, p_double_sided);
 		m.SetBlending(BlendMode.One, BlendMode.One);

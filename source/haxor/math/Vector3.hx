@@ -286,7 +286,7 @@ class Vector3
 	public function Sub(p_v : Vector3):Vector3 { x -= p_v.x; y -= p_v.y; z -= p_v.z; return this; }
 	
 	/**
-	 * Subtracts this vector with another one, component-wise. Returns its own reference.
+	 * Multiplies this vector with another one, component-wise. Returns its own reference.
 	 * @param	p_v
 	 * @return
 	 */

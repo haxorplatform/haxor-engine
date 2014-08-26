@@ -38,13 +38,12 @@ class UInt16Array extends Buffer
 	override inline function get_bytesPerElement():Int { return 2; }
 	
 	/**
-	 * Creates a new FloatBuffer with 'length' elements.
+	 * Resizes this buffer to a new size.
 	 * @param	p_length
 	 */
-	public function new(p_length : Int) 
+	override public function Resize(p_length:Int):Void 
 	{
-		super(p_length);		
-		
+		super.Resize(p_length);
 		#if html
 		aux = new js.html.Uint16Array(m_buffer.buffer);
 		#end

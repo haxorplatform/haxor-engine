@@ -1,6 +1,8 @@
 package haxor.io;
+import haxe.crypto.Base64;
+import haxor.math.Mathf;
 import haxor.platform.Types.ArrayBuffer;
-
+import haxe.io.Bytes;
 
 
 #if html
@@ -9,7 +11,6 @@ import js.html.Uint8Array;
 #end
 
 #if (windows || osx || linux)
-import haxe.io.Bytes;
 #end
 
 /**
@@ -20,6 +21,18 @@ import haxe.io.Bytes;
 class Buffer
 {
 
+	/**
+	 * Creates a new buffer using the informed string as data.
+	 * @param	p_string
+	 * @return
+	 */
+	static public function FromString(p_string:String):Buffer
+	{
+		var b : Buffer = new Buffer(p_string.length);
+		b.SetString(p_string);
+		return b;		
+	}
+	
 	/**
 	 * Returns the raw reference of this buffer. Usually the instance is readonly.
 	 */
@@ -60,6 +73,15 @@ class Buffer
 	 */
 	public function new(p_length : Int) 
 	{
+		Resize(p_length);
+	}
+	
+	/**
+	 * Prepares this buffer data with a new length. The old data is discarded.
+	 * @param	p_length
+	 */
+	public function Resize(p_length:Int):Void
+	{
 		m_length = p_length;
 		var len : Int = m_length * bytesPerElement;
 		m_offset = 0;
@@ -76,7 +98,6 @@ class Buffer
 		#if android
 		m_buffer = java.nio.ByteBuffer.allocateDirect(len).order(java.nio.ByteOrder.nativeOrder());		
 		#end
-		
 	}
 	
 	/**
@@ -119,6 +140,79 @@ class Buffer
 		#if android
 		m_buffer.put(p_index, p_value);
 		#end
+	}
+	
+	/**
+	 * Sets the content of this buffer with the informed byte list.
+	 * @param	p_list
+	 */
+	public function SetBytes(p_list:Array<Int>,p_offset:Int=0):Void
+	{
+		for (i in 0...p_list.length) SetByte(i+p_offset, p_list[i]);
+	}
+	
+	/**
+	 * Fills the contents of this buffer with the target buffer.
+	 * @param	p_target
+	 */
+	public function SetBuffer(p_target:Buffer,p_offset:Int=0):Void
+	{
+		for (i in 0...p_target.byteLength) SetByte(i+p_offset, p_target.GetByte(i));
+	}
+	
+	/**
+	 * Encodes the contents of this Buffer into Base64 and resize it to fit the new format. Returns the encoded string.
+	 * @return
+	 */
+	public function EncodeBase64():String 
+	{
+		var b : Bytes = Bytes.alloc(byteLength);
+		for (i in 0...b.length) b.set(i, GetByte(i));
+		var res : String = Base64.encode(b);
+		var new_len : Int = Std.int(res.length / bytesPerElement);		
+		Resize(new_len);
+		SetString(res);
+		return res;		
+	}
+	
+	/**
+	 * Decodes the current bytes of this buffer and resize it to fit the new data.
+	 * @return
+	 */
+	public function DecodeBase64():Void 
+	{		
+		var b64:String 		= GetString();		
+		var b : Bytes 		= Base64.decode(b64);
+		var new_len : Int 	= Std.int(b.length / bytesPerElement);
+		Resize(new_len);
+		for (i in 0...b.length) SetByte(i, b.get(i));				
+		
+	}
+	
+	/**
+	 * Returns the bytes of this buffer represented as string.
+	 * @param	p_length
+	 * @return
+	 */
+	public function GetString(p_offset:Int=0,p_length:Int = 0) : String 
+	{
+		var len : Int = p_length <= 0 ? byteLength : p_length; 
+		var s : StringBuf = new StringBuf();
+		for (i in 0...len) s.addChar(GetByte(i+p_offset));	
+		return s.toString();
+	}
+	
+	/**
+	 * Sets the buffer with the bytes of the informed string, starting at offset.
+	 * @param	p_string
+	 * @param	p_offset
+	 */
+	public function SetString(p_string:String, p_offset:Int = 0):Void
+	{
+		for (i in 0...p_string.length)
+		{
+			SetByte(i+p_offset, p_string.charCodeAt(i));
+		}
 	}
 	
 	/**

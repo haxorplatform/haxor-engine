@@ -159,7 +159,86 @@ class Bitmap extends Resource
 	 * @param	p_color
 	 */
 	public function Fill(p_color:Color):Void
-	{
+	{		
 		for (ix in 0...m_width) for (iy in 0...m_height) { SetPixel(ix, iy, p_color); }		
 	}
+	
+	
+	/**
+	 * Sets a value directly into this bitmap buffer.
+	 * There is no check for boundaries for this method.
+	 * @param	p_position
+	 * @param	p_value
+	 */
+	public function Set(p_x:Int,p_y:Int, p_v0:Float=0.0,p_v1:Float=0.0,p_v2:Float=0.0,p_v3:Float=0.0):Void
+	{
+		var cc 	: Int 	= m_channels;
+		var pos : Int 	= ((p_x + (p_y * m_width)) * cc);		
+		if (m_float)
+		{
+			var b : FloatArray = cast m_buffer;
+			b.Set(pos, p_v0);
+			if (cc >= 2) b.Set(pos + 1,p_v1);			
+			if (cc >= 3) b.Set(pos + 2,p_v2);			
+			if (cc >= 4) b.Set(pos + 3,p_v3);
+			return;
+		}		
+		var b : Buffer = cast m_buffer;
+		b.SetByte(pos, cast (p_v0 * Mathf.Float2Byte));
+		if (cc >= 2) b.SetByte(pos+1,cast (p_v1 * Mathf.Float2Byte));			
+		if (cc >= 3) b.SetByte(pos+2,cast (p_v2 * Mathf.Float2Byte));			
+		if (cc >= 4) b.SetByte(pos+3,cast (p_v3 * Mathf.Float2Byte));
+	}
+	
+	/**
+	 * Sets a range of values directly into this bitmap buffer.
+	 * There is no check for boundaries for this method.
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_width
+	 * @param	p_height
+	 * @param	p_channel
+	 * @param	p_value
+	 */
+	public function SetRange(p_x:Int, p_y:Int, p_width:Int, p_height:Int,p_values:Array<Float>,p_length:Int=-1):Void
+	{
+		var cc 	: Int 	= m_channels;
+		var len : Int   = p_length < 0 ? p_values.length : p_length;		
+		var k : Int 	= 0;
+		var px : Int = p_x;
+		var py : Int = p_y;
+		var v0 : Float=0.0;
+		var v1 : Float=0.0;
+		var v2 : Float=0.0;
+		var v3 : Float=0.0;
+		
+		for (i in 0...len)
+		{
+			var pos : Int 	= ((px + (py * m_width)) * cc);
+			px++;
+			if (px >= p_width) { px = p_x; py++; }
+			
+						 v0	= p_values[k++];
+			if (cc >= 2) v1 = p_values[k++];
+			if (cc >= 3) v2 = p_values[k++];
+			if (cc >= 4) v3 = p_values[k++];
+			
+			if (m_float)
+			{
+				var b : FloatArray = cast m_buffer;
+				b.Set(pos, v0);
+				if (cc >= 2) b.Set(pos + 1,v1);			
+				if (cc >= 3) b.Set(pos + 2,v2);			
+				if (cc >= 4) b.Set(pos + 3,v3);
+				continue;
+			}		
+			var b : Buffer = cast m_buffer;
+			b.SetByte(pos, cast (v0 * Mathf.Float2Byte));
+			if (cc >= 2) b.SetByte(pos+1,cast (v1 * Mathf.Float2Byte));			
+			if (cc >= 3) b.SetByte(pos+2,cast (v2 * Mathf.Float2Byte));			
+			if (cc >= 4) b.SetByte(pos + 3, cast (v3 * Mathf.Float2Byte));
+		
+		}
+	}
+	
 }

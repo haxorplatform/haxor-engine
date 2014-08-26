@@ -19,26 +19,12 @@ class Behaviour extends Component
 	private function set_enabled(v:Bool) : Bool 
 	{ 
 		if (m_destroyed) return false;
-		m_enabled = v; 
-		UpdateContextFlag(v);
+		if (m_enabled == v) return v;
+		m_enabled = v;		
+		if (v) EngineContext.Enable(this); else EngineContext.Disable(this);
 		return v; 
 	}
 	private var m_enabled : Bool;
-	
-	/**
-	 * Lookup flag for the interface.
-	 */
-	private var m_is_updateable : Bool;
-	
-	/**
-	 * Lookup flag for the interface.
-	 */
-	private var m_is_renderable : Bool;
-	
-	/**
-	 * Lookup flag for the interface.
-	 */
-	private var m_is_resizeable : Bool;
 	
 	/**
 	 * Flag that indicates if this behaviour has awaken.
@@ -55,10 +41,7 @@ class Behaviour extends Component
 		super();		
 		m_enabled 		= true;
 		m_is_behaviour  = true;
-		m_is_updateable = Std.is(this, IUpdateable);
-		m_is_renderable = Std.is(this, IRenderable);
-		m_is_resizeable = Std.is(this, IResizeable);		
-		UpdateContextFlag(true);
+		EngineContext.Enable(this);
 	}
 	
 	/**
@@ -71,11 +54,4 @@ class Behaviour extends Component
 	 */
 	private function OnStart():Void { }
 	
-	
-	private function UpdateContextFlag(p_flag:Bool):Void
-	{
-		if (m_is_updateable) { if(p_flag) EngineContext.update.Add(this); else EngineContext.update.Remove(this); }
-		if (m_is_renderable) { if(p_flag) EngineContext.render.Add(this); else EngineContext.render.Remove(this); }
-		if (m_is_resizeable) { if(p_flag) EngineContext.resize.Add(this); else EngineContext.resize.Remove(this); }
-	}
 }

@@ -306,7 +306,7 @@ class Matrix4
 	 * Returns the quaternion representing this matrix rotation.
 	 */
 	public var quaternion(get_quaternion, set_quaternion):Quaternion;	
-	private inline function get_quaternion():Quaternion { return Quaternion.FromMatrix(Matrix4.temp.Set44(this).ToRotation()); }
+	private inline function get_quaternion():Quaternion { return Quaternion.FromMatrix(Matrix4.temp.SetMatrix4(this).ToRotation()); }
 	private inline function set_quaternion(v:Quaternion):Quaternion { FromQuaternion(v, this); return v; }
 	
 	/**
@@ -548,7 +548,7 @@ class Matrix4
 	 * @param	p_matrix
 	 * @return
 	 */
-	public function Set44(p_matrix : Matrix4):Matrix4
+	public function SetMatrix4(p_matrix : Matrix4):Matrix4
 	{
 		m00 = p_matrix.m00; m01 = p_matrix.m01; m02 = p_matrix.m02; m03 = p_matrix.m03;
 		m10 = p_matrix.m10; m11 = p_matrix.m11; m12 = p_matrix.m12; m13 = p_matrix.m13;
@@ -822,7 +822,7 @@ class Matrix4
 	 * Transforms the informed vector. Returns the same instance of it.
 	 * @param	p_point
 	 */
-	public function Transform4x4(p_point : Vector4):Vector4
+	public inline function Transform4x4(p_point : Vector4):Vector4
 	{
 		var vx:Float = (m00 * p_point.x) + (m01 * p_point.y) + (m02 * p_point.z) + (m03 * p_point.w);
 		var vy:Float = (m10 * p_point.x) + (m11 * p_point.y) + (m12 * p_point.z) + (m13 * p_point.w);
@@ -839,7 +839,7 @@ class Matrix4
 	 * Transforms the informed vector. Returns the same instance of it.
 	 * @param	p_point
 	 */
-	public function Transform3x4(p_point:Vector3):Vector3
+	public inline function Transform3x4(p_point:Vector3):Vector3
 	{
 		var vx:Float = (m00 * p_point.x) + (m01 * p_point.y) + (m02 * p_point.z) + m03;
 		var vy:Float = (m10 * p_point.x) + (m11 * p_point.y) + (m12 * p_point.z) + m13;
@@ -854,7 +854,7 @@ class Matrix4
 	 * Transforms the informed vector with only the 3x3 sector. Returns the same instance of it.
 	 * @param	p_point
 	 */
-	public function Transform3x3(p_point:Vector3):Vector3
+	public inline function Transform3x3(p_point:Vector3):Vector3
 	{
 		var vx:Float = (m00 * p_point.x) + (m01 * p_point.y) + (m02 * p_point.z);
 		var vy:Float = (m10 * p_point.x) + (m11 * p_point.y) + (m12 * p_point.z);
@@ -869,7 +869,7 @@ class Matrix4
 	 * Transforms the informed vector. Returns the same instance of it.
 	 * @param	p_point
 	 */
-	public function Transform2x3(p_point:Vector2):Void
+	public inline function Transform2x3(p_point:Vector2):Void
 	{
 		var vx:Float = (m00 * p_point.x) + (m01 * p_point.y) + m03;
 		var vy:Float = (m10 * p_point.x) + (m11 * p_point.y) + m13;		
