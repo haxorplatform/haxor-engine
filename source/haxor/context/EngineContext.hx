@@ -3,6 +3,8 @@ import haxor.component.Component;
 import haxor.component.MeshRenderer;
 import haxor.component.Renderer;
 import haxor.context.Process.BaseProcess;
+import haxor.context.RendererContext;
+import haxor.context.RendererContext;
 import haxor.core.Console;
 import haxor.core.Entity;
 import haxor.core.IDisposable;
@@ -60,12 +62,6 @@ class EngineContext
 	static private var disposables : Process<IDisposable>;
 	
 	/**
-	 * List of MeshRenderer display lists per layer.
-	 */
-	static private var renderers : Array<Process<MeshRenderer>>;
-	
-	
-	/**
 	 * List of all processes.
 	 */
 	static private var list : Array<BaseProcess>;
@@ -97,9 +93,14 @@ class EngineContext
 	static private var camera : CameraContext;
 	
 	/**
-	 * Reference to the Trasnform context.
+	 * Reference to the Transform context.
 	 */
 	static private var transform : TransformContext;
+	
+	/**
+	 * Reference to the Renderer context.
+	 */
+	static private var renderer : RendererContext;
 	
 	/**
 	 * Reference to the Gizmo context.
@@ -118,17 +119,12 @@ class EngineContext
 		resize      = new Process("process.resize", 	 maxNodes);
 		resources   = new Process("process.resources",   maxNodes);
 		disposables = new Process("process.disposables", maxNodes);
-		renderers   = [];
+		
 		
 		list = [update, render, resize, resources, disposables];
 		
-		for (i in 0...32)
-		{	
-			var p : Process<MeshRenderer> = new Process("process.renderers",maxNodes,i==31);
-			renderers.push(p);
-			list.push(p);
-		}
 		
+		renderer	= new RendererContext();
 		mesh 		= new MeshContext();
 		material	= new MaterialContext();
 		texture		= new TextureContext();
@@ -148,6 +144,7 @@ class EngineContext
 		texture.Initialize();
 		gizmo.Initialize();	
 		transform.Initialize();
+		renderer.Initialize();
 	}
 	
 	/**
@@ -156,16 +153,20 @@ class EngineContext
 	 */
 	static private function Enable(p_resource:Resource):Void
 	{
-		if(Std.is(p_resource,IUpdateable)) update.Add(p_resource);
-		if(Std.is(p_resource,IRenderable)) render.Add(p_resource);
-		if(Std.is(p_resource,IResizeable)) resize.Add(p_resource);
+		if(Std.is(p_resource,IUpdateable)) 	update.Add(p_resource);
+		if(Std.is(p_resource,IRenderable)) 	render.Add(p_resource);
+		if(Std.is(p_resource, IResizeable)) resize.Add(p_resource);
+		if(Std.is(p_resource,Renderer)) 	renderer.Enable(cast p_resource);
 		if (Std.is(p_resource, Entity))
 		{
 			var e :Entity = cast p_resource;
 			for (i in 0...e.m_components.length)
 			{
 				var c : Component = e.m_components[i];
-				if (Std.is(c, MeshRenderer)) renderers[e.layer].Add(c);
+				if (Std.is(c, MeshRenderer))
+				{
+					renderer.Enable(cast c);					
+				}
 				
 			}
 		}
@@ -177,16 +178,17 @@ class EngineContext
 	 */
 	static private function Disable(p_resource:Resource):Void
 	{
-		if(Std.is(p_resource,IUpdateable)) update.Remove(p_resource);
-		if(Std.is(p_resource,IRenderable)) render.Remove(p_resource);
-		if(Std.is(p_resource,IResizeable)) resize.Remove(p_resource);
+		if(Std.is(p_resource,IUpdateable)) 		update.Remove(p_resource);
+		if(Std.is(p_resource,IRenderable)) 		render.Remove(p_resource);
+		if(Std.is(p_resource, IResizeable)) 	resize.Remove(p_resource);
+		if(Std.is(p_resource,Renderer)) 	 	renderer.Disable(cast p_resource);
 		if (Std.is(p_resource, Entity))
 		{
 			var e :Entity = cast p_resource;
 			for (i in 0...e.m_components.length)
 			{
 				var c : Component = e.m_components[i];
-				if (Std.is(c, MeshRenderer)) renderers[e.layer].Remove(c);				
+				if (Std.is(c, MeshRenderer)) renderer.Disable(cast c);
 			}
 		}
 	}
@@ -202,9 +204,7 @@ class EngineContext
 		for (i in 0...e.m_components.length)
 		{
 			var c : Component = e.m_components[i];
-			if (!Std.is(c, MeshRenderer)) continue;
-			renderers[p_from].Remove(c);
-			if(e.enabled) renderers[p_to].Add(c);
+			if (Std.is(c, Renderer)) EngineContext.renderer.OnLayerChange(cast c, p_from, p_to);			
 		}
 	}
 	

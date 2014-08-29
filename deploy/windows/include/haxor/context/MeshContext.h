@@ -6,6 +6,7 @@
 #endif
 
 HX_DECLARE_CLASS2(haxor,context,MeshContext)
+HX_DECLARE_CLASS2(haxor,context,UID)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
@@ -36,8 +37,8 @@ class HXCPP_CLASS_ATTRIBUTES  MeshContext_obj : public hx::Object{
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("MeshContext"); }
 
-		int aid;
-		int mid;
+		::haxor::context::UID aid;
+		::haxor::context::UID mid;
 		Array< ::String > attribs;
 		Array< int > buffers;
 		Array< bool > activated;

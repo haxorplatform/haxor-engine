@@ -9,6 +9,9 @@
 #ifndef INCLUDED_haxor_context_MeshContext
 #include <haxor/context/MeshContext.h>
 #endif
+#ifndef INCLUDED_haxor_context_UID
+#include <haxor/context/UID.h>
+#endif
 #ifndef INCLUDED_haxor_graphics_mesh_MeshAttrib
 #include <haxor/graphics/mesh/MeshAttrib.h>
 #endif
@@ -21,20 +24,34 @@ namespace mesh{
 
 Void MeshAttrib_obj::__construct()
 {
-HX_STACK_FRAME("haxor.graphics.mesh.MeshAttrib","new",0xc418c193,"haxor.graphics.mesh.MeshAttrib.new","haxor/graphics/mesh/Mesh.hx",261,0xbfac53a6)
+HX_STACK_FRAME("haxor.graphics.mesh.MeshAttrib","new",0xc418c193,"haxor.graphics.mesh.MeshAttrib.new","haxor/graphics/mesh/Mesh.hx",303,0xbfac53a6)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(262)
-	int _g = (::haxor::context::EngineContext_obj::mesh->aid)++;		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(262)
+	HX_STACK_LINE(304)
+	int _g;		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(304)
+	{
+		HX_STACK_LINE(304)
+		::haxor::context::UID _this = ::haxor::context::EngineContext_obj::mesh->aid;		HX_STACK_VAR(_this,"_this");
+		HX_STACK_LINE(304)
+		if (((_this->m_cache->length <= (int)0))){
+			HX_STACK_LINE(304)
+			_g = (_this->m_id)++;
+		}
+		else{
+			HX_STACK_LINE(304)
+			_g = _this->m_cache->shift();
+		}
+	}
+	HX_STACK_LINE(304)
 	this->__cid = _g;
-	HX_STACK_LINE(263)
+	HX_STACK_LINE(305)
 	this->_loc_ = (int)-1;
-	HX_STACK_LINE(264)
+	HX_STACK_LINE(306)
 	this->m_name = HX_CSTRING("");
-	HX_STACK_LINE(265)
+	HX_STACK_LINE(307)
 	this->data = null();
-	HX_STACK_LINE(266)
+	HX_STACK_LINE(308)
 	this->offset = (int)0;
 }
 ;
@@ -55,9 +72,9 @@ Dynamic MeshAttrib_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::String MeshAttrib_obj::get_name( ){
-	HX_STACK_FRAME("haxor.graphics.mesh.MeshAttrib","get_name",0x449f03c1,"haxor.graphics.mesh.MeshAttrib.get_name","haxor/graphics/mesh/Mesh.hx",241,0xbfac53a6)
+	HX_STACK_FRAME("haxor.graphics.mesh.MeshAttrib","get_name",0x449f03c1,"haxor.graphics.mesh.MeshAttrib.get_name","haxor/graphics/mesh/Mesh.hx",283,0xbfac53a6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(241)
+	HX_STACK_LINE(283)
 	return this->m_name;
 }
 
@@ -65,18 +82,18 @@ Dynamic MeshAttrib_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(MeshAttrib_obj,get_name,return )
 
 int MeshAttrib_obj::get_count( ){
-	HX_STACK_FRAME("haxor.graphics.mesh.MeshAttrib","get_count",0x7a62fa99,"haxor.graphics.mesh.MeshAttrib.get_count","haxor/graphics/mesh/Mesh.hx",258,0xbfac53a6)
+	HX_STACK_FRAME("haxor.graphics.mesh.MeshAttrib","get_count",0x7a62fa99,"haxor.graphics.mesh.MeshAttrib.get_count","haxor/graphics/mesh/Mesh.hx",300,0xbfac53a6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(258)
+	HX_STACK_LINE(300)
 	if (((this->data == null()))){
-		HX_STACK_LINE(258)
+		HX_STACK_LINE(300)
 		return (int)0;
 	}
 	else{
-		HX_STACK_LINE(258)
+		HX_STACK_LINE(300)
 		return ::Std_obj::_int((Float(this->data->m_length) / Float(this->offset)));
 	}
-	HX_STACK_LINE(258)
+	HX_STACK_LINE(300)
 	return (int)0;
 }
 

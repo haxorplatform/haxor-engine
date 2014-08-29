@@ -6,23 +6,20 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 {
 	public    AndroidApplication(haxe.lang.EmptyObject empty)
 	{
-		super(haxe.lang.EmptyObject.EMPTY);
+		super(((haxe.lang.EmptyObject) (haxe.lang.EmptyObject.EMPTY) ));
 	}
 	
 	
-	public    AndroidApplication()
+	public    AndroidApplication(java.lang.String p_name)
 	{
-		super(haxe.lang.EmptyObject.EMPTY);
-		haxor.platform.android.AndroidApplication.__hx_ctor_haxor_platform_android_AndroidApplication(this);
+		super(((haxe.lang.EmptyObject) (haxe.lang.EmptyObject.EMPTY) ));
+		haxor.platform.android.AndroidApplication.__hx_ctor_haxor_platform_android_AndroidApplication(this, p_name);
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_AndroidApplication(haxor.platform.android.AndroidApplication __temp_me56063)
+	public static   void __hx_ctor_haxor_platform_android_AndroidApplication(haxor.platform.android.AndroidApplication __temp_me80529, java.lang.String p_name)
 	{
-		haxor.core.BaseApplication.__hx_ctor_haxor_core_BaseApplication(__temp_me56063);
-		__temp_me56063.m_platform = haxor.core.Platform.Android;
-		__temp_me56063.m_screen_width = 0.0;
-		__temp_me56063.m_screen_height = 0.0;
+		haxor.core.BaseApplication.__hx_ctor_haxor_core_BaseApplication(__temp_me80529, p_name);
 	}
 	
 	
@@ -34,7 +31,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 	
 	public static   java.lang.Object __hx_create(haxe.root.Array arr)
 	{
-		return new haxor.platform.android.AndroidApplication();
+		return new haxor.platform.android.AndroidApplication(haxe.lang.Runtime.toString(arr.__get(0)));
 	}
 	
 	
@@ -43,6 +40,15 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 	public  double m_screen_width;
 	
 	public  double m_screen_height;
+	
+	@Override public   void OnBuild()
+	{
+		this.m_platform = haxor.core.Platform.Android;
+		this.m_screen_width = 0.0;
+		this.m_screen_height = 0.0;
+		super.OnBuild();
+	}
+	
 	
 	@Override public   double GetContainerWidth()
 	{
@@ -71,14 +77,14 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56282 = true;
+			boolean __temp_executeDef80911 = true;
 			switch (field.hashCode())
 			{
 				case 1535364104:
 				{
 					if (field.equals("m_screen_height")) 
 					{
-						__temp_executeDef56282 = false;
+						__temp_executeDef80911 = false;
 						this.m_screen_height = ((double) (value) );
 						return value;
 					}
@@ -91,7 +97,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("m_screen_width")) 
 					{
-						__temp_executeDef56282 = false;
+						__temp_executeDef80911 = false;
 						this.m_screen_width = ((double) (value) );
 						return value;
 					}
@@ -102,7 +108,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				
 			}
 			
-			if (__temp_executeDef56282) 
+			if (__temp_executeDef80911) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -119,14 +125,14 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56283 = true;
+			boolean __temp_executeDef80912 = true;
 			switch (field.hashCode())
 			{
 				case 1535364104:
 				{
 					if (field.equals("m_screen_height")) 
 					{
-						__temp_executeDef56283 = false;
+						__temp_executeDef80912 = false;
 						this.m_screen_height = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -139,7 +145,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("m_entry")) 
 					{
-						__temp_executeDef56283 = false;
+						__temp_executeDef80912 = false;
 						this.m_entry = ((haxor.platform.android.Entry) (value) );
 						return value;
 					}
@@ -152,7 +158,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("m_screen_width")) 
 					{
-						__temp_executeDef56283 = false;
+						__temp_executeDef80912 = false;
 						this.m_screen_width = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -163,7 +169,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				
 			}
 			
-			if (__temp_executeDef56283) 
+			if (__temp_executeDef80912) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -180,14 +186,14 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56284 = true;
+			boolean __temp_executeDef80913 = true;
 			switch (field.hashCode())
 			{
 				case -1244160288:
 				{
 					if (field.equals("OnUnfocus")) 
 					{
-						__temp_executeDef56284 = false;
+						__temp_executeDef80913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnUnfocus"))) );
 					}
 					
@@ -199,7 +205,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("m_entry")) 
 					{
-						__temp_executeDef56284 = false;
+						__temp_executeDef80913 = false;
 						return this.m_entry;
 					}
 					
@@ -211,7 +217,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("OnFocus")) 
 					{
-						__temp_executeDef56284 = false;
+						__temp_executeDef80913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnFocus"))) );
 					}
 					
@@ -223,7 +229,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("m_screen_width")) 
 					{
-						__temp_executeDef56284 = false;
+						__temp_executeDef80913 = false;
 						return this.m_screen_width;
 					}
 					
@@ -235,7 +241,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("GetContainerHeight")) 
 					{
-						__temp_executeDef56284 = false;
+						__temp_executeDef80913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetContainerHeight"))) );
 					}
 					
@@ -247,7 +253,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("m_screen_height")) 
 					{
-						__temp_executeDef56284 = false;
+						__temp_executeDef80913 = false;
 						return this.m_screen_height;
 					}
 					
@@ -259,8 +265,20 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("GetContainerWidth")) 
 					{
-						__temp_executeDef56284 = false;
+						__temp_executeDef80913 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetContainerWidth"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 312095663:
+				{
+					if (field.equals("OnBuild")) 
+					{
+						__temp_executeDef80913 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
 					}
 					
 					break;
@@ -269,7 +287,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				
 			}
 			
-			if (__temp_executeDef56284) 
+			if (__temp_executeDef80913) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -286,14 +304,14 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56285 = true;
+			boolean __temp_executeDef80914 = true;
 			switch (field.hashCode())
 			{
 				case 1535364104:
 				{
 					if (field.equals("m_screen_height")) 
 					{
-						__temp_executeDef56285 = false;
+						__temp_executeDef80914 = false;
 						return this.m_screen_height;
 					}
 					
@@ -305,7 +323,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				{
 					if (field.equals("m_screen_width")) 
 					{
-						__temp_executeDef56285 = false;
+						__temp_executeDef80914 = false;
 						return this.m_screen_width;
 					}
 					
@@ -315,7 +333,7 @@ public  class AndroidApplication extends haxor.core.BaseApplication
 				
 			}
 			
-			if (__temp_executeDef56285) 
+			if (__temp_executeDef80914) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

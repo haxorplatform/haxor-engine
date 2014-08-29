@@ -32,13 +32,13 @@ public  class Std
 		
 		java.lang.String name = clt.getName();
 		{
-			java.lang.String __temp_svar56290 = (name);
-			int __temp_hash56292 = __temp_svar56290.hashCode();
-			switch (__temp_hash56292)
+			java.lang.String __temp_svar80919 = (name);
+			int __temp_hash80921 = __temp_svar80919.hashCode();
+			switch (__temp_hash80921)
 			{
 				case 761287205:case -1325958191:
 				{
-					if (( (( ( __temp_hash56292 == 761287205 ) && __temp_svar56290.equals("java.lang.Double") )) || __temp_svar56290.equals("double") )) 
+					if (( (( ( __temp_hash80921 == 761287205 ) && __temp_svar80919.equals("java.lang.Double") )) || __temp_svar80919.equals("double") )) 
 					{
 						return haxe.lang.Runtime.isDouble(v);
 					}
@@ -49,7 +49,7 @@ public  class Std
 				
 				case 1063877011:
 				{
-					if (__temp_svar56290.equals("java.lang.Object")) 
+					if (__temp_svar80919.equals("java.lang.Object")) 
 					{
 						return true;
 					}
@@ -60,7 +60,7 @@ public  class Std
 				
 				case -2056817302:case 104431:
 				{
-					if (( (( ( __temp_hash56292 == -2056817302 ) && __temp_svar56290.equals("java.lang.Integer") )) || __temp_svar56290.equals("int") )) 
+					if (( (( ( __temp_hash80921 == -2056817302 ) && __temp_svar80919.equals("java.lang.Integer") )) || __temp_svar80919.equals("int") )) 
 					{
 						return haxe.lang.Runtime.isInt(v);
 					}
@@ -71,7 +71,7 @@ public  class Std
 				
 				case 344809556:case 64711720:
 				{
-					if (( (( ( __temp_hash56292 == 344809556 ) && __temp_svar56290.equals("java.lang.Boolean") )) || __temp_svar56290.equals("boolean") )) 
+					if (( (( ( __temp_hash80921 == 344809556 ) && __temp_svar80919.equals("java.lang.Boolean") )) || __temp_svar80919.equals("boolean") )) 
 					{
 						return v instanceof java.lang.Boolean;
 					}
@@ -92,6 +92,12 @@ public  class Std
 	public static   java.lang.String string(java.lang.Object s)
 	{
 		return ( haxe.lang.Runtime.toString(s) + "" );
+	}
+	
+	
+	public static   int _int(double x)
+	{
+		return ((int) (x) );
 	}
 	
 	
@@ -273,6 +279,35 @@ public  class Std
 			return java.lang.Double.NaN;
 		}
 	
+	}
+	
+	
+	public static  <T, S> S instance(T value, java.lang.Class<S> c)
+	{
+		if (haxe.root.Std.is(value, c)) 
+		{
+			return ((S) (((java.lang.Object) (value) )) );
+		}
+		 else 
+		{
+			return null;
+		}
+		
+	}
+	
+	
+	public static   int random(int x)
+	{
+		if (( x <= 0 )) 
+		{
+			return 0;
+		}
+		
+		{
+			double x1 = ( java.lang.Math.random() * x );
+			return ((int) (x1) );
+		}
+		
 	}
 	
 	

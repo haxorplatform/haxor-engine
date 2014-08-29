@@ -12,11 +12,14 @@ HX_DECLARE_CLASS2(haxor,core,Application)
 HX_DECLARE_CLASS2(haxor,core,BaseApplication)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
+HX_DECLARE_CLASS2(haxor,input,InputHandler)
 HX_DECLARE_CLASS2(haxor,platform,OSWindow)
 HX_DECLARE_CLASS3(haxor,platform,windows,WinApplication)
 HX_DECLARE_CLASS3(haxor,platform,windows,Window)
+HX_DECLARE_CLASS4(haxor,platform,windows,input,WinInputHandler)
 
 #include <windows.h>
+#include <Xinput.h>
 #include <stdio.h>
 #include "gl/glew.h"
 
@@ -67,6 +70,7 @@ class HXCPP_CLASS_ATTRIBUTES  Window_obj : public ::haxor::platform::OSWindow_ob
 
 		virtual Void OnFullscreen( );
 
+		static ::haxor::platform::windows::input::WinInputHandler input;
 		static ::haxor::core::Application m_application;
 		static ::haxor::platform::windows::Window m_instance;
 		static bool m_build;

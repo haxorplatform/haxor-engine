@@ -34,6 +34,8 @@ class HXCPP_CLASS_ATTRIBUTES  FloatArray_obj : public ::haxor::io::Buffer_obj{
 
 		virtual int get_bytesPerElement( );
 
+		virtual Void Resize( int p_length);
+
 		virtual Float Get( int p_index);
 		Dynamic Get_dyn();
 
@@ -47,6 +49,12 @@ class HXCPP_CLASS_ATTRIBUTES  FloatArray_obj : public ::haxor::io::Buffer_obj{
 
 		static ::haxor::io::FloatArray Alloc( Array< Float > p_data);
 		static Dynamic Alloc_dyn();
+
+		static ::haxor::io::FloatArray FromBase64( ::String p_data);
+		static Dynamic FromBase64_dyn();
+
+		static ::haxor::io::FloatArray Parse( ::String p_data,::String p_delimiter);
+		static Dynamic Parse_dyn();
 
 };
 

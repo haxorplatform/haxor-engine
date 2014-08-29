@@ -46,6 +46,11 @@ class HXCPP_CLASS_ATTRIBUTES  Resource_obj : public hx::Object{
 		virtual ::haxor::core::Application get_application( );
 		Dynamic get_application_dyn();
 
+		::String guid;
+		virtual ::String get_guid( );
+		Dynamic get_guid_dyn();
+
+		::String m_guid;
 		int uid;
 		virtual int get_uid( );
 		Dynamic get_uid_dyn();
@@ -64,6 +69,7 @@ class HXCPP_CLASS_ATTRIBUTES  Resource_obj : public hx::Object{
 
 		bool m_destroyed;
 		int __cid;
+		::String __db;
 		Array< int > m_pid;
 		::String m_type_name;
 		::String m_type_full_name;

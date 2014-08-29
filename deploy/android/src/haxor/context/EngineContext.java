@@ -24,7 +24,7 @@ public  class EngineContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me56081)
+	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me80598)
 	{
 		{
 		}
@@ -58,19 +58,31 @@ public  class EngineContext extends haxe.lang.HxObject
 	
 	public static  haxor.context.DataContext data;
 	
+	public static  haxor.context.CameraContext camera;
+	
+	public static  haxor.context.TransformContext transform;
+	
+	public static  haxor.context.RendererContext renderer;
+	
+	public static  haxor.context.GizmoContext gizmo;
+	
 	public static   void Initialize()
 	{
 		haxor.core.Console.Log("Haxor> Engine Context Initialize.", 3);
-		haxor.context.EngineContext.update = new haxor.context.Process<haxor.core.IUpdateable>(haxe.lang.Runtime.toString("process.update"), ((int) (haxor.context.EngineContext.maxNodes) ));
-		haxor.context.EngineContext.render = new haxor.context.Process<haxor.core.IRenderable>(haxe.lang.Runtime.toString("process.render"), ((int) (haxor.context.EngineContext.maxNodes) ));
-		haxor.context.EngineContext.resize = new haxor.context.Process<haxor.core.IResizeable>(haxe.lang.Runtime.toString("process.resize"), ((int) (haxor.context.EngineContext.maxNodes) ));
-		haxor.context.EngineContext.resources = new haxor.context.Process<haxor.core.Resource>(haxe.lang.Runtime.toString("process.resources"), ((int) (haxor.context.EngineContext.maxNodes) ));
-		haxor.context.EngineContext.disposables = new haxor.context.Process<haxor.core.IDisposable>(haxe.lang.Runtime.toString("process.disposables"), ((int) (haxor.context.EngineContext.maxNodes) ));
+		haxor.context.EngineContext.update = new haxor.context.Process<haxor.core.IUpdateable>(haxe.lang.Runtime.toString("process.update"), ((int) (haxor.context.EngineContext.maxNodes) ), ((java.lang.Object) (null) ));
+		haxor.context.EngineContext.render = new haxor.context.Process<haxor.core.IRenderable>(haxe.lang.Runtime.toString("process.render"), ((int) (haxor.context.EngineContext.maxNodes) ), ((java.lang.Object) (null) ));
+		haxor.context.EngineContext.resize = new haxor.context.Process<haxor.core.IResizeable>(haxe.lang.Runtime.toString("process.resize"), ((int) (haxor.context.EngineContext.maxNodes) ), ((java.lang.Object) (null) ));
+		haxor.context.EngineContext.resources = new haxor.context.Process<haxor.core.Resource>(haxe.lang.Runtime.toString("process.resources"), ((int) (haxor.context.EngineContext.maxNodes) ), ((java.lang.Object) (null) ));
+		haxor.context.EngineContext.disposables = new haxor.context.Process<haxor.core.IDisposable>(haxe.lang.Runtime.toString("process.disposables"), ((int) (haxor.context.EngineContext.maxNodes) ), ((java.lang.Object) (null) ));
 		haxor.context.EngineContext.list = new haxe.root.Array<haxor.context.BaseProcess>(new haxor.context.BaseProcess[]{haxor.context.EngineContext.update, haxor.context.EngineContext.render, haxor.context.EngineContext.resize, haxor.context.EngineContext.resources, haxor.context.EngineContext.disposables});
+		haxor.context.EngineContext.renderer = new haxor.context.RendererContext();
 		haxor.context.EngineContext.mesh = new haxor.context.MeshContext();
 		haxor.context.EngineContext.material = new haxor.context.MaterialContext();
 		haxor.context.EngineContext.texture = new haxor.context.TextureContext();
 		haxor.context.EngineContext.data = new haxor.context.DataContext();
+		haxor.context.EngineContext.gizmo = new haxor.context.GizmoContext();
+		haxor.context.EngineContext.camera = new haxor.context.CameraContext();
+		haxor.context.EngineContext.transform = new haxor.context.TransformContext();
 	}
 	
 	
@@ -79,6 +91,123 @@ public  class EngineContext extends haxe.lang.HxObject
 		haxor.context.EngineContext.mesh.Initialize();
 		haxor.context.EngineContext.material.Initialize();
 		haxor.context.EngineContext.texture.Initialize();
+		haxor.context.EngineContext.gizmo.Initialize();
+		haxor.context.EngineContext.transform.Initialize();
+		haxor.context.EngineContext.renderer.Initialize();
+	}
+	
+	
+	public static   void Enable(haxor.core.Resource p_resource)
+	{
+		if (( p_resource instanceof haxor.core.IUpdateable )) 
+		{
+			haxor.context.EngineContext.update.Add(p_resource);
+		}
+		
+		if (( p_resource instanceof haxor.core.IRenderable )) 
+		{
+			haxor.context.EngineContext.render.Add(p_resource);
+		}
+		
+		if (( p_resource instanceof haxor.core.IResizeable )) 
+		{
+			haxor.context.EngineContext.resize.Add(p_resource);
+		}
+		
+		if (( p_resource instanceof haxor.component.Renderer )) 
+		{
+			haxor.context.EngineContext.renderer.Enable(((haxor.component.Renderer) (p_resource) ));
+		}
+		
+		if (( p_resource instanceof haxor.core.Entity )) 
+		{
+			haxor.core.Entity e = ((haxor.core.Entity) (p_resource) );
+			{
+				int _g1 = 0;
+				int _g = e.m_components.length;
+				while (( _g1 < _g ))
+				{
+					int i = _g1++;
+					haxor.component.Component c = e.m_components.__get(i);
+					if (( c instanceof haxor.component.MeshRenderer )) 
+					{
+						haxor.context.EngineContext.renderer.Enable(((haxor.component.Renderer) (c) ));
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	
+	public static   void Disable(haxor.core.Resource p_resource)
+	{
+		if (( p_resource instanceof haxor.core.IUpdateable )) 
+		{
+			haxor.context.EngineContext.update.Remove(p_resource);
+		}
+		
+		if (( p_resource instanceof haxor.core.IRenderable )) 
+		{
+			haxor.context.EngineContext.render.Remove(p_resource);
+		}
+		
+		if (( p_resource instanceof haxor.core.IResizeable )) 
+		{
+			haxor.context.EngineContext.resize.Remove(p_resource);
+		}
+		
+		if (( p_resource instanceof haxor.component.Renderer )) 
+		{
+			haxor.context.EngineContext.renderer.Disable(((haxor.component.Renderer) (p_resource) ));
+		}
+		
+		if (( p_resource instanceof haxor.core.Entity )) 
+		{
+			haxor.core.Entity e = ((haxor.core.Entity) (p_resource) );
+			{
+				int _g1 = 0;
+				int _g = e.m_components.length;
+				while (( _g1 < _g ))
+				{
+					int i = _g1++;
+					haxor.component.Component c = e.m_components.__get(i);
+					if (( c instanceof haxor.component.MeshRenderer )) 
+					{
+						haxor.context.EngineContext.renderer.Disable(((haxor.component.Renderer) (c) ));
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	
+	public static   void OnEntiyLayerChange(haxor.core.Entity p_entity, int p_from, int p_to)
+	{
+		haxor.core.Entity e = p_entity;
+		{
+			int _g1 = 0;
+			int _g = e.m_components.length;
+			while (( _g1 < _g ))
+			{
+				int i = _g1++;
+				haxor.component.Component c = e.m_components.__get(i);
+				if (( c instanceof haxor.component.Renderer )) 
+				{
+					haxor.context.EngineContext.renderer.OnLayerChange(((haxor.component.Renderer) (c) ), p_from, p_to);
+				}
+				
+			}
+			
+		}
+		
 	}
 	
 	

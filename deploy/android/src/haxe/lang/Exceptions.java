@@ -22,7 +22,7 @@ public  class Exceptions extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_lang_Exceptions(haxe.lang.Exceptions __temp_me56236)
+	public static   void __hx_ctor_haxe_lang_Exceptions(haxe.lang.Exceptions __temp_me80839)
 	{
 		{
 		}
@@ -31,6 +31,12 @@ public  class Exceptions extends haxe.lang.HxObject
 	
 	
 	public static  java.lang.ThreadLocal<java.lang.RuntimeException> exception;
+	
+	public static   java.lang.RuntimeException currentException()
+	{
+		return haxe.lang.Exceptions.exception.get();
+	}
+	
 	
 	public static   java.lang.Object __hx_createEmpty()
 	{

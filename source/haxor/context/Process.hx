@@ -113,7 +113,7 @@ class BaseProcess
 	{
 		name     		= p_name;		
 		__cid    		= m_cid;		
-		Console.Log("\tProcess ["+p_name+"]["+__cid+"] created.",4);
+		Console.Log("\tProcess ["+p_name+"]["+__cid+"] created.",6);
 		if (p_update_cid) m_cid++;		
 	}
 	

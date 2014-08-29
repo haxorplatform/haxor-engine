@@ -38,6 +38,7 @@ class TransformContext
 	 */
 	private function OnChange(t:Transform):Void
 	{
+		t.m_uniform_dirty = true;
 		var cl : Array<Component>   = t.m_entity.m_components;
 		for (i in 0...cl.length) cl[i].OnTransformUpdate();
 	}

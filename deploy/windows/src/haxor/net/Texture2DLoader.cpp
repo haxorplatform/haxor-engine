@@ -127,13 +127,13 @@ HX_DEFINE_DYNAMIC_FUNC2(Texture2DLoader_obj,OnBitmapCallback,(void))
 
 Void Texture2DLoader_obj::OnError( ){
 {
-		HX_STACK_FRAME("haxor.net.Texture2DLoader","OnError",0x1024799e,"haxor.net.Texture2DLoader.OnError","haxor/net/Texture2DLoader.hx",61,0x3127789d)
+		HX_STACK_FRAME("haxor.net.Texture2DLoader","OnError",0x1024799e,"haxor.net.Texture2DLoader.OnError","haxor/net/Texture2DLoader.hx",62,0x3127789d)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(61)
+		HX_STACK_LINE(62)
 		this->super::OnError();
-		HX_STACK_LINE(61)
+		HX_STACK_LINE(62)
 		if (((this->m_t2d_callback_dyn() != null()))){
-			HX_STACK_LINE(61)
+			HX_STACK_LINE(62)
 			this->m_bitmap_callback(null(),1.0);
 		}
 	}

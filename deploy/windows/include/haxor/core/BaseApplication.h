@@ -23,12 +23,12 @@ class HXCPP_CLASS_ATTRIBUTES  BaseApplication_obj : public ::haxor::component::B
 		typedef ::haxor::component::Behaviour_obj super;
 		typedef BaseApplication_obj OBJ_;
 		BaseApplication_obj();
-		Void __construct();
+		Void __construct(::String __o_p_name);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< BaseApplication_obj > __new();
+		static hx::ObjectPtr< BaseApplication_obj > __new(::String __o_p_name);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~BaseApplication_obj();
@@ -63,6 +63,8 @@ class HXCPP_CLASS_ATTRIBUTES  BaseApplication_obj : public ::haxor::component::B
 		::haxor::core::Platform m_platform;
 		Array< ::Dynamic > m_scenes;
 		bool m_init_allowed;
+		virtual Void OnBuild( );
+
 		virtual Void LoadScene( ::String p_name);
 		Dynamic LoadScene_dyn();
 

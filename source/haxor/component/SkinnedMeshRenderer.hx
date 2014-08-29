@@ -1,5 +1,5 @@
 package haxor.component;
-import haxor.graphics.Enums.PixelFormat;
+import haxor.core.Enums.PixelFormat;
 import haxor.graphics.texture.ComputeTexture;
 import haxor.io.FloatArray;
 
@@ -20,13 +20,13 @@ class SkinnedMeshRenderer extends MeshRenderer
 	private var m_buffer : FloatArray;
 	
 	private var m_data : ComputeTexture;
-		
+	
 	/**
-	 * Creates a new SkinnedMeshRenderer.
+	 * Method called after component creation.
 	 */
-	function new() 
+	override function OnBuild():Void 
 	{
-		super();
+		super.OnBuild();
 		m_joints = [];		
 		//MAX_JOINTS = 50
 		//MAX_BINDS  = 50

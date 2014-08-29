@@ -1,9 +1,9 @@
 package haxor.context;
 import haxor.core.Console;
-import haxor.graphics.Enums.PixelFormat;
-import haxor.graphics.Enums.TextureFilter;
-import haxor.graphics.Enums.TextureType;
-import haxor.graphics.Enums.TextureWrap;
+import haxor.core.Enums.PixelFormat;
+import haxor.core.Enums.TextureFilter;
+import haxor.core.Enums.TextureType;
+import haxor.core.Enums.TextureWrap;
 import haxor.graphics.texture.Bitmap;
 import haxor.graphics.texture.RenderTexture;
 import haxor.graphics.texture.Texture;
@@ -61,6 +61,7 @@ class TextureContext
 	 */
 	private var bind : Texture;
 		
+	private var slot : Int;
 	
 	/**
 	 * Creates the TextureContext.
@@ -72,6 +73,7 @@ class TextureContext
 		target  = null;
 		active 	= [];		
 		ids		= [];
+		slot    = 0;
 		framebuffers = [];
 		renderbuffers = [];
 	}
@@ -112,7 +114,9 @@ class TextureContext
 	 */
 	private function Create(p_texture:Texture):Void
 	{
-		p_texture.__slot = p_texture.__cid % GL.MAX_ACTIVE_TEXTURE;
+		p_texture.__slot = slot % GL.MAX_ACTIVE_TEXTURE;
+		
+		slot++;
 		
 		var id : TextureId = GL.CreateTexture();
 		
@@ -256,7 +260,7 @@ class TextureContext
 			if (tc.nz != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 5, tc.nz);			
 		}
 		else
-		{						
+		{	
 			WriteTexture(target, p_texture);
 		}
 	}
@@ -314,7 +318,7 @@ class TextureContext
 		{
 			if (p_texture.type == TextureType.Texture2D)
 			{
-				var t2d : Texture2D = cast p_texture;				
+				var t2d : Texture2D = cast p_texture;						
 				GL.TexImage2D(p_target, 0, chn_fmt, w, h, 0, chn_bit, chn_type, t2d.data.buffer);
 			}
 			else
@@ -332,14 +336,13 @@ class TextureContext
 	 * @param	p_texture
 	 * @param	p_slot
 	 */
-	private function Activate(p_texture : Texture):Int
-	{
+	private function Activate(p_texture : Texture,p_slot:Int):Void
+	{		
 		var slot : Int = p_texture.__slot;
-		if (active[p_texture.__cid] == p_texture) return slot;		
-		active[p_texture.__cid] = p_texture;		
-		GL.ActiveTexture(GL.TEXTURE0 + slot);		
-		Bind(p_texture);
-		return slot;
+		if (active[p_slot] == p_texture) return;		
+		active[p_slot] = p_texture;		
+		GL.ActiveTexture(GL.TEXTURE0 + p_slot);		
+		Bind(p_texture);		
 	}
 	
 	/**

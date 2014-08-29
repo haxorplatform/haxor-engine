@@ -3,6 +3,12 @@
 #ifndef INCLUDED_Reflect
 #include <Reflect.h>
 #endif
+#ifndef INCLUDED_StringBuf
+#include <StringBuf.h>
+#endif
+#ifndef INCLUDED_StringTools
+#include <StringTools.h>
+#endif
 #ifndef INCLUDED_Type
 #include <Type.h>
 #endif
@@ -87,6 +93,21 @@ HX_STACK_FRAME("Xml","__init__",0xbec8a6e7,"Xml.__init__","F:\\development\\reso
 }
 }
 
+::String Xml_obj::get_nodeName( ){
+	HX_STACK_FRAME("Xml","get_nodeName",0x38fd668d,"Xml.get_nodeName","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",168,0x850cc6d9)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(169)
+	if (((this->nodeType != ::Xml_obj::Element))){
+		HX_STACK_LINE(170)
+		HX_STACK_DO_THROW(HX_CSTRING("bad nodeType"));
+	}
+	HX_STACK_LINE(171)
+	return this->_nodeName;
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Xml_obj,get_nodeName,return )
+
 ::String Xml_obj::get_nodeValue( ){
 	HX_STACK_FRAME("Xml","get_nodeValue",0x3ff044ef,"Xml.get_nodeValue","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",180,0x850cc6d9)
 	HX_STACK_THIS(this)
@@ -117,6 +138,112 @@ HX_DEFINE_DYNAMIC_FUNC0(Xml_obj,get_nodeValue,return )
 
 
 HX_DEFINE_DYNAMIC_FUNC1(Xml_obj,get,return )
+
+bool Xml_obj::exists( ::String att){
+	HX_STACK_FRAME("Xml","exists",0x446683b3,"Xml.exists","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",219,0x850cc6d9)
+	HX_STACK_THIS(this)
+	HX_STACK_ARG(att,"att")
+	HX_STACK_LINE(220)
+	if (((this->nodeType != ::Xml_obj::Element))){
+		HX_STACK_LINE(221)
+		HX_STACK_DO_THROW(HX_CSTRING("bad nodeType"));
+	}
+	HX_STACK_LINE(222)
+	return ::Reflect_obj::hasField(this->_attributes,att);
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC1(Xml_obj,exists,return )
+
+Dynamic Xml_obj::elements( ){
+	HX_STACK_FRAME("Xml","elements",0x0310ffce,"Xml.elements","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",238,0x850cc6d9)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(239)
+	if (((this->_children == null()))){
+		HX_STACK_LINE(240)
+		HX_STACK_DO_THROW(HX_CSTRING("bad nodetype"));
+	}
+	HX_STACK_LINE(241)
+	Array< ::Dynamic > children = Array_obj< ::Dynamic >::__new().Add(this->_children);		HX_STACK_VAR(children,"children");
+	struct _Function_1_1{
+		inline static Dynamic Block( Array< ::Dynamic > &children){
+			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",242,0x850cc6d9)
+			{
+				hx::Anon __result = hx::Anon_obj::Create();
+				__result->Add(HX_CSTRING("cur") , (int)0,false);
+
+				HX_BEGIN_LOCAL_FUNC_S1(hx::LocalThisFunc,_Function_2_1,Array< ::Dynamic >,children)
+				bool run(){
+					HX_STACK_FRAME("*","_Function_2_1",0x5201af78,"*._Function_2_1","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",244,0x850cc6d9)
+					HX_STACK_THIS(__this.mPtr)
+					{
+						HX_STACK_LINE(245)
+						int k = __this->__Field(HX_CSTRING("cur"),true);		HX_STACK_VAR(k,"k");
+						HX_STACK_LINE(246)
+						int l = children->__get((int)0).StaticCast< Array< ::Dynamic > >()->length;		HX_STACK_VAR(l,"l");
+						HX_STACK_LINE(247)
+						while(((k < l))){
+							HX_STACK_LINE(248)
+							if (((children->__get((int)0).StaticCast< Array< ::Dynamic > >()->__get(k).StaticCast< ::Xml >()->nodeType == ::Xml_obj::Element))){
+								HX_STACK_LINE(249)
+								break;
+							}
+							HX_STACK_LINE(250)
+							hx::AddEq(k,(int)1);
+						}
+						HX_STACK_LINE(252)
+						__this->__FieldRef(HX_CSTRING("cur")) = k;
+						HX_STACK_LINE(253)
+						return (k < l);
+					}
+					return null();
+				}
+				HX_END_LOCAL_FUNC0(return)
+
+				__result->Add(HX_CSTRING("hasNext") ,  Dynamic(new _Function_2_1(children)),true);
+
+				HX_BEGIN_LOCAL_FUNC_S1(hx::LocalThisFunc,_Function_2_2,Array< ::Dynamic >,children)
+				::Xml run(){
+					HX_STACK_FRAME("*","_Function_2_2",0x5201af79,"*._Function_2_2","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",255,0x850cc6d9)
+					HX_STACK_THIS(__this.mPtr)
+					{
+						HX_STACK_LINE(256)
+						int k = __this->__Field(HX_CSTRING("cur"),true);		HX_STACK_VAR(k,"k");
+						HX_STACK_LINE(257)
+						int l = children->__get((int)0).StaticCast< Array< ::Dynamic > >()->length;		HX_STACK_VAR(l,"l");
+						HX_STACK_LINE(258)
+						while(((k < l))){
+							HX_STACK_LINE(259)
+							::Xml n = children->__get((int)0).StaticCast< Array< ::Dynamic > >()->__get(k).StaticCast< ::Xml >();		HX_STACK_VAR(n,"n");
+							HX_STACK_LINE(260)
+							hx::AddEq(k,(int)1);
+							HX_STACK_LINE(261)
+							if (((n->nodeType == ::Xml_obj::Element))){
+								HX_STACK_LINE(262)
+								__this->__FieldRef(HX_CSTRING("cur")) = k;
+								HX_STACK_LINE(263)
+								return n;
+							}
+						}
+						HX_STACK_LINE(266)
+						return null();
+					}
+					return null();
+				}
+				HX_END_LOCAL_FUNC0(return)
+
+				__result->Add(HX_CSTRING("next") ,  Dynamic(new _Function_2_2(children)),true);
+				return __result;
+			}
+			return null();
+		}
+	};
+	HX_STACK_LINE(242)
+	return _Function_1_1::Block(children);
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Xml_obj,elements,return )
 
 Dynamic Xml_obj::elementsNamed( ::String name){
 	HX_STACK_FRAME("Xml","elementsNamed",0x6b28f50b,"Xml.elementsNamed","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",271,0x850cc6d9)
@@ -294,6 +421,226 @@ return null();
 
 
 HX_DEFINE_DYNAMIC_FUNC1(Xml_obj,addChild,(void))
+
+::String Xml_obj::toString( ){
+	HX_STACK_FRAME("Xml","toString",0xb7bb9a43,"Xml.toString","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",348,0x850cc6d9)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(349)
+	::StringBuf s = ::StringBuf_obj::__new();		HX_STACK_VAR(s,"s");
+	HX_STACK_LINE(350)
+	this->toStringRec(s);
+	HX_STACK_LINE(351)
+	return s->b->join(HX_CSTRING(""));
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Xml_obj,toString,return )
+
+Void Xml_obj::toStringRec( ::StringBuf s){
+{
+		HX_STACK_FRAME("Xml","toStringRec",0x868882cd,"Xml.toStringRec","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Xml.hx",355,0x850cc6d9)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(s,"s")
+		HX_STACK_LINE(355)
+		::XmlType _switch_1 = (this->nodeType);
+		if (  ( _switch_1==::Xml_obj::Document)){
+			HX_STACK_LINE(357)
+			int _g = (int)0;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(357)
+			Array< ::Dynamic > _g1 = this->_children;		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(357)
+			while((true)){
+				HX_STACK_LINE(357)
+				if ((!(((_g < _g1->length))))){
+					HX_STACK_LINE(357)
+					break;
+				}
+				HX_STACK_LINE(357)
+				::Xml x = _g1->__get(_g).StaticCast< ::Xml >();		HX_STACK_VAR(x,"x");
+				HX_STACK_LINE(357)
+				++(_g);
+				HX_STACK_LINE(358)
+				x->toStringRec(s);
+			}
+		}
+		else if (  ( _switch_1==::Xml_obj::Element)){
+			HX_STACK_LINE(360)
+			{
+				HX_STACK_LINE(360)
+				::String _g = HX_CSTRING("<");		HX_STACK_VAR(_g,"_g");
+				HX_STACK_LINE(360)
+				s->b->push(_g);
+			}
+			HX_STACK_LINE(361)
+			s->add(this->_nodeName);
+			HX_STACK_LINE(362)
+			{
+				HX_STACK_LINE(362)
+				int _g = (int)0;		HX_STACK_VAR(_g,"_g");
+				HX_STACK_LINE(362)
+				Array< ::String > _g1 = ::Reflect_obj::fields(this->_attributes);		HX_STACK_VAR(_g1,"_g1");
+				HX_STACK_LINE(362)
+				while((true)){
+					HX_STACK_LINE(362)
+					if ((!(((_g < _g1->length))))){
+						HX_STACK_LINE(362)
+						break;
+					}
+					HX_STACK_LINE(362)
+					::String k = _g1->__get(_g);		HX_STACK_VAR(k,"k");
+					HX_STACK_LINE(362)
+					++(_g);
+					HX_STACK_LINE(363)
+					{
+						HX_STACK_LINE(363)
+						::String _g11 = HX_CSTRING(" ");		HX_STACK_VAR(_g11,"_g11");
+						HX_STACK_LINE(363)
+						s->b->push(_g11);
+					}
+					HX_STACK_LINE(364)
+					s->add(k);
+					HX_STACK_LINE(365)
+					{
+						HX_STACK_LINE(365)
+						::String _g2 = HX_CSTRING("=");		HX_STACK_VAR(_g2,"_g2");
+						HX_STACK_LINE(365)
+						s->b->push(_g2);
+					}
+					HX_STACK_LINE(366)
+					{
+						HX_STACK_LINE(366)
+						::String _g3 = HX_CSTRING("\"");		HX_STACK_VAR(_g3,"_g3");
+						HX_STACK_LINE(366)
+						s->b->push(_g3);
+					}
+					HX_STACK_LINE(367)
+					Dynamic _g4 = ::Reflect_obj::field(this->_attributes,k);		HX_STACK_VAR(_g4,"_g4");
+					HX_STACK_LINE(367)
+					s->add(_g4);
+					HX_STACK_LINE(368)
+					{
+						HX_STACK_LINE(368)
+						::String _g5 = HX_CSTRING("\"");		HX_STACK_VAR(_g5,"_g5");
+						HX_STACK_LINE(368)
+						s->b->push(_g5);
+					}
+				}
+			}
+			HX_STACK_LINE(370)
+			if (((this->_children->length == (int)0))){
+				HX_STACK_LINE(371)
+				{
+					HX_STACK_LINE(371)
+					::String _g6 = HX_CSTRING("/");		HX_STACK_VAR(_g6,"_g6");
+					HX_STACK_LINE(371)
+					s->b->push(_g6);
+				}
+				HX_STACK_LINE(372)
+				{
+					HX_STACK_LINE(372)
+					::String _g7 = HX_CSTRING(">");		HX_STACK_VAR(_g7,"_g7");
+					HX_STACK_LINE(372)
+					s->b->push(_g7);
+				}
+				HX_STACK_LINE(373)
+				return null();
+			}
+			HX_STACK_LINE(375)
+			{
+				HX_STACK_LINE(375)
+				::String _g8 = HX_CSTRING(">");		HX_STACK_VAR(_g8,"_g8");
+				HX_STACK_LINE(375)
+				s->b->push(_g8);
+			}
+			HX_STACK_LINE(376)
+			{
+				HX_STACK_LINE(376)
+				int _g = (int)0;		HX_STACK_VAR(_g,"_g");
+				HX_STACK_LINE(376)
+				Array< ::Dynamic > _g1 = this->_children;		HX_STACK_VAR(_g1,"_g1");
+				HX_STACK_LINE(376)
+				while((true)){
+					HX_STACK_LINE(376)
+					if ((!(((_g < _g1->length))))){
+						HX_STACK_LINE(376)
+						break;
+					}
+					HX_STACK_LINE(376)
+					::Xml x = _g1->__get(_g).StaticCast< ::Xml >();		HX_STACK_VAR(x,"x");
+					HX_STACK_LINE(376)
+					++(_g);
+					HX_STACK_LINE(377)
+					x->toStringRec(s);
+				}
+			}
+			HX_STACK_LINE(378)
+			{
+				HX_STACK_LINE(378)
+				::String _g9 = HX_CSTRING("<");		HX_STACK_VAR(_g9,"_g9");
+				HX_STACK_LINE(378)
+				s->b->push(_g9);
+			}
+			HX_STACK_LINE(379)
+			{
+				HX_STACK_LINE(379)
+				::String _g10 = HX_CSTRING("/");		HX_STACK_VAR(_g10,"_g10");
+				HX_STACK_LINE(379)
+				s->b->push(_g10);
+			}
+			HX_STACK_LINE(380)
+			s->add(this->_nodeName);
+			HX_STACK_LINE(381)
+			{
+				HX_STACK_LINE(381)
+				::String _g11 = HX_CSTRING(">");		HX_STACK_VAR(_g11,"_g11");
+				HX_STACK_LINE(381)
+				s->b->push(_g11);
+			}
+		}
+		else if (  ( _switch_1==::Xml_obj::PCData)){
+			HX_STACK_LINE(383)
+			::String _g12 = ::StringTools_obj::htmlEscape(this->_nodeValue,null());		HX_STACK_VAR(_g12,"_g12");
+			HX_STACK_LINE(383)
+			s->add(_g12);
+		}
+		else if (  ( _switch_1==::Xml_obj::CData)){
+			HX_STACK_LINE(385)
+			s->add(HX_CSTRING("<![CDATA["));
+			HX_STACK_LINE(386)
+			s->add(this->_nodeValue);
+			HX_STACK_LINE(387)
+			s->add(HX_CSTRING("]]>"));
+		}
+		else if (  ( _switch_1==::Xml_obj::Comment)){
+			HX_STACK_LINE(389)
+			s->add(HX_CSTRING("<!--"));
+			HX_STACK_LINE(390)
+			s->add(this->_nodeValue);
+			HX_STACK_LINE(391)
+			s->add(HX_CSTRING("-->"));
+		}
+		else if (  ( _switch_1==::Xml_obj::DocType)){
+			HX_STACK_LINE(393)
+			s->add(HX_CSTRING("<!DOCTYPE "));
+			HX_STACK_LINE(394)
+			s->add(this->_nodeValue);
+			HX_STACK_LINE(395)
+			s->add(HX_CSTRING(">"));
+		}
+		else if (  ( _switch_1==::Xml_obj::ProcessingInstruction)){
+			HX_STACK_LINE(397)
+			s->add(HX_CSTRING("<?"));
+			HX_STACK_LINE(398)
+			s->add(this->_nodeValue);
+			HX_STACK_LINE(399)
+			s->add(HX_CSTRING("?>"));
+		}
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC1(Xml_obj,toStringRec,(void))
 
 ::XmlType Xml_obj::Element;
 
@@ -540,6 +887,7 @@ Dynamic Xml_obj::__Field(const ::String &inName,bool inCallProp)
 	case 6:
 		if (HX_FIELD_EQ(inName,"PCData") ) { return PCData; }
 		if (HX_FIELD_EQ(inName,"_parse") ) { return _parse; }
+		if (HX_FIELD_EQ(inName,"exists") ) { return exists_dyn(); }
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"Element") ) { return Element; }
@@ -550,7 +898,9 @@ Dynamic Xml_obj::__Field(const ::String &inName,bool inCallProp)
 	case 8:
 		if (HX_FIELD_EQ(inName,"Document") ) { return Document; }
 		if (HX_FIELD_EQ(inName,"nodeType") ) { return nodeType; }
+		if (HX_FIELD_EQ(inName,"elements") ) { return elements_dyn(); }
 		if (HX_FIELD_EQ(inName,"addChild") ) { return addChild_dyn(); }
+		if (HX_FIELD_EQ(inName,"toString") ) { return toString_dyn(); }
 		break;
 	case 9:
 		if (HX_FIELD_EQ(inName,"_nodeName") ) { return _nodeName; }
@@ -562,8 +912,10 @@ Dynamic Xml_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 11:
 		if (HX_FIELD_EQ(inName,"_attributes") ) { return _attributes; }
+		if (HX_FIELD_EQ(inName,"toStringRec") ) { return toStringRec_dyn(); }
 		break;
 	case 12:
+		if (HX_FIELD_EQ(inName,"get_nodeName") ) { return get_nodeName_dyn(); }
 		if (HX_FIELD_EQ(inName,"firstElement") ) { return firstElement_dyn(); }
 		break;
 	case 13:
@@ -654,12 +1006,17 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("_children"),
 	HX_CSTRING("_parent"),
 	HX_CSTRING("nodeType"),
+	HX_CSTRING("get_nodeName"),
 	HX_CSTRING("get_nodeValue"),
 	HX_CSTRING("get"),
+	HX_CSTRING("exists"),
+	HX_CSTRING("elements"),
 	HX_CSTRING("elementsNamed"),
 	HX_CSTRING("firstChild"),
 	HX_CSTRING("firstElement"),
 	HX_CSTRING("addChild"),
+	HX_CSTRING("toString"),
+	HX_CSTRING("toStringRec"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

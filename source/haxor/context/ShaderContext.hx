@@ -59,12 +59,16 @@ class ShaderContext
 		<fragment>
 			varying vec3 v_uv0;
 			varying vec4 v_color;			
-			uniform sampler2D DiffuseTexture;			
+			uniform sampler2D DiffuseTexture;
+			uniform sampler2D Tex0;			
+			
 			void main(void) 
 			{	
-				vec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);				
-				gl_FragColor.xyz = tex_diffuse.xyz * v_color.xyz;
-				gl_FragColor.a 	 = tex_diffuse.a * v_color.a;
+				vec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy*0.1);			
+				if (length(tex_diffuse.xyz) < 0.01) discard;				
+				gl_FragColor.xyz = (tex_diffuse.xyz * v_color.xyz) + texture2D(Tex0, v_uv0.xy).xyz*0.5;
+				
+				gl_FragColor.a 	 = tex_diffuse.a * v_color.a*0.5;
 			}
 		</fragment>	
 	</shader>
@@ -73,7 +77,7 @@ class ShaderContext
 	/**
 	 * Grid gizmo shader.
 	 */
-	static private var gizmo_grid_source : String = 
+	static private var gizmo_source : String = 
 	'
 	<shader id="haxor/gizmo/Grid">	
 		<vertex>		
@@ -88,12 +92,15 @@ class ShaderContext
 		void main(void) 
 		{		
 		gl_Position = ((vec4(vertex*Area, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;				
-			v_color = color * Tint;
+		v_color = color * Tint;		
 		}		
 		</vertex>		
 		<fragment>			
 			varying vec4 v_color;			
-			void main(void) { gl_FragColor = v_color; }			
+			void main(void) 
+			{
+				gl_FragColor = v_color;
+			}			
 		</fragment>	
 	</shader>	
 	';

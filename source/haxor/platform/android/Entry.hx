@@ -52,12 +52,14 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		untyped __java__('
 			requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
 			getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN, android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN); 
-			//android.view.View decorView = getWindow().getDecorView();
+			requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
+			android.view.View decorView = getWindow().getDecorView();
 			// Hide both the navigation bar and the status bar.
 			// SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
 			// a general rule, you should design your app to hide the status bar whenever you
 			// hide the navigation bar.
-			//int uiOptions = android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
+			//int uiOptions = android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+			//| android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
 			//decorView.setSystemUiVisibility(uiOptions);
 		');
 		
@@ -90,9 +92,11 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		
 		Engine.Initialize();
 				
+		Console.Log("new entity");
 		var e: Entity = new Entity("application");
+		Console.Log("add application");
 		m_application = e.AddComponent(cast app_class);
-		
+		Console.Log("add application complete");
 		if (!Std.is(m_application, BaseApplication))
 		{ 
 			Console.Log("Haxor> Error. Class [" + app_class_type+"] does not extends Application!"); 
@@ -101,9 +105,11 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		
 		GL.Initialize(m_application);
 		GL.m_gl.Initialize(this);
-						
-		m_handler 	= new Handler();
-		m_handler.postDelayed(this,cast 0);
+		
+		
+		
+		//m_handler 	= new Handler();
+		//m_handler.postDelayed(this,cast 0);
 		
 		
 		
@@ -149,7 +155,7 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		Console.Log("OnResume",5);
 		m_active = true;
 		//m_application.OnFocus();		
-		if(m_active)m_handler.postDelayed(this,cast 0);
+		//if(m_active)m_handler.postDelayed(this,cast 0);
 	}
 	
 	@:overload()
@@ -170,14 +176,21 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		
 	
 	public function run():Void
-	{		
-		m_application.Update();			
-		if(m_active)m_handler.postDelayed(this,cast 0);
+	{	
+		//if(!m_rendering) m_application.Update();
+		//Sys.sleep(0.005);
+		//if (m_active) m_handler.postDelayed(this, cast 10);
 	}
 	
 	public function onDrawFrame(gl:GL10):Void
 	{	
-		if(m_active)m_application.Render();	
+		if (m_active)
+		{	
+			
+			m_application.Update();
+			m_application.Render();	
+			
+		}
 	}
 	
 	public function onSurfaceChanged(gl:GL10, width:Int, height:Int):Void
@@ -192,7 +205,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	public function onSurfaceCreated(gl:GL10, config:EGLConfig):Void
 	{
 		Console.Log("OnCreated", 5);
-		
+		gl.glClearColor(0.0, 0.0, 0.0, 1.0);
+		gl.glClear(GL.COLOR_BUFFER_BIT);
 		GL.m_gl.CheckExtensions();
 		
 		EngineContext.Build();

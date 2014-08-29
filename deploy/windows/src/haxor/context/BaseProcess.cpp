@@ -15,20 +15,25 @@
 namespace haxor{
 namespace context{
 
-Void BaseProcess_obj::__construct(::String p_name)
+Void BaseProcess_obj::__construct(::String p_name,hx::Null< bool >  __o_p_update_cid)
 {
-HX_STACK_FRAME("haxor.context.BaseProcess","new",0x99559f85,"haxor.context.BaseProcess.new","haxor/context/Process.hx",112,0x5f329a1c)
+HX_STACK_FRAME("haxor.context.BaseProcess","new",0x99559f85,"haxor.context.BaseProcess.new","haxor/context/Process.hx",113,0x5f329a1c)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_name,"p_name")
+HX_STACK_ARG(__o_p_update_cid,"p_update_cid")
+bool p_update_cid = __o_p_update_cid.Default(true);
 {
-	HX_STACK_LINE(113)
-	this->name = p_name;
 	HX_STACK_LINE(114)
-	::haxor::core::Console_obj::Log(((HX_CSTRING("\tProcess [") + p_name) + HX_CSTRING("] created.")),(int)4);
+	this->name = p_name;
 	HX_STACK_LINE(115)
-	int _g = (::haxor::context::BaseProcess_obj::m_cid)++;		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(115)
-	this->__cid = _g;
+	this->__cid = ::haxor::context::BaseProcess_obj::m_cid;
+	HX_STACK_LINE(116)
+	::haxor::core::Console_obj::Log(((((HX_CSTRING("\tProcess [") + p_name) + HX_CSTRING("][")) + this->__cid) + HX_CSTRING("] created.")),(int)6);
+	HX_STACK_LINE(117)
+	if ((p_update_cid)){
+		HX_STACK_LINE(117)
+		(::haxor::context::BaseProcess_obj::m_cid)++;
+	}
 }
 ;
 	return null();
@@ -37,20 +42,20 @@ HX_STACK_ARG(p_name,"p_name")
 //BaseProcess_obj::~BaseProcess_obj() { }
 
 Dynamic BaseProcess_obj::__CreateEmpty() { return  new BaseProcess_obj; }
-hx::ObjectPtr< BaseProcess_obj > BaseProcess_obj::__new(::String p_name)
+hx::ObjectPtr< BaseProcess_obj > BaseProcess_obj::__new(::String p_name,hx::Null< bool >  __o_p_update_cid)
 {  hx::ObjectPtr< BaseProcess_obj > result = new BaseProcess_obj();
-	result->__construct(p_name);
+	result->__construct(p_name,__o_p_update_cid);
 	return result;}
 
 Dynamic BaseProcess_obj::__Create(hx::DynamicArray inArgs)
 {  hx::ObjectPtr< BaseProcess_obj > result = new BaseProcess_obj();
-	result->__construct(inArgs[0]);
+	result->__construct(inArgs[0],inArgs[1]);
 	return result;}
 
 int BaseProcess_obj::get_length( ){
-	HX_STACK_FRAME("haxor.context.BaseProcess","get_length",0x973f942a,"haxor.context.BaseProcess.get_length","haxor/context/Process.hx",105,0x5f329a1c)
+	HX_STACK_FRAME("haxor.context.BaseProcess","get_length",0x973f942a,"haxor.context.BaseProcess.get_length","haxor/context/Process.hx",106,0x5f329a1c)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(105)
+	HX_STACK_LINE(106)
 	return (int)0;
 }
 
@@ -59,7 +64,7 @@ HX_DEFINE_DYNAMIC_FUNC0(BaseProcess_obj,get_length,return )
 
 Void BaseProcess_obj::Add( ::haxor::core::Resource p_item){
 {
-		HX_STACK_FRAME("haxor.context.BaseProcess","Add",0x99337926,"haxor.context.BaseProcess.Add","haxor/context/Process.hx",122,0x5f329a1c)
+		HX_STACK_FRAME("haxor.context.BaseProcess","Add",0x99337926,"haxor.context.BaseProcess.Add","haxor/context/Process.hx",124,0x5f329a1c)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
 	}
@@ -70,10 +75,10 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC1(BaseProcess_obj,Add,(void))
 
 ::haxor::core::Resource BaseProcess_obj::Remove( ::haxor::core::Resource p_item){
-	HX_STACK_FRAME("haxor.context.BaseProcess","Remove",0x625b865f,"haxor.context.BaseProcess.Remove","haxor/context/Process.hx",129,0x5f329a1c)
+	HX_STACK_FRAME("haxor.context.BaseProcess","Remove",0x625b865f,"haxor.context.BaseProcess.Remove","haxor/context/Process.hx",131,0x5f329a1c)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_item,"p_item")
-	HX_STACK_LINE(129)
+	HX_STACK_LINE(131)
 	return null();
 }
 
@@ -82,7 +87,7 @@ HX_DEFINE_DYNAMIC_FUNC1(BaseProcess_obj,Remove,return )
 
 Void BaseProcess_obj::Clear( ){
 {
-		HX_STACK_FRAME("haxor.context.BaseProcess","Clear",0x13f883d2,"haxor.context.BaseProcess.Clear","haxor/context/Process.hx",134,0x5f329a1c)
+		HX_STACK_FRAME("haxor.context.BaseProcess","Clear",0x13f883d2,"haxor.context.BaseProcess.Clear","haxor/context/Process.hx",136,0x5f329a1c)
 		HX_STACK_THIS(this)
 	}
 return null();

@@ -255,6 +255,8 @@ class AndroidGL extends GraphicContext
 	override public /*inline*/ function Scissor(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ GLES.glScissor(p_x, p_y, p_width, p_height);	}	
 	override public /*inline*/ function ReadPixels(p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_type:Int, p_pixels:Buffer):Void { GLES.glReadPixels(p_x, p_y, p_width, p_height, p_format, p_type, p_pixels.m_buffer); }
 	
+	
+	
 	//Errors and Assert
 	override public /*inline*/ function GetErrorCode():Int { return GLES.glGetError(); }
 }

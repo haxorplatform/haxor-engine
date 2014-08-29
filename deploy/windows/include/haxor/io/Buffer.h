@@ -53,17 +53,41 @@ class HXCPP_CLASS_ATTRIBUTES  Buffer_obj : public hx::Object{
 		Dynamic get_length_dyn();
 
 		int m_length;
+		virtual Void Resize( int p_length);
+		Dynamic Resize_dyn();
+
 		virtual int GetByte( int p_index);
 		Dynamic GetByte_dyn();
 
 		virtual Void SetByte( int p_index,int p_value);
 		Dynamic SetByte_dyn();
 
+		virtual Void SetBytes( Array< int > p_list,hx::Null< int >  p_offset);
+		Dynamic SetBytes_dyn();
+
+		virtual Void SetBuffer( ::haxor::io::Buffer p_target,hx::Null< int >  p_offset);
+		Dynamic SetBuffer_dyn();
+
+		virtual ::String EncodeBase64( );
+		Dynamic EncodeBase64_dyn();
+
+		virtual Void DecodeBase64( );
+		Dynamic DecodeBase64_dyn();
+
+		virtual ::String GetString( hx::Null< int >  p_offset,hx::Null< int >  p_length);
+		Dynamic GetString_dyn();
+
+		virtual Void SetString( ::String p_string,hx::Null< int >  p_offset);
+		Dynamic SetString_dyn();
+
 		virtual Void SetViewSlice( int p_start,int p_length);
 		Dynamic SetViewSlice_dyn();
 
 		virtual Void ResetSlice( );
 		Dynamic ResetSlice_dyn();
+
+		static ::haxor::io::Buffer FromString( ::String p_string);
+		static Dynamic FromString_dyn();
 
 };
 

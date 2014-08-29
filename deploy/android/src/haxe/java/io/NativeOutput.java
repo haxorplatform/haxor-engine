@@ -16,9 +16,9 @@ public  class NativeOutput extends haxe.io.Output
 	}
 	
 	
-	public static   void __hx_ctor_haxe_java_io_NativeOutput(haxe.java.io.NativeOutput __temp_me56243, java.io.OutputStream stream)
+	public static   void __hx_ctor_haxe_java_io_NativeOutput(haxe.java.io.NativeOutput __temp_me80847, java.io.OutputStream stream)
 	{
-		__temp_me56243.stream = stream;
+		__temp_me80847.stream = stream;
 	}
 	
 	
@@ -56,6 +56,21 @@ public  class NativeOutput extends haxe.io.Output
 	}
 	
 	
+	@Override public   void close()
+	{
+		try 
+		{
+			this.stream.close();
+		}
+		catch (java.io.IOException e)
+		{
+			throw haxe.lang.HaxeException.wrap(haxe.io.Error.Custom(e));
+		}
+		
+		
+	}
+	
+	
 	@Override public   void flush()
 	{
 		try 
@@ -74,14 +89,14 @@ public  class NativeOutput extends haxe.io.Output
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56615 = true;
+			boolean __temp_executeDef81738 = true;
 			switch (field.hashCode())
 			{
 				case -891990144:
 				{
 					if (field.equals("stream")) 
 					{
-						__temp_executeDef56615 = false;
+						__temp_executeDef81738 = false;
 						this.stream = ((java.io.OutputStream) (value) );
 						return value;
 					}
@@ -92,7 +107,7 @@ public  class NativeOutput extends haxe.io.Output
 				
 			}
 			
-			if (__temp_executeDef56615) 
+			if (__temp_executeDef81738) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -109,14 +124,14 @@ public  class NativeOutput extends haxe.io.Output
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56616 = true;
+			boolean __temp_executeDef81739 = true;
 			switch (field.hashCode())
 			{
 				case 97532676:
 				{
 					if (field.equals("flush")) 
 					{
-						__temp_executeDef56616 = false;
+						__temp_executeDef81739 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("flush"))) );
 					}
 					
@@ -128,8 +143,20 @@ public  class NativeOutput extends haxe.io.Output
 				{
 					if (field.equals("stream")) 
 					{
-						__temp_executeDef56616 = false;
+						__temp_executeDef81739 = false;
 						return this.stream;
+					}
+					
+					break;
+				}
+				
+				
+				case 94756344:
+				{
+					if (field.equals("close")) 
+					{
+						__temp_executeDef81739 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("close"))) );
 					}
 					
 					break;
@@ -140,7 +167,7 @@ public  class NativeOutput extends haxe.io.Output
 				{
 					if (field.equals("writeByte")) 
 					{
-						__temp_executeDef56616 = false;
+						__temp_executeDef81739 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeByte"))) );
 					}
 					
@@ -150,7 +177,7 @@ public  class NativeOutput extends haxe.io.Output
 				
 			}
 			
-			if (__temp_executeDef56616) 
+			if (__temp_executeDef81739) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

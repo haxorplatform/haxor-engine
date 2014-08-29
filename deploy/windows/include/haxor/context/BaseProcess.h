@@ -17,12 +17,12 @@ class HXCPP_CLASS_ATTRIBUTES  BaseProcess_obj : public hx::Object{
 		typedef hx::Object super;
 		typedef BaseProcess_obj OBJ_;
 		BaseProcess_obj();
-		Void __construct(::String p_name);
+		Void __construct(::String p_name,hx::Null< bool >  __o_p_update_cid);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< BaseProcess_obj > __new(::String p_name);
+		static hx::ObjectPtr< BaseProcess_obj > __new(::String p_name,hx::Null< bool >  __o_p_update_cid);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~BaseProcess_obj();

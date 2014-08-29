@@ -61,6 +61,7 @@ implements Runnable
 	{
 		return new Activity(function(t : Float):Bool
 		{
+			
 			if (t >= p_time)
 			{
 				p_callback();
@@ -90,7 +91,7 @@ implements Runnable
 	static public function RunOnce(p_callback : Void->Void, p_threaded : Bool = false, p_graphics_context:Bool = false):Activity
 	{
 		return new Activity(function(t : Float):Bool
-		{
+		{		
 			p_callback();
 			return false;
 		},p_threaded,p_graphics_context);
@@ -122,13 +123,15 @@ implements Runnable
 	 * Creates a new activity handled by the informed callback.
 	 */
 	public function new(p_callback : Float->Bool, p_threaded : Bool = false, p_graphics_context:Bool = false) :Void
-	{
+	{	
 		super();
 		if (p_callback == null) { return; }
+		
 		m_time_start = Time.elapsed;
 		m_elapsed	 = 0.0;
 		m_callback   = p_callback;
 		m_cancelled = false;
+		
 		#if html
 		p_threaded = false;
 		#end
@@ -136,9 +139,9 @@ implements Runnable
 		if (p_graphics_context) p_threaded = false;
 		
 		if (!p_threaded)
-		{
+		{			
 			if (p_graphics_context)
-			{
+			{	
 				EngineContext.render.Add(this);
 			}
 			else

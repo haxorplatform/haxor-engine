@@ -4,7 +4,7 @@ package haxor.platform.windows.net;
 
 import haxe.Http;
 import haxor.core.Console;
-import haxor.graphics.Enums.PixelFormat;
+import haxor.core.Enums.PixelFormat;
 import haxor.graphics.texture.Bitmap;
 import haxor.io.Buffer;
 import haxor.net.Web;
@@ -60,7 +60,7 @@ class BitmapLoader extends HTTPLoader<Buffer>
 			var h : Int = 0;
 			var byte_length : Int = 0;
 			var cc : Int = 0;
-			/*
+			
 			untyped __cpp__('
 			unsigned char * img_buffer = (stbi_uc * ) stbi_load_from_memory( & file_bl->b[0], file_len, & w, & h, & cc, 0);			
 			');						
@@ -69,7 +69,7 @@ class BitmapLoader extends HTTPLoader<Buffer>
 			byte_length = w * h * cc;			
 			var buffer : Buffer = new Buffer(byte_length);
 			var bytes : ArrayBuffer = buffer.m_buffer;
-			/*
+			
 			untyped __cpp__('
 			for (int i = 0; i < byte_length;i++) bytes->b[i] = img_buffer[i];
 			stbi_image_free(img_buffer);

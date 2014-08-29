@@ -6,20 +6,20 @@ public  class Application extends haxor.platform.android.AndroidApplication
 {
 	public    Application(haxe.lang.EmptyObject empty)
 	{
-		super(haxe.lang.EmptyObject.EMPTY);
+		super(((haxe.lang.EmptyObject) (haxe.lang.EmptyObject.EMPTY) ));
 	}
 	
 	
-	public    Application()
+	public    Application(java.lang.String p_name)
 	{
-		super(haxe.lang.EmptyObject.EMPTY);
-		haxor.core.Application.__hx_ctor_haxor_core_Application(this);
+		super(((haxe.lang.EmptyObject) (haxe.lang.EmptyObject.EMPTY) ));
+		haxor.core.Application.__hx_ctor_haxor_core_Application(this, p_name);
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Application(haxor.core.Application __temp_me56064)
+	public static   void __hx_ctor_haxor_core_Application(haxor.core.Application __temp_me80530, java.lang.String p_name)
 	{
-		haxor.platform.android.AndroidApplication.__hx_ctor_haxor_platform_android_AndroidApplication(__temp_me56064);
+		haxor.platform.android.AndroidApplication.__hx_ctor_haxor_platform_android_AndroidApplication(__temp_me80530, p_name);
 	}
 	
 	
@@ -31,7 +31,7 @@ public  class Application extends haxor.platform.android.AndroidApplication
 	
 	public static   java.lang.Object __hx_create(haxe.root.Array arr)
 	{
-		return new haxor.core.Application();
+		return new haxor.core.Application(haxe.lang.Runtime.toString(arr.__get(0)));
 	}
 	
 	

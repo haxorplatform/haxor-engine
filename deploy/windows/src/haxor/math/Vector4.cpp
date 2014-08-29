@@ -3,6 +3,9 @@
 #ifndef INCLUDED_Std
 #include <Std.h>
 #endif
+#ifndef INCLUDED_StringTools
+#include <StringTools.h>
+#endif
 #ifndef INCLUDED_haxor_context_DataContext
 #include <haxor/context/DataContext.h>
 #endif
@@ -314,27 +317,46 @@ HX_DEFINE_DYNAMIC_FUNC1(Vector4_obj,Sub,return )
 
 HX_DEFINE_DYNAMIC_FUNC1(Vector4_obj,Multiply,return )
 
-::haxor::math::Vector4 Vector4_obj::Normalize( ){
-	HX_STACK_FRAME("haxor.math.Vector4","Normalize",0xa03c5f36,"haxor.math.Vector4.Normalize","haxor/math/Vector4.hx",198,0x50940887)
+::haxor::math::Vector4 Vector4_obj::Scale( Float p_s){
+	HX_STACK_FRAME("haxor.math.Vector4","Scale",0xfa20adb3,"haxor.math.Vector4.Scale","haxor/math/Vector4.hx",198,0x50940887)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(199)
+	HX_STACK_ARG(p_s,"p_s")
+	HX_STACK_LINE(198)
+	hx::MultEq(this->x,p_s);
+	HX_STACK_LINE(198)
+	hx::MultEq(this->y,p_s);
+	HX_STACK_LINE(198)
+	hx::MultEq(this->z,p_s);
+	HX_STACK_LINE(198)
+	hx::MultEq(this->w,p_s);
+	HX_STACK_LINE(198)
+	return hx::ObjectPtr<OBJ_>(this);
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC1(Vector4_obj,Scale,return )
+
+::haxor::math::Vector4 Vector4_obj::Normalize( ){
+	HX_STACK_FRAME("haxor.math.Vector4","Normalize",0xa03c5f36,"haxor.math.Vector4.Normalize","haxor/math/Vector4.hx",205,0x50940887)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(206)
 	Float l = ::Math_obj::sqrt(((((this->x * this->x) + (this->y * this->y)) + (this->z * this->z)) + (this->w * this->w)));		HX_STACK_VAR(l,"l");
-	HX_STACK_LINE(200)
+	HX_STACK_LINE(207)
 	if (((l <= (int)0))){
-		HX_STACK_LINE(200)
+		HX_STACK_LINE(207)
 		return hx::ObjectPtr<OBJ_>(this);
 	}
-	HX_STACK_LINE(201)
+	HX_STACK_LINE(208)
 	Float _g = l = (Float(1.0) / Float(l));		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(201)
+	HX_STACK_LINE(208)
 	hx::MultEq(this->x,_g);
-	HX_STACK_LINE(202)
+	HX_STACK_LINE(209)
 	hx::MultEq(this->y,l);
-	HX_STACK_LINE(203)
+	HX_STACK_LINE(210)
 	hx::MultEq(this->z,l);
-	HX_STACK_LINE(204)
+	HX_STACK_LINE(211)
 	hx::MultEq(this->w,l);
-	HX_STACK_LINE(205)
+	HX_STACK_LINE(212)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -342,39 +364,39 @@ HX_DEFINE_DYNAMIC_FUNC1(Vector4_obj,Multiply,return )
 HX_DEFINE_DYNAMIC_FUNC0(Vector4_obj,Normalize,return )
 
 bool Vector4_obj::IsCulled( ){
-	HX_STACK_FRAME("haxor.math.Vector4","IsCulled",0x7c52ca92,"haxor.math.Vector4.IsCulled","haxor/math/Vector4.hx",213,0x50940887)
+	HX_STACK_FRAME("haxor.math.Vector4","IsCulled",0x7c52ca92,"haxor.math.Vector4.IsCulled","haxor/math/Vector4.hx",220,0x50940887)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(214)
+	HX_STACK_LINE(221)
 	if (((this->x < -(this->w)))){
-		HX_STACK_LINE(214)
+		HX_STACK_LINE(221)
 		return true;
 	}
-	HX_STACK_LINE(215)
+	HX_STACK_LINE(222)
 	if (((this->x > this->w))){
-		HX_STACK_LINE(215)
+		HX_STACK_LINE(222)
 		return true;
 	}
-	HX_STACK_LINE(216)
+	HX_STACK_LINE(223)
 	if (((this->y < -(this->w)))){
-		HX_STACK_LINE(216)
+		HX_STACK_LINE(223)
 		return true;
 	}
-	HX_STACK_LINE(217)
+	HX_STACK_LINE(224)
 	if (((this->y > this->w))){
-		HX_STACK_LINE(217)
+		HX_STACK_LINE(224)
 		return true;
 	}
-	HX_STACK_LINE(218)
+	HX_STACK_LINE(225)
 	if (((this->z < -(this->w)))){
-		HX_STACK_LINE(218)
+		HX_STACK_LINE(225)
 		return true;
 	}
-	HX_STACK_LINE(219)
+	HX_STACK_LINE(226)
 	if (((this->z > this->w))){
-		HX_STACK_LINE(219)
+		HX_STACK_LINE(226)
 		return true;
 	}
-	HX_STACK_LINE(220)
+	HX_STACK_LINE(227)
 	return false;
 }
 
@@ -382,9 +404,9 @@ bool Vector4_obj::IsCulled( ){
 HX_DEFINE_DYNAMIC_FUNC0(Vector4_obj,IsCulled,return )
 
 Array< Float > Vector4_obj::ToArray( ){
-	HX_STACK_FRAME("haxor.math.Vector4","ToArray",0xd2fa7587,"haxor.math.Vector4.ToArray","haxor/math/Vector4.hx",227,0x50940887)
+	HX_STACK_FRAME("haxor.math.Vector4","ToArray",0xd2fa7587,"haxor.math.Vector4.ToArray","haxor/math/Vector4.hx",234,0x50940887)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(227)
+	HX_STACK_LINE(234)
 	return Array_obj< Float >::__new().Add(this->x).Add(this->y).Add(this->z).Add(this->w);
 }
 
@@ -393,97 +415,97 @@ HX_DEFINE_DYNAMIC_FUNC0(Vector4_obj,ToArray,return )
 
 ::String Vector4_obj::ToString( hx::Null< int >  __o_p_places){
 int p_places = __o_p_places.Default(2);
-	HX_STACK_FRAME("haxor.math.Vector4","ToString",0x216c1123,"haxor.math.Vector4.ToString","haxor/math/Vector4.hx",234,0x50940887)
+	HX_STACK_FRAME("haxor.math.Vector4","ToString",0x216c1123,"haxor.math.Vector4.ToString","haxor/math/Vector4.hx",241,0x50940887)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_places,"p_places")
 {
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		Float _g1;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		{
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			Float _g;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			{
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(241)
 				Float p_v = (this->x * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(241)
 				_g = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			_g1 = (Float(_g) / Float(d));
 		}
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		::String _g2 = (HX_CSTRING("[") + _g1);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		::String _g3 = (_g2 + HX_CSTRING(","));		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		Float _g5;		HX_STACK_VAR(_g5,"_g5");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		{
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			Float _g4;		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			{
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(241)
 				Float p_v = (this->y * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(241)
 				_g4 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			_g5 = (Float(_g4) / Float(d));
 		}
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		::String _g6 = (_g3 + _g5);		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		::String _g7 = (_g6 + HX_CSTRING(","));		HX_STACK_VAR(_g7,"_g7");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		Float _g9;		HX_STACK_VAR(_g9,"_g9");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		{
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			Float _g8;		HX_STACK_VAR(_g8,"_g8");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			{
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(241)
 				Float p_v = (this->z * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(241)
 				_g8 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			_g9 = (Float(_g8) / Float(d));
 		}
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		::String _g10 = (_g7 + _g9);		HX_STACK_VAR(_g10,"_g10");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		::String _g11 = (_g10 + HX_CSTRING(","));		HX_STACK_VAR(_g11,"_g11");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		Float _g13;		HX_STACK_VAR(_g13,"_g13");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		{
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			Float _g12;		HX_STACK_VAR(_g12,"_g12");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			{
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(241)
 				Float p_v = (this->w * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(241)
 				_g12 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(241)
 			_g13 = (Float(_g12) / Float(d));
 		}
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		::String _g14 = (_g11 + _g13);		HX_STACK_VAR(_g14,"_g14");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(241)
 		return (_g14 + HX_CSTRING("]"));
 	}
 }
@@ -550,6 +572,38 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Vector4_obj,get_W,return )
 
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC3(Vector4_obj,Lerp,return )
+
+::haxor::math::Vector4 Vector4_obj::Parse( ::String p_data,::String __o_p_delimiter){
+::String p_delimiter = __o_p_delimiter.Default(HX_CSTRING(" "));
+	HX_STACK_FRAME("haxor.math.Vector4","Parse",0x3ea76f5c,"haxor.math.Vector4.Parse","haxor/math/Vector4.hx",249,0x50940887)
+	HX_STACK_ARG(p_data,"p_data")
+	HX_STACK_ARG(p_delimiter,"p_delimiter")
+{
+		HX_STACK_LINE(250)
+		Array< ::String > tk = p_data.split(p_delimiter);		HX_STACK_VAR(tk,"tk");
+		HX_STACK_LINE(252)
+		::String _g = ::StringTools_obj::trim(tk->__get((int)0));		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(252)
+		Float _g1 = ::Std_obj::parseFloat(_g);		HX_STACK_VAR(_g1,"_g1");
+		HX_STACK_LINE(253)
+		::String _g2 = ::StringTools_obj::trim(tk->__get((int)1));		HX_STACK_VAR(_g2,"_g2");
+		HX_STACK_LINE(253)
+		Float _g3 = ::Std_obj::parseFloat(_g2);		HX_STACK_VAR(_g3,"_g3");
+		HX_STACK_LINE(254)
+		::String _g4 = ::StringTools_obj::trim(tk->__get((int)2));		HX_STACK_VAR(_g4,"_g4");
+		HX_STACK_LINE(254)
+		Float _g5 = ::Std_obj::parseFloat(_g4);		HX_STACK_VAR(_g5,"_g5");
+		HX_STACK_LINE(255)
+		::String _g6 = ::StringTools_obj::trim(tk->__get((int)3));		HX_STACK_VAR(_g6,"_g6");
+		HX_STACK_LINE(255)
+		Float _g7 = ::Std_obj::parseFloat(_g6);		HX_STACK_VAR(_g7,"_g7");
+		HX_STACK_LINE(251)
+		return ::haxor::math::Vector4_obj::__new((int)0,(int)0,(int)0,(int)0)->Set(_g1,_g3,_g5,_g7);
+	}
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Vector4_obj,Parse,return )
 
 
 Vector4_obj::Vector4_obj()
@@ -622,7 +676,9 @@ Dynamic Vector4_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"get_W") ) { return get_W_dyn(); }
+		if (HX_FIELD_EQ(inName,"Parse") ) { return Parse_dyn(); }
 		if (HX_FIELD_EQ(inName,"clone") ) { return inCallProp ? get_clone() : clone; }
+		if (HX_FIELD_EQ(inName,"Scale") ) { return Scale_dyn(); }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"get_xy") ) { return get_xy_dyn(); }
@@ -726,6 +782,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("W"),
 	HX_CSTRING("get_W"),
 	HX_CSTRING("Lerp"),
+	HX_CSTRING("Parse"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE
@@ -775,6 +832,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("Add"),
 	HX_CSTRING("Sub"),
 	HX_CSTRING("Multiply"),
+	HX_CSTRING("Scale"),
 	HX_CSTRING("Normalize"),
 	HX_CSTRING("IsCulled"),
 	HX_CSTRING("ToArray"),

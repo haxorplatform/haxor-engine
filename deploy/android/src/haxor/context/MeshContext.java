@@ -18,19 +18,19 @@ public  class MeshContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_MeshContext(haxor.context.MeshContext __temp_me56083)
+	public static   void __hx_ctor_haxor_context_MeshContext(haxor.context.MeshContext __temp_me80601)
 	{
-		__temp_me56083.attribs = new haxe.root.Array<java.lang.String>(new java.lang.String[]{"vertex", "normal", "uv0", "uv1", "uv2", "color", "weight", "index"});
-		__temp_me56083.aid = 0;
-		__temp_me56083.mid = 0;
-		__temp_me56083.buffers = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me56083.activated = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me80601.attribs = new haxe.root.Array<java.lang.String>(new java.lang.String[]{"vertex", "normal", "uv0", "uv1", "uv2", "color", "weight", "index"});
+		__temp_me80601.aid = new haxor.context.UID();
+		__temp_me80601.mid = new haxor.context.UID();
+		__temp_me80601.buffers = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me80601.activated = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 		{
 			int _g = 0;
 			while (( _g < 32 ))
 			{
 				int i = _g++;
-				__temp_me56083.activated.push(false);
+				__temp_me80601.activated.push(false);
 			}
 			
 		}
@@ -41,7 +41,7 @@ public  class MeshContext extends haxe.lang.HxObject
 			while (( _g1 < max_buffers ))
 			{
 				int i1 = _g1++;
-				__temp_me56083.buffers.push(haxor.graphics.GL.INVALID);
+				__temp_me80601.buffers.push(haxor.graphics.GL.INVALID);
 			}
 			
 		}
@@ -61,9 +61,9 @@ public  class MeshContext extends haxe.lang.HxObject
 	}
 	
 	
-	public  int aid;
+	public  haxor.context.UID aid;
 	
-	public  int mid;
+	public  haxor.context.UID mid;
 	
 	public  haxe.root.Array<java.lang.String> attribs;
 	
@@ -132,6 +132,12 @@ public  class MeshContext extends haxe.lang.HxObject
 				
 				if ( ! (has_color) ) 
 				{
+					if (haxe.lang.Runtime.toBool(this.activated.__get(5))) 
+					{
+						haxor.graphics.GL.m_gl.DisableVertexAttrib(5);
+						this.activated.__set(5, false);
+					}
+					
 					haxor.graphics.GL.m_gl.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
 				}
 				
@@ -141,7 +147,6 @@ public  class MeshContext extends haxe.lang.HxObject
 					haxor.graphics.GL.m_gl.BindBuffer(34963, ((int) (haxe.lang.Runtime.toInt(this.buffers.__get(a.__cid))) ));
 				}
 				
-				haxor.graphics.GL.m_gl.Assert("Mesh Bind");
 			}
 			
 		}
@@ -162,12 +167,10 @@ public  class MeshContext extends haxe.lang.HxObject
 		if (m.m_indexed) 
 		{
 			haxor.graphics.GL.m_gl.DrawElements(m.primitive, m.m_topology_attrib.data.m_length, 5123, 0);
-			haxor.graphics.GL.m_gl.Assert("Mesh DrawElements");
 		}
 		 else 
 		{
 			haxor.graphics.GL.m_gl.DrawArrays(m.primitive, 0, m.m_vcount);
-			haxor.graphics.GL.m_gl.Assert("Mesh DrawArrays");
 		}
 		
 	}
@@ -183,6 +186,12 @@ public  class MeshContext extends haxe.lang.HxObject
 		
 		haxor.graphics.GL.m_gl.DeleteBuffer(id);
 		this.buffers.__set(p_attrib.__cid, haxor.graphics.GL.INVALID);
+		{
+			int v = p_attrib.__cid;
+			this.aid.m_cache.push(v);
+			int __temp_expr81289 = v;
+		}
+		
 	}
 	
 	
@@ -208,48 +217,21 @@ public  class MeshContext extends haxe.lang.HxObject
 		
 		haxor.graphics.GL.m_gl.BindBuffer(target_flag, id);
 		haxor.graphics.GL.m_gl.BufferData(target_flag, a.data, p_mode);
-		haxor.graphics.GL.m_gl.Assert(( ( "Mesh BufferData attrib[" + a.m_name ) + "]" ));
 	}
 	
 	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56372 = true;
+			boolean __temp_executeDef81290 = true;
 			switch (field.hashCode())
 			{
 				case 2044289195:
 				{
 					if (field.equals("active_max")) 
 					{
-						__temp_executeDef56372 = false;
+						__temp_executeDef81290 = false;
 						this.active_max = ((int) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 96572:
-				{
-					if (field.equals("aid")) 
-					{
-						__temp_executeDef56372 = false;
-						this.aid = ((int) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 108104:
-				{
-					if (field.equals("mid")) 
-					{
-						__temp_executeDef56372 = false;
-						this.mid = ((int) (value) );
 						return value;
 					}
 					
@@ -259,7 +241,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef56372) 
+			if (__temp_executeDef81290) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -276,14 +258,14 @@ public  class MeshContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56373 = true;
+			boolean __temp_executeDef81291 = true;
 			switch (field.hashCode())
 			{
 				case 1126940025:
 				{
 					if (field.equals("current")) 
 					{
-						__temp_executeDef56373 = false;
+						__temp_executeDef81291 = false;
 						this.current = ((haxor.graphics.mesh.Mesh) (value) );
 						return value;
 					}
@@ -296,8 +278,8 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("aid")) 
 					{
-						__temp_executeDef56373 = false;
-						this.aid = ((int) (haxe.lang.Runtime.toInt(value)) );
+						__temp_executeDef81291 = false;
+						this.aid = ((haxor.context.UID) (value) );
 						return value;
 					}
 					
@@ -309,7 +291,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("active_max")) 
 					{
-						__temp_executeDef56373 = false;
+						__temp_executeDef81291 = false;
 						this.active_max = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -322,8 +304,8 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("mid")) 
 					{
-						__temp_executeDef56373 = false;
-						this.mid = ((int) (haxe.lang.Runtime.toInt(value)) );
+						__temp_executeDef81291 = false;
+						this.mid = ((haxor.context.UID) (value) );
 						return value;
 					}
 					
@@ -335,7 +317,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("activated")) 
 					{
-						__temp_executeDef56373 = false;
+						__temp_executeDef81291 = false;
 						this.activated = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -348,7 +330,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("attribs")) 
 					{
-						__temp_executeDef56373 = false;
+						__temp_executeDef81291 = false;
 						this.attribs = ((haxe.root.Array<java.lang.String>) (value) );
 						return value;
 					}
@@ -361,7 +343,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("buffers")) 
 					{
-						__temp_executeDef56373 = false;
+						__temp_executeDef81291 = false;
 						this.buffers = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -372,7 +354,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef56373) 
+			if (__temp_executeDef81291) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -389,14 +371,14 @@ public  class MeshContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56374 = true;
+			boolean __temp_executeDef81292 = true;
 			switch (field.hashCode())
 			{
 				case -1291178733:
 				{
 					if (field.equals("UpdateAttrib")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateAttrib"))) );
 					}
 					
@@ -408,7 +390,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("aid")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return this.aid;
 					}
 					
@@ -420,7 +402,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("RemoveAttrib")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("RemoveAttrib"))) );
 					}
 					
@@ -432,7 +414,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("mid")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return this.mid;
 					}
 					
@@ -444,7 +426,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Draw")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Draw"))) );
 					}
 					
@@ -456,7 +438,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("attribs")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return this.attribs;
 					}
 					
@@ -468,7 +450,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Unbind")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Unbind"))) );
 					}
 					
@@ -480,7 +462,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("buffers")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return this.buffers;
 					}
 					
@@ -492,7 +474,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Bind")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Bind"))) );
 					}
 					
@@ -504,7 +486,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("activated")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return this.activated;
 					}
 					
@@ -516,7 +498,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Initialize"))) );
 					}
 					
@@ -528,7 +510,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("active_max")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return this.active_max;
 					}
 					
@@ -540,7 +522,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("current")) 
 					{
-						__temp_executeDef56374 = false;
+						__temp_executeDef81292 = false;
 						return this.current;
 					}
 					
@@ -550,7 +532,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef56374) 
+			if (__temp_executeDef81292) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -567,39 +549,15 @@ public  class MeshContext extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56375 = true;
+			boolean __temp_executeDef81293 = true;
 			switch (field.hashCode())
 			{
 				case 2044289195:
 				{
 					if (field.equals("active_max")) 
 					{
-						__temp_executeDef56375 = false;
+						__temp_executeDef81293 = false;
 						return ((double) (this.active_max) );
-					}
-					
-					break;
-				}
-				
-				
-				case 96572:
-				{
-					if (field.equals("aid")) 
-					{
-						__temp_executeDef56375 = false;
-						return ((double) (this.aid) );
-					}
-					
-					break;
-				}
-				
-				
-				case 108104:
-				{
-					if (field.equals("mid")) 
-					{
-						__temp_executeDef56375 = false;
-						return ((double) (this.mid) );
 					}
 					
 					break;
@@ -608,7 +566,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef56375) 
+			if (__temp_executeDef81293) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -625,14 +583,14 @@ public  class MeshContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef56376 = true;
+			boolean __temp_executeDef81294 = true;
 			switch (field.hashCode())
 			{
 				case -1291178733:
 				{
 					if (field.equals("UpdateAttrib")) 
 					{
-						__temp_executeDef56376 = false;
+						__temp_executeDef81294 = false;
 						this.UpdateAttrib(((haxor.graphics.mesh.MeshAttrib) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), haxe.lang.Runtime.toBool(dynargs.__get(2)));
 					}
 					
@@ -644,7 +602,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef56376 = false;
+						__temp_executeDef81294 = false;
 						this.Initialize();
 					}
 					
@@ -656,7 +614,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("RemoveAttrib")) 
 					{
-						__temp_executeDef56376 = false;
+						__temp_executeDef81294 = false;
 						this.RemoveAttrib(((haxor.graphics.mesh.MeshAttrib) (dynargs.__get(0)) ));
 					}
 					
@@ -668,7 +626,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Bind")) 
 					{
-						__temp_executeDef56376 = false;
+						__temp_executeDef81294 = false;
 						this.Bind(((haxor.graphics.mesh.Mesh) (dynargs.__get(0)) ));
 					}
 					
@@ -680,7 +638,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Draw")) 
 					{
-						__temp_executeDef56376 = false;
+						__temp_executeDef81294 = false;
 						this.Draw(((haxor.graphics.mesh.Mesh) (dynargs.__get(0)) ));
 					}
 					
@@ -692,7 +650,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Unbind")) 
 					{
-						__temp_executeDef56376 = false;
+						__temp_executeDef81294 = false;
 						this.Unbind();
 					}
 					
@@ -702,7 +660,7 @@ public  class MeshContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef56376) 
+			if (__temp_executeDef81294) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

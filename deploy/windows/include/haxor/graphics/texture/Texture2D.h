@@ -7,9 +7,9 @@
 
 #include <haxor/graphics/texture/Texture.h>
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,PixelFormat)
 HX_DECLARE_CLASS2(haxor,core,Resource)
-HX_DECLARE_CLASS2(haxor,graphics,PixelFormat)
-HX_DECLARE_CLASS2(haxor,graphics,TextureType)
+HX_DECLARE_CLASS2(haxor,core,TextureType)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Bitmap)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture2D)
@@ -23,12 +23,12 @@ class HXCPP_CLASS_ATTRIBUTES  Texture2D_obj : public ::haxor::graphics::texture:
 		typedef ::haxor::graphics::texture::Texture_obj super;
 		typedef Texture2D_obj OBJ_;
 		Texture2D_obj();
-		Void __construct(int p_width,int p_height,::haxor::graphics::PixelFormat p_format);
+		Void __construct(int p_width,int p_height,::haxor::core::PixelFormat p_format);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< Texture2D_obj > __new(int p_width,int p_height,::haxor::graphics::PixelFormat p_format);
+		static hx::ObjectPtr< Texture2D_obj > __new(int p_width,int p_height,::haxor::core::PixelFormat p_format);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~Texture2D_obj();
@@ -45,7 +45,7 @@ class HXCPP_CLASS_ATTRIBUTES  Texture2D_obj : public ::haxor::graphics::texture:
 		Dynamic get_data_dyn();
 
 		::haxor::graphics::texture::Bitmap m_data;
-		virtual ::haxor::graphics::TextureType get_type( );
+		virtual ::haxor::core::TextureType get_type( );
 
 		virtual Void Upload( hx::Null< int >  p_steps,Dynamic p_on_complete);
 		Dynamic Upload_dyn();
@@ -58,6 +58,14 @@ class HXCPP_CLASS_ATTRIBUTES  Texture2D_obj : public ::haxor::graphics::texture:
 		static Dynamic get_red_dyn();
 
 		static ::haxor::graphics::texture::Texture2D m_red;
+		static ::haxor::graphics::texture::Texture2D get_green( );
+		static Dynamic get_green_dyn();
+
+		static ::haxor::graphics::texture::Texture2D m_green;
+		static ::haxor::graphics::texture::Texture2D get_random( );
+		static Dynamic get_random_dyn();
+
+		static ::haxor::graphics::texture::Texture2D m_random;
 		static ::haxor::graphics::texture::Texture2D FromBitmap( ::haxor::graphics::texture::Bitmap p_bitmap,hx::Null< bool >  p_apply);
 		static Dynamic FromBitmap_dyn();
 

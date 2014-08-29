@@ -1,5 +1,6 @@
 #if windows
 package haxor.platform.windows;
+import haxor.platform.windows.input.WinInputHandler;
 import haxor.graphics.GL;
 import haxor.core.Console;
 import haxor.core.Application;
@@ -12,6 +13,7 @@ import haxor.platform.OSWindow;
 
 @:headerCode('
 #include <windows.h>
+#include <Xinput.h>
 #include <stdio.h>
 #include "gl/glew.h"
 ')
@@ -82,9 +84,15 @@ LRESULT CALLBACK haxor::platform::windows::Window_obj::WndProc(HWND p_hwnd, UINT
 				}			
 				m_instance-> m_mouseX = mp.x;
 				m_instance-> m_mouseY = mp.y;
-									
-				if (m_build)m_application->Update();
-				if (m_build)m_application->Render();
+				
+				if (m_build)
+				{
+					input->OnMouseMove(mp.x, mp.y);
+					m_application->Update();
+					m_application->Render();
+				}
+				
+				
 				
 				return true;
 			}
@@ -102,19 +110,40 @@ LRESULT CALLBACK haxor::platform::windows::Window_obj::WndProc(HWND p_hwnd, UINT
 		case WM_MOUSEMOVE:
 			{
 				POINT mp;
-				GetCursorPos(&mp);
+				GetCursorPos( & mp);
 				//SetCursorPos(300, 300);		
 			}
 			break;
 			
-		case WM_KEYDOWN:
+		case WM_LBUTTONDOWN: if (m_build) input->OnMouseButton(0, true); break;			
+		case WM_LBUTTONUP: 	 if (m_build) input->OnMouseButton(0, false); break;		
+		case WM_MBUTTONDOWN: if (m_build) input->OnMouseButton(1, true); break;			
+		case WM_MBUTTONUP: 	 if (m_build) input->OnMouseButton(1, false); break;
+		case WM_RBUTTONDOWN: if (m_build) input->OnMouseButton(2, true); break;			
+		case WM_RBUTTONUP: 	 if (m_build) input->OnMouseButton(2, false); break;
+		
+		case WM_MOUSEWHEEL:		
+		if (m_build)
+		{
+			float wheel = ((float) GET_WHEEL_DELTA_WPARAM(wParam)) / ((float) WHEEL_DELTA);
+			input->OnMouseWheel(wheel);
+		}
+		break;
+		
+		case WM_KEYUP:
+			
+			if (m_build) input->OnKey(wParam, false);
+			break;
+			
+		case WM_KEYDOWN:			
+			if (m_build) input->OnKey(wParam, true);
+			//printf("%d\\n", wParam);
 			
 			if (wParam == VK_SPACE)
 			{
 				//bool b = m_instance-> get_fullscreen();
-				//m_instance->set_fullscreen(!b);
-				
-				m_instance-> m_cursor_lock = !m_instance-> m_cursor_lock;
+				//m_instance->set_fullscreen(!b);			
+				//m_instance-> m_cursor_lock = !m_instance-> m_cursor_lock;
 				
 			}
 			
@@ -188,6 +217,10 @@ class Window extends OSWindow
 	private function set_border(v:Bool):Bool { m_border = v; OnStyle(); return v; }
 	private var m_border : Bool;
 		
+	/**
+	 * Reference to the engine input handler.
+	 */
+	static private var input : WinInputHandler;
 	
 	/**
 	 * Reference to the main application.
@@ -218,6 +251,7 @@ class Window extends OSWindow
 		m_application 			= p_application;
 		m_application.m_window 	= this;
 		m_build					= false;
+		input					= new WinInputHandler();
 		
 		super(p_title, p_x, p_y, p_width, p_height);
 		
@@ -276,15 +310,18 @@ class Window extends OSWindow
 	 */
 	override public function Run():Void
 	{
-		untyped __cpp__
-		('
-			MSG Msg;
-			
-			while (GetMessage(&Msg, NULL, 0, 0) > 0) 
-			{
-				DispatchMessage(&Msg); 
-			}
-		');
+		var res : Int = 0;
+		while (true)
+		{
+			untyped __cpp__
+			('
+				MSG Msg;
+				res = GetMessage( & Msg, NULL, 0, 0);				
+				DispatchMessage( & Msg);
+				if (res <= 0) break;
+			');
+			Sys.sleep(0.002);
+		}		
 	}
 	
 	/**

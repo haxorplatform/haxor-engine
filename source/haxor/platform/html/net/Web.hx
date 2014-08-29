@@ -1,7 +1,7 @@
 #if html
 package haxor.platform.html.net;
 import haxor.net.HTTPRequestTask;
-import haxor.graphics.Enums.PixelFormat;
+import haxor.core.Enums.PixelFormat;
 import haxor.graphics.texture.Bitmap;
 import haxe.Timer;
 import haxor.core.Console;

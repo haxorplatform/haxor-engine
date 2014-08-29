@@ -6,12 +6,17 @@
 #endif
 
 HX_DECLARE_CLASS2(haxor,context,BaseProcess)
+HX_DECLARE_CLASS2(haxor,context,CameraContext)
 HX_DECLARE_CLASS2(haxor,context,DataContext)
 HX_DECLARE_CLASS2(haxor,context,EngineContext)
+HX_DECLARE_CLASS2(haxor,context,GizmoContext)
 HX_DECLARE_CLASS2(haxor,context,MaterialContext)
 HX_DECLARE_CLASS2(haxor,context,MeshContext)
 HX_DECLARE_CLASS2(haxor,context,Process)
+HX_DECLARE_CLASS2(haxor,context,RendererContext)
 HX_DECLARE_CLASS2(haxor,context,TextureContext)
+HX_DECLARE_CLASS2(haxor,context,TransformContext)
+HX_DECLARE_CLASS2(haxor,core,Entity)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 namespace haxor{
@@ -51,11 +56,24 @@ class HXCPP_CLASS_ATTRIBUTES  EngineContext_obj : public hx::Object{
 		static ::haxor::context::MaterialContext material;
 		static ::haxor::context::TextureContext texture;
 		static ::haxor::context::DataContext data;
+		static ::haxor::context::CameraContext camera;
+		static ::haxor::context::TransformContext transform;
+		static ::haxor::context::RendererContext renderer;
+		static ::haxor::context::GizmoContext gizmo;
 		static Void Initialize( );
 		static Dynamic Initialize_dyn();
 
 		static Void Build( );
 		static Dynamic Build_dyn();
+
+		static Void Enable( ::haxor::core::Resource p_resource);
+		static Dynamic Enable_dyn();
+
+		static Void Disable( ::haxor::core::Resource p_resource);
+		static Dynamic Disable_dyn();
+
+		static Void OnEntiyLayerChange( ::haxor::core::Entity p_entity,int p_from,int p_to);
+		static Dynamic OnEntiyLayerChange_dyn();
 
 		static Void Destroy( ::haxor::core::Resource p_resource);
 		static Dynamic Destroy_dyn();

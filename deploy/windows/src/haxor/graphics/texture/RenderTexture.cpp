@@ -12,17 +12,17 @@
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
+#ifndef INCLUDED_haxor_core_PixelFormat
+#include <haxor/core/PixelFormat.h>
+#endif
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
+#ifndef INCLUDED_haxor_core_TextureType
+#include <haxor/core/TextureType.h>
+#endif
 #ifndef INCLUDED_haxor_graphics_GL
 #include <haxor/graphics/GL.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_PixelFormat
-#include <haxor/graphics/PixelFormat.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_TextureType
-#include <haxor/graphics/TextureType.h>
 #endif
 #ifndef INCLUDED_haxor_graphics_texture_RenderTexture
 #include <haxor/graphics/texture/RenderTexture.h>
@@ -37,7 +37,7 @@ namespace haxor{
 namespace graphics{
 namespace texture{
 
-Void RenderTexture_obj::__construct(int p_width,int p_height,::haxor::graphics::PixelFormat p_format,hx::Null< bool >  __o_p_store_depth)
+Void RenderTexture_obj::__construct(int p_width,int p_height,::haxor::core::PixelFormat p_format,hx::Null< bool >  __o_p_store_depth)
 {
 HX_STACK_FRAME("haxor.graphics.texture.RenderTexture","new",0x4870ea6d,"haxor.graphics.texture.RenderTexture.new","haxor/graphics/texture/RenderTexture.hx",36,0x81f3eb84)
 HX_STACK_THIS(this)
@@ -64,7 +64,7 @@ bool p_store_depth = __o_p_store_depth.Default(false);
 	HX_STACK_LINE(44)
 	if ((store_depth)){
 		HX_STACK_LINE(46)
-		::haxor::graphics::texture::Texture2D _g2 = ::haxor::graphics::texture::Texture2D_obj::__new(this->m_width,this->m_height,::haxor::graphics::PixelFormat_obj::Depth);		HX_STACK_VAR(_g2,"_g2");
+		::haxor::graphics::texture::Texture2D _g2 = ::haxor::graphics::texture::Texture2D_obj::__new(this->m_width,this->m_height,::haxor::core::PixelFormat_obj::Depth);		HX_STACK_VAR(_g2,"_g2");
 		HX_STACK_LINE(46)
 		this->m_depth = _g2;
 	}
@@ -78,7 +78,7 @@ bool p_store_depth = __o_p_store_depth.Default(false);
 //RenderTexture_obj::~RenderTexture_obj() { }
 
 Dynamic RenderTexture_obj::__CreateEmpty() { return  new RenderTexture_obj; }
-hx::ObjectPtr< RenderTexture_obj > RenderTexture_obj::__new(int p_width,int p_height,::haxor::graphics::PixelFormat p_format,hx::Null< bool >  __o_p_store_depth)
+hx::ObjectPtr< RenderTexture_obj > RenderTexture_obj::__new(int p_width,int p_height,::haxor::core::PixelFormat p_format,hx::Null< bool >  __o_p_store_depth)
 {  hx::ObjectPtr< RenderTexture_obj > result = new RenderTexture_obj();
 	result->__construct(p_width,p_height,p_format,__o_p_store_depth);
 	return result;}
@@ -98,11 +98,11 @@ Dynamic RenderTexture_obj::__Create(hx::DynamicArray inArgs)
 
 HX_DEFINE_DYNAMIC_FUNC0(RenderTexture_obj,get_depth,return )
 
-::haxor::graphics::TextureType RenderTexture_obj::get_type( ){
+::haxor::core::TextureType RenderTexture_obj::get_type( ){
 	HX_STACK_FRAME("haxor.graphics.texture.RenderTexture","get_type",0x758c0516,"haxor.graphics.texture.RenderTexture.get_type","haxor/graphics/texture/RenderTexture.hx",25,0x81f3eb84)
 	HX_STACK_THIS(this)
 	HX_STACK_LINE(25)
-	return ::haxor::graphics::TextureType_obj::RenderTexture;
+	return ::haxor::core::TextureType_obj::RenderTexture;
 }
 
 

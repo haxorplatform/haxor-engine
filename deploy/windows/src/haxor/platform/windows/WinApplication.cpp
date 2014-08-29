@@ -37,7 +37,7 @@ HX_STACK_FRAME("haxor.platform.windows.WinApplication","new",0xe4507a60,"haxor.p
 HX_STACK_THIS(this)
 {
 	HX_STACK_LINE(31)
-	super::__construct();
+	super::__construct(null());
 	HX_STACK_LINE(32)
 	this->m_platform = ::haxor::core::Platform_obj::Windows;
 }

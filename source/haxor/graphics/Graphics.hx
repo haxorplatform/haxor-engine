@@ -1,7 +1,8 @@
 package haxor.graphics;
 import haxor.component.Camera;
+import haxor.component.Transform;
 import haxor.context.EngineContext;
-import haxor.graphics.Enums.ClearFlag;
+import haxor.core.Enums.ClearFlag;
 import haxor.graphics.material.Material;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.GL;
@@ -77,9 +78,9 @@ class Graphics
 	 * @param	p_mesh
 	 * @param	p_material
 	 */
-	static public function RenderMesh(p_mesh : Mesh, p_material : Material):Void
+	static public function Render(p_mesh : Mesh, p_material : Material,p_transform:Transform=null,p_camera : Camera=null):Void
 	{
-		EngineContext.material.Bind(p_material);		
+		EngineContext.material.Bind(p_material,p_transform,p_camera);
 		EngineContext.mesh.Bind(p_mesh);
 		EngineContext.mesh.Draw(p_mesh);
 	}

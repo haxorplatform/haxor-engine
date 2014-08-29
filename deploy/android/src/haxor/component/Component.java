@@ -6,21 +6,20 @@ public  class Component extends haxor.core.Resource
 {
 	public    Component(haxe.lang.EmptyObject empty)
 	{
-		super(haxe.lang.EmptyObject.EMPTY);
+		super(((haxe.lang.EmptyObject) (haxe.lang.EmptyObject.EMPTY) ));
 	}
 	
 	
-	public    Component()
+	public    Component(java.lang.String p_name)
 	{
 		super(((haxe.lang.EmptyObject) (haxe.lang.EmptyObject.EMPTY) ));
-		haxor.component.Component.__hx_ctor_haxor_component_Component(this);
+		haxor.component.Component.__hx_ctor_haxor_component_Component(this, p_name);
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_Component(haxor.component.Component __temp_me56060)
+	public static   void __hx_ctor_haxor_component_Component(haxor.component.Component __temp_me80526, java.lang.String p_name)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me56060, "");
-		__temp_me56060.OnBuild();
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me80526, p_name);
 	}
 	
 	
@@ -32,7 +31,7 @@ public  class Component extends haxor.core.Resource
 	
 	public static   java.lang.Object __hx_create(haxe.root.Array arr)
 	{
-		return new haxor.component.Component();
+		return new haxor.component.Component(haxe.lang.Runtime.toString(arr.__get(0)));
 	}
 	
 	
@@ -59,7 +58,23 @@ public  class Component extends haxor.core.Resource
 	
 	public  haxor.core.Entity m_entity;
 	
+	public  haxor.component.Transform transform;
+	
+	public final   haxor.component.Transform get_transform()
+	{
+		return this.m_entity.m_transform;
+	}
+	
+	
 	public   void OnBuild()
+	{
+		{
+		}
+		
+	}
+	
+	
+	public   void OnTransformUpdate()
 	{
 		{
 		}
@@ -70,15 +85,15 @@ public  class Component extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56270 = true;
+			boolean __temp_executeDef80899 = true;
 			switch (field.hashCode())
 			{
-				case -1897006091:
+				case 1052666732:
 				{
-					if (field.equals("m_entity")) 
+					if (field.equals("transform")) 
 					{
-						__temp_executeDef56270 = false;
-						this.m_entity = ((haxor.core.Entity) (value) );
+						__temp_executeDef80899 = false;
+						this.transform = ((haxor.component.Transform) (value) );
 						return value;
 					}
 					
@@ -90,8 +105,21 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("entity")) 
 					{
-						__temp_executeDef56270 = false;
+						__temp_executeDef80899 = false;
 						this.entity = ((haxor.core.Entity) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -1897006091:
+				{
+					if (field.equals("m_entity")) 
+					{
+						__temp_executeDef80899 = false;
+						this.m_entity = ((haxor.core.Entity) (value) );
 						return value;
 					}
 					
@@ -101,7 +129,7 @@ public  class Component extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef56270) 
+			if (__temp_executeDef80899) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -118,15 +146,15 @@ public  class Component extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56271 = true;
+			boolean __temp_executeDef80900 = true;
 			switch (field.hashCode())
 			{
-				case 312095663:
+				case 1899224918:
 				{
-					if (field.equals("OnBuild")) 
+					if (field.equals("OnTransformUpdate")) 
 					{
-						__temp_executeDef56271 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
+						__temp_executeDef80900 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTransformUpdate"))) );
 					}
 					
 					break;
@@ -137,7 +165,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("get_name")) 
 					{
-						__temp_executeDef56271 = false;
+						__temp_executeDef80900 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_name"))) );
 					}
 					
@@ -145,12 +173,12 @@ public  class Component extends haxor.core.Resource
 				}
 				
 				
-				case -1897006091:
+				case 312095663:
 				{
-					if (field.equals("m_entity")) 
+					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef56271 = false;
-						return this.m_entity;
+						__temp_executeDef80900 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
 					}
 					
 					break;
@@ -161,7 +189,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("set_name")) 
 					{
-						__temp_executeDef56271 = false;
+						__temp_executeDef80900 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_name"))) );
 					}
 					
@@ -169,12 +197,12 @@ public  class Component extends haxor.core.Resource
 				}
 				
 				
-				case 782402796:
+				case 1567506883:
 				{
-					if (field.equals("get_entity")) 
+					if (field.equals("get_transform")) 
 					{
-						__temp_executeDef56271 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_entity"))) );
+						__temp_executeDef80900 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_transform"))) );
 					}
 					
 					break;
@@ -185,7 +213,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("entity")) 
 					{
-						__temp_executeDef56271 = false;
+						__temp_executeDef80900 = false;
 						if (handleProperties) 
 						{
 							return this.get_entity();
@@ -201,9 +229,53 @@ public  class Component extends haxor.core.Resource
 				}
 				
 				
+				case 1052666732:
+				{
+					if (field.equals("transform")) 
+					{
+						__temp_executeDef80900 = false;
+						if (handleProperties) 
+						{
+							return this.get_transform();
+						}
+						 else 
+						{
+							return this.transform;
+						}
+						
+					}
+					
+					break;
+				}
+				
+				
+				case 782402796:
+				{
+					if (field.equals("get_entity")) 
+					{
+						__temp_executeDef80900 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_entity"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1897006091:
+				{
+					if (field.equals("m_entity")) 
+					{
+						__temp_executeDef80900 = false;
+						return this.m_entity;
+					}
+					
+					break;
+				}
+				
+				
 			}
 			
-			if (__temp_executeDef56271) 
+			if (__temp_executeDef80900) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -220,15 +292,15 @@ public  class Component extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash56273 = field.hashCode();
-			boolean __temp_executeDef56272 = true;
-			switch (__temp_hash56273)
+			int __temp_hash80902 = field.hashCode();
+			boolean __temp_executeDef80901 = true;
+			switch (__temp_hash80902)
 			{
 				case 1415373896:case 1976486356:
 				{
-					if (( (( ( __temp_hash56273 == 1415373896 ) && field.equals("set_name") )) || field.equals("get_name") )) 
+					if (( (( ( __temp_hash80902 == 1415373896 ) && field.equals("set_name") )) || field.equals("get_name") )) 
 					{
-						__temp_executeDef56272 = false;
+						__temp_executeDef80901 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -240,8 +312,32 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("get_entity")) 
 					{
-						__temp_executeDef56272 = false;
+						__temp_executeDef80901 = false;
 						return this.get_entity();
+					}
+					
+					break;
+				}
+				
+				
+				case 1899224918:
+				{
+					if (field.equals("OnTransformUpdate")) 
+					{
+						__temp_executeDef80901 = false;
+						this.OnTransformUpdate();
+					}
+					
+					break;
+				}
+				
+				
+				case 1567506883:
+				{
+					if (field.equals("get_transform")) 
+					{
+						__temp_executeDef80901 = false;
+						return this.get_transform();
 					}
 					
 					break;
@@ -252,7 +348,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef56272 = false;
+						__temp_executeDef80901 = false;
 						this.OnBuild();
 					}
 					
@@ -262,7 +358,7 @@ public  class Component extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef56272) 
+			if (__temp_executeDef80901) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
@@ -275,6 +371,7 @@ public  class Component extends haxor.core.Resource
 	
 	@Override public   void __hx_getFields(haxe.root.Array<java.lang.String> baseArr)
 	{
+		baseArr.push("transform");
 		baseArr.push("m_entity");
 		baseArr.push("entity");
 		{

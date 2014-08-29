@@ -80,6 +80,10 @@ class HXCPP_CLASS_ATTRIBUTES  Quaternion_obj : public hx::Object{
 		virtual ::haxor::math::Quaternion get_conjugate( );
 		Dynamic get_conjugate_dyn();
 
+		::haxor::math::Quaternion inverse;
+		virtual ::haxor::math::Quaternion get_inverse( );
+		Dynamic get_inverse_dyn();
+
 		virtual ::haxor::math::Quaternion Invert( );
 		Dynamic Invert_dyn();
 
@@ -89,8 +93,11 @@ class HXCPP_CLASS_ATTRIBUTES  Quaternion_obj : public hx::Object{
 		virtual ::haxor::math::Quaternion Multiply( ::haxor::math::Quaternion p_v,hx::Null< bool >  p_normalize);
 		Dynamic Multiply_dyn();
 
-		virtual ::haxor::math::Vector3 Multiply3( ::haxor::math::Vector3 p_v);
-		Dynamic Multiply3_dyn();
+		virtual ::haxor::math::Vector3 Rotate( ::haxor::math::Vector3 p_v);
+		Dynamic Rotate_dyn();
+
+		virtual ::haxor::math::Quaternion Delta( ::haxor::math::Quaternion p_q);
+		Dynamic Delta_dyn();
 
 		virtual ::haxor::math::Quaternion SetAxisAngle( ::haxor::math::Vector3 p_axis,Float p_angle);
 		Dynamic SetAxisAngle_dyn();
@@ -109,13 +116,25 @@ class HXCPP_CLASS_ATTRIBUTES  Quaternion_obj : public hx::Object{
 		static ::haxor::math::Quaternion get_identity( );
 		static Dynamic get_identity_dyn();
 
+		static ::haxor::math::Quaternion FromEuler( ::haxor::math::Vector3 p_euler,::haxor::math::Quaternion p_result);
+		static Dynamic FromEuler_dyn();
+
+		static ::haxor::math::Vector3 ToEuler( ::haxor::math::Quaternion p_quaternion,::haxor::math::Vector3 p_result);
+		static Dynamic ToEuler_dyn();
+
 		static ::haxor::math::Quaternion FromMatrix( ::haxor::math::Matrix4 p_matrix,::haxor::math::Quaternion p_result);
 		static Dynamic FromMatrix_dyn();
 
 		static Float Dot( ::haxor::math::Quaternion p_a,::haxor::math::Quaternion p_b);
 		static Dynamic Dot_dyn();
 
-		static ::haxor::math::Quaternion Lerp( ::haxor::math::Quaternion p_a,::haxor::math::Quaternion p_b,Float p_ratio);
+		static ::haxor::math::Quaternion DeltaRotation( ::haxor::math::Quaternion p_a,::haxor::math::Quaternion p_b,::haxor::math::Quaternion p_result);
+		static Dynamic DeltaRotation_dyn();
+
+		static ::haxor::math::Quaternion Inverse( ::haxor::math::Quaternion p_q,::haxor::math::Quaternion p_result);
+		static Dynamic Inverse_dyn();
+
+		static ::haxor::math::Quaternion Lerp( ::haxor::math::Quaternion p_a,::haxor::math::Quaternion p_b,Float p_ratio,::haxor::math::Quaternion p_result);
 		static Dynamic Lerp_dyn();
 
 		static ::haxor::math::Quaternion Slerp( ::haxor::math::Quaternion p_a,::haxor::math::Quaternion p_b,Float p_ratio);
@@ -124,11 +143,14 @@ class HXCPP_CLASS_ATTRIBUTES  Quaternion_obj : public hx::Object{
 		static ::haxor::math::Quaternion FromAxisAngle( ::haxor::math::Vector3 p_axis,Float p_angle);
 		static Dynamic FromAxisAngle_dyn();
 
-		static ::haxor::math::Quaternion LookAt( ::haxor::math::Vector3 p_from,::haxor::math::Vector3 p_at,::haxor::math::Vector3 p_up);
+		static ::haxor::math::Quaternion LookAt( ::haxor::math::Vector3 p_eye,::haxor::math::Vector3 p_at,::haxor::math::Vector3 p_up,::haxor::math::Quaternion p_result);
 		static Dynamic LookAt_dyn();
 
 		static ::haxor::math::Quaternion LookRotation( ::haxor::math::Vector3 p_forward,::haxor::math::Vector3 p_up);
 		static Dynamic LookRotation_dyn();
+
+		static ::haxor::math::Quaternion Parse( ::String p_data,::String p_delimiter);
+		static Dynamic Parse_dyn();
 
 };
 

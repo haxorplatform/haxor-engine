@@ -31,6 +31,9 @@ class HXCPP_CLASS_ATTRIBUTES  StringTools_obj : public hx::Object{
 		static ::String urlEncode( ::String s);
 		static Dynamic urlEncode_dyn();
 
+		static ::String htmlEscape( ::String s,Dynamic quotes);
+		static Dynamic htmlEscape_dyn();
+
 		static bool isSpace( ::String s,int pos);
 		static Dynamic isSpace_dyn();
 
@@ -45,6 +48,9 @@ class HXCPP_CLASS_ATTRIBUTES  StringTools_obj : public hx::Object{
 
 		static ::String replace( ::String s,::String sub,::String by);
 		static Dynamic replace_dyn();
+
+		static ::String hex( int n,Dynamic digits);
+		static Dynamic hex_dyn();
 
 };
 

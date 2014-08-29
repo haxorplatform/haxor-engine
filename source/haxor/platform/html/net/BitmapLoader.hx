@@ -2,7 +2,7 @@
 
 package haxor.platform.html.net;
 import js.Browser;
-import haxor.graphics.Enums.PixelFormat;
+import haxor.core.Enums.PixelFormat;
 import js.html.Event;
 import js.html.Image;
 import haxor.graphics.texture.Bitmap;

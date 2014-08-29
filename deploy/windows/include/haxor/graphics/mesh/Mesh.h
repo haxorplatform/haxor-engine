@@ -12,6 +12,7 @@ HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,MeshAttrib)
 HX_DECLARE_CLASS2(haxor,io,Buffer)
 HX_DECLARE_CLASS2(haxor,io,UInt16Array)
+HX_DECLARE_CLASS2(haxor,math,AABB3)
 namespace haxor{
 namespace graphics{
 namespace mesh{
@@ -22,12 +23,12 @@ class HXCPP_CLASS_ATTRIBUTES  Mesh_obj : public ::haxor::core::Resource_obj{
 		typedef ::haxor::core::Resource_obj super;
 		typedef Mesh_obj OBJ_;
 		Mesh_obj();
-		Void __construct();
+		Void __construct(::String __o_p_name);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< Mesh_obj > __new();
+		static hx::ObjectPtr< Mesh_obj > __new(::String __o_p_name);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~Mesh_obj();
@@ -67,6 +68,13 @@ class HXCPP_CLASS_ATTRIBUTES  Mesh_obj : public ::haxor::core::Resource_obj{
 		Dynamic get_vcount_dyn();
 
 		int m_vcount;
+		virtual ::haxor::math::AABB3 get_bounds( );
+		Dynamic get_bounds_dyn();
+
+		virtual ::haxor::math::AABB3 set_bounds( ::haxor::math::AABB3 v);
+		Dynamic set_bounds_dyn();
+
+		::haxor::math::AABB3 m_bounds;
 		virtual Void Clear( hx::Null< bool >  p_from_gpu);
 		Dynamic Clear_dyn();
 
@@ -82,8 +90,11 @@ class HXCPP_CLASS_ATTRIBUTES  Mesh_obj : public ::haxor::core::Resource_obj{
 		virtual Void Remove( ::String p_name);
 		Dynamic Remove_dyn();
 
-		virtual Void Set( ::String p_name,::haxor::io::Buffer p_data,hx::Null< int >  p_offset);
+		virtual ::haxor::graphics::mesh::MeshAttrib Set( ::String p_name,::haxor::io::Buffer p_data,hx::Null< int >  p_offset);
 		Dynamic Set_dyn();
+
+		virtual ::haxor::math::AABB3 GenerateAttribBounds( ::String p_attrib,::haxor::math::AABB3 p_result);
+		Dynamic GenerateAttribBounds_dyn();
 
 		virtual Void OnDestroy( );
 

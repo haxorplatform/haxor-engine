@@ -1,8 +1,8 @@
 package haxor.graphics.texture;
 import haxor.context.EngineContext;
-import haxor.graphics.Enums.PixelFormat;
-import haxor.graphics.Enums.TextureType;
-import haxor.graphics.Enums.TextureWrap;
+import haxor.core.Enums.PixelFormat;
+import haxor.core.Enums.TextureType;
+import haxor.core.Enums.TextureWrap;
 import haxor.math.Color;
 import haxor.math.Random;
 
@@ -20,6 +20,7 @@ class Texture2D extends Texture
 	{
 		if (m_white != null) return m_white;
 		m_white = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_white.name = "White";
 		m_white.data.Fill(Color.white);
 		m_white.Apply();
 		return m_white;
@@ -34,11 +35,27 @@ class Texture2D extends Texture
 	{
 		if (m_red != null) return m_red;
 		m_red = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_red.name = "Red";
 		m_red.data.Fill(Color.red);
 		m_red.Apply();
 		return m_red;
 	}
 	static private var m_red : Texture2D;
+	
+	/**
+	 * Template texture with a single green pixel.
+	 */
+	static public var green(get_green, never):Texture2D;
+	static private function get_green():Texture2D
+	{
+		if (m_green != null) return m_green;
+		m_green = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_green.name = "Green";
+		m_green.data.Fill(Color.green);
+		m_green.Apply();
+		return m_green;
+	}
+	static private var m_green : Texture2D;
 	
 	/**
 	 * Random Texture with 512x512 pixels.

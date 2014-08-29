@@ -17,10 +17,10 @@ public  class HTTPLoader<T> extends haxor.platform.android.net.HTTPRequest
 	}
 	
 	
-	public static  <T_c> void __hx_ctor_haxor_platform_android_net_HTTPLoader(haxor.platform.android.net.HTTPLoader<T_c> __temp_me56230, java.lang.String p_url, boolean p_binary, haxe.lang.Function p_callback)
+	public static  <T_c> void __hx_ctor_haxor_platform_android_net_HTTPLoader(haxor.platform.android.net.HTTPLoader<T_c> __temp_me80832, java.lang.String p_url, boolean p_binary, haxe.lang.Function p_callback)
 	{
-		haxor.platform.android.net.HTTPRequest.__hx_ctor_haxor_platform_android_net_HTTPRequest(__temp_me56230, p_url, "GET", p_binary, null);
-		__temp_me56230.callback = p_callback;
+		haxor.platform.android.net.HTTPRequest.__hx_ctor_haxor_platform_android_net_HTTPRequest(__temp_me80832, p_url, "GET", p_binary, null);
+		__temp_me80832.callback = p_callback;
 	}
 	
 	
@@ -104,14 +104,14 @@ public  class HTTPLoader<T> extends haxor.platform.android.net.HTTPRequest
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56581 = true;
+			boolean __temp_executeDef81702 = true;
 			switch (field.hashCode())
 			{
 				case -172220347:
 				{
 					if (field.equals("callback")) 
 					{
-						__temp_executeDef56581 = false;
+						__temp_executeDef81702 = false;
 						this.callback = ((haxe.lang.Function) (value) );
 						return value;
 					}
@@ -122,7 +122,7 @@ public  class HTTPLoader<T> extends haxor.platform.android.net.HTTPRequest
 				
 			}
 			
-			if (__temp_executeDef56581) 
+			if (__temp_executeDef81702) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -139,14 +139,14 @@ public  class HTTPLoader<T> extends haxor.platform.android.net.HTTPRequest
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56582 = true;
+			boolean __temp_executeDef81703 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef56582 = false;
+						__temp_executeDef81703 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnError"))) );
 					}
 					
@@ -158,7 +158,7 @@ public  class HTTPLoader<T> extends haxor.platform.android.net.HTTPRequest
 				{
 					if (field.equals("callback")) 
 					{
-						__temp_executeDef56582 = false;
+						__temp_executeDef81703 = false;
 						return this.callback;
 					}
 					
@@ -170,7 +170,7 @@ public  class HTTPLoader<T> extends haxor.platform.android.net.HTTPRequest
 				{
 					if (field.equals("OnComplete")) 
 					{
-						__temp_executeDef56582 = false;
+						__temp_executeDef81703 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnComplete"))) );
 					}
 					
@@ -182,7 +182,7 @@ public  class HTTPLoader<T> extends haxor.platform.android.net.HTTPRequest
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef56582 = false;
+						__temp_executeDef81703 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStart"))) );
 					}
 					
@@ -194,7 +194,7 @@ public  class HTTPLoader<T> extends haxor.platform.android.net.HTTPRequest
 				{
 					if (field.equals("OnProgress")) 
 					{
-						__temp_executeDef56582 = false;
+						__temp_executeDef81703 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnProgress"))) );
 					}
 					
@@ -204,7 +204,7 @@ public  class HTTPLoader<T> extends haxor.platform.android.net.HTTPRequest
 				
 			}
 			
-			if (__temp_executeDef56582) 
+			if (__temp_executeDef81703) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

@@ -1,10 +1,10 @@
 package haxor.graphics.texture;
 import haxor.context.EngineContext;
 import haxor.core.Resource;
-import haxor.graphics.Enums.PixelFormat;
-import haxor.graphics.Enums.TextureFilter;
-import haxor.graphics.Enums.TextureType;
-import haxor.graphics.Enums.TextureWrap;
+import haxor.core.Enums.PixelFormat;
+import haxor.core.Enums.TextureFilter;
+import haxor.core.Enums.TextureType;
+import haxor.core.Enums.TextureWrap;
 import haxor.io.Buffer;
 
 /**

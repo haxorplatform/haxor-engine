@@ -1,7 +1,7 @@
 package haxor.graphics.texture;
 import haxor.context.EngineContext;
-import haxor.graphics.Enums.PixelFormat;
-import haxor.graphics.Enums.TextureType;
+import haxor.core.Enums.PixelFormat;
+import haxor.core.Enums.TextureType;
 import haxor.graphics.GL;
 
 /**

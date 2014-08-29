@@ -3,6 +3,9 @@
 #ifndef INCLUDED_Std
 #include <Std.h>
 #endif
+#ifndef INCLUDED_StringTools
+#include <StringTools.h>
+#endif
 #ifndef INCLUDED_haxor_context_DataContext
 #include <haxor/context/DataContext.h>
 #endif
@@ -366,17 +369,36 @@ HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Get,return )
 
 HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Add,return )
 
+::haxor::math::Vector3 Vector3_obj::Add3( Float p_x,Float p_y,Float p_z){
+	HX_STACK_FRAME("haxor.math.Vector3","Add3",0xcbb6878a,"haxor.math.Vector3.Add3","haxor/math/Vector3.hx",279,0x4fead1e8)
+	HX_STACK_THIS(this)
+	HX_STACK_ARG(p_x,"p_x")
+	HX_STACK_ARG(p_y,"p_y")
+	HX_STACK_ARG(p_z,"p_z")
+	HX_STACK_LINE(279)
+	hx::AddEq(this->x,p_x);
+	HX_STACK_LINE(279)
+	hx::AddEq(this->y,p_y);
+	HX_STACK_LINE(279)
+	hx::AddEq(this->z,p_z);
+	HX_STACK_LINE(279)
+	return hx::ObjectPtr<OBJ_>(this);
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC3(Vector3_obj,Add3,return )
+
 ::haxor::math::Vector3 Vector3_obj::Sub( ::haxor::math::Vector3 p_v){
-	HX_STACK_FRAME("haxor.math.Vector3","Sub",0xd8c9a7e8,"haxor.math.Vector3.Sub","haxor/math/Vector3.hx",277,0x4fead1e8)
+	HX_STACK_FRAME("haxor.math.Vector3","Sub",0xd8c9a7e8,"haxor.math.Vector3.Sub","haxor/math/Vector3.hx",286,0x4fead1e8)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_v,"p_v")
-	HX_STACK_LINE(277)
+	HX_STACK_LINE(286)
 	hx::SubEq(this->x,p_v->x);
-	HX_STACK_LINE(277)
+	HX_STACK_LINE(286)
 	hx::SubEq(this->y,p_v->y);
-	HX_STACK_LINE(277)
+	HX_STACK_LINE(286)
 	hx::SubEq(this->z,p_v->z);
-	HX_STACK_LINE(277)
+	HX_STACK_LINE(286)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -384,16 +406,16 @@ HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Add,return )
 HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Sub,return )
 
 ::haxor::math::Vector3 Vector3_obj::Multiply( ::haxor::math::Vector3 p_v){
-	HX_STACK_FRAME("haxor.math.Vector3","Multiply",0xc33faabc,"haxor.math.Vector3.Multiply","haxor/math/Vector3.hx",284,0x4fead1e8)
+	HX_STACK_FRAME("haxor.math.Vector3","Multiply",0xc33faabc,"haxor.math.Vector3.Multiply","haxor/math/Vector3.hx",293,0x4fead1e8)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_v,"p_v")
-	HX_STACK_LINE(284)
+	HX_STACK_LINE(293)
 	hx::MultEq(this->x,p_v->x);
-	HX_STACK_LINE(284)
+	HX_STACK_LINE(293)
 	hx::MultEq(this->y,p_v->y);
-	HX_STACK_LINE(284)
+	HX_STACK_LINE(293)
 	hx::MultEq(this->z,p_v->z);
-	HX_STACK_LINE(284)
+	HX_STACK_LINE(293)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -401,49 +423,49 @@ HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Sub,return )
 HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Multiply,return )
 
 bool Vector3_obj::Step( ::haxor::math::Vector3 p_to,Float p_step){
-	HX_STACK_FRAME("haxor.math.Vector3","Step",0xd7a883e4,"haxor.math.Vector3.Step","haxor/math/Vector3.hx",293,0x4fead1e8)
+	HX_STACK_FRAME("haxor.math.Vector3","Step",0xd7a883e4,"haxor.math.Vector3.Step","haxor/math/Vector3.hx",302,0x4fead1e8)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_to,"p_to")
 	HX_STACK_ARG(p_step,"p_step")
-	HX_STACK_LINE(294)
+	HX_STACK_LINE(303)
 	Float vx = (p_to->x - this->x);		HX_STACK_VAR(vx,"vx");
-	HX_STACK_LINE(295)
+	HX_STACK_LINE(304)
 	Float vy = (p_to->y - this->y);		HX_STACK_VAR(vy,"vy");
-	HX_STACK_LINE(296)
+	HX_STACK_LINE(305)
 	Float vz = (p_to->z - this->z);		HX_STACK_VAR(vz,"vz");
-	HX_STACK_LINE(297)
+	HX_STACK_LINE(306)
 	Float l = ::Math_obj::sqrt((((vx * vx) + (vy * vy)) + (vz * vz)));		HX_STACK_VAR(l,"l");
-	HX_STACK_LINE(298)
+	HX_STACK_LINE(307)
 	if (((l <= 0.0001))){
-		HX_STACK_LINE(298)
+		HX_STACK_LINE(307)
 		return false;
 	}
-	HX_STACK_LINE(299)
+	HX_STACK_LINE(308)
 	Float s;		HX_STACK_VAR(s,"s");
-	HX_STACK_LINE(299)
+	HX_STACK_LINE(308)
 	if (((p_step > l))){
-		HX_STACK_LINE(299)
+		HX_STACK_LINE(308)
 		s = l;
 	}
 	else{
-		HX_STACK_LINE(299)
+		HX_STACK_LINE(308)
 		s = p_step;
 	}
-	HX_STACK_LINE(300)
+	HX_STACK_LINE(309)
 	l = (Float(s) / Float(l));
-	HX_STACK_LINE(301)
+	HX_STACK_LINE(310)
 	hx::MultEq(vx,l);
-	HX_STACK_LINE(302)
+	HX_STACK_LINE(311)
 	hx::MultEq(vy,l);
-	HX_STACK_LINE(303)
+	HX_STACK_LINE(312)
 	hx::MultEq(vz,l);
-	HX_STACK_LINE(304)
+	HX_STACK_LINE(313)
 	hx::AddEq(this->x,vx);
-	HX_STACK_LINE(305)
+	HX_STACK_LINE(314)
 	hx::AddEq(this->y,vy);
-	HX_STACK_LINE(306)
+	HX_STACK_LINE(315)
 	hx::AddEq(this->z,vz);
-	HX_STACK_LINE(307)
+	HX_STACK_LINE(316)
 	return true;
 }
 
@@ -451,20 +473,20 @@ bool Vector3_obj::Step( ::haxor::math::Vector3 p_to,Float p_step){
 HX_DEFINE_DYNAMIC_FUNC2(Vector3_obj,Step,return )
 
 ::haxor::math::Vector3 Vector3_obj::Reflect( ::haxor::math::Vector3 p_normal){
-	HX_STACK_FRAME("haxor.math.Vector3","Reflect",0xf71ed6a5,"haxor.math.Vector3.Reflect","haxor/math/Vector3.hx",316,0x4fead1e8)
+	HX_STACK_FRAME("haxor.math.Vector3","Reflect",0xf71ed6a5,"haxor.math.Vector3.Reflect","haxor/math/Vector3.hx",325,0x4fead1e8)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_normal,"p_normal")
-	HX_STACK_LINE(317)
+	HX_STACK_LINE(326)
 	Float _g = ::Math_obj::min(0.0,(((p_normal->x * this->x) + (p_normal->y * this->y)) + (p_normal->z * this->z)));		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(317)
+	HX_STACK_LINE(326)
 	Float d = (_g * 2.0);		HX_STACK_VAR(d,"d");
-	HX_STACK_LINE(318)
+	HX_STACK_LINE(327)
 	hx::AddEq(this->x,(-(p_normal->x) * d));
-	HX_STACK_LINE(319)
+	HX_STACK_LINE(328)
 	hx::AddEq(this->y,(-(p_normal->y) * d));
-	HX_STACK_LINE(320)
+	HX_STACK_LINE(329)
 	hx::AddEq(this->z,(-(p_normal->z) * d));
-	HX_STACK_LINE(321)
+	HX_STACK_LINE(330)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -472,15 +494,15 @@ HX_DEFINE_DYNAMIC_FUNC2(Vector3_obj,Step,return )
 HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Reflect,return )
 
 ::haxor::math::Vector3 Vector3_obj::Invert( ){
-	HX_STACK_FRAME("haxor.math.Vector3","Invert",0x0cf7d9ae,"haxor.math.Vector3.Invert","haxor/math/Vector3.hx",328,0x4fead1e8)
+	HX_STACK_FRAME("haxor.math.Vector3","Invert",0x0cf7d9ae,"haxor.math.Vector3.Invert","haxor/math/Vector3.hx",337,0x4fead1e8)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(328)
+	HX_STACK_LINE(337)
 	this->x = -(this->x);
-	HX_STACK_LINE(328)
+	HX_STACK_LINE(337)
 	this->y = -(this->y);
-	HX_STACK_LINE(328)
+	HX_STACK_LINE(337)
 	this->z = -(this->z);
-	HX_STACK_LINE(328)
+	HX_STACK_LINE(337)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -488,16 +510,16 @@ HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Reflect,return )
 HX_DEFINE_DYNAMIC_FUNC0(Vector3_obj,Invert,return )
 
 ::haxor::math::Vector3 Vector3_obj::Scale( Float p_s){
-	HX_STACK_FRAME("haxor.math.Vector3","Scale",0xd08b36f2,"haxor.math.Vector3.Scale","haxor/math/Vector3.hx",335,0x4fead1e8)
+	HX_STACK_FRAME("haxor.math.Vector3","Scale",0xd08b36f2,"haxor.math.Vector3.Scale","haxor/math/Vector3.hx",344,0x4fead1e8)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_s,"p_s")
-	HX_STACK_LINE(335)
+	HX_STACK_LINE(344)
 	hx::MultEq(this->x,p_s);
-	HX_STACK_LINE(335)
+	HX_STACK_LINE(344)
 	hx::MultEq(this->y,p_s);
-	HX_STACK_LINE(335)
+	HX_STACK_LINE(344)
 	hx::MultEq(this->z,p_s);
-	HX_STACK_LINE(335)
+	HX_STACK_LINE(344)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -505,24 +527,24 @@ HX_DEFINE_DYNAMIC_FUNC0(Vector3_obj,Invert,return )
 HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Scale,return )
 
 ::haxor::math::Vector3 Vector3_obj::Normalize( ){
-	HX_STACK_FRAME("haxor.math.Vector3","Normalize",0x1f5df3f5,"haxor.math.Vector3.Normalize","haxor/math/Vector3.hx",342,0x4fead1e8)
+	HX_STACK_FRAME("haxor.math.Vector3","Normalize",0x1f5df3f5,"haxor.math.Vector3.Normalize","haxor/math/Vector3.hx",351,0x4fead1e8)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(343)
+	HX_STACK_LINE(352)
 	Float l = ::Math_obj::sqrt((((this->x * this->x) + (this->y * this->y)) + (this->z * this->z)));		HX_STACK_VAR(l,"l");
-	HX_STACK_LINE(344)
+	HX_STACK_LINE(353)
 	if (((l <= (int)0))){
-		HX_STACK_LINE(344)
+		HX_STACK_LINE(353)
 		return hx::ObjectPtr<OBJ_>(this);
 	}
-	HX_STACK_LINE(345)
+	HX_STACK_LINE(354)
 	Float _g = l = (Float(1.0) / Float(l));		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(345)
+	HX_STACK_LINE(354)
 	hx::MultEq(this->x,_g);
-	HX_STACK_LINE(346)
+	HX_STACK_LINE(355)
 	hx::MultEq(this->y,l);
-	HX_STACK_LINE(347)
+	HX_STACK_LINE(356)
 	hx::MultEq(this->z,l);
-	HX_STACK_LINE(348)
+	HX_STACK_LINE(357)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -530,9 +552,9 @@ HX_DEFINE_DYNAMIC_FUNC1(Vector3_obj,Scale,return )
 HX_DEFINE_DYNAMIC_FUNC0(Vector3_obj,Normalize,return )
 
 Array< Float > Vector3_obj::ToArray( ){
-	HX_STACK_FRAME("haxor.math.Vector3","ToArray",0x00090c86,"haxor.math.Vector3.ToArray","haxor/math/Vector3.hx",355,0x4fead1e8)
+	HX_STACK_FRAME("haxor.math.Vector3","ToArray",0x00090c86,"haxor.math.Vector3.ToArray","haxor/math/Vector3.hx",364,0x4fead1e8)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(355)
+	HX_STACK_LINE(364)
 	return Array_obj< Float >::__new().Add(this->x).Add(this->y).Add(this->z);
 }
 
@@ -541,75 +563,75 @@ HX_DEFINE_DYNAMIC_FUNC0(Vector3_obj,ToArray,return )
 
 ::String Vector3_obj::ToString( hx::Null< int >  __o_p_places){
 int p_places = __o_p_places.Default(2);
-	HX_STACK_FRAME("haxor.math.Vector3","ToString",0x61219944,"haxor.math.Vector3.ToString","haxor/math/Vector3.hx",361,0x4fead1e8)
+	HX_STACK_FRAME("haxor.math.Vector3","ToString",0x61219944,"haxor.math.Vector3.ToString","haxor/math/Vector3.hx",370,0x4fead1e8)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_places,"p_places")
 {
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		Float _g1;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		{
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			Float _g;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			{
-				HX_STACK_LINE(361)
+				HX_STACK_LINE(370)
 				Float p_v = (this->x * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(361)
+				HX_STACK_LINE(370)
 				_g = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			_g1 = (Float(_g) / Float(d));
 		}
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		::String _g2 = (HX_CSTRING("[") + _g1);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		::String _g3 = (_g2 + HX_CSTRING(","));		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		Float _g5;		HX_STACK_VAR(_g5,"_g5");
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		{
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			Float _g4;		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			{
-				HX_STACK_LINE(361)
+				HX_STACK_LINE(370)
 				Float p_v = (this->y * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(361)
+				HX_STACK_LINE(370)
 				_g4 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			_g5 = (Float(_g4) / Float(d));
 		}
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		::String _g6 = (_g3 + _g5);		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		::String _g7 = (_g6 + HX_CSTRING(","));		HX_STACK_VAR(_g7,"_g7");
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		Float _g9;		HX_STACK_VAR(_g9,"_g9");
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		{
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			Float _g8;		HX_STACK_VAR(_g8,"_g8");
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			{
-				HX_STACK_LINE(361)
+				HX_STACK_LINE(370)
 				Float p_v = (this->z * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(361)
+				HX_STACK_LINE(370)
 				_g8 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(370)
 			_g9 = (Float(_g8) / Float(d));
 		}
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		::String _g10 = (_g7 + _g9);		HX_STACK_VAR(_g10,"_g10");
-		HX_STACK_LINE(361)
+		HX_STACK_LINE(370)
 		return (_g10 + HX_CSTRING("]"));
 	}
 }
@@ -766,6 +788,34 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC3(Vector3_obj,Cross,return )
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC4(Vector3_obj,Lerp,return )
 
+::haxor::math::Vector3 Vector3_obj::Parse( ::String p_data,::String __o_p_delimiter){
+::String p_delimiter = __o_p_delimiter.Default(HX_CSTRING(" "));
+	HX_STACK_FRAME("haxor.math.Vector3","Parse",0x1511f89b,"haxor.math.Vector3.Parse","haxor/math/Vector3.hx",378,0x4fead1e8)
+	HX_STACK_ARG(p_data,"p_data")
+	HX_STACK_ARG(p_delimiter,"p_delimiter")
+{
+		HX_STACK_LINE(379)
+		Array< ::String > tk = p_data.split(p_delimiter);		HX_STACK_VAR(tk,"tk");
+		HX_STACK_LINE(381)
+		::String _g = ::StringTools_obj::trim(tk->__get((int)0));		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(381)
+		Float _g1 = ::Std_obj::parseFloat(_g);		HX_STACK_VAR(_g1,"_g1");
+		HX_STACK_LINE(382)
+		::String _g2 = ::StringTools_obj::trim(tk->__get((int)1));		HX_STACK_VAR(_g2,"_g2");
+		HX_STACK_LINE(382)
+		Float _g3 = ::Std_obj::parseFloat(_g2);		HX_STACK_VAR(_g3,"_g3");
+		HX_STACK_LINE(383)
+		::String _g4 = ::StringTools_obj::trim(tk->__get((int)2));		HX_STACK_VAR(_g4,"_g4");
+		HX_STACK_LINE(383)
+		Float _g5 = ::Std_obj::parseFloat(_g4);		HX_STACK_VAR(_g5,"_g5");
+		HX_STACK_LINE(380)
+		return ::haxor::math::Vector3_obj::__new((int)0,(int)0,(int)0)->Set(_g1,_g3,_g5);
+	}
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Vector3_obj,Parse,return )
+
 
 Vector3_obj::Vector3_obj()
 {
@@ -858,11 +908,13 @@ Dynamic Vector3_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"Set2") ) { return Set2_dyn(); }
 		if (HX_FIELD_EQ(inName,"Set3") ) { return Set3_dyn(); }
 		if (HX_FIELD_EQ(inName,"Set4") ) { return Set4_dyn(); }
+		if (HX_FIELD_EQ(inName,"Add3") ) { return Add3_dyn(); }
 		if (HX_FIELD_EQ(inName,"Step") ) { return Step_dyn(); }
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"right") ) { return inCallProp ? get_right() : right; }
 		if (HX_FIELD_EQ(inName,"Cross") ) { return Cross_dyn(); }
+		if (HX_FIELD_EQ(inName,"Parse") ) { return Parse_dyn(); }
 		if (HX_FIELD_EQ(inName,"clone") ) { return inCallProp ? get_clone() : clone; }
 		if (HX_FIELD_EQ(inName,"color") ) { return inCallProp ? get_color() : color; }
 		if (HX_FIELD_EQ(inName,"Scale") ) { return Scale_dyn(); }
@@ -1014,6 +1066,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("Distance"),
 	HX_CSTRING("Cross"),
 	HX_CSTRING("Lerp"),
+	HX_CSTRING("Parse"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE
@@ -1087,6 +1140,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("SetColor"),
 	HX_CSTRING("Get"),
 	HX_CSTRING("Add"),
+	HX_CSTRING("Add3"),
 	HX_CSTRING("Sub"),
 	HX_CSTRING("Multiply"),
 	HX_CSTRING("Step"),

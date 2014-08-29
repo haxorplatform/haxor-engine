@@ -3,10 +3,10 @@ package haxor.graphics.material;
 
 import haxor.context.EngineContext;
 import haxor.core.Resource;
-import haxor.graphics.Enums.BlendMode;
-import haxor.graphics.Enums.CullMode;
-import haxor.graphics.Enums.DepthTest;
-import haxor.graphics.Enums.RenderQueue;
+import haxor.core.Enums.BlendMode;
+import haxor.core.Enums.CullMode;
+import haxor.core.Enums.DepthTest;
+import haxor.core.Enums.RenderQueue;
 import haxor.graphics.texture.Texture;
 import haxor.io.Buffer;
 import haxor.io.FloatArray;
@@ -36,10 +36,10 @@ class Material extends Resource
 	 */
 	static public inline function Transparent(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
-		var m : Material = new Material();
+		var m : Material = new Material("Transparent");
 		if (p_double_sided) m.cull = CullMode.None;
 		m.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
-		m.shader	= p_texture == null ? Shader.FlatTexture : Shader.Flat;
+		m.shader	= p_texture == null ? Shader.Flat : Shader.FlatTexture;
 		m.queue 	= RenderQueue.Transparent;
 		m.ztest 	= p_ztest;
 		m.zwrite 	= p_zwrite;
@@ -58,6 +58,7 @@ class Material extends Resource
 	static public inline function AdditiveAlpha(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
 		var m : Material = Transparent(p_ztest, p_zwrite, p_double_sided);
+		m.name = "AdditiveAlpha";
 		m.SetBlending(BlendMode.SrcAlpha, BlendMode.One);
 		return m;
 	}
@@ -72,6 +73,7 @@ class Material extends Resource
 	static public inline function Additive(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
 		var m : Material = Transparent(p_ztest, p_zwrite, p_double_sided);
+		m.name = "Additive";
 		m.SetBlending(BlendMode.One, BlendMode.One);
 		return m;
 	}
@@ -144,8 +146,8 @@ class Material extends Resource
 	/**
 	 * Reference to this material shader.
 	 */
-	public var shader(get_shader,set_shader) : Shader;
-	private inline function get_shader():Shader { return m_shader; }
+	public var shader(get_shader,set_shader) : Shader;	
+	private inline function get_shader():Shader { return m_shader; }	
 	private function set_shader(v:Shader):Shader 
 	{		
 		if (m_shader == v) return v;		
@@ -196,201 +198,211 @@ class Material extends Resource
 	}
 	
 	/**
-	 * Sets a texture sampler for this material.
+	 * Sets a Texture sampler uniform.
 	 * @param	p_name
 	 * @param	p_texture
 	 */
 	public function SetTexture(p_name:String, p_texture:Texture):Void
 	{
 		if (p_texture == null) { RemoveUniform(p_name); return; } 
-		var u : MaterialUniform = FetchUniform(p_name, false, 1,1,true);		
-		var b : Int32Array = cast u.data; b.Set(0, p_texture.__slot);
-		u.texture = p_texture;
+		var u : MaterialUniform = FetchUniform(p_name, false, 1, 1, true);		
+		if (u.exists) u.SetTexture(p_texture);		
 	}
 	
 	/**
-	 * Sets a Matrix4 uniform.
+	 * Sets a mat4 uniform.
 	 * @param	p_name
 	 * @param	p_matrix4
 	 */
 	public function SetMatrix4(p_name:String, p_matrix4:Matrix4):Void 
 	{ 
-		var u : MaterialUniform = FetchUniform(p_name, true, 16, 16, true); 
-		var b : FloatArray = cast u.data; 
-		var l : Array<Float> = EngineContext.data.Matrix4ToArray(p_matrix4);
-		for (i in 0...16) b.Set(i,l[i]);		
+		if (p_matrix4 == null) { RemoveUniform(p_name); return; } 
+		var u : MaterialUniform = FetchUniform(p_name, true, 16, 16, true);
+		if (u.exists) u.SetMatrix4(p_matrix4);		
 	}
 	
 	/**
-	 * Sets a Color uniform.
-	 * @param	p_name
-	 * @param	p_color
-	 */
-	public inline function SetColor(p_name:String, p_color : Color):Void { SetFloat4(p_name, p_color.r, p_color.g, p_color.b, p_color.a); }
-	
-	/**
-	 * Sets a Vector4 uniform.
-	 * @param	p_name
-	 * @param	p_v
-	 */
-	public inline function SetVector4(p_name:String, p_v : Vector4):Void  { SetFloat4(p_name, p_v.x, p_v.y, p_v.z, p_v.w); }
-	
-	/**
-	 * Sets a Vector3 uniform.
-	 * @param	p_name
-	 * @param	p_v
-	 */
-	public inline function SetVector3(p_name:String, p_v : Vector3):Void  { SetFloat3(p_name, p_v.x, p_v.y, p_v.z); }
-	
-	/**
-	 * Sets a Vector3 uniform.
+	 * Sets a vec2.
 	 * @param	p_name
 	 * @param	p_v
 	 */
 	public inline function SetVector2(p_name:String, p_v : Vector2):Void  { SetFloat2(p_name, p_v.x, p_v.y); }
 	
 	/**
-	 * Sets a Float.
+	 * Sets a vec3.
 	 * @param	p_name
 	 * @param	p_v
 	 */
-	public function SetFloat(p_name : String, p_v : Float):Void {  var u : MaterialUniform = FetchUniform(p_name, true, 1,1,true);	var b : FloatArray = cast u.data; b.Set(0, p_v); }
+	public inline function SetVector3(p_name:String, p_v : Vector3):Void  { SetFloat3(p_name, p_v.x, p_v.y, p_v.z); }
 	
 	/**
-	 * Sets 4 floats uniform.
-	 * @param	p_name
-	 * @param	p_x
-	 * @param	p_y
-	 * @param	p_z
-	 * @param	p_w
-	 */
-	public function SetFloat4(p_name : String, p_x:Float, p_y:Float, p_z:Float,p_w:Float):Void { var u : MaterialUniform = FetchUniform(p_name, true, 4,4, true); var b : FloatArray = cast u.data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); b.Set(3, p_w);	}
-	
-	/**
-	 * Sets 3 float uniform.
-	 * @param	p_name
-	 * @param	p_x
-	 * @param	p_y
-	 * @param	p_z
-	 * @param	p_w
-	 */
-	public function SetFloat3(p_name : String, p_x:Float, p_y:Float, p_z:Float):Void { var u : MaterialUniform = FetchUniform(p_name, true, 3,3,true); var b : FloatArray = cast u.data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); }
-	
-	/**
-	 * Sets 2 float uniform.
-	 * @param	p_name
-	 * @param	p_x
-	 * @param	p_y
-	 */
-	public function SetFloat2(p_name : String, p_x:Float, p_y:Float):Void { var u : MaterialUniform = FetchUniform(p_name, true, 2,2,true); var b : FloatArray = cast u.data; b.Set(0, p_x); b.Set(1, p_y); }
-	
-	/**
-	 * Sets a list of float uniform.
-	 * @param	p_name
-	 * @param	p_list
-	 */
-	public function SetFloatArray(p_name:String, p_list : Array<Float>):Void { var u : MaterialUniform = FetchUniform(p_name, true, p_list.length, 1, true); var b : FloatArray = cast u.data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	
-	/**
-	 * Sets a list of 2 floats uniforms.
-	 * @param	p_name
-	 * @param	p_list
-	 */
-	public function SetFloat2Array(p_name:String, p_list : Array<Float>):Void { var u : MaterialUniform = FetchUniform(p_name, true, p_list.length, 2, true); var b : FloatArray = cast u.data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	
-	/**
-	 * Sets a list of 3 floats uniforms.
-	 * @param	p_name
-	 * @param	p_list
-	 */
-	public function SetFloat3Array(p_name:String, p_list : Array<Float>):Void { var u : MaterialUniform = FetchUniform(p_name, true, p_list.length, 3, true); var b : FloatArray = cast u.data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	
-	/**
-	 * Sets a list of 4 floats uniforms.
-	 * @param	p_name
-	 * @param	p_list
-	 */
-	public function SetFloat4Array(p_name:String, p_list : Array<Float>):Void { var u : MaterialUniform = FetchUniform(p_name, true, p_list.length,4,true); var b : FloatArray = cast u.data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	
-	
-	/**
-	 * Sets an Int.
+	 * Sets a vec4.
 	 * @param	p_name
 	 * @param	p_v
 	 */
-	public function SetInt(p_name : String, p_v : Int):Void  
-	{ 
-		var u : MaterialUniform = FetchUniform(p_name, false, 1,1,true);		
-		var b : Int32Array = cast u.data; b.Set(0, p_v); 
-	}
+	public inline function SetVector4(p_name:String, p_v : Vector4):Void  { SetFloat4(p_name, p_v.x, p_v.y, p_v.z, p_v.w); }
 	
 	/**
-	 * Sets 4 ints uniform.
+	 * Sets a vec4.
+	 * @param	p_name
+	 * @param	p_color
+	 */
+	public inline function SetColor(p_name:String, p_color : Color):Void { SetFloat4(p_name, p_color.r, p_color.g, p_color.b, p_color.a); }
+	
+	/**
+	 * Sets a float.
+	 * @param	p_name
+	 * @param	p_v
+	 */
+	public function SetFloat(p_name : String, p_v : Float):Void {  var u : MaterialUniform = FetchUniform(p_name, true, 1,1,true);if (u.exists) u.SetFloat(p_v); }
+	
+	/**
+	 * Sets a vec2.
+	 * @param	p_name
+	 * @param	p_x
+	 * @param	p_y
+	 */
+	public function SetFloat2(p_name : String, p_x:Float, p_y:Float):Void { var u : MaterialUniform = FetchUniform(p_name, true, 2,2,true); if (u.exists) u.SetFloat2(p_x,p_y); }
+	
+	/**
+	 * Sets a vec3.
 	 * @param	p_name
 	 * @param	p_x
 	 * @param	p_y
 	 * @param	p_z
 	 * @param	p_w
 	 */
-	public function SetInt4(p_name : String, p_x:Int, p_y:Int, p_z:Int,p_w:Int):Void
-	{
-		var u : MaterialUniform = FetchUniform(p_name, false, 4,4,true);
-		var b : Int32Array = cast u.data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); b.Set(3, p_w);
-	}
+	public function SetFloat3(p_name : String, p_x:Float, p_y:Float, p_z:Float):Void { var u : MaterialUniform = FetchUniform(p_name, true, 3,3,true); if (u.exists) u.SetFloat3(p_x,p_y,p_z); }
 	
 	/**
-	 * Sets 3 ints uniform.
+	 * Sets vec4.
+	 * @param	p_name
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_z
+	 * @param	p_w
+	 */
+	public function SetFloat4(p_name : String, p_x:Float, p_y:Float, p_z:Float,p_w:Float):Void { var u : MaterialUniform = FetchUniform(p_name, true, 4,4, true); if (u.exists) u.SetFloat4(p_x,p_y,p_z,p_w);	}
+	
+	/**
+	 * Sets a float[].
+	 * @param	p_name
+	 * @param	p_list
+	 */
+	public function SetFloatArray(p_name:String, p_list : Array<Float>):Void { var u : MaterialUniform = FetchUniform(p_name, true, p_list.length, 1, true);if (u.exists) u.SetFloatArray(p_list); }
+	
+	/**
+	 * Sets a vec2[].
+	 * @param	p_name
+	 * @param	p_list
+	 */
+	public function SetFloat2Array(p_name:String, p_list : Array<Float>):Void { var u : MaterialUniform = FetchUniform(p_name, true, p_list.length, 2, true); if (u.exists) u.SetFloat2Array(p_list); }
+	
+	/**
+	 * Sets a vec3[].
+	 * @param	p_name
+	 * @param	p_list
+	 */
+	public function SetFloat3Array(p_name:String, p_list : Array<Float>):Void { var u : MaterialUniform = FetchUniform(p_name, true, p_list.length, 3, true); if (u.exists) u.SetFloat3Array(p_list); }
+	
+	/**
+	 * Sets vec4[].
+	 * @param	p_name
+	 * @param	p_list
+	 */
+	public function SetFloat4Array(p_name:String, p_list : Array<Float>):Void { var u : MaterialUniform = FetchUniform(p_name, true, p_list.length,4,true);if (u.exists) u.SetFloat4Array(p_list); }
+	
+	/**
+	 * Sets an int.
+	 * @param	p_name
+	 * @param	p_v
+	 */
+	public function SetInt(p_name : String, p_v : Int):Void  {  var u : MaterialUniform = FetchUniform(p_name, false, 1, 1, true); if (u.exists) u.SetInt(p_v); }
+	
+	/**
+	 * Sets an int2.
+	 * @param	p_name
+	 * @param	p_x
+	 * @param	p_y
+	 */
+	public function SetInt2(p_name : String, p_x:Int, p_y:Int):Void { var u : MaterialUniform = FetchUniform(p_name, false, 2, 2, true); if (u.exists) u.SetInt2(p_x, p_y);	 }
+	
+	/**
+	 * Sets an int3
 	 * @param	p_name
 	 * @param	p_x
 	 * @param	p_y
 	 * @param	p_z
 	 */
-	public function SetInt3(p_name : String, p_x:Int, p_y:Int, p_z:Int):Void
-	{
-		var u : MaterialUniform = FetchUniform(p_name, false, 3,3,true);
-		var b : Int32Array = cast u.data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z);
-	}
-	
+	public function SetInt3(p_name : String, p_x:Int, p_y:Int, p_z:Int):Void { var u : MaterialUniform = FetchUniform(p_name, false, 3, 3, true); if (u.exists) u.SetInt3(p_x, p_y, p_z); }
+		
 	/**
-	 * Sets a 2 int uniform.
+	 * Sets an int4.
 	 * @param	p_name
 	 * @param	p_x
 	 * @param	p_y
+	 * @param	p_z
+	 * @param	p_w
 	 */
-	public function SetInt2(p_name : String, p_x:Int, p_y:Int):Void
+	public function SetInt4(p_name : String, p_x:Int, p_y:Int, p_z:Int,p_w:Int):Void { var u : MaterialUniform = FetchUniform(p_name, false, 4, 4, true); if (u.exists) u.SetInt4(p_x, p_y, p_z, p_w); }
+	
+	/**
+	 * Sets an int[].
+	 * @param	p_name
+	 * @param	p_list
+	 */
+	public function SetIntArray(p_name:String, p_list : Array<Int>):Void { var u : MaterialUniform = FetchUniform(p_name, false, p_list.length,1,true);if (u.exists) u.SetIntArray(p_list); }
+	
+	/**
+	 * Sets an int2[].
+	 * @param	p_name
+	 * @param	p_list
+	 */
+	public function SetInt2Array(p_name:String, p_list : Array<Int>):Void { var u : MaterialUniform = FetchUniform(p_name, false, p_list.length, 2, true); if (u.exists) u.SetInt2Array(p_list); }
+	
+	/**
+	 * Sets an int3[].
+	 * @param	p_name
+	 * @param	p_list
+	 */
+	public function SetInt3Array(p_name:String, p_list : Array<Int>):Void { var u : MaterialUniform = FetchUniform(p_name, false, p_list.length, 3, true); if(u.exists)u.SetInt3Array(p_list); }
+	
+	/**
+	 * Sets an int4[].
+	 * @param	p_name
+	 * @param	p_list
+	 */
+	public function SetInt4Array(p_name:String, p_list : Array<Int>):Void { var u : MaterialUniform = FetchUniform(p_name, false, p_list.length,4,true); if (u.exists) u.SetInt4Array(p_list); }
+	
+	/**
+	 * Returns the explicit uniform instance.
+	 * @param	p_name
+	 * @return
+	 */
+	public function GetUniform(p_name:String):MaterialUniform
 	{
-		var u : MaterialUniform = FetchUniform(p_name, false, 2,2,true);
-		var b : Int32Array = cast u.data; b.Set(0, p_x); b.Set(1, p_y);
+		for (i in 0...m_uniforms.length) if (m_uniforms[i].name == p_name) return m_uniforms[i];
+		return null;
 	}
 	
 	/**
-	 * Sets a list of ints uniform.
+	 * Returns true if the uniform exists. If the 'check_shader' flag is true, it will also check if the uniform exists in the current shader.
 	 * @param	p_name
-	 * @param	p_list
+	 * @param	p_check_shader
+	 * @return
 	 */
-	public function SetIntArray(p_name:String, p_list : Array<Int>):Void { var u : MaterialUniform = FetchUniform(p_name, false, p_list.length,1,true); var b : Int32Array = cast u.data;  for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	
-	/**
-	 * Sets a list of 2 ints uniforms.
-	 * @param	p_name
-	 * @param	p_list
-	 */
-	public function SetInt2Array(p_name:String, p_list : Array<Int>):Void { var u : MaterialUniform = FetchUniform(p_name, false, p_list.length, 2, true); var b : Int32Array = cast u.data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	
-	/**
-	 * Sets a list of 3 ints uniforms.
-	 * @param	p_name
-	 * @param	p_list
-	 */
-	public function SetInt3Array(p_name:String, p_list : Array<Int>):Void { var u : MaterialUniform = FetchUniform(p_name, false, p_list.length, 3, true); var b : Int32Array = cast u.data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	
-	/**
-	 * Sets a list of 4 ints uniforms.
-	 * @param	p_name
-	 * @param	p_list
-	 */
-	public function SetInt4Array(p_name:String, p_list : Array<Int>):Void { var u : MaterialUniform = FetchUniform(p_name, false, p_list.length,4,true); var b : Int32Array = cast u.data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	
+	public function HasUniform(p_name:String,p_check_shader:Bool=false):Bool
+	{
+		for (i in 0...m_uniforms.length)
+		{
+			if (m_uniforms[i].name == p_name)
+			{
+				if (p_check_shader) return m_uniforms[i].exists;
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 * Removes an uniform from this material.
@@ -422,18 +434,21 @@ class Material extends Resource
 		var u : MaterialUniform = null;
 		for (i in 0...m_uniforms.length)
 		{
-			u = m_uniforms[i];
+			u = m_uniforms[i];			
 			if (u.name == p_name)
 			{
 				if (u.isFloat == p_is_float)
 				{
 					if (u.offset == p_offset)
 					{
-						if (u.data.length == p_length)
-						u.__d = true;
+						if (u.data.length == p_length)						
 						return u;
 					}
 				}
+				//Found by name but different setup.
+				EngineContext.material.DestroyUniform(this, u);
+				m_uniforms.remove(u);
+				break;
 			}
 		}
 		if (p_create)
@@ -523,6 +538,11 @@ class MaterialUniform
 	private var isFloat : Bool;
 	
 	/**
+	 * Flag that indicates if this uniforms exists within the material.
+	 */
+	private var exists : Bool;
+	
+	/**
 	 * Creates a new MaterialUniform.
 	 * @param	p_name
 	 * @param	p_is_float
@@ -535,6 +555,7 @@ class MaterialUniform
 		name  	= p_name;
 		isFloat = p_is_float;
 		offset	= p_offset;
+		exists	= false;
 		if (p_is_float)
 		{
 			data = new FloatArray(p_length);
@@ -545,6 +566,39 @@ class MaterialUniform
 		}
 	}
 	
+	public function SetFloat	  (p_v : Float):Void 								{ if (!exists) return; __d = true;	var b : FloatArray = cast data; b.Set(0, p_v); }
+	public function SetFloat2	  (p_x:Float, p_y:Float):Void 						{ if (!exists) return; __d = true;	var b : FloatArray = cast data; b.Set(0, p_x); b.Set(1, p_y); }
+	public function SetFloat3	  (p_x:Float, p_y:Float, p_z:Float):Void 			{ if (!exists) return; __d = true;	var b : FloatArray = cast data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); }
+	public function SetFloat4	  (p_x:Float, p_y:Float, p_z:Float,p_w:Float):Void 	{ if (!exists) return; __d = true;	var b : FloatArray = cast data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); b.Set(3, p_w);	}
+	public function SetFloatArray (p_list : Array<Float>):Void 						{ if (!exists) return; __d = true; 	var b : FloatArray = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
+	public function SetFloat2Array(p_list : Array<Float>):Void 						{ if (!exists) return; __d = true;	var b : FloatArray = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
+	public function SetFloat3Array(p_list : Array<Float>):Void 						{ if (!exists) return; __d = true;	var b : FloatArray = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
+	public function SetFloat4Array(p_list : Array<Float>):Void 						{ if (!exists) return; __d = true; 	var b : FloatArray = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
 	
+	public function SetInt		  (p_v : Int):Void  						{ if (!exists) return; __d = true; var b : Int32Array = cast data; b.Set(0, p_v); }
+	public function SetInt2		  (p_x:Int, p_y:Int):Void					{ if (!exists) return; __d = true; var b : Int32Array = cast data; b.Set(0, p_x); b.Set(1, p_y); }
+	public function SetInt3		  (p_x:Int, p_y:Int, p_z:Int):Void			{ if (!exists) return; __d = true; var b : Int32Array = cast data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); }
+	public function SetInt4		  (p_x:Int, p_y:Int, p_z:Int,p_w:Int):Void	{ if (!exists) return; __d = true; var b : Int32Array = cast data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); b.Set(3, p_w); }
+	public function SetIntArray	  (p_list : Array<Int>):Void 				{ if (!exists) return; __d = true; var b : Int32Array = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
+	public function SetInt2Array  (p_list : Array<Int>):Void 				{ if (!exists) return; __d = true; var b : Int32Array = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
+	public function SetInt3Array  (p_list : Array<Int>):Void 				{ if (!exists) return; __d = true; var b : Int32Array = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
+	public function SetInt4Array  (p_list : Array<Int>):Void 				{ if (!exists) return; __d = true; var b : Int32Array = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
+	
+	public function SetTexture(p_texture:Texture):Void { if (!exists) return; __d = true; var b : Int32Array = cast data; b.Set(0, p_texture.__slot); texture = p_texture; }	
+	public function SetMatrix4(m:Matrix4):Void 
+	{ 
+		if (!exists) return; __d = true; 
+		var b : FloatArray = cast data; 
+		//var l : Array<Float> = EngineContext.data.Matrix4ToArray(p_matrix4); 		for (i in 0...16) b.Set(i, l[i]); 		
+		b.Set(0,  m.m00); b.Set(1,  m.m01); b.Set(2,  m.m02); b.Set(3,  m.m03);
+		b.Set(4,  m.m10); b.Set(5,  m.m11); b.Set(6,  m.m12); b.Set(7,  m.m13);
+		b.Set(8,  m.m20); b.Set(9,  m.m21); b.Set(10, m.m22); b.Set(11, m.m23);		
+		b.Set(12, m.m30); b.Set(13, m.m31); b.Set(14, m.m32); b.Set(15, m.m33);
+		
+	}	
+	public inline function SetVector2(p_v : Vector2):Void  { SetFloat2(p_v.x, p_v.y); }
+	public inline function SetVector3(p_v : Vector3):Void  { SetFloat3(p_v.x, p_v.y, p_v.z); }	
+	public inline function SetVector4(p_v : Vector4):Void  { SetFloat4(p_v.x, p_v.y, p_v.z, p_v.w); }
+	public inline function SetColor(p_color : Color):Void  { SetFloat4(p_color.r, p_color.g, p_color.b, p_color.a); }	
 	
 }

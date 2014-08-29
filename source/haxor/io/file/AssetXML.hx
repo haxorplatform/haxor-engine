@@ -6,7 +6,7 @@ import haxor.core.Resource;
  * Base class that describes an Asset described as XML in the Editor context.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
-class AssetXML<T> extends AssetFile<T>
+class AssetXML extends AssetFile
 {
 	/**
 	 * XML document.

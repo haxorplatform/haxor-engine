@@ -1,5 +1,6 @@
 package haxor.component;
 import haxor.context.EngineContext;
+import haxor.core.Console;
 import haxor.core.IRenderable;
 import haxor.core.IResizeable;
 import haxor.core.IUpdateable;
@@ -36,9 +37,12 @@ class Behaviour extends Component
 	 */
 	private var m_is_start : Bool;
 
-	function new() 
+	/**
+	 * Method called when the component is created.
+	 */
+	override function OnBuild():Void 
 	{
-		super();		
+		super.OnBuild();		
 		m_enabled 		= true;
 		m_is_behaviour  = true;
 		EngineContext.Enable(this);

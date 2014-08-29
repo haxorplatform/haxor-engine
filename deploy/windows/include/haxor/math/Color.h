@@ -190,6 +190,9 @@ class HXCPP_CLASS_ATTRIBUTES  Color_obj : public hx::Object{
 		static ::haxor::math::Color Sample( Array< ::Dynamic > g,Float r);
 		static Dynamic Sample_dyn();
 
+		static ::haxor::math::Color Parse( ::String p_data,::String p_delimiter);
+		static Dynamic Parse_dyn();
+
 };
 
 } // end namespace haxor

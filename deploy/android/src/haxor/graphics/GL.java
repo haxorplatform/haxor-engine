@@ -329,7 +329,7 @@ public  class GL extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_GL(haxor.graphics.GL __temp_me56100)
+	public static   void __hx_ctor_haxor_graphics_GL(haxor.graphics.GL __temp_me80625)
 	{
 		{
 		}

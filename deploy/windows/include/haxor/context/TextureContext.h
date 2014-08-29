@@ -6,9 +6,10 @@
 #endif
 
 HX_DECLARE_CLASS2(haxor,context,TextureContext)
+HX_DECLARE_CLASS2(haxor,context,UID)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,PixelFormat)
 HX_DECLARE_CLASS2(haxor,core,Resource)
-HX_DECLARE_CLASS2(haxor,graphics,PixelFormat)
 HX_DECLARE_CLASS3(haxor,graphics,texture,RenderTexture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture2D)
@@ -38,13 +39,14 @@ class HXCPP_CLASS_ATTRIBUTES  TextureContext_obj : public hx::Object{
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("TextureContext"); }
 
-		int tid;
+		::haxor::context::UID tid;
 		Array< int > ids;
 		Array< int > framebuffers;
 		Array< int > renderbuffers;
 		::haxor::graphics::texture::RenderTexture target;
 		Array< ::Dynamic > active;
 		::haxor::graphics::texture::Texture bind;
+		int slot;
 		virtual Void Initialize( );
 		Dynamic Initialize_dyn();
 
@@ -66,13 +68,13 @@ class HXCPP_CLASS_ATTRIBUTES  TextureContext_obj : public hx::Object{
 		virtual Void Update( ::haxor::graphics::texture::Texture p_texture);
 		Dynamic Update_dyn();
 
-		virtual Void UploadTexture( ::haxor::graphics::texture::Texture2D p_texture,int p_steps,Dynamic p_on_complete);
+		virtual Void UploadTexture( ::haxor::graphics::texture::Texture2D p_texture,int p_x,int p_y,int p_width,int p_height,int p_steps,Dynamic p_on_complete);
 		Dynamic UploadTexture_dyn();
 
 		virtual Void WriteTexture( int p_target,::haxor::graphics::texture::Texture p_texture);
 		Dynamic WriteTexture_dyn();
 
-		virtual int Activate( ::haxor::graphics::texture::Texture p_texture);
+		virtual Void Activate( ::haxor::graphics::texture::Texture p_texture,int p_slot);
 		Dynamic Activate_dyn();
 
 		virtual Void BindTarget( ::haxor::graphics::texture::RenderTexture rt);
@@ -87,13 +89,13 @@ class HXCPP_CLASS_ATTRIBUTES  TextureContext_obj : public hx::Object{
 		static int TextureToTarget( ::haxor::graphics::texture::Texture p_texture);
 		static Dynamic TextureToTarget_dyn();
 
-		static int FormatToChannelBits( ::haxor::graphics::PixelFormat p_format);
+		static int FormatToChannelBits( ::haxor::core::PixelFormat p_format);
 		static Dynamic FormatToChannelBits_dyn();
 
-		static int FormatToChannelType( ::haxor::graphics::PixelFormat p_format);
+		static int FormatToChannelType( ::haxor::core::PixelFormat p_format);
 		static Dynamic FormatToChannelType_dyn();
 
-		static int FormatToChannelLayout( ::haxor::graphics::PixelFormat p_format);
+		static int FormatToChannelLayout( ::haxor::core::PixelFormat p_format);
 		static Dynamic FormatToChannelLayout_dyn();
 
 };

@@ -51,12 +51,30 @@ class Quaternion
 	static public function ToEuler(p_quaternion : Quaternion, p_result:Vector3 = null):Vector3
 	{
 		var q : Quaternion = p_quaternion;
-		var r : Vector3 = p_result == null ? (new Vector3()) : p_result;
-		return r.Set(
-		Math.atan2(2.0 * (q.y * q.z + q.w * q.x), q.w * q.w - q.x * q.x - q.y * q.y + q.z * q.z)  * Mathf.Rad2Deg, 
-		Math.asin(-2.0 * (q.x*q.z - q.w*q.y)) * Mathf.Rad2Deg,
-		Math.atan2(2.0 * (q.x * q.y + q.w * q.z), q.w * q.w + q.x * q.x - q.y * q.y - q.z * q.z) * Mathf.Rad2Deg
-		);			
+		var r : Vector3 = p_result == null ? (new Vector3()) : p_result;		
+		var test : Float = (q.x * q.y) + (q.z * q.w);		
+		if (test > 0.499) 
+		{ // singularity at north pole
+			r.y = 2 * Math.atan2(q.x,q.w) * Mathf.Rad2Deg;
+			r.z = Math.PI*0.5 * Mathf.Rad2Deg;
+			r.x = 0;
+			return r;
+		}
+		if (test < -0.499)
+		{ // singularity at south pole
+			r.y = -2.0 * Math.atan2(q.x,q.w);
+			r.z = -Math.PI*0.5 * Mathf.Rad2Deg;
+			r.x = 0;
+			return r;
+		}
+		//*/
+		var sqx : Float = q.x * q.x;		
+		var sqy : Float = q.y * q.y;		
+		var sqz : Float = q.z * q.z;		
+		r.y  = Math.atan2(2.0 * q.y * q.w - 2.0 * q.x * q.z, 1.0 - 2.0 * sqy - 2.0 * sqz) * Mathf.Rad2Deg;
+		r.z  = Math.asin (2.0 * test) * Mathf.Rad2Deg;
+		r.x  = Math.atan2(2.0 * q.x * q.w - 2.0 * q.y * q.z , 1.0 - 2.0 * sqx - 2.0 * sqz) * Mathf.Rad2Deg;
+		return r;		
 	}
 	
 	/**
@@ -160,6 +178,16 @@ class Quaternion
 	 */
 	static public function Slerp(p_a:Quaternion, p_b:Quaternion, p_ratio:Float):Quaternion
 	{
+		/*
+		//Faster Slerp
+		//Use lerp with a spline to adjust middle path.
+		float f = 1.0f - 0.7878088f*cosAlpha;
+		float k = 0.5069269f;
+		float b = 2*k;
+		float c = -3*k;
+		float d = 1 + k;
+		t = t*(b*t + c) + d;
+		//*/
 		// quaternion to return
 		var qm : Quaternion = new Quaternion();		
 		var z : Quaternion = Quaternion.temp.SetQuaternion(p_b);
@@ -209,7 +237,7 @@ class Quaternion
 		var l:Float = p_axis.length;
 		if (Mathf.Abs(l - 1.0) > Mathf.Epsilon) p_axis.Normalize();
 		var s:Float = Mathf.Sin(p_angle);		
-		return new Quaternion(p_axis.x * s, p_axis.y * s, p_axis.z * s, Mathf.Cos(p_angle));
+		return (new Quaternion(p_axis.x * s, p_axis.y * s, p_axis.z * s, Mathf.Cos(p_angle)));
 	}
 	
 	/**
@@ -219,7 +247,10 @@ class Quaternion
 	 * @param	p_up
 	 * @return
 	 */
-	static public inline function LookAt(p_from : Vector3, p_at : Vector3,p_up : Vector3=null,p_result:Quaternion=null) : Quaternion { return Quaternion.FromMatrix(Matrix4.LookAt(p_from, p_at, p_up,Matrix4.temp),p_result); }
+	static public inline function LookAt(p_eye : Vector3, p_at : Vector3, p_up : Vector3 = null, p_result:Quaternion = null) : Quaternion 
+	{ 
+		return Quaternion.FromMatrix(Matrix4.LookAt(p_eye, p_at, p_up, Matrix4.temp), p_result); 
+	}
 	
 	/**
 	 * Returns the rotation that look towards the informed direction.
@@ -372,7 +403,7 @@ class Quaternion
 		var vy:Float = (w * p_v.y) + (y * p_v.w) + (z * p_v.x) - (x * p_v.z);
 		var vz:Float = (w * p_v.z) + (z * p_v.w) + (x * p_v.y) - (y * p_v.x);
 		var vw:Float = (w * p_v.w) - (x * p_v.x) - (y * p_v.y) - (z * p_v.z);   				
-		x = vx; y = vy;	z = vz; w = vw;		
+		x = vx; y = vy;	z = vz; w = vw;				
 		return p_normalize ? Normalize() : this;
 	}
 	

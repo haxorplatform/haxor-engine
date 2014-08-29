@@ -1128,16 +1128,16 @@ return null();
 
 Void OpenGL_obj::UniformMatrix4fv( int p_location,bool p_transpose,::haxor::io::FloatArray p_v){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","UniformMatrix4fv",0xda86ce3a,"haxor.platform.graphics.OpenGL.UniformMatrix4fv","haxor/platform/graphics/OpenGL.hx",218,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","UniformMatrix4fv",0xda86ce3a,"haxor.platform.graphics.OpenGL.UniformMatrix4fv","haxor/platform/graphics/OpenGL.hx",219,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_location,"p_location")
 		HX_STACK_ARG(p_transpose,"p_transpose")
 		HX_STACK_ARG(p_v,"p_v")
-		HX_STACK_LINE(218)
+		HX_STACK_LINE(220)
 		::haxe::io::Bytes ba = p_v->m_buffer;		HX_STACK_VAR(ba,"ba");
-		HX_STACK_LINE(218)
+		HX_STACK_LINE(220)
 		int len = p_v->m_length;		HX_STACK_VAR(len,"len");
-		HX_STACK_LINE(218)
+		HX_STACK_LINE(220)
 		glUniformMatrix4fv(p_location,len/16, p_transpose, (float*)&ba->b[0]);;
 	}
 return null();
@@ -1146,11 +1146,11 @@ return null();
 
 Void OpenGL_obj::BlendFunc( int p_src,int p_dst){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","BlendFunc",0xc23185aa,"haxor.platform.graphics.OpenGL.BlendFunc","haxor/platform/graphics/OpenGL.hx",221,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","BlendFunc",0xc23185aa,"haxor.platform.graphics.OpenGL.BlendFunc","haxor/platform/graphics/OpenGL.hx",224,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_src,"p_src")
 		HX_STACK_ARG(p_dst,"p_dst")
-		HX_STACK_LINE(221)
+		HX_STACK_LINE(224)
 		glBlendFunc(p_src, p_dst);;
 	}
 return null();
@@ -1159,10 +1159,10 @@ return null();
 
 Void OpenGL_obj::Disable( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Disable",0x1f6d3c1d,"haxor.platform.graphics.OpenGL.Disable","haxor/platform/graphics/OpenGL.hx",222,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Disable",0x1f6d3c1d,"haxor.platform.graphics.OpenGL.Disable","haxor/platform/graphics/OpenGL.hx",225,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(222)
+		HX_STACK_LINE(225)
 		glDisable(p_flag);;
 	}
 return null();
@@ -1171,10 +1171,10 @@ return null();
 
 Void OpenGL_obj::Enable( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Enable",0xdd78d9ee,"haxor.platform.graphics.OpenGL.Enable","haxor/platform/graphics/OpenGL.hx",223,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Enable",0xdd78d9ee,"haxor.platform.graphics.OpenGL.Enable","haxor/platform/graphics/OpenGL.hx",226,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(223)
+		HX_STACK_LINE(226)
 		glEnable(p_flag);;
 	}
 return null();
@@ -1183,10 +1183,10 @@ return null();
 
 Void OpenGL_obj::DepthMask( bool p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","DepthMask",0x596f2504,"haxor.platform.graphics.OpenGL.DepthMask","haxor/platform/graphics/OpenGL.hx",224,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","DepthMask",0x596f2504,"haxor.platform.graphics.OpenGL.DepthMask","haxor/platform/graphics/OpenGL.hx",227,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(224)
+		HX_STACK_LINE(227)
 		glDepthMask(p_flag);;
 	}
 return null();
@@ -1195,10 +1195,10 @@ return null();
 
 Void OpenGL_obj::DepthFunc( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","DepthFunc",0x54ddcf5c,"haxor.platform.graphics.OpenGL.DepthFunc","haxor/platform/graphics/OpenGL.hx",225,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","DepthFunc",0x54ddcf5c,"haxor.platform.graphics.OpenGL.DepthFunc","haxor/platform/graphics/OpenGL.hx",228,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(225)
+		HX_STACK_LINE(228)
 		glDepthFunc(p_flag);;
 	}
 return null();
@@ -1207,10 +1207,10 @@ return null();
 
 Void OpenGL_obj::CullFace( int p_face){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","CullFace",0x9055039a,"haxor.platform.graphics.OpenGL.CullFace","haxor/platform/graphics/OpenGL.hx",226,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","CullFace",0x9055039a,"haxor.platform.graphics.OpenGL.CullFace","haxor/platform/graphics/OpenGL.hx",229,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_face,"p_face")
-		HX_STACK_LINE(226)
+		HX_STACK_LINE(229)
 		glCullFace(p_face);;
 	}
 return null();
@@ -1219,10 +1219,10 @@ return null();
 
 Void OpenGL_obj::FrontFace( int p_face){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","FrontFace",0x3b568b5b,"haxor.platform.graphics.OpenGL.FrontFace","haxor/platform/graphics/OpenGL.hx",227,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","FrontFace",0x3b568b5b,"haxor.platform.graphics.OpenGL.FrontFace","haxor/platform/graphics/OpenGL.hx",230,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_face,"p_face")
-		HX_STACK_LINE(227)
+		HX_STACK_LINE(230)
 		glFrontFace(p_face);;
 	}
 return null();
@@ -1231,10 +1231,10 @@ return null();
 
 Void OpenGL_obj::Clear( int p_flag){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Clear",0x1247dc82,"haxor.platform.graphics.OpenGL.Clear","haxor/platform/graphics/OpenGL.hx",231,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Clear",0x1247dc82,"haxor.platform.graphics.OpenGL.Clear","haxor/platform/graphics/OpenGL.hx",234,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_flag,"p_flag")
-		HX_STACK_LINE(231)
+		HX_STACK_LINE(234)
 		glClear(p_flag);;
 	}
 return null();
@@ -1243,10 +1243,10 @@ return null();
 
 Void OpenGL_obj::ClearDepth( Float p_value){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","ClearDepth",0x3476ed21,"haxor.platform.graphics.OpenGL.ClearDepth","haxor/platform/graphics/OpenGL.hx",232,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","ClearDepth",0x3476ed21,"haxor.platform.graphics.OpenGL.ClearDepth","haxor/platform/graphics/OpenGL.hx",235,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_value,"p_value")
-		HX_STACK_LINE(232)
+		HX_STACK_LINE(235)
 		glClearDepthf(p_value);;
 	}
 return null();
@@ -1255,13 +1255,13 @@ return null();
 
 Void OpenGL_obj::ClearColor( Float p_r,Float p_g,Float p_b,Float p_a){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","ClearColor",0xa7a96d81,"haxor.platform.graphics.OpenGL.ClearColor","haxor/platform/graphics/OpenGL.hx",233,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","ClearColor",0xa7a96d81,"haxor.platform.graphics.OpenGL.ClearColor","haxor/platform/graphics/OpenGL.hx",236,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_r,"p_r")
 		HX_STACK_ARG(p_g,"p_g")
 		HX_STACK_ARG(p_b,"p_b")
 		HX_STACK_ARG(p_a,"p_a")
-		HX_STACK_LINE(233)
+		HX_STACK_LINE(236)
 		glClearColor(p_r, p_g, p_b, p_a);;
 	}
 return null();
@@ -1270,13 +1270,13 @@ return null();
 
 Void OpenGL_obj::Viewport( int p_x,int p_y,int p_width,int p_height){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Viewport",0x80c86891,"haxor.platform.graphics.OpenGL.Viewport","haxor/platform/graphics/OpenGL.hx",234,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Viewport",0x80c86891,"haxor.platform.graphics.OpenGL.Viewport","haxor/platform/graphics/OpenGL.hx",237,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_x,"p_x")
 		HX_STACK_ARG(p_y,"p_y")
 		HX_STACK_ARG(p_width,"p_width")
 		HX_STACK_ARG(p_height,"p_height")
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(237)
 		glViewport(p_x, p_y, p_width, p_height);;
 	}
 return null();
@@ -1285,13 +1285,13 @@ return null();
 
 Void OpenGL_obj::Scissor( int p_x,int p_y,int p_width,int p_height){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Scissor",0x72fbfa51,"haxor.platform.graphics.OpenGL.Scissor","haxor/platform/graphics/OpenGL.hx",235,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","Scissor",0x72fbfa51,"haxor.platform.graphics.OpenGL.Scissor","haxor/platform/graphics/OpenGL.hx",238,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_x,"p_x")
 		HX_STACK_ARG(p_y,"p_y")
 		HX_STACK_ARG(p_width,"p_width")
 		HX_STACK_ARG(p_height,"p_height")
-		HX_STACK_LINE(235)
+		HX_STACK_LINE(238)
 		glScissor(p_x, p_y, p_width, p_height);;
 	}
 return null();
@@ -1300,7 +1300,7 @@ return null();
 
 Void OpenGL_obj::ReadPixels( int p_x,int p_y,int p_width,int p_height,int p_format,int p_type,::haxor::io::Buffer p_pixels){
 {
-		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","ReadPixels",0x0e68900e,"haxor.platform.graphics.OpenGL.ReadPixels","haxor/platform/graphics/OpenGL.hx",237,0x3c17389a)
+		HX_STACK_FRAME("haxor.platform.graphics.OpenGL","ReadPixels",0x0e68900e,"haxor.platform.graphics.OpenGL.ReadPixels","haxor/platform/graphics/OpenGL.hx",240,0x3c17389a)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_x,"p_x")
 		HX_STACK_ARG(p_y,"p_y")
@@ -1309,9 +1309,9 @@ Void OpenGL_obj::ReadPixels( int p_x,int p_y,int p_width,int p_height,int p_form
 		HX_STACK_ARG(p_format,"p_format")
 		HX_STACK_ARG(p_type,"p_type")
 		HX_STACK_ARG(p_pixels,"p_pixels")
-		HX_STACK_LINE(237)
+		HX_STACK_LINE(240)
 		::haxe::io::Bytes ba = p_pixels->m_buffer;		HX_STACK_VAR(ba,"ba");
-		HX_STACK_LINE(237)
+		HX_STACK_LINE(240)
 		glReadPixels(p_x, p_y, p_width, p_height, p_format, p_type, (void*)(&ba->b[0]));;
 	}
 return null();
@@ -1319,11 +1319,11 @@ return null();
 
 
 int OpenGL_obj::GetErrorCode( ){
-	HX_STACK_FRAME("haxor.platform.graphics.OpenGL","GetErrorCode",0xa39fd74a,"haxor.platform.graphics.OpenGL.GetErrorCode","haxor/platform/graphics/OpenGL.hx",240,0x3c17389a)
+	HX_STACK_FRAME("haxor.platform.graphics.OpenGL","GetErrorCode",0xa39fd74a,"haxor.platform.graphics.OpenGL.GetErrorCode","haxor/platform/graphics/OpenGL.hx",243,0x3c17389a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(240)
+	HX_STACK_LINE(243)
 	return glGetError();;
-	HX_STACK_LINE(240)
+	HX_STACK_LINE(243)
 	return (int)0;
 }
 

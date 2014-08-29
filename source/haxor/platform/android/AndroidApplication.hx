@@ -30,15 +30,12 @@ class AndroidApplication extends BaseApplication
 	 */
 	private var m_screen_height : Float;
 	
-	/**
-	 * Creates a new ApplicationWindows.
-	 */
-	public function new() 
+	override function OnBuild():Void 
 	{
-		super();		
 		m_platform = Platform.Android;
 		m_screen_width = 0.0;
 		m_screen_height = 0.0;
+		super.OnBuild();		
 	}
 	
 	/**

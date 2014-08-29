@@ -215,7 +215,10 @@ haxor.platform.windows.graphics.WinGL
 	
 	override public function UniformMatrix2fv(p_location:UniformLocation,p_transpose:Bool,p_v:FloatArray):Void 			{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniformMatrix2fv(p_location,len/4,  p_transpose, (float*)&ba->b[0]);'); }
 	override public function UniformMatrix3fv(p_location:UniformLocation,p_transpose:Bool,p_v:FloatArray):Void 			{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniformMatrix3fv(p_location,len/9,  p_transpose, (float*)&ba->b[0]);'); }
-	override public function UniformMatrix4fv(p_location:UniformLocation,p_transpose:Bool,p_v:FloatArray):Void 			{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniformMatrix4fv(p_location,len/16, p_transpose, (float*)&ba->b[0]);'); }
+	override public function UniformMatrix4fv(p_location:UniformLocation, p_transpose:Bool, p_v:FloatArray):Void 			
+	{ 
+		var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniformMatrix4fv(p_location,len/16, p_transpose, (float*)&ba->b[0]);'); 
+	}
 	
 	//Flags
 	override public function BlendFunc(p_src : Int, p_dst : Int):Void 	{ untyped __cpp__('glBlendFunc(p_src, p_dst);'); }

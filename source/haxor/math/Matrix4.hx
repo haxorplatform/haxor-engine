@@ -41,7 +41,7 @@ class Matrix4
 		var zw:Float = q.w * q.z;		
 		m.m00 = 1.0 - 2.0 * ( y2 + z2 ); m.m01 =       2.0 * ( xy - zw ); m.m02 =       2.0 * ( xz + yw );	
 		m.m10 =       2.0 * ( xy + zw ); m.m11 = 1.0 - 2.0 * ( x2 + z2 ); m.m12 =       2.0 * ( yz - xw );				
-		m.m20 =       2.0 * ( xz - yw ); m.m21 =       2.0 * ( yz + xw ); m.m22 = 1.0 - 2.0 * ( x2 + y2 );		
+		m.m20 =       2.0 * ( xz - yw ); m.m21 =       2.0 * ( yz + xw ); m.m22 = (1.0 - 2.0 * ( x2 + y2 ));		
 		m.m30 = m.m31 = m.m32 = 0.0; m.m33 = 1.0;
 		return m;
 	}
@@ -281,17 +281,88 @@ class Matrix4
 	{ 
 		p_result = p_result == null ? (new Matrix4()) : p_result;
 		p_up = p_up == null ? Vector3.temp.Set(0, 1, 0) : p_up;
+		/*
+		var vz : Vector3 = Vector3.temp.Set3(p_at).Sub(p_eye).Normalize().Invert();
+		var vx : Vector3 = Vector3.Cross(p_up, vz,Vector3.temp).Normalize();
+		var vy : Vector3 = Vector3.Cross(vz, vx,Vector3.temp);		
+		var m : Matrix4 = p_result;
+		m.Set(
+		vx.x, vy.x, vz.x, -Vector3.Dot(vx, p_eye),
+		vx.y, vy.y, vz.y, -Vector3.Dot(vy, p_eye),
+		vx.z, vy.z, vz.z,  Vector3.Dot(vz, p_eye),
+		0, 0, 0, 1);	
+		return m;
+		//*/
+		/*
+		detail::tvec3<T, P> const f(normalize(center - eye));
+		detail::tvec3<T, P> const s(normalize(cross(f, up)));
+		detail::tvec3<T, P> const u(cross(s, f));
+
+		detail::tmat4x4<T, P> Result(1);
+		Result[0][0] = s.x;
+		Result[1][0] = s.y;
+		Result[2][0] = s.z;
+		Result[0][1] = u.x;
+		Result[1][1] = u.y;
+		Result[2][1] = u.z;
+		Result[0][2] =-f.x;
+		Result[1][2] =-f.y;
+		Result[2][2] =-f.z;
+		Result[3][0] =-dot(s, eye);
+		Result[3][1] =-dot(u, eye);
+		Result[3][2] = dot(f, eye);
+		//*/
+		
+		var f : Vector3 = Vector3.temp.Set3(p_at).Sub(p_eye).Normalize();
+		var s : Vector3 = Vector3.Cross(f, p_up, Vector3.temp).Normalize();
+		var u : Vector3 = Vector3.Cross(s, f, Vector3.temp);
+		
+		//f.Invert();
+		
+		p_result.m00 = s.x; 
+		p_result.m10 = s.y;	
+		p_result.m20 = s.z;
+		
+		p_result.m01 = u.x; 
+		p_result.m11 = u.y;
+		p_result.m21 = u.z;
+		
+		p_result.m02 = -f.x; 
+		p_result.m12 = -f.y;	
+		p_result.m22 = -f.z;
+		
+		p_result.m03 = -Vector3.Dot(s, p_eye);
+		p_result.m13 = -Vector3.Dot(u, p_eye);
+		p_result.m23 =  Vector3.Dot(f, p_eye);
+		
+		p_result.m30 = p_result.m31 = p_result.m32 = 0.0; p_result.m33 = 1.0;
+		
+		//*/
+		
+		/*
 		var at : Vector3 = Vector3.temp.Set3(p_at);
-		var vz : Vector3 = at.Sub(p_eye).Normalize();
+		var vz : Vector3 = at.Sub(p_eye).Normalize().Invert();
 		var vx : Vector3 = Vector3.temp;
 		var vy : Vector3 = Vector3.temp;
 		Vector3.Cross(vz, p_up,vx).Normalize();
 		Vector3.Cross(vx, vz, vy);					
-		return p_result.Set(
+		
+		p_result.Set(
 		vx.x, vy.x, vz.x, -Vector3.Dot(vx, p_eye),
 		vx.y, vy.y, vz.y, -Vector3.Dot(vy, p_eye),
 		vx.z, vy.z, vz.z, -Vector3.Dot(vz, p_eye),
-		0, 0, 0, 1);		
+		0, 0, 0, 1);	
+		//*/
+		/*
+		p_result.Set(
+		vx.x, vx.y, vx.z, -Vector3.Dot(vx, p_eye),
+		vy.x, vy.y, vy.z, -Vector3.Dot(vy, p_eye),
+		vz.x, vz.y, vz.z, -Vector3.Dot(vz, p_eye),
+		0, 0, 0, 1);	
+		//*/
+		
+		
+		return p_result;
 	}
 	
 	

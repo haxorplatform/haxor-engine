@@ -127,6 +127,9 @@ class HXCPP_CLASS_ATTRIBUTES  Vector3_obj : public hx::Object{
 		virtual ::haxor::math::Vector3 Add( ::haxor::math::Vector3 p_v);
 		Dynamic Add_dyn();
 
+		virtual ::haxor::math::Vector3 Add3( Float p_x,Float p_y,Float p_z);
+		Dynamic Add3_dyn();
+
 		virtual ::haxor::math::Vector3 Sub( ::haxor::math::Vector3 p_v);
 		Dynamic Sub_dyn();
 
@@ -189,6 +192,9 @@ class HXCPP_CLASS_ATTRIBUTES  Vector3_obj : public hx::Object{
 
 		static ::haxor::math::Vector3 Lerp( ::haxor::math::Vector3 p_a,::haxor::math::Vector3 p_b,Float p_r,::haxor::math::Vector3 p_result);
 		static Dynamic Lerp_dyn();
+
+		static ::haxor::math::Vector3 Parse( ::String p_data,::String p_delimiter);
+		static Dynamic Parse_dyn();
 
 };
 

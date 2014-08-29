@@ -3,6 +3,9 @@
 #ifndef INCLUDED_haxe_Timer
 #include <haxe/Timer.h>
 #endif
+#ifndef INCLUDED_haxor_core_Console
+#include <haxor/core/Console.h>
+#endif
 #ifndef INCLUDED_haxor_core_Time
 #include <haxor/core/Time.h>
 #endif
@@ -57,11 +60,24 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Time_obj,get_delta,return )
 
 Float Time_obj::m_delta;
 
+Float Time_obj::framedelta;
+
+Float Time_obj::get_framedelta( ){
+	HX_STACK_FRAME("haxor.core.Time","get_framedelta",0xc3b4af32,"haxor.core.Time.get_framedelta","haxor/core/Time.hx",36,0xdc68dfee)
+	HX_STACK_LINE(36)
+	return ::haxor::core::Time_obj::m_frame_delta;
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC0(Time_obj,get_framedelta,return )
+
+Float Time_obj::m_frame_delta;
+
 Float Time_obj::elapsed;
 
 Float Time_obj::get_elapsed( ){
-	HX_STACK_FRAME("haxor.core.Time","get_elapsed",0xf673cb55,"haxor.core.Time.get_elapsed","haxor/core/Time.hx",36,0xdc68dfee)
-	HX_STACK_LINE(36)
+	HX_STACK_FRAME("haxor.core.Time","get_elapsed",0xf673cb55,"haxor.core.Time.get_elapsed","haxor/core/Time.hx",43,0xdc68dfee)
+	HX_STACK_LINE(43)
 	return ::haxor::core::Time_obj::m_elapsed;
 }
 
@@ -73,8 +89,8 @@ Float Time_obj::m_elapsed;
 int Time_obj::fps;
 
 int Time_obj::get_fps( ){
-	HX_STACK_FRAME("haxor.core.Time","get_fps",0xd8113a82,"haxor.core.Time.get_fps","haxor/core/Time.hx",43,0xdc68dfee)
-	HX_STACK_LINE(43)
+	HX_STACK_FRAME("haxor.core.Time","get_fps",0xd8113a82,"haxor.core.Time.get_fps","haxor/core/Time.hx",50,0xdc68dfee)
+	HX_STACK_LINE(50)
 	return ::haxor::core::Time_obj::m_fps;
 }
 
@@ -86,8 +102,8 @@ int Time_obj::m_fps;
 int Time_obj::ups;
 
 int Time_obj::get_ups( ){
-	HX_STACK_FRAME("haxor.core.Time","get_ups",0xd81c9c51,"haxor.core.Time.get_ups","haxor/core/Time.hx",50,0xdc68dfee)
-	HX_STACK_LINE(50)
+	HX_STACK_FRAME("haxor.core.Time","get_ups",0xd81c9c51,"haxor.core.Time.get_ups","haxor/core/Time.hx",57,0xdc68dfee)
+	HX_STACK_LINE(57)
 	return ::haxor::core::Time_obj::m_ups;
 }
 
@@ -99,8 +115,8 @@ int Time_obj::m_ups;
 int Time_obj::frame;
 
 int Time_obj::get_frame( ){
-	HX_STACK_FRAME("haxor.core.Time","get_frame",0xebfb8306,"haxor.core.Time.get_frame","haxor/core/Time.hx",57,0xdc68dfee)
-	HX_STACK_LINE(57)
+	HX_STACK_FRAME("haxor.core.Time","get_frame",0xebfb8306,"haxor.core.Time.get_frame","haxor/core/Time.hx",64,0xdc68dfee)
+	HX_STACK_LINE(64)
 	return ::haxor::core::Time_obj::m_frame;
 }
 
@@ -121,74 +137,72 @@ Float Time_obj::m_last_clock;
 
 Float Time_obj::m_last_frame_clock;
 
-Float Time_obj::m_frame_delta;
-
 Void Time_obj::Initialize( ){
 {
-		HX_STACK_FRAME("haxor.core.Time","Initialize",0xd67638ae,"haxor.core.Time.Initialize","haxor/core/Time.hx",77,0xdc68dfee)
-		HX_STACK_LINE(78)
+		HX_STACK_FRAME("haxor.core.Time","Initialize",0xd67638ae,"haxor.core.Time.Initialize","haxor/core/Time.hx",84,0xdc68dfee)
+		HX_STACK_LINE(85)
 		::haxor::core::Time_obj::m_clock = 0.0;
-		HX_STACK_LINE(79)
+		HX_STACK_LINE(86)
 		::haxor::core::Time_obj::m_clock_dt = 0.0;
-		HX_STACK_LINE(80)
+		HX_STACK_LINE(87)
 		::haxor::core::Time_obj::m_clock_0 = 0.0;
-		HX_STACK_LINE(81)
+		HX_STACK_LINE(88)
 		{
-			HX_STACK_LINE(81)
+			HX_STACK_LINE(88)
 			Float _g = ::haxe::Timer_obj::stamp();		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(81)
+			HX_STACK_LINE(88)
 			Float _g1 = (_g * 1000.0);		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(81)
+			HX_STACK_LINE(88)
 			Float _g2 = (_g1 - ::haxor::core::Time_obj::m_clock_0);		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(81)
+			HX_STACK_LINE(88)
 			::haxor::core::Time_obj::m_clock = _g2;
 		}
-		HX_STACK_LINE(82)
+		HX_STACK_LINE(89)
 		::haxor::core::Time_obj::m_clock_0 = ::haxor::core::Time_obj::m_clock;
-		HX_STACK_LINE(83)
+		HX_STACK_LINE(90)
 		{
-			HX_STACK_LINE(83)
+			HX_STACK_LINE(90)
 			Float _g3 = ::haxe::Timer_obj::stamp();		HX_STACK_VAR(_g3,"_g3");
-			HX_STACK_LINE(83)
+			HX_STACK_LINE(90)
 			Float _g4 = (_g3 * 1000.0);		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(83)
+			HX_STACK_LINE(90)
 			Float _g5 = (_g4 - ::haxor::core::Time_obj::m_clock_0);		HX_STACK_VAR(_g5,"_g5");
-			HX_STACK_LINE(83)
+			HX_STACK_LINE(90)
 			::haxor::core::Time_obj::m_clock = _g5;
 		}
-		HX_STACK_LINE(85)
-		::haxor::core::Time_obj::m_start_clock = ::haxor::core::Time_obj::m_clock;
-		HX_STACK_LINE(86)
-		::haxor::core::Time_obj::m_last_clock = ::haxor::core::Time_obj::m_clock;
-		HX_STACK_LINE(87)
-		::haxor::core::Time_obj::m_last_frame_clock = ::haxor::core::Time_obj::m_clock;
-		HX_STACK_LINE(88)
-		::haxor::core::Time_obj::m_stats_clock = ::haxor::core::Time_obj::m_clock;
-		HX_STACK_LINE(89)
-		::haxor::core::Time_obj::m_elapsed = 0.0;
-		HX_STACK_LINE(90)
-		::haxor::core::Time_obj::m_delta = 0.0;
-		HX_STACK_LINE(91)
-		::haxor::core::Time_obj::m_frame_delta = 0.0;
 		HX_STACK_LINE(92)
-		::haxor::core::Time_obj::m_ups = (int)0;
+		::haxor::core::Time_obj::m_start_clock = ::haxor::core::Time_obj::m_clock;
 		HX_STACK_LINE(93)
-		::haxor::core::Time_obj::m_fps = (int)0;
+		::haxor::core::Time_obj::m_last_clock = ::haxor::core::Time_obj::m_clock;
 		HX_STACK_LINE(94)
-		::haxor::core::Time_obj::m_updates = 0.0;
+		::haxor::core::Time_obj::m_last_frame_clock = ::haxor::core::Time_obj::m_clock;
 		HX_STACK_LINE(95)
-		::haxor::core::Time_obj::m_frame_count = 0.0;
+		::haxor::core::Time_obj::m_stats_clock = ::haxor::core::Time_obj::m_clock;
 		HX_STACK_LINE(96)
-		::haxor::core::Time_obj::m_frame = (int)0;
+		::haxor::core::Time_obj::m_elapsed = 0.0;
 		HX_STACK_LINE(97)
+		::haxor::core::Time_obj::m_delta = 0.0;
+		HX_STACK_LINE(98)
+		::haxor::core::Time_obj::m_frame_delta = 0.0;
+		HX_STACK_LINE(99)
+		::haxor::core::Time_obj::m_ups = (int)0;
+		HX_STACK_LINE(100)
+		::haxor::core::Time_obj::m_fps = (int)0;
+		HX_STACK_LINE(101)
+		::haxor::core::Time_obj::m_updates = 0.0;
+		HX_STACK_LINE(102)
+		::haxor::core::Time_obj::m_frame_count = 0.0;
+		HX_STACK_LINE(103)
+		::haxor::core::Time_obj::m_frame = (int)0;
+		HX_STACK_LINE(104)
 		{
-			HX_STACK_LINE(97)
+			HX_STACK_LINE(104)
 			Float _g6 = ::haxe::Timer_obj::stamp();		HX_STACK_VAR(_g6,"_g6");
-			HX_STACK_LINE(97)
+			HX_STACK_LINE(104)
 			Float _g7 = (_g6 * 1000.0);		HX_STACK_VAR(_g7,"_g7");
-			HX_STACK_LINE(97)
+			HX_STACK_LINE(104)
 			Float _g8 = (_g7 - ::haxor::core::Time_obj::m_clock_0);		HX_STACK_VAR(_g8,"_g8");
-			HX_STACK_LINE(97)
+			HX_STACK_LINE(104)
 			::haxor::core::Time_obj::m_clock = _g8;
 		}
 	}
@@ -200,45 +214,47 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Time_obj,Initialize,(void))
 
 Void Time_obj::Update( ){
 {
-		HX_STACK_FRAME("haxor.core.Time","Update",0xded60667,"haxor.core.Time.Update","haxor/core/Time.hx",101,0xdc68dfee)
-		HX_STACK_LINE(102)
+		HX_STACK_FRAME("haxor.core.Time","Update",0xded60667,"haxor.core.Time.Update","haxor/core/Time.hx",108,0xdc68dfee)
+		HX_STACK_LINE(109)
 		{
-			HX_STACK_LINE(102)
+			HX_STACK_LINE(109)
 			Float _g = ::haxe::Timer_obj::stamp();		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(102)
+			HX_STACK_LINE(109)
 			Float _g1 = (_g * 1000.0);		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(102)
+			HX_STACK_LINE(109)
 			Float _g2 = (_g1 - ::haxor::core::Time_obj::m_clock_0);		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(102)
+			HX_STACK_LINE(109)
 			::haxor::core::Time_obj::m_clock = _g2;
 		}
-		HX_STACK_LINE(103)
+		HX_STACK_LINE(110)
 		::haxor::core::Time_obj::m_clock_dt = (::haxor::core::Time_obj::m_clock - ::haxor::core::Time_obj::m_last_clock);
-		HX_STACK_LINE(104)
+		HX_STACK_LINE(111)
 		if (((::haxor::core::Time_obj::m_clock_dt <= (int)0))){
-			HX_STACK_LINE(104)
+			HX_STACK_LINE(111)
 			::haxor::core::Time_obj::m_clock_dt = 1.0;
 		}
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(112)
 		::haxor::core::Time_obj::m_last_clock = ::haxor::core::Time_obj::m_clock;
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(113)
 		::haxor::core::Time_obj::m_delta = (::haxor::core::Time_obj::m_clock_dt * 0.001);
-		HX_STACK_LINE(107)
+		HX_STACK_LINE(115)
 		::haxor::core::Time_obj::m_elapsed = (::haxor::core::Time_obj::m_clock * 0.001);
-		HX_STACK_LINE(108)
+		HX_STACK_LINE(116)
 		hx::AddEq(::haxor::core::Time_obj::m_updates,1.0);
-		HX_STACK_LINE(110)
+		HX_STACK_LINE(118)
 		if ((((::haxor::core::Time_obj::m_clock - ::haxor::core::Time_obj::m_stats_clock) >= 1000.0))){
-			HX_STACK_LINE(112)
+			HX_STACK_LINE(120)
 			hx::AddEq(::haxor::core::Time_obj::m_stats_clock,(::haxor::core::Time_obj::m_clock - ::haxor::core::Time_obj::m_stats_clock));
-			HX_STACK_LINE(113)
+			HX_STACK_LINE(121)
 			::haxor::core::Time_obj::m_ups = ::haxor::core::Time_obj::m_updates;
-			HX_STACK_LINE(114)
+			HX_STACK_LINE(122)
 			::haxor::core::Time_obj::m_fps = ::haxor::core::Time_obj::m_frame_count;
-			HX_STACK_LINE(115)
+			HX_STACK_LINE(123)
 			::haxor::core::Time_obj::m_updates = 0.0;
-			HX_STACK_LINE(116)
+			HX_STACK_LINE(124)
 			::haxor::core::Time_obj::m_frame_count = 0.0;
+			HX_STACK_LINE(125)
+			::haxor::core::Console_obj::Log((HX_CSTRING("FPS: ") + ::haxor::core::Time_obj::m_fps),(int)7);
 		}
 	}
 return null();
@@ -249,14 +265,14 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Time_obj,Update,(void))
 
 Void Time_obj::Render( ){
 {
-		HX_STACK_FRAME("haxor.core.Time","Render",0x5cf9ebb4,"haxor.core.Time.Render","haxor/core/Time.hx",124,0xdc68dfee)
-		HX_STACK_LINE(125)
+		HX_STACK_FRAME("haxor.core.Time","Render",0x5cf9ebb4,"haxor.core.Time.Render","haxor/core/Time.hx",133,0xdc68dfee)
+		HX_STACK_LINE(134)
 		hx::AddEq(::haxor::core::Time_obj::m_frame_count,1.0);
-		HX_STACK_LINE(126)
+		HX_STACK_LINE(135)
 		(::haxor::core::Time_obj::m_frame)++;
-		HX_STACK_LINE(127)
+		HX_STACK_LINE(136)
 		::haxor::core::Time_obj::m_frame_delta = (((::haxor::core::Time_obj::m_clock - ::haxor::core::Time_obj::m_last_frame_clock)) * 0.001);
-		HX_STACK_LINE(128)
+		HX_STACK_LINE(137)
 		::haxor::core::Time_obj::m_last_frame_clock = ::haxor::core::Time_obj::m_clock;
 	}
 return null();
@@ -267,14 +283,14 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Time_obj,Render,(void))
 
 Void Time_obj::UpdateClock( ){
 {
-		HX_STACK_FRAME("haxor.core.Time","UpdateClock",0xc7e6dde7,"haxor.core.Time.UpdateClock","haxor/core/Time.hx",135,0xdc68dfee)
-		HX_STACK_LINE(145)
+		HX_STACK_FRAME("haxor.core.Time","UpdateClock",0xc7e6dde7,"haxor.core.Time.UpdateClock","haxor/core/Time.hx",144,0xdc68dfee)
+		HX_STACK_LINE(154)
 		Float _g = ::haxe::Timer_obj::stamp();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(145)
+		HX_STACK_LINE(154)
 		Float _g1 = (_g * 1000.0);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(145)
+		HX_STACK_LINE(154)
 		Float _g2 = (_g1 - ::haxor::core::Time_obj::m_clock_0);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(145)
+		HX_STACK_LINE(154)
 		::haxor::core::Time_obj::m_clock = _g2;
 	}
 return null();
@@ -324,6 +340,7 @@ Dynamic Time_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 10:
 		if (HX_FIELD_EQ(inName,"m_clock_dt") ) { return m_clock_dt; }
+		if (HX_FIELD_EQ(inName,"framedelta") ) { return inCallProp ? get_framedelta() : framedelta; }
 		if (HX_FIELD_EQ(inName,"Initialize") ) { return Initialize_dyn(); }
 		break;
 	case 11:
@@ -334,10 +351,13 @@ Dynamic Time_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"m_last_clock") ) { return m_last_clock; }
 		break;
 	case 13:
+		if (HX_FIELD_EQ(inName,"m_frame_delta") ) { return m_frame_delta; }
 		if (HX_FIELD_EQ(inName,"m_frame_count") ) { return m_frame_count; }
 		if (HX_FIELD_EQ(inName,"m_stats_clock") ) { return m_stats_clock; }
 		if (HX_FIELD_EQ(inName,"m_start_clock") ) { return m_start_clock; }
-		if (HX_FIELD_EQ(inName,"m_frame_delta") ) { return m_frame_delta; }
+		break;
+	case 14:
+		if (HX_FIELD_EQ(inName,"get_framedelta") ) { return get_framedelta_dyn(); }
 		break;
 	case 18:
 		if (HX_FIELD_EQ(inName,"m_last_frame_clock") ) { return m_last_frame_clock; }
@@ -372,15 +392,16 @@ Dynamic Time_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool 
 		break;
 	case 10:
 		if (HX_FIELD_EQ(inName,"m_clock_dt") ) { m_clock_dt=inValue.Cast< Float >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"framedelta") ) { framedelta=inValue.Cast< Float >(); return inValue; }
 		break;
 	case 12:
 		if (HX_FIELD_EQ(inName,"m_last_clock") ) { m_last_clock=inValue.Cast< Float >(); return inValue; }
 		break;
 	case 13:
+		if (HX_FIELD_EQ(inName,"m_frame_delta") ) { m_frame_delta=inValue.Cast< Float >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_frame_count") ) { m_frame_count=inValue.Cast< Float >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_stats_clock") ) { m_stats_clock=inValue.Cast< Float >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_start_clock") ) { m_start_clock=inValue.Cast< Float >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_frame_delta") ) { m_frame_delta=inValue.Cast< Float >(); return inValue; }
 		break;
 	case 18:
 		if (HX_FIELD_EQ(inName,"m_last_frame_clock") ) { m_last_frame_clock=inValue.Cast< Float >(); return inValue; }
@@ -402,6 +423,9 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("delta"),
 	HX_CSTRING("get_delta"),
 	HX_CSTRING("m_delta"),
+	HX_CSTRING("framedelta"),
+	HX_CSTRING("get_framedelta"),
+	HX_CSTRING("m_frame_delta"),
 	HX_CSTRING("elapsed"),
 	HX_CSTRING("get_elapsed"),
 	HX_CSTRING("m_elapsed"),
@@ -420,7 +444,6 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("m_start_clock"),
 	HX_CSTRING("m_last_clock"),
 	HX_CSTRING("m_last_frame_clock"),
-	HX_CSTRING("m_frame_delta"),
 	HX_CSTRING("Initialize"),
 	HX_CSTRING("Update"),
 	HX_CSTRING("Render"),
@@ -442,6 +465,8 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Time_obj::m_clock_0,"m_clock_0");
 	HX_MARK_MEMBER_NAME(Time_obj::delta,"delta");
 	HX_MARK_MEMBER_NAME(Time_obj::m_delta,"m_delta");
+	HX_MARK_MEMBER_NAME(Time_obj::framedelta,"framedelta");
+	HX_MARK_MEMBER_NAME(Time_obj::m_frame_delta,"m_frame_delta");
 	HX_MARK_MEMBER_NAME(Time_obj::elapsed,"elapsed");
 	HX_MARK_MEMBER_NAME(Time_obj::m_elapsed,"m_elapsed");
 	HX_MARK_MEMBER_NAME(Time_obj::fps,"fps");
@@ -456,7 +481,6 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Time_obj::m_start_clock,"m_start_clock");
 	HX_MARK_MEMBER_NAME(Time_obj::m_last_clock,"m_last_clock");
 	HX_MARK_MEMBER_NAME(Time_obj::m_last_frame_clock,"m_last_frame_clock");
-	HX_MARK_MEMBER_NAME(Time_obj::m_frame_delta,"m_frame_delta");
 };
 
 #ifdef HXCPP_VISIT_ALLOCS
@@ -468,6 +492,8 @@ static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Time_obj::m_clock_0,"m_clock_0");
 	HX_VISIT_MEMBER_NAME(Time_obj::delta,"delta");
 	HX_VISIT_MEMBER_NAME(Time_obj::m_delta,"m_delta");
+	HX_VISIT_MEMBER_NAME(Time_obj::framedelta,"framedelta");
+	HX_VISIT_MEMBER_NAME(Time_obj::m_frame_delta,"m_frame_delta");
 	HX_VISIT_MEMBER_NAME(Time_obj::elapsed,"elapsed");
 	HX_VISIT_MEMBER_NAME(Time_obj::m_elapsed,"m_elapsed");
 	HX_VISIT_MEMBER_NAME(Time_obj::fps,"fps");
@@ -482,7 +508,6 @@ static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Time_obj::m_start_clock,"m_start_clock");
 	HX_VISIT_MEMBER_NAME(Time_obj::m_last_clock,"m_last_clock");
 	HX_VISIT_MEMBER_NAME(Time_obj::m_last_frame_clock,"m_last_frame_clock");
-	HX_VISIT_MEMBER_NAME(Time_obj::m_frame_delta,"m_frame_delta");
 };
 
 #endif

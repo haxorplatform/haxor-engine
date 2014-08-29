@@ -18,7 +18,7 @@ public  class Engine extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me56089)
+	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me80613)
 	{
 		{
 		}
@@ -41,7 +41,7 @@ public  class Engine extends haxe.lang.HxObject
 		haxor.context.Process<haxor.core.IDisposable> dp = haxor.context.EngineContext.disposables;
 		{
 			int _g1 = 0;
-			int _g = haxor.context.EngineContext.collectRate;
+			int _g = ((int) (haxor.context.EngineContext.collectRate) );
 			while (( _g1 < _g ))
 			{
 				int i = _g1++;
@@ -107,20 +107,87 @@ public  class Engine extends haxe.lang.HxObject
 	
 	public static   void Render()
 	{
+		haxe.root.Array<haxor.component.Camera> cl = haxor.context.EngineContext.camera.list;
 		haxor.context.Process<haxor.core.IRenderable> rp = haxor.context.EngineContext.render;
+		haxor.component.Transform lt = null;
 		{
 			int _g1 = 0;
-			int _g = rp.m_length;
+			int _g = cl.length;
 			while (( _g1 < _g ))
 			{
 				int i = _g1++;
-				haxor.core.Resource r = ((haxor.core.Resource) (((java.lang.Object) (rp.list.__get(i)) )) );
-				if (r.m_destroyed) 
+				haxor.component.Camera c = haxor.component.Camera.m_current = cl.__get(i);
+				if ( ! (c.get_enabled()) ) 
 				{
 					continue;
 				}
 				
-				rp.list.__get(i).OnRender();
+				haxor.context.EngineContext.camera.Bind(c);
+				haxe.root.Array<java.lang.Object> layers = c.m_layers;
+				{
+					int _g3 = 0;
+					int _g2 = layers.length;
+					while (( _g3 < _g2 ))
+					{
+						int i1 = _g3++;
+						haxor.context.Process<haxor.component.Renderer> renderers = ((haxor.context.Process<haxor.component.Renderer>) (((haxor.context.Process) (haxor.context.EngineContext.renderer.display.__get(((int) (haxe.lang.Runtime.toInt(layers.__get(i1))) ))) )) );
+						{
+							int _g5 = 0;
+							int _g4 = renderers.m_length;
+							while (( _g5 < _g4 ))
+							{
+								int j = _g5++;
+								haxor.component.Renderer r = renderers.list.__get(j);
+								if (( r.m_entity.m_transform != lt )) 
+								{
+									if (( lt != null )) 
+									{
+										lt.m_uniform_dirty = false;
+									}
+									
+									lt = r.m_entity.m_transform;
+								}
+								
+								r.OnRender();
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+				haxor.context.EngineContext.camera.Unbind(c);
+			}
+			
+		}
+		
+		haxor.component.Camera.m_current = null;
+		{
+			int _g11 = 0;
+			int _g6 = rp.m_length;
+			while (( _g11 < _g6 ))
+			{
+				int i2 = _g11++;
+				haxor.core.Resource r1 = ((haxor.core.Resource) (((java.lang.Object) (rp.list.__get(i2)) )) );
+				if (r1.m_destroyed) 
+				{
+					continue;
+				}
+				
+				rp.list.__get(i2).OnRender();
+			}
+			
+		}
+		
+		{
+			int _g12 = 0;
+			int _g7 = cl.length;
+			while (( _g12 < _g7 ))
+			{
+				int i3 = _g12++;
+				cl.__get(i3).m_view_uniform_dirty = false;
+				cl.__get(i3).m_proj_uniform_dirty = false;
 			}
 			
 		}
@@ -130,6 +197,7 @@ public  class Engine extends haxe.lang.HxObject
 	
 	public static   void Resize()
 	{
+		haxor.context.EngineContext.camera.Resize();
 		if (( haxor.core.Engine.state == haxor.core.EngineState.Editor )) 
 		{
 			return ;

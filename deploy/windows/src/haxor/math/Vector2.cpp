@@ -3,6 +3,9 @@
 #ifndef INCLUDED_Std
 #include <Std.h>
 #endif
+#ifndef INCLUDED_StringTools
+#include <StringTools.h>
+#endif
 #ifndef INCLUDED_haxor_context_DataContext
 #include <haxor/context/DataContext.h>
 #endif
@@ -524,6 +527,30 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Vector2_obj,Dot,return )
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC3(Vector2_obj,Lerp,return )
 
+::haxor::math::Vector2 Vector2_obj::Parse( ::String p_data,::String __o_p_delimiter){
+::String p_delimiter = __o_p_delimiter.Default(HX_CSTRING(" "));
+	HX_STACK_FRAME("haxor.math.Vector2","Parse",0xeb7c81da,"haxor.math.Vector2.Parse","haxor/math/Vector2.hx",260,0x4f419b49)
+	HX_STACK_ARG(p_data,"p_data")
+	HX_STACK_ARG(p_delimiter,"p_delimiter")
+{
+		HX_STACK_LINE(261)
+		Array< ::String > tk = p_data.split(p_delimiter);		HX_STACK_VAR(tk,"tk");
+		HX_STACK_LINE(263)
+		::String _g = ::StringTools_obj::trim(tk->__get((int)0));		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(263)
+		Float _g1 = ::Std_obj::parseFloat(_g);		HX_STACK_VAR(_g1,"_g1");
+		HX_STACK_LINE(264)
+		::String _g2 = ::StringTools_obj::trim(tk->__get((int)1));		HX_STACK_VAR(_g2,"_g2");
+		HX_STACK_LINE(264)
+		Float _g3 = ::Std_obj::parseFloat(_g2);		HX_STACK_VAR(_g3,"_g3");
+		HX_STACK_LINE(262)
+		return ::haxor::math::Vector2_obj::__new((int)0,(int)0)->Set(_g1,_g3);
+	}
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Vector2_obj,Parse,return )
+
 
 Vector2_obj::Vector2_obj()
 {
@@ -588,6 +615,7 @@ Dynamic Vector2_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"right") ) { return inCallProp ? get_right() : right; }
+		if (HX_FIELD_EQ(inName,"Parse") ) { return Parse_dyn(); }
 		if (HX_FIELD_EQ(inName,"clone") ) { return inCallProp ? get_clone() : clone; }
 		if (HX_FIELD_EQ(inName,"Scale") ) { return Scale_dyn(); }
 		break;
@@ -697,6 +725,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("get_up"),
 	HX_CSTRING("Dot"),
 	HX_CSTRING("Lerp"),
+	HX_CSTRING("Parse"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE

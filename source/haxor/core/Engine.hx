@@ -1,7 +1,11 @@
 package haxor.core;
 import haxor.component.Behaviour;
+import haxor.component.Camera;
+import haxor.component.Renderer;
+import haxor.component.Transform;
 import haxor.context.EngineContext;
 import haxor.context.Process;
+import haxor.graphics.Graphics;
 import haxor.graphics.Screen;
 
 /**
@@ -81,7 +85,85 @@ class Engine
 	 */
 	static private function Render():Void
 	{		
-		var rp : Process<IRenderable> = EngineContext.render;			
+		var cl  : Array<Camera> = EngineContext.camera.list;
+		
+		//Shadow Collect Pass
+		
+		for (i in 0...cl.length)
+		{
+			var c : Camera = Camera.m_current = cl[i];			
+			RenderCamera(c);
+		}
+		
+		Camera.m_current = null;
+		
+		RenderIRenderers();
+		
+		for (i in 0...cl.length)
+		{
+			cl[i].m_view_uniform_dirty = false;
+			cl[i].m_proj_uniform_dirty = false;
+		}
+	}
+	
+	/**
+	 * Renders a camera.
+	 * @param	c
+	 */
+	static private function RenderCamera(c:Camera):Void
+	{
+		if (!c.enabled) return;
+		EngineContext.camera.Bind(c);			
+		var layers : Array<Int> = c.m_layers;						
+		for (i in 0...layers.length)
+		{	
+			var l : Int = layers[i];
+			RenderCameraLayer(l, c);
+		}		
+		
+		//Filters			
+		
+		EngineContext.camera.Unbind(c);
+	}
+	
+	/**
+	 * Renders a camera layer display list.
+	 * @param	l
+	 * @param	c
+	 */
+	static private function RenderCameraLayer(l:Int,c:Camera):Void
+	{
+		var lt  : Transform			   	  = null; //Last used transform.
+		var renderers : Process<Renderer> = EngineContext.renderer.display[l];
+		for (j in 0...renderers.length)
+		{
+			var r : Renderer = renderers.list[j];			
+			//If the current Renderer's Entity is different reset the uniform flag of the last transform.
+			if (r.transform != lt) { if(lt!=null) lt.m_uniform_dirty = false; lt = r.transform; }
+			RenderRenderer(r);
+		}
+	}
+	
+	/**
+	 * Renders the target renderer.
+	 * @param	r
+	 */
+	static private function RenderRenderer(r : Renderer):Void
+	{		
+		//Grab Texture if requested. Check index of start then capture up to it, then stop for optimization.
+			
+		r.OnRender();
+			
+		//Shadow Cast if receiver.			
+	}
+	
+	/**
+	 * Render renderers based on IRenderers.
+	 */
+	static private function RenderIRenderers():Void
+	{
+		var rp  : Process<IRenderable> = EngineContext.render;		
+		//"Free" renderers pass.
 		for (i in 0...rp.length)
 		{
 			var r : Resource = cast rp.list[i];

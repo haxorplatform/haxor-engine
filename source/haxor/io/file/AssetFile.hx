@@ -6,13 +6,13 @@ import haxor.core.Resource;
  * Base class that describes an Asset in the Editor context.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
-class AssetFile<T> extends Resource
+class AssetFile extends Resource
 {
 	/**
 	 * Getter for the parsed asset after conversion from File data to Haxor's internal format.
 	 */
-	public var asset(get_asset, null):T;
-	private function get_asset():T { return null; }
+	public var asset(get_asset, null):Dynamic;
+	private function get_asset():Dynamic { return null; }
 	
 	/**
 	 * Creates a new AssetFile class.

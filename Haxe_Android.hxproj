@@ -24,7 +24,7 @@
     <option noInlineOnDebug="False" />
     <option mainClass="Main" />
     <option enabledebug="False" />
-    <option additional="-D no-compilation&#xA;-java-lib &quot;%ANDROID_HOME%\platforms\android-18\android.jar&quot;" />
+    <option additional="-D no-compilation&#xA;-java-lib &quot;%ANDROID_HOME%\platforms\android-18\android.jar&quot;&#xA;-dce no" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

@@ -3,6 +3,9 @@
 #ifndef INCLUDED_Std
 #include <Std.h>
 #endif
+#ifndef INCLUDED_StringTools
+#include <StringTools.h>
+#endif
 #ifndef INCLUDED_haxor_context_DataContext
 #include <haxor/context/DataContext.h>
 #endif
@@ -889,6 +892,38 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC3(Color_obj,Lerp,return )
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC2(Color_obj,Sample,return )
 
+::haxor::math::Color Color_obj::Parse( ::String p_data,::String __o_p_delimiter){
+::String p_delimiter = __o_p_delimiter.Default(HX_CSTRING(" "));
+	HX_STACK_FRAME("haxor.math.Color","Parse",0x3898eaae,"haxor.math.Color.Parse","haxor/math/Color.hx",367,0x18984df5)
+	HX_STACK_ARG(p_data,"p_data")
+	HX_STACK_ARG(p_delimiter,"p_delimiter")
+{
+		HX_STACK_LINE(368)
+		Array< ::String > tk = p_data.split(p_delimiter);		HX_STACK_VAR(tk,"tk");
+		HX_STACK_LINE(370)
+		::String _g = ::StringTools_obj::trim(tk->__get((int)0));		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(370)
+		Float _g1 = ::Std_obj::parseFloat(_g);		HX_STACK_VAR(_g1,"_g1");
+		HX_STACK_LINE(371)
+		::String _g2 = ::StringTools_obj::trim(tk->__get((int)1));		HX_STACK_VAR(_g2,"_g2");
+		HX_STACK_LINE(371)
+		Float _g3 = ::Std_obj::parseFloat(_g2);		HX_STACK_VAR(_g3,"_g3");
+		HX_STACK_LINE(372)
+		::String _g4 = ::StringTools_obj::trim(tk->__get((int)2));		HX_STACK_VAR(_g4,"_g4");
+		HX_STACK_LINE(372)
+		Float _g5 = ::Std_obj::parseFloat(_g4);		HX_STACK_VAR(_g5,"_g5");
+		HX_STACK_LINE(373)
+		::String _g6 = ::StringTools_obj::trim(tk->__get((int)3));		HX_STACK_VAR(_g6,"_g6");
+		HX_STACK_LINE(373)
+		Float _g7 = ::Std_obj::parseFloat(_g6);		HX_STACK_VAR(_g7,"_g7");
+		HX_STACK_LINE(369)
+		return ::haxor::math::Color_obj::__new((int)0,(int)0,(int)0,(int)1)->Set(_g1,_g3,_g5,_g7);
+	}
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Color_obj,Parse,return )
+
 
 Color_obj::Color_obj()
 {
@@ -957,6 +992,7 @@ Dynamic Color_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"black") ) { return inCallProp ? get_black() : black; }
 		if (HX_FIELD_EQ(inName,"white") ) { return inCallProp ? get_white() : white; }
 		if (HX_FIELD_EQ(inName,"empty") ) { return inCallProp ? get_empty() : empty; }
+		if (HX_FIELD_EQ(inName,"Parse") ) { return Parse_dyn(); }
 		if (HX_FIELD_EQ(inName,"clone") ) { return inCallProp ? get_clone() : clone; }
 		if (HX_FIELD_EQ(inName,"Scale") ) { return Scale_dyn(); }
 		break;
@@ -1126,6 +1162,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("FromBytes"),
 	HX_CSTRING("Lerp"),
 	HX_CSTRING("Sample"),
+	HX_CSTRING("Parse"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE

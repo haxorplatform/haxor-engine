@@ -5,11 +5,16 @@
 #include <hxcpp.h>
 #endif
 
+HX_DECLARE_CLASS2(haxor,component,Behaviour)
+HX_DECLARE_CLASS2(haxor,component,Camera)
+HX_DECLARE_CLASS2(haxor,component,Component)
+HX_DECLARE_CLASS2(haxor,component,Transform)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS2(haxor,graphics,Graphics)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
+HX_DECLARE_CLASS2(haxor,math,AABB2)
 namespace haxor{
 namespace graphics{
 
@@ -34,8 +39,15 @@ class HXCPP_CLASS_ATTRIBUTES  Graphics_obj : public hx::Object{
 		static void __register();
 		::String __ToString() const { return HX_CSTRING("Graphics"); }
 
-		static Void RenderMesh( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::graphics::material::Material p_material);
-		static Dynamic RenderMesh_dyn();
+		static ::haxor::math::AABB2 m_last_viewport;
+		static Void Viewport( ::haxor::math::AABB2 p_viewport);
+		static Dynamic Viewport_dyn();
+
+		static Void Clear( ::haxor::component::Camera p_camera);
+		static Dynamic Clear_dyn();
+
+		static Void Render( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::graphics::material::Material p_material,::haxor::component::Transform p_transform,::haxor::component::Camera p_camera);
+		static Dynamic Render_dyn();
 
 };
 

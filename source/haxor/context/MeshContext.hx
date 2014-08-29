@@ -1,6 +1,6 @@
 package haxor.context;
 import haxor.core.Console;
-import haxor.graphics.Enums.MeshPrimitive;
+import haxor.core.Enums.MeshPrimitive;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.mesh.Mesh.MeshAttrib;
 import haxor.io.FloatArray;
@@ -124,11 +124,14 @@ class MeshContext
 					}
 					GL.BindBuffer(GL.ARRAY_BUFFER, buffers[a.__cid]);					
 					GL.VertexAttribPointer(loc, a.offset, type, false, 0, 0);
-										
 				}
 				
 				//Forces color attrib to white if none is found
-				if(!has_color) GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
+				if (!has_color)
+				{					
+					if (activated[5]) { GL.DisableVertexAttrib(5); activated[5] = false; }
+					GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
+				}
 				
 				if (current.indexed)
 				{	
@@ -136,7 +139,10 @@ class MeshContext
 					GL.BindBuffer(GL.ELEMENT_ARRAY_BUFFER,buffers[a.__cid]);
 				}
 				
+				#if gldebug
 				GL.Assert("Mesh Bind");
+				#end
+				
 			}
 		}
 	}
@@ -148,7 +154,7 @@ class MeshContext
 	{	
 		//DisableAttribArray
 		/*
-		for (i in 0...active_max)
+		for (i in 0...10)
 		{
 			if (activated[i]) GL.DisableVertexAttrib(i);
 			activated[i] = false;
@@ -166,12 +172,16 @@ class MeshContext
 		if (m.indexed)
 		{	
 			GL.DrawElements(m.primitive, m.m_topology_attrib.data.length, GL.UNSIGNED_SHORT, 0);						
+			#if gldebug
 			GL.Assert("Mesh DrawElements");
+			#end			
 		}
 		else
-		{
-			GL.DrawArrays(m.primitive, 0, m.m_vcount);
+		{			
+			GL.DrawArrays(m.primitive, 0, m.m_vcount);						
+			#if gldebug
 			GL.Assert("Mesh DrawArrays");
+			#end						
 		}
 		
 	}
@@ -209,7 +219,9 @@ class MeshContext
 		
 		GL.BindBuffer(target_flag, id);		
 		GL.BufferData(target_flag, a.data, p_mode);		
-		GL.Assert("Mesh BufferData attrib["+a.name+"]");
+		#if gldebug
+		GL.Assert("Mesh BufferData attrib[" + a.name+"]");
+		#end
 		
 	}
 	

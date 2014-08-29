@@ -19,12 +19,12 @@ class HXCPP_CLASS_ATTRIBUTES  Process_obj : public ::haxor::context::BaseProcess
 		typedef ::haxor::context::BaseProcess_obj super;
 		typedef Process_obj OBJ_;
 		Process_obj();
-		Void __construct(::String p_name,int p_size);
+		Void __construct(::String p_name,int p_size,hx::Null< bool >  __o_p_update_cid);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< Process_obj > __new(::String p_name,int p_size);
+		static hx::ObjectPtr< Process_obj > __new(::String p_name,int p_size,hx::Null< bool >  __o_p_update_cid);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~Process_obj();

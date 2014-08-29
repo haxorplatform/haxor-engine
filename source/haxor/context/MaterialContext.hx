@@ -1,8 +1,12 @@
 package haxor.context;
+import haxor.component.Camera;
+import haxor.component.Light;
+import haxor.component.Transform;
 import haxor.core.Console;
-import haxor.graphics.Enums.BlendMode;
-import haxor.graphics.Enums.CullMode;
-import haxor.graphics.Enums.DepthTest;
+import haxor.core.Time;
+import haxor.core.Enums.BlendMode;
+import haxor.core.Enums.CullMode;
+import haxor.core.Enums.DepthTest;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.material.UberShader;
@@ -11,6 +15,11 @@ import haxor.graphics.mesh.Mesh.MeshAttrib;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.graphics.GL;
+import haxor.math.Color;
+import haxor.math.Matrix4;
+import haxor.math.Quaternion;
+import haxor.math.Random;
+import haxor.math.Vector3;
 import haxor.platform.Types.MeshBufferId;
 import haxor.platform.Types.ProgramId;
 import haxor.platform.Types.ShaderId;
@@ -23,6 +32,11 @@ import haxor.platform.Types.UniformLocation;
 @:allow(haxor)
 class MaterialContext
 {
+	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse"];
+	/**
+	 * List of global uniforms.
+	 */
+	private var globals : Array<Array<String>>;
 	
 	/**
 	 * Unique material ids.
@@ -60,15 +74,39 @@ class MaterialContext
 	private var programs : Array<ProgramId>;
 	
 	/**
+	 * List of camera reference cache. To check if material needs to update camera uniforms.
+	 */
+	private var camera : Array<Camera>;
+	
+	/**
+	 * List of transform reference cache. To check if material needs to update transform uniforms.
+	 */
+	private var transform : Array<Transform>;
+	
+	/**
+	 * List of flags per program that indicates if the view matrix changed.
+	 */
+	private var viewmatrix : Array<Bool>;
+	
+	/**
+	 * List of flags per program that indicates if the projection matrix changed.
+	 */
+	private var projmatrix : Array<Bool>;
+	
+	/**
 	 * List of locations per program.
 	 */
 	private var locations : Array<Array<Int>>;
 	
 	/**
+	 * Texture slot counter;
+	 */
+	private var slot : Int;
+	
+	/**
 	 * List of uniform locations by material.
 	 */
 	private var uniforms : Array <Array<UniformLocation>>;
-	
 	
 	/**
 	 * Currently bound material.
@@ -146,13 +184,19 @@ class MaterialContext
 		cull            = CullMode.Back;
 		
 		var max_buffers : Int = 512;
-		var max_programs : Int = 256;
+		var max_programs : Int = 1024;
 		
 		locations			= [];
 		uniforms			= [];
 		programs			= [];
 		vertex_shaders 	 	= [];
 		fragment_shaders 	= [];
+		globals				= [];
+		camera				= [];
+		transform			= [];
+		slot 				= 0;
+		viewmatrix			= [];
+		projmatrix			= [];
 		
 		for (i in 0...max_programs)
 		{
@@ -160,11 +204,17 @@ class MaterialContext
 			var ul : Array<UniformLocation> = [];
 			for (j in 0...max_buffers) l.push( -1);
 			for (j in 0...200) ul.push(GL.INVALID);
+			camera.push(null);
+			transform.push(null);
+			globals.push([]);
 			locations.push(l);
 			uniforms.push(ul);
 			programs.push(GL.INVALID);
 			vertex_shaders.push(GL.INVALID);
 			fragment_shaders.push(GL.INVALID);
+			
+			viewmatrix.push(false);
+			projmatrix.push(false);
 		}		
 		
 	}
@@ -263,7 +313,9 @@ class MaterialContext
 			//if (fs_err != "") 
 			Console.Log("[fragment]\n" + fs_err);
 		}
+		#if gldebug
 		GL.Assert("Shader> Init");
+		#end
 	}
 	
 	/**
@@ -275,9 +327,10 @@ class MaterialContext
 	{
 		var p 	: ProgramId 		= programs[m.__cid];				
 		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
-		//Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");
+		//Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");		
 		uniforms[m.__cid][u.__cid] 	= loc;
 		u.__d = true;
+		u.exists = (loc != GL.INVALID) ;
 	}
 	
 	/**
@@ -287,9 +340,9 @@ class MaterialContext
 	 */
 	private function DestroyUniform(m:Material, u:MaterialUniform)
 	{
-		var p 	: ProgramId 		= programs[m.__cid];		
-		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
-		uniforms[m.__cid][u.__cid] 	= GL.INVALID;
+		//var p 	: ProgramId 		= programs[m.__cid];		
+		//var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
+		if(m!=null) uniforms[m.__cid][u.__cid] 	= GL.INVALID;
 		EngineContext.material.uid.id = u.__cid;
 	}
 	
@@ -359,6 +412,37 @@ class MaterialContext
 			for (i in 0...locations[m.__cid].length) locations[m.__cid][i] = -1;
 		}
 		
+		//Resets the global list and filters the ones that doesn't exists in the shaders.		
+		var gl : Array<String>  = uniform_globals;
+		var k  : Int 			= 0;
+		var m4 : Matrix4		= Matrix4.temp.SetIdentity();
+		while(k < gl.length)
+		{
+			var un : String = gl[k];
+			if (GL.GetUniformLocation(p, un) == GL.INVALID) { gl.remove(un); continue; }
+			//Initializes these uniforms so they don't need to be searched later.
+			
+			switch(un)
+			{
+				case "Ambient":					m.SetColor(un, Color.temp.Set(1,1,1,1));					
+				case "Time":					m.SetFloat(un, 0.0);					
+				case "RandomSeed":				m.SetFloat(un, 0.0);
+				//case "RandomTexture":			current.SetTexture(un, Asset.Get("haxor/texture/random"));
+				//case "ScreenTexture":			if (current.grab) current.SetTexture("ScreenTexture", current.screen);						
+				//case "ScreenDepth":			current.SetTexture("ScreenDepth",   p_camera.m_grab.depth);						
+				case "WorldMatrix":				m.SetMatrix4(un,m4);
+				case "WorldMatrixInverse":		m.SetMatrix4(un,m4);
+				case "CameraPosition": 			m.SetVector3(un,Vector3.temp.Set(0,0,0));
+				case "ViewMatrix":				m.SetMatrix4(un,m4);
+				case "ViewMatrixInverse":		m.SetMatrix4(un,m4);					
+				case "ProjectionMatrix":  		m.SetMatrix4(un,m4);					
+				case "ProjectionMatrixInverse": m.SetMatrix4(un,m4);				
+			}	
+			k++;
+		}		
+		globals[m.__cid] = gl;				
+		
+		
 	}
 	
 	/**
@@ -392,7 +476,18 @@ class MaterialContext
 	 * Activates the passed material.
 	 * @param	p_material
 	 */
-	private inline function Bind(m : Material):Void
+	private function Bind(m : Material,t:Transform=null,c:Camera=null):Void
+	{
+		var material_change : Bool = (m != current);		
+		UseMaterial(m);		
+		UpdateMaterialUniforms(t,c,material_change);
+	}
+	
+	/**
+	 * Checks if the material differs and activates it.
+	 * @param	m
+	 */
+	private function UseMaterial(m:Material):Void
 	{
 		if (m != current) 
 		{ 
@@ -400,27 +495,110 @@ class MaterialContext
 			current = m; 			
 			if (m != null)
 			{
+				viewmatrix[m.__cid] = false;
+				projmatrix[m.__cid] = false;				
 				var p : ProgramId = programs[m.__cid];
 				UpdateFlags(m);								
-				GL.UseProgram(p);
-			}
-		}
-		
+				GL.UseProgram(p);				
+			}			
+		}		
+	}
+	
+	private function UpdateMaterialUniforms(t:Transform,c:Camera,p_changed:Bool):Void
+	{
 		if (current != null)
-		{			
+		{	
+			if (p_changed)
+			{
+				if (c != null)
+				{
+					viewmatrix[current.__cid] = c.m_view_uniform_dirty;
+					projmatrix[current.__cid] = c.m_proj_uniform_dirty;
+				}
+			}
+			
+			//update camera uniform if camera changed or if material changed
+			var uc : Bool  = (c != camera[current.__cid]);						
+			var ucv : Bool = viewmatrix[current.__cid]||uc; 
+			var ucp : Bool = projmatrix[current.__cid]||uc;
+			camera[current.__cid] = c;
+			
+			viewmatrix[current.__cid] = false;
+			projmatrix[current.__cid] = false;
+			
+			//update transform uniform if transform changed or if material changed
+			t = t == null ? Transform.root : t;
+			var ut : Bool = (t != transform[current.__cid]);
+			transform[current.__cid] = t;
+			ut = ut || t.m_uniform_dirty;
+						
 			var ul : Array<MaterialUniform> = current.m_uniforms;			
+			//slot = 0;
 			for (i in 0...ul.length)
 			{
-				var u : MaterialUniform = ul[i];					
-				if (u.__d)
-				{
-					u.__d = false;					
-					var loc:UniformLocation = uniforms[current.__cid][u.__cid];
-					if (loc == GL.INVALID) continue;					
-					if (u.isFloat) ApplyFloatUniform(loc, u); else ApplyIntUniform(loc, u);
-				}				
+				var u : MaterialUniform = ul[i];				
+				
+				//After Shader upload and setup. The globals are initialized and don't need to be searched again.
+				UploadGlobalUniform(u, ut, ucv, ucp, t, c);
+				
+				//Uploads all collected uniforms.
+				UploadUniform(current, u);
 			}
 		}
+	}
+	
+	/**
+	 * Uploads the uniform to the GPU.
+	 * @param	u
+	 */
+	private function UploadUniform(m:Material,u:MaterialUniform):Void
+	{
+		var loc:UniformLocation;
+		var is_texture : Bool = false;
+		loc = uniforms[m.__cid][u.__cid];
+		if (loc == GL.INVALID) return;		
+		if (u.texture != null) { EngineContext.texture.Activate(u.texture, u.texture.__slot); is_texture = true; } 		
+		if (u.__d)
+		{	
+			if (is_texture)
+			{
+				GL.Uniform1i(loc,u.texture.__slot);	
+			}
+			else
+			if (u.isFloat)
+			{
+				ApplyFloatUniform(loc, u); 
+			}
+			else
+			{						
+				ApplyIntUniform(loc, u);
+			}
+		}		
+		u.__d = false;
+	}
+	
+	/**
+	 * Updates the material global uniform if any change.
+	 * @param	u
+	 */
+	private function UploadGlobalUniform(u:MaterialUniform,ut:Bool,ucv:Bool,ucp:Bool,t:Transform,c:Camera):Void
+	{
+		switch(u.name)
+		{
+			case "Ambient":					u.SetColor(Light.ambient);					
+			case "Time":					u.SetFloat(Time.elapsed);					
+			case "RandomSeed":				u.SetFloat(Random.value);
+			//case "RandomTexture":			u.SetTexture(un, Asset.Get("haxor/texture/random"));
+			//case "ScreenTexture":			if (current.grab) u.SetTexture("ScreenTexture", current.screen);						
+			//case "ScreenDepth":			current.SetTexture("ScreenDepth",   c.m_grab.depth);						
+			case "WorldMatrix":				if(ut) 	u.SetMatrix4(t.WorldMatrix);
+			case "WorldMatrixInverse":		if(ut)	u.SetMatrix4(t.WorldMatrixInverse);
+			case "CameraPosition": 			if(ucv)	u.SetVector3(c.transform.position);
+			case "ViewMatrix":				if(ucv) u.SetMatrix4(c.transform.WorldMatrixInverse);
+			case "ViewMatrixInverse":		if(ucv) u.SetMatrix4(c.CameraToWorld);					
+			case "ProjectionMatrix":  		if(ucp)	u.SetMatrix4(c.ProjectionMatrix);					
+			case "ProjectionMatrixInverse": if(ucp)	u.SetMatrix4(c.ProjectionMatrixInverse);										
+		}	
 	}
 	
 	/**
@@ -454,9 +632,7 @@ class MaterialContext
 		var off : Int = p_uniform.offset;
 		switch(off)
 		{
-			case 1: 
-				if (p_uniform.texture != null) EngineContext.texture.Activate(p_uniform.texture);
-				GL.Uniform1i(p_location, b.Get(0));
+			case 1:  GL.Uniform1i(p_location, b.Get(0));				
 			case 2:  GL.Uniform2i(p_location, b.Get(0), b.Get(1));
 			case 3:  GL.Uniform3i(p_location, b.Get(0), b.Get(1), b.Get(2));
 			case 4:  GL.Uniform4i(p_location, b.Get(0), b.Get(1), b.Get(2), b.Get(3));

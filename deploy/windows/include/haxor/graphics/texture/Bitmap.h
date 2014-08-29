@@ -7,8 +7,8 @@
 
 #include <haxor/core/Resource.h>
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,PixelFormat)
 HX_DECLARE_CLASS2(haxor,core,Resource)
-HX_DECLARE_CLASS2(haxor,graphics,PixelFormat)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Bitmap)
 HX_DECLARE_CLASS2(haxor,io,Buffer)
 HX_DECLARE_CLASS2(haxor,math,Color)
@@ -22,12 +22,12 @@ class HXCPP_CLASS_ATTRIBUTES  Bitmap_obj : public ::haxor::core::Resource_obj{
 		typedef ::haxor::core::Resource_obj super;
 		typedef Bitmap_obj OBJ_;
 		Bitmap_obj();
-		Void __construct(int p_width,int p_height,::haxor::graphics::PixelFormat p_format);
+		Void __construct(int p_width,int p_height,::haxor::core::PixelFormat p_format);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< Bitmap_obj > __new(int p_width,int p_height,::haxor::graphics::PixelFormat p_format);
+		static hx::ObjectPtr< Bitmap_obj > __new(int p_width,int p_height,::haxor::core::PixelFormat p_format);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~Bitmap_obj();
@@ -64,11 +64,11 @@ class HXCPP_CLASS_ATTRIBUTES  Bitmap_obj : public ::haxor::core::Resource_obj{
 		Dynamic get_channels_dyn();
 
 		int m_channels;
-		::haxor::graphics::PixelFormat format;
-		virtual ::haxor::graphics::PixelFormat get_format( );
+		::haxor::core::PixelFormat format;
+		virtual ::haxor::core::PixelFormat get_format( );
 		Dynamic get_format_dyn();
 
-		::haxor::graphics::PixelFormat m_format;
+		::haxor::core::PixelFormat m_format;
 		virtual ::haxor::math::Color GetPixel( int p_x,int p_y);
 		Dynamic GetPixel_dyn();
 
@@ -77,6 +77,12 @@ class HXCPP_CLASS_ATTRIBUTES  Bitmap_obj : public ::haxor::core::Resource_obj{
 
 		virtual Void Fill( ::haxor::math::Color p_color);
 		Dynamic Fill_dyn();
+
+		virtual Void Set( int p_x,int p_y,hx::Null< Float >  p_v0,hx::Null< Float >  p_v1,hx::Null< Float >  p_v2,hx::Null< Float >  p_v3);
+		Dynamic Set_dyn();
+
+		virtual Void SetRange( int p_x,int p_y,int p_width,int p_height,Array< Float > p_values,hx::Null< int >  p_length);
+		Dynamic SetRange_dyn();
 
 };
 

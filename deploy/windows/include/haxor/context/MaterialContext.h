@@ -5,7 +5,12 @@
 #include <hxcpp.h>
 #endif
 
+HX_DECLARE_CLASS2(haxor,component,Behaviour)
+HX_DECLARE_CLASS2(haxor,component,Camera)
+HX_DECLARE_CLASS2(haxor,component,Component)
+HX_DECLARE_CLASS2(haxor,component,Transform)
 HX_DECLARE_CLASS2(haxor,context,MaterialContext)
+HX_DECLARE_CLASS2(haxor,context,UID)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
@@ -38,14 +43,21 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("MaterialContext"); }
 
-		int mid;
-		int sid;
-		int uid;
+		Array< ::String > uniform_globals;
+		Array< ::Dynamic > globals;
+		::haxor::context::UID mid;
+		::haxor::context::UID sid;
+		::haxor::context::UID uid;
 		Array< int > vertex_shaders;
 		Array< int > fragment_shaders;
 		::haxor::graphics::material::Shader error_shader;
 		Array< int > programs;
+		Array< ::Dynamic > camera;
+		Array< ::Dynamic > transform;
+		Array< bool > viewmatrix;
+		Array< bool > projmatrix;
 		Array< ::Dynamic > locations;
+		int slot;
 		Array< ::Dynamic > uniforms;
 		::haxor::graphics::material::Material current;
 		bool ztest;
@@ -87,8 +99,20 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 		virtual int GetAttribLocation( ::haxor::graphics::mesh::MeshAttrib a);
 		Dynamic GetAttribLocation_dyn();
 
-		virtual Void Bind( ::haxor::graphics::material::Material m);
+		virtual Void Bind( ::haxor::graphics::material::Material m,::haxor::component::Transform t,::haxor::component::Camera c);
 		Dynamic Bind_dyn();
+
+		virtual Void UseMaterial( ::haxor::graphics::material::Material m);
+		Dynamic UseMaterial_dyn();
+
+		virtual Void UpdateMaterialUniforms( ::haxor::component::Transform t,::haxor::component::Camera c,bool p_changed);
+		Dynamic UpdateMaterialUniforms_dyn();
+
+		virtual Void UploadUniform( ::haxor::graphics::material::Material m,::haxor::graphics::material::MaterialUniform u);
+		Dynamic UploadUniform_dyn();
+
+		virtual Void UploadGlobalUniform( ::haxor::graphics::material::MaterialUniform u,bool ut,bool ucv,bool ucp,::haxor::component::Transform t,::haxor::component::Camera c);
+		Dynamic UploadGlobalUniform_dyn();
 
 		virtual Void ApplyFloatUniform( int p_location,::haxor::graphics::material::MaterialUniform p_uniform);
 		Dynamic ApplyFloatUniform_dyn();

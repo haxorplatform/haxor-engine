@@ -22,6 +22,26 @@ Dynamic Reflect_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct();
 	return result;}
 
+bool Reflect_obj::hasField( Dynamic o,::String field){
+	HX_STACK_FRAME("Reflect","hasField",0xef8c2571,"Reflect.hasField","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Reflect.hx",25,0xe7e96533)
+	HX_STACK_ARG(o,"o")
+	HX_STACK_ARG(field,"field")
+	HX_STACK_LINE(25)
+	if (((o != null()))){
+		HX_STACK_LINE(25)
+		return o->__HasField(field);
+	}
+	else{
+		HX_STACK_LINE(25)
+		return false;
+	}
+	HX_STACK_LINE(25)
+	return false;
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Reflect_obj,hasField,return )
+
 Dynamic Reflect_obj::field( Dynamic o,::String field){
 	HX_STACK_FRAME("Reflect","field",0x54b04da9,"Reflect.field","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Reflect.hx",29,0xe7e96533)
 	HX_STACK_ARG(o,"o")
@@ -41,6 +61,25 @@ Dynamic Reflect_obj::field( Dynamic o,::String field){
 
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC2(Reflect_obj,field,return )
+
+Array< ::String > Reflect_obj::fields( Dynamic o){
+	HX_STACK_FRAME("Reflect","fields",0xc593a6aa,"Reflect.fields","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Reflect.hx",53,0xe7e96533)
+	HX_STACK_ARG(o,"o")
+	HX_STACK_LINE(54)
+	if (((o == null()))){
+		HX_STACK_LINE(54)
+		return Array_obj< ::String >::__new();
+	}
+	HX_STACK_LINE(55)
+	Array< ::String > a = Array_obj< ::String >::__new();		HX_STACK_VAR(a,"a");
+	HX_STACK_LINE(56)
+	o->__GetFields(a);
+	HX_STACK_LINE(57)
+	return a;
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(Reflect_obj,fields,return )
 
 bool Reflect_obj::isObject( Dynamic v){
 	HX_STACK_FRAME("Reflect","isObject",0xd04960ba,"Reflect.isObject","F:\\development\\resource\\platform\\haxe\\3_1_3\\haxe\\std/cpp/_std/Reflect.hx",76,0xe7e96533)
@@ -70,7 +109,11 @@ Dynamic Reflect_obj::__Field(const ::String &inName,bool inCallProp)
 	case 5:
 		if (HX_FIELD_EQ(inName,"field") ) { return field_dyn(); }
 		break;
+	case 6:
+		if (HX_FIELD_EQ(inName,"fields") ) { return fields_dyn(); }
+		break;
 	case 8:
+		if (HX_FIELD_EQ(inName,"hasField") ) { return hasField_dyn(); }
 		if (HX_FIELD_EQ(inName,"isObject") ) { return isObject_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
@@ -87,7 +130,9 @@ void Reflect_obj::__GetFields(Array< ::String> &outFields)
 };
 
 static ::String sStaticFields[] = {
+	HX_CSTRING("hasField"),
 	HX_CSTRING("field"),
+	HX_CSTRING("fields"),
 	HX_CSTRING("isObject"),
 	String(null()) };
 

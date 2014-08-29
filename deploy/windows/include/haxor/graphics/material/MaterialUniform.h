@@ -10,6 +10,11 @@ HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,material,MaterialUniform)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS2(haxor,io,Buffer)
+HX_DECLARE_CLASS2(haxor,math,Color)
+HX_DECLARE_CLASS2(haxor,math,Matrix4)
+HX_DECLARE_CLASS2(haxor,math,Vector2)
+HX_DECLARE_CLASS2(haxor,math,Vector3)
+HX_DECLARE_CLASS2(haxor,math,Vector4)
 namespace haxor{
 namespace graphics{
 namespace material{
@@ -44,6 +49,73 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialUniform_obj : public hx::Object{
 		int offset;
 		::haxor::graphics::texture::Texture texture;
 		bool isFloat;
+		bool exists;
+		virtual Void SetFloat( Float p_v);
+		Dynamic SetFloat_dyn();
+
+		virtual Void SetFloat2( Float p_x,Float p_y);
+		Dynamic SetFloat2_dyn();
+
+		virtual Void SetFloat3( Float p_x,Float p_y,Float p_z);
+		Dynamic SetFloat3_dyn();
+
+		virtual Void SetFloat4( Float p_x,Float p_y,Float p_z,Float p_w);
+		Dynamic SetFloat4_dyn();
+
+		virtual Void SetFloatArray( Array< Float > p_list);
+		Dynamic SetFloatArray_dyn();
+
+		virtual Void SetFloat2Array( Array< Float > p_list);
+		Dynamic SetFloat2Array_dyn();
+
+		virtual Void SetFloat3Array( Array< Float > p_list);
+		Dynamic SetFloat3Array_dyn();
+
+		virtual Void SetFloat4Array( Array< Float > p_list);
+		Dynamic SetFloat4Array_dyn();
+
+		virtual Void SetInt( int p_v);
+		Dynamic SetInt_dyn();
+
+		virtual Void SetInt2( int p_x,int p_y);
+		Dynamic SetInt2_dyn();
+
+		virtual Void SetInt3( int p_x,int p_y,int p_z);
+		Dynamic SetInt3_dyn();
+
+		virtual Void SetInt4( int p_x,int p_y,int p_z,int p_w);
+		Dynamic SetInt4_dyn();
+
+		virtual Void SetIntArray( Array< int > p_list);
+		Dynamic SetIntArray_dyn();
+
+		virtual Void SetInt2Array( Array< int > p_list);
+		Dynamic SetInt2Array_dyn();
+
+		virtual Void SetInt3Array( Array< int > p_list);
+		Dynamic SetInt3Array_dyn();
+
+		virtual Void SetInt4Array( Array< int > p_list);
+		Dynamic SetInt4Array_dyn();
+
+		virtual Void SetTexture( ::haxor::graphics::texture::Texture p_texture);
+		Dynamic SetTexture_dyn();
+
+		virtual Void SetMatrix4( ::haxor::math::Matrix4 m);
+		Dynamic SetMatrix4_dyn();
+
+		virtual Void SetVector2( ::haxor::math::Vector2 p_v);
+		Dynamic SetVector2_dyn();
+
+		virtual Void SetVector3( ::haxor::math::Vector3 p_v);
+		Dynamic SetVector3_dyn();
+
+		virtual Void SetVector4( ::haxor::math::Vector4 p_v);
+		Dynamic SetVector4_dyn();
+
+		virtual Void SetColor( ::haxor::math::Color p_color);
+		Dynamic SetColor_dyn();
+
 };
 
 } // end namespace haxor

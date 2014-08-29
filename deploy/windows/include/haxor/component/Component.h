@@ -7,6 +7,7 @@
 
 #include <haxor/core/Resource.h>
 HX_DECLARE_CLASS2(haxor,component,Component)
+HX_DECLARE_CLASS2(haxor,component,Transform)
 HX_DECLARE_CLASS2(haxor,core,Entity)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
@@ -19,12 +20,12 @@ class HXCPP_CLASS_ATTRIBUTES  Component_obj : public ::haxor::core::Resource_obj
 		typedef ::haxor::core::Resource_obj super;
 		typedef Component_obj OBJ_;
 		Component_obj();
-		Void __construct();
+		Void __construct(::String __o_p_name);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< Component_obj > __new();
+		static hx::ObjectPtr< Component_obj > __new(::String __o_p_name);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~Component_obj();
@@ -45,8 +46,15 @@ class HXCPP_CLASS_ATTRIBUTES  Component_obj : public ::haxor::core::Resource_obj
 		Dynamic get_entity_dyn();
 
 		::haxor::core::Entity m_entity;
+		::haxor::component::Transform transform;
+		virtual ::haxor::component::Transform get_transform( );
+		Dynamic get_transform_dyn();
+
 		virtual Void OnBuild( );
 		Dynamic OnBuild_dyn();
+
+		virtual Void OnTransformUpdate( );
+		Dynamic OnTransformUpdate_dyn();
 
 };
 

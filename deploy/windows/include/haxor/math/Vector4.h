@@ -95,6 +95,9 @@ class HXCPP_CLASS_ATTRIBUTES  Vector4_obj : public hx::Object{
 		virtual ::haxor::math::Vector4 Multiply( ::haxor::math::Vector4 p_v);
 		Dynamic Multiply_dyn();
 
+		virtual ::haxor::math::Vector4 Scale( Float p_s);
+		Dynamic Scale_dyn();
+
 		virtual ::haxor::math::Vector4 Normalize( );
 		Dynamic Normalize_dyn();
 
@@ -125,6 +128,9 @@ class HXCPP_CLASS_ATTRIBUTES  Vector4_obj : public hx::Object{
 
 		static ::haxor::math::Vector4 Lerp( ::haxor::math::Vector4 p_a,::haxor::math::Vector4 p_b,Float p_r);
 		static Dynamic Lerp_dyn();
+
+		static ::haxor::math::Vector4 Parse( ::String p_data,::String p_delimiter);
+		static Dynamic Parse_dyn();
 
 };
 

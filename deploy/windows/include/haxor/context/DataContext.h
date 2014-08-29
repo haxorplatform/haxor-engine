@@ -6,6 +6,8 @@
 #endif
 
 HX_DECLARE_CLASS2(haxor,context,DataContext)
+HX_DECLARE_CLASS2(haxor,math,AABB2)
+HX_DECLARE_CLASS2(haxor,math,AABB3)
 HX_DECLARE_CLASS2(haxor,math,Color)
 HX_DECLARE_CLASS2(haxor,math,Matrix4)
 HX_DECLARE_CLASS2(haxor,math,Quaternion)
@@ -70,12 +72,25 @@ class HXCPP_CLASS_ATTRIBUTES  DataContext_obj : public hx::Object{
 
 		Array< ::Dynamic > m_q;
 		int m_nq;
+		::haxor::math::AABB3 aabb3;
+		virtual ::haxor::math::AABB3 get_aabb3( );
+		Dynamic get_aabb3_dyn();
+
+		Array< ::Dynamic > m_aabb3;
+		int m_naabb3;
+		::haxor::math::AABB2 aabb2;
+		virtual ::haxor::math::AABB2 get_aabb2( );
+		Dynamic get_aabb2_dyn();
+
+		Array< ::Dynamic > m_aabb2;
+		int m_naabb2;
 		::haxor::math::Matrix4 m4;
 		virtual ::haxor::math::Matrix4 get_m4( );
 		Dynamic get_m4_dyn();
 
 		Array< ::Dynamic > m_m4;
 		int m_nm4;
+		Array< Float > m4l;
 		static int MAX_TEMP;
 };
 

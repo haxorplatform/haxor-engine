@@ -80,8 +80,14 @@ class HXCPP_CLASS_ATTRIBUTES  Mathf_obj : public hx::Object{
 		static Float Min( Float a,Float b);
 		static Dynamic Min_dyn();
 
+		static Float MinRange( Array< Float > v);
+		static Dynamic MinRange_dyn();
+
 		static Float Max( Float a,Float b);
 		static Dynamic Max_dyn();
+
+		static Float MaxRange( Array< Float > v);
+		static Dynamic MaxRange_dyn();
 
 		static int MinInt( int a,int b);
 		static Dynamic MinInt_dyn();

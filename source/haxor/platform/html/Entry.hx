@@ -1,5 +1,8 @@
 #if html
 package haxor.platform.html;
+import haxor.platform.html.input.HTMLInputHandler;
+
+import haxor.input.Input;
 import haxor.context.EngineContext;
 import haxor.graphics.GL;
 import haxor.core.Engine;
@@ -43,9 +46,9 @@ class Entry
 		
 		var attrib : String = "";
 		
-		var app_class_type   : String = "Main";
-		
-		var app_container_id : String = "haxor";
+		var app_class_type   	: String = "Main";		
+		var app_container_id 	: String = "haxor";		
+		var app_input_id 		: String = "haxor";
 		
 		//Check if verbose level was informed.
 		for (i in 0...script_list.length)
@@ -68,6 +71,12 @@ class Entry
 			if (attrib != null)
 			{
 				app_container_id = attrib;				
+			}
+			
+			attrib = scr.getAttribute("input");			
+			if (attrib != null)
+			{
+				app_input_id = attrib;				
 			}
 		}
 		
@@ -111,6 +120,9 @@ class Entry
 		}
 		
 		EngineContext.Build();
+		
+		
+		var input_handler : HTMLInputHandler = new HTMLInputHandler(app_input_id);
 		
 		if (m_application.Load())
 		{

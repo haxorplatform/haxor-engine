@@ -6,29 +6,32 @@
 #ifndef INCLUDED_haxor_context_TextureContext
 #include <haxor/context/TextureContext.h>
 #endif
+#ifndef INCLUDED_haxor_context_UID
+#include <haxor/context/UID.h>
+#endif
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
+#ifndef INCLUDED_haxor_core_PixelFormat
+#include <haxor/core/PixelFormat.h>
+#endif
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
+#endif
+#ifndef INCLUDED_haxor_core_TextureFilter
+#include <haxor/core/TextureFilter.h>
+#endif
+#ifndef INCLUDED_haxor_core_TextureType
+#include <haxor/core/TextureType.h>
+#endif
+#ifndef INCLUDED_haxor_core_TextureWrap
+#include <haxor/core/TextureWrap.h>
 #endif
 #ifndef INCLUDED_haxor_graphics_GL
 #include <haxor/graphics/GL.h>
 #endif
 #ifndef INCLUDED_haxor_graphics_GraphicContext
 #include <haxor/graphics/GraphicContext.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_PixelFormat
-#include <haxor/graphics/PixelFormat.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_TextureFilter
-#include <haxor/graphics/TextureFilter.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_TextureType
-#include <haxor/graphics/TextureType.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_TextureWrap
-#include <haxor/graphics/TextureWrap.h>
 #endif
 #ifndef INCLUDED_haxor_graphics_texture_Texture
 #include <haxor/graphics/texture/Texture.h>
@@ -56,13 +59,13 @@ HX_STACK_THIS(this)
 	HX_STACK_LINE(94)
 	this->m_mipmaps = false;
 	HX_STACK_LINE(95)
-	this->m_format = ::haxor::graphics::PixelFormat_obj::RGBA8;
+	this->m_format = ::haxor::core::PixelFormat_obj::RGBA8;
 	HX_STACK_LINE(96)
-	this->m_minFilter = ::haxor::graphics::TextureFilter_obj::Linear;
+	this->m_minFilter = ::haxor::core::TextureFilter_obj::Linear;
 	HX_STACK_LINE(97)
-	this->m_magFilter = ::haxor::graphics::TextureFilter_obj::Linear;
+	this->m_magFilter = ::haxor::core::TextureFilter_obj::Linear;
 	HX_STACK_LINE(98)
-	this->m_wrap = (int((int(::haxor::graphics::TextureWrap_obj::ClampX) | int(::haxor::graphics::TextureWrap_obj::ClampY))) | int(::haxor::graphics::TextureWrap_obj::ClampZ));
+	this->m_wrap = (int((int(::haxor::core::TextureWrap_obj::ClampX) | int(::haxor::core::TextureWrap_obj::ClampY))) | int(::haxor::core::TextureWrap_obj::ClampZ));
 	HX_STACK_LINE(99)
 	this->m_width = (int)0;
 	HX_STACK_LINE(100)
@@ -70,7 +73,21 @@ HX_STACK_THIS(this)
 	HX_STACK_LINE(101)
 	this->m_aniso = (int)0;
 	HX_STACK_LINE(102)
-	int _g = (::haxor::context::EngineContext_obj::texture->tid)++;		HX_STACK_VAR(_g,"_g");
+	int _g;		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(102)
+	{
+		HX_STACK_LINE(102)
+		::haxor::context::UID _this = ::haxor::context::EngineContext_obj::texture->tid;		HX_STACK_VAR(_this,"_this");
+		HX_STACK_LINE(102)
+		if (((_this->m_cache->length <= (int)0))){
+			HX_STACK_LINE(102)
+			_g = (_this->m_id)++;
+		}
+		else{
+			HX_STACK_LINE(102)
+			_g = _this->m_cache->shift();
+		}
+	}
 	HX_STACK_LINE(102)
 	this->__cid = _g;
 }
@@ -111,7 +128,7 @@ int Texture_obj::get_height( ){
 
 HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_height,return )
 
-::haxor::graphics::PixelFormat Texture_obj::get_format( ){
+::haxor::core::PixelFormat Texture_obj::get_format( ){
 	HX_STACK_FRAME("haxor.graphics.texture.Texture","get_format",0x9532a81d,"haxor.graphics.texture.Texture.get_format","haxor/graphics/texture/Texture.hx",35,0x91e47a4e)
 	HX_STACK_THIS(this)
 	HX_STACK_LINE(35)
@@ -147,27 +164,27 @@ int Texture_obj::set_wrap( int v){
 		HX_STACK_LINE(43)
 		::haxor::context::TextureContext _this = ::haxor::context::EngineContext_obj::texture;		HX_STACK_VAR(_this,"_this");
 		HX_STACK_LINE(43)
-		::haxor::graphics::TextureType _g = this->get_type();		HX_STACK_VAR(_g,"_g");
+		::haxor::core::TextureType _g = this->get_type();		HX_STACK_VAR(_g,"_g");
 		HX_STACK_LINE(43)
 		int target;		HX_STACK_VAR(target,"target");
 		HX_STACK_LINE(43)
-		if (((_g == ::haxor::graphics::TextureType_obj::Texture2D))){
+		if (((_g == ::haxor::core::TextureType_obj::Texture2D))){
 			HX_STACK_LINE(43)
 			target = (int)3553;
 		}
 		else{
 			HX_STACK_LINE(43)
-			::haxor::graphics::TextureType _g1 = this->get_type();		HX_STACK_VAR(_g1,"_g1");
+			::haxor::core::TextureType _g1 = this->get_type();		HX_STACK_VAR(_g1,"_g1");
 			HX_STACK_LINE(43)
-			if (((_g1 == ::haxor::graphics::TextureType_obj::RenderTexture))){
+			if (((_g1 == ::haxor::core::TextureType_obj::RenderTexture))){
 				HX_STACK_LINE(43)
 				target = (int)3553;
 			}
 			else{
 				HX_STACK_LINE(43)
-				::haxor::graphics::TextureType _g2 = this->get_type();		HX_STACK_VAR(_g2,"_g2");
+				::haxor::core::TextureType _g2 = this->get_type();		HX_STACK_VAR(_g2,"_g2");
 				HX_STACK_LINE(43)
-				if (((_g2 == ::haxor::graphics::TextureType_obj::TextureCube))){
+				if (((_g2 == ::haxor::core::TextureType_obj::TextureCube))){
 					HX_STACK_LINE(43)
 					target = (int)34067;
 				}
@@ -194,25 +211,25 @@ int Texture_obj::set_wrap( int v){
 				HX_STACK_LINE(43)
 				::haxor::graphics::texture::Texture p_texture = _this->bind;		HX_STACK_VAR(p_texture,"p_texture");
 				HX_STACK_LINE(43)
-				::haxor::graphics::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
+				::haxor::core::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
 				HX_STACK_LINE(43)
-				if (((_g3 == ::haxor::graphics::TextureType_obj::Texture2D))){
+				if (((_g3 == ::haxor::core::TextureType_obj::Texture2D))){
 					HX_STACK_LINE(43)
 					target1 = (int)3553;
 				}
 				else{
 					HX_STACK_LINE(43)
-					::haxor::graphics::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
+					::haxor::core::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
 					HX_STACK_LINE(43)
-					if (((_g4 == ::haxor::graphics::TextureType_obj::RenderTexture))){
+					if (((_g4 == ::haxor::core::TextureType_obj::RenderTexture))){
 						HX_STACK_LINE(43)
 						target1 = (int)3553;
 					}
 					else{
 						HX_STACK_LINE(43)
-						::haxor::graphics::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
+						::haxor::core::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
 						HX_STACK_LINE(43)
-						if (((_g5 == ::haxor::graphics::TextureType_obj::TextureCube))){
+						if (((_g5 == ::haxor::core::TextureType_obj::TextureCube))){
 							HX_STACK_LINE(43)
 							target1 = (int)34067;
 						}
@@ -227,9 +244,9 @@ int Texture_obj::set_wrap( int v){
 			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(43)
-		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(43)
-		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(43)
 		if ((::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
 			HX_STACK_LINE(43)
@@ -238,17 +255,17 @@ int Texture_obj::set_wrap( int v){
 			::haxor::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
 		}
 		HX_STACK_LINE(43)
-		::haxor::graphics::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
+		::haxor::core::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
 		HX_STACK_LINE(43)
-		::haxor::graphics::TextureFilter magf = this->m_magFilter;		HX_STACK_VAR(magf,"magf");
+		::haxor::core::TextureFilter magf = this->m_magFilter;		HX_STACK_VAR(magf,"magf");
 		HX_STACK_LINE(43)
-		if (((this->m_format == ::haxor::graphics::PixelFormat_obj::Half))){
+		if (((this->m_format == ::haxor::core::PixelFormat_obj::Half))){
 			HX_STACK_LINE(43)
 			if ((!(::haxor::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
 				HX_STACK_LINE(43)
-				minf = ::haxor::graphics::TextureFilter_obj::Nearest;
+				minf = ::haxor::core::TextureFilter_obj::Nearest;
 				HX_STACK_LINE(43)
-				magf = ::haxor::graphics::TextureFilter_obj::Nearest;
+				magf = ::haxor::core::TextureFilter_obj::Nearest;
 			}
 		}
 		HX_STACK_LINE(43)
@@ -361,27 +378,27 @@ int Texture_obj::set_aniso( int v){
 		HX_STACK_LINE(51)
 		::haxor::context::TextureContext _this = ::haxor::context::EngineContext_obj::texture;		HX_STACK_VAR(_this,"_this");
 		HX_STACK_LINE(51)
-		::haxor::graphics::TextureType _g = this->get_type();		HX_STACK_VAR(_g,"_g");
+		::haxor::core::TextureType _g = this->get_type();		HX_STACK_VAR(_g,"_g");
 		HX_STACK_LINE(51)
 		int target;		HX_STACK_VAR(target,"target");
 		HX_STACK_LINE(51)
-		if (((_g == ::haxor::graphics::TextureType_obj::Texture2D))){
+		if (((_g == ::haxor::core::TextureType_obj::Texture2D))){
 			HX_STACK_LINE(51)
 			target = (int)3553;
 		}
 		else{
 			HX_STACK_LINE(51)
-			::haxor::graphics::TextureType _g1 = this->get_type();		HX_STACK_VAR(_g1,"_g1");
+			::haxor::core::TextureType _g1 = this->get_type();		HX_STACK_VAR(_g1,"_g1");
 			HX_STACK_LINE(51)
-			if (((_g1 == ::haxor::graphics::TextureType_obj::RenderTexture))){
+			if (((_g1 == ::haxor::core::TextureType_obj::RenderTexture))){
 				HX_STACK_LINE(51)
 				target = (int)3553;
 			}
 			else{
 				HX_STACK_LINE(51)
-				::haxor::graphics::TextureType _g2 = this->get_type();		HX_STACK_VAR(_g2,"_g2");
+				::haxor::core::TextureType _g2 = this->get_type();		HX_STACK_VAR(_g2,"_g2");
 				HX_STACK_LINE(51)
-				if (((_g2 == ::haxor::graphics::TextureType_obj::TextureCube))){
+				if (((_g2 == ::haxor::core::TextureType_obj::TextureCube))){
 					HX_STACK_LINE(51)
 					target = (int)34067;
 				}
@@ -408,25 +425,25 @@ int Texture_obj::set_aniso( int v){
 				HX_STACK_LINE(51)
 				::haxor::graphics::texture::Texture p_texture = _this->bind;		HX_STACK_VAR(p_texture,"p_texture");
 				HX_STACK_LINE(51)
-				::haxor::graphics::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
+				::haxor::core::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
 				HX_STACK_LINE(51)
-				if (((_g3 == ::haxor::graphics::TextureType_obj::Texture2D))){
+				if (((_g3 == ::haxor::core::TextureType_obj::Texture2D))){
 					HX_STACK_LINE(51)
 					target1 = (int)3553;
 				}
 				else{
 					HX_STACK_LINE(51)
-					::haxor::graphics::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
+					::haxor::core::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
 					HX_STACK_LINE(51)
-					if (((_g4 == ::haxor::graphics::TextureType_obj::RenderTexture))){
+					if (((_g4 == ::haxor::core::TextureType_obj::RenderTexture))){
 						HX_STACK_LINE(51)
 						target1 = (int)3553;
 					}
 					else{
 						HX_STACK_LINE(51)
-						::haxor::graphics::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
+						::haxor::core::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
 						HX_STACK_LINE(51)
-						if (((_g5 == ::haxor::graphics::TextureType_obj::TextureCube))){
+						if (((_g5 == ::haxor::core::TextureType_obj::TextureCube))){
 							HX_STACK_LINE(51)
 							target1 = (int)34067;
 						}
@@ -441,9 +458,9 @@ int Texture_obj::set_aniso( int v){
 			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(51)
-		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(51)
-		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(51)
 		if ((::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
 			HX_STACK_LINE(51)
@@ -452,17 +469,17 @@ int Texture_obj::set_aniso( int v){
 			::haxor::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
 		}
 		HX_STACK_LINE(51)
-		::haxor::graphics::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
+		::haxor::core::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
 		HX_STACK_LINE(51)
-		::haxor::graphics::TextureFilter magf = this->m_magFilter;		HX_STACK_VAR(magf,"magf");
+		::haxor::core::TextureFilter magf = this->m_magFilter;		HX_STACK_VAR(magf,"magf");
 		HX_STACK_LINE(51)
-		if (((this->m_format == ::haxor::graphics::PixelFormat_obj::Half))){
+		if (((this->m_format == ::haxor::core::PixelFormat_obj::Half))){
 			HX_STACK_LINE(51)
 			if ((!(::haxor::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
 				HX_STACK_LINE(51)
-				minf = ::haxor::graphics::TextureFilter_obj::Nearest;
+				minf = ::haxor::core::TextureFilter_obj::Nearest;
 				HX_STACK_LINE(51)
-				magf = ::haxor::graphics::TextureFilter_obj::Nearest;
+				magf = ::haxor::core::TextureFilter_obj::Nearest;
 			}
 		}
 		HX_STACK_LINE(51)
@@ -549,7 +566,7 @@ int Texture_obj::set_aniso( int v){
 
 HX_DEFINE_DYNAMIC_FUNC1(Texture_obj,set_aniso,return )
 
-::haxor::graphics::TextureFilter Texture_obj::get_minFilter( ){
+::haxor::core::TextureFilter Texture_obj::get_minFilter( ){
 	HX_STACK_FRAME("haxor.graphics.texture.Texture","get_minFilter",0x1a7f19c4,"haxor.graphics.texture.Texture.get_minFilter","haxor/graphics/texture/Texture.hx",59,0x91e47a4e)
 	HX_STACK_THIS(this)
 	HX_STACK_LINE(59)
@@ -559,7 +576,7 @@ HX_DEFINE_DYNAMIC_FUNC1(Texture_obj,set_aniso,return )
 
 HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 
-::haxor::graphics::TextureFilter Texture_obj::set_minFilter( ::haxor::graphics::TextureFilter v){
+::haxor::core::TextureFilter Texture_obj::set_minFilter( ::haxor::core::TextureFilter v){
 	HX_STACK_FRAME("haxor.graphics.texture.Texture","set_minFilter",0x5f84fbd0,"haxor.graphics.texture.Texture.set_minFilter","haxor/graphics/texture/Texture.hx",60,0x91e47a4e)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
@@ -575,27 +592,27 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 		HX_STACK_LINE(60)
 		::haxor::context::TextureContext _this = ::haxor::context::EngineContext_obj::texture;		HX_STACK_VAR(_this,"_this");
 		HX_STACK_LINE(60)
-		::haxor::graphics::TextureType _g = this->get_type();		HX_STACK_VAR(_g,"_g");
+		::haxor::core::TextureType _g = this->get_type();		HX_STACK_VAR(_g,"_g");
 		HX_STACK_LINE(60)
 		int target;		HX_STACK_VAR(target,"target");
 		HX_STACK_LINE(60)
-		if (((_g == ::haxor::graphics::TextureType_obj::Texture2D))){
+		if (((_g == ::haxor::core::TextureType_obj::Texture2D))){
 			HX_STACK_LINE(60)
 			target = (int)3553;
 		}
 		else{
 			HX_STACK_LINE(60)
-			::haxor::graphics::TextureType _g1 = this->get_type();		HX_STACK_VAR(_g1,"_g1");
+			::haxor::core::TextureType _g1 = this->get_type();		HX_STACK_VAR(_g1,"_g1");
 			HX_STACK_LINE(60)
-			if (((_g1 == ::haxor::graphics::TextureType_obj::RenderTexture))){
+			if (((_g1 == ::haxor::core::TextureType_obj::RenderTexture))){
 				HX_STACK_LINE(60)
 				target = (int)3553;
 			}
 			else{
 				HX_STACK_LINE(60)
-				::haxor::graphics::TextureType _g2 = this->get_type();		HX_STACK_VAR(_g2,"_g2");
+				::haxor::core::TextureType _g2 = this->get_type();		HX_STACK_VAR(_g2,"_g2");
 				HX_STACK_LINE(60)
-				if (((_g2 == ::haxor::graphics::TextureType_obj::TextureCube))){
+				if (((_g2 == ::haxor::core::TextureType_obj::TextureCube))){
 					HX_STACK_LINE(60)
 					target = (int)34067;
 				}
@@ -622,25 +639,25 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 				HX_STACK_LINE(60)
 				::haxor::graphics::texture::Texture p_texture = _this->bind;		HX_STACK_VAR(p_texture,"p_texture");
 				HX_STACK_LINE(60)
-				::haxor::graphics::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
+				::haxor::core::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
 				HX_STACK_LINE(60)
-				if (((_g3 == ::haxor::graphics::TextureType_obj::Texture2D))){
+				if (((_g3 == ::haxor::core::TextureType_obj::Texture2D))){
 					HX_STACK_LINE(60)
 					target1 = (int)3553;
 				}
 				else{
 					HX_STACK_LINE(60)
-					::haxor::graphics::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
+					::haxor::core::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
 					HX_STACK_LINE(60)
-					if (((_g4 == ::haxor::graphics::TextureType_obj::RenderTexture))){
+					if (((_g4 == ::haxor::core::TextureType_obj::RenderTexture))){
 						HX_STACK_LINE(60)
 						target1 = (int)3553;
 					}
 					else{
 						HX_STACK_LINE(60)
-						::haxor::graphics::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
+						::haxor::core::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
 						HX_STACK_LINE(60)
-						if (((_g5 == ::haxor::graphics::TextureType_obj::TextureCube))){
+						if (((_g5 == ::haxor::core::TextureType_obj::TextureCube))){
 							HX_STACK_LINE(60)
 							target1 = (int)34067;
 						}
@@ -655,9 +672,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(60)
-		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(60)
-		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(60)
 		if ((::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
 			HX_STACK_LINE(60)
@@ -666,17 +683,17 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 			::haxor::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
 		}
 		HX_STACK_LINE(60)
-		::haxor::graphics::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
+		::haxor::core::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
 		HX_STACK_LINE(60)
-		::haxor::graphics::TextureFilter magf = this->m_magFilter;		HX_STACK_VAR(magf,"magf");
+		::haxor::core::TextureFilter magf = this->m_magFilter;		HX_STACK_VAR(magf,"magf");
 		HX_STACK_LINE(60)
-		if (((this->m_format == ::haxor::graphics::PixelFormat_obj::Half))){
+		if (((this->m_format == ::haxor::core::PixelFormat_obj::Half))){
 			HX_STACK_LINE(60)
 			if ((!(::haxor::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
 				HX_STACK_LINE(60)
-				minf = ::haxor::graphics::TextureFilter_obj::Nearest;
+				minf = ::haxor::core::TextureFilter_obj::Nearest;
 				HX_STACK_LINE(60)
-				magf = ::haxor::graphics::TextureFilter_obj::Nearest;
+				magf = ::haxor::core::TextureFilter_obj::Nearest;
 			}
 		}
 		HX_STACK_LINE(60)
@@ -763,7 +780,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 
 HX_DEFINE_DYNAMIC_FUNC1(Texture_obj,set_minFilter,return )
 
-::haxor::graphics::TextureFilter Texture_obj::get_magFilter( ){
+::haxor::core::TextureFilter Texture_obj::get_magFilter( ){
 	HX_STACK_FRAME("haxor.graphics.texture.Texture","get_magFilter",0x2dd54985,"haxor.graphics.texture.Texture.get_magFilter","haxor/graphics/texture/Texture.hx",67,0x91e47a4e)
 	HX_STACK_THIS(this)
 	HX_STACK_LINE(67)
@@ -773,7 +790,7 @@ HX_DEFINE_DYNAMIC_FUNC1(Texture_obj,set_minFilter,return )
 
 HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 
-::haxor::graphics::TextureFilter Texture_obj::set_magFilter( ::haxor::graphics::TextureFilter v){
+::haxor::core::TextureFilter Texture_obj::set_magFilter( ::haxor::core::TextureFilter v){
 	HX_STACK_FRAME("haxor.graphics.texture.Texture","set_magFilter",0x72db2b91,"haxor.graphics.texture.Texture.set_magFilter","haxor/graphics/texture/Texture.hx",68,0x91e47a4e)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
@@ -789,27 +806,27 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 		HX_STACK_LINE(68)
 		::haxor::context::TextureContext _this = ::haxor::context::EngineContext_obj::texture;		HX_STACK_VAR(_this,"_this");
 		HX_STACK_LINE(68)
-		::haxor::graphics::TextureType _g = this->get_type();		HX_STACK_VAR(_g,"_g");
+		::haxor::core::TextureType _g = this->get_type();		HX_STACK_VAR(_g,"_g");
 		HX_STACK_LINE(68)
 		int target;		HX_STACK_VAR(target,"target");
 		HX_STACK_LINE(68)
-		if (((_g == ::haxor::graphics::TextureType_obj::Texture2D))){
+		if (((_g == ::haxor::core::TextureType_obj::Texture2D))){
 			HX_STACK_LINE(68)
 			target = (int)3553;
 		}
 		else{
 			HX_STACK_LINE(68)
-			::haxor::graphics::TextureType _g1 = this->get_type();		HX_STACK_VAR(_g1,"_g1");
+			::haxor::core::TextureType _g1 = this->get_type();		HX_STACK_VAR(_g1,"_g1");
 			HX_STACK_LINE(68)
-			if (((_g1 == ::haxor::graphics::TextureType_obj::RenderTexture))){
+			if (((_g1 == ::haxor::core::TextureType_obj::RenderTexture))){
 				HX_STACK_LINE(68)
 				target = (int)3553;
 			}
 			else{
 				HX_STACK_LINE(68)
-				::haxor::graphics::TextureType _g2 = this->get_type();		HX_STACK_VAR(_g2,"_g2");
+				::haxor::core::TextureType _g2 = this->get_type();		HX_STACK_VAR(_g2,"_g2");
 				HX_STACK_LINE(68)
-				if (((_g2 == ::haxor::graphics::TextureType_obj::TextureCube))){
+				if (((_g2 == ::haxor::core::TextureType_obj::TextureCube))){
 					HX_STACK_LINE(68)
 					target = (int)34067;
 				}
@@ -836,25 +853,25 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 				HX_STACK_LINE(68)
 				::haxor::graphics::texture::Texture p_texture = _this->bind;		HX_STACK_VAR(p_texture,"p_texture");
 				HX_STACK_LINE(68)
-				::haxor::graphics::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
+				::haxor::core::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
 				HX_STACK_LINE(68)
-				if (((_g3 == ::haxor::graphics::TextureType_obj::Texture2D))){
+				if (((_g3 == ::haxor::core::TextureType_obj::Texture2D))){
 					HX_STACK_LINE(68)
 					target1 = (int)3553;
 				}
 				else{
 					HX_STACK_LINE(68)
-					::haxor::graphics::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
+					::haxor::core::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
 					HX_STACK_LINE(68)
-					if (((_g4 == ::haxor::graphics::TextureType_obj::RenderTexture))){
+					if (((_g4 == ::haxor::core::TextureType_obj::RenderTexture))){
 						HX_STACK_LINE(68)
 						target1 = (int)3553;
 					}
 					else{
 						HX_STACK_LINE(68)
-						::haxor::graphics::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
+						::haxor::core::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
 						HX_STACK_LINE(68)
-						if (((_g5 == ::haxor::graphics::TextureType_obj::TextureCube))){
+						if (((_g5 == ::haxor::core::TextureType_obj::TextureCube))){
 							HX_STACK_LINE(68)
 							target1 = (int)34067;
 						}
@@ -869,9 +886,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(68)
-		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(68)
-		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::graphics::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
+		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10243,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampY))) != (int)0))) ? int((int)33071) : int((int)10497) ));
 		HX_STACK_LINE(68)
 		if ((::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY_ENABLED)){
 			HX_STACK_LINE(68)
@@ -880,17 +897,17 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 			::haxor::graphics::GL_obj::m_gl->TexParameterf(target,::haxor::graphics::GL_obj::TEXTURE_ANISOTROPY,p_value);
 		}
 		HX_STACK_LINE(68)
-		::haxor::graphics::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
+		::haxor::core::TextureFilter minf = this->m_minFilter;		HX_STACK_VAR(minf,"minf");
 		HX_STACK_LINE(68)
-		::haxor::graphics::TextureFilter magf = this->m_magFilter;		HX_STACK_VAR(magf,"magf");
+		::haxor::core::TextureFilter magf = this->m_magFilter;		HX_STACK_VAR(magf,"magf");
 		HX_STACK_LINE(68)
-		if (((this->m_format == ::haxor::graphics::PixelFormat_obj::Half))){
+		if (((this->m_format == ::haxor::core::PixelFormat_obj::Half))){
 			HX_STACK_LINE(68)
 			if ((!(::haxor::graphics::GL_obj::TEXTURE_HALF_LINEAR))){
 				HX_STACK_LINE(68)
-				minf = ::haxor::graphics::TextureFilter_obj::Nearest;
+				minf = ::haxor::core::TextureFilter_obj::Nearest;
 				HX_STACK_LINE(68)
-				magf = ::haxor::graphics::TextureFilter_obj::Nearest;
+				magf = ::haxor::core::TextureFilter_obj::Nearest;
 			}
 		}
 		HX_STACK_LINE(68)
@@ -987,11 +1004,11 @@ bool Texture_obj::get_mipmaps( ){
 
 HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_mipmaps,return )
 
-::haxor::graphics::TextureType Texture_obj::get_type( ){
+::haxor::core::TextureType Texture_obj::get_type( ){
 	HX_STACK_FRAME("haxor.graphics.texture.Texture","get_type",0x793ce620,"haxor.graphics.texture.Texture.get_type","haxor/graphics/texture/Texture.hx",82,0x91e47a4e)
 	HX_STACK_THIS(this)
 	HX_STACK_LINE(82)
-	return ::haxor::graphics::TextureType_obj::None;
+	return ::haxor::core::TextureType_obj::None;
 }
 
 
@@ -1147,7 +1164,7 @@ Dynamic Texture_obj::__SetField(const ::String &inName,const Dynamic &inValue,bo
 	switch(inName.length) {
 	case 4:
 		if (HX_FIELD_EQ(inName,"wrap") ) { return set_wrap(inValue); }
-		if (HX_FIELD_EQ(inName,"type") ) { type=inValue.Cast< ::haxor::graphics::TextureType >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"type") ) { type=inValue.Cast< ::haxor::core::TextureType >(); return inValue; }
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"aniso") ) { return set_aniso(inValue); }
@@ -1163,7 +1180,7 @@ Dynamic Texture_obj::__SetField(const ::String &inName,const Dynamic &inValue,bo
 		break;
 	case 8:
 		if (HX_FIELD_EQ(inName,"m_height") ) { m_height=inValue.Cast< int >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_format") ) { m_format=inValue.Cast< ::haxor::graphics::PixelFormat >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"m_format") ) { m_format=inValue.Cast< ::haxor::core::PixelFormat >(); return inValue; }
 		break;
 	case 9:
 		if (HX_FIELD_EQ(inName,"minFilter") ) { return set_minFilter(inValue); }
@@ -1171,8 +1188,8 @@ Dynamic Texture_obj::__SetField(const ::String &inName,const Dynamic &inValue,bo
 		if (HX_FIELD_EQ(inName,"m_mipmaps") ) { m_mipmaps=inValue.Cast< bool >(); return inValue; }
 		break;
 	case 11:
-		if (HX_FIELD_EQ(inName,"m_minFilter") ) { m_minFilter=inValue.Cast< ::haxor::graphics::TextureFilter >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_magFilter") ) { m_magFilter=inValue.Cast< ::haxor::graphics::TextureFilter >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"m_minFilter") ) { m_minFilter=inValue.Cast< ::haxor::core::TextureFilter >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"m_magFilter") ) { m_magFilter=inValue.Cast< ::haxor::core::TextureFilter >(); return inValue; }
 	}
 	return super::__SetField(inName,inValue,inCallProp);
 }
@@ -1207,14 +1224,14 @@ static ::String sStaticFields[] = {
 static hx::StorageInfo sMemberStorageInfo[] = {
 	{hx::fsInt,(int)offsetof(Texture_obj,m_width),HX_CSTRING("m_width")},
 	{hx::fsInt,(int)offsetof(Texture_obj,m_height),HX_CSTRING("m_height")},
-	{hx::fsObject /*::haxor::graphics::PixelFormat*/ ,(int)offsetof(Texture_obj,m_format),HX_CSTRING("m_format")},
+	{hx::fsObject /*::haxor::core::PixelFormat*/ ,(int)offsetof(Texture_obj,m_format),HX_CSTRING("m_format")},
 	{hx::fsInt,(int)offsetof(Texture_obj,m_wrap),HX_CSTRING("m_wrap")},
 	{hx::fsInt,(int)offsetof(Texture_obj,m_aniso),HX_CSTRING("m_aniso")},
-	{hx::fsObject /*::haxor::graphics::TextureFilter*/ ,(int)offsetof(Texture_obj,m_minFilter),HX_CSTRING("m_minFilter")},
-	{hx::fsObject /*::haxor::graphics::TextureFilter*/ ,(int)offsetof(Texture_obj,m_magFilter),HX_CSTRING("m_magFilter")},
+	{hx::fsObject /*::haxor::core::TextureFilter*/ ,(int)offsetof(Texture_obj,m_minFilter),HX_CSTRING("m_minFilter")},
+	{hx::fsObject /*::haxor::core::TextureFilter*/ ,(int)offsetof(Texture_obj,m_magFilter),HX_CSTRING("m_magFilter")},
 	{hx::fsBool,(int)offsetof(Texture_obj,mipmaps),HX_CSTRING("mipmaps")},
 	{hx::fsBool,(int)offsetof(Texture_obj,m_mipmaps),HX_CSTRING("m_mipmaps")},
-	{hx::fsObject /*::haxor::graphics::TextureType*/ ,(int)offsetof(Texture_obj,type),HX_CSTRING("type")},
+	{hx::fsObject /*::haxor::core::TextureType*/ ,(int)offsetof(Texture_obj,type),HX_CSTRING("type")},
 	{hx::fsInt,(int)offsetof(Texture_obj,__slot),HX_CSTRING("__slot")},
 	{ hx::fsUnknown, 0, null()}
 };

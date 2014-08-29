@@ -10,11 +10,23 @@ class Gizmo
 {
 
 	/**
-	 * Draws a Gizmo occupying the chosen area.
+	 * Draws a grid occupying the chosen area.
 	 * @param	p_area
 	 * @param	p_color
 	 */
-	static public inline function Grid(p_area:Float, p_color:Color = null):Void { EngineContext.gizmo.DrawGrid(p_area, p_color); }
+	static public inline function Grid(p_area:Float, p_color:Color = null):Void 
+	{ 
+		EngineContext.gizmo.DrawGrid(p_area, p_color); 
+	}
+	
+	/**
+	 * Draws the world axis.
+	 * @param	p_area
+	 */
+	static public inline function Axis(p_area:Float):Void 
+	{ 		
+		EngineContext.gizmo.DrawAxis(p_area); 
+	}
 	
 	
 }

@@ -135,6 +135,9 @@ class HXCPP_CLASS_ATTRIBUTES  Vector2_obj : public hx::Object{
 		static ::haxor::math::Vector2 Lerp( ::haxor::math::Vector2 p_a,::haxor::math::Vector2 p_b,Float p_r);
 		static Dynamic Lerp_dyn();
 
+		static ::haxor::math::Vector2 Parse( ::String p_data,::String p_delimiter);
+		static Dynamic Parse_dyn();
+
 };
 
 } // end namespace haxor

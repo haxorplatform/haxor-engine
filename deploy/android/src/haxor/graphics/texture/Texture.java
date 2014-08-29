@@ -17,18 +17,30 @@ public  class Texture extends haxor.core.Resource
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_texture_Texture(haxor.graphics.texture.Texture __temp_me56113)
+	public static   void __hx_ctor_haxor_graphics_texture_Texture(haxor.graphics.texture.Texture __temp_me80671)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me56113, null);
-		__temp_me56113.m_mipmaps = false;
-		__temp_me56113.m_format = haxor.graphics.PixelFormat.RGBA8;
-		__temp_me56113.m_minFilter = haxor.graphics.TextureFilter.Linear;
-		__temp_me56113.m_magFilter = haxor.graphics.TextureFilter.Linear;
-		__temp_me56113.m_wrap = ( ( haxor.graphics.TextureWrap.ClampX | haxor.graphics.TextureWrap.ClampY ) | haxor.graphics.TextureWrap.ClampZ );
-		__temp_me56113.m_width = 0;
-		__temp_me56113.m_height = 0;
-		__temp_me56113.m_aniso = 0;
-		__temp_me56113.__cid = haxor.context.EngineContext.texture.tid++;
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me80671, null);
+		__temp_me80671.m_mipmaps = false;
+		__temp_me80671.m_format = haxor.graphics.PixelFormat.RGBA8;
+		__temp_me80671.m_minFilter = haxor.graphics.TextureFilter.Linear;
+		__temp_me80671.m_magFilter = haxor.graphics.TextureFilter.Linear;
+		__temp_me80671.m_wrap = ( ( haxor.graphics.TextureWrap.ClampX | haxor.graphics.TextureWrap.ClampY ) | haxor.graphics.TextureWrap.ClampZ );
+		__temp_me80671.m_width = 0;
+		__temp_me80671.m_height = 0;
+		__temp_me80671.m_aniso = 0;
+		{
+			haxor.context.UID _this = haxor.context.EngineContext.texture.tid;
+			if (( _this.m_cache.length <= 0 )) 
+			{
+				__temp_me80671.__cid = _this.m_id++;
+			}
+			 else 
+			{
+				__temp_me80671.__cid = ((int) (haxe.lang.Runtime.toInt(_this.m_cache.shift())) );
+			}
+			
+		}
+		
 	}
 	
 	
@@ -120,7 +132,7 @@ public  class Texture extends haxor.core.Resource
 			
 			if (( this == _this.bind )) 
 			{
-				java.lang.Object __temp_expr56436 = null;
+				java.lang.Object __temp_expr81422 = null;
 			}
 			 else 
 			{
@@ -339,7 +351,7 @@ public  class Texture extends haxor.core.Resource
 			
 			if (( this == _this.bind )) 
 			{
-				java.lang.Object __temp_expr56437 = null;
+				java.lang.Object __temp_expr81423 = null;
 			}
 			 else 
 			{
@@ -558,7 +570,7 @@ public  class Texture extends haxor.core.Resource
 			
 			if (( this == _this.bind )) 
 			{
-				java.lang.Object __temp_expr56438 = null;
+				java.lang.Object __temp_expr81424 = null;
 			}
 			 else 
 			{
@@ -777,7 +789,7 @@ public  class Texture extends haxor.core.Resource
 			
 			if (( this == _this.bind )) 
 			{
-				java.lang.Object __temp_expr56439 = null;
+				java.lang.Object __temp_expr81425 = null;
 			}
 			 else 
 			{
@@ -998,14 +1010,14 @@ public  class Texture extends haxor.core.Resource
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56440 = true;
+			boolean __temp_executeDef81426 = true;
 			switch (field.hashCode())
 			{
 				case -1483930146:
 				{
 					if (field.equals("__slot")) 
 					{
-						__temp_executeDef56440 = false;
+						__temp_executeDef81426 = false;
 						this.__slot = ((int) (value) );
 						return value;
 					}
@@ -1018,7 +1030,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_width")) 
 					{
-						__temp_executeDef56440 = false;
+						__temp_executeDef81426 = false;
 						this.m_width = ((int) (value) );
 						return value;
 					}
@@ -1031,7 +1043,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_aniso")) 
 					{
-						__temp_executeDef56440 = false;
+						__temp_executeDef81426 = false;
 						this.m_aniso = ((int) (value) );
 						return value;
 					}
@@ -1044,7 +1056,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_height")) 
 					{
-						__temp_executeDef56440 = false;
+						__temp_executeDef81426 = false;
 						this.m_height = ((int) (value) );
 						return value;
 					}
@@ -1057,7 +1069,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("aniso")) 
 					{
-						__temp_executeDef56440 = false;
+						__temp_executeDef81426 = false;
 						this.set_aniso(((int) (value) ));
 						return value;
 					}
@@ -1070,7 +1082,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("wrap")) 
 					{
-						__temp_executeDef56440 = false;
+						__temp_executeDef81426 = false;
 						this.set_wrap(((int) (value) ));
 						return value;
 					}
@@ -1083,7 +1095,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_wrap")) 
 					{
-						__temp_executeDef56440 = false;
+						__temp_executeDef81426 = false;
 						this.m_wrap = ((int) (value) );
 						return value;
 					}
@@ -1094,7 +1106,7 @@ public  class Texture extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef56440) 
+			if (__temp_executeDef81426) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -1111,14 +1123,14 @@ public  class Texture extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56441 = true;
+			boolean __temp_executeDef81427 = true;
 			switch (field.hashCode())
 			{
 				case -1483930146:
 				{
 					if (field.equals("__slot")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.__slot = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -1131,7 +1143,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_width")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.m_width = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -1144,7 +1156,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.type = ((haxor.graphics.TextureType) (value) );
 						return value;
 					}
@@ -1157,7 +1169,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_height")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.m_height = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -1170,7 +1182,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_mipmaps")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.m_mipmaps = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -1183,7 +1195,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_format")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.m_format = ((haxor.graphics.PixelFormat) (value) );
 						return value;
 					}
@@ -1196,7 +1208,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("mipmaps")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.mipmaps = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -1209,7 +1221,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("wrap")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.set_wrap(((int) (haxe.lang.Runtime.toInt(value)) ));
 						return value;
 					}
@@ -1222,7 +1234,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_magFilter")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.m_magFilter = ((haxor.graphics.TextureFilter) (value) );
 						return value;
 					}
@@ -1235,7 +1247,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_wrap")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.m_wrap = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -1248,7 +1260,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("magFilter")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.set_magFilter(((haxor.graphics.TextureFilter) (value) ));
 						return value;
 					}
@@ -1261,7 +1273,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("aniso")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.set_aniso(((int) (haxe.lang.Runtime.toInt(value)) ));
 						return value;
 					}
@@ -1274,7 +1286,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_minFilter")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.m_minFilter = ((haxor.graphics.TextureFilter) (value) );
 						return value;
 					}
@@ -1287,7 +1299,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_aniso")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.m_aniso = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -1300,7 +1312,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("minFilter")) 
 					{
-						__temp_executeDef56441 = false;
+						__temp_executeDef81427 = false;
 						this.set_minFilter(((haxor.graphics.TextureFilter) (value) ));
 						return value;
 					}
@@ -1311,7 +1323,7 @@ public  class Texture extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef56441) 
+			if (__temp_executeDef81427) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -1328,14 +1340,14 @@ public  class Texture extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56442 = true;
+			boolean __temp_executeDef81428 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -1347,7 +1359,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.get_width();
 					}
 					
@@ -1359,7 +1371,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("GenerateMipmaps")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GenerateMipmaps"))) );
 					}
 					
@@ -1371,7 +1383,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_width")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_width"))) );
 					}
 					
@@ -1383,7 +1395,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("Apply")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Apply"))) );
 					}
 					
@@ -1395,7 +1407,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_width")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.m_width;
 					}
 					
@@ -1407,7 +1419,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("__slot")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.__slot;
 					}
 					
@@ -1419,7 +1431,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.get_height();
 					}
 					
@@ -1431,7 +1443,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_type")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_type"))) );
 					}
 					
@@ -1443,7 +1455,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_height")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_height"))) );
 					}
 					
@@ -1455,7 +1467,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						if (handleProperties) 
 						{
 							return this.get_type();
@@ -1475,7 +1487,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_height")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.m_height;
 					}
 					
@@ -1487,7 +1499,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_mipmaps")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.m_mipmaps;
 					}
 					
@@ -1499,7 +1511,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("format")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.get_format();
 					}
 					
@@ -1511,7 +1523,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_mipmaps")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_mipmaps"))) );
 					}
 					
@@ -1523,7 +1535,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_format")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_format"))) );
 					}
 					
@@ -1535,7 +1547,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("mipmaps")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						if (handleProperties) 
 						{
 							return this.get_mipmaps();
@@ -1555,7 +1567,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_format")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.m_format;
 					}
 					
@@ -1567,7 +1579,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_magFilter")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.m_magFilter;
 					}
 					
@@ -1579,7 +1591,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("wrap")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.get_wrap();
 					}
 					
@@ -1591,7 +1603,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("set_magFilter")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_magFilter"))) );
 					}
 					
@@ -1603,7 +1615,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_wrap")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_wrap"))) );
 					}
 					
@@ -1615,7 +1627,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_magFilter")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_magFilter"))) );
 					}
 					
@@ -1627,7 +1639,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("set_wrap")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_wrap"))) );
 					}
 					
@@ -1639,7 +1651,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("magFilter")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.get_magFilter();
 					}
 					
@@ -1651,7 +1663,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_wrap")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.m_wrap;
 					}
 					
@@ -1663,7 +1675,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_minFilter")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.m_minFilter;
 					}
 					
@@ -1675,7 +1687,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("aniso")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.get_aniso();
 					}
 					
@@ -1687,7 +1699,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("set_minFilter")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_minFilter"))) );
 					}
 					
@@ -1699,7 +1711,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_aniso")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_aniso"))) );
 					}
 					
@@ -1711,7 +1723,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_minFilter")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_minFilter"))) );
 					}
 					
@@ -1723,7 +1735,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("set_aniso")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_aniso"))) );
 					}
 					
@@ -1735,7 +1747,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("minFilter")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.get_minFilter();
 					}
 					
@@ -1747,7 +1759,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_aniso")) 
 					{
-						__temp_executeDef56442 = false;
+						__temp_executeDef81428 = false;
 						return this.m_aniso;
 					}
 					
@@ -1757,7 +1769,7 @@ public  class Texture extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef56442) 
+			if (__temp_executeDef81428) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1774,14 +1786,14 @@ public  class Texture extends haxor.core.Resource
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56443 = true;
+			boolean __temp_executeDef81429 = true;
 			switch (field.hashCode())
 			{
 				case -1483930146:
 				{
 					if (field.equals("__slot")) 
 					{
-						__temp_executeDef56443 = false;
+						__temp_executeDef81429 = false;
 						return ((double) (this.__slot) );
 					}
 					
@@ -1793,7 +1805,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef56443 = false;
+						__temp_executeDef81429 = false;
 						return ((double) (this.get_width()) );
 					}
 					
@@ -1805,7 +1817,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_aniso")) 
 					{
-						__temp_executeDef56443 = false;
+						__temp_executeDef81429 = false;
 						return ((double) (this.m_aniso) );
 					}
 					
@@ -1817,7 +1829,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_width")) 
 					{
-						__temp_executeDef56443 = false;
+						__temp_executeDef81429 = false;
 						return ((double) (this.m_width) );
 					}
 					
@@ -1829,7 +1841,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("aniso")) 
 					{
-						__temp_executeDef56443 = false;
+						__temp_executeDef81429 = false;
 						return ((double) (this.get_aniso()) );
 					}
 					
@@ -1841,7 +1853,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef56443 = false;
+						__temp_executeDef81429 = false;
 						return ((double) (this.get_height()) );
 					}
 					
@@ -1853,7 +1865,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_wrap")) 
 					{
-						__temp_executeDef56443 = false;
+						__temp_executeDef81429 = false;
 						return ((double) (this.m_wrap) );
 					}
 					
@@ -1865,7 +1877,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("m_height")) 
 					{
-						__temp_executeDef56443 = false;
+						__temp_executeDef81429 = false;
 						return ((double) (this.m_height) );
 					}
 					
@@ -1877,7 +1889,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("wrap")) 
 					{
-						__temp_executeDef56443 = false;
+						__temp_executeDef81429 = false;
 						return ((double) (this.get_wrap()) );
 					}
 					
@@ -1887,7 +1899,7 @@ public  class Texture extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef56443) 
+			if (__temp_executeDef81429) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1904,14 +1916,14 @@ public  class Texture extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef56444 = true;
+			boolean __temp_executeDef81430 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -1923,7 +1935,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_width")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.get_width();
 					}
 					
@@ -1935,7 +1947,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("GenerateMipmaps")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						this.GenerateMipmaps();
 					}
 					
@@ -1947,7 +1959,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_height")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.get_height();
 					}
 					
@@ -1959,7 +1971,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("Apply")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						this.Apply();
 					}
 					
@@ -1971,7 +1983,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_format")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.get_format();
 					}
 					
@@ -1983,7 +1995,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_type")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.get_type();
 					}
 					
@@ -1995,7 +2007,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_wrap")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.get_wrap();
 					}
 					
@@ -2007,7 +2019,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_mipmaps")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.get_mipmaps();
 					}
 					
@@ -2019,7 +2031,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("set_wrap")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.set_wrap(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2031,7 +2043,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("set_magFilter")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.set_magFilter(((haxor.graphics.TextureFilter) (dynargs.__get(0)) ));
 					}
 					
@@ -2043,7 +2055,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_aniso")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.get_aniso();
 					}
 					
@@ -2055,7 +2067,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_magFilter")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.get_magFilter();
 					}
 					
@@ -2067,7 +2079,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("set_aniso")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.set_aniso(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2079,7 +2091,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("set_minFilter")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.set_minFilter(((haxor.graphics.TextureFilter) (dynargs.__get(0)) ));
 					}
 					
@@ -2091,7 +2103,7 @@ public  class Texture extends haxor.core.Resource
 				{
 					if (field.equals("get_minFilter")) 
 					{
-						__temp_executeDef56444 = false;
+						__temp_executeDef81430 = false;
 						return this.get_minFilter();
 					}
 					
@@ -2101,7 +2113,7 @@ public  class Texture extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef56444) 
+			if (__temp_executeDef81430) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

@@ -41,7 +41,7 @@ public  class Mathf extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_math_Mathf(haxor.math.Mathf __temp_me56142)
+	public static   void __hx_ctor_haxor_math_Mathf(haxor.math.Mathf __temp_me80744)
 	{
 		{
 		}
@@ -219,9 +219,55 @@ public  class Mathf extends haxe.lang.HxObject
 	}
 	
 	
+	public static   double MinRange(haxe.root.Array<java.lang.Object> v)
+	{
+		if (( v.length <= 0 )) 
+		{
+			return 0.0;
+		}
+		
+		double n = ((double) (haxe.lang.Runtime.toDouble(v.__get(0))) );
+		{
+			int _g1 = 1;
+			int _g = v.length;
+			while (( _g1 < _g ))
+			{
+				int i = _g1++;
+				n = java.lang.Math.min(n, ((double) (haxe.lang.Runtime.toDouble(v.__get(i))) ));
+			}
+			
+		}
+		
+		return n;
+	}
+	
+	
 	public static   double Max(double a, double b)
 	{
 		return java.lang.Math.max(a, b);
+	}
+	
+	
+	public static   double MaxRange(haxe.root.Array<java.lang.Object> v)
+	{
+		if (( v.length <= 0 )) 
+		{
+			return 0.0;
+		}
+		
+		double n = ((double) (haxe.lang.Runtime.toDouble(v.__get(0))) );
+		{
+			int _g1 = 1;
+			int _g = v.length;
+			while (( _g1 < _g ))
+			{
+				int i = _g1++;
+				n = java.lang.Math.max(n, ((double) (haxe.lang.Runtime.toDouble(v.__get(i))) ));
+			}
+			
+		}
+		
+		return n;
 	}
 	
 	
@@ -311,15 +357,15 @@ public  class Mathf extends haxe.lang.HxObject
 	
 	public static   double RoundPlaces(double p_v, java.lang.Object p_decimal_places)
 	{
-		int __temp_p_decimal_places56141 = ( (( p_decimal_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_decimal_places)) )) );
-		double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_decimal_places56141) ));
-		double __temp_stmt56488 = 0.0;
+		int __temp_p_decimal_places80743 = ( (( p_decimal_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_decimal_places)) )) );
+		double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_decimal_places80743) ));
+		double __temp_stmt81594 = 0.0;
 		{
 			double p_v1 = ( p_v * d );
-			__temp_stmt56488 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+			__temp_stmt81594 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 		}
 		
-		return ( __temp_stmt56488 / d );
+		return ( __temp_stmt81594 / d );
 	}
 	
 	
@@ -331,13 +377,13 @@ public  class Mathf extends haxe.lang.HxObject
 	
 	public static   int LerpInt(int p_a, int p_b, double p_ratio)
 	{
-		double __temp_stmt56489 = 0.0;
+		double __temp_stmt81595 = 0.0;
 		{
 			double p_a1 = ((double) (p_a) );
-			__temp_stmt56489 = ( p_a1 + ( (( ((double) (p_b) ) - p_a1 )) * p_ratio ) );
+			__temp_stmt81595 = ( p_a1 + ( (( ((double) (p_b) ) - p_a1 )) * p_ratio ) );
 		}
 		
-		return ((int) (__temp_stmt56489) );
+		return ((int) (__temp_stmt81595) );
 	}
 	
 	
@@ -361,7 +407,7 @@ public  class Mathf extends haxe.lang.HxObject
 		double r = 0.0;
 		if (( p_v < 0 )) 
 		{
-			double __temp_stmt56490 = 0.0;
+			double __temp_stmt81596 = 0.0;
 			{
 				double p_v2 = 0.0;
 				if (( n < 0 )) 
@@ -373,10 +419,10 @@ public  class Mathf extends haxe.lang.HxObject
 					p_v2 = n;
 				}
 				
-				__temp_stmt56490 = ( p_v2 - java.lang.Math.floor(p_v2) );
+				__temp_stmt81596 = ( p_v2 - java.lang.Math.floor(p_v2) );
 			}
 			
-			r = ( 1.0 - __temp_stmt56490 );
+			r = ( 1.0 - __temp_stmt81596 );
 		}
 		 else 
 		{
@@ -395,36 +441,30 @@ public  class Mathf extends haxe.lang.HxObject
 	
 	public static   double Oscilate(double p_v, double p_v0, double p_v1)
 	{
-		double __temp_stmt56491 = 0.0;
+		double __temp_stmt81597 = 0.0;
 		{
 			double p_a = haxor.math.Mathf.Loop(( p_v - 1.0 ), -1.0, 1.0);
-			__temp_stmt56491 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			__temp_stmt81597 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 		}
 		
-		double w = (  - (__temp_stmt56491)  + 1.0 );
+		double w = (  - (__temp_stmt81597)  + 1.0 );
 		return ( w + ( (( p_v0 - w )) * p_v1 ) );
 	}
 	
 	
 	public static   double WrapAngle(double p_angle)
 	{
-		if (( p_angle < 360.0 )) 
+		if (( p_angle < -360.0 )) 
 		{
-			if (( p_angle > -360.0 )) 
-			{
-				return p_angle;
-			}
-			
+			return ( 360 + p_angle );
 		}
 		
-		double __temp_stmt56492 = 0.0;
+		if (( p_angle > 360.0 )) 
 		{
-			double p_v = 0.0;
-			p_v = ( (( (( p_angle < 0 )) ? ( - (p_angle) ) : (p_angle) )) / 360.0 );
-			__temp_stmt56492 = ( p_v - java.lang.Math.floor(p_v) );
+			return ( p_angle - 360 );
 		}
 		
-		return ( __temp_stmt56492 * 360.0 );
+		return p_angle;
 	}
 	
 	

@@ -40,11 +40,6 @@ class Component extends Resource
 	private inline function get_transform():Transform { return entity.transform; }	
 	
 	/**
-	 * Hidden constructor. Instantiation is controlled internally.
-	 */
-	private function new() { super("");	}
-	
-	/**
 	 * Method called when the component is created.
 	 */
 	private function OnBuild():Void { }

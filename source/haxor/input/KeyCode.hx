@@ -785,5 +785,28 @@ class KeyCode
 	//     The ALT modifier key.
 	static public var AltModifier = 262144;
 	
+	//Joystick KeyCodes
+	
+	static public var Face1 				: Int = 0; // Face (main) buttons
+	static public var Face2					: Int = 1;
+	static public var Face3					: Int = 2;
+	static public var Face4					: Int = 3;
+	static public var LeftShoulder			: Int = 4; // Top shoulder buttons
+	static public var RightShoulder			: Int = 5;
+	static public var LeftShoulderBottom	: Int = 6; // Bottom shoulder buttons
+	static public var RightShoulderBottom	: Int = 7;
+	static public var ButtonSelect			: Int = 8;
+	static public var ButtonStart			: Int = 9;
+	static public var LeftAnalogueStick		: Int = 10;// Analogue sticks (if depressible)
+	static public var RightAnalogueStick	: Int = 11;
+	static public var PadTop				: Int = 12;// Directional (discrete) pad
+	static public var PadBottom				: Int = 13;
+	static public var PadLeft				: Int = 14;
+	static public var PadRight				: Int = 15;	
+	static public var LeftAnalogueHor		: Int = 0;
+	static public var LeftAnalogueVert		: Int = 1;
+	static public var RightAnalogueHor		: Int = 2;
+	static public var RightAnalogueVert		: Int = 3;
+	
 }
 

@@ -90,13 +90,13 @@ class HXCPP_CLASS_ATTRIBUTES  Matrix4_obj : public hx::Object{
 		Float m31;
 		Float m32;
 		Float m33;
-		virtual ::haxor::math::Vector4 GetLine( int p_index);
+		virtual ::haxor::math::Vector4 GetLine( int p_index,::haxor::math::Vector4 p_result);
 		Dynamic GetLine_dyn();
 
 		virtual Void SetLine( int p_index,Float p_x,Float p_y,Float p_z,Float p_w);
 		Dynamic SetLine_dyn();
 
-		virtual ::haxor::math::Vector4 GetColumn( int p_index);
+		virtual ::haxor::math::Vector4 GetColumn( int p_index,::haxor::math::Vector4 p_result);
 		Dynamic GetColumn_dyn();
 
 		virtual Void SetColumn( int p_index,Float p_x,Float p_y,Float p_z,Float p_w);
@@ -114,8 +114,8 @@ class HXCPP_CLASS_ATTRIBUTES  Matrix4_obj : public hx::Object{
 		virtual ::haxor::math::Matrix4 Set( hx::Null< Float >  p_m00,hx::Null< Float >  p_m01,hx::Null< Float >  p_m02,hx::Null< Float >  p_m03,hx::Null< Float >  p_m10,hx::Null< Float >  p_m11,hx::Null< Float >  p_m12,hx::Null< Float >  p_m13,hx::Null< Float >  p_m20,hx::Null< Float >  p_m21,hx::Null< Float >  p_m22,hx::Null< Float >  p_m23,hx::Null< Float >  p_m30,hx::Null< Float >  p_m31,hx::Null< Float >  p_m32,hx::Null< Float >  p_m33);
 		Dynamic Set_dyn();
 
-		virtual ::haxor::math::Matrix4 Set44( ::haxor::math::Matrix4 p_matrix);
-		Dynamic Set44_dyn();
+		virtual ::haxor::math::Matrix4 SetMatrix4( ::haxor::math::Matrix4 p_matrix);
+		Dynamic SetMatrix4_dyn();
 
 		virtual Float GetIndex( int p_index);
 		Dynamic GetIndex_dyn();
@@ -211,6 +211,27 @@ class HXCPP_CLASS_ATTRIBUTES  Matrix4_obj : public hx::Object{
 
 		static ::haxor::math::Matrix4 TRS( ::haxor::math::Vector3 p_position,::haxor::math::Quaternion p_rotation,::haxor::math::Vector3 p_scale,::haxor::math::Matrix4 p_result);
 		static Dynamic TRS_dyn();
+
+		static ::haxor::math::Matrix4 Frustum( Float p_left,Float p_right,Float p_top,Float p_bottom,Float p_near,Float p_far,::haxor::math::Matrix4 p_result);
+		static Dynamic Frustum_dyn();
+
+		static ::haxor::math::Matrix4 FrustumInverse( Float p_left,Float p_right,Float p_top,Float p_bottom,Float p_near,Float p_far,::haxor::math::Matrix4 p_result);
+		static Dynamic FrustumInverse_dyn();
+
+		static ::haxor::math::Matrix4 Ortho( Float p_left,Float p_right,Float p_top,Float p_bottom,Float p_near,Float p_far,::haxor::math::Matrix4 p_result);
+		static Dynamic Ortho_dyn();
+
+		static ::haxor::math::Matrix4 OrthoInverse( Float p_left,Float p_right,Float p_top,Float p_bottom,Float p_near,Float p_far,::haxor::math::Matrix4 p_result);
+		static Dynamic OrthoInverse_dyn();
+
+		static ::haxor::math::Matrix4 Perspective( Float p_fov,Float p_aspect,Float p_near,Float p_far,::haxor::math::Matrix4 p_result);
+		static Dynamic Perspective_dyn();
+
+		static ::haxor::math::Matrix4 PerspectiveInverse( Float p_fov,Float p_aspect,Float p_near,Float p_far,::haxor::math::Matrix4 p_result);
+		static Dynamic PerspectiveInverse_dyn();
+
+		static ::haxor::math::Matrix4 GetRotation( ::haxor::math::Matrix4 p_matrix4,::haxor::math::Matrix4 p_result);
+		static Dynamic GetRotation_dyn();
 
 		static ::haxor::math::Matrix4 GetInverseTransform( ::haxor::math::Matrix4 p_matrix,::haxor::math::Matrix4 p_result);
 		static Dynamic GetInverseTransform_dyn();

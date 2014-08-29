@@ -19,12 +19,12 @@ class HXCPP_CLASS_ATTRIBUTES  Behaviour_obj : public ::haxor::component::Compone
 		typedef ::haxor::component::Component_obj super;
 		typedef Behaviour_obj OBJ_;
 		Behaviour_obj();
-		Void __construct();
+		Void __construct(::String __o_p_name);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< Behaviour_obj > __new();
+		static hx::ObjectPtr< Behaviour_obj > __new(::String __o_p_name);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~Behaviour_obj();
@@ -41,19 +41,15 @@ class HXCPP_CLASS_ATTRIBUTES  Behaviour_obj : public ::haxor::component::Compone
 		Dynamic set_enabled_dyn();
 
 		bool m_enabled;
-		bool m_is_updateable;
-		bool m_is_renderable;
-		bool m_is_resizeable;
 		bool m_is_awake;
 		bool m_is_start;
+		virtual Void OnBuild( );
+
 		virtual Void OnAwake( );
 		Dynamic OnAwake_dyn();
 
 		virtual Void OnStart( );
 		Dynamic OnStart_dyn();
-
-		virtual Void UpdateContextFlag( bool p_flag);
-		Dynamic UpdateContextFlag_dyn();
 
 };
 

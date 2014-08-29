@@ -30,6 +30,13 @@ class Time
 	static private var m_delta : Float;
 	
 	/**
+	 * Returns the last frame delta time. This attribute is useful to update time based things on the render loop.
+	 */
+	static public var framedelta(get_framedelta, null):Float;
+	static inline function get_framedelta():Float { return m_frame_delta; }
+	static private var m_frame_delta : Float;
+	
+	/**
 	 * Returns the elapsed time in seconds.
 	 */
 	static public var elapsed(get_elapsed, null):Float;
@@ -68,7 +75,7 @@ class Time
 	
 	static private var m_last_frame_clock : Float;
 	
-	static private var m_frame_delta : Float;
+	
 	
 	/**
 	 * Initializes the Time global class.
@@ -103,7 +110,8 @@ class Time
 		m_clock_dt		= (m_clock - m_last_clock);
 		if (m_clock_dt <= 0) m_clock_dt = 1.0;
 		m_last_clock 	= m_clock;
-		m_delta 		= m_clock_dt*0.001;		
+		m_delta 		= m_clock_dt * 0.001;		
+		
 		m_elapsed		= m_clock*0.001;
 		m_updates 		+= 1.0;
 		
@@ -114,6 +122,7 @@ class Time
 			m_fps = cast m_frame_count;
 			m_updates = 0.0;
 			m_frame_count  = 0.0;
+			Console.Log("FPS: " + m_fps, 7);
 		}
 	}
 	

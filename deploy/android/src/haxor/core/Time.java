@@ -18,7 +18,7 @@ public  class Time extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Time(haxor.core.Time __temp_me56092)
+	public static   void __hx_ctor_haxor_core_Time(haxor.core.Time __temp_me80616)
 	{
 		{
 		}
@@ -49,6 +49,16 @@ public  class Time extends haxe.lang.HxObject
 	
 	
 	public static  double m_delta;
+	
+	public static  double framedelta;
+	
+	public static   double get_framedelta()
+	{
+		return haxor.core.Time.m_frame_delta;
+	}
+	
+	
+	public static  double m_frame_delta;
 	
 	public static  double elapsed;
 	
@@ -101,8 +111,6 @@ public  class Time extends haxe.lang.HxObject
 	public static  double m_last_clock;
 	
 	public static  double m_last_frame_clock;
-	
-	public static  double m_frame_delta;
 	
 	public static   void Initialize()
 	{
@@ -164,6 +172,7 @@ public  class Time extends haxe.lang.HxObject
 			haxor.core.Time.m_fps = ((int) (haxor.core.Time.m_frame_count) );
 			haxor.core.Time.m_updates = 0.0;
 			haxor.core.Time.m_frame_count = 0.0;
+			haxor.core.Console.Log(( "FPS: " + haxor.core.Time.m_fps ), 7);
 		}
 		
 	}

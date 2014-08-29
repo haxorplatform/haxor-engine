@@ -12,11 +12,11 @@
 #ifndef INCLUDED_haxor_core_IUpdateable
 #include <haxor/core/IUpdateable.h>
 #endif
+#ifndef INCLUDED_haxor_core_PixelFormat
+#include <haxor/core/PixelFormat.h>
+#endif
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_PixelFormat
-#include <haxor/graphics/PixelFormat.h>
 #endif
 #ifndef INCLUDED_haxor_graphics_texture_Bitmap
 #include <haxor/graphics/texture/Bitmap.h>
@@ -108,24 +108,33 @@ Void BitmapLoader_obj::OnBufferCallback( ::haxor::io::Buffer p_data,Float p_prog
 			int byte_length = (int)0;		HX_STACK_VAR(byte_length,"byte_length");
 			HX_STACK_LINE(62)
 			int cc = (int)0;		HX_STACK_VAR(cc,"cc");
+			HX_STACK_LINE(64)
+			
+			unsigned char * img_buffer = (stbi_uc * ) stbi_load_from_memory( & file_bl->b[0], file_len, & w, & h, & cc, 0);			
+			;
 			HX_STACK_LINE(69)
 			byte_length = ((w * h) * cc);
 			HX_STACK_LINE(70)
 			::haxor::io::Buffer buffer = ::haxor::io::Buffer_obj::__new(byte_length);		HX_STACK_VAR(buffer,"buffer");
 			HX_STACK_LINE(71)
 			::haxe::io::Bytes bytes = buffer->m_buffer;		HX_STACK_VAR(bytes,"bytes");
+			HX_STACK_LINE(73)
+			
+			for (int i = 0; i < byte_length;i++) bytes->b[i] = img_buffer[i];
+			stbi_image_free(img_buffer);
+			;
 			HX_STACK_LINE(78)
-			::haxor::graphics::PixelFormat fmt = ::haxor::graphics::PixelFormat_obj::RGBA8;		HX_STACK_VAR(fmt,"fmt");
+			::haxor::core::PixelFormat fmt = ::haxor::core::PixelFormat_obj::RGBA8;		HX_STACK_VAR(fmt,"fmt");
 			HX_STACK_LINE(79)
 			switch( (int)(cc)){
 				case (int)1: {
 					HX_STACK_LINE(81)
-					fmt = ::haxor::graphics::PixelFormat_obj::Alpha8;
+					fmt = ::haxor::core::PixelFormat_obj::Alpha8;
 				}
 				;break;
 				case (int)3: {
 					HX_STACK_LINE(82)
-					fmt = ::haxor::graphics::PixelFormat_obj::RGB8;
+					fmt = ::haxor::core::PixelFormat_obj::RGB8;
 				}
 				;break;
 			}

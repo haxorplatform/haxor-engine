@@ -25,7 +25,7 @@ import haxor.math.Vector4;
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 @:allow(haxor)
-class ColladaFile extends AssetXML<Entity>
+class ColladaFile extends AssetXML
 {
 	static private function GenerateTriangles(p_type : String, p_indexes : Array< Array< Array<Int> > >, p_vcount : Array<Int>):Array< Array<Int> >
 	{
@@ -169,14 +169,14 @@ class ColladaFile extends AssetXML<Entity>
 			var mn : String = m.name;
 			for(i in 0...10) mn = StringTools.replace(mn, "_"+i, "");
 			mn = StringTools.replace(mn, "_", "/");
-			var mat : Material = Resource.Get(mn);
+			var mat : Material = Asset.Get(mn);
 			
 			if (mat == null)
 			{
 				mat = new Material();
 				mat.name = mn;
-				mat.shader = Resource.Get("haxor/unlit/FlatTexture");
-				Resource.Add(mn, mat);
+				mat.shader = Asset.Get("haxor/unlit/FlatTexture");
+				Asset.Add(mn, mat);
 			}			
 			mm.set(m, mat);
 		}
@@ -329,7 +329,7 @@ class ColladaFile extends AssetXML<Entity>
 						{
 							for(i in 0...10) mn = StringTools.replace(mn, "_"+i, ""); //Maybe 10 checks will hold?
 							mn = StringTools.replace(mn, "_", "/");
-							var mat : Material = Resource.Get(mn);
+							var mat : Material = Asset.Get(mn);
 							mr.material = mat;
 						}
 					}					
@@ -438,7 +438,7 @@ class ColladaFile extends AssetXML<Entity>
 		
 		var mid : String = msh+"_"+m_id;
 		
-		var m 	: Mesh3 = Resource.Get(mid);
+		var m 	: Mesh3 = Asset.Get(mid);
 		
 		if (m != null)
 		{
@@ -459,7 +459,7 @@ class ColladaFile extends AssetXML<Entity>
 		m 		= is_skinned ? (new SkinnedMesh3()) : (new Mesh3());		
 		m.name  = mid;
 		
-		Resource.Add(mid, m);
+		Asset.Add(mid, m);
 		
 		if(mc.length>0)   m.color    = mc;
 		if(muv0.length>0) m.uv0      = muv0;

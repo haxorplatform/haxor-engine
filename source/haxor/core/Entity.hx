@@ -69,11 +69,13 @@ class Entity extends Resource
 	 */
 	public function new(p_name : String="") 
 	{		
-		super(p_name);
+		//Console.Log("entity ctor");
+		super(p_name);		
 		m_enabled    = true;
 		m_components = [];
-		m_layer		 = 1;
-		m_transform = AddComponent(Transform);
+		m_layer		 = 1;		
+		m_transform = cast AddComponent(Transform);		
+		//Console.Log("entity ctor end");
 	}
 	
 	/**
@@ -86,8 +88,9 @@ class Entity extends Resource
 		if (m_destroyed) return null;
 		
 		if (m_transform != null) if (p_type == Transform) return m_transform;
-		
-		var c:Component = Type.createInstance(p_type, []);
+		var c:Component = null;		
+		c = Type.createInstance(p_type, [""]);		
+		if (c == null) return null;
 		c.m_entity 		= this;		
 		if (c.m_is_behaviour)
 		{ 
@@ -131,7 +134,7 @@ class Entity extends Resource
 	{
 		var res : Array<Component> = [];
 		var res : Component = null;
-		transform.Traverse(function(t : Transform):Bool
+		transform.Traverse(function(t : Transform,d:Int):Bool
 		{
 			if (res != null) return true;
 			var l : Array<Dynamic> = t.entity.GetComponents(p_type);
@@ -149,7 +152,7 @@ class Entity extends Resource
 	public function GetComponentsInChildren(p_type : Class<Component>) : Array<Dynamic>
 	{
 		var res : Array<Dynamic> = [];
-		transform.Traverse(function(t : Transform):Bool
+		transform.Traverse(function(t : Transform,d:Int):Bool
 		{
 			var l : Array<Dynamic> = t.entity.GetComponents(p_type);
 			for (i in 0...l.length) res.push(l[i]);

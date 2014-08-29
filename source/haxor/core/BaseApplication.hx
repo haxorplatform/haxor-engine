@@ -5,6 +5,7 @@ import haxor.component.Behaviour;
 import haxor.component.Component;
 import haxor.graphics.Screen;
 import haxor.graphics.GL;
+import haxor.input.Input;
 
 
 #if html
@@ -152,20 +153,19 @@ class BaseApplication extends Behaviour
 	
 	/**
 	 * Creates a new Application and register it in the global list.
-	 */
-	public function new() 
+	 */	
+	override function OnBuild():Void 
 	{
-		super();
+		super.OnBuild();		
 		m_instance 		= this;
 		m_scenes   		= [];
 		fps 			= 60;
 		m_frame_ms	    = 0.0;		
 		m_init_allowed  = false;		
-		m_platform 		= Platform.Unknown;
-		
+		m_platform 		= Platform.Unknown;		
 		Time.Initialize();		
 		Screen.Initialize(this);
-		
+		Input.Initialize();
 	}
 	
 	/**
@@ -233,12 +233,13 @@ class BaseApplication extends Behaviour
 			m_init_allowed = false;
 		}		
 		
+		
 		if ((Time.m_clock - m_frame_ms) >= m_mspf)
 		{	
 			m_frame_ms += (Time.m_clock - m_frame_ms);			
 			Time.Render();			
-			GL.Focus();			
-			Engine.Render();
+			GL.Focus();					
+			Engine.Render();						
 			GL.Flush();			
 		}		
 		
@@ -278,7 +279,7 @@ class BaseApplication extends Behaviour
 	 */
 	private function OnResize():Void 
 	{
-		Console.Log("Application> Resize [" + Screen.m_width + "," + Screen.m_height + "]", 5);
+		Console.Log("Application> Resize [" + Screen.m_width + "," + Screen.m_height + "]", 6);
 		GL.Resize();
 		Engine.Resize();
 	}

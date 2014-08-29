@@ -1,7 +1,7 @@
 package haxor.graphics.texture;
 import haxor.context.EngineContext;
-import haxor.graphics.Enums.PixelFormat;
-import haxor.graphics.Enums.TextureFilter;
+import haxor.core.Enums.PixelFormat;
+import haxor.core.Enums.TextureFilter;
 import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.math.Color;
@@ -49,7 +49,7 @@ class ComputeTexture extends Texture2D
 	 */
 	public inline function Write(p_x : Int, p_y :Int, p_v0 : Dynamic = 0, p_v1 : Dynamic = 0, p_v2 : Dynamic = 0, p_v3 : Dynamic = 0):Void 
 	{ 
-		data.SetPixel(p_x, p_y, Color.temp.Set(p_v0, p_v1, p_v2, p_v3); 
+		data.SetPixel(p_x, p_y, Color.temp.Set(p_v0, p_v1, p_v2, p_v3)); 
 		m_dirty = true;
 		Refresh();
 	}
@@ -71,6 +71,9 @@ class ComputeTexture extends Texture2D
 		m_dirty = true;
 	}
 	
+	/**
+	 * Starts the upload of the Texture.
+	 */
 	private function Refresh():Void
 	{
 		if (m_lock) return;

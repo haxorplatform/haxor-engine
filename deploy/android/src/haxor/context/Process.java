@@ -10,24 +10,25 @@ public  class Process<T> extends haxor.context.BaseProcess
 	}
 	
 	
-	public    Process(java.lang.String p_name, int p_size)
+	public    Process(java.lang.String p_name, int p_size, java.lang.Object p_update_cid)
 	{
-		super(((haxe.lang.EmptyObject) (haxe.lang.EmptyObject.EMPTY) ));
-		haxor.context.Process.__hx_ctor_haxor_context_Process(this, p_name, p_size);
+		super(haxe.lang.EmptyObject.EMPTY);
+		haxor.context.Process.__hx_ctor_haxor_context_Process(this, p_name, p_size, p_update_cid);
 	}
 	
 	
-	public static  <T_c> void __hx_ctor_haxor_context_Process(haxor.context.Process<T_c> __temp_me56085, java.lang.String p_name, int p_size)
+	public static  <T_c> void __hx_ctor_haxor_context_Process(haxor.context.Process<T_c> __temp_me80605, java.lang.String p_name, int p_size, java.lang.Object p_update_cid)
 	{
-		haxor.context.BaseProcess.__hx_ctor_haxor_context_BaseProcess(__temp_me56085, p_name);
-		__temp_me56085.list = new haxe.root.Array<T_c>(( (T_c[]) (new java.lang.Object[] {}) ));
-		__temp_me56085.m_length = 0;
+		haxor.context.BaseProcess.__hx_ctor_haxor_context_BaseProcess(__temp_me80605, p_name, ( (( p_update_cid == null )) ? (((java.lang.Object) (true) )) : (p_update_cid) ));
+		boolean __temp_p_update_cid80604 = ( (( p_update_cid == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_update_cid)) );
+		__temp_me80605.list = new haxe.root.Array<T_c>(( (T_c[]) (new java.lang.Object[] {}) ));
+		__temp_me80605.m_length = 0;
 		{
 			int _g = 0;
 			while (( _g < p_size ))
 			{
 				int i = _g++;
-				__temp_me56085.list.push(null);
+				__temp_me80605.list.push(null);
 			}
 			
 		}
@@ -43,7 +44,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 	
 	public static   java.lang.Object __hx_create(haxe.root.Array arr)
 	{
-		return new haxor.context.Process<java.lang.Object>(haxe.lang.Runtime.toString(arr.__get(0)), ((int) (haxe.lang.Runtime.toInt(arr.__get(1))) ));
+		return new haxor.context.Process<java.lang.Object>(haxe.lang.Runtime.toString(arr.__get(0)), ((int) (haxe.lang.Runtime.toInt(arr.__get(1))) ), ((java.lang.Object) (arr.__get(2)) ));
 	}
 	
 	
@@ -63,6 +64,11 @@ public  class Process<T> extends haxor.context.BaseProcess
 		if (( iid >= 0 )) 
 		{
 			return ;
+		}
+		
+		if (( this.m_length >= this.list.length )) 
+		{
+			this.list.push(null);
 		}
 		
 		this.list.__set(this.m_length, ((T) (((java.lang.Object) (p_item) )) ));
@@ -102,14 +108,14 @@ public  class Process<T> extends haxor.context.BaseProcess
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56382 = true;
+			boolean __temp_executeDef81300 = true;
 			switch (field.hashCode())
 			{
 				case -1705094408:
 				{
 					if (field.equals("m_length")) 
 					{
-						__temp_executeDef56382 = false;
+						__temp_executeDef81300 = false;
 						this.m_length = ((int) (value) );
 						return value;
 					}
@@ -120,7 +126,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				
 			}
 			
-			if (__temp_executeDef56382) 
+			if (__temp_executeDef81300) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -137,14 +143,14 @@ public  class Process<T> extends haxor.context.BaseProcess
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56383 = true;
+			boolean __temp_executeDef81301 = true;
 			switch (field.hashCode())
 			{
 				case -1705094408:
 				{
 					if (field.equals("m_length")) 
 					{
-						__temp_executeDef56383 = false;
+						__temp_executeDef81301 = false;
 						this.m_length = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -157,7 +163,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				{
 					if (field.equals("list")) 
 					{
-						__temp_executeDef56383 = false;
+						__temp_executeDef81301 = false;
 						this.list = ((haxe.root.Array<T>) (value) );
 						return value;
 					}
@@ -168,7 +174,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				
 			}
 			
-			if (__temp_executeDef56383) 
+			if (__temp_executeDef81301) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -185,14 +191,14 @@ public  class Process<T> extends haxor.context.BaseProcess
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56384 = true;
+			boolean __temp_executeDef81302 = true;
 			switch (field.hashCode())
 			{
 				case 65193517:
 				{
 					if (field.equals("Clear")) 
 					{
-						__temp_executeDef56384 = false;
+						__temp_executeDef81302 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Clear"))) );
 					}
 					
@@ -204,7 +210,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				{
 					if (field.equals("list")) 
 					{
-						__temp_executeDef56384 = false;
+						__temp_executeDef81302 = false;
 						return this.list;
 					}
 					
@@ -216,7 +222,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				{
 					if (field.equals("Remove")) 
 					{
-						__temp_executeDef56384 = false;
+						__temp_executeDef81302 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Remove"))) );
 					}
 					
@@ -228,7 +234,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef56384 = false;
+						__temp_executeDef81302 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_length"))) );
 					}
 					
@@ -240,7 +246,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				{
 					if (field.equals("Add")) 
 					{
-						__temp_executeDef56384 = false;
+						__temp_executeDef81302 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Add"))) );
 					}
 					
@@ -252,7 +258,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				{
 					if (field.equals("m_length")) 
 					{
-						__temp_executeDef56384 = false;
+						__temp_executeDef81302 = false;
 						return this.m_length;
 					}
 					
@@ -262,7 +268,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				
 			}
 			
-			if (__temp_executeDef56384) 
+			if (__temp_executeDef81302) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -279,14 +285,14 @@ public  class Process<T> extends haxor.context.BaseProcess
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef56385 = true;
+			boolean __temp_executeDef81303 = true;
 			switch (field.hashCode())
 			{
 				case -1705094408:
 				{
 					if (field.equals("m_length")) 
 					{
-						__temp_executeDef56385 = false;
+						__temp_executeDef81303 = false;
 						return ((double) (this.m_length) );
 					}
 					
@@ -296,7 +302,7 @@ public  class Process<T> extends haxor.context.BaseProcess
 				
 			}
 			
-			if (__temp_executeDef56385) 
+			if (__temp_executeDef81303) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

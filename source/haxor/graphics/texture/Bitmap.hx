@@ -1,6 +1,6 @@
 package haxor.graphics.texture;
 import haxor.core.Resource;
-import haxor.graphics.Enums.PixelFormat;
+import haxor.core.Enums.PixelFormat;
 import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.math.Color;

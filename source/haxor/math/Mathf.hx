@@ -392,10 +392,13 @@ class Mathf
 	 * @param	p_angle
 	 * @return
 	 */
-	static public inline function WrapAngle(p_angle:Float):Float
+	static public function WrapAngle(p_angle:Float):Float
 	{
-		if (p_angle < 360.0) if (p_angle > -360.0) return p_angle;
-		return Mathf.Frac(Mathf.Abs(p_angle) / 360.0) * 360.0;
+		if (p_angle < -360.0) return 360 + p_angle;
+		if (p_angle >  360.0) return p_angle - 360;
+		return p_angle;
+		//if (p_angle < 360.0) if (p_angle > -360.0) return p_angle;
+		//return Mathf.Frac(Mathf.Abs(p_angle) / 360.0) * 360.0;
 	}
 		
 		

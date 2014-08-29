@@ -137,18 +137,5 @@ class DataContext
 		}
 	}
 	
-	/**
-	 * Fills the local matrix float array with the informed matrix.
-	 * @param	m
-	 * @return
-	 */
-	private function Matrix4ToArray(m:Matrix4):Array<Float>
-	{
-		m4l[0 ] = m.m00; m4l[1 ] = m.m01; m4l[2 ] = m.m02; m4l[3 ] = m.m03;
-		m4l[4 ] = m.m10; m4l[5 ] = m.m11; m4l[6 ] = m.m12; m4l[7 ] = m.m13;
-		m4l[8 ] = m.m20; m4l[9 ] = m.m21; m4l[10] = m.m22; m4l[11] = m.m23;
-		m4l[12] = m.m30; m4l[13] = m.m31; m4l[14] = m.m32; m4l[15] = m.m33;
-		return m4l;
-	}
 	
 }

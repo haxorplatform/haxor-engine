@@ -1,5 +1,7 @@
 package ;
+import haxe.Timer;
 import haxor.component.Camera;
+import haxor.component.CameraOrbit;
 import haxor.component.MeshRenderer;
 import haxor.component.Transform;
 import haxor.context.UID;
@@ -9,12 +11,14 @@ import haxor.core.Console;
 import haxor.core.Entity;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
+import haxor.core.Resource;
 import haxor.core.Time;
-import haxor.graphics.Enums.BlendMode;
-import haxor.graphics.Enums.CullMode;
-import haxor.graphics.Enums.MeshPrimitive;
-import haxor.graphics.Enums.PixelFormat;
-import haxor.graphics.Enums.TextureFilter;
+import haxor.core.Enums.BlendMode;
+import haxor.core.Enums.CullMode;
+import haxor.core.Enums.MeshPrimitive;
+import haxor.core.Enums.PixelFormat;
+import haxor.core.Enums.TextureFilter;
+import haxor.graphics.Gizmo;
 import haxor.graphics.Graphics;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
@@ -25,7 +29,11 @@ import haxor.graphics.Screen;
 import haxor.graphics.texture.Bitmap;
 import haxor.graphics.texture.RenderTexture;
 import haxor.graphics.texture.Texture2D;
+import haxor.input.Input;
+import haxor.input.Joystick;
+import haxor.input.KeyCode;
 import haxor.io.Buffer;
+import haxor.io.file.Asset;
 import haxor.io.file.ColladaFile;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
@@ -46,6 +54,7 @@ import haxor.platform.Types.MeshBufferId;
 import haxor.thread.Activity;
 
 
+
 /**
  * ...
  * @author Eduardo Pons - eduardo@thelaborat.org
@@ -63,7 +72,12 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	public var cam : Camera;
 	
-		
+	public var orbit : CameraOrbit;
+	
+	public var mr : MeshRenderer;
+	
+	public var container : Transform;
+	
 	public var mat : Material;
 	
 	public var ss : String;
@@ -76,7 +90,15 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{	
 		Web.root = "http://haxor.thelaborat.org/resources/";
 		
-		
+		Web.LoadTexture2D("./texture/misc/metal.jpg",true, function(t:Texture2D, p:Float):Void
+		{
+			if (p >= 1.0)
+			{
+				Asset.Add("texture", t);
+				LoadComplete();
+			}
+		});
+		//*/
 		
 		
 		/*
@@ -85,18 +107,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		});
 		
 		
-		Web.LoadImg("./projects/dungeon/big/DungeonAtlas01.jpg", function(b:Bitmap, p:Float):Void
-		{
-			Console.Log("p> " + p);
-			if (p >= 1.0)
-			{
-				if (b != null)
-				{
-					bmp = b;	
-					LoadComplete();
-				}
-			}
-		});
+		
 		//*/
 		/*
 		Web.Load("./shader/unlit/NDC.shader", function(d:String, p:Float):Void
@@ -135,38 +146,101 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		//*/
 				
-		return true;
+		return false;
 	}
 	
 	override public function Initialize():Void 
 	{
 		Console.Log("Initialize!");	
 		
-		cam = entity.AddComponent(Camera);		
+		#if html
+		var ui : js.Stats = new js.Stats();
+		ui.domElement.style.position = "absolute";
+        ui.domElement.style.top = '0px';		
+        js.Browser.document.body.appendChild(ui.domElement);
+		
+		Activity.Run(function(t:Float):Bool
+		{
+			ui.update();
+			return true;
+		});
+		#end
+		
+		orbit = CameraOrbit.Create(3.0, 45, 45);
+		cam = orbit.entity.GetComponentInChildren(Camera);
 		cam.background = new Color(0.3, 0.3, 0.3);
 		
+		var tex : Texture2D = Texture2D.green;
+		tex = Asset.Get("texture");
 		
-		mat = Material.Transparent();		
+		container = (new Entity("container")).transform;
+		var l : Float = 2;
+		
+		var px : Float = 0.0;
+		var py : Float = 0.0;
+		var pz : Float = 0.0;
+			
+		mat = Material.Transparent(Asset.Get("texture"));
+		mat.name = "T";
+		mat.SetTexture("Tex0", Texture2D.red);
+		mat.blend = true;
+		
+		Activity.Iterate(0,1500,function(i:Int):Bool
+		//for (i in 0...1400)
+		{	
+			mr = (new Entity("cube" + i)).AddComponent(MeshRenderer);			
+			mr.transform.localScale = new Vector3(0.1, 0.1, 0.1);
+			mr.transform.parent = container;			
+			mr.transform.position = new Vector3(px, py, pz);
+			mr.mesh 	= Model.cube;
+			
+			mr.material = mat;						
+			
+			px += 0.12;
+			
+			if (px >= l)
+			{
+				px = 0.0;
+				pz += 0.12;
+				if (pz >= l)
+				{
+					pz = 0.0;
+					py += 0.12;
+					
+				}
+			}
+			return true;
+		},50);
 		
 	}
 	
 	public function OnUpdate():Void
 	{	
+		if (orbit != null)
+		{
+			orbit.angle.x += Time.delta * 30.0;			
+		}
 	
+		if (Joystick.available)
+		{
+			
+		}
 		
-		
+		if(Input.Down(KeyCode.Mouse0))trace("left");
+		if (Input.Down(KeyCode.Mouse1)) trace("middle");
+		if (Input.Down(KeyCode.Mouse2)) trace("right");
+		if (Input.Down(KeyCode.A)) trace("A");
+		if(Input.Down(KeyCode.ControlKey))trace("Left Control");
+		//*/
+		if (Mathf.Abs(Input.wheel) > 0) trace(Input.wheel);
+		//trace(Input.wheel + " " + Input.mouse.ToString() + " " + Input.deltaMouse.ToString()+" "+Input.GetInputState(KeyCode.Mouse0));
 	}
 	
 	public function OnRender():Void
-	{
-		Graphics.Clear(cam);
-		if (mat == null) return;
-		//mat.SetMatrix4("ViewMatrix", 
-		mat.SetFloat("Time", Time.elapsed);
-		Graphics.RenderMesh(Model.cube, mat);
-		
-		
-		
+	{	
+		GL.Clear(GL.DEPTH_BUFFER_BIT);
+		Gizmo.Grid(100.0,new Color(1,1,1,0.1));
+		Gizmo.Axis(50.0);
 	}
 	
 	

@@ -3,11 +3,11 @@
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
+#ifndef INCLUDED_haxor_core_PixelFormat
+#include <haxor/core/PixelFormat.h>
+#endif
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_PixelFormat
-#include <haxor/graphics/PixelFormat.h>
 #endif
 #ifndef INCLUDED_haxor_graphics_texture_Bitmap
 #include <haxor/graphics/texture/Bitmap.h>
@@ -25,7 +25,7 @@ namespace haxor{
 namespace graphics{
 namespace texture{
 
-Void Bitmap_obj::__construct(int p_width,int p_height,::haxor::graphics::PixelFormat p_format)
+Void Bitmap_obj::__construct(int p_width,int p_height,::haxor::core::PixelFormat p_format)
 {
 HX_STACK_FRAME("haxor.graphics.texture.Bitmap","new",0x6aeebecb,"haxor.graphics.texture.Bitmap.new","haxor/graphics/texture/Bitmap.hx",66,0x9c278704)
 HX_STACK_THIS(this)
@@ -140,7 +140,7 @@ HX_STACK_ARG(p_format,"p_format")
 //Bitmap_obj::~Bitmap_obj() { }
 
 Dynamic Bitmap_obj::__CreateEmpty() { return  new Bitmap_obj; }
-hx::ObjectPtr< Bitmap_obj > Bitmap_obj::__new(int p_width,int p_height,::haxor::graphics::PixelFormat p_format)
+hx::ObjectPtr< Bitmap_obj > Bitmap_obj::__new(int p_width,int p_height,::haxor::core::PixelFormat p_format)
 {  hx::ObjectPtr< Bitmap_obj > result = new Bitmap_obj();
 	result->__construct(p_width,p_height,p_format);
 	return result;}
@@ -200,7 +200,7 @@ int Bitmap_obj::get_channels( ){
 
 HX_DEFINE_DYNAMIC_FUNC0(Bitmap_obj,get_channels,return )
 
-::haxor::graphics::PixelFormat Bitmap_obj::get_format( ){
+::haxor::core::PixelFormat Bitmap_obj::get_format( ){
 	HX_STACK_FRAME("haxor.graphics.texture.Bitmap","get_format",0x38ea83f5,"haxor.graphics.texture.Bitmap.get_format","haxor/graphics/texture/Bitmap.hx",55,0x9c278704)
 	HX_STACK_THIS(this)
 	HX_STACK_LINE(55)
@@ -482,6 +482,221 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC1(Bitmap_obj,Fill,(void))
 
+Void Bitmap_obj::Set( int p_x,int p_y,hx::Null< Float >  __o_p_v0,hx::Null< Float >  __o_p_v1,hx::Null< Float >  __o_p_v2,hx::Null< Float >  __o_p_v3){
+Float p_v0 = __o_p_v0.Default(0.0);
+Float p_v1 = __o_p_v1.Default(0.0);
+Float p_v2 = __o_p_v2.Default(0.0);
+Float p_v3 = __o_p_v3.Default(0.0);
+	HX_STACK_FRAME("haxor.graphics.texture.Bitmap","Set",0x6ada41ed,"haxor.graphics.texture.Bitmap.Set","haxor/graphics/texture/Bitmap.hx",174,0x9c278704)
+	HX_STACK_THIS(this)
+	HX_STACK_ARG(p_x,"p_x")
+	HX_STACK_ARG(p_y,"p_y")
+	HX_STACK_ARG(p_v0,"p_v0")
+	HX_STACK_ARG(p_v1,"p_v1")
+	HX_STACK_ARG(p_v2,"p_v2")
+	HX_STACK_ARG(p_v3,"p_v3")
+{
+		HX_STACK_LINE(175)
+		int cc = this->m_channels;		HX_STACK_VAR(cc,"cc");
+		HX_STACK_LINE(176)
+		int pos = (((p_x + (p_y * this->m_width))) * cc);		HX_STACK_VAR(pos,"pos");
+		HX_STACK_LINE(177)
+		if ((this->m_float)){
+			HX_STACK_LINE(179)
+			::haxor::io::FloatArray b = this->m_buffer;		HX_STACK_VAR(b,"b");
+			HX_STACK_LINE(180)
+			b->Set(pos,p_v0);
+			HX_STACK_LINE(181)
+			if (((cc >= (int)2))){
+				HX_STACK_LINE(181)
+				b->Set((pos + (int)1),p_v1);
+			}
+			HX_STACK_LINE(182)
+			if (((cc >= (int)3))){
+				HX_STACK_LINE(182)
+				b->Set((pos + (int)2),p_v2);
+			}
+			HX_STACK_LINE(183)
+			if (((cc >= (int)4))){
+				HX_STACK_LINE(183)
+				b->Set((pos + (int)3),p_v3);
+			}
+			HX_STACK_LINE(184)
+			return null();
+		}
+		HX_STACK_LINE(186)
+		::haxor::io::Buffer b = this->m_buffer;		HX_STACK_VAR(b,"b");
+		HX_STACK_LINE(187)
+		b->SetByte(pos,(p_v0 * 255.0));
+		HX_STACK_LINE(188)
+		if (((cc >= (int)2))){
+			HX_STACK_LINE(188)
+			b->SetByte((pos + (int)1),(p_v1 * 255.0));
+		}
+		HX_STACK_LINE(189)
+		if (((cc >= (int)3))){
+			HX_STACK_LINE(189)
+			b->SetByte((pos + (int)2),(p_v2 * 255.0));
+		}
+		HX_STACK_LINE(190)
+		if (((cc >= (int)4))){
+			HX_STACK_LINE(190)
+			b->SetByte((pos + (int)3),(p_v3 * 255.0));
+		}
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC6(Bitmap_obj,Set,(void))
+
+Void Bitmap_obj::SetRange( int p_x,int p_y,int p_width,int p_height,Array< Float > p_values,hx::Null< int >  __o_p_length){
+int p_length = __o_p_length.Default(-1);
+	HX_STACK_FRAME("haxor.graphics.texture.Bitmap","SetRange",0x6b3bb890,"haxor.graphics.texture.Bitmap.SetRange","haxor/graphics/texture/Bitmap.hx",204,0x9c278704)
+	HX_STACK_THIS(this)
+	HX_STACK_ARG(p_x,"p_x")
+	HX_STACK_ARG(p_y,"p_y")
+	HX_STACK_ARG(p_width,"p_width")
+	HX_STACK_ARG(p_height,"p_height")
+	HX_STACK_ARG(p_values,"p_values")
+	HX_STACK_ARG(p_length,"p_length")
+{
+		HX_STACK_LINE(205)
+		int cc = this->m_channels;		HX_STACK_VAR(cc,"cc");
+		HX_STACK_LINE(206)
+		int len;		HX_STACK_VAR(len,"len");
+		HX_STACK_LINE(206)
+		if (((p_length < (int)0))){
+			HX_STACK_LINE(206)
+			len = p_values->length;
+		}
+		else{
+			HX_STACK_LINE(206)
+			len = p_length;
+		}
+		HX_STACK_LINE(207)
+		int k = (int)0;		HX_STACK_VAR(k,"k");
+		HX_STACK_LINE(208)
+		int px = p_x;		HX_STACK_VAR(px,"px");
+		HX_STACK_LINE(209)
+		int py = p_y;		HX_STACK_VAR(py,"py");
+		HX_STACK_LINE(210)
+		Float v0 = 0.0;		HX_STACK_VAR(v0,"v0");
+		HX_STACK_LINE(211)
+		Float v1 = 0.0;		HX_STACK_VAR(v1,"v1");
+		HX_STACK_LINE(212)
+		Float v2 = 0.0;		HX_STACK_VAR(v2,"v2");
+		HX_STACK_LINE(213)
+		Float v3 = 0.0;		HX_STACK_VAR(v3,"v3");
+		HX_STACK_LINE(215)
+		{
+			HX_STACK_LINE(215)
+			int _g = (int)0;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(215)
+			while((true)){
+				HX_STACK_LINE(215)
+				if ((!(((_g < len))))){
+					HX_STACK_LINE(215)
+					break;
+				}
+				HX_STACK_LINE(215)
+				int i = (_g)++;		HX_STACK_VAR(i,"i");
+				HX_STACK_LINE(217)
+				int pos = (((px + (py * this->m_width))) * cc);		HX_STACK_VAR(pos,"pos");
+				HX_STACK_LINE(218)
+				(px)++;
+				HX_STACK_LINE(219)
+				if (((px >= p_width))){
+					HX_STACK_LINE(219)
+					px = p_x;
+					HX_STACK_LINE(219)
+					(py)++;
+				}
+				HX_STACK_LINE(221)
+				int _g1 = (k)++;		HX_STACK_VAR(_g1,"_g1");
+				HX_STACK_LINE(221)
+				Float _g11 = p_values->__get(_g1);		HX_STACK_VAR(_g11,"_g11");
+				HX_STACK_LINE(221)
+				v0 = _g11;
+				HX_STACK_LINE(222)
+				if (((cc >= (int)2))){
+					HX_STACK_LINE(222)
+					int _g2 = (k)++;		HX_STACK_VAR(_g2,"_g2");
+					HX_STACK_LINE(222)
+					Float _g3 = p_values->__get(_g2);		HX_STACK_VAR(_g3,"_g3");
+					HX_STACK_LINE(222)
+					v1 = _g3;
+				}
+				HX_STACK_LINE(223)
+				if (((cc >= (int)3))){
+					HX_STACK_LINE(223)
+					int _g4 = (k)++;		HX_STACK_VAR(_g4,"_g4");
+					HX_STACK_LINE(223)
+					Float _g5 = p_values->__get(_g4);		HX_STACK_VAR(_g5,"_g5");
+					HX_STACK_LINE(223)
+					v2 = _g5;
+				}
+				HX_STACK_LINE(224)
+				if (((cc >= (int)4))){
+					HX_STACK_LINE(224)
+					int _g6 = (k)++;		HX_STACK_VAR(_g6,"_g6");
+					HX_STACK_LINE(224)
+					Float _g7 = p_values->__get(_g6);		HX_STACK_VAR(_g7,"_g7");
+					HX_STACK_LINE(224)
+					v3 = _g7;
+				}
+				HX_STACK_LINE(226)
+				if ((this->m_float)){
+					HX_STACK_LINE(228)
+					::haxor::io::FloatArray b = this->m_buffer;		HX_STACK_VAR(b,"b");
+					HX_STACK_LINE(229)
+					b->Set(pos,v0);
+					HX_STACK_LINE(230)
+					if (((cc >= (int)2))){
+						HX_STACK_LINE(230)
+						b->Set((pos + (int)1),v1);
+					}
+					HX_STACK_LINE(231)
+					if (((cc >= (int)3))){
+						HX_STACK_LINE(231)
+						b->Set((pos + (int)2),v2);
+					}
+					HX_STACK_LINE(232)
+					if (((cc >= (int)4))){
+						HX_STACK_LINE(232)
+						b->Set((pos + (int)3),v3);
+					}
+					HX_STACK_LINE(233)
+					continue;
+				}
+				HX_STACK_LINE(235)
+				::haxor::io::Buffer b = this->m_buffer;		HX_STACK_VAR(b,"b");
+				HX_STACK_LINE(236)
+				b->SetByte(pos,(v0 * 255.0));
+				HX_STACK_LINE(237)
+				if (((cc >= (int)2))){
+					HX_STACK_LINE(237)
+					b->SetByte((pos + (int)1),(v1 * 255.0));
+				}
+				HX_STACK_LINE(238)
+				if (((cc >= (int)3))){
+					HX_STACK_LINE(238)
+					b->SetByte((pos + (int)2),(v2 * 255.0));
+				}
+				HX_STACK_LINE(239)
+				if (((cc >= (int)4))){
+					HX_STACK_LINE(239)
+					b->SetByte((pos + (int)3),(v3 * 255.0));
+				}
+			}
+		}
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC6(Bitmap_obj,SetRange,(void))
+
 
 Bitmap_obj::Bitmap_obj()
 {
@@ -526,6 +741,9 @@ void Bitmap_obj::__Visit(HX_VISIT_PARAMS)
 Dynamic Bitmap_obj::__Field(const ::String &inName,bool inCallProp)
 {
 	switch(inName.length) {
+	case 3:
+		if (HX_FIELD_EQ(inName,"Set") ) { return Set_dyn(); }
+		break;
 	case 4:
 		if (HX_FIELD_EQ(inName,"Fill") ) { return Fill_dyn(); }
 		break;
@@ -549,6 +767,7 @@ Dynamic Bitmap_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"m_format") ) { return m_format; }
 		if (HX_FIELD_EQ(inName,"GetPixel") ) { return GetPixel_dyn(); }
 		if (HX_FIELD_EQ(inName,"SetPixel") ) { return SetPixel_dyn(); }
+		if (HX_FIELD_EQ(inName,"SetRange") ) { return SetRange_dyn(); }
 		break;
 	case 9:
 		if (HX_FIELD_EQ(inName,"get_float") ) { return get_float_dyn(); }
@@ -576,7 +795,7 @@ Dynamic Bitmap_obj::__SetField(const ::String &inName,const Dynamic &inValue,boo
 	case 6:
 		if (HX_FIELD_EQ(inName,"buffer") ) { buffer=inValue.Cast< ::haxor::io::Buffer >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"height") ) { height=inValue.Cast< int >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"format") ) { format=inValue.Cast< ::haxor::graphics::PixelFormat >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"format") ) { format=inValue.Cast< ::haxor::core::PixelFormat >(); return inValue; }
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"m_float") ) { m_float=inValue.Cast< bool >(); return inValue; }
@@ -586,7 +805,7 @@ Dynamic Bitmap_obj::__SetField(const ::String &inName,const Dynamic &inValue,boo
 		if (HX_FIELD_EQ(inName,"m_buffer") ) { m_buffer=inValue.Cast< ::haxor::io::Buffer >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_height") ) { m_height=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"channels") ) { channels=inValue.Cast< int >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_format") ) { m_format=inValue.Cast< ::haxor::graphics::PixelFormat >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"m_format") ) { m_format=inValue.Cast< ::haxor::core::PixelFormat >(); return inValue; }
 		break;
 	case 10:
 		if (HX_FIELD_EQ(inName,"m_channels") ) { m_channels=inValue.Cast< int >(); return inValue; }
@@ -626,8 +845,8 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 	{hx::fsInt,(int)offsetof(Bitmap_obj,m_height),HX_CSTRING("m_height")},
 	{hx::fsInt,(int)offsetof(Bitmap_obj,channels),HX_CSTRING("channels")},
 	{hx::fsInt,(int)offsetof(Bitmap_obj,m_channels),HX_CSTRING("m_channels")},
-	{hx::fsObject /*::haxor::graphics::PixelFormat*/ ,(int)offsetof(Bitmap_obj,format),HX_CSTRING("format")},
-	{hx::fsObject /*::haxor::graphics::PixelFormat*/ ,(int)offsetof(Bitmap_obj,m_format),HX_CSTRING("m_format")},
+	{hx::fsObject /*::haxor::core::PixelFormat*/ ,(int)offsetof(Bitmap_obj,format),HX_CSTRING("format")},
+	{hx::fsObject /*::haxor::core::PixelFormat*/ ,(int)offsetof(Bitmap_obj,m_format),HX_CSTRING("m_format")},
 	{ hx::fsUnknown, 0, null()}
 };
 #endif
@@ -654,6 +873,8 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("GetPixel"),
 	HX_CSTRING("SetPixel"),
 	HX_CSTRING("Fill"),
+	HX_CSTRING("Set"),
+	HX_CSTRING("SetRange"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

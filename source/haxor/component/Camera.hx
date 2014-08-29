@@ -3,8 +3,8 @@ import haxor.context.EngineContext;
 import haxor.core.IResizeable;
 import haxor.core.Resource;
 import haxor.core.Time;
-import haxor.graphics.Enums.ClearFlag;
-import haxor.graphics.Enums.PixelFormat;
+import haxor.core.Enums.ClearFlag;
+import haxor.core.Enums.PixelFormat;
 import haxor.graphics.Screen;
 import haxor.graphics.texture.RenderTexture;
 import haxor.graphics.texture.TextureCube;
@@ -62,7 +62,24 @@ class Camera extends Behaviour
 	/**
 	 * Layer bits that will be rendered by this camera.
 	 */
-	public var mask:Int;
+	public var mask(get_mask,set_mask):Int;
+	private inline function get_mask():Int { return m_mask; }
+	private function set_mask(v:Int):Int
+	{
+		if (m_mask == v) return v;
+		m_mask  = v;
+		var it : Int = m_mask;
+		m_layers = [];
+		for (i in 0...32)
+		{
+			if ((it & 1)!=0) m_layers.push(1 << i);
+			it = it >> 1;
+		}		
+		return v;
+	}
+	private var m_mask : Int;
+	private var m_layers : Array<Int>;
+	
 	
 	/**
 	 * Field of View.
@@ -77,7 +94,7 @@ class Camera extends Behaviour
 	 */
 	public var near(get_near, set_near):Float;		
 	private inline function get_near():Float { return m_near; }
-	private inline function set_near(v:Float):Float { m_near = v; m_projection_dirty=true; return v; }
+	private inline function set_near(v:Float):Float { m_near = v; m_projection_dirty = true; m_proj_uniform_dirty = true; return v; }
 	private var m_near:Float;
 	
 	/**
@@ -85,7 +102,7 @@ class Camera extends Behaviour
 	 */
 	public var far(get_far, set_far):Float;	
 	private inline function get_far():Float { return m_far; }
-	private inline function set_far(v:Float):Float { m_far = v; m_projection_dirty=true; return v; }
+	private inline function set_far(v:Float):Float { m_far = v; m_projection_dirty=true; m_proj_uniform_dirty = true;return v; }
 	private var m_far:Float;	
 	
 	/**
@@ -94,7 +111,7 @@ class Camera extends Behaviour
 	public var order(get_order, set_order):Int;
 	private var m_order:Int;	
 	private function get_order():Int { return m_order; }
-	private function set_order(v:Int):Int { m_order = v; EngineContext.camera.SortCameraList(); return m_order; }	
+	private function set_order(v:Int):Int { if (m_order == v) return v; m_order = v; EngineContext.camera.SortCameraList(); return m_order; }	
 
 	/**
 	 * Viewport in pixel units.
@@ -117,21 +134,21 @@ class Camera extends Behaviour
 	 * ViewInverse Matrix.
 	 */
 	public var CameraToWorld(get_CameraToWorld, null):Matrix4;	
-	private inline function get_CameraToWorld():Matrix4	{ return m_cameraToWorld.clone; }
-	private var m_cameraToWorld:Matrix4;	
+	private inline function get_CameraToWorld():Matrix4	{ return transform.WorldMatrix; }
+	
 	
 	/**
 	 * View Matrix.
 	 */
-	public var WorldToCamera(get_WorldToCamera, null):Matrix4;
-	private var m_worldToCamera:Matrix4;	
-	private function get_WorldToCamera():Matrix4	{ return m_worldToCamera; }
+	public var WorldToCamera(get_WorldToCamera, null):Matrix4;	
+	private function get_WorldToCamera():Matrix4	{ return transform.WorldMatrixInverse; }
+	
 	
 	/**
 	 * Projection Matrix.
 	 */
 	public var ProjectionMatrix(get_ProjectionMatrix, null):Matrix4;	
-	private inline function get_ProjectionMatrix():Matrix4	{ UpdateProjection(); return m_projectionMatrix.clone; }
+	private inline function get_ProjectionMatrix():Matrix4	{ UpdateProjection(); return m_projectionMatrix; }
 	private var m_projectionMatrix:Matrix4;	
 	private var m_skyboxProjection:Matrix4;
 	
@@ -139,7 +156,7 @@ class Camera extends Behaviour
 	 * Projection Inverse Matrix.
 	 */
 	public var ProjectionMatrixInverse(get_ProjectionMatrixInverse, null):Matrix4;	
-	private inline function get_ProjectionMatrixInverse():Matrix4	{ UpdateProjection(); return m_projectionMatrixInverse.clone; }
+	private inline function get_ProjectionMatrixInverse():Matrix4	{ UpdateProjection(); return m_projectionMatrixInverse; }
 	private var m_projectionMatrixInverse:Matrix4;	
 	private var m_skyboxProjectionInverse:Matrix4;
 	
@@ -178,21 +195,35 @@ class Camera extends Behaviour
 		return m_filters;
 	}
 	private var m_filters : Array<Dynamic>;
-	//*/
 	
+	
+	/**
+	 * Flag that indicates if the projection matrix changed.
+	 */
 	private var m_projection_dirty : Bool;
 	
+	/**
+	 * Flag that indicates if this camera uniforms must be updated.
+	 */
+	private var m_view_uniform_dirty : Bool;
+	
+	/**
+	 * Flag that indicates if this camera uniforms must be updated.
+	 */
+	private var m_proj_uniform_dirty : Bool;
+	
+	/**
+	 * Method called
+	 */
 	override function OnBuild():Void 
 	{
 		super.OnBuild();
-		__cid						= EngineContext.camera.cid++;
+		__cid						= EngineContext.camera.cid.id;
 		if (m_main == null)			m_main = this;
 		m_order						= 0;		
 		m_quality					= 1.0;
 		m_pixelViewport 			= AABB2.empty;
 		m_viewport 					= AABB2.empty;
-		m_worldToCamera 			= Matrix4.identity;
-		m_cameraToWorld				= Matrix4.identity;
 		m_projectionMatrix  		= Matrix4.identity;		
 		m_projectionMatrixInverse 	= Matrix4.identity;
 		m_skyboxProjection 			= Matrix4.identity;
@@ -205,7 +236,9 @@ class Camera extends Behaviour
 		clear 						= ClearFlag.ColorDepth;
 		mask 						= 1;				
 		viewport 					= new AABB2(0, 0, 1, 1); 
-		m_projection_dirty			= true;		
+		m_projection_dirty			= true;	
+		m_view_uniform_dirty		= true;
+		m_proj_uniform_dirty		= true;
 		EngineContext.camera.Create(this);
 	}
 	
@@ -221,8 +254,8 @@ class Camera extends Behaviour
 		p.x = p_world_point.x;
 		p.y = p_world_point.y;
 		p.z = p_world_point.z;		
-		m_worldToCamera.Transform4x4(p);
-		m_projectionMatrix.Transform4x4(p);		
+		WorldToCamera.Transform4x4(p);
+		ProjectionMatrix.Transform4x4(p);		
 		return p;
 	}
 	
@@ -233,7 +266,7 @@ class Camera extends Behaviour
 	 */
 	public function WorldToDepth(p_world_point : Vector3):Float
 	{
-		var wm : Matrix4 = m_worldToCamera;
+		var wm : Matrix4 = WorldToCamera;
 		return (wm.m20 * p_world_point.x) + (wm.m21 * p_world_point.y) + (wm.m22 * p_world_point.z) + wm.m23;		
 	}
 	
@@ -266,7 +299,7 @@ class Camera extends Behaviour
 		{
 			r = q;
 		}
-		transform.rotation = r;
+		transform.rotation = r;		
 	}
 	
 	/**
@@ -276,6 +309,7 @@ class Camera extends Behaviour
 	{	
 		if (!m_projection_dirty) return;
 		m_projection_dirty = false;
+		m_view_uniform_dirty = true;
 		m_projectionMatrix.SetPerspective(m_fov, m_aspect, m_near, m_far);
 		m_projectionMatrixInverse.SetPerspectiveInverse(m_fov, m_aspect, m_near, m_far);
 		m_skyboxProjection.SetPerspective(m_fov, m_aspect, 0.1,100000.0);
@@ -285,11 +319,7 @@ class Camera extends Behaviour
 	/**
 	 * Updates the internal matrix when the transform updates.
 	 */
-	override private function OnTransformUpdate():Void 
-	{	
-		m_cameraToWorld.SetMatrix4(transform.WorldMatrix);
-		m_worldToCamera.SetMatrix4(transform.WorldMatrixInverse);
-	}
+	override private function OnTransformUpdate():Void { m_view_uniform_dirty = true; }
 	
 	//*/
 	/**

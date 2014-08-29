@@ -1,11 +1,12 @@
 #if android
 
 package haxor.platform.android.net;
+import haxor.core.Console;
+import haxor.math.Color;
 import haxor.io.Buffer;
 
-import haxor.graphics.Enums.PixelFormat;
+import haxor.core.Enums.PixelFormat;
 import haxor.graphics.texture.Bitmap;
-
 import android.graphics.BitmapFactory;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -76,9 +77,18 @@ class BitmapLoader extends HTTPLoader<Buffer>
 			{
 				case 1: fmt = PixelFormat.Alpha8;
 				case 3: fmt = PixelFormat.RGB8;
+				case 4: fmt = PixelFormat.RGBA8;
 			}			 
-			var b : Bitmap = new Bitmap(w,h, fmt);			
-			ab.copyPixelsToBuffer(b.buffer.m_buffer);
+			var b : Bitmap = new Bitmap(w, h, fmt);						
+			var c : Color = Color.temp;
+			for (ix in 0...w)
+			for (iy in 0...h)
+			{
+				var pix : Int = ab.getPixel(ix, iy);				
+				c.argb = pix;
+				b.SetPixel(ix, iy, c);
+			}
+			
 			if(m_bitmap_callback!=null)m_bitmap_callback(b, 1.0);
 		}
 	}

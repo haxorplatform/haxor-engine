@@ -7,9 +7,9 @@
 
 #include <haxor/graphics/texture/Texture.h>
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,PixelFormat)
 HX_DECLARE_CLASS2(haxor,core,Resource)
-HX_DECLARE_CLASS2(haxor,graphics,PixelFormat)
-HX_DECLARE_CLASS2(haxor,graphics,TextureType)
+HX_DECLARE_CLASS2(haxor,core,TextureType)
 HX_DECLARE_CLASS3(haxor,graphics,texture,RenderTexture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture2D)
@@ -23,12 +23,12 @@ class HXCPP_CLASS_ATTRIBUTES  RenderTexture_obj : public ::haxor::graphics::text
 		typedef ::haxor::graphics::texture::Texture_obj super;
 		typedef RenderTexture_obj OBJ_;
 		RenderTexture_obj();
-		Void __construct(int p_width,int p_height,::haxor::graphics::PixelFormat p_format,hx::Null< bool >  __o_p_store_depth);
+		Void __construct(int p_width,int p_height,::haxor::core::PixelFormat p_format,hx::Null< bool >  __o_p_store_depth);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< RenderTexture_obj > __new(int p_width,int p_height,::haxor::graphics::PixelFormat p_format,hx::Null< bool >  __o_p_store_depth);
+		static hx::ObjectPtr< RenderTexture_obj > __new(int p_width,int p_height,::haxor::core::PixelFormat p_format,hx::Null< bool >  __o_p_store_depth);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~RenderTexture_obj();
@@ -44,7 +44,7 @@ class HXCPP_CLASS_ATTRIBUTES  RenderTexture_obj : public ::haxor::graphics::text
 		Dynamic get_depth_dyn();
 
 		::haxor::graphics::texture::Texture2D m_depth;
-		virtual ::haxor::graphics::TextureType get_type( );
+		virtual ::haxor::core::TextureType get_type( );
 
 };
 

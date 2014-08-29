@@ -34,6 +34,8 @@ class HXCPP_CLASS_ATTRIBUTES  UInt16Array_obj : public ::haxor::io::Buffer_obj{
 
 		virtual int get_bytesPerElement( );
 
+		virtual Void Resize( int p_length);
+
 		virtual int Get( int p_index);
 		Dynamic Get_dyn();
 
@@ -47,6 +49,9 @@ class HXCPP_CLASS_ATTRIBUTES  UInt16Array_obj : public ::haxor::io::Buffer_obj{
 
 		static ::haxor::io::UInt16Array Alloc( Array< int > p_data);
 		static Dynamic Alloc_dyn();
+
+		static ::haxor::io::UInt16Array Parse( ::String p_data,::String p_delimiter);
+		static Dynamic Parse_dyn();
 
 };
 

@@ -28,8 +28,14 @@ class HXCPP_CLASS_ATTRIBUTES  Reflect_obj : public hx::Object{
 		static void __register();
 		::String __ToString() const { return HX_CSTRING("Reflect"); }
 
+		static bool hasField( Dynamic o,::String field);
+		static Dynamic hasField_dyn();
+
 		static Dynamic field( Dynamic o,::String field);
 		static Dynamic field_dyn();
+
+		static Array< ::String > fields( Dynamic o);
+		static Dynamic fields_dyn();
 
 		static bool isObject( Dynamic v);
 		static Dynamic isObject_dyn();

@@ -48,6 +48,16 @@ class HXCPP_CLASS_ATTRIBUTES  Shader_obj : public ::haxor::core::Resource_obj{
 
 		virtual Void OnDestroy( );
 
+		static ::haxor::graphics::material::Shader Flat;
+		static ::haxor::graphics::material::Shader get_Flat( );
+		static Dynamic get_Flat_dyn();
+
+		static ::haxor::graphics::material::Shader m_flat_shader;
+		static ::haxor::graphics::material::Shader FlatTexture;
+		static ::haxor::graphics::material::Shader get_FlatTexture( );
+		static Dynamic get_FlatTexture_dyn();
+
+		static ::haxor::graphics::material::Shader m_flat_texture_shader;
 };
 
 } // end namespace haxor

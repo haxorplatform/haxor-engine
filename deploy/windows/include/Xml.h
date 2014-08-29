@@ -5,6 +5,7 @@
 #include <hxcpp.h>
 #endif
 
+HX_DECLARE_CLASS0(StringBuf)
 HX_DECLARE_CLASS0(Type)
 HX_DECLARE_CLASS0(Xml)
 HX_DECLARE_CLASS0(XmlType)
@@ -40,11 +41,20 @@ class HXCPP_CLASS_ATTRIBUTES  Xml_obj : public hx::Object{
 		Array< ::Dynamic > _children;
 		::Xml _parent;
 		::XmlType nodeType;
+		virtual ::String get_nodeName( );
+		Dynamic get_nodeName_dyn();
+
 		virtual ::String get_nodeValue( );
 		Dynamic get_nodeValue_dyn();
 
 		virtual ::String get( ::String att);
 		Dynamic get_dyn();
+
+		virtual bool exists( ::String att);
+		Dynamic exists_dyn();
+
+		virtual Dynamic elements( );
+		Dynamic elements_dyn();
 
 		virtual Dynamic elementsNamed( ::String name);
 		Dynamic elementsNamed_dyn();
@@ -57,6 +67,12 @@ class HXCPP_CLASS_ATTRIBUTES  Xml_obj : public hx::Object{
 
 		virtual Void addChild( ::Xml x);
 		Dynamic addChild_dyn();
+
+		virtual ::String toString( );
+		Dynamic toString_dyn();
+
+		virtual Void toStringRec( ::StringBuf s);
+		Dynamic toStringRec_dyn();
 
 		static ::XmlType Element;
 		static ::XmlType PCData;

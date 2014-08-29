@@ -1,5 +1,8 @@
 #include <hxcpp.h>
 
+#ifndef INCLUDED_Sys
+#include <Sys.h>
+#endif
 #ifndef INCLUDED_haxor_component_Behaviour
 #include <haxor/component/Behaviour.h>
 #endif
@@ -18,6 +21,9 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
+#ifndef INCLUDED_haxor_input_InputHandler
+#include <haxor/input/InputHandler.h>
+#endif
 #ifndef INCLUDED_haxor_platform_OSWindow
 #include <haxor/platform/OSWindow.h>
 #endif
@@ -26,6 +32,9 @@
 #endif
 #ifndef INCLUDED_haxor_platform_windows_Window
 #include <haxor/platform/windows/Window.h>
+#endif
+#ifndef INCLUDED_haxor_platform_windows_input_WinInputHandler
+#include <haxor/platform/windows/input/WinInputHandler.h>
 #endif
 
 HWND hwnd;
@@ -73,9 +82,15 @@ LRESULT CALLBACK haxor::platform::windows::Window_obj::WndProc(HWND p_hwnd, UINT
 				}			
 				m_instance-> m_mouseX = mp.x;
 				m_instance-> m_mouseY = mp.y;
-									
-				if (m_build)m_application->Update();
-				if (m_build)m_application->Render();
+				
+				if (m_build)
+				{
+					input->OnMouseMove(mp.x, mp.y);
+					m_application->Update();
+					m_application->Render();
+				}
+				
+				
 				
 				return true;
 			}
@@ -93,19 +108,40 @@ LRESULT CALLBACK haxor::platform::windows::Window_obj::WndProc(HWND p_hwnd, UINT
 		case WM_MOUSEMOVE:
 			{
 				POINT mp;
-				GetCursorPos(&mp);
+				GetCursorPos( & mp);
 				//SetCursorPos(300, 300);		
 			}
 			break;
 			
-		case WM_KEYDOWN:
+		case WM_LBUTTONDOWN: if (m_build) input->OnMouseButton(0, true); break;			
+		case WM_LBUTTONUP: 	 if (m_build) input->OnMouseButton(0, false); break;		
+		case WM_MBUTTONDOWN: if (m_build) input->OnMouseButton(1, true); break;			
+		case WM_MBUTTONUP: 	 if (m_build) input->OnMouseButton(1, false); break;
+		case WM_RBUTTONDOWN: if (m_build) input->OnMouseButton(2, true); break;			
+		case WM_RBUTTONUP: 	 if (m_build) input->OnMouseButton(2, false); break;
+		
+		case WM_MOUSEWHEEL:		
+		if (m_build)
+		{
+			float wheel = ((float) GET_WHEEL_DELTA_WPARAM(wParam)) / ((float) WHEEL_DELTA);
+			input->OnMouseWheel(wheel);
+		}
+		break;
+		
+		case WM_KEYUP:
+			
+			if (m_build) input->OnKey(wParam, false);
+			break;
+			
+		case WM_KEYDOWN:			
+			if (m_build) input->OnKey(wParam, true);
+			//printf("%d\n", wParam);
 			
 			if (wParam == VK_SPACE)
 			{
 				//bool b = m_instance-> get_fullscreen();
-				//m_instance->set_fullscreen(!b);
-				
-				m_instance-> m_cursor_lock = !m_instance-> m_cursor_lock;
+				//m_instance->set_fullscreen(!b);			
+				//m_instance-> m_cursor_lock = !m_instance-> m_cursor_lock;
 				
 			}
 			
@@ -164,7 +200,7 @@ LRESULT CALLBACK haxor::platform::windows::Window_obj::WndProc(HWND p_hwnd, UINT
 
 Void Window_obj::__construct(::haxor::core::Application p_application,::String p_title,int p_x,int p_y,int p_width,int p_height)
 {
-HX_STACK_FRAME("haxor.platform.windows.Window","new",0x242ce9bc,"haxor.platform.windows.Window.new","haxor/platform/windows/Window.hx",216,0xdc1fc533)
+HX_STACK_FRAME("haxor.platform.windows.Window","new",0x242ce9bc,"haxor.platform.windows.Window.new","haxor/platform/windows/Window.hx",249,0xdc1fc533)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_application,"p_application")
 HX_STACK_ARG(p_title,"p_title")
@@ -173,17 +209,21 @@ HX_STACK_ARG(p_y,"p_y")
 HX_STACK_ARG(p_width,"p_width")
 HX_STACK_ARG(p_height,"p_height")
 {
-	HX_STACK_LINE(217)
+	HX_STACK_LINE(250)
 	::haxor::platform::windows::Window_obj::m_instance = hx::ObjectPtr<OBJ_>(this);
-	HX_STACK_LINE(218)
+	HX_STACK_LINE(251)
 	::haxor::platform::windows::Window_obj::m_application = p_application;
-	HX_STACK_LINE(219)
+	HX_STACK_LINE(252)
 	::haxor::platform::windows::Window_obj::m_application->m_window = hx::ObjectPtr<OBJ_>(this);
-	HX_STACK_LINE(220)
+	HX_STACK_LINE(253)
 	::haxor::platform::windows::Window_obj::m_build = false;
-	HX_STACK_LINE(222)
+	HX_STACK_LINE(254)
+	::haxor::platform::windows::input::WinInputHandler _g = ::haxor::platform::windows::input::WinInputHandler_obj::__new();		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(254)
+	::haxor::platform::windows::Window_obj::input = _g;
+	HX_STACK_LINE(256)
 	super::__construct(p_title,p_x,p_y,p_width,p_height);
-	HX_STACK_LINE(224)
+	HX_STACK_LINE(258)
 	
 		
 		
@@ -200,7 +240,7 @@ HX_STACK_ARG(p_height,"p_height")
 		wc.cbClsExtra    = 0;
 		wc.cbWndExtra    = 0;
 		wc.hInstance     = hInstance;
-		wc.hIcon         = (HICON) LoadImage((HINSTANCE) NULL, "icon.ico", IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+		wc.hIcon         = (HICON)LoadImage((HINSTANCE) NULL, "icon.ico", IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
 		wc.hIconSm       = (HICON)LoadImage((HINSTANCE)NULL, "icon.ico",IMAGE_ICON,0,0,LR_LOADFROMFILE);
 		wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
 		wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
@@ -230,7 +270,7 @@ HX_STACK_ARG(p_height,"p_height")
 		printf("Window> hwnd[%d]\n",hwnd); 
 		
 		;
-	HX_STACK_LINE(271)
+	HX_STACK_LINE(305)
 	::haxor::platform::windows::Window_obj::m_build = true;
 }
 ;
@@ -251,9 +291,9 @@ Dynamic Window_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 bool Window_obj::get_border( ){
-	HX_STACK_FRAME("haxor.platform.windows.Window","get_border",0xc92ec6d9,"haxor.platform.windows.Window.get_border","haxor/platform/windows/Window.hx",187,0xdc1fc533)
+	HX_STACK_FRAME("haxor.platform.windows.Window","get_border",0xc92ec6d9,"haxor.platform.windows.Window.get_border","haxor/platform/windows/Window.hx",216,0xdc1fc533)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(187)
+	HX_STACK_LINE(216)
 	return this->m_border;
 }
 
@@ -261,14 +301,14 @@ bool Window_obj::get_border( ){
 HX_DEFINE_DYNAMIC_FUNC0(Window_obj,get_border,return )
 
 bool Window_obj::set_border( bool v){
-	HX_STACK_FRAME("haxor.platform.windows.Window","set_border",0xccac654d,"haxor.platform.windows.Window.set_border","haxor/platform/windows/Window.hx",188,0xdc1fc533)
+	HX_STACK_FRAME("haxor.platform.windows.Window","set_border",0xccac654d,"haxor.platform.windows.Window.set_border","haxor/platform/windows/Window.hx",217,0xdc1fc533)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(188)
+	HX_STACK_LINE(217)
 	this->m_border = v;
-	HX_STACK_LINE(188)
+	HX_STACK_LINE(217)
 	this->OnStyle();
-	HX_STACK_LINE(188)
+	HX_STACK_LINE(217)
 	return v;
 }
 
@@ -277,17 +317,22 @@ HX_DEFINE_DYNAMIC_FUNC1(Window_obj,set_border,return )
 
 Void Window_obj::Run( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Window","Run",0x2417b887,"haxor.platform.windows.Window.Run","haxor/platform/windows/Window.hx",279,0xdc1fc533)
+		HX_STACK_FRAME("haxor.platform.windows.Window","Run",0x2417b887,"haxor.platform.windows.Window.Run","haxor/platform/windows/Window.hx",312,0xdc1fc533)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(279)
-		
-			MSG Msg;
+		HX_STACK_LINE(313)
+		int res = (int)0;		HX_STACK_VAR(res,"res");
+		HX_STACK_LINE(314)
+		while((true)){
+			HX_STACK_LINE(316)
 			
-			while (GetMessage(&Msg, NULL, 0, 0) > 0) 
-			{
-				DispatchMessage(&Msg); 
-			}
-		;
+				MSG Msg;
+				res = GetMessage( & Msg, NULL, 0, 0);				
+				DispatchMessage( & Msg);
+				if (res <= 0) break;
+			;
+			HX_STACK_LINE(323)
+			::Sys_obj::sleep(0.002);
+		}
 	}
 return null();
 }
@@ -295,9 +340,9 @@ return null();
 
 Void Window_obj::EnableCursor( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Window","EnableCursor",0x2b081cfd,"haxor.platform.windows.Window.EnableCursor","haxor/platform/windows/Window.hx",293,0xdc1fc533)
+		HX_STACK_FRAME("haxor.platform.windows.Window","EnableCursor",0x2b081cfd,"haxor.platform.windows.Window.EnableCursor","haxor/platform/windows/Window.hx",330,0xdc1fc533)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(293)
+		HX_STACK_LINE(330)
 		while (ShowCursor(true) < 0);
 	}
 return null();
@@ -306,9 +351,9 @@ return null();
 
 Void Window_obj::DisableCursor( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Window","DisableCursor",0xd16eff1a,"haxor.platform.windows.Window.DisableCursor","haxor/platform/windows/Window.hx",298,0xdc1fc533)
+		HX_STACK_FRAME("haxor.platform.windows.Window","DisableCursor",0xd16eff1a,"haxor.platform.windows.Window.DisableCursor","haxor/platform/windows/Window.hx",335,0xdc1fc533)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(298)
+		HX_STACK_LINE(335)
 		while (ShowCursor(false) >= 0);
 	}
 return null();
@@ -317,7 +362,7 @@ return null();
 
 Void Window_obj::OnResize( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Window","OnResize",0xc03b85b7,"haxor.platform.windows.Window.OnResize","haxor/platform/windows/Window.hx",305,0xdc1fc533)
+		HX_STACK_FRAME("haxor.platform.windows.Window","OnResize",0xc03b85b7,"haxor.platform.windows.Window.OnResize","haxor/platform/windows/Window.hx",342,0xdc1fc533)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -326,9 +371,9 @@ return null();
 
 Void Window_obj::OnStyle( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Window","OnStyle",0x696362ce,"haxor.platform.windows.Window.OnStyle","haxor/platform/windows/Window.hx",314,0xdc1fc533)
+		HX_STACK_FRAME("haxor.platform.windows.Window","OnStyle",0x696362ce,"haxor.platform.windows.Window.OnStyle","haxor/platform/windows/Window.hx",351,0xdc1fc533)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(314)
+		HX_STACK_LINE(351)
 		
 			LONG lStyle = GetWindowLong(hwnd, GWL_STYLE);
 			if (!m_border) lStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_SYSMENU);
@@ -355,9 +400,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Window_obj,OnStyle,(void))
 
 Void Window_obj::OnTitleChange( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Window","OnTitleChange",0xce59ae85,"haxor.platform.windows.Window.OnTitleChange","haxor/platform/windows/Window.hx",341,0xdc1fc533)
+		HX_STACK_FRAME("haxor.platform.windows.Window","OnTitleChange",0xce59ae85,"haxor.platform.windows.Window.OnTitleChange","haxor/platform/windows/Window.hx",378,0xdc1fc533)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(341)
+		HX_STACK_LINE(378)
 		SetWindowText(hwnd, m_title.__CStr());
 	}
 return null();
@@ -366,9 +411,9 @@ return null();
 
 Void Window_obj::OnFullscreen( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.Window","OnFullscreen",0x1389037e,"haxor.platform.windows.Window.OnFullscreen","haxor/platform/windows/Window.hx",349,0xdc1fc533)
+		HX_STACK_FRAME("haxor.platform.windows.Window","OnFullscreen",0x1389037e,"haxor.platform.windows.Window.OnFullscreen","haxor/platform/windows/Window.hx",386,0xdc1fc533)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(349)
+		HX_STACK_LINE(386)
 				
 			if (m_fullscreen)
 			{
@@ -399,6 +444,8 @@ return null();
 }
 
 
+::haxor::platform::windows::input::WinInputHandler Window_obj::input;
+
 ::haxor::core::Application Window_obj::m_application;
 
 ::haxor::platform::windows::Window Window_obj::m_instance;
@@ -415,6 +462,9 @@ Dynamic Window_obj::__Field(const ::String &inName,bool inCallProp)
 	switch(inName.length) {
 	case 3:
 		if (HX_FIELD_EQ(inName,"Run") ) { return Run_dyn(); }
+		break;
+	case 5:
+		if (HX_FIELD_EQ(inName,"input") ) { return input; }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"border") ) { return get_border(); }
@@ -447,6 +497,9 @@ Dynamic Window_obj::__Field(const ::String &inName,bool inCallProp)
 Dynamic Window_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool inCallProp)
 {
 	switch(inName.length) {
+	case 5:
+		if (HX_FIELD_EQ(inName,"input") ) { input=inValue.Cast< ::haxor::platform::windows::input::WinInputHandler >(); return inValue; }
+		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"border") ) { return set_border(inValue); }
 		break;
@@ -473,6 +526,7 @@ void Window_obj::__GetFields(Array< ::String> &outFields)
 };
 
 static ::String sStaticFields[] = {
+	HX_CSTRING("input"),
 	HX_CSTRING("m_application"),
 	HX_CSTRING("m_instance"),
 	HX_CSTRING("m_build"),
@@ -500,6 +554,7 @@ static ::String sMemberFields[] = {
 
 static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Window_obj::__mClass,"__mClass");
+	HX_MARK_MEMBER_NAME(Window_obj::input,"input");
 	HX_MARK_MEMBER_NAME(Window_obj::m_application,"m_application");
 	HX_MARK_MEMBER_NAME(Window_obj::m_instance,"m_instance");
 	HX_MARK_MEMBER_NAME(Window_obj::m_build,"m_build");
@@ -508,6 +563,7 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 #ifdef HXCPP_VISIT_ALLOCS
 static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Window_obj::__mClass,"__mClass");
+	HX_VISIT_MEMBER_NAME(Window_obj::input,"input");
 	HX_VISIT_MEMBER_NAME(Window_obj::m_application,"m_application");
 	HX_VISIT_MEMBER_NAME(Window_obj::m_instance,"m_instance");
 	HX_VISIT_MEMBER_NAME(Window_obj::m_build,"m_build");

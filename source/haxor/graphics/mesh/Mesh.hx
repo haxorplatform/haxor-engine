@@ -3,8 +3,8 @@ import haxor.context.EngineContext;
 import haxor.context.MeshContext;
 import haxor.core.Console;
 import haxor.core.Resource;
-import haxor.graphics.Enums.MeshMode;
-import haxor.graphics.Enums.MeshPrimitive;
+import haxor.core.Enums.MeshMode;
+import haxor.core.Enums.MeshPrimitive;
 import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
@@ -110,7 +110,7 @@ class Mesh extends Resource
 		m_indexed	= false;
 		m_vcount    = 0;
 		m_bounds	= AABB3.empty;
-		m_mode		= MeshMode.DynamicDraw;
+		m_mode		= MeshMode.StaticDraw;
 		primitive	= MeshPrimitive.Triangles;
 		m_topology_attrib 		 = new MeshAttrib();
 		m_topology_attrib.m_name = "$topology";
@@ -207,11 +207,11 @@ class Mesh extends Resource
 		}		
 		if (p_offset > 0) a.offset = p_offset;		
 		a.data   = p_data;		
-		m_vcount = m_attribs[0].count;
+		m_vcount = m_attribs[0].count;		
 		for (i in 1...m_attribs.length)
 		{
 			var c: Int = m_attribs[i].count;
-			m_vcount = m_vcount < c ? m_vcount : c;
+			m_vcount = m_vcount < c ? m_vcount : c;			
 		}	
 		EngineContext.mesh.UpdateAttrib(a, m_mode, false);
 		return a;
@@ -225,24 +225,24 @@ class Mesh extends Resource
 	public function GenerateAttribBounds(p_attrib:String,p_result:AABB3=null):AABB3
 	{
 		var b : AABB3 = p_result == null ? AABB3.empty : p_result;		
-		var a : MeshAttrib = GetAttribute(p_attrib);
+		var a : MeshAttrib = GetAttribute(p_attrib);		
 		if (a == null) return b.Set(0, 0, 0, 0, 0, 0);		
-		var step : Int = a.offset;
+		var step : Int = a.offset;		
 		if (step <= 0) return b.Set(0, 0, 0, 0, 0, 0);		
 		var i:Int = step;			
 		var f : FloatArray = cast a.data;
 		var vx : Float = step > 0 ? f.Get(0) : 0;
 		var vy : Float = step > 1 ? f.Get(1) : 0;
-		var vz : Float = step > 2 ? f.Get(2) : 0;		
+		var vz : Float = step > 2 ? f.Get(2) : 0;				
 		b.Set(vx, vx, vy, vy, vz, vz);
 		while (i < f.length)
 		{
-			vx = step > 0 ? f.Get(i)   : 0;
+			vx = step > 0 ? f.Get(i)   : 0;			
 			vy = step > 1 ? f.Get(i+1) : 0;
 			vz = step > 2 ? f.Get(i+2) : 0;
 			b.Encapsulate3(vx, vy, vz);
 			i += step;
-		}
+		}		
 		return b;
 	}
 	

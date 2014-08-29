@@ -7,6 +7,7 @@
 
 #include <haxor/core/Resource.h>
 HX_DECLARE_CLASS2(haxor,component,Component)
+HX_DECLARE_CLASS2(haxor,component,Transform)
 HX_DECLARE_CLASS2(haxor,core,Entity)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
@@ -19,12 +20,12 @@ class HXCPP_CLASS_ATTRIBUTES  Entity_obj : public ::haxor::core::Resource_obj{
 		typedef ::haxor::core::Resource_obj super;
 		typedef Entity_obj OBJ_;
 		Entity_obj();
-		Void __construct(::String p_name);
+		Void __construct(::String __o_p_name);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< Entity_obj > __new(::String p_name);
+		static hx::ObjectPtr< Entity_obj > __new(::String __o_p_name);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~Entity_obj();
@@ -43,9 +44,33 @@ class HXCPP_CLASS_ATTRIBUTES  Entity_obj : public ::haxor::core::Resource_obj{
 		Dynamic set_enabled_dyn();
 
 		bool m_enabled;
+		::haxor::component::Transform transform;
+		virtual ::haxor::component::Transform get_transform( );
+		Dynamic get_transform_dyn();
+
+		::haxor::component::Transform m_transform;
+		virtual int get_layer( );
+		Dynamic get_layer_dyn();
+
+		virtual int set_layer( int v);
+		Dynamic set_layer_dyn();
+
+		int m_layer;
 		Array< ::Dynamic > m_components;
 		virtual Dynamic AddComponent( ::Class p_type);
 		Dynamic AddComponent_dyn();
+
+		virtual Dynamic GetComponent( ::Class p_type);
+		Dynamic GetComponent_dyn();
+
+		virtual Dynamic GetComponents( ::Class p_type);
+		Dynamic GetComponents_dyn();
+
+		virtual Dynamic GetComponentInChildren( ::Class p_type);
+		Dynamic GetComponentInChildren_dyn();
+
+		virtual Dynamic GetComponentsInChildren( ::Class p_type);
+		Dynamic GetComponentsInChildren_dyn();
 
 		virtual Void OnDestroy( );
 

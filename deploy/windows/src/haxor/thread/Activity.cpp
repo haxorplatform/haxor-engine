@@ -38,7 +38,7 @@ namespace thread{
 
 Void Activity_obj::__construct(Dynamic p_callback,hx::Null< bool >  __o_p_threaded,hx::Null< bool >  __o_p_graphics_context)
 {
-HX_STACK_FRAME("haxor.thread.Activity","new",0x9e73c259,"haxor.thread.Activity.new","haxor/thread/Activity.hx",124,0x19970d17)
+HX_STACK_FRAME("haxor.thread.Activity","new",0x9e73c259,"haxor.thread.Activity.new","haxor/thread/Activity.hx",125,0x19970d17)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_callback,"p_callback")
 HX_STACK_ARG(__o_p_threaded,"p_threaded")
@@ -46,39 +46,39 @@ HX_STACK_ARG(__o_p_graphics_context,"p_graphics_context")
 bool p_threaded = __o_p_threaded.Default(false);
 bool p_graphics_context = __o_p_graphics_context.Default(false);
 {
-	HX_STACK_LINE(124)
+	HX_STACK_LINE(125)
 	Dynamic p_callback1 = Dynamic( Array_obj<Dynamic>::__new().Add(p_callback));		HX_STACK_VAR(p_callback1,"p_callback1");
-	HX_STACK_LINE(124)
+	HX_STACK_LINE(125)
 	Array< ::Dynamic > _g = Array_obj< ::Dynamic >::__new().Add(hx::ObjectPtr<OBJ_>(this));		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(126)
-	super::__construct(null());
 	HX_STACK_LINE(127)
+	super::__construct(null());
+	HX_STACK_LINE(128)
 	if (((p_callback1->__GetItem((int)0) == null()))){
-		HX_STACK_LINE(127)
+		HX_STACK_LINE(128)
 		return null();
 	}
-	HX_STACK_LINE(128)
-	this->m_time_start = ::haxor::core::Time_obj::m_elapsed;
-	HX_STACK_LINE(129)
-	this->m_elapsed = 0.0;
 	HX_STACK_LINE(130)
-	this->m_callback = p_callback1->__GetItem((int)0);
+	this->m_time_start = ::haxor::core::Time_obj::m_elapsed;
 	HX_STACK_LINE(131)
+	this->m_elapsed = 0.0;
+	HX_STACK_LINE(132)
+	this->m_callback = p_callback1->__GetItem((int)0);
+	HX_STACK_LINE(133)
 	this->m_cancelled = false;
-	HX_STACK_LINE(136)
+	HX_STACK_LINE(139)
 	if ((p_graphics_context)){
-		HX_STACK_LINE(136)
+		HX_STACK_LINE(139)
 		p_threaded = false;
 	}
-	HX_STACK_LINE(138)
+	HX_STACK_LINE(141)
 	if ((!(p_threaded))){
-		HX_STACK_LINE(140)
+		HX_STACK_LINE(143)
 		if ((p_graphics_context)){
-			HX_STACK_LINE(142)
+			HX_STACK_LINE(145)
 			::haxor::context::EngineContext_obj::render->Add(hx::ObjectPtr<OBJ_>(this));
 		}
 		else{
-			HX_STACK_LINE(146)
+			HX_STACK_LINE(149)
 			::haxor::context::EngineContext_obj::update->Add(hx::ObjectPtr<OBJ_>(this));
 		}
 	}
@@ -86,23 +86,23 @@ bool p_graphics_context = __o_p_graphics_context.Default(false);
 
 		HX_BEGIN_LOCAL_FUNC_S2(hx::LocalFunc,_Function_2_1,Array< ::Dynamic >,_g,Dynamic,p_callback1)
 		Void run(){
-			HX_STACK_FRAME("*","_Function_2_1",0x5201af78,"*._Function_2_1","haxor/thread/Activity.hx",154,0x19970d17)
+			HX_STACK_FRAME("*","_Function_2_1",0x5201af78,"*._Function_2_1","haxor/thread/Activity.hx",157,0x19970d17)
 			{
-				HX_STACK_LINE(154)
+				HX_STACK_LINE(157)
 				while((true)){
-					HX_STACK_LINE(156)
-					if ((_g->__get((int)0).StaticCast< ::haxor::thread::Activity >()->m_cancelled)){
-						HX_STACK_LINE(156)
-						break;
-					}
-					HX_STACK_LINE(157)
-					if ((!(p_callback1->__GetItem((int)0)(_g->__get((int)0).StaticCast< ::haxor::thread::Activity >()->m_elapsed).Cast< bool >()))){
-						HX_STACK_LINE(157)
-						break;
-					}
-					HX_STACK_LINE(158)
-					hx::AddEq(_g->__get((int)0).StaticCast< ::haxor::thread::Activity >()->m_elapsed,0.0001);
 					HX_STACK_LINE(159)
+					if ((_g->__get((int)0).StaticCast< ::haxor::thread::Activity >()->m_cancelled)){
+						HX_STACK_LINE(159)
+						break;
+					}
+					HX_STACK_LINE(160)
+					if ((!(p_callback1->__GetItem((int)0)(_g->__get((int)0).StaticCast< ::haxor::thread::Activity >()->m_elapsed).Cast< bool >()))){
+						HX_STACK_LINE(160)
+						break;
+					}
+					HX_STACK_LINE(161)
+					hx::AddEq(_g->__get((int)0).StaticCast< ::haxor::thread::Activity >()->m_elapsed,0.0001);
+					HX_STACK_LINE(162)
 					::Sys_obj::sleep(0.0001);
 				}
 			}
@@ -110,7 +110,7 @@ bool p_graphics_context = __o_p_graphics_context.Default(false);
 		}
 		HX_END_LOCAL_FUNC0((void))
 
-		HX_STACK_LINE(152)
+		HX_STACK_LINE(155)
 		::cpp::vm::Thread_obj::create( Dynamic(new _Function_2_1(_g,p_callback1)));
 	}
 }
@@ -138,9 +138,9 @@ hx::Object *Activity_obj::__ToInterface(const hx::type_info &inType) {
 }
 
 Float Activity_obj::get_elapsed( ){
-	HX_STACK_FRAME("haxor.thread.Activity","get_elapsed",0x06830b4c,"haxor.thread.Activity.get_elapsed","haxor/thread/Activity.hx",113,0x19970d17)
+	HX_STACK_FRAME("haxor.thread.Activity","get_elapsed",0x06830b4c,"haxor.thread.Activity.get_elapsed","haxor/thread/Activity.hx",114,0x19970d17)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(113)
+	HX_STACK_LINE(114)
 	return this->m_elapsed;
 }
 
@@ -149,9 +149,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Activity_obj,get_elapsed,return )
 
 Void Activity_obj::Cancel( ){
 {
-		HX_STACK_FRAME("haxor.thread.Activity","Cancel",0x9d0b3141,"haxor.thread.Activity.Cancel","haxor/thread/Activity.hx",176,0x19970d17)
+		HX_STACK_FRAME("haxor.thread.Activity","Cancel",0x9d0b3141,"haxor.thread.Activity.Cancel","haxor/thread/Activity.hx",179,0x19970d17)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(176)
+		HX_STACK_LINE(179)
 		this->m_cancelled = true;
 	}
 return null();
@@ -162,9 +162,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Activity_obj,Cancel,(void))
 
 Void Activity_obj::OnUpdate( ){
 {
-		HX_STACK_FRAME("haxor.thread.Activity","OnUpdate",0xa2b7800f,"haxor.thread.Activity.OnUpdate","haxor/thread/Activity.hx",182,0x19970d17)
+		HX_STACK_FRAME("haxor.thread.Activity","OnUpdate",0xa2b7800f,"haxor.thread.Activity.OnUpdate","haxor/thread/Activity.hx",185,0x19970d17)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(182)
+		HX_STACK_LINE(185)
 		this->OnRun();
 	}
 return null();
@@ -175,9 +175,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Activity_obj,OnUpdate,(void))
 
 Void Activity_obj::OnRender( ){
 {
-		HX_STACK_FRAME("haxor.thread.Activity","OnRender",0x20db655c,"haxor.thread.Activity.OnRender","haxor/thread/Activity.hx",187,0x19970d17)
+		HX_STACK_FRAME("haxor.thread.Activity","OnRender",0x20db655c,"haxor.thread.Activity.OnRender","haxor/thread/Activity.hx",190,0x19970d17)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(187)
+		HX_STACK_LINE(190)
 		this->OnRun();
 	}
 return null();
@@ -188,20 +188,20 @@ HX_DEFINE_DYNAMIC_FUNC0(Activity_obj,OnRender,(void))
 
 Void Activity_obj::OnRun( ){
 {
-		HX_STACK_FRAME("haxor.thread.Activity","OnRun",0x21170d85,"haxor.thread.Activity.OnRun","haxor/thread/Activity.hx",193,0x19970d17)
+		HX_STACK_FRAME("haxor.thread.Activity","OnRun",0x21170d85,"haxor.thread.Activity.OnRun","haxor/thread/Activity.hx",196,0x19970d17)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(194)
+		HX_STACK_LINE(197)
 		if ((this->m_cancelled)){
-			HX_STACK_LINE(194)
+			HX_STACK_LINE(197)
 			::haxor::core::Resource_obj::Destroy(hx::ObjectPtr<OBJ_>(this));
-			HX_STACK_LINE(194)
+			HX_STACK_LINE(197)
 			return null();
 		}
-		HX_STACK_LINE(195)
+		HX_STACK_LINE(198)
 		this->m_elapsed = (::haxor::core::Time_obj::m_elapsed - this->m_time_start);
-		HX_STACK_LINE(196)
+		HX_STACK_LINE(199)
 		if ((!(this->m_callback(this->m_elapsed)))){
-			HX_STACK_LINE(198)
+			HX_STACK_LINE(201)
 			::haxor::core::Resource_obj::Destroy(hx::ObjectPtr<OBJ_>(this));
 		}
 	}
@@ -297,14 +297,14 @@ bool p_graphics_context = __o_p_graphics_context.Default(false);
 			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/thread/Activity.hx",63,0x19970d17)
 			HX_STACK_ARG(t,"t")
 			{
-				HX_STACK_LINE(64)
+				HX_STACK_LINE(65)
 				if (((t >= p_time1->__get((int)0)))){
-					HX_STACK_LINE(66)
-					p_callback1->__GetItem((int)0)().Cast< Void >();
 					HX_STACK_LINE(67)
+					p_callback1->__GetItem((int)0)().Cast< Void >();
+					HX_STACK_LINE(68)
 					return false;
 				}
-				HX_STACK_LINE(69)
+				HX_STACK_LINE(70)
 				return true;
 			}
 			return null();
@@ -322,12 +322,12 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC4(Activity_obj,Delay,return )
 ::haxor::thread::Activity Activity_obj::Run( Dynamic p_callback,hx::Null< bool >  __o_p_threaded,hx::Null< bool >  __o_p_graphics_context){
 bool p_threaded = __o_p_threaded.Default(false);
 bool p_graphics_context = __o_p_graphics_context.Default(false);
-	HX_STACK_FRAME("haxor.thread.Activity","Run",0x9e5e9124,"haxor.thread.Activity.Run","haxor/thread/Activity.hx",80,0x19970d17)
+	HX_STACK_FRAME("haxor.thread.Activity","Run",0x9e5e9124,"haxor.thread.Activity.Run","haxor/thread/Activity.hx",81,0x19970d17)
 	HX_STACK_ARG(p_callback,"p_callback")
 	HX_STACK_ARG(p_threaded,"p_threaded")
 	HX_STACK_ARG(p_graphics_context,"p_graphics_context")
 {
-		HX_STACK_LINE(80)
+		HX_STACK_LINE(81)
 		return ::haxor::thread::Activity_obj::__new(p_callback,p_threaded,p_graphics_context);
 	}
 }
@@ -338,29 +338,29 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC3(Activity_obj,Run,return )
 ::haxor::thread::Activity Activity_obj::RunOnce( Dynamic p_callback,hx::Null< bool >  __o_p_threaded,hx::Null< bool >  __o_p_graphics_context){
 bool p_threaded = __o_p_threaded.Default(false);
 bool p_graphics_context = __o_p_graphics_context.Default(false);
-	HX_STACK_FRAME("haxor.thread.Activity","RunOnce",0x2e739cc5,"haxor.thread.Activity.RunOnce","haxor/thread/Activity.hx",90,0x19970d17)
+	HX_STACK_FRAME("haxor.thread.Activity","RunOnce",0x2e739cc5,"haxor.thread.Activity.RunOnce","haxor/thread/Activity.hx",91,0x19970d17)
 	HX_STACK_ARG(p_callback,"p_callback")
 	HX_STACK_ARG(p_threaded,"p_threaded")
 	HX_STACK_ARG(p_graphics_context,"p_graphics_context")
 {
-		HX_STACK_LINE(90)
+		HX_STACK_LINE(91)
 		Dynamic p_callback1 = Dynamic( Array_obj<Dynamic>::__new().Add(p_callback));		HX_STACK_VAR(p_callback1,"p_callback1");
 
 		HX_BEGIN_LOCAL_FUNC_S1(hx::LocalFunc,_Function_1_1,Dynamic,p_callback1)
 		bool run(Float t){
-			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/thread/Activity.hx",93,0x19970d17)
+			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/thread/Activity.hx",94,0x19970d17)
 			HX_STACK_ARG(t,"t")
 			{
-				HX_STACK_LINE(94)
-				p_callback1->__GetItem((int)0)().Cast< Void >();
 				HX_STACK_LINE(95)
+				p_callback1->__GetItem((int)0)().Cast< Void >();
+				HX_STACK_LINE(96)
 				return false;
 			}
 			return null();
 		}
 		HX_END_LOCAL_FUNC1(return)
 
-		HX_STACK_LINE(92)
+		HX_STACK_LINE(93)
 		return ::haxor::thread::Activity_obj::__new( Dynamic(new _Function_1_1(p_callback1)),p_threaded,p_graphics_context);
 	}
 }

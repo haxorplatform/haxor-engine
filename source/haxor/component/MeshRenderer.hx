@@ -1,5 +1,6 @@
 package haxor.component;
 
+import haxor.context.EngineContext;
 import haxor.core.Entity;
 import haxor.core.Time;
 import haxor.graphics.Graphics;
@@ -32,11 +33,15 @@ class MeshRenderer extends Renderer
 	 */
 	public var visible(get_visible, never):Bool;
 	private inline function get_visible():Bool { return IsVisible(Camera.main); }
-	
+		
 	/**
-	 * Creates a new MeshRenderer
+	 * Method called after component creation.
 	 */
-	function new() { super();	}
+	override function OnBuild():Void 
+	{
+		super.OnBuild();
+		m_has_mesh = true;		
+	}
 	
 	/**
 	 * Returns the visibility status of this renderer in the informed camera field of vision.
@@ -100,10 +105,10 @@ class MeshRenderer extends Renderer
 	 * Renders the Mesh using Material.
 	 */
 	override public function OnRender() : Void 
-	{
-		//var m : Mesh = mesh;
-		//if (m == null) return;
-		//Graphics.Render(Camera.current,entity.transform, mesh,material);
+	{			
+		super.OnRender();		
+		if (m_mesh == null) return;			
+		Graphics.Render(m_mesh,material,entity.transform,Camera.current);
 	}
 	
 }
