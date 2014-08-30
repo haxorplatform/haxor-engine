@@ -1,5 +1,6 @@
 #if android
 package haxor.platform.android;
+import haxor.platform.android.input.AndroidInputHandler;
 import java.NativeArray;
 import haxor.core.Engine;
 import java.lang.Thread;
@@ -37,6 +38,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 	private var m_handler : Handler;
 	
 	private var m_active : Bool;
+	
+	private var input : AndroidInputHandler;
 	
 	/**
 	 * Callback when the android application is created. This event is used to setup the Application class once!
@@ -106,8 +109,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		GL.Initialize(m_application);
 		GL.m_gl.Initialize(this);
 		
-		
-		
+		input = new AndroidInputHandler();
+		Input.m_handler	= input;
 		//m_handler 	= new Handler();
 		//m_handler.postDelayed(this,cast 0);
 		
@@ -129,6 +132,13 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		{
 			Console.Log(st[i].toString());
 		}
+	}
+	
+	@:overload()
+	override public function onTouchEvent(p_event:android.view.MotionEvent):Bool
+	{
+		if (input != null) input.OnTouchEvent(p_event);		
+		return return super.onTouchEvent(p_event);
 	}
 	
 	@:overload()

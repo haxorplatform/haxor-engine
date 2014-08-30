@@ -4,13 +4,13 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class WeakMap_keys_388__Fun<V, K> extends haxe.lang.Function
 {
-	public    WeakMap_keys_388__Fun(haxe.root.Array<java.lang.Object> len, haxe.root.Array<haxe.ds.WeakMap> _g1, haxe.root.Array<K> lastKey, haxe.root.Array<java.lang.Object> i)
+	public    WeakMap_keys_388__Fun(haxe.root.Array<haxe.ds.WeakMap> _g1, haxe.root.Array<java.lang.Object> i, haxe.root.Array<java.lang.Object> len, haxe.root.Array<K> lastKey)
 	{
 		super(0, 0);
-		this.len = len;
 		this._g1 = _g1;
-		this.lastKey = lastKey;
 		this.i = i;
+		this.len = len;
+		this.lastKey = lastKey;
 	}
 	
 	
@@ -44,13 +44,13 @@ public  class WeakMap_keys_388__Fun<V, K> extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<java.lang.Object> len;
-	
 	public  haxe.root.Array<haxe.ds.WeakMap> _g1;
 	
-	public  haxe.root.Array<K> lastKey;
-	
 	public  haxe.root.Array<java.lang.Object> i;
+	
+	public  haxe.root.Array<java.lang.Object> len;
+	
+	public  haxe.root.Array<K> lastKey;
 	
 }
 

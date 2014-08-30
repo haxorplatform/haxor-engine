@@ -24,7 +24,7 @@ public  class EngineContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me80598)
+	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me151340)
 	{
 		{
 		}

@@ -41,7 +41,7 @@ public  class Mathf extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_math_Mathf(haxor.math.Mathf __temp_me80744)
+	public static   void __hx_ctor_haxor_math_Mathf(haxor.math.Mathf __temp_me151496)
 	{
 		{
 		}
@@ -357,15 +357,15 @@ public  class Mathf extends haxe.lang.HxObject
 	
 	public static   double RoundPlaces(double p_v, java.lang.Object p_decimal_places)
 	{
-		int __temp_p_decimal_places80743 = ( (( p_decimal_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_decimal_places)) )) );
-		double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_decimal_places80743) ));
-		double __temp_stmt81594 = 0.0;
+		int __temp_p_decimal_places151495 = ( (( p_decimal_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_decimal_places)) )) );
+		double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_decimal_places151495) ));
+		double __temp_stmt152365 = 0.0;
 		{
 			double p_v1 = ( p_v * d );
-			__temp_stmt81594 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+			__temp_stmt152365 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 		}
 		
-		return ( __temp_stmt81594 / d );
+		return ( __temp_stmt152365 / d );
 	}
 	
 	
@@ -377,13 +377,13 @@ public  class Mathf extends haxe.lang.HxObject
 	
 	public static   int LerpInt(int p_a, int p_b, double p_ratio)
 	{
-		double __temp_stmt81595 = 0.0;
+		double __temp_stmt152366 = 0.0;
 		{
 			double p_a1 = ((double) (p_a) );
-			__temp_stmt81595 = ( p_a1 + ( (( ((double) (p_b) ) - p_a1 )) * p_ratio ) );
+			__temp_stmt152366 = ( p_a1 + ( (( ((double) (p_b) ) - p_a1 )) * p_ratio ) );
 		}
 		
-		return ((int) (__temp_stmt81595) );
+		return ((int) (__temp_stmt152366) );
 	}
 	
 	
@@ -407,7 +407,7 @@ public  class Mathf extends haxe.lang.HxObject
 		double r = 0.0;
 		if (( p_v < 0 )) 
 		{
-			double __temp_stmt81596 = 0.0;
+			double __temp_stmt152367 = 0.0;
 			{
 				double p_v2 = 0.0;
 				if (( n < 0 )) 
@@ -419,10 +419,10 @@ public  class Mathf extends haxe.lang.HxObject
 					p_v2 = n;
 				}
 				
-				__temp_stmt81596 = ( p_v2 - java.lang.Math.floor(p_v2) );
+				__temp_stmt152367 = ( p_v2 - java.lang.Math.floor(p_v2) );
 			}
 			
-			r = ( 1.0 - __temp_stmt81596 );
+			r = ( 1.0 - __temp_stmt152367 );
 		}
 		 else 
 		{
@@ -441,13 +441,13 @@ public  class Mathf extends haxe.lang.HxObject
 	
 	public static   double Oscilate(double p_v, double p_v0, double p_v1)
 	{
-		double __temp_stmt81597 = 0.0;
+		double __temp_stmt152368 = 0.0;
 		{
 			double p_a = haxor.math.Mathf.Loop(( p_v - 1.0 ), -1.0, 1.0);
-			__temp_stmt81597 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			__temp_stmt152368 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 		}
 		
-		double w = (  - (__temp_stmt81597)  + 1.0 );
+		double w = (  - (__temp_stmt152368)  + 1.0 );
 		return ( w + ( (( p_v0 - w )) * p_v1 ) );
 	}
 	

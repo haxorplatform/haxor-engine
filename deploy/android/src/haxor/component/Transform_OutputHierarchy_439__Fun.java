@@ -30,8 +30,8 @@ public  class Transform_OutputHierarchy_439__Fun extends haxe.lang.Function
 		}
 		
 		{
-			int __temp_index80864 = 0;
-			this.hs.__set(__temp_index80864, ( this.hs.__get(__temp_index80864) + ( ( ( ( ( ( tab + t.get_name() ) + " " ) + t.get_position().ToString(null) ) + t.get_rotation().ToString(null) ) + t.get_scale().ToString(null) ) + "\n" ) ));
+			int __temp_index151617 = 0;
+			this.hs.__set(__temp_index151617, ( this.hs.__get(__temp_index151617) + ( ( ( ( ( ( tab + t.get_name() ) + " " ) + t.get_position().ToString(null) ) + t.get_rotation().ToString(null) ) + t.get_scale().ToString(null) ) + "\n" ) ));
 		}
 		
 		return true;

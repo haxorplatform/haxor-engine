@@ -18,16 +18,16 @@ public  class Quaternion extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_math_Quaternion(haxor.math.Quaternion __temp_me80790, java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z, java.lang.Object p_w)
+	public static   void __hx_ctor_haxor_math_Quaternion(haxor.math.Quaternion __temp_me151542, java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z, java.lang.Object p_w)
 	{
-		double __temp_p_w80789 = ( (( p_w == null )) ? (((double) (1.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_w)) )) );
-		double __temp_p_z80788 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
-		double __temp_p_y80787 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
-		double __temp_p_x80786 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
-		__temp_me80790.x = __temp_p_x80786;
-		__temp_me80790.y = __temp_p_y80787;
-		__temp_me80790.z = __temp_p_z80788;
-		__temp_me80790.w = __temp_p_w80789;
+		double __temp_p_w151541 = ( (( p_w == null )) ? (((double) (1.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_w)) )) );
+		double __temp_p_z151540 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
+		double __temp_p_y151539 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
+		double __temp_p_x151538 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
+		__temp_me151542.x = __temp_p_x151538;
+		__temp_me151542.y = __temp_p_y151539;
+		__temp_me151542.z = __temp_p_z151540;
+		__temp_me151542.w = __temp_p_w151541;
 	}
 	
 	
@@ -76,13 +76,13 @@ public  class Quaternion extends haxe.lang.HxObject
 		}
 		
 		double k = 0.0087266462599716477;
-		haxor.math.Vector3 __temp_stmt81636 = null;
+		haxor.math.Vector3 __temp_stmt152407 = null;
 		{
 			haxor.context.DataContext _this2 = haxor.context.EngineContext.data;
-			__temp_stmt81636 = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
+			__temp_stmt152407 = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
 		}
 		
-		haxor.math.Vector3 e = __temp_stmt81636.Set(( p_euler.x * k ), ( p_euler.y * k ), ( p_euler.z * k ));
+		haxor.math.Vector3 e = __temp_stmt152407.Set(( p_euler.x * k ), ( p_euler.y * k ), ( p_euler.z * k ));
 		c.Set(java.lang.Math.cos(e.x), java.lang.Math.cos(e.y), java.lang.Math.cos(e.z));
 		s.Set(java.lang.Math.sin(e.x), java.lang.Math.sin(e.y), java.lang.Math.sin(e.z));
 		r.x = ( ( ( s.x * c.y ) * c.z ) - ( ( c.x * s.y ) * s.z ) );
@@ -295,13 +295,13 @@ public  class Quaternion extends haxe.lang.HxObject
 	public static   haxor.math.Quaternion Slerp(haxor.math.Quaternion p_a, haxor.math.Quaternion p_b, double p_ratio)
 	{
 		haxor.math.Quaternion qm = new haxor.math.Quaternion(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		haxor.math.Quaternion __temp_stmt81637 = null;
+		haxor.math.Quaternion __temp_stmt152408 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81637 = _this.m_q.__get(_this.m_nq = ( (( _this.m_nq + 1 )) % _this.m_q.length ));
+			__temp_stmt152408 = _this.m_q.__get(_this.m_nq = ( (( _this.m_nq + 1 )) % _this.m_q.length ));
 		}
 		
-		haxor.math.Quaternion z = __temp_stmt81637.SetQuaternion(p_b);
+		haxor.math.Quaternion z = __temp_stmt152408.SetQuaternion(p_b);
 		double cosTheta = ( ( ( ( p_a.x * p_b.x ) + ( p_a.y * p_b.y ) ) + ( p_a.z * p_b.z ) ) + ( p_a.w * p_b.w ) );
 		if (( cosTheta < 0.0 )) 
 		{
@@ -311,31 +311,31 @@ public  class Quaternion extends haxe.lang.HxObject
 		
 		if (( cosTheta > 0.9999 )) 
 		{
-			double __temp_stmt81638 = 0.0;
+			double __temp_stmt152409 = 0.0;
 			{
 				double p_a1 = p_a.x;
-				__temp_stmt81638 = ( p_a1 + ( (( z.x - p_a1 )) * p_ratio ) );
+				__temp_stmt152409 = ( p_a1 + ( (( z.x - p_a1 )) * p_ratio ) );
 			}
 			
-			double __temp_stmt81639 = 0.0;
+			double __temp_stmt152410 = 0.0;
 			{
 				double p_a2 = p_a.y;
-				__temp_stmt81639 = ( p_a2 + ( (( z.y - p_a2 )) * p_ratio ) );
+				__temp_stmt152410 = ( p_a2 + ( (( z.y - p_a2 )) * p_ratio ) );
 			}
 			
-			double __temp_stmt81640 = 0.0;
+			double __temp_stmt152411 = 0.0;
 			{
 				double p_a3 = p_a.z;
-				__temp_stmt81640 = ( p_a3 + ( (( z.z - p_a3 )) * p_ratio ) );
+				__temp_stmt152411 = ( p_a3 + ( (( z.z - p_a3 )) * p_ratio ) );
 			}
 			
-			double __temp_stmt81641 = 0.0;
+			double __temp_stmt152412 = 0.0;
 			{
 				double p_a4 = p_a.w;
-				__temp_stmt81641 = ( p_a4 + ( (( z.w - p_a4 )) * p_ratio ) );
+				__temp_stmt152412 = ( p_a4 + ( (( z.w - p_a4 )) * p_ratio ) );
 			}
 			
-			qm.Set(__temp_stmt81638, __temp_stmt81639, __temp_stmt81640, __temp_stmt81641);
+			qm.Set(__temp_stmt152409, __temp_stmt152410, __temp_stmt152411, __temp_stmt152412);
 		}
 		 else 
 		{
@@ -357,13 +357,13 @@ public  class Quaternion extends haxe.lang.HxObject
 	{
 		p_angle = ( ( p_angle * 0.5 ) * 0.01745329251994329576923690768489 );
 		double l = java.lang.Math.sqrt(( ( ( p_axis.x * p_axis.x ) + ( p_axis.y * p_axis.y ) ) + ( p_axis.z * p_axis.z ) ));
-		double __temp_stmt81642 = 0.0;
+		double __temp_stmt152413 = 0.0;
 		{
 			double p_a = ( l - 1.0 );
-			__temp_stmt81642 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			__temp_stmt152413 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 		}
 		
-		if (( __temp_stmt81642 > 0.0001 )) 
+		if (( __temp_stmt152413 > 0.0001 )) 
 		{
 			p_axis.Normalize();
 		}
@@ -375,14 +375,14 @@ public  class Quaternion extends haxe.lang.HxObject
 	
 	public static   haxor.math.Quaternion LookAt(haxor.math.Vector3 p_eye, haxor.math.Vector3 p_at, haxor.math.Vector3 p_up, haxor.math.Quaternion p_result)
 	{
-		haxor.math.Matrix4 __temp_stmt81644 = null;
+		haxor.math.Matrix4 __temp_stmt152415 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81644 = _this.m_m4.__get(_this.m_nq = ( (( _this.m_nm4 + 1 )) % _this.m_m4.length ));
+			__temp_stmt152415 = _this.m_m4.__get(_this.m_nq = ( (( _this.m_nm4 + 1 )) % _this.m_m4.length ));
 		}
 		
-		haxor.math.Matrix4 __temp_stmt81643 = haxor.math.Matrix4.LookAt(p_eye, p_at, p_up, __temp_stmt81644);
-		return haxor.math.Quaternion.FromMatrix(__temp_stmt81643, p_result);
+		haxor.math.Matrix4 __temp_stmt152414 = haxor.math.Matrix4.LookAt(p_eye, p_at, p_up, __temp_stmt152415);
+		return haxor.math.Quaternion.FromMatrix(__temp_stmt152414, p_result);
 	}
 	
 	
@@ -397,25 +397,25 @@ public  class Quaternion extends haxe.lang.HxObject
 					p_result = _this1.m_m4.__get(_this1.m_nq = ( (( _this1.m_nm4 + 1 )) % _this1.m_m4.length ));
 				}
 				
-				haxor.math.Vector3 __temp_stmt81646 = null;
+				haxor.math.Vector3 __temp_stmt152417 = null;
 				{
 					haxor.context.DataContext _this2 = haxor.context.EngineContext.data;
-					__temp_stmt81646 = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
+					__temp_stmt152417 = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
 				}
 				
-				haxor.math.Vector3 __temp_stmt81645 = __temp_stmt81646.Set(0, 0, 0);
-				_this = haxor.math.Matrix4.LookAt(__temp_stmt81645, p_forward, p_up, p_result);
+				haxor.math.Vector3 __temp_stmt152416 = __temp_stmt152417.Set(0, 0, 0);
+				_this = haxor.math.Matrix4.LookAt(__temp_stmt152416, p_forward, p_up, p_result);
 			}
 			
-			haxor.math.Matrix4 __temp_stmt81649 = null;
+			haxor.math.Matrix4 __temp_stmt152420 = null;
 			{
 				haxor.context.DataContext _this3 = haxor.context.EngineContext.data;
-				__temp_stmt81649 = _this3.m_m4.__get(_this3.m_nq = ( (( _this3.m_nm4 + 1 )) % _this3.m_m4.length ));
+				__temp_stmt152420 = _this3.m_m4.__get(_this3.m_nq = ( (( _this3.m_nm4 + 1 )) % _this3.m_m4.length ));
 			}
 			
-			haxor.math.Matrix4 __temp_stmt81648 = __temp_stmt81649.SetMatrix4(_this);
-			haxor.math.Matrix4 __temp_stmt81647 = __temp_stmt81648.ToRotation();
-			return haxor.math.Quaternion.FromMatrix(__temp_stmt81647, null);
+			haxor.math.Matrix4 __temp_stmt152419 = __temp_stmt152420.SetMatrix4(_this);
+			haxor.math.Matrix4 __temp_stmt152418 = __temp_stmt152419.ToRotation();
+			return haxor.math.Quaternion.FromMatrix(__temp_stmt152418, null);
 		}
 		
 	}
@@ -517,14 +517,14 @@ public  class Quaternion extends haxe.lang.HxObject
 	
 	public   haxor.math.Quaternion Set(java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z, java.lang.Object p_w)
 	{
-		double __temp_p_w80783 = ( (( p_w == null )) ? (((double) (1.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_w)) )) );
-		double __temp_p_z80782 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
-		double __temp_p_y80781 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
-		double __temp_p_x80780 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
-		this.x = __temp_p_x80780;
-		this.y = __temp_p_y80781;
-		this.z = __temp_p_z80782;
-		this.w = __temp_p_w80783;
+		double __temp_p_w151535 = ( (( p_w == null )) ? (((double) (1.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_w)) )) );
+		double __temp_p_z151534 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
+		double __temp_p_y151533 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
+		double __temp_p_x151532 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
+		this.x = __temp_p_x151532;
+		this.y = __temp_p_y151533;
+		this.z = __temp_p_z151534;
+		this.w = __temp_p_w151535;
 		return this;
 	}
 	
@@ -595,7 +595,7 @@ public  class Quaternion extends haxe.lang.HxObject
 	
 	public   haxor.math.Quaternion Multiply(haxor.math.Quaternion p_v, java.lang.Object p_normalize)
 	{
-		boolean __temp_p_normalize80784 = ( (( p_normalize == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_normalize)) );
+		boolean __temp_p_normalize151536 = ( (( p_normalize == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_normalize)) );
 		double vx = ( ( ( ( this.w * p_v.x ) + ( this.x * p_v.w ) ) + ( this.y * p_v.z ) ) - ( this.z * p_v.y ) );
 		double vy = ( ( ( ( this.w * p_v.y ) + ( this.y * p_v.w ) ) + ( this.z * p_v.x ) ) - ( this.x * p_v.z ) );
 		double vz = ( ( ( ( this.w * p_v.z ) + ( this.z * p_v.w ) ) + ( this.x * p_v.y ) ) - ( this.y * p_v.x ) );
@@ -604,7 +604,7 @@ public  class Quaternion extends haxe.lang.HxObject
 		this.y = vy;
 		this.z = vz;
 		this.w = vw;
-		if (__temp_p_normalize80784) 
+		if (__temp_p_normalize151536) 
 		{
 			return this.Normalize();
 		}
@@ -632,27 +632,27 @@ public  class Quaternion extends haxe.lang.HxObject
 		p_v.x *= nl;
 		p_v.y *= nl;
 		p_v.z *= nl;
-		haxor.math.Quaternion __temp_stmt81617 = null;
+		haxor.math.Quaternion __temp_stmt152388 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81617 = _this.m_q.__get(_this.m_nq = ( (( _this.m_nq + 1 )) % _this.m_q.length ));
+			__temp_stmt152388 = _this.m_q.__get(_this.m_nq = ( (( _this.m_nq + 1 )) % _this.m_q.length ));
 		}
 		
-		haxor.math.Quaternion qv = __temp_stmt81617.Set(p_v.x, p_v.y, p_v.z, 0);
-		haxor.math.Quaternion __temp_stmt81618 = null;
+		haxor.math.Quaternion qv = __temp_stmt152388.Set(p_v.x, p_v.y, p_v.z, 0);
+		haxor.math.Quaternion __temp_stmt152389 = null;
 		{
 			haxor.context.DataContext _this1 = haxor.context.EngineContext.data;
-			__temp_stmt81618 = _this1.m_q.__get(_this1.m_nq = ( (( _this1.m_nq + 1 )) % _this1.m_q.length ));
+			__temp_stmt152389 = _this1.m_q.__get(_this1.m_nq = ( (( _this1.m_nq + 1 )) % _this1.m_q.length ));
 		}
 		
-		haxor.math.Quaternion a = __temp_stmt81618.SetQuaternion(this);
-		haxor.math.Quaternion __temp_stmt81619 = null;
+		haxor.math.Quaternion a = __temp_stmt152389.SetQuaternion(this);
+		haxor.math.Quaternion __temp_stmt152390 = null;
 		{
 			haxor.context.DataContext _this2 = haxor.context.EngineContext.data;
-			__temp_stmt81619 = _this2.m_q.__get(_this2.m_nq = ( (( _this2.m_nq + 1 )) % _this2.m_q.length ));
+			__temp_stmt152390 = _this2.m_q.__get(_this2.m_nq = ( (( _this2.m_nq + 1 )) % _this2.m_q.length ));
 		}
 		
-		haxor.math.Quaternion c = __temp_stmt81619.Set( - (this.x) ,  - (this.y) ,  - (this.z) , this.w);
+		haxor.math.Quaternion c = __temp_stmt152390.Set( - (this.x) ,  - (this.y) ,  - (this.z) , this.w);
 		a.Multiply(qv.Multiply(c, null), null);
 		p_v.x = ( a.x * l );
 		p_v.y = ( a.y * l );
@@ -663,14 +663,14 @@ public  class Quaternion extends haxe.lang.HxObject
 	
 	public final   haxor.math.Quaternion Delta(haxor.math.Quaternion p_q)
 	{
-		haxor.math.Quaternion __temp_stmt81621 = null;
+		haxor.math.Quaternion __temp_stmt152392 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81621 = _this.m_q.__get(_this.m_nq = ( (( _this.m_nq + 1 )) % _this.m_q.length ));
+			__temp_stmt152392 = _this.m_q.__get(_this.m_nq = ( (( _this.m_nq + 1 )) % _this.m_q.length ));
 		}
 		
-		haxor.math.Quaternion __temp_stmt81620 = haxor.math.Quaternion.DeltaRotation(this, p_q, __temp_stmt81621);
-		return this.SetQuaternion(__temp_stmt81620);
+		haxor.math.Quaternion __temp_stmt152391 = haxor.math.Quaternion.DeltaRotation(this, p_q, __temp_stmt152392);
+		return this.SetQuaternion(__temp_stmt152391);
 	}
 	
 	
@@ -678,13 +678,13 @@ public  class Quaternion extends haxe.lang.HxObject
 	{
 		p_angle = ( ( p_angle * 0.5 ) * 0.01745329251994329576923690768489 );
 		double l = java.lang.Math.sqrt(( ( ( p_axis.x * p_axis.x ) + ( p_axis.y * p_axis.y ) ) + ( p_axis.z * p_axis.z ) ));
-		double __temp_stmt81622 = 0.0;
+		double __temp_stmt152393 = 0.0;
 		{
 			double p_a = ( l - 1.0 );
-			__temp_stmt81622 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			__temp_stmt152393 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 		}
 		
-		if (( __temp_stmt81622 > 0.0001 )) 
+		if (( __temp_stmt152393 > 0.0001 )) 
 		{
 			p_axis.Normalize();
 		}
@@ -702,70 +702,70 @@ public  class Quaternion extends haxe.lang.HxObject
 	
 	public   java.lang.String ToString(java.lang.Object p_places)
 	{
-		int __temp_p_places80785 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
-		double __temp_stmt81623 = 0.0;
+		int __temp_p_places151537 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
+		double __temp_stmt152394 = 0.0;
 		{
-			double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80785) ));
-			double __temp_stmt81624 = 0.0;
+			double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151537) ));
+			double __temp_stmt152395 = 0.0;
 			{
 				double p_v = ( this.x * d );
-				__temp_stmt81624 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152395 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81623 = ( __temp_stmt81624 / d );
+			__temp_stmt152394 = ( __temp_stmt152395 / d );
 		}
 		
-		double __temp_stmt81625 = 0.0;
+		double __temp_stmt152396 = 0.0;
 		{
-			double d1 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80785) ));
-			double __temp_stmt81626 = 0.0;
+			double d1 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151537) ));
+			double __temp_stmt152397 = 0.0;
 			{
 				double p_v1 = ( this.y * d1 );
-				__temp_stmt81626 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152397 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81625 = ( __temp_stmt81626 / d1 );
+			__temp_stmt152396 = ( __temp_stmt152397 / d1 );
 		}
 		
-		double __temp_stmt81627 = 0.0;
+		double __temp_stmt152398 = 0.0;
 		{
-			double d2 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80785) ));
-			double __temp_stmt81628 = 0.0;
+			double d2 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151537) ));
+			double __temp_stmt152399 = 0.0;
 			{
 				double p_v2 = ( this.z * d2 );
-				__temp_stmt81628 = ((double) (((int) (( p_v2 + (( (( p_v2 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152399 = ((double) (((int) (( p_v2 + (( (( p_v2 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81627 = ( __temp_stmt81628 / d2 );
+			__temp_stmt152398 = ( __temp_stmt152399 / d2 );
 		}
 		
-		double __temp_stmt81629 = 0.0;
+		double __temp_stmt152400 = 0.0;
 		{
-			double d3 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80785) ));
-			double __temp_stmt81630 = 0.0;
+			double d3 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151537) ));
+			double __temp_stmt152401 = 0.0;
 			{
 				double p_v3 = ( this.w * d3 );
-				__temp_stmt81630 = ((double) (((int) (( p_v3 + (( (( p_v3 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152401 = ((double) (((int) (( p_v3 + (( (( p_v3 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81629 = ( __temp_stmt81630 / d3 );
+			__temp_stmt152400 = ( __temp_stmt152401 / d3 );
 		}
 		
-		return ( ( ( ( ( ( ( ( "[" + haxe.lang.Runtime.toString(__temp_stmt81623) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt81625) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt81627) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt81629) ) + "]" );
+		return ( ( ( ( ( ( ( ( "[" + haxe.lang.Runtime.toString(__temp_stmt152394) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt152396) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt152398) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt152400) ) + "]" );
 	}
 	
 	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81631 = true;
+			boolean __temp_executeDef152402 = true;
 			switch (field.hashCode())
 			{
 				case 119:
 				{
 					if (field.equals("w")) 
 					{
-						__temp_executeDef81631 = false;
+						__temp_executeDef152402 = false;
 						this.w = ((double) (value) );
 						return value;
 					}
@@ -778,7 +778,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef81631 = false;
+						__temp_executeDef152402 = false;
 						this.length = ((double) (value) );
 						return value;
 					}
@@ -791,7 +791,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81631 = false;
+						__temp_executeDef152402 = false;
 						this.z = ((double) (value) );
 						return value;
 					}
@@ -804,7 +804,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81631 = false;
+						__temp_executeDef152402 = false;
 						this.x = ((double) (value) );
 						return value;
 					}
@@ -817,7 +817,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81631 = false;
+						__temp_executeDef152402 = false;
 						this.y = ((double) (value) );
 						return value;
 					}
@@ -828,7 +828,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81631) 
+			if (__temp_executeDef152402) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -845,14 +845,14 @@ public  class Quaternion extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81632 = true;
+			boolean __temp_executeDef152403 = true;
 			switch (field.hashCode())
 			{
 				case 1959910192:
 				{
 					if (field.equals("inverse")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.inverse = ((haxor.math.Quaternion) (value) );
 						return value;
 					}
@@ -865,7 +865,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("matrix")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.set_matrix(((haxor.math.Matrix4) (value) ));
 						return value;
 					}
@@ -878,7 +878,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("conjugate")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.conjugate = ((haxor.math.Quaternion) (value) );
 						return value;
 					}
@@ -891,7 +891,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("euler")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.set_euler(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -904,7 +904,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("w")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.w = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -917,7 +917,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("clone")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.clone = ((haxor.math.Quaternion) (value) );
 						return value;
 					}
@@ -930,7 +930,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.z = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -943,7 +943,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("xyzw")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.xyzw = ((haxor.math.Vector4) (value) );
 						return value;
 					}
@@ -956,7 +956,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.y = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -969,7 +969,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.length = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -982,7 +982,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.x = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -995,7 +995,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("normalized")) 
 					{
-						__temp_executeDef81632 = false;
+						__temp_executeDef152403 = false;
 						this.normalized = ((haxor.math.Quaternion) (value) );
 						return value;
 					}
@@ -1006,7 +1006,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81632) 
+			if (__temp_executeDef152403) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -1023,14 +1023,14 @@ public  class Quaternion extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81633 = true;
+			boolean __temp_executeDef152404 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToString"))) );
 					}
 					
@@ -1042,7 +1042,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("matrix")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return this.get_matrix();
 					}
 					
@@ -1054,7 +1054,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("ToArray")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToArray"))) );
 					}
 					
@@ -1066,7 +1066,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_matrix")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_matrix"))) );
 					}
 					
@@ -1078,7 +1078,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("SetAxisAngle")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetAxisAngle"))) );
 					}
 					
@@ -1090,7 +1090,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("set_matrix")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_matrix"))) );
 					}
 					
@@ -1102,7 +1102,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Delta")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Delta"))) );
 					}
 					
@@ -1114,7 +1114,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("euler")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return this.get_euler();
 					}
 					
@@ -1126,7 +1126,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Rotate")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Rotate"))) );
 					}
 					
@@ -1138,7 +1138,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_euler")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_euler"))) );
 					}
 					
@@ -1150,7 +1150,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Multiply")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Multiply"))) );
 					}
 					
@@ -1162,7 +1162,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("set_euler")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_euler"))) );
 					}
 					
@@ -1174,7 +1174,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Scale")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Scale"))) );
 					}
 					
@@ -1186,7 +1186,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("clone")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						if (handleProperties) 
 						{
 							return this.get_clone();
@@ -1206,7 +1206,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Invert")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Invert"))) );
 					}
 					
@@ -1218,7 +1218,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_clone"))) );
 					}
 					
@@ -1230,7 +1230,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_inverse")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_inverse"))) );
 					}
 					
@@ -1242,7 +1242,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("xyzw")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						if (handleProperties) 
 						{
 							return this.get_xyzw();
@@ -1262,7 +1262,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("inverse")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						if (handleProperties) 
 						{
 							return this.get_inverse();
@@ -1282,7 +1282,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xyzw")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_xyzw"))) );
 					}
 					
@@ -1294,7 +1294,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_conjugate")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_conjugate"))) );
 					}
 					
@@ -1306,7 +1306,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						if (handleProperties) 
 						{
 							return this.get_length();
@@ -1326,7 +1326,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("conjugate")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						if (handleProperties) 
 						{
 							return this.get_conjugate();
@@ -1346,7 +1346,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_length"))) );
 					}
 					
@@ -1358,7 +1358,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Normalize")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Normalize"))) );
 					}
 					
@@ -1370,7 +1370,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("normalized")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						if (handleProperties) 
 						{
 							return this.get_normalized();
@@ -1390,7 +1390,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("SetQuaternion")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetQuaternion"))) );
 					}
 					
@@ -1402,7 +1402,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_normalized")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_normalized"))) );
 					}
 					
@@ -1414,7 +1414,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
@@ -1426,7 +1426,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return this.x;
 					}
 					
@@ -1438,7 +1438,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("w")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return this.w;
 					}
 					
@@ -1450,7 +1450,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return this.y;
 					}
 					
@@ -1462,7 +1462,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81633 = false;
+						__temp_executeDef152404 = false;
 						return this.z;
 					}
 					
@@ -1472,7 +1472,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81633) 
+			if (__temp_executeDef152404) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1489,14 +1489,14 @@ public  class Quaternion extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81634 = true;
+			boolean __temp_executeDef152405 = true;
 			switch (field.hashCode())
 			{
 				case 119:
 				{
 					if (field.equals("w")) 
 					{
-						__temp_executeDef81634 = false;
+						__temp_executeDef152405 = false;
 						return this.w;
 					}
 					
@@ -1508,7 +1508,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef81634 = false;
+						__temp_executeDef152405 = false;
 						if (handleProperties) 
 						{
 							return this.get_length();
@@ -1528,7 +1528,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81634 = false;
+						__temp_executeDef152405 = false;
 						return this.z;
 					}
 					
@@ -1540,7 +1540,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81634 = false;
+						__temp_executeDef152405 = false;
 						return this.x;
 					}
 					
@@ -1552,7 +1552,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81634 = false;
+						__temp_executeDef152405 = false;
 						return this.y;
 					}
 					
@@ -1562,7 +1562,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81634) 
+			if (__temp_executeDef152405) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1579,14 +1579,14 @@ public  class Quaternion extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef81635 = true;
+			boolean __temp_executeDef152406 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.ToString(dynargs.__get(0));
 					}
 					
@@ -1598,7 +1598,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_matrix")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.get_matrix();
 					}
 					
@@ -1610,7 +1610,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("ToArray")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.ToArray();
 					}
 					
@@ -1622,7 +1622,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("set_matrix")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.set_matrix(((haxor.math.Matrix4) (dynargs.__get(0)) ));
 					}
 					
@@ -1634,7 +1634,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("SetAxisAngle")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.SetAxisAngle(((haxor.math.Vector3) (dynargs.__get(0)) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -1646,7 +1646,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_euler")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.get_euler();
 					}
 					
@@ -1658,7 +1658,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Delta")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.Delta(((haxor.math.Quaternion) (dynargs.__get(0)) ));
 					}
 					
@@ -1670,7 +1670,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("set_euler")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.set_euler(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -1682,7 +1682,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Rotate")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.Rotate(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -1694,7 +1694,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.get_clone();
 					}
 					
@@ -1706,7 +1706,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Multiply")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.Multiply(((haxor.math.Quaternion) (dynargs.__get(0)) ), dynargs.__get(1));
 					}
 					
@@ -1718,7 +1718,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xyzw")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.get_xyzw();
 					}
 					
@@ -1730,7 +1730,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Scale")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.Scale(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -1742,7 +1742,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.get_length();
 					}
 					
@@ -1754,7 +1754,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Invert")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.Invert();
 					}
 					
@@ -1766,7 +1766,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_normalized")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.get_normalized();
 					}
 					
@@ -1778,7 +1778,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_inverse")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.get_inverse();
 					}
 					
@@ -1790,7 +1790,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.Set(dynargs.__get(0), dynargs.__get(1), dynargs.__get(2), dynargs.__get(3));
 					}
 					
@@ -1802,7 +1802,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("get_conjugate")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.get_conjugate();
 					}
 					
@@ -1814,7 +1814,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("SetQuaternion")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.SetQuaternion(((haxor.math.Quaternion) (dynargs.__get(0)) ));
 					}
 					
@@ -1826,7 +1826,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				{
 					if (field.equals("Normalize")) 
 					{
-						__temp_executeDef81635 = false;
+						__temp_executeDef152406 = false;
 						return this.Normalize();
 					}
 					
@@ -1836,7 +1836,7 @@ public  class Quaternion extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81635) 
+			if (__temp_executeDef152406) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

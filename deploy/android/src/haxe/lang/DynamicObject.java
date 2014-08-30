@@ -22,21 +22,21 @@ public  class DynamicObject extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_lang_DynamicObject(haxe.lang.DynamicObject __temp_me80843)
+	public static   void __hx_ctor_haxe_lang_DynamicObject(haxe.lang.DynamicObject __temp_me151596)
 	{
-		__temp_me80843.__hx_hashes = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
-		__temp_me80843.__hx_dynamics = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me80843.__hx_hashes_f = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
-		__temp_me80843.__hx_dynamics_f = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me151596.__hx_hashes = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
+		__temp_me151596.__hx_dynamics = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me151596.__hx_hashes_f = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
+		__temp_me151596.__hx_dynamics_f = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 	}
 	
 	
-	public static   void __hx_ctor_haxe_lang_DynamicObject(haxe.lang.DynamicObject __temp_me80842, haxe.root.Array<java.lang.String> __hx_hashes, haxe.root.Array<java.lang.Object> __hx_dynamics, haxe.root.Array<java.lang.String> __hx_hashes_f, haxe.root.Array<java.lang.Object> __hx_dynamics_f)
+	public static   void __hx_ctor_haxe_lang_DynamicObject(haxe.lang.DynamicObject __temp_me151595, haxe.root.Array<java.lang.String> __hx_hashes, haxe.root.Array<java.lang.Object> __hx_dynamics, haxe.root.Array<java.lang.String> __hx_hashes_f, haxe.root.Array<java.lang.Object> __hx_dynamics_f)
 	{
-		__temp_me80842.__hx_hashes = __hx_hashes;
-		__temp_me80842.__hx_dynamics = __hx_dynamics;
-		__temp_me80842.__hx_hashes_f = __hx_hashes_f;
-		__temp_me80842.__hx_dynamics_f = __hx_dynamics_f;
+		__temp_me151595.__hx_hashes = __hx_hashes;
+		__temp_me151595.__hx_dynamics = __hx_dynamics;
+		__temp_me151595.__hx_hashes_f = __hx_hashes_f;
+		__temp_me151595.__hx_dynamics_f = __hx_dynamics_f;
 	}
 	
 	
@@ -232,21 +232,21 @@ public  class DynamicObject extends haxe.lang.HxObject
 	{
 		{
 			{
-				java.lang.Object __temp_iterator80874 = this.__hx_hashes.iterator();
-				while (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(__temp_iterator80874, "hasNext", null)))
+				java.lang.Object __temp_iterator151627 = this.__hx_hashes.iterator();
+				while (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(__temp_iterator151627, "hasNext", null)))
 				{
-					java.lang.String __temp_field80845 = haxe.lang.Runtime.toString(haxe.lang.Runtime.callField(__temp_iterator80874, "next", null));
-					baseArr.push(__temp_field80845);
+					java.lang.String __temp_field151598 = haxe.lang.Runtime.toString(haxe.lang.Runtime.callField(__temp_iterator151627, "next", null));
+					baseArr.push(__temp_field151598);
 				}
 				
 			}
 			
 			{
-				java.lang.Object __temp_iterator80875 = this.__hx_hashes_f.iterator();
-				while (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(__temp_iterator80875, "hasNext", null)))
+				java.lang.Object __temp_iterator151628 = this.__hx_hashes_f.iterator();
+				while (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(__temp_iterator151628, "hasNext", null)))
 				{
-					java.lang.String __temp_field80844 = haxe.lang.Runtime.toString(haxe.lang.Runtime.callField(__temp_iterator80875, "next", null));
-					baseArr.push(__temp_field80844);
+					java.lang.String __temp_field151597 = haxe.lang.Runtime.toString(haxe.lang.Runtime.callField(__temp_iterator151628, "next", null));
+					baseArr.push(__temp_field151597);
 				}
 				
 			}

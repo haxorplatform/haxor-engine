@@ -44,6 +44,9 @@ class HXCPP_CLASS_ATTRIBUTES  Touch_obj : public hx::Object{
 		Float pressure;
 		Float hold;
 		bool m_down;
+		virtual ::String ToString( );
+		Dynamic ToString_dyn();
+
 };
 
 } // end namespace haxor

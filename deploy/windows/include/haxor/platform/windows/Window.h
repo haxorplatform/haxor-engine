@@ -19,7 +19,6 @@ HX_DECLARE_CLASS3(haxor,platform,windows,Window)
 HX_DECLARE_CLASS4(haxor,platform,windows,input,WinInputHandler)
 
 #include <windows.h>
-#include <Xinput.h>
 #include <stdio.h>
 #include "gl/glew.h"
 

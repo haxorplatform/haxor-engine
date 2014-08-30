@@ -4,20 +4,20 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class TextureContext_UploadTexture_281__Fun extends haxe.lang.Function
 {
-	public    TextureContext_UploadTexture_281__Fun(haxe.root.Array<java.lang.Object> steps, haxe.root.Array<haxor.context.TextureContext> _g, haxe.root.Array<haxor.graphics.texture.Texture2D> p_texture1, haxe.root.Array<java.lang.Object> p_width1, haxe.root.Array<haxe.lang.Function> p_on_complete1, haxe.root.Array<java.lang.Object> chn_fmt, haxe.root.Array<java.lang.Object> p_x1, haxe.root.Array<haxor.graphics.texture.Bitmap> b, haxe.root.Array<java.lang.Object> chn_type, haxe.root.Array<java.lang.Object> p_height1, haxe.root.Array<java.lang.Object> py)
+	public    TextureContext_UploadTexture_281__Fun(haxe.root.Array<haxor.graphics.texture.Texture2D> p_texture1, haxe.root.Array<java.lang.Object> p_width1, haxe.root.Array<java.lang.Object> chn_type, haxe.root.Array<java.lang.Object> p_x1, haxe.root.Array<java.lang.Object> py, haxe.root.Array<java.lang.Object> steps, haxe.root.Array<haxor.context.TextureContext> _g, haxe.root.Array<haxe.lang.Function> p_on_complete1, haxe.root.Array<haxor.graphics.texture.Bitmap> b, haxe.root.Array<java.lang.Object> p_height1, haxe.root.Array<java.lang.Object> chn_fmt)
 	{
 		super(1, 0);
-		this.steps = steps;
-		this._g = _g;
 		this.p_texture1 = p_texture1;
 		this.p_width1 = p_width1;
-		this.p_on_complete1 = p_on_complete1;
-		this.chn_fmt = chn_fmt;
-		this.p_x1 = p_x1;
-		this.b = b;
 		this.chn_type = chn_type;
-		this.p_height1 = p_height1;
+		this.p_x1 = p_x1;
 		this.py = py;
+		this.steps = steps;
+		this._g = _g;
+		this.p_on_complete1 = p_on_complete1;
+		this.b = b;
+		this.p_height1 = p_height1;
+		this.chn_fmt = chn_fmt;
 	}
 	
 	
@@ -36,7 +36,7 @@ public  class TextureContext_UploadTexture_281__Fun extends haxe.lang.Function
 		
 		if (( this.p_texture1.__get(0) == this._g.__get(0).bind )) 
 		{
-			java.lang.Object __temp_expr81321 = null;
+			java.lang.Object __temp_expr152079 = null;
 		}
 		 else 
 		{
@@ -45,19 +45,19 @@ public  class TextureContext_UploadTexture_281__Fun extends haxe.lang.Function
 			int target = 0;
 			{
 				haxor.graphics.texture.Texture p_texture2 = this._g.__get(0).bind;
-				if (( p_texture2.get_type() == haxor.graphics.TextureType.Texture2D )) 
+				if (( p_texture2.get_type() == haxor.core.TextureType.Texture2D )) 
 				{
 					target = 3553;
 				}
 				 else 
 				{
-					if (( p_texture2.get_type() == haxor.graphics.TextureType.RenderTexture )) 
+					if (( p_texture2.get_type() == haxor.core.TextureType.RenderTexture )) 
 					{
 						target = 3553;
 					}
 					 else 
 					{
-						if (( p_texture2.get_type() == haxor.graphics.TextureType.TextureCube )) 
+						if (( p_texture2.get_type() == haxor.core.TextureType.TextureCube )) 
 						{
 							target = 34067;
 						}
@@ -83,11 +83,11 @@ public  class TextureContext_UploadTexture_281__Fun extends haxe.lang.Function
 				if (( ((int) (haxe.lang.Runtime.toInt(this.py.__get(0))) ) < 0 )) 
 				{
 					{
-						int __temp_arrIndex80867 = 0;
-						int __temp_arrVal80865 = ((int) (haxe.lang.Runtime.toInt(this.py.__get(__temp_arrIndex80867))) );
-						int __temp_arrRet80866 = __temp_arrVal80865++;
-						this.py.__set(__temp_arrIndex80867, __temp_arrVal80865);
-						int __temp_expr81322 = __temp_arrRet80866;
+						int __temp_arrIndex151620 = 0;
+						int __temp_arrVal151618 = ((int) (haxe.lang.Runtime.toInt(this.py.__get(__temp_arrIndex151620))) );
+						int __temp_arrRet151619 = __temp_arrVal151618++;
+						this.py.__set(__temp_arrIndex151620, __temp_arrVal151618);
+						int __temp_expr152080 = __temp_arrRet151619;
 					}
 					
 					continue;
@@ -113,11 +113,11 @@ public  class TextureContext_UploadTexture_281__Fun extends haxe.lang.Function
 				
 				this.b.__get(0).get_buffer().ResetSlice();
 				{
-					int __temp_arrIndex80870 = 0;
-					int __temp_arrVal80868 = ((int) (haxe.lang.Runtime.toInt(this.py.__get(__temp_arrIndex80870))) );
-					int __temp_arrRet80869 = __temp_arrVal80868++;
-					this.py.__set(__temp_arrIndex80870, __temp_arrVal80868);
-					int __temp_expr81323 = __temp_arrRet80869;
+					int __temp_arrIndex151623 = 0;
+					int __temp_arrVal151621 = ((int) (haxe.lang.Runtime.toInt(this.py.__get(__temp_arrIndex151623))) );
+					int __temp_arrRet151622 = __temp_arrVal151621++;
+					this.py.__set(__temp_arrIndex151623, __temp_arrVal151621);
+					int __temp_expr152081 = __temp_arrRet151622;
 				}
 				
 			}
@@ -128,27 +128,27 @@ public  class TextureContext_UploadTexture_281__Fun extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<java.lang.Object> steps;
-	
-	public  haxe.root.Array<haxor.context.TextureContext> _g;
-	
 	public  haxe.root.Array<haxor.graphics.texture.Texture2D> p_texture1;
 	
 	public  haxe.root.Array<java.lang.Object> p_width1;
 	
-	public  haxe.root.Array<haxe.lang.Function> p_on_complete1;
-	
-	public  haxe.root.Array<java.lang.Object> chn_fmt;
+	public  haxe.root.Array<java.lang.Object> chn_type;
 	
 	public  haxe.root.Array<java.lang.Object> p_x1;
 	
-	public  haxe.root.Array<haxor.graphics.texture.Bitmap> b;
+	public  haxe.root.Array<java.lang.Object> py;
 	
-	public  haxe.root.Array<java.lang.Object> chn_type;
+	public  haxe.root.Array<java.lang.Object> steps;
+	
+	public  haxe.root.Array<haxor.context.TextureContext> _g;
+	
+	public  haxe.root.Array<haxe.lang.Function> p_on_complete1;
+	
+	public  haxe.root.Array<haxor.graphics.texture.Bitmap> b;
 	
 	public  haxe.root.Array<java.lang.Object> p_height1;
 	
-	public  haxe.root.Array<java.lang.Object> py;
+	public  haxe.root.Array<java.lang.Object> chn_fmt;
 	
 }
 

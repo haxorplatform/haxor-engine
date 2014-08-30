@@ -18,7 +18,7 @@ public  class Date extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__Date(haxe.root.Date __temp_me80523, int year, int month, int day, int hour, int min, int sec)
+	public static   void __hx_ctor__Date(haxe.root.Date __temp_me151265, int year, int month, int day, int hour, int min, int sec)
 	{
 		if (( year != 0 )) 
 		{
@@ -29,7 +29,7 @@ public  class Date extends haxe.lang.HxObject
 			year = 0;
 		}
 		
-		__temp_me80523.date = new java.util.Date(((int) (year) ), ((int) (month) ), ((int) (day) ), ((int) (hour) ), ((int) (min) ), ((int) (sec) ));
+		__temp_me151265.date = new java.util.Date(((int) (year) ), ((int) (month) ), ((int) (day) ), ((int) (hour) ), ((int) (min) ), ((int) (sec) ));
 	}
 	
 	
@@ -164,14 +164,14 @@ public  class Date extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef80886 = true;
+			boolean __temp_executeDef151639 = true;
 			switch (field.hashCode())
 			{
 				case 3076014:
 				{
 					if (field.equals("date")) 
 					{
-						__temp_executeDef80886 = false;
+						__temp_executeDef151639 = false;
 						this.date = ((java.util.Date) (value) );
 						return value;
 					}
@@ -182,7 +182,7 @@ public  class Date extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef80886) 
+			if (__temp_executeDef151639) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -199,14 +199,14 @@ public  class Date extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef80887 = true;
+			boolean __temp_executeDef151640 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("toString"))) );
 					}
 					
@@ -218,7 +218,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("date")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return this.date;
 					}
 					
@@ -230,7 +230,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getDay")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getDay"))) );
 					}
 					
@@ -242,7 +242,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getTime")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getTime"))) );
 					}
 					
@@ -254,7 +254,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getDate")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getDate"))) );
 					}
 					
@@ -266,7 +266,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getHours")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getHours"))) );
 					}
 					
@@ -278,7 +278,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getMonth")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getMonth"))) );
 					}
 					
@@ -290,7 +290,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getMinutes")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getMinutes"))) );
 					}
 					
@@ -302,7 +302,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getFullYear")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getFullYear"))) );
 					}
 					
@@ -314,7 +314,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getSeconds")) 
 					{
-						__temp_executeDef80887 = false;
+						__temp_executeDef151640 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getSeconds"))) );
 					}
 					
@@ -324,7 +324,7 @@ public  class Date extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef80887) 
+			if (__temp_executeDef151640) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -341,14 +341,14 @@ public  class Date extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef80888 = true;
+			boolean __temp_executeDef151641 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef80888 = false;
+						__temp_executeDef151641 = false;
 						return this.toString();
 					}
 					
@@ -360,7 +360,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getTime")) 
 					{
-						__temp_executeDef80888 = false;
+						__temp_executeDef151641 = false;
 						return this.getTime();
 					}
 					
@@ -372,7 +372,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getDay")) 
 					{
-						__temp_executeDef80888 = false;
+						__temp_executeDef151641 = false;
 						return this.getDay();
 					}
 					
@@ -384,7 +384,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getHours")) 
 					{
-						__temp_executeDef80888 = false;
+						__temp_executeDef151641 = false;
 						return this.getHours();
 					}
 					
@@ -396,7 +396,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getDate")) 
 					{
-						__temp_executeDef80888 = false;
+						__temp_executeDef151641 = false;
 						return this.getDate();
 					}
 					
@@ -408,7 +408,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getMinutes")) 
 					{
-						__temp_executeDef80888 = false;
+						__temp_executeDef151641 = false;
 						return this.getMinutes();
 					}
 					
@@ -420,7 +420,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getMonth")) 
 					{
-						__temp_executeDef80888 = false;
+						__temp_executeDef151641 = false;
 						return this.getMonth();
 					}
 					
@@ -432,7 +432,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getSeconds")) 
 					{
-						__temp_executeDef80888 = false;
+						__temp_executeDef151641 = false;
 						return this.getSeconds();
 					}
 					
@@ -444,7 +444,7 @@ public  class Date extends haxe.lang.HxObject
 				{
 					if (field.equals("getFullYear")) 
 					{
-						__temp_executeDef80888 = false;
+						__temp_executeDef151641 = false;
 						return this.getFullYear();
 					}
 					
@@ -454,7 +454,7 @@ public  class Date extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef80888) 
+			if (__temp_executeDef151641) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

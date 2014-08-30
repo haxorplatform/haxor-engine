@@ -7,7 +7,12 @@
 
 #include <haxor/input/InputHandler.h>
 HX_DECLARE_CLASS2(haxor,input,InputHandler)
+HX_DECLARE_CLASS2(haxor,input,Joystick)
 HX_DECLARE_CLASS4(haxor,platform,windows,input,WinInputHandler)
+
+#include <Windows.h>
+#include <Xinput.h>
+
 namespace haxor{
 namespace platform{
 namespace windows{
@@ -22,7 +27,7 @@ class HXCPP_CLASS_ATTRIBUTES  WinInputHandler_obj : public ::haxor::input::Input
 		Void __construct();
 
 	public:
-		inline void *operator new( size_t inSize, bool inContainer=false)
+		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
 		static hx::ObjectPtr< WinInputHandler_obj > __new();
 		static Dynamic __CreateEmpty();
@@ -34,7 +39,19 @@ class HXCPP_CLASS_ATTRIBUTES  WinInputHandler_obj : public ::haxor::input::Input
 		static void __register();
 		::String __ToString() const { return HX_CSTRING("WinInputHandler"); }
 
+		int m_max_joystick;
 		virtual Void UpdateInput( );
+
+		virtual Void UpdateJoysticks( );
+		Dynamic UpdateJoysticks_dyn();
+
+		virtual Void RequestJoystickVibration( ::haxor::input::Joystick p_joystick);
+
+		virtual Void CheckJoysticks( );
+		Dynamic CheckJoysticks_dyn();
+
+
+#undef RegisterClass
 
 };
 

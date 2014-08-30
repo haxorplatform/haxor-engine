@@ -18,13 +18,13 @@ public  class JsonPrinter extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_format_JsonPrinter(haxe.format.JsonPrinter __temp_me80557, haxe.lang.Function replacer, java.lang.String space)
+	public static   void __hx_ctor_haxe_format_JsonPrinter(haxe.format.JsonPrinter __temp_me151299, haxe.lang.Function replacer, java.lang.String space)
 	{
-		__temp_me80557.replacer = replacer;
-		__temp_me80557.indent = space;
-		__temp_me80557.pretty = ( space != null );
-		__temp_me80557.nind = 0;
-		__temp_me80557.buf = new haxe.root.StringBuf();
+		__temp_me151299.replacer = replacer;
+		__temp_me151299.indent = space;
+		__temp_me151299.pretty = ( space != null );
+		__temp_me151299.nind = 0;
+		__temp_me151299.buf = new haxe.root.StringBuf();
 	}
 	
 	
@@ -206,10 +206,10 @@ public  class JsonPrinter extends haxe.lang.HxObject
 								haxe.ds.StringMap v6 = ((haxe.ds.StringMap) (v) );
 								java.lang.Object o = new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
 								{
-									java.lang.Object __temp_iterator80863 = v6.keys();
-									while (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(__temp_iterator80863, "hasNext", null)))
+									java.lang.Object __temp_iterator151616 = v6.keys();
+									while (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(__temp_iterator151616, "hasNext", null)))
 									{
-										java.lang.String k1 = haxe.lang.Runtime.toString(haxe.lang.Runtime.callField(__temp_iterator80863, "next", null));
+										java.lang.String k1 = haxe.lang.Runtime.toString(haxe.lang.Runtime.callField(__temp_iterator151616, "next", null));
 										haxe.root.Reflect.setField(o, k1, v6.get(k1));
 									}
 									
@@ -441,14 +441,14 @@ public  class JsonPrinter extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81105 = true;
+			boolean __temp_executeDef151859 = true;
 			switch (field.hashCode())
 			{
 				case 3381425:
 				{
 					if (field.equals("nind")) 
 					{
-						__temp_executeDef81105 = false;
+						__temp_executeDef151859 = false;
 						this.nind = ((int) (value) );
 						return value;
 					}
@@ -459,7 +459,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81105) 
+			if (__temp_executeDef151859) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -476,14 +476,14 @@ public  class JsonPrinter extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81106 = true;
+			boolean __temp_executeDef151860 = true;
 			switch (field.hashCode())
 			{
 				case 3381425:
 				{
 					if (field.equals("nind")) 
 					{
-						__temp_executeDef81106 = false;
+						__temp_executeDef151860 = false;
 						this.nind = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -496,7 +496,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("buf")) 
 					{
-						__temp_executeDef81106 = false;
+						__temp_executeDef151860 = false;
 						this.buf = ((haxe.root.StringBuf) (value) );
 						return value;
 					}
@@ -509,7 +509,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("pretty")) 
 					{
-						__temp_executeDef81106 = false;
+						__temp_executeDef151860 = false;
 						this.pretty = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -522,7 +522,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("replacer")) 
 					{
-						__temp_executeDef81106 = false;
+						__temp_executeDef151860 = false;
 						this.replacer = ((haxe.lang.Function) (value) );
 						return value;
 					}
@@ -535,7 +535,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("indent")) 
 					{
-						__temp_executeDef81106 = false;
+						__temp_executeDef151860 = false;
 						this.indent = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -546,7 +546,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81106) 
+			if (__temp_executeDef151860) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -563,14 +563,14 @@ public  class JsonPrinter extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81107 = true;
+			boolean __temp_executeDef151861 = true;
 			switch (field.hashCode())
 			{
 				case 107953788:
 				{
 					if (field.equals("quote")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("quote"))) );
 					}
 					
@@ -582,7 +582,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("buf")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return this.buf;
 					}
 					
@@ -594,7 +594,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("fieldsString")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("fieldsString"))) );
 					}
 					
@@ -606,7 +606,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("replacer")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return this.replacer;
 					}
 					
@@ -618,7 +618,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("objString")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("objString"))) );
 					}
 					
@@ -630,7 +630,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("indent")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return this.indent;
 					}
 					
@@ -642,7 +642,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("write")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("write"))) );
 					}
 					
@@ -654,7 +654,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("pretty")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return this.pretty;
 					}
 					
@@ -666,7 +666,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("newl")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("newl"))) );
 					}
 					
@@ -678,7 +678,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("nind")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return this.nind;
 					}
 					
@@ -690,7 +690,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("ipad")) 
 					{
-						__temp_executeDef81107 = false;
+						__temp_executeDef151861 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ipad"))) );
 					}
 					
@@ -700,7 +700,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81107) 
+			if (__temp_executeDef151861) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -717,14 +717,14 @@ public  class JsonPrinter extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81108 = true;
+			boolean __temp_executeDef151862 = true;
 			switch (field.hashCode())
 			{
 				case 3381425:
 				{
 					if (field.equals("nind")) 
 					{
-						__temp_executeDef81108 = false;
+						__temp_executeDef151862 = false;
 						return ((double) (this.nind) );
 					}
 					
@@ -734,7 +734,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81108) 
+			if (__temp_executeDef151862) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -751,14 +751,14 @@ public  class JsonPrinter extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef81109 = true;
+			boolean __temp_executeDef151863 = true;
 			switch (field.hashCode())
 			{
 				case 107953788:
 				{
 					if (field.equals("quote")) 
 					{
-						__temp_executeDef81109 = false;
+						__temp_executeDef151863 = false;
 						this.quote(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -770,7 +770,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("ipad")) 
 					{
-						__temp_executeDef81109 = false;
+						__temp_executeDef151863 = false;
 						this.ipad();
 					}
 					
@@ -782,7 +782,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("fieldsString")) 
 					{
-						__temp_executeDef81109 = false;
+						__temp_executeDef151863 = false;
 						this.fieldsString(dynargs.__get(0), ((haxe.root.Array<java.lang.String>) (dynargs.__get(1)) ));
 					}
 					
@@ -794,7 +794,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("newl")) 
 					{
-						__temp_executeDef81109 = false;
+						__temp_executeDef151863 = false;
 						this.newl();
 					}
 					
@@ -806,7 +806,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("objString")) 
 					{
-						__temp_executeDef81109 = false;
+						__temp_executeDef151863 = false;
 						this.objString(dynargs.__get(0));
 					}
 					
@@ -818,7 +818,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				{
 					if (field.equals("write")) 
 					{
-						__temp_executeDef81109 = false;
+						__temp_executeDef151863 = false;
 						this.write(dynargs.__get(0), dynargs.__get(1));
 					}
 					
@@ -828,7 +828,7 @@ public  class JsonPrinter extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81109) 
+			if (__temp_executeDef151863) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

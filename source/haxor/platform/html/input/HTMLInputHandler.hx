@@ -43,11 +43,6 @@ class HTMLInputHandler extends InputHandler
 	private var m_target : Element;
 	
 	/**
-	 * List of touches.
-	 */
-	private var m_touches : TouchList;
-	
-	/**
 	 * Browser navigator instance.
 	 */
 	private var m_navigator : Navigator;
@@ -58,11 +53,10 @@ class HTMLInputHandler extends InputHandler
 	private var m_events : Array<UIEvent>;
 	
 	/**
-	 * Flag that indicates if there is any active touches.
+	 * Flag that indicates if joysticks are detectables
 	 */
-	private var m_has_touches : Bool;
+	private var m_check_joystick : Bool;
 	
-
 	/**
 	 * Initializes this input handler with the target DOM element.
 	 * @param	p_target
@@ -78,13 +72,12 @@ class HTMLInputHandler extends InputHandler
 		}
 		
 		m_events = [];
-		
-		m_has_touches = false;
 				
 		//Events that must be handled in the target.		 
 		m_target.onmousedown  			= OnInputEvent;
 		m_target.onmouseover  			= OnInputEvent;
 		m_target.onmousewheel 			= OnInputEvent;
+		m_target.oncontextmenu			= OnInputEvent;
 		
 		//Events that must be handled globally.
 		Browser.document.onmousemove  	= OnInputEvent;
@@ -98,8 +91,6 @@ class HTMLInputHandler extends InputHandler
 		//Check multitouch by inducing error on checking for existence of 'TouchEvent'
 		try	{ Input.m_multitouch = (js.html.TouchEvent != null); } catch (ex:Dynamic) {	Input.m_multitouch = false;	}
 		
-		m_touches = null;
-		
 		if (Input.multitouch)
 		{
 			m_target.ontouchstart   		= OnTouchEvent;
@@ -108,18 +99,21 @@ class HTMLInputHandler extends InputHandler
 			Browser.document.ontouchend  	= OnTouchEvent;
 		}
 		
+		
 		var t 	: Dynamic 	= m_target;		
 		var nav : Dynamic 	= m_navigator;
-		Joystick.available = !!nav.getGamepads || (nav.userAgent.indexOf('Firefox/') != -1);
+		m_check_joystick = !!nav.getGamepads || (nav.userAgent.indexOf('Firefox/') != -1);
 		
 		super();
 	}
 	
+	/**
+	 * Update the input data from events and joystick.
+	 */
 	override function UpdateInput():Void 
-	{
-		if(m_has_touches) UpdateTouch();		
+	{		
+		if (m_events.length > 0) while (m_events.length > 0) ProcessInputEvent(m_events.shift());			
 		UpdateJoystick();		
-		if (m_events.length > 0) while (m_events.length > 0) ProcessInput(m_events.shift());		
 	}
 	
 	/**
@@ -133,84 +127,20 @@ class HTMLInputHandler extends InputHandler
 		var is_mousewheel : Bool = (p_event.type == "mousewheel") ||(p_event.type == "wheel");
 		var prevent : Bool = (is_mousedown || is_mousewheel) && (Std.is(m_target, CanvasElement));
 		if (Input.scroll) prevent = false;
+		if (p_event.type == "contextmenu") if (!Input.menu) prevent = true;		
 		if (prevent) if (Input.relativeMouse.x >= 0) if (Input.relativeMouse.x <= 1) if (Input.relativeMouse.y >= 0) if (Input.relativeMouse.y <= 1) p_event.preventDefault();
-	}
-	
-	/**
-	 * Updates joystick state.
-	 */
-	private function UpdateJoystick():Void
-	{
-		if (!Joystick.available) return;
-		var nav : Dynamic 		= m_navigator;
-		var l 	: GamepadList 	= null;
-		
-		//Fetches the list of gamepads.
-		if (nav.webkitGetGamepads != null)  l = nav.webkitGetGamepads(); else
-		if (nav.webkitGamepads != null) 	l = nav.webkitGamepads();
-		
-		//Returns if none.
-		if (l == null) 		return;		
-		if (l.length <= 0) 	return;
-		
-		Input.m_joysticks  = [];
-		
-		//Checks the API joystick list.
-		for (i in 0...l.length)
-		{
-			var gp : Gamepad  = l.item(i);
-			
-			if (gp == null) continue;
-						
-			var id	: Int 	  = gp.index;			//Joystick Id.
-			var js 	: Joystick = Input.m_api_joystick[id]; //
-			
-			js.id   = gp.index;
-			js.name = gp.id;
-			for (i in 0...gp.buttons.length)
-			{
-				js.button[i] 	= gp.buttons[i];
-				js.state[i] 	= Input.InputStateFSM(js.state[i], js.button[i] >= Joystick.buttonBias);
-				if (js.state[i] == InputState.Hold) js.hold[i] += Time.delta;
-				if (js.state[i] == InputState.None) js.hold[i]  = 0.0;
-			}
-			
-			for (i in 0...gp.axes.length)
-			{
-				js.analog[i] = gp.axes[i];
-			}
-			
-			var b0 : Float = Joystick.analogBias[0];
-			var b1 : Float = Joystick.analogBias[1];
-			var s  : Float = 1.0;
-			var v  : Vector3;
-			
-			v = js.analogLeft;
-			v.x = gp.axes[KeyCode.LeftAnalogueHor];  s = v.x < 0.0 ? -1.0 : 1.0; v.x = Mathf.Clamp01((Mathf.Abs(v.x) - b0) / (b1 - b0));  v.x =  s * Mathf.Floor(v.x * 100.0) * 0.01;
-			v.y = gp.axes[KeyCode.LeftAnalogueVert]; s = v.y < 0.0 ? -1.0 : 1.0; v.y = Mathf.Clamp01((Mathf.Abs(v.y) - b0) / (b1 - b0));  v.y = -s * Mathf.Floor(v.y * 100.0) * 0.01;
-			v.z = gp.buttons[KeyCode.LeftAnalogueStick] >= Joystick.buttonBias ? 1.0 : 0.0;
-			
-			v = js.analogRight;
-			v.x = gp.axes[KeyCode.RightAnalogueHor];  s = v.x < 0.0 ? -1.0 : 1.0; v.x = Mathf.Clamp01((Mathf.Abs(v.x) - b0) / (b1 - b0)); v.x =  s * Mathf.Floor(v.x * 100.0) * 0.01;
-			v.y = gp.axes[KeyCode.RightAnalogueVert]; s = v.y < 0.0 ? -1.0 : 1.0; v.y = Mathf.Clamp01((Mathf.Abs(v.y) - b0) / (b1 - b0)); v.y = -s * Mathf.Floor(v.y * 100.0) * 0.01;
-			v.z = gp.buttons[KeyCode.RightAnalogueStick] >= Joystick.buttonBias ? 1.0 : 0.0;
-			
-			js.triggerLeft  = gp.buttons[KeyCode.LeftShoulderBottom];  js.triggerLeft  = Mathf.Clamp01((js.triggerLeft - b0) / (b1 - b0));
-			js.triggerRight = gp.buttons[KeyCode.RightShoulderBottom]; js.triggerRight = Mathf.Clamp01((js.triggerRight - b0) / (b1 - b0));
-			Input.m_joysticks.push(js);
-		}
-		
 	}
 	
 	/**
 	 * Process an input event.
 	 * @param	p_event
 	 */
-	private function ProcessInput(p_event:UIEvent):Void
+	private function ProcessInputEvent(p_event:UIEvent):Void
 	{
 		var me:MouseEvent 		= cast p_event;
 		var ke:KeyboardEvent	= cast p_event;		
 		var element : Element = cast p_event.target;
+		
 		switch(p_event.type)
 		{
 			case "wheel","mousewheel", "DOMMouseScroll":				
@@ -221,53 +151,15 @@ class HTMLInputHandler extends InputHandler
 				var p : Vector2 = GetAbsolutePosition(m_target, me.pageX, me.pageY);
 				OnMouseMove(p.x, p.y);
 			
-			case "mouseup":		OnMouseButton(me.button,false);				
-			case "mousedown":   OnMouseButton(me.button,true);				
+			case "mouseup":				
+				OnMouseButton(me.button,false);				
+			case "mousedown":   				
+				OnMouseButton(me.button,true);				
 			case "keyup":		OnKey(ke.keyCode, false);
 			case "keydown": 	OnKey(ke.keyCode, false);
-		}
-	}
-	
-	/**
-	 * Updates touch state and data.
-	 */
-	private function UpdateTouch():Void
-	{
-		
-		var l : TouchList = m_touches;
-		
-		Input.ResetTouchDownFlag();
-		
-		if (l != null)
-		for (i in 0...l.length)
-		{
-			var et 		: js.html.Touch 	= l[i];			
-			var exists 	: Bool 				= false;
+			case "contextmenu":
 			
-			var p : Vector2 = GetAbsolutePosition(m_target, et.pageX, et.pageY);
-			
-			for (j in 0...Input.m_touch.length)
-			{
-				var t : Touch = Input.m_touch[j];				
-				if (t.id == et.identifier)
-				{
-					exists 		= true;
-					t.m_down 	= true;
-					UpdateTouchData(t, et, p);
-				}				
-			}
-			if (!exists)
-			{				
-				var nt:Touch = new Touch();
-				UpdateTouchData(nt, et, p);
-				nt.m_down 	 = true;
-				Input.m_touch.push(nt);
-			}
 		}
-		
-		Input.UpdateTouchFSM();
-		
-		if (Input.m_touch.length <= 0) m_has_touches = false;
 	}
 	
 	/**
@@ -277,38 +169,56 @@ class HTMLInputHandler extends InputHandler
 	private function OnTouchEvent(p_event : UIEvent):Void
 	{
 		var te:TouchEvent		= cast p_event;		
-		switch(p_event.type)
+		for (i in 0...te.changedTouches.length)
 		{
-			case "touchstart":	{ 	m_touches = te.touches; m_has_touches = true; }			
-			case "touchmove":   { 	m_touches = te.touches; }
-			case "touchcancel": {  	m_touches = te.touches; }
-			case "touchend":    { 	m_touches = te.touches; }
-		}		
-		if(m_has_touches) if(!Input.scroll) p_event.preventDefault();
+			var t : js.html.Touch = te.changedTouches.item(i);
+			var p : Vector2 = GetAbsolutePosition(m_target, t.pageX, t.pageY);			
+			switch(p_event.type)
+			{
+				case "touchstart": 	OnTouchStart(t.identifier, p.x, p.y, t.radiusX, t.radiusY, t.force, t.rotationAngle);					
+				case "touchmove":  	OnTouchMove(t.identifier, p.x, p.y);
+				case "touchcancel": OnTouchCancel(t.identifier);
+				case "touchend":	OnTouchEnd(t.identifier);
+			}
+		}			
+		if(Input.m_touches.length>0) if(!Input.scroll) p_event.preventDefault();
 	}
 	
 	/**
-	 * Updates Touch data from HTML to Haxor internal structure.
-	 * @param	t
-	 * @param	d
-	 * @param	p
+	 * Updates joystick state.
 	 */
-	private function UpdateTouchData(t : Touch,d : js.html.Touch,p : Vector2) : Void
-	{		
-		if (t.id >= 0)
+	private function UpdateJoystick():Void
+	{
+		if (!m_check_joystick) return;
+		var nav : Dynamic 		= m_navigator;
+		var l 	: GamepadList 	= null;
+		
+		//Fetches the list of gamepads.
+		if (nav.getGamepads != null)  l = nav.getGamepads();
+		
+		
+		
+		//Returns if none.
+		if (l == null) 		return;		
+		if (l.length <= 0) 	return;
+		
+		trace(l.length);
+		
+		//Checks the API joystick list.
+		for (i in 0...l.length)
 		{
-			t.delta.x = p.x - t.position.x;
-			t.delta.y = p.y - t.position.y;
+			var gp : js.html.Gamepad  = l.item(i);			
+			if (gp == null) continue;			
+			OnJoystickStart(gp.index, gp.id);			
+			for (i in 0...gp.buttons.length)
+			{
+				var bt : Dynamic = gp.buttons[i];
+				OnJoystickDataUpdate(i, bt.value,false);				
+			}			
+			for (i in 0...gp.axes.length) OnJoystickDataUpdate(i, gp.axes[i],true);			
+			OnJoystickAnalogUpdate();			
 		}
-		t.id 					= d.identifier;		
-		t.position.x 			= p.x;
-		t.position.y 			= p.y;
-		t.relativePosition.x 	= t.position.x / Screen.width;
-		t.relativePosition.y 	= t.position.y / Screen.height;
-		t.pressure 				= d.force;
-		t.radius.x 				= d.radiusX;
-		t.radius.y 				= d.radiusY;
-		t.angle    				= d.rotationAngle;
+	
 	}
 	
 	/**

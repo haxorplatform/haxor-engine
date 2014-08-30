@@ -17,10 +17,10 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_net_BitmapLoader(haxor.platform.android.net.BitmapLoader __temp_me80833, java.lang.String p_url, haxe.lang.Function p_callback)
+	public static   void __hx_ctor_haxor_platform_android_net_BitmapLoader(haxor.platform.android.net.BitmapLoader __temp_me151585, java.lang.String p_url, haxe.lang.Function p_callback)
 	{
-		haxor.platform.android.net.HTTPLoader.__hx_ctor_haxor_platform_android_net_HTTPLoader(__temp_me80833, p_url, true, ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (__temp_me80833) ), haxe.lang.Runtime.toString("OnBufferCallback"))) ));
-		__temp_me80833.m_bitmap_callback = p_callback;
+		haxor.platform.android.net.HTTPLoader.__hx_ctor_haxor_platform_android_net_HTTPLoader(__temp_me151585, p_url, true, ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (__temp_me151585) ), haxe.lang.Runtime.toString("OnBufferCallback"))) ));
+		__temp_me151585.m_bitmap_callback = p_callback;
 	}
 	
 	
@@ -82,33 +82,33 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 				cc = ((int) (x) );
 			}
 			
-			haxor.graphics.PixelFormat fmt = haxor.graphics.PixelFormat.RGBA8;
+			haxor.core.PixelFormat fmt = haxor.core.PixelFormat.RGBA8;
 			switch (cc)
 			{
 				case 1:
 				{
-					fmt = haxor.graphics.PixelFormat.Alpha8;
+					fmt = haxor.core.PixelFormat.Alpha8;
 					break;
 				}
 				
 				
 				case 3:
 				{
-					fmt = haxor.graphics.PixelFormat.RGB8;
+					fmt = haxor.core.PixelFormat.RGB8;
 					break;
 				}
 				
 				
 				case 4:
 				{
-					fmt = haxor.graphics.PixelFormat.RGBA8;
+					fmt = haxor.core.PixelFormat.RGBA8;
 					break;
 				}
 				
 				
 			}
 			
-			haxor.graphics.texture.Bitmap b = new haxor.graphics.texture.Bitmap(((int) (w) ), ((int) (h) ), ((haxor.graphics.PixelFormat) (fmt) ));
+			haxor.graphics.texture.Bitmap b = new haxor.graphics.texture.Bitmap(((int) (w) ), ((int) (h) ), ((haxor.core.PixelFormat) (fmt) ));
 			haxor.math.Color c = null;
 			{
 				haxor.context.DataContext _this = haxor.context.EngineContext.data;
@@ -157,14 +157,14 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81704 = true;
+			boolean __temp_executeDef152475 = true;
 			switch (field.hashCode())
 			{
 				case -1218961021:
 				{
 					if (field.equals("m_bitmap_callback")) 
 					{
-						__temp_executeDef81704 = false;
+						__temp_executeDef152475 = false;
 						this.m_bitmap_callback = ((haxe.lang.Function) (value) );
 						return value;
 					}
@@ -175,7 +175,7 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 				
 			}
 			
-			if (__temp_executeDef81704) 
+			if (__temp_executeDef152475) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -192,14 +192,14 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81705 = true;
+			boolean __temp_executeDef152476 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef81705 = false;
+						__temp_executeDef152476 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnError"))) );
 					}
 					
@@ -211,7 +211,7 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 				{
 					if (field.equals("m_bitmap_callback")) 
 					{
-						__temp_executeDef81705 = false;
+						__temp_executeDef152476 = false;
 						return this.m_bitmap_callback;
 					}
 					
@@ -223,7 +223,7 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 				{
 					if (field.equals("OnBufferCallback")) 
 					{
-						__temp_executeDef81705 = false;
+						__temp_executeDef152476 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBufferCallback"))) );
 					}
 					
@@ -233,7 +233,7 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 				
 			}
 			
-			if (__temp_executeDef81705) 
+			if (__temp_executeDef152476) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -250,14 +250,14 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef81706 = true;
+			boolean __temp_executeDef152477 = true;
 			switch (field.hashCode())
 			{
 				case 314785609:
 				{
 					if (field.equals("OnError")) 
 					{
-						__temp_executeDef81706 = false;
+						__temp_executeDef152477 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -269,7 +269,7 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 				{
 					if (field.equals("OnBufferCallback")) 
 					{
-						__temp_executeDef81706 = false;
+						__temp_executeDef152477 = false;
 						this.OnBufferCallback(((haxor.io.Buffer) (dynargs.__get(0)) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -279,7 +279,7 @@ public  class BitmapLoader extends haxor.platform.android.net.HTTPLoader<haxor.i
 				
 			}
 			
-			if (__temp_executeDef81706) 
+			if (__temp_executeDef152477) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

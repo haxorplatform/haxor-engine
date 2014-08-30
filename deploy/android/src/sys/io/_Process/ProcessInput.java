@@ -17,9 +17,9 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 	}
 	
 	
-	public static   void __hx_ctor_sys_io__Process_ProcessInput(sys.io._Process.ProcessInput __temp_me80849, java.io.InputStream stream)
+	public static   void __hx_ctor_sys_io__Process_ProcessInput(sys.io._Process.ProcessInput __temp_me151602, java.io.InputStream stream)
 	{
-		haxe.java.io.NativeInput.__hx_ctor_haxe_java_io_NativeInput(__temp_me80849, stream);
+		haxe.java.io.NativeInput.__hx_ctor_haxe_java_io_NativeInput(__temp_me151602, stream);
 	}
 	
 	
@@ -131,14 +131,14 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81747 = true;
+			boolean __temp_executeDef152523 = true;
 			switch (field.hashCode())
 			{
 				case 738801440:
 				{
 					if (field.equals("chained")) 
 					{
-						__temp_executeDef81747 = false;
+						__temp_executeDef152523 = false;
 						this.chained = ((haxe.io.BytesInput) (value) );
 						return value;
 					}
@@ -149,7 +149,7 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 				
 			}
 			
-			if (__temp_executeDef81747) 
+			if (__temp_executeDef152523) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -166,14 +166,14 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81748 = true;
+			boolean __temp_executeDef152524 = true;
 			switch (field.hashCode())
 			{
 				case 94756344:
 				{
 					if (field.equals("close")) 
 					{
-						__temp_executeDef81748 = false;
+						__temp_executeDef152524 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("close"))) );
 					}
 					
@@ -185,7 +185,7 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 				{
 					if (field.equals("chained")) 
 					{
-						__temp_executeDef81748 = false;
+						__temp_executeDef152524 = false;
 						return this.chained;
 					}
 					
@@ -197,7 +197,7 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 				{
 					if (field.equals("readBytes")) 
 					{
-						__temp_executeDef81748 = false;
+						__temp_executeDef152524 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readBytes"))) );
 					}
 					
@@ -209,7 +209,7 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 				{
 					if (field.equals("bufferContents")) 
 					{
-						__temp_executeDef81748 = false;
+						__temp_executeDef152524 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("bufferContents"))) );
 					}
 					
@@ -221,7 +221,7 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 				{
 					if (field.equals("readByte")) 
 					{
-						__temp_executeDef81748 = false;
+						__temp_executeDef152524 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readByte"))) );
 					}
 					
@@ -231,7 +231,7 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 				
 			}
 			
-			if (__temp_executeDef81748) 
+			if (__temp_executeDef152524) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -248,15 +248,15 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash81750 = field.hashCode();
-			boolean __temp_executeDef81749 = true;
-			switch (__temp_hash81750)
+			int __temp_hash152526 = field.hashCode();
+			boolean __temp_executeDef152525 = true;
+			switch (__temp_hash152526)
 			{
 				case 94756344:case -1140063115:case -868060226:
 				{
-					if (( (( ( __temp_hash81750 == 94756344 ) && field.equals("close") )) || ( (( ( __temp_hash81750 == -1140063115 ) && field.equals("readBytes") )) || field.equals("readByte") ) )) 
+					if (( (( ( __temp_hash152526 == 94756344 ) && field.equals("close") )) || ( (( ( __temp_hash152526 == -1140063115 ) && field.equals("readBytes") )) || field.equals("readByte") ) )) 
 					{
-						__temp_executeDef81749 = false;
+						__temp_executeDef152525 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -268,7 +268,7 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 				{
 					if (field.equals("bufferContents")) 
 					{
-						__temp_executeDef81749 = false;
+						__temp_executeDef152525 = false;
 						this.bufferContents();
 					}
 					
@@ -278,7 +278,7 @@ public  class ProcessInput extends haxe.java.io.NativeInput
 				
 			}
 			
-			if (__temp_executeDef81749) 
+			if (__temp_executeDef152525) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

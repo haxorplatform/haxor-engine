@@ -1,5 +1,5 @@
 (function () { "use strict";
-var $hxClasses = {};
+var $hxClasses = {},$estr = function() { return js.Boot.__string_rec(this,''); };
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -365,6 +365,7 @@ Main.prototype = $extend(haxor.core.Application.prototype,{
 	,Initialize: function() {
 		var _g = this;
 		haxor.core.Console.Log("Initialize!");
+		this.field = window.document.getElementById("field");
 		var ui = new Stats();
 		ui.domElement.style.position = "absolute";
 		ui.domElement.style.top = "0px";
@@ -387,7 +388,7 @@ Main.prototype = $extend(haxor.core.Application.prototype,{
 		this.mat.set_name("T");
 		this.mat.SetTexture("Tex0",haxor.graphics.texture.Texture2D.get_red());
 		this.mat.blend = true;
-		haxor.thread.Activity.Iterate(0,1500,function(i) {
+		haxor.thread.Activity.Iterate(0,200,function(i) {
 			_g.mr = new haxor.core.Entity("cube" + i).AddComponent(haxor.component.MeshRenderer);
 			_g.mr.m_entity.m_transform.set_localScale(new haxor.math.Vector3(0.1,0.1,0.1));
 			_g.mr.m_entity.m_transform.set_parent(_g.container);
@@ -408,14 +409,10 @@ Main.prototype = $extend(haxor.core.Application.prototype,{
 	}
 	,OnUpdate: function() {
 		if(this.orbit != null) this.orbit.angle.x += haxor.core.Time.m_delta * 30.0;
+		var log = "";
 		if(haxor.input.Joystick.available) {
 		}
-		if(haxor.input.Input.Down(haxor.input.KeyCode.Mouse0)) console.log("left");
-		if(haxor.input.Input.Down(haxor.input.KeyCode.Mouse1)) console.log("middle");
-		if(haxor.input.Input.Down(haxor.input.KeyCode.Mouse2)) console.log("right");
-		if(haxor.input.Input.Down(haxor.input.KeyCode.A)) console.log("A");
-		if(haxor.input.Input.Down(haxor.input.KeyCode.ControlKey)) console.log("Left Control");
-		if(haxor.math.Mathf.Abs(haxor.input.Input.wheel) > 0) console.log(haxor.input.Input.wheel);
+		if(this.field != null) this.field.innerText = log;
 	}
 	,OnRender: function() {
 		haxor.graphics.GL.m_gl.Clear(256);
@@ -999,12 +996,15 @@ haxe.io.Eof.prototype = {
 };
 haxe.io.Error = { __ename__ : true, __constructs__ : ["Blocked","Overflow","OutsideBounds","Custom"] };
 haxe.io.Error.Blocked = ["Blocked",0];
+haxe.io.Error.Blocked.toString = $estr;
 haxe.io.Error.Blocked.__enum__ = haxe.io.Error;
 haxe.io.Error.Overflow = ["Overflow",1];
+haxe.io.Error.Overflow.toString = $estr;
 haxe.io.Error.Overflow.__enum__ = haxe.io.Error;
 haxe.io.Error.OutsideBounds = ["OutsideBounds",2];
+haxe.io.Error.OutsideBounds.toString = $estr;
 haxe.io.Error.OutsideBounds.__enum__ = haxe.io.Error;
-haxe.io.Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe.io.Error; return $x; };
+haxe.io.Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe.io.Error; $x.toString = $estr; return $x; };
 haxe.xml = {};
 haxe.xml.Parser = function() { };
 $hxClasses["haxe.xml.Parser"] = haxe.xml.Parser;
@@ -3658,29 +3658,41 @@ haxor.context.UID.prototype = {
 };
 haxor.core.Platform = { __ename__ : true, __constructs__ : ["Unknown","Windows","Linux","Android","MacOS","iOS","HTML","NodeJS"] };
 haxor.core.Platform.Unknown = ["Unknown",0];
+haxor.core.Platform.Unknown.toString = $estr;
 haxor.core.Platform.Unknown.__enum__ = haxor.core.Platform;
 haxor.core.Platform.Windows = ["Windows",1];
+haxor.core.Platform.Windows.toString = $estr;
 haxor.core.Platform.Windows.__enum__ = haxor.core.Platform;
 haxor.core.Platform.Linux = ["Linux",2];
+haxor.core.Platform.Linux.toString = $estr;
 haxor.core.Platform.Linux.__enum__ = haxor.core.Platform;
 haxor.core.Platform.Android = ["Android",3];
+haxor.core.Platform.Android.toString = $estr;
 haxor.core.Platform.Android.__enum__ = haxor.core.Platform;
 haxor.core.Platform.MacOS = ["MacOS",4];
+haxor.core.Platform.MacOS.toString = $estr;
 haxor.core.Platform.MacOS.__enum__ = haxor.core.Platform;
 haxor.core.Platform.iOS = ["iOS",5];
+haxor.core.Platform.iOS.toString = $estr;
 haxor.core.Platform.iOS.__enum__ = haxor.core.Platform;
 haxor.core.Platform.HTML = ["HTML",6];
+haxor.core.Platform.HTML.toString = $estr;
 haxor.core.Platform.HTML.__enum__ = haxor.core.Platform;
 haxor.core.Platform.NodeJS = ["NodeJS",7];
+haxor.core.Platform.NodeJS.toString = $estr;
 haxor.core.Platform.NodeJS.__enum__ = haxor.core.Platform;
 haxor.core.ApplicationProtocol = { __ename__ : true, __constructs__ : ["None","File","HTTP","HTTPS"] };
 haxor.core.ApplicationProtocol.None = ["None",0];
+haxor.core.ApplicationProtocol.None.toString = $estr;
 haxor.core.ApplicationProtocol.None.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.ApplicationProtocol.File = ["File",1];
+haxor.core.ApplicationProtocol.File.toString = $estr;
 haxor.core.ApplicationProtocol.File.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.ApplicationProtocol.HTTP = ["HTTP",2];
+haxor.core.ApplicationProtocol.HTTP.toString = $estr;
 haxor.core.ApplicationProtocol.HTTP.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.ApplicationProtocol.HTTPS = ["HTTPS",3];
+haxor.core.ApplicationProtocol.HTTPS.toString = $estr;
 haxor.core.ApplicationProtocol.HTTPS.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.Console = function() { };
 $hxClasses["haxor.core.Console"] = haxor.core.Console;
@@ -3769,8 +3781,10 @@ haxor.core.Console.SetStyle = function(p_size,p_color,p_background,p_font) {
 };
 haxor.core.EngineState = { __ename__ : true, __constructs__ : ["Play","Editor"] };
 haxor.core.EngineState.Play = ["Play",0];
+haxor.core.EngineState.Play.toString = $estr;
 haxor.core.EngineState.Play.__enum__ = haxor.core.EngineState;
 haxor.core.EngineState.Editor = ["Editor",1];
+haxor.core.EngineState.Editor.toString = $estr;
 haxor.core.EngineState.Editor.__enum__ = haxor.core.EngineState;
 haxor.core.Engine = function() { };
 $hxClasses["haxor.core.Engine"] = haxor.core.Engine;
@@ -4029,65 +4043,91 @@ $hxClasses["haxor.core.DepthTest"] = haxor.core.DepthTest;
 haxor.core.DepthTest.__name__ = ["haxor","core","DepthTest"];
 haxor.core.PixelFormat = { __ename__ : true, __constructs__ : ["Alpha8","Luminance","RGB8","RGBA8","Half","Half3","Half4","Float","Float3","Float4","Depth"] };
 haxor.core.PixelFormat.Alpha8 = ["Alpha8",0];
+haxor.core.PixelFormat.Alpha8.toString = $estr;
 haxor.core.PixelFormat.Alpha8.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Luminance = ["Luminance",1];
+haxor.core.PixelFormat.Luminance.toString = $estr;
 haxor.core.PixelFormat.Luminance.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.RGB8 = ["RGB8",2];
+haxor.core.PixelFormat.RGB8.toString = $estr;
 haxor.core.PixelFormat.RGB8.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.RGBA8 = ["RGBA8",3];
+haxor.core.PixelFormat.RGBA8.toString = $estr;
 haxor.core.PixelFormat.RGBA8.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Half = ["Half",4];
+haxor.core.PixelFormat.Half.toString = $estr;
 haxor.core.PixelFormat.Half.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Half3 = ["Half3",5];
+haxor.core.PixelFormat.Half3.toString = $estr;
 haxor.core.PixelFormat.Half3.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Half4 = ["Half4",6];
+haxor.core.PixelFormat.Half4.toString = $estr;
 haxor.core.PixelFormat.Half4.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Float = ["Float",7];
+haxor.core.PixelFormat.Float.toString = $estr;
 haxor.core.PixelFormat.Float.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Float3 = ["Float3",8];
+haxor.core.PixelFormat.Float3.toString = $estr;
 haxor.core.PixelFormat.Float3.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Float4 = ["Float4",9];
+haxor.core.PixelFormat.Float4.toString = $estr;
 haxor.core.PixelFormat.Float4.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Depth = ["Depth",10];
+haxor.core.PixelFormat.Depth.toString = $estr;
 haxor.core.PixelFormat.Depth.__enum__ = haxor.core.PixelFormat;
 haxor.core.TextureFilter = { __ename__ : true, __constructs__ : ["Nearest","Linear","NearestMipmapNearest","NearestMipmapLinear","LinearMipmapNearest","LinearMipmapLinear","Trilinear"] };
 haxor.core.TextureFilter.Nearest = ["Nearest",0];
+haxor.core.TextureFilter.Nearest.toString = $estr;
 haxor.core.TextureFilter.Nearest.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.Linear = ["Linear",1];
+haxor.core.TextureFilter.Linear.toString = $estr;
 haxor.core.TextureFilter.Linear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.NearestMipmapNearest = ["NearestMipmapNearest",2];
+haxor.core.TextureFilter.NearestMipmapNearest.toString = $estr;
 haxor.core.TextureFilter.NearestMipmapNearest.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.NearestMipmapLinear = ["NearestMipmapLinear",3];
+haxor.core.TextureFilter.NearestMipmapLinear.toString = $estr;
 haxor.core.TextureFilter.NearestMipmapLinear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.LinearMipmapNearest = ["LinearMipmapNearest",4];
+haxor.core.TextureFilter.LinearMipmapNearest.toString = $estr;
 haxor.core.TextureFilter.LinearMipmapNearest.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.LinearMipmapLinear = ["LinearMipmapLinear",5];
+haxor.core.TextureFilter.LinearMipmapLinear.toString = $estr;
 haxor.core.TextureFilter.LinearMipmapLinear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.Trilinear = ["Trilinear",6];
+haxor.core.TextureFilter.Trilinear.toString = $estr;
 haxor.core.TextureFilter.Trilinear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureWrap = function() { };
 $hxClasses["haxor.core.TextureWrap"] = haxor.core.TextureWrap;
 haxor.core.TextureWrap.__name__ = ["haxor","core","TextureWrap"];
 haxor.core.TextureType = { __ename__ : true, __constructs__ : ["None","Texture2D","TextureCube","RenderTexture"] };
 haxor.core.TextureType.None = ["None",0];
+haxor.core.TextureType.None.toString = $estr;
 haxor.core.TextureType.None.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.Texture2D = ["Texture2D",1];
+haxor.core.TextureType.Texture2D.toString = $estr;
 haxor.core.TextureType.Texture2D.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.TextureCube = ["TextureCube",2];
+haxor.core.TextureType.TextureCube.toString = $estr;
 haxor.core.TextureType.TextureCube.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.RenderTexture = ["RenderTexture",3];
+haxor.core.TextureType.RenderTexture.toString = $estr;
 haxor.core.TextureType.RenderTexture.__enum__ = haxor.core.TextureType;
 haxor.core.ClearFlag = function() { };
 $hxClasses["haxor.core.ClearFlag"] = haxor.core.ClearFlag;
 haxor.core.ClearFlag.__name__ = ["haxor","core","ClearFlag"];
 haxor.core.InputState = { __ename__ : true, __constructs__ : ["None","Down","Up","Hold"] };
 haxor.core.InputState.None = ["None",0];
+haxor.core.InputState.None.toString = $estr;
 haxor.core.InputState.None.__enum__ = haxor.core.InputState;
 haxor.core.InputState.Down = ["Down",1];
+haxor.core.InputState.Down.toString = $estr;
 haxor.core.InputState.Down.__enum__ = haxor.core.InputState;
 haxor.core.InputState.Up = ["Up",2];
+haxor.core.InputState.Up.toString = $estr;
 haxor.core.InputState.Up.__enum__ = haxor.core.InputState;
 haxor.core.InputState.Hold = ["Hold",3];
+haxor.core.InputState.Hold.toString = $estr;
 haxor.core.InputState.Hold.__enum__ = haxor.core.InputState;
 haxor.core.IResizeable = function() { };
 $hxClasses["haxor.core.IResizeable"] = haxor.core.IResizeable;
@@ -4461,12 +4501,16 @@ haxor.graphics.Gizmo.Axis = function(p_area) {
 };
 haxor.graphics.GraphicAPI = { __ename__ : true, __constructs__ : ["None","OpenGL","OpenGLES","WebGL"] };
 haxor.graphics.GraphicAPI.None = ["None",0];
+haxor.graphics.GraphicAPI.None.toString = $estr;
 haxor.graphics.GraphicAPI.None.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicAPI.OpenGL = ["OpenGL",1];
+haxor.graphics.GraphicAPI.OpenGL.toString = $estr;
 haxor.graphics.GraphicAPI.OpenGL.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicAPI.OpenGLES = ["OpenGLES",2];
+haxor.graphics.GraphicAPI.OpenGLES.toString = $estr;
 haxor.graphics.GraphicAPI.OpenGLES.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicAPI.WebGL = ["WebGL",3];
+haxor.graphics.GraphicAPI.WebGL.toString = $estr;
 haxor.graphics.GraphicAPI.WebGL.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicContext = function(p_application) {
 	this.m_api = haxor.graphics.GraphicAPI.None;
@@ -4965,10 +5009,13 @@ haxor.graphics.Screen.Initialize = function(p_application) {
 };
 haxor.graphics.CursorMode = { __ename__ : true, __constructs__ : ["Show","Hide","Lock"] };
 haxor.graphics.CursorMode.Show = ["Show",0];
+haxor.graphics.CursorMode.Show.toString = $estr;
 haxor.graphics.CursorMode.Show.__enum__ = haxor.graphics.CursorMode;
 haxor.graphics.CursorMode.Hide = ["Hide",1];
+haxor.graphics.CursorMode.Hide.toString = $estr;
 haxor.graphics.CursorMode.Hide.__enum__ = haxor.graphics.CursorMode;
 haxor.graphics.CursorMode.Lock = ["Lock",2];
+haxor.graphics.CursorMode.Lock.toString = $estr;
 haxor.graphics.CursorMode.Lock.__enum__ = haxor.graphics.CursorMode;
 haxor.graphics.material = {};
 haxor.graphics.material.Material = function(p_name) {
@@ -6462,8 +6509,8 @@ haxor.input = {};
 haxor.input.Input = function() { };
 $hxClasses["haxor.input.Input"] = haxor.input.Input;
 haxor.input.Input.__name__ = ["haxor","input","Input"];
-haxor.input.Input.get_touch = function() {
-	return haxor.input.Input.m_touch;
+haxor.input.Input.get_touches = function() {
+	return haxor.input.Input.m_touches;
 };
 haxor.input.Input.get_joystick = function() {
 	return haxor.input.Input.m_joysticks;
@@ -6494,32 +6541,38 @@ haxor.input.Input.Initialize = function() {
 	haxor.input.Input.m_hold = new haxe.ds.IntMap();
 	haxor.input.Input.m_active = new Array();
 	haxor.input.Input.m_down = new Array();
-	haxor.input.Input.m_touch = [];
+	haxor.input.Input.m_touches = [];
+	haxor.input.Input.m_api_touches = [];
 	var _g = 0;
-	while(_g < 256) {
+	while(_g < 10) {
 		var i = _g++;
-		haxor.input.Input.m_state.set(i,haxor.core.InputState.None);
-		haxor.input.Input.m_hold.set(i,0);
+		haxor.input.Input.m_api_touches.push(new haxor.input.Touch());
+	}
+	var _g1 = 0;
+	while(_g1 < 256) {
+		var i1 = _g1++;
+		haxor.input.Input.m_state.set(i1,haxor.core.InputState.None);
+		haxor.input.Input.m_hold.set(i1,0);
 		haxor.input.Input.m_down.push(false);
 	}
 	haxor.input.Input.m_joysticks = [];
 	haxor.input.Input.m_api_joystick = [];
-	var _g1 = 0;
-	while(_g1 < 10) {
-		var i1 = _g1++;
+	var _g2 = 0;
+	while(_g2 < 10) {
+		var i2 = _g2++;
 		haxor.input.Input.m_api_joystick.push(new haxor.input.Joystick());
 	}
 	haxor.input.Input.mouse = new haxor.math.Vector2();
 	haxor.input.Input.deltaMouse = new haxor.math.Vector2();
 	haxor.input.Input.relativeMouse = new haxor.math.Vector2();
-	haxor.core.Console.Log("Input> Initialize",4);
+	haxor.core.Console.Log("Haxor> Input Initialize",4);
 };
 haxor.input.Input.UpdateTouchFSM = function() {
 	var _g1 = 0;
-	var _g = haxor.input.Input.m_touch.length;
+	var _g = haxor.input.Input.m_touches.length;
 	while(_g1 < _g) {
 		var j = _g1++;
-		haxor.input.Input.TouchFSM(haxor.input.Input.m_touch[j]);
+		haxor.input.Input.TouchFSM(haxor.input.Input.m_touches[j]);
 	}
 };
 haxor.input.Input.UpdateInput = function() {
@@ -6530,23 +6583,16 @@ haxor.input.Input.UpdateInput = function() {
 		haxor.input.Input.UpdateInputState(haxor.input.Input.m_active[i],haxor.input.Input.m_down[haxor.input.Input.m_active[i]]);
 	}
 };
-haxor.input.Input.ResetTouchDownFlag = function() {
-	var _g1 = 0;
-	var _g = haxor.input.Input.m_touch.length;
-	while(_g1 < _g) {
-		var j = _g1++;
-		haxor.input.Input.m_touch[j].m_down = false;
-	}
-};
 haxor.input.Input.TouchFSM = function(t) {
 	if(t == null) return;
 	var current = t.state;
 	var d = t.m_down;
-	if(current == haxor.core.InputState.Up) HxOverrides.remove(haxor.input.Input.m_touch,t);
+	if(current == haxor.core.InputState.Up) HxOverrides.remove(haxor.input.Input.m_touches,t);
 	if(current == haxor.core.InputState.Hold) t.hold += haxor.core.Time.m_delta;
 	t.state = haxor.input.Input.InputStateFSM(current,d);
 };
-haxor.input.Input.UpdateInputState = function(p_code,p_is_down) {
+haxor.input.Input.UpdateInputState = function(p_code,p_is_down,p_update_state) {
+	if(p_update_state == null) p_update_state = true;
 	var current = haxor.input.Input.m_state.get(p_code);
 	if(current == null) current = haxor.core.InputState.None;
 	var next = current;
@@ -6558,16 +6604,18 @@ haxor.input.Input.UpdateInputState = function(p_code,p_is_down) {
 	if(!d) {
 		if(d0) return;
 	}
-	if(current == haxor.core.InputState.Up) {
-		haxor.input.Input.m_hold.set(p_code,0);
-		HxOverrides.remove(haxor.input.Input.m_active,p_code);
+	if(p_update_state) {
+		if(current == haxor.core.InputState.Up) {
+			haxor.input.Input.m_hold.set(p_code,0);
+			HxOverrides.remove(haxor.input.Input.m_active,p_code);
+		}
+		if(current == haxor.core.InputState.Hold) {
+			var h = haxor.input.Input.m_hold.get(p_code);
+			haxor.input.Input.m_hold.set(p_code,h + haxor.core.Time.m_delta);
+		}
+		next = haxor.input.Input.InputStateFSM(current,d);
+		if(current != next) haxor.input.Input.m_state.set(p_code,next);
 	}
-	if(current == haxor.core.InputState.Hold) {
-		var h = haxor.input.Input.m_hold.get(p_code);
-		haxor.input.Input.m_hold.set(p_code,h + haxor.core.Time.m_delta);
-	}
-	next = haxor.input.Input.InputStateFSM(current,d);
-	if(current != next) haxor.input.Input.m_state.set(p_code,next);
 };
 haxor.input.Input.InputStateFSM = function(p_current,p_is_down) {
 	var current = p_current;
@@ -6601,7 +6649,11 @@ haxor.input.InputHandler.prototype = {
 		haxor.input.Input.deltaMouse.x = 0;
 		haxor.input.Input.deltaMouse.y = 0;
 		haxor.input.Input.UpdateInput();
+		haxor.input.Input.UpdateTouchFSM();
 		this.UpdateInput();
+		this.EmulateTouch(haxor.input.KeyCode.Mouse0,0);
+		this.EmulateTouch(haxor.input.KeyCode.Mouse1,2);
+		this.EmulateTouch(haxor.input.KeyCode.Mouse2,1);
 		return true;
 	}
 	,UpdateInput: function() {
@@ -6620,24 +6672,138 @@ haxor.input.InputHandler.prototype = {
 	,OnMouseButton: function(p_button,p_down) {
 		switch(p_button) {
 		case 0:
-			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse0,p_down);
+			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse0,p_down,false);
 			break;
 		case 1:
-			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse1,p_down);
+			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse1,p_down,false);
 			break;
 		case 2:
-			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse2,p_down);
+			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse2,p_down,false);
 			break;
 		case 3:
-			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse3,p_down);
+			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse3,p_down,false);
 			break;
 		case 4:
-			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse4,p_down);
+			haxor.input.Input.UpdateInputState(haxor.input.KeyCode.Mouse4,p_down,false);
 			break;
 		}
 	}
 	,OnKey: function(p_code,p_down) {
 		haxor.input.Input.UpdateInputState(p_code,p_down);
+	}
+	,OnTouchStart: function(p_id,p_x,p_y,p_rx,p_ry,p_pressure,p_angle) {
+		if(p_angle == null) p_angle = 0.0;
+		if(p_pressure == null) p_pressure = 0.0;
+		if(p_ry == null) p_ry = 0.0;
+		if(p_rx == null) p_rx = 0.0;
+		var t = haxor.input.Input.m_api_touches[p_id];
+		t.id = p_id;
+		t.position.x = p_x;
+		t.position.y = p_y;
+		t.relativePosition.x = t.position.x / haxor.graphics.Screen.m_width;
+		t.relativePosition.y = t.position.y / haxor.graphics.Screen.m_height;
+		t.delta.x = 0.0;
+		t.delta.y = 0.0;
+		t.pressure = p_pressure;
+		t.radius.x = p_rx;
+		t.radius.y = p_ry;
+		t.angle = p_angle;
+		t.m_down = true;
+		if(HxOverrides.indexOf(haxor.input.Input.m_touches,t,0) < 0) haxor.input.Input.m_touches.push(t);
+	}
+	,OnTouchMove: function(p_id,p_x,p_y) {
+		var t = haxor.input.Input.m_api_touches[p_id];
+		if(t.id >= 0) {
+			t.delta.x = p_x - t.position.x;
+			t.delta.y = p_y - t.position.y;
+		}
+		t.position.x = p_x;
+		t.position.y = p_y;
+		t.relativePosition.x = t.position.x / haxor.graphics.Screen.m_width;
+		t.relativePosition.y = t.position.y / haxor.graphics.Screen.m_height;
+	}
+	,OnTouchCancel: function(p_id) {
+		var t = haxor.input.Input.m_api_touches[p_id];
+		t.m_down = false;
+	}
+	,OnTouchEnd: function(p_id) {
+		var t = haxor.input.Input.m_api_touches[p_id];
+		t.m_down = false;
+	}
+	,OnJoystickStart: function(p_id,p_name) {
+		this.m_joystick = null;
+		var jk = haxor.input.Input.m_api_joystick[p_id];
+		if(jk == null) return;
+		this.m_joystick = jk;
+		if(HxOverrides.indexOf(haxor.input.Input.m_joysticks,jk,0) >= 0) return;
+		jk.id = p_id;
+		jk.name = p_name;
+		haxor.input.Input.m_joysticks.push(jk);
+		haxor.input.Joystick.available = haxor.input.Input.m_joysticks.length > 0;
+	}
+	,OnJoystickDataUpdate: function(p_code,p_value,p_is_analog) {
+		if(this.m_joystick == null) return;
+		if(!p_is_analog) {
+			this.m_joystick.button[p_code] = p_value;
+			this.m_joystick.state[p_code] = haxor.input.Input.InputStateFSM(this.m_joystick.state[p_code],this.m_joystick.button[p_code] >= haxor.input.Joystick.buttonBias);
+			if(this.m_joystick.state[p_code] == haxor.core.InputState.Hold) this.m_joystick.hold[p_code] += haxor.core.Time.m_delta;
+			if(this.m_joystick.state[p_code] == haxor.core.InputState.None) this.m_joystick.hold[p_code] = 0.0;
+		} else this.m_joystick.analog[p_code] = p_value;
+	}
+	,OnJoystickAnalogUpdate: function() {
+		if(this.m_joystick == null) return;
+		var b0 = haxor.input.Joystick.analogBias[0];
+		var b1 = haxor.input.Joystick.analogBias[1];
+		var s = 1.0;
+		var v;
+		var jk = this.m_joystick;
+		v = jk.analogLeft;
+		v.x = jk.analog[haxor.input.KeyCode.LeftAnalogueHor];
+		if(v.x < 0.0) s = -1.0; else s = 1.0;
+		v.x = haxor.math.Mathf.Clamp01((haxor.math.Mathf.Abs(v.x) - b0) / (b1 - b0));
+		v.x = s * (v.x * 100.0 | 0) * 0.01;
+		v.y = jk.analog[haxor.input.KeyCode.LeftAnalogueVert];
+		if(v.y < 0.0) s = -1.0; else s = 1.0;
+		v.y = haxor.math.Mathf.Clamp01((haxor.math.Mathf.Abs(v.y) - b0) / (b1 - b0));
+		v.y = -s * (v.y * 100.0 | 0) * 0.01;
+		if(jk.button[haxor.input.KeyCode.LeftAnalogueStick] > 0.5) v.z = 1.0; else v.z = 0.0;
+		v = jk.analogRight;
+		v.x = jk.analog[haxor.input.KeyCode.RightAnalogueHor];
+		if(v.x < 0.0) s = -1.0; else s = 1.0;
+		v.x = haxor.math.Mathf.Clamp01((haxor.math.Mathf.Abs(v.x) - b0) / (b1 - b0));
+		v.x = s * (v.x * 100.0 | 0) * 0.01;
+		v.y = jk.analog[haxor.input.KeyCode.RightAnalogueVert];
+		if(v.y < 0.0) s = -1.0; else s = 1.0;
+		v.y = haxor.math.Mathf.Clamp01((haxor.math.Mathf.Abs(v.y) - b0) / (b1 - b0));
+		v.y = -s * (v.y * 100.0 | 0) * 0.01;
+		if(jk.button[haxor.input.KeyCode.RightAnalogueStick] > 0.5) v.z = 1.0; else v.z = 0.0;
+		jk.triggerLeft = jk.button[haxor.input.KeyCode.LeftShoulderBottom];
+		jk.triggerLeft = haxor.math.Mathf.Clamp01((jk.triggerLeft - b0) / (b1 - b0));
+		jk.triggerRight = jk.button[haxor.input.KeyCode.RightShoulderBottom];
+		jk.triggerRight = haxor.math.Mathf.Clamp01((jk.triggerRight - b0) / (b1 - b0));
+	}
+	,EmulateTouch: function(p_code,p_id) {
+		if(haxor.input.Input.Down(p_code)) {
+			var p = haxor.context.EngineContext.data.get_v2();
+			switch(p_id) {
+			case 0:
+				p.Set2(haxor.input.Input.mouse);
+				break;
+			case 1:
+				p.Set(haxor.graphics.Screen.m_width * 0.5,haxor.graphics.Screen.m_height * 0.5);
+				break;
+			case 2:
+				p.Set(haxor.graphics.Screen.m_width * Math.random(),haxor.graphics.Screen.m_height * Math.random());
+				break;
+			}
+			this.OnTouchStart(p_id,p.x,p.y);
+		}
+		if(p_id == 0) {
+			if(haxor.input.Input.Pressed(p_code)) {
+				if(haxor.input.Input.deltaMouse.get_length() > 0) this.OnTouchMove(p_id,haxor.input.Input.mouse.x,haxor.input.Input.mouse.y);
+			}
+		}
+		if(haxor.input.Input.Hit(p_code)) this.OnTouchEnd(p_id);
 	}
 	,__class__: haxor.input.InputHandler
 };
@@ -6657,11 +6823,57 @@ haxor.input.Joystick = function() {
 $hxClasses["haxor.input.Joystick"] = haxor.input.Joystick;
 haxor.input.Joystick.__name__ = ["haxor","input","Joystick"];
 haxor.input.Joystick.prototype = {
-	IsDown: function(p_button) {
+	get_vibrationLeft: function() {
+		return this.m_vibrationLeft;
+	}
+	,set_vibrationLeft: function(v) {
+		if(haxor.math.Mathf.Abs(this.m_vibrationLeft - v) <= 0.0) return v;
+		this.m_vibrationLeft = v;
+		return v;
+	}
+	,Pressed: function(p_button) {
 		return this.state[p_button] == haxor.core.InputState.Hold || this.state[p_button] == haxor.core.InputState.Down;
+	}
+	,Down: function(p_button) {
+		return this.state[p_button] == haxor.core.InputState.Down;
 	}
 	,Hit: function(p_button) {
 		return this.state[p_button] == haxor.core.InputState.Up;
+	}
+	,ToString: function(p_analog,p_button,p_trigger,p_pad) {
+		if(p_pad == null) p_pad = false;
+		if(p_trigger == null) p_trigger = false;
+		if(p_button == null) p_button = true;
+		if(p_analog == null) p_analog = true;
+		var s = "";
+		s += "J" + this.id;
+		if(p_analog) {
+			s += " AL" + this.analogLeft.ToString(1);
+			s += " AR" + this.analogRight.ToString(1);
+		}
+		if(p_button) {
+			s += " A[" + (this.Pressed(haxor.input.KeyCode.ButtonA)?"1]":"0]");
+			s += " B[" + (this.Pressed(haxor.input.KeyCode.ButtonB)?"1]":"0]");
+			s += " X[" + (this.Pressed(haxor.input.KeyCode.ButtonX)?"1]":"0]");
+			s += " Y[" + (this.Pressed(haxor.input.KeyCode.ButtonY)?"1]":"0]");
+			s += " L[" + (this.Pressed(haxor.input.KeyCode.LeftShoulder)?"1]":"0]");
+			s += " R[" + (this.Pressed(haxor.input.KeyCode.RightShoulder)?"1]":"0]");
+			s += " LB[" + (this.Pressed(haxor.input.KeyCode.LeftShoulderBottom)?"1]":"0]");
+			s += " RB[" + (this.Pressed(haxor.input.KeyCode.RightShoulderBottom)?"1]":"0]");
+			s += " Start[" + (this.Pressed(haxor.input.KeyCode.ButtonStart)?"1]":"0]");
+			s += " Select[" + (this.Pressed(haxor.input.KeyCode.ButtonSelect)?"1]":"0]");
+		}
+		if(p_pad) {
+			s += " PL[" + (this.Pressed(haxor.input.KeyCode.PadLeft)?"1]":"0]");
+			s += " PR[" + (this.Pressed(haxor.input.KeyCode.PadRight)?"1]":"0]");
+			s += " PU[" + (this.Pressed(haxor.input.KeyCode.PadTop)?"1]":"0]");
+			s += " PD[" + (this.Pressed(haxor.input.KeyCode.PadBottom)?"1]":"0]");
+		}
+		if(p_trigger) {
+			s += " TL[" + haxor.math.Mathf.RoundPlaces(this.triggerLeft,1) + "]";
+			s += " TR[" + haxor.math.Mathf.RoundPlaces(this.triggerRight,1) + "]";
+		}
+		return s;
 	}
 	,__class__: haxor.input.Joystick
 };
@@ -6683,7 +6895,10 @@ haxor.input.Touch = function() {
 $hxClasses["haxor.input.Touch"] = haxor.input.Touch;
 haxor.input.Touch.__name__ = ["haxor","input","Touch"];
 haxor.input.Touch.prototype = {
-	__class__: haxor.input.Touch
+	ToString: function() {
+		return "id[" + this.id + "] pos" + this.position.ToString(2) + "[" + Std.string(this.state) + "]";
+	}
+	,__class__: haxor.input.Touch
 };
 haxor.io = {};
 haxor.io.Buffer = function(p_length) {
@@ -10896,7 +11111,8 @@ haxor.platform.html.Entry.OnWindowLoad = function(p_event) {
 	haxor.graphics.GL.m_gl.CheckExtensions();
 	if(($_=window,$bind($_,$_.requestAnimationFrame)) != null) window.requestAnimationFrame(haxor.platform.html.Entry.RequestAnimationCallback);
 	haxor.context.EngineContext.Build();
-	var input_handler = new haxor.platform.html.input.HTMLInputHandler(app_input_id);
+	haxor.platform.html.Entry.m_input = new haxor.platform.html.input.HTMLInputHandler(app_input_id);
+	haxor.input.Input.m_handler = haxor.platform.html.Entry.m_input;
 	if(haxor.platform.html.Entry.m_application.Load()) haxor.platform.html.Entry.m_application.LoadComplete();
 };
 haxor.platform.html.Entry.RequestAnimationCallback = function(p_time) {
@@ -11252,10 +11468,10 @@ haxor.platform.html.input.HTMLInputHandler = function(p_target_id) {
 		this.m_target = window.document.body;
 	}
 	this.m_events = [];
-	this.m_has_touches = false;
 	this.m_target.onmousedown = $bind(this,this.OnInputEvent);
 	this.m_target.onmouseover = $bind(this,this.OnInputEvent);
 	this.m_target.onmousewheel = $bind(this,this.OnInputEvent);
+	this.m_target.oncontextmenu = $bind(this,this.OnInputEvent);
 	window.document.onmousemove = $bind(this,this.OnInputEvent);
 	window.document.onmouseup = $bind(this,this.OnInputEvent);
 	window.document.onkeydown = $bind(this,this.OnInputEvent);
@@ -11269,7 +11485,6 @@ haxor.platform.html.input.HTMLInputHandler = function(p_target_id) {
 	} catch( ex1 ) {
 		haxor.input.Input.m_multitouch = false;
 	}
-	this.m_touches = null;
 	if(haxor.input.Input.get_multitouch()) {
 		this.m_target.ontouchstart = $bind(this,this.OnTouchEvent);
 		window.document.ontouchmove = $bind(this,this.OnTouchEvent);
@@ -11278,7 +11493,7 @@ haxor.platform.html.input.HTMLInputHandler = function(p_target_id) {
 	}
 	var t = this.m_target;
 	var nav = this.m_navigator;
-	haxor.input.Joystick.available = !(!nav.getGamepads) || nav.userAgent.indexOf("Firefox/") != -1;
+	this.m_check_joystick = !(!nav.getGamepads) || nav.userAgent.indexOf("Firefox/") != -1;
 	haxor.input.InputHandler.call(this);
 };
 $hxClasses["haxor.platform.html.input.HTMLInputHandler"] = haxor.platform.html.input.HTMLInputHandler;
@@ -11286,9 +11501,8 @@ haxor.platform.html.input.HTMLInputHandler.__name__ = ["haxor","platform","html"
 haxor.platform.html.input.HTMLInputHandler.__super__ = haxor.input.InputHandler;
 haxor.platform.html.input.HTMLInputHandler.prototype = $extend(haxor.input.InputHandler.prototype,{
 	UpdateInput: function() {
-		if(this.m_has_touches) this.UpdateTouch();
+		if(this.m_events.length > 0) while(this.m_events.length > 0) this.ProcessInputEvent(this.m_events.shift());
 		this.UpdateJoystick();
-		if(this.m_events.length > 0) while(this.m_events.length > 0) this.ProcessInput(this.m_events.shift());
 	}
 	,OnInputEvent: function(p_event) {
 		this.m_events.push(p_event);
@@ -11296,6 +11510,9 @@ haxor.platform.html.input.HTMLInputHandler.prototype = $extend(haxor.input.Input
 		var is_mousewheel = p_event.type == "mousewheel" || p_event.type == "wheel";
 		var prevent = (is_mousedown || is_mousewheel) && js.Boot.__instanceof(this.m_target,HTMLCanvasElement);
 		if(haxor.input.Input.scroll) prevent = false;
+		if(p_event.type == "contextmenu") {
+			if(!haxor.input.Input.menu) prevent = true;
+		}
 		if(prevent) {
 			if(haxor.input.Input.relativeMouse.x >= 0) {
 				if(haxor.input.Input.relativeMouse.x <= 1) {
@@ -11306,71 +11523,7 @@ haxor.platform.html.input.HTMLInputHandler.prototype = $extend(haxor.input.Input
 			}
 		}
 	}
-	,UpdateJoystick: function() {
-		if(!haxor.input.Joystick.available) return;
-		var nav = this.m_navigator;
-		var l = null;
-		if(nav.webkitGetGamepads != null) l = nav.webkitGetGamepads(); else if(nav.webkitGamepads != null) l = nav.webkitGamepads();
-		if(l == null) return;
-		if(l.length <= 0) return;
-		haxor.input.Input.m_joysticks = [];
-		var _g1 = 0;
-		var _g = l.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var gp = l.item(i);
-			if(gp == null) continue;
-			var id = gp.index;
-			var js = haxor.input.Input.m_api_joystick[id];
-			js.id = gp.index;
-			js.name = gp.id;
-			var _g3 = 0;
-			var _g2 = gp.buttons.length;
-			while(_g3 < _g2) {
-				var i1 = _g3++;
-				js.button[i1] = gp.buttons[i1];
-				js.state[i1] = haxor.input.Input.InputStateFSM(js.state[i1],js.button[i1] >= haxor.input.Joystick.buttonBias);
-				if(js.state[i1] == haxor.core.InputState.Hold) js.hold[i1] += haxor.core.Time.m_delta;
-				if(js.state[i1] == haxor.core.InputState.None) js.hold[i1] = 0.0;
-			}
-			var _g31 = 0;
-			var _g21 = gp.axes.length;
-			while(_g31 < _g21) {
-				var i2 = _g31++;
-				js.analog[i2] = gp.axes[i2];
-			}
-			var b0 = haxor.input.Joystick.analogBias[0];
-			var b1 = haxor.input.Joystick.analogBias[1];
-			var s = 1.0;
-			var v;
-			v = js.analogLeft;
-			v.x = gp.axes[haxor.input.KeyCode.LeftAnalogueHor];
-			if(v.x < 0.0) s = -1.0; else s = 1.0;
-			v.x = haxor.math.Mathf.Clamp01((haxor.math.Mathf.Abs(v.x) - b0) / (b1 - b0));
-			v.x = s * (v.x * 100.0 | 0) * 0.01;
-			v.y = gp.axes[haxor.input.KeyCode.LeftAnalogueVert];
-			if(v.y < 0.0) s = -1.0; else s = 1.0;
-			v.y = haxor.math.Mathf.Clamp01((haxor.math.Mathf.Abs(v.y) - b0) / (b1 - b0));
-			v.y = -s * (v.y * 100.0 | 0) * 0.01;
-			if(gp.buttons[haxor.input.KeyCode.LeftAnalogueStick] >= haxor.input.Joystick.buttonBias) v.z = 1.0; else v.z = 0.0;
-			v = js.analogRight;
-			v.x = gp.axes[haxor.input.KeyCode.RightAnalogueHor];
-			if(v.x < 0.0) s = -1.0; else s = 1.0;
-			v.x = haxor.math.Mathf.Clamp01((haxor.math.Mathf.Abs(v.x) - b0) / (b1 - b0));
-			v.x = s * (v.x * 100.0 | 0) * 0.01;
-			v.y = gp.axes[haxor.input.KeyCode.RightAnalogueVert];
-			if(v.y < 0.0) s = -1.0; else s = 1.0;
-			v.y = haxor.math.Mathf.Clamp01((haxor.math.Mathf.Abs(v.y) - b0) / (b1 - b0));
-			v.y = -s * (v.y * 100.0 | 0) * 0.01;
-			if(gp.buttons[haxor.input.KeyCode.RightAnalogueStick] >= haxor.input.Joystick.buttonBias) v.z = 1.0; else v.z = 0.0;
-			js.triggerLeft = gp.buttons[haxor.input.KeyCode.LeftShoulderBottom];
-			js.triggerLeft = haxor.math.Mathf.Clamp01((js.triggerLeft - b0) / (b1 - b0));
-			js.triggerRight = gp.buttons[haxor.input.KeyCode.RightShoulderBottom];
-			js.triggerRight = haxor.math.Mathf.Clamp01((js.triggerRight - b0) / (b1 - b0));
-			haxor.input.Input.m_joysticks.push(js);
-		}
-	}
-	,ProcessInput: function(p_event) {
+	,ProcessInputEvent: function(p_event) {
 		var me = p_event;
 		var ke = p_event;
 		var element = p_event.target;
@@ -11398,77 +11551,68 @@ haxor.platform.html.input.HTMLInputHandler.prototype = $extend(haxor.input.Input
 		case "keydown":
 			this.OnKey(ke.keyCode,false);
 			break;
+		case "contextmenu":
+			break;
 		}
-	}
-	,UpdateTouch: function() {
-		var l = this.m_touches;
-		haxor.input.Input.ResetTouchDownFlag();
-		if(l != null) {
-			var _g1 = 0;
-			var _g = l.length;
-			while(_g1 < _g) {
-				var i = _g1++;
-				var et = l[i];
-				var exists = false;
-				var p = this.GetAbsolutePosition(this.m_target,et.pageX,et.pageY);
-				var _g3 = 0;
-				var _g2 = haxor.input.Input.m_touch.length;
-				while(_g3 < _g2) {
-					var j = _g3++;
-					var t = haxor.input.Input.m_touch[j];
-					if(t.id == et.identifier) {
-						exists = true;
-						t.m_down = true;
-						this.UpdateTouchData(t,et,p);
-					}
-				}
-				if(!exists) {
-					var nt = new haxor.input.Touch();
-					this.UpdateTouchData(nt,et,p);
-					nt.m_down = true;
-					haxor.input.Input.m_touch.push(nt);
-				}
-			}
-		}
-		haxor.input.Input.UpdateTouchFSM();
-		if(haxor.input.Input.m_touch.length <= 0) this.m_has_touches = false;
 	}
 	,OnTouchEvent: function(p_event) {
 		var te = p_event;
-		var _g = p_event.type;
-		switch(_g) {
-		case "touchstart":
-			this.m_touches = te.touches;
-			this.m_has_touches = true;
-			break;
-		case "touchmove":
-			this.m_touches = te.touches;
-			break;
-		case "touchcancel":
-			this.m_touches = te.touches;
-			break;
-		case "touchend":
-			this.m_touches = te.touches;
-			break;
+		var _g1 = 0;
+		var _g = te.changedTouches.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var t = te.changedTouches.item(i);
+			var p = this.GetAbsolutePosition(this.m_target,t.pageX,t.pageY);
+			var _g2 = p_event.type;
+			switch(_g2) {
+			case "touchstart":
+				this.OnTouchStart(t.identifier,p.x,p.y,t.radiusX,t.radiusY,t.force,t.rotationAngle);
+				break;
+			case "touchmove":
+				this.OnTouchMove(t.identifier,p.x,p.y);
+				break;
+			case "touchcancel":
+				this.OnTouchCancel(t.identifier);
+				break;
+			case "touchend":
+				this.OnTouchEnd(t.identifier);
+				break;
+			}
 		}
-		if(this.m_has_touches) {
+		if(haxor.input.Input.m_touches.length > 0) {
 			if(!haxor.input.Input.scroll) p_event.preventDefault();
 		}
 	}
-	,UpdateTouchData: function(t,d,p) {
-		if(t.id >= 0) {
-			t.delta.x = p.x - t.position.x;
-			t.delta.y = p.y - t.position.y;
+	,UpdateJoystick: function() {
+		if(!this.m_check_joystick) return;
+		var nav = this.m_navigator;
+		var l = null;
+		if(nav.getGamepads != null) l = nav.getGamepads();
+		if(l == null) return;
+		if(l.length <= 0) return;
+		console.log(l.length);
+		var _g1 = 0;
+		var _g = l.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var gp = l.item(i);
+			if(gp == null) continue;
+			this.OnJoystickStart(gp.index,gp.id);
+			var _g3 = 0;
+			var _g2 = gp.buttons.length;
+			while(_g3 < _g2) {
+				var i1 = _g3++;
+				var bt = gp.buttons[i1];
+				this.OnJoystickDataUpdate(i1,bt.value,false);
+			}
+			var _g31 = 0;
+			var _g21 = gp.axes.length;
+			while(_g31 < _g21) {
+				var i2 = _g31++;
+				this.OnJoystickDataUpdate(i2,gp.axes[i2],true);
+			}
+			this.OnJoystickAnalogUpdate();
 		}
-		t.id = d.identifier;
-		t.position.x = p.x;
-		t.position.y = p.y;
-		t.relativePosition.x = t.position.x / haxor.graphics.Screen.m_width;
-		t.relativePosition.y = t.position.y / haxor.graphics.Screen.m_height;
-		t.pressure = d.force;
-		t.radius.x = d.radiusX;
-		t.radius.y = d.radiusY;
-		t.angle = d.rotationAngle;
 	}
 	,GetAbsolutePosition: function(p_element,p_x,p_y) {
 		var px = 0;
@@ -12040,6 +12184,7 @@ haxor.graphics.GL.TEXTURE_DEPTH_ENABLED = false;
 haxor.graphics.GL.MAX_ACTIVE_TEXTURE = 8;
 haxor.graphics.Graphics.m_last_viewport = haxor.math.AABB2.get_empty();
 haxor.input.Input.scroll = false;
+haxor.input.Input.menu = false;
 haxor.input.Joystick.analogBias = [0.1,0.9];
 haxor.input.Joystick.buttonBias = 0.9;
 haxor.input.Joystick.available = false;
@@ -12241,6 +12386,10 @@ haxor.input.KeyCode.Face1 = 0;
 haxor.input.KeyCode.Face2 = 1;
 haxor.input.KeyCode.Face3 = 2;
 haxor.input.KeyCode.Face4 = 3;
+haxor.input.KeyCode.ButtonA = 0;
+haxor.input.KeyCode.ButtonB = 1;
+haxor.input.KeyCode.ButtonX = 2;
+haxor.input.KeyCode.ButtonY = 3;
 haxor.input.KeyCode.LeftShoulder = 4;
 haxor.input.KeyCode.RightShoulder = 5;
 haxor.input.KeyCode.LeftShoulderBottom = 6;

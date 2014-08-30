@@ -17,9 +17,9 @@ public  class Transform extends haxor.component.Component
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_Transform(haxor.component.Transform __temp_me80595, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_component_Transform(haxor.component.Transform __temp_me151337, java.lang.String p_name)
 	{
-		haxor.component.Component.__hx_ctor_haxor_component_Component(__temp_me80595, p_name);
+		haxor.component.Component.__hx_ctor_haxor_component_Component(__temp_me151337, p_name);
 	}
 	
 	
@@ -236,13 +236,13 @@ public  class Transform extends haxor.component.Component
 		haxor.math.Matrix4 wm = this.m_parent.get_WorldMatrix();
 		{
 			haxor.math.Matrix4 _this = this.m_parent.get_WorldMatrixInverse();
-			haxor.math.Vector3 __temp_stmt81229 = null;
+			haxor.math.Vector3 __temp_stmt151983 = null;
 			{
 				haxor.context.DataContext _this1 = haxor.context.EngineContext.data;
-				__temp_stmt81229 = _this1.m_v3.__get(_this1.m_nv3 = ( (( _this1.m_nv3 + 1 )) % _this1.m_v3.length ));
+				__temp_stmt151983 = _this1.m_v3.__get(_this1.m_nv3 = ( (( _this1.m_nv3 + 1 )) % _this1.m_v3.length ));
 			}
 			
-			haxor.math.Vector3 p_point = __temp_stmt81229.Set3(this.m_position);
+			haxor.math.Vector3 p_point = __temp_stmt151983.Set3(this.m_position);
 			double vx = ( ( ( ( _this.m00 * p_point.x ) + ( _this.m01 * p_point.y ) ) + ( _this.m02 * p_point.z ) ) + _this.m03 );
 			double vy = ( ( ( ( _this.m10 * p_point.x ) + ( _this.m11 * p_point.y ) ) + ( _this.m12 * p_point.z ) ) + _this.m13 );
 			double vz = ( ( ( ( _this.m20 * p_point.x ) + ( _this.m21 * p_point.y ) ) + ( _this.m22 * p_point.z ) ) + _this.m23 );
@@ -262,7 +262,7 @@ public  class Transform extends haxor.component.Component
 			return v;
 		}
 		
-		haxor.math.Vector3 __temp_stmt81230 = null;
+		haxor.math.Vector3 __temp_stmt151984 = null;
 		{
 			haxor.math.Matrix4 _this = this.m_parent.get_WorldMatrix();
 			double vx = ( ( ( ( _this.m00 * v.x ) + ( _this.m01 * v.y ) ) + ( _this.m02 * v.z ) ) + _this.m03 );
@@ -271,10 +271,10 @@ public  class Transform extends haxor.component.Component
 			v.x = vx;
 			v.y = vy;
 			v.z = vz;
-			__temp_stmt81230 = v;
+			__temp_stmt151984 = v;
 		}
 		
-		this.set_position(__temp_stmt81230);
+		this.set_position(__temp_stmt151984);
 		return v;
 	}
 	
@@ -332,14 +332,14 @@ public  class Transform extends haxor.component.Component
 			return v;
 		}
 		
-		haxor.math.Vector3 __temp_stmt81232 = null;
+		haxor.math.Vector3 __temp_stmt151986 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81232 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
+			__temp_stmt151986 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
 		}
 		
-		haxor.math.Vector3 __temp_stmt81231 = __temp_stmt81232.Set3(this.m_parent.m_euler);
-		this.set_euler(__temp_stmt81231.Add(v));
+		haxor.math.Vector3 __temp_stmt151985 = __temp_stmt151986.Set3(this.m_parent.m_euler);
+		this.set_euler(__temp_stmt151985.Add(v));
 		return v;
 	}
 	
@@ -354,13 +354,13 @@ public  class Transform extends haxor.component.Component
 	
 	public   haxor.math.Quaternion set_rotation(haxor.math.Quaternion v)
 	{
-		haxor.math.Vector3 __temp_stmt81233 = null;
+		haxor.math.Vector3 __temp_stmt151987 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81233 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
+			__temp_stmt151987 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
 		}
 		
-		this.set_euler(haxor.math.Quaternion.ToEuler(v, __temp_stmt81233));
+		this.set_euler(haxor.math.Quaternion.ToEuler(v, __temp_stmt151987));
 		return v;
 	}
 	
@@ -374,26 +374,26 @@ public  class Transform extends haxor.component.Component
 			return this.get_rotation();
 		}
 		
-		haxor.math.Vector3 __temp_stmt81235 = null;
+		haxor.math.Vector3 __temp_stmt151989 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81235 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
+			__temp_stmt151989 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
 		}
 		
-		haxor.math.Vector3 __temp_stmt81234 = __temp_stmt81235.Set(( this.m_euler.x - this.m_parent.m_euler.x ), ( this.m_euler.y - this.m_parent.m_euler.y ), ( this.m_euler.z - this.m_parent.m_euler.z ));
-		return haxor.math.Quaternion.FromEuler(__temp_stmt81234, null);
+		haxor.math.Vector3 __temp_stmt151988 = __temp_stmt151989.Set(( this.m_euler.x - this.m_parent.m_euler.x ), ( this.m_euler.y - this.m_parent.m_euler.y ), ( this.m_euler.z - this.m_parent.m_euler.z ));
+		return haxor.math.Quaternion.FromEuler(__temp_stmt151988, null);
 	}
 	
 	
 	public   haxor.math.Quaternion set_localRotation(haxor.math.Quaternion v)
 	{
-		haxor.math.Vector3 __temp_stmt81236 = null;
+		haxor.math.Vector3 __temp_stmt151990 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81236 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
+			__temp_stmt151990 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
 		}
 		
-		this.set_localEuler(haxor.math.Quaternion.ToEuler(v, __temp_stmt81236));
+		this.set_localEuler(haxor.math.Quaternion.ToEuler(v, __temp_stmt151990));
 		return v;
 	}
 	
@@ -452,13 +452,13 @@ public  class Transform extends haxor.component.Component
 		haxe.root.Array<haxor.math.Vector3> ps = new haxe.root.Array<haxor.math.Vector3>(new haxor.math.Vector3[]{});
 		if (( this.m_parent == null )) 
 		{
-			haxor.math.Vector3 __temp_stmt81237 = null;
+			haxor.math.Vector3 __temp_stmt151991 = null;
 			{
 				haxor.context.DataContext _this = haxor.context.EngineContext.data;
-				__temp_stmt81237 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
+				__temp_stmt151991 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
 			}
 			
-			ps.__set(0, __temp_stmt81237.Set(1, 1, 1));
+			ps.__set(0, __temp_stmt151991.Set(1, 1, 1));
 		}
 		 else 
 		{
@@ -468,7 +468,7 @@ public  class Transform extends haxor.component.Component
 		this.m_scale.x = ( this.m_localScale.x * ps.__get(0).x );
 		this.m_scale.y = ( this.m_localScale.y * ps.__get(0).y );
 		this.m_scale.z = ( this.m_localScale.z * ps.__get(0).z );
-		this.Traverse(new haxor.component.Transform_set_localScale_180__Fun(((haxe.root.Array<haxor.math.Vector3>) (ps) ), ((haxe.root.Array<haxor.component.Transform>) (_g) )));
+		this.Traverse(new haxor.component.Transform_set_localScale_180__Fun(((haxe.root.Array<haxor.component.Transform>) (_g) ), ((haxe.root.Array<haxor.math.Vector3>) (ps) )));
 		haxor.context.EngineContext.transform.OnChange(this);
 		this.m_dirty = true;
 		return v;
@@ -583,28 +583,28 @@ public  class Transform extends haxor.component.Component
 			{
 				int i = _g1++;
 				haxor.component.Transform c = this.m_hierarchy.__get(i);
-				haxor.math.Vector3 __temp_stmt81238 = null;
+				haxor.math.Vector3 __temp_stmt151992 = null;
 				{
 					haxor.context.DataContext _this = haxor.context.EngineContext.data;
-					__temp_stmt81238 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
+					__temp_stmt151992 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
 				}
 				
-				haxor.math.Vector3 de = __temp_stmt81238.Set(p_dx, p_dy, p_dz);
-				haxor.math.Quaternion __temp_stmt81239 = null;
+				haxor.math.Vector3 de = __temp_stmt151992.Set(p_dx, p_dy, p_dz);
+				haxor.math.Quaternion __temp_stmt151993 = null;
 				{
 					haxor.context.DataContext _this1 = haxor.context.EngineContext.data;
-					__temp_stmt81239 = _this1.m_q.__get(_this1.m_nq = ( (( _this1.m_nq + 1 )) % _this1.m_q.length ));
+					__temp_stmt151993 = _this1.m_q.__get(_this1.m_nq = ( (( _this1.m_nq + 1 )) % _this1.m_q.length ));
 				}
 				
-				haxor.math.Quaternion q = haxor.math.Quaternion.FromEuler(de, __temp_stmt81239);
-				haxor.math.Vector3 __temp_stmt81241 = null;
+				haxor.math.Quaternion q = haxor.math.Quaternion.FromEuler(de, __temp_stmt151993);
+				haxor.math.Vector3 __temp_stmt151995 = null;
 				{
 					haxor.context.DataContext _this2 = haxor.context.EngineContext.data;
-					__temp_stmt81241 = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
+					__temp_stmt151995 = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
 				}
 				
-				haxor.math.Vector3 __temp_stmt81240 = __temp_stmt81241.Set3(c.m_position);
-				haxor.math.Vector3 v = __temp_stmt81240.Sub(this.m_position);
+				haxor.math.Vector3 __temp_stmt151994 = __temp_stmt151995.Set3(c.m_position);
+				haxor.math.Vector3 v = __temp_stmt151994.Sub(this.m_position);
 				q.Rotate(v);
 				v.Add(this.m_position);
 				c.set_position(v);
@@ -631,26 +631,26 @@ public  class Transform extends haxor.component.Component
 	
 	public   void UpdateWorldMatrix()
 	{
-		haxor.math.Quaternion __temp_stmt81242 = null;
+		haxor.math.Quaternion __temp_stmt151996 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81242 = _this.m_q.__get(_this.m_nq = ( (( _this.m_nq + 1 )) % _this.m_q.length ));
+			__temp_stmt151996 = _this.m_q.__get(_this.m_nq = ( (( _this.m_nq + 1 )) % _this.m_q.length ));
 		}
 		
-		haxor.math.Quaternion q = haxor.math.Quaternion.FromEuler(this.m_euler, __temp_stmt81242);
+		haxor.math.Quaternion q = haxor.math.Quaternion.FromEuler(this.m_euler, __temp_stmt151996);
 		double sx = this.m_scale.x;
 		double sy = this.m_scale.y;
 		double sz = this.m_scale.z;
 		double px = this.m_position.x;
 		double py = this.m_position.y;
 		double pz = this.m_position.z;
-		haxor.math.Matrix4 __temp_stmt81243 = null;
+		haxor.math.Matrix4 __temp_stmt151997 = null;
 		{
 			haxor.context.DataContext _this1 = haxor.context.EngineContext.data;
-			__temp_stmt81243 = _this1.m_m4.__get(_this1.m_nq = ( (( _this1.m_nm4 + 1 )) % _this1.m_m4.length ));
+			__temp_stmt151997 = _this1.m_m4.__get(_this1.m_nq = ( (( _this1.m_nm4 + 1 )) % _this1.m_m4.length ));
 		}
 		
-		haxor.math.Matrix4 r = haxor.math.Matrix4.FromQuaternion(q, __temp_stmt81243);
+		haxor.math.Matrix4 r = haxor.math.Matrix4.FromQuaternion(q, __temp_stmt151997);
 		this.m_right.Set(r.m00, r.m10, r.m20);
 		this.m_up.Set(r.m01, r.m11, r.m21);
 		this.m_forward.Set(r.m02, r.m12, r.m22);
@@ -739,12 +739,12 @@ public  class Transform extends haxor.component.Component
 	
 	public   haxor.component.Transform Search(java.lang.String p_name, java.lang.Object p_exact)
 	{
-		boolean __temp_p_exact80592 = ( (( p_exact == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_exact)) );
-		haxe.root.Array<java.lang.Object> p_exact1 = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_p_exact80592});
+		boolean __temp_p_exact151334 = ( (( p_exact == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_exact)) );
+		haxe.root.Array<java.lang.Object> p_exact1 = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_p_exact151334});
 		haxe.root.Array<java.lang.String> p_name1 = new haxe.root.Array<java.lang.String>(new java.lang.String[]{p_name});
 		haxe.root.Array<haxor.component.Transform> _g = new haxe.root.Array<haxor.component.Transform>(new haxor.component.Transform[]{this});
 		haxe.root.Array<haxor.component.Transform> res = new haxe.root.Array<haxor.component.Transform>(new haxor.component.Transform[]{null});
-		this.Traverse(new haxor.component.Transform_Search_397__Fun(((haxe.root.Array<java.lang.String>) (p_name1) ), ((haxe.root.Array<haxor.component.Transform>) (res) ), ((haxe.root.Array<java.lang.Object>) (p_exact1) ), ((haxe.root.Array<haxor.component.Transform>) (_g) )));
+		this.Traverse(new haxor.component.Transform_Search_397__Fun(((haxe.root.Array<java.lang.String>) (p_name1) ), ((haxe.root.Array<haxor.component.Transform>) (res) ), ((haxe.root.Array<haxor.component.Transform>) (_g) ), ((haxe.root.Array<java.lang.Object>) (p_exact1) )));
 		return res.__get(0);
 	}
 	
@@ -800,16 +800,16 @@ public  class Transform extends haxor.component.Component
 	{
 		int v = this.__cid;
 		haxor.context.EngineContext.transform.tid.m_cache.push(v);
-		int __temp_expr81244 = v;
+		int __temp_expr151998 = v;
 	}
 	
 	
 	public   java.lang.String ToString(java.lang.Object p_use_local, java.lang.Object p_places)
 	{
-		int __temp_p_places80594 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
-		boolean __temp_p_use_local80593 = ( (( p_use_local == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_use_local)) );
+		int __temp_p_places151336 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
+		boolean __temp_p_use_local151335 = ( (( p_use_local == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_use_local)) );
 		haxor.math.Vector3 p = null;
-		if (__temp_p_use_local80593) 
+		if (__temp_p_use_local151335) 
 		{
 			p = this.get_localPosition();
 		}
@@ -819,7 +819,7 @@ public  class Transform extends haxor.component.Component
 		}
 		
 		haxor.math.Vector3 e = null;
-		if (__temp_p_use_local80593) 
+		if (__temp_p_use_local151335) 
 		{
 			e = this.get_localEuler();
 		}
@@ -829,7 +829,7 @@ public  class Transform extends haxor.component.Component
 		}
 		
 		haxor.math.Vector3 s = null;
-		if (__temp_p_use_local80593) 
+		if (__temp_p_use_local151335) 
 		{
 			s = this.get_localScale();
 		}
@@ -838,21 +838,21 @@ public  class Transform extends haxor.component.Component
 			s = this.get_scale();
 		}
 		
-		return ( ( ( ( ( ( this.get_name() + " " ) + p.ToString(__temp_p_places80594) ) + "" ) + e.ToString(__temp_p_places80594) ) + "" ) + s.ToString(__temp_p_places80594) );
+		return ( ( ( ( ( ( this.get_name() + " " ) + p.ToString(__temp_p_places151336) ) + "" ) + e.ToString(__temp_p_places151336) ) + "" ) + s.ToString(__temp_p_places151336) );
 	}
 	
 	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81245 = true;
+			boolean __temp_executeDef151999 = true;
 			switch (field.hashCode())
 			{
 				case 1329151315:
 				{
 					if (field.equals("childCount")) 
 					{
-						__temp_executeDef81245 = false;
+						__temp_executeDef151999 = false;
 						this.childCount = ((int) (value) );
 						return value;
 					}
@@ -863,7 +863,7 @@ public  class Transform extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef81245) 
+			if (__temp_executeDef151999) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -880,14 +880,14 @@ public  class Transform extends haxor.component.Component
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81246 = true;
+			boolean __temp_executeDef152000 = true;
 			switch (field.hashCode())
 			{
 				case -1967937309:
 				{
 					if (field.equals("m_hierarchy")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_hierarchy = ((haxe.root.Array<haxor.component.Transform>) (value) );
 						return value;
 					}
@@ -900,7 +900,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_right")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_right = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -913,7 +913,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_uniform_dirty")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_uniform_dirty = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -926,7 +926,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_up")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_up = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -939,7 +939,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_dirty")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_dirty = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -952,7 +952,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_forward")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_forward = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -965,7 +965,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_worldMatrixInverse")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_worldMatrixInverse = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -978,7 +978,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("parent")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.set_parent(((haxor.component.Transform) (value) ));
 						return value;
 					}
@@ -991,7 +991,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_worldMatrix")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_worldMatrix = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -1004,7 +1004,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_parent")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_parent = ((haxor.component.Transform) (value) );
 						return value;
 					}
@@ -1017,7 +1017,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_localScale")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_localScale = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -1030,7 +1030,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("childCount")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.childCount = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -1043,7 +1043,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("localScale")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.set_localScale(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -1056,7 +1056,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.set_position(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -1069,7 +1069,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_scale")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_scale = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -1082,7 +1082,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_position")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_position = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -1095,7 +1095,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("localRotation")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.set_localRotation(((haxor.math.Quaternion) (value) ));
 						return value;
 					}
@@ -1108,7 +1108,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("localPosition")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.set_localPosition(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -1121,7 +1121,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("rotation")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.set_rotation(((haxor.math.Quaternion) (value) ));
 						return value;
 					}
@@ -1134,7 +1134,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("euler")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.set_euler(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -1147,7 +1147,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("localEuler")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.set_localEuler(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -1160,7 +1160,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_euler")) 
 					{
-						__temp_executeDef81246 = false;
+						__temp_executeDef152000 = false;
 						this.m_euler = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -1171,7 +1171,7 @@ public  class Transform extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef81246) 
+			if (__temp_executeDef152000) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -1188,14 +1188,14 @@ public  class Transform extends haxor.component.Component
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81247 = true;
+			boolean __temp_executeDef152001 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToString"))) );
 					}
 					
@@ -1207,7 +1207,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("right")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_right();
 					}
 					
@@ -1219,7 +1219,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -1231,7 +1231,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_right")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_right"))) );
 					}
 					
@@ -1243,7 +1243,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("TraverseStep")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TraverseStep"))) );
 					}
 					
@@ -1255,7 +1255,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_right")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_right"))) );
 					}
 					
@@ -1267,7 +1267,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Traverse")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Traverse"))) );
 					}
 					
@@ -1279,7 +1279,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_right")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_right;
 					}
 					
@@ -1291,7 +1291,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("OutputHierarchy")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OutputHierarchy"))) );
 					}
 					
@@ -1303,7 +1303,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("up")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_up();
 					}
 					
@@ -1315,7 +1315,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("GetPathToRoot")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetPathToRoot"))) );
 					}
 					
@@ -1327,7 +1327,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_up")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_up"))) );
 					}
 					
@@ -1339,7 +1339,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Search")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Search"))) );
 					}
 					
@@ -1351,7 +1351,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_up")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_up"))) );
 					}
 					
@@ -1363,7 +1363,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Navigate")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Navigate"))) );
 					}
 					
@@ -1375,7 +1375,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_up")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_up;
 					}
 					
@@ -1387,7 +1387,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Unlock")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Unlock"))) );
 					}
 					
@@ -1399,7 +1399,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("forward")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_forward();
 					}
 					
@@ -1411,7 +1411,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Lock")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Lock"))) );
 					}
 					
@@ -1423,7 +1423,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_forward")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_forward"))) );
 					}
 					
@@ -1435,7 +1435,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("GetChildByName")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetChildByName"))) );
 					}
 					
@@ -1447,7 +1447,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_forward")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_forward"))) );
 					}
 					
@@ -1459,7 +1459,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("GetChild")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetChild"))) );
 					}
 					
@@ -1471,7 +1471,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_forward")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_forward;
 					}
 					
@@ -1483,7 +1483,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("UpdateWorldMatrix")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateWorldMatrix"))) );
 					}
 					
@@ -1495,7 +1495,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("parent")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_parent();
 					}
 					
@@ -1507,7 +1507,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("RefreshWM")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("RefreshWM"))) );
 					}
 					
@@ -1519,7 +1519,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_parent")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_parent"))) );
 					}
 					
@@ -1531,7 +1531,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Rotate")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Rotate"))) );
 					}
 					
@@ -1543,7 +1543,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_parent")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_parent"))) );
 					}
 					
@@ -1555,7 +1555,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Translate")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Translate"))) );
 					}
 					
@@ -1567,7 +1567,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_parent")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_parent;
 					}
 					
@@ -1579,7 +1579,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
 					}
 					
@@ -1591,7 +1591,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("childCount")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						if (handleProperties) 
 						{
 							return this.get_childCount();
@@ -1611,7 +1611,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_hierarchy")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_hierarchy;
 					}
 					
@@ -1623,7 +1623,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_childCount")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_childCount"))) );
 					}
 					
@@ -1635,7 +1635,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_uniform_dirty")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_uniform_dirty;
 					}
 					
@@ -1647,7 +1647,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_position();
 					}
 					
@@ -1659,7 +1659,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_dirty")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_dirty;
 					}
 					
@@ -1671,7 +1671,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_position")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_position"))) );
 					}
 					
@@ -1683,7 +1683,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_worldMatrixInverse")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_worldMatrixInverse;
 					}
 					
@@ -1695,7 +1695,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_position")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_position"))) );
 					}
 					
@@ -1707,7 +1707,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_WorldMatrixInverse")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_WorldMatrixInverse"))) );
 					}
 					
@@ -1719,7 +1719,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_position")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_position;
 					}
 					
@@ -1731,7 +1731,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("WorldMatrixInverse")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_WorldMatrixInverse();
 					}
 					
@@ -1743,7 +1743,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("localPosition")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_localPosition();
 					}
 					
@@ -1755,7 +1755,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_worldMatrix")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_worldMatrix;
 					}
 					
@@ -1767,7 +1767,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_localPosition")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_localPosition"))) );
 					}
 					
@@ -1779,7 +1779,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_WorldMatrix")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_WorldMatrix"))) );
 					}
 					
@@ -1791,7 +1791,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_localPosition")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_localPosition"))) );
 					}
 					
@@ -1803,7 +1803,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("WorldMatrix")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_WorldMatrix();
 					}
 					
@@ -1815,7 +1815,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("euler")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_euler();
 					}
 					
@@ -1827,7 +1827,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_localScale")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_localScale;
 					}
 					
@@ -1839,7 +1839,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_euler")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_euler"))) );
 					}
 					
@@ -1851,7 +1851,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_localScale")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_localScale"))) );
 					}
 					
@@ -1863,7 +1863,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_euler")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_euler"))) );
 					}
 					
@@ -1875,7 +1875,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_localScale")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_localScale"))) );
 					}
 					
@@ -1887,7 +1887,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_euler")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_euler;
 					}
 					
@@ -1899,7 +1899,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("localScale")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_localScale();
 					}
 					
@@ -1911,7 +1911,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("localEuler")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_localEuler();
 					}
 					
@@ -1923,7 +1923,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("m_scale")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.m_scale;
 					}
 					
@@ -1935,7 +1935,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_localEuler")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_localEuler"))) );
 					}
 					
@@ -1947,7 +1947,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_scale")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_scale"))) );
 					}
 					
@@ -1959,7 +1959,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_localEuler")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_localEuler"))) );
 					}
 					
@@ -1971,7 +1971,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("scale")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_scale();
 					}
 					
@@ -1983,7 +1983,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("rotation")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_rotation();
 					}
 					
@@ -1995,7 +1995,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_localRotation")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_localRotation"))) );
 					}
 					
@@ -2007,7 +2007,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_rotation")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_rotation"))) );
 					}
 					
@@ -2019,7 +2019,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_localRotation")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_localRotation"))) );
 					}
 					
@@ -2031,7 +2031,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_rotation")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_rotation"))) );
 					}
 					
@@ -2043,7 +2043,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("localRotation")) 
 					{
-						__temp_executeDef81247 = false;
+						__temp_executeDef152001 = false;
 						return this.get_localRotation();
 					}
 					
@@ -2053,7 +2053,7 @@ public  class Transform extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef81247) 
+			if (__temp_executeDef152001) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -2070,14 +2070,14 @@ public  class Transform extends haxor.component.Component
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81248 = true;
+			boolean __temp_executeDef152002 = true;
 			switch (field.hashCode())
 			{
 				case 1329151315:
 				{
 					if (field.equals("childCount")) 
 					{
-						__temp_executeDef81248 = false;
+						__temp_executeDef152002 = false;
 						if (handleProperties) 
 						{
 							return ((double) (this.get_childCount()) );
@@ -2095,7 +2095,7 @@ public  class Transform extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef81248) 
+			if (__temp_executeDef152002) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -2112,15 +2112,15 @@ public  class Transform extends haxor.component.Component
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash81250 = field.hashCode();
-			boolean __temp_executeDef81249 = true;
-			switch (__temp_hash81250)
+			int __temp_hash152004 = field.hashCode();
+			boolean __temp_executeDef152003 = true;
+			switch (__temp_hash152004)
 			{
 				case 602652923:case 312095663:
 				{
-					if (( (( ( __temp_hash81250 == 602652923 ) && field.equals("OnDestroy") )) || field.equals("OnBuild") )) 
+					if (( (( ( __temp_hash152004 == 602652923 ) && field.equals("OnDestroy") )) || field.equals("OnBuild") )) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -2132,7 +2132,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_right")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_right();
 					}
 					
@@ -2144,7 +2144,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.ToString(dynargs.__get(0), dynargs.__get(1));
 					}
 					
@@ -2156,7 +2156,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_right")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_right(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2168,7 +2168,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("TraverseStep")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						this.TraverseStep(((haxor.component.Transform) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((haxe.lang.Function) (dynargs.__get(2)) ));
 					}
 					
@@ -2180,7 +2180,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_up")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_up();
 					}
 					
@@ -2192,7 +2192,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Traverse")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						this.Traverse(((haxe.lang.Function) (dynargs.__get(0)) ));
 					}
 					
@@ -2204,7 +2204,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_up")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_up(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2216,7 +2216,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("OutputHierarchy")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.OutputHierarchy();
 					}
 					
@@ -2228,7 +2228,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_forward")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_forward();
 					}
 					
@@ -2240,7 +2240,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("GetPathToRoot")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.GetPathToRoot();
 					}
 					
@@ -2252,7 +2252,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_forward")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_forward(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2264,7 +2264,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Search")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.Search(haxe.lang.Runtime.toString(dynargs.__get(0)), dynargs.__get(1));
 					}
 					
@@ -2276,7 +2276,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_parent")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_parent();
 					}
 					
@@ -2288,7 +2288,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Navigate")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.Navigate(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -2300,7 +2300,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_parent")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_parent(((haxor.component.Transform) (dynargs.__get(0)) ));
 					}
 					
@@ -2312,7 +2312,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Unlock")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						this.Unlock();
 					}
 					
@@ -2324,7 +2324,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_childCount")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_childCount();
 					}
 					
@@ -2336,7 +2336,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Lock")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						this.Lock();
 					}
 					
@@ -2348,7 +2348,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_position")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_position();
 					}
 					
@@ -2360,7 +2360,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("GetChildByName")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.GetChildByName(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -2372,7 +2372,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_position")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_position(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2384,7 +2384,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("GetChild")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.GetChild(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2396,7 +2396,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_localPosition")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_localPosition();
 					}
 					
@@ -2408,7 +2408,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("UpdateWorldMatrix")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						this.UpdateWorldMatrix();
 					}
 					
@@ -2420,7 +2420,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_localPosition")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_localPosition(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2432,7 +2432,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("RefreshWM")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						this.RefreshWM();
 					}
 					
@@ -2444,7 +2444,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_euler")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_euler();
 					}
 					
@@ -2456,7 +2456,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Rotate")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.Rotate(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ));
 					}
 					
@@ -2468,7 +2468,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_euler")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_euler(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2480,7 +2480,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("Translate")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.Translate(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ));
 					}
 					
@@ -2492,7 +2492,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_localEuler")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_localEuler();
 					}
 					
@@ -2504,7 +2504,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_WorldMatrixInverse")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_WorldMatrixInverse();
 					}
 					
@@ -2516,7 +2516,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_localEuler")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_localEuler(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2528,7 +2528,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_WorldMatrix")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_WorldMatrix();
 					}
 					
@@ -2540,7 +2540,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_rotation")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_rotation();
 					}
 					
@@ -2552,7 +2552,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_localScale")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_localScale(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2564,7 +2564,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_rotation")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_rotation(((haxor.math.Quaternion) (dynargs.__get(0)) ));
 					}
 					
@@ -2576,7 +2576,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_localScale")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_localScale();
 					}
 					
@@ -2588,7 +2588,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_localRotation")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_localRotation();
 					}
 					
@@ -2600,7 +2600,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("get_scale")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.get_scale();
 					}
 					
@@ -2612,7 +2612,7 @@ public  class Transform extends haxor.component.Component
 				{
 					if (field.equals("set_localRotation")) 
 					{
-						__temp_executeDef81249 = false;
+						__temp_executeDef152003 = false;
 						return this.set_localRotation(((haxor.math.Quaternion) (dynargs.__get(0)) ));
 					}
 					
@@ -2622,7 +2622,7 @@ public  class Transform extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef81249) 
+			if (__temp_executeDef152003) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

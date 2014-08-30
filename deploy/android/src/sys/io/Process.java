@@ -18,7 +18,7 @@ public  class Process extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_sys_io_Process(sys.io.Process __temp_me80848, java.lang.String cmd, haxe.root.Array<java.lang.String> args)
+	public static   void __hx_ctor_sys_io_Process(sys.io.Process __temp_me151601, java.lang.String cmd, haxe.root.Array<java.lang.String> args)
 	{
 		java.lang.String[] pargs = new java.lang.String[((int) (( args.length + 1 )) )];
 		pargs[0] = cmd;
@@ -35,28 +35,28 @@ public  class Process extends haxe.lang.HxObject
 		
 		try 
 		{
-			__temp_me80848.proc = new java.lang.ProcessBuilder(((java.lang.String[]) (pargs) )).start();
+			__temp_me151601.proc = new java.lang.ProcessBuilder(((java.lang.String[]) (pargs) )).start();
 		}
-		catch (java.lang.Throwable __temp_catchallException81745)
+		catch (java.lang.Throwable __temp_catchallException152521)
 		{
-			java.lang.Object __temp_catchall81746 = __temp_catchallException81745;
-			if (( __temp_catchall81746 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall152522 = __temp_catchallException152521;
+			if (( __temp_catchall152522 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall81746 = ((haxe.lang.HaxeException) (__temp_catchallException81745) ).obj;
+				__temp_catchall152522 = ((haxe.lang.HaxeException) (__temp_catchallException152521) ).obj;
 			}
 			
 			{
-				java.lang.Object e = __temp_catchall81746;
+				java.lang.Object e = __temp_catchall152522;
 				throw haxe.lang.HaxeException.wrap(e);
 			}
 			
 		}
 		
 		
-		java.lang.Process p = __temp_me80848.proc;
-		__temp_me80848.stderr = new sys.io._Process.ProcessInput(((java.io.InputStream) (p.getErrorStream()) ));
-		__temp_me80848.stdout = new sys.io._Process.ProcessInput(((java.io.InputStream) (p.getInputStream()) ));
-		__temp_me80848.stdin = new haxe.java.io.NativeOutput(((java.io.OutputStream) (p.getOutputStream()) ));
+		java.lang.Process p = __temp_me151601.proc;
+		__temp_me151601.stderr = new sys.io._Process.ProcessInput(((java.io.InputStream) (p.getErrorStream()) ));
+		__temp_me151601.stdout = new sys.io._Process.ProcessInput(((java.io.InputStream) (p.getInputStream()) ));
+		__temp_me151601.stdin = new haxe.java.io.NativeOutput(((java.io.OutputStream) (p.getOutputStream()) ));
 	}
 	
 	
@@ -99,16 +99,16 @@ public  class Process extends haxe.lang.HxObject
 		{
 			this.proc.waitFor();
 		}
-		catch (java.lang.Throwable __temp_catchallException81740)
+		catch (java.lang.Throwable __temp_catchallException152516)
 		{
-			java.lang.Object __temp_catchall81741 = __temp_catchallException81740;
-			if (( __temp_catchall81741 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall152517 = __temp_catchallException152516;
+			if (( __temp_catchall152517 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall81741 = ((haxe.lang.HaxeException) (__temp_catchallException81740) ).obj;
+				__temp_catchall152517 = ((haxe.lang.HaxeException) (__temp_catchallException152516) ).obj;
 			}
 			
 			{
-				java.lang.Object e = __temp_catchall81741;
+				java.lang.Object e = __temp_catchall152517;
 				throw haxe.lang.HaxeException.wrap(e);
 			}
 			
@@ -134,14 +134,14 @@ public  class Process extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81742 = true;
+			boolean __temp_executeDef152518 = true;
 			switch (field.hashCode())
 			{
 				case 3449686:
 				{
 					if (field.equals("proc")) 
 					{
-						__temp_executeDef81742 = false;
+						__temp_executeDef152518 = false;
 						this.proc = ((java.lang.Process) (value) );
 						return value;
 					}
@@ -154,7 +154,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("stdout")) 
 					{
-						__temp_executeDef81742 = false;
+						__temp_executeDef152518 = false;
 						this.stdout = ((haxe.io.Input) (value) );
 						return value;
 					}
@@ -167,7 +167,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("stdin")) 
 					{
-						__temp_executeDef81742 = false;
+						__temp_executeDef152518 = false;
 						this.stdin = ((haxe.io.Output) (value) );
 						return value;
 					}
@@ -180,7 +180,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("stderr")) 
 					{
-						__temp_executeDef81742 = false;
+						__temp_executeDef152518 = false;
 						this.stderr = ((haxe.io.Input) (value) );
 						return value;
 					}
@@ -191,7 +191,7 @@ public  class Process extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81742) 
+			if (__temp_executeDef152518) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -208,14 +208,14 @@ public  class Process extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81743 = true;
+			boolean __temp_executeDef152519 = true;
 			switch (field.hashCode())
 			{
 				case 3291998:
 				{
 					if (field.equals("kill")) 
 					{
-						__temp_executeDef81743 = false;
+						__temp_executeDef152519 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("kill"))) );
 					}
 					
@@ -227,7 +227,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("stdout")) 
 					{
-						__temp_executeDef81743 = false;
+						__temp_executeDef152519 = false;
 						return this.stdout;
 					}
 					
@@ -239,7 +239,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("close")) 
 					{
-						__temp_executeDef81743 = false;
+						__temp_executeDef152519 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("close"))) );
 					}
 					
@@ -251,7 +251,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("stderr")) 
 					{
-						__temp_executeDef81743 = false;
+						__temp_executeDef152519 = false;
 						return this.stderr;
 					}
 					
@@ -263,7 +263,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("exitCode")) 
 					{
-						__temp_executeDef81743 = false;
+						__temp_executeDef152519 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("exitCode"))) );
 					}
 					
@@ -275,7 +275,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("stdin")) 
 					{
-						__temp_executeDef81743 = false;
+						__temp_executeDef152519 = false;
 						return this.stdin;
 					}
 					
@@ -287,7 +287,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("getPid")) 
 					{
-						__temp_executeDef81743 = false;
+						__temp_executeDef152519 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getPid"))) );
 					}
 					
@@ -299,7 +299,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("proc")) 
 					{
-						__temp_executeDef81743 = false;
+						__temp_executeDef152519 = false;
 						return this.proc;
 					}
 					
@@ -309,7 +309,7 @@ public  class Process extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81743) 
+			if (__temp_executeDef152519) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -326,14 +326,14 @@ public  class Process extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef81744 = true;
+			boolean __temp_executeDef152520 = true;
 			switch (field.hashCode())
 			{
 				case 3291998:
 				{
 					if (field.equals("kill")) 
 					{
-						__temp_executeDef81744 = false;
+						__temp_executeDef152520 = false;
 						this.kill();
 					}
 					
@@ -345,7 +345,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("getPid")) 
 					{
-						__temp_executeDef81744 = false;
+						__temp_executeDef152520 = false;
 						return this.getPid();
 					}
 					
@@ -357,7 +357,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("close")) 
 					{
-						__temp_executeDef81744 = false;
+						__temp_executeDef152520 = false;
 						this.close();
 					}
 					
@@ -369,7 +369,7 @@ public  class Process extends haxe.lang.HxObject
 				{
 					if (field.equals("exitCode")) 
 					{
-						__temp_executeDef81744 = false;
+						__temp_executeDef152520 = false;
 						return this.exitCode();
 					}
 					
@@ -379,7 +379,7 @@ public  class Process extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81744) 
+			if (__temp_executeDef152520) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

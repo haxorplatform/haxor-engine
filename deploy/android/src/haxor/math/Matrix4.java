@@ -18,40 +18,40 @@ public  class Matrix4 extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_math_Matrix4(haxor.math.Matrix4 __temp_me80779, java.lang.Object p_m00, java.lang.Object p_m01, java.lang.Object p_m02, java.lang.Object p_m03, java.lang.Object p_m10, java.lang.Object p_m11, java.lang.Object p_m12, java.lang.Object p_m13, java.lang.Object p_m20, java.lang.Object p_m21, java.lang.Object p_m22, java.lang.Object p_m23, java.lang.Object p_m30, java.lang.Object p_m31, java.lang.Object p_m32, java.lang.Object p_m33)
+	public static   void __hx_ctor_haxor_math_Matrix4(haxor.math.Matrix4 __temp_me151531, java.lang.Object p_m00, java.lang.Object p_m01, java.lang.Object p_m02, java.lang.Object p_m03, java.lang.Object p_m10, java.lang.Object p_m11, java.lang.Object p_m12, java.lang.Object p_m13, java.lang.Object p_m20, java.lang.Object p_m21, java.lang.Object p_m22, java.lang.Object p_m23, java.lang.Object p_m30, java.lang.Object p_m31, java.lang.Object p_m32, java.lang.Object p_m33)
 	{
-		double __temp_p_m3380778 = ( (( p_m33 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m33)) )) );
-		double __temp_p_m3280777 = ( (( p_m32 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m32)) )) );
-		double __temp_p_m3180776 = ( (( p_m31 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m31)) )) );
-		double __temp_p_m3080775 = ( (( p_m30 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m30)) )) );
-		double __temp_p_m2380774 = ( (( p_m23 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m23)) )) );
-		double __temp_p_m2280773 = ( (( p_m22 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m22)) )) );
-		double __temp_p_m2180772 = ( (( p_m21 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m21)) )) );
-		double __temp_p_m2080771 = ( (( p_m20 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m20)) )) );
-		double __temp_p_m1380770 = ( (( p_m13 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m13)) )) );
-		double __temp_p_m1280769 = ( (( p_m12 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m12)) )) );
-		double __temp_p_m1180768 = ( (( p_m11 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m11)) )) );
-		double __temp_p_m1080767 = ( (( p_m10 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m10)) )) );
-		double __temp_p_m0380766 = ( (( p_m03 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m03)) )) );
-		double __temp_p_m0280765 = ( (( p_m02 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m02)) )) );
-		double __temp_p_m0180764 = ( (( p_m01 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m01)) )) );
-		double __temp_p_m0080763 = ( (( p_m00 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m00)) )) );
-		__temp_me80779.m00 = __temp_p_m0080763;
-		__temp_me80779.m01 = __temp_p_m0180764;
-		__temp_me80779.m02 = __temp_p_m0280765;
-		__temp_me80779.m03 = __temp_p_m0380766;
-		__temp_me80779.m10 = __temp_p_m1080767;
-		__temp_me80779.m11 = __temp_p_m1180768;
-		__temp_me80779.m12 = __temp_p_m1280769;
-		__temp_me80779.m13 = __temp_p_m1380770;
-		__temp_me80779.m20 = __temp_p_m2080771;
-		__temp_me80779.m21 = __temp_p_m2180772;
-		__temp_me80779.m22 = __temp_p_m2280773;
-		__temp_me80779.m23 = __temp_p_m2380774;
-		__temp_me80779.m30 = __temp_p_m3080775;
-		__temp_me80779.m31 = __temp_p_m3180776;
-		__temp_me80779.m32 = __temp_p_m3280777;
-		__temp_me80779.m33 = __temp_p_m3380778;
+		double __temp_p_m33151530 = ( (( p_m33 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m33)) )) );
+		double __temp_p_m32151529 = ( (( p_m32 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m32)) )) );
+		double __temp_p_m31151528 = ( (( p_m31 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m31)) )) );
+		double __temp_p_m30151527 = ( (( p_m30 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m30)) )) );
+		double __temp_p_m23151526 = ( (( p_m23 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m23)) )) );
+		double __temp_p_m22151525 = ( (( p_m22 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m22)) )) );
+		double __temp_p_m21151524 = ( (( p_m21 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m21)) )) );
+		double __temp_p_m20151523 = ( (( p_m20 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m20)) )) );
+		double __temp_p_m13151522 = ( (( p_m13 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m13)) )) );
+		double __temp_p_m12151521 = ( (( p_m12 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m12)) )) );
+		double __temp_p_m11151520 = ( (( p_m11 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m11)) )) );
+		double __temp_p_m10151519 = ( (( p_m10 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m10)) )) );
+		double __temp_p_m03151518 = ( (( p_m03 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m03)) )) );
+		double __temp_p_m02151517 = ( (( p_m02 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m02)) )) );
+		double __temp_p_m01151516 = ( (( p_m01 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m01)) )) );
+		double __temp_p_m00151515 = ( (( p_m00 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m00)) )) );
+		__temp_me151531.m00 = __temp_p_m00151515;
+		__temp_me151531.m01 = __temp_p_m01151516;
+		__temp_me151531.m02 = __temp_p_m02151517;
+		__temp_me151531.m03 = __temp_p_m03151518;
+		__temp_me151531.m10 = __temp_p_m10151519;
+		__temp_me151531.m11 = __temp_p_m11151520;
+		__temp_me151531.m12 = __temp_p_m12151521;
+		__temp_me151531.m13 = __temp_p_m13151522;
+		__temp_me151531.m20 = __temp_p_m20151523;
+		__temp_me151531.m21 = __temp_p_m21151524;
+		__temp_me151531.m22 = __temp_p_m22151525;
+		__temp_me151531.m23 = __temp_p_m23151526;
+		__temp_me151531.m30 = __temp_p_m30151527;
+		__temp_me151531.m31 = __temp_p_m31151528;
+		__temp_me151531.m32 = __temp_p_m32151529;
+		__temp_me151531.m33 = __temp_p_m33151530;
 	}
 	
 	
@@ -319,13 +319,13 @@ public  class Matrix4 extends haxe.lang.HxObject
 	
 	public static   haxor.math.Matrix4 OrthoInverse(double p_left, double p_right, double p_top, double p_bottom, double p_near, double p_far, haxor.math.Matrix4 p_result)
 	{
-		haxor.math.Matrix4 __temp_stmt81607 = null;
+		haxor.math.Matrix4 __temp_stmt152378 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81607 = _this.m_m4.__get(_this.m_nq = ( (( _this.m_nm4 + 1 )) % _this.m_m4.length ));
+			__temp_stmt152378 = _this.m_m4.__get(_this.m_nq = ( (( _this.m_nm4 + 1 )) % _this.m_m4.length ));
 		}
 		
-		haxor.math.Matrix4 m = __temp_stmt81607.SetOrtho(p_left, p_right, p_top, p_bottom, p_near, p_far);
+		haxor.math.Matrix4 m = __temp_stmt152378.SetOrtho(p_left, p_right, p_top, p_bottom, p_near, p_far);
 		return haxor.math.Matrix4.GetInverseTransform(m, p_result);
 	}
 	
@@ -529,14 +529,14 @@ public  class Matrix4 extends haxe.lang.HxObject
 	
 	public static   haxor.math.Matrix4 LookRotation(haxor.math.Vector3 p_forward, haxor.math.Vector3 p_up, haxor.math.Matrix4 p_result)
 	{
-		haxor.math.Vector3 __temp_stmt81609 = null;
+		haxor.math.Vector3 __temp_stmt152380 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81609 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
+			__temp_stmt152380 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
 		}
 		
-		haxor.math.Vector3 __temp_stmt81608 = __temp_stmt81609.Set(0, 0, 0);
-		return haxor.math.Matrix4.LookAt(__temp_stmt81608, p_forward, p_up, p_result);
+		haxor.math.Vector3 __temp_stmt152379 = __temp_stmt152380.Set(0, 0, 0);
+		return haxor.math.Matrix4.LookAt(__temp_stmt152379, p_forward, p_up, p_result);
 	}
 	
 	
@@ -553,43 +553,43 @@ public  class Matrix4 extends haxe.lang.HxObject
 		
 		if (( p_up == null )) 
 		{
-			haxor.math.Vector3 __temp_stmt81610 = null;
+			haxor.math.Vector3 __temp_stmt152381 = null;
 			{
 				haxor.context.DataContext _this = haxor.context.EngineContext.data;
-				__temp_stmt81610 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
+				__temp_stmt152381 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
 			}
 			
-			p_up = __temp_stmt81610.Set(0, 1, 0);
+			p_up = __temp_stmt152381.Set(0, 1, 0);
 		}
 		 else 
 		{
 			p_up = p_up;
 		}
 		
-		haxor.math.Vector3 __temp_stmt81613 = null;
+		haxor.math.Vector3 __temp_stmt152384 = null;
 		{
 			haxor.context.DataContext _this1 = haxor.context.EngineContext.data;
-			__temp_stmt81613 = _this1.m_v3.__get(_this1.m_nv3 = ( (( _this1.m_nv3 + 1 )) % _this1.m_v3.length ));
+			__temp_stmt152384 = _this1.m_v3.__get(_this1.m_nv3 = ( (( _this1.m_nv3 + 1 )) % _this1.m_v3.length ));
 		}
 		
-		haxor.math.Vector3 __temp_stmt81612 = __temp_stmt81613.Set3(p_at);
-		haxor.math.Vector3 __temp_stmt81611 = __temp_stmt81612.Sub(p_eye);
-		haxor.math.Vector3 f = __temp_stmt81611.Normalize();
-		haxor.math.Vector3 __temp_stmt81615 = null;
+		haxor.math.Vector3 __temp_stmt152383 = __temp_stmt152384.Set3(p_at);
+		haxor.math.Vector3 __temp_stmt152382 = __temp_stmt152383.Sub(p_eye);
+		haxor.math.Vector3 f = __temp_stmt152382.Normalize();
+		haxor.math.Vector3 __temp_stmt152386 = null;
 		{
 			haxor.context.DataContext _this2 = haxor.context.EngineContext.data;
-			__temp_stmt81615 = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
+			__temp_stmt152386 = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
 		}
 		
-		haxor.math.Vector3 __temp_stmt81614 = haxor.math.Vector3.Cross(f, p_up, __temp_stmt81615);
-		haxor.math.Vector3 s = __temp_stmt81614.Normalize();
-		haxor.math.Vector3 __temp_stmt81616 = null;
+		haxor.math.Vector3 __temp_stmt152385 = haxor.math.Vector3.Cross(f, p_up, __temp_stmt152386);
+		haxor.math.Vector3 s = __temp_stmt152385.Normalize();
+		haxor.math.Vector3 __temp_stmt152387 = null;
 		{
 			haxor.context.DataContext _this3 = haxor.context.EngineContext.data;
-			__temp_stmt81616 = _this3.m_v3.__get(_this3.m_nv3 = ( (( _this3.m_nv3 + 1 )) % _this3.m_v3.length ));
+			__temp_stmt152387 = _this3.m_v3.__get(_this3.m_nv3 = ( (( _this3.m_nv3 + 1 )) % _this3.m_v3.length ));
 		}
 		
-		haxor.math.Vector3 u = haxor.math.Vector3.Cross(s, f, __temp_stmt81616);
+		haxor.math.Vector3 u = haxor.math.Vector3.Cross(s, f, __temp_stmt152387);
 		p_result.m00 = s.x;
 		p_result.m10 = s.y;
 		p_result.m20 = s.z;
@@ -657,15 +657,15 @@ public  class Matrix4 extends haxe.lang.HxObject
 	
 	public final   haxor.math.Quaternion get_quaternion()
 	{
-		haxor.math.Matrix4 __temp_stmt81600 = null;
+		haxor.math.Matrix4 __temp_stmt152371 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81600 = _this.m_m4.__get(_this.m_nq = ( (( _this.m_nm4 + 1 )) % _this.m_m4.length ));
+			__temp_stmt152371 = _this.m_m4.__get(_this.m_nq = ( (( _this.m_nm4 + 1 )) % _this.m_m4.length ));
 		}
 		
-		haxor.math.Matrix4 __temp_stmt81599 = __temp_stmt81600.SetMatrix4(this);
-		haxor.math.Matrix4 __temp_stmt81598 = __temp_stmt81599.ToRotation();
-		return haxor.math.Quaternion.FromMatrix(__temp_stmt81598, null);
+		haxor.math.Matrix4 __temp_stmt152370 = __temp_stmt152371.SetMatrix4(this);
+		haxor.math.Matrix4 __temp_stmt152369 = __temp_stmt152370.ToRotation();
+		return haxor.math.Quaternion.FromMatrix(__temp_stmt152369, null);
 	}
 	
 	
@@ -972,38 +972,38 @@ public  class Matrix4 extends haxe.lang.HxObject
 	
 	public   haxor.math.Matrix4 Set(java.lang.Object p_m00, java.lang.Object p_m01, java.lang.Object p_m02, java.lang.Object p_m03, java.lang.Object p_m10, java.lang.Object p_m11, java.lang.Object p_m12, java.lang.Object p_m13, java.lang.Object p_m20, java.lang.Object p_m21, java.lang.Object p_m22, java.lang.Object p_m23, java.lang.Object p_m30, java.lang.Object p_m31, java.lang.Object p_m32, java.lang.Object p_m33)
 	{
-		double __temp_p_m3380760 = ( (( p_m33 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m33)) )) );
-		double __temp_p_m3280759 = ( (( p_m32 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m32)) )) );
-		double __temp_p_m3180758 = ( (( p_m31 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m31)) )) );
-		double __temp_p_m3080757 = ( (( p_m30 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m30)) )) );
-		double __temp_p_m2380756 = ( (( p_m23 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m23)) )) );
-		double __temp_p_m2280755 = ( (( p_m22 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m22)) )) );
-		double __temp_p_m2180754 = ( (( p_m21 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m21)) )) );
-		double __temp_p_m2080753 = ( (( p_m20 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m20)) )) );
-		double __temp_p_m1380752 = ( (( p_m13 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m13)) )) );
-		double __temp_p_m1280751 = ( (( p_m12 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m12)) )) );
-		double __temp_p_m1180750 = ( (( p_m11 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m11)) )) );
-		double __temp_p_m1080749 = ( (( p_m10 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m10)) )) );
-		double __temp_p_m0380748 = ( (( p_m03 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m03)) )) );
-		double __temp_p_m0280747 = ( (( p_m02 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m02)) )) );
-		double __temp_p_m0180746 = ( (( p_m01 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m01)) )) );
-		double __temp_p_m0080745 = ( (( p_m00 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m00)) )) );
-		this.m00 = __temp_p_m0080745;
-		this.m01 = __temp_p_m0180746;
-		this.m02 = __temp_p_m0280747;
-		this.m03 = __temp_p_m0380748;
-		this.m10 = __temp_p_m1080749;
-		this.m11 = __temp_p_m1180750;
-		this.m12 = __temp_p_m1280751;
-		this.m13 = __temp_p_m1380752;
-		this.m20 = __temp_p_m2080753;
-		this.m21 = __temp_p_m2180754;
-		this.m22 = __temp_p_m2280755;
-		this.m23 = __temp_p_m2380756;
-		this.m30 = __temp_p_m3080757;
-		this.m31 = __temp_p_m3180758;
-		this.m32 = __temp_p_m3280759;
-		this.m33 = __temp_p_m3380760;
+		double __temp_p_m33151512 = ( (( p_m33 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m33)) )) );
+		double __temp_p_m32151511 = ( (( p_m32 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m32)) )) );
+		double __temp_p_m31151510 = ( (( p_m31 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m31)) )) );
+		double __temp_p_m30151509 = ( (( p_m30 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m30)) )) );
+		double __temp_p_m23151508 = ( (( p_m23 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m23)) )) );
+		double __temp_p_m22151507 = ( (( p_m22 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m22)) )) );
+		double __temp_p_m21151506 = ( (( p_m21 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m21)) )) );
+		double __temp_p_m20151505 = ( (( p_m20 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m20)) )) );
+		double __temp_p_m13151504 = ( (( p_m13 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m13)) )) );
+		double __temp_p_m12151503 = ( (( p_m12 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m12)) )) );
+		double __temp_p_m11151502 = ( (( p_m11 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m11)) )) );
+		double __temp_p_m10151501 = ( (( p_m10 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m10)) )) );
+		double __temp_p_m03151500 = ( (( p_m03 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m03)) )) );
+		double __temp_p_m02151499 = ( (( p_m02 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m02)) )) );
+		double __temp_p_m01151498 = ( (( p_m01 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m01)) )) );
+		double __temp_p_m00151497 = ( (( p_m00 == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_m00)) )) );
+		this.m00 = __temp_p_m00151497;
+		this.m01 = __temp_p_m01151498;
+		this.m02 = __temp_p_m02151499;
+		this.m03 = __temp_p_m03151500;
+		this.m10 = __temp_p_m10151501;
+		this.m11 = __temp_p_m11151502;
+		this.m12 = __temp_p_m12151503;
+		this.m13 = __temp_p_m13151504;
+		this.m20 = __temp_p_m20151505;
+		this.m21 = __temp_p_m21151506;
+		this.m22 = __temp_p_m22151507;
+		this.m23 = __temp_p_m23151508;
+		this.m30 = __temp_p_m30151509;
+		this.m31 = __temp_p_m31151510;
+		this.m32 = __temp_p_m32151511;
+		this.m33 = __temp_p_m33151512;
 		return this;
 	}
 	
@@ -1648,8 +1648,8 @@ public  class Matrix4 extends haxe.lang.HxObject
 	
 	public   java.lang.String ToString(java.lang.Object p_linear, java.lang.Object p_places)
 	{
-		int __temp_p_places80762 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
-		boolean __temp_p_linear80761 = ( (( p_linear == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_linear)) );
+		int __temp_p_places151514 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
+		boolean __temp_p_linear151513 = ( (( p_linear == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_linear)) );
 		haxe.root.Array<java.lang.Object> a = this.ToArray();
 		haxe.root.Array<java.lang.String> s = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
 		{
@@ -1659,14 +1659,14 @@ public  class Matrix4 extends haxe.lang.HxObject
 			{
 				int i = _g1++;
 				{
-					double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80762) ));
-					double __temp_stmt81601 = 0.0;
+					double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151514) ));
+					double __temp_stmt152372 = 0.0;
 					{
 						double p_v = ( ((double) (haxe.lang.Runtime.toDouble(a.__get(i))) ) * d );
-						__temp_stmt81601 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
+						__temp_stmt152372 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
 					}
 					
-					a.__set(i, ( __temp_stmt81601 / d ));
+					a.__set(i, ( __temp_stmt152372 / d ));
 				}
 				
 				s.push(( (( ((double) (haxe.lang.Runtime.toDouble(a.__get(i))) ) >= 0 )) ? (( " " + haxe.lang.Runtime.toString(((double) (haxe.lang.Runtime.toDouble(a.__get(i))) )) )) : (( haxe.lang.Runtime.toString(((double) (haxe.lang.Runtime.toDouble(a.__get(i))) )) + "" )) ));
@@ -1675,7 +1675,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 		}
 		
 		java.lang.String res = null;
-		if (__temp_p_linear80761) 
+		if (__temp_p_linear151513) 
 		{
 			res = "[";
 		}
@@ -1705,7 +1705,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				}
 				 else 
 				{
-					if (__temp_p_linear80761) 
+					if (__temp_p_linear151513) 
 					{
 						res += " |";
 					}
@@ -1720,7 +1720,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 			
 		}
 		
-		if (__temp_p_linear80761) 
+		if (__temp_p_linear151513) 
 		{
 			res += "]";
 		}
@@ -1732,14 +1732,14 @@ public  class Matrix4 extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81602 = true;
+			boolean __temp_executeDef152373 = true;
 			switch (field.hashCode())
 			{
 				case 106381:
 				{
 					if (field.equals("m33")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m33 = ((double) (value) );
 						return value;
 					}
@@ -1752,7 +1752,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m00")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m00 = ((double) (value) );
 						return value;
 					}
@@ -1765,7 +1765,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m32")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m32 = ((double) (value) );
 						return value;
 					}
@@ -1778,7 +1778,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m01")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m01 = ((double) (value) );
 						return value;
 					}
@@ -1791,7 +1791,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m31")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m31 = ((double) (value) );
 						return value;
 					}
@@ -1804,7 +1804,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m02")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m02 = ((double) (value) );
 						return value;
 					}
@@ -1817,7 +1817,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m30")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m30 = ((double) (value) );
 						return value;
 					}
@@ -1830,7 +1830,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m03")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m03 = ((double) (value) );
 						return value;
 					}
@@ -1843,7 +1843,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m23")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m23 = ((double) (value) );
 						return value;
 					}
@@ -1856,7 +1856,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m10")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m10 = ((double) (value) );
 						return value;
 					}
@@ -1869,7 +1869,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m22")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m22 = ((double) (value) );
 						return value;
 					}
@@ -1882,7 +1882,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m11")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m11 = ((double) (value) );
 						return value;
 					}
@@ -1895,7 +1895,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m21")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m21 = ((double) (value) );
 						return value;
 					}
@@ -1908,7 +1908,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m12")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m12 = ((double) (value) );
 						return value;
 					}
@@ -1921,7 +1921,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m20")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m20 = ((double) (value) );
 						return value;
 					}
@@ -1934,7 +1934,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m13")) 
 					{
-						__temp_executeDef81602 = false;
+						__temp_executeDef152373 = false;
 						this.m13 = ((double) (value) );
 						return value;
 					}
@@ -1945,7 +1945,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81602) 
+			if (__temp_executeDef152373) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -1962,14 +1962,14 @@ public  class Matrix4 extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81603 = true;
+			boolean __temp_executeDef152374 = true;
 			switch (field.hashCode())
 			{
 				case -1520743301:
 				{
 					if (field.equals("diagonalLR")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.set_diagonalLR(((haxor.math.Vector4) (value) ));
 						return value;
 					}
@@ -1982,7 +1982,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("quaternion")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.set_quaternion(((haxor.math.Quaternion) (value) ));
 						return value;
 					}
@@ -1995,7 +1995,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m33")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m33 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2008,7 +2008,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("rotation")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.rotation = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -2021,7 +2021,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m32")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m32 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2034,7 +2034,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("scale")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.scale = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -2047,7 +2047,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m31")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m31 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2060,7 +2060,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("translation")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.translation = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -2073,7 +2073,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m30")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m30 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2086,7 +2086,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("inverseTransform")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.inverseTransform = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -2099,7 +2099,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m23")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m23 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2112,7 +2112,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("transposed")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.transposed = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -2125,7 +2125,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m22")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m22 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2138,7 +2138,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m00")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m00 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2151,7 +2151,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m21")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m21 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2164,7 +2164,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m01")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m01 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2177,7 +2177,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m20")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m20 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2190,7 +2190,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m02")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m02 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2203,7 +2203,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m13")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m13 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2216,7 +2216,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m03")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m03 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2229,7 +2229,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m12")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m12 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2242,7 +2242,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m10")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m10 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2255,7 +2255,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m11")) 
 					{
-						__temp_executeDef81603 = false;
+						__temp_executeDef152374 = false;
 						this.m11 = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -2266,7 +2266,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81603) 
+			if (__temp_executeDef152374) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -2283,14 +2283,14 @@ public  class Matrix4 extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81604 = true;
+			boolean __temp_executeDef152375 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToString"))) );
 					}
 					
@@ -2302,7 +2302,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("clone")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.get_clone();
 					}
 					
@@ -2314,7 +2314,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToArray")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToArray"))) );
 					}
 					
@@ -2326,7 +2326,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_clone"))) );
 					}
 					
@@ -2338,7 +2338,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetPerspectiveInverse")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetPerspectiveInverse"))) );
 					}
 					
@@ -2350,7 +2350,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("quaternion")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.get_quaternion();
 					}
 					
@@ -2362,7 +2362,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetPerspective")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetPerspective"))) );
 					}
 					
@@ -2374,7 +2374,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_quaternion")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_quaternion"))) );
 					}
 					
@@ -2386,7 +2386,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetOrtho")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetOrtho"))) );
 					}
 					
@@ -2398,7 +2398,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_quaternion")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_quaternion"))) );
 					}
 					
@@ -2410,7 +2410,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetFrustumInverse")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetFrustumInverse"))) );
 					}
 					
@@ -2422,7 +2422,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("trace")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.get_trace();
 					}
 					
@@ -2434,7 +2434,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetFrustum")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetFrustum"))) );
 					}
 					
@@ -2446,7 +2446,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_trace")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_trace"))) );
 					}
 					
@@ -2458,7 +2458,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetLookAt")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetLookAt"))) );
 					}
 					
@@ -2470,7 +2470,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("rotation")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						if (handleProperties) 
 						{
 							return this.get_rotation();
@@ -2490,7 +2490,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform2x2")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Transform2x2"))) );
 					}
 					
@@ -2502,7 +2502,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_rotation")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_rotation"))) );
 					}
 					
@@ -2514,7 +2514,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform2x3")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Transform2x3"))) );
 					}
 					
@@ -2526,7 +2526,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("scale")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						if (handleProperties) 
 						{
 							return this.get_scale();
@@ -2546,7 +2546,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform3x3")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Transform3x3"))) );
 					}
 					
@@ -2558,7 +2558,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_scale")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_scale"))) );
 					}
 					
@@ -2570,7 +2570,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform3x4")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Transform3x4"))) );
 					}
 					
@@ -2582,7 +2582,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("translation")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						if (handleProperties) 
 						{
 							return this.get_translation();
@@ -2602,7 +2602,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform4x4")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Transform4x4"))) );
 					}
 					
@@ -2614,7 +2614,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_translation")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_translation"))) );
 					}
 					
@@ -2626,7 +2626,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Multiply")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Multiply"))) );
 					}
 					
@@ -2638,7 +2638,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("inverseTransform")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						if (handleProperties) 
 						{
 							return this.get_inverseTransform();
@@ -2658,7 +2658,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Multiply3x4")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Multiply3x4"))) );
 					}
 					
@@ -2670,7 +2670,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_inverseTransform")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_inverseTransform"))) );
 					}
 					
@@ -2682,7 +2682,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("MultiplyTransform")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("MultiplyTransform"))) );
 					}
 					
@@ -2694,7 +2694,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("transposed")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						if (handleProperties) 
 						{
 							return this.get_transposed();
@@ -2714,7 +2714,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetTRS")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetTRS"))) );
 					}
 					
@@ -2726,7 +2726,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_transposed")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_transposed"))) );
 					}
 					
@@ -2738,7 +2738,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Rotate")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Rotate"))) );
 					}
 					
@@ -2750,7 +2750,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToRowMajor")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToRowMajor"))) );
 					}
 					
@@ -2762,7 +2762,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToRotation")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToRotation"))) );
 					}
 					
@@ -2774,7 +2774,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToColumnMajor")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToColumnMajor"))) );
 					}
 					
@@ -2786,7 +2786,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transpose")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Transpose"))) );
 					}
 					
@@ -2798,7 +2798,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m00")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m00;
 					}
 					
@@ -2810,7 +2810,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SwapRow")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SwapRow"))) );
 					}
 					
@@ -2822,7 +2822,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m01")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m01;
 					}
 					
@@ -2834,7 +2834,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SwapCol")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SwapCol"))) );
 					}
 					
@@ -2846,7 +2846,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m02")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m02;
 					}
 					
@@ -2858,7 +2858,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("GetRowCol")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetRowCol"))) );
 					}
 					
@@ -2870,7 +2870,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m03")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m03;
 					}
 					
@@ -2882,7 +2882,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetRowCol")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetRowCol"))) );
 					}
 					
@@ -2894,7 +2894,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m10")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m10;
 					}
 					
@@ -2906,7 +2906,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetIndex")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetIndex"))) );
 					}
 					
@@ -2918,7 +2918,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m11")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m11;
 					}
 					
@@ -2930,7 +2930,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("GetIndex")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetIndex"))) );
 					}
 					
@@ -2942,7 +2942,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m12")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m12;
 					}
 					
@@ -2954,7 +2954,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetMatrix4")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetMatrix4"))) );
 					}
 					
@@ -2966,7 +2966,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m13")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m13;
 					}
 					
@@ -2978,7 +2978,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
@@ -2990,7 +2990,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m20")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m20;
 					}
 					
@@ -3002,7 +3002,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetIdentity")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetIdentity"))) );
 					}
 					
@@ -3014,7 +3014,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m21")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m21;
 					}
 					
@@ -3026,7 +3026,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_diagonalLR")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_diagonalLR"))) );
 					}
 					
@@ -3038,7 +3038,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m22")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m22;
 					}
 					
@@ -3050,7 +3050,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_diagonalLR")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_diagonalLR"))) );
 					}
 					
@@ -3062,7 +3062,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m23")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m23;
 					}
 					
@@ -3074,7 +3074,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("diagonalLR")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.get_diagonalLR();
 					}
 					
@@ -3086,7 +3086,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m30")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m30;
 					}
 					
@@ -3098,7 +3098,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetColumn")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetColumn"))) );
 					}
 					
@@ -3110,7 +3110,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m31")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m31;
 					}
 					
@@ -3122,7 +3122,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("GetColumn")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetColumn"))) );
 					}
 					
@@ -3134,7 +3134,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m32")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m32;
 					}
 					
@@ -3146,7 +3146,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetLine")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetLine"))) );
 					}
 					
@@ -3158,7 +3158,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m33")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return this.m33;
 					}
 					
@@ -3170,7 +3170,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("GetLine")) 
 					{
-						__temp_executeDef81604 = false;
+						__temp_executeDef152375 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetLine"))) );
 					}
 					
@@ -3180,7 +3180,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81604) 
+			if (__temp_executeDef152375) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -3197,14 +3197,14 @@ public  class Matrix4 extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81605 = true;
+			boolean __temp_executeDef152376 = true;
 			switch (field.hashCode())
 			{
 				case 106381:
 				{
 					if (field.equals("m33")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m33;
 					}
 					
@@ -3216,7 +3216,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("trace")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.get_trace();
 					}
 					
@@ -3228,7 +3228,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m32")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m32;
 					}
 					
@@ -3240,7 +3240,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m00")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m00;
 					}
 					
@@ -3252,7 +3252,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m31")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m31;
 					}
 					
@@ -3264,7 +3264,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m01")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m01;
 					}
 					
@@ -3276,7 +3276,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m30")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m30;
 					}
 					
@@ -3288,7 +3288,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m02")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m02;
 					}
 					
@@ -3300,7 +3300,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m23")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m23;
 					}
 					
@@ -3312,7 +3312,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m03")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m03;
 					}
 					
@@ -3324,7 +3324,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m22")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m22;
 					}
 					
@@ -3336,7 +3336,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m10")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m10;
 					}
 					
@@ -3348,7 +3348,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m21")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m21;
 					}
 					
@@ -3360,7 +3360,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m11")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m11;
 					}
 					
@@ -3372,7 +3372,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m20")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m20;
 					}
 					
@@ -3384,7 +3384,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m12")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m12;
 					}
 					
@@ -3396,7 +3396,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("m13")) 
 					{
-						__temp_executeDef81605 = false;
+						__temp_executeDef152376 = false;
 						return this.m13;
 					}
 					
@@ -3406,7 +3406,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81605) 
+			if (__temp_executeDef152376) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -3423,14 +3423,14 @@ public  class Matrix4 extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef81606 = true;
+			boolean __temp_executeDef152377 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.ToString(dynargs.__get(0), dynargs.__get(1));
 					}
 					
@@ -3442,7 +3442,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.get_clone();
 					}
 					
@@ -3454,7 +3454,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToArray")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.ToArray();
 					}
 					
@@ -3466,7 +3466,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_quaternion")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.get_quaternion();
 					}
 					
@@ -3478,7 +3478,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetPerspectiveInverse")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetPerspectiveInverse(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ));
 					}
 					
@@ -3490,7 +3490,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_quaternion")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.set_quaternion(((haxor.math.Quaternion) (dynargs.__get(0)) ));
 					}
 					
@@ -3502,7 +3502,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetPerspective")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetPerspective(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ));
 					}
 					
@@ -3514,7 +3514,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_trace")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.get_trace();
 					}
 					
@@ -3526,7 +3526,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetOrtho")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetOrtho(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(4))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(5))) ));
 					}
 					
@@ -3538,7 +3538,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_rotation")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.get_rotation();
 					}
 					
@@ -3550,7 +3550,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetFrustumInverse")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetFrustumInverse(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(4))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(5))) ));
 					}
 					
@@ -3562,7 +3562,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_scale")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.get_scale();
 					}
 					
@@ -3574,7 +3574,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetFrustum")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetFrustum(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(4))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(5))) ));
 					}
 					
@@ -3586,7 +3586,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_translation")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.get_translation();
 					}
 					
@@ -3598,7 +3598,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetLookAt")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetLookAt(((haxor.math.Vector3) (dynargs.__get(0)) ), ((haxor.math.Vector3) (dynargs.__get(1)) ), ((haxor.math.Vector3) (dynargs.__get(2)) ));
 					}
 					
@@ -3610,7 +3610,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_inverseTransform")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.get_inverseTransform();
 					}
 					
@@ -3622,7 +3622,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform2x2")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						this.Transform2x2(((haxor.math.Vector2) (dynargs.__get(0)) ));
 					}
 					
@@ -3634,7 +3634,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_transposed")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.get_transposed();
 					}
 					
@@ -3646,7 +3646,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform2x3")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						this.Transform2x3(((haxor.math.Vector2) (dynargs.__get(0)) ));
 					}
 					
@@ -3658,7 +3658,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToRowMajor")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.ToRowMajor();
 					}
 					
@@ -3670,7 +3670,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform3x3")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.Transform3x3(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -3682,7 +3682,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToColumnMajor")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.ToColumnMajor();
 					}
 					
@@ -3694,7 +3694,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform3x4")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.Transform3x4(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -3706,7 +3706,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("GetLine")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.GetLine(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.math.Vector4) (dynargs.__get(1)) ));
 					}
 					
@@ -3718,7 +3718,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transform4x4")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.Transform4x4(((haxor.math.Vector4) (dynargs.__get(0)) ));
 					}
 					
@@ -3730,7 +3730,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetLine")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						this.SetLine(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(4))) ));
 					}
 					
@@ -3742,7 +3742,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Multiply")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.Multiply(((haxor.math.Matrix4) (dynargs.__get(0)) ));
 					}
 					
@@ -3754,7 +3754,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("GetColumn")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.GetColumn(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((haxor.math.Vector4) (dynargs.__get(1)) ));
 					}
 					
@@ -3766,7 +3766,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Multiply3x4")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.Multiply3x4(((haxor.math.Matrix4) (dynargs.__get(0)) ));
 					}
 					
@@ -3778,7 +3778,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetColumn")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						this.SetColumn(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(4))) ));
 					}
 					
@@ -3790,7 +3790,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("MultiplyTransform")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.MultiplyTransform(((haxor.math.Matrix4) (dynargs.__get(0)) ));
 					}
 					
@@ -3802,7 +3802,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_diagonalLR")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.get_diagonalLR();
 					}
 					
@@ -3814,7 +3814,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetTRS")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetTRS(((haxor.math.Vector3) (dynargs.__get(0)) ), ((haxor.math.Quaternion) (dynargs.__get(1)) ), ((haxor.math.Vector3) (dynargs.__get(2)) ));
 					}
 					
@@ -3826,7 +3826,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_diagonalLR")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.set_diagonalLR(((haxor.math.Vector4) (dynargs.__get(0)) ));
 					}
 					
@@ -3838,7 +3838,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Rotate")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.Rotate(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -3850,7 +3850,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetIdentity")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetIdentity();
 					}
 					
@@ -3862,7 +3862,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToRotation")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.ToRotation();
 					}
 					
@@ -3874,7 +3874,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.Set(dynargs.__get(0), dynargs.__get(1), dynargs.__get(2), dynargs.__get(3), dynargs.__get(4), dynargs.__get(5), dynargs.__get(6), dynargs.__get(7), dynargs.__get(8), dynargs.__get(9), dynargs.__get(10), dynargs.__get(11), dynargs.__get(12), dynargs.__get(13), dynargs.__get(14), dynargs.__get(15));
 					}
 					
@@ -3886,7 +3886,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Transpose")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.Transpose();
 					}
 					
@@ -3898,7 +3898,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetMatrix4")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetMatrix4(((haxor.math.Matrix4) (dynargs.__get(0)) ));
 					}
 					
@@ -3910,7 +3910,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SwapRow")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SwapRow(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -3922,7 +3922,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("GetIndex")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.GetIndex(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -3934,7 +3934,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SwapCol")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SwapCol(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -3946,7 +3946,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetIndex")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetIndex(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -3958,7 +3958,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("GetRowCol")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.GetRowCol(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -3970,7 +3970,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetRowCol")) 
 					{
-						__temp_executeDef81606 = false;
+						__temp_executeDef152377 = false;
 						return this.SetRowCol(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ));
 					}
 					
@@ -3980,7 +3980,7 @@ public  class Matrix4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81606) 
+			if (__temp_executeDef152377) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

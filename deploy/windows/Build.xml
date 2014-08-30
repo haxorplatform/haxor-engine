@@ -32,7 +32,10 @@
    <depend name="include/sys/net/Host.h"/>
   </file>
   <file name="src/haxor/platform/windows/input/WinInputHandler.cpp">
+   <depend name="include/haxor/input/Input.h"/>
    <depend name="include/haxor/input/InputHandler.h"/>
+   <depend name="include/haxor/input/Joystick.h"/>
+   <depend name="include/haxor/input/KeyCode.h"/>
    <depend name="include/haxor/platform/windows/input/WinInputHandler.h"/>
   </file>
   <file name="src/haxor/platform/windows/Window.cpp">
@@ -43,6 +46,7 @@
    <depend name="include/haxor/core/BaseApplication.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/input/Input.h"/>
    <depend name="include/haxor/input/InputHandler.h"/>
    <depend name="include/haxor/platform/OSWindow.h"/>
    <depend name="include/haxor/platform/windows/WinApplication.h"/>
@@ -460,6 +464,7 @@
    <depend name="include/haxor/io/Buffer.h"/>
   </file>
   <file name="src/haxor/input/Touch.cpp">
+   <depend name="include/Std.h"/>
    <depend name="include/haxor/core/InputState.h"/>
    <depend name="include/haxor/input/Touch.h"/>
    <depend name="include/haxor/math/Vector2.h"/>
@@ -468,20 +473,32 @@
    <depend name="include/haxor/input/KeyCode.h"/>
   </file>
   <file name="src/haxor/input/Joystick.cpp">
+   <depend name="include/Std.h"/>
    <depend name="include/haxor/core/InputState.h"/>
+   <depend name="include/haxor/input/Input.h"/>
+   <depend name="include/haxor/input/InputHandler.h"/>
    <depend name="include/haxor/input/Joystick.h"/>
+   <depend name="include/haxor/input/KeyCode.h"/>
    <depend name="include/haxor/math/Vector3.h"/>
   </file>
   <file name="src/haxor/input/InputHandler.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/IRenderable.h"/>
    <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/InputState.h"/>
    <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/Time.h"/>
    <depend name="include/haxor/graphics/Screen.h"/>
    <depend name="include/haxor/input/Input.h"/>
    <depend name="include/haxor/input/InputHandler.h"/>
+   <depend name="include/haxor/input/Joystick.h"/>
    <depend name="include/haxor/input/KeyCode.h"/>
+   <depend name="include/haxor/input/Touch.h"/>
    <depend name="include/haxor/math/Vector2.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
    <depend name="include/haxor/thread/Activity.h"/>
   </file>
   <file name="src/haxor/input/Input.cpp">
@@ -491,6 +508,7 @@
    <depend name="include/haxor/core/InputState.h"/>
    <depend name="include/haxor/core/Time.h"/>
    <depend name="include/haxor/input/Input.h"/>
+   <depend name="include/haxor/input/InputHandler.h"/>
    <depend name="include/haxor/input/Joystick.h"/>
    <depend name="include/haxor/input/Touch.h"/>
    <depend name="include/haxor/math/Vector2.h"/>
@@ -1393,7 +1411,6 @@
    <depend name="include/haxor/graphics/texture/Texture2D.h"/>
    <depend name="include/haxor/input/Input.h"/>
    <depend name="include/haxor/input/Joystick.h"/>
-   <depend name="include/haxor/input/KeyCode.h"/>
    <depend name="include/haxor/io/file/Asset.h"/>
    <depend name="include/haxor/math/Color.h"/>
    <depend name="include/haxor/math/Vector2.h"/>
@@ -1541,11 +1558,7 @@
   <lib name="opengl32.lib" if="windows"/>
   <lib name="kernel32.lib" if="windows"/>
   <lib name="lib/glew32.lib" if="windows"/>
-  
-  
-  
-  
-  
+  <lib name="lib/Xinput.lib" if="windows"/>
 </target>
 
 </xml>

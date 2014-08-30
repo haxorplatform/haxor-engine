@@ -9,6 +9,7 @@ HX_DECLARE_CLASS0(IMap)
 HX_DECLARE_CLASS2(haxe,ds,IntMap)
 HX_DECLARE_CLASS2(haxor,core,InputState)
 HX_DECLARE_CLASS2(haxor,input,Input)
+HX_DECLARE_CLASS2(haxor,input,InputHandler)
 HX_DECLARE_CLASS2(haxor,input,Joystick)
 HX_DECLARE_CLASS2(haxor,input,Touch)
 HX_DECLARE_CLASS2(haxor,math,Vector2)
@@ -40,10 +41,12 @@ class HXCPP_CLASS_ATTRIBUTES  Input_obj : public hx::Object{
 		static ::haxe::ds::IntMap m_hold;
 		static Array< bool > m_down;
 		static Array< int > m_active;
-		static Array< ::Dynamic > get_touch( );
-		static Dynamic get_touch_dyn();
+		static ::haxor::input::InputHandler m_handler;
+		static Array< ::Dynamic > get_touches( );
+		static Dynamic get_touches_dyn();
 
-		static Array< ::Dynamic > m_touch;
+		static Array< ::Dynamic > m_touches;
+		static Array< ::Dynamic > m_api_touches;
 		static Array< ::Dynamic > get_joystick( );
 		static Dynamic get_joystick_dyn();
 
@@ -58,6 +61,7 @@ class HXCPP_CLASS_ATTRIBUTES  Input_obj : public hx::Object{
 		static ::haxor::math::Vector2 relativeMouse;
 		static Float wheel;
 		static bool scroll;
+		static bool menu;
 		static ::haxor::core::InputState GetInputState( int p_code);
 		static Dynamic GetInputState_dyn();
 
@@ -82,13 +86,10 @@ class HXCPP_CLASS_ATTRIBUTES  Input_obj : public hx::Object{
 		static Void UpdateInput( );
 		static Dynamic UpdateInput_dyn();
 
-		static Void ResetTouchDownFlag( );
-		static Dynamic ResetTouchDownFlag_dyn();
-
 		static Void TouchFSM( ::haxor::input::Touch t);
 		static Dynamic TouchFSM_dyn();
 
-		static Void UpdateInputState( int p_code,bool p_is_down);
+		static Void UpdateInputState( int p_code,bool p_is_down,hx::Null< bool >  p_update_state);
 		static Dynamic UpdateInputState_dyn();
 
 		static ::haxor::core::InputState InputStateFSM( ::haxor::core::InputState p_current,bool p_is_down);

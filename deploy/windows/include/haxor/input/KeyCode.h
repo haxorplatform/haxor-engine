@@ -228,6 +228,10 @@ class HXCPP_CLASS_ATTRIBUTES  KeyCode_obj : public hx::Object{
 		static int Face2;
 		static int Face3;
 		static int Face4;
+		static int ButtonA;
+		static int ButtonB;
+		static int ButtonX;
+		static int ButtonY;
 		static int LeftShoulder;
 		static int RightShoulder;
 		static int LeftShoulderBottom;

@@ -2,5 +2,5 @@
 <resources>
     <string name="app_name">HaxorAndroid</string>
 	<string name="app_type">Main</string>
-	<string name="verbose">8</string>
+	<string name="verbose">5</string>
 </resources>

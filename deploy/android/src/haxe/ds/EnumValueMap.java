@@ -17,9 +17,9 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 	}
 	
 	
-	public static  <K_c, V_c> void __hx_ctor_haxe_ds_EnumValueMap(haxe.ds.EnumValueMap<K_c, V_c> __temp_me80549)
+	public static  <K_c, V_c> void __hx_ctor_haxe_ds_EnumValueMap(haxe.ds.EnumValueMap<K_c, V_c> __temp_me151291)
 	{
-		haxe.ds.BalancedTree.__hx_ctor_haxe_ds_BalancedTree(__temp_me80549);
+		haxe.ds.BalancedTree.__hx_ctor_haxe_ds_BalancedTree(__temp_me151291);
 	}
 	
 	
@@ -35,10 +35,10 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 	}
 	
 	
-	@Override public   int compare(K __temp_k180550, K __temp_k280551)
+	@Override public   int compare(K __temp_k1151292, K __temp_k2151293)
 	{
-		java.lang.Object k2 = ((java.lang.Object) (__temp_k280551) );
-		java.lang.Object k1 = ((java.lang.Object) (__temp_k180550) );
+		java.lang.Object k2 = ((java.lang.Object) (__temp_k2151293) );
+		java.lang.Object k1 = ((java.lang.Object) (__temp_k1151292) );
 		int d = ( haxe.root.Type.enumIndex(k1) - haxe.root.Type.enumIndex(k2) );
 		if (( d != 0 )) 
 		{
@@ -109,14 +109,14 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef80985 = true;
+			boolean __temp_executeDef151739 = true;
 			switch (field.hashCode())
 			{
 				case -844603599:
 				{
 					if (field.equals("compareArg")) 
 					{
-						__temp_executeDef80985 = false;
+						__temp_executeDef151739 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("compareArg"))) );
 					}
 					
@@ -128,7 +128,7 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 				{
 					if (field.equals("compare")) 
 					{
-						__temp_executeDef80985 = false;
+						__temp_executeDef151739 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("compare"))) );
 					}
 					
@@ -140,7 +140,7 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 				{
 					if (field.equals("compareArgs")) 
 					{
-						__temp_executeDef80985 = false;
+						__temp_executeDef151739 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("compareArgs"))) );
 					}
 					
@@ -150,7 +150,7 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 				
 			}
 			
-			if (__temp_executeDef80985) 
+			if (__temp_executeDef151739) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -167,14 +167,14 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef80986 = true;
+			boolean __temp_executeDef151740 = true;
 			switch (field.hashCode())
 			{
 				case 950484197:
 				{
 					if (field.equals("compare")) 
 					{
-						__temp_executeDef80986 = false;
+						__temp_executeDef151740 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -186,7 +186,7 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 				{
 					if (field.equals("compareArgs")) 
 					{
-						__temp_executeDef80986 = false;
+						__temp_executeDef151740 = false;
 						return this.compareArgs(((haxe.root.Array) (dynargs.__get(0)) ), ((haxe.root.Array) (dynargs.__get(1)) ));
 					}
 					
@@ -198,7 +198,7 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 				{
 					if (field.equals("compareArg")) 
 					{
-						__temp_executeDef80986 = false;
+						__temp_executeDef151740 = false;
 						return this.compareArg(dynargs.__get(0), dynargs.__get(1));
 					}
 					
@@ -208,7 +208,7 @@ public  class EnumValueMap<K, V> extends haxe.ds.BalancedTree<K, V> implements h
 				
 			}
 			
-			if (__temp_executeDef80986) 
+			if (__temp_executeDef151740) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

@@ -18,44 +18,44 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 	}
 	
 	
-	public static  <K_c, V_c> void __hx_ctor_haxe_ds_TreeNode(haxe.ds.TreeNode<K_c, V_c> __temp_me80548, haxe.ds.TreeNode<K_c, V_c> l, K_c k, V_c v, haxe.ds.TreeNode<K_c, V_c> r, java.lang.Object h)
+	public static  <K_c, V_c> void __hx_ctor_haxe_ds_TreeNode(haxe.ds.TreeNode<K_c, V_c> __temp_me151290, haxe.ds.TreeNode<K_c, V_c> l, K_c k, V_c v, haxe.ds.TreeNode<K_c, V_c> r, java.lang.Object h)
 	{
-		int __temp_h80547 = ( (( h == null )) ? (((int) (-1) )) : (((int) (haxe.lang.Runtime.toInt(h)) )) );
-		__temp_me80548.left = l;
-		__temp_me80548.key = k;
-		__temp_me80548.value = v;
-		__temp_me80548.right = r;
-		if (( __temp_h80547 == -1 )) 
+		int __temp_h151289 = ( (( h == null )) ? (((int) (-1) )) : (((int) (haxe.lang.Runtime.toInt(h)) )) );
+		__temp_me151290.left = l;
+		__temp_me151290.key = k;
+		__temp_me151290.value = v;
+		__temp_me151290.right = r;
+		if (( __temp_h151289 == -1 )) 
 		{
-			int __temp_stmt80982 = 0;
-			int __temp_stmt80983 = 0;
+			int __temp_stmt151736 = 0;
+			int __temp_stmt151737 = 0;
 			{
-				haxe.ds.TreeNode<K_c, V_c> _this = __temp_me80548.left;
-				__temp_stmt80983 = ( (( _this == null )) ? (0) : (_this._height) );
+				haxe.ds.TreeNode<K_c, V_c> _this = __temp_me151290.left;
+				__temp_stmt151737 = ( (( _this == null )) ? (0) : (_this._height) );
 			}
 			
-			int __temp_stmt80984 = 0;
+			int __temp_stmt151738 = 0;
 			{
-				haxe.ds.TreeNode<K_c, V_c> _this1 = __temp_me80548.right;
-				__temp_stmt80984 = ( (( _this1 == null )) ? (0) : (_this1._height) );
+				haxe.ds.TreeNode<K_c, V_c> _this1 = __temp_me151290.right;
+				__temp_stmt151738 = ( (( _this1 == null )) ? (0) : (_this1._height) );
 			}
 			
-			if (( __temp_stmt80983 > __temp_stmt80984 )) 
+			if (( __temp_stmt151737 > __temp_stmt151738 )) 
 			{
-				haxe.ds.TreeNode<K_c, V_c> _this2 = __temp_me80548.left;
-				__temp_stmt80982 = ( (( _this2 == null )) ? (0) : (_this2._height) );
+				haxe.ds.TreeNode<K_c, V_c> _this2 = __temp_me151290.left;
+				__temp_stmt151736 = ( (( _this2 == null )) ? (0) : (_this2._height) );
 			}
 			 else 
 			{
-				haxe.ds.TreeNode<K_c, V_c> _this3 = __temp_me80548.right;
-				__temp_stmt80982 = ( (( _this3 == null )) ? (0) : (_this3._height) );
+				haxe.ds.TreeNode<K_c, V_c> _this3 = __temp_me151290.right;
+				__temp_stmt151736 = ( (( _this3 == null )) ? (0) : (_this3._height) );
 			}
 			
-			__temp_me80548._height = ( __temp_stmt80982 + 1 );
+			__temp_me151290._height = ( __temp_stmt151736 + 1 );
 		}
 		 else 
 		{
-			__temp_me80548._height = __temp_h80547;
+			__temp_me151290._height = __temp_h151289;
 		}
 		
 	}
@@ -92,14 +92,14 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef80977 = true;
+			boolean __temp_executeDef151731 = true;
 			switch (field.hashCode())
 			{
 				case 1487441478:
 				{
 					if (field.equals("_height")) 
 					{
-						__temp_executeDef80977 = false;
+						__temp_executeDef151731 = false;
 						this._height = ((int) (value) );
 						return value;
 					}
@@ -112,7 +112,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("key")) 
 					{
-						__temp_executeDef80977 = false;
+						__temp_executeDef151731 = false;
 						this.key = ((K) (((java.lang.Object) (value) )) );
 						return ((double) (haxe.lang.Runtime.toDouble(((java.lang.Object) (value) ))) );
 					}
@@ -125,7 +125,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef80977 = false;
+						__temp_executeDef151731 = false;
 						this.value = ((V) (((java.lang.Object) (value) )) );
 						return ((double) (haxe.lang.Runtime.toDouble(((java.lang.Object) (value) ))) );
 					}
@@ -136,7 +136,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef80977) 
+			if (__temp_executeDef151731) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -153,14 +153,14 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef80978 = true;
+			boolean __temp_executeDef151732 = true;
 			switch (field.hashCode())
 			{
 				case 1487441478:
 				{
 					if (field.equals("_height")) 
 					{
-						__temp_executeDef80978 = false;
+						__temp_executeDef151732 = false;
 						this._height = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -173,7 +173,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("left")) 
 					{
-						__temp_executeDef80978 = false;
+						__temp_executeDef151732 = false;
 						this.left = ((haxe.ds.TreeNode<K, V>) (value) );
 						return value;
 					}
@@ -186,7 +186,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef80978 = false;
+						__temp_executeDef151732 = false;
 						this.value = ((V) (value) );
 						return value;
 					}
@@ -199,7 +199,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("right")) 
 					{
-						__temp_executeDef80978 = false;
+						__temp_executeDef151732 = false;
 						this.right = ((haxe.ds.TreeNode<K, V>) (value) );
 						return value;
 					}
@@ -212,7 +212,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("key")) 
 					{
-						__temp_executeDef80978 = false;
+						__temp_executeDef151732 = false;
 						this.key = ((K) (value) );
 						return value;
 					}
@@ -223,7 +223,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef80978) 
+			if (__temp_executeDef151732) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -240,14 +240,14 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef80979 = true;
+			boolean __temp_executeDef151733 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef80979 = false;
+						__temp_executeDef151733 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("toString"))) );
 					}
 					
@@ -259,7 +259,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("left")) 
 					{
-						__temp_executeDef80979 = false;
+						__temp_executeDef151733 = false;
 						return this.left;
 					}
 					
@@ -271,7 +271,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("_height")) 
 					{
-						__temp_executeDef80979 = false;
+						__temp_executeDef151733 = false;
 						return this._height;
 					}
 					
@@ -283,7 +283,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("right")) 
 					{
-						__temp_executeDef80979 = false;
+						__temp_executeDef151733 = false;
 						return this.right;
 					}
 					
@@ -295,7 +295,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef80979 = false;
+						__temp_executeDef151733 = false;
 						return this.value;
 					}
 					
@@ -307,7 +307,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("key")) 
 					{
-						__temp_executeDef80979 = false;
+						__temp_executeDef151733 = false;
 						return this.key;
 					}
 					
@@ -317,7 +317,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef80979) 
+			if (__temp_executeDef151733) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -334,14 +334,14 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef80980 = true;
+			boolean __temp_executeDef151734 = true;
 			switch (field.hashCode())
 			{
 				case 1487441478:
 				{
 					if (field.equals("_height")) 
 					{
-						__temp_executeDef80980 = false;
+						__temp_executeDef151734 = false;
 						return ((double) (this._height) );
 					}
 					
@@ -353,7 +353,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("key")) 
 					{
-						__temp_executeDef80980 = false;
+						__temp_executeDef151734 = false;
 						return ((double) (haxe.lang.Runtime.toDouble(((java.lang.Object) (this.key) ))) );
 					}
 					
@@ -365,7 +365,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef80980 = false;
+						__temp_executeDef151734 = false;
 						return ((double) (haxe.lang.Runtime.toDouble(((java.lang.Object) (this.value) ))) );
 					}
 					
@@ -375,7 +375,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef80980) 
+			if (__temp_executeDef151734) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -392,14 +392,14 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef80981 = true;
+			boolean __temp_executeDef151735 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef80981 = false;
+						__temp_executeDef151735 = false;
 						return this.toString();
 					}
 					
@@ -409,7 +409,7 @@ public  class TreeNode<K, V> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef80981) 
+			if (__temp_executeDef151735) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

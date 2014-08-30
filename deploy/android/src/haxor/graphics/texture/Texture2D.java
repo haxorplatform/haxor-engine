@@ -10,19 +10,19 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 	}
 	
 	
-	public    Texture2D(int p_width, int p_height, haxor.graphics.PixelFormat p_format)
+	public    Texture2D(int p_width, int p_height, haxor.core.PixelFormat p_format)
 	{
 		super(haxe.lang.EmptyObject.EMPTY);
 		haxor.graphics.texture.Texture2D.__hx_ctor_haxor_graphics_texture_Texture2D(this, p_width, p_height, p_format);
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_texture_Texture2D(haxor.graphics.texture.Texture2D __temp_me80674, int p_width, int p_height, haxor.graphics.PixelFormat p_format)
+	public static   void __hx_ctor_haxor_graphics_texture_Texture2D(haxor.graphics.texture.Texture2D __temp_me151416, int p_width, int p_height, haxor.core.PixelFormat p_format)
 	{
-		haxor.graphics.texture.Texture.__hx_ctor_haxor_graphics_texture_Texture(__temp_me80674);
-		__temp_me80674.m_format = p_format;
-		__temp_me80674.m_width = p_width;
-		__temp_me80674.m_height = p_height;
+		haxor.graphics.texture.Texture.__hx_ctor_haxor_graphics_texture_Texture(__temp_me151416);
+		__temp_me151416.m_format = p_format;
+		__temp_me151416.m_width = p_width;
+		__temp_me151416.m_height = p_height;
 		if (( p_width <= 0 )) 
 		{
 			return ;
@@ -33,8 +33,8 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 			return ;
 		}
 		
-		__temp_me80674.m_data = new haxor.graphics.texture.Bitmap(((int) (p_width) ), ((int) (p_height) ), ((haxor.graphics.PixelFormat) (p_format) ));
-		haxor.context.EngineContext.texture.Create(__temp_me80674);
+		__temp_me151416.m_data = new haxor.graphics.texture.Bitmap(((int) (p_width) ), ((int) (p_height) ), ((haxor.core.PixelFormat) (p_format) ));
+		haxor.context.EngineContext.texture.Create(__temp_me151416);
 	}
 	
 	
@@ -47,7 +47,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 			return haxor.graphics.texture.Texture2D.m_white;
 		}
 		
-		haxor.graphics.texture.Texture2D.m_white = new haxor.graphics.texture.Texture2D(((int) (1) ), ((int) (1) ), ((haxor.graphics.PixelFormat) (haxor.graphics.PixelFormat.RGB8) ));
+		haxor.graphics.texture.Texture2D.m_white = new haxor.graphics.texture.Texture2D(((int) (1) ), ((int) (1) ), ((haxor.core.PixelFormat) (haxor.core.PixelFormat.RGB8) ));
 		haxor.graphics.texture.Texture2D.m_white.set_name("White");
 		haxor.graphics.texture.Texture2D.m_white.m_data.Fill(new haxor.math.Color(((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) )));
 		haxor.graphics.texture.Texture2D.m_white.Apply();
@@ -66,7 +66,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 			return haxor.graphics.texture.Texture2D.m_red;
 		}
 		
-		haxor.graphics.texture.Texture2D.m_red = new haxor.graphics.texture.Texture2D(((int) (1) ), ((int) (1) ), ((haxor.graphics.PixelFormat) (haxor.graphics.PixelFormat.RGB8) ));
+		haxor.graphics.texture.Texture2D.m_red = new haxor.graphics.texture.Texture2D(((int) (1) ), ((int) (1) ), ((haxor.core.PixelFormat) (haxor.core.PixelFormat.RGB8) ));
 		haxor.graphics.texture.Texture2D.m_red.set_name("Red");
 		haxor.graphics.texture.Texture2D.m_red.m_data.Fill(new haxor.math.Color(((java.lang.Object) (1.0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) )));
 		haxor.graphics.texture.Texture2D.m_red.Apply();
@@ -85,7 +85,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 			return haxor.graphics.texture.Texture2D.m_green;
 		}
 		
-		haxor.graphics.texture.Texture2D.m_green = new haxor.graphics.texture.Texture2D(((int) (1) ), ((int) (1) ), ((haxor.graphics.PixelFormat) (haxor.graphics.PixelFormat.RGB8) ));
+		haxor.graphics.texture.Texture2D.m_green = new haxor.graphics.texture.Texture2D(((int) (1) ), ((int) (1) ), ((haxor.core.PixelFormat) (haxor.core.PixelFormat.RGB8) ));
 		haxor.graphics.texture.Texture2D.m_green.set_name("Green");
 		haxor.graphics.texture.Texture2D.m_green.m_data.Fill(new haxor.math.Color(((java.lang.Object) (0) ), ((java.lang.Object) (1) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) )));
 		haxor.graphics.texture.Texture2D.m_green.Apply();
@@ -104,8 +104,8 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 			return haxor.graphics.texture.Texture2D.m_random;
 		}
 		
-		haxor.graphics.texture.Texture2D.m_random = new haxor.graphics.texture.Texture2D(((int) (512) ), ((int) (512) ), ((haxor.graphics.PixelFormat) (haxor.graphics.PixelFormat.Float4) ));
-		haxor.graphics.texture.Texture2D.m_random.set_wrap(( haxor.graphics.TextureWrap.RepeatX | haxor.graphics.TextureWrap.RepeatY ));
+		haxor.graphics.texture.Texture2D.m_random = new haxor.graphics.texture.Texture2D(((int) (512) ), ((int) (512) ), ((haxor.core.PixelFormat) (haxor.core.PixelFormat.Float4) ));
+		haxor.graphics.texture.Texture2D.m_random.set_wrap(( haxor.core.TextureWrap.RepeatX | haxor.core.TextureWrap.RepeatY ));
 		{
 			int _g1 = 0;
 			int _g = haxor.graphics.texture.Texture2D.m_random.m_width;
@@ -133,8 +133,8 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 	
 	public static   haxor.graphics.texture.Texture2D FromBitmap(haxor.graphics.texture.Bitmap p_bitmap, java.lang.Object p_apply)
 	{
-		boolean __temp_p_apply80673 = ( (( p_apply == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_apply)) );
-		haxor.graphics.texture.Texture2D t = new haxor.graphics.texture.Texture2D(((int) (0) ), ((int) (0) ), ((haxor.graphics.PixelFormat) (p_bitmap.m_format) ));
+		boolean __temp_p_apply151415 = ( (( p_apply == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_apply)) );
+		haxor.graphics.texture.Texture2D t = new haxor.graphics.texture.Texture2D(((int) (0) ), ((int) (0) ), ((haxor.core.PixelFormat) (p_bitmap.m_format) ));
 		t.m_data = p_bitmap;
 		t.m_width = p_bitmap.m_width;
 		t.m_height = p_bitmap.m_height;
@@ -152,7 +152,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 	
 	public static   java.lang.Object __hx_create(haxe.root.Array arr)
 	{
-		return new haxor.graphics.texture.Texture2D(((int) (haxe.lang.Runtime.toInt(arr.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(arr.__get(1))) ), ((haxor.graphics.PixelFormat) (arr.__get(2)) ));
+		return new haxor.graphics.texture.Texture2D(((int) (haxe.lang.Runtime.toInt(arr.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(arr.__get(1))) ), ((haxor.core.PixelFormat) (arr.__get(2)) ));
 	}
 	
 	
@@ -166,30 +166,30 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 	
 	public  haxor.graphics.texture.Bitmap m_data;
 	
-	@Override public   haxor.graphics.TextureType get_type()
+	@Override public   haxor.core.TextureType get_type()
 	{
-		return haxor.graphics.TextureType.Texture2D;
+		return haxor.core.TextureType.Texture2D;
 	}
 	
 	
 	public   void Upload(java.lang.Object p_steps, haxe.lang.Function p_on_complete)
 	{
-		int __temp_p_steps80672 = ( (( p_steps == null )) ? (((int) (200) )) : (((int) (haxe.lang.Runtime.toInt(p_steps)) )) );
-		haxor.context.EngineContext.texture.UploadTexture(this, 0, 0, this.m_width, this.m_height, __temp_p_steps80672, p_on_complete);
+		int __temp_p_steps151414 = ( (( p_steps == null )) ? (((int) (200) )) : (((int) (haxe.lang.Runtime.toInt(p_steps)) )) );
+		haxor.context.EngineContext.texture.UploadTexture(this, 0, 0, this.m_width, this.m_height, __temp_p_steps151414, p_on_complete);
 	}
 	
 	
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81431 = true;
+			boolean __temp_executeDef152189 = true;
 			switch (field.hashCode())
 			{
 				case -1083579332:
 				{
 					if (field.equals("m_data")) 
 					{
-						__temp_executeDef81431 = false;
+						__temp_executeDef152189 = false;
 						this.m_data = ((haxor.graphics.texture.Bitmap) (value) );
 						return value;
 					}
@@ -202,7 +202,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef81431 = false;
+						__temp_executeDef152189 = false;
 						this.data = ((haxor.graphics.texture.Bitmap) (value) );
 						return value;
 					}
@@ -213,7 +213,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				
 			}
 			
-			if (__temp_executeDef81431) 
+			if (__temp_executeDef152189) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -230,14 +230,14 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81432 = true;
+			boolean __temp_executeDef152190 = true;
 			switch (field.hashCode())
 			{
 				case -1754727903:
 				{
 					if (field.equals("Upload")) 
 					{
-						__temp_executeDef81432 = false;
+						__temp_executeDef152190 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Upload"))) );
 					}
 					
@@ -249,7 +249,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef81432 = false;
+						__temp_executeDef152190 = false;
 						if (handleProperties) 
 						{
 							return this.get_data();
@@ -269,7 +269,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_type")) 
 					{
-						__temp_executeDef81432 = false;
+						__temp_executeDef152190 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_type"))) );
 					}
 					
@@ -281,7 +281,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_data")) 
 					{
-						__temp_executeDef81432 = false;
+						__temp_executeDef152190 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_data"))) );
 					}
 					
@@ -293,7 +293,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("m_data")) 
 					{
-						__temp_executeDef81432 = false;
+						__temp_executeDef152190 = false;
 						return this.m_data;
 					}
 					
@@ -303,7 +303,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				
 			}
 			
-			if (__temp_executeDef81432) 
+			if (__temp_executeDef152190) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -320,14 +320,14 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef81433 = true;
+			boolean __temp_executeDef152191 = true;
 			switch (field.hashCode())
 			{
 				case 1976688259:
 				{
 					if (field.equals("get_type")) 
 					{
-						__temp_executeDef81433 = false;
+						__temp_executeDef152191 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -339,7 +339,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("get_data")) 
 					{
-						__temp_executeDef81433 = false;
+						__temp_executeDef152191 = false;
 						return this.get_data();
 					}
 					
@@ -351,7 +351,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				{
 					if (field.equals("Upload")) 
 					{
-						__temp_executeDef81433 = false;
+						__temp_executeDef152191 = false;
 						this.Upload(dynargs.__get(0), ((haxe.lang.Function) (dynargs.__get(1)) ));
 					}
 					
@@ -361,7 +361,7 @@ public  class Texture2D extends haxor.graphics.texture.Texture
 				
 			}
 			
-			if (__temp_executeDef81433) 
+			if (__temp_executeDef152191) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

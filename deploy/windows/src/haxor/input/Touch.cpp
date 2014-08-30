@@ -1,5 +1,8 @@
 #include <hxcpp.h>
 
+#ifndef INCLUDED_Std
+#include <Std.h>
+#endif
 #ifndef INCLUDED_haxor_core_InputState
 #include <haxor/core/InputState.h>
 #endif
@@ -63,6 +66,26 @@ Dynamic Touch_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct();
 	return result;}
 
+::String Touch_obj::ToString( ){
+	HX_STACK_FRAME("haxor.input.Touch","ToString",0x2dade50b,"haxor.input.Touch.ToString","haxor/input/Touch.hx",81,0x27faf2d1)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(82)
+	::String _g = this->position->ToString((int)2);		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(82)
+	::String _g1 = (((HX_CSTRING("id[") + this->id) + HX_CSTRING("] pos")) + _g);		HX_STACK_VAR(_g1,"_g1");
+	HX_STACK_LINE(82)
+	::String _g2 = (_g1 + HX_CSTRING("["));		HX_STACK_VAR(_g2,"_g2");
+	HX_STACK_LINE(82)
+	::String _g3 = ::Std_obj::string(this->state);		HX_STACK_VAR(_g3,"_g3");
+	HX_STACK_LINE(82)
+	::String _g4 = (_g2 + _g3);		HX_STACK_VAR(_g4,"_g4");
+	HX_STACK_LINE(82)
+	return (_g4 + HX_CSTRING("]"));
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Touch_obj,ToString,return )
+
 
 Touch_obj::Touch_obj()
 {
@@ -119,6 +142,7 @@ Dynamic Touch_obj::__Field(const ::String &inName,bool inCallProp)
 	case 8:
 		if (HX_FIELD_EQ(inName,"position") ) { return position; }
 		if (HX_FIELD_EQ(inName,"pressure") ) { return pressure; }
+		if (HX_FIELD_EQ(inName,"ToString") ) { return ToString_dyn(); }
 		break;
 	case 16:
 		if (HX_FIELD_EQ(inName,"relativePosition") ) { return relativePosition; }
@@ -199,6 +223,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("pressure"),
 	HX_CSTRING("hold"),
 	HX_CSTRING("m_down"),
+	HX_CSTRING("ToString"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

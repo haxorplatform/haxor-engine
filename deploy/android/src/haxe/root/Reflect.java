@@ -18,7 +18,7 @@ public  class Reflect extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__Reflect(haxe.root.Reflect __temp_me80532)
+	public static   void __hx_ctor__Reflect(haxe.root.Reflect __temp_me151274)
 	{
 		{
 		}

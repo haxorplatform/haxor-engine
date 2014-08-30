@@ -44,11 +44,31 @@ class HXCPP_CLASS_ATTRIBUTES  Joystick_obj : public hx::Object{
 		::haxor::math::Vector3 analogRight;
 		Float triggerLeft;
 		Float triggerRight;
-		virtual bool IsDown( int p_button);
-		Dynamic IsDown_dyn();
+		virtual Float get_vibrationLeft( );
+		Dynamic get_vibrationLeft_dyn();
+
+		virtual Float set_vibrationLeft( Float v);
+		Dynamic set_vibrationLeft_dyn();
+
+		Float m_vibrationLeft;
+		virtual Float get_vibrationRight( );
+		Dynamic get_vibrationRight_dyn();
+
+		virtual Float set_vibrationRight( Float v);
+		Dynamic set_vibrationRight_dyn();
+
+		Float m_vibrationRight;
+		virtual bool Pressed( int p_button);
+		Dynamic Pressed_dyn();
+
+		virtual bool Down( int p_button);
+		Dynamic Down_dyn();
 
 		virtual bool Hit( int p_button);
 		Dynamic Hit_dyn();
+
+		virtual ::String ToString( hx::Null< bool >  p_analog,hx::Null< bool >  p_button,hx::Null< bool >  p_trigger,hx::Null< bool >  p_pad);
+		Dynamic ToString_dyn();
 
 		static Array< Float > analogBias;
 		static Float buttonBias;

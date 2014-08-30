@@ -18,11 +18,11 @@ public  class ColladaInstance extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaInstance(haxor.io.file.ColladaInstance __temp_me80720)
+	public static   void __hx_ctor_haxor_io_file_ColladaInstance(haxor.io.file.ColladaInstance __temp_me151472)
 	{
-		__temp_me80720.target = "";
-		__temp_me80720.type = "";
-		__temp_me80720.materials = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
+		__temp_me151472.target = "";
+		__temp_me151472.type = "";
+		__temp_me151472.materials = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
 	}
 	
 	
@@ -47,14 +47,14 @@ public  class ColladaInstance extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81548 = true;
+			boolean __temp_executeDef152319 = true;
 			switch (field.hashCode())
 			{
 				case 681132076:
 				{
 					if (field.equals("materials")) 
 					{
-						__temp_executeDef81548 = false;
+						__temp_executeDef152319 = false;
 						this.materials = ((haxe.root.Array<java.lang.String>) (value) );
 						return value;
 					}
@@ -67,7 +67,7 @@ public  class ColladaInstance extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef81548 = false;
+						__temp_executeDef152319 = false;
 						this.type = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -80,7 +80,7 @@ public  class ColladaInstance extends haxe.lang.HxObject
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef81548 = false;
+						__temp_executeDef152319 = false;
 						this.target = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -91,7 +91,7 @@ public  class ColladaInstance extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81548) 
+			if (__temp_executeDef152319) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -108,14 +108,14 @@ public  class ColladaInstance extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81549 = true;
+			boolean __temp_executeDef152320 = true;
 			switch (field.hashCode())
 			{
 				case 681132076:
 				{
 					if (field.equals("materials")) 
 					{
-						__temp_executeDef81549 = false;
+						__temp_executeDef152320 = false;
 						return this.materials;
 					}
 					
@@ -127,7 +127,7 @@ public  class ColladaInstance extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef81549 = false;
+						__temp_executeDef152320 = false;
 						return this.type;
 					}
 					
@@ -139,7 +139,7 @@ public  class ColladaInstance extends haxe.lang.HxObject
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef81549 = false;
+						__temp_executeDef152320 = false;
 						return this.target;
 					}
 					
@@ -149,7 +149,7 @@ public  class ColladaInstance extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81549) 
+			if (__temp_executeDef152320) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

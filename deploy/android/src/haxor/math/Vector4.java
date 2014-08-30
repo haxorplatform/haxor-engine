@@ -18,16 +18,16 @@ public  class Vector4 extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_math_Vector4(haxor.math.Vector4 __temp_me80815, java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z, java.lang.Object p_w)
+	public static   void __hx_ctor_haxor_math_Vector4(haxor.math.Vector4 __temp_me151567, java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z, java.lang.Object p_w)
 	{
-		double __temp_p_w80814 = ( (( p_w == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_w)) )) );
-		double __temp_p_z80813 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
-		double __temp_p_y80812 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
-		double __temp_p_x80811 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
-		__temp_me80815.x = __temp_p_x80811;
-		__temp_me80815.y = __temp_p_y80812;
-		__temp_me80815.z = __temp_p_z80813;
-		__temp_me80815.w = __temp_p_w80814;
+		double __temp_p_w151566 = ( (( p_w == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_w)) )) );
+		double __temp_p_z151565 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
+		double __temp_p_y151564 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
+		double __temp_p_x151563 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
+		__temp_me151567.x = __temp_p_x151563;
+		__temp_me151567.y = __temp_p_y151564;
+		__temp_me151567.z = __temp_p_z151565;
+		__temp_me151567.w = __temp_p_w151566;
 	}
 	
 	
@@ -201,14 +201,14 @@ public  class Vector4 extends haxe.lang.HxObject
 	
 	public   haxor.math.Vector4 Set(java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z, java.lang.Object p_w)
 	{
-		double __temp_p_w80809 = ( (( p_w == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_w)) )) );
-		double __temp_p_z80808 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
-		double __temp_p_y80807 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
-		double __temp_p_x80806 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
-		this.x = __temp_p_x80806;
-		this.y = __temp_p_y80807;
-		this.z = __temp_p_z80808;
-		this.w = __temp_p_w80809;
+		double __temp_p_w151561 = ( (( p_w == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_w)) )) );
+		double __temp_p_z151560 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
+		double __temp_p_y151559 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
+		double __temp_p_x151558 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
+		this.x = __temp_p_x151558;
+		this.y = __temp_p_y151559;
+		this.z = __temp_p_z151560;
+		this.w = __temp_p_w151561;
 		return this;
 	}
 	
@@ -339,70 +339,70 @@ public  class Vector4 extends haxe.lang.HxObject
 	
 	public   java.lang.String ToString(java.lang.Object p_places)
 	{
-		int __temp_p_places80810 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
-		double __temp_stmt81671 = 0.0;
+		int __temp_p_places151562 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
+		double __temp_stmt152442 = 0.0;
 		{
-			double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80810) ));
-			double __temp_stmt81672 = 0.0;
+			double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151562) ));
+			double __temp_stmt152443 = 0.0;
 			{
 				double p_v = ( this.x * d );
-				__temp_stmt81672 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152443 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81671 = ( __temp_stmt81672 / d );
+			__temp_stmt152442 = ( __temp_stmt152443 / d );
 		}
 		
-		double __temp_stmt81673 = 0.0;
+		double __temp_stmt152444 = 0.0;
 		{
-			double d1 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80810) ));
-			double __temp_stmt81674 = 0.0;
+			double d1 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151562) ));
+			double __temp_stmt152445 = 0.0;
 			{
 				double p_v1 = ( this.y * d1 );
-				__temp_stmt81674 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152445 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81673 = ( __temp_stmt81674 / d1 );
+			__temp_stmt152444 = ( __temp_stmt152445 / d1 );
 		}
 		
-		double __temp_stmt81675 = 0.0;
+		double __temp_stmt152446 = 0.0;
 		{
-			double d2 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80810) ));
-			double __temp_stmt81676 = 0.0;
+			double d2 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151562) ));
+			double __temp_stmt152447 = 0.0;
 			{
 				double p_v2 = ( this.z * d2 );
-				__temp_stmt81676 = ((double) (((int) (( p_v2 + (( (( p_v2 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152447 = ((double) (((int) (( p_v2 + (( (( p_v2 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81675 = ( __temp_stmt81676 / d2 );
+			__temp_stmt152446 = ( __temp_stmt152447 / d2 );
 		}
 		
-		double __temp_stmt81677 = 0.0;
+		double __temp_stmt152448 = 0.0;
 		{
-			double d3 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80810) ));
-			double __temp_stmt81678 = 0.0;
+			double d3 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151562) ));
+			double __temp_stmt152449 = 0.0;
 			{
 				double p_v3 = ( this.w * d3 );
-				__temp_stmt81678 = ((double) (((int) (( p_v3 + (( (( p_v3 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152449 = ((double) (((int) (( p_v3 + (( (( p_v3 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81677 = ( __temp_stmt81678 / d3 );
+			__temp_stmt152448 = ( __temp_stmt152449 / d3 );
 		}
 		
-		return ( ( ( ( ( ( ( ( "[" + haxe.lang.Runtime.toString(__temp_stmt81671) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt81673) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt81675) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt81677) ) + "]" );
+		return ( ( ( ( ( ( ( ( "[" + haxe.lang.Runtime.toString(__temp_stmt152442) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt152444) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt152446) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt152448) ) + "]" );
 	}
 	
 	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81679 = true;
+			boolean __temp_executeDef152450 = true;
 			switch (field.hashCode())
 			{
 				case 119:
 				{
 					if (field.equals("w")) 
 					{
-						__temp_executeDef81679 = false;
+						__temp_executeDef152450 = false;
 						this.w = ((double) (value) );
 						return value;
 					}
@@ -415,7 +415,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef81679 = false;
+						__temp_executeDef152450 = false;
 						this.length = ((double) (value) );
 						return value;
 					}
@@ -428,7 +428,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81679 = false;
+						__temp_executeDef152450 = false;
 						this.z = ((double) (value) );
 						return value;
 					}
@@ -441,7 +441,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("lengthSqr")) 
 					{
-						__temp_executeDef81679 = false;
+						__temp_executeDef152450 = false;
 						this.lengthSqr = ((double) (value) );
 						return value;
 					}
@@ -454,7 +454,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81679 = false;
+						__temp_executeDef152450 = false;
 						this.y = ((double) (value) );
 						return value;
 					}
@@ -467,7 +467,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81679 = false;
+						__temp_executeDef152450 = false;
 						this.x = ((double) (value) );
 						return value;
 					}
@@ -478,7 +478,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81679) 
+			if (__temp_executeDef152450) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -495,14 +495,14 @@ public  class Vector4 extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81680 = true;
+			boolean __temp_executeDef152451 = true;
 			switch (field.hashCode())
 			{
 				case 119:
 				{
 					if (field.equals("w")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.w = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -515,7 +515,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("clone")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.clone = ((haxor.math.Vector4) (value) );
 						return value;
 					}
@@ -528,7 +528,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.z = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -541,7 +541,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("rgba")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.rgba = ((haxor.math.Color) (value) );
 						return value;
 					}
@@ -554,7 +554,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.y = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -567,7 +567,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("rgb")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.rgb = ((haxor.math.Color) (value) );
 						return value;
 					}
@@ -580,7 +580,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.x = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -593,7 +593,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("xyz")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.xyz = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -606,7 +606,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("normalized")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.normalized = ((haxor.math.Vector4) (value) );
 						return value;
 					}
@@ -619,7 +619,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("xy")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.xy = ((haxor.math.Vector2) (value) );
 						return value;
 					}
@@ -632,7 +632,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("lengthSqr")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.lengthSqr = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -645,7 +645,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef81680 = false;
+						__temp_executeDef152451 = false;
 						this.length = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -656,7 +656,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81680) 
+			if (__temp_executeDef152451) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -673,14 +673,14 @@ public  class Vector4 extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81681 = true;
+			boolean __temp_executeDef152452 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToString"))) );
 					}
 					
@@ -692,7 +692,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("clone")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						if (handleProperties) 
 						{
 							return this.get_clone();
@@ -712,7 +712,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToArray")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToArray"))) );
 					}
 					
@@ -724,7 +724,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_clone"))) );
 					}
 					
@@ -736,7 +736,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("IsCulled")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("IsCulled"))) );
 					}
 					
@@ -748,7 +748,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("rgba")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						if (handleProperties) 
 						{
 							return this.get_rgba();
@@ -768,7 +768,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Normalize")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Normalize"))) );
 					}
 					
@@ -780,7 +780,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_rgba")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_rgba"))) );
 					}
 					
@@ -792,7 +792,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Scale")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Scale"))) );
 					}
 					
@@ -804,7 +804,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("rgb")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						if (handleProperties) 
 						{
 							return this.get_rgb();
@@ -824,7 +824,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Multiply")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Multiply"))) );
 					}
 					
@@ -836,7 +836,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_rgb")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_rgb"))) );
 					}
 					
@@ -848,7 +848,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Sub")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Sub"))) );
 					}
 					
@@ -860,7 +860,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("xyz")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						if (handleProperties) 
 						{
 							return this.get_xyz();
@@ -880,7 +880,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Add")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Add"))) );
 					}
 					
@@ -892,7 +892,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xyz")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_xyz"))) );
 					}
 					
@@ -904,7 +904,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetColor")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetColor"))) );
 					}
 					
@@ -916,7 +916,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("xy")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						if (handleProperties) 
 						{
 							return this.get_xy();
@@ -936,7 +936,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set3")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set3"))) );
 					}
 					
@@ -948,7 +948,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xy")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_xy"))) );
 					}
 					
@@ -960,7 +960,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set2")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set2"))) );
 					}
 					
@@ -972,7 +972,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						if (handleProperties) 
 						{
 							return this.get_length();
@@ -992,7 +992,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
@@ -1004,7 +1004,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_length"))) );
 					}
 					
@@ -1016,7 +1016,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Get"))) );
 					}
 					
@@ -1028,7 +1028,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("lengthSqr")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						if (handleProperties) 
 						{
 							return this.get_lengthSqr();
@@ -1048,7 +1048,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("w")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return this.w;
 					}
 					
@@ -1060,7 +1060,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_lengthSqr")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_lengthSqr"))) );
 					}
 					
@@ -1072,7 +1072,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return this.z;
 					}
 					
@@ -1084,7 +1084,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("normalized")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						if (handleProperties) 
 						{
 							return this.get_normalized();
@@ -1104,7 +1104,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return this.y;
 					}
 					
@@ -1116,7 +1116,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_normalized")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_normalized"))) );
 					}
 					
@@ -1128,7 +1128,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81681 = false;
+						__temp_executeDef152452 = false;
 						return this.x;
 					}
 					
@@ -1138,7 +1138,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81681) 
+			if (__temp_executeDef152452) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1155,14 +1155,14 @@ public  class Vector4 extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81682 = true;
+			boolean __temp_executeDef152453 = true;
 			switch (field.hashCode())
 			{
 				case 119:
 				{
 					if (field.equals("w")) 
 					{
-						__temp_executeDef81682 = false;
+						__temp_executeDef152453 = false;
 						return this.w;
 					}
 					
@@ -1174,7 +1174,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef81682 = false;
+						__temp_executeDef152453 = false;
 						if (handleProperties) 
 						{
 							return this.get_length();
@@ -1194,7 +1194,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81682 = false;
+						__temp_executeDef152453 = false;
 						return this.z;
 					}
 					
@@ -1206,7 +1206,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("lengthSqr")) 
 					{
-						__temp_executeDef81682 = false;
+						__temp_executeDef152453 = false;
 						if (handleProperties) 
 						{
 							return this.get_lengthSqr();
@@ -1226,7 +1226,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81682 = false;
+						__temp_executeDef152453 = false;
 						return this.y;
 					}
 					
@@ -1238,7 +1238,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81682 = false;
+						__temp_executeDef152453 = false;
 						return this.x;
 					}
 					
@@ -1248,7 +1248,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81682) 
+			if (__temp_executeDef152453) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1265,14 +1265,14 @@ public  class Vector4 extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef81683 = true;
+			boolean __temp_executeDef152454 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.ToString(dynargs.__get(0));
 					}
 					
@@ -1284,7 +1284,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.get_clone();
 					}
 					
@@ -1296,7 +1296,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("ToArray")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.ToArray();
 					}
 					
@@ -1308,7 +1308,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_rgba")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.get_rgba();
 					}
 					
@@ -1320,7 +1320,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("IsCulled")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.IsCulled();
 					}
 					
@@ -1332,7 +1332,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_rgb")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.get_rgb();
 					}
 					
@@ -1344,7 +1344,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Normalize")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.Normalize();
 					}
 					
@@ -1356,7 +1356,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xyz")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.get_xyz();
 					}
 					
@@ -1368,7 +1368,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Scale")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.Scale(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -1380,7 +1380,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xy")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.get_xy();
 					}
 					
@@ -1392,7 +1392,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Multiply")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.Multiply(((haxor.math.Vector4) (dynargs.__get(0)) ));
 					}
 					
@@ -1404,7 +1404,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.get_length();
 					}
 					
@@ -1416,7 +1416,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Sub")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.Sub(((haxor.math.Vector4) (dynargs.__get(0)) ));
 					}
 					
@@ -1428,7 +1428,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_lengthSqr")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.get_lengthSqr();
 					}
 					
@@ -1440,7 +1440,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Add")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.Add(((haxor.math.Vector4) (dynargs.__get(0)) ));
 					}
 					
@@ -1452,7 +1452,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_normalized")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.get_normalized();
 					}
 					
@@ -1464,7 +1464,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetColor")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.SetColor(((haxor.math.Color) (dynargs.__get(0)) ));
 					}
 					
@@ -1476,7 +1476,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Get")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.Get(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -1488,7 +1488,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set3")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.Set3(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -1500,7 +1500,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.Set(dynargs.__get(0), dynargs.__get(1), dynargs.__get(2), dynargs.__get(3));
 					}
 					
@@ -1512,7 +1512,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set2")) 
 					{
-						__temp_executeDef81683 = false;
+						__temp_executeDef152454 = false;
 						return this.Set2(((haxor.math.Vector2) (dynargs.__get(0)) ));
 					}
 					
@@ -1522,7 +1522,7 @@ public  class Vector4 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81683) 
+			if (__temp_executeDef152454) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

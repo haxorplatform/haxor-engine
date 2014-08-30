@@ -86,6 +86,10 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	var bmp : Bitmap;
 	
+	#if html
+	var field : js.html.DivElement;
+	#end
+	
 	override public function Load():Bool 
 	{	
 		Web.root = "http://haxor.thelaborat.org/resources/";
@@ -154,6 +158,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		Console.Log("Initialize!");	
 		
 		#if html
+		field = cast js.Browser.document.getElementById("field");
 		var ui : js.Stats = new js.Stats();
 		ui.domElement.style.position = "absolute";
         ui.domElement.style.top = '0px';		
@@ -185,7 +190,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		mat.SetTexture("Tex0", Texture2D.red);
 		mat.blend = true;
 		
-		Activity.Iterate(0,1500,function(i:Int):Bool
+		Activity.Iterate(0,200,function(i:Int):Bool
 		//for (i in 0...1400)
 		{	
 			mr = (new Entity("cube" + i)).AddComponent(MeshRenderer);			
@@ -221,19 +226,21 @@ class Main extends Application implements IUpdateable implements IRenderable
 			orbit.angle.x += Time.delta * 30.0;			
 		}
 	
+		var log : String = "";
+		
+		
 		if (Joystick.available)
 		{
-			
+			trace(Input.joystick[0].ToString());
 		}
 		
-		if(Input.Down(KeyCode.Mouse0))trace("left");
-		if (Input.Down(KeyCode.Mouse1)) trace("middle");
-		if (Input.Down(KeyCode.Mouse2)) trace("right");
-		if (Input.Down(KeyCode.A)) trace("A");
-		if(Input.Down(KeyCode.ControlKey))trace("Left Control");
-		//*/
-		if (Mathf.Abs(Input.wheel) > 0) trace(Input.wheel);
-		//trace(Input.wheel + " " + Input.mouse.ToString() + " " + Input.deltaMouse.ToString()+" "+Input.GetInputState(KeyCode.Mouse0));
+		
+		#if html
+		if(field!=null) field.innerText = log;		
+		#else
+		
+		#end
+		
 	}
 	
 	public function OnRender():Void

@@ -27,7 +27,7 @@ class Input
 	 * List of down state flags indexed by KeyCodes.
 	 */
 	static var m_down: Array<Bool>;
-	
+		
 	/**
 	 * List of active keycode to optimize state update only for active keys/buttons.
 	 */
@@ -36,11 +36,17 @@ class Input
 	static var m_active: Array<Int>;
 	
 	/**
+	 * Reference to the current handler.
+	 */
+	static var m_handler : InputHandler;
+	
+	/**
 	 * List of touches occuring in the current frame.
 	 */
-	static public var touch(get_touch, never) : Array<Touch>;		
-	static function get_touch() : Array<Touch> { return m_touch; }
-	static var m_touch : Array<Touch>;
+	static public var touches(get_touches, never) : Array<Touch>;		
+	static function get_touches() : Array<Touch> { return m_touches; }
+	static var m_touches : Array<Touch>;
+	static var m_api_touches : Array<Touch>;
 	
 	/**
 	 * List of joysticks available.
@@ -82,6 +88,11 @@ class Input
 	 * Flag that tells if page scrolling is enabled (html-only)
 	 */
 	static public var scroll : Bool = false;
+	
+	/**
+	 * Flag that indicates if context menu is allowed. Valid for platforms which supports context menus.
+	 */
+	static public var menu : Bool = false;
 	
 	/**
 	 * Returns the input state for a given mouse or keyboard input "key" (check KeyCode).
@@ -143,7 +154,14 @@ class Input
 		m_hold  			= new Map<Int,Float>();
 		m_active 			= new Array<Int>();
 		m_down 				= new Array <Bool>();		
-		m_touch 			= [];
+		
+		m_touches 			= [];
+		m_api_touches		= [];
+		
+		for (i in 0...10)
+		{
+			m_api_touches.push(new Touch());
+		}
 		
 		for (i in 0...256)
 		{
@@ -163,13 +181,16 @@ class Input
 		deltaMouse 			= new Vector2();
 		relativeMouse 		= new Vector2();
 		
-		Console.Log("Input> Initialize",4);
+		Console.Log("Haxor> Input Initialize",4);
 	}
 	
 	/**
 	 * Updates all touches FSM.
 	 */
-	static private function UpdateTouchFSM():Void { for (j in 0...m_touch.length) TouchFSM(m_touch[j]); }
+	static private function UpdateTouchFSM():Void 
+	{ 
+		for (j in 0...m_touches.length) TouchFSM(m_touches[j]); 
+	}
 	
 	/**
 	 * Updates all active input keycodes.
@@ -177,22 +198,17 @@ class Input
 	static private function UpdateInput():Void { for (i in 0...m_active.length) UpdateInputState(m_active[i], m_down[m_active[i]]); }
 	
 	/**
-	 * Resets all touches down flags.
-	 */				   
-	static private function ResetTouchDownFlag():Void { for (j in 0...m_touch.length) m_touch[j].m_down = false; }
-	
-	/**
 	 * Updates the Touch FSM machine.
 	 * @param	t
 	 */
 	static private function TouchFSM(t : Touch):Void
 	{
-		if (t == null) return;
+		if (t == null) return;		
 		var current : InputState 	= t.state;		
 		var d 		: Bool 			= t.m_down;		
-		if (current == InputState.Up) 	m_touch.remove(t);		
+		if (current == InputState.Up) 	m_touches.remove(t);		
 		if (current == InputState.Hold)	t.hold += Time.delta;
-		t.state = InputStateFSM(current, d);			
+		t.state = InputStateFSM(current, d);		
 	}
 	
 	/**
@@ -200,7 +216,7 @@ class Input
 	 * @param	p_code
 	 * @param	p_is_down
 	 */
-	static function UpdateInputState(p_code : Int, p_is_down:Bool) : Void
+	static function UpdateInputState(p_code : Int, p_is_down:Bool,p_update_state:Bool=true) : Void
 	{
 		var current : InputState 	= m_state.get(p_code);
 		if(current == null) current =  InputState.None;
@@ -211,21 +227,24 @@ class Input
 		if (!d0) if (d) { m_active.push(p_code);  }
 		if (!d) if (d0) { return; }
 		
-		if (current == InputState.Up)
+		if (p_update_state)
 		{
-			m_hold.set(p_code, 0);
-			m_active.remove(p_code);
+			if (current == InputState.Up)
+			{
+				m_hold.set(p_code, 0);
+				m_active.remove(p_code);
+			}
+			
+			if (current == InputState.Hold)
+			{
+				var h:Float = m_hold.get(p_code);
+				m_hold.set(p_code, h + Time.delta);
+			}
+			
+			next = InputStateFSM(current, d);
+			
+			if (current != next) m_state.set(p_code, next);
 		}
-		
-		if (current == InputState.Hold)
-		{
-			var h:Float = m_hold.get(p_code);
-			m_hold.set(p_code, h + Time.delta);
-		}
-		
-		next = InputStateFSM(current, d);
-		
-		if(current != next) m_state.set(p_code, next);
 	}
 	
 	/**

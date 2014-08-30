@@ -420,6 +420,14 @@ int KeyCode_obj::Face3;
 
 int KeyCode_obj::Face4;
 
+int KeyCode_obj::ButtonA;
+
+int KeyCode_obj::ButtonB;
+
+int KeyCode_obj::ButtonX;
+
+int KeyCode_obj::ButtonY;
+
 int KeyCode_obj::LeftShoulder;
 
 int KeyCode_obj::RightShoulder;
@@ -610,6 +618,10 @@ Dynamic KeyCode_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"NumLock") ) { return NumLock; }
 		if (HX_FIELD_EQ(inName,"Oemplus") ) { return Oemplus; }
 		if (HX_FIELD_EQ(inName,"OemPipe") ) { return OemPipe; }
+		if (HX_FIELD_EQ(inName,"ButtonA") ) { return ButtonA; }
+		if (HX_FIELD_EQ(inName,"ButtonB") ) { return ButtonB; }
+		if (HX_FIELD_EQ(inName,"ButtonX") ) { return ButtonX; }
+		if (HX_FIELD_EQ(inName,"ButtonY") ) { return ButtonY; }
 		if (HX_FIELD_EQ(inName,"PadLeft") ) { return PadLeft; }
 		break;
 	case 8:
@@ -868,6 +880,10 @@ Dynamic KeyCode_obj::__SetField(const ::String &inName,const Dynamic &inValue,bo
 		if (HX_FIELD_EQ(inName,"NumLock") ) { NumLock=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"Oemplus") ) { Oemplus=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"OemPipe") ) { OemPipe=inValue.Cast< int >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"ButtonA") ) { ButtonA=inValue.Cast< int >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"ButtonB") ) { ButtonB=inValue.Cast< int >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"ButtonX") ) { ButtonX=inValue.Cast< int >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"ButtonY") ) { ButtonY=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"PadLeft") ) { PadLeft=inValue.Cast< int >(); return inValue; }
 		break;
 	case 8:
@@ -1177,6 +1193,10 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("Face2"),
 	HX_CSTRING("Face3"),
 	HX_CSTRING("Face4"),
+	HX_CSTRING("ButtonA"),
+	HX_CSTRING("ButtonB"),
+	HX_CSTRING("ButtonX"),
+	HX_CSTRING("ButtonY"),
 	HX_CSTRING("LeftShoulder"),
 	HX_CSTRING("RightShoulder"),
 	HX_CSTRING("LeftShoulderBottom"),
@@ -1402,6 +1422,10 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(KeyCode_obj::Face2,"Face2");
 	HX_MARK_MEMBER_NAME(KeyCode_obj::Face3,"Face3");
 	HX_MARK_MEMBER_NAME(KeyCode_obj::Face4,"Face4");
+	HX_MARK_MEMBER_NAME(KeyCode_obj::ButtonA,"ButtonA");
+	HX_MARK_MEMBER_NAME(KeyCode_obj::ButtonB,"ButtonB");
+	HX_MARK_MEMBER_NAME(KeyCode_obj::ButtonX,"ButtonX");
+	HX_MARK_MEMBER_NAME(KeyCode_obj::ButtonY,"ButtonY");
 	HX_MARK_MEMBER_NAME(KeyCode_obj::LeftShoulder,"LeftShoulder");
 	HX_MARK_MEMBER_NAME(KeyCode_obj::RightShoulder,"RightShoulder");
 	HX_MARK_MEMBER_NAME(KeyCode_obj::LeftShoulderBottom,"LeftShoulderBottom");
@@ -1621,6 +1645,10 @@ static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(KeyCode_obj::Face2,"Face2");
 	HX_VISIT_MEMBER_NAME(KeyCode_obj::Face3,"Face3");
 	HX_VISIT_MEMBER_NAME(KeyCode_obj::Face4,"Face4");
+	HX_VISIT_MEMBER_NAME(KeyCode_obj::ButtonA,"ButtonA");
+	HX_VISIT_MEMBER_NAME(KeyCode_obj::ButtonB,"ButtonB");
+	HX_VISIT_MEMBER_NAME(KeyCode_obj::ButtonX,"ButtonX");
+	HX_VISIT_MEMBER_NAME(KeyCode_obj::ButtonY,"ButtonY");
 	HX_VISIT_MEMBER_NAME(KeyCode_obj::LeftShoulder,"LeftShoulder");
 	HX_VISIT_MEMBER_NAME(KeyCode_obj::RightShoulder,"RightShoulder");
 	HX_VISIT_MEMBER_NAME(KeyCode_obj::LeftShoulderBottom,"LeftShoulderBottom");
@@ -1857,6 +1885,10 @@ void KeyCode_obj::__boot()
 	Face2= (int)1;
 	Face3= (int)2;
 	Face4= (int)3;
+	ButtonA= (int)0;
+	ButtonB= (int)1;
+	ButtonX= (int)2;
+	ButtonY= (int)3;
 	LeftShoulder= (int)4;
 	RightShoulder= (int)5;
 	LeftShoulderBottom= (int)6;

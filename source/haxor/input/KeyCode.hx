@@ -791,6 +791,13 @@ class KeyCode
 	static public var Face2					: Int = 1;
 	static public var Face3					: Int = 2;
 	static public var Face4					: Int = 3;
+	
+	//Alias to Face buttons.
+	static public var ButtonA				: Int = 0; // Face (main) buttons
+	static public var ButtonB				: Int = 1;
+	static public var ButtonX				: Int = 2;
+	static public var ButtonY				: Int = 3;
+	
 	static public var LeftShoulder			: Int = 4; // Top shoulder buttons
 	static public var RightShoulder			: Int = 5;
 	static public var LeftShoulderBottom	: Int = 6; // Bottom shoulder buttons
@@ -803,6 +810,7 @@ class KeyCode
 	static public var PadBottom				: Int = 13;
 	static public var PadLeft				: Int = 14;
 	static public var PadRight				: Int = 15;	
+	
 	static public var LeftAnalogueHor		: Int = 0;
 	static public var LeftAnalogueVert		: Int = 1;
 	static public var RightAnalogueHor		: Int = 2;

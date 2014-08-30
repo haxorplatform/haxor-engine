@@ -7,9 +7,9 @@ public final class HashMap_Impl_
 	public static  <V, K, V1> java.lang.Object _new()
 	{
 		{
-			haxe.ds.IntMap<K> __temp_odecl80987 = new haxe.ds.IntMap<K>();
-			haxe.ds.IntMap<V1> __temp_odecl80988 = new haxe.ds.IntMap<V1>();
-			return new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"keys", "values"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_odecl80987, __temp_odecl80988}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
+			haxe.ds.IntMap<K> __temp_odecl151741 = new haxe.ds.IntMap<K>();
+			haxe.ds.IntMap<V1> __temp_odecl151742 = new haxe.ds.IntMap<V1>();
+			return new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"keys", "values"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_odecl151741, __temp_odecl151742}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
 		}
 		
 	}

@@ -4,11 +4,11 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class ColladaFile_FindNodeById_511__Fun extends haxe.lang.Function
 {
-	public    ColladaFile_FindNodeById_511__Fun(haxe.root.Array<java.lang.String> p_id1, haxe.root.Array<haxor.io.file.ColladaNode> res)
+	public    ColladaFile_FindNodeById_511__Fun(haxe.root.Array<haxor.io.file.ColladaNode> res, haxe.root.Array<java.lang.String> p_id1)
 	{
 		super(1, 0);
-		this.p_id1 = p_id1;
 		this.res = res;
+		this.p_id1 = p_id1;
 	}
 	
 	
@@ -24,9 +24,9 @@ public  class ColladaFile_FindNodeById_511__Fun extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<java.lang.String> p_id1;
-	
 	public  haxe.root.Array<haxor.io.file.ColladaNode> res;
+	
+	public  haxe.root.Array<java.lang.String> p_id1;
 	
 }
 

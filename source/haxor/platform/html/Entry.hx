@@ -31,6 +31,11 @@ class Entry
 	static private var m_application : HTMLApplication;
 	
 	/**
+	 * Reference to the input handler.
+	 */
+	static private var m_input : HTMLInputHandler;
+	
+	/**
 	 * Startup the application entry point.
 	 */
 	static public function Initialize():Void { Console.Initialize(); Browser.window.onload = OnWindowLoad; }
@@ -122,7 +127,8 @@ class Entry
 		EngineContext.Build();
 		
 		
-		var input_handler : HTMLInputHandler = new HTMLInputHandler(app_input_id);
+		m_input = new HTMLInputHandler(app_input_id);
+		Input.m_handler	= m_input;
 		
 		if (m_application.Load())
 		{

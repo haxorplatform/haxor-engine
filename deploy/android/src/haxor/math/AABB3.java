@@ -18,20 +18,20 @@ public  class AABB3 extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_math_AABB3(haxor.math.AABB3 __temp_me80742, java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z, java.lang.Object p_width, java.lang.Object p_height, java.lang.Object p_depth)
+	public static   void __hx_ctor_haxor_math_AABB3(haxor.math.AABB3 __temp_me151494, java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z, java.lang.Object p_width, java.lang.Object p_height, java.lang.Object p_depth)
 	{
-		double __temp_p_depth80741 = ( (( p_depth == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_depth)) )) );
-		double __temp_p_height80740 = ( (( p_height == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_height)) )) );
-		double __temp_p_width80739 = ( (( p_width == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_width)) )) );
-		double __temp_p_z80738 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
-		double __temp_p_y80737 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
-		double __temp_p_x80736 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
-		__temp_me80742.m_xMin = __temp_p_x80736;
-		__temp_me80742.m_yMin = __temp_p_y80737;
-		__temp_me80742.m_zMin = __temp_p_y80737;
-		__temp_me80742.m_xMax = ( __temp_me80742.m_xMin + __temp_p_width80739 );
-		__temp_me80742.m_yMax = ( __temp_me80742.m_yMin + __temp_p_height80740 );
-		__temp_me80742.m_zMax = ( __temp_me80742.m_zMin + __temp_p_depth80741 );
+		double __temp_p_depth151493 = ( (( p_depth == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_depth)) )) );
+		double __temp_p_height151492 = ( (( p_height == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_height)) )) );
+		double __temp_p_width151491 = ( (( p_width == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_width)) )) );
+		double __temp_p_z151490 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
+		double __temp_p_y151489 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
+		double __temp_p_x151488 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
+		__temp_me151494.m_xMin = __temp_p_x151488;
+		__temp_me151494.m_yMin = __temp_p_y151489;
+		__temp_me151494.m_zMin = __temp_p_y151489;
+		__temp_me151494.m_xMax = ( __temp_me151494.m_xMin + __temp_p_width151491 );
+		__temp_me151494.m_yMax = ( __temp_me151494.m_yMin + __temp_p_height151492 );
+		__temp_me151494.m_zMax = ( __temp_me151494.m_zMin + __temp_p_depth151493 );
 	}
 	
 	
@@ -65,17 +65,17 @@ public  class AABB3 extends haxe.lang.HxObject
 		haxor.math.AABB3 b = new haxor.math.AABB3(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
 		{
 			b.set_xMax(( b.m_xMin + p_width ));
-			double __temp_expr81591 = p_width;
+			double __temp_expr152362 = p_width;
 		}
 		
 		{
 			b.set_yMax(( b.m_yMin + p_height ));
-			double __temp_expr81592 = p_height;
+			double __temp_expr152363 = p_height;
 		}
 		
 		{
 			b.set_zMax(( b.m_zMin + p_depth ));
-			double __temp_expr81593 = p_depth;
+			double __temp_expr152364 = p_depth;
 		}
 		
 		b.set_center(new haxor.math.Vector3(((java.lang.Object) (p_x) ), ((java.lang.Object) (p_y) ), ((java.lang.Object) (p_z) )));
@@ -262,29 +262,29 @@ public  class AABB3 extends haxe.lang.HxObject
 	public   haxor.math.Vector3 set_center(haxor.math.Vector3 v)
 	{
 		double hw = 0.0;
-		double __temp_stmt81564 = 0.0;
+		double __temp_stmt152335 = 0.0;
 		{
 			double p_a = ( this.m_xMax - this.m_xMin );
-			__temp_stmt81564 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			__temp_stmt152335 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 		}
 		
-		hw = ( __temp_stmt81564 * 0.5 );
+		hw = ( __temp_stmt152335 * 0.5 );
 		double hh = 0.0;
-		double __temp_stmt81565 = 0.0;
+		double __temp_stmt152336 = 0.0;
 		{
 			double p_a1 = ( this.m_yMax - this.m_yMin );
-			__temp_stmt81565 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
+			__temp_stmt152336 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
 		}
 		
-		hh = ( __temp_stmt81565 * 0.5 );
+		hh = ( __temp_stmt152336 * 0.5 );
 		double hd = 0.0;
-		double __temp_stmt81566 = 0.0;
+		double __temp_stmt152337 = 0.0;
 		{
 			double p_a2 = ( this.m_zMax - this.m_zMin );
-			__temp_stmt81566 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
+			__temp_stmt152337 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
 		}
 		
-		hd = ( __temp_stmt81566 * 0.5 );
+		hd = ( __temp_stmt152337 * 0.5 );
 		this.m_xMin = ( v.x - hw );
 		this.m_xMax = ( v.x + hw );
 		this.m_yMin = ( v.y - hh );
@@ -426,26 +426,26 @@ public  class AABB3 extends haxe.lang.HxObject
 	
 	public final   haxor.math.Vector3 get_size()
 	{
-		double __temp_stmt81567 = 0.0;
+		double __temp_stmt152338 = 0.0;
 		{
 			double p_a = ( this.m_xMax - this.m_xMin );
-			__temp_stmt81567 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			__temp_stmt152338 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 		}
 		
-		double __temp_stmt81568 = 0.0;
+		double __temp_stmt152339 = 0.0;
 		{
 			double p_a1 = ( this.m_yMax - this.m_yMin );
-			__temp_stmt81568 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
+			__temp_stmt152339 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
 		}
 		
-		double __temp_stmt81569 = 0.0;
+		double __temp_stmt152340 = 0.0;
 		{
 			double p_a2 = ( this.m_zMax - this.m_zMin );
-			__temp_stmt81569 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
+			__temp_stmt152340 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
 		}
 		
-		haxor.math.Vector3 __temp_stmt81570 = new haxor.math.Vector3(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ));
-		return __temp_stmt81570.Set(__temp_stmt81567, __temp_stmt81568, __temp_stmt81569);
+		haxor.math.Vector3 __temp_stmt152341 = new haxor.math.Vector3(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ));
+		return __temp_stmt152341.Set(__temp_stmt152338, __temp_stmt152339, __temp_stmt152340);
 	}
 	
 	
@@ -454,19 +454,19 @@ public  class AABB3 extends haxe.lang.HxObject
 		{
 			double v1 = v.x;
 			this.set_xMax(( this.m_xMin + v1 ));
-			double __temp_expr81571 = v1;
+			double __temp_expr152342 = v1;
 		}
 		
 		{
 			double v2 = v.y;
 			this.set_yMax(( this.m_yMin + v2 ));
-			double __temp_expr81572 = v2;
+			double __temp_expr152343 = v2;
 		}
 		
 		{
 			double v3 = v.z;
 			this.set_zMax(( this.m_zMin + v3 ));
-			double __temp_expr81573 = v3;
+			double __temp_expr152344 = v3;
 		}
 		
 		return v;
@@ -556,18 +556,18 @@ public  class AABB3 extends haxe.lang.HxObject
 	
 	public   haxor.math.AABB3 SetXYZWHD(java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z, java.lang.Object p_width, java.lang.Object p_height, java.lang.Object p_depth)
 	{
-		double __temp_p_depth80731 = ( (( p_depth == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_depth)) )) );
-		double __temp_p_height80730 = ( (( p_height == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_height)) )) );
-		double __temp_p_width80729 = ( (( p_width == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_width)) )) );
-		double __temp_p_z80728 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
-		double __temp_p_y80727 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
-		double __temp_p_x80726 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
-		this.m_xMin = __temp_p_x80726;
-		this.m_yMin = __temp_p_y80727;
-		this.m_zMin = __temp_p_y80727;
-		this.m_xMax = ( this.m_xMin + __temp_p_width80729 );
-		this.m_yMax = ( this.m_yMin + __temp_p_height80730 );
-		this.m_zMax = ( this.m_zMin + __temp_p_depth80731 );
+		double __temp_p_depth151483 = ( (( p_depth == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_depth)) )) );
+		double __temp_p_height151482 = ( (( p_height == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_height)) )) );
+		double __temp_p_width151481 = ( (( p_width == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_width)) )) );
+		double __temp_p_z151480 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
+		double __temp_p_y151479 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
+		double __temp_p_x151478 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
+		this.m_xMin = __temp_p_x151478;
+		this.m_yMin = __temp_p_y151479;
+		this.m_zMin = __temp_p_y151479;
+		this.m_xMax = ( this.m_xMin + __temp_p_width151481 );
+		this.m_yMax = ( this.m_yMin + __temp_p_height151482 );
+		this.m_zMax = ( this.m_zMin + __temp_p_depth151483 );
 		return this;
 	}
 	
@@ -580,15 +580,15 @@ public  class AABB3 extends haxe.lang.HxObject
 	
 	public   haxor.math.AABB3 Encapsulate3(java.lang.Object p_x, java.lang.Object p_y, java.lang.Object p_z)
 	{
-		double __temp_p_z80734 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
-		double __temp_p_y80733 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
-		double __temp_p_x80732 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
-		this.m_xMin = java.lang.Math.min(__temp_p_x80732, this.m_xMin);
-		this.m_xMax = java.lang.Math.max(__temp_p_x80732, this.m_xMax);
-		this.m_yMin = java.lang.Math.min(__temp_p_y80733, this.m_yMin);
-		this.m_yMax = java.lang.Math.max(__temp_p_y80733, this.m_yMax);
-		this.m_zMin = java.lang.Math.min(__temp_p_z80734, this.m_zMin);
-		this.m_zMax = java.lang.Math.max(__temp_p_z80734, this.m_zMax);
+		double __temp_p_z151486 = ( (( p_z == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_z)) )) );
+		double __temp_p_y151485 = ( (( p_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_y)) )) );
+		double __temp_p_x151484 = ( (( p_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_x)) )) );
+		this.m_xMin = java.lang.Math.min(__temp_p_x151484, this.m_xMin);
+		this.m_xMax = java.lang.Math.max(__temp_p_x151484, this.m_xMax);
+		this.m_yMin = java.lang.Math.min(__temp_p_y151485, this.m_yMin);
+		this.m_yMax = java.lang.Math.max(__temp_p_y151485, this.m_yMax);
+		this.m_zMin = java.lang.Math.min(__temp_p_z151486, this.m_zMin);
+		this.m_zMax = java.lang.Math.max(__temp_p_z151486, this.m_zMax);
 		this.Validate();
 		return this;
 	}
@@ -596,91 +596,91 @@ public  class AABB3 extends haxe.lang.HxObject
 	
 	public   java.lang.String ToString(java.lang.Object p_places)
 	{
-		int __temp_p_places80735 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
+		int __temp_p_places151487 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
 		java.lang.String s0 = null;
-		double __temp_stmt81574 = 0.0;
+		double __temp_stmt152345 = 0.0;
 		{
-			double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80735) ));
-			double __temp_stmt81575 = 0.0;
+			double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151487) ));
+			double __temp_stmt152346 = 0.0;
 			{
 				double p_v = ( this.m_xMin * d );
-				__temp_stmt81575 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152346 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81574 = ( __temp_stmt81575 / d );
+			__temp_stmt152345 = ( __temp_stmt152346 / d );
 		}
 		
-		s0 = ( haxe.lang.Runtime.toString(__temp_stmt81574) + "" );
+		s0 = ( haxe.lang.Runtime.toString(__temp_stmt152345) + "" );
 		java.lang.String s1 = null;
-		double __temp_stmt81576 = 0.0;
+		double __temp_stmt152347 = 0.0;
 		{
-			double d1 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80735) ));
-			double __temp_stmt81577 = 0.0;
+			double d1 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151487) ));
+			double __temp_stmt152348 = 0.0;
 			{
 				double p_v1 = ( this.m_xMax * d1 );
-				__temp_stmt81577 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152348 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81576 = ( __temp_stmt81577 / d1 );
+			__temp_stmt152347 = ( __temp_stmt152348 / d1 );
 		}
 		
-		s1 = ( haxe.lang.Runtime.toString(__temp_stmt81576) + "" );
+		s1 = ( haxe.lang.Runtime.toString(__temp_stmt152347) + "" );
 		java.lang.String s2 = null;
-		double __temp_stmt81578 = 0.0;
+		double __temp_stmt152349 = 0.0;
 		{
-			double d2 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80735) ));
-			double __temp_stmt81579 = 0.0;
+			double d2 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151487) ));
+			double __temp_stmt152350 = 0.0;
 			{
 				double p_v2 = ( this.m_yMin * d2 );
-				__temp_stmt81579 = ((double) (((int) (( p_v2 + (( (( p_v2 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152350 = ((double) (((int) (( p_v2 + (( (( p_v2 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81578 = ( __temp_stmt81579 / d2 );
+			__temp_stmt152349 = ( __temp_stmt152350 / d2 );
 		}
 		
-		s2 = ( haxe.lang.Runtime.toString(__temp_stmt81578) + "" );
+		s2 = ( haxe.lang.Runtime.toString(__temp_stmt152349) + "" );
 		java.lang.String s3 = null;
-		double __temp_stmt81580 = 0.0;
+		double __temp_stmt152351 = 0.0;
 		{
-			double d3 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80735) ));
-			double __temp_stmt81581 = 0.0;
+			double d3 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151487) ));
+			double __temp_stmt152352 = 0.0;
 			{
 				double p_v3 = ( this.m_yMax * d3 );
-				__temp_stmt81581 = ((double) (((int) (( p_v3 + (( (( p_v3 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152352 = ((double) (((int) (( p_v3 + (( (( p_v3 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81580 = ( __temp_stmt81581 / d3 );
+			__temp_stmt152351 = ( __temp_stmt152352 / d3 );
 		}
 		
-		s3 = ( haxe.lang.Runtime.toString(__temp_stmt81580) + "" );
+		s3 = ( haxe.lang.Runtime.toString(__temp_stmt152351) + "" );
 		java.lang.String s4 = null;
-		double __temp_stmt81582 = 0.0;
+		double __temp_stmt152353 = 0.0;
 		{
-			double d4 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80735) ));
-			double __temp_stmt81583 = 0.0;
+			double d4 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151487) ));
+			double __temp_stmt152354 = 0.0;
 			{
 				double p_v4 = ( this.m_zMin * d4 );
-				__temp_stmt81583 = ((double) (((int) (( p_v4 + (( (( p_v4 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152354 = ((double) (((int) (( p_v4 + (( (( p_v4 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81582 = ( __temp_stmt81583 / d4 );
+			__temp_stmt152353 = ( __temp_stmt152354 / d4 );
 		}
 		
-		s4 = ( haxe.lang.Runtime.toString(__temp_stmt81582) + "" );
+		s4 = ( haxe.lang.Runtime.toString(__temp_stmt152353) + "" );
 		java.lang.String s5 = null;
-		double __temp_stmt81584 = 0.0;
+		double __temp_stmt152355 = 0.0;
 		{
-			double d5 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places80735) ));
-			double __temp_stmt81585 = 0.0;
+			double d5 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places151487) ));
+			double __temp_stmt152356 = 0.0;
 			{
 				double p_v5 = ( this.m_zMax * d5 );
-				__temp_stmt81585 = ((double) (((int) (( p_v5 + (( (( p_v5 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt152356 = ((double) (((int) (( p_v5 + (( (( p_v5 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt81584 = ( __temp_stmt81585 / d5 );
+			__temp_stmt152355 = ( __temp_stmt152356 / d5 );
 		}
 		
-		s5 = ( haxe.lang.Runtime.toString(__temp_stmt81584) + "" );
+		s5 = ( haxe.lang.Runtime.toString(__temp_stmt152355) + "" );
 		return ( ( ( ( ( ( ( ( ( ( ( ( "[" + s0 ) + "," ) + s1 ) + "|" ) + s2 ) + "," ) + s3 ) + "|" ) + s4 ) + "," ) + s5 ) + "]" );
 	}
 	
@@ -688,14 +688,14 @@ public  class AABB3 extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81586 = true;
+			boolean __temp_executeDef152357 = true;
 			switch (field.hashCode())
 			{
 				case 95472323:
 				{
 					if (field.equals("depth")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_depth(value);
 						return value;
 					}
@@ -708,7 +708,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("xMin")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_xMin(value);
 						return value;
 					}
@@ -721,7 +721,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_height(value);
 						return value;
 					}
@@ -734,7 +734,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_xMin")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.m_xMin = ((double) (value) );
 						return value;
 					}
@@ -747,7 +747,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_width(value);
 						return value;
 					}
@@ -760,7 +760,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("yMin")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_yMin(value);
 						return value;
 					}
@@ -773,7 +773,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_z(value);
 						return value;
 					}
@@ -786,7 +786,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_yMin")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.m_yMin = ((double) (value) );
 						return value;
 					}
@@ -799,7 +799,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_y(value);
 						return value;
 					}
@@ -812,7 +812,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("zMin")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_zMin(value);
 						return value;
 					}
@@ -825,7 +825,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_x(value);
 						return value;
 					}
@@ -838,7 +838,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_zMin")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.m_zMin = ((double) (value) );
 						return value;
 					}
@@ -851,7 +851,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_zMax")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.m_zMax = ((double) (value) );
 						return value;
 					}
@@ -864,7 +864,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("xMax")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_xMax(value);
 						return value;
 					}
@@ -877,7 +877,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("zMax")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_zMax(value);
 						return value;
 					}
@@ -890,7 +890,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_xMax")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.m_xMax = ((double) (value) );
 						return value;
 					}
@@ -903,7 +903,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_yMax")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.m_yMax = ((double) (value) );
 						return value;
 					}
@@ -916,7 +916,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("yMax")) 
 					{
-						__temp_executeDef81586 = false;
+						__temp_executeDef152357 = false;
 						this.set_yMax(value);
 						return value;
 					}
@@ -927,7 +927,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81586) 
+			if (__temp_executeDef152357) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -944,14 +944,14 @@ public  class AABB3 extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81587 = true;
+			boolean __temp_executeDef152358 = true;
 			switch (field.hashCode())
 			{
 				case 3530753:
 				{
 					if (field.equals("size")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_size(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -964,7 +964,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("clone")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.clone = ((haxor.math.AABB3) (value) );
 						return value;
 					}
@@ -977,7 +977,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("depth")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_depth(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -990,7 +990,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_min(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -1003,7 +1003,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_height(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1016,7 +1016,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_max(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -1029,7 +1029,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_width(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1042,7 +1042,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("xMin")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_xMin(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1055,7 +1055,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_z(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1068,7 +1068,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_xMin")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.m_xMin = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -1081,7 +1081,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_y(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1094,7 +1094,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("yMin")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_yMin(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1107,7 +1107,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_x(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1120,7 +1120,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_yMin")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.m_yMin = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -1133,7 +1133,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("center")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_center(((haxor.math.Vector3) (value) ));
 						return value;
 					}
@@ -1146,7 +1146,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("zMin")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_zMin(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1159,7 +1159,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_zMax")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.m_zMax = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -1172,7 +1172,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_zMin")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.m_zMin = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -1185,7 +1185,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("zMax")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_zMax(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1198,7 +1198,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("xMax")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_xMax(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1211,7 +1211,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_yMax")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.m_yMax = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -1224,7 +1224,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_xMax")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.m_xMax = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -1237,7 +1237,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("yMax")) 
 					{
-						__temp_executeDef81587 = false;
+						__temp_executeDef152358 = false;
 						this.set_yMax(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1248,7 +1248,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81587) 
+			if (__temp_executeDef152358) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -1265,14 +1265,14 @@ public  class AABB3 extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81588 = true;
+			boolean __temp_executeDef152359 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToString"))) );
 					}
 					
@@ -1284,7 +1284,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("clone")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						if (handleProperties) 
 						{
 							return this.get_clone();
@@ -1304,7 +1304,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Encapsulate3")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Encapsulate3"))) );
 					}
 					
@@ -1316,7 +1316,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_clone"))) );
 					}
 					
@@ -1328,7 +1328,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Encapsulate")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Encapsulate"))) );
 					}
 					
@@ -1340,7 +1340,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_min();
 					}
 					
@@ -1352,7 +1352,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetXYZWHD")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetXYZWHD"))) );
 					}
 					
@@ -1364,7 +1364,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_min")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_min"))) );
 					}
 					
@@ -1376,7 +1376,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetAABB3")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SetAABB3"))) );
 					}
 					
@@ -1388,7 +1388,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_min")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_min"))) );
 					}
 					
@@ -1400,7 +1400,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
@@ -1412,7 +1412,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_max();
 					}
 					
@@ -1424,7 +1424,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Add")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Add"))) );
 					}
 					
@@ -1436,7 +1436,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_max")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_max"))) );
 					}
 					
@@ -1448,7 +1448,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Validate")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Validate"))) );
 					}
 					
@@ -1460,7 +1460,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_max")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_max"))) );
 					}
 					
@@ -1472,7 +1472,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_size")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_size"))) );
 					}
 					
@@ -1484,7 +1484,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("xMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_xMin();
 					}
 					
@@ -1496,7 +1496,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_size")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_size"))) );
 					}
 					
@@ -1508,7 +1508,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_xMin"))) );
 					}
 					
@@ -1520,7 +1520,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("size")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_size();
 					}
 					
@@ -1532,7 +1532,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_xMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_xMin"))) );
 					}
 					
@@ -1544,7 +1544,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_depth")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_depth"))) );
 					}
 					
@@ -1556,7 +1556,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_xMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.m_xMin;
 					}
 					
@@ -1568,7 +1568,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_depth")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_depth"))) );
 					}
 					
@@ -1580,7 +1580,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("yMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_yMin();
 					}
 					
@@ -1592,7 +1592,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("depth")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_depth();
 					}
 					
@@ -1604,7 +1604,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_yMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_yMin"))) );
 					}
 					
@@ -1616,7 +1616,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_height")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_height"))) );
 					}
 					
@@ -1628,7 +1628,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_yMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_yMin"))) );
 					}
 					
@@ -1640,7 +1640,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_height")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_height"))) );
 					}
 					
@@ -1652,7 +1652,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_yMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.m_yMin;
 					}
 					
@@ -1664,7 +1664,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_height();
 					}
 					
@@ -1676,7 +1676,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("zMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_zMin();
 					}
 					
@@ -1688,7 +1688,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_width")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_width"))) );
 					}
 					
@@ -1700,7 +1700,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_zMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_zMin"))) );
 					}
 					
@@ -1712,7 +1712,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_width")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_width"))) );
 					}
 					
@@ -1724,7 +1724,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_zMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_zMin"))) );
 					}
 					
@@ -1736,7 +1736,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_width();
 					}
 					
@@ -1748,7 +1748,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_zMin")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.m_zMin;
 					}
 					
@@ -1760,7 +1760,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_z")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_z"))) );
 					}
 					
@@ -1772,7 +1772,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("xMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_xMax();
 					}
 					
@@ -1784,7 +1784,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_z")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_z"))) );
 					}
 					
@@ -1796,7 +1796,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_xMax"))) );
 					}
 					
@@ -1808,7 +1808,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_z();
 					}
 					
@@ -1820,7 +1820,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_xMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_xMax"))) );
 					}
 					
@@ -1832,7 +1832,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_y")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_y"))) );
 					}
 					
@@ -1844,7 +1844,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_xMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.m_xMax;
 					}
 					
@@ -1856,7 +1856,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_y")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_y"))) );
 					}
 					
@@ -1868,7 +1868,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("yMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_yMax();
 					}
 					
@@ -1880,7 +1880,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_y();
 					}
 					
@@ -1892,7 +1892,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_yMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_yMax"))) );
 					}
 					
@@ -1904,7 +1904,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_x")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_x"))) );
 					}
 					
@@ -1916,7 +1916,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_yMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_yMax"))) );
 					}
 					
@@ -1928,7 +1928,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_x")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_x"))) );
 					}
 					
@@ -1940,7 +1940,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_yMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.m_yMax;
 					}
 					
@@ -1952,7 +1952,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_x();
 					}
 					
@@ -1964,7 +1964,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("zMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_zMax();
 					}
 					
@@ -1976,7 +1976,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_center")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_center"))) );
 					}
 					
@@ -1988,7 +1988,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_zMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_zMax"))) );
 					}
 					
@@ -2000,7 +2000,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_center")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_center"))) );
 					}
 					
@@ -2012,7 +2012,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_zMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_zMax"))) );
 					}
 					
@@ -2024,7 +2024,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("center")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.get_center();
 					}
 					
@@ -2036,7 +2036,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_zMax")) 
 					{
-						__temp_executeDef81588 = false;
+						__temp_executeDef152359 = false;
 						return this.m_zMax;
 					}
 					
@@ -2046,7 +2046,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81588) 
+			if (__temp_executeDef152359) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -2063,14 +2063,14 @@ public  class AABB3 extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81589 = true;
+			boolean __temp_executeDef152360 = true;
 			switch (field.hashCode())
 			{
 				case 95472323:
 				{
 					if (field.equals("depth")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_depth();
 					}
 					
@@ -2082,7 +2082,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("xMin")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_xMin();
 					}
 					
@@ -2094,7 +2094,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_height();
 					}
 					
@@ -2106,7 +2106,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_xMin")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.m_xMin;
 					}
 					
@@ -2118,7 +2118,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_width();
 					}
 					
@@ -2130,7 +2130,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("yMin")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_yMin();
 					}
 					
@@ -2142,7 +2142,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_z();
 					}
 					
@@ -2154,7 +2154,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_yMin")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.m_yMin;
 					}
 					
@@ -2166,7 +2166,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_y();
 					}
 					
@@ -2178,7 +2178,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("zMin")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_zMin();
 					}
 					
@@ -2190,7 +2190,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_x();
 					}
 					
@@ -2202,7 +2202,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_zMin")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.m_zMin;
 					}
 					
@@ -2214,7 +2214,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_zMax")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.m_zMax;
 					}
 					
@@ -2226,7 +2226,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("xMax")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_xMax();
 					}
 					
@@ -2238,7 +2238,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("zMax")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_zMax();
 					}
 					
@@ -2250,7 +2250,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_xMax")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.m_xMax;
 					}
 					
@@ -2262,7 +2262,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("m_yMax")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.m_yMax;
 					}
 					
@@ -2274,7 +2274,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("yMax")) 
 					{
-						__temp_executeDef81589 = false;
+						__temp_executeDef152360 = false;
 						return this.get_yMax();
 					}
 					
@@ -2284,7 +2284,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81589) 
+			if (__temp_executeDef152360) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -2301,14 +2301,14 @@ public  class AABB3 extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef81590 = true;
+			boolean __temp_executeDef152361 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.ToString(dynargs.__get(0));
 					}
 					
@@ -2320,7 +2320,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_clone")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_clone();
 					}
 					
@@ -2332,7 +2332,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Encapsulate3")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.Encapsulate3(dynargs.__get(0), dynargs.__get(1), dynargs.__get(2));
 					}
 					
@@ -2344,7 +2344,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_min")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_min();
 					}
 					
@@ -2356,7 +2356,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Encapsulate")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.Encapsulate(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2368,7 +2368,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_min")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_min(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2380,7 +2380,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetXYZWHD")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.SetXYZWHD(dynargs.__get(0), dynargs.__get(1), dynargs.__get(2), dynargs.__get(3), dynargs.__get(4), dynargs.__get(5));
 					}
 					
@@ -2392,7 +2392,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_max")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_max();
 					}
 					
@@ -2404,7 +2404,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("SetAABB3")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.SetAABB3(((haxor.math.AABB3) (dynargs.__get(0)) ));
 					}
 					
@@ -2416,7 +2416,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_max")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_max(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2428,7 +2428,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.Set(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(3))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(4))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(5))) ));
 					}
 					
@@ -2440,7 +2440,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xMin")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_xMin();
 					}
 					
@@ -2452,7 +2452,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Add")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.Add(((haxor.math.AABB3) (dynargs.__get(0)) ));
 					}
 					
@@ -2464,7 +2464,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_xMin")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_xMin(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2476,7 +2476,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("Validate")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						this.Validate();
 					}
 					
@@ -2488,7 +2488,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_yMin")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_yMin();
 					}
 					
@@ -2500,7 +2500,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_size")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_size(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2512,7 +2512,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_yMin")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_yMin(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2524,7 +2524,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_size")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_size();
 					}
 					
@@ -2536,7 +2536,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_zMin")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_zMin();
 					}
 					
@@ -2548,7 +2548,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_depth")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_depth(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2560,7 +2560,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_zMin")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_zMin(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2572,7 +2572,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_depth")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_depth();
 					}
 					
@@ -2584,7 +2584,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_xMax")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_xMax();
 					}
 					
@@ -2596,7 +2596,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_height")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_height(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2608,7 +2608,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_xMax")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_xMax(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2620,7 +2620,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_height")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_height();
 					}
 					
@@ -2632,7 +2632,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_yMax")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_yMax();
 					}
 					
@@ -2644,7 +2644,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_width")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_width(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2656,7 +2656,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_yMax")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_yMax(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2668,7 +2668,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_width")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_width();
 					}
 					
@@ -2680,7 +2680,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_zMax")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_zMax();
 					}
 					
@@ -2692,7 +2692,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_z")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_z(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2704,7 +2704,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_zMax")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_zMax(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2716,7 +2716,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_z")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_z();
 					}
 					
@@ -2728,7 +2728,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_center")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_center();
 					}
 					
@@ -2740,7 +2740,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_y")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_y(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2752,7 +2752,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_center")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_center(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2764,7 +2764,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_y")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_y();
 					}
 					
@@ -2776,7 +2776,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("get_x")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.get_x();
 					}
 					
@@ -2788,7 +2788,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				{
 					if (field.equals("set_x")) 
 					{
-						__temp_executeDef81590 = false;
+						__temp_executeDef152361 = false;
 						return this.set_x(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2798,7 +2798,7 @@ public  class AABB3 extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81590) 
+			if (__temp_executeDef152361) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

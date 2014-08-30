@@ -17,18 +17,18 @@ public  class Shader extends haxor.core.Resource
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_material_Shader(haxor.graphics.material.Shader __temp_me80650, java.lang.String p_source)
+	public static   void __hx_ctor_haxor_graphics_material_Shader(haxor.graphics.material.Shader __temp_me151392, java.lang.String p_source)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me80650, null);
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me151392, null);
 		{
 			haxor.context.UID _this = haxor.context.EngineContext.material.sid;
 			if (( _this.m_cache.length <= 0 )) 
 			{
-				__temp_me80650.__cid = _this.m_id++;
+				__temp_me151392.__cid = _this.m_id++;
 			}
 			 else 
 			{
-				__temp_me80650.__cid = ((int) (haxe.lang.Runtime.toInt(_this.m_cache.shift())) );
+				__temp_me151392.__cid = ((int) (haxe.lang.Runtime.toInt(_this.m_cache.shift())) );
 			}
 			
 		}
@@ -46,18 +46,18 @@ public  class Shader extends haxor.core.Resource
 		haxe.root.Xml x = null;
 		x = haxe.root.Xml.parse(p_source);
 		x = x.firstElement();
-		__temp_me80650.set_name(x.get("id"));
-		if (( ( __temp_me80650.get_name() == null ) || haxe.lang.Runtime.valEq(__temp_me80650.get_name(), "") )) 
+		__temp_me151392.set_name(x.get("id"));
+		if (( ( __temp_me151392.get_name() == null ) || haxe.lang.Runtime.valEq(__temp_me151392.get_name(), "") )) 
 		{
-			__temp_me80650.set_name(( "Shader" + __temp_me80650.__cid ));
+			__temp_me151392.set_name(( "Shader" + __temp_me151392.__cid ));
 		}
 		
 		haxe.root.Xml vs = ((haxe.root.Xml) (haxe.lang.Runtime.callField(x.elementsNamed("vertex"), "next", null)) );
 		haxe.root.Xml fs = ((haxe.root.Xml) (haxe.lang.Runtime.callField(x.elementsNamed("fragment"), "next", null)) );
-		__temp_me80650.m_vss = __temp_me80650.GetShaderSource(vs);
-		__temp_me80650.m_fss = __temp_me80650.GetShaderSource(fs);
-		__temp_me80650.m_hasError = false;
-		haxor.context.EngineContext.material.InitializeShader(__temp_me80650);
+		__temp_me151392.m_vss = __temp_me151392.GetShaderSource(vs);
+		__temp_me151392.m_fss = __temp_me151392.GetShaderSource(fs);
+		__temp_me151392.m_hasError = false;
+		haxor.context.EngineContext.material.InitializeShader(__temp_me151392);
 	}
 	
 	
@@ -133,12 +133,12 @@ public  class Shader extends haxor.core.Resource
 		java.lang.String src = n.firstChild().get_nodeValue().toString();
 		java.lang.String prec = (( (( n.get("precision") == null )) ? ("low") : (n.get("precision")) )).toLowerCase();
 		{
-			java.lang.String __temp_svar81387 = (prec);
-			switch (__temp_svar81387.hashCode())
+			java.lang.String __temp_svar152145 = (prec);
+			switch (__temp_svar152145.hashCode())
 			{
 				case 107348:
 				{
-					if (__temp_svar81387.equals("low")) 
+					if (__temp_svar152145.equals("low")) 
 					{
 						prec = "precision lowp float;";
 					}
@@ -149,7 +149,7 @@ public  class Shader extends haxor.core.Resource
 				
 				case 3202466:
 				{
-					if (__temp_svar81387.equals("high")) 
+					if (__temp_svar152145.equals("high")) 
 					{
 						prec = "precision highp float;";
 					}
@@ -160,7 +160,7 @@ public  class Shader extends haxor.core.Resource
 				
 				case -1078030475:
 				{
-					if (__temp_svar81387.equals("medium")) 
+					if (__temp_svar152145.equals("medium")) 
 					{
 						prec = "precision mediump float;";
 					}
@@ -185,7 +185,7 @@ public  class Shader extends haxor.core.Resource
 		{
 			int v = this.__cid;
 			haxor.context.EngineContext.material.sid.m_cache.push(v);
-			int __temp_expr81389 = v;
+			int __temp_expr152147 = v;
 		}
 		
 	}
@@ -194,14 +194,14 @@ public  class Shader extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81390 = true;
+			boolean __temp_executeDef152148 = true;
 			switch (field.hashCode())
 			{
 				case 262159136:
 				{
 					if (field.equals("m_hasError")) 
 					{
-						__temp_executeDef81390 = false;
+						__temp_executeDef152148 = false;
 						this.m_hasError = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -214,7 +214,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("m_vss")) 
 					{
-						__temp_executeDef81390 = false;
+						__temp_executeDef152148 = false;
 						this.m_vss = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -227,7 +227,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("m_fss")) 
 					{
-						__temp_executeDef81390 = false;
+						__temp_executeDef152148 = false;
 						this.m_fss = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -238,7 +238,7 @@ public  class Shader extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef81390) 
+			if (__temp_executeDef152148) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -255,14 +255,14 @@ public  class Shader extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81391 = true;
+			boolean __temp_executeDef152149 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef81391 = false;
+						__temp_executeDef152149 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -274,7 +274,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("m_vss")) 
 					{
-						__temp_executeDef81391 = false;
+						__temp_executeDef152149 = false;
 						return this.m_vss;
 					}
 					
@@ -286,7 +286,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("GetShaderSource")) 
 					{
-						__temp_executeDef81391 = false;
+						__temp_executeDef152149 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetShaderSource"))) );
 					}
 					
@@ -298,7 +298,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("m_fss")) 
 					{
-						__temp_executeDef81391 = false;
+						__temp_executeDef152149 = false;
 						return this.m_fss;
 					}
 					
@@ -310,7 +310,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("m_hasError")) 
 					{
-						__temp_executeDef81391 = false;
+						__temp_executeDef152149 = false;
 						return this.m_hasError;
 					}
 					
@@ -322,7 +322,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("hasError")) 
 					{
-						__temp_executeDef81391 = false;
+						__temp_executeDef152149 = false;
 						return this.get_hasError();
 					}
 					
@@ -334,7 +334,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("get_hasError")) 
 					{
-						__temp_executeDef81391 = false;
+						__temp_executeDef152149 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_hasError"))) );
 					}
 					
@@ -344,7 +344,7 @@ public  class Shader extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef81391) 
+			if (__temp_executeDef152149) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -361,14 +361,14 @@ public  class Shader extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef81392 = true;
+			boolean __temp_executeDef152150 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef81392 = false;
+						__temp_executeDef152150 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -380,7 +380,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("get_hasError")) 
 					{
-						__temp_executeDef81392 = false;
+						__temp_executeDef152150 = false;
 						return this.get_hasError();
 					}
 					
@@ -392,7 +392,7 @@ public  class Shader extends haxor.core.Resource
 				{
 					if (field.equals("GetShaderSource")) 
 					{
-						__temp_executeDef81392 = false;
+						__temp_executeDef152150 = false;
 						return this.GetShaderSource(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -402,7 +402,7 @@ public  class Shader extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef81392) 
+			if (__temp_executeDef152150) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

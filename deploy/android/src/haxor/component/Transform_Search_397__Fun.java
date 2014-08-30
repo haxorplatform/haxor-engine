@@ -4,13 +4,13 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class Transform_Search_397__Fun extends haxe.lang.Function
 {
-	public    Transform_Search_397__Fun(haxe.root.Array<java.lang.String> p_name1, haxe.root.Array<haxor.component.Transform> res, haxe.root.Array<java.lang.Object> p_exact1, haxe.root.Array<haxor.component.Transform> _g)
+	public    Transform_Search_397__Fun(haxe.root.Array<java.lang.String> p_name1, haxe.root.Array<haxor.component.Transform> res, haxe.root.Array<haxor.component.Transform> _g, haxe.root.Array<java.lang.Object> p_exact1)
 	{
 		super(2, 0);
 		this.p_name1 = p_name1;
 		this.res = res;
-		this.p_exact1 = p_exact1;
 		this._g = _g;
+		this.p_exact1 = p_exact1;
 	}
 	
 	
@@ -53,9 +53,9 @@ public  class Transform_Search_397__Fun extends haxe.lang.Function
 	
 	public  haxe.root.Array<haxor.component.Transform> res;
 	
-	public  haxe.root.Array<java.lang.Object> p_exact1;
-	
 	public  haxe.root.Array<haxor.component.Transform> _g;
+	
+	public  haxe.root.Array<java.lang.Object> p_exact1;
 	
 }
 

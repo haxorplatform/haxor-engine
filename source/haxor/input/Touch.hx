@@ -72,4 +72,13 @@ class Touch
 		radius 				= new Vector2();
 		m_down 				= false;
 	}	
+	
+	/**
+	 * Returns the string representation of this touch structure.
+	 * @return
+	 */
+	public function ToString():String
+	{
+		return "id[" + id + "] pos" + position.ToString(2) + "[" + state+"]";
+	}
 }

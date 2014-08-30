@@ -1,5 +1,6 @@
 #if windows
 package haxor.platform.windows;
+import haxor.input.Input;
 import haxor.platform.windows.input.WinInputHandler;
 import haxor.graphics.GL;
 import haxor.core.Console;
@@ -13,7 +14,6 @@ import haxor.platform.OSWindow;
 
 @:headerCode('
 #include <windows.h>
-#include <Xinput.h>
 #include <stdio.h>
 #include "gl/glew.h"
 ')
@@ -25,11 +25,7 @@ import haxor.platform.OSWindow;
   <lib name="opengl32.lib" if="windows"/>
   <lib name="kernel32.lib" if="windows"/>
   <lib name="lib/glew32.lib" if="windows"/>
-  
-  
-  
-  
-  
+  <lib name="lib/Xinput.lib" if="windows"/>
 </target>
 ')
 
@@ -252,6 +248,8 @@ class Window extends OSWindow
 		m_application.m_window 	= this;
 		m_build					= false;
 		input					= new WinInputHandler();
+		Input.m_handler			= input;
+		
 		
 		super(p_title, p_x, p_y, p_width, p_height);
 		

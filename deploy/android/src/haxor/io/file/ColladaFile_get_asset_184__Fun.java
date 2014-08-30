@@ -4,17 +4,17 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class ColladaFile_get_asset_184__Fun extends haxe.lang.Function
 {
-	public    ColladaFile_get_asset_184__Fun(haxe.root.Array<haxe.root.Array> joint_nodes, haxe.root.Array<haxe.root.IMap> hm, haxe.root.Array<haxe.root.IMap> mm, haxe.root.Array<haxor.core.Entity> re, haxe.root.Array<haxe.root.Array> skinned_meshes, haxe.root.Array<haxe.root.Array> joint_transforms, haxe.root.Array<haxor.io.file.ColladaFile> _g3, haxe.root.Array<haxe.root.IMap> cm)
+	public    ColladaFile_get_asset_184__Fun(haxe.root.Array<haxe.root.IMap> hm, haxe.root.Array<haxe.root.IMap> mm, haxe.root.Array<haxor.core.Entity> re, haxe.root.Array<haxe.root.IMap> cm, haxe.root.Array<haxor.io.file.ColladaFile> _g3, haxe.root.Array<haxe.root.Array> joint_nodes, haxe.root.Array<haxe.root.Array> joint_transforms, haxe.root.Array<haxe.root.Array> skinned_meshes)
 	{
 		super(1, 0);
-		this.joint_nodes = joint_nodes;
 		this.hm = hm;
 		this.mm = mm;
 		this.re = re;
-		this.skinned_meshes = skinned_meshes;
-		this.joint_transforms = joint_transforms;
-		this._g3 = _g3;
 		this.cm = cm;
+		this._g3 = _g3;
+		this.joint_nodes = joint_nodes;
+		this.joint_transforms = joint_transforms;
+		this.skinned_meshes = skinned_meshes;
 	}
 	
 	
@@ -85,16 +85,16 @@ public  class ColladaFile_get_asset_184__Fun extends haxe.lang.Function
 			{
 				ad.data = new haxe.format.JsonParser(haxe.lang.Runtime.toString(n.data)).parseRec();
 			}
-			catch (java.lang.Throwable __temp_catchallException81508)
+			catch (java.lang.Throwable __temp_catchallException152279)
 			{
-				java.lang.Object __temp_catchall81509 = __temp_catchallException81508;
-				if (( __temp_catchall81509 instanceof haxe.lang.HaxeException )) 
+				java.lang.Object __temp_catchall152280 = __temp_catchallException152279;
+				if (( __temp_catchall152280 instanceof haxe.lang.HaxeException )) 
 				{
-					__temp_catchall81509 = ((haxe.lang.HaxeException) (__temp_catchallException81508) ).obj;
+					__temp_catchall152280 = ((haxe.lang.HaxeException) (__temp_catchallException152279) ).obj;
 				}
 				
 				{
-					java.lang.Object err = __temp_catchall81509;
+					java.lang.Object err = __temp_catchall152280;
 					{
 					}
 					
@@ -121,12 +121,12 @@ public  class ColladaFile_get_asset_184__Fun extends haxe.lang.Function
 				{
 					java.lang.String _g21 = ci.type;
 					{
-						java.lang.String __temp_svar81512 = (_g21);
-						switch (__temp_svar81512.hashCode())
+						java.lang.String __temp_svar152283 = (_g21);
+						switch (__temp_svar152283.hashCode())
 						{
 							case 102970646:
 							{
-								if (__temp_svar81512.equals("light")) 
+								if (__temp_svar152283.equals("light")) 
 								{
 									haxor.io.file.ColladaLight cl = this._g3.__get(0).FindLightById(ci.target);
 									if (( cl == null )) 
@@ -137,12 +137,12 @@ public  class ColladaFile_get_asset_184__Fun extends haxe.lang.Function
 									{
 										java.lang.String _g41 = cl.type;
 										{
-											java.lang.String __temp_svar81510 = (_g41);
-											switch (__temp_svar81510.hashCode())
+											java.lang.String __temp_svar152281 = (_g41);
+											switch (__temp_svar152281.hashCode())
 											{
 												case -892145000:
 												{
-													if (__temp_svar81510.equals("ambient")) 
+													if (__temp_svar152281.equals("ambient")) 
 													{
 														{
 														}
@@ -155,7 +155,7 @@ public  class ColladaFile_get_asset_184__Fun extends haxe.lang.Function
 												
 												case -1631834134:
 												{
-													if (__temp_svar81510.equals("directional")) 
+													if (__temp_svar152281.equals("directional")) 
 													{
 														{
 														}
@@ -168,7 +168,7 @@ public  class ColladaFile_get_asset_184__Fun extends haxe.lang.Function
 												
 												case 106845584:
 												{
-													if (__temp_svar81510.equals("point")) 
+													if (__temp_svar152281.equals("point")) 
 													{
 														haxor.component.PointLight pl = ((haxor.component.PointLight) (ne.AddComponent(((java.lang.Class<haxor.component.Component>) (((java.lang.Class) (haxor.component.PointLight.class) )) ))) );
 														pl.color.SetColor(cl.color);
@@ -196,7 +196,7 @@ public  class ColladaFile_get_asset_184__Fun extends haxe.lang.Function
 							
 							case 637428636:
 							{
-								if (__temp_svar81512.equals("controller")) 
+								if (__temp_svar152283.equals("controller")) 
 								{
 									cc = this._g3.__get(0).FindControllerById(ci.target);
 									if (( cc != null )) 
@@ -213,7 +213,7 @@ public  class ColladaFile_get_asset_184__Fun extends haxe.lang.Function
 							
 							case 1846020210:
 							{
-								if (__temp_svar81512.equals("geometry")) 
+								if (__temp_svar152283.equals("geometry")) 
 								{
 									cg_target = ci.target;
 								}
@@ -277,21 +277,21 @@ public  class ColladaFile_get_asset_184__Fun extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<haxe.root.Array> joint_nodes;
-	
 	public  haxe.root.Array<haxe.root.IMap> hm;
 	
 	public  haxe.root.Array<haxe.root.IMap> mm;
 	
 	public  haxe.root.Array<haxor.core.Entity> re;
 	
-	public  haxe.root.Array<haxe.root.Array> skinned_meshes;
-	
-	public  haxe.root.Array<haxe.root.Array> joint_transforms;
+	public  haxe.root.Array<haxe.root.IMap> cm;
 	
 	public  haxe.root.Array<haxor.io.file.ColladaFile> _g3;
 	
-	public  haxe.root.Array<haxe.root.IMap> cm;
+	public  haxe.root.Array<haxe.root.Array> joint_nodes;
+	
+	public  haxe.root.Array<haxe.root.Array> joint_transforms;
+	
+	public  haxe.root.Array<haxe.root.Array> skinned_meshes;
 	
 }
 

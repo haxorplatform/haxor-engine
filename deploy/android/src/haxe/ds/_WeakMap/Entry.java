@@ -97,14 +97,14 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 	public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81066 = true;
+			boolean __temp_executeDef151820 = true;
 			switch (field.hashCode())
 			{
 				case 3195150:
 				{
 					if (field.equals("hash")) 
 					{
-						__temp_executeDef81066 = false;
+						__temp_executeDef151820 = false;
 						this.hash = ((int) (value) );
 						return value;
 					}
@@ -117,7 +117,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef81066 = false;
+						__temp_executeDef151820 = false;
 						this.value = ((V) (((java.lang.Object) (value) )) );
 						return ((double) (haxe.lang.Runtime.toDouble(((java.lang.Object) (value) ))) );
 					}
@@ -128,7 +128,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				
 			}
 			
-			if (__temp_executeDef81066) 
+			if (__temp_executeDef151820) 
 			{
 				return this.__hx_lookupSetField_f(field, value);
 			}
@@ -145,14 +145,14 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 	public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81067 = true;
+			boolean __temp_executeDef151821 = true;
 			switch (field.hashCode())
 			{
 				case 3195150:
 				{
 					if (field.equals("hash")) 
 					{
-						__temp_executeDef81067 = false;
+						__temp_executeDef151821 = false;
 						this.hash = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -165,7 +165,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef81067 = false;
+						__temp_executeDef151821 = false;
 						this.value = ((V) (value) );
 						return value;
 					}
@@ -176,7 +176,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				
 			}
 			
-			if (__temp_executeDef81067) 
+			if (__temp_executeDef151821) 
 			{
 				return this.__hx_lookupSetField(field, value);
 			}
@@ -193,14 +193,14 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 	public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81068 = true;
+			boolean __temp_executeDef151822 = true;
 			switch (field.hashCode())
 			{
 				case 1324341926:
 				{
 					if (field.equals("isEnqueued")) 
 					{
-						__temp_executeDef81068 = false;
+						__temp_executeDef151822 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("isEnqueued"))) );
 					}
 					
@@ -212,7 +212,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef81068 = false;
+						__temp_executeDef151822 = false;
 						return this.value;
 					}
 					
@@ -224,7 +224,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("get")) 
 					{
-						__temp_executeDef81068 = false;
+						__temp_executeDef151822 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get"))) );
 					}
 					
@@ -236,7 +236,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("hash")) 
 					{
-						__temp_executeDef81068 = false;
+						__temp_executeDef151822 = false;
 						return this.hash;
 					}
 					
@@ -248,7 +248,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("enqueue")) 
 					{
-						__temp_executeDef81068 = false;
+						__temp_executeDef151822 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("enqueue"))) );
 					}
 					
@@ -260,7 +260,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("keyEquals")) 
 					{
-						__temp_executeDef81068 = false;
+						__temp_executeDef151822 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("keyEquals"))) );
 					}
 					
@@ -272,7 +272,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("clear")) 
 					{
-						__temp_executeDef81068 = false;
+						__temp_executeDef151822 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("clear"))) );
 					}
 					
@@ -282,7 +282,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				
 			}
 			
-			if (__temp_executeDef81068) 
+			if (__temp_executeDef151822) 
 			{
 				return this.__hx_lookupField(field, throwErrors, isCheck);
 			}
@@ -299,14 +299,14 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 	public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81069 = true;
+			boolean __temp_executeDef151823 = true;
 			switch (field.hashCode())
 			{
 				case 3195150:
 				{
 					if (field.equals("hash")) 
 					{
-						__temp_executeDef81069 = false;
+						__temp_executeDef151823 = false;
 						return ((double) (this.hash) );
 					}
 					
@@ -318,7 +318,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef81069 = false;
+						__temp_executeDef151823 = false;
 						return ((double) (haxe.lang.Runtime.toDouble(((java.lang.Object) (this.value) ))) );
 					}
 					
@@ -328,7 +328,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				
 			}
 			
-			if (__temp_executeDef81069) 
+			if (__temp_executeDef151823) 
 			{
 				return this.__hx_lookupField_f(field, throwErrors);
 			}
@@ -345,15 +345,15 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 	public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash81071 = field.hashCode();
-			boolean __temp_executeDef81070 = true;
-			switch (__temp_hash81071)
+			int __temp_hash151825 = field.hashCode();
+			boolean __temp_executeDef151824 = true;
+			switch (__temp_hash151825)
 			{
 				case 1324341926:case 102230:case -1594257912:case 94746189:
 				{
-					if (( (( ( __temp_hash81071 == 1324341926 ) && field.equals("isEnqueued") )) || ( (( ( __temp_hash81071 == 102230 ) && field.equals("get") )) || ( (( ( __temp_hash81071 == -1594257912 ) && field.equals("enqueue") )) || field.equals("clear") ) ) )) 
+					if (( (( ( __temp_hash151825 == 1324341926 ) && field.equals("isEnqueued") )) || ( (( ( __temp_hash151825 == 102230 ) && field.equals("get") )) || ( (( ( __temp_hash151825 == -1594257912 ) && field.equals("enqueue") )) || field.equals("clear") ) ) )) 
 					{
-						__temp_executeDef81070 = false;
+						__temp_executeDef151824 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -365,7 +365,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				{
 					if (field.equals("keyEquals")) 
 					{
-						__temp_executeDef81070 = false;
+						__temp_executeDef151824 = false;
 						return this.keyEquals(((K) (dynargs.__get(0)) ));
 					}
 					
@@ -375,7 +375,7 @@ public  class Entry<K, V> extends java.lang.ref.WeakReference<K> implements haxe
 				
 			}
 			
-			if (__temp_executeDef81070) 
+			if (__temp_executeDef151824) 
 			{
 				return ((haxe.lang.Function) (this.__hx_getField(field, true, false, false)) ).__hx_invokeDynamic(dynargs);
 			}

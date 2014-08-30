@@ -4,11 +4,11 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class Texture2DLoader_OnBitmapCallback_53__Fun extends haxe.lang.Function
 {
-	public    Texture2DLoader_OnBitmapCallback_53__Fun(haxe.root.Array<haxor.graphics.texture.Bitmap> p_data1, haxe.root.Array<haxor.net.Texture2DLoader> _g)
+	public    Texture2DLoader_OnBitmapCallback_53__Fun(haxe.root.Array<haxor.net.Texture2DLoader> _g, haxe.root.Array<haxor.graphics.texture.Bitmap> p_data1)
 	{
 		super(0, 0);
-		this.p_data1 = p_data1;
 		this._g = _g;
+		this.p_data1 = p_data1;
 	}
 	
 	
@@ -20,9 +20,9 @@ public  class Texture2DLoader_OnBitmapCallback_53__Fun extends haxe.lang.Functio
 	}
 	
 	
-	public  haxe.root.Array<haxor.graphics.texture.Bitmap> p_data1;
-	
 	public  haxe.root.Array<haxor.net.Texture2DLoader> _g;
+	
+	public  haxe.root.Array<haxor.graphics.texture.Bitmap> p_data1;
 	
 }
 

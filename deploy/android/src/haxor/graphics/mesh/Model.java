@@ -18,7 +18,7 @@ public  class Model extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_mesh_Model(haxor.graphics.mesh.Model __temp_me80664)
+	public static   void __hx_ctor_haxor_graphics_mesh_Model(haxor.graphics.mesh.Model __temp_me151406)
 	{
 		{
 		}
@@ -41,13 +41,13 @@ public  class Model extends haxe.lang.HxObject
 		haxor.io.FloatArray uv = haxor.io.FloatArray.Alloc(new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) )}));
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
-		haxor.math.AABB3 __temp_stmt81410 = null;
+		haxor.math.AABB3 __temp_stmt152168 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81410 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
+			__temp_stmt152168 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
 		}
 		
-		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt81410));
+		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt152168));
 		m.set_topology(haxor.io.UInt16Array.Alloc(new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{0, 1, 2, 0, 2, 3})));
 		return haxor.graphics.mesh.Model.m_screen = m;
 	}
@@ -70,13 +70,13 @@ public  class Model extends haxe.lang.HxObject
 		haxor.io.FloatArray uv = haxor.io.FloatArray.Alloc(new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) )}));
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
-		haxor.math.AABB3 __temp_stmt81411 = null;
+		haxor.math.AABB3 __temp_stmt152169 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81411 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
+			__temp_stmt152169 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
 		}
 		
-		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt81411));
+		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt152169));
 		m.set_topology(haxor.io.UInt16Array.Alloc(new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{0, 1, 2, 0, 2, 3})));
 		return haxor.graphics.mesh.Model.m_planeXY = m;
 	}
@@ -99,13 +99,13 @@ public  class Model extends haxe.lang.HxObject
 		haxor.io.FloatArray uv = haxor.io.FloatArray.Alloc(new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) )}));
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
-		haxor.math.AABB3 __temp_stmt81412 = null;
+		haxor.math.AABB3 __temp_stmt152170 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81412 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
+			__temp_stmt152170 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
 		}
 		
-		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt81412));
+		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt152170));
 		m.set_topology(haxor.io.UInt16Array.Alloc(new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{0, 1, 2, 0, 2, 3})));
 		return haxor.graphics.mesh.Model.m_planeXZ = m;
 	}
@@ -128,13 +128,13 @@ public  class Model extends haxe.lang.HxObject
 		haxor.io.FloatArray uv = haxor.io.FloatArray.Alloc(new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (0.0) ), ((java.lang.Object) (1.0) ), ((java.lang.Object) (0.0) )}));
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
-		haxor.math.AABB3 __temp_stmt81413 = null;
+		haxor.math.AABB3 __temp_stmt152171 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81413 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
+			__temp_stmt152171 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
 		}
 		
-		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt81413));
+		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt152171));
 		m.set_topology(haxor.io.UInt16Array.Alloc(new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{0, 1, 2, 0, 2, 3})));
 		return haxor.graphics.mesh.Model.m_planeYZ = m;
 	}
@@ -158,13 +158,13 @@ public  class Model extends haxe.lang.HxObject
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
 		m.Set("normal", n, 3);
-		haxor.math.AABB3 __temp_stmt81414 = null;
+		haxor.math.AABB3 __temp_stmt152172 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81414 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
+			__temp_stmt152172 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
 		}
 		
-		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt81414));
+		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt152172));
 		return haxor.graphics.mesh.Model.m_cube = m;
 	}
 	
@@ -187,13 +187,13 @@ public  class Model extends haxe.lang.HxObject
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
 		m.Set("normal", n, 3);
-		haxor.math.AABB3 __temp_stmt81415 = null;
+		haxor.math.AABB3 __temp_stmt152173 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81415 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
+			__temp_stmt152173 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
 		}
 		
-		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt81415));
+		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt152173));
 		return haxor.graphics.mesh.Model.m_tetrahedron = m;
 	}
 	
@@ -216,13 +216,13 @@ public  class Model extends haxe.lang.HxObject
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
 		m.Set("normal", n, 3);
-		haxor.math.AABB3 __temp_stmt81416 = null;
+		haxor.math.AABB3 __temp_stmt152174 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt81416 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
+			__temp_stmt152174 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
 		}
 		
-		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt81416));
+		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt152174));
 		return haxor.graphics.mesh.Model.m_sphere = m;
 	}
 	

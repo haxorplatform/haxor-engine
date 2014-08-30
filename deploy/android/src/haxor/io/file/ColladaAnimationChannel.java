@@ -18,11 +18,11 @@ public  class ColladaAnimationChannel extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaAnimationChannel(haxor.io.file.ColladaAnimationChannel __temp_me80723)
+	public static   void __hx_ctor_haxor_io_file_ColladaAnimationChannel(haxor.io.file.ColladaAnimationChannel __temp_me151475)
 	{
-		__temp_me80723.target = "";
-		__temp_me80723.source = "";
-		__temp_me80723.keyframes = new haxe.root.Array<haxor.io.file.ColladaAnimationKeyFrame>(new haxor.io.file.ColladaAnimationKeyFrame[]{});
+		__temp_me151475.target = "";
+		__temp_me151475.source = "";
+		__temp_me151475.keyframes = new haxe.root.Array<haxor.io.file.ColladaAnimationKeyFrame>(new haxor.io.file.ColladaAnimationKeyFrame[]{});
 	}
 	
 	
@@ -47,14 +47,14 @@ public  class ColladaAnimationChannel extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81554 = true;
+			boolean __temp_executeDef152325 = true;
 			switch (field.hashCode())
 			{
 				case -1446666299:
 				{
 					if (field.equals("keyframes")) 
 					{
-						__temp_executeDef81554 = false;
+						__temp_executeDef152325 = false;
 						this.keyframes = ((haxe.root.Array<haxor.io.file.ColladaAnimationKeyFrame>) (value) );
 						return value;
 					}
@@ -67,7 +67,7 @@ public  class ColladaAnimationChannel extends haxe.lang.HxObject
 				{
 					if (field.equals("source")) 
 					{
-						__temp_executeDef81554 = false;
+						__temp_executeDef152325 = false;
 						this.source = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -80,7 +80,7 @@ public  class ColladaAnimationChannel extends haxe.lang.HxObject
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef81554 = false;
+						__temp_executeDef152325 = false;
 						this.target = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -91,7 +91,7 @@ public  class ColladaAnimationChannel extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81554) 
+			if (__temp_executeDef152325) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -108,14 +108,14 @@ public  class ColladaAnimationChannel extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef81555 = true;
+			boolean __temp_executeDef152326 = true;
 			switch (field.hashCode())
 			{
 				case -1446666299:
 				{
 					if (field.equals("keyframes")) 
 					{
-						__temp_executeDef81555 = false;
+						__temp_executeDef152326 = false;
 						return this.keyframes;
 					}
 					
@@ -127,7 +127,7 @@ public  class ColladaAnimationChannel extends haxe.lang.HxObject
 				{
 					if (field.equals("source")) 
 					{
-						__temp_executeDef81555 = false;
+						__temp_executeDef152326 = false;
 						return this.source;
 					}
 					
@@ -139,7 +139,7 @@ public  class ColladaAnimationChannel extends haxe.lang.HxObject
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef81555 = false;
+						__temp_executeDef152326 = false;
 						return this.target;
 					}
 					
@@ -149,7 +149,7 @@ public  class ColladaAnimationChannel extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef81555) 
+			if (__temp_executeDef152326) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

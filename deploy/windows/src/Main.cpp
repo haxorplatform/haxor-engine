@@ -96,9 +96,6 @@
 #ifndef INCLUDED_haxor_input_Joystick
 #include <haxor/input/Joystick.h>
 #endif
-#ifndef INCLUDED_haxor_input_KeyCode
-#include <haxor/input/KeyCode.h>
-#endif
 #ifndef INCLUDED_haxor_io_file_Asset
 #include <haxor/io/file/Asset.h>
 #endif
@@ -162,24 +159,24 @@ hx::Object *Main_obj::__ToInterface(const hx::type_info &inType) {
 }
 
 bool Main_obj::Load( ){
-	HX_STACK_FRAME("Main","Load",0xd748ae7b,"Main.Load","Main.hx",90,0x087e5c05)
+	HX_STACK_FRAME("Main","Load",0xd748ae7b,"Main.Load","Main.hx",94,0x087e5c05)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(89)
+	HX_STACK_LINE(93)
 	Array< ::Dynamic > _g = Array_obj< ::Dynamic >::__new().Add(hx::ObjectPtr<OBJ_>(this));		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(91)
+	HX_STACK_LINE(95)
 	::haxor::net::Web_obj::root = HX_CSTRING("http://haxor.thelaborat.org/resources/");
 
 	HX_BEGIN_LOCAL_FUNC_S1(hx::LocalFunc,_Function_1_1,Array< ::Dynamic >,_g)
 	Void run(::haxor::graphics::texture::Texture2D t,Float p){
-		HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","Main.hx",95,0x087e5c05)
+		HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","Main.hx",99,0x087e5c05)
 		HX_STACK_ARG(t,"t")
 		HX_STACK_ARG(p,"p")
 		{
-			HX_STACK_LINE(95)
+			HX_STACK_LINE(99)
 			if (((p >= 1.0))){
-				HX_STACK_LINE(97)
+				HX_STACK_LINE(101)
 				::haxor::io::file::Asset_obj::Add(HX_CSTRING("texture"),t);
-				HX_STACK_LINE(98)
+				HX_STACK_LINE(102)
 				_g->__get((int)0).StaticCast< ::Main >()->LoadComplete();
 			}
 		}
@@ -187,179 +184,179 @@ bool Main_obj::Load( ){
 	}
 	HX_END_LOCAL_FUNC2((void))
 
-	HX_STACK_LINE(93)
+	HX_STACK_LINE(97)
 	::haxor::net::Web_obj::LoadTexture2D(HX_CSTRING("./texture/misc/metal.jpg"),true, Dynamic(new _Function_1_1(_g)));
-	HX_STACK_LINE(149)
+	HX_STACK_LINE(153)
 	return false;
 }
 
 
 Void Main_obj::Initialize( ){
 {
-		HX_STACK_FRAME("Main","Initialize",0x7af3b365,"Main.Initialize","Main.hx",153,0x087e5c05)
+		HX_STACK_FRAME("Main","Initialize",0x7af3b365,"Main.Initialize","Main.hx",157,0x087e5c05)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(152)
+		HX_STACK_LINE(156)
 		Array< ::Dynamic > _g = Array_obj< ::Dynamic >::__new().Add(hx::ObjectPtr<OBJ_>(this));		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(154)
+		HX_STACK_LINE(158)
 		::haxor::core::Console_obj::Log(HX_CSTRING("Initialize!"),null());
-		HX_STACK_LINE(169)
+		HX_STACK_LINE(174)
 		::haxor::component::CameraOrbit _g1 = ::haxor::component::CameraOrbit_obj::Create(3.0,(int)45,(int)45);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(169)
+		HX_STACK_LINE(174)
 		this->orbit = _g1;
-		HX_STACK_LINE(170)
+		HX_STACK_LINE(175)
 		Dynamic _g11 = this->orbit->m_entity->GetComponentInChildren(hx::ClassOf< ::haxor::component::Camera >());		HX_STACK_VAR(_g11,"_g11");
-		HX_STACK_LINE(170)
+		HX_STACK_LINE(175)
 		this->cam = _g11;
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(176)
 		::haxor::math::Color _g2 = ::haxor::math::Color_obj::__new(0.3,0.3,0.3,null());		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(176)
 		this->cam->background = _g2;
-		HX_STACK_LINE(173)
+		HX_STACK_LINE(178)
 		::haxor::graphics::texture::Texture2D tex = ::haxor::graphics::texture::Texture2D_obj::get_green();		HX_STACK_VAR(tex,"tex");
-		HX_STACK_LINE(174)
+		HX_STACK_LINE(179)
 		Dynamic _g3 = ::haxor::io::file::Asset_obj::Get(HX_CSTRING("texture"));		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(174)
+		HX_STACK_LINE(179)
 		tex = _g3;
-		HX_STACK_LINE(176)
+		HX_STACK_LINE(181)
 		::haxor::component::Transform _g4;		HX_STACK_VAR(_g4,"_g4");
-		HX_STACK_LINE(176)
+		HX_STACK_LINE(181)
 		{
-			HX_STACK_LINE(176)
+			HX_STACK_LINE(181)
 			::haxor::core::Entity _this = ::haxor::core::Entity_obj::__new(HX_CSTRING("container"));		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(176)
+			HX_STACK_LINE(181)
 			_g4 = _this->m_transform;
 		}
-		HX_STACK_LINE(176)
-		this->container = _g4;
-		HX_STACK_LINE(177)
-		Array< Float > l = Array_obj< Float >::__new().Add((int)2);		HX_STACK_VAR(l,"l");
-		HX_STACK_LINE(179)
-		Array< Float > px = Array_obj< Float >::__new().Add(0.0);		HX_STACK_VAR(px,"px");
-		HX_STACK_LINE(180)
-		Array< Float > py = Array_obj< Float >::__new().Add(0.0);		HX_STACK_VAR(py,"py");
 		HX_STACK_LINE(181)
+		this->container = _g4;
+		HX_STACK_LINE(182)
+		Array< Float > l = Array_obj< Float >::__new().Add((int)2);		HX_STACK_VAR(l,"l");
+		HX_STACK_LINE(184)
+		Array< Float > px = Array_obj< Float >::__new().Add(0.0);		HX_STACK_VAR(px,"px");
+		HX_STACK_LINE(185)
+		Array< Float > py = Array_obj< Float >::__new().Add(0.0);		HX_STACK_VAR(py,"py");
+		HX_STACK_LINE(186)
 		Array< Float > pz = Array_obj< Float >::__new().Add(0.0);		HX_STACK_VAR(pz,"pz");
-		HX_STACK_LINE(183)
+		HX_STACK_LINE(188)
 		::haxor::graphics::material::Material _g8;		HX_STACK_VAR(_g8,"_g8");
-		HX_STACK_LINE(183)
+		HX_STACK_LINE(188)
 		{
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			::haxor::graphics::texture::Texture p_texture = ::haxor::io::file::Asset_obj::Get(HX_CSTRING("texture"));		HX_STACK_VAR(p_texture,"p_texture");
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			bool p_ztest = true;		HX_STACK_VAR(p_ztest,"p_ztest");
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			bool p_zwrite = true;		HX_STACK_VAR(p_zwrite,"p_zwrite");
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			bool p_double_sided = false;		HX_STACK_VAR(p_double_sided,"p_double_sided");
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			::haxor::graphics::material::Material m = ::haxor::graphics::material::Material_obj::__new(HX_CSTRING("Transparent"));		HX_STACK_VAR(m,"m");
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			if ((p_double_sided)){
-				HX_STACK_LINE(183)
+				HX_STACK_LINE(188)
 				m->cull = (int)0;
 			}
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			m->SetBlending((int)770,(int)771);
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			::haxor::graphics::material::Shader _g7;		HX_STACK_VAR(_g7,"_g7");
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			if (((p_texture == null()))){
-				HX_STACK_LINE(183)
+				HX_STACK_LINE(188)
 				if (((::haxor::graphics::material::Shader_obj::m_flat_shader == null()))){
-					HX_STACK_LINE(183)
+					HX_STACK_LINE(188)
 					::haxor::graphics::material::Shader _g5 = ::haxor::graphics::material::Shader_obj::__new(::haxor::context::ShaderContext_obj::flat_source);		HX_STACK_VAR(_g5,"_g5");
-					HX_STACK_LINE(183)
+					HX_STACK_LINE(188)
 					_g7 = ::haxor::graphics::material::Shader_obj::m_flat_shader = _g5;
 				}
 				else{
-					HX_STACK_LINE(183)
+					HX_STACK_LINE(188)
 					_g7 = ::haxor::graphics::material::Shader_obj::m_flat_shader;
 				}
 			}
 			else{
-				HX_STACK_LINE(183)
+				HX_STACK_LINE(188)
 				if (((::haxor::graphics::material::Shader_obj::m_flat_texture_shader == null()))){
-					HX_STACK_LINE(183)
+					HX_STACK_LINE(188)
 					::haxor::graphics::material::Shader _g6 = ::haxor::graphics::material::Shader_obj::__new(::haxor::context::ShaderContext_obj::flat_texture_source);		HX_STACK_VAR(_g6,"_g6");
-					HX_STACK_LINE(183)
+					HX_STACK_LINE(188)
 					_g7 = ::haxor::graphics::material::Shader_obj::m_flat_texture_shader = _g6;
 				}
 				else{
-					HX_STACK_LINE(183)
+					HX_STACK_LINE(188)
 					_g7 = ::haxor::graphics::material::Shader_obj::m_flat_texture_shader;
 				}
 			}
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			m->set_shader(_g7);
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			m->queue = (int)2000;
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			m->ztest = p_ztest;
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			m->zwrite = p_zwrite;
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			m->blend = true;
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			if (((p_texture != null()))){
-				HX_STACK_LINE(183)
+				HX_STACK_LINE(188)
 				m->SetTexture(HX_CSTRING("DiffuseTexture"),p_texture);
 			}
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(188)
 			_g8 = m;
 		}
-		HX_STACK_LINE(183)
+		HX_STACK_LINE(188)
 		this->mat = _g8;
-		HX_STACK_LINE(184)
+		HX_STACK_LINE(189)
 		this->mat->set_name(HX_CSTRING("T"));
-		HX_STACK_LINE(185)
+		HX_STACK_LINE(190)
 		::haxor::graphics::texture::Texture2D _g9 = ::haxor::graphics::texture::Texture2D_obj::get_red();		HX_STACK_VAR(_g9,"_g9");
-		HX_STACK_LINE(185)
+		HX_STACK_LINE(190)
 		this->mat->SetTexture(HX_CSTRING("Tex0"),_g9);
-		HX_STACK_LINE(186)
+		HX_STACK_LINE(191)
 		this->mat->blend = true;
 
 		HX_BEGIN_LOCAL_FUNC_S5(hx::LocalFunc,_Function_1_1,Array< ::Dynamic >,_g,Array< Float >,pz,Array< Float >,px,Array< Float >,l,Array< Float >,py)
 		bool run(int i){
-			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","Main.hx",190,0x087e5c05)
+			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","Main.hx",195,0x087e5c05)
 			HX_STACK_ARG(i,"i")
 			{
-				HX_STACK_LINE(191)
+				HX_STACK_LINE(196)
 				_g->__get((int)0).StaticCast< ::Main >()->mr = ::haxor::core::Entity_obj::__new((HX_CSTRING("cube") + i))->AddComponent(hx::ClassOf< ::haxor::component::MeshRenderer >());
-				HX_STACK_LINE(192)
-				_g->__get((int)0).StaticCast< ::Main >()->mr->m_entity->m_transform->set_localScale(::haxor::math::Vector3_obj::__new(0.1,0.1,0.1));
-				HX_STACK_LINE(193)
-				_g->__get((int)0).StaticCast< ::Main >()->mr->m_entity->m_transform->set_parent(_g->__get((int)0).StaticCast< ::Main >()->container);
-				HX_STACK_LINE(194)
-				_g->__get((int)0).StaticCast< ::Main >()->mr->m_entity->m_transform->set_position(::haxor::math::Vector3_obj::__new(px->__get((int)0),py->__get((int)0),pz->__get((int)0)));
-				HX_STACK_LINE(195)
-				_g->__get((int)0).StaticCast< ::Main >()->mr->set_mesh(::haxor::graphics::mesh::Model_obj::get_cube());
 				HX_STACK_LINE(197)
-				_g->__get((int)0).StaticCast< ::Main >()->mr->set_material(_g->__get((int)0).StaticCast< ::Main >()->mat);
+				_g->__get((int)0).StaticCast< ::Main >()->mr->m_entity->m_transform->set_localScale(::haxor::math::Vector3_obj::__new(0.1,0.1,0.1));
+				HX_STACK_LINE(198)
+				_g->__get((int)0).StaticCast< ::Main >()->mr->m_entity->m_transform->set_parent(_g->__get((int)0).StaticCast< ::Main >()->container);
 				HX_STACK_LINE(199)
+				_g->__get((int)0).StaticCast< ::Main >()->mr->m_entity->m_transform->set_position(::haxor::math::Vector3_obj::__new(px->__get((int)0),py->__get((int)0),pz->__get((int)0)));
+				HX_STACK_LINE(200)
+				_g->__get((int)0).StaticCast< ::Main >()->mr->set_mesh(::haxor::graphics::mesh::Model_obj::get_cube());
+				HX_STACK_LINE(202)
+				_g->__get((int)0).StaticCast< ::Main >()->mr->set_material(_g->__get((int)0).StaticCast< ::Main >()->mat);
+				HX_STACK_LINE(204)
 				hx::AddEq(px[(int)0],0.12);
-				HX_STACK_LINE(201)
+				HX_STACK_LINE(206)
 				if (((px->__get((int)0) >= l->__get((int)0)))){
-					HX_STACK_LINE(203)
+					HX_STACK_LINE(208)
 					px[(int)0] = 0.0;
-					HX_STACK_LINE(204)
+					HX_STACK_LINE(209)
 					hx::AddEq(pz[(int)0],0.12);
-					HX_STACK_LINE(205)
+					HX_STACK_LINE(210)
 					if (((pz->__get((int)0) >= l->__get((int)0)))){
-						HX_STACK_LINE(207)
+						HX_STACK_LINE(212)
 						pz[(int)0] = 0.0;
-						HX_STACK_LINE(208)
+						HX_STACK_LINE(213)
 						hx::AddEq(py[(int)0],0.12);
 					}
 				}
-				HX_STACK_LINE(212)
+				HX_STACK_LINE(217)
 				return true;
 			}
 			return null();
 		}
 		HX_END_LOCAL_FUNC1(return)
 
-		HX_STACK_LINE(188)
-		::haxor::thread::Activity_obj::Iterate((int)0,(int)1500, Dynamic(new _Function_1_1(_g,pz,px,l,py)),(int)50,null(),null());
+		HX_STACK_LINE(193)
+		::haxor::thread::Activity_obj::Iterate((int)0,(int)200, Dynamic(new _Function_1_1(_g,pz,px,l,py)),(int)50,null(),null());
 	}
 return null();
 }
@@ -367,57 +364,23 @@ return null();
 
 Void Main_obj::OnUpdate( ){
 {
-		HX_STACK_FRAME("Main","OnUpdate",0x876cdf5d,"Main.OnUpdate","Main.hx",218,0x087e5c05)
+		HX_STACK_FRAME("Main","OnUpdate",0x876cdf5d,"Main.OnUpdate","Main.hx",223,0x087e5c05)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(219)
+		HX_STACK_LINE(224)
 		if (((this->orbit != null()))){
-			HX_STACK_LINE(221)
+			HX_STACK_LINE(226)
 			hx::AddEq(this->orbit->angle->x,(::haxor::core::Time_obj::m_delta * 30.0));
 		}
-		HX_STACK_LINE(224)
-		if ((::haxor::input::Joystick_obj::available)){
-		}
 		HX_STACK_LINE(229)
-		if ((::haxor::input::Input_obj::Down(::haxor::input::KeyCode_obj::Mouse0))){
-			HX_STACK_LINE(229)
-			::haxe::Log_obj::trace(HX_CSTRING("left"),hx::SourceInfo(HX_CSTRING("Main.hx"),229,HX_CSTRING("Main"),HX_CSTRING("OnUpdate")));
-		}
-		HX_STACK_LINE(230)
-		if ((::haxor::input::Input_obj::Down(::haxor::input::KeyCode_obj::Mouse1))){
-			HX_STACK_LINE(230)
-			::haxe::Log_obj::trace(HX_CSTRING("middle"),hx::SourceInfo(HX_CSTRING("Main.hx"),230,HX_CSTRING("Main"),HX_CSTRING("OnUpdate")));
-		}
-		HX_STACK_LINE(231)
-		if ((::haxor::input::Input_obj::Down(::haxor::input::KeyCode_obj::Mouse2))){
-			HX_STACK_LINE(231)
-			::haxe::Log_obj::trace(HX_CSTRING("right"),hx::SourceInfo(HX_CSTRING("Main.hx"),231,HX_CSTRING("Main"),HX_CSTRING("OnUpdate")));
-		}
+		::String log = HX_CSTRING("");		HX_STACK_VAR(log,"log");
 		HX_STACK_LINE(232)
-		if ((::haxor::input::Input_obj::Down(::haxor::input::KeyCode_obj::A))){
-			HX_STACK_LINE(232)
-			::haxe::Log_obj::trace(HX_CSTRING("A"),hx::SourceInfo(HX_CSTRING("Main.hx"),232,HX_CSTRING("Main"),HX_CSTRING("OnUpdate")));
-		}
-		HX_STACK_LINE(233)
-		if ((::haxor::input::Input_obj::Down(::haxor::input::KeyCode_obj::ControlKey))){
-			HX_STACK_LINE(233)
-			::haxe::Log_obj::trace(HX_CSTRING("Left Control"),hx::SourceInfo(HX_CSTRING("Main.hx"),233,HX_CSTRING("Main"),HX_CSTRING("OnUpdate")));
-		}
-		struct _Function_1_1{
-			inline static Float Block( ){
-				HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","Main.hx",235,0x087e5c05)
-				{
-					HX_STACK_LINE(235)
-					Float p_a = ::haxor::input::Input_obj::wheel;		HX_STACK_VAR(p_a,"p_a");
-					HX_STACK_LINE(235)
-					return (  (((p_a < (int)0))) ? Float(-(p_a)) : Float(p_a) );
-				}
-				return null();
-			}
-		};
-		HX_STACK_LINE(235)
-		if (((_Function_1_1::Block() > (int)0))){
-			HX_STACK_LINE(235)
-			::haxe::Log_obj::trace(::haxor::input::Input_obj::wheel,hx::SourceInfo(HX_CSTRING("Main.hx"),235,HX_CSTRING("Main"),HX_CSTRING("OnUpdate")));
+		if ((::haxor::input::Joystick_obj::available)){
+			HX_STACK_LINE(234)
+			Array< ::Dynamic > _g = ::haxor::input::Input_obj::get_joystick();		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(234)
+			::String _g1 = _g->__get((int)0).StaticCast< ::haxor::input::Joystick >()->ToString(null(),null(),null(),null());		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(234)
+			::haxe::Log_obj::trace(_g1,hx::SourceInfo(HX_CSTRING("Main.hx"),234,HX_CSTRING("Main"),HX_CSTRING("OnUpdate")));
 		}
 	}
 return null();
@@ -428,18 +391,18 @@ HX_DEFINE_DYNAMIC_FUNC0(Main_obj,OnUpdate,(void))
 
 Void Main_obj::OnRender( ){
 {
-		HX_STACK_FRAME("Main","OnRender",0x0590c4aa,"Main.OnRender","Main.hx",240,0x087e5c05)
+		HX_STACK_FRAME("Main","OnRender",0x0590c4aa,"Main.OnRender","Main.hx",247,0x087e5c05)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(241)
+		HX_STACK_LINE(248)
 		::haxor::graphics::GL_obj::m_gl->Clear((int)256);
-		HX_STACK_LINE(242)
+		HX_STACK_LINE(249)
 		{
-			HX_STACK_LINE(242)
+			HX_STACK_LINE(249)
 			::haxor::math::Color p_color = ::haxor::math::Color_obj::__new((int)1,(int)1,(int)1,0.1);		HX_STACK_VAR(p_color,"p_color");
-			HX_STACK_LINE(242)
+			HX_STACK_LINE(249)
 			::haxor::context::EngineContext_obj::gizmo->DrawGrid(100.0,p_color);
 		}
-		HX_STACK_LINE(243)
+		HX_STACK_LINE(250)
 		::haxor::context::EngineContext_obj::gizmo->DrawAxis(50.0);
 	}
 return null();
