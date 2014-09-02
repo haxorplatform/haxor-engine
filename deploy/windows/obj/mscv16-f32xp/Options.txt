@@ -1,2 +1,2 @@
- -DHXCPP_FLOAT32="1" -Dhaxe3="1" -Dhaxe_ver="3.103" -Dhxcpp_api_level="311" -Dwindows="1"
+ -DHXCPP_FLOAT32="1" -Dhaxe3="1" -Dhaxe_ver="3.103" -Dhxcpp_api_level="311" -Dprofile="1" -Dwindows="1"
 F:\development\resource\platform\haxe\3_1_2\lib/hxcpp/3,1,30/

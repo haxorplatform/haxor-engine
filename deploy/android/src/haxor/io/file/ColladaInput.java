@@ -18,14 +18,14 @@ public  class ColladaInput extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaInput(haxor.io.file.ColladaInput __temp_me151467)
+	public static   void __hx_ctor_haxor_io_file_ColladaInput(haxor.io.file.ColladaInput __temp_me160577)
 	{
-		__temp_me151467.stride = 0;
-		__temp_me151467.values = null;
-		__temp_me151467.set = -1;
-		__temp_me151467.offset = 0;
-		__temp_me151467.semantic = "";
-		__temp_me151467.values = new haxe.root.Array(new java.lang.Object[]{});
+		__temp_me160577.stride = 0;
+		__temp_me160577.values = null;
+		__temp_me160577.set = -1;
+		__temp_me160577.offset = 0;
+		__temp_me160577.semantic = "";
+		__temp_me160577.values = new haxe.root.Array(new java.lang.Object[]{});
 	}
 	
 	
@@ -131,14 +131,14 @@ public  class ColladaInput extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152297 = true;
+			boolean __temp_executeDef161408 = true;
 			switch (field.hashCode())
 			{
 				case -891986215:
 				{
 					if (field.equals("stride")) 
 					{
-						__temp_executeDef152297 = false;
+						__temp_executeDef161408 = false;
 						this.stride = ((int) (value) );
 						return value;
 					}
@@ -151,7 +151,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef152297 = false;
+						__temp_executeDef161408 = false;
 						this.offset = ((int) (value) );
 						return value;
 					}
@@ -164,7 +164,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef152297 = false;
+						__temp_executeDef161408 = false;
 						this.set = ((int) (value) );
 						return value;
 					}
@@ -175,7 +175,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152297) 
+			if (__temp_executeDef161408) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -192,14 +192,14 @@ public  class ColladaInput extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152298 = true;
+			boolean __temp_executeDef161409 = true;
 			switch (field.hashCode())
 			{
 				case -891986215:
 				{
 					if (field.equals("stride")) 
 					{
-						__temp_executeDef152298 = false;
+						__temp_executeDef161409 = false;
 						this.stride = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -212,7 +212,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("semantic")) 
 					{
-						__temp_executeDef152298 = false;
+						__temp_executeDef161409 = false;
 						this.semantic = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -225,7 +225,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("values")) 
 					{
-						__temp_executeDef152298 = false;
+						__temp_executeDef161409 = false;
 						this.values = ((haxe.root.Array) (value) );
 						return value;
 					}
@@ -238,7 +238,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef152298 = false;
+						__temp_executeDef161409 = false;
 						this.offset = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -251,7 +251,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef152298 = false;
+						__temp_executeDef161409 = false;
 						this.set = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -262,7 +262,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152298) 
+			if (__temp_executeDef161409) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -279,14 +279,14 @@ public  class ColladaInput extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152299 = true;
+			boolean __temp_executeDef161410 = true;
 			switch (field.hashCode())
 			{
 				case -1088027200:
 				{
 					if (field.equals("GetVectorArray")) 
 					{
-						__temp_executeDef152299 = false;
+						__temp_executeDef161410 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetVectorArray"))) );
 					}
 					
@@ -298,7 +298,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("semantic")) 
 					{
-						__temp_executeDef152299 = false;
+						__temp_executeDef161410 = false;
 						return this.semantic;
 					}
 					
@@ -310,7 +310,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("stride")) 
 					{
-						__temp_executeDef152299 = false;
+						__temp_executeDef161410 = false;
 						return this.stride;
 					}
 					
@@ -322,7 +322,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef152299 = false;
+						__temp_executeDef161410 = false;
 						return this.offset;
 					}
 					
@@ -334,7 +334,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("values")) 
 					{
-						__temp_executeDef152299 = false;
+						__temp_executeDef161410 = false;
 						return this.values;
 					}
 					
@@ -346,7 +346,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef152299 = false;
+						__temp_executeDef161410 = false;
 						return this.set;
 					}
 					
@@ -356,7 +356,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152299) 
+			if (__temp_executeDef161410) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -373,14 +373,14 @@ public  class ColladaInput extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152300 = true;
+			boolean __temp_executeDef161411 = true;
 			switch (field.hashCode())
 			{
 				case -891986215:
 				{
 					if (field.equals("stride")) 
 					{
-						__temp_executeDef152300 = false;
+						__temp_executeDef161411 = false;
 						return ((double) (this.stride) );
 					}
 					
@@ -392,7 +392,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef152300 = false;
+						__temp_executeDef161411 = false;
 						return ((double) (this.offset) );
 					}
 					
@@ -404,7 +404,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef152300 = false;
+						__temp_executeDef161411 = false;
 						return ((double) (this.set) );
 					}
 					
@@ -414,7 +414,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152300) 
+			if (__temp_executeDef161411) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -431,14 +431,14 @@ public  class ColladaInput extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef152301 = true;
+			boolean __temp_executeDef161412 = true;
 			switch (field.hashCode())
 			{
 				case -1088027200:
 				{
 					if (field.equals("GetVectorArray")) 
 					{
-						__temp_executeDef152301 = false;
+						__temp_executeDef161412 = false;
 						return this.GetVectorArray();
 					}
 					
@@ -448,7 +448,7 @@ public  class ColladaInput extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152301) 
+			if (__temp_executeDef161412) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

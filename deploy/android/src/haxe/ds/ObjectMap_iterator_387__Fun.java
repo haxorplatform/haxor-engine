@@ -4,12 +4,12 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class ObjectMap_iterator_387__Fun<V, K> extends haxe.lang.Function
 {
-	public    ObjectMap_iterator_387__Fun(haxe.root.Array<haxe.ds.ObjectMap> _g1, haxe.root.Array<java.lang.Object> i, haxe.root.Array<java.lang.Object> len)
+	public    ObjectMap_iterator_387__Fun(haxe.root.Array<java.lang.Object> i, haxe.root.Array<java.lang.Object> len, haxe.root.Array<haxe.ds.ObjectMap> _g1)
 	{
 		super(0, 0);
-		this._g1 = _g1;
 		this.i = i;
 		this.len = len;
+		this._g1 = _g1;
 	}
 	
 	
@@ -34,11 +34,11 @@ public  class ObjectMap_iterator_387__Fun<V, K> extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<haxe.ds.ObjectMap> _g1;
-	
 	public  haxe.root.Array<java.lang.Object> i;
 	
 	public  haxe.root.Array<java.lang.Object> len;
+	
+	public  haxe.root.Array<haxe.ds.ObjectMap> _g1;
 	
 }
 

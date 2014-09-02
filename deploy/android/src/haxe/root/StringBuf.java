@@ -18,9 +18,9 @@ public  class StringBuf extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__StringBuf(haxe.root.StringBuf __temp_me151275)
+	public static   void __hx_ctor__StringBuf(haxe.root.StringBuf __temp_me160379)
 	{
-		__temp_me151275.b = new java.lang.StringBuilder();
+		__temp_me160379.b = new java.lang.StringBuilder();
 	}
 	
 	
@@ -93,14 +93,14 @@ public  class StringBuf extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151676 = true;
+			boolean __temp_executeDef160788 = true;
 			switch (field.hashCode())
 			{
 				case 98:
 				{
 					if (field.equals("b")) 
 					{
-						__temp_executeDef151676 = false;
+						__temp_executeDef160788 = false;
 						this.b = ((java.lang.StringBuilder) (value) );
 						return value;
 					}
@@ -111,7 +111,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151676) 
+			if (__temp_executeDef160788) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -128,14 +128,14 @@ public  class StringBuf extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151677 = true;
+			boolean __temp_executeDef160789 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef151677 = false;
+						__temp_executeDef160789 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("toString"))) );
 					}
 					
@@ -147,7 +147,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("b")) 
 					{
-						__temp_executeDef151677 = false;
+						__temp_executeDef160789 = false;
 						return this.b;
 					}
 					
@@ -159,7 +159,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("addChar")) 
 					{
-						__temp_executeDef151677 = false;
+						__temp_executeDef160789 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("addChar"))) );
 					}
 					
@@ -171,7 +171,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef151677 = false;
+						__temp_executeDef160789 = false;
 						return this.get_length();
 					}
 					
@@ -183,7 +183,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("addSub")) 
 					{
-						__temp_executeDef151677 = false;
+						__temp_executeDef160789 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("addSub"))) );
 					}
 					
@@ -195,7 +195,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef151677 = false;
+						__temp_executeDef160789 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_length"))) );
 					}
 					
@@ -207,7 +207,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("add")) 
 					{
-						__temp_executeDef151677 = false;
+						__temp_executeDef160789 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("add"))) );
 					}
 					
@@ -217,7 +217,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151677) 
+			if (__temp_executeDef160789) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -234,14 +234,14 @@ public  class StringBuf extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151678 = true;
+			boolean __temp_executeDef160790 = true;
 			switch (field.hashCode())
 			{
 				case -1106363674:
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef151678 = false;
+						__temp_executeDef160790 = false;
 						return ((double) (this.get_length()) );
 					}
 					
@@ -251,7 +251,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151678) 
+			if (__temp_executeDef160790) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -268,14 +268,14 @@ public  class StringBuf extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef151679 = true;
+			boolean __temp_executeDef160791 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef151679 = false;
+						__temp_executeDef160791 = false;
 						return this.toString();
 					}
 					
@@ -287,7 +287,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef151679 = false;
+						__temp_executeDef160791 = false;
 						return this.get_length();
 					}
 					
@@ -299,7 +299,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("addChar")) 
 					{
-						__temp_executeDef151679 = false;
+						__temp_executeDef160791 = false;
 						this.addChar(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -311,7 +311,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("add")) 
 					{
-						__temp_executeDef151679 = false;
+						__temp_executeDef160791 = false;
 						this.add(dynargs.__get(0));
 					}
 					
@@ -323,7 +323,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				{
 					if (field.equals("addSub")) 
 					{
-						__temp_executeDef151679 = false;
+						__temp_executeDef160791 = false;
 						this.addSub(haxe.lang.Runtime.toString(dynargs.__get(0)), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), dynargs.__get(2));
 					}
 					
@@ -333,7 +333,7 @@ public  class StringBuf extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151679) 
+			if (__temp_executeDef160791) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

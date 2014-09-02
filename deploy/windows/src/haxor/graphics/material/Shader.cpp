@@ -24,20 +24,8 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
-#ifndef INCLUDED_haxor_graphics_GL
-#include <haxor/graphics/GL.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_GraphicContext
-#include <haxor/graphics/GraphicContext.h>
-#endif
 #ifndef INCLUDED_haxor_graphics_material_Shader
 #include <haxor/graphics/material/Shader.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_OpenGL
-#include <haxor/platform/graphics/OpenGL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_windows_graphics_WinGL
-#include <haxor/platform/windows/graphics/WinGL.h>
 #endif
 namespace haxor{
 namespace graphics{
@@ -215,20 +203,7 @@ Void Shader_obj::OnDestroy( ){
 		HX_STACK_FRAME("haxor.graphics.material.Shader","OnDestroy",0x7a26ae02,"haxor.graphics.material.Shader.OnDestroy","haxor/graphics/material/Shader.hx",111,0x97658f68)
 		HX_STACK_THIS(this)
 		HX_STACK_LINE(111)
-		::haxor::context::MaterialContext _this = ::haxor::context::EngineContext_obj::material;		HX_STACK_VAR(_this,"_this");
-		HX_STACK_LINE(111)
-		::haxor::graphics::GL_obj::m_gl->DeleteShader(_this->vertex_shaders->__get(this->__cid));
-		HX_STACK_LINE(111)
-		::haxor::graphics::GL_obj::m_gl->DeleteShader(_this->fragment_shaders->__get(this->__cid));
-		HX_STACK_LINE(111)
-		{
-			HX_STACK_LINE(111)
-			int v = this->__cid;		HX_STACK_VAR(v,"v");
-			HX_STACK_LINE(111)
-			::haxor::context::EngineContext_obj::material->sid->m_cache->push(v);
-			HX_STACK_LINE(111)
-			v;
-		}
+		::haxor::context::EngineContext_obj::material->DestroyShader(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();
 }

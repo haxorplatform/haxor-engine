@@ -27,7 +27,7 @@ public  class ClearFlag extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_ClearFlag(haxor.core.ClearFlag __temp_me151364)
+	public static   void __hx_ctor_haxor_core_ClearFlag(haxor.core.ClearFlag __temp_me160470)
 	{
 		{
 		}

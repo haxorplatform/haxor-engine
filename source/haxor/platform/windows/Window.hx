@@ -83,6 +83,7 @@ LRESULT CALLBACK haxor::platform::windows::Window_obj::WndProc(HWND p_hwnd, UINT
 				
 				if (m_build)
 				{
+					//printf(">>>>> %d %d\\n", mp.x, mp.y);
 					input->OnMouseMove(mp.x, mp.y);
 					m_application->Update();
 					m_application->Render();
@@ -373,6 +374,7 @@ class Window extends OSWindow
 	 */
 	override function OnTitleChange():Void 
 	{
+		
 		untyped __cpp__('SetWindowText(hwnd, m_title.__CStr())');
 	}
 	

@@ -73,7 +73,7 @@ class Resource implements IDisposable
 	/**
 	 * Array of process ids.
 	 */
-	private var m_pid : Array<Int>;
+	private var __pid : Array<Int>;
 	
 	
 	/**
@@ -107,7 +107,7 @@ class Resource implements IDisposable
 		m_destroyed = false;
 		__cid  		= 0;
 		__db		= "";
-		m_pid  		= [ -1, -1, -1, -1, -1, -1,-1,-1,-1];
+		__pid  		= [ -1, -1, -1, -1, -1, -1,-1,-1,-1];
 		m_name 		= p_name;
 				
 		m_is_behaviour = Std.is(this, Behaviour);

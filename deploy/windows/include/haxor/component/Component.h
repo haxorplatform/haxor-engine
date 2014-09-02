@@ -50,11 +50,29 @@ class HXCPP_CLASS_ATTRIBUTES  Component_obj : public ::haxor::core::Resource_obj
 		virtual ::haxor::component::Transform get_transform( );
 		Dynamic get_transform_dyn();
 
+		virtual Dynamic AddComponent( ::Class p_type);
+		Dynamic AddComponent_dyn();
+
+		virtual Dynamic GetComponent( ::Class p_type);
+		Dynamic GetComponent_dyn();
+
+		virtual Dynamic GetComponents( ::Class p_type);
+		Dynamic GetComponents_dyn();
+
+		virtual Dynamic GetComponentInChildren( ::Class p_type);
+		Dynamic GetComponentInChildren_dyn();
+
+		virtual Dynamic GetComponentsInChildren( ::Class p_type);
+		Dynamic GetComponentsInChildren_dyn();
+
 		virtual Void OnBuild( );
 		Dynamic OnBuild_dyn();
 
 		virtual Void OnTransformUpdate( );
 		Dynamic OnTransformUpdate_dyn();
+
+		virtual Void OnVisibilityChange( bool p_visible);
+		Dynamic OnVisibilityChange_dyn();
 
 };
 

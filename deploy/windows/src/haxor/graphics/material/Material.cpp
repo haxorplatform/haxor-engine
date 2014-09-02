@@ -18,12 +18,6 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
-#ifndef INCLUDED_haxor_graphics_GL
-#include <haxor/graphics/GL.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_GraphicContext
-#include <haxor/graphics/GraphicContext.h>
-#endif
 #ifndef INCLUDED_haxor_graphics_material_Material
 #include <haxor/graphics/material/Material.h>
 #endif
@@ -53,12 +47,6 @@
 #endif
 #ifndef INCLUDED_haxor_math_Vector4
 #include <haxor/math/Vector4.h>
-#endif
-#ifndef INCLUDED_haxor_platform_graphics_OpenGL
-#include <haxor/platform/graphics/OpenGL.h>
-#endif
-#ifndef INCLUDED_haxor_platform_windows_graphics_WinGL
-#include <haxor/platform/windows/graphics/WinGL.h>
 #endif
 namespace haxor{
 namespace graphics{
@@ -822,50 +810,7 @@ Void Material_obj::OnDestroy( ){
 		HX_STACK_FRAME("haxor.graphics.material.Material","OnDestroy",0xc505e604,"haxor.graphics.material.Material.OnDestroy","haxor/graphics/material/Material.hx",495,0xe49118e6)
 		HX_STACK_THIS(this)
 		HX_STACK_LINE(495)
-		::haxor::context::MaterialContext _this = ::haxor::context::EngineContext_obj::material;		HX_STACK_VAR(_this,"_this");
-		HX_STACK_LINE(495)
-		int p = _this->programs->__get(this->__cid);		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(495)
-		if (((this->m_shader != null()))){
-			HX_STACK_LINE(495)
-			::haxor::graphics::GL_obj::m_gl->DetachShader(p,_this->vertex_shaders->__get(this->m_shader->__cid));
-			HX_STACK_LINE(495)
-			::haxor::graphics::GL_obj::m_gl->DetachShader(p,_this->fragment_shaders->__get(this->m_shader->__cid));
-		}
-		HX_STACK_LINE(495)
-		::haxor::graphics::GL_obj::m_gl->DeleteProgram(p);
-		HX_STACK_LINE(495)
-		{
-			HX_STACK_LINE(495)
-			int v = this->__cid;		HX_STACK_VAR(v,"v");
-			HX_STACK_LINE(495)
-			::haxor::context::EngineContext_obj::material->mid->m_cache->push(v);
-			HX_STACK_LINE(495)
-			v;
-		}
-		HX_STACK_LINE(495)
-		{
-			HX_STACK_LINE(495)
-			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(495)
-			int _g = this->m_uniforms->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(495)
-			while((true)){
-				HX_STACK_LINE(495)
-				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(495)
-					break;
-				}
-				HX_STACK_LINE(495)
-				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(495)
-				int v = this->m_uniforms->__get(i).StaticCast< ::haxor::graphics::material::MaterialUniform >()->__cid;		HX_STACK_VAR(v,"v");
-				HX_STACK_LINE(495)
-				_this->uid->m_cache->push(v);
-				HX_STACK_LINE(495)
-				v;
-			}
-		}
+		::haxor::context::EngineContext_obj::material->DestroyMaterial(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();
 }

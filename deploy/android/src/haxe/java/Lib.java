@@ -18,7 +18,7 @@ public  class Lib extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_java_Lib(haxe.java.Lib __temp_me151591)
+	public static   void __hx_ctor_haxe_java_Lib(haxe.java.Lib __temp_me160703)
 	{
 		{
 		}

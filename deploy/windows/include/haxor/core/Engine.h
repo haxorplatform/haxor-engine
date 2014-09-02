@@ -50,6 +50,9 @@ class HXCPP_CLASS_ATTRIBUTES  Engine_obj : public hx::Object{
 		static Void Render( );
 		static Dynamic Render_dyn();
 
+		static Void RenderCameras( );
+		static Dynamic RenderCameras_dyn();
+
 		static Void RenderCamera( ::haxor::component::Camera c);
 		static Dynamic RenderCamera_dyn();
 
@@ -61,6 +64,9 @@ class HXCPP_CLASS_ATTRIBUTES  Engine_obj : public hx::Object{
 
 		static Void RenderIRenderers( );
 		static Dynamic RenderIRenderers_dyn();
+
+		static Void RenderFinish( );
+		static Dynamic RenderFinish_dyn();
 
 		static Void Resize( );
 		static Dynamic Resize_dyn();

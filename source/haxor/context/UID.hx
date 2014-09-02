@@ -15,6 +15,12 @@ class UID
 	private inline function set_id(v:Int):Int { m_cache.push(v); return v; }	
 	private var m_id :Int;
 	private var m_cache : Array<Int>;
+	
+	/**
+	 * Returns the next id without updating it.
+	 */
+	public var next(get_next, never):Int;
+	private function get_next():Int { return m_id; }
 
 	public function new() 
 	{

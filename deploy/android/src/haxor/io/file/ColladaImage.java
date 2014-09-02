@@ -18,17 +18,17 @@ public  class ColladaImage extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaImage(haxor.io.file.ColladaImage __temp_me151468)
+	public static   void __hx_ctor_haxor_io_file_ColladaImage(haxor.io.file.ColladaImage __temp_me160578)
 	{
 		{
-			__temp_me151468.data = null;
-			__temp_me151468.depth = 0;
-			__temp_me151468.height = 0;
-			__temp_me151468.width = 0;
-			__temp_me151468.source = "";
-			__temp_me151468.format = "";
-			__temp_me151468.name = "";
-			__temp_me151468.id = "";
+			__temp_me160578.data = null;
+			__temp_me160578.depth = 0;
+			__temp_me160578.height = 0;
+			__temp_me160578.width = 0;
+			__temp_me160578.source = "";
+			__temp_me160578.format = "";
+			__temp_me160578.name = "";
+			__temp_me160578.id = "";
 		}
 		
 	}
@@ -65,14 +65,14 @@ public  class ColladaImage extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152302 = true;
+			boolean __temp_executeDef161413 = true;
 			switch (field.hashCode())
 			{
 				case 95472323:
 				{
 					if (field.equals("depth")) 
 					{
-						__temp_executeDef152302 = false;
+						__temp_executeDef161413 = false;
 						this.depth = ((int) (value) );
 						return value;
 					}
@@ -85,7 +85,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef152302 = false;
+						__temp_executeDef161413 = false;
 						this.width = ((int) (value) );
 						return value;
 					}
@@ -98,7 +98,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef152302 = false;
+						__temp_executeDef161413 = false;
 						this.height = ((int) (value) );
 						return value;
 					}
@@ -109,7 +109,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152302) 
+			if (__temp_executeDef161413) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -126,14 +126,14 @@ public  class ColladaImage extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152303 = true;
+			boolean __temp_executeDef161414 = true;
 			switch (field.hashCode())
 			{
 				case 3076010:
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef152303 = false;
+						__temp_executeDef161414 = false;
 						this.data = ((haxor.graphics.texture.Bitmap) (value) );
 						return value;
 					}
@@ -146,7 +146,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef152303 = false;
+						__temp_executeDef161414 = false;
 						this.id = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -159,7 +159,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("depth")) 
 					{
-						__temp_executeDef152303 = false;
+						__temp_executeDef161414 = false;
 						this.depth = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -172,7 +172,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef152303 = false;
+						__temp_executeDef161414 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -185,7 +185,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef152303 = false;
+						__temp_executeDef161414 = false;
 						this.height = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -198,7 +198,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("format")) 
 					{
-						__temp_executeDef152303 = false;
+						__temp_executeDef161414 = false;
 						this.format = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -211,7 +211,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef152303 = false;
+						__temp_executeDef161414 = false;
 						this.width = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -224,7 +224,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("source")) 
 					{
-						__temp_executeDef152303 = false;
+						__temp_executeDef161414 = false;
 						this.source = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -235,7 +235,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152303) 
+			if (__temp_executeDef161414) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -252,14 +252,14 @@ public  class ColladaImage extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152304 = true;
+			boolean __temp_executeDef161415 = true;
 			switch (field.hashCode())
 			{
 				case 3076010:
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef152304 = false;
+						__temp_executeDef161415 = false;
 						return this.data;
 					}
 					
@@ -271,7 +271,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef152304 = false;
+						__temp_executeDef161415 = false;
 						return this.id;
 					}
 					
@@ -283,7 +283,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("depth")) 
 					{
-						__temp_executeDef152304 = false;
+						__temp_executeDef161415 = false;
 						return this.depth;
 					}
 					
@@ -295,7 +295,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef152304 = false;
+						__temp_executeDef161415 = false;
 						return this.name;
 					}
 					
@@ -307,7 +307,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef152304 = false;
+						__temp_executeDef161415 = false;
 						return this.height;
 					}
 					
@@ -319,7 +319,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("format")) 
 					{
-						__temp_executeDef152304 = false;
+						__temp_executeDef161415 = false;
 						return this.format;
 					}
 					
@@ -331,7 +331,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef152304 = false;
+						__temp_executeDef161415 = false;
 						return this.width;
 					}
 					
@@ -343,7 +343,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("source")) 
 					{
-						__temp_executeDef152304 = false;
+						__temp_executeDef161415 = false;
 						return this.source;
 					}
 					
@@ -353,7 +353,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152304) 
+			if (__temp_executeDef161415) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -370,14 +370,14 @@ public  class ColladaImage extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152305 = true;
+			boolean __temp_executeDef161416 = true;
 			switch (field.hashCode())
 			{
 				case 95472323:
 				{
 					if (field.equals("depth")) 
 					{
-						__temp_executeDef152305 = false;
+						__temp_executeDef161416 = false;
 						return ((double) (this.depth) );
 					}
 					
@@ -389,7 +389,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("width")) 
 					{
-						__temp_executeDef152305 = false;
+						__temp_executeDef161416 = false;
 						return ((double) (this.width) );
 					}
 					
@@ -401,7 +401,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				{
 					if (field.equals("height")) 
 					{
-						__temp_executeDef152305 = false;
+						__temp_executeDef161416 = false;
 						return ((double) (this.height) );
 					}
 					
@@ -411,7 +411,7 @@ public  class ColladaImage extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152305) 
+			if (__temp_executeDef161416) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

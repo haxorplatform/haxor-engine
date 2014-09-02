@@ -40,6 +40,9 @@ class HXCPP_CLASS_ATTRIBUTES  UID_obj : public hx::Object{
 
 		int m_id;
 		Array< int > m_cache;
+		virtual int get_next( );
+		Dynamic get_next_dyn();
+
 };
 
 } // end namespace haxor

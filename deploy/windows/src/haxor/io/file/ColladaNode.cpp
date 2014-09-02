@@ -219,7 +219,7 @@ Void ColladaNode_obj::GenerateTranform( ){
 		HX_STACK_LINE(1445)
 		::haxor::math::Matrix4 _g8 = (_Function_1_1::Block())->SetMatrix4(mtx)->ToRotation();		HX_STACK_VAR(_g8,"_g8");
 		HX_STACK_LINE(1445)
-		::haxor::math::Quaternion _g9 = ::haxor::math::Quaternion_obj::FromMatrix(_g8,null());		HX_STACK_VAR(_g9,"_g9");
+		::haxor::math::Quaternion _g9 = ::haxor::math::Quaternion_obj::FromMatrix4(_g8,null());		HX_STACK_VAR(_g9,"_g9");
 		HX_STACK_LINE(1445)
 		this->rotation = _g9;
 		HX_STACK_LINE(1446)

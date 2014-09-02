@@ -42,6 +42,8 @@ class Quaternion
 		return r;
 	}
 	
+	
+	
 	/**
 	 * Returns the euler rotation from the informed quaternion.
 	 * @param	p_quaternion
@@ -83,7 +85,7 @@ class Quaternion
 	 * @param	p_result
 	 * @return
 	 */
-	static public function FromMatrix(p_matrix : Matrix4,p_result : Quaternion=null):Quaternion
+	static public function FromMatrix4(p_matrix : Matrix4,p_result : Quaternion=null):Quaternion
 	{
 		var r : Quaternion = p_result == null ? (new Quaternion()) : p_result;
 		var v : Matrix4 = p_matrix;
@@ -137,7 +139,8 @@ class Quaternion
 	 */
 	static public function Inverse(p_q : Quaternion,p_result:Quaternion=null):Quaternion
 	{
-		var d : Float = 1.0/Dot(p_q, p_q);
+		var d : Float = Dot(p_q, p_q);
+		d = d <= 0.0 ? 0.0 : (1.0 / d);
 		var r : Quaternion = p_result == null ? (new Quaternion()) : p_result;
 		return r.Set( -p_q.x * d, -p_q.y*d, -p_q.z*d, p_q.w*d);
 	}
@@ -249,7 +252,7 @@ class Quaternion
 	 */
 	static public inline function LookAt(p_eye : Vector3, p_at : Vector3, p_up : Vector3 = null, p_result:Quaternion = null) : Quaternion 
 	{ 
-		return Quaternion.FromMatrix(Matrix4.LookAt(p_eye, p_at, p_up, Matrix4.temp), p_result); 
+		return Quaternion.FromMatrix4(Matrix4.LookAt(p_eye, p_at, p_up, Matrix4.temp), p_result); 
 	}
 	
 	/**
@@ -265,7 +268,7 @@ class Quaternion
 	 */
 	public var matrix(get_matrix, set_matrix):Matrix4;
 	private inline function get_matrix():Matrix4 			{ return Matrix4.FromQuaternion(this); }
-	private inline function set_matrix(v:Matrix4):Matrix4 	{ FromMatrix(v, this); return v; }
+	private inline function set_matrix(v:Matrix4):Matrix4 	{ FromMatrix4(v, this); return v; }
 	
 	/**
 	 * Get/Set the euler angles for this quaternion.
@@ -412,7 +415,7 @@ class Quaternion
 	 * @param	p_v
 	 * @return
 	 */
-	public function Rotate(p_v:Vector3):Vector3
+	public function Transform(p_v:Vector3):Vector3
 	{
 		var l : Float = Math.sqrt(p_v.x * p_v.x + p_v.y * p_v.y + p_v.z * p_v.z);
 		var nl : Float = l<=0.0 ? 0.0 : (1.0 / l);

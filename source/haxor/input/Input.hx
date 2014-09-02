@@ -95,6 +95,11 @@ class Input
 	static public var menu : Bool = false;
 	
 	/**
+	 * Flag that indicates if touches will be emulated using Mouse012.
+	 */
+	static public var emulateTouch : Bool = false;
+	
+	/**
 	 * Returns the input state for a given mouse or keyboard input "key" (check KeyCode).
 	 * @param	p_code
 	 * @return

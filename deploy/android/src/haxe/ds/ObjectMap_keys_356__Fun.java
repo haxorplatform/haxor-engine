@@ -4,11 +4,11 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class ObjectMap_keys_356__Fun<V, K> extends haxe.lang.Function
 {
-	public    ObjectMap_keys_356__Fun(haxe.root.Array<haxe.ds.ObjectMap> _g1, haxe.root.Array<java.lang.Object> i, haxe.root.Array<java.lang.Object> len)
+	public    ObjectMap_keys_356__Fun(haxe.root.Array<java.lang.Object> i, haxe.root.Array<haxe.ds.ObjectMap> _g1, haxe.root.Array<java.lang.Object> len)
 	{
 		super(0, 0);
-		this._g1 = _g1;
 		this.i = i;
+		this._g1 = _g1;
 		this.len = len;
 	}
 	
@@ -34,9 +34,9 @@ public  class ObjectMap_keys_356__Fun<V, K> extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<haxe.ds.ObjectMap> _g1;
-	
 	public  haxe.root.Array<java.lang.Object> i;
+	
+	public  haxe.root.Array<haxe.ds.ObjectMap> _g1;
 	
 	public  haxe.root.Array<java.lang.Object> len;
 	

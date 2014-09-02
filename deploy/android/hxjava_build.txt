@@ -171,9 +171,8 @@ C haxor.component.Component
 M android.app.LoaderManager
 M haxor.component.Transform
 C haxor.component.Transform
-C haxor.component.Transform_set_localScale_180__Fun
-C haxor.component.Transform_Search_397__Fun
-C haxor.component.Transform_OutputHierarchy_439__Fun
+C haxor.component.Transform_Search_329__Fun
+C haxor.component.Transform_OutputHierarchy_371__Fun
 M haxor.input.Joystick
 C haxor.input.Joystick
 M java.lang.reflect.AccessibleObject
@@ -504,6 +503,7 @@ M android.database.sqlite.SQLiteProgram
 M java.lang.CharSequence
 M haxor.component.CameraOrbit
 C haxor.component.CameraOrbit
+C haxor.component.CameraOrbitInput
 M haxor.context.DataContext
 C haxor.context.DataContext
 M android.app.Activity
@@ -538,6 +538,9 @@ M java.net.SocketImplFactory
 M java.io.FileInputStream
 M haxor.math.Matrix4
 C haxor.math.Matrix4
+M haxor.io.file.MaterialFile
+C haxor.io.file.MaterialFile
+C haxor.io.file.MaterialFileUniform
 M java.internal.HxObject
 C haxe.lang.IHxObject
 C haxe.lang.HxObject
@@ -686,8 +689,8 @@ M java.lang.Exception
 M android.view.WindowManager
 M haxe.root.Main
 C haxe.root.Main
-C haxe.root.Main_Load_97__Fun
-C haxe.root.Main_Initialize_193__Fun
+C haxe.root.Main_Load_99__Fun
+C haxe.root.Main_Initialize_203__Fun
 M android.database.sqlite.SQLiteCursorDriver
 M java.lang.System
 M android.app.Application

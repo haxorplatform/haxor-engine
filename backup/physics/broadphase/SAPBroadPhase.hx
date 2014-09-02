@@ -46,7 +46,7 @@ class SAPBroadPhase extends BroadPhase
 		{
 			m_intervals_x.push(new SAPInterval());
 			m_intervals_y.push(new SAPInterval());
-			m_intervals_z.push(new SAPInterval());			
+			m_intervals_z.push(new SAPInterval());
 		}		
 	}
 	
@@ -138,15 +138,7 @@ class SAPBroadPhase extends BroadPhase
 			}	
 			
 			itx = itx.prev;			
-		}		
-		
-		/*
-		var s : String;
-		s = "x: ";	Iterate(m_x, function(it : SAPInterval) { s += it.ToString(); } ); trace(s);
-		s = "y: ";	Iterate(m_y, function(it : SAPInterval) { s += it.ToString(); } ); trace(s);
-		s = "z: ";	Iterate(m_z, function(it : SAPInterval) { s += it.ToString(); } ); trace(s);
-		trace("====");
-		//*/
+		}				
 	}
 	
 	private function GetIntervalX(p_collider:Collider):SAPInterval { var cid  : Int   = p_collider.m_cid; return m_intervals_x[cid]; }
@@ -267,18 +259,35 @@ class SAPBroadPhase extends BroadPhase
 	}
 }
 
+/**
+ * Class that describes an interval node for sweep and prune.
+ */
 class SAPInterval
 {
+	public var id		: Int;
 	public var min 		: Float;	
 	public var max 		: Float;	
 	public var collider : Collider;	
 	public var next 	: SAPInterval;	
 	public var prev 	: SAPInterval;
 	
-	public function new() { min = max = 0.0; }
+	/**
+	 * Creates a new interval.
+	 */
+	public function new() { min = max = 0.0; id = 0; }
 	
+	/**
+	 * Sets this interval limits.
+	 * @param	p_min
+	 * @param	p_max
+	 */
 	public function Set(p_min:Float,p_max:Float):Void	{ min = p_min;	max = p_max;	}
 	
+	/**
+	 * Tests if this interval overlaps with other one.
+	 * @param	p_interval
+	 * @return
+	 */
 	public function Overlap(p_interval : SAPInterval):Bool
 	{
 		if (p_interval.min > min)
@@ -288,5 +297,9 @@ class SAPInterval
 		return p_interval.max >= min;
 	}
 	
+	/**
+	 * Returns the string representation of this node.
+	 * @return
+	 */
 	public function ToString():String { return "["+Mathf.RoundPlaces(min,2)+"|"+collider.name+"|"+Mathf.RoundPlaces(max,2)+"]"; }
 }

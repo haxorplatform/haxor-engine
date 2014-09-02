@@ -14,6 +14,7 @@ HX_DECLARE_CLASS2(haxor,component,Renderer)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
+HX_DECLARE_CLASS2(haxor,math,Vector3)
 namespace haxor{
 namespace component{
 
@@ -40,6 +41,7 @@ class HXCPP_CLASS_ATTRIBUTES  MeshRenderer_obj : public ::haxor::component::Rend
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("MeshRenderer"); }
 
+		int __fcid;
 		virtual ::haxor::graphics::mesh::Mesh get_mesh( );
 		Dynamic get_mesh_dyn();
 
@@ -47,16 +49,20 @@ class HXCPP_CLASS_ATTRIBUTES  MeshRenderer_obj : public ::haxor::component::Rend
 		Dynamic set_mesh_dyn();
 
 		::haxor::graphics::mesh::Mesh m_mesh;
-		virtual bool get_visible( );
-		Dynamic get_visible_dyn();
-
+		::haxor::math::Vector3 m_ws_center;
+		::haxor::math::Vector3 m_ws_radius;
+		bool m_culling_dirty;
 		virtual Void OnBuild( );
 
 		virtual bool IsVisible( ::haxor::component::Camera p_camera);
 		Dynamic IsVisible_dyn();
 
 		virtual bool CheckCulling( );
-		Dynamic CheckCulling_dyn();
+
+		virtual Void OnTransformUpdate( );
+
+		virtual Void UpdateWorldBounds( );
+		Dynamic UpdateWorldBounds_dyn();
 
 		virtual Void OnRender( );
 

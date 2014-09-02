@@ -38,14 +38,15 @@ implements Runnable
 	static public function Iterate(p_offset : Int, p_length : Int,p_callback : Int->Bool,p_step :Int=1, p_threaded : Bool = false,p_graphics_context:Bool=false):Activity
 	{
 		var it : Int = p_offset;
+		
 		return new Activity(function(t : Float):Bool
 		{
 			var finished : Bool = false;
 			for (i in 0...p_step)
-			{
-				if (!p_callback(it)) { finished = true; break; }
-				it++;
+			{	
 				if (it >= p_length) return false;
+				if (!p_callback(it)) { finished = true; break; }
+				it++;								
 			}
 			return !finished;		
 		},p_threaded,p_graphics_context);

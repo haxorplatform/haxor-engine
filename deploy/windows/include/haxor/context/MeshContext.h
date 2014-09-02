@@ -50,6 +50,9 @@ class HXCPP_CLASS_ATTRIBUTES  MeshContext_obj : public hx::Object{
 		virtual Void Bind( ::haxor::graphics::mesh::Mesh p_mesh);
 		Dynamic Bind_dyn();
 
+		virtual Void ActivateAttributes( );
+		Dynamic ActivateAttributes_dyn();
+
 		virtual Void Unbind( );
 		Dynamic Unbind_dyn();
 

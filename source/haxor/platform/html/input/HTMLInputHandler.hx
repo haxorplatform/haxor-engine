@@ -63,6 +63,7 @@ class HTMLInputHandler extends InputHandler
 	 */
 	private function new(p_target_id : String):Void
 	{
+		super();
 		m_navigator = Browser.navigator;
 		m_target	= Browser.document.getElementById(p_target_id);
 		if (m_target == null)
@@ -104,7 +105,6 @@ class HTMLInputHandler extends InputHandler
 		var nav : Dynamic 	= m_navigator;
 		m_check_joystick = !!nav.getGamepads || (nav.userAgent.indexOf('Firefox/') != -1);
 		
-		super();
 	}
 	
 	/**
@@ -196,13 +196,9 @@ class HTMLInputHandler extends InputHandler
 		//Fetches the list of gamepads.
 		if (nav.getGamepads != null)  l = nav.getGamepads();
 		
-		
-		
 		//Returns if none.
 		if (l == null) 		return;		
 		if (l.length <= 0) 	return;
-		
-		trace(l.length);
 		
 		//Checks the API joystick list.
 		for (i in 0...l.length)

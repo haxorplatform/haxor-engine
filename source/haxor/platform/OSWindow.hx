@@ -51,7 +51,7 @@ class OSWindow
 	private function get_title():String { return m_title; }
 	private function set_title(v:String):String 
 	{
-		m_title = v;
+		m_title = v;		
 		OnTitleChange();		
 		return v; 
 	}

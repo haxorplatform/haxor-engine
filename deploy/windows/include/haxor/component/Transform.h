@@ -71,48 +71,26 @@ class HXCPP_CLASS_ATTRIBUTES  Transform_obj : public ::haxor::component::Compone
 		virtual int get_childCount( );
 		Dynamic get_childCount_dyn();
 
-		virtual ::haxor::math::Vector3 get_position( );
-		Dynamic get_position_dyn();
-
-		virtual ::haxor::math::Vector3 set_position( ::haxor::math::Vector3 v);
-		Dynamic set_position_dyn();
-
-		::haxor::math::Vector3 m_position;
 		virtual ::haxor::math::Vector3 get_localPosition( );
 		Dynamic get_localPosition_dyn();
 
 		virtual ::haxor::math::Vector3 set_localPosition( ::haxor::math::Vector3 v);
 		Dynamic set_localPosition_dyn();
 
-		virtual ::haxor::math::Vector3 get_euler( );
-		Dynamic get_euler_dyn();
-
-		virtual ::haxor::math::Vector3 set_euler( ::haxor::math::Vector3 v);
-		Dynamic set_euler_dyn();
-
-		::haxor::math::Vector3 m_euler;
-		virtual ::haxor::math::Vector3 get_localEuler( );
-		Dynamic get_localEuler_dyn();
-
-		virtual ::haxor::math::Vector3 set_localEuler( ::haxor::math::Vector3 v);
-		Dynamic set_localEuler_dyn();
-
-		virtual ::haxor::math::Quaternion get_rotation( );
-		Dynamic get_rotation_dyn();
-
-		virtual ::haxor::math::Quaternion set_rotation( ::haxor::math::Quaternion v);
-		Dynamic set_rotation_dyn();
-
+		::haxor::math::Vector3 m_localPosition;
 		virtual ::haxor::math::Quaternion get_localRotation( );
 		Dynamic get_localRotation_dyn();
 
 		virtual ::haxor::math::Quaternion set_localRotation( ::haxor::math::Quaternion v);
 		Dynamic set_localRotation_dyn();
 
-		virtual ::haxor::math::Vector3 get_scale( );
-		Dynamic get_scale_dyn();
+		::haxor::math::Quaternion m_localRotation;
+		virtual ::haxor::math::Vector3 get_localEuler( );
+		Dynamic get_localEuler_dyn();
 
-		::haxor::math::Vector3 m_scale;
+		virtual ::haxor::math::Vector3 set_localEuler( ::haxor::math::Vector3 v);
+		Dynamic set_localEuler_dyn();
+
 		virtual ::haxor::math::Vector3 get_localScale( );
 		Dynamic get_localScale_dyn();
 
@@ -120,6 +98,30 @@ class HXCPP_CLASS_ATTRIBUTES  Transform_obj : public ::haxor::component::Compone
 		Dynamic set_localScale_dyn();
 
 		::haxor::math::Vector3 m_localScale;
+		virtual ::haxor::math::Vector3 get_position( );
+		Dynamic get_position_dyn();
+
+		virtual ::haxor::math::Vector3 set_position( ::haxor::math::Vector3 v);
+		Dynamic set_position_dyn();
+
+		::haxor::math::Vector3 m_position;
+		virtual ::haxor::math::Quaternion get_rotation( );
+		Dynamic get_rotation_dyn();
+
+		virtual ::haxor::math::Quaternion set_rotation( ::haxor::math::Quaternion v);
+		Dynamic set_rotation_dyn();
+
+		::haxor::math::Quaternion m_rotation;
+		virtual ::haxor::math::Vector3 get_euler( );
+		Dynamic get_euler_dyn();
+
+		virtual ::haxor::math::Vector3 set_euler( ::haxor::math::Vector3 v);
+		Dynamic set_euler_dyn();
+
+		virtual ::haxor::math::Vector3 get_scale( );
+		Dynamic get_scale_dyn();
+
+		::haxor::math::Vector3 m_scale;
 		virtual ::haxor::math::Matrix4 get_WorldMatrix( );
 		Dynamic get_WorldMatrix_dyn();
 
@@ -128,34 +130,43 @@ class HXCPP_CLASS_ATTRIBUTES  Transform_obj : public ::haxor::component::Compone
 		Dynamic get_WorldMatrixInverse_dyn();
 
 		::haxor::math::Matrix4 m_worldMatrixInverse;
-		bool m_dirty;
+		::haxor::math::Matrix4 m_localMatrix;
+		bool m_lmt_dirty;
+		bool m_lmrs_dirty;
 		bool m_uniform_dirty;
+		bool m_dirty;
+		bool m_inverse_dirty;
+		bool m_wsp_dirty;
+		bool m_wsrs_dirty;
 		Array< ::Dynamic > m_hierarchy;
 		virtual Void OnBuild( );
 
-		virtual ::haxor::component::Transform Translate( Float p_dx,Float p_dy,Float p_dz);
-		Dynamic Translate_dyn();
+		virtual Void UpdateLMT( );
+		Dynamic UpdateLMT_dyn();
 
-		virtual ::haxor::component::Transform Rotate( Float p_dx,Float p_dy,Float p_dz);
-		Dynamic Rotate_dyn();
+		virtual Void UpdateWSP( );
+		Dynamic UpdateWSP_dyn();
 
-		virtual Void RefreshWM( );
-		Dynamic RefreshWM_dyn();
+		virtual Void UpdateLMRS( );
+		Dynamic UpdateLMRS_dyn();
+
+		virtual Void UpdateWSRS( );
+		Dynamic UpdateWSRS_dyn();
 
 		virtual Void UpdateWorldMatrix( );
 		Dynamic UpdateWorldMatrix_dyn();
+
+		virtual Void Invalidate( );
+		Dynamic Invalidate_dyn();
+
+		virtual Void LookAt( ::haxor::math::Vector3 p_at,::haxor::math::Vector3 p_up,hx::Null< Float >  p_smooth);
+		Dynamic LookAt_dyn();
 
 		virtual ::haxor::component::Transform GetChild( int p_index);
 		Dynamic GetChild_dyn();
 
 		virtual ::haxor::component::Transform GetChildByName( ::String p_name);
 		Dynamic GetChildByName_dyn();
-
-		virtual Void Lock( );
-		Dynamic Lock_dyn();
-
-		virtual Void Unlock( );
-		Dynamic Unlock_dyn();
 
 		virtual ::haxor::component::Transform Navigate( ::String p_path);
 		Dynamic Navigate_dyn();
@@ -179,6 +190,9 @@ class HXCPP_CLASS_ATTRIBUTES  Transform_obj : public ::haxor::component::Compone
 
 		virtual ::String ToString( hx::Null< bool >  p_use_local,hx::Null< int >  p_places);
 		Dynamic ToString_dyn();
+
+		static Void TransformConcat( ::haxor::component::Transform t);
+		static Dynamic TransformConcat_dyn();
 
 		static ::haxor::component::Transform get_root( );
 		static Dynamic get_root_dyn();

@@ -2,9 +2,9 @@ package haxe.root;
 import haxe.root.*;
 
 @SuppressWarnings(value={"rawtypes", "unchecked"})
-public  class Main_Load_97__Fun extends haxe.lang.Function
+public  class Main_Load_99__Fun extends haxe.lang.Function
 {
-	public    Main_Load_97__Fun(haxe.root.Array<haxe.root.Main> _g)
+	public    Main_Load_99__Fun(haxe.root.Array<haxe.root.Main> _g)
 	{
 		super(2, 0);
 		this._g = _g;

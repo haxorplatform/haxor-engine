@@ -25,29 +25,38 @@ class InputHandler
 	/**
 	 * Creates a new input handler.
 	 */
-	function new() 
-	{
-		Activity.Run(Update);
-	}
+	function new(){ }
 	
-	private function Update(t:Float):Bool
+	/**
+	 * Updates the loop logic.
+	 */
+	private function Update():Void
 	{
-		Input.wheel 	   = 0; 
-		Input.deltaMouse.x = 0; 
-		Input.deltaMouse.y = 0;		
 		Input.UpdateInput();
-		Input.UpdateTouchFSM();		
-		UpdateInput();		
-		EmulateTouch(KeyCode.Mouse0, 0);
-		EmulateTouch(KeyCode.Mouse1, 2);
-		EmulateTouch(KeyCode.Mouse2, 1);		
-		return true;
+		Input.UpdateTouchFSM();
+		UpdateInput();	
+		if (Input.emulateTouch)
+		{
+			EmulateTouch(KeyCode.Mouse0, 0);
+			EmulateTouch(KeyCode.Mouse1, 2);
+			EmulateTouch(KeyCode.Mouse2, 1);		
+		}		
 	}
 	
 	/**
 	 * Update API related input.
 	 */
 	private function UpdateInput():Void { }
+	
+	/**
+	 * Clears the input data.
+	 */
+	private function Clear():Void
+	{
+		Input.wheel 	   = 0; 
+		Input.deltaMouse.x = 0; 
+		Input.deltaMouse.y = 0;	
+	}
 	
 	/**
 	 * Updates mouse position data.
@@ -246,6 +255,7 @@ class InputHandler
 	 */
 	private function EmulateTouch(p_code:Int,p_id:Int):Void
 	{		
+		
 		if (Input.Down(p_code))
 	 	{
 			var p : Vector2 = Vector2.temp;		

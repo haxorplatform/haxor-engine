@@ -8,6 +8,7 @@ public  class Input extends haxe.lang.HxObject
 	{
 		haxor.input.Input.scroll = false;
 		haxor.input.Input.menu = false;
+		haxor.input.Input.emulateTouch = false;
 	}
 	public    Input(haxe.lang.EmptyObject empty)
 	{
@@ -23,7 +24,7 @@ public  class Input extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_input_Input(haxor.input.Input __temp_me151430)
+	public static   void __hx_ctor_haxor_input_Input(haxor.input.Input __temp_me160536)
 	{
 		{
 		}
@@ -38,6 +39,8 @@ public  class Input extends haxe.lang.HxObject
 	public static  haxe.root.Array<java.lang.Object> m_down;
 	
 	public static  haxe.root.Array<java.lang.Object> m_active;
+	
+	public static  haxor.input.InputHandler m_handler;
 	
 	
 	
@@ -84,6 +87,8 @@ public  class Input extends haxe.lang.HxObject
 	public static  boolean scroll;
 	
 	public static  boolean menu;
+	
+	public static  boolean emulateTouch;
 	
 	public static   haxor.core.InputState GetInputState(int p_code)
 	{
@@ -163,7 +168,7 @@ public  class Input extends haxe.lang.HxObject
 		haxor.input.Input.mouse = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
 		haxor.input.Input.deltaMouse = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
 		haxor.input.Input.relativeMouse = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		haxor.core.Console.Log("Input> Initialize", 4);
+		haxor.core.Console.Log("Haxor> Input Initialize", 4);
 	}
 	
 	
@@ -218,7 +223,7 @@ public  class Input extends haxe.lang.HxObject
 	
 	public static   void UpdateInputState(int p_code, boolean p_is_down, java.lang.Object p_update_state)
 	{
-		boolean __temp_p_update_state151429 = ( (( p_update_state == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_update_state)) );
+		boolean __temp_p_update_state160535 = ( (( p_update_state == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_update_state)) );
 		haxor.core.InputState current = haxor.input.Input.m_state.get(((int) (p_code) ));
 		if (( current == null )) 
 		{
@@ -246,7 +251,7 @@ public  class Input extends haxe.lang.HxObject
 			
 		}
 		
-		if (__temp_p_update_state151429) 
+		if (__temp_p_update_state160535) 
 		{
 			if (( current == haxor.core.InputState.Up )) 
 			{

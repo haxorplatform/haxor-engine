@@ -4,6 +4,7 @@ import haxor.component.Camera;
 import haxor.component.CameraOrbit;
 import haxor.component.MeshRenderer;
 import haxor.component.Transform;
+import haxor.context.Process;
 import haxor.context.UID;
 import haxor.core.Application;
 import haxor.core.BaseApplication.EntryPoint;
@@ -12,12 +13,14 @@ import haxor.core.Entity;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
+import haxor.core.Stats;
 import haxor.core.Time;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
 import haxor.core.Enums.MeshPrimitive;
 import haxor.core.Enums.PixelFormat;
 import haxor.core.Enums.TextureFilter;
+import haxor.ds.SAP;
 import haxor.graphics.Gizmo;
 import haxor.graphics.Graphics;
 import haxor.graphics.material.Material;
@@ -35,6 +38,7 @@ import haxor.input.KeyCode;
 import haxor.io.Buffer;
 import haxor.io.file.Asset;
 import haxor.io.file.ColladaFile;
+import haxor.io.file.MaterialFile;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.io.UInt16Array;
@@ -171,14 +175,24 @@ class Main extends Application implements IUpdateable implements IRenderable
 		});
 		#end
 		
-		orbit = CameraOrbit.Create(3.0, 45, 45);
+		
+		
+		orbit = CameraOrbit.Create(-0.5, 0, 0);
+		orbit.AddComponent(CameraOrbitInput);
 		cam = orbit.entity.GetComponentInChildren(Camera);
+		
+		//cam = (new Entity("camera")).AddComponent(Camera);
+		//cam.transform.localPosition = new Vector3(5, 5, 5);
+		//cam.transform.localRotation = Quaternion.LookAt(new Vector3(5, 5, 5), Vector3.zero);		
 		cam.background = new Color(0.3, 0.3, 0.3);
 		
 		var tex : Texture2D = Texture2D.green;
 		tex = Asset.Get("texture");
 		
 		container = (new Entity("container")).transform;
+		
+		//cam.transform.parent = container;
+		
 		var l : Float = 2;
 		
 		var px : Float = 0.0;
@@ -190,13 +204,19 @@ class Main extends Application implements IUpdateable implements IRenderable
 		mat.SetTexture("Tex0", Texture2D.red);
 		mat.blend = true;
 		
-		Activity.Iterate(0,200,function(i:Int):Bool
-		//for (i in 0...1400)
+		
+		
+		Activity.Iterate(0,5000,function(i:Int):Bool
+		//for (i in 0...30000)
 		{	
 			mr = (new Entity("cube" + i)).AddComponent(MeshRenderer);			
-			mr.transform.localScale = new Vector3(0.1, 0.1, 0.1);
+			mr.transform.localScale = 
+			//Vector3.one.Scale(2.0);
+			Vector3.temp.Set(0.1, 0.1, 0.1).Scale(Random.Range(3.0, 50.0));
 			mr.transform.parent = container;			
-			mr.transform.position = new Vector3(px, py, pz);
+			mr.transform.localPosition =			
+			//new Vector3(0.0, 0.0, 40.0);
+			Random.onSphere.Scale(50.0 + Random.value * 900.0);
 			mr.mesh 	= Model.cube;
 			
 			mr.material = mat;						
@@ -215,7 +235,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 				}
 			}
 			return true;
-		},50);
+		}
+		,10);//<<<<<<< here
 		
 	}
 	
@@ -223,22 +244,35 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{	
 		if (orbit != null)
 		{
-			orbit.angle.x += Time.delta * 30.0;			
+			//orbit.angle.x += Time.delta * 30.0;			
 		}
-	
+		if (container != null)
+		{
+			//var lr : Quaternion = container.localRotation;
+			//lr.Multiply(Quaternion.FromAxisAngle(Vector3.up, Time.delta * 30));
+			//container.localRotation = lr;
+		}
+		
 		var log : String = "";
 		
+		log += "Stats";
+		log += "\nVisible: " + Stats.visible;
+		log += "\nCulled: " + Stats.culled;
+		log += "\nTotal: " + Stats.total+"/"+Stats.renderers;
+		log += "\nTriangles: " + Stats.triangles;
 		
 		if (Joystick.available)
 		{
-			trace(Input.joystick[0].ToString());
+			//trace(Input.joystick[0].ToString());
 		}
 		
 		
 		#if html
 		if(field!=null) field.innerText = log;		
-		#else
+		#end
 		
+		#if windows		
+		application.window.title = StringTools.replace(log+" FPS: "+Time.fps, "\n", " ");
 		#end
 		
 	}

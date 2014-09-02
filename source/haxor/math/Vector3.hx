@@ -99,6 +99,38 @@ class Vector3
 	}
 	
 	/**
+	 * Returns the Min of all components in the informed pairs.
+	 * @param	p_a
+	 * @param	p_b
+	 * @param	p_result
+	 * @return
+	 */
+	static public function Min(p_a:Vector3, p_b:Vector3, p_result:Vector3 = null):Vector3
+	{
+		p_result = p_result == null ? new Vector3() : p_result;
+		p_result.x = Mathf.Min(p_a.x, p_b.x);
+		p_result.y = Mathf.Min(p_a.y, p_b.y);
+		p_result.z = Mathf.Min(p_a.z, p_b.z);
+		return p_result;
+	}
+	
+	/**
+	 * Returns the Min of all components in the informed pairs.
+	 * @param	p_a
+	 * @param	p_b
+	 * @param	p_result
+	 * @return
+	 */
+	static public function Max(p_a:Vector3, p_b:Vector3, p_result:Vector3 = null):Vector3
+	{
+		p_result = p_result == null ? new Vector3() : p_result;
+		p_result.x = Mathf.Max(p_a.x, p_b.x);
+		p_result.y = Mathf.Max(p_a.y, p_b.y);
+		p_result.z = Mathf.Max(p_a.z, p_b.z);
+		return p_result;
+	}
+	
+	/**
 	 * Returns a copy of this vector instance.
 	 */
 	public var clone(get_clone, null) : Vector3;

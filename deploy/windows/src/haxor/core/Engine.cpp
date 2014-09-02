@@ -39,9 +39,6 @@
 #ifndef INCLUDED_haxor_core_EngineState
 #include <haxor/core/EngineState.h>
 #endif
-#ifndef INCLUDED_haxor_core_Entity
-#include <haxor/core/Entity.h>
-#endif
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
@@ -56,6 +53,9 @@
 #endif
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
+#endif
+#ifndef INCLUDED_haxor_core_Stats
+#include <haxor/core/Stats.h>
 #endif
 #ifndef INCLUDED_haxor_graphics_Screen
 #include <haxor/graphics/Screen.h>
@@ -85,12 +85,12 @@ Dynamic Engine_obj::__Create(hx::DynamicArray inArgs)
 
 Void Engine_obj::Initialize( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Initialize",0x7c7ff859,"haxor.core.Engine.Initialize","haxor/core/Engine.hx",39,0xa988a499)
-		HX_STACK_LINE(40)
-		::haxor::core::Console_obj::Log(HX_CSTRING("Haxor> Engine Initialize."),(int)3);
+		HX_STACK_FRAME("haxor.core.Engine","Initialize",0x7c7ff859,"haxor.core.Engine.Initialize","haxor/core/Engine.hx",40,0xa988a499)
 		HX_STACK_LINE(41)
-		::haxor::context::EngineContext_obj::Initialize();
+		::haxor::core::Console_obj::Log(HX_CSTRING("Haxor> Engine Initialize."),(int)3);
 		HX_STACK_LINE(42)
+		::haxor::context::EngineContext_obj::Initialize();
+		HX_STACK_LINE(43)
 		::haxor::core::Engine_obj::state = ::haxor::core::EngineState_obj::Play;
 	}
 return null();
@@ -101,34 +101,34 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,Initialize,(void))
 
 Void Engine_obj::Collect( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Collect",0x5d050f01,"haxor.core.Engine.Collect","haxor/core/Engine.hx",49,0xa988a499)
-		HX_STACK_LINE(50)
-		::haxor::context::Process dp = ::haxor::context::EngineContext_obj::disposables;		HX_STACK_VAR(dp,"dp");
+		HX_STACK_FRAME("haxor.core.Engine","Collect",0x5d050f01,"haxor.core.Engine.Collect","haxor/core/Engine.hx",50,0xa988a499)
 		HX_STACK_LINE(51)
+		::haxor::context::Process dp = ::haxor::context::EngineContext_obj::disposables;		HX_STACK_VAR(dp,"dp");
+		HX_STACK_LINE(52)
 		{
-			HX_STACK_LINE(51)
+			HX_STACK_LINE(52)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(51)
+			HX_STACK_LINE(52)
 			int _g = ::haxor::context::EngineContext_obj::collectRate;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(51)
+			HX_STACK_LINE(52)
 			while((true)){
-				HX_STACK_LINE(51)
+				HX_STACK_LINE(52)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(51)
+					HX_STACK_LINE(52)
 					break;
 				}
-				HX_STACK_LINE(51)
+				HX_STACK_LINE(52)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(53)
+				HX_STACK_LINE(54)
 				if (((dp->m_length <= (int)0))){
-					HX_STACK_LINE(53)
+					HX_STACK_LINE(54)
 					break;
 				}
-				HX_STACK_LINE(54)
-				::haxor::core::IDisposable o = dp->list->__GetItem((int)0);		HX_STACK_VAR(o,"o");
 				HX_STACK_LINE(55)
-				o->OnDestroy();
+				::haxor::core::IDisposable o = dp->list->__GetItem((int)0);		HX_STACK_VAR(o,"o");
 				HX_STACK_LINE(56)
+				o->OnDestroy();
+				HX_STACK_LINE(57)
 				dp->Remove(o);
 			}
 		}
@@ -141,56 +141,56 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,Collect,(void))
 
 Void Engine_obj::Update( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Update",0x23a5d492,"haxor.core.Engine.Update","haxor/core/Engine.hx",64,0xa988a499)
-		HX_STACK_LINE(65)
+		HX_STACK_FRAME("haxor.core.Engine","Update",0x23a5d492,"haxor.core.Engine.Update","haxor/core/Engine.hx",65,0xa988a499)
+		HX_STACK_LINE(67)
 		if (((::haxor::core::Engine_obj::state == ::haxor::core::EngineState_obj::Editor))){
-			HX_STACK_LINE(65)
+			HX_STACK_LINE(67)
 			return null();
 		}
-		HX_STACK_LINE(67)
-		::haxor::context::Process up = ::haxor::context::EngineContext_obj::update;		HX_STACK_VAR(up,"up");
 		HX_STACK_LINE(69)
+		::haxor::context::Process up = ::haxor::context::EngineContext_obj::update;		HX_STACK_VAR(up,"up");
+		HX_STACK_LINE(71)
 		{
-			HX_STACK_LINE(69)
+			HX_STACK_LINE(71)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(69)
+			HX_STACK_LINE(71)
 			int _g = up->m_length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(69)
+			HX_STACK_LINE(71)
 			while((true)){
-				HX_STACK_LINE(69)
+				HX_STACK_LINE(71)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(69)
+					HX_STACK_LINE(71)
 					break;
 				}
-				HX_STACK_LINE(69)
-				int i = (_g1)++;		HX_STACK_VAR(i,"i");
 				HX_STACK_LINE(71)
+				int i = (_g1)++;		HX_STACK_VAR(i,"i");
+				HX_STACK_LINE(73)
 				::haxor::core::Resource r = up->list->__GetItem(i);		HX_STACK_VAR(r,"r");
-				HX_STACK_LINE(72)
+				HX_STACK_LINE(74)
 				if ((r->m_destroyed)){
-					HX_STACK_LINE(72)
+					HX_STACK_LINE(74)
 					continue;
 				}
-				HX_STACK_LINE(73)
+				HX_STACK_LINE(75)
 				if ((r->m_is_behaviour)){
-					HX_STACK_LINE(75)
+					HX_STACK_LINE(77)
 					::haxor::component::Behaviour b = r;		HX_STACK_VAR(b,"b");
-					HX_STACK_LINE(76)
+					HX_STACK_LINE(78)
 					if ((!(b->m_is_awake))){
-						HX_STACK_LINE(76)
+						HX_STACK_LINE(78)
 						b->OnAwake();
-						HX_STACK_LINE(76)
+						HX_STACK_LINE(78)
 						b->m_is_awake = true;
 					}
-					HX_STACK_LINE(77)
+					HX_STACK_LINE(79)
 					if ((!(b->m_is_start))){
-						HX_STACK_LINE(77)
+						HX_STACK_LINE(79)
 						b->OnStart();
-						HX_STACK_LINE(77)
+						HX_STACK_LINE(79)
 						b->m_is_start = true;
 					}
 				}
-				HX_STACK_LINE(79)
+				HX_STACK_LINE(81)
 				up->list->__GetItem(i)->__Field(HX_CSTRING("OnUpdate"),true)();
 			}
 		}
@@ -203,55 +203,15 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,Update,(void))
 
 Void Engine_obj::Render( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Render",0xa1c9b9df,"haxor.core.Engine.Render","haxor/core/Engine.hx",87,0xa988a499)
-		HX_STACK_LINE(88)
-		Array< ::Dynamic > cl = ::haxor::context::EngineContext_obj::camera->list;		HX_STACK_VAR(cl,"cl");
-		HX_STACK_LINE(92)
-		{
-			HX_STACK_LINE(92)
-			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(92)
-			int _g = cl->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(92)
-			while((true)){
-				HX_STACK_LINE(92)
-				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(92)
-					break;
-				}
-				HX_STACK_LINE(92)
-				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(94)
-				::haxor::component::Camera c = ::haxor::component::Camera_obj::m_current = cl->__get(i).StaticCast< ::haxor::component::Camera >();		HX_STACK_VAR(c,"c");
-				HX_STACK_LINE(95)
-				::haxor::core::Engine_obj::RenderCamera(c);
-			}
-		}
-		HX_STACK_LINE(98)
-		::haxor::component::Camera_obj::m_current = null();
-		HX_STACK_LINE(100)
+		HX_STACK_FRAME("haxor.core.Engine","Render",0xa1c9b9df,"haxor.core.Engine.Render","haxor/core/Engine.hx",89,0xa988a499)
+		HX_STACK_LINE(91)
+		::haxor::core::Stats_obj::BeginRender();
+		HX_STACK_LINE(94)
+		::haxor::core::Engine_obj::RenderCameras();
+		HX_STACK_LINE(95)
 		::haxor::core::Engine_obj::RenderIRenderers();
-		HX_STACK_LINE(102)
-		{
-			HX_STACK_LINE(102)
-			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(102)
-			int _g = cl->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(102)
-			while((true)){
-				HX_STACK_LINE(102)
-				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(102)
-					break;
-				}
-				HX_STACK_LINE(102)
-				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(104)
-				cl->__get(i).StaticCast< ::haxor::component::Camera >()->m_view_uniform_dirty = false;
-				HX_STACK_LINE(105)
-				cl->__get(i).StaticCast< ::haxor::component::Camera >()->m_proj_uniform_dirty = false;
-			}
-		}
+		HX_STACK_LINE(96)
+		::haxor::core::Engine_obj::RenderFinish();
 	}
 return null();
 }
@@ -259,41 +219,74 @@ return null();
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,Render,(void))
 
-Void Engine_obj::RenderCamera( ::haxor::component::Camera c){
+Void Engine_obj::RenderCameras( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","RenderCamera",0xc6ada5e4,"haxor.core.Engine.RenderCamera","haxor/core/Engine.hx",114,0xa988a499)
-		HX_STACK_ARG(c,"c")
-		HX_STACK_LINE(115)
-		if ((!(c->get_enabled()))){
-			HX_STACK_LINE(115)
-			return null();
-		}
-		HX_STACK_LINE(116)
-		::haxor::context::EngineContext_obj::camera->Bind(c);
-		HX_STACK_LINE(117)
-		Array< int > layers = c->m_layers;		HX_STACK_VAR(layers,"layers");
-		HX_STACK_LINE(118)
+		HX_STACK_FRAME("haxor.core.Engine","RenderCameras",0x1143820f,"haxor.core.Engine.RenderCameras","haxor/core/Engine.hx",103,0xa988a499)
+		HX_STACK_LINE(104)
+		Array< ::Dynamic > cl = ::haxor::context::EngineContext_obj::camera->list;		HX_STACK_VAR(cl,"cl");
+		HX_STACK_LINE(105)
 		{
-			HX_STACK_LINE(118)
+			HX_STACK_LINE(105)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(118)
-			int _g = layers->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(118)
+			HX_STACK_LINE(105)
+			int _g = cl->length;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(105)
 			while((true)){
-				HX_STACK_LINE(118)
+				HX_STACK_LINE(105)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(118)
+					HX_STACK_LINE(105)
 					break;
 				}
-				HX_STACK_LINE(118)
+				HX_STACK_LINE(105)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(120)
-				int l = layers->__get(i);		HX_STACK_VAR(l,"l");
+				HX_STACK_LINE(107)
+				::haxor::component::Camera c = ::haxor::component::Camera_obj::m_current = cl->__get(i).StaticCast< ::haxor::component::Camera >();		HX_STACK_VAR(c,"c");
+				HX_STACK_LINE(108)
+				::haxor::core::Engine_obj::RenderCamera(c);
+			}
+		}
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,RenderCameras,(void))
+
+Void Engine_obj::RenderCamera( ::haxor::component::Camera c){
+{
+		HX_STACK_FRAME("haxor.core.Engine","RenderCamera",0xc6ada5e4,"haxor.core.Engine.RenderCamera","haxor/core/Engine.hx",117,0xa988a499)
+		HX_STACK_ARG(c,"c")
+		HX_STACK_LINE(118)
+		if ((!(c->get_enabled()))){
+			HX_STACK_LINE(118)
+			return null();
+		}
+		HX_STACK_LINE(119)
+		::haxor::context::EngineContext_obj::camera->Bind(c);
+		HX_STACK_LINE(120)
+		Array< int > layers = c->m_layers;		HX_STACK_VAR(layers,"layers");
+		HX_STACK_LINE(121)
+		{
+			HX_STACK_LINE(121)
+			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(121)
+			int _g = layers->length;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(121)
+			while((true)){
 				HX_STACK_LINE(121)
+				if ((!(((_g1 < _g))))){
+					HX_STACK_LINE(121)
+					break;
+				}
+				HX_STACK_LINE(121)
+				int i = (_g1)++;		HX_STACK_VAR(i,"i");
+				HX_STACK_LINE(123)
+				int l = layers->__get(i);		HX_STACK_VAR(l,"l");
+				HX_STACK_LINE(124)
 				::haxor::core::Engine_obj::RenderCameraLayer(l,c);
 			}
 		}
-		HX_STACK_LINE(126)
+		HX_STACK_LINE(129)
 		::haxor::context::EngineContext_obj::camera->Unbind(c);
 	}
 return null();
@@ -304,41 +297,39 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(Engine_obj,RenderCamera,(void))
 
 Void Engine_obj::RenderCameraLayer( int l,::haxor::component::Camera c){
 {
-		HX_STACK_FRAME("haxor.core.Engine","RenderCameraLayer",0xf508714d,"haxor.core.Engine.RenderCameraLayer","haxor/core/Engine.hx",135,0xa988a499)
+		HX_STACK_FRAME("haxor.core.Engine","RenderCameraLayer",0xf508714d,"haxor.core.Engine.RenderCameraLayer","haxor/core/Engine.hx",140,0xa988a499)
 		HX_STACK_ARG(l,"l")
 		HX_STACK_ARG(c,"c")
-		HX_STACK_LINE(136)
+		HX_STACK_LINE(142)
 		::haxor::component::Transform lt = null();		HX_STACK_VAR(lt,"lt");
-		HX_STACK_LINE(137)
+		HX_STACK_LINE(143)
 		::haxor::context::Process renderers = ::haxor::context::EngineContext_obj::renderer->display->__get(l).StaticCast< ::haxor::context::Process >();		HX_STACK_VAR(renderers,"renderers");
-		HX_STACK_LINE(138)
+		HX_STACK_LINE(144)
 		{
-			HX_STACK_LINE(138)
+			HX_STACK_LINE(144)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(138)
+			HX_STACK_LINE(144)
 			int _g = renderers->m_length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(138)
+			HX_STACK_LINE(144)
 			while((true)){
-				HX_STACK_LINE(138)
+				HX_STACK_LINE(144)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(138)
+					HX_STACK_LINE(144)
 					break;
 				}
-				HX_STACK_LINE(138)
+				HX_STACK_LINE(144)
 				int j = (_g1)++;		HX_STACK_VAR(j,"j");
-				HX_STACK_LINE(140)
+				HX_STACK_LINE(146)
 				::haxor::component::Renderer r = renderers->list->__GetItem(j);		HX_STACK_VAR(r,"r");
-				HX_STACK_LINE(142)
-				if (((r->m_entity->m_transform != lt))){
-					HX_STACK_LINE(142)
-					if (((lt != null()))){
-						HX_STACK_LINE(142)
-						lt->m_uniform_dirty = false;
+				HX_STACK_LINE(147)
+				if ((::haxor::component::Camera_obj::sap)){
+					HX_STACK_LINE(148)
+					if ((::haxor::context::EngineContext_obj::renderer->IsSAPCulled(r,c))){
+						HX_STACK_LINE(148)
+						continue;
 					}
-					HX_STACK_LINE(142)
-					lt = r->m_entity->m_transform;
 				}
-				HX_STACK_LINE(143)
+				HX_STACK_LINE(151)
 				::haxor::core::Engine_obj::RenderRenderer(r);
 			}
 		}
@@ -351,9 +342,20 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Engine_obj,RenderCameraLayer,(void))
 
 Void Engine_obj::RenderRenderer( ::haxor::component::Renderer r){
 {
-		HX_STACK_FRAME("haxor.core.Engine","RenderRenderer",0xd482b242,"haxor.core.Engine.RenderRenderer","haxor/core/Engine.hx",155,0xa988a499)
+		HX_STACK_FRAME("haxor.core.Engine","RenderRenderer",0xd482b242,"haxor.core.Engine.RenderRenderer","haxor/core/Engine.hx",160,0xa988a499)
 		HX_STACK_ARG(r,"r")
-		HX_STACK_LINE(155)
+		HX_STACK_LINE(162)
+		r->UpdateCulling();
+		HX_STACK_LINE(164)
+		if ((!(((bool(r->m_visible) && bool(!(r->m_culled))))))){
+			HX_STACK_LINE(167)
+			(::haxor::core::Stats_obj::culled)++;
+			HX_STACK_LINE(169)
+			return null();
+		}
+		HX_STACK_LINE(173)
+		(::haxor::core::Stats_obj::visible)++;
+		HX_STACK_LINE(178)
 		r->OnRender();
 	}
 return null();
@@ -364,32 +366,34 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(Engine_obj,RenderRenderer,(void))
 
 Void Engine_obj::RenderIRenderers( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","RenderIRenderers",0x58ca4ae6,"haxor.core.Engine.RenderIRenderers","haxor/core/Engine.hx",164,0xa988a499)
-		HX_STACK_LINE(165)
+		HX_STACK_FRAME("haxor.core.Engine","RenderIRenderers",0x58ca4ae6,"haxor.core.Engine.RenderIRenderers","haxor/core/Engine.hx",187,0xa988a499)
+		HX_STACK_LINE(188)
+		::haxor::component::Camera_obj::m_current = null();
+		HX_STACK_LINE(189)
 		::haxor::context::Process rp = ::haxor::context::EngineContext_obj::render;		HX_STACK_VAR(rp,"rp");
-		HX_STACK_LINE(167)
+		HX_STACK_LINE(191)
 		{
-			HX_STACK_LINE(167)
+			HX_STACK_LINE(191)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(167)
+			HX_STACK_LINE(191)
 			int _g = rp->m_length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(167)
+			HX_STACK_LINE(191)
 			while((true)){
-				HX_STACK_LINE(167)
+				HX_STACK_LINE(191)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(167)
+					HX_STACK_LINE(191)
 					break;
 				}
-				HX_STACK_LINE(167)
+				HX_STACK_LINE(191)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(169)
+				HX_STACK_LINE(193)
 				::haxor::core::Resource r = rp->list->__GetItem(i);		HX_STACK_VAR(r,"r");
-				HX_STACK_LINE(170)
+				HX_STACK_LINE(194)
 				if ((r->m_destroyed)){
-					HX_STACK_LINE(170)
+					HX_STACK_LINE(194)
 					continue;
 				}
-				HX_STACK_LINE(171)
+				HX_STACK_LINE(195)
 				rp->list->__GetItem(i)->__Field(HX_CSTRING("OnRender"),true)();
 			}
 		}
@@ -400,41 +404,76 @@ return null();
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,RenderIRenderers,(void))
 
-Void Engine_obj::Resize( ){
+Void Engine_obj::RenderFinish( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Resize",0xa51ba87d,"haxor.core.Engine.Resize","haxor/core/Engine.hx",179,0xa988a499)
-		HX_STACK_LINE(180)
-		::haxor::context::EngineContext_obj::camera->Resize();
-		HX_STACK_LINE(181)
-		if (((::haxor::core::Engine_obj::state == ::haxor::core::EngineState_obj::Editor))){
-			HX_STACK_LINE(181)
-			return null();
-		}
-		HX_STACK_LINE(182)
-		::haxor::context::Process rp = ::haxor::context::EngineContext_obj::resize;		HX_STACK_VAR(rp,"rp");
-		HX_STACK_LINE(183)
+		HX_STACK_FRAME("haxor.core.Engine","RenderFinish",0x95a09f92,"haxor.core.Engine.RenderFinish","haxor/core/Engine.hx",203,0xa988a499)
+		HX_STACK_LINE(204)
+		Array< ::Dynamic > cl = ::haxor::context::EngineContext_obj::camera->list;		HX_STACK_VAR(cl,"cl");
+		HX_STACK_LINE(205)
 		{
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(205)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(183)
-			int _g = rp->m_length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(183)
+			HX_STACK_LINE(205)
+			int _g = cl->length;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(205)
 			while((true)){
-				HX_STACK_LINE(183)
+				HX_STACK_LINE(205)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(183)
+					HX_STACK_LINE(205)
 					break;
 				}
-				HX_STACK_LINE(183)
+				HX_STACK_LINE(205)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(185)
+				HX_STACK_LINE(207)
+				cl->__get(i).StaticCast< ::haxor::component::Camera >()->m_view_uniform_dirty = false;
+				HX_STACK_LINE(208)
+				cl->__get(i).StaticCast< ::haxor::component::Camera >()->m_proj_uniform_dirty = false;
+			}
+		}
+		HX_STACK_LINE(211)
+		::haxor::context::EngineContext_obj::renderer->sap_dirty = false;
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,RenderFinish,(void))
+
+Void Engine_obj::Resize( ){
+{
+		HX_STACK_FRAME("haxor.core.Engine","Resize",0xa51ba87d,"haxor.core.Engine.Resize","haxor/core/Engine.hx",218,0xa988a499)
+		HX_STACK_LINE(219)
+		::haxor::context::EngineContext_obj::camera->Resize();
+		HX_STACK_LINE(220)
+		if (((::haxor::core::Engine_obj::state == ::haxor::core::EngineState_obj::Editor))){
+			HX_STACK_LINE(220)
+			return null();
+		}
+		HX_STACK_LINE(221)
+		::haxor::context::Process rp = ::haxor::context::EngineContext_obj::resize;		HX_STACK_VAR(rp,"rp");
+		HX_STACK_LINE(222)
+		{
+			HX_STACK_LINE(222)
+			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(222)
+			int _g = rp->m_length;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(222)
+			while((true)){
+				HX_STACK_LINE(222)
+				if ((!(((_g1 < _g))))){
+					HX_STACK_LINE(222)
+					break;
+				}
+				HX_STACK_LINE(222)
+				int i = (_g1)++;		HX_STACK_VAR(i,"i");
+				HX_STACK_LINE(224)
 				::haxor::core::Resource r = rp->list->__GetItem(i);		HX_STACK_VAR(r,"r");
-				HX_STACK_LINE(186)
+				HX_STACK_LINE(225)
 				if ((r->m_destroyed)){
-					HX_STACK_LINE(186)
+					HX_STACK_LINE(225)
 					continue;
 				}
-				HX_STACK_LINE(187)
+				HX_STACK_LINE(226)
 				rp->list->__GetItem(i)->__Field(HX_CSTRING("OnResize"),true)(::haxor::graphics::Screen_obj::m_width,::haxor::graphics::Screen_obj::m_height);
 			}
 		}
@@ -469,6 +508,10 @@ Dynamic Engine_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 12:
 		if (HX_FIELD_EQ(inName,"RenderCamera") ) { return RenderCamera_dyn(); }
+		if (HX_FIELD_EQ(inName,"RenderFinish") ) { return RenderFinish_dyn(); }
+		break;
+	case 13:
+		if (HX_FIELD_EQ(inName,"RenderCameras") ) { return RenderCameras_dyn(); }
 		break;
 	case 14:
 		if (HX_FIELD_EQ(inName,"RenderRenderer") ) { return RenderRenderer_dyn(); }
@@ -502,10 +545,12 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("Collect"),
 	HX_CSTRING("Update"),
 	HX_CSTRING("Render"),
+	HX_CSTRING("RenderCameras"),
 	HX_CSTRING("RenderCamera"),
 	HX_CSTRING("RenderCameraLayer"),
 	HX_CSTRING("RenderRenderer"),
 	HX_CSTRING("RenderIRenderers"),
+	HX_CSTRING("RenderFinish"),
 	HX_CSTRING("Resize"),
 	String(null()) };
 

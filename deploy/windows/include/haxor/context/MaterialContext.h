@@ -108,17 +108,17 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 		virtual Void UpdateMaterialUniforms( ::haxor::component::Transform t,::haxor::component::Camera c,bool p_changed);
 		Dynamic UpdateMaterialUniforms_dyn();
 
+		virtual Void UploadUniforms( bool ut,bool ucv,bool ucp,::haxor::component::Transform t,::haxor::component::Camera c);
+		Dynamic UploadUniforms_dyn();
+
 		virtual Void UploadUniform( ::haxor::graphics::material::Material m,::haxor::graphics::material::MaterialUniform u);
 		Dynamic UploadUniform_dyn();
 
+		virtual Void ApplyUniform( int loc,::haxor::graphics::material::MaterialUniform u);
+		Dynamic ApplyUniform_dyn();
+
 		virtual Void UploadGlobalUniform( ::haxor::graphics::material::MaterialUniform u,bool ut,bool ucv,bool ucp,::haxor::component::Transform t,::haxor::component::Camera c);
 		Dynamic UploadGlobalUniform_dyn();
-
-		virtual Void ApplyFloatUniform( int p_location,::haxor::graphics::material::MaterialUniform p_uniform);
-		Dynamic ApplyFloatUniform_dyn();
-
-		virtual Void ApplyIntUniform( int p_location,::haxor::graphics::material::MaterialUniform p_uniform);
-		Dynamic ApplyIntUniform_dyn();
 
 		virtual Void Unbind( );
 		Dynamic Unbind_dyn();

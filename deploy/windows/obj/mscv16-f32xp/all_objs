@@ -24,6 +24,8 @@ obj/mscv16-f32xp/9c952602_Quaternion.obj
 obj/mscv16-f32xp/9c952602_Matrix4.obj
 obj/mscv16-f32xp/9c952602_Mathf.obj
 obj/mscv16-f32xp/9c952602_AABB3.obj
+obj/mscv16-f32xp/6132b534_MaterialFileUniform.obj
+obj/mscv16-f32xp/6132b534_MaterialFile.obj
 obj/mscv16-f32xp/6132b534_ColladaLight.obj
 obj/mscv16-f32xp/6132b534_ColladaAnimationKeyFrame.obj
 obj/mscv16-f32xp/6132b534_ColladaAnimationChannel.obj
@@ -80,7 +82,11 @@ obj/mscv16-f32xp/8eb41c87_GraphicContext.obj
 obj/mscv16-f32xp/8eb41c87_GraphicAPI.obj
 obj/mscv16-f32xp/8eb41c87_Gizmo.obj
 obj/mscv16-f32xp/8eb41c87_GL.obj
+obj/mscv16-f32xp/d26a981f_SAPInterval.obj
+obj/mscv16-f32xp/d26a981f_SAPList.obj
+obj/mscv16-f32xp/d26a981f_SAP.obj
 obj/mscv16-f32xp/b5edac88_Time.obj
+obj/mscv16-f32xp/b5edac88_Stats.obj
 obj/mscv16-f32xp/b5edac88_Scene.obj
 obj/mscv16-f32xp/b5edac88_IResizeable.obj
 obj/mscv16-f32xp/b5edac88_InputState.obj
@@ -122,6 +128,7 @@ obj/mscv16-f32xp/6ff8968a_Renderer.obj
 obj/mscv16-f32xp/6ff8968a_Light.obj
 obj/mscv16-f32xp/9c952602_Color.obj
 obj/mscv16-f32xp/6ff8968a_DataComponent.obj
+obj/mscv16-f32xp/6ff8968a_CameraOrbitInput.obj
 obj/mscv16-f32xp/6ff8968a_CameraOrbit.obj
 obj/mscv16-f32xp/6ff8968a_Camera.obj
 obj/mscv16-f32xp/d087ac51_Input.obj

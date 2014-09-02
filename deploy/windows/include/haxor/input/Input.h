@@ -62,6 +62,7 @@ class HXCPP_CLASS_ATTRIBUTES  Input_obj : public hx::Object{
 		static Float wheel;
 		static bool scroll;
 		static bool menu;
+		static bool emulateTouch;
 		static ::haxor::core::InputState GetInputState( int p_code);
 		static Dynamic GetInputState_dyn();
 

@@ -18,7 +18,7 @@ public  class Engine extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me151355)
+	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me160461)
 	{
 		{
 		}
@@ -107,6 +107,14 @@ public  class Engine extends haxe.lang.HxObject
 	
 	public static   void Render()
 	{
+		haxor.core.Engine.RenderCameras();
+		haxor.core.Engine.RenderIRenderers();
+		haxor.core.Engine.RenderFinish();
+	}
+	
+	
+	public static   void RenderCameras()
+	{
 		haxe.root.Array<haxor.component.Camera> cl = haxor.context.EngineContext.camera.list;
 		{
 			int _g1 = 0;
@@ -116,20 +124,6 @@ public  class Engine extends haxe.lang.HxObject
 				int i = _g1++;
 				haxor.component.Camera c = haxor.component.Camera.m_current = cl.__get(i);
 				haxor.core.Engine.RenderCamera(c);
-			}
-			
-		}
-		
-		haxor.component.Camera.m_current = null;
-		haxor.core.Engine.RenderIRenderers();
-		{
-			int _g11 = 0;
-			int _g2 = cl.length;
-			while (( _g11 < _g2 ))
-			{
-				int i1 = _g11++;
-				cl.__get(i1).m_view_uniform_dirty = false;
-				cl.__get(i1).m_proj_uniform_dirty = false;
 			}
 			
 		}
@@ -199,6 +193,7 @@ public  class Engine extends haxe.lang.HxObject
 	
 	public static   void RenderIRenderers()
 	{
+		haxor.component.Camera.m_current = null;
 		haxor.context.Process<haxor.core.IRenderable> rp = haxor.context.EngineContext.render;
 		{
 			int _g1 = 0;
@@ -213,6 +208,24 @@ public  class Engine extends haxe.lang.HxObject
 				}
 				
 				rp.list.__get(i).OnRender();
+			}
+			
+		}
+		
+	}
+	
+	
+	public static   void RenderFinish()
+	{
+		haxe.root.Array<haxor.component.Camera> cl = haxor.context.EngineContext.camera.list;
+		{
+			int _g1 = 0;
+			int _g = cl.length;
+			while (( _g1 < _g ))
+			{
+				int i = _g1++;
+				cl.__get(i).m_view_uniform_dirty = false;
+				cl.__get(i).m_proj_uniform_dirty = false;
 			}
 			
 		}

@@ -18,10 +18,10 @@ public  class IntIterator extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__IntIterator(haxe.root.IntIterator __temp_me151266, int min, int max)
+	public static   void __hx_ctor__IntIterator(haxe.root.IntIterator __temp_me160370, int min, int max)
 	{
-		__temp_me151266.min = min;
-		__temp_me151266.max = max;
+		__temp_me160370.min = min;
+		__temp_me160370.max = max;
 	}
 	
 	
@@ -56,14 +56,14 @@ public  class IntIterator extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151642 = true;
+			boolean __temp_executeDef160755 = true;
 			switch (field.hashCode())
 			{
 				case 107876:
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef151642 = false;
+						__temp_executeDef160755 = false;
 						this.max = ((int) (value) );
 						return value;
 					}
@@ -76,7 +76,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef151642 = false;
+						__temp_executeDef160755 = false;
 						this.min = ((int) (value) );
 						return value;
 					}
@@ -87,7 +87,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151642) 
+			if (__temp_executeDef160755) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -104,14 +104,14 @@ public  class IntIterator extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151643 = true;
+			boolean __temp_executeDef160756 = true;
 			switch (field.hashCode())
 			{
 				case 107876:
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef151643 = false;
+						__temp_executeDef160756 = false;
 						this.max = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -124,7 +124,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef151643 = false;
+						__temp_executeDef160756 = false;
 						this.min = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -135,7 +135,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151643) 
+			if (__temp_executeDef160756) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -152,14 +152,14 @@ public  class IntIterator extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151644 = true;
+			boolean __temp_executeDef160757 = true;
 			switch (field.hashCode())
 			{
 				case 3377907:
 				{
 					if (field.equals("next")) 
 					{
-						__temp_executeDef151644 = false;
+						__temp_executeDef160757 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("next"))) );
 					}
 					
@@ -171,7 +171,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef151644 = false;
+						__temp_executeDef160757 = false;
 						return this.min;
 					}
 					
@@ -183,7 +183,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				{
 					if (field.equals("hasNext")) 
 					{
-						__temp_executeDef151644 = false;
+						__temp_executeDef160757 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("hasNext"))) );
 					}
 					
@@ -195,7 +195,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef151644 = false;
+						__temp_executeDef160757 = false;
 						return this.max;
 					}
 					
@@ -205,7 +205,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151644) 
+			if (__temp_executeDef160757) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -222,14 +222,14 @@ public  class IntIterator extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151645 = true;
+			boolean __temp_executeDef160758 = true;
 			switch (field.hashCode())
 			{
 				case 107876:
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef151645 = false;
+						__temp_executeDef160758 = false;
 						return ((double) (this.max) );
 					}
 					
@@ -241,7 +241,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef151645 = false;
+						__temp_executeDef160758 = false;
 						return ((double) (this.min) );
 					}
 					
@@ -251,7 +251,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151645) 
+			if (__temp_executeDef160758) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -268,14 +268,14 @@ public  class IntIterator extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef151646 = true;
+			boolean __temp_executeDef160759 = true;
 			switch (field.hashCode())
 			{
 				case 3377907:
 				{
 					if (field.equals("next")) 
 					{
-						__temp_executeDef151646 = false;
+						__temp_executeDef160759 = false;
 						return this.next();
 					}
 					
@@ -287,7 +287,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				{
 					if (field.equals("hasNext")) 
 					{
-						__temp_executeDef151646 = false;
+						__temp_executeDef160759 = false;
 						return this.hasNext();
 					}
 					
@@ -297,7 +297,7 @@ public  class IntIterator extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151646) 
+			if (__temp_executeDef160759) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

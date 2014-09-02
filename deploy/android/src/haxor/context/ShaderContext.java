@@ -24,7 +24,7 @@ public  class ShaderContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_ShaderContext(haxor.context.ShaderContext __temp_me151349)
+	public static   void __hx_ctor_haxor_context_ShaderContext(haxor.context.ShaderContext __temp_me160455)
 	{
 		{
 		}

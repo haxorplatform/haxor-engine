@@ -44,7 +44,16 @@ class HXCPP_CLASS_ATTRIBUTES  Process_obj : public ::haxor::context::BaseProcess
 
 		virtual ::haxor::core::Resource Remove( ::haxor::core::Resource p_item);
 
+		virtual Void Swap( Dynamic p_a,Dynamic p_b,hx::Null< bool >  p_index_only);
+		Dynamic Swap_dyn();
+
 		virtual Void Clear( );
+
+		virtual Void Sort( Dynamic p_method);
+		Dynamic Sort_dyn();
+
+		virtual ::String ToString( );
+		Dynamic ToString_dyn();
 
 };
 

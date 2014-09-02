@@ -1,8 +1,11 @@
 package haxor.component;
 import haxor.core.Console;
 import haxor.core.Entity;
+import haxor.core.Enums.InputState;
 import haxor.core.IUpdateable;
 import haxor.core.Time;
+import haxor.input.Input;
+import haxor.input.KeyCode;
 import haxor.math.Color;
 import haxor.math.Mathf;
 import haxor.math.Quaternion;
@@ -92,25 +95,27 @@ class CameraOrbit extends Behaviour implements IUpdateable
         q.Multiply(Quaternion.temp.SetAxisAngle(Vector3.right, -m_angle.y));
         pivot.localRotation = q;
 		
-		//pivot.euler.ToString();
+		var p : Vector3 = Vector3.temp;
+		p.Set(0, 0, m_distance);
+		entity.transform.localPosition = p;
 		
 		if (target != null)
 		{
-			var p : Vector3 = pivot.position;
-			p = Vector3.Lerp(p, target.position, Time.delta * smooth);
-			pivot.position = p;
+			var p : Vector3 = pivot.localPosition;
+			p = Vector3.Lerp(p, target.localPosition, Time.delta * smooth);
+			pivot.localPosition = p;
 		}
 	}
 	
 }
 
-/*
+
 class CameraOrbitInput extends Behaviour implements IUpdateable
 {
 	public var rotate 		: Bool = true;	
 	public var zoom 		: Bool = true;		
-	public var zoomSpeed 	: Float = 2.0;	
-	public var rotateSpeed 	: Float = 0.8;
+	public var zoomSpeed 	: Float = 10.0;	
+	public var rotateSpeed 	: Float = 15.0;
 	
 	private var m_orbit : CameraOrbit;
 	
@@ -121,18 +126,19 @@ class CameraOrbitInput extends Behaviour implements IUpdateable
 	
 	public function OnUpdate():Void
 	{
-		var dx : Float = (Input.touch.length == 1) ? Input.touch[0].delta.x : Input.deltaMouse.x;
-		var dy : Float = (Input.touch.length == 1) ? Input.touch[0].delta.y : Input.deltaMouse.y;
-		
+		var dx : Float = (Input.touches.length == 1) ? Input.touches[0].delta.x : Input.deltaMouse.x;
+		var dy : Float = (Input.touches.length == 1) ? Input.touches[0].delta.y : Input.deltaMouse.y;
 		
 		
 		if (rotate)
 		{
-			var is_rotate : Bool = (Input.GetInputState(KeyCode.Mouse0) == InputState.Hold) || (Input.touch.length == 1);
+			
+			var is_rotate : Bool = Input.Pressed(KeyCode.Mouse0) || (Input.touches.length == 1);
+			
 			if (is_rotate)
 			{
-				m_orbit.angle.x += -dx * rotateSpeed;
-				m_orbit.angle.y += -dy * rotateSpeed;
+				m_orbit.angle.x += -dx * rotateSpeed * Time.delta;
+				m_orbit.angle.y +=  dy * rotateSpeed * Time.delta;
 			}
 		}
 		
@@ -140,22 +146,15 @@ class CameraOrbitInput extends Behaviour implements IUpdateable
 		{
 			if (Math.abs(Input.wheel) > 0)
 			{
-				m_orbit.distance += Input.wheel < 0 ? zoomSpeed : -zoomSpeed;
+				m_orbit.distance += (Input.wheel < 0 ? zoomSpeed : -zoomSpeed)*Time.delta;
 			}
 			
-			if (Input.touch.length == 2)
+			if (Input.touches.length == 2)
 			{
-				m_orbit.distance -= Input.touch[0].delta.y * zoomSpeed * 0.05;
+				m_orbit.distance -= (Input.touches[0].delta.y * zoomSpeed * 0.05)*Time.delta;
 			}
 		}
 		
-		
-		|| (Input.touch.length == 1)
-		if (Input.touch.length == 1)
-		{
-			dx = Input.touch[0].delta.x;
-			dy = Input.touch[0].delta.y;
-		}
 		
 	}
 

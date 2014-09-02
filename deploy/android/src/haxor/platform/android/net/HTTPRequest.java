@@ -17,9 +17,9 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_net_HTTPRequest(haxor.platform.android.net.HTTPRequest __temp_me151583, java.lang.String p_url, java.lang.String p_method, boolean p_binary, java.lang.String p_data)
+	public static   void __hx_ctor_haxor_platform_android_net_HTTPRequest(haxor.platform.android.net.HTTPRequest __temp_me160695, java.lang.String p_url, java.lang.String p_method, boolean p_binary, java.lang.String p_data)
 	{
-		haxor.net.HTTPRequestTask.__hx_ctor_haxor_net_HTTPRequestTask(__temp_me151583, p_url, p_method, p_binary, ( (( p_data == null )) ? (haxe.lang.Runtime.toString(null)) : (p_data) ));
+		haxor.net.HTTPRequestTask.__hx_ctor_haxor_net_HTTPRequestTask(__temp_me160695, p_url, p_method, p_binary, ( (( p_data == null )) ? (haxe.lang.Runtime.toString(null)) : (p_data) ));
 	}
 	
 	
@@ -135,14 +135,14 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152471 = true;
+			boolean __temp_executeDef161603 = true;
 			switch (field.hashCode())
 			{
 				case -1490720878:
 				{
 					if (field.equals("m_stream")) 
 					{
-						__temp_executeDef152471 = false;
+						__temp_executeDef161603 = false;
 						this.m_stream = ((java.io.InputStream) (value) );
 						return value;
 					}
@@ -155,7 +155,7 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef152471 = false;
+						__temp_executeDef161603 = false;
 						this.m_buffer = ((byte[]) (value) );
 						return value;
 					}
@@ -166,7 +166,7 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 				
 			}
 			
-			if (__temp_executeDef152471) 
+			if (__temp_executeDef161603) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -183,14 +183,14 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152472 = true;
+			boolean __temp_executeDef161604 = true;
 			switch (field.hashCode())
 			{
 				case -130994088:
 				{
 					if (field.equals("OnComplete")) 
 					{
-						__temp_executeDef152472 = false;
+						__temp_executeDef161604 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnComplete"))) );
 					}
 					
@@ -202,7 +202,7 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef152472 = false;
+						__temp_executeDef161604 = false;
 						return this.m_buffer;
 					}
 					
@@ -214,7 +214,7 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 				{
 					if (field.equals("OnStep")) 
 					{
-						__temp_executeDef152472 = false;
+						__temp_executeDef161604 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStep"))) );
 					}
 					
@@ -226,7 +226,7 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 				{
 					if (field.equals("m_stream")) 
 					{
-						__temp_executeDef152472 = false;
+						__temp_executeDef161604 = false;
 						return this.m_stream;
 					}
 					
@@ -238,7 +238,7 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef152472 = false;
+						__temp_executeDef161604 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStart"))) );
 					}
 					
@@ -248,7 +248,7 @@ public  class HTTPRequest extends haxor.net.HTTPRequestTask<java.net.HttpURLConn
 				
 			}
 			
-			if (__temp_executeDef152472) 
+			if (__temp_executeDef161604) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

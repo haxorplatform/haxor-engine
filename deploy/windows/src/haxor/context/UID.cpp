@@ -8,12 +8,12 @@ namespace context{
 
 Void UID_obj::__construct()
 {
-HX_STACK_FRAME("haxor.context.UID","new",0x5223f4b7,"haxor.context.UID.new","haxor/context/UID.hx",20,0xa116651b)
+HX_STACK_FRAME("haxor.context.UID","new",0x5223f4b7,"haxor.context.UID.new","haxor/context/UID.hx",26,0xa116651b)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(21)
+	HX_STACK_LINE(27)
 	this->m_id = (int)0;
-	HX_STACK_LINE(22)
+	HX_STACK_LINE(28)
 	this->m_cache = Array_obj< int >::__new();
 }
 ;
@@ -65,6 +65,16 @@ int UID_obj::set_id( int v){
 
 HX_DEFINE_DYNAMIC_FUNC1(UID_obj,set_id,return )
 
+int UID_obj::get_next( ){
+	HX_STACK_FRAME("haxor.context.UID","get_next",0x86f700c5,"haxor.context.UID.get_next","haxor/context/UID.hx",23,0xa116651b)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(23)
+	return this->m_id;
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(UID_obj,get_next,return )
+
 
 UID_obj::UID_obj()
 {
@@ -92,6 +102,7 @@ Dynamic UID_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 4:
 		if (HX_FIELD_EQ(inName,"m_id") ) { return m_id; }
+		if (HX_FIELD_EQ(inName,"next") ) { return get_next(); }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"get_id") ) { return get_id_dyn(); }
@@ -99,6 +110,9 @@ Dynamic UID_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"m_cache") ) { return m_cache; }
+		break;
+	case 8:
+		if (HX_FIELD_EQ(inName,"get_next") ) { return get_next_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -123,6 +137,7 @@ void UID_obj::__GetFields(Array< ::String> &outFields)
 	outFields->push(HX_CSTRING("id"));
 	outFields->push(HX_CSTRING("m_id"));
 	outFields->push(HX_CSTRING("m_cache"));
+	outFields->push(HX_CSTRING("next"));
 	super::__GetFields(outFields);
 };
 
@@ -142,6 +157,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("set_id"),
 	HX_CSTRING("m_id"),
 	HX_CSTRING("m_cache"),
+	HX_CSTRING("get_next"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

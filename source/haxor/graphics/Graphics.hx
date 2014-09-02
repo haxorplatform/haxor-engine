@@ -39,7 +39,6 @@ class Graphics
 			GL.Viewport(cast vp.x, cast vp.y, cast vp.width, cast vp.height);
 			GL.Scissor(cast vp.x, cast vp.y, cast vp.width, cast vp.height);
 		}	
-		
 	}
 	
 	/**

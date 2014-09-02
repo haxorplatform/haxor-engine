@@ -93,8 +93,8 @@ class HXCPP_CLASS_ATTRIBUTES  Quaternion_obj : public hx::Object{
 		virtual ::haxor::math::Quaternion Multiply( ::haxor::math::Quaternion p_v,hx::Null< bool >  p_normalize);
 		Dynamic Multiply_dyn();
 
-		virtual ::haxor::math::Vector3 Rotate( ::haxor::math::Vector3 p_v);
-		Dynamic Rotate_dyn();
+		virtual ::haxor::math::Vector3 Transform( ::haxor::math::Vector3 p_v);
+		Dynamic Transform_dyn();
 
 		virtual ::haxor::math::Quaternion Delta( ::haxor::math::Quaternion p_q);
 		Dynamic Delta_dyn();
@@ -122,8 +122,8 @@ class HXCPP_CLASS_ATTRIBUTES  Quaternion_obj : public hx::Object{
 		static ::haxor::math::Vector3 ToEuler( ::haxor::math::Quaternion p_quaternion,::haxor::math::Vector3 p_result);
 		static Dynamic ToEuler_dyn();
 
-		static ::haxor::math::Quaternion FromMatrix( ::haxor::math::Matrix4 p_matrix,::haxor::math::Quaternion p_result);
-		static Dynamic FromMatrix_dyn();
+		static ::haxor::math::Quaternion FromMatrix4( ::haxor::math::Matrix4 p_matrix,::haxor::math::Quaternion p_result);
+		static Dynamic FromMatrix4_dyn();
 
 		static Float Dot( ::haxor::math::Quaternion p_a,::haxor::math::Quaternion p_b);
 		static Dynamic Dot_dyn();

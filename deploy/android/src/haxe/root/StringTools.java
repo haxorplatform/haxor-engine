@@ -18,7 +18,7 @@ public  class StringTools extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__StringTools(haxe.root.StringTools __temp_me151276)
+	public static   void __hx_ctor__StringTools(haxe.root.StringTools __temp_me160380)
 	{
 		{
 		}
@@ -32,16 +32,16 @@ public  class StringTools extends haxe.lang.HxObject
 		{
 			return java.net.URLEncoder.encode(s, "UTF-8");
 		}
-		catch (java.lang.Throwable __temp_catchallException151680)
+		catch (java.lang.Throwable __temp_catchallException160792)
 		{
-			java.lang.Object __temp_catchall151681 = __temp_catchallException151680;
-			if (( __temp_catchall151681 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall160793 = __temp_catchallException160792;
+			if (( __temp_catchall160793 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall151681 = ((haxe.lang.HaxeException) (__temp_catchallException151680) ).obj;
+				__temp_catchall160793 = ((haxe.lang.HaxeException) (__temp_catchallException160792) ).obj;
 			}
 			
 			{
-				java.lang.Object e = __temp_catchall151681;
+				java.lang.Object e = __temp_catchall160793;
 				throw haxe.lang.HaxeException.wrap(e);
 			}
 			
@@ -57,16 +57,16 @@ public  class StringTools extends haxe.lang.HxObject
 		{
 			return java.net.URLDecoder.decode(s, "UTF-8");
 		}
-		catch (java.lang.Throwable __temp_catchallException151682)
+		catch (java.lang.Throwable __temp_catchallException160794)
 		{
-			java.lang.Object __temp_catchall151683 = __temp_catchallException151682;
-			if (( __temp_catchall151683 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall160795 = __temp_catchallException160794;
+			if (( __temp_catchall160795 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall151683 = ((haxe.lang.HaxeException) (__temp_catchallException151682) ).obj;
+				__temp_catchall160795 = ((haxe.lang.HaxeException) (__temp_catchallException160794) ).obj;
 			}
 			
 			{
-				java.lang.Object e = __temp_catchall151683;
+				java.lang.Object e = __temp_catchall160795;
 				throw haxe.lang.HaxeException.wrap(e);
 			}
 			

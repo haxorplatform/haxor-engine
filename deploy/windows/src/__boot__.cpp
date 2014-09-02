@@ -26,6 +26,8 @@
 #include <haxor/math/Matrix4.h>
 #include <haxor/math/Mathf.h>
 #include <haxor/math/AABB3.h>
+#include <haxor/io/file/MaterialFileUniform.h>
+#include <haxor/io/file/MaterialFile.h>
 #include <haxor/io/file/ColladaLight.h>
 #include <haxor/io/file/ColladaAnimationKeyFrame.h>
 #include <haxor/io/file/ColladaAnimationChannel.h>
@@ -82,7 +84,11 @@
 #include <haxor/graphics/GraphicAPI.h>
 #include <haxor/graphics/Gizmo.h>
 #include <haxor/graphics/GL.h>
+#include <haxor/ds/SAPInterval.h>
+#include <haxor/ds/SAPList.h>
+#include <haxor/ds/SAP.h>
 #include <haxor/core/Time.h>
+#include <haxor/core/Stats.h>
 #include <haxor/core/Scene.h>
 #include <haxor/core/IResizeable.h>
 #include <haxor/core/InputState.h>
@@ -124,6 +130,7 @@
 #include <haxor/component/Light.h>
 #include <haxor/math/Color.h>
 #include <haxor/component/DataComponent.h>
+#include <haxor/component/CameraOrbitInput.h>
 #include <haxor/component/CameraOrbit.h>
 #include <haxor/component/Camera.h>
 #include <haxe/io/Input.h>
@@ -199,6 +206,8 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::math::Matrix4_obj::__register();
 ::haxor::math::Mathf_obj::__register();
 ::haxor::math::AABB3_obj::__register();
+::haxor::io::file::MaterialFileUniform_obj::__register();
+::haxor::io::file::MaterialFile_obj::__register();
 ::haxor::io::file::ColladaLight_obj::__register();
 ::haxor::io::file::ColladaAnimationKeyFrame_obj::__register();
 ::haxor::io::file::ColladaAnimationChannel_obj::__register();
@@ -255,7 +264,11 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::GraphicAPI_obj::__register();
 ::haxor::graphics::Gizmo_obj::__register();
 ::haxor::graphics::GL_obj::__register();
+::haxor::ds::SAPInterval_obj::__register();
+::haxor::ds::SAPList_obj::__register();
+::haxor::ds::SAP_obj::__register();
 ::haxor::core::Time_obj::__register();
+::haxor::core::Stats_obj::__register();
 ::haxor::core::Scene_obj::__register();
 ::haxor::core::IResizeable_obj::__register();
 ::haxor::core::InputState_obj::__register();
@@ -297,6 +310,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::component::Light_obj::__register();
 ::haxor::math::Color_obj::__register();
 ::haxor::component::DataComponent_obj::__register();
+::haxor::component::CameraOrbitInput_obj::__register();
 ::haxor::component::CameraOrbit_obj::__register();
 ::haxor::component::Camera_obj::__register();
 ::haxe::io::Input_obj::__register();
@@ -383,6 +397,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxe::io::Input_obj::__boot();
 ::haxor::component::Camera_obj::__boot();
 ::haxor::component::CameraOrbit_obj::__boot();
+::haxor::component::CameraOrbitInput_obj::__boot();
 ::haxor::component::DataComponent_obj::__boot();
 ::haxor::math::Color_obj::__boot();
 ::haxor::component::Light_obj::__boot();
@@ -424,7 +439,11 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::InputState_obj::__boot();
 ::haxor::core::IResizeable_obj::__boot();
 ::haxor::core::Scene_obj::__boot();
+::haxor::core::Stats_obj::__boot();
 ::haxor::core::Time_obj::__boot();
+::haxor::ds::SAP_obj::__boot();
+::haxor::ds::SAPList_obj::__boot();
+::haxor::ds::SAPInterval_obj::__boot();
 ::haxor::graphics::GL_obj::__boot();
 ::haxor::graphics::Gizmo_obj::__boot();
 ::haxor::graphics::GraphicAPI_obj::__boot();
@@ -481,6 +500,8 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::io::file::ColladaAnimationChannel_obj::__boot();
 ::haxor::io::file::ColladaAnimationKeyFrame_obj::__boot();
 ::haxor::io::file::ColladaLight_obj::__boot();
+::haxor::io::file::MaterialFile_obj::__boot();
+::haxor::io::file::MaterialFileUniform_obj::__boot();
 ::haxor::math::AABB3_obj::__boot();
 ::haxor::math::Mathf_obj::__boot();
 ::haxor::math::Matrix4_obj::__boot();

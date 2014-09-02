@@ -1,4 +1,5 @@
 package haxor.math;
+
 import haxor.context.EngineContext;
 
 /**
@@ -13,9 +14,34 @@ class AABB3
 	static public var temp(get_temp, null):AABB3; 
 	static private inline function get_temp():AABB3 { return EngineContext.data.aabb3; }
 	
-	static public function FromMinMax(p_xmin : Float, p_xmax : Float, p_ymin:Float, p_ymax : Float, p_zmin:Float, p_zmax : Float ) :AABB3
+	/**
+	 * Returns the center of the informed AABB3.
+	 * @param	p_b
+	 * @param	p_result
+	 * @return
+	 */
+	static public function Center(p_b : AABB3, p_result:Vector3 = null):Vector3
 	{
-		var b : AABB3 = new AABB3();
+		var v : Vector3 = p_result == null ? Vector3.zero : p_result;
+		return v.Set(
+		p_b.m_xMin + (p_b.m_xMax - p_b.m_xMin) * 0.5, 
+		p_b.m_yMin + (p_b.m_yMax - p_b.m_yMin) * 0.5, 
+		p_b.m_zMin + (p_b.m_zMax - p_b.m_zMin) * 0.5);		
+	}
+	
+	/**
+	 * Creates an AABB3 using min/max limits.
+	 * @param	p_xmin
+	 * @param	p_xmax
+	 * @param	p_ymin
+	 * @param	p_ymax
+	 * @param	p_zmin
+	 * @param	p_zmax
+	 * @return
+	 */
+	static public function FromMinMax(p_xmin : Float, p_xmax : Float, p_ymin:Float, p_ymax : Float, p_zmin:Float, p_zmax : Float,p_result:AABB3=null) :AABB3
+	{
+		var b : AABB3 = p_result == null ? (new AABB3()) : p_result;
 		b.xMin = p_xmin;
 		b.xMax = p_xmax;
 		b.yMin = p_ymin;
@@ -25,9 +51,19 @@ class AABB3
 		return b;
 	}
 	
-	static public function FromCenter(p_x : Float, p_y : Float, p_z:Float, p_width : Float, p_height:Float, p_depth : Float ) :AABB3
+	/**
+	 * Creates an AABB3 around the informed point.
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_z
+	 * @param	p_width
+	 * @param	p_height
+	 * @param	p_depth
+	 * @return
+	 */
+	static public function FromCenter(p_x : Float, p_y : Float, p_z:Float, p_width : Float, p_height:Float, p_depth : Float,p_result:AABB3=null) :AABB3
 	{
-		var b : AABB3 = new AABB3();
+		var b : AABB3 = p_result == null ? new AABB3() : p_result;
 		b.width  = p_width;
 		b.height = p_height;
 		b.depth  = p_depth;
@@ -87,7 +123,7 @@ class AABB3
 	private var m_zMax:Float;	
 	
 	public var center(get_center, set_center):Vector3;
-	private function get_center():Vector3 { return Vector3.zero.Set(xMin + (xMax - xMin) * 0.5, yMin + (yMax - yMin) * 0.5, zMin + (zMax - zMin) * 0.5); }
+	private function get_center():Vector3 { return Center(this); }
 	private function set_center(v:Vector3):Vector3 
 	{ 
 		var hw:Float = width * 0.5;

@@ -847,6 +847,8 @@ Void MaterialContext_obj::UseMaterial( ::haxor::graphics::material::Material m){
 		HX_STACK_ARG(m,"m")
 		HX_STACK_LINE(492)
 		if (((m != this->current))){
+			HX_STACK_LINE(494)
+			this->Unbind();
 			HX_STACK_LINE(495)
 			this->current = m;
 			HX_STACK_LINE(496)
@@ -872,79 +874,75 @@ HX_DEFINE_DYNAMIC_FUNC1(MaterialContext_obj,UseMaterial,(void))
 
 Void MaterialContext_obj::UpdateMaterialUniforms( ::haxor::component::Transform t,::haxor::component::Camera c,bool p_changed){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","UpdateMaterialUniforms",0x0f8aa1e0,"haxor.context.MaterialContext.UpdateMaterialUniforms","haxor/context/MaterialContext.hx",509,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","UpdateMaterialUniforms",0x0f8aa1e0,"haxor.context.MaterialContext.UpdateMaterialUniforms","haxor/context/MaterialContext.hx",516,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(t,"t")
 		HX_STACK_ARG(c,"c")
 		HX_STACK_ARG(p_changed,"p_changed")
-		HX_STACK_LINE(509)
+		HX_STACK_LINE(516)
 		if (((this->current != null()))){
-			HX_STACK_LINE(511)
-			if ((p_changed)){
-				HX_STACK_LINE(513)
-				if (((c != null()))){
-					HX_STACK_LINE(515)
+			HX_STACK_LINE(519)
+			{
+				HX_STACK_LINE(520)
+				if (((c == null()))){
+					HX_STACK_LINE(520)
+					this->viewmatrix[this->current->__cid] = false;
+				}
+				else{
+					HX_STACK_LINE(520)
 					this->viewmatrix[this->current->__cid] = c->m_view_uniform_dirty;
-					HX_STACK_LINE(516)
+				}
+				HX_STACK_LINE(521)
+				if (((c == null()))){
+					HX_STACK_LINE(521)
+					this->projmatrix[this->current->__cid] = false;
+				}
+				else{
+					HX_STACK_LINE(521)
 					this->projmatrix[this->current->__cid] = c->m_proj_uniform_dirty;
 				}
 			}
-			HX_STACK_LINE(521)
-			bool uc = (c != this->camera->__get(this->current->__cid).StaticCast< ::haxor::component::Camera >());		HX_STACK_VAR(uc,"uc");
-			HX_STACK_LINE(522)
-			bool ucv = (bool(this->viewmatrix->__get(this->current->__cid)) || bool(uc));		HX_STACK_VAR(ucv,"ucv");
-			HX_STACK_LINE(523)
-			bool ucp = (bool(this->projmatrix->__get(this->current->__cid)) || bool(uc));		HX_STACK_VAR(ucp,"ucp");
-			HX_STACK_LINE(524)
-			this->camera[this->current->__cid] = c;
-			HX_STACK_LINE(526)
-			this->viewmatrix[this->current->__cid] = false;
-			HX_STACK_LINE(527)
-			this->projmatrix[this->current->__cid] = false;
-			HX_STACK_LINE(530)
+			HX_STACK_LINE(525)
 			::haxor::component::Transform _g;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(530)
+			HX_STACK_LINE(525)
 			if (((t == null()))){
-				HX_STACK_LINE(530)
+				HX_STACK_LINE(525)
 				_g = ::haxor::component::Transform_obj::get_root();
 			}
 			else{
-				HX_STACK_LINE(530)
+				HX_STACK_LINE(525)
 				_g = t;
 			}
-			HX_STACK_LINE(530)
+			HX_STACK_LINE(525)
 			t = _g;
-			HX_STACK_LINE(531)
+			HX_STACK_LINE(526)
 			bool ut = (t != this->transform->__get(this->current->__cid).StaticCast< ::haxor::component::Transform >());		HX_STACK_VAR(ut,"ut");
-			HX_STACK_LINE(532)
-			this->transform[this->current->__cid] = t;
-			HX_STACK_LINE(533)
-			ut = (bool(ut) || bool(t->m_uniform_dirty));
-			HX_STACK_LINE(535)
-			Array< ::Dynamic > ul = this->current->m_uniforms;		HX_STACK_VAR(ul,"ul");
-			HX_STACK_LINE(537)
-			{
-				HX_STACK_LINE(537)
-				int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(537)
-				int _g2 = ul->length;		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(537)
-				while((true)){
-					HX_STACK_LINE(537)
-					if ((!(((_g1 < _g2))))){
-						HX_STACK_LINE(537)
-						break;
-					}
-					HX_STACK_LINE(537)
-					int i = (_g1)++;		HX_STACK_VAR(i,"i");
-					HX_STACK_LINE(539)
-					::haxor::graphics::material::MaterialUniform u = ul->__get(i).StaticCast< ::haxor::graphics::material::MaterialUniform >();		HX_STACK_VAR(u,"u");
-					HX_STACK_LINE(542)
-					this->UploadGlobalUniform(u,ut,ucv,ucp,t,c);
-					HX_STACK_LINE(545)
-					this->UploadUniform(this->current,u);
-				}
+			HX_STACK_LINE(527)
+			if (((this->transform->__get(this->current->__cid).StaticCast< ::haxor::component::Transform >() != null()))){
+				HX_STACK_LINE(527)
+				this->transform->__get(this->current->__cid).StaticCast< ::haxor::component::Transform >()->m_uniform_dirty = false;
 			}
+			HX_STACK_LINE(528)
+			this->transform[this->current->__cid] = t;
+			HX_STACK_LINE(529)
+			ut = (bool(ut) || bool(t->m_uniform_dirty));
+			HX_STACK_LINE(532)
+			bool uc = (bool((c != this->camera->__get(this->current->__cid).StaticCast< ::haxor::component::Camera >())) && bool((c != null())));		HX_STACK_VAR(uc,"uc");
+			HX_STACK_LINE(533)
+			bool ucv = (bool(this->viewmatrix->__get(this->current->__cid)) || bool(uc));		HX_STACK_VAR(ucv,"ucv");
+			HX_STACK_LINE(534)
+			bool ucp = (bool(this->projmatrix->__get(this->current->__cid)) || bool(uc));		HX_STACK_VAR(ucp,"ucp");
+			HX_STACK_LINE(535)
+			if (((c != null()))){
+				HX_STACK_LINE(535)
+				this->camera[this->current->__cid] = c;
+			}
+			HX_STACK_LINE(537)
+			this->UploadUniforms(ut,ucv,ucp,t,c);
+			HX_STACK_LINE(539)
+			this->viewmatrix[this->current->__cid] = false;
+			HX_STACK_LINE(540)
+			this->projmatrix[this->current->__cid] = false;
 		}
 	}
 return null();
@@ -953,154 +951,74 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC3(MaterialContext_obj,UpdateMaterialUniforms,(void))
 
+Void MaterialContext_obj::UploadUniforms( bool ut,bool ucv,bool ucp,::haxor::component::Transform t,::haxor::component::Camera c){
+{
+		HX_STACK_FRAME("haxor.context.MaterialContext","UploadUniforms",0x49bf1c11,"haxor.context.MaterialContext.UploadUniforms","haxor/context/MaterialContext.hx",549,0x0e17e323)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(ut,"ut")
+		HX_STACK_ARG(ucv,"ucv")
+		HX_STACK_ARG(ucp,"ucp")
+		HX_STACK_ARG(t,"t")
+		HX_STACK_ARG(c,"c")
+		HX_STACK_LINE(550)
+		Array< ::Dynamic > ul = this->current->m_uniforms;		HX_STACK_VAR(ul,"ul");
+		HX_STACK_LINE(552)
+		{
+			HX_STACK_LINE(552)
+			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(552)
+			int _g = ul->length;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(552)
+			while((true)){
+				HX_STACK_LINE(552)
+				if ((!(((_g1 < _g))))){
+					HX_STACK_LINE(552)
+					break;
+				}
+				HX_STACK_LINE(552)
+				int i = (_g1)++;		HX_STACK_VAR(i,"i");
+				HX_STACK_LINE(554)
+				::haxor::graphics::material::MaterialUniform u = ul->__get(i).StaticCast< ::haxor::graphics::material::MaterialUniform >();		HX_STACK_VAR(u,"u");
+				HX_STACK_LINE(557)
+				this->UploadGlobalUniform(u,ut,ucv,ucp,t,c);
+				HX_STACK_LINE(560)
+				this->UploadUniform(this->current,u);
+			}
+		}
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC5(MaterialContext_obj,UploadUniforms,(void))
+
 Void MaterialContext_obj::UploadUniform( ::haxor::graphics::material::Material m,::haxor::graphics::material::MaterialUniform u){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","UploadUniform",0xebaac222,"haxor.context.MaterialContext.UploadUniform","haxor/context/MaterialContext.hx",555,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","UploadUniform",0xebaac222,"haxor.context.MaterialContext.UploadUniform","haxor/context/MaterialContext.hx",569,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(m,"m")
 		HX_STACK_ARG(u,"u")
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(570)
 		int loc;		HX_STACK_VAR(loc,"loc");
-		HX_STACK_LINE(557)
-		bool is_texture = false;		HX_STACK_VAR(is_texture,"is_texture");
-		HX_STACK_LINE(558)
+		HX_STACK_LINE(571)
 		loc = this->uniforms->__get(m->__cid).StaticCast< Array< int > >()->__get(u->__cid);
-		HX_STACK_LINE(559)
+		HX_STACK_LINE(572)
 		if (((loc == ::haxor::graphics::GL_obj::INVALID))){
-			HX_STACK_LINE(559)
+			HX_STACK_LINE(572)
 			return null();
 		}
-		HX_STACK_LINE(560)
+		HX_STACK_LINE(573)
 		if (((u->texture != null()))){
-			HX_STACK_LINE(560)
+			HX_STACK_LINE(573)
 			::haxor::context::EngineContext_obj::texture->Activate(u->texture,u->texture->__slot);
-			HX_STACK_LINE(560)
-			is_texture = true;
 		}
-		HX_STACK_LINE(561)
-		if ((u->__d)){
-			HX_STACK_LINE(563)
-			if ((is_texture)){
-				HX_STACK_LINE(565)
-				::haxor::graphics::GL_obj::m_gl->Uniform1i(loc,u->texture->__slot);
-			}
-			else{
-				HX_STACK_LINE(568)
-				if ((u->isFloat)){
-					HX_STACK_LINE(570)
-					::haxor::io::FloatArray b = u->data;		HX_STACK_VAR(b,"b");
-					HX_STACK_LINE(570)
-					int off = u->offset;		HX_STACK_VAR(off,"off");
-					HX_STACK_LINE(570)
-					switch( (int)(off)){
-						case (int)1: {
-							HX_STACK_LINE(570)
-							Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-							HX_STACK_LINE(570)
-							::haxor::graphics::GL_obj::m_gl->Uniform1f(loc,p_x);
-						}
-						;break;
-						case (int)2: {
-							HX_STACK_LINE(570)
-							Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-							HX_STACK_LINE(570)
-							Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-							HX_STACK_LINE(570)
-							::haxor::graphics::GL_obj::m_gl->Uniform2f(loc,p_x,p_y);
-						}
-						;break;
-						case (int)3: {
-							HX_STACK_LINE(570)
-							Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-							HX_STACK_LINE(570)
-							Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-							HX_STACK_LINE(570)
-							Float p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
-							HX_STACK_LINE(570)
-							::haxor::graphics::GL_obj::m_gl->Uniform3f(loc,p_x,p_y,p_z);
-						}
-						;break;
-						case (int)4: {
-							HX_STACK_LINE(570)
-							Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-							HX_STACK_LINE(570)
-							Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-							HX_STACK_LINE(570)
-							Float p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
-							HX_STACK_LINE(570)
-							Float p_w = b->Get((int)3);		HX_STACK_VAR(p_w,"p_w");
-							HX_STACK_LINE(570)
-							::haxor::graphics::GL_obj::m_gl->Uniform4f(loc,p_x,p_y,p_z,p_w);
-						}
-						;break;
-						case (int)16: {
-							HX_STACK_LINE(570)
-							::haxor::graphics::GL_obj::m_gl->UniformMatrix4fv(loc,false,b);
-						}
-						;break;
-						default: {
-							HX_STACK_LINE(570)
-							::haxor::graphics::GL_obj::m_gl->Uniform1fv(loc,b);
-						}
-					}
-				}
-				else{
-					HX_STACK_LINE(574)
-					::haxor::io::Int32Array b = u->data;		HX_STACK_VAR(b,"b");
-					HX_STACK_LINE(574)
-					int off = u->offset;		HX_STACK_VAR(off,"off");
-					HX_STACK_LINE(574)
-					switch( (int)(off)){
-						case (int)1: {
-							HX_STACK_LINE(574)
-							int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-							HX_STACK_LINE(574)
-							::haxor::graphics::GL_obj::m_gl->Uniform1i(loc,p_x);
-						}
-						;break;
-						case (int)2: {
-							HX_STACK_LINE(574)
-							int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-							HX_STACK_LINE(574)
-							int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-							HX_STACK_LINE(574)
-							::haxor::graphics::GL_obj::m_gl->Uniform2i(loc,p_x,p_y);
-						}
-						;break;
-						case (int)3: {
-							HX_STACK_LINE(574)
-							int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-							HX_STACK_LINE(574)
-							int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-							HX_STACK_LINE(574)
-							int p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
-							HX_STACK_LINE(574)
-							::haxor::graphics::GL_obj::m_gl->Uniform3i(loc,p_x,p_y,p_z);
-						}
-						;break;
-						case (int)4: {
-							HX_STACK_LINE(574)
-							int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-							HX_STACK_LINE(574)
-							int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-							HX_STACK_LINE(574)
-							int p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
-							HX_STACK_LINE(574)
-							int p_w = b->Get((int)3);		HX_STACK_VAR(p_w,"p_w");
-							HX_STACK_LINE(574)
-							::haxor::graphics::GL_obj::m_gl->Uniform4i(loc,p_x,p_y,p_z,p_w);
-						}
-						;break;
-						default: {
-							HX_STACK_LINE(574)
-							::haxor::graphics::GL_obj::m_gl->Uniform1iv(loc,b);
-						}
-					}
-				}
-			}
+		HX_STACK_LINE(574)
+		if ((!(u->__d))){
+			HX_STACK_LINE(574)
+			return null();
 		}
-		HX_STACK_LINE(577)
-		u->__d = false;
+		HX_STACK_LINE(575)
+		this->ApplyUniform(loc,u);
 	}
 return null();
 }
@@ -1108,9 +1026,134 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC2(MaterialContext_obj,UploadUniform,(void))
 
+Void MaterialContext_obj::ApplyUniform( int loc,::haxor::graphics::material::MaterialUniform u){
+{
+		HX_STACK_FRAME("haxor.context.MaterialContext","ApplyUniform",0x3cdbcf57,"haxor.context.MaterialContext.ApplyUniform","haxor/context/MaterialContext.hx",584,0x0e17e323)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(loc,"loc")
+		HX_STACK_ARG(u,"u")
+		HX_STACK_LINE(585)
+		int off = u->offset;		HX_STACK_VAR(off,"off");
+		HX_STACK_LINE(587)
+		if ((u->isFloat)){
+			HX_STACK_LINE(589)
+			::haxor::io::FloatArray b = u->data;		HX_STACK_VAR(b,"b");
+			HX_STACK_LINE(590)
+			switch( (int)(off)){
+				case (int)1: {
+					HX_STACK_LINE(592)
+					Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
+					HX_STACK_LINE(592)
+					::haxor::graphics::GL_obj::m_gl->Uniform1f(loc,p_x);
+				}
+				;break;
+				case (int)2: {
+					HX_STACK_LINE(593)
+					Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
+					HX_STACK_LINE(593)
+					Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
+					HX_STACK_LINE(593)
+					::haxor::graphics::GL_obj::m_gl->Uniform2f(loc,p_x,p_y);
+				}
+				;break;
+				case (int)3: {
+					HX_STACK_LINE(594)
+					Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
+					HX_STACK_LINE(594)
+					Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
+					HX_STACK_LINE(594)
+					Float p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
+					HX_STACK_LINE(594)
+					::haxor::graphics::GL_obj::m_gl->Uniform3f(loc,p_x,p_y,p_z);
+				}
+				;break;
+				case (int)4: {
+					HX_STACK_LINE(595)
+					Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
+					HX_STACK_LINE(595)
+					Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
+					HX_STACK_LINE(595)
+					Float p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
+					HX_STACK_LINE(595)
+					Float p_w = b->Get((int)3);		HX_STACK_VAR(p_w,"p_w");
+					HX_STACK_LINE(595)
+					::haxor::graphics::GL_obj::m_gl->Uniform4f(loc,p_x,p_y,p_z,p_w);
+				}
+				;break;
+				case (int)16: {
+					HX_STACK_LINE(596)
+					::haxor::graphics::GL_obj::m_gl->UniformMatrix4fv(loc,false,b);
+				}
+				;break;
+				default: {
+					HX_STACK_LINE(597)
+					::haxor::graphics::GL_obj::m_gl->Uniform1fv(loc,b);
+				}
+			}
+		}
+		else{
+			HX_STACK_LINE(602)
+			::haxor::io::Int32Array b = u->data;		HX_STACK_VAR(b,"b");
+			HX_STACK_LINE(603)
+			switch( (int)(off)){
+				case (int)1: {
+					HX_STACK_LINE(605)
+					int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
+					HX_STACK_LINE(605)
+					::haxor::graphics::GL_obj::m_gl->Uniform1i(loc,p_x);
+				}
+				;break;
+				case (int)2: {
+					HX_STACK_LINE(606)
+					int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
+					HX_STACK_LINE(606)
+					int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
+					HX_STACK_LINE(606)
+					::haxor::graphics::GL_obj::m_gl->Uniform2i(loc,p_x,p_y);
+				}
+				;break;
+				case (int)3: {
+					HX_STACK_LINE(607)
+					int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
+					HX_STACK_LINE(607)
+					int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
+					HX_STACK_LINE(607)
+					int p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
+					HX_STACK_LINE(607)
+					::haxor::graphics::GL_obj::m_gl->Uniform3i(loc,p_x,p_y,p_z);
+				}
+				;break;
+				case (int)4: {
+					HX_STACK_LINE(608)
+					int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
+					HX_STACK_LINE(608)
+					int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
+					HX_STACK_LINE(608)
+					int p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
+					HX_STACK_LINE(608)
+					int p_w = b->Get((int)3);		HX_STACK_VAR(p_w,"p_w");
+					HX_STACK_LINE(608)
+					::haxor::graphics::GL_obj::m_gl->Uniform4i(loc,p_x,p_y,p_z,p_w);
+				}
+				;break;
+				default: {
+					HX_STACK_LINE(609)
+					::haxor::graphics::GL_obj::m_gl->Uniform1iv(loc,b);
+				}
+			}
+		}
+		HX_STACK_LINE(612)
+		u->__d = false;
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC2(MaterialContext_obj,ApplyUniform,(void))
+
 Void MaterialContext_obj::UploadGlobalUniform( ::haxor::graphics::material::MaterialUniform u,bool ut,bool ucv,bool ucp,::haxor::component::Transform t,::haxor::component::Camera c){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","UploadGlobalUniform",0x6eb8617f,"haxor.context.MaterialContext.UploadGlobalUniform","haxor/context/MaterialContext.hx",586,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","UploadGlobalUniform",0x6eb8617f,"haxor.context.MaterialContext.UploadGlobalUniform","haxor/context/MaterialContext.hx",621,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(u,"u")
 		HX_STACK_ARG(ut,"ut")
@@ -1118,100 +1161,100 @@ Void MaterialContext_obj::UploadGlobalUniform( ::haxor::graphics::material::Mate
 		HX_STACK_ARG(ucp,"ucp")
 		HX_STACK_ARG(t,"t")
 		HX_STACK_ARG(c,"c")
-		HX_STACK_LINE(586)
+		HX_STACK_LINE(621)
 		::String _g = u->name;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(586)
+		HX_STACK_LINE(621)
 		::String _switch_2 = (_g);
 		if (  ( _switch_2==HX_CSTRING("Ambient"))){
-			HX_STACK_LINE(588)
+			HX_STACK_LINE(623)
 			::haxor::math::Color p_color = ::haxor::component::Light_obj::ambient;		HX_STACK_VAR(p_color,"p_color");
-			HX_STACK_LINE(588)
+			HX_STACK_LINE(623)
 			u->SetFloat4(p_color->r,p_color->g,p_color->b,p_color->a);
 		}
 		else if (  ( _switch_2==HX_CSTRING("Time"))){
-			HX_STACK_LINE(589)
+			HX_STACK_LINE(624)
 			u->SetFloat(::haxor::core::Time_obj::m_elapsed);
 		}
 		else if (  ( _switch_2==HX_CSTRING("RandomSeed"))){
-			HX_STACK_LINE(590)
+			HX_STACK_LINE(625)
 			Float _g1 = ::Math_obj::random();		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(590)
+			HX_STACK_LINE(625)
 			u->SetFloat(_g1);
 		}
 		else if (  ( _switch_2==HX_CSTRING("WorldMatrix"))){
-			HX_STACK_LINE(594)
+			HX_STACK_LINE(629)
 			if ((ut)){
-				HX_STACK_LINE(594)
+				HX_STACK_LINE(629)
 				::haxor::math::Matrix4 _g1 = t->get_WorldMatrix();		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(594)
+				HX_STACK_LINE(629)
 				u->SetMatrix4(_g1);
 			}
 		}
 		else if (  ( _switch_2==HX_CSTRING("WorldMatrixInverse"))){
-			HX_STACK_LINE(595)
+			HX_STACK_LINE(630)
 			if ((ut)){
-				HX_STACK_LINE(595)
+				HX_STACK_LINE(630)
 				::haxor::math::Matrix4 _g2 = t->get_WorldMatrixInverse();		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(595)
+				HX_STACK_LINE(630)
 				u->SetMatrix4(_g2);
 			}
 		}
 		else if (  ( _switch_2==HX_CSTRING("CameraPosition"))){
-			HX_STACK_LINE(596)
+			HX_STACK_LINE(631)
 			if ((ucv)){
-				HX_STACK_LINE(596)
+				HX_STACK_LINE(631)
 				::haxor::math::Vector3 p_v = c->m_entity->m_transform->get_position();		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(596)
+				HX_STACK_LINE(631)
 				u->SetFloat3(p_v->x,p_v->y,p_v->z);
 			}
 		}
 		else if (  ( _switch_2==HX_CSTRING("ViewMatrix"))){
-			HX_STACK_LINE(597)
+			HX_STACK_LINE(632)
 			if ((ucv)){
-				HX_STACK_LINE(597)
+				HX_STACK_LINE(632)
 				::haxor::math::Matrix4 _g3 = c->m_entity->m_transform->get_WorldMatrixInverse();		HX_STACK_VAR(_g3,"_g3");
-				HX_STACK_LINE(597)
+				HX_STACK_LINE(632)
 				u->SetMatrix4(_g3);
 			}
 		}
 		else if (  ( _switch_2==HX_CSTRING("ViewMatrixInverse"))){
-			HX_STACK_LINE(598)
+			HX_STACK_LINE(633)
 			if ((ucv)){
-				HX_STACK_LINE(598)
+				HX_STACK_LINE(633)
 				::haxor::math::Matrix4 _g4 = c->m_entity->m_transform->get_WorldMatrix();		HX_STACK_VAR(_g4,"_g4");
-				HX_STACK_LINE(598)
+				HX_STACK_LINE(633)
 				u->SetMatrix4(_g4);
 			}
 		}
 		else if (  ( _switch_2==HX_CSTRING("ProjectionMatrix"))){
-			HX_STACK_LINE(599)
+			HX_STACK_LINE(634)
 			if ((ucp)){
-				HX_STACK_LINE(599)
+				HX_STACK_LINE(634)
 				::haxor::math::Matrix4 _g5;		HX_STACK_VAR(_g5,"_g5");
-				HX_STACK_LINE(599)
+				HX_STACK_LINE(634)
 				{
-					HX_STACK_LINE(599)
+					HX_STACK_LINE(634)
 					c->UpdateProjection();
-					HX_STACK_LINE(599)
+					HX_STACK_LINE(634)
 					_g5 = c->m_projectionMatrix;
 				}
-				HX_STACK_LINE(599)
+				HX_STACK_LINE(634)
 				u->SetMatrix4(_g5);
 			}
 		}
 		else if (  ( _switch_2==HX_CSTRING("ProjectionMatrixInverse"))){
-			HX_STACK_LINE(600)
+			HX_STACK_LINE(635)
 			if ((ucp)){
-				HX_STACK_LINE(600)
+				HX_STACK_LINE(635)
 				::haxor::math::Matrix4 _g6;		HX_STACK_VAR(_g6,"_g6");
-				HX_STACK_LINE(600)
+				HX_STACK_LINE(635)
 				{
-					HX_STACK_LINE(600)
+					HX_STACK_LINE(635)
 					c->UpdateProjection();
-					HX_STACK_LINE(600)
+					HX_STACK_LINE(635)
 					_g6 = c->m_projectionMatrixInverse;
 				}
-				HX_STACK_LINE(600)
+				HX_STACK_LINE(635)
 				u->SetMatrix4(_g6);
 			}
 		}
@@ -1222,142 +1265,9 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC6(MaterialContext_obj,UploadGlobalUniform,(void))
 
-Void MaterialContext_obj::ApplyFloatUniform( int p_location,::haxor::graphics::material::MaterialUniform p_uniform){
-{
-		HX_STACK_FRAME("haxor.context.MaterialContext","ApplyFloatUniform",0x005221f5,"haxor.context.MaterialContext.ApplyFloatUniform","haxor/context/MaterialContext.hx",610,0x0e17e323)
-		HX_STACK_THIS(this)
-		HX_STACK_ARG(p_location,"p_location")
-		HX_STACK_ARG(p_uniform,"p_uniform")
-		HX_STACK_LINE(611)
-		::haxor::io::FloatArray b = p_uniform->data;		HX_STACK_VAR(b,"b");
-		HX_STACK_LINE(612)
-		int off = p_uniform->offset;		HX_STACK_VAR(off,"off");
-		HX_STACK_LINE(613)
-		switch( (int)(off)){
-			case (int)1: {
-				HX_STACK_LINE(615)
-				Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-				HX_STACK_LINE(615)
-				::haxor::graphics::GL_obj::m_gl->Uniform1f(p_location,p_x);
-			}
-			;break;
-			case (int)2: {
-				HX_STACK_LINE(616)
-				Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-				HX_STACK_LINE(616)
-				Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-				HX_STACK_LINE(616)
-				::haxor::graphics::GL_obj::m_gl->Uniform2f(p_location,p_x,p_y);
-			}
-			;break;
-			case (int)3: {
-				HX_STACK_LINE(617)
-				Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-				HX_STACK_LINE(617)
-				Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-				HX_STACK_LINE(617)
-				Float p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
-				HX_STACK_LINE(617)
-				::haxor::graphics::GL_obj::m_gl->Uniform3f(p_location,p_x,p_y,p_z);
-			}
-			;break;
-			case (int)4: {
-				HX_STACK_LINE(618)
-				Float p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-				HX_STACK_LINE(618)
-				Float p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-				HX_STACK_LINE(618)
-				Float p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
-				HX_STACK_LINE(618)
-				Float p_w = b->Get((int)3);		HX_STACK_VAR(p_w,"p_w");
-				HX_STACK_LINE(618)
-				::haxor::graphics::GL_obj::m_gl->Uniform4f(p_location,p_x,p_y,p_z,p_w);
-			}
-			;break;
-			case (int)16: {
-				HX_STACK_LINE(619)
-				::haxor::graphics::GL_obj::m_gl->UniformMatrix4fv(p_location,false,b);
-			}
-			;break;
-			default: {
-				HX_STACK_LINE(620)
-				::haxor::graphics::GL_obj::m_gl->Uniform1fv(p_location,b);
-			}
-		}
-	}
-return null();
-}
-
-
-HX_DEFINE_DYNAMIC_FUNC2(MaterialContext_obj,ApplyFloatUniform,(void))
-
-Void MaterialContext_obj::ApplyIntUniform( int p_location,::haxor::graphics::material::MaterialUniform p_uniform){
-{
-		HX_STACK_FRAME("haxor.context.MaterialContext","ApplyIntUniform",0x202f11c2,"haxor.context.MaterialContext.ApplyIntUniform","haxor/context/MaterialContext.hx",630,0x0e17e323)
-		HX_STACK_THIS(this)
-		HX_STACK_ARG(p_location,"p_location")
-		HX_STACK_ARG(p_uniform,"p_uniform")
-		HX_STACK_LINE(631)
-		::haxor::io::Int32Array b = p_uniform->data;		HX_STACK_VAR(b,"b");
-		HX_STACK_LINE(632)
-		int off = p_uniform->offset;		HX_STACK_VAR(off,"off");
-		HX_STACK_LINE(633)
-		switch( (int)(off)){
-			case (int)1: {
-				HX_STACK_LINE(635)
-				int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-				HX_STACK_LINE(635)
-				::haxor::graphics::GL_obj::m_gl->Uniform1i(p_location,p_x);
-			}
-			;break;
-			case (int)2: {
-				HX_STACK_LINE(636)
-				int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-				HX_STACK_LINE(636)
-				int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-				HX_STACK_LINE(636)
-				::haxor::graphics::GL_obj::m_gl->Uniform2i(p_location,p_x,p_y);
-			}
-			;break;
-			case (int)3: {
-				HX_STACK_LINE(637)
-				int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-				HX_STACK_LINE(637)
-				int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-				HX_STACK_LINE(637)
-				int p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
-				HX_STACK_LINE(637)
-				::haxor::graphics::GL_obj::m_gl->Uniform3i(p_location,p_x,p_y,p_z);
-			}
-			;break;
-			case (int)4: {
-				HX_STACK_LINE(638)
-				int p_x = b->Get((int)0);		HX_STACK_VAR(p_x,"p_x");
-				HX_STACK_LINE(638)
-				int p_y = b->Get((int)1);		HX_STACK_VAR(p_y,"p_y");
-				HX_STACK_LINE(638)
-				int p_z = b->Get((int)2);		HX_STACK_VAR(p_z,"p_z");
-				HX_STACK_LINE(638)
-				int p_w = b->Get((int)3);		HX_STACK_VAR(p_w,"p_w");
-				HX_STACK_LINE(638)
-				::haxor::graphics::GL_obj::m_gl->Uniform4i(p_location,p_x,p_y,p_z,p_w);
-			}
-			;break;
-			default: {
-				HX_STACK_LINE(639)
-				::haxor::graphics::GL_obj::m_gl->Uniform1iv(p_location,b);
-			}
-		}
-	}
-return null();
-}
-
-
-HX_DEFINE_DYNAMIC_FUNC2(MaterialContext_obj,ApplyIntUniform,(void))
-
 Void MaterialContext_obj::Unbind( ){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","Unbind",0x442b43c7,"haxor.context.MaterialContext.Unbind","haxor/context/MaterialContext.hx",647,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","Unbind",0x442b43c7,"haxor.context.MaterialContext.Unbind","haxor/context/MaterialContext.hx",643,0x0e17e323)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -1368,49 +1278,49 @@ HX_DEFINE_DYNAMIC_FUNC0(MaterialContext_obj,Unbind,(void))
 
 Void MaterialContext_obj::DestroyMaterial( ::haxor::graphics::material::Material m){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","DestroyMaterial",0xd30a9a70,"haxor.context.MaterialContext.DestroyMaterial","haxor/context/MaterialContext.hx",656,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","DestroyMaterial",0xd30a9a70,"haxor.context.MaterialContext.DestroyMaterial","haxor/context/MaterialContext.hx",652,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(m,"m")
-		HX_STACK_LINE(657)
+		HX_STACK_LINE(653)
 		int p = this->programs->__get(m->__cid);		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(658)
+		HX_STACK_LINE(654)
 		if (((m->m_shader != null()))){
-			HX_STACK_LINE(660)
+			HX_STACK_LINE(656)
 			::haxor::graphics::GL_obj::m_gl->DetachShader(p,this->vertex_shaders->__get(m->m_shader->__cid));
-			HX_STACK_LINE(661)
+			HX_STACK_LINE(657)
 			::haxor::graphics::GL_obj::m_gl->DetachShader(p,this->fragment_shaders->__get(m->m_shader->__cid));
 		}
-		HX_STACK_LINE(663)
+		HX_STACK_LINE(659)
 		::haxor::graphics::GL_obj::m_gl->DeleteProgram(p);
-		HX_STACK_LINE(664)
+		HX_STACK_LINE(660)
 		{
-			HX_STACK_LINE(664)
+			HX_STACK_LINE(660)
 			int v = m->__cid;		HX_STACK_VAR(v,"v");
-			HX_STACK_LINE(664)
+			HX_STACK_LINE(660)
 			::haxor::context::EngineContext_obj::material->mid->m_cache->push(v);
-			HX_STACK_LINE(664)
+			HX_STACK_LINE(660)
 			v;
 		}
-		HX_STACK_LINE(665)
+		HX_STACK_LINE(661)
 		{
-			HX_STACK_LINE(665)
+			HX_STACK_LINE(661)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(665)
+			HX_STACK_LINE(661)
 			int _g = m->m_uniforms->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(665)
+			HX_STACK_LINE(661)
 			while((true)){
-				HX_STACK_LINE(665)
+				HX_STACK_LINE(661)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(665)
+					HX_STACK_LINE(661)
 					break;
 				}
-				HX_STACK_LINE(665)
+				HX_STACK_LINE(661)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(665)
+				HX_STACK_LINE(661)
 				int v = m->m_uniforms->__get(i).StaticCast< ::haxor::graphics::material::MaterialUniform >()->__cid;		HX_STACK_VAR(v,"v");
-				HX_STACK_LINE(665)
+				HX_STACK_LINE(661)
 				this->uid->m_cache->push(v);
-				HX_STACK_LINE(665)
+				HX_STACK_LINE(661)
 				v;
 			}
 		}
@@ -1423,20 +1333,20 @@ HX_DEFINE_DYNAMIC_FUNC1(MaterialContext_obj,DestroyMaterial,(void))
 
 Void MaterialContext_obj::DestroyShader( ::haxor::graphics::material::Shader s){
 {
-		HX_STACK_FRAME("haxor.context.MaterialContext","DestroyShader",0xac09c8ae,"haxor.context.MaterialContext.DestroyShader","haxor/context/MaterialContext.hx",673,0x0e17e323)
+		HX_STACK_FRAME("haxor.context.MaterialContext","DestroyShader",0xac09c8ae,"haxor.context.MaterialContext.DestroyShader","haxor/context/MaterialContext.hx",669,0x0e17e323)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(s,"s")
-		HX_STACK_LINE(674)
+		HX_STACK_LINE(670)
 		::haxor::graphics::GL_obj::m_gl->DeleteShader(this->vertex_shaders->__get(s->__cid));
-		HX_STACK_LINE(675)
+		HX_STACK_LINE(671)
 		::haxor::graphics::GL_obj::m_gl->DeleteShader(this->fragment_shaders->__get(s->__cid));
-		HX_STACK_LINE(676)
+		HX_STACK_LINE(672)
 		{
-			HX_STACK_LINE(676)
+			HX_STACK_LINE(672)
 			int v = s->__cid;		HX_STACK_VAR(v,"v");
-			HX_STACK_LINE(676)
+			HX_STACK_LINE(672)
 			::haxor::context::EngineContext_obj::material->sid->m_cache->push(v);
-			HX_STACK_LINE(676)
+			HX_STACK_LINE(672)
 			v;
 		}
 	}
@@ -1564,6 +1474,7 @@ Dynamic MaterialContext_obj::__Field(const ::String &inName,bool inCallProp)
 	case 12:
 		if (HX_FIELD_EQ(inName,"error_shader") ) { return error_shader; }
 		if (HX_FIELD_EQ(inName,"UpdateShader") ) { return UpdateShader_dyn(); }
+		if (HX_FIELD_EQ(inName,"ApplyUniform") ) { return ApplyUniform_dyn(); }
 		break;
 	case 13:
 		if (HX_FIELD_EQ(inName,"CreateUniform") ) { return CreateUniform_dyn(); }
@@ -1574,10 +1485,10 @@ Dynamic MaterialContext_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"vertex_shaders") ) { return vertex_shaders; }
 		if (HX_FIELD_EQ(inName,"DestroyUniform") ) { return DestroyUniform_dyn(); }
 		if (HX_FIELD_EQ(inName,"UpdateMaterial") ) { return UpdateMaterial_dyn(); }
+		if (HX_FIELD_EQ(inName,"UploadUniforms") ) { return UploadUniforms_dyn(); }
 		break;
 	case 15:
 		if (HX_FIELD_EQ(inName,"uniform_globals") ) { return uniform_globals; }
-		if (HX_FIELD_EQ(inName,"ApplyIntUniform") ) { return ApplyIntUniform_dyn(); }
 		if (HX_FIELD_EQ(inName,"DestroyMaterial") ) { return DestroyMaterial_dyn(); }
 		break;
 	case 16:
@@ -1586,7 +1497,6 @@ Dynamic MaterialContext_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 17:
 		if (HX_FIELD_EQ(inName,"GetAttribLocation") ) { return GetAttribLocation_dyn(); }
-		if (HX_FIELD_EQ(inName,"ApplyFloatUniform") ) { return ApplyFloatUniform_dyn(); }
 		break;
 	case 18:
 		if (HX_FIELD_EQ(inName,"InitializeMaterial") ) { return InitializeMaterial_dyn(); }
@@ -1763,10 +1673,10 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("Bind"),
 	HX_CSTRING("UseMaterial"),
 	HX_CSTRING("UpdateMaterialUniforms"),
+	HX_CSTRING("UploadUniforms"),
 	HX_CSTRING("UploadUniform"),
+	HX_CSTRING("ApplyUniform"),
 	HX_CSTRING("UploadGlobalUniform"),
-	HX_CSTRING("ApplyFloatUniform"),
-	HX_CSTRING("ApplyIntUniform"),
 	HX_CSTRING("Unbind"),
 	HX_CSTRING("DestroyMaterial"),
 	HX_CSTRING("DestroyShader"),

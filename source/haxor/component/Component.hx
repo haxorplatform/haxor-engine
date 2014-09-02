@@ -39,6 +39,42 @@ class Component extends Resource
 	public var transform(get_transform, null):Transform;
 	private inline function get_transform():Transform { return entity.transform; }	
 	
+	
+	/**
+	 * Reference to the entity's AddComponent method.
+	 * @param	p_type
+	 * @return
+	 */
+	public inline function AddComponent(p_type : Class<Component>) : Dynamic { return entity.AddComponent(p_type); }
+	
+	/**
+	 * Reference to the entity's GetComponent method.
+	 * @param	p_type
+	 * @return
+	 */
+	public inline function GetComponent(p_type : Class<Component>) : Dynamic	{ return entity.GetComponent(p_type);	}
+	
+	/**
+	 * Reference to the entity's GetComponents method.
+	 * @param	p_type
+	 * @return
+	 */
+	public inline function GetComponents(p_type : Class<Component>) : Array<Dynamic>	{	return entity.GetComponents(p_type);	}
+	
+	/**
+	 * Reference to the entity's GetComponentInChildren method.
+	 * @param	p_type
+	 * @return
+	 */
+	public inline function GetComponentInChildren(p_type : Class<Component>) : Dynamic { return entity.GetComponentInChildren(p_type); }
+	
+	/**
+	 * Reference to the entity's GetComponentsInChildren method.
+	 * @param	p_type
+	 * @return
+	 */
+	public inline function GetComponentsInChildren(p_type : Class<Component>) : Array<Dynamic> { 	return entity.GetComponentsInChildren(p_type);	}
+	
 	/**
 	 * Method called when the component is created.
 	 */
@@ -48,5 +84,12 @@ class Component extends Resource
 	 * Callback called when the Transform of the Entity changed.
 	 */
 	private function OnTransformUpdate():Void { }
+	
+	/**
+	 * Callback called when the MeshRenderer's visibility of this Entity changed.
+	 */
+	private function OnVisibilityChange(p_visible:Bool):Void { }
+	
+	
 	
 }

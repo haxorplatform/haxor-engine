@@ -70,7 +70,7 @@ class HXCPP_CLASS_ATTRIBUTES  Resource_obj : public hx::Object{
 		bool m_destroyed;
 		int __cid;
 		::String __db;
-		Array< int > m_pid;
+		Array< int > __pid;
 		::String m_type_name;
 		::String m_type_full_name;
 		::Class m_type_class;

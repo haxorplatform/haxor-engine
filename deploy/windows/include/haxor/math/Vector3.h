@@ -193,6 +193,12 @@ class HXCPP_CLASS_ATTRIBUTES  Vector3_obj : public hx::Object{
 		static ::haxor::math::Vector3 Lerp( ::haxor::math::Vector3 p_a,::haxor::math::Vector3 p_b,Float p_r,::haxor::math::Vector3 p_result);
 		static Dynamic Lerp_dyn();
 
+		static ::haxor::math::Vector3 Min( ::haxor::math::Vector3 p_a,::haxor::math::Vector3 p_b,::haxor::math::Vector3 p_result);
+		static Dynamic Min_dyn();
+
+		static ::haxor::math::Vector3 Max( ::haxor::math::Vector3 p_a,::haxor::math::Vector3 p_b,::haxor::math::Vector3 p_result);
+		static Dynamic Max_dyn();
+
 		static ::haxor::math::Vector3 Parse( ::String p_data,::String p_delimiter);
 		static Dynamic Parse_dyn();
 

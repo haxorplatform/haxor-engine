@@ -1,6 +1,7 @@
 package haxor.core;
 import haxor.component.Behaviour;
 import haxor.component.Camera;
+import haxor.component.MeshRenderer;
 import haxor.component.Renderer;
 import haxor.component.Transform;
 import haxor.context.EngineContext;
@@ -62,6 +63,7 @@ class Engine
 	 */
 	static private function Update():Void
 	{
+		
 		if (state == EngineState.Editor) return;
 		
 		var up : Process<IUpdateable> = EngineContext.update;				
@@ -85,24 +87,25 @@ class Engine
 	 */
 	static private function Render():Void
 	{		
+		#if profile
+		Stats.BeginRender();
+		#end
+		//Shadow Collect Pass		
+		RenderCameras();
+		RenderIRenderers();
+		RenderFinish();
+	}
+	
+	/**
+	 * Render all cameras.
+	 */
+	static private function RenderCameras():Void
+	{
 		var cl  : Array<Camera> = EngineContext.camera.list;
-		
-		//Shadow Collect Pass
-		
 		for (i in 0...cl.length)
 		{
 			var c : Camera = Camera.m_current = cl[i];			
 			RenderCamera(c);
-		}
-		
-		Camera.m_current = null;
-		
-		RenderIRenderers();
-		
-		for (i in 0...cl.length)
-		{
-			cl[i].m_view_uniform_dirty = false;
-			cl[i].m_proj_uniform_dirty = false;
 		}
 	}
 	
@@ -126,6 +129,8 @@ class Engine
 		EngineContext.camera.Unbind(c);
 	}
 	
+	
+	
 	/**
 	 * Renders a camera layer display list.
 	 * @param	l
@@ -133,13 +138,16 @@ class Engine
 	 */
 	static private function RenderCameraLayer(l:Int,c:Camera):Void
 	{
+		
 		var lt  : Transform			   	  = null; //Last used transform.
 		var renderers : Process<Renderer> = EngineContext.renderer.display[l];
 		for (j in 0...renderers.length)
 		{
-			var r : Renderer = renderers.list[j];			
+			var r : Renderer = renderers.list[j];
+			
+			if (EngineContext.renderer.IsSAPCulled(r, c)) continue;
 			//If the current Renderer's Entity is different reset the uniform flag of the last transform.
-			if (r.transform != lt) { if(lt!=null) lt.m_uniform_dirty = false; lt = r.transform; }
+			//if (r.transform != lt) { if(lt!=null) lt.m_uniform_dirty = false; lt = r.transform; }
 			RenderRenderer(r);
 		}
 	}
@@ -149,7 +157,22 @@ class Engine
 	 * @param	r
 	 */
 	static private function RenderRenderer(r : Renderer):Void
-	{		
+	{	
+		
+		r.UpdateCulling();
+		
+		if (!r.visible)
+		{
+			#if profile
+			Stats.culled++;
+			#end
+			return;
+		}
+		
+		#if profile
+		Stats.visible++;
+		#end
+		
 		//Grab Texture if requested. Check index of start then capture up to it, then stop for optimization.
 			
 		r.OnRender();
@@ -162,6 +185,7 @@ class Engine
 	 */
 	static private function RenderIRenderers():Void
 	{
+		Camera.m_current = null;
 		var rp  : Process<IRenderable> = EngineContext.render;		
 		//"Free" renderers pass.
 		for (i in 0...rp.length)
@@ -170,6 +194,21 @@ class Engine
 			if (r.m_destroyed) continue;
 			rp.list[i].OnRender();
 		}
+	}
+	
+	/**
+	 * Ends the rendering of the frame.
+	 */
+	static private function RenderFinish():Void
+	{
+		var cl  : Array<Camera> = EngineContext.camera.list;
+		for (i in 0...cl.length)
+		{
+			cl[i].m_view_uniform_dirty = false;
+			cl[i].m_proj_uniform_dirty = false;
+		}
+		
+		EngineContext.renderer.sap_dirty = false;
 	}
 	
 	/**

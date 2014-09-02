@@ -16,7 +16,7 @@ public  class BytesInput extends haxe.io.Input
 	}
 	
 	
-	public static   void __hx_ctor_haxe_io_BytesInput(haxe.io.BytesInput __temp_me151302, haxe.io.Bytes b, java.lang.Object pos, java.lang.Object len)
+	public static   void __hx_ctor_haxe_io_BytesInput(haxe.io.BytesInput __temp_me160406, haxe.io.Bytes b, java.lang.Object pos, java.lang.Object len)
 	{
 		if (( pos == null )) 
 		{
@@ -33,10 +33,10 @@ public  class BytesInput extends haxe.io.Input
 			throw haxe.lang.HaxeException.wrap(haxe.io.Error.OutsideBounds);
 		}
 		
-		__temp_me151302.b = b.b;
-		__temp_me151302.pos = ((int) (haxe.lang.Runtime.toInt(pos)) );
-		__temp_me151302.len = ((int) (haxe.lang.Runtime.toInt(len)) );
-		__temp_me151302.totlen = ((int) (haxe.lang.Runtime.toInt(len)) );
+		__temp_me160406.b = b.b;
+		__temp_me160406.pos = ((int) (haxe.lang.Runtime.toInt(pos)) );
+		__temp_me160406.len = ((int) (haxe.lang.Runtime.toInt(len)) );
+		__temp_me160406.totlen = ((int) (haxe.lang.Runtime.toInt(len)) );
 	}
 	
 	
@@ -136,14 +136,14 @@ public  class BytesInput extends haxe.io.Input
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151875 = true;
+			boolean __temp_executeDef160987 = true;
 			switch (field.hashCode())
 			{
 				case 747804969:
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef151875 = false;
+						__temp_executeDef160987 = false;
 						this.set_position(((int) (value) ));
 						return value;
 					}
@@ -156,7 +156,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("pos")) 
 					{
-						__temp_executeDef151875 = false;
+						__temp_executeDef160987 = false;
 						this.pos = ((int) (value) );
 						return value;
 					}
@@ -169,7 +169,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("totlen")) 
 					{
-						__temp_executeDef151875 = false;
+						__temp_executeDef160987 = false;
 						this.totlen = ((int) (value) );
 						return value;
 					}
@@ -182,7 +182,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("len")) 
 					{
-						__temp_executeDef151875 = false;
+						__temp_executeDef160987 = false;
 						this.len = ((int) (value) );
 						return value;
 					}
@@ -193,7 +193,7 @@ public  class BytesInput extends haxe.io.Input
 				
 			}
 			
-			if (__temp_executeDef151875) 
+			if (__temp_executeDef160987) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -210,14 +210,14 @@ public  class BytesInput extends haxe.io.Input
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151876 = true;
+			boolean __temp_executeDef160988 = true;
 			switch (field.hashCode())
 			{
 				case 747804969:
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef151876 = false;
+						__temp_executeDef160988 = false;
 						this.set_position(((int) (haxe.lang.Runtime.toInt(value)) ));
 						return value;
 					}
@@ -230,7 +230,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("b")) 
 					{
-						__temp_executeDef151876 = false;
+						__temp_executeDef160988 = false;
 						this.b = ((byte[]) (value) );
 						return value;
 					}
@@ -243,7 +243,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("totlen")) 
 					{
-						__temp_executeDef151876 = false;
+						__temp_executeDef160988 = false;
 						this.totlen = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -256,7 +256,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("pos")) 
 					{
-						__temp_executeDef151876 = false;
+						__temp_executeDef160988 = false;
 						this.pos = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -269,7 +269,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("len")) 
 					{
-						__temp_executeDef151876 = false;
+						__temp_executeDef160988 = false;
 						this.len = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -280,7 +280,7 @@ public  class BytesInput extends haxe.io.Input
 				
 			}
 			
-			if (__temp_executeDef151876) 
+			if (__temp_executeDef160988) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -297,14 +297,14 @@ public  class BytesInput extends haxe.io.Input
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151877 = true;
+			boolean __temp_executeDef160989 = true;
 			switch (field.hashCode())
 			{
 				case -1140063115:
 				{
 					if (field.equals("readBytes")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readBytes"))) );
 					}
 					
@@ -316,7 +316,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("b")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return this.b;
 					}
 					
@@ -328,7 +328,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("readByte")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readByte"))) );
 					}
 					
@@ -340,7 +340,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("pos")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return this.pos;
 					}
 					
@@ -352,7 +352,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("set_position")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_position"))) );
 					}
 					
@@ -364,7 +364,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("len")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return this.len;
 					}
 					
@@ -376,7 +376,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_length"))) );
 					}
 					
@@ -388,7 +388,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("totlen")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return this.totlen;
 					}
 					
@@ -400,7 +400,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("get_position")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_position"))) );
 					}
 					
@@ -412,7 +412,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return this.get_position();
 					}
 					
@@ -424,7 +424,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef151877 = false;
+						__temp_executeDef160989 = false;
 						return this.get_length();
 					}
 					
@@ -434,7 +434,7 @@ public  class BytesInput extends haxe.io.Input
 				
 			}
 			
-			if (__temp_executeDef151877) 
+			if (__temp_executeDef160989) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -451,14 +451,14 @@ public  class BytesInput extends haxe.io.Input
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151878 = true;
+			boolean __temp_executeDef160990 = true;
 			switch (field.hashCode())
 			{
 				case -1106363674:
 				{
 					if (field.equals("length")) 
 					{
-						__temp_executeDef151878 = false;
+						__temp_executeDef160990 = false;
 						return ((double) (this.get_length()) );
 					}
 					
@@ -470,7 +470,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("pos")) 
 					{
-						__temp_executeDef151878 = false;
+						__temp_executeDef160990 = false;
 						return ((double) (this.pos) );
 					}
 					
@@ -482,7 +482,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef151878 = false;
+						__temp_executeDef160990 = false;
 						return ((double) (this.get_position()) );
 					}
 					
@@ -494,7 +494,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("len")) 
 					{
-						__temp_executeDef151878 = false;
+						__temp_executeDef160990 = false;
 						return ((double) (this.len) );
 					}
 					
@@ -506,7 +506,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("totlen")) 
 					{
-						__temp_executeDef151878 = false;
+						__temp_executeDef160990 = false;
 						return ((double) (this.totlen) );
 					}
 					
@@ -516,7 +516,7 @@ public  class BytesInput extends haxe.io.Input
 				
 			}
 			
-			if (__temp_executeDef151878) 
+			if (__temp_executeDef160990) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -533,15 +533,15 @@ public  class BytesInput extends haxe.io.Input
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash151880 = field.hashCode();
-			boolean __temp_executeDef151879 = true;
-			switch (__temp_hash151880)
+			int __temp_hash160992 = field.hashCode();
+			boolean __temp_executeDef160991 = true;
+			switch (__temp_hash160992)
 			{
 				case -1140063115:case -868060226:
 				{
-					if (( (( ( __temp_hash151880 == -1140063115 ) && field.equals("readBytes") )) || field.equals("readByte") )) 
+					if (( (( ( __temp_hash160992 == -1140063115 ) && field.equals("readBytes") )) || field.equals("readByte") )) 
 					{
-						__temp_executeDef151879 = false;
+						__temp_executeDef160991 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -553,7 +553,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("get_position")) 
 					{
-						__temp_executeDef151879 = false;
+						__temp_executeDef160991 = false;
 						return this.get_position();
 					}
 					
@@ -565,7 +565,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("set_position")) 
 					{
-						__temp_executeDef151879 = false;
+						__temp_executeDef160991 = false;
 						return this.set_position(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -577,7 +577,7 @@ public  class BytesInput extends haxe.io.Input
 				{
 					if (field.equals("get_length")) 
 					{
-						__temp_executeDef151879 = false;
+						__temp_executeDef160991 = false;
 						return this.get_length();
 					}
 					
@@ -587,7 +587,7 @@ public  class BytesInput extends haxe.io.Input
 				
 			}
 			
-			if (__temp_executeDef151879) 
+			if (__temp_executeDef160991) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

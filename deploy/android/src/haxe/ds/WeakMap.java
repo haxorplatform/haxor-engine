@@ -18,10 +18,10 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 	}
 	
 	
-	public static  <K_c, V_c> void __hx_ctor_haxe_ds_WeakMap(haxe.ds.WeakMap<K_c, V_c> __temp_me151297)
+	public static  <K_c, V_c> void __hx_ctor_haxe_ds_WeakMap(haxe.ds.WeakMap<K_c, V_c> __temp_me160401)
 	{
-		__temp_me151297.cachedIndex = -1;
-		__temp_me151297.queue = new java.lang.ref.ReferenceQueue<K_c>();
+		__temp_me160401.cachedIndex = -1;
+		__temp_me160401.queue = new java.lang.ref.ReferenceQueue<K_c>();
 	}
 	
 	
@@ -73,21 +73,21 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				int flag = 0;
 				do 
 				{
-					boolean __temp_stmt151797 = false;
+					boolean __temp_stmt160909 = false;
 					{
 						int v = flag = this.hashes[i];
-						__temp_stmt151797 = ( v == 0 );
+						__temp_stmt160909 = ( v == 0 );
 					}
 					
-					boolean __temp_boolv151796 =  ! (__temp_stmt151797) ;
-					boolean __temp_boolv151795 = false;
-					if (__temp_boolv151796) 
+					boolean __temp_boolv160908 =  ! (__temp_stmt160909) ;
+					boolean __temp_boolv160907 = false;
+					if (__temp_boolv160908) 
 					{
-						__temp_boolv151795 = (( ( ( flag == 1 ) || ( flag != hash ) ) || ( this.entries[i] != x1 ) ));
+						__temp_boolv160907 = (( ( ( flag == 1 ) || ( flag != hash ) ) || ( this.entries[i] != x1 ) ));
 					}
 					
-					boolean __temp_stmt151794 = ( __temp_boolv151796 && __temp_boolv151795 );
-					if (__temp_stmt151794) 
+					boolean __temp_stmt160906 = ( __temp_boolv160908 && __temp_boolv160907 );
+					if (__temp_stmt160906) 
 					{
 						i = ( ( i +  ++ nProbes ) & mask );
 					}
@@ -187,20 +187,20 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				int flag = 0;
 				do 
 				{
-					boolean __temp_stmt151799 = false;
+					boolean __temp_stmt160911 = false;
 					{
 						int v = flag = hashes[i];
-						__temp_stmt151799 = ( (( v & -2 )) == 0 );
+						__temp_stmt160911 = ( (( v & -2 )) == 0 );
 					}
 					
-					boolean __temp_boolv151800 = false;
-					if ( ! (__temp_stmt151799) ) 
+					boolean __temp_boolv160912 = false;
+					if ( ! (__temp_stmt160911) ) 
 					{
-						__temp_boolv151800 = ( ( flag == k ) && (( ( ! (( key == null )) ) && key.equals(entries[i].get()) )) );
+						__temp_boolv160912 = ( ( flag == k ) && (( ( ! (( key == null )) ) && key.equals(entries[i].get()) )) );
 					}
 					
-					boolean __temp_stmt151798 = ( __temp_stmt151799 || __temp_boolv151800 );
-					if ( ! ((__temp_stmt151798)) ) 
+					boolean __temp_stmt160910 = ( __temp_stmt160911 || __temp_boolv160912 );
+					if ( ! ((__temp_stmt160910)) ) 
 					{
 						i = ( ( i +  ++ nProbes ) & mask );
 					}
@@ -237,7 +237,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 			{
 				{
 					boolean x1 = ( ( ! (( key == null )) ) && key.equals(entries[x].get()) );
-					java.lang.Object __temp_expr151801 = null;
+					java.lang.Object __temp_expr160913 = null;
 				}
 				
 				entries[x] = entry;
@@ -290,21 +290,21 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 			int flag = 0;
 			do 
 			{
-				boolean __temp_stmt151805 = false;
+				boolean __temp_stmt160917 = false;
 				{
 					int v = flag = hashes[i];
-					__temp_stmt151805 = ( v == 0 );
+					__temp_stmt160917 = ( v == 0 );
 				}
 				
-				boolean __temp_boolv151804 =  ! (__temp_stmt151805) ;
-				boolean __temp_boolv151803 = false;
-				if (__temp_boolv151804) 
+				boolean __temp_boolv160916 =  ! (__temp_stmt160917) ;
+				boolean __temp_boolv160915 = false;
+				if (__temp_boolv160916) 
 				{
-					__temp_boolv151803 = (( ( ( flag == 1 ) || ( flag != k1 ) ) ||  ! ((( ( ! (( key == null )) ) && key.equals(entries[i].get()) )))  ));
+					__temp_boolv160915 = (( ( ( flag == 1 ) || ( flag != k1 ) ) ||  ! ((( ( ! (( key == null )) ) && key.equals(entries[i].get()) )))  ));
 				}
 				
-				boolean __temp_stmt151802 = ( __temp_boolv151804 && __temp_boolv151803 );
-				if (__temp_stmt151802) 
+				boolean __temp_stmt160914 = ( __temp_boolv160916 && __temp_boolv160915 );
+				if (__temp_stmt160914) 
 				{
 					i = ( ( i +  ++ nProbes ) & mask );
 				}
@@ -386,13 +386,13 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 			while ((  ++ j < nBuckets ))
 			{
 				int k = 0;
-				boolean __temp_stmt151806 = false;
+				boolean __temp_stmt160918 = false;
 				{
 					int v = k = hashes[j];
-					__temp_stmt151806 = ( (( v & -2 )) == 0 );
+					__temp_stmt160918 = ( (( v & -2 )) == 0 );
 				}
 				
-				if ( ! (__temp_stmt151806) ) 
+				if ( ! (__temp_stmt160918) ) 
 				{
 					haxe.ds._WeakMap.Entry<K, V> entry = entries[j];
 					hashes[j] = 1;
@@ -406,21 +406,21 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 						}
 						
 						newHash[i] = k;
-						boolean __temp_boolv151809 = ( i < nBuckets );
-						boolean __temp_boolv151808 = false;
-						if (__temp_boolv151809) 
+						boolean __temp_boolv160921 = ( i < nBuckets );
+						boolean __temp_boolv160920 = false;
+						if (__temp_boolv160921) 
 						{
-							boolean __temp_stmt151810 = false;
+							boolean __temp_stmt160922 = false;
 							{
 								int v1 = k = hashes[i];
-								__temp_stmt151810 = ( (( v1 & -2 )) == 0 );
+								__temp_stmt160922 = ( (( v1 & -2 )) == 0 );
 							}
 							
-							__temp_boolv151808 =  ! (__temp_stmt151810) ;
+							__temp_boolv160920 =  ! (__temp_stmt160922) ;
 						}
 						
-						boolean __temp_stmt151807 = ( __temp_boolv151809 && __temp_boolv151808 );
-						if (__temp_stmt151807) 
+						boolean __temp_stmt160919 = ( __temp_boolv160921 && __temp_boolv160920 );
+						if (__temp_stmt160919) 
 						{
 							{
 								haxe.ds._WeakMap.Entry<K, V> tmp = entries[i];
@@ -562,9 +562,9 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 		haxe.root.Array<java.lang.Object> len = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{this.nBuckets});
 		haxe.root.Array<K> lastKey = new haxe.root.Array<K>(( (K[]) (new java.lang.Object[] {null}) ));
 		{
-			haxe.lang.Function __temp_odecl151811 = new haxe.ds.WeakMap_keys_388__Fun<V, K>(((haxe.root.Array<haxe.ds.WeakMap>) (_g1) ), ((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<java.lang.Object>) (len) ), ((haxe.root.Array<K>) (lastKey) ));
-			haxe.lang.Function __temp_odecl151812 = new haxe.ds.WeakMap_keys_407__Fun<K>(((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<K>) (lastKey) ));
-			return new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"hasNext", "next"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_odecl151811, __temp_odecl151812}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
+			haxe.lang.Function __temp_odecl160923 = new haxe.ds.WeakMap_keys_388__Fun<V, K>(((haxe.root.Array<K>) (lastKey) ), ((haxe.root.Array<haxe.ds.WeakMap>) (_g1) ), ((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<java.lang.Object>) (len) ));
+			haxe.lang.Function __temp_odecl160924 = new haxe.ds.WeakMap_keys_407__Fun<K>(((haxe.root.Array<K>) (lastKey) ), ((haxe.root.Array<java.lang.Object>) (i) ));
+			return new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"hasNext", "next"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_odecl160923, __temp_odecl160924}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
 		}
 		
 	}
@@ -577,9 +577,9 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 		haxe.root.Array<java.lang.Object> i = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{0});
 		haxe.root.Array<java.lang.Object> len = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{this.nBuckets});
 		{
-			haxe.lang.Function __temp_odecl151813 = new haxe.ds.WeakMap_iterator_424__Fun<V, K>(((haxe.root.Array<java.lang.Object>) (len) ), ((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<haxe.ds.WeakMap>) (_g1) ));
-			haxe.lang.Function __temp_odecl151814 = new haxe.ds.WeakMap_iterator_435__Fun<K, V>(((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<haxe.ds.WeakMap>) (_g1) ));
-			return new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"hasNext", "next"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_odecl151813, __temp_odecl151814}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
+			haxe.lang.Function __temp_odecl160925 = new haxe.ds.WeakMap_iterator_424__Fun<V, K>(((haxe.root.Array<java.lang.Object>) (len) ), ((haxe.root.Array<haxe.ds.WeakMap>) (_g1) ), ((haxe.root.Array<java.lang.Object>) (i) ));
+			haxe.lang.Function __temp_odecl160926 = new haxe.ds.WeakMap_iterator_435__Fun<K, V>(((haxe.root.Array<haxe.ds.WeakMap>) (_g1) ), ((haxe.root.Array<java.lang.Object>) (i) ));
+			return new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"hasNext", "next"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_odecl160925, __temp_odecl160926}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
 		}
 		
 	}
@@ -591,10 +591,10 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 		s.add("{");
 		java.lang.Object it = this.keys();
 		{
-			java.lang.Object __temp_iterator151615 = it;
-			while (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(__temp_iterator151615, "hasNext", null)))
+			java.lang.Object __temp_iterator160727 = it;
+			while (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(__temp_iterator160727, "hasNext", null)))
 			{
-				K i = ((K) (haxe.lang.Runtime.callField(__temp_iterator151615, "next", null)) );
+				K i = ((K) (haxe.lang.Runtime.callField(__temp_iterator160727, "next", null)) );
 				s.add(haxe.root.Std.string(i));
 				s.add(" => ");
 				s.add(haxe.root.Std.string(this.get(i)));
@@ -615,14 +615,14 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151815 = true;
+			boolean __temp_executeDef160927 = true;
 			switch (field.hashCode())
 			{
 				case 1005083856:
 				{
 					if (field.equals("cachedIndex")) 
 					{
-						__temp_executeDef151815 = false;
+						__temp_executeDef160927 = false;
 						this.cachedIndex = ((int) (value) );
 						return value;
 					}
@@ -635,7 +635,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("nBuckets")) 
 					{
-						__temp_executeDef151815 = false;
+						__temp_executeDef160927 = false;
 						this.nBuckets = ((int) (value) );
 						return value;
 					}
@@ -648,7 +648,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("upperBound")) 
 					{
-						__temp_executeDef151815 = false;
+						__temp_executeDef160927 = false;
 						this.upperBound = ((int) (value) );
 						return value;
 					}
@@ -661,7 +661,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("size")) 
 					{
-						__temp_executeDef151815 = false;
+						__temp_executeDef160927 = false;
 						this.size = ((int) (value) );
 						return value;
 					}
@@ -674,7 +674,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("nOccupied")) 
 					{
-						__temp_executeDef151815 = false;
+						__temp_executeDef160927 = false;
 						this.nOccupied = ((int) (value) );
 						return value;
 					}
@@ -685,7 +685,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				
 			}
 			
-			if (__temp_executeDef151815) 
+			if (__temp_executeDef160927) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -702,14 +702,14 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151816 = true;
+			boolean __temp_executeDef160928 = true;
 			switch (field.hashCode())
 			{
 				case 1005083856:
 				{
 					if (field.equals("cachedIndex")) 
 					{
-						__temp_executeDef151816 = false;
+						__temp_executeDef160928 = false;
 						this.cachedIndex = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -722,7 +722,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("hashes")) 
 					{
-						__temp_executeDef151816 = false;
+						__temp_executeDef160928 = false;
 						this.hashes = ((int[]) (value) );
 						return value;
 					}
@@ -735,7 +735,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("cachedEntry")) 
 					{
-						__temp_executeDef151816 = false;
+						__temp_executeDef160928 = false;
 						this.cachedEntry = ((haxe.ds._WeakMap.Entry<K, V>) (value) );
 						return value;
 					}
@@ -748,7 +748,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("entries")) 
 					{
-						__temp_executeDef151816 = false;
+						__temp_executeDef160928 = false;
 						this.entries = ((haxe.ds._WeakMap.Entry<K, V>[]) (value) );
 						return value;
 					}
@@ -761,7 +761,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("upperBound")) 
 					{
-						__temp_executeDef151816 = false;
+						__temp_executeDef160928 = false;
 						this.upperBound = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -774,7 +774,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef151816 = false;
+						__temp_executeDef160928 = false;
 						this.queue = ((java.lang.ref.ReferenceQueue<K>) (value) );
 						return value;
 					}
@@ -787,7 +787,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("nOccupied")) 
 					{
-						__temp_executeDef151816 = false;
+						__temp_executeDef160928 = false;
 						this.nOccupied = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -800,7 +800,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("nBuckets")) 
 					{
-						__temp_executeDef151816 = false;
+						__temp_executeDef160928 = false;
 						this.nBuckets = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -813,7 +813,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("size")) 
 					{
-						__temp_executeDef151816 = false;
+						__temp_executeDef160928 = false;
 						this.size = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -824,7 +824,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				
 			}
 			
-			if (__temp_executeDef151816) 
+			if (__temp_executeDef160928) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -841,14 +841,14 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151817 = true;
+			boolean __temp_executeDef160929 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("toString"))) );
 					}
 					
@@ -860,7 +860,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("hashes")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return this.hashes;
 					}
 					
@@ -872,7 +872,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("iterator")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("iterator"))) );
 					}
 					
@@ -884,7 +884,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("entries")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return this.entries;
 					}
 					
@@ -896,7 +896,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("keys")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("keys"))) );
 					}
 					
@@ -908,7 +908,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return this.queue;
 					}
 					
@@ -920,7 +920,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("remove")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("remove"))) );
 					}
 					
@@ -932,7 +932,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("nBuckets")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return this.nBuckets;
 					}
 					
@@ -944,7 +944,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("exists")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("exists"))) );
 					}
 					
@@ -956,7 +956,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("size")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return this.size;
 					}
 					
@@ -968,7 +968,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("getDefault")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getDefault"))) );
 					}
 					
@@ -980,7 +980,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("nOccupied")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return this.nOccupied;
 					}
 					
@@ -992,7 +992,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("get")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get"))) );
 					}
 					
@@ -1004,7 +1004,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("upperBound")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return this.upperBound;
 					}
 					
@@ -1016,7 +1016,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("resize")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("resize"))) );
 					}
 					
@@ -1028,7 +1028,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("cachedEntry")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return this.cachedEntry;
 					}
 					
@@ -1040,7 +1040,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("lookup")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("lookup"))) );
 					}
 					
@@ -1052,7 +1052,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("cachedIndex")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return this.cachedIndex;
 					}
 					
@@ -1064,7 +1064,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set"))) );
 					}
 					
@@ -1076,7 +1076,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("cleanupRefs")) 
 					{
-						__temp_executeDef151817 = false;
+						__temp_executeDef160929 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("cleanupRefs"))) );
 					}
 					
@@ -1086,7 +1086,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				
 			}
 			
-			if (__temp_executeDef151817) 
+			if (__temp_executeDef160929) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1103,14 +1103,14 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151818 = true;
+			boolean __temp_executeDef160930 = true;
 			switch (field.hashCode())
 			{
 				case 1005083856:
 				{
 					if (field.equals("cachedIndex")) 
 					{
-						__temp_executeDef151818 = false;
+						__temp_executeDef160930 = false;
 						return ((double) (this.cachedIndex) );
 					}
 					
@@ -1122,7 +1122,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("nBuckets")) 
 					{
-						__temp_executeDef151818 = false;
+						__temp_executeDef160930 = false;
 						return ((double) (this.nBuckets) );
 					}
 					
@@ -1134,7 +1134,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("upperBound")) 
 					{
-						__temp_executeDef151818 = false;
+						__temp_executeDef160930 = false;
 						return ((double) (this.upperBound) );
 					}
 					
@@ -1146,7 +1146,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("size")) 
 					{
-						__temp_executeDef151818 = false;
+						__temp_executeDef160930 = false;
 						return ((double) (this.size) );
 					}
 					
@@ -1158,7 +1158,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("nOccupied")) 
 					{
-						__temp_executeDef151818 = false;
+						__temp_executeDef160930 = false;
 						return ((double) (this.nOccupied) );
 					}
 					
@@ -1168,7 +1168,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				
 			}
 			
-			if (__temp_executeDef151818) 
+			if (__temp_executeDef160930) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1185,14 +1185,14 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef151819 = true;
+			boolean __temp_executeDef160931 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						return this.toString();
 					}
 					
@@ -1204,7 +1204,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("cleanupRefs")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						this.cleanupRefs();
 					}
 					
@@ -1216,7 +1216,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("iterator")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						return this.iterator();
 					}
 					
@@ -1228,7 +1228,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						this.set(((K) (dynargs.__get(0)) ), ((V) (dynargs.__get(1)) ));
 					}
 					
@@ -1240,7 +1240,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("keys")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						return this.keys();
 					}
 					
@@ -1252,7 +1252,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("lookup")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						return this.lookup(((K) (dynargs.__get(0)) ));
 					}
 					
@@ -1264,7 +1264,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("remove")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						return this.remove(((K) (dynargs.__get(0)) ));
 					}
 					
@@ -1276,7 +1276,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("resize")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						this.resize(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -1288,7 +1288,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("exists")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						return this.exists(((K) (dynargs.__get(0)) ));
 					}
 					
@@ -1300,7 +1300,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("get")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						return this.get(((K) (dynargs.__get(0)) ));
 					}
 					
@@ -1312,7 +1312,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				{
 					if (field.equals("getDefault")) 
 					{
-						__temp_executeDef151819 = false;
+						__temp_executeDef160931 = false;
 						return this.getDefault(((K) (dynargs.__get(0)) ), ((V) (dynargs.__get(1)) ));
 					}
 					
@@ -1322,7 +1322,7 @@ public  class WeakMap<K, V> extends haxe.lang.HxObject implements haxe.root.IMap
 				
 			}
 			
-			if (__temp_executeDef151819) 
+			if (__temp_executeDef160931) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

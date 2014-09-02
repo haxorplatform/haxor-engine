@@ -17,11 +17,11 @@ public  class PointLight extends haxor.component.Light
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_PointLight(haxor.component.PointLight __temp_me151332)
+	public static   void __hx_ctor_haxor_component_PointLight(haxor.component.PointLight __temp_me160437)
 	{
-		haxor.component.Light.__hx_ctor_haxor_component_Light(__temp_me151332);
-		__temp_me151332.atten = 1.0;
-		__temp_me151332.radius = 1.0;
+		haxor.component.Light.__hx_ctor_haxor_component_Light(__temp_me160437);
+		__temp_me160437.atten = 1.0;
+		__temp_me160437.radius = 1.0;
 	}
 	
 	
@@ -57,14 +57,14 @@ public  class PointLight extends haxor.component.Light
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151975 = true;
+			boolean __temp_executeDef161092 = true;
 			switch (field.hashCode())
 			{
 				case -938578798:
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef151975 = false;
+						__temp_executeDef161092 = false;
 						this.radius = ((double) (value) );
 						return value;
 					}
@@ -77,7 +77,7 @@ public  class PointLight extends haxor.component.Light
 				{
 					if (field.equals("atten")) 
 					{
-						__temp_executeDef151975 = false;
+						__temp_executeDef161092 = false;
 						this.atten = ((double) (value) );
 						return value;
 					}
@@ -88,7 +88,7 @@ public  class PointLight extends haxor.component.Light
 				
 			}
 			
-			if (__temp_executeDef151975) 
+			if (__temp_executeDef161092) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -105,14 +105,14 @@ public  class PointLight extends haxor.component.Light
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151976 = true;
+			boolean __temp_executeDef161093 = true;
 			switch (field.hashCode())
 			{
 				case -938578798:
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef151976 = false;
+						__temp_executeDef161093 = false;
 						this.radius = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -125,7 +125,7 @@ public  class PointLight extends haxor.component.Light
 				{
 					if (field.equals("atten")) 
 					{
-						__temp_executeDef151976 = false;
+						__temp_executeDef161093 = false;
 						this.atten = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -136,7 +136,7 @@ public  class PointLight extends haxor.component.Light
 				
 			}
 			
-			if (__temp_executeDef151976) 
+			if (__temp_executeDef161093) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -153,14 +153,14 @@ public  class PointLight extends haxor.component.Light
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151977 = true;
+			boolean __temp_executeDef161094 = true;
 			switch (field.hashCode())
 			{
 				case -938578798:
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef151977 = false;
+						__temp_executeDef161094 = false;
 						return this.radius;
 					}
 					
@@ -172,7 +172,7 @@ public  class PointLight extends haxor.component.Light
 				{
 					if (field.equals("atten")) 
 					{
-						__temp_executeDef151977 = false;
+						__temp_executeDef161094 = false;
 						return this.atten;
 					}
 					
@@ -182,7 +182,7 @@ public  class PointLight extends haxor.component.Light
 				
 			}
 			
-			if (__temp_executeDef151977) 
+			if (__temp_executeDef161094) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -199,14 +199,14 @@ public  class PointLight extends haxor.component.Light
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151978 = true;
+			boolean __temp_executeDef161095 = true;
 			switch (field.hashCode())
 			{
 				case -938578798:
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef151978 = false;
+						__temp_executeDef161095 = false;
 						return this.radius;
 					}
 					
@@ -218,7 +218,7 @@ public  class PointLight extends haxor.component.Light
 				{
 					if (field.equals("atten")) 
 					{
-						__temp_executeDef151978 = false;
+						__temp_executeDef161095 = false;
 						return this.atten;
 					}
 					
@@ -228,7 +228,7 @@ public  class PointLight extends haxor.component.Light
 				
 			}
 			
-			if (__temp_executeDef151978) 
+			if (__temp_executeDef161095) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

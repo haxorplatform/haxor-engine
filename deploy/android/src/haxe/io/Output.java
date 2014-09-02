@@ -22,7 +22,7 @@ public  class Output extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_io_Output(haxe.io.Output __temp_me151303)
+	public static   void __hx_ctor_haxe_io_Output(haxe.io.Output __temp_me160407)
 	{
 		{
 		}
@@ -305,17 +305,17 @@ public  class Output extends haxe.lang.HxObject
 			}
 			
 		}
-		catch (java.lang.Throwable __temp_catchallException151881)
+		catch (java.lang.Throwable __temp_catchallException160993)
 		{
-			java.lang.Object __temp_catchall151882 = __temp_catchallException151881;
-			if (( __temp_catchall151882 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall160994 = __temp_catchallException160993;
+			if (( __temp_catchall160994 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall151882 = ((haxe.lang.HaxeException) (__temp_catchallException151881) ).obj;
+				__temp_catchall160994 = ((haxe.lang.HaxeException) (__temp_catchallException160993) ).obj;
 			}
 			
-			if (( __temp_catchall151882 instanceof haxe.io.Eof )) 
+			if (( __temp_catchall160994 instanceof haxe.io.Eof )) 
 			{
-				haxe.io.Eof e = ((haxe.io.Eof) (__temp_catchall151882) );
+				haxe.io.Eof e = ((haxe.io.Eof) (__temp_catchall160994) );
 				{
 					{
 					}
@@ -325,7 +325,7 @@ public  class Output extends haxe.lang.HxObject
 			}
 			 else 
 			{
-				throw haxe.lang.HaxeException.wrap(__temp_catchallException151881);
+				throw haxe.lang.HaxeException.wrap(__temp_catchallException160993);
 			}
 			
 		}
@@ -344,14 +344,14 @@ public  class Output extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151883 = true;
+			boolean __temp_executeDef160995 = true;
 			switch (field.hashCode())
 			{
 				case -1220931666:
 				{
 					if (field.equals("helper")) 
 					{
-						__temp_executeDef151883 = false;
+						__temp_executeDef160995 = false;
 						this.helper = ((java.nio.ByteBuffer) (value) );
 						return value;
 					}
@@ -364,7 +364,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("bigEndian")) 
 					{
-						__temp_executeDef151883 = false;
+						__temp_executeDef160995 = false;
 						if (handleProperties) 
 						{
 							this.set_bigEndian(haxe.lang.Runtime.toBool(value));
@@ -384,7 +384,7 @@ public  class Output extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151883) 
+			if (__temp_executeDef160995) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -401,14 +401,14 @@ public  class Output extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151884 = true;
+			boolean __temp_executeDef160996 = true;
 			switch (field.hashCode())
 			{
 				case 1412235472:
 				{
 					if (field.equals("writeString")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeString"))) );
 					}
 					
@@ -420,7 +420,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("bigEndian")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return this.bigEndian;
 					}
 					
@@ -432,7 +432,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInput")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeInput"))) );
 					}
 					
@@ -444,7 +444,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("helper")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return this.helper;
 					}
 					
@@ -456,7 +456,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("prepare")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("prepare"))) );
 					}
 					
@@ -468,7 +468,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeByte")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeByte"))) );
 					}
 					
@@ -480,7 +480,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInt32")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeInt32"))) );
 					}
 					
@@ -492,7 +492,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeBytes")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeBytes"))) );
 					}
 					
@@ -504,7 +504,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeUInt24")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeUInt24"))) );
 					}
 					
@@ -516,7 +516,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("flush")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("flush"))) );
 					}
 					
@@ -528,7 +528,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInt24")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeInt24"))) );
 					}
 					
@@ -540,7 +540,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("close")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("close"))) );
 					}
 					
@@ -552,7 +552,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeUInt16")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeUInt16"))) );
 					}
 					
@@ -564,7 +564,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("set_bigEndian")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_bigEndian"))) );
 					}
 					
@@ -576,7 +576,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInt16")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeInt16"))) );
 					}
 					
@@ -588,7 +588,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("write")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("write"))) );
 					}
 					
@@ -600,7 +600,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInt8")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeInt8"))) );
 					}
 					
@@ -612,7 +612,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeFullBytes")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeFullBytes"))) );
 					}
 					
@@ -624,7 +624,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeDouble")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeDouble"))) );
 					}
 					
@@ -636,7 +636,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeFloat")) 
 					{
-						__temp_executeDef151884 = false;
+						__temp_executeDef160996 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("writeFloat"))) );
 					}
 					
@@ -646,7 +646,7 @@ public  class Output extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151884) 
+			if (__temp_executeDef160996) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -663,14 +663,14 @@ public  class Output extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef151885 = true;
+			boolean __temp_executeDef160997 = true;
 			switch (field.hashCode())
 			{
 				case 1412235472:
 				{
 					if (field.equals("writeString")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeString(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -682,7 +682,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeByte")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeByte(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -694,7 +694,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInput")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeInput(((haxe.io.Input) (dynargs.__get(0)) ), dynargs.__get(1));
 					}
 					
@@ -706,7 +706,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeBytes")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						return this.writeBytes(((haxe.io.Bytes) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -718,7 +718,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("prepare")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.prepare(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -730,7 +730,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("flush")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.flush();
 					}
 					
@@ -742,7 +742,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInt32")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeInt32(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -754,7 +754,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("close")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.close();
 					}
 					
@@ -766,7 +766,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeUInt24")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeUInt24(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -778,7 +778,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("set_bigEndian")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						return this.set_bigEndian(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
@@ -790,7 +790,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInt24")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeInt24(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -802,7 +802,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("write")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.write(((haxe.io.Bytes) (dynargs.__get(0)) ));
 					}
 					
@@ -814,7 +814,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeUInt16")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeUInt16(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -826,7 +826,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeFullBytes")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeFullBytes(((haxe.io.Bytes) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -838,7 +838,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInt16")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeInt16(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -850,7 +850,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeFloat")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeFloat(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -862,7 +862,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeInt8")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeInt8(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -874,7 +874,7 @@ public  class Output extends haxe.lang.HxObject
 				{
 					if (field.equals("writeDouble")) 
 					{
-						__temp_executeDef151885 = false;
+						__temp_executeDef160997 = false;
 						this.writeDouble(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -884,7 +884,7 @@ public  class Output extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151885) 
+			if (__temp_executeDef160997) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

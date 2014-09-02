@@ -477,7 +477,7 @@ class MaterialContext
 	 * @param	p_material
 	 */
 	private function Bind(m : Material,t:Transform=null,c:Camera=null):Void
-	{
+	{		
 		var material_change : Bool = (m != current);		
 		UseMaterial(m);		
 		UpdateMaterialUniforms(t,c,material_change);
@@ -499,51 +499,65 @@ class MaterialContext
 				projmatrix[m.__cid] = false;				
 				var p : ProgramId = programs[m.__cid];
 				UpdateFlags(m);								
-				GL.UseProgram(p);				
+				GL.UseProgram(p);
 			}			
 		}		
 	}
 	
+	/**
+	 * Update and use the uniforms of the current material.
+	 * @param	t
+	 * @param	c
+	 * @param	p_changed
+	 */
 	private function UpdateMaterialUniforms(t:Transform,c:Camera,p_changed:Bool):Void
 	{
+		
 		if (current != null)
 		{	
-			if (p_changed)
+			//if (p_changed)
 			{
-				if (c != null)
-				{
-					viewmatrix[current.__cid] = c.m_view_uniform_dirty;
-					projmatrix[current.__cid] = c.m_proj_uniform_dirty;
-				}
+				viewmatrix[current.__cid] = (c == null) ? false : c.m_view_uniform_dirty;
+				projmatrix[current.__cid] = (c == null) ? false : c.m_proj_uniform_dirty;								
 			}
-			
-			//update camera uniform if camera changed or if material changed
-			var uc : Bool  = (c != camera[current.__cid]);						
-			var ucv : Bool = viewmatrix[current.__cid]||uc; 
-			var ucp : Bool = projmatrix[current.__cid]||uc;
-			camera[current.__cid] = c;
-			
-			viewmatrix[current.__cid] = false;
-			projmatrix[current.__cid] = false;
 			
 			//update transform uniform if transform changed or if material changed
 			t = t == null ? Transform.root : t;
 			var ut : Bool = (t != transform[current.__cid]);
+			if(transform[current.__cid] != null)transform[current.__cid].m_uniform_dirty = false;
 			transform[current.__cid] = t;
 			ut = ut || t.m_uniform_dirty;
+			
+			//update camera uniform if camera changed or if material changed
+			var uc : Bool  = (c != camera[current.__cid]) && (c!=null);
+			var ucv : Bool = viewmatrix[current.__cid] || uc; 
+			var ucp : Bool = projmatrix[current.__cid] || uc;
+			if(c!=null) camera[current.__cid] = c;
+			
+			UploadUniforms(ut,ucv,ucp,t,c);
+			
+			viewmatrix[current.__cid] = false;
+			projmatrix[current.__cid] = false;
 						
-			var ul : Array<MaterialUniform> = current.m_uniforms;			
-			//slot = 0;
-			for (i in 0...ul.length)
-			{
-				var u : MaterialUniform = ul[i];				
-				
-				//After Shader upload and setup. The globals are initialized and don't need to be searched again.
-				UploadGlobalUniform(u, ut, ucv, ucp, t, c);
-				
-				//Uploads all collected uniforms.
-				UploadUniform(current, u);
-			}
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private function UploadUniforms(ut:Bool,ucv:Bool,ucp:Bool,t:Transform,c:Camera):Void
+	{
+		var ul : Array<MaterialUniform> = current.m_uniforms;			
+		//slot = 0;
+		for (i in 0...ul.length)
+		{
+			var u : MaterialUniform = ul[i];				
+			
+			//After Shader upload and setup. The globals are initialized and don't need to be searched again.
+			UploadGlobalUniform(u, ut, ucv, ucp, t, c);
+			
+			//Uploads all collected uniforms.
+			UploadUniform(current, u);
 		}
 	}
 	
@@ -553,27 +567,48 @@ class MaterialContext
 	 */
 	private function UploadUniform(m:Material,u:MaterialUniform):Void
 	{
-		var loc:UniformLocation;
-		var is_texture : Bool = false;
+		var loc:UniformLocation;		
 		loc = uniforms[m.__cid][u.__cid];
 		if (loc == GL.INVALID) return;		
-		if (u.texture != null) { EngineContext.texture.Activate(u.texture, u.texture.__slot); is_texture = true; } 		
-		if (u.__d)
-		{	
-			if (is_texture)
+		if (u.texture != null) { EngineContext.texture.Activate(u.texture, u.texture.__slot);} 				
+		if (!u.__d) return;
+		ApplyUniform(loc, u);
+	}
+	
+	/**
+	 * 
+	 * @param	loc
+	 * @param	u
+	 */
+	private function ApplyUniform(loc : UniformLocation,u:MaterialUniform):Void
+	{
+		var off : Int = u.offset;
+		
+		if (u.isFloat)
+		{
+			var b : FloatArray = cast u.data;					
+			switch(off)
 			{
-				GL.Uniform1i(loc,u.texture.__slot);	
+				case 1:  GL.Uniform1f(loc, b.Get(0));				
+				case 2:  GL.Uniform2f(loc, b.Get(0), b.Get(1));
+				case 3:  GL.Uniform3f(loc, b.Get(0), b.Get(1), b.Get(2));
+				case 4:  GL.Uniform4f(loc, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
+				case 16: GL.UniformMatrix4fv(loc, false, b);
+				default: GL.Uniform1fv(loc, b);
 			}
-			else
-			if (u.isFloat)
+		}
+		else
+		{						
+			var b : Int32Array = cast u.data;			
+			switch(off)
 			{
-				ApplyFloatUniform(loc, u); 
+				case 1:  GL.Uniform1i(loc,b.Get(0));				
+				case 2:  GL.Uniform2i(loc, b.Get(0), b.Get(1));
+				case 3:  GL.Uniform3i(loc, b.Get(0), b.Get(1), b.Get(2));
+				case 4:  GL.Uniform4i(loc, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
+				default: GL.Uniform1iv(loc, b);
 			}
-			else
-			{						
-				ApplyIntUniform(loc, u);
-			}
-		}		
+		}				
 		u.__d = false;
 	}
 	
@@ -595,55 +630,16 @@ class MaterialContext
 			case "WorldMatrixInverse":		if(ut)	u.SetMatrix4(t.WorldMatrixInverse);
 			case "CameraPosition": 			if(ucv)	u.SetVector3(c.transform.position);
 			case "ViewMatrix":				if(ucv) u.SetMatrix4(c.transform.WorldMatrixInverse);
-			case "ViewMatrixInverse":		if(ucv) u.SetMatrix4(c.CameraToWorld);					
+			case "ViewMatrixInverse":		if(ucv) u.SetMatrix4(c.transform.WorldMatrix);					
 			case "ProjectionMatrix":  		if(ucp)	u.SetMatrix4(c.ProjectionMatrix);					
 			case "ProjectionMatrixInverse": if(ucp)	u.SetMatrix4(c.ProjectionMatrixInverse);										
 		}	
 	}
 	
 	/**
-	 * Applies the data from an uniform into the shader.
-	 * @param	p_location
-	 * @param	p_uniform
-	 */
-	private inline function ApplyFloatUniform(p_location:UniformLocation,p_uniform:MaterialUniform):Void
-	{
-		var b : FloatArray = cast p_uniform.data;		
-		var off : Int = p_uniform.offset;
-		switch(off)
-		{
-			case 1:  GL.Uniform1f(p_location, b.Get(0));				
-			case 2:  GL.Uniform2f(p_location, b.Get(0), b.Get(1));
-			case 3:  GL.Uniform3f(p_location, b.Get(0), b.Get(1), b.Get(2));
-			case 4:  GL.Uniform4f(p_location, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
-			case 16: GL.UniformMatrix4fv(p_location, false, b);
-			default: GL.Uniform1fv(p_location, b);
-		}
-	}
-	
-	/**
-	 * Applies the data from an uniform into the shader.
-	 * @param	p_location
-	 * @param	p_uniform
-	 */
-	private inline function ApplyIntUniform(p_location:UniformLocation, p_uniform:MaterialUniform):Void
-	{
-		var b : Int32Array = cast p_uniform.data;
-		var off : Int = p_uniform.offset;
-		switch(off)
-		{
-			case 1:  GL.Uniform1i(p_location, b.Get(0));				
-			case 2:  GL.Uniform2i(p_location, b.Get(0), b.Get(1));
-			case 3:  GL.Uniform3i(p_location, b.Get(0), b.Get(1), b.Get(2));
-			case 4:  GL.Uniform4i(p_location, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
-			default: GL.Uniform1iv(p_location, b);
-		}
-	}
-	
-	/**
 	 * Disables the bound Material
 	 */
-	private inline function Unbind():Void
+	private function Unbind():Void
 	{	
 		//Disable something
 	}
@@ -652,7 +648,7 @@ class MaterialContext
 	 * Destroys the API structure of the material.
 	 * @param	m
 	 */
-	private inline function DestroyMaterial(m : Material):Void
+	private function DestroyMaterial(m : Material):Void
 	{
 		var p : ProgramId = programs[m.__cid];
 		if (m.shader != null)
@@ -669,7 +665,7 @@ class MaterialContext
 	 * Destroys the API structure of the shader.
 	 * @param	s
 	 */
-	private inline function DestroyShader(s : Shader):Void
+	private function DestroyShader(s : Shader):Void
 	{
 		GL.DeleteShader(vertex_shaders[s.__cid]);
 		GL.DeleteShader(fragment_shaders[s.__cid]);

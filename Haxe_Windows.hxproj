@@ -19,7 +19,7 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="windows&#xA;gl_debug" />
+    <option directives="windows&#xA;profile" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="Main" />

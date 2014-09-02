@@ -18,7 +18,7 @@ public  class Sys extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__Sys(haxe.root.Sys __temp_me151277)
+	public static   void __hx_ctor__Sys(haxe.root.Sys __temp_me160381)
 	{
 		{
 		}
@@ -76,10 +76,10 @@ public  class Sys extends haxe.lang.HxObject
 		
 		haxe.ds.StringMap<java.lang.String> _env = haxe.root.Sys._env = new haxe.ds.StringMap<java.lang.String>();
 		{
-			java.util.Iterator<java.util.Map.Entry> __temp_iterator151606 = ((java.util.Iterator<java.util.Map.Entry>) (((java.util.Iterator) (java.lang.System.getenv().entrySet().iterator()) )) );
-			while (__temp_iterator151606.hasNext())
+			java.util.Iterator<java.util.Map.Entry> __temp_iterator160718 = ((java.util.Iterator<java.util.Map.Entry>) (((java.util.Iterator) (java.lang.System.getenv().entrySet().iterator()) )) );
+			while (__temp_iterator160718.hasNext())
 			{
-				java.util.Map.Entry<java.lang.String, java.lang.String> mv = ((java.util.Map.Entry<java.lang.String, java.lang.String>) (((java.util.Map.Entry) (__temp_iterator151606.next()) )) );
+				java.util.Map.Entry<java.lang.String, java.lang.String> mv = ((java.util.Map.Entry<java.lang.String, java.lang.String>) (((java.util.Map.Entry) (__temp_iterator160718.next()) )) );
 				_env.set(mv.getKey(), mv.getValue());
 			}
 			
@@ -95,16 +95,16 @@ public  class Sys extends haxe.lang.HxObject
 		{
 			java.lang.Thread.sleep(((long) (( seconds * 1000 )) ));
 		}
-		catch (java.lang.Throwable __temp_catchallException151684)
+		catch (java.lang.Throwable __temp_catchallException160796)
 		{
-			java.lang.Object __temp_catchall151685 = __temp_catchallException151684;
-			if (( __temp_catchall151685 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall160797 = __temp_catchallException160796;
+			if (( __temp_catchall160797 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall151685 = ((haxe.lang.HaxeException) (__temp_catchallException151684) ).obj;
+				__temp_catchall160797 = ((haxe.lang.HaxeException) (__temp_catchallException160796) ).obj;
 			}
 			
 			{
-				java.lang.Object e = __temp_catchall151685;
+				java.lang.Object e = __temp_catchall160797;
 				throw haxe.lang.HaxeException.wrap(e);
 			}
 			

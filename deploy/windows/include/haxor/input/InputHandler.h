@@ -34,11 +34,14 @@ class HXCPP_CLASS_ATTRIBUTES  InputHandler_obj : public hx::Object{
 		::String __ToString() const { return HX_CSTRING("InputHandler"); }
 
 		::haxor::input::Joystick m_joystick;
-		virtual bool Update( Float t);
+		virtual Void Update( );
 		Dynamic Update_dyn();
 
 		virtual Void UpdateInput( );
 		Dynamic UpdateInput_dyn();
+
+		virtual Void Clear( );
+		Dynamic Clear_dyn();
 
 		virtual Void OnMouseMove( Float p_x,Float p_y);
 		Dynamic OnMouseMove_dyn();

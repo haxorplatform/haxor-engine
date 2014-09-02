@@ -204,6 +204,10 @@ public  class KeyCode extends haxe.lang.HxObject
 		haxor.input.KeyCode.Face2 = 1;
 		haxor.input.KeyCode.Face3 = 2;
 		haxor.input.KeyCode.Face4 = 3;
+		haxor.input.KeyCode.ButtonA = 0;
+		haxor.input.KeyCode.ButtonB = 1;
+		haxor.input.KeyCode.ButtonX = 2;
+		haxor.input.KeyCode.ButtonY = 3;
 		haxor.input.KeyCode.LeftShoulder = 4;
 		haxor.input.KeyCode.RightShoulder = 5;
 		haxor.input.KeyCode.LeftShoulderBottom = 6;
@@ -235,7 +239,7 @@ public  class KeyCode extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_input_KeyCode(haxor.input.KeyCode __temp_me151437)
+	public static   void __hx_ctor_haxor_input_KeyCode(haxor.input.KeyCode __temp_me160547)
 	{
 		{
 		}
@@ -638,6 +642,14 @@ public  class KeyCode extends haxe.lang.HxObject
 	public static  int Face3;
 	
 	public static  int Face4;
+	
+	public static  int ButtonA;
+	
+	public static  int ButtonB;
+	
+	public static  int ButtonX;
+	
+	public static  int ButtonY;
 	
 	public static  int LeftShoulder;
 	

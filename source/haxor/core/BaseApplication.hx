@@ -214,11 +214,13 @@ class BaseApplication extends Behaviour
 	 */
 	private function Update():Void 
 	{	
-		Time.Update();	
+		
+		Time.Update();
+		Input.m_handler.Update();
 		CheckResize();		
 		Engine.Update();
 		Engine.Collect();
-		
+		Input.m_handler.Clear();
 	}
 	
 	/**

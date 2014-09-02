@@ -1,6 +1,8 @@
 #if windows
 
 package haxor.platform.windows.input;
+import haxor.graphics.Screen;
+import haxor.math.Vector2;
 import haxor.input.KeyCode;
 import haxor.input.Joystick;
 import haxor.input.Input;
@@ -22,22 +24,23 @@ import haxor.input.InputHandler;
 @:allow(haxor)
 class WinInputHandler extends InputHandler
 {
-	
+	/**
+	 * Max joysticks to detect.
+	 */
 	private var m_max_joystick : Int;
-	
+		
 	/**
 	 * Initializes this input handler with the target DOM element.
 	 * @param	p_target
 	 */
 	private function new():Void
 	{		
+		super();
 		var max_jk : Int = 0;
 		untyped __cpp__('max_jk = 4;');
 		m_max_joystick = max_jk;
 	
-		CheckJoysticks();
-		
-		super();
+		CheckJoysticks();		
 	}
 	
 	/**
@@ -48,6 +51,9 @@ class WinInputHandler extends InputHandler
 		UpdateJoysticks();		
 	}
 	
+	/**
+	 * Loop through the API joysticks and updates their data.
+	 */
 	private function UpdateJoysticks():Void
 	{
 		var alx :Float = 0.0;
@@ -72,10 +78,7 @@ class WinInputHandler extends InputHandler
 			arx = ((float)state.Gamepad.sThumbRX)  / 32767.0;
 			ary = ((float)state.Gamepad.sThumbRY)  / 32767.0;						 
 			tl = ((float)state.Gamepad.bLeftTrigger)  / 255.0;
-			tr = ((float) state.Gamepad.bRightTrigger) / 255.0;			
-			
-			//state.Gamepad.wButtons & button
-			
+			tr = ((float) state.Gamepad.bRightTrigger) / 255.0;						
 			');
 			
 			var buttons : Array<Int> = [
@@ -117,12 +120,15 @@ class WinInputHandler extends InputHandler
 		}
 	}
 	
+	/**
+	 * Calls the XInput API to activate the joystick vibration.
+	 * @param	p_joystick
+	 */
 	override function RequestJoystickVibration(p_joystick:Joystick):Void 
 	{
 		var cid : Int = p_joystick.id;
 		var lv	: Int = cast(p_joystick.m_vibrationLeft * 65535.0);
-		var rv	: Int = cast(p_joystick.m_vibrationRight * 65535.0);
-		
+		var rv	: Int = cast(p_joystick.m_vibrationRight * 65535.0);		
 		untyped __cpp__('
 		XINPUT_VIBRATION vibration;
 		ZeroMemory( &vibration, sizeof(XINPUT_VIBRATION) );

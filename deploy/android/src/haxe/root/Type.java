@@ -18,7 +18,7 @@ public  class Type extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__Type(haxe.root.Type __temp_me151278)
+	public static   void __hx_ctor__Type(haxe.root.Type __temp_me160382)
 	{
 		{
 		}
@@ -73,16 +73,16 @@ public  class Type extends haxe.lang.HxObject
 		}
 		
 		{
-			java.lang.String __temp_svar151686 = (name);
-			int __temp_hash151688 = __temp_svar151686.hashCode();
-			boolean __temp_executeDef151687 = true;
-			switch (__temp_hash151688)
+			java.lang.String __temp_svar160798 = (name);
+			int __temp_hash160800 = __temp_svar160798.hashCode();
+			boolean __temp_executeDef160799 = true;
+			switch (__temp_hash160800)
 			{
 				case -672261858:case 104431:
 				{
-					if (( (( ( __temp_hash151688 == -672261858 ) && __temp_svar151686.equals("Integer") )) || __temp_svar151686.equals("int") )) 
+					if (( (( ( __temp_hash160800 == -672261858 ) && __temp_svar160798.equals("Integer") )) || __temp_svar160798.equals("int") )) 
 					{
-						__temp_executeDef151687 = false;
+						__temp_executeDef160799 = false;
 						return "Int";
 					}
 					
@@ -92,9 +92,9 @@ public  class Type extends haxe.lang.HxObject
 				
 				case -1939501217:
 				{
-					if (__temp_svar151686.equals("Object")) 
+					if (__temp_svar160798.equals("Object")) 
 					{
-						__temp_executeDef151687 = false;
+						__temp_executeDef160799 = false;
 						return "Dynamic";
 					}
 					
@@ -104,9 +104,9 @@ public  class Type extends haxe.lang.HxObject
 				
 				case 2052876273:case -1325958191:
 				{
-					if (( (( ( __temp_hash151688 == 2052876273 ) && __temp_svar151686.equals("Double") )) || __temp_svar151686.equals("double") )) 
+					if (( (( ( __temp_hash160800 == 2052876273 ) && __temp_svar160798.equals("Double") )) || __temp_svar160798.equals("double") )) 
 					{
-						__temp_executeDef151687 = false;
+						__temp_executeDef160799 = false;
 						return "Float";
 					}
 					
@@ -116,7 +116,7 @@ public  class Type extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151687) 
+			if (__temp_executeDef160799) 
 			{
 				return name;
 			}

@@ -1,15 +1,20 @@
 package haxor.context;
 import haxor.component.Camera;
+import haxor.component.Component;
 import haxor.component.MeshRenderer;
 import haxor.component.Renderer;
 import haxor.core.Resource;
 import haxor.core.Enums.PixelFormat;
+import haxor.core.Time;
+import haxor.ds.SAP;
 import haxor.graphics.GL;
 import haxor.graphics.Graphics;
 import haxor.graphics.material.Material;
 import haxor.graphics.Screen;
 import haxor.graphics.texture.ComputeTexture;
 import haxor.graphics.texture.RenderTexture;
+import haxor.math.Mathf;
+import haxor.math.Vector3;
 
 /**
  * Class that handles the all Renderers structures and functionalities.
@@ -22,11 +27,26 @@ class RendererContext
 	 * Unique class id for MeshRenderers.
 	 */
 	private var rid : UID;
+	
+	/**
+	 * Unique class id for frustum culling.
+	 */
+	private var fcid : UID;
 
 	/**
 	 * List of Renderers display lists per layer.
 	 */
 	private var display : Array<Process<Renderer>>;
+	
+	/**
+	 * Sweep and prune for frustum culling optimization .
+	 */
+	private var sap : SAP;
+	
+	/**
+	 * Flag that indicates if the SAP data has changed.
+	 */
+	private var sap_dirty : Bool;
 	
 	/**
 	 * Flag that indicates if the display list needs sorting.
@@ -39,11 +59,29 @@ class RendererContext
 	private var skinning : ComputeTexture;
 	
 	/**
+	 * index to check not-visibility in an async way.
+	 */
+	private var deferred_culling : Int;
+	
+	/**
+	 * offset to check if a mesh renderer is not visible.
+	 */
+	private var deferred_offset : Int;
+	
+	/**
 	 * Creates the context.
 	 */
 	private function new() 
 	{
 		rid   = new UID();
+		
+		fcid  = new UID();
+		sap   = new SAP(0.01,false);
+		
+		sap_dirty = false;
+		
+		deferred_culling = 0;
+		deferred_offset  = 100;
 		
 		display   = [];
 		sort	  = [];
@@ -62,6 +100,41 @@ class RendererContext
 	{
 		//430 skinned mesh renderers with 50 joints and 50 binds.
 		skinning = new ComputeTexture(512, 512, PixelFormat.Float4); 
+	}
+	
+	/**
+	 * Setup data for the new renderer.
+	 * @param	r
+	 */
+	private function Create(r:Renderer):Void
+	{
+		r.__cid  = rid.id;
+		if (r.m_has_mesh)
+		{
+			var mr : MeshRenderer = cast r;
+			mr.__fcid = fcid.id;
+			sap.Create(mr.__fcid);
+		}
+	}
+	
+	/**
+	 * Adds a camera to the SAP frustum culling.
+	 * @param	c
+	 */
+	private function AddCamera(c:Camera):Void
+	{
+		c.__fcid = fcid.id;
+		sap.Create(c.__fcid);
+	}
+	
+	/**
+	 * Removes a camera to the SAP frustum culling.
+	 * @param	c
+	 */
+	private function RemoveCamera(c:Camera):Void
+	{
+		fcid.id = c.__fcid;
+		sap.Remove(c.__fcid);
 	}
 	
 	/**
@@ -85,6 +158,34 @@ class RendererContext
 	}
 	
 	/**
+	 * Notifies all components from the Entity that this mesh renderer visibility changed.
+	 * @param	m
+	 * @param	f
+	 */
+	private function OnVisibilityChange(r:Renderer,f:Bool):Void
+	{
+		var cl : Array<Component>   = r.m_entity.m_components;
+		for (i in 0...cl.length) cl[i].OnVisibilityChange(f);
+	}
+	
+	/**
+	 * Checks if the renderer is visible and post-pone or not the test for visiblity.
+	 * @param	r
+	 * @return
+	 */
+	private function DeferredCulling(r:Renderer):Bool
+	{
+		//if (Time.frame < 300) 
+		return false;
+		if (!r.visible) return false;
+		var c_id  : Int = EngineContext.renderer.deferred_culling;
+		var c_off :Int  = deferred_offset;
+		deferred_culling = (deferred_culling + deferred_offset) % rid.next;					
+		if (Mathf.AbsInt(c_id - r.__cid) > c_off) return true;			
+		return false;
+	}
+	
+	/**
 	 * Callback called when the Renderer's entity changes layers.
 	 * @param	r
 	 * @param	from
@@ -92,7 +193,7 @@ class RendererContext
 	 */
 	private function OnLayerChange(r:Renderer, from:Int, to:Int):Void
 	{
-		sort[from] = true;
+		sort[from] = true;		
 		display[from].Remove(r);
 		if (r.enabled)
 		{
@@ -115,7 +216,10 @@ class RendererContext
 			if (need_sort)
 			{
 				sort[l] = false;
-				if(rl.length > 1)rl.list.sort(DisplayListSort);
+				if (rl.length > 1)
+				{
+					rl.Sort(DisplayListSort);
+				}
 			}
 		}
 	}
@@ -128,6 +232,11 @@ class RendererContext
 	{
 		display[r.m_entity.layer].Add(r);
 		sort[r.m_entity.layer] = true;
+		if (r.m_has_mesh)
+		{
+			var mr : MeshRenderer = cast r;
+			mr.m_culling_dirty = true;
+		}
 	}
 	
 	/**
@@ -141,6 +250,31 @@ class RendererContext
 	}
 	
 	/**
+	 * Update SAP interval 
+	 * @param	r
+	 * @param	p_min
+	 * @param	p_max
+	 */
+	private function UpdateSAP(p_id:Int,p_d:Dynamic,p_min:Vector3,p_max:Vector3):Void
+	{
+		sap_dirty = true;
+		sap.Update(p_id,p_d,p_min, p_max);
+	}
+	
+	/**
+	 * Checks if the pair overlaps in the SAP structure.
+	 * @param	r
+	 * @param	c
+	 * @return
+	 */
+	private function IsSAPCulled(r:Renderer, c:Camera):Bool
+	{
+		if (!r.m_has_mesh) return false;
+		var mr : MeshRenderer = cast r;
+		return sap.Overlap(mr.__fcid, c.__fcid);
+	}
+	
+	/**
 	 * Destroys the renderer
 	 * @param	r
 	 */
@@ -148,7 +282,15 @@ class RendererContext
 	{
 		display[r.m_entity.layer].Remove(r);
 		sort[r.m_entity.layer] = true;
-		EngineContext.renderer.rid.id = r.__cid;
+		rid.id  = r.__cid;
+		
+		//If MeshRenderer update SAP related stuff.
+		if (r.m_has_mesh)
+		{
+			var mr : MeshRenderer = cast r;
+			fcid.id = mr.__fcid;
+			sap.Remove(mr.__fcid);
+		}
 	}
 	
 	/**
@@ -209,7 +351,7 @@ class RendererContext
 		if (mra.mesh == null) return  1;
 		if (mrb.mesh == null) return -1;
 	
-		//Check if materials inside the same queue are equal.
+		//Check if meshes inside the same queue are equal.
 		if (mra.mesh.uid < mrb.mesh.uid) return -1;
 		if (mra.mesh.uid > mrb.mesh.uid) return  1;				
 		

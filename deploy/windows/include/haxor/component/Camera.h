@@ -45,6 +45,7 @@ class HXCPP_CLASS_ATTRIBUTES  Camera_obj : public ::haxor::component::Behaviour_
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("Camera"); }
 
+		int __fcid;
 		::haxor::math::Color background;
 		::haxor::graphics::texture::TextureCube skybox;
 		int clear;
@@ -148,9 +149,17 @@ class HXCPP_CLASS_ATTRIBUTES  Camera_obj : public ::haxor::component::Behaviour_
 		bool m_projection_dirty;
 		bool m_view_uniform_dirty;
 		bool m_proj_uniform_dirty;
+		::haxor::math::Vector4 m_fn0;
+		::haxor::math::Vector4 m_fn1;
+		::haxor::math::Vector4 m_fn2;
+		::haxor::math::Vector4 m_fn3;
+		::haxor::math::Vector4 m_ff0;
+		::haxor::math::Vector4 m_ff1;
+		::haxor::math::Vector4 m_ff2;
+		::haxor::math::Vector4 m_ff3;
 		virtual Void OnBuild( );
 
-		virtual ::haxor::math::Vector4 WorldToProjection( ::haxor::math::Vector3 p_world_point);
+		virtual ::haxor::math::Vector4 WorldToProjection( ::haxor::math::Vector3 p_world_point,::haxor::math::Vector4 p_result);
 		Dynamic WorldToProjection_dyn();
 
 		virtual Float WorldToDepth( ::haxor::math::Vector3 p_world_point);
@@ -169,6 +178,7 @@ class HXCPP_CLASS_ATTRIBUTES  Camera_obj : public ::haxor::component::Behaviour_
 
 		virtual Void OnDestroy( );
 
+		static bool sap;
 		static Array< ::Dynamic > get_list( );
 		static Dynamic get_list_dyn();
 

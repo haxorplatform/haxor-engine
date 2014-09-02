@@ -167,10 +167,13 @@ class HXCPP_CLASS_ATTRIBUTES  AABB3_obj : public hx::Object{
 		static ::haxor::math::AABB3 get_temp( );
 		static Dynamic get_temp_dyn();
 
-		static ::haxor::math::AABB3 FromMinMax( Float p_xmin,Float p_xmax,Float p_ymin,Float p_ymax,Float p_zmin,Float p_zmax);
+		static ::haxor::math::Vector3 Center( ::haxor::math::AABB3 p_b,::haxor::math::Vector3 p_result);
+		static Dynamic Center_dyn();
+
+		static ::haxor::math::AABB3 FromMinMax( Float p_xmin,Float p_xmax,Float p_ymin,Float p_ymax,Float p_zmin,Float p_zmax,::haxor::math::AABB3 p_result);
 		static Dynamic FromMinMax_dyn();
 
-		static ::haxor::math::AABB3 FromCenter( Float p_x,Float p_y,Float p_z,Float p_width,Float p_height,Float p_depth);
+		static ::haxor::math::AABB3 FromCenter( Float p_x,Float p_y,Float p_z,Float p_width,Float p_height,Float p_depth,::haxor::math::AABB3 p_result);
 		static Dynamic FromCenter_dyn();
 
 		static ::haxor::math::AABB3 empty;

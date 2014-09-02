@@ -2,9 +2,9 @@ package haxor.component;
 import haxe.root.*;
 
 @SuppressWarnings(value={"rawtypes", "unchecked"})
-public  class Transform_OutputHierarchy_439__Fun extends haxe.lang.Function
+public  class Transform_OutputHierarchy_371__Fun extends haxe.lang.Function
 {
-	public    Transform_OutputHierarchy_439__Fun(haxe.root.Array<java.lang.String> hs, haxe.root.Array<java.lang.Object> d0)
+	public    Transform_OutputHierarchy_371__Fun(haxe.root.Array<java.lang.String> hs, haxe.root.Array<java.lang.Object> d0)
 	{
 		super(2, 0);
 		this.hs = hs;
@@ -30,8 +30,8 @@ public  class Transform_OutputHierarchy_439__Fun extends haxe.lang.Function
 		}
 		
 		{
-			int __temp_index151617 = 0;
-			this.hs.__set(__temp_index151617, ( this.hs.__get(__temp_index151617) + ( ( ( ( ( ( tab + t.get_name() ) + " " ) + t.get_position().ToString(null) ) + t.get_rotation().ToString(null) ) + t.get_scale().ToString(null) ) + "\n" ) ));
+			int __temp_index160729 = 0;
+			this.hs.__set(__temp_index160729, ( this.hs.__get(__temp_index160729) + ( ( ( ( ( ( tab + t.get_name() ) + " " ) + t.get_position().ToString(null) ) + t.get_rotation().ToString(null) ) + t.get_scale().ToString(null) ) + "\n" ) ));
 		}
 		
 		return true;

@@ -1,548 +1,379 @@
-/*
-HAXOR HTML5 ENGINE (c) 2013 - 2014 by Eduardo Pons - eduardo@thelaborat.org
-
-HAXOR HTML5 ENGINE is licensed under a
-Creative Commons Attribution-NoDerivs 3.0 Unported License.
-
-You should have received a copy of the license along with this
-work.  If not, see <http://creativecommons.org/licenses/by-nd/3.0/>.
- */
 package haxor.component;
-
-import haxe.Timer;
-import js.Browser;
-import js.html.ArrayBufferView;
-import js.html.Float32Array;
-import js.html.idb.Transaction;
-import js.Lib;
-import haxor.api.TextureAPI;
+import haxor.context.EngineContext;
 import haxor.core.Console;
-import haxor.core.Entity;
-import haxor.core.Time;
 import haxor.math.Mathf;
-import haxor.physics.BoxCollider;
-import haxor.thread.Thread;
-import haxor.thread.TransformKernel;
-
 import haxor.math.Matrix4;
 import haxor.math.Quaternion;
 import haxor.math.Vector3;
 
+
+
 /**
- * ...
+ * Component that handles all Transformation matrix of Entities.
  * @author Eduardo Pons
  */
 @:allow(haxor)
 class Transform extends Component
 {
 	
-	
-	
 	/**
-	 * 
+	 * Root transform of the current scene.
 	 */
-	static public var root(get_root, never) : Transform;	
-	static private var m_root : Transform;
+	static public var root(get_root, never) : Transform;		
 	static function get_root():Transform { return m_root; }
-	
-	
-	static private var m_indexes : Array<Int>;
-	
-	static private var m_list : Array<Transform>;
-	
-	static public var m_threaded : Bool;
-	
-	static public var m_kernel : TransformKernel;
-	
-	static private var m_sync_iterator : Int;
-	
-	static private var m_boot : Int;
-	
-	static private function Initialize():Void
-	{	
-		m_threaded  = TextureAPI.TEXTURE_FLOAT;		
-		if (Browser.navigator.userAgent.toLowerCase().indexOf("chrome") < 0) 	m_threaded = false;
-		if (Browser.navigator.userAgent.toLowerCase().indexOf("android") >= 0) 	m_threaded = false;
-		if (Browser.navigator.userAgent.toLowerCase().indexOf("iphone") >= 0) 	m_threaded = false;
-		if (Browser.navigator.userAgent.toLowerCase().indexOf("ipad") >= 0) 	m_threaded = false;
-		m_threaded = false;
-		if (m_threaded)
-		{
-			m_kernel = new TransformKernel();
-			m_kernel.Init(m_root);
-			m_sync_iterator = 0;
-			m_boot = 8;
-		}
-		
-		trace("Haxor> Transform Initialize Threaded["+m_threaded+"]");
-	}
-	
-	
-	
-	static public function Update(p_sync : Bool):Void
-	{	
-		if (m_threaded)
-		{				
-			if (m_boot > 0) { root.Concat(); m_boot--; }
-			if (p_sync)
-			{				
-				for (i in 0...cast(m_list.length))
-				{
-					m_list[m_sync_iterator].KernelSync();
-					m_sync_iterator = (m_sync_iterator + 1) % m_list.length;
-				}
-			}
-			else
-			{
-				m_kernel.Execute();
-			}
-		}
-	}
-	
-	private var m_depth : Int;
-	
-	private var m_tid:Int;
-	
-	private var m_dirty:Bool;
-	
-	private var m_concat : Bool;
-	
-	private var m_hierarchy : Array<Transform>;	
-	
-	private var m_lock : Bool;
-	
-	private var m_tm0 : Matrix4;
-	
-	private var m_tm1 : Matrix4;
+	static private var m_root : Transform;
 	
 	/**
-	 * 
+	 * Right world axis vector
 	 */
 	public var right(get_right, never):Vector3;	
-	private function get_right():Vector3 
-	{ 
-		//return WorldMatrix.Rotate(Vector3.right);
-		var wm :Matrix4 = m_worldMatrix;
-		return Vector3.temp.Set(wm.m00, wm.m10, wm.m20);
-	}
+	private function get_right():Vector3 { RefreshWM(); return m_right.clone; }
 	private function set_right(v:Vector3):Vector3 { return v; }
-	
+	private var m_right : Vector3;
+		
 	/**
-	 * 
+	 * Up world axis vector
 	 */
 	public var up(get_up, never):Vector3;		
-	private function get_up():Vector3 
-	{ 
-		//return WorldMatrix.Rotate(Vector3.right);
-		var wm :Matrix4 = m_worldMatrix;
-		return Vector3.temp.Set(wm.m01, wm.m11, wm.m21); 
-	}
+	private function get_up():Vector3 { RefreshWM(); return m_up.clone; }
 	private function set_up(v:Vector3):Vector3 { return v; }
+	private var m_up : Vector3;
 	
 	/**
-	 * 
+	 * Forward world axis vector
 	 */
 	public var forward(get_forward, never):Vector3;
-	private function get_forward():Vector3 
-	{ 
-		//return WorldMatrix.Rotate(Vector3.right);
-		var wm :Matrix4 = m_worldMatrix;
-		return Vector3.temp.Set(wm.m02, wm.m12, wm.m22); 
-	}
+	private function get_forward():Vector3 { RefreshWM(); return m_forward.inverse; }
 	private function set_forward(v:Vector3):Vector3 { return v; }
+	private var m_forward : Vector3;
 	
 	
 	/**
-	 * 
+	 * Parent Transform of this instance. If set to null the parent will be the  root transform.
 	 */
-	public var parent(get_parent, set_parent):Transform;
-	private var m_parent : Transform;
-	private function get_parent():Transform { return m_parent; }
+	public var parent(get_parent, set_parent):Transform;	
+	private inline function get_parent():Transform { return m_parent; }
 	private function set_parent(v:Transform):Transform
 	{		
 		if (m_parent != null) m_parent.m_hierarchy.remove(this);
 		m_parent = v == null ? m_root : v;		
 		m_parent.m_hierarchy.push(this);
-		if (m_threaded) { m_kernel.SetParent(this); m_kernel.SetConcat(this, true); }
+		var ps : Vector3 = m_parent.scale;
+		ps.x = ps.x <= 0.0 ? 0.0 : (1.0 / ps.x);
+		ps.y = ps.y <= 0.0 ? 0.0 : (1.0 / ps.y);
+		ps.z = ps.z <= 0.0 ? 0.0 : (1.0 / ps.z);
+		m_localScale.x *= ps.x;
+		m_localScale.y *= ps.y;
+		m_localScale.z *= ps.z;		
+		localScale = m_localScale;		
+		return m_parent;
+	}
+	private var m_parent : Transform;
+	
+	/**
+	 * Returns the number of children.
+	 */
+	public var childCount(get_childCount, null):Int;
+	private inline function get_childCount():Int { return m_hierarchy.length; }
+	
+	/**
+	 * Sets the Transform position in world space.
+	 */
+	public var position(get_position, set_position):Vector3;		
+	private function get_position():Vector3 { return Vector3.zero.Set(m_position.x,m_position.y,m_position.z); }
+	private function set_position(v:Vector3):Vector3
+	{ 
+		var dx : Float = (v.x-m_position.x); var dy : Float = (v.y-m_position.y); var dz : Float = (v.z-m_position.z);
+		if (Math.abs(dx) < Mathf.Epsilon)
+		if (Math.abs(dy) < Mathf.Epsilon)
+		if (Math.abs(dz) < Mathf.Epsilon) return v;			
+		Translate(dx, dy, dz);				
+		return v;
+	}
+	private var m_position : Vector3;
+	
+	/**
+	 * Sets the Transform position in its parent local space.
+	 */
+	public var localPosition(get_localPosition, set_localPosition):Vector3;		
+	private function get_localPosition():Vector3 {  if (parent == null) return position; var wm : Matrix4 = parent.WorldMatrix;	return parent.WorldMatrixInverse.Transform3x4(Vector3.temp.Set3(m_position)); }
+	private function set_localPosition(v:Vector3):Vector3 { if (parent == null) return v; position = parent.WorldMatrix.Transform3x4(v); return v; }
+	
+	
+	/**
+	 * Sets the Transform euler angles in world space.
+	 */
+	public var euler(get_euler, set_euler):Vector3;		
+	private function get_euler():Vector3 { return m_rotation.euler; }
+	private function set_euler(v:Vector3):Vector3 { rotation = Quaternion.FromEuler(v, Quaternion.temp); return v; }
+	
+	
+	/**
+	 * Sets the Transform euler angles in its parent local space.
+	 */
+	public var localEuler(get_localEuler, set_localEuler):Vector3;		
+	private function get_localEuler():Vector3 { if (parent == null) return euler; return localRotation.euler; }
+	private function set_localEuler(v:Vector3):Vector3 { if (parent == null) return v; localRotation = Quaternion.FromEuler(v,Quaternion.temp); return v; }
+	
+	
+	/**
+	 * Sets the Transform rotation in world space.
+	 */
+	public var rotation(get_rotation, set_rotation):Quaternion;		
+	private function get_rotation():Quaternion { return m_rotation.clone; }
+	private function set_rotation(v:Quaternion):Quaternion 
+	{ 
+		var dx : Float = (v.x-m_rotation.x); var dy : Float = (v.y-m_rotation.y); var dz : Float = (v.z-m_rotation.z); var dw : Float = (v.w-m_rotation.w);
+		if (Math.abs(dx) < Mathf.Epsilon)
+		if (Math.abs(dy) < Mathf.Epsilon)
+		if (Math.abs(dz) < Mathf.Epsilon)
+		if (Math.abs(dw) < Mathf.Epsilon) return v;	
+		
+		var dq : Quaternion = Quaternion.DeltaRotation(m_rotation, v, Quaternion.temp);
+		m_rotation.Multiply(dq);
+		
+		Traverse(function(t:Transform,d:Int):Bool
+		{
+			if (t == this) return true;
+			var pp : Vector3 = t.parent == null ? Vector3.temp.Set(0, 0, 0) : t.parent.m_position;
+			var v : Vector3    = Vector3.temp.Set3(t.m_position).Sub(pp);
+			dq.Transform(v);			
+			v.Add(pp);
+			t.position = v;
+			//trace(t.name+" " + t.scale.ToString());
+			t.m_dirty = true;
+			EngineContext.transform.OnChange(t);			
+			return true;
+		});	
+		EngineContext.transform.OnChange(this);
 		m_dirty = true;		
-		UpdateDepth();		
-		Concat();		
+		return v;	
+	}
+	private var m_rotation : Quaternion;
+	
+	
+	/**
+	 * Sets the Transform rotation in its parent local space.
+	 */
+	public var localRotation(get_localRotation, set_localRotation):Quaternion;		
+	private function get_localRotation():Quaternion 
+	{ 
+		if (parent == null) return rotation; 		
+		var dq : Quaternion = Quaternion.DeltaRotation(parent.m_rotation, m_rotation, Quaternion.temp);
+		return dq;
+	}
+	private function set_localRotation(v:Quaternion):Quaternion 
+	{ 
+		if (parent == null) { rotation = v; return v; }
+		var pq : Quaternion = Quaternion.temp.SetQuaternion(parent.m_rotation);
+		rotation = pq.Multiply(v);
+		return v; 
+	}
+	
+	/**
+	 * Sets the Transform scale in world space.
+	 */
+	public var scale(get_scale, never):Vector3;		
+	private function get_scale():Vector3 
+	{ 
+		RefreshWM();
+		return m_scale.clone;
+		/*
+		var wm : Matrix4 = WorldMatrix;
+		var d0:Float = Math.sqrt(wm.m00 * wm.m00 + wm.m10 * wm.m10 + wm.m20 * wm.m20);
+		var d1:Float = Math.sqrt(wm.m01 * wm.m01 + wm.m11 * wm.m11 + wm.m21 * wm.m21);
+		var d2:Float = Math.sqrt(wm.m02 * wm.m02 + wm.m12 * wm.m12 + wm.m22 * wm.m22);
+		return Vector3.zero.Set(d0,d1,d2); 
+		//*/
+	}
+	private var m_scale : Vector3;
+	
+	/**
+	 * Sets the Transform euler angles in its parent local space.
+	 */
+	public var localScale(get_localScale, set_localScale):Vector3;		
+	private function get_localScale():Vector3 { return m_localScale.clone; }
+	private function set_localScale(v:Vector3):Vector3 
+	{ 
+		var dx : Float = (v.x - m_localScale.x); 
+		var dy : Float = (v.y - m_localScale.y); 
+		var dz : Float = (v.z - m_localScale.z);		
+		if (Math.abs(dx) < Mathf.Epsilon)
+		if (Math.abs(dy) < Mathf.Epsilon)
+		if (Math.abs(dz) < Mathf.Epsilon) return v;	
+		m_localScale.Set3(v);
+		var ps : Vector3;
+		
+		ps = parent == null ? Vector3.temp.Set(1, 1, 1) : parent.m_scale;
+		m_scale.x = m_localScale.x * ps.x; 
+		m_scale.y = m_localScale.y * ps.y; 
+		m_scale.z = m_localScale.z * ps.z;
+		
+		Traverse(function(t:Transform,d:Int):Bool
+		{
+			if (t == this) return true;
+			var pp : Vector3 = t.parent == null ? Vector3.temp.Set(0, 0, 0) : t.parent.m_position;
+			ps = t.parent==null ? Vector3.temp.Set(1,1,1) : t.parent.m_scale;
+			t.m_scale.x = t.m_localScale.x * ps.x; 
+			t.m_scale.y = t.m_localScale.y * ps.y; 
+			t.m_scale.z = t.m_localScale.z * ps.z;			
+			var v : Vector3    = Vector3.temp.Set3(t.m_position).Sub(pp);
+			v.Multiply(ps);
+			v.Add(pp);
+			t.position = v;
+			//trace(t.name+" " + t.scale.ToString());
+			t.m_dirty = true;
+			EngineContext.transform.OnChange(t);
+			
+			return true;
+		});	
+		EngineContext.transform.OnChange(this);
+		m_dirty = true;		
+		return v;
+	}
+	private var m_localScale : Vector3;
+	
+	
+	/**
+	 * World space transform matrix.
+	 */
+	public var WorldMatrix(get_WorldMatrix, never) : Matrix4;			
+	private function get_WorldMatrix() : Matrix4 { RefreshWM(); return m_worldMatrix; }	
+	private var m_worldMatrix : Matrix4;
+	
+	/**
+	 * World space inverse matrix.
+	 */
+	public var WorldMatrixInverse(get_WorldMatrixInverse, never) : Matrix4;			
+	private function get_WorldMatrixInverse() : Matrix4 { RefreshWM(); return m_worldMatrixInverse; }
+	private var m_worldMatrixInverse : Matrix4;
+	
+	/**
+	 * Flag that indicates if the WorldTransform must be rebuilt.
+	 */
+	private var m_dirty : Bool;
+	
+	/**
+	 * Flag that indicates if the uniforms using this transform must be updates.
+	 */
+	private var m_uniform_dirty : Bool;
+	
+	/**
+	 * List of children.
+	 */
+	private var m_hierarchy : Array<Transform>;	
+	
+	
+	/**
+	 * Method called after component creation.
+	 */
+	override function OnBuild():Void 
+	{
+		super.OnBuild();
+		
+		__cid = EngineContext.transform.tid.id;		
+		m_position   = Vector3.zero;		
+		m_rotation	 = Quaternion.identity;
+		m_localScale = Vector3.one;	
+		m_scale		 = Vector3.one;	
+		m_dirty 	 = false;		
+		m_uniform_dirty = true;
+		m_right		= Vector3.right;
+		m_up		= Vector3.up;
+		m_forward	= Vector3.forward;		
+		//m_localMatrix 			= Matrix4.identity;
+		m_worldMatrixInverse    = Matrix4.identity;
+		m_worldMatrix 			= Matrix4.identity;		
+		m_hierarchy   		 = [];		
+		if (m_root != null) parent = null;	else m_root = this;		
+	}
+	
+	/**
+	 * Translate this Transform position by the specified delta. Returns its own reference.
+	 * @param	p_dx
+	 * @param	p_dy
+	 * @param	p_dz
+	 * @return
+	 */
+	public function Translate(p_dx:Float, p_dy:Float, p_dz:Float):Transform
+	{
+		m_position.Add3(p_dx, p_dy, p_dz);		
+		for (i in 0...m_hierarchy.length) m_hierarchy[i].Translate(p_dx, p_dy, p_dz);		
+		m_dirty = true;
+		EngineContext.transform.OnChange(this);
 		return this;
 	}
 	
-	private function UpdateDepth():Void
+	/**
+	 * Rotates this Transform by the specified delta.
+	 * @param	p_dx
+	 * @param	p_dy
+	 * @param	p_dz
+	 * @return
+	 */
+	public function Rotate(p_dx : Float, p_dy:Float, p_dz : Float):Transform
 	{
-		m_depth = m_parent == null ? 0 : m_parent.m_depth + 1;		
-		for (i in 0...m_hierarchy.length) m_hierarchy[i].UpdateDepth();
+		var rq : Quaternion = Quaternion.FromEuler(Vector3.temp.Set(p_dx, p_dy, p_dz), Quaternion.temp);
+		m_rotation.Multiply(rq);
+		//Console.Log(name);// +" rotate " + m_euler.ToString());
+		for (i in 0...m_hierarchy.length)
+		{
+			var c : Transform = m_hierarchy[i];							
+			var de : Vector3 = Vector3.temp.Set(p_dx, p_dy, p_dz);			
+			var q : Quaternion = Quaternion.FromEuler(de, Quaternion.temp);			
+			var v : Vector3    = Vector3.temp.Set3(c.m_position).Sub(m_position);			
+			q.Transform(v);
+			v.Add(m_position);									
+			c.position = v;						
+			c.Rotate(p_dx, p_dy, p_dz);	
+		}
+		m_dirty = true;
+		EngineContext.transform.OnChange(this);
+		return this;
 	}
-	
 	
 	/**
-	 * 
+	 * Shortcut for the UpdateWorldMatrix check/update code.
 	 */
-	public var position(get_position, set_position):Vector3;	
-	private var m_position : Vector3;
-	private function get_position():Vector3 { return Vector3.temp.Set(m_position.x,m_position.y,m_position.z); }
-	private function set_position(v:Vector3):Vector3
-	{ 
-		
-		var tx : Float = m_position.x;		
-		if (Math.abs(tx - v.x) < Mathf.Epsilon)
-		{
-			var ty : Float = m_position.y;
-			if (Math.abs(ty - v.y) < Mathf.Epsilon)
-			{
-				var tz : Float = m_position.z;				
-				if (Math.abs(tz - v.z) < Mathf.Epsilon)
-				{
-					return v;
-				}
-			}
-		}		
-		
-		m_position.x = v.x;
-		m_position.y = v.y;
-		m_position.z = v.z;
-		if (m_threaded) { m_kernel.SetPosition(this); m_kernel.SetDirty(this, true); }
-		m_dirty = true;		
-		Concat();		
-		return v;
-	}
-	
+	private inline function RefreshWM():Void { if (m_dirty) { UpdateWorldMatrix(); } }
 	
 	/**
-	 * 
+	 * Method invoked when this Transform suffered changes and must be updated.
 	 */
-	public var rotation(get_rotation, set_rotation):Quaternion;	
-	private var m_rotation : Quaternion;
-	private function get_rotation():Quaternion { return Quaternion.temp.Set(m_rotation.x,m_rotation.y,m_rotation.z,m_rotation.w); }
-	private function set_rotation(v:Quaternion):Quaternion
-	{ 
-		var tx : Float = m_rotation.x;		
-		if (Math.abs(tx - v.x) < Mathf.Epsilon)
-		{
-			var ty : Float = m_rotation.y;
-			if (Math.abs(ty - v.y) < Mathf.Epsilon)
-			{
-				var tz : Float = m_rotation.z;				
-				if (Math.abs(tz - v.z) < Mathf.Epsilon)
-				{
-					var tw : Float = m_rotation.w;
-					if (Math.abs(tw - v.w) < Mathf.Epsilon) return v;
-				}
-			}
-		}		
-		m_rotation.x = v.x;
-		m_rotation.y = v.y;
-		m_rotation.z = v.z;
-		m_rotation.w = v.w;		
-		if (m_threaded) { m_kernel.SetRotation(this); m_kernel.SetDirty(this, true); }
-		m_dirty = true;		
-		Concat();		
-		return v;
-	}
-	
-	
-	
-	/**
-	 * 
-	 */
-	public var scale(get_scale, set_scale):Vector3;	
-	private var m_scale : Vector3;
-	private function get_scale():Vector3 { return Vector3.temp.Set(m_scale.x,m_scale.y,m_scale.z); }
-	private function set_scale(v:Vector3):Vector3
-	{ 
-		var tx : Float = m_scale.x;		
-		if (Math.abs(tx - v.x) < Mathf.Epsilon)
-		{
-			var ty : Float = m_scale.y;
-			if (Math.abs(ty - v.y) < Mathf.Epsilon)
-			{
-				var tz : Float = m_scale.z;				
-				if (Math.abs(tz - v.z) < Mathf.Epsilon)
-				{
-					return v;
-				}
-			}
-		}			
-		m_scale.x = v.x;
-		m_scale.y = v.y;
-		m_scale.z = v.z;	
-		if (m_threaded) { m_kernel.SetScale(this); m_kernel.SetDirty(this, true); }
-		m_dirty = true;		
-		Concat();				
-		return v;
-	}
-	
-	
-	public var LocalMatrix(get_LocalMatrix, never) : Matrix4;	
-	private var m_localMatrix : Matrix4;
-	private function set_LocalMatrix(v:Matrix4) : Void  
-	{ 
-		var m : Matrix4 = m_localMatrix;
-		m.m00 = v.m00; m.m01 = v.m01; m.m02 = v.m02; m.m03 = v.m03;
-		m.m10 = v.m10; m.m11 = v.m11; m.m12 = v.m12; m.m13 = v.m13;
-		m.m20 = v.m20; m.m21 = v.m21; m.m22 = v.m22; m.m23 = v.m23;		
-		//m.m30 = m.m31 = m.m32 = 0.0; m.m33 = 1.0;
-	}	
-	private function get_LocalMatrix() : Matrix4		
+	private function UpdateWorldMatrix():Void
 	{
-		if (m_threaded)
-		{
-			m_kernel.GetLocalMatrix(this);			
-			m_dirty = false;
-		}
-		else
-		{
-			if (m_dirty)
-			{
-				SetLocalTRS();
-				m_dirty = false;
-			}
-		}
-		
-		var m : Matrix4 = m_tm0;
-		var v : Matrix4 = m_localMatrix;
-		m.m00 = v.m00; m.m01 = v.m01; m.m02 = v.m02; m.m03 = v.m03;
-		m.m10 = v.m10; m.m11 = v.m11; m.m12 = v.m12; m.m13 = v.m13;
-		m.m20 = v.m20; m.m21 = v.m21; m.m22 = v.m22; m.m23 = v.m23; 
-		m.m30 = m.m31 = m.m32 = 0.0; m.m33 = 1.0;
-		//*/
-		return m;
-	}	
-	
-	public var WorldMatrix(get_WorldMatrix, never) : Matrix4;	
-	private var m_worldMatrix : Matrix4;
-	private function set_WorldMatrix(v:Matrix4) : Void  
-	{ 
-		var m : Matrix4 = m_worldMatrix;
-		m.m00 = v.m00; m.m01 = v.m01; m.m02 = v.m02; m.m03 = v.m03;
-		m.m10 = v.m10; m.m11 = v.m11; m.m12 = v.m12; m.m13 = v.m13;
-		m.m20 = v.m20; m.m21 = v.m21; m.m22 = v.m22; m.m23 = v.m23;		
-		//m.m30 = m.m31 = m.m32 = 0.0; m.m33 = 1.0;
-	}
-	
-	private function get_WorldMatrix() : Matrix4		
-	{
-		var m : Matrix4 = Matrix4.temp;
-		var v : Matrix4 = m_worldMatrix;
-		m.m00 = v.m00; m.m01 = v.m01; m.m02 = v.m02; m.m03 = v.m03;
-		m.m10 = v.m10; m.m11 = v.m11; m.m12 = v.m12; m.m13 = v.m13;
-		m.m20 = v.m20; m.m21 = v.m21; m.m22 = v.m22; m.m23 = v.m23; 
-		//m.m30 = m.m31 = m.m32 = 0.0; m.m33 = 1.0;
-		return m;
-	}	
-	
-	public var WorldMatrixInverse(get_WorldMatrixInverse, never) : Matrix4;	
-	private var m_worldMatrixInverse : Matrix4;
-	private function set_WorldMatrixInverse(v:Matrix4) : Void  
-	{ 
-		var m : Matrix4 = m_worldMatrixInverse;
-		m.m00 = v.m00; m.m01 = v.m01; m.m02 = v.m02; m.m03 = v.m03;
-		m.m10 = v.m10; m.m11 = v.m11; m.m12 = v.m12; m.m13 = v.m13;
-		m.m20 = v.m20; m.m21 = v.m21; m.m22 = v.m22; m.m23 = v.m23;	
-		//m.m30 = m.m31 = m.m32 = 0.0; m.m33 = 1.0;
-	}
-	
-	private function get_WorldMatrixInverse() : Matrix4		
-	{
-		var m : Matrix4 = Matrix4.temp;
-		var v : Matrix4 = m_worldMatrixInverse;
-		m.m00 = v.m00; m.m01 = v.m01; m.m02 = v.m02; m.m03 = v.m03;
-		m.m10 = v.m10; m.m11 = v.m11; m.m12 = v.m12; m.m13 = v.m13;
-		m.m20 = v.m20; m.m21 = v.m21; m.m22 = v.m22; m.m23 = v.m23; 
-		m.m30 = m.m31 = m.m32 = 0.0; m.m33 = 1.0;
-		return m;
-	}
-	
-	private function WMToF32() : Float32Array
-	{
-		if (m_threaded) return m_kernel.GetWorldMatrix(this).ToBuffer();
-		return m_worldMatrix.ToBuffer();		
-	}
-	
-	private function WMIToF32() : Float32Array
-	{
-		if (m_threaded) return m_kernel.GetWorldMatrixInverse(this).ToBuffer();
-		return m_worldMatrixInverse.ToBuffer();		
-	}
-	
-	public function Concat():Void
-	{	
-		
-		if (m_lock) return;
-		
-		m_concat = true;
-		
-		
-		if (m_threaded)
-		{			
-			m_kernel.SetConcat(this, true);
-			for (i in 0...m_hierarchy.length) m_hierarchy[i].Concat();
-		}
-		else
-		{
-			//if (parent != null)
-			{
-				var v : Matrix4 = parent.m_worldMatrix;
-				var m : Matrix4 = m_worldMatrix;
-				m.m00 = v.m00; m.m01 = v.m01; m.m02 = v.m02; m.m03 = v.m03;
-				m.m10 = v.m10; m.m11 = v.m11; m.m12 = v.m12; m.m13 = v.m13;
-				m.m20 = v.m20; m.m21 = v.m21; m.m22 = v.m22; m.m23 = v.m23; 
+		var q : Quaternion = m_rotation;
+		//var ps : Vector3 = parent == null ? Vector3.temp.Set(1, 1, 1) :	parent.scale;		
+		var sx:Float = m_scale.x; 		var sy:Float = m_scale.y; 		var sz:Float = m_scale.z;		
+		var px:Float = m_position.x;	var py:Float = m_position.y;	var pz:Float = m_position.z;		
 				
-				m.MultiplyTransform(LocalMatrix);
-				//set_WorldMatrix(m);		
-				Matrix4.GetInverseTransform(m, m_worldMatrixInverse);
-				
-				//set_WorldMatrixInverse(m);
-				//if(name == "ground") trace("inverse: " + m.clone.MultiplyTransform(m_worldMatrixInverse).ToString());
-				UpdateComponents();
-				for (i in 0...m_hierarchy.length) m_hierarchy[i].Concat();
-			}
-		}			
-	}
-	
-	
-	
-	private function KernelSync():Void
-	{	
-		if (m_dirty)
-		{
-			m_kernel.GetLocalMatrix(this);
-			m_dirty = false;
-			m_kernel.SetDirty(this, false);
-		}
+		var r : Matrix4 = Matrix4.FromQuaternion(q,Matrix4.temp);		
 		
-		if (m_concat)
-		{
-			m_kernel.GetWorldMatrix(this);
-			m_kernel.GetWorldMatrixInverse(this);			
-			UpdateComponents();
-			m_concat = false;			
-			m_kernel.SetConcat(this, false);
-		}		
-	}
-	
-	private function UpdateComponents():Void
-	{
-		for (i in 0...entity.m_components.length) entity.m_components[i].OnTransformUpdate();
-	}
-	
-	private function SetLocalTRS():Void
-	{
+		m_right.Set  (r.m00, r.m10, r.m20);
+		m_up.Set	 (r.m01, r.m11, r.m21);
+		m_forward.Set(r.m02, r.m12, r.m22);
 		
-		var sx:Float = m_scale.x;			
-		var sy:Float = m_scale.y;
-		var sz:Float = m_scale.z;		
-		var px:Float = m_position.x;			
-		var py:Float = m_position.y;
-		var pz:Float = m_position.z;		
-		var rx : Float = m_rotation.x;
-		var ry : Float = m_rotation.y;
-		var rz : Float = m_rotation.z;
-		var rw : Float = m_rotation.w;		
-		var x2:Float = rx * rx;
-		var y2:Float = ry * ry;
-		var z2:Float = rz * rz;		
-		var xy:Float = rx * ry;
-		var xz:Float = rx * rz;
-		var yz:Float = ry * rz;
-		var xw:Float = rw * rx;
-		var yw:Float = rw * ry;
-		var zw:Float = rw * rz;
-		
-		var r : Matrix4 = m_tm1;
-		
-		r.m00 = 1.0 - 2.0 * ( y2 + z2 );
-		r.m01 =       2.0 * ( xy - zw );
-		r.m02 =       2.0 * ( xz + yw );		
-		r.m10 =       2.0 * ( xy + zw );
-		r.m11 = 1.0 - 2.0 * ( x2 + z2 );
-		r.m12 =       2.0 * ( yz - xw );		
-		r.m20 =       2.0 * ( xz - yw );
-		r.m21 =       2.0 * ( yz + xw );
-		r.m22 = 1.0 - 2.0 * ( x2 + y2 );
-		//*/
-		
-		var l : Matrix4 = m_localMatrix;
+		var l : Matrix4 = m_worldMatrix;
 		l.m00 = r.m00 * sx; l.m01 = r.m01 * sy; l.m02 = r.m02 * sz; l.m03 = px;
 		l.m10 = r.m10 * sx; l.m11 = r.m11 * sy; l.m12 = r.m12 * sz; l.m13 = py;
-		l.m20 = r.m20 * sx; l.m21 = r.m21 * sy; l.m22 = r.m22 * sz; l.m23 = pz;
+		l.m20 = r.m20 * sx; l.m21 = r.m21 * sy; l.m22 = r.m22 * sz; l.m23 = pz;	
 		
+		m_scale.x = sx;
+		m_scale.y = sy;
+		m_scale.z = sz;
+		
+		Matrix4.GetInverseTransform(m_worldMatrix, m_worldMatrixInverse);
+		m_dirty = false;		
 	}
-	
-	
+
 	/**
-	 * 
-	 */
-	public var childCount(get_childCount, null):Int;
-	private function get_childCount():Int { return m_hierarchy.length; }
-	
-	
-	/**
-	 * 
-	 */
-	function new(p_entity : Entity) 
-	{
-		super(p_entity);
-		
-		if(m_list == null) 	  m_list		= [];
-		if(m_indexes == null) m_indexes 	= [];
-		
-		m_position = Vector3.zero;
-		m_rotation = Quaternion.identity;
-		m_scale    = Vector3.one;
-		
-		m_localMatrix 			= Matrix4.identity;
-		m_worldMatrixInverse    = Matrix4.identity;
-		m_worldMatrix 			= Matrix4.identity;
-		
-		m_tm0 = Matrix4.identity;
-		m_tm1 = Matrix4.identity;
-		
-		var tid : Int 	= m_indexes.length > 0 ? m_indexes.shift() : m_list.length;		
-		m_tid 			= tid;
-		if (tid >= m_list.length) m_list.push(this); else m_list[tid] = this;
-		
-		m_depth 	  		 = 0;
-		m_hierarchy   		 = new Array<Transform>();
-		m_dirty  	  		 = true;
-		m_concat			 = true;
-		
-		if (m_root != null) parent = null;	
-		
-		if (m_threaded) m_kernel.Init(this);
-		
-	}
-	
-	override public function OnDestroy():Void 
-	{
-		super.OnDestroy();
-		var tid : Int = cast m_tid;
-		m_list[tid] = null;		
-		m_indexes.push(tid);
-	}
-	
-	public function Lock():Void
-	{
-		m_lock = true;
-		for (i in 0...m_hierarchy.length) m_hierarchy[i].Lock();
-	}
-	
-	public function Unlock():Void
-	{
-		m_lock = false;
-		for (i in 0...m_hierarchy.length) m_hierarchy[i].Unlock();
-	}
-	
-	/**
-	 * 
+	 * Returns a child at a given index.
 	 * @param	p_index
 	 */
 	public function GetChild(p_index : Int) : Transform { return m_hierarchy[p_index]; }
 	
 	/**
-	 * 
+	 * Returns a child with the specified name.
 	 * @param	p_index
 	 */
 	public function GetChildByName(p_name : String) : Transform 
@@ -552,7 +383,25 @@ class Transform extends Component
 	}
 	
 	/**
-	 * 
+	 * Locks the update of matrix for this Transform and its children.
+	 */
+	public function Lock():Void
+	{
+		//m_lock = true;
+		//for (i in 0...m_hierarchy.length) m_hierarchy[i].Lock();
+	}
+	
+	/**
+	 * Unlocks the update of matrix for this Transform and its children and apply the changes.
+	 */
+	public function Unlock():Void
+	{
+		//m_lock = false;
+		//for (i in 0...m_hierarchy.length) m_hierarchy[i].Unlock();
+	}
+	
+	/**
+	 * Navigates the dot separated path and searches for the specified child.
 	 * @param	p_path
 	 * @return
 	 */
@@ -569,10 +418,16 @@ class Transform extends Component
 		return t;
 	}
 	
+	/**
+	 * Searches all hierarchy for a child with the specified name. If not exact the search will use 'indexof' to match the name.
+	 * @param	p_name
+	 * @param	p_exact
+	 * @return
+	 */
 	public function Search(p_name : String,p_exact : Bool=true) : Transform
 	{
 		var res : Transform = null;
-		Traverse(function(it : Transform):Bool
+		Traverse(function(it : Transform,d:Int):Bool
 		{
 			if (it == this) 	return true;
 			if (res != null) 	return true;
@@ -589,6 +444,10 @@ class Transform extends Component
 		return res;
 	}
 	
+	/**
+	 * List of transform from this instance to root.
+	 * @return
+	 */
 	public function GetPathToRoot():Array<Transform>
 	{
 		var p : Transform = parent;
@@ -603,18 +462,18 @@ class Transform extends Component
 	}
 	
 	/**
-	 * 
+	 * Prints the hierarchy of this transform.
 	 * @return
 	 */
 	public function OutputHierarchy():String
 	{
-		var d0 : Int = cast m_depth;
+		var d0 : Int = 0;// cast m_depth;
 		var hs : String = "";
-		Traverse(function(t : Transform):Bool
+		Traverse(function(t : Transform,d:Int):Bool
 		{
 			var tab : String = "";
-			var td : Int = cast t.m_depth;
-			var d	: Int = Mathf.MaxInt([0, td - d0]);
+			var td : Int = d;
+			var d	: Int = Mathf.MaxInt(0, td - d0);
 			for (i in 0...d) tab += " ";
 			hs += tab + t.name + " " + t.position.ToString() + t.rotation.ToString() + t.scale.ToString() + "\n";
 			return true;
@@ -623,17 +482,37 @@ class Transform extends Component
 	}
 	
 	/**
-	 * 
+	 * Perform a DepthFirstSearch in this transform hierarchy, calling the specified method in each child.
+	 * If the method returns false, the search stops.
 	 * @param	p_callback
 	 */
-	public function Traverse(p_callback : Transform -> Bool):Void
+	public function Traverse(p_callback : Transform->Int-> Bool):Void { TraverseStep(this,0, p_callback); }
+	
+	/**
+	 * Auxiliar function for the Traverse method.
+	 * @param	p_child
+	 * @param	p_callback
+	 */
+	private function TraverseStep(p_child : Transform,p_depth:Int, p_callback : Transform ->Int-> Bool):Void { if(p_callback(p_child,p_depth)) for (i in 0...p_child.childCount) TraverseStep(p_child.GetChild(i),p_depth+1,p_callback); }
+	
+	/**
+	 * Callback called when this Transform is destroyed.
+	 */
+	override public function OnDestroy():Void 
 	{
-		TraverseStep(this, p_callback);
+		EngineContext.transform.tid.id = __cid;
 	}
 	
-	function TraverseStep(p_child : Transform, p_callback : Transform -> Bool):Void
+	/**
+	 * Returns the string representation of this Transform.
+	 * @param	p_places
+	 * @return
+	 */
+	public function ToString(p_use_local:Bool=false,p_places:Int=2):String
 	{
-		var go_deep : Bool = p_callback(p_child);
-		if(go_deep) for (i in 0...p_child.childCount) TraverseStep(p_child.GetChild(i), p_callback);		
+		var p : Vector3 = p_use_local ? localPosition : m_position;
+		var e : Vector3 = p_use_local ? localEuler	  : euler;
+		var s : Vector3 = p_use_local ? localScale    : scale;
+		return name+" " + p.ToString(p_places) + "" + e.ToString(p_places) + "" + s.ToString(p_places);
 	}
 }

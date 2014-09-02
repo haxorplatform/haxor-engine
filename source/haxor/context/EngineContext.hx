@@ -12,9 +12,10 @@ import haxor.core.IRenderable;
 import haxor.core.IResizeable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
+import haxor.core.Stats;
 
 /**
- * ...
+ * Class that holds all backstage processing and optimizations for the main Engine class.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 @:allow(haxor)
@@ -29,7 +30,7 @@ class EngineContext
 	/**
 	 * Max elements in the process lists.
 	 */
-	static private var maxNodes : Int 	= 1000;
+	static private var maxNodes : Int 	= 5000;
 	
 	/**
 	 * Objects per frame that will be collected after Destroy.
@@ -132,6 +133,7 @@ class EngineContext
 		gizmo		= new GizmoContext();
 		camera		= new CameraContext();
 		transform   = new TransformContext();
+		
 	}
 	
 	/**

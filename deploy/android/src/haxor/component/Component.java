@@ -17,9 +17,9 @@ public  class Component extends haxor.core.Resource
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_Component(haxor.component.Component __temp_me151268, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_component_Component(haxor.component.Component __temp_me160372, java.lang.String p_name)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me151268, p_name);
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me160372, p_name);
 	}
 	
 	
@@ -66,6 +66,36 @@ public  class Component extends haxor.core.Resource
 	}
 	
 	
+	public final   java.lang.Object AddComponent(java.lang.Class<haxor.component.Component> p_type)
+	{
+		return this.m_entity.AddComponent(p_type);
+	}
+	
+	
+	public final   java.lang.Object GetComponent(java.lang.Class<haxor.component.Component> p_type)
+	{
+		return this.m_entity.GetComponent(p_type);
+	}
+	
+	
+	public final   haxe.root.Array GetComponents(java.lang.Class<haxor.component.Component> p_type)
+	{
+		return this.m_entity.GetComponents(p_type);
+	}
+	
+	
+	public final   java.lang.Object GetComponentInChildren(java.lang.Class<haxor.component.Component> p_type)
+	{
+		return this.m_entity.GetComponentInChildren(p_type);
+	}
+	
+	
+	public final   haxe.root.Array GetComponentsInChildren(java.lang.Class<haxor.component.Component> p_type)
+	{
+		return this.m_entity.GetComponentsInChildren(p_type);
+	}
+	
+	
 	public   void OnBuild()
 	{
 		{
@@ -85,14 +115,14 @@ public  class Component extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151652 = true;
+			boolean __temp_executeDef160765 = true;
 			switch (field.hashCode())
 			{
 				case 1052666732:
 				{
 					if (field.equals("transform")) 
 					{
-						__temp_executeDef151652 = false;
+						__temp_executeDef160765 = false;
 						this.transform = ((haxor.component.Transform) (value) );
 						return value;
 					}
@@ -105,7 +135,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("entity")) 
 					{
-						__temp_executeDef151652 = false;
+						__temp_executeDef160765 = false;
 						this.entity = ((haxor.core.Entity) (value) );
 						return value;
 					}
@@ -118,7 +148,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("m_entity")) 
 					{
-						__temp_executeDef151652 = false;
+						__temp_executeDef160765 = false;
 						this.m_entity = ((haxor.core.Entity) (value) );
 						return value;
 					}
@@ -129,7 +159,7 @@ public  class Component extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef151652) 
+			if (__temp_executeDef160765) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -146,14 +176,14 @@ public  class Component extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151653 = true;
+			boolean __temp_executeDef160766 = true;
 			switch (field.hashCode())
 			{
 				case 1899224918:
 				{
 					if (field.equals("OnTransformUpdate")) 
 					{
-						__temp_executeDef151653 = false;
+						__temp_executeDef160766 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTransformUpdate"))) );
 					}
 					
@@ -165,7 +195,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("get_name")) 
 					{
-						__temp_executeDef151653 = false;
+						__temp_executeDef160766 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_name"))) );
 					}
 					
@@ -177,7 +207,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef151653 = false;
+						__temp_executeDef160766 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
 					}
 					
@@ -189,7 +219,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("set_name")) 
 					{
-						__temp_executeDef151653 = false;
+						__temp_executeDef160766 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_name"))) );
 					}
 					
@@ -197,12 +227,12 @@ public  class Component extends haxor.core.Resource
 				}
 				
 				
-				case 1567506883:
+				case 1277848144:
 				{
-					if (field.equals("get_transform")) 
+					if (field.equals("GetComponentsInChildren")) 
 					{
-						__temp_executeDef151653 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_transform"))) );
+						__temp_executeDef160766 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetComponentsInChildren"))) );
 					}
 					
 					break;
@@ -213,7 +243,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("entity")) 
 					{
-						__temp_executeDef151653 = false;
+						__temp_executeDef160766 = false;
 						if (handleProperties) 
 						{
 							return this.get_entity();
@@ -229,11 +259,71 @@ public  class Component extends haxor.core.Resource
 				}
 				
 				
+				case -67697653:
+				{
+					if (field.equals("GetComponentInChildren")) 
+					{
+						__temp_executeDef160766 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetComponentInChildren"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 782402796:
+				{
+					if (field.equals("get_entity")) 
+					{
+						__temp_executeDef160766 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_entity"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 53766892:
+				{
+					if (field.equals("GetComponents")) 
+					{
+						__temp_executeDef160766 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetComponents"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1897006091:
+				{
+					if (field.equals("m_entity")) 
+					{
+						__temp_executeDef160766 = false;
+						return this.m_entity;
+					}
+					
+					break;
+				}
+				
+				
+				case -1245191577:
+				{
+					if (field.equals("GetComponent")) 
+					{
+						__temp_executeDef160766 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetComponent"))) );
+					}
+					
+					break;
+				}
+				
+				
 				case 1052666732:
 				{
 					if (field.equals("transform")) 
 					{
-						__temp_executeDef151653 = false;
+						__temp_executeDef160766 = false;
 						if (handleProperties) 
 						{
 							return this.get_transform();
@@ -249,24 +339,24 @@ public  class Component extends haxor.core.Resource
 				}
 				
 				
-				case 782402796:
+				case -1373487748:
 				{
-					if (field.equals("get_entity")) 
+					if (field.equals("AddComponent")) 
 					{
-						__temp_executeDef151653 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_entity"))) );
+						__temp_executeDef160766 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("AddComponent"))) );
 					}
 					
 					break;
 				}
 				
 				
-				case -1897006091:
+				case 1567506883:
 				{
-					if (field.equals("m_entity")) 
+					if (field.equals("get_transform")) 
 					{
-						__temp_executeDef151653 = false;
-						return this.m_entity;
+						__temp_executeDef160766 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_transform"))) );
 					}
 					
 					break;
@@ -275,7 +365,7 @@ public  class Component extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef151653) 
+			if (__temp_executeDef160766) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -292,15 +382,15 @@ public  class Component extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash151655 = field.hashCode();
-			boolean __temp_executeDef151654 = true;
-			switch (__temp_hash151655)
+			int __temp_hash160768 = field.hashCode();
+			boolean __temp_executeDef160767 = true;
+			switch (__temp_hash160768)
 			{
 				case 1415373896:case 1976486356:
 				{
-					if (( (( ( __temp_hash151655 == 1415373896 ) && field.equals("set_name") )) || field.equals("get_name") )) 
+					if (( (( ( __temp_hash160768 == 1415373896 ) && field.equals("set_name") )) || field.equals("get_name") )) 
 					{
-						__temp_executeDef151654 = false;
+						__temp_executeDef160767 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -312,7 +402,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("get_entity")) 
 					{
-						__temp_executeDef151654 = false;
+						__temp_executeDef160767 = false;
 						return this.get_entity();
 					}
 					
@@ -324,7 +414,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("OnTransformUpdate")) 
 					{
-						__temp_executeDef151654 = false;
+						__temp_executeDef160767 = false;
 						this.OnTransformUpdate();
 					}
 					
@@ -336,7 +426,7 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("get_transform")) 
 					{
-						__temp_executeDef151654 = false;
+						__temp_executeDef160767 = false;
 						return this.get_transform();
 					}
 					
@@ -348,8 +438,68 @@ public  class Component extends haxor.core.Resource
 				{
 					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef151654 = false;
+						__temp_executeDef160767 = false;
 						this.OnBuild();
+					}
+					
+					break;
+				}
+				
+				
+				case -1373487748:
+				{
+					if (field.equals("AddComponent")) 
+					{
+						__temp_executeDef160767 = false;
+						return this.AddComponent(((java.lang.Class<haxor.component.Component>) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1277848144:
+				{
+					if (field.equals("GetComponentsInChildren")) 
+					{
+						__temp_executeDef160767 = false;
+						return this.GetComponentsInChildren(((java.lang.Class<haxor.component.Component>) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case -1245191577:
+				{
+					if (field.equals("GetComponent")) 
+					{
+						__temp_executeDef160767 = false;
+						return this.GetComponent(((java.lang.Class<haxor.component.Component>) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case -67697653:
+				{
+					if (field.equals("GetComponentInChildren")) 
+					{
+						__temp_executeDef160767 = false;
+						return this.GetComponentInChildren(((java.lang.Class<haxor.component.Component>) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 53766892:
+				{
+					if (field.equals("GetComponents")) 
+					{
+						__temp_executeDef160767 = false;
+						return this.GetComponents(((java.lang.Class<haxor.component.Component>) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -358,7 +508,7 @@ public  class Component extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef151654) 
+			if (__temp_executeDef160767) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

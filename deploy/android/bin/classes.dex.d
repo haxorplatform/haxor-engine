@@ -66,8 +66,8 @@ F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\ha
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\IMap.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\IntIterator.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\Main.class \
-F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\Main_Initialize_193__Fun.class \
-F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\Main_Load_97__Fun.class \
+F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\Main_Initialize_203__Fun.class \
+F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\Main_Load_99__Fun.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\Reflect.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\Std.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxe\root\StringBuf.class \
@@ -90,6 +90,7 @@ F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\ha
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Behaviour.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Camera.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\CameraOrbit.class \
+F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\CameraOrbitInput.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Component.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\DataComponent.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Light.class \
@@ -98,9 +99,8 @@ F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\ha
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Renderer.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\SkinnedMeshRenderer.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Transform.class \
-F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Transform_OutputHierarchy_439__Fun.class \
-F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Transform_Search_397__Fun.class \
-F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Transform_set_localScale_180__Fun.class \
+F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Transform_OutputHierarchy_371__Fun.class \
+F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\component\Transform_Search_329__Fun.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\context\BaseProcess.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\context\CameraContext.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\context\CameraContext_SortCameraList_215__Fun.class \
@@ -199,6 +199,8 @@ F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\ha
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\io\file\ColladaNode.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\io\file\ColladaPrimitive.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\io\file\ColladaVisualScene.class \
+F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\io\file\MaterialFile.class \
+F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\io\file\MaterialFileUniform.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\io\FloatArray.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\io\Int32Array.class \
 F:\development\project\web\thelab\haxor_engine_1_0\deploy\android\bin\classes\haxor\io\UInt16Array.class \

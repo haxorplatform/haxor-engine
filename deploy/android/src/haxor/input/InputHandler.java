@@ -18,9 +18,11 @@ public  class InputHandler extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_input_InputHandler(haxor.input.InputHandler __temp_me151435)
+	public static   void __hx_ctor_haxor_input_InputHandler(haxor.input.InputHandler __temp_me160541)
 	{
-		haxor.thread.Activity.Run(((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (__temp_me151435) ), haxe.lang.Runtime.toString("Update"))) ), null, null);
+		{
+		}
+		
 	}
 	
 	
@@ -36,18 +38,20 @@ public  class InputHandler extends haxe.lang.HxObject
 	}
 	
 	
-	public   boolean Update(double t)
+	public  haxor.input.Joystick m_joystick;
+	
+	public   void Update()
 	{
-		haxor.input.Input.wheel = ((double) (0) );
-		haxor.input.Input.deltaMouse.x = ((double) (0) );
-		haxor.input.Input.deltaMouse.y = ((double) (0) );
 		haxor.input.Input.UpdateInput();
 		haxor.input.Input.UpdateTouchFSM();
 		this.UpdateInput();
-		this.EmulateTouch(haxor.input.KeyCode.Mouse0, 0);
-		this.EmulateTouch(haxor.input.KeyCode.Mouse1, 2);
-		this.EmulateTouch(haxor.input.KeyCode.Mouse2, 1);
-		return true;
+		if (haxor.input.Input.emulateTouch) 
+		{
+			this.EmulateTouch(haxor.input.KeyCode.Mouse0, 0);
+			this.EmulateTouch(haxor.input.KeyCode.Mouse1, 2);
+			this.EmulateTouch(haxor.input.KeyCode.Mouse2, 1);
+		}
+		
 	}
 	
 	
@@ -56,6 +60,14 @@ public  class InputHandler extends haxe.lang.HxObject
 		{
 		}
 		
+	}
+	
+	
+	public   void Clear()
+	{
+		haxor.input.Input.wheel = ((double) (0) );
+		haxor.input.Input.deltaMouse.x = ((double) (0) );
+		haxor.input.Input.deltaMouse.y = ((double) (0) );
 	}
 	
 	
@@ -128,10 +140,10 @@ public  class InputHandler extends haxe.lang.HxObject
 	
 	public   void OnTouchStart(int p_id, double p_x, double p_y, java.lang.Object p_rx, java.lang.Object p_ry, java.lang.Object p_pressure, java.lang.Object p_angle)
 	{
-		double __temp_p_angle151434 = ( (( p_angle == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_angle)) )) );
-		double __temp_p_pressure151433 = ( (( p_pressure == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_pressure)) )) );
-		double __temp_p_ry151432 = ( (( p_ry == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_ry)) )) );
-		double __temp_p_rx151431 = ( (( p_rx == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_rx)) )) );
+		double __temp_p_angle160540 = ( (( p_angle == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_angle)) )) );
+		double __temp_p_pressure160539 = ( (( p_pressure == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_pressure)) )) );
+		double __temp_p_ry160538 = ( (( p_ry == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_ry)) )) );
+		double __temp_p_rx160537 = ( (( p_rx == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_rx)) )) );
 		haxor.input.Touch t = haxor.input.Input.m_api_touches.__get(p_id);
 		t.id = p_id;
 		t.position.x = p_x;
@@ -140,10 +152,10 @@ public  class InputHandler extends haxe.lang.HxObject
 		t.relativePosition.y = ( t.position.y / haxor.graphics.Screen.m_height );
 		t.delta.x = 0.0;
 		t.delta.y = 0.0;
-		t.pressure = __temp_p_pressure151433;
-		t.radius.x = __temp_p_rx151431;
-		t.radius.y = __temp_p_ry151432;
-		t.angle = __temp_p_angle151434;
+		t.pressure = __temp_p_pressure160539;
+		t.radius.x = __temp_p_rx160537;
+		t.radius.y = __temp_p_ry160538;
+		t.angle = __temp_p_angle160540;
 		t.m_down = true;
 		if (( haxor.input.Input.m_touches.indexOf(t, null) < 0 )) 
 		{
@@ -180,6 +192,302 @@ public  class InputHandler extends haxe.lang.HxObject
 	{
 		haxor.input.Touch t = haxor.input.Input.m_api_touches.__get(p_id);
 		t.m_down = false;
+	}
+	
+	
+	public   void OnJoystickStart(int p_id, java.lang.String p_name)
+	{
+		this.m_joystick = null;
+		haxor.input.Joystick jk = haxor.input.Input.m_api_joystick.__get(p_id);
+		if (( jk == null )) 
+		{
+			return ;
+		}
+		
+		this.m_joystick = jk;
+		if (( haxor.input.Input.m_joysticks.indexOf(jk, null) >= 0 )) 
+		{
+			return ;
+		}
+		
+		jk.id = p_id;
+		jk.name = p_name;
+		haxor.input.Input.m_joysticks.push(jk);
+		haxor.input.Joystick.available = ( haxor.input.Input.m_joysticks.length > 0 );
+	}
+	
+	
+	public   void OnJoystickDataUpdate(int p_code, double p_value, boolean p_is_analog)
+	{
+		if (( this.m_joystick == null )) 
+		{
+			return ;
+		}
+		
+		if ( ! (p_is_analog) ) 
+		{
+			this.m_joystick.button.__set(p_code, p_value);
+			this.m_joystick.state.__set(p_code, haxor.input.Input.InputStateFSM(this.m_joystick.state.__get(p_code), ( ((double) (haxe.lang.Runtime.toDouble(this.m_joystick.button.__get(p_code))) ) >= haxor.input.Joystick.buttonBias )));
+			if (( this.m_joystick.state.__get(p_code) == haxor.core.InputState.Hold )) 
+			{
+				haxe.root.Array<java.lang.Object> __temp_array160736 = this.m_joystick.hold;
+				__temp_array160736.__set(p_code, ( ((double) (haxe.lang.Runtime.toDouble(__temp_array160736.__get(p_code))) ) + haxor.core.Time.m_delta ));
+			}
+			
+			if (( this.m_joystick.state.__get(p_code) == haxor.core.InputState.None )) 
+			{
+				this.m_joystick.hold.__set(p_code, 0.0);
+			}
+			
+		}
+		 else 
+		{
+			this.m_joystick.analog.__set(p_code, p_value);
+		}
+		
+	}
+	
+	
+	public   void OnJoystickAnalogUpdate()
+	{
+		if (( this.m_joystick == null )) 
+		{
+			return ;
+		}
+		
+		double b0 = ((double) (haxe.lang.Runtime.toDouble(haxor.input.Joystick.analogBias.__get(0))) );
+		double b1 = ((double) (haxe.lang.Runtime.toDouble(haxor.input.Joystick.analogBias.__get(1))) );
+		double s = 1.0;
+		haxor.math.Vector3 v = null;
+		haxor.input.Joystick jk = this.m_joystick;
+		v = jk.analogLeft;
+		v.x = ((double) (haxe.lang.Runtime.toDouble(jk.analog.__get(haxor.input.KeyCode.LeftAnalogueHor))) );
+		if (( v.x < 0.0 )) 
+		{
+			s = -1.0;
+		}
+		 else 
+		{
+			s = 1.0;
+		}
+		
+		{
+			double p_v = 0.0;
+			double __temp_stmt161302 = 0.0;
+			{
+				double p_a = v.x;
+				__temp_stmt161302 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			}
+			
+			p_v = ( (( __temp_stmt161302 - b0 )) / (( b1 - b0 )) );
+			if (( p_v <= 0.0 )) 
+			{
+				v.x = 0.0;
+			}
+			 else 
+			{
+				if (( p_v >= 1.0 )) 
+				{
+					v.x = 1.0;
+				}
+				 else 
+				{
+					v.x = p_v;
+				}
+				
+			}
+			
+		}
+		
+		v.x = ( ( s * (((double) (((int) (( v.x * 100.0 )) )) )) ) * 0.01 );
+		v.y = ((double) (haxe.lang.Runtime.toDouble(jk.analog.__get(haxor.input.KeyCode.LeftAnalogueVert))) );
+		if (( v.y < 0.0 )) 
+		{
+			s = -1.0;
+		}
+		 else 
+		{
+			s = 1.0;
+		}
+		
+		{
+			double p_v1 = 0.0;
+			double __temp_stmt161303 = 0.0;
+			{
+				double p_a1 = v.y;
+				__temp_stmt161303 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
+			}
+			
+			p_v1 = ( (( __temp_stmt161303 - b0 )) / (( b1 - b0 )) );
+			if (( p_v1 <= 0.0 )) 
+			{
+				v.y = 0.0;
+			}
+			 else 
+			{
+				if (( p_v1 >= 1.0 )) 
+				{
+					v.y = 1.0;
+				}
+				 else 
+				{
+					v.y = p_v1;
+				}
+				
+			}
+			
+		}
+		
+		v.y = ( (  - (s)  * (((double) (((int) (( v.y * 100.0 )) )) )) ) * 0.01 );
+		if (( ((double) (haxe.lang.Runtime.toDouble(jk.button.__get(haxor.input.KeyCode.LeftAnalogueStick))) ) > 0.5 )) 
+		{
+			v.z = 1.0;
+		}
+		 else 
+		{
+			v.z = 0.0;
+		}
+		
+		v = jk.analogRight;
+		v.x = ((double) (haxe.lang.Runtime.toDouble(jk.analog.__get(haxor.input.KeyCode.RightAnalogueHor))) );
+		if (( v.x < 0.0 )) 
+		{
+			s = -1.0;
+		}
+		 else 
+		{
+			s = 1.0;
+		}
+		
+		{
+			double p_v2 = 0.0;
+			double __temp_stmt161304 = 0.0;
+			{
+				double p_a2 = v.x;
+				__temp_stmt161304 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
+			}
+			
+			p_v2 = ( (( __temp_stmt161304 - b0 )) / (( b1 - b0 )) );
+			if (( p_v2 <= 0.0 )) 
+			{
+				v.x = 0.0;
+			}
+			 else 
+			{
+				if (( p_v2 >= 1.0 )) 
+				{
+					v.x = 1.0;
+				}
+				 else 
+				{
+					v.x = p_v2;
+				}
+				
+			}
+			
+		}
+		
+		v.x = ( ( s * (((double) (((int) (( v.x * 100.0 )) )) )) ) * 0.01 );
+		v.y = ((double) (haxe.lang.Runtime.toDouble(jk.analog.__get(haxor.input.KeyCode.RightAnalogueVert))) );
+		if (( v.y < 0.0 )) 
+		{
+			s = -1.0;
+		}
+		 else 
+		{
+			s = 1.0;
+		}
+		
+		{
+			double p_v3 = 0.0;
+			double __temp_stmt161305 = 0.0;
+			{
+				double p_a3 = v.y;
+				__temp_stmt161305 = ( (( p_a3 < 0 )) ? ( - (p_a3) ) : (p_a3) );
+			}
+			
+			p_v3 = ( (( __temp_stmt161305 - b0 )) / (( b1 - b0 )) );
+			if (( p_v3 <= 0.0 )) 
+			{
+				v.y = 0.0;
+			}
+			 else 
+			{
+				if (( p_v3 >= 1.0 )) 
+				{
+					v.y = 1.0;
+				}
+				 else 
+				{
+					v.y = p_v3;
+				}
+				
+			}
+			
+		}
+		
+		v.y = ( (  - (s)  * (((double) (((int) (( v.y * 100.0 )) )) )) ) * 0.01 );
+		if (( ((double) (haxe.lang.Runtime.toDouble(jk.button.__get(haxor.input.KeyCode.RightAnalogueStick))) ) > 0.5 )) 
+		{
+			v.z = 1.0;
+		}
+		 else 
+		{
+			v.z = 0.0;
+		}
+		
+		jk.triggerLeft = ((double) (haxe.lang.Runtime.toDouble(jk.button.__get(haxor.input.KeyCode.LeftShoulderBottom))) );
+		{
+			double p_v4 = ( (( jk.triggerLeft - b0 )) / (( b1 - b0 )) );
+			if (( p_v4 <= 0.0 )) 
+			{
+				jk.triggerLeft = 0.0;
+			}
+			 else 
+			{
+				if (( p_v4 >= 1.0 )) 
+				{
+					jk.triggerLeft = 1.0;
+				}
+				 else 
+				{
+					jk.triggerLeft = p_v4;
+				}
+				
+			}
+			
+		}
+		
+		jk.triggerRight = ((double) (haxe.lang.Runtime.toDouble(jk.button.__get(haxor.input.KeyCode.RightShoulderBottom))) );
+		{
+			double p_v5 = ( (( jk.triggerRight - b0 )) / (( b1 - b0 )) );
+			if (( p_v5 <= 0.0 )) 
+			{
+				jk.triggerRight = 0.0;
+			}
+			 else 
+			{
+				if (( p_v5 >= 1.0 )) 
+				{
+					jk.triggerRight = 1.0;
+				}
+				 else 
+				{
+					jk.triggerRight = p_v5;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	
+	public   void RequestJoystickVibration(haxor.input.Joystick p_joystick)
+	{
+		{
+		}
+		
 	}
 	
 	
@@ -225,13 +533,13 @@ public  class InputHandler extends haxe.lang.HxObject
 		{
 			if (haxor.input.Input.Pressed(p_code)) 
 			{
-				double __temp_stmt152202 = 0.0;
+				double __temp_stmt161306 = 0.0;
 				{
 					haxor.math.Vector2 _this1 = haxor.input.Input.deltaMouse;
-					__temp_stmt152202 = java.lang.Math.sqrt(( ( _this1.x * _this1.x ) + ( _this1.y * _this1.y ) ));
+					__temp_stmt161306 = java.lang.Math.sqrt(( ( _this1.x * _this1.x ) + ( _this1.y * _this1.y ) ));
 				}
 				
-				if (( __temp_stmt152202 > 0 )) 
+				if (( __temp_stmt161306 > 0 )) 
 				{
 					this.OnTouchMove(p_id, haxor.input.Input.mouse.x, haxor.input.Input.mouse.y);
 				}
@@ -248,18 +556,77 @@ public  class InputHandler extends haxe.lang.HxObject
 	}
 	
 	
+	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
+	{
+		{
+			boolean __temp_executeDef161307 = true;
+			switch (field.hashCode())
+			{
+				case -792730418:
+				{
+					if (field.equals("m_joystick")) 
+					{
+						__temp_executeDef161307 = false;
+						this.m_joystick = ((haxor.input.Joystick) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+			}
+			
+			if (__temp_executeDef161307) 
+			{
+				return super.__hx_setField(field, value, handleProperties);
+			}
+			 else 
+			{
+				throw null;
+			}
+			
+		}
+		
+	}
+	
+	
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152203 = true;
+			boolean __temp_executeDef161308 = true;
 			switch (field.hashCode())
 			{
 				case -1333561812:
 				{
 					if (field.equals("EmulateTouch")) 
 					{
-						__temp_executeDef152203 = false;
+						__temp_executeDef161308 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("EmulateTouch"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -792730418:
+				{
+					if (field.equals("m_joystick")) 
+					{
+						__temp_executeDef161308 = false;
+						return this.m_joystick;
+					}
+					
+					break;
+				}
+				
+				
+				case 1696542215:
+				{
+					if (field.equals("RequestJoystickVibration")) 
+					{
+						__temp_executeDef161308 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("RequestJoystickVibration"))) );
 					}
 					
 					break;
@@ -270,7 +637,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("Update")) 
 					{
-						__temp_executeDef152203 = false;
+						__temp_executeDef161308 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Update"))) );
 					}
 					
@@ -278,12 +645,12 @@ public  class InputHandler extends haxe.lang.HxObject
 				}
 				
 				
-				case -351112133:
+				case 1145357780:
 				{
-					if (field.equals("OnTouchEnd")) 
+					if (field.equals("OnJoystickAnalogUpdate")) 
 					{
-						__temp_executeDef152203 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchEnd"))) );
+						__temp_executeDef161308 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnJoystickAnalogUpdate"))) );
 					}
 					
 					break;
@@ -294,7 +661,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateInput")) 
 					{
-						__temp_executeDef152203 = false;
+						__temp_executeDef161308 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateInput"))) );
 					}
 					
@@ -302,12 +669,36 @@ public  class InputHandler extends haxe.lang.HxObject
 				}
 				
 				
-				case -1805056230:
+				case -920839218:
 				{
-					if (field.equals("OnTouchCancel")) 
+					if (field.equals("OnJoystickDataUpdate")) 
 					{
-						__temp_executeDef152203 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchCancel"))) );
+						__temp_executeDef161308 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnJoystickDataUpdate"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 65193517:
+				{
+					if (field.equals("Clear")) 
+					{
+						__temp_executeDef161308 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Clear"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 667176135:
+				{
+					if (field.equals("OnJoystickStart")) 
+					{
+						__temp_executeDef161308 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnJoystickStart"))) );
 					}
 					
 					break;
@@ -318,7 +709,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseMove")) 
 					{
-						__temp_executeDef152203 = false;
+						__temp_executeDef161308 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnMouseMove"))) );
 					}
 					
@@ -326,12 +717,12 @@ public  class InputHandler extends haxe.lang.HxObject
 				}
 				
 				
-				case 2000665713:
+				case -351112133:
 				{
-					if (field.equals("OnTouchMove")) 
+					if (field.equals("OnTouchEnd")) 
 					{
-						__temp_executeDef152203 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchMove"))) );
+						__temp_executeDef161308 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchEnd"))) );
 					}
 					
 					break;
@@ -342,7 +733,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseWheel")) 
 					{
-						__temp_executeDef152203 = false;
+						__temp_executeDef161308 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnMouseWheel"))) );
 					}
 					
@@ -350,12 +741,12 @@ public  class InputHandler extends haxe.lang.HxObject
 				}
 				
 				
-				case 1896765378:
+				case -1805056230:
 				{
-					if (field.equals("OnTouchStart")) 
+					if (field.equals("OnTouchCancel")) 
 					{
-						__temp_executeDef152203 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchStart"))) );
+						__temp_executeDef161308 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchCancel"))) );
 					}
 					
 					break;
@@ -366,8 +757,20 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseButton")) 
 					{
-						__temp_executeDef152203 = false;
+						__temp_executeDef161308 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnMouseButton"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 2000665713:
+				{
+					if (field.equals("OnTouchMove")) 
+					{
+						__temp_executeDef161308 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchMove"))) );
 					}
 					
 					break;
@@ -378,8 +781,20 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnKey")) 
 					{
-						__temp_executeDef152203 = false;
+						__temp_executeDef161308 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnKey"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1896765378:
+				{
+					if (field.equals("OnTouchStart")) 
+					{
+						__temp_executeDef161308 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchStart"))) );
 					}
 					
 					break;
@@ -388,7 +803,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152203) 
+			if (__temp_executeDef161308) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -405,14 +820,14 @@ public  class InputHandler extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef152204 = true;
+			boolean __temp_executeDef161309 = true;
 			switch (field.hashCode())
 			{
 				case -1333561812:
 				{
 					if (field.equals("EmulateTouch")) 
 					{
-						__temp_executeDef152204 = false;
+						__temp_executeDef161309 = false;
 						this.EmulateTouch(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -424,20 +839,20 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("Update")) 
 					{
-						__temp_executeDef152204 = false;
-						return this.Update(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
+						__temp_executeDef161309 = false;
+						this.Update();
 					}
 					
 					break;
 				}
 				
 				
-				case -351112133:
+				case 1696542215:
 				{
-					if (field.equals("OnTouchEnd")) 
+					if (field.equals("RequestJoystickVibration")) 
 					{
-						__temp_executeDef152204 = false;
-						this.OnTouchEnd(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef161309 = false;
+						this.RequestJoystickVibration(((haxor.input.Joystick) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -448,7 +863,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateInput")) 
 					{
-						__temp_executeDef152204 = false;
+						__temp_executeDef161309 = false;
 						this.UpdateInput();
 					}
 					
@@ -456,12 +871,36 @@ public  class InputHandler extends haxe.lang.HxObject
 				}
 				
 				
-				case -1805056230:
+				case 1145357780:
 				{
-					if (field.equals("OnTouchCancel")) 
+					if (field.equals("OnJoystickAnalogUpdate")) 
 					{
-						__temp_executeDef152204 = false;
-						this.OnTouchCancel(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef161309 = false;
+						this.OnJoystickAnalogUpdate();
+					}
+					
+					break;
+				}
+				
+				
+				case 65193517:
+				{
+					if (field.equals("Clear")) 
+					{
+						__temp_executeDef161309 = false;
+						this.Clear();
+					}
+					
+					break;
+				}
+				
+				
+				case -920839218:
+				{
+					if (field.equals("OnJoystickDataUpdate")) 
+					{
+						__temp_executeDef161309 = false;
+						this.OnJoystickDataUpdate(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), haxe.lang.Runtime.toBool(dynargs.__get(2)));
 					}
 					
 					break;
@@ -472,7 +911,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseMove")) 
 					{
-						__temp_executeDef152204 = false;
+						__temp_executeDef161309 = false;
 						this.OnMouseMove(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -480,12 +919,12 @@ public  class InputHandler extends haxe.lang.HxObject
 				}
 				
 				
-				case 2000665713:
+				case 667176135:
 				{
-					if (field.equals("OnTouchMove")) 
+					if (field.equals("OnJoystickStart")) 
 					{
-						__temp_executeDef152204 = false;
-						this.OnTouchMove(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ));
+						__temp_executeDef161309 = false;
+						this.OnJoystickStart(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toString(dynargs.__get(1)));
 					}
 					
 					break;
@@ -496,7 +935,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseWheel")) 
 					{
-						__temp_executeDef152204 = false;
+						__temp_executeDef161309 = false;
 						this.OnMouseWheel(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -504,12 +943,12 @@ public  class InputHandler extends haxe.lang.HxObject
 				}
 				
 				
-				case 1896765378:
+				case -351112133:
 				{
-					if (field.equals("OnTouchStart")) 
+					if (field.equals("OnTouchEnd")) 
 					{
-						__temp_executeDef152204 = false;
-						this.OnTouchStart(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), dynargs.__get(3), dynargs.__get(4), dynargs.__get(5), dynargs.__get(6));
+						__temp_executeDef161309 = false;
+						this.OnTouchEnd(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -520,8 +959,20 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseButton")) 
 					{
-						__temp_executeDef152204 = false;
+						__temp_executeDef161309 = false;
 						this.OnMouseButton(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toBool(dynargs.__get(1)));
+					}
+					
+					break;
+				}
+				
+				
+				case -1805056230:
+				{
+					if (field.equals("OnTouchCancel")) 
+					{
+						__temp_executeDef161309 = false;
+						this.OnTouchCancel(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -532,8 +983,32 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnKey")) 
 					{
-						__temp_executeDef152204 = false;
+						__temp_executeDef161309 = false;
 						this.OnKey(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toBool(dynargs.__get(1)));
+					}
+					
+					break;
+				}
+				
+				
+				case 2000665713:
+				{
+					if (field.equals("OnTouchMove")) 
+					{
+						__temp_executeDef161309 = false;
+						this.OnTouchMove(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 1896765378:
+				{
+					if (field.equals("OnTouchStart")) 
+					{
+						__temp_executeDef161309 = false;
+						this.OnTouchStart(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), dynargs.__get(3), dynargs.__get(4), dynargs.__get(5), dynargs.__get(6));
 					}
 					
 					break;
@@ -542,7 +1017,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152204) 
+			if (__temp_executeDef161309) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
@@ -550,6 +1025,16 @@ public  class InputHandler extends haxe.lang.HxObject
 		}
 		
 		return null;
+	}
+	
+	
+	@Override public   void __hx_getFields(haxe.root.Array<java.lang.String> baseArr)
+	{
+		baseArr.push("m_joystick");
+		{
+			super.__hx_getFields(baseArr);
+		}
+		
 	}
 	
 	

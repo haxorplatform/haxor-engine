@@ -1,6 +1,7 @@
 package haxor.component;
 import haxor.context.EngineContext;
 import haxor.core.Console;
+import haxor.core.Time;
 import haxor.math.Mathf;
 import haxor.math.Matrix4;
 import haxor.math.Quaternion;
@@ -17,6 +18,36 @@ class Transform extends Component
 {
 	
 	/**
+	 * Updates the matrix system of the transform.
+	 * @param	t
+	 */
+	static private function TransformConcat(t : Transform):Void
+	{
+		//Parent world matrix should be updated.			
+		var v : Matrix4 = t.parent.m_worldMatrix;
+		
+		//Copy the parent world matrix in this transform.
+		var m : Matrix4 = t.m_worldMatrix;
+		m.m00 = v.m00; m.m01 = v.m01; m.m02 = v.m02; m.m03 = v.m03;
+		m.m10 = v.m10; m.m11 = v.m11; m.m12 = v.m12; m.m13 = v.m13;
+		m.m20 = v.m20; m.m21 = v.m21; m.m22 = v.m22; m.m23 = v.m23; 
+	
+		m.MultiplyTransform(t.m_localMatrix);
+		
+		//Update de 'WS' flags.
+		t.m_wsp_dirty  = true;
+		t.m_wsrs_dirty = true;
+		
+		
+		t.m_right.Set   (m.m00, m.m10, m.m20).Normalize();
+		t.m_up.Set	 	(m.m01, m.m11, m.m21).Normalize();
+		t.m_forward.Set (m.m02, m.m12, m.m22).Normalize();
+		
+		//Signal that the inverse matrix must be rebuilt if requested.
+		t.m_inverse_dirty = true;
+	}
+	
+	/**
 	 * Root transform of the current scene.
 	 */
 	static public var root(get_root, never) : Transform;		
@@ -27,7 +58,7 @@ class Transform extends Component
 	 * Right world axis vector
 	 */
 	public var right(get_right, never):Vector3;	
-	private function get_right():Vector3 { RefreshWM(); return m_right.clone; }
+	private function get_right():Vector3 { UpdateWorldMatrix(); return m_right.clone; }
 	private function set_right(v:Vector3):Vector3 { return v; }
 	private var m_right : Vector3;
 		
@@ -35,7 +66,7 @@ class Transform extends Component
 	 * Up world axis vector
 	 */
 	public var up(get_up, never):Vector3;		
-	private function get_up():Vector3 { RefreshWM(); return m_up.clone; }
+	private function get_up():Vector3 { UpdateWorldMatrix(); return m_up.clone; }
 	private function set_up(v:Vector3):Vector3 { return v; }
 	private var m_up : Vector3;
 	
@@ -43,7 +74,7 @@ class Transform extends Component
 	 * Forward world axis vector
 	 */
 	public var forward(get_forward, never):Vector3;
-	private function get_forward():Vector3 { RefreshWM(); return m_forward.inverse; }
+	private function get_forward():Vector3 { UpdateWorldMatrix(); return m_forward.inverse; }
 	private function set_forward(v:Vector3):Vector3 { return v; }
 	private var m_forward : Vector3;
 	
@@ -55,106 +86,67 @@ class Transform extends Component
 	private inline function get_parent():Transform { return m_parent; }
 	private function set_parent(v:Transform):Transform
 	{		
+		//Store world coords
+		var wp : Vector3 	= position;
+		var wr : Quaternion = rotation;
+		var ws : Vector3 	= scale;
+		
 		if (m_parent != null) m_parent.m_hierarchy.remove(this);
 		m_parent = v == null ? m_root : v;		
 		m_parent.m_hierarchy.push(this);
-		var ps : Vector3 = m_parent.scale;
-		ps.x = ps.x <= 0.0 ? 0.0 : (1.0 / ps.x);
-		ps.y = ps.y <= 0.0 ? 0.0 : (1.0 / ps.y);
-		ps.z = ps.z <= 0.0 ? 0.0 : (1.0 / ps.z);
-		m_localScale.x *= ps.x;
-		m_localScale.y *= ps.y;
-		m_localScale.z *= ps.z;		
-		localScale = m_localScale;		
+		
+		//Use world coords in new hierarchy.
+		//position = wp;
+		//rotation = wr;
+		//scale 	 = ws;
+		
 		return m_parent;
 	}
 	private var m_parent : Transform;
 	
 	/**
-	 * Returns the number of children.
+	 * Number of children in this transform.
 	 */
 	public var childCount(get_childCount, null):Int;
 	private inline function get_childCount():Int { return m_hierarchy.length; }
 	
 	/**
-	 * Sets the Transform position in world space.
-	 */
-	public var position(get_position, set_position):Vector3;		
-	private function get_position():Vector3 { return Vector3.zero.Set(m_position.x,m_position.y,m_position.z); }
-	private function set_position(v:Vector3):Vector3
-	{ 
-		var dx : Float = (v.x-m_position.x); var dy : Float = (v.y-m_position.y); var dz : Float = (v.z-m_position.z);
-		if (Math.abs(dx) < Mathf.Epsilon)
-		if (Math.abs(dy) < Mathf.Epsilon)
-		if (Math.abs(dz) < Mathf.Epsilon) return v;			
-		Translate(dx, dy, dz);				
-		return v;
-	}
-	private var m_position : Vector3;
-	
-	/**
-	 * Sets the Transform position in its parent local space.
+	 * Get/set the local position of this transform.
 	 */
 	public var localPosition(get_localPosition, set_localPosition):Vector3;		
-	private function get_localPosition():Vector3 {  if (parent == null) return position; var wm : Matrix4 = parent.WorldMatrix;	return parent.WorldMatrixInverse.Transform3x4(Vector3.temp.Set3(m_position)); }
-	private function set_localPosition(v:Vector3):Vector3 { if (parent == null) return v; position = parent.WorldMatrix.Transform3x4(v); return v; }
-	
-	
-	/**
-	 * Sets the Transform euler angles in world space.
-	 */
-	public var euler(get_euler, set_euler):Vector3;		
-	private function get_euler():Vector3 { return Vector3.zero.Set(m_euler.x,m_euler.y,m_euler.z); }
-	private function set_euler(v:Vector3):Vector3
+	private function get_localPosition():Vector3 {  return m_localPosition.clone; }
+	private function set_localPosition(v:Vector3):Vector3 
 	{ 
-		var dx : Float = (v.x-m_euler.x); var dy : Float = (v.y-m_euler.y); var dz : Float = (v.z-m_euler.z);
-		if (Math.abs(dx) < Mathf.Epsilon)
-		if (Math.abs(dy) < Mathf.Epsilon)
-		if (Math.abs(dz) < Mathf.Epsilon) return v;			
-		Rotate(dx, dy, dz);		
+		var dx : Float = (v.x - m_localPosition.x); var dy : Float = (v.y - m_localPosition.y); var dz : Float = (v.z - m_localPosition.z);		
+		if (Math.abs(dx) < Mathf.Epsilon) if (Math.abs(dy) < Mathf.Epsilon)	if (Math.abs(dz) < Mathf.Epsilon) return v;	
+		m_localPosition.Set3(v); m_lmt_dirty 	= true;		
+		Invalidate();
 		return v;
 	}
-	private var m_euler : Vector3;
+	private var m_localPosition : Vector3;
 	
 	/**
-	 * Sets the Transform euler angles in its parent local space.
-	 */
-	public var localEuler(get_localEuler, set_localEuler):Vector3;		
-	private function get_localEuler():Vector3 { if (parent == null) return euler; return Vector3.zero.Set(m_euler.x - parent.m_euler.x, m_euler.y - parent.m_euler.y, m_euler.z - parent.m_euler.z); }
-	private function set_localEuler(v:Vector3):Vector3 { if (parent == null) return v; euler = Vector3.temp.Set3(parent.m_euler).Add(v); return v; }
-	
-	
-	/**
-	 * Sets the Transform rotation in world space.
-	 */
-	public var rotation(get_rotation, set_rotation):Quaternion;		
-	private function get_rotation():Quaternion { return Quaternion.FromEuler(m_euler); }
-	private function set_rotation(v:Quaternion):Quaternion { euler = Quaternion.ToEuler(v, Vector3.temp); return v;	}
-	
-	/**
-	 * Sets the Transform rotation in its parent local space.
+	 * Get/set this transform local rotation in quaternion form.
 	 */
 	public var localRotation(get_localRotation, set_localRotation):Quaternion;		
-	private function get_localRotation():Quaternion { if (parent == null) return rotation; return Quaternion.FromEuler(Vector3.temp.Set(m_euler.x-parent.m_euler.x,m_euler.y-parent.m_euler.y,m_euler.z-parent.m_euler.z)); }
-	private function set_localRotation(v:Quaternion):Quaternion { localEuler = Quaternion.ToEuler(v, Vector3.temp); return v; }
+	private function get_localRotation():Quaternion { return m_localRotation.clone;	}
+	private function set_localRotation(v:Quaternion):Quaternion 
+	{
+		var dx : Float = (v.x-m_localRotation.x); var dy : Float = (v.y-m_localRotation.y); var dz : Float = (v.z-m_localRotation.z); var dw : Float = (v.w-m_localRotation.w);
+		if (Math.abs(dx) < Mathf.Epsilon) if (Math.abs(dy) < Mathf.Epsilon)	if (Math.abs(dz) < Mathf.Epsilon) if (Math.abs(dw) < Mathf.Epsilon) return v;	
+		m_localRotation.SetQuaternion(v); m_lmrs_dirty 	= true;			
+		Invalidate();
+		return v; 
+	}
+	private var m_localRotation : Quaternion;
 	
 	/**
-	 * Sets the Transform scale in world space.
+	 * Get/set this transform quaternion local rotation in euler form.
 	 */
-	public var scale(get_scale, never):Vector3;		
-	private function get_scale():Vector3 
-	{ 
-		RefreshWM();
-		return m_scale.clone;
-		/*
-		var wm : Matrix4 = WorldMatrix;
-		var d0:Float = Math.sqrt(wm.m00 * wm.m00 + wm.m10 * wm.m10 + wm.m20 * wm.m20);
-		var d1:Float = Math.sqrt(wm.m01 * wm.m01 + wm.m11 * wm.m11 + wm.m21 * wm.m21);
-		var d2:Float = Math.sqrt(wm.m02 * wm.m02 + wm.m12 * wm.m12 + wm.m22 * wm.m22);
-		return Vector3.zero.Set(d0,d1,d2); 
-		//*/
-	}
-	private var m_scale : Vector3;
+	public var localEuler(get_localEuler, set_localEuler):Vector3;		
+	private function get_localEuler():Vector3 { return m_localRotation.euler; }
+	private function set_localEuler(v:Vector3):Vector3 { localRotation = Quaternion.FromEuler(v,Quaternion.temp); return v; }
+	
 	
 	/**
 	 * Sets the Transform euler angles in its parent local space.
@@ -163,68 +155,104 @@ class Transform extends Component
 	private function get_localScale():Vector3 { return m_localScale.clone; }
 	private function set_localScale(v:Vector3):Vector3 
 	{ 
-		var dx : Float = (v.x - m_localScale.x); 
-		var dy : Float = (v.y - m_localScale.y); 
-		var dz : Float = (v.z - m_localScale.z);		
-		if (Math.abs(dx) < Mathf.Epsilon)
-		if (Math.abs(dy) < Mathf.Epsilon)
-		if (Math.abs(dz) < Mathf.Epsilon) return v;	
-		m_localScale.Set3(v);
-		var ps : Vector3;
-		
-		ps = parent == null ? Vector3.temp.Set(1, 1, 1) : parent.m_scale;
-		m_scale.x = m_localScale.x * ps.x; 
-		m_scale.y = m_localScale.y * ps.y; 
-		m_scale.z = m_localScale.z * ps.z;
-		
-		Traverse(function(t:Transform,d:Int):Bool
-		{
-			if (t == this) return true;
-			var pp : Vector3 = t.parent == null ? Vector3.temp.Set(0, 0, 0) : t.parent.m_position;
-			ps = t.parent==null ? Vector3.temp.Set(1,1,1) : t.parent.m_scale;
-			t.m_scale.x = t.m_localScale.x * ps.x; 
-			t.m_scale.y = t.m_localScale.y * ps.y; 
-			t.m_scale.z = t.m_localScale.z * ps.z;			
-			var v : Vector3    = Vector3.temp.Set3(t.m_position).Sub(pp);
-			v.Multiply(ps);
-			v.Add(pp);
-			t.position = v;
-			//trace(t.name+" " + t.scale.ToString());
-			t.m_dirty = true;
-			EngineContext.transform.OnChange(t);
-			
-			return true;
-		});	
-		EngineContext.transform.OnChange(this);
-		m_dirty = true;		
+		var dx : Float = (v.x - m_localScale.x); var dy : Float = (v.y - m_localScale.y); var dz : Float = (v.z - m_localScale.z);		
+		if (Math.abs(dx) < Mathf.Epsilon) if (Math.abs(dy) < Mathf.Epsilon)	if (Math.abs(dz) < Mathf.Epsilon) return v;	
+		m_localScale.Set3(v); m_lmrs_dirty 	= true;
+		Invalidate();
 		return v;
 	}
 	private var m_localScale : Vector3;
 	
+	/**
+	 * Get/set the world position of this transform.
+	 */
+	public var position(get_position, set_position):Vector3;		
+	private function get_position():Vector3 { UpdateWorldMatrix(); UpdateWSP(); return m_position.clone; }
+	private function set_position(v:Vector3):Vector3 { localPosition = parent.WorldMatrixInverse.Transform3x4(Vector3.temp.Set3(v)); return v; }
+	private var m_position : Vector3;
+	
+	/**
+	 * Get/set the world rotation of this transform.
+	 */
+	public var rotation(get_rotation, set_rotation):Quaternion;		
+	private function get_rotation():Quaternion { UpdateWorldMatrix(); UpdateWSRS(); return m_rotation.clone; }
+	private function set_rotation(v:Quaternion):Quaternion 
+	{ 
+		UpdateWorldMatrix(); 
+		UpdateWSRS();		
+		var iq : Quaternion = Quaternion.Inverse(m_rotation, Quaternion.temp);
+		localRotation = Quaternion.temp.SetQuaternion(v).Multiply(iq);
+		return v; 
+	}
+	private var m_rotation : Quaternion;
+	
+	/**
+	 * Get/set the world rotation of this transform in euler form.
+	 */
+	public var euler(get_euler, set_euler):Vector3;		
+	private function get_euler():Vector3 { return rotation.euler; }
+	private function set_euler(v:Vector3):Vector3 { rotation = Quaternion.FromEuler(v, Quaternion.temp); return v; }
+	
+	/**
+	 * Gets the aproximate world scale of this transform. Concatenated rotations and scales can alter the precise result of this attribute.
+	 */
+	public var scale(get_scale, never):Vector3;		
+	private function get_scale():Vector3 { UpdateWorldMatrix(); UpdateWSRS(); return m_scale.clone; }
+	private var m_scale : Vector3;
 	
 	/**
 	 * World space transform matrix.
 	 */
 	public var WorldMatrix(get_WorldMatrix, never) : Matrix4;			
-	private function get_WorldMatrix() : Matrix4 { RefreshWM(); return m_worldMatrix; }	
+	private function get_WorldMatrix() : Matrix4 { UpdateWorldMatrix(); return m_worldMatrix; }	
 	private var m_worldMatrix : Matrix4;
 	
 	/**
 	 * World space inverse matrix.
 	 */
 	public var WorldMatrixInverse(get_WorldMatrixInverse, never) : Matrix4;			
-	private function get_WorldMatrixInverse() : Matrix4 { RefreshWM(); return m_worldMatrixInverse; }
+	private function get_WorldMatrixInverse() : Matrix4 { UpdateWorldMatrix(); if (m_inverse_dirty) { Matrix4.GetInverseTransform(m_worldMatrix, m_worldMatrixInverse); m_inverse_dirty = false; } return m_worldMatrixInverse; }
 	private var m_worldMatrixInverse : Matrix4;
 	
 	/**
-	 * Flag that indicates if the WorldTransform must be rebuilt.
+	 * Local matrix for matrix combination.
+	 */
+	private var m_localMatrix : Matrix4;
+	
+	/**
+	 * Flag that indicates that this transform local matrix translation must be updated.
+	 */
+	private var m_lmt_dirty : Bool;
+	
+	/**
+	 * Flag that indicates that this transform local matrix rotation/scale must be updated.
+	 */
+	private var m_lmrs_dirty : Bool;
+	
+	/**
+	 * Flag that indicates if the uniforms using this transform must be updated.
+	 */
+	private var m_uniform_dirty : Bool;
+	
+	/**
+	 * Flag to signal concatenation.
 	 */
 	private var m_dirty : Bool;
 	
 	/**
-	 * Flag that indicates if the uniforms using this transform must be updates.
+	 * Flag that the inverse world matrix is dirty.
 	 */
-	private var m_uniform_dirty : Bool;
+	private var m_inverse_dirty : Bool;
+	
+	/**
+	 * Flag that indicates if the world space position is dirty.
+	 */
+	private var m_wsp_dirty : Bool;
+	
+	/**
+	 * Flag that indicates if the world space rotation/scale is dirty.
+	 */
+	private var m_wsrs_dirty : Bool;
 	
 	/**
 	 * List of children.
@@ -240,97 +268,160 @@ class Transform extends Component
 		super.OnBuild();
 		
 		__cid = EngineContext.transform.tid.id;		
-		m_position   = Vector3.zero;
-		m_euler	   	 = Vector3.zero;
-		m_localScale = Vector3.one;	
-		m_scale		 = Vector3.one;	
-		m_dirty 	 = false;		
+		m_localPosition = Vector3.zero;		
+		m_localRotation	= Quaternion.identity;
+		m_localScale 	= Vector3.one;	
+		
+		m_position		= Vector3.zero;
+		m_rotation		= Quaternion.identity;
+		m_scale			= Vector3.one;
+		
+		m_lmt_dirty 	 = false;		
+		m_lmrs_dirty	 = false;
+		m_dirty			 = false;
+		m_inverse_dirty  = false;
+		m_wsp_dirty		 = false;
+		m_wsrs_dirty	 = false;
+		
+		
 		m_uniform_dirty = true;
+		
 		m_right		= Vector3.right;
 		m_up		= Vector3.up;
 		m_forward	= Vector3.forward;		
-		//m_localMatrix 			= Matrix4.identity;
+		m_localMatrix 			= Matrix4.identity;
 		m_worldMatrixInverse    = Matrix4.identity;
 		m_worldMatrix 			= Matrix4.identity;		
-		m_hierarchy   		 = [];		
+		m_hierarchy   		 	= [];		
 		if (m_root != null) parent = null;	else m_root = this;		
 	}
 	
 	/**
-	 * Translate this Transform position by the specified delta. Returns its own reference.
-	 * @param	p_dx
-	 * @param	p_dy
-	 * @param	p_dz
-	 * @return
+	 * Updates the translation sector of local matrix.
 	 */
-	public function Translate(p_dx:Float, p_dy:Float, p_dz:Float):Transform
+	private function UpdateLMT():Void
 	{
-		m_position.Add3(p_dx, p_dy, p_dz);		
-		for (i in 0...m_hierarchy.length) m_hierarchy[i].Translate(p_dx, p_dy, p_dz);		
-		m_dirty = true;
-		EngineContext.transform.OnChange(this);
-		return this;
+		m_localMatrix.m03 = m_localPosition.x;
+		m_localMatrix.m13 = m_localPosition.y;
+		m_localMatrix.m23 = m_localPosition.z;
 	}
 	
 	/**
-	 * Rotates this Transform by the specified delta.
-	 * @param	p_dx
-	 * @param	p_dy
-	 * @param	p_dz
-	 * @return
+	 * Updates the world space position.
 	 */
-	public function Rotate(p_dx : Float, p_dy:Float, p_dz : Float):Transform
+	private function UpdateWSP():Void
 	{
-		m_euler.Add3(p_dx, p_dy, p_dz);
-		//Console.Log(name);// +" rotate " + m_euler.ToString());
-		for (i in 0...m_hierarchy.length)
+		if (m_wsp_dirty)
 		{
-			var c : Transform = m_hierarchy[i];							
-			var de : Vector3 = Vector3.temp.Set(p_dx, p_dy, p_dz);			
-			var q : Quaternion = Quaternion.FromEuler(de, Quaternion.temp);			
-			var v : Vector3    = Vector3.temp.Set3(c.m_position).Sub(m_position);			
-			q.Rotate(v);			
-			v.Add(m_position);									
-			c.position = v;						
-			c.Rotate(p_dx, p_dy, p_dz);	
+			m_position.x = m_worldMatrix.m03;
+			m_position.y = m_worldMatrix.m13;
+			m_position.z = m_worldMatrix.m23;
+			m_wsp_dirty = false;
 		}
-		m_dirty = true;
-		EngineContext.transform.OnChange(this);
-		return this;
 	}
 	
 	/**
-	 * Shortcut for the UpdateWorldMatrix check/update code.
+	 * Updates the rotation/scale sector of local matrix.
 	 */
-	private inline function RefreshWM():Void { if (m_dirty) { UpdateWorldMatrix(); } }
+	private function UpdateLMRS():Void
+	{
+		var sx:Float = m_localScale.x; 		
+		var sy:Float = m_localScale.y; 		
+		var sz:Float = m_localScale.z;
+		var r : Matrix4 = Matrix4.FromQuaternion(m_localRotation, Matrix4.temp);		
+		var l : Matrix4 = m_localMatrix;
+		l.m00 = r.m00 * sx; l.m01 = r.m01 * sy; l.m02 = r.m02 * sz;
+		l.m10 = r.m10 * sx; l.m11 = r.m11 * sy; l.m12 = r.m12 * sz;
+		l.m20 = r.m20 * sx; l.m21 = r.m21 * sy; l.m22 = r.m22 * sz;
+	}
+	
+	/**
+	 * Updates the world rotation/scale of this transform.
+	 */
+	private function UpdateWSRS():Void
+	{
+		if (m_wsrs_dirty)
+		{
+			var m : Matrix4  = m_worldMatrix;
+			
+			var c0 : Vector3 = Vector3.temp.Set(m.m00, m.m10, m.m20);
+			var c1 : Vector3 = Vector3.temp.Set(m.m01, m.m11, m.m21);
+			var c2 : Vector3 = Vector3.temp.Set(m.m02, m.m12, m.m22);
+			
+			var l0 : Float   = c0.length;	var l1 : Float   = c1.length; var l2 : Float   = c2.length;
+			
+			m_scale.x = l0; m_scale.y = l1;	m_scale.z = l2;
+			
+			l0 = l0 <= 0.0? 0.0 : (1.0 / l0); l1 = l1 <= 0.0? 0.0 : (1.0 / l1);	l2 = l2 <= 0.0? 0.0 : (1.0 / l2);
+			
+			c0.Scale(l0); c1.Scale(l1); c2.Scale(l2);
+			
+			var r : Matrix4 = Matrix4.temp.Set(
+			c0.x, c1.x, c2.x, 0.0,
+			c0.y, c1.y, c2.y, 0.0,
+			c0.z, c1.z, c2.z, 0.0,
+			0.0, 0.0, 0.0, 1.0);
+			
+			Quaternion.FromMatrix4(r, m_rotation);
+			
+			m_wsrs_dirty = false;
+		}
+	}
 	
 	/**
 	 * Method invoked when this Transform suffered changes and must be updated.
 	 */
 	private function UpdateWorldMatrix():Void
+	{	
+		var need_concat : Bool = m_dirty;		
+		//Checks if the local data is dirty and update local matrix.
+		if (m_lmt_dirty)  { UpdateLMT();  m_lmt_dirty  = false; need_concat = true; }
+		if (m_lmrs_dirty) { UpdateLMRS(); m_lmrs_dirty = false; need_concat = true; }		
+		//If the local matrix is dirty, must concat stuff.
+		if (parent != null)
+		{
+			if (m_dirty) { parent.UpdateWorldMatrix(); }
+			m_dirty = false;			
+			if (need_concat) TransformConcat(this);
+		}		
+	}
+	
+	/**
+	 * Downward invalidate the hierarchy so they can rebuild their world matrix.
+	 */
+	private function Invalidate():Void
 	{
-		var q : Quaternion = Quaternion.FromEuler(m_euler, Quaternion.temp);
-		//var ps : Vector3 = parent == null ? Vector3.temp.Set(1, 1, 1) :	parent.scale;		
-		var sx:Float = m_scale.x; 		var sy:Float = m_scale.y; 		var sz:Float = m_scale.z;		
-		var px:Float = m_position.x;	var py:Float = m_position.y;	var pz:Float = m_position.z;		
-				
-		var r : Matrix4 = Matrix4.FromQuaternion(q,Matrix4.temp);		
+		//if (m_dirty) return;
 		
-		m_right.Set  (r.m00, r.m10, r.m20);
-		m_up.Set	 (r.m01, r.m11, r.m21);
-		m_forward.Set(r.m02, r.m12, r.m22);
+		m_uniform_dirty = true;
+		m_dirty 		= true;
 		
-		var l : Matrix4 = m_worldMatrix;
-		l.m00 = r.m00 * sx; l.m01 = r.m01 * sy; l.m02 = r.m02 * sz; l.m03 = px;
-		l.m10 = r.m10 * sx; l.m11 = r.m11 * sy; l.m12 = r.m12 * sz; l.m13 = py;
-		l.m20 = r.m20 * sx; l.m21 = r.m21 * sy; l.m22 = r.m22 * sz; l.m23 = pz;	
+		//Notify components.
+		EngineContext.transform.OnChange(this);
 		
-		m_scale.x = sx;
-		m_scale.y = sy;
-		m_scale.z = sz;
-		
-		Matrix4.GetInverseTransform(m_worldMatrix, m_worldMatrixInverse);
-		m_dirty = false;		
+		//Propagates the invalidation
+		for (i in 0...m_hierarchy.length) m_hierarchy[i].Invalidate();
+	}
+	
+	/**
+	 * Points the camera towards the target in world space. If smooth is greater than zero the camera will lerp to the orientation during time.
+	 * @param	p_at
+	 * @param	p_up
+	 */
+	public function LookAt(p_at : Vector3, p_up : Vector3 = null,p_smooth:Float=0.0):Void
+	{
+		var p : Vector3 	= transform.position;
+		var r : Quaternion  = Quaternion.temp;
+		var q : Quaternion  = Quaternion.LookAt(p, p_at, p_up, Quaternion.temp);
+		if (p_smooth > 0)
+		{
+			r = Quaternion.Lerp(r, q, p_smooth * Time.delta, Quaternion.temp);
+		}
+		else
+		{
+			r = q;
+		}
+		transform.rotation = r;		
 	}
 
 	/**
@@ -347,24 +438,6 @@ class Transform extends Component
 	{
 		for (i in 0...m_hierarchy.length) if (m_hierarchy[i].name == p_name) return m_hierarchy[i];
 		return null;		
-	}
-	
-	/**
-	 * Locks the update of matrix for this Transform and its children.
-	 */
-	public function Lock():Void
-	{
-		//m_lock = true;
-		//for (i in 0...m_hierarchy.length) m_hierarchy[i].Lock();
-	}
-	
-	/**
-	 * Unlocks the update of matrix for this Transform and its children and apply the changes.
-	 */
-	public function Unlock():Void
-	{
-		//m_lock = false;
-		//for (i in 0...m_hierarchy.length) m_hierarchy[i].Unlock();
 	}
 	
 	/**
@@ -477,8 +550,8 @@ class Transform extends Component
 	 */
 	public function ToString(p_use_local:Bool=false,p_places:Int=2):String
 	{
-		var p : Vector3 = p_use_local ? localPosition : m_position;
-		var e : Vector3 = p_use_local ? localEuler	  : m_euler;
+		var p : Vector3 = p_use_local ? localPosition : position;
+		var e : Vector3 = p_use_local ? localEuler	  : euler;
 		var s : Vector3 = p_use_local ? localScale    : scale;
 		return name+" " + p.ToString(p_places) + "" + e.ToString(p_places) + "" + s.ToString(p_places);
 	}

@@ -1,5 +1,6 @@
 package haxor.context;
 import haxor.core.Console;
+import haxor.core.IDisposable;
 import haxor.core.Resource;
 
 /**
@@ -20,6 +21,7 @@ class Process<T> extends BaseProcess
 	override private inline function get_length():Int { return m_length; }	
 	private var m_length : Int;
 	
+	
 	/**
 	 * Creates a new process with a given name and size.
 	 * @param	p_name
@@ -29,11 +31,13 @@ class Process<T> extends BaseProcess
 	{
 		super(p_name,p_update_cid);
 		list     		= [];		
-		m_length 		= 0;		
+		m_length 		= 0;
+		
 		for (i in 0...p_size)
 		{
 			list.push(null);					
 		}
+		//*/
 	}
 	
 	
@@ -43,11 +47,11 @@ class Process<T> extends BaseProcess
 	 */
 	override public function Add(p_item : Resource):Void
 	{	
-		var iid : Int = p_item.m_pid[__cid];
+		var iid : Int = p_item.__pid[__cid];
 		if (iid >= 0) return;
 		if (m_length >= list.length) { list.push(null); }
 		list[m_length] = cast p_item;
-		p_item.m_pid[__cid] = m_length++;				
+		p_item.__pid[__cid] = m_length++;
 	}
 	
 	/**
@@ -56,15 +60,39 @@ class Process<T> extends BaseProcess
 	 */
 	override public function Remove(p_item : Resource):Resource
 	{	
-		var iid : Int = p_item.m_pid[__cid];
+		var iid : Int = p_item.__pid[__cid];
 		if (iid < 0) return p_item;
-		p_item.m_pid[__cid] = -1;
+		p_item.__pid[__cid] = -1;
 		m_length--;
 		if (m_length <= 0) return p_item;
 		list[iid] = list[m_length];
 		p_item = cast list[iid];
-		p_item.m_pid[__cid] = iid;
+		p_item.__pid[__cid] = iid;
 		return p_item;
+	}
+	
+	/**
+	 * Swap elements of this process.
+	 * @param	p_a
+	 * @param	p_b
+	 */
+	public function Swap(p_a:T, p_b:T,p_index_only:Bool=false):Void 
+	{
+		var ra : Resource = cast p_a;
+		var rb : Resource = cast p_b;
+		var ia : Int = ra.__pid[__cid];
+		if (ia < 0) return;
+		var ib : Int = rb.__pid[__cid];
+		if (ib < 0) return;
+		
+		if (!p_index_only)
+		{
+			list[ia] = p_b;
+			list[ib] = p_a;
+		}
+		
+		rb.__pid[__cid] = ia;
+		ra.__pid[__cid] = ib;
 	}
 	
 	/**
@@ -76,6 +104,34 @@ class Process<T> extends BaseProcess
 		list 		= [];
 	}
 	
+	/**
+	 * Sort this process members taking care of their indexes.
+	 * @param	p_method
+	 */
+	public function Sort(p_method:T->T->Int):Void 
+	{
+		list.sort(p_method);
+		for (i in 0...length) 
+		{
+			var it:Resource = cast list[i];
+			if(it!=null) it.__pid[__cid] = i;
+		}
+	}
+	
+	/**
+	 * Outputs the nodes of this list and their PID ids.
+	 * @return
+	 */
+	public function ToString():String
+	{
+		var log : String = "";
+		for (i in 0...length)
+		{
+			var it:Resource = cast list[i];			
+			log += "["+it.name+","+it.__pid[__cid]+"]";
+		}
+		return log;
+	}
 }
 
 /**
@@ -113,7 +169,7 @@ class BaseProcess
 	{
 		name     		= p_name;		
 		__cid    		= m_cid;		
-		Console.Log("\tProcess ["+p_name+"]["+__cid+"] created.",6);
+		Console.Log("\tProcess ["+p_name+"]["+__cid+"] created.",8);
 		if (p_update_cid) m_cid++;		
 	}
 	
@@ -129,7 +185,7 @@ class BaseProcess
 	 * @return
 	 */
 	public function Remove(p_item : Resource):Resource { return null; }
-	
+		
 	/**
 	 * Clears the process list.
 	 */

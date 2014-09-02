@@ -1,5 +1,6 @@
 #if android
 package haxor.platform.android;
+import haxor.input.Input;
 import haxor.platform.android.input.AndroidInputHandler;
 import java.NativeArray;
 import haxor.core.Engine;

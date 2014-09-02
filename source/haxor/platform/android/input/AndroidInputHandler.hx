@@ -15,21 +15,13 @@ import android.view.MotionEvent;
 class AndroidInputHandler extends InputHandler
 {
 	
-	private var m_tf : Array<MotionEvent>;
-	
-	private var m_tb : Array<MotionEvent>;
-	
 	/**
 	 * Initializes this input handler.
 	 * @param	p_target
 	 */
 	private function new():Void
 	{
-		m_tf = [];
-		m_tb = [];
-		
-		//Add this handler into the execution loop.
-		super();
+		super();		
 	}
 	
 	/**
@@ -39,18 +31,13 @@ class AndroidInputHandler extends InputHandler
 	 */
 	public function OnTouchEvent(p_event : MotionEvent):Void
 	{
-		ProcessTouchEvent(p_event);
-		//m_tb.push(p_event);				
+		ProcessTouchEvent(p_event);		
 	}
 	
 	/**
 	 * Update loop.
 	 */
-	override function UpdateInput():Void 
-	{
-		//if (m_tf.length > 0) while (m_tf.length > 0) ProcessTouchEvent(m_tf.shift());		
-		//var t : Array<MotionEvent> = m_tf; m_tf = m_tb; m_tb = t;
-	}
+	override function UpdateInput():Void {	}
 	
 	/**
 	 * Process the touch event in the stack.

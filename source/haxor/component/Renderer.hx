@@ -2,6 +2,7 @@ package haxor.component;
 import haxor.context.EngineContext;
 import haxor.core.Entity;
 import haxor.graphics.material.Material;
+import haxor.math.Mathf;
 
 
 /**
@@ -11,6 +12,7 @@ import haxor.graphics.material.Material;
 @:allow(haxor)
 class Renderer extends Behaviour
 {
+	
 	
 	/**
 	 * Reference to this renderer material.
@@ -28,24 +30,34 @@ class Renderer extends Behaviour
 	private var m_material : Material;
 	
 	/**
+	 * Returns a flag that indicates if this MeshRenderer is visible (either by the user intent or camera culling.
+	 */
+	public var visible(get_visible, never):Bool;
+	private inline function get_visible():Bool { return m_visible && (!m_culled); }
+	private function set_visible(v:Bool):Bool { m_visible = v; return v; }
+	private var m_visible : Bool;
+	private var m_culled : Bool;
+	
+	/**
 	 * Flag to speedup detection of MeshRenderers
 	 */
-	private var m_has_mesh : Bool;
+	private var m_has_mesh : Bool=false;
 	
 	/**
 	 * Cache for the last material render queue to detect changes.
 	 */
 	private var m_last_queue : Int;
-		
+	
 	/**
 	 * Method called after component creation.
 	 */
 	override private function OnBuild():Void 
 	{
-		super.OnBuild();
-		__cid = EngineContext.renderer.rid.id;
-		m_has_mesh 		= false;
-		m_last_queue 	= -1;		
+		super.OnBuild();				
+		m_last_queue 	= -1;
+		m_visible	= true;
+		m_culled    = false;				
+		EngineContext.renderer.Create(this);
 	}
 	/**
 	 * Callback to execute the rendering routines.
@@ -59,6 +71,28 @@ class Renderer extends Behaviour
 			EngineContext.renderer.OnMaterialChange(this);
 		}
 	}
+	
+	/**
+	 * Callback called by the engine to update this renderer culling flags.
+	 */
+	private function UpdateCulling():Void
+	{
+		//If visible. Can post-pone not-visibility culling a bit.
+		//if (EngineContext.renderer.DeferredCulling(this)) return;
+		var v0 : Bool = m_culled;
+		var v1 : Bool = CheckCulling();		
+		m_culled = v1;
+		
+		if (v0 != v1)
+		{			
+			EngineContext.renderer.OnVisibilityChange(this, !v1);
+		}
+	}
+	
+	/**
+	 * Callback called so the renderer can update its internal culling flag. Return false to signal if this renderer isn't visible.
+	 */
+	private function CheckCulling():Bool { return false; }
 	
 	/**
 	 * Destroy callback.

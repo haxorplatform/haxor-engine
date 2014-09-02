@@ -18,19 +18,19 @@ public  class CameraContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_CameraContext(haxor.context.CameraContext __temp_me151338)
+	public static   void __hx_ctor_haxor_context_CameraContext(haxor.context.CameraContext __temp_me160443)
 	{
-		__temp_me151338.cid = new haxor.context.UID();
-		__temp_me151338.list = new haxe.root.Array<haxor.component.Camera>(new haxor.component.Camera[]{});
-		__temp_me151338.front = new haxe.root.Array<haxor.graphics.texture.RenderTexture>(new haxor.graphics.texture.RenderTexture[]{});
-		__temp_me151338.back = new haxe.root.Array<haxor.graphics.texture.RenderTexture>(new haxor.graphics.texture.RenderTexture[]{});
+		__temp_me160443.cid = new haxor.context.UID();
+		__temp_me160443.list = new haxe.root.Array<haxor.component.Camera>(new haxor.component.Camera[]{});
+		__temp_me160443.front = new haxe.root.Array<haxor.graphics.texture.RenderTexture>(new haxor.graphics.texture.RenderTexture[]{});
+		__temp_me160443.back = new haxe.root.Array<haxor.graphics.texture.RenderTexture>(new haxor.graphics.texture.RenderTexture[]{});
 		{
 			int _g = 0;
 			while (( _g < 64 ))
 			{
 				int i = _g++;
-				__temp_me151338.front.push(null);
-				__temp_me151338.back.push(null);
+				__temp_me160443.front.push(null);
+				__temp_me160443.back.push(null);
 			}
 			
 		}
@@ -73,7 +73,7 @@ public  class CameraContext extends haxe.lang.HxObject
 		{
 			int v = c.__cid;
 			this.cid.m_cache.push(v);
-			int __temp_expr152009 = v;
+			int __temp_expr161110 = v;
 		}
 		
 	}
@@ -206,50 +206,50 @@ public  class CameraContext extends haxe.lang.HxObject
 		}
 		
 		double aw = 0.0;
-		double __temp_stmt152010 = 0.0;
+		double __temp_stmt161111 = 0.0;
 		{
 			haxor.math.AABB2 _this = c.m_viewport;
 			{
 				double p_a = ( _this.get_xMax() - _this.get_xMin() );
-				__temp_stmt152010 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+				__temp_stmt161111 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 			}
 			
 		}
 		
-		aw = ( __temp_stmt152010 * w );
+		aw = ( __temp_stmt161111 * w );
 		double ah = 0.0;
-		double __temp_stmt152011 = 0.0;
+		double __temp_stmt161112 = 0.0;
 		{
 			haxor.math.AABB2 _this1 = c.m_viewport;
 			{
 				double p_a1 = ( _this1.get_yMax() - _this1.get_yMin() );
-				__temp_stmt152011 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
+				__temp_stmt161112 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
 			}
 			
 		}
 		
-		ah = ( __temp_stmt152011 * h );
+		ah = ( __temp_stmt161112 * h );
 		{
 			c.m_pixelViewport.set_xMin(vx);
-			double __temp_expr152012 = vx;
+			double __temp_expr161113 = vx;
 		}
 		
 		{
 			double v = ( ( h - ah ) - vy );
 			c.m_pixelViewport.set_yMin(v);
-			double __temp_expr152013 = v;
+			double __temp_expr161114 = v;
 		}
 		
 		{
 			haxor.math.AABB2 _this2 = c.m_pixelViewport;
 			_this2.set_xMax(( _this2.get_xMin() + aw ));
-			double __temp_expr152014 = aw;
+			double __temp_expr161115 = aw;
 		}
 		
 		{
 			haxor.math.AABB2 _this3 = c.m_pixelViewport;
 			_this3.set_yMax(( _this3.get_yMin() + ah ));
-			double __temp_expr152015 = ah;
+			double __temp_expr161116 = ah;
 		}
 		
 		int tw = ((int) (aw) );
@@ -321,14 +321,14 @@ public  class CameraContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152016 = true;
+			boolean __temp_executeDef161117 = true;
 			switch (field.hashCode())
 			{
 				case 3015911:
 				{
 					if (field.equals("back")) 
 					{
-						__temp_executeDef152016 = false;
+						__temp_executeDef161117 = false;
 						this.back = ((haxe.root.Array<haxor.graphics.texture.RenderTexture>) (value) );
 						return value;
 					}
@@ -341,7 +341,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("cid")) 
 					{
-						__temp_executeDef152016 = false;
+						__temp_executeDef161117 = false;
 						this.cid = ((haxor.context.UID) (value) );
 						return value;
 					}
@@ -354,7 +354,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("front")) 
 					{
-						__temp_executeDef152016 = false;
+						__temp_executeDef161117 = false;
 						this.front = ((haxe.root.Array<haxor.graphics.texture.RenderTexture>) (value) );
 						return value;
 					}
@@ -367,7 +367,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("list")) 
 					{
-						__temp_executeDef152016 = false;
+						__temp_executeDef161117 = false;
 						this.list = ((haxe.root.Array<haxor.component.Camera>) (value) );
 						return value;
 					}
@@ -378,7 +378,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152016) 
+			if (__temp_executeDef161117) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -395,14 +395,14 @@ public  class CameraContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152017 = true;
+			boolean __temp_executeDef161118 = true;
 			switch (field.hashCode())
 			{
 				case -1990951487:
 				{
 					if (field.equals("SortCameraList")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SortCameraList"))) );
 					}
 					
@@ -414,7 +414,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("cid")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return this.cid;
 					}
 					
@@ -426,7 +426,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateViewport")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateViewport"))) );
 					}
 					
@@ -438,7 +438,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("list")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return this.list;
 					}
 					
@@ -450,7 +450,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("SwapTargets")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("SwapTargets"))) );
 					}
 					
@@ -462,7 +462,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("front")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return this.front;
 					}
 					
@@ -474,7 +474,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Unbind")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Unbind"))) );
 					}
 					
@@ -486,7 +486,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("back")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return this.back;
 					}
 					
@@ -498,7 +498,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ClearTargets")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ClearTargets"))) );
 					}
 					
@@ -510,7 +510,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Create")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Create"))) );
 					}
 					
@@ -522,7 +522,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Resize")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Resize"))) );
 					}
 					
@@ -534,7 +534,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Destroy")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Destroy"))) );
 					}
 					
@@ -546,7 +546,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Bind")) 
 					{
-						__temp_executeDef152017 = false;
+						__temp_executeDef161118 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Bind"))) );
 					}
 					
@@ -556,7 +556,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152017) 
+			if (__temp_executeDef161118) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -573,14 +573,14 @@ public  class CameraContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef152018 = true;
+			boolean __temp_executeDef161119 = true;
 			switch (field.hashCode())
 			{
 				case -1990951487:
 				{
 					if (field.equals("SortCameraList")) 
 					{
-						__temp_executeDef152018 = false;
+						__temp_executeDef161119 = false;
 						this.SortCameraList();
 					}
 					
@@ -592,7 +592,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Create")) 
 					{
-						__temp_executeDef152018 = false;
+						__temp_executeDef161119 = false;
 						this.Create(((haxor.component.Camera) (dynargs.__get(0)) ));
 					}
 					
@@ -604,7 +604,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateViewport")) 
 					{
-						__temp_executeDef152018 = false;
+						__temp_executeDef161119 = false;
 						this.UpdateViewport(((haxor.component.Camera) (dynargs.__get(0)) ));
 					}
 					
@@ -616,7 +616,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Destroy")) 
 					{
-						__temp_executeDef152018 = false;
+						__temp_executeDef161119 = false;
 						this.Destroy(((haxor.component.Camera) (dynargs.__get(0)) ));
 					}
 					
@@ -628,7 +628,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("SwapTargets")) 
 					{
-						__temp_executeDef152018 = false;
+						__temp_executeDef161119 = false;
 						this.SwapTargets(((haxor.component.Camera) (dynargs.__get(0)) ));
 					}
 					
@@ -640,7 +640,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Bind")) 
 					{
-						__temp_executeDef152018 = false;
+						__temp_executeDef161119 = false;
 						this.Bind(((haxor.component.Camera) (dynargs.__get(0)) ));
 					}
 					
@@ -652,7 +652,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Unbind")) 
 					{
-						__temp_executeDef152018 = false;
+						__temp_executeDef161119 = false;
 						this.Unbind(((haxor.component.Camera) (dynargs.__get(0)) ));
 					}
 					
@@ -664,7 +664,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Resize")) 
 					{
-						__temp_executeDef152018 = false;
+						__temp_executeDef161119 = false;
 						this.Resize();
 					}
 					
@@ -676,7 +676,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				{
 					if (field.equals("ClearTargets")) 
 					{
-						__temp_executeDef152018 = false;
+						__temp_executeDef161119 = false;
 						this.ClearTargets(((haxor.component.Camera) (dynargs.__get(0)) ));
 					}
 					
@@ -686,7 +686,7 @@ public  class CameraContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152018) 
+			if (__temp_executeDef161119) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

@@ -18,7 +18,7 @@ public  class Input extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_io_Input(haxe.io.Input __temp_me151301)
+	public static   void __hx_ctor_haxe_io_Input(haxe.io.Input __temp_me160405)
 	{
 		{
 		}
@@ -114,17 +114,17 @@ public  class Input extends haxe.lang.HxObject
 			}
 			
 		}
-		catch (java.lang.Throwable __temp_catchallException151868)
+		catch (java.lang.Throwable __temp_catchallException160980)
 		{
-			java.lang.Object __temp_catchall151869 = __temp_catchallException151868;
-			if (( __temp_catchall151869 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall160981 = __temp_catchallException160980;
+			if (( __temp_catchall160981 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall151869 = ((haxe.lang.HaxeException) (__temp_catchallException151868) ).obj;
+				__temp_catchall160981 = ((haxe.lang.HaxeException) (__temp_catchallException160980) ).obj;
 			}
 			
-			if (( __temp_catchall151869 instanceof haxe.io.Eof )) 
+			if (( __temp_catchall160981 instanceof haxe.io.Eof )) 
 			{
-				haxe.io.Eof e = ((haxe.io.Eof) (__temp_catchall151869) );
+				haxe.io.Eof e = ((haxe.io.Eof) (__temp_catchall160981) );
 				{
 					{
 					}
@@ -134,7 +134,7 @@ public  class Input extends haxe.lang.HxObject
 			}
 			 else 
 			{
-				throw haxe.lang.HaxeException.wrap(__temp_catchallException151868);
+				throw haxe.lang.HaxeException.wrap(__temp_catchallException160980);
 			}
 			
 		}
@@ -208,17 +208,17 @@ public  class Input extends haxe.lang.HxObject
 			}
 			
 		}
-		catch (java.lang.Throwable __temp_catchallException151870)
+		catch (java.lang.Throwable __temp_catchallException160982)
 		{
-			java.lang.Object __temp_catchall151871 = __temp_catchallException151870;
-			if (( __temp_catchall151871 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall160983 = __temp_catchallException160982;
+			if (( __temp_catchall160983 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall151871 = ((haxe.lang.HaxeException) (__temp_catchallException151870) ).obj;
+				__temp_catchall160983 = ((haxe.lang.HaxeException) (__temp_catchallException160982) ).obj;
 			}
 			
-			if (( __temp_catchall151871 instanceof haxe.io.Eof )) 
+			if (( __temp_catchall160983 instanceof haxe.io.Eof )) 
 			{
-				haxe.io.Eof e = ((haxe.io.Eof) (__temp_catchall151871) );
+				haxe.io.Eof e = ((haxe.io.Eof) (__temp_catchall160983) );
 				{
 					s = buf.toString();
 					if (( s.length() == 0 )) 
@@ -231,7 +231,7 @@ public  class Input extends haxe.lang.HxObject
 			}
 			 else 
 			{
-				throw haxe.lang.HaxeException.wrap(__temp_catchallException151870);
+				throw haxe.lang.HaxeException.wrap(__temp_catchallException160982);
 			}
 			
 		}
@@ -400,14 +400,14 @@ public  class Input extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151872 = true;
+			boolean __temp_executeDef160984 = true;
 			switch (field.hashCode())
 			{
 				case -1220931666:
 				{
 					if (field.equals("helper")) 
 					{
-						__temp_executeDef151872 = false;
+						__temp_executeDef160984 = false;
 						this.helper = ((java.nio.ByteBuffer) (value) );
 						return value;
 					}
@@ -420,7 +420,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("bigEndian")) 
 					{
-						__temp_executeDef151872 = false;
+						__temp_executeDef160984 = false;
 						if (handleProperties) 
 						{
 							this.set_bigEndian(haxe.lang.Runtime.toBool(value));
@@ -440,7 +440,7 @@ public  class Input extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151872) 
+			if (__temp_executeDef160984) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -457,14 +457,14 @@ public  class Input extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151873 = true;
+			boolean __temp_executeDef160985 = true;
 			switch (field.hashCode())
 			{
 				case -500196025:
 				{
 					if (field.equals("readString")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readString"))) );
 					}
 					
@@ -476,7 +476,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("bigEndian")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return this.bigEndian;
 					}
 					
@@ -488,7 +488,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readInt32")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readInt32"))) );
 					}
 					
@@ -500,7 +500,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("helper")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return this.helper;
 					}
 					
@@ -512,7 +512,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readUInt24")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readUInt24"))) );
 					}
 					
@@ -524,7 +524,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readByte")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readByte"))) );
 					}
 					
@@ -536,7 +536,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readInt24")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readInt24"))) );
 					}
 					
@@ -548,7 +548,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readBytes")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readBytes"))) );
 					}
 					
@@ -560,7 +560,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readUInt16")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readUInt16"))) );
 					}
 					
@@ -572,7 +572,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("close")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("close"))) );
 					}
 					
@@ -584,7 +584,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readInt16")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readInt16"))) );
 					}
 					
@@ -596,7 +596,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("set_bigEndian")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_bigEndian"))) );
 					}
 					
@@ -608,7 +608,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readInt8")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readInt8"))) );
 					}
 					
@@ -620,7 +620,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readAll")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readAll"))) );
 					}
 					
@@ -632,7 +632,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readDouble")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readDouble"))) );
 					}
 					
@@ -644,7 +644,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readFullBytes")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readFullBytes"))) );
 					}
 					
@@ -656,7 +656,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readFloat")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readFloat"))) );
 					}
 					
@@ -668,7 +668,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("read")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("read"))) );
 					}
 					
@@ -680,7 +680,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readLine")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readLine"))) );
 					}
 					
@@ -692,7 +692,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readUntil")) 
 					{
-						__temp_executeDef151873 = false;
+						__temp_executeDef160985 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("readUntil"))) );
 					}
 					
@@ -702,7 +702,7 @@ public  class Input extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151873) 
+			if (__temp_executeDef160985) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -719,14 +719,14 @@ public  class Input extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef151874 = true;
+			boolean __temp_executeDef160986 = true;
 			switch (field.hashCode())
 			{
 				case -500196025:
 				{
 					if (field.equals("readString")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readString(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -738,7 +738,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readByte")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readByte();
 					}
 					
@@ -750,7 +750,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readInt32")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readInt32();
 					}
 					
@@ -762,7 +762,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readBytes")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readBytes(((haxe.io.Bytes) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -774,7 +774,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readUInt24")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readUInt24();
 					}
 					
@@ -786,7 +786,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("close")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						this.close();
 					}
 					
@@ -798,7 +798,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readInt24")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readInt24();
 					}
 					
@@ -810,7 +810,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("set_bigEndian")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.set_bigEndian(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
@@ -822,7 +822,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readUInt16")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readUInt16();
 					}
 					
@@ -834,7 +834,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readAll")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readAll(dynargs.__get(0));
 					}
 					
@@ -846,7 +846,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readInt16")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readInt16();
 					}
 					
@@ -858,7 +858,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readFullBytes")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						this.readFullBytes(((haxe.io.Bytes) (dynargs.__get(0)) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(2))) ));
 					}
 					
@@ -870,7 +870,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readInt8")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readInt8();
 					}
 					
@@ -882,7 +882,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("read")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.read(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -894,7 +894,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readDouble")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readDouble();
 					}
 					
@@ -906,7 +906,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readUntil")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readUntil(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -918,7 +918,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readFloat")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readFloat();
 					}
 					
@@ -930,7 +930,7 @@ public  class Input extends haxe.lang.HxObject
 				{
 					if (field.equals("readLine")) 
 					{
-						__temp_executeDef151874 = false;
+						__temp_executeDef160986 = false;
 						return this.readLine();
 					}
 					
@@ -940,7 +940,7 @@ public  class Input extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151874) 
+			if (__temp_executeDef160986) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

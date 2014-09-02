@@ -4,12 +4,12 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class Xml_elementsNamed_238__Fun extends haxe.lang.Function
 {
-	public    Xml_elementsNamed_238__Fun(haxe.root.Array<java.lang.String> name1, haxe.root.Array<java.lang.Object> cur, haxe.root.Array<haxe.root.Array> x)
+	public    Xml_elementsNamed_238__Fun(haxe.root.Array<haxe.root.Array> x, haxe.root.Array<java.lang.String> name1, haxe.root.Array<java.lang.Object> cur)
 	{
 		super(0, 0);
+		this.x = x;
 		this.name1 = name1;
 		this.cur = cur;
-		this.x = x;
 	}
 	
 	
@@ -33,11 +33,11 @@ public  class Xml_elementsNamed_238__Fun extends haxe.lang.Function
 	}
 	
 	
+	public  haxe.root.Array<haxe.root.Array> x;
+	
 	public  haxe.root.Array<java.lang.String> name1;
 	
 	public  haxe.root.Array<java.lang.Object> cur;
-	
-	public  haxe.root.Array<haxe.root.Array> x;
 	
 }
 

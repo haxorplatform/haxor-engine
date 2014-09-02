@@ -18,7 +18,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 	}
 	
 	
-	public static  <K_c, V_c> void __hx_ctor_haxe_ds_BalancedTree(haxe.ds.BalancedTree<K_c, V_c> __temp_me151288)
+	public static  <K_c, V_c> void __hx_ctor_haxe_ds_BalancedTree(haxe.ds.BalancedTree<K_c, V_c> __temp_me160392)
 	{
 		{
 		}
@@ -79,17 +79,17 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 			this.root = this.removeLoop(key, this.root);
 			return true;
 		}
-		catch (java.lang.Throwable __temp_catchallException151722)
+		catch (java.lang.Throwable __temp_catchallException160834)
 		{
-			java.lang.Object __temp_catchall151723 = __temp_catchallException151722;
-			if (( __temp_catchall151723 instanceof haxe.lang.HaxeException )) 
+			java.lang.Object __temp_catchall160835 = __temp_catchallException160834;
+			if (( __temp_catchall160835 instanceof haxe.lang.HaxeException )) 
 			{
-				__temp_catchall151723 = ((haxe.lang.HaxeException) (__temp_catchallException151722) ).obj;
+				__temp_catchall160835 = ((haxe.lang.HaxeException) (__temp_catchallException160834) ).obj;
 			}
 			
-			if (( __temp_catchall151723 instanceof java.lang.String )) 
+			if (( __temp_catchall160835 instanceof java.lang.String )) 
 			{
-				java.lang.String e = haxe.lang.Runtime.toString(__temp_catchall151723);
+				java.lang.String e = haxe.lang.Runtime.toString(__temp_catchall160835);
 				{
 					return false;
 				}
@@ -97,7 +97,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 			}
 			 else 
 			{
-				throw haxe.lang.HaxeException.wrap(__temp_catchallException151722);
+				throw haxe.lang.HaxeException.wrap(__temp_catchallException160834);
 			}
 			
 		}
@@ -310,19 +310,19 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 		
 		if (( hl > ( hr + 2 ) )) 
 		{
-			int __temp_stmt151726 = 0;
+			int __temp_stmt160838 = 0;
 			{
 				haxe.ds.TreeNode<K, V> _this = l.left;
-				__temp_stmt151726 = ( (( _this == null )) ? (0) : (_this._height) );
+				__temp_stmt160838 = ( (( _this == null )) ? (0) : (_this._height) );
 			}
 			
-			int __temp_stmt151727 = 0;
+			int __temp_stmt160839 = 0;
 			{
 				haxe.ds.TreeNode<K, V> _this1 = l.right;
-				__temp_stmt151727 = ( (( _this1 == null )) ? (0) : (_this1._height) );
+				__temp_stmt160839 = ( (( _this1 == null )) ? (0) : (_this1._height) );
 			}
 			
-			if (( __temp_stmt151726 >= __temp_stmt151727 )) 
+			if (( __temp_stmt160838 >= __temp_stmt160839 )) 
 			{
 				return new haxe.ds.TreeNode<K, V>(((haxe.ds.TreeNode<K, V>) (l.left) ), ((K) (l.key) ), ((V) (l.value) ), ((haxe.ds.TreeNode<K, V>) (new haxe.ds.TreeNode<K, V>(((haxe.ds.TreeNode<K, V>) (l.right) ), ((K) (k) ), ((V) (v) ), ((haxe.ds.TreeNode<K, V>) (r) ), ((java.lang.Object) (null) ))) ), ((java.lang.Object) (null) ));
 			}
@@ -336,19 +336,19 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 		{
 			if (( hr > ( hl + 2 ) )) 
 			{
-				int __temp_stmt151724 = 0;
+				int __temp_stmt160836 = 0;
 				{
 					haxe.ds.TreeNode<K, V> _this2 = r.right;
-					__temp_stmt151724 = ( (( _this2 == null )) ? (0) : (_this2._height) );
+					__temp_stmt160836 = ( (( _this2 == null )) ? (0) : (_this2._height) );
 				}
 				
-				int __temp_stmt151725 = 0;
+				int __temp_stmt160837 = 0;
 				{
 					haxe.ds.TreeNode<K, V> _this3 = r.left;
-					__temp_stmt151725 = ( (( _this3 == null )) ? (0) : (_this3._height) );
+					__temp_stmt160837 = ( (( _this3 == null )) ? (0) : (_this3._height) );
 				}
 				
-				if (( __temp_stmt151724 > __temp_stmt151725 )) 
+				if (( __temp_stmt160836 > __temp_stmt160837 )) 
 				{
 					return new haxe.ds.TreeNode<K, V>(((haxe.ds.TreeNode<K, V>) (new haxe.ds.TreeNode<K, V>(((haxe.ds.TreeNode<K, V>) (l) ), ((K) (k) ), ((V) (v) ), ((haxe.ds.TreeNode<K, V>) (r.left) ), ((java.lang.Object) (null) ))) ), ((K) (r.key) ), ((V) (r.value) ), ((haxe.ds.TreeNode<K, V>) (r.right) ), ((java.lang.Object) (null) ));
 				}
@@ -383,14 +383,14 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151728 = true;
+			boolean __temp_executeDef160840 = true;
 			switch (field.hashCode())
 			{
 				case 3506402:
 				{
 					if (field.equals("root")) 
 					{
-						__temp_executeDef151728 = false;
+						__temp_executeDef160840 = false;
 						this.root = ((haxe.ds.TreeNode<K, V>) (value) );
 						return value;
 					}
@@ -401,7 +401,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151728) 
+			if (__temp_executeDef160840) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -418,14 +418,14 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151729 = true;
+			boolean __temp_executeDef160841 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("toString"))) );
 					}
 					
@@ -437,7 +437,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("root")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return this.root;
 					}
 					
@@ -449,7 +449,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("compare")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("compare"))) );
 					}
 					
@@ -461,7 +461,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set"))) );
 					}
 					
@@ -473,7 +473,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("balance")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("balance"))) );
 					}
 					
@@ -485,7 +485,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("get")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get"))) );
 					}
 					
@@ -497,7 +497,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("removeMinBinding")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("removeMinBinding"))) );
 					}
 					
@@ -509,7 +509,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("remove")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("remove"))) );
 					}
 					
@@ -521,7 +521,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("minBinding")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("minBinding"))) );
 					}
 					
@@ -533,7 +533,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("exists")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("exists"))) );
 					}
 					
@@ -545,7 +545,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("merge")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("merge"))) );
 					}
 					
@@ -557,7 +557,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("iterator")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("iterator"))) );
 					}
 					
@@ -569,7 +569,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("keysLoop")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("keysLoop"))) );
 					}
 					
@@ -581,7 +581,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("keys")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("keys"))) );
 					}
 					
@@ -593,7 +593,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("iteratorLoop")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("iteratorLoop"))) );
 					}
 					
@@ -605,7 +605,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("setLoop")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("setLoop"))) );
 					}
 					
@@ -617,7 +617,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("removeLoop")) 
 					{
-						__temp_executeDef151729 = false;
+						__temp_executeDef160841 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("removeLoop"))) );
 					}
 					
@@ -627,7 +627,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151729) 
+			if (__temp_executeDef160841) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -644,14 +644,14 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef151730 = true;
+			boolean __temp_executeDef160842 = true;
 			switch (field.hashCode())
 			{
 				case -1776922004:
 				{
 					if (field.equals("toString")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.toString();
 					}
 					
@@ -663,7 +663,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						this.set(((K) (dynargs.__get(0)) ), ((V) (dynargs.__get(1)) ));
 					}
 					
@@ -675,7 +675,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("compare")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.compare(((K) (dynargs.__get(0)) ), ((K) (dynargs.__get(1)) ));
 					}
 					
@@ -687,7 +687,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("get")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.get(((K) (dynargs.__get(0)) ));
 					}
 					
@@ -699,7 +699,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("balance")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.balance(((haxe.ds.TreeNode<K, V>) (dynargs.__get(0)) ), ((K) (dynargs.__get(1)) ), ((V) (dynargs.__get(2)) ), ((haxe.ds.TreeNode<K, V>) (dynargs.__get(3)) ));
 					}
 					
@@ -711,7 +711,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("remove")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.remove(((K) (dynargs.__get(0)) ));
 					}
 					
@@ -723,7 +723,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("removeMinBinding")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.removeMinBinding(((haxe.ds.TreeNode<K, V>) (dynargs.__get(0)) ));
 					}
 					
@@ -735,7 +735,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("exists")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.exists(((K) (dynargs.__get(0)) ));
 					}
 					
@@ -747,7 +747,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("minBinding")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.minBinding(((haxe.ds.TreeNode<K, V>) (dynargs.__get(0)) ));
 					}
 					
@@ -759,7 +759,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("iterator")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.iterator();
 					}
 					
@@ -771,7 +771,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("merge")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.merge(((haxe.ds.TreeNode<K, V>) (dynargs.__get(0)) ), ((haxe.ds.TreeNode<K, V>) (dynargs.__get(1)) ));
 					}
 					
@@ -783,7 +783,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("keys")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.keys();
 					}
 					
@@ -795,7 +795,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("keysLoop")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						this.keysLoop(((haxe.ds.TreeNode<K, V>) (dynargs.__get(0)) ), ((haxe.root.Array<K>) (dynargs.__get(1)) ));
 					}
 					
@@ -807,7 +807,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("setLoop")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.setLoop(((K) (dynargs.__get(0)) ), ((V) (dynargs.__get(1)) ), ((haxe.ds.TreeNode<K, V>) (dynargs.__get(2)) ));
 					}
 					
@@ -819,7 +819,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("iteratorLoop")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						this.iteratorLoop(((haxe.ds.TreeNode<K, V>) (dynargs.__get(0)) ), ((haxe.root.Array<V>) (dynargs.__get(1)) ));
 					}
 					
@@ -831,7 +831,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				{
 					if (field.equals("removeLoop")) 
 					{
-						__temp_executeDef151730 = false;
+						__temp_executeDef160842 = false;
 						return this.removeLoop(((K) (dynargs.__get(0)) ), ((haxe.ds.TreeNode<K, V>) (dynargs.__get(1)) ));
 					}
 					
@@ -841,7 +841,7 @@ public  class BalancedTree<K, V> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef151730) 
+			if (__temp_executeDef160842) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

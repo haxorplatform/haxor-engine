@@ -4,13 +4,13 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class Activity_Iterate_41__Fun extends haxe.lang.Function
 {
-	public    Activity_Iterate_41__Fun(haxe.root.Array<java.lang.Object> p_length1, haxe.root.Array<java.lang.Object> p_step1, haxe.root.Array<haxe.lang.Function> p_callback1, haxe.root.Array<java.lang.Object> it)
+	public    Activity_Iterate_41__Fun(haxe.root.Array<java.lang.Object> p_step1, haxe.root.Array<java.lang.Object> p_length1, haxe.root.Array<java.lang.Object> it, haxe.root.Array<haxe.lang.Function> p_callback1)
 	{
 		super(1, 0);
-		this.p_length1 = p_length1;
 		this.p_step1 = p_step1;
-		this.p_callback1 = p_callback1;
+		this.p_length1 = p_length1;
 		this.it = it;
+		this.p_callback1 = p_callback1;
 	}
 	
 	
@@ -30,11 +30,11 @@ public  class Activity_Iterate_41__Fun extends haxe.lang.Function
 				}
 				
 				{
-					int __temp_arrIndex151626 = 0;
-					int __temp_arrVal151624 = ((int) (haxe.lang.Runtime.toInt(this.it.__get(__temp_arrIndex151626))) );
-					int __temp_arrRet151625 = __temp_arrVal151624++;
-					this.it.__set(__temp_arrIndex151626, __temp_arrVal151624);
-					int __temp_expr152460 = __temp_arrRet151625;
+					int __temp_arrIndex160739 = 0;
+					int __temp_arrVal160737 = ((int) (haxe.lang.Runtime.toInt(this.it.__get(__temp_arrIndex160739))) );
+					int __temp_arrRet160738 = __temp_arrVal160737++;
+					this.it.__set(__temp_arrIndex160739, __temp_arrVal160737);
+					int __temp_expr161592 = __temp_arrRet160738;
 				}
 				
 				if (( ((int) (haxe.lang.Runtime.toInt(this.it.__get(0))) ) >= ((int) (haxe.lang.Runtime.toInt(this.p_length1.__get(0))) ) )) 
@@ -50,13 +50,13 @@ public  class Activity_Iterate_41__Fun extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<java.lang.Object> p_length1;
-	
 	public  haxe.root.Array<java.lang.Object> p_step1;
 	
-	public  haxe.root.Array<haxe.lang.Function> p_callback1;
+	public  haxe.root.Array<java.lang.Object> p_length1;
 	
 	public  haxe.root.Array<java.lang.Object> it;
+	
+	public  haxe.root.Array<haxe.lang.Function> p_callback1;
 	
 }
 

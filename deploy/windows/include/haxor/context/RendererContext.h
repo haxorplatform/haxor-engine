@@ -15,9 +15,11 @@ HX_DECLARE_CLASS2(haxor,context,RendererContext)
 HX_DECLARE_CLASS2(haxor,context,UID)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
+HX_DECLARE_CLASS2(haxor,ds,SAP)
 HX_DECLARE_CLASS3(haxor,graphics,texture,ComputeTexture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture2D)
+HX_DECLARE_CLASS2(haxor,math,Vector3)
 namespace haxor{
 namespace context{
 
@@ -45,17 +47,37 @@ class HXCPP_CLASS_ATTRIBUTES  RendererContext_obj : public hx::Object{
 		::String __ToString() const { return HX_CSTRING("RendererContext"); }
 
 		::haxor::context::UID rid;
+		::haxor::context::UID fcid;
 		Array< ::Dynamic > display;
+		::haxor::ds::SAP sap;
+		bool sap_dirty;
 		Array< bool > sort;
 		::haxor::graphics::texture::ComputeTexture skinning;
+		int deferred_culling;
+		int deferred_offset;
 		virtual Void Initialize( );
 		Dynamic Initialize_dyn();
+
+		virtual Void Create( ::haxor::component::Renderer r);
+		Dynamic Create_dyn();
+
+		virtual Void AddCamera( ::haxor::component::Camera c);
+		Dynamic AddCamera_dyn();
+
+		virtual Void RemoveCamera( ::haxor::component::Camera c);
+		Dynamic RemoveCamera_dyn();
 
 		virtual Void OnMaterialChange( ::haxor::component::Renderer r);
 		Dynamic OnMaterialChange_dyn();
 
 		virtual Void OnMeshChange( ::haxor::component::Renderer r);
 		Dynamic OnMeshChange_dyn();
+
+		virtual Void OnVisibilityChange( ::haxor::component::Renderer r,bool f);
+		Dynamic OnVisibilityChange_dyn();
+
+		virtual bool DeferredCulling( ::haxor::component::Renderer r);
+		Dynamic DeferredCulling_dyn();
 
 		virtual Void OnLayerChange( ::haxor::component::Renderer r,int from,int to);
 		Dynamic OnLayerChange_dyn();
@@ -68,6 +90,12 @@ class HXCPP_CLASS_ATTRIBUTES  RendererContext_obj : public hx::Object{
 
 		virtual Void Disable( ::haxor::component::Renderer r);
 		Dynamic Disable_dyn();
+
+		virtual Void UpdateSAP( int p_id,Dynamic p_d,::haxor::math::Vector3 p_min,::haxor::math::Vector3 p_max);
+		Dynamic UpdateSAP_dyn();
+
+		virtual bool IsSAPCulled( ::haxor::component::Renderer r,::haxor::component::Camera c);
+		Dynamic IsSAPCulled_dyn();
 
 		virtual Void Destroy( ::haxor::component::Renderer r);
 		Dynamic Destroy_dyn();

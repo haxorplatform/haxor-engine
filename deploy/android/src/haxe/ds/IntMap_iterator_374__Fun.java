@@ -4,11 +4,11 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class IntMap_iterator_374__Fun<T> extends haxe.lang.Function
 {
-	public    IntMap_iterator_374__Fun(haxe.root.Array<java.lang.Object> i, haxe.root.Array<haxe.ds.IntMap> _g1)
+	public    IntMap_iterator_374__Fun(haxe.root.Array<haxe.ds.IntMap> _g1, haxe.root.Array<java.lang.Object> i)
 	{
 		super(0, 0);
-		this.i = i;
 		this._g1 = _g1;
+		this.i = i;
 	}
 	
 	
@@ -20,9 +20,9 @@ public  class IntMap_iterator_374__Fun<T> extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<java.lang.Object> i;
-	
 	public  haxe.root.Array<haxe.ds.IntMap> _g1;
+	
+	public  haxe.root.Array<java.lang.Object> i;
 	
 }
 

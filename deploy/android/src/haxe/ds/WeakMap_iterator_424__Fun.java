@@ -4,12 +4,12 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class WeakMap_iterator_424__Fun<V, K> extends haxe.lang.Function
 {
-	public    WeakMap_iterator_424__Fun(haxe.root.Array<java.lang.Object> len, haxe.root.Array<java.lang.Object> i, haxe.root.Array<haxe.ds.WeakMap> _g1)
+	public    WeakMap_iterator_424__Fun(haxe.root.Array<java.lang.Object> len, haxe.root.Array<haxe.ds.WeakMap> _g1, haxe.root.Array<java.lang.Object> i)
 	{
 		super(0, 0);
 		this.len = len;
-		this.i = i;
 		this._g1 = _g1;
+		this.i = i;
 	}
 	
 	
@@ -36,9 +36,9 @@ public  class WeakMap_iterator_424__Fun<V, K> extends haxe.lang.Function
 	
 	public  haxe.root.Array<java.lang.Object> len;
 	
-	public  haxe.root.Array<java.lang.Object> i;
-	
 	public  haxe.root.Array<haxe.ds.WeakMap> _g1;
+	
+	public  haxe.root.Array<java.lang.Object> i;
 	
 }
 

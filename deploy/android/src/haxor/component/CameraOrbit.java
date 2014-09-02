@@ -17,25 +17,25 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_CameraOrbit(haxor.component.CameraOrbit __temp_me151313, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_component_CameraOrbit(haxor.component.CameraOrbit __temp_me160417, java.lang.String p_name)
 	{
-		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me151313, p_name);
+		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me160417, p_name);
 	}
 	
 	
 	public static   haxor.component.CameraOrbit Create(java.lang.Object p_distance, java.lang.Object p_angle_x, java.lang.Object p_angle_y)
 	{
-		double __temp_p_angle_y151312 = ( (( p_angle_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_angle_y)) )) );
-		double __temp_p_angle_x151311 = ( (( p_angle_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_angle_x)) )) );
-		double __temp_p_distance151310 = ( (( p_distance == null )) ? (((double) (1) )) : (((double) (haxe.lang.Runtime.toDouble(p_distance)) )) );
+		double __temp_p_angle_y160416 = ( (( p_angle_y == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_angle_y)) )) );
+		double __temp_p_angle_x160415 = ( (( p_angle_x == null )) ? (((double) (0) )) : (((double) (haxe.lang.Runtime.toDouble(p_angle_x)) )) );
+		double __temp_p_distance160414 = ( (( p_distance == null )) ? (((double) (1) )) : (((double) (haxe.lang.Runtime.toDouble(p_distance)) )) );
 		haxor.core.Entity e = new haxor.core.Entity(haxe.lang.Runtime.toString(null));
 		e.set_name("camera_orbit");
 		haxor.component.Camera c = ((haxor.component.Camera) (e.AddComponent(((java.lang.Class<haxor.component.Component>) (((java.lang.Class) (haxor.component.Camera.class) )) ))) );
 		c.background = new haxor.math.Color(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) ));
 		haxor.component.CameraOrbit orbit = ((haxor.component.CameraOrbit) (e.AddComponent(((java.lang.Class<haxor.component.Component>) (((java.lang.Class) (haxor.component.CameraOrbit.class) )) ))) );
-		orbit.distance = __temp_p_distance151310;
+		orbit.distance = __temp_p_distance160414;
 		orbit.smooth = ((double) (0) );
-		orbit.angle = new haxor.math.Vector2(((java.lang.Object) (__temp_p_angle_x151311) ), ((java.lang.Object) (__temp_p_angle_y151312) ));
+		orbit.angle = new haxor.math.Vector2(((java.lang.Object) (__temp_p_angle_x160415) ), ((java.lang.Object) (__temp_p_angle_y160416) ));
 		return orbit;
 	}
 	
@@ -154,20 +154,28 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 		}
 		
 		q.SetAxisAngle(new haxor.math.Vector3(((java.lang.Object) (0) ), ((java.lang.Object) (1) ), ((java.lang.Object) (0) )), this.m_angle.x);
-		haxor.math.Vector3 __temp_stmt151932 = new haxor.math.Vector3(((java.lang.Object) (1) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ));
-		haxor.math.Quaternion __temp_stmt151933 = null;
+		haxor.math.Vector3 __temp_stmt161044 = new haxor.math.Vector3(((java.lang.Object) (1) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ));
+		haxor.math.Quaternion __temp_stmt161045 = null;
 		{
 			haxor.context.DataContext _this1 = haxor.context.EngineContext.data;
-			__temp_stmt151933 = _this1.m_q.__get(_this1.m_nq = ( (( _this1.m_nq + 1 )) % _this1.m_q.length ));
+			__temp_stmt161045 = _this1.m_q.__get(_this1.m_nq = ( (( _this1.m_nq + 1 )) % _this1.m_q.length ));
 		}
 		
-		q.Multiply(__temp_stmt151933.SetAxisAngle(__temp_stmt151932,  - (this.m_angle.y) ), null);
+		q.Multiply(__temp_stmt161045.SetAxisAngle(__temp_stmt161044,  - (this.m_angle.y) ), null);
 		this.get_pivot().set_localRotation(q);
+		haxor.math.Vector3 p = null;
+		{
+			haxor.context.DataContext _this2 = haxor.context.EngineContext.data;
+			p = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
+		}
+		
+		p.Set(0, 0, this.m_distance);
+		this.m_entity.m_transform.set_localPosition(p);
 		if (( this.target != null )) 
 		{
-			haxor.math.Vector3 p = this.get_pivot().get_position();
-			p = haxor.math.Vector3.Lerp(p, this.target.get_position(), ( haxor.core.Time.m_delta * this.smooth ), null);
-			this.get_pivot().set_position(p);
+			haxor.math.Vector3 p1 = this.get_pivot().get_localPosition();
+			p1 = haxor.math.Vector3.Lerp(p1, this.target.get_localPosition(), ( haxor.core.Time.m_delta * this.smooth ), null);
+			this.get_pivot().set_localPosition(p1);
 		}
 		
 	}
@@ -176,14 +184,14 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151934 = true;
+			boolean __temp_executeDef161046 = true;
 			switch (field.hashCode())
 			{
 				case 433842055:
 				{
 					if (field.equals("m_distance")) 
 					{
-						__temp_executeDef151934 = false;
+						__temp_executeDef161046 = false;
 						this.m_distance = ((double) (value) );
 						return value;
 					}
@@ -196,7 +204,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("distance")) 
 					{
-						__temp_executeDef151934 = false;
+						__temp_executeDef161046 = false;
 						this.distance = ((double) (value) );
 						return value;
 					}
@@ -209,7 +217,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("smooth")) 
 					{
-						__temp_executeDef151934 = false;
+						__temp_executeDef161046 = false;
 						this.smooth = ((double) (value) );
 						return value;
 					}
@@ -220,7 +228,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				
 			}
 			
-			if (__temp_executeDef151934) 
+			if (__temp_executeDef161046) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -237,14 +245,14 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151935 = true;
+			boolean __temp_executeDef161047 = true;
 			switch (field.hashCode())
 			{
 				case 105081616:
 				{
 					if (field.equals("m_rotation")) 
 					{
-						__temp_executeDef151935 = false;
+						__temp_executeDef161047 = false;
 						this.m_rotation = ((haxor.math.Quaternion) (value) );
 						return value;
 					}
@@ -257,7 +265,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("m_pivot")) 
 					{
-						__temp_executeDef151935 = false;
+						__temp_executeDef161047 = false;
 						this.m_pivot = ((haxor.component.Transform) (value) );
 						return value;
 					}
@@ -270,7 +278,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("m_distance")) 
 					{
-						__temp_executeDef151935 = false;
+						__temp_executeDef161047 = false;
 						this.m_distance = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -283,7 +291,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("distance")) 
 					{
-						__temp_executeDef151935 = false;
+						__temp_executeDef161047 = false;
 						this.distance = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -296,7 +304,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("m_angle")) 
 					{
-						__temp_executeDef151935 = false;
+						__temp_executeDef161047 = false;
 						this.m_angle = ((haxor.math.Vector2) (value) );
 						return value;
 					}
@@ -309,7 +317,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("angle")) 
 					{
-						__temp_executeDef151935 = false;
+						__temp_executeDef161047 = false;
 						this.angle = ((haxor.math.Vector2) (value) );
 						return value;
 					}
@@ -322,7 +330,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef151935 = false;
+						__temp_executeDef161047 = false;
 						this.target = ((haxor.component.Transform) (value) );
 						return value;
 					}
@@ -335,7 +343,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("smooth")) 
 					{
-						__temp_executeDef151935 = false;
+						__temp_executeDef161047 = false;
 						this.smooth = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -346,7 +354,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				
 			}
 			
-			if (__temp_executeDef151935) 
+			if (__temp_executeDef161047) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -363,14 +371,14 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151936 = true;
+			boolean __temp_executeDef161048 = true;
 			switch (field.hashCode())
 			{
 				case 1624208296:
 				{
 					if (field.equals("OnUpdate")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnUpdate"))) );
 					}
 					
@@ -382,7 +390,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("pivot")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return this.get_pivot();
 					}
 					
@@ -394,7 +402,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStart"))) );
 					}
 					
@@ -406,7 +414,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("get_pivot")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_pivot"))) );
 					}
 					
@@ -418,7 +426,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
 					}
 					
@@ -430,7 +438,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("m_pivot")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return this.m_pivot;
 					}
 					
@@ -442,7 +450,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("m_rotation")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return this.m_rotation;
 					}
 					
@@ -454,7 +462,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("distance")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return this.distance;
 					}
 					
@@ -466,7 +474,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("m_distance")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return this.m_distance;
 					}
 					
@@ -478,7 +486,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("angle")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return this.angle;
 					}
 					
@@ -490,7 +498,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("m_angle")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return this.m_angle;
 					}
 					
@@ -502,7 +510,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("smooth")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return this.smooth;
 					}
 					
@@ -514,7 +522,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef151936 = false;
+						__temp_executeDef161048 = false;
 						return this.target;
 					}
 					
@@ -524,7 +532,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				
 			}
 			
-			if (__temp_executeDef151936) 
+			if (__temp_executeDef161048) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -541,14 +549,14 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef151937 = true;
+			boolean __temp_executeDef161049 = true;
 			switch (field.hashCode())
 			{
 				case 433842055:
 				{
 					if (field.equals("m_distance")) 
 					{
-						__temp_executeDef151937 = false;
+						__temp_executeDef161049 = false;
 						return this.m_distance;
 					}
 					
@@ -560,7 +568,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("distance")) 
 					{
-						__temp_executeDef151937 = false;
+						__temp_executeDef161049 = false;
 						return this.distance;
 					}
 					
@@ -572,7 +580,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("smooth")) 
 					{
-						__temp_executeDef151937 = false;
+						__temp_executeDef161049 = false;
 						return this.smooth;
 					}
 					
@@ -582,7 +590,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				
 			}
 			
-			if (__temp_executeDef151937) 
+			if (__temp_executeDef161049) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -599,15 +607,15 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash151939 = field.hashCode();
-			boolean __temp_executeDef151938 = true;
-			switch (__temp_hash151939)
+			int __temp_hash161051 = field.hashCode();
+			boolean __temp_executeDef161050 = true;
+			switch (__temp_hash161051)
 			{
 				case 327758243:case 312095663:
 				{
-					if (( (( ( __temp_hash151939 == 327758243 ) && field.equals("OnStart") )) || field.equals("OnBuild") )) 
+					if (( (( ( __temp_hash161051 == 327758243 ) && field.equals("OnStart") )) || field.equals("OnBuild") )) 
 					{
-						__temp_executeDef151938 = false;
+						__temp_executeDef161050 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -619,7 +627,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("get_pivot")) 
 					{
-						__temp_executeDef151938 = false;
+						__temp_executeDef161050 = false;
 						return this.get_pivot();
 					}
 					
@@ -631,7 +639,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				{
 					if (field.equals("OnUpdate")) 
 					{
-						__temp_executeDef151938 = false;
+						__temp_executeDef161050 = false;
 						this.OnUpdate();
 					}
 					
@@ -641,7 +649,7 @@ public  class CameraOrbit extends haxor.component.Behaviour implements haxor.cor
 				
 			}
 			
-			if (__temp_executeDef151938) 
+			if (__temp_executeDef161050) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

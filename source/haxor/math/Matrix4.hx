@@ -245,10 +245,7 @@ class Matrix4
 		var sy:Float = (Mathf.Abs(vl1)<= 0.0001) ? 0.0 : (1.0/vl1); 
 		var sz:Float = (Mathf.Abs(vl2)<= 0.0001) ? 0.0 : (1.0/vl2); 
 		
-		//normalized vector lines inside the 3x3 sector are the rotation axis.
-		//l0x *= sx; l0y *= sx; l0z *= sx;
-		//l1x *= sy; l1y *= sy; l1z *= sy;
-		//l2x *= sz; l2y *= sz; l2z *= sz;
+		//normalized vector lines inside the 3x3 sector are the rotation axis.	
 		l0x *= sx; l0y *= sy; l0z *= sz;
 		l1x *= sx; l1y *= sy; l1z *= sz;
 		l2x *= sx; l2y *= sy; l2z *= sz;
@@ -280,88 +277,23 @@ class Matrix4
 	static public function LookAt(p_eye : Vector3, p_at : Vector3, p_up : Vector3 = null,p_result:Matrix4=null):Matrix4 
 	{ 
 		p_result = p_result == null ? (new Matrix4()) : p_result;
-		p_up = p_up == null ? Vector3.temp.Set(0, 1, 0) : p_up;
-		/*
-		var vz : Vector3 = Vector3.temp.Set3(p_at).Sub(p_eye).Normalize().Invert();
-		var vx : Vector3 = Vector3.Cross(p_up, vz,Vector3.temp).Normalize();
-		var vy : Vector3 = Vector3.Cross(vz, vx,Vector3.temp);		
-		var m : Matrix4 = p_result;
-		m.Set(
-		vx.x, vy.x, vz.x, -Vector3.Dot(vx, p_eye),
-		vx.y, vy.y, vz.y, -Vector3.Dot(vy, p_eye),
-		vx.z, vy.z, vz.z,  Vector3.Dot(vz, p_eye),
-		0, 0, 0, 1);	
-		return m;
-		//*/
-		/*
-		detail::tvec3<T, P> const f(normalize(center - eye));
-		detail::tvec3<T, P> const s(normalize(cross(f, up)));
-		detail::tvec3<T, P> const u(cross(s, f));
-
-		detail::tmat4x4<T, P> Result(1);
-		Result[0][0] = s.x;
-		Result[1][0] = s.y;
-		Result[2][0] = s.z;
-		Result[0][1] = u.x;
-		Result[1][1] = u.y;
-		Result[2][1] = u.z;
-		Result[0][2] =-f.x;
-		Result[1][2] =-f.y;
-		Result[2][2] =-f.z;
-		Result[3][0] =-dot(s, eye);
-		Result[3][1] =-dot(u, eye);
-		Result[3][2] = dot(f, eye);
-		//*/
-		
+		p_up = p_up == null ? Vector3.temp.Set(0, 1, 0) : p_up;		
 		var f : Vector3 = Vector3.temp.Set3(p_at).Sub(p_eye).Normalize();
 		var s : Vector3 = Vector3.Cross(f, p_up, Vector3.temp).Normalize();
-		var u : Vector3 = Vector3.Cross(s, f, Vector3.temp);
-		
-		//f.Invert();
-		
+		var u : Vector3 = Vector3.Cross(s, f, Vector3.temp);		
 		p_result.m00 = s.x; 
 		p_result.m10 = s.y;	
-		p_result.m20 = s.z;
-		
+		p_result.m20 = s.z;		
 		p_result.m01 = u.x; 
 		p_result.m11 = u.y;
-		p_result.m21 = u.z;
-		
+		p_result.m21 = u.z;		
 		p_result.m02 = -f.x; 
 		p_result.m12 = -f.y;	
-		p_result.m22 = -f.z;
-		
+		p_result.m22 = -f.z;		
 		p_result.m03 = -Vector3.Dot(s, p_eye);
 		p_result.m13 = -Vector3.Dot(u, p_eye);
-		p_result.m23 =  Vector3.Dot(f, p_eye);
-		
-		p_result.m30 = p_result.m31 = p_result.m32 = 0.0; p_result.m33 = 1.0;
-		
-		//*/
-		
-		/*
-		var at : Vector3 = Vector3.temp.Set3(p_at);
-		var vz : Vector3 = at.Sub(p_eye).Normalize().Invert();
-		var vx : Vector3 = Vector3.temp;
-		var vy : Vector3 = Vector3.temp;
-		Vector3.Cross(vz, p_up,vx).Normalize();
-		Vector3.Cross(vx, vz, vy);					
-		
-		p_result.Set(
-		vx.x, vy.x, vz.x, -Vector3.Dot(vx, p_eye),
-		vx.y, vy.y, vz.y, -Vector3.Dot(vy, p_eye),
-		vx.z, vy.z, vz.z, -Vector3.Dot(vz, p_eye),
-		0, 0, 0, 1);	
-		//*/
-		/*
-		p_result.Set(
-		vx.x, vx.y, vx.z, -Vector3.Dot(vx, p_eye),
-		vy.x, vy.y, vy.z, -Vector3.Dot(vy, p_eye),
-		vz.x, vz.y, vz.z, -Vector3.Dot(vz, p_eye),
-		0, 0, 0, 1);	
-		//*/
-		
-		
+		p_result.m23 =  Vector3.Dot(f, p_eye);		
+		p_result.m30 = p_result.m31 = p_result.m32 = 0.0; p_result.m33 = 1.0;		
 		return p_result;
 	}
 	
@@ -377,7 +309,7 @@ class Matrix4
 	 * Returns the quaternion representing this matrix rotation.
 	 */
 	public var quaternion(get_quaternion, set_quaternion):Quaternion;	
-	private inline function get_quaternion():Quaternion { return Quaternion.FromMatrix(Matrix4.temp.SetMatrix4(this).ToRotation()); }
+	private inline function get_quaternion():Quaternion { return Quaternion.FromMatrix4(Matrix4.temp.SetMatrix4(this).ToRotation()); }
 	private inline function set_quaternion(v:Quaternion):Quaternion { FromQuaternion(v, this); return v; }
 	
 	/**

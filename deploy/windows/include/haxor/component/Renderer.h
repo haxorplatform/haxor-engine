@@ -45,12 +45,26 @@ class HXCPP_CLASS_ATTRIBUTES  Renderer_obj : public ::haxor::component::Behaviou
 		Dynamic set_material_dyn();
 
 		::haxor::graphics::material::Material m_material;
+		virtual bool get_visible( );
+		Dynamic get_visible_dyn();
+
+		virtual bool set_visible( bool v);
+		Dynamic set_visible_dyn();
+
+		bool m_visible;
+		bool m_culled;
 		bool m_has_mesh;
 		int m_last_queue;
 		virtual Void OnBuild( );
 
 		virtual Void OnRender( );
 		Dynamic OnRender_dyn();
+
+		virtual Void UpdateCulling( );
+		Dynamic UpdateCulling_dyn();
+
+		virtual bool CheckCulling( );
+		Dynamic CheckCulling_dyn();
 
 		virtual Void OnDestroy( );
 

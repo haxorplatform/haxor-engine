@@ -1,6 +1,7 @@
 package haxor.context;
 import haxor.core.Console;
 import haxor.core.Enums.MeshPrimitive;
+import haxor.core.Stats;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.mesh.Mesh.MeshAttrib;
 import haxor.io.FloatArray;
@@ -76,81 +77,84 @@ class MeshContext
 	 */
 	private function Initialize():Void
 	{
-		Console.Log("MeshContext> Initialize.", 3);
-		
+		Console.Log("MeshContext> Initialize.", 3);		
 	}
 	
 	/**
 	 * Enables a mesh. Ignores if the the mesh is the same.
 	 * @param	p_mesh
 	 */
-	private inline function Bind(p_mesh : Mesh):Void
+	private function Bind(p_mesh : Mesh):Void
 	{
 		if (p_mesh != current) 
 		{ 
 			Unbind(); 
 			current = p_mesh; 
 			
-			//VAO
-			
-			var a : MeshAttrib;
-			
 			if (current != null)
 			{
-				var al 		: Array<MeshAttrib> = current.m_attribs;
-				var id 		: MeshBufferId;
-				var type 	: Int;
-				var has_color : Bool = false;
-				
-				for (i in 0...al.length)
-				{					
-					a = al[i];
-					var loc : Int = a._loc_; //Default attribs can be cached! wooray!				
-					if (loc == 5) has_color = true;
-					if (loc < 0) 
-					{ 
-						//User defined attribs needs to be searched though.
-						//But they will be cached later! wooray!
-						loc = EngineContext.material.GetAttribLocation(a); 
-						if (loc < 0) continue; 
-					}
-					type = GL.FLOAT; //TODO: GL.FIXED	
-					
-					if (!activated[loc])
-					{
-						activated[loc] = true;						
-						active_max = cast Math.max(active_max, loc);						
-						GL.EnableVertexAttrib(loc);
-					}
-					GL.BindBuffer(GL.ARRAY_BUFFER, buffers[a.__cid]);					
-					GL.VertexAttribPointer(loc, a.offset, type, false, 0, 0);
-				}
-				
-				//Forces color attrib to white if none is found
-				if (!has_color)
-				{					
-					if (activated[5]) { GL.DisableVertexAttrib(5); activated[5] = false; }
-					GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
-				}
-				
-				if (current.indexed)
-				{	
-					a = current.m_topology_attrib;					
-					GL.BindBuffer(GL.ELEMENT_ARRAY_BUFFER,buffers[a.__cid]);
-				}
-				
+				// if VAO activate only it.
+				ActivateAttributes();				
 				#if gldebug
 				GL.Assert("Mesh Bind");
-				#end
-				
+				#end				
 			}
+		}
+	}
+	
+	/**
+	 * Activates the current mesh attribs.
+	 */
+	private function ActivateAttributes():Void
+	{
+		var a : MeshAttrib;
+		var al 		: Array<MeshAttrib> = current.m_attribs;
+		var id 		: MeshBufferId;
+		var type 	: Int;
+		var has_color : Bool = false;
+		
+		for (i in 0...al.length)
+		{					
+			a = al[i];
+			var loc : Int = a._loc_; //Default attribs can be cached! wooray!				
+			if (loc == 5) has_color = true;
+			if (loc < 0) 
+			{ 
+				//User defined attribs needs to be searched though.
+				//But they will be cached later! wooray!
+				loc = EngineContext.material.GetAttribLocation(a); 
+				if (loc < 0) continue; 
+			}
+			type = GL.FLOAT; //TODO: GL.FIXED	
+			
+			if (!activated[loc])
+			{
+				activated[loc] = true;						
+				active_max = cast Math.max(active_max, loc);						
+				GL.EnableVertexAttrib(loc);
+			}
+			GL.BindBuffer(GL.ARRAY_BUFFER, buffers[a.__cid]);					
+			GL.VertexAttribPointer(loc, a.offset, type, false, 0, 0);
+		}
+		
+		//Forces color attrib to white if none is found
+		if (!has_color)
+		{					
+			if (activated[5]) { GL.DisableVertexAttrib(5); activated[5] = false; }
+			GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
+		}
+		
+		if (current.indexed)
+		{	
+			a = current.m_topology_attrib;					
+			GL.BindBuffer(GL.ELEMENT_ARRAY_BUFFER,buffers[a.__cid]);
 		}
 	}
 	
 	/**
 	 * Disables the bound Mesh
 	 */
-	private inline function Unbind():Void
+	private function Unbind():Void
 	{	
 		//DisableAttribArray
 		/*
@@ -167,18 +171,28 @@ class MeshContext
 	 * Draws to the bound target, using all attribs from the passed mesh.
 	 * @param	p_mesh
 	 */
-	private inline function Draw(m : Mesh):Void
+	private function Draw(m : Mesh):Void
 	{
 		if (m.indexed)
 		{	
 			GL.DrawElements(m.primitive, m.m_topology_attrib.data.length, GL.UNSIGNED_SHORT, 0);						
+			
+			#if profile
+			Stats.triangles += cast(m.m_topology_attrib.data.length / 3);
+			#end
+			
 			#if gldebug
 			GL.Assert("Mesh DrawElements");
 			#end			
 		}
 		else
 		{			
-			GL.DrawArrays(m.primitive, 0, m.m_vcount);						
+			GL.DrawArrays(m.primitive, 0, m.m_vcount);
+			
+			#if profile
+			Stats.triangles += m.m_vcount;
+			#end
+			
 			#if gldebug
 			GL.Assert("Mesh DrawArrays");
 			#end						

@@ -22,19 +22,19 @@ namespace input{
 
 Void WinInputHandler_obj::__construct()
 {
-HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","new",0xbd82d010,"haxor.platform.windows.input.WinInputHandler.new","haxor/platform/windows/input/WinInputHandler.hx",33,0x9e512882)
+HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","new",0xbd82d010,"haxor.platform.windows.input.WinInputHandler.new","haxor/platform/windows/input/WinInputHandler.hx",37,0x9e512882)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(34)
-	int max_jk = (int)0;		HX_STACK_VAR(max_jk,"max_jk");
-	HX_STACK_LINE(35)
-	max_jk = 4;;
-	HX_STACK_LINE(36)
-	this->m_max_joystick = max_jk;
 	HX_STACK_LINE(38)
-	this->CheckJoysticks();
-	HX_STACK_LINE(40)
 	super::__construct();
+	HX_STACK_LINE(39)
+	int max_jk = (int)0;		HX_STACK_VAR(max_jk,"max_jk");
+	HX_STACK_LINE(40)
+	max_jk = 4;;
+	HX_STACK_LINE(41)
+	this->m_max_joystick = max_jk;
+	HX_STACK_LINE(43)
+	this->CheckJoysticks();
 }
 ;
 	return null();
@@ -55,9 +55,9 @@ Dynamic WinInputHandler_obj::__Create(hx::DynamicArray inArgs)
 
 Void WinInputHandler_obj::UpdateInput( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","UpdateInput",0xa0a6f4d1,"haxor.platform.windows.input.WinInputHandler.UpdateInput","haxor/platform/windows/input/WinInputHandler.hx",48,0x9e512882)
+		HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","UpdateInput",0xa0a6f4d1,"haxor.platform.windows.input.WinInputHandler.UpdateInput","haxor/platform/windows/input/WinInputHandler.hx",51,0x9e512882)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(48)
+		HX_STACK_LINE(51)
 		this->UpdateJoysticks();
 	}
 return null();
@@ -66,42 +66,42 @@ return null();
 
 Void WinInputHandler_obj::UpdateJoysticks( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","UpdateJoysticks",0x0351647e,"haxor.platform.windows.input.WinInputHandler.UpdateJoysticks","haxor/platform/windows/input/WinInputHandler.hx",52,0x9e512882)
+		HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","UpdateJoysticks",0x0351647e,"haxor.platform.windows.input.WinInputHandler.UpdateJoysticks","haxor/platform/windows/input/WinInputHandler.hx",58,0x9e512882)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(53)
+		HX_STACK_LINE(59)
 		Float alx = 0.0;		HX_STACK_VAR(alx,"alx");
-		HX_STACK_LINE(54)
-		Float aly = 0.0;		HX_STACK_VAR(aly,"aly");
-		HX_STACK_LINE(55)
-		Float arx = 0.0;		HX_STACK_VAR(arx,"arx");
-		HX_STACK_LINE(56)
-		Float ary = 0.0;		HX_STACK_VAR(ary,"ary");
-		HX_STACK_LINE(57)
-		Float tl = 0.0;		HX_STACK_VAR(tl,"tl");
-		HX_STACK_LINE(58)
-		Float tr = 0.0;		HX_STACK_VAR(tr,"tr");
 		HX_STACK_LINE(60)
+		Float aly = 0.0;		HX_STACK_VAR(aly,"aly");
+		HX_STACK_LINE(61)
+		Float arx = 0.0;		HX_STACK_VAR(arx,"arx");
+		HX_STACK_LINE(62)
+		Float ary = 0.0;		HX_STACK_VAR(ary,"ary");
+		HX_STACK_LINE(63)
+		Float tl = 0.0;		HX_STACK_VAR(tl,"tl");
+		HX_STACK_LINE(64)
+		Float tr = 0.0;		HX_STACK_VAR(tr,"tr");
+		HX_STACK_LINE(66)
 		{
-			HX_STACK_LINE(60)
+			HX_STACK_LINE(66)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(60)
+			HX_STACK_LINE(66)
 			int _g = ::haxor::input::Input_obj::m_joysticks->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(60)
+			HX_STACK_LINE(66)
 			while((true)){
-				HX_STACK_LINE(60)
+				HX_STACK_LINE(66)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(60)
+					HX_STACK_LINE(66)
 					break;
 				}
-				HX_STACK_LINE(60)
+				HX_STACK_LINE(66)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(62)
+				HX_STACK_LINE(68)
 				::haxor::input::Joystick jk = ::haxor::input::Input_obj::m_joysticks->__get(i).StaticCast< ::haxor::input::Joystick >();		HX_STACK_VAR(jk,"jk");
-				HX_STACK_LINE(63)
+				HX_STACK_LINE(69)
 				this->OnJoystickStart(jk->id,jk->name);
-				HX_STACK_LINE(64)
+				HX_STACK_LINE(70)
 				int cid = jk->id;		HX_STACK_VAR(cid,"cid");
-				HX_STACK_LINE(65)
+				HX_STACK_LINE(71)
 							
 			XINPUT_STATE state;
 			ZeroMemory( & state, sizeof(XINPUT_STATE));
@@ -112,76 +112,73 @@ Void WinInputHandler_obj::UpdateJoysticks( ){
 			arx = ((float)state.Gamepad.sThumbRX)  / 32767.0;
 			ary = ((float)state.Gamepad.sThumbRY)  / 32767.0;						 
 			tl = ((float)state.Gamepad.bLeftTrigger)  / 255.0;
-			tr = ((float) state.Gamepad.bRightTrigger) / 255.0;			
-			
-			//state.Gamepad.wButtons & button
-			
+			tr = ((float) state.Gamepad.bRightTrigger) / 255.0;						
 			;
-				HX_STACK_LINE(81)
+				HX_STACK_LINE(84)
 				Array< int > buttons = Array_obj< int >::__new().Add((int)4096).Add((int)8192).Add((int)16384).Add((int)32768).Add((int)256).Add((int)512).Add((int)-1).Add((int)-1).Add((int)32).Add((int)16).Add((int)64).Add((int)128).Add((int)1).Add((int)2).Add((int)4).Add((int)8);		HX_STACK_VAR(buttons,"buttons");
-				HX_STACK_LINE(100)
+				HX_STACK_LINE(103)
 				{
-					HX_STACK_LINE(100)
+					HX_STACK_LINE(103)
 					int _g3 = (int)0;		HX_STACK_VAR(_g3,"_g3");
-					HX_STACK_LINE(100)
+					HX_STACK_LINE(103)
 					int _g2 = buttons->length;		HX_STACK_VAR(_g2,"_g2");
-					HX_STACK_LINE(100)
+					HX_STACK_LINE(103)
 					while((true)){
-						HX_STACK_LINE(100)
+						HX_STACK_LINE(103)
 						if ((!(((_g3 < _g2))))){
-							HX_STACK_LINE(100)
+							HX_STACK_LINE(103)
 							break;
 						}
-						HX_STACK_LINE(100)
-						int i1 = (_g3)++;		HX_STACK_VAR(i1,"i1");
-						HX_STACK_LINE(102)
-						Float v = 0.0;		HX_STACK_VAR(v,"v");
 						HX_STACK_LINE(103)
+						int i1 = (_g3)++;		HX_STACK_VAR(i1,"i1");
+						HX_STACK_LINE(105)
+						Float v = 0.0;		HX_STACK_VAR(v,"v");
+						HX_STACK_LINE(106)
 						int code = buttons->__get(i1);		HX_STACK_VAR(code,"code");
-						HX_STACK_LINE(104)
+						HX_STACK_LINE(107)
 						if (((i1 == ::haxor::input::KeyCode_obj::LeftShoulderBottom))){
-							HX_STACK_LINE(104)
+							HX_STACK_LINE(107)
 							v = tl;
 						}
 						else{
-							HX_STACK_LINE(105)
+							HX_STACK_LINE(108)
 							if (((i1 == ::haxor::input::KeyCode_obj::RightShoulderBottom))){
-								HX_STACK_LINE(105)
+								HX_STACK_LINE(108)
 								v = tr;
 							}
 							else{
-								HX_STACK_LINE(107)
+								HX_STACK_LINE(110)
 								
 					v = (state.Gamepad.wButtons & code) != 0 ? 1.0 : 0.0;
 					;
 							}
 						}
-						HX_STACK_LINE(112)
+						HX_STACK_LINE(115)
 						this->OnJoystickDataUpdate(i1,v,false);
 					}
 				}
-				HX_STACK_LINE(115)
+				HX_STACK_LINE(117)
 				Array< Float > axes = Array_obj< Float >::__new().Add(alx).Add(-(aly)).Add(arx).Add(-(ary));		HX_STACK_VAR(axes,"axes");
-				HX_STACK_LINE(116)
+				HX_STACK_LINE(118)
 				{
-					HX_STACK_LINE(116)
+					HX_STACK_LINE(118)
 					int _g3 = (int)0;		HX_STACK_VAR(_g3,"_g3");
-					HX_STACK_LINE(116)
+					HX_STACK_LINE(118)
 					int _g2 = axes->length;		HX_STACK_VAR(_g2,"_g2");
-					HX_STACK_LINE(116)
+					HX_STACK_LINE(118)
 					while((true)){
-						HX_STACK_LINE(116)
+						HX_STACK_LINE(118)
 						if ((!(((_g3 < _g2))))){
-							HX_STACK_LINE(116)
+							HX_STACK_LINE(118)
 							break;
 						}
-						HX_STACK_LINE(116)
+						HX_STACK_LINE(118)
 						int i1 = (_g3)++;		HX_STACK_VAR(i1,"i1");
-						HX_STACK_LINE(116)
+						HX_STACK_LINE(118)
 						this->OnJoystickDataUpdate(i1,axes->__get(i1),true);
 					}
 				}
-				HX_STACK_LINE(117)
+				HX_STACK_LINE(119)
 				this->OnJoystickAnalogUpdate();
 			}
 		}
@@ -194,16 +191,16 @@ HX_DEFINE_DYNAMIC_FUNC0(WinInputHandler_obj,UpdateJoysticks,(void))
 
 Void WinInputHandler_obj::RequestJoystickVibration( ::haxor::input::Joystick p_joystick){
 {
-		HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","RequestJoystickVibration",0xe3d85dd7,"haxor.platform.windows.input.WinInputHandler.RequestJoystickVibration","haxor/platform/windows/input/WinInputHandler.hx",124,0x9e512882)
+		HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","RequestJoystickVibration",0xe3d85dd7,"haxor.platform.windows.input.WinInputHandler.RequestJoystickVibration","haxor/platform/windows/input/WinInputHandler.hx",128,0x9e512882)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_joystick,"p_joystick")
-		HX_STACK_LINE(125)
-		int cid = p_joystick->id;		HX_STACK_VAR(cid,"cid");
-		HX_STACK_LINE(126)
-		int lv = (p_joystick->m_vibrationLeft * 65535.0);		HX_STACK_VAR(lv,"lv");
-		HX_STACK_LINE(127)
-		int rv = (p_joystick->m_vibrationRight * 65535.0);		HX_STACK_VAR(rv,"rv");
 		HX_STACK_LINE(129)
+		int cid = p_joystick->id;		HX_STACK_VAR(cid,"cid");
+		HX_STACK_LINE(130)
+		int lv = (p_joystick->m_vibrationLeft * 65535.0);		HX_STACK_VAR(lv,"lv");
+		HX_STACK_LINE(131)
+		int rv = (p_joystick->m_vibrationRight * 65535.0);		HX_STACK_VAR(rv,"rv");
+		HX_STACK_LINE(132)
 		
 		XINPUT_VIBRATION vibration;
 		ZeroMemory( &vibration, sizeof(XINPUT_VIBRATION) );
@@ -218,34 +215,34 @@ return null();
 
 Void WinInputHandler_obj::CheckJoysticks( ){
 {
-		HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","CheckJoysticks",0xe01e04bf,"haxor.platform.windows.input.WinInputHandler.CheckJoysticks","haxor/platform/windows/input/WinInputHandler.hx",142,0x9e512882)
+		HX_STACK_FRAME("haxor.platform.windows.input.WinInputHandler","CheckJoysticks",0xe01e04bf,"haxor.platform.windows.input.WinInputHandler.CheckJoysticks","haxor/platform/windows/input/WinInputHandler.hx",145,0x9e512882)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(143)
+		HX_STACK_LINE(146)
 		int cid = (int)-1;		HX_STACK_VAR(cid,"cid");
-		HX_STACK_LINE(144)
+		HX_STACK_LINE(147)
 		{
-			HX_STACK_LINE(144)
+			HX_STACK_LINE(147)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(144)
+			HX_STACK_LINE(147)
 			int _g = this->m_max_joystick;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(144)
+			HX_STACK_LINE(147)
 			while((true)){
-				HX_STACK_LINE(144)
+				HX_STACK_LINE(147)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(144)
+					HX_STACK_LINE(147)
 					break;
 				}
-				HX_STACK_LINE(144)
+				HX_STACK_LINE(147)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(146)
+				HX_STACK_LINE(149)
 						
 			XINPUT_STATE state;
 			ZeroMemory(&state, sizeof(XINPUT_STATE));		 
 			if (XInputGetState(i, &state) == ERROR_SUCCESS)	cid = i;	 		
 			;
-				HX_STACK_LINE(151)
+				HX_STACK_LINE(154)
 				if (((cid >= (int)0))){
-					HX_STACK_LINE(153)
+					HX_STACK_LINE(156)
 					this->OnJoystickStart(cid,(HX_CSTRING("Joystick") + cid));
 				}
 			}

@@ -18,7 +18,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_GizmoContext(haxor.context.GizmoContext __temp_me151341)
+	public static   void __hx_ctor_haxor_context_GizmoContext(haxor.context.GizmoContext __temp_me160446)
 	{
 		{
 		}
@@ -115,13 +115,13 @@ public  class GizmoContext extends haxe.lang.HxObject
 		cl.Set(k++, 1.0);
 		m.Set("vertex", vl, 3);
 		m.Set("color", cl, 4);
-		haxor.math.AABB3 __temp_stmt152024 = null;
+		haxor.math.AABB3 __temp_stmt161125 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt152024 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
+			__temp_stmt161125 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
 		}
 		
-		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt152024));
+		m.set_bounds(m.GenerateAttribBounds("vertex", __temp_stmt161125));
 	}
 	
 	
@@ -171,13 +171,13 @@ public  class GizmoContext extends haxe.lang.HxObject
 		}
 		
 		this.grid.Set("vertex", vl, 3);
-		haxor.math.AABB3 __temp_stmt152025 = null;
+		haxor.math.AABB3 __temp_stmt161126 = null;
 		{
 			haxor.context.DataContext _this = haxor.context.EngineContext.data;
-			__temp_stmt152025 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
+			__temp_stmt161126 = _this.m_aabb3.__get(_this.m_naabb3 = ( (( _this.m_naabb3 + 1 )) % _this.m_aabb3.length ));
 		}
 		
-		this.grid.set_bounds(this.grid.GenerateAttribBounds("vertex", __temp_stmt152025));
+		this.grid.set_bounds(this.grid.GenerateAttribBounds("vertex", __temp_stmt161126));
 	}
 	
 	
@@ -197,13 +197,13 @@ public  class GizmoContext extends haxe.lang.HxObject
 	{
 		this.gizmo_material.SetFloat("Area", p_area);
 		{
-			haxor.math.Color __temp_stmt152026 = null;
+			haxor.math.Color __temp_stmt161127 = null;
 			{
 				haxor.context.DataContext _this = haxor.context.EngineContext.data;
-				__temp_stmt152026 = _this.m_c.__get(_this.m_nc = ( (( _this.m_nc + 1 )) % _this.m_c.length ));
+				__temp_stmt161127 = _this.m_c.__get(_this.m_nc = ( (( _this.m_nc + 1 )) % _this.m_c.length ));
 			}
 			
-			haxor.math.Color p_color = __temp_stmt152026.Set(1, 1, 1, 1);
+			haxor.math.Color p_color = __temp_stmt161127.Set(1, 1, 1, 1);
 			this.gizmo_material.SetFloat4("Tint", p_color.r, p_color.g, p_color.b, p_color.a);
 		}
 		
@@ -214,14 +214,14 @@ public  class GizmoContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152027 = true;
+			boolean __temp_executeDef161128 = true;
 			switch (field.hashCode())
 			{
 				case -955033524:
 				{
 					if (field.equals("gizmo_material")) 
 					{
-						__temp_executeDef152027 = false;
+						__temp_executeDef161128 = false;
 						this.gizmo_material = ((haxor.graphics.material.Material) (value) );
 						return value;
 					}
@@ -234,7 +234,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("grid")) 
 					{
-						__temp_executeDef152027 = false;
+						__temp_executeDef161128 = false;
 						this.grid = ((haxor.graphics.mesh.Mesh) (value) );
 						return value;
 					}
@@ -247,7 +247,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("axis")) 
 					{
-						__temp_executeDef152027 = false;
+						__temp_executeDef161128 = false;
 						this.axis = ((haxor.graphics.mesh.Mesh) (value) );
 						return value;
 					}
@@ -258,7 +258,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152027) 
+			if (__temp_executeDef161128) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -275,14 +275,14 @@ public  class GizmoContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef152028 = true;
+			boolean __temp_executeDef161129 = true;
 			switch (field.hashCode())
 			{
 				case -762795227:
 				{
 					if (field.equals("DrawAxis")) 
 					{
-						__temp_executeDef152028 = false;
+						__temp_executeDef161129 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DrawAxis"))) );
 					}
 					
@@ -294,7 +294,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("grid")) 
 					{
-						__temp_executeDef152028 = false;
+						__temp_executeDef161129 = false;
 						return this.grid;
 					}
 					
@@ -306,7 +306,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DrawGrid")) 
 					{
-						__temp_executeDef152028 = false;
+						__temp_executeDef161129 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("DrawGrid"))) );
 					}
 					
@@ -318,7 +318,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("axis")) 
 					{
-						__temp_executeDef152028 = false;
+						__temp_executeDef161129 = false;
 						return this.axis;
 					}
 					
@@ -330,7 +330,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateGrid")) 
 					{
-						__temp_executeDef152028 = false;
+						__temp_executeDef161129 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateGrid"))) );
 					}
 					
@@ -342,7 +342,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("gizmo_material")) 
 					{
-						__temp_executeDef152028 = false;
+						__temp_executeDef161129 = false;
 						return this.gizmo_material;
 					}
 					
@@ -354,7 +354,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateAxis")) 
 					{
-						__temp_executeDef152028 = false;
+						__temp_executeDef161129 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateAxis"))) );
 					}
 					
@@ -366,7 +366,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef152028 = false;
+						__temp_executeDef161129 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Initialize"))) );
 					}
 					
@@ -376,7 +376,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152028) 
+			if (__temp_executeDef161129) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -393,14 +393,14 @@ public  class GizmoContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef152029 = true;
+			boolean __temp_executeDef161130 = true;
 			switch (field.hashCode())
 			{
 				case -762795227:
 				{
 					if (field.equals("DrawAxis")) 
 					{
-						__temp_executeDef152029 = false;
+						__temp_executeDef161130 = false;
 						this.DrawAxis(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -412,7 +412,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef152029 = false;
+						__temp_executeDef161130 = false;
 						this.Initialize();
 					}
 					
@@ -424,7 +424,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("DrawGrid")) 
 					{
-						__temp_executeDef152029 = false;
+						__temp_executeDef161130 = false;
 						this.DrawGrid(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((haxor.math.Color) (dynargs.__get(1)) ));
 					}
 					
@@ -436,7 +436,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateAxis")) 
 					{
-						__temp_executeDef152029 = false;
+						__temp_executeDef161130 = false;
 						this.CreateAxis();
 					}
 					
@@ -448,7 +448,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				{
 					if (field.equals("CreateGrid")) 
 					{
-						__temp_executeDef152029 = false;
+						__temp_executeDef161130 = false;
 						this.CreateGrid(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -458,7 +458,7 @@ public  class GizmoContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef152029) 
+			if (__temp_executeDef161130) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

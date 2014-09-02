@@ -24,6 +24,7 @@ import haxor.math.Vector4;
 @:allow(haxor)
 class Camera extends Behaviour
 {
+		
 	/**
 	 * Returns the list of cameras in the runtime.
 	 */
@@ -43,6 +44,11 @@ class Camera extends Behaviour
 	static private inline function get_main():Camera { return m_main; }
 	static private inline function set_main(v:Camera):Camera { return m_main=v; }
 	static private var m_main : Camera;
+	
+	/**
+	 * Frustum culling id.
+	 */
+	private var __fcid:Int;
 	
 	/**
 	 * Background clear color.
@@ -212,13 +218,22 @@ class Camera extends Behaviour
 	 */
 	private var m_proj_uniform_dirty : Bool;
 	
+	private var m_fn0:Vector4;
+	private var m_fn1:Vector4;
+	private var m_fn2:Vector4;
+	private var m_fn3:Vector4;
+	private var m_ff0:Vector4;
+	private var m_ff1:Vector4;
+	private var m_ff2:Vector4;
+	private var m_ff3:Vector4;
+	
 	/**
 	 * Method called
 	 */
 	override function OnBuild():Void 
 	{
 		super.OnBuild();
-		__cid						= EngineContext.camera.cid.id;
+		EngineContext.camera.Create(this);
 		if (m_main == null)			m_main = this;
 		m_order						= 0;		
 		m_quality					= 1.0;
@@ -239,7 +254,17 @@ class Camera extends Behaviour
 		m_projection_dirty			= true;	
 		m_view_uniform_dirty		= true;
 		m_proj_uniform_dirty		= true;
-		EngineContext.camera.Create(this);
+		
+		m_fn0 = new Vector4();
+		m_fn1 = new Vector4();
+		m_fn2 = new Vector4();
+		m_fn3 = new Vector4();
+		m_ff0 = new Vector4();
+		m_ff1 = new Vector4();
+		m_ff2 = new Vector4();
+		m_ff3 = new Vector4();
+		
+		
 	}
 	
 	/**
@@ -247,9 +272,9 @@ class Camera extends Behaviour
 	 * @param	p_world_point
 	 * @return
 	 */
-	public function WorldToProjection(p_world_point : Vector3):Vector4
+	public function WorldToProjection(p_world_point : Vector3,p_result:Vector4=null):Vector4
 	{
-		var p : Vector4 = Vector4.temp;		
+		var p : Vector4 = p_result==null ? new Vector4() : p_result;		
 		p.w = 1.0;		
 		p.x = p_world_point.x;
 		p.y = p_world_point.y;
@@ -277,7 +302,7 @@ class Camera extends Behaviour
 	 */
 	public function IsCulled(p_world_point : Vector3):Bool
 	{
-		return WorldToProjection(p_world_point).IsCulled();						
+		return WorldToProjection(p_world_point).IsCulled();
 	}
 	
 	
@@ -286,21 +311,7 @@ class Camera extends Behaviour
 	 * @param	p_at
 	 * @param	p_up
 	 */
-	public inline function LookAt(p_at : Vector3, p_up : Vector3 = null,p_smooth:Float=0.0):Void
-	{
-		var p : Vector3 	= transform.position;
-		var r : Quaternion  = Quaternion.temp;
-		var q : Quaternion  = Quaternion.LookAt(p, p_at, p_up, Quaternion.temp);
-		if (p_smooth > 0)
-		{
-			r = Quaternion.Lerp(r, q, p_smooth * Time.delta, Quaternion.temp);
-		}
-		else
-		{
-			r = q;
-		}
-		transform.rotation = r;		
-	}
+	public inline function LookAt(p_at : Vector3, p_up : Vector3 = null,p_smooth:Float=0.0):Void { transform.LookAt(p_at, p_up, p_smooth); }
 	
 	/**
 	 * Updates the Projection matrix upon request.
@@ -314,14 +325,28 @@ class Camera extends Behaviour
 		m_projectionMatrixInverse.SetPerspectiveInverse(m_fov, m_aspect, m_near, m_far);
 		m_skyboxProjection.SetPerspective(m_fov, m_aspect, 0.1,100000.0);
 		m_skyboxProjectionInverse.SetPerspectiveInverse(m_fov, m_aspect, 0.1, 100000.0);				
+		
+		var p : Vector4;
+		var iw : Float;
+		p = m_fn0; p.Set( -1.0, 1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_fn1; p.Set(  1.0, 1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_fn2; p.Set( -1.0,-1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_fn3; p.Set(  1.0,-1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);		
+		
+		p = m_ff0; p.Set( -1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_ff1; p.Set(  1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_ff2; p.Set( -1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_ff3; p.Set(  1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);		
 	}
 	
 	/**
 	 * Updates the internal matrix when the transform updates.
 	 */
-	override private function OnTransformUpdate():Void { m_view_uniform_dirty = true; }
+	override private function OnTransformUpdate():Void
+	{ 
+		m_view_uniform_dirty = true; 
+	}
 	
-	//*/
 	/**
 	 * Handles the Camera dispose.
 	 */
