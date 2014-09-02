@@ -18,7 +18,7 @@ public  class Gizmo extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_Gizmo(haxor.graphics.Gizmo __temp_me160474)
+	public static   void __hx_ctor_haxor_graphics_Gizmo(haxor.graphics.Gizmo __temp_me164223)
 	{
 		{
 		}

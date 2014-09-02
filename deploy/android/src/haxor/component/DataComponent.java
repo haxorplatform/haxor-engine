@@ -17,10 +17,10 @@ public  class DataComponent extends haxor.component.Component
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_DataComponent(haxor.component.DataComponent __temp_me160419)
+	public static   void __hx_ctor_haxor_component_DataComponent(haxor.component.DataComponent __temp_me164156)
 	{
-		haxor.component.Component.__hx_ctor_haxor_component_Component(__temp_me160419, null);
-		__temp_me160419.data = new haxe.ds.StringMap();
+		haxor.component.Component.__hx_ctor_haxor_component_Component(__temp_me164156, null);
+		__temp_me164156.data = new haxe.ds.StringMap();
 	}
 	
 	
@@ -41,14 +41,14 @@ public  class DataComponent extends haxor.component.Component
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161057 = true;
+			boolean __temp_executeDef164694 = true;
 			switch (field.hashCode())
 			{
 				case 3076010:
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef161057 = false;
+						__temp_executeDef164694 = false;
 						this.data = ((java.lang.Object) (value) );
 						return value;
 					}
@@ -59,7 +59,7 @@ public  class DataComponent extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef161057) 
+			if (__temp_executeDef164694) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -76,14 +76,14 @@ public  class DataComponent extends haxor.component.Component
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161058 = true;
+			boolean __temp_executeDef164695 = true;
 			switch (field.hashCode())
 			{
 				case 3076010:
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef161058 = false;
+						__temp_executeDef164695 = false;
 						this.data = ((java.lang.Object) (value) );
 						return value;
 					}
@@ -94,7 +94,7 @@ public  class DataComponent extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef161058) 
+			if (__temp_executeDef164695) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -111,14 +111,14 @@ public  class DataComponent extends haxor.component.Component
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161059 = true;
+			boolean __temp_executeDef164696 = true;
 			switch (field.hashCode())
 			{
 				case 3076010:
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef161059 = false;
+						__temp_executeDef164696 = false;
 						return this.data;
 					}
 					
@@ -128,7 +128,7 @@ public  class DataComponent extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef161059) 
+			if (__temp_executeDef164696) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -145,14 +145,14 @@ public  class DataComponent extends haxor.component.Component
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161060 = true;
+			boolean __temp_executeDef164697 = true;
 			switch (field.hashCode())
 			{
 				case 3076010:
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef161060 = false;
+						__temp_executeDef164697 = false;
 						return ((double) (haxe.lang.Runtime.toDouble(this.data)) );
 					}
 					
@@ -162,7 +162,7 @@ public  class DataComponent extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef161060) 
+			if (__temp_executeDef164697) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

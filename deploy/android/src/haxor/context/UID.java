@@ -18,10 +18,10 @@ public  class UID extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_UID(haxor.context.UID __temp_me160458)
+	public static   void __hx_ctor_haxor_context_UID(haxor.context.UID __temp_me164196)
 	{
-		__temp_me160458.m_id = 0;
-		__temp_me160458.m_cache = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me164196.m_id = 0;
+		__temp_me164196.m_cache = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 	}
 	
 	
@@ -64,17 +64,25 @@ public  class UID extends haxe.lang.HxObject
 	
 	public  haxe.root.Array<java.lang.Object> m_cache;
 	
+	
+	
+	public   int get_next()
+	{
+		return this.m_id;
+	}
+	
+	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161188 = true;
+			boolean __temp_executeDef164873 = true;
 			switch (field.hashCode())
 			{
 				case 3341869:
 				{
 					if (field.equals("m_id")) 
 					{
-						__temp_executeDef161188 = false;
+						__temp_executeDef164873 = false;
 						this.m_id = ((int) (value) );
 						return value;
 					}
@@ -87,7 +95,7 @@ public  class UID extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef161188 = false;
+						__temp_executeDef164873 = false;
 						this.set_id(((int) (value) ));
 						return value;
 					}
@@ -98,7 +106,7 @@ public  class UID extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161188) 
+			if (__temp_executeDef164873) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -115,14 +123,14 @@ public  class UID extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161189 = true;
+			boolean __temp_executeDef164874 = true;
 			switch (field.hashCode())
 			{
 				case 767839536:
 				{
 					if (field.equals("m_cache")) 
 					{
-						__temp_executeDef161189 = false;
+						__temp_executeDef164874 = false;
 						this.m_cache = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -135,7 +143,7 @@ public  class UID extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef161189 = false;
+						__temp_executeDef164874 = false;
 						this.set_id(((int) (haxe.lang.Runtime.toInt(value)) ));
 						return value;
 					}
@@ -148,7 +156,7 @@ public  class UID extends haxe.lang.HxObject
 				{
 					if (field.equals("m_id")) 
 					{
-						__temp_executeDef161189 = false;
+						__temp_executeDef164874 = false;
 						this.m_id = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -159,7 +167,7 @@ public  class UID extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161189) 
+			if (__temp_executeDef164874) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -176,15 +184,15 @@ public  class UID extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161190 = true;
+			boolean __temp_executeDef164875 = true;
 			switch (field.hashCode())
 			{
-				case 767839536:
+				case 1976490556:
 				{
-					if (field.equals("m_cache")) 
+					if (field.equals("get_next")) 
 					{
-						__temp_executeDef161190 = false;
-						return this.m_cache;
+						__temp_executeDef164875 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_next"))) );
 					}
 					
 					break;
@@ -195,7 +203,7 @@ public  class UID extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef161190 = false;
+						__temp_executeDef164875 = false;
 						return this.get_id();
 					}
 					
@@ -203,12 +211,12 @@ public  class UID extends haxe.lang.HxObject
 				}
 				
 				
-				case 3341869:
+				case 3377907:
 				{
-					if (field.equals("m_id")) 
+					if (field.equals("next")) 
 					{
-						__temp_executeDef161190 = false;
-						return this.m_id;
+						__temp_executeDef164875 = false;
+						return this.get_next();
 					}
 					
 					break;
@@ -219,8 +227,20 @@ public  class UID extends haxe.lang.HxObject
 				{
 					if (field.equals("get_id")) 
 					{
-						__temp_executeDef161190 = false;
+						__temp_executeDef164875 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_id"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 767839536:
+				{
+					if (field.equals("m_cache")) 
+					{
+						__temp_executeDef164875 = false;
+						return this.m_cache;
 					}
 					
 					break;
@@ -231,8 +251,20 @@ public  class UID extends haxe.lang.HxObject
 				{
 					if (field.equals("set_id")) 
 					{
-						__temp_executeDef161190 = false;
+						__temp_executeDef164875 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_id"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 3341869:
+				{
+					if (field.equals("m_id")) 
+					{
+						__temp_executeDef164875 = false;
+						return this.m_id;
 					}
 					
 					break;
@@ -241,7 +273,7 @@ public  class UID extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161190) 
+			if (__temp_executeDef164875) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -258,15 +290,15 @@ public  class UID extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161191 = true;
+			boolean __temp_executeDef164876 = true;
 			switch (field.hashCode())
 			{
-				case 3341869:
+				case 3377907:
 				{
-					if (field.equals("m_id")) 
+					if (field.equals("next")) 
 					{
-						__temp_executeDef161191 = false;
-						return ((double) (this.m_id) );
+						__temp_executeDef164876 = false;
+						return ((double) (this.get_next()) );
 					}
 					
 					break;
@@ -277,8 +309,20 @@ public  class UID extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef161191 = false;
+						__temp_executeDef164876 = false;
 						return ((double) (this.get_id()) );
+					}
+					
+					break;
+				}
+				
+				
+				case 3341869:
+				{
+					if (field.equals("m_id")) 
+					{
+						__temp_executeDef164876 = false;
+						return ((double) (this.m_id) );
 					}
 					
 					break;
@@ -287,7 +331,7 @@ public  class UID extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161191) 
+			if (__temp_executeDef164876) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -304,15 +348,15 @@ public  class UID extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef161192 = true;
+			boolean __temp_executeDef164877 = true;
 			switch (field.hashCode())
 			{
-				case -905788904:
+				case 1976490556:
 				{
-					if (field.equals("set_id")) 
+					if (field.equals("get_next")) 
 					{
-						__temp_executeDef161192 = false;
-						return this.set_id(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
+						__temp_executeDef164877 = false;
+						return this.get_next();
 					}
 					
 					break;
@@ -323,8 +367,20 @@ public  class UID extends haxe.lang.HxObject
 				{
 					if (field.equals("get_id")) 
 					{
-						__temp_executeDef161192 = false;
+						__temp_executeDef164877 = false;
 						return this.get_id();
+					}
+					
+					break;
+				}
+				
+				
+				case -905788904:
+				{
+					if (field.equals("set_id")) 
+					{
+						__temp_executeDef164877 = false;
+						return this.set_id(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -333,7 +389,7 @@ public  class UID extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161192) 
+			if (__temp_executeDef164877) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
@@ -349,6 +405,7 @@ public  class UID extends haxe.lang.HxObject
 	
 	@Override public   void __hx_getFields(haxe.root.Array<java.lang.String> baseArr)
 	{
+		baseArr.push("next");
 		baseArr.push("m_cache");
 		baseArr.push("m_id");
 		baseArr.push("id");

@@ -18,7 +18,7 @@ public  class Engine extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me160461)
+	public static   void __hx_ctor_haxor_core_Engine(haxor.core.Engine __temp_me164199)
 	{
 		{
 		}
@@ -167,14 +167,9 @@ public  class Engine extends haxe.lang.HxObject
 			{
 				int j = _g1++;
 				haxor.component.Renderer r = renderers.list.__get(j);
-				if (( r.m_entity.m_transform != lt )) 
+				if (haxor.context.EngineContext.renderer.IsSAPCulled(r, c)) 
 				{
-					if (( lt != null )) 
-					{
-						lt.m_uniform_dirty = false;
-					}
-					
-					lt = r.m_entity.m_transform;
+					continue;
 				}
 				
 				haxor.core.Engine.RenderRenderer(r);
@@ -187,6 +182,12 @@ public  class Engine extends haxe.lang.HxObject
 	
 	public static   void RenderRenderer(haxor.component.Renderer r)
 	{
+		r.UpdateCulling();
+		if ( ! ((( r.m_visible &&  ! (r.m_culled)  ))) ) 
+		{
+			return ;
+		}
+		
 		r.OnRender();
 	}
 	
@@ -230,6 +231,7 @@ public  class Engine extends haxe.lang.HxObject
 			
 		}
 		
+		haxor.context.EngineContext.renderer.sap_dirty = false;
 	}
 	
 	

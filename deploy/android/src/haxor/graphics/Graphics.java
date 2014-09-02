@@ -22,7 +22,7 @@ public  class Graphics extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me160484)
+	public static   void __hx_ctor_haxor_graphics_Graphics(haxor.graphics.Graphics __temp_me164233)
 	{
 		{
 		}
@@ -36,83 +36,83 @@ public  class Graphics extends haxe.lang.HxObject
 	{
 		haxor.math.AABB2 vp = p_viewport;
 		boolean dirty = false;
-		double __temp_stmt161224 = 0.0;
+		double __temp_stmt164928 = 0.0;
 		{
 			double p_a = ( vp.get_xMin() - haxor.graphics.Graphics.m_last_viewport.get_xMin() );
-			__temp_stmt161224 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			__temp_stmt164928 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 		}
 		
-		if (( __temp_stmt161224 > 0.0 )) 
+		if (( __temp_stmt164928 > 0.0 )) 
 		{
 			dirty = true;
 		}
 		 else 
 		{
-			double __temp_stmt161225 = 0.0;
+			double __temp_stmt164929 = 0.0;
 			{
 				double p_a1 = ( vp.get_yMin() - haxor.graphics.Graphics.m_last_viewport.get_yMin() );
-				__temp_stmt161225 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
+				__temp_stmt164929 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
 			}
 			
-			if (( __temp_stmt161225 > 0.0 )) 
+			if (( __temp_stmt164929 > 0.0 )) 
 			{
 				dirty = true;
 			}
 			 else 
 			{
-				double __temp_stmt161226 = 0.0;
+				double __temp_stmt164930 = 0.0;
 				{
 					double p_a2 = 0.0;
-					double __temp_stmt161227 = 0.0;
+					double __temp_stmt164931 = 0.0;
 					{
 						double p_a3 = ( vp.get_xMax() - vp.get_xMin() );
-						__temp_stmt161227 = ( (( p_a3 < 0 )) ? ( - (p_a3) ) : (p_a3) );
+						__temp_stmt164931 = ( (( p_a3 < 0 )) ? ( - (p_a3) ) : (p_a3) );
 					}
 					
-					double __temp_stmt161228 = 0.0;
+					double __temp_stmt164932 = 0.0;
 					{
 						haxor.math.AABB2 _this = haxor.graphics.Graphics.m_last_viewport;
 						{
 							double p_a4 = ( _this.get_xMax() - _this.get_xMin() );
-							__temp_stmt161228 = ( (( p_a4 < 0 )) ? ( - (p_a4) ) : (p_a4) );
+							__temp_stmt164932 = ( (( p_a4 < 0 )) ? ( - (p_a4) ) : (p_a4) );
 						}
 						
 					}
 					
-					p_a2 = ( __temp_stmt161227 - __temp_stmt161228 );
-					__temp_stmt161226 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
+					p_a2 = ( __temp_stmt164931 - __temp_stmt164932 );
+					__temp_stmt164930 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
 				}
 				
-				if (( __temp_stmt161226 > 0.0 )) 
+				if (( __temp_stmt164930 > 0.0 )) 
 				{
 					dirty = true;
 				}
 				 else 
 				{
-					double __temp_stmt161229 = 0.0;
+					double __temp_stmt164933 = 0.0;
 					{
 						double p_a5 = 0.0;
-						double __temp_stmt161230 = 0.0;
+						double __temp_stmt164934 = 0.0;
 						{
 							double p_a6 = ( vp.get_yMax() - vp.get_yMin() );
-							__temp_stmt161230 = ( (( p_a6 < 0 )) ? ( - (p_a6) ) : (p_a6) );
+							__temp_stmt164934 = ( (( p_a6 < 0 )) ? ( - (p_a6) ) : (p_a6) );
 						}
 						
-						double __temp_stmt161231 = 0.0;
+						double __temp_stmt164935 = 0.0;
 						{
 							haxor.math.AABB2 _this1 = haxor.graphics.Graphics.m_last_viewport;
 							{
 								double p_a7 = ( _this1.get_yMax() - _this1.get_yMin() );
-								__temp_stmt161231 = ( (( p_a7 < 0 )) ? ( - (p_a7) ) : (p_a7) );
+								__temp_stmt164935 = ( (( p_a7 < 0 )) ? ( - (p_a7) ) : (p_a7) );
 							}
 							
 						}
 						
-						p_a5 = ( __temp_stmt161230 - __temp_stmt161231 );
-						__temp_stmt161229 = ( (( p_a5 < 0 )) ? ( - (p_a5) ) : (p_a5) );
+						p_a5 = ( __temp_stmt164934 - __temp_stmt164935 );
+						__temp_stmt164933 = ( (( p_a5 < 0 )) ? ( - (p_a5) ) : (p_a5) );
 					}
 					
-					if (( __temp_stmt161229 > 0.0 )) 
+					if (( __temp_stmt164933 > 0.0 )) 
 					{
 						dirty = true;
 					}
@@ -130,21 +130,21 @@ public  class Graphics extends haxe.lang.HxObject
 				int p_x = ((int) (vp.get_xMin()) );
 				int p_y = ((int) (vp.get_yMin()) );
 				int p_width = 0;
-				double __temp_stmt161232 = 0.0;
+				double __temp_stmt164936 = 0.0;
 				{
 					double p_a8 = ( vp.get_xMax() - vp.get_xMin() );
-					__temp_stmt161232 = ( (( p_a8 < 0 )) ? ( - (p_a8) ) : (p_a8) );
+					__temp_stmt164936 = ( (( p_a8 < 0 )) ? ( - (p_a8) ) : (p_a8) );
 				}
 				
-				p_width = ((int) (__temp_stmt161232) );
+				p_width = ((int) (__temp_stmt164936) );
 				int p_height = 0;
-				double __temp_stmt161233 = 0.0;
+				double __temp_stmt164937 = 0.0;
 				{
 					double p_a9 = ( vp.get_yMax() - vp.get_yMin() );
-					__temp_stmt161233 = ( (( p_a9 < 0 )) ? ( - (p_a9) ) : (p_a9) );
+					__temp_stmt164937 = ( (( p_a9 < 0 )) ? ( - (p_a9) ) : (p_a9) );
 				}
 				
-				p_height = ((int) (__temp_stmt161233) );
+				p_height = ((int) (__temp_stmt164937) );
 				haxor.graphics.GL.m_gl.Viewport(p_x, p_y, p_width, p_height);
 			}
 			
@@ -152,21 +152,21 @@ public  class Graphics extends haxe.lang.HxObject
 				int p_x1 = ((int) (vp.get_xMin()) );
 				int p_y1 = ((int) (vp.get_yMin()) );
 				int p_width1 = 0;
-				double __temp_stmt161234 = 0.0;
+				double __temp_stmt164938 = 0.0;
 				{
 					double p_a10 = ( vp.get_xMax() - vp.get_xMin() );
-					__temp_stmt161234 = ( (( p_a10 < 0 )) ? ( - (p_a10) ) : (p_a10) );
+					__temp_stmt164938 = ( (( p_a10 < 0 )) ? ( - (p_a10) ) : (p_a10) );
 				}
 				
-				p_width1 = ((int) (__temp_stmt161234) );
+				p_width1 = ((int) (__temp_stmt164938) );
 				int p_height1 = 0;
-				double __temp_stmt161235 = 0.0;
+				double __temp_stmt164939 = 0.0;
 				{
 					double p_a11 = ( vp.get_yMax() - vp.get_yMin() );
-					__temp_stmt161235 = ( (( p_a11 < 0 )) ? ( - (p_a11) ) : (p_a11) );
+					__temp_stmt164939 = ( (( p_a11 < 0 )) ? ( - (p_a11) ) : (p_a11) );
 				}
 				
-				p_height1 = ((int) (__temp_stmt161235) );
+				p_height1 = ((int) (__temp_stmt164939) );
 				haxor.graphics.GL.m_gl.Scissor(p_x1, p_y1, p_width1, p_height1);
 			}
 			

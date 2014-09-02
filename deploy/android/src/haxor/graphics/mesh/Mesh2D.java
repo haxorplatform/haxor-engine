@@ -17,9 +17,9 @@ public  class Mesh2D extends haxor.graphics.mesh.MeshLayout<haxor.math.Vector2, 
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_mesh_Mesh2D(haxor.graphics.mesh.Mesh2D __temp_me160508, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_graphics_mesh_Mesh2D(haxor.graphics.mesh.Mesh2D __temp_me164257, java.lang.String p_name)
 	{
-		haxor.graphics.mesh.MeshLayout.__hx_ctor_haxor_graphics_mesh_MeshLayout(__temp_me160508, p_name);
+		haxor.graphics.mesh.MeshLayout.__hx_ctor_haxor_graphics_mesh_MeshLayout(__temp_me164257, p_name);
 	}
 	
 	

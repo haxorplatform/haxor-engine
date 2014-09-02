@@ -18,16 +18,10 @@ public  class JsonParser extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_format_JsonParser(haxe.format.JsonParser __temp_me160402, java.lang.String str)
+	public static   void __hx_ctor_haxe_format_JsonParser(haxe.format.JsonParser __temp_me164144, java.lang.String str)
 	{
-		__temp_me160402.str = str;
-		__temp_me160402.pos = 0;
-	}
-	
-	
-	public static   java.lang.Object parse(java.lang.String str)
-	{
-		return new haxe.format.JsonParser(haxe.lang.Runtime.toString(str)).parseRec();
+		__temp_me164144.str = str;
+		__temp_me164144.pos = 0;
 	}
 	
 	
@@ -256,43 +250,43 @@ public  class JsonParser extends haxe.lang.HxObject
 				case 116:
 				{
 					int save = this.pos;
-					int __temp_stmt160941 = 0;
+					int __temp_stmt164603 = 0;
 					{
 						java.lang.String s3 = this.str;
 						int index3 = this.pos++;
-						__temp_stmt160941 = ( (( index3 < s3.length() )) ? (((int) (s3.charAt(index3)) )) : (-1) );
+						__temp_stmt164603 = ( (( index3 < s3.length() )) ? (((int) (s3.charAt(index3)) )) : (-1) );
 					}
 					
-					boolean __temp_stmt160940 = ( __temp_stmt160941 != 114 );
-					boolean __temp_boolv160942 = false;
-					if ( ! (__temp_stmt160940) ) 
+					boolean __temp_stmt164602 = ( __temp_stmt164603 != 114 );
+					boolean __temp_boolv164604 = false;
+					if ( ! (__temp_stmt164602) ) 
 					{
-						int __temp_stmt160943 = 0;
+						int __temp_stmt164605 = 0;
 						{
 							java.lang.String s4 = this.str;
 							int index4 = this.pos++;
-							__temp_stmt160943 = ( (( index4 < s4.length() )) ? (((int) (s4.charAt(index4)) )) : (-1) );
+							__temp_stmt164605 = ( (( index4 < s4.length() )) ? (((int) (s4.charAt(index4)) )) : (-1) );
 						}
 						
-						__temp_boolv160942 = ( __temp_stmt160943 != 117 );
+						__temp_boolv164604 = ( __temp_stmt164605 != 117 );
 					}
 					
-					boolean __temp_stmt160939 = ( __temp_stmt160940 || __temp_boolv160942 );
-					boolean __temp_boolv160944 = false;
-					if ( ! (__temp_stmt160939) ) 
+					boolean __temp_stmt164601 = ( __temp_stmt164602 || __temp_boolv164604 );
+					boolean __temp_boolv164606 = false;
+					if ( ! (__temp_stmt164601) ) 
 					{
-						int __temp_stmt160945 = 0;
+						int __temp_stmt164607 = 0;
 						{
 							java.lang.String s5 = this.str;
 							int index5 = this.pos++;
-							__temp_stmt160945 = ( (( index5 < s5.length() )) ? (((int) (s5.charAt(index5)) )) : (-1) );
+							__temp_stmt164607 = ( (( index5 < s5.length() )) ? (((int) (s5.charAt(index5)) )) : (-1) );
 						}
 						
-						__temp_boolv160944 = ( __temp_stmt160945 != 101 );
+						__temp_boolv164606 = ( __temp_stmt164607 != 101 );
 					}
 					
-					boolean __temp_stmt160938 = ( __temp_stmt160939 || __temp_boolv160944 );
-					if (__temp_stmt160938) 
+					boolean __temp_stmt164600 = ( __temp_stmt164601 || __temp_boolv164606 );
+					if (__temp_stmt164600) 
 					{
 						this.pos = save;
 						this.invalidChar();
@@ -305,57 +299,57 @@ public  class JsonParser extends haxe.lang.HxObject
 				case 102:
 				{
 					int save1 = this.pos;
-					int __temp_stmt160950 = 0;
+					int __temp_stmt164612 = 0;
 					{
 						java.lang.String s6 = this.str;
 						int index6 = this.pos++;
-						__temp_stmt160950 = ( (( index6 < s6.length() )) ? (((int) (s6.charAt(index6)) )) : (-1) );
+						__temp_stmt164612 = ( (( index6 < s6.length() )) ? (((int) (s6.charAt(index6)) )) : (-1) );
 					}
 					
-					boolean __temp_stmt160949 = ( __temp_stmt160950 != 97 );
-					boolean __temp_boolv160951 = false;
-					if ( ! (__temp_stmt160949) ) 
+					boolean __temp_stmt164611 = ( __temp_stmt164612 != 97 );
+					boolean __temp_boolv164613 = false;
+					if ( ! (__temp_stmt164611) ) 
 					{
-						int __temp_stmt160952 = 0;
+						int __temp_stmt164614 = 0;
 						{
 							java.lang.String s7 = this.str;
 							int index7 = this.pos++;
-							__temp_stmt160952 = ( (( index7 < s7.length() )) ? (((int) (s7.charAt(index7)) )) : (-1) );
+							__temp_stmt164614 = ( (( index7 < s7.length() )) ? (((int) (s7.charAt(index7)) )) : (-1) );
 						}
 						
-						__temp_boolv160951 = ( __temp_stmt160952 != 108 );
+						__temp_boolv164613 = ( __temp_stmt164614 != 108 );
 					}
 					
-					boolean __temp_stmt160948 = ( __temp_stmt160949 || __temp_boolv160951 );
-					boolean __temp_boolv160953 = false;
-					if ( ! (__temp_stmt160948) ) 
+					boolean __temp_stmt164610 = ( __temp_stmt164611 || __temp_boolv164613 );
+					boolean __temp_boolv164615 = false;
+					if ( ! (__temp_stmt164610) ) 
 					{
-						int __temp_stmt160954 = 0;
+						int __temp_stmt164616 = 0;
 						{
 							java.lang.String s8 = this.str;
 							int index8 = this.pos++;
-							__temp_stmt160954 = ( (( index8 < s8.length() )) ? (((int) (s8.charAt(index8)) )) : (-1) );
+							__temp_stmt164616 = ( (( index8 < s8.length() )) ? (((int) (s8.charAt(index8)) )) : (-1) );
 						}
 						
-						__temp_boolv160953 = ( __temp_stmt160954 != 115 );
+						__temp_boolv164615 = ( __temp_stmt164616 != 115 );
 					}
 					
-					boolean __temp_stmt160947 = ( __temp_stmt160948 || __temp_boolv160953 );
-					boolean __temp_boolv160955 = false;
-					if ( ! (__temp_stmt160947) ) 
+					boolean __temp_stmt164609 = ( __temp_stmt164610 || __temp_boolv164615 );
+					boolean __temp_boolv164617 = false;
+					if ( ! (__temp_stmt164609) ) 
 					{
-						int __temp_stmt160956 = 0;
+						int __temp_stmt164618 = 0;
 						{
 							java.lang.String s9 = this.str;
 							int index9 = this.pos++;
-							__temp_stmt160956 = ( (( index9 < s9.length() )) ? (((int) (s9.charAt(index9)) )) : (-1) );
+							__temp_stmt164618 = ( (( index9 < s9.length() )) ? (((int) (s9.charAt(index9)) )) : (-1) );
 						}
 						
-						__temp_boolv160955 = ( __temp_stmt160956 != 101 );
+						__temp_boolv164617 = ( __temp_stmt164618 != 101 );
 					}
 					
-					boolean __temp_stmt160946 = ( __temp_stmt160947 || __temp_boolv160955 );
-					if (__temp_stmt160946) 
+					boolean __temp_stmt164608 = ( __temp_stmt164609 || __temp_boolv164617 );
+					if (__temp_stmt164608) 
 					{
 						this.pos = save1;
 						this.invalidChar();
@@ -368,43 +362,43 @@ public  class JsonParser extends haxe.lang.HxObject
 				case 110:
 				{
 					int save2 = this.pos;
-					int __temp_stmt160960 = 0;
+					int __temp_stmt164622 = 0;
 					{
 						java.lang.String s10 = this.str;
 						int index10 = this.pos++;
-						__temp_stmt160960 = ( (( index10 < s10.length() )) ? (((int) (s10.charAt(index10)) )) : (-1) );
+						__temp_stmt164622 = ( (( index10 < s10.length() )) ? (((int) (s10.charAt(index10)) )) : (-1) );
 					}
 					
-					boolean __temp_stmt160959 = ( __temp_stmt160960 != 117 );
-					boolean __temp_boolv160961 = false;
-					if ( ! (__temp_stmt160959) ) 
+					boolean __temp_stmt164621 = ( __temp_stmt164622 != 117 );
+					boolean __temp_boolv164623 = false;
+					if ( ! (__temp_stmt164621) ) 
 					{
-						int __temp_stmt160962 = 0;
+						int __temp_stmt164624 = 0;
 						{
 							java.lang.String s11 = this.str;
 							int index11 = this.pos++;
-							__temp_stmt160962 = ( (( index11 < s11.length() )) ? (((int) (s11.charAt(index11)) )) : (-1) );
+							__temp_stmt164624 = ( (( index11 < s11.length() )) ? (((int) (s11.charAt(index11)) )) : (-1) );
 						}
 						
-						__temp_boolv160961 = ( __temp_stmt160962 != 108 );
+						__temp_boolv164623 = ( __temp_stmt164624 != 108 );
 					}
 					
-					boolean __temp_stmt160958 = ( __temp_stmt160959 || __temp_boolv160961 );
-					boolean __temp_boolv160963 = false;
-					if ( ! (__temp_stmt160958) ) 
+					boolean __temp_stmt164620 = ( __temp_stmt164621 || __temp_boolv164623 );
+					boolean __temp_boolv164625 = false;
+					if ( ! (__temp_stmt164620) ) 
 					{
-						int __temp_stmt160964 = 0;
+						int __temp_stmt164626 = 0;
 						{
 							java.lang.String s12 = this.str;
 							int index12 = this.pos++;
-							__temp_stmt160964 = ( (( index12 < s12.length() )) ? (((int) (s12.charAt(index12)) )) : (-1) );
+							__temp_stmt164626 = ( (( index12 < s12.length() )) ? (((int) (s12.charAt(index12)) )) : (-1) );
 						}
 						
-						__temp_boolv160963 = ( __temp_stmt160964 != 108 );
+						__temp_boolv164625 = ( __temp_stmt164626 != 108 );
 					}
 					
-					boolean __temp_stmt160957 = ( __temp_stmt160958 || __temp_boolv160963 );
-					if (__temp_stmt160957) 
+					boolean __temp_stmt164619 = ( __temp_stmt164620 || __temp_boolv164625 );
+					if (__temp_stmt164619) 
 					{
 						this.pos = save2;
 						this.invalidChar();
@@ -693,174 +687,17 @@ public  class JsonParser extends haxe.lang.HxObject
 	}
 	
 	
-	public final   java.lang.Object parseNumber(int c)
-	{
-		int start = ( this.pos - 1 );
-		boolean minus = ( c == 45 );
-		boolean digit =  ! (minus) ;
-		boolean zero = ( c == 48 );
-		boolean point = false;
-		boolean e = false;
-		boolean pm = false;
-		boolean end = false;
-		while (true)
-		{
-			{
-				java.lang.String s = this.str;
-				int index = this.pos++;
-				if (( index < s.length() )) 
-				{
-					c = ((int) (s.charAt(index)) );
-				}
-				 else 
-				{
-					c = -1;
-				}
-				
-			}
-			
-			switch (c)
-			{
-				case 48:
-				{
-					if (( zero &&  ! (point)  )) 
-					{
-						this.invalidNumber(start);
-					}
-					
-					if (minus) 
-					{
-						minus = false;
-						zero = true;
-					}
-					
-					digit = true;
-					break;
-				}
-				
-				
-				case 49:case 50:case 51:case 52:case 53:case 54:case 55:case 56:case 57:
-				{
-					if (( zero &&  ! (point)  )) 
-					{
-						this.invalidNumber(start);
-					}
-					
-					if (minus) 
-					{
-						minus = false;
-					}
-					
-					digit = true;
-					zero = false;
-					break;
-				}
-				
-				
-				case 46:
-				{
-					if (( minus || point )) 
-					{
-						this.invalidNumber(start);
-					}
-					
-					digit = false;
-					point = true;
-					break;
-				}
-				
-				
-				case 101:case 69:
-				{
-					if (( ( minus || zero ) || e )) 
-					{
-						this.invalidNumber(start);
-					}
-					
-					digit = false;
-					e = true;
-					break;
-				}
-				
-				
-				case 43:case 45:
-				{
-					if ((  ! (e)  || pm )) 
-					{
-						this.invalidNumber(start);
-					}
-					
-					digit = false;
-					pm = true;
-					break;
-				}
-				
-				
-				default:
-				{
-					if ( ! (digit) ) 
-					{
-						this.invalidNumber(start);
-					}
-					
-					this.pos--;
-					end = true;
-					break;
-				}
-				
-			}
-			
-			if (end) 
-			{
-				break;
-			}
-			
-		}
-		
-		double f = haxe.root.Std.parseFloat(haxe.lang.StringExt.substr(this.str, start, ( this.pos - start )));
-		int i = ((int) (f) );
-		if (( i == f )) 
-		{
-			return i;
-		}
-		 else 
-		{
-			return f;
-		}
-		
-	}
-	
-	
-	public final   int nextChar()
-	{
-		{
-			java.lang.String s = this.str;
-			int index = this.pos++;
-			if (( index < s.length() )) 
-			{
-				return ((int) (s.charAt(index)) );
-			}
-			 else 
-			{
-				return -1;
-			}
-			
-		}
-		
-	}
-	
-	
 	public   void invalidChar()
 	{
 		this.pos--;
-		int __temp_stmt160965 = 0;
+		int __temp_stmt164627 = 0;
 		{
 			java.lang.String s = this.str;
 			int index = this.pos;
-			__temp_stmt160965 = ( (( index < s.length() )) ? (((int) (s.charAt(index)) )) : (-1) );
+			__temp_stmt164627 = ( (( index < s.length() )) ? (((int) (s.charAt(index)) )) : (-1) );
 		}
 		
-		throw haxe.lang.HaxeException.wrap(( ( ( "Invalid char " + __temp_stmt160965 ) + " at position " ) + this.pos ));
+		throw haxe.lang.HaxeException.wrap(( ( ( "Invalid char " + __temp_stmt164627 ) + " at position " ) + this.pos ));
 	}
 	
 	
@@ -873,14 +710,14 @@ public  class JsonParser extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160966 = true;
+			boolean __temp_executeDef164628 = true;
 			switch (field.hashCode())
 			{
 				case 111188:
 				{
 					if (field.equals("pos")) 
 					{
-						__temp_executeDef160966 = false;
+						__temp_executeDef164628 = false;
 						this.pos = ((int) (value) );
 						return value;
 					}
@@ -891,7 +728,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160966) 
+			if (__temp_executeDef164628) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -908,14 +745,14 @@ public  class JsonParser extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160967 = true;
+			boolean __temp_executeDef164629 = true;
 			switch (field.hashCode())
 			{
 				case 111188:
 				{
 					if (field.equals("pos")) 
 					{
-						__temp_executeDef160967 = false;
+						__temp_executeDef164629 = false;
 						this.pos = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -928,7 +765,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				{
 					if (field.equals("str")) 
 					{
-						__temp_executeDef160967 = false;
+						__temp_executeDef164629 = false;
 						this.str = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -939,7 +776,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160967) 
+			if (__temp_executeDef164629) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -956,14 +793,14 @@ public  class JsonParser extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160968 = true;
+			boolean __temp_executeDef164630 = true;
 			switch (field.hashCode())
 			{
 				case -1321720800:
 				{
 					if (field.equals("invalidNumber")) 
 					{
-						__temp_executeDef160968 = false;
+						__temp_executeDef164630 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("invalidNumber"))) );
 					}
 					
@@ -975,7 +812,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				{
 					if (field.equals("str")) 
 					{
-						__temp_executeDef160968 = false;
+						__temp_executeDef164630 = false;
 						return this.str;
 					}
 					
@@ -987,7 +824,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				{
 					if (field.equals("invalidChar")) 
 					{
-						__temp_executeDef160968 = false;
+						__temp_executeDef164630 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("invalidChar"))) );
 					}
 					
@@ -999,44 +836,8 @@ public  class JsonParser extends haxe.lang.HxObject
 				{
 					if (field.equals("pos")) 
 					{
-						__temp_executeDef160968 = false;
+						__temp_executeDef164630 = false;
 						return this.pos;
-					}
-					
-					break;
-				}
-				
-				
-				case 1423892713:
-				{
-					if (field.equals("nextChar")) 
-					{
-						__temp_executeDef160968 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("nextChar"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 1187792093:
-				{
-					if (field.equals("parseRec")) 
-					{
-						__temp_executeDef160968 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("parseRec"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case -820654116:
-				{
-					if (field.equals("parseNumber")) 
-					{
-						__temp_executeDef160968 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("parseNumber"))) );
 					}
 					
 					break;
@@ -1047,8 +848,20 @@ public  class JsonParser extends haxe.lang.HxObject
 				{
 					if (field.equals("parseString")) 
 					{
-						__temp_executeDef160968 = false;
+						__temp_executeDef164630 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("parseString"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 1187792093:
+				{
+					if (field.equals("parseRec")) 
+					{
+						__temp_executeDef164630 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("parseRec"))) );
 					}
 					
 					break;
@@ -1057,7 +870,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160968) 
+			if (__temp_executeDef164630) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1074,14 +887,14 @@ public  class JsonParser extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160969 = true;
+			boolean __temp_executeDef164631 = true;
 			switch (field.hashCode())
 			{
 				case 111188:
 				{
 					if (field.equals("pos")) 
 					{
-						__temp_executeDef160969 = false;
+						__temp_executeDef164631 = false;
 						return ((double) (this.pos) );
 					}
 					
@@ -1091,7 +904,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160969) 
+			if (__temp_executeDef164631) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1108,14 +921,14 @@ public  class JsonParser extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef160970 = true;
+			boolean __temp_executeDef164632 = true;
 			switch (field.hashCode())
 			{
 				case -1321720800:
 				{
 					if (field.equals("invalidNumber")) 
 					{
-						__temp_executeDef160970 = false;
+						__temp_executeDef164632 = false;
 						this.invalidNumber(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -1127,7 +940,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				{
 					if (field.equals("parseRec")) 
 					{
-						__temp_executeDef160970 = false;
+						__temp_executeDef164632 = false;
 						return this.parseRec();
 					}
 					
@@ -1139,7 +952,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				{
 					if (field.equals("invalidChar")) 
 					{
-						__temp_executeDef160970 = false;
+						__temp_executeDef164632 = false;
 						this.invalidChar();
 					}
 					
@@ -1151,32 +964,8 @@ public  class JsonParser extends haxe.lang.HxObject
 				{
 					if (field.equals("parseString")) 
 					{
-						__temp_executeDef160970 = false;
+						__temp_executeDef164632 = false;
 						return this.parseString();
-					}
-					
-					break;
-				}
-				
-				
-				case 1423892713:
-				{
-					if (field.equals("nextChar")) 
-					{
-						__temp_executeDef160970 = false;
-						return this.nextChar();
-					}
-					
-					break;
-				}
-				
-				
-				case -820654116:
-				{
-					if (field.equals("parseNumber")) 
-					{
-						__temp_executeDef160970 = false;
-						return this.parseNumber(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -1185,7 +974,7 @@ public  class JsonParser extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160970) 
+			if (__temp_executeDef164632) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

@@ -177,7 +177,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		
 		
-		orbit = CameraOrbit.Create(-0.5, 0, 0);
+		orbit = CameraOrbit.Create(3.5, 0, 0);
 		orbit.AddComponent(CameraOrbitInput);
 		cam = orbit.entity.GetComponentInChildren(Camera);
 		
@@ -206,17 +206,18 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		
 		
-		Activity.Iterate(0,5000,function(i:Int):Bool
+		Activity.Iterate(0,300,function(i:Int):Bool
 		//for (i in 0...30000)
 		{	
 			mr = (new Entity("cube" + i)).AddComponent(MeshRenderer);			
 			mr.transform.localScale = 
-			//Vector3.one.Scale(2.0);
-			Vector3.temp.Set(0.1, 0.1, 0.1).Scale(Random.Range(3.0, 50.0));
+			Vector3.one.Scale(0.1);
+			//Vector3.temp.Set(0.1, 0.1, 0.1).Scale(Random.Range(3.0, 50.0));
 			mr.transform.parent = container;			
 			mr.transform.localPosition =			
 			//new Vector3(0.0, 0.0, 40.0);
-			Random.onSphere.Scale(50.0 + Random.value * 900.0);
+			new Vector3(px, py, pz);
+			//Random.onSphere.Scale(50.0 + Random.value * 900.0);
 			mr.mesh 	= Model.cube;
 			
 			mr.material = mat;						
@@ -252,6 +253,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 			//lr.Multiply(Quaternion.FromAxisAngle(Vector3.up, Time.delta * 30));
 			//container.localRotation = lr;
 		}
+		
+		if (Input.Hit(KeyCode.A)) trace("A");
 		
 		var log : String = "";
 		

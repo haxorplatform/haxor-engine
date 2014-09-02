@@ -17,25 +17,25 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_MaterialFile(haxor.io.file.MaterialFile __temp_me160588, java.lang.String p_src)
+	public static   void __hx_ctor_haxor_io_file_MaterialFile(haxor.io.file.MaterialFile __temp_me164337, java.lang.String p_src)
 	{
-		__temp_me160588.mguid = "";
-		__temp_me160588.mname = "";
-		__temp_me160588.queue = "opaque";
-		__temp_me160588.offset = 0;
-		__temp_me160588.shader = "";
-		__temp_me160588.ztest = true;
-		__temp_me160588.zfunc = "lessequal";
-		__temp_me160588.zwrite = true;
-		__temp_me160588.blend = false;
-		__temp_me160588.blendSrc = "one";
-		__temp_me160588.blendDst = "zero";
-		__temp_me160588.invert = false;
-		__temp_me160588.lighting = false;
-		__temp_me160588.grab = false;
-		__temp_me160588.cull = "back";
-		__temp_me160588.uniforms = new haxe.root.Array<haxor.io.file.MaterialFileUniform>(new haxor.io.file.MaterialFileUniform[]{});
-		haxor.io.file.AssetXML.__hx_ctor_haxor_io_file_AssetXML(__temp_me160588, "", p_src);
+		__temp_me164337.mguid = "";
+		__temp_me164337.mname = "";
+		__temp_me164337.queue = "opaque";
+		__temp_me164337.offset = 0;
+		__temp_me164337.shader = "";
+		__temp_me164337.ztest = true;
+		__temp_me164337.zfunc = "lessequal";
+		__temp_me164337.zwrite = true;
+		__temp_me164337.blend = false;
+		__temp_me164337.blendSrc = "one";
+		__temp_me164337.blendDst = "zero";
+		__temp_me164337.invert = false;
+		__temp_me164337.lighting = false;
+		__temp_me164337.grab = false;
+		__temp_me164337.cull = "back";
+		__temp_me164337.uniforms = new haxe.root.Array<haxor.io.file.MaterialFileUniform>(new haxor.io.file.MaterialFileUniform[]{});
+		haxor.io.file.AssetXML.__hx_ctor_haxor_io_file_AssetXML(__temp_me164337, "", p_src);
 	}
 	
 	
@@ -91,12 +91,12 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 		{
 			java.lang.String _g = this.queue;
 			{
-				java.lang.String __temp_svar161447 = (_g);
-				switch (__temp_svar161447.hashCode())
+				java.lang.String __temp_svar165151 = (_g);
+				switch (__temp_svar165151.hashCode())
 				{
 					case -1332194002:
 					{
-						if (__temp_svar161447.equals("background")) 
+						if (__temp_svar165151.equals("background")) 
 						{
 							m.queue = 0;
 						}
@@ -107,7 +107,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case 502623545:
 					{
-						if (__temp_svar161447.equals("interface")) 
+						if (__temp_svar165151.equals("interface")) 
 						{
 							m.queue = 4000;
 						}
@@ -118,7 +118,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case -1010695135:
 					{
-						if (__temp_svar161447.equals("opaque")) 
+						if (__temp_svar165151.equals("opaque")) 
 						{
 							m.queue = 1000;
 						}
@@ -129,7 +129,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case -1091287984:
 					{
-						if (__temp_svar161447.equals("overlay")) 
+						if (__temp_svar165151.equals("overlay")) 
 						{
 							m.queue = 3000;
 						}
@@ -140,7 +140,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case -1726194350:
 					{
-						if (__temp_svar161447.equals("transparent")) 
+						if (__temp_svar165151.equals("transparent")) 
 						{
 							m.queue = 2000;
 						}
@@ -162,12 +162,12 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 		{
 			java.lang.String _g1 = this.zfunc;
 			{
-				java.lang.String __temp_svar161449 = (_g1);
-				switch (__temp_svar161449.hashCode())
+				java.lang.String __temp_svar165153 = (_g1);
+				switch (__temp_svar165153.hashCode())
 				{
 					case 104712844:
 					{
-						if (__temp_svar161449.equals("never")) 
+						if (__temp_svar165153.equals("never")) 
 						{
 							m.zfunc = 512;
 						}
@@ -178,7 +178,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case -1369217158:
 					{
-						if (__temp_svar161449.equals("greaterequal")) 
+						if (__temp_svar165153.equals("greaterequal")) 
 						{
 							m.zfunc = 518;
 						}
@@ -189,7 +189,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case -1414557169:
 					{
-						if (__temp_svar161449.equals("always")) 
+						if (__temp_svar165153.equals("always")) 
 						{
 							m.zfunc = 519;
 						}
@@ -200,7 +200,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case 283601914:
 					{
-						if (__temp_svar161449.equals("greater")) 
+						if (__temp_svar165153.equals("greater")) 
 						{
 							m.zfunc = 516;
 						}
@@ -211,7 +211,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case 1582008385:
 					{
-						if (__temp_svar161449.equals("notequal")) 
+						if (__temp_svar165153.equals("notequal")) 
 						{
 							m.zfunc = 517;
 						}
@@ -222,7 +222,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case 371449147:
 					{
-						if (__temp_svar161449.equals("lessequal")) 
+						if (__temp_svar165153.equals("lessequal")) 
 						{
 							m.zfunc = 515;
 						}
@@ -233,7 +233,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case 96757556:
 					{
-						if (__temp_svar161449.equals("equal")) 
+						if (__temp_svar165153.equals("equal")) 
 						{
 							m.zfunc = 514;
 						}
@@ -244,7 +244,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case 3318169:
 					{
-						if (__temp_svar161449.equals("less")) 
+						if (__temp_svar165153.equals("less")) 
 						{
 							m.zfunc = 513;
 						}
@@ -269,12 +269,12 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 		{
 			java.lang.String _g2 = this.cull;
 			{
-				java.lang.String __temp_svar161451 = (_g2);
-				switch (__temp_svar161451.hashCode())
+				java.lang.String __temp_svar165155 = (_g2);
+				switch (__temp_svar165155.hashCode())
 				{
 					case 3387192:
 					{
-						if (__temp_svar161451.equals("none")) 
+						if (__temp_svar165155.equals("none")) 
 						{
 							m.cull = 0;
 						}
@@ -285,7 +285,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case 3015911:
 					{
-						if (__temp_svar161451.equals("back")) 
+						if (__temp_svar165155.equals("back")) 
 						{
 							m.cull = 2;
 						}
@@ -296,7 +296,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 					
 					case 97705513:
 					{
-						if (__temp_svar161451.equals("front")) 
+						if (__temp_svar165155.equals("front")) 
 						{
 							m.cull = 1;
 						}
@@ -322,12 +322,12 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					java.lang.String _g21 = u.type;
 					{
-						java.lang.String __temp_svar161453 = (_g21);
-						switch (__temp_svar161453.hashCode())
+						java.lang.String __temp_svar165157 = (_g21);
+						switch (__temp_svar165157.hashCode())
 						{
 							case 104431:
 							{
-								if (__temp_svar161453.equals("int")) 
+								if (__temp_svar165157.equals("int")) 
 								{
 									m.SetInt(u.name, ((int) (haxe.lang.Runtime.toInt(haxe.root.Std.parseInt(u.value))) ));
 								}
@@ -338,7 +338,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 							
 							case -1417816805:
 							{
-								if (__temp_svar161453.equals("texture")) 
+								if (__temp_svar165157.equals("texture")) 
 								{
 									m.SetTexture(u.name, ((haxor.graphics.texture.Texture) (haxor.io.file.Asset.Get(u.value)) ));
 								}
@@ -349,7 +349,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 							
 							case 3615518:
 							{
-								if (__temp_svar161453.equals("vec2")) 
+								if (__temp_svar165157.equals("vec2")) 
 								{
 									m.SetFloat2(u.name, ((double) (haxe.lang.Runtime.toDouble(a.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(a.__get(1))) ));
 								}
@@ -360,7 +360,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 							
 							case 94842723:
 							{
-								if (__temp_svar161453.equals("color")) 
+								if (__temp_svar165157.equals("color")) 
 								{
 									m.SetFloat4(u.name, ((double) (haxe.lang.Runtime.toDouble(a.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(a.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(a.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(a.__get(3))) ));
 								}
@@ -371,7 +371,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 							
 							case 3615519:
 							{
-								if (__temp_svar161453.equals("vec3")) 
+								if (__temp_svar165157.equals("vec3")) 
 								{
 									m.SetFloat3(u.name, ((double) (haxe.lang.Runtime.toDouble(a.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(a.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(a.__get(2))) ));
 								}
@@ -382,15 +382,15 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 							
 							case 3344084:
 							{
-								if (__temp_svar161453.equals("mat4")) 
+								if (__temp_svar165157.equals("mat4")) 
 								{
-									haxor.math.Matrix4 __temp_stmt161446 = null;
+									haxor.math.Matrix4 __temp_stmt165150 = null;
 									{
 										haxor.context.DataContext _this = haxor.context.EngineContext.data;
-										__temp_stmt161446 = _this.m_m4.__get(_this.m_nq = ( (( _this.m_nm4 + 1 )) % _this.m_m4.length ));
+										__temp_stmt165150 = _this.m_m4.__get(_this.m_nq = ( (( _this.m_nm4 + 1 )) % _this.m_m4.length ));
 									}
 									
-									m.SetMatrix4(u.name, haxor.math.Matrix4.FromArray(a, __temp_stmt161446));
+									m.SetMatrix4(u.name, haxor.math.Matrix4.FromArray(a, __temp_stmt165150));
 								}
 								
 								break;
@@ -399,7 +399,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 							
 							case 3615520:
 							{
-								if (__temp_svar161453.equals("vec4")) 
+								if (__temp_svar165157.equals("vec4")) 
 								{
 									m.SetFloat4(u.name, ((double) (haxe.lang.Runtime.toDouble(a.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(a.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(a.__get(2))) ), ((double) (haxe.lang.Runtime.toDouble(a.__get(3))) ));
 								}
@@ -426,12 +426,12 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 	{
 		java.lang.String _g = n.get_nodeName();
 		{
-			java.lang.String __temp_svar161455 = (_g);
-			switch (__temp_svar161455.hashCode())
+			java.lang.String __temp_svar165159 = (_g);
+			switch (__temp_svar165159.hashCode())
 			{
 				case 299066663:
 				{
-					if (__temp_svar161455.equals("material")) 
+					if (__temp_svar165159.equals("material")) 
 					{
 						this.guid = this._a(n, "guid", "");
 						this.set_name(this._a(n, "name", ""));
@@ -443,7 +443,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case -304784065:
 				{
-					if (__temp_svar161455.equals("uniforms")) 
+					if (__temp_svar165159.equals("uniforms")) 
 					{
 						this.ParseUniforms(n);
 					}
@@ -454,7 +454,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 107944209:
 				{
-					if (__temp_svar161455.equals("queue")) 
+					if (__temp_svar165159.equals("queue")) 
 					{
 						this.offset = ((int) (haxe.lang.Runtime.toInt(haxe.root.Std.parseInt(this._a(n, "offset", "0")))) );
 						this.queue = haxe.lang.Runtime.toString(this._p(n, "$text", "geometry", true, true));
@@ -466,7 +466,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 3065202:
 				{
-					if (__temp_svar161455.equals("cull")) 
+					if (__temp_svar165159.equals("cull")) 
 					{
 						this.cull = haxe.lang.Runtime.toString(this._p(n, "$text", this.cull, true, true));
 					}
@@ -477,7 +477,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case -903579675:
 				{
-					if (__temp_svar161455.equals("shader")) 
+					if (__temp_svar165159.equals("shader")) 
 					{
 						this.shader = haxe.lang.Runtime.toString(this._p(n, "$text", "", null, null));
 					}
@@ -488,7 +488,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 3181132:
 				{
-					if (__temp_svar161455.equals("grab")) 
+					if (__temp_svar165159.equals("grab")) 
 					{
 						this.grab = haxe.lang.Runtime.eq(this._p(n, "$text", "false", true, true), "true");
 					}
@@ -499,7 +499,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 116226060:
 				{
-					if (__temp_svar161455.equals("ztest")) 
+					if (__temp_svar165159.equals("ztest")) 
 					{
 						this.ztest = haxe.lang.Runtime.eq(this._p(n, "$text", "true", true, true), "true");
 					}
@@ -510,7 +510,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 991970060:
 				{
-					if (__temp_svar161455.equals("lighting")) 
+					if (__temp_svar165159.equals("lighting")) 
 					{
 						this.lighting = haxe.lang.Runtime.eq(this._p(n, "$text", "false", true, true), "true");
 					}
@@ -521,7 +521,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 115824190:
 				{
-					if (__temp_svar161455.equals("zfunc")) 
+					if (__temp_svar165159.equals("zfunc")) 
 					{
 						this.zfunc = haxe.lang.Runtime.toString(this._p(n, "$text", this.zfunc, null, null));
 					}
@@ -532,7 +532,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case -1183703082:
 				{
-					if (__temp_svar161455.equals("invert")) 
+					if (__temp_svar165159.equals("invert")) 
 					{
 						this.invert = haxe.lang.Runtime.eq(this._p(n, "$text", "false", true, true), "true");
 					}
@@ -543,7 +543,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case -688811099:
 				{
-					if (__temp_svar161455.equals("zwrite")) 
+					if (__temp_svar165159.equals("zwrite")) 
 					{
 						this.zwrite = haxe.lang.Runtime.eq(this._p(n, "$text", "true", true, true), "true");
 					}
@@ -554,7 +554,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 93823057:
 				{
-					if (__temp_svar161455.equals("blend")) 
+					if (__temp_svar165159.equals("blend")) 
 					{
 						this.blend = haxe.lang.Runtime.valEq(this._a(n, "enabled", "false"), "true");
 						this.blendSrc = haxe.lang.Runtime.toString(this._p(n, "src.$text", "one", true, true));
@@ -591,12 +591,12 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 	public   int BlendModeNameToEnum(java.lang.String b)
 	{
 		{
-			java.lang.String __temp_svar161457 = (b);
-			switch (__temp_svar161457.hashCode())
+			java.lang.String __temp_svar165161 = (b);
+			switch (__temp_svar165161.hashCode())
 			{
 				case 3735208:
 				{
-					if (__temp_svar161457.equals("zero")) 
+					if (__temp_svar165161.equals("zero")) 
 					{
 						return 0;
 					}
@@ -607,7 +607,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 1634088617:
 				{
-					if (__temp_svar161457.equals("srcalphasaturate")) 
+					if (__temp_svar165161.equals("srcalphasaturate")) 
 					{
 						return 776;
 					}
@@ -618,7 +618,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 110182:
 				{
-					if (__temp_svar161457.equals("one")) 
+					if (__temp_svar165161.equals("one")) 
 					{
 						return 1;
 					}
@@ -629,7 +629,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case -1707287416:
 				{
-					if (__temp_svar161457.equals("oneminusdstcolor")) 
+					if (__temp_svar165161.equals("oneminusdstcolor")) 
 					{
 						return 775;
 					}
@@ -640,7 +640,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case -414941185:
 				{
-					if (__temp_svar161457.equals("srccolor")) 
+					if (__temp_svar165161.equals("srccolor")) 
 					{
 						return 768;
 					}
@@ -651,7 +651,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 586906814:
 				{
-					if (__temp_svar161457.equals("dstcolor")) 
+					if (__temp_svar165161.equals("dstcolor")) 
 					{
 						return 774;
 					}
@@ -662,7 +662,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 1585831881:
 				{
-					if (__temp_svar161457.equals("oneminussrccolor")) 
+					if (__temp_svar165161.equals("oneminussrccolor")) 
 					{
 						return 769;
 					}
@@ -673,7 +673,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case -1709220221:
 				{
-					if (__temp_svar161457.equals("oneminusdstalpha")) 
+					if (__temp_svar165161.equals("oneminusdstalpha")) 
 					{
 						return 773;
 					}
@@ -684,7 +684,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case -416873990:
 				{
-					if (__temp_svar161457.equals("srcalpha")) 
+					if (__temp_svar165161.equals("srcalpha")) 
 					{
 						return 770;
 					}
@@ -695,7 +695,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 584974009:
 				{
-					if (__temp_svar161457.equals("dstalpha")) 
+					if (__temp_svar165161.equals("dstalpha")) 
 					{
 						return 772;
 					}
@@ -706,7 +706,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 				case 1583899076:
 				{
-					if (__temp_svar161457.equals("oneminussrcalpha")) 
+					if (__temp_svar165161.equals("oneminussrcalpha")) 
 					{
 						return 771;
 					}
@@ -726,14 +726,14 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161459 = true;
+			boolean __temp_executeDef165163 = true;
 			switch (field.hashCode())
 			{
 				case -1019779949:
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef161459 = false;
+						__temp_executeDef165163 = false;
 						this.offset = ((int) (value) );
 						return value;
 					}
@@ -744,7 +744,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef161459) 
+			if (__temp_executeDef165163) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -761,14 +761,14 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161460 = true;
+			boolean __temp_executeDef165164 = true;
 			switch (field.hashCode())
 			{
 				case -304784065:
 				{
 					if (field.equals("uniforms")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.uniforms = ((haxe.root.Array<haxor.io.file.MaterialFileUniform>) (value) );
 						return value;
 					}
@@ -781,7 +781,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("mguid")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.mguid = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -794,7 +794,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.cull = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -807,7 +807,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("mname")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.mname = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -820,7 +820,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("grab")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.grab = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -833,7 +833,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.queue = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -846,7 +846,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("lighting")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.lighting = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -859,7 +859,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("shader")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.shader = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -872,7 +872,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("invert")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.invert = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -885,7 +885,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.offset = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -898,7 +898,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.blendDst = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -911,7 +911,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ztest")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.ztest = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -924,7 +924,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.blendSrc = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -937,7 +937,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.zfunc = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -950,7 +950,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("blend")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.blend = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -963,7 +963,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("zwrite")) 
 					{
-						__temp_executeDef161460 = false;
+						__temp_executeDef165164 = false;
 						this.zwrite = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -974,7 +974,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef161460) 
+			if (__temp_executeDef165164) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -991,14 +991,14 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161461 = true;
+			boolean __temp_executeDef165165 = true;
 			switch (field.hashCode())
 			{
 				case 849145115:
 				{
 					if (field.equals("BlendModeNameToEnum")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("BlendModeNameToEnum"))) );
 					}
 					
@@ -1010,7 +1010,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("mguid")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.mguid;
 					}
 					
@@ -1022,7 +1022,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseUniforms")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseUniforms"))) );
 					}
 					
@@ -1034,7 +1034,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("mname")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.mname;
 					}
 					
@@ -1046,7 +1046,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("Parse")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Parse"))) );
 					}
 					
@@ -1058,7 +1058,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("queue")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.queue;
 					}
 					
@@ -1070,7 +1070,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("get_asset")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_asset"))) );
 					}
 					
@@ -1082,7 +1082,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("shader")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.shader;
 					}
 					
@@ -1094,7 +1094,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("uniforms")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.uniforms;
 					}
 					
@@ -1106,7 +1106,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.offset;
 					}
 					
@@ -1118,7 +1118,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("cull")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.cull;
 					}
 					
@@ -1130,7 +1130,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ztest")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.ztest;
 					}
 					
@@ -1142,7 +1142,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("grab")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.grab;
 					}
 					
@@ -1154,7 +1154,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("zfunc")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.zfunc;
 					}
 					
@@ -1166,7 +1166,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("lighting")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.lighting;
 					}
 					
@@ -1178,7 +1178,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("zwrite")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.zwrite;
 					}
 					
@@ -1190,7 +1190,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("invert")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.invert;
 					}
 					
@@ -1202,7 +1202,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("blend")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.blend;
 					}
 					
@@ -1214,7 +1214,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("blendDst")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.blendDst;
 					}
 					
@@ -1226,7 +1226,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("blendSrc")) 
 					{
-						__temp_executeDef161461 = false;
+						__temp_executeDef165165 = false;
 						return this.blendSrc;
 					}
 					
@@ -1236,7 +1236,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef161461) 
+			if (__temp_executeDef165165) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1253,14 +1253,14 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161462 = true;
+			boolean __temp_executeDef165166 = true;
 			switch (field.hashCode())
 			{
 				case -1019779949:
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef161462 = false;
+						__temp_executeDef165166 = false;
 						return ((double) (this.offset) );
 					}
 					
@@ -1270,7 +1270,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef161462) 
+			if (__temp_executeDef165166) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1287,15 +1287,15 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash161464 = field.hashCode();
-			boolean __temp_executeDef161463 = true;
-			switch (__temp_hash161464)
+			int __temp_hash165168 = field.hashCode();
+			boolean __temp_executeDef165167 = true;
+			switch (__temp_hash165168)
 			{
 				case 76884627:case 1130071239:
 				{
-					if (( (( ( __temp_hash161464 == 76884627 ) && field.equals("Parse") )) || field.equals("get_asset") )) 
+					if (( (( ( __temp_hash165168 == 76884627 ) && field.equals("Parse") )) || field.equals("get_asset") )) 
 					{
-						__temp_executeDef161463 = false;
+						__temp_executeDef165167 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -1307,7 +1307,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseUniforms")) 
 					{
-						__temp_executeDef161463 = false;
+						__temp_executeDef165167 = false;
 						this.ParseUniforms(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -1319,7 +1319,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("BlendModeNameToEnum")) 
 					{
-						__temp_executeDef161463 = false;
+						__temp_executeDef165167 = false;
 						return this.BlendModeNameToEnum(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -1329,7 +1329,7 @@ public  class MaterialFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef161463) 
+			if (__temp_executeDef165167) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

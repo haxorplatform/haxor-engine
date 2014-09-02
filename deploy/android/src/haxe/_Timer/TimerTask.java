@@ -4,10 +4,9 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class TimerTask extends java.util.TimerTask
 {
-	public    TimerTask(haxe.Timer timer)
+	public    TimerTask()
 	{
 		super();
-		this.timer = timer;
 	}
 	
 	

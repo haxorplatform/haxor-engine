@@ -17,9 +17,9 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_SkinnedMeshRenderer(haxor.component.SkinnedMeshRenderer __temp_me160438, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_component_SkinnedMeshRenderer(haxor.component.SkinnedMeshRenderer __temp_me164175, java.lang.String p_name)
 	{
-		haxor.component.MeshRenderer.__hx_ctor_haxor_component_MeshRenderer(__temp_me160438, p_name);
+		haxor.component.MeshRenderer.__hx_ctor_haxor_component_MeshRenderer(__temp_me164175, p_name);
 	}
 	
 	
@@ -83,14 +83,14 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161096 = true;
+			boolean __temp_executeDef164746 = true;
 			switch (field.hashCode())
 			{
 				case -1083579332:
 				{
 					if (field.equals("m_data")) 
 					{
-						__temp_executeDef161096 = false;
+						__temp_executeDef164746 = false;
 						this.m_data = ((haxor.graphics.texture.ComputeTexture) (value) );
 						return value;
 					}
@@ -103,7 +103,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("joints")) 
 					{
-						__temp_executeDef161096 = false;
+						__temp_executeDef164746 = false;
 						this.set_joints(((haxe.root.Array<haxor.component.Transform>) (value) ));
 						return value;
 					}
@@ -116,7 +116,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef161096 = false;
+						__temp_executeDef164746 = false;
 						this.m_buffer = ((haxor.io.FloatArray) (value) );
 						return value;
 					}
@@ -129,7 +129,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("m_joints")) 
 					{
-						__temp_executeDef161096 = false;
+						__temp_executeDef164746 = false;
 						this.m_joints = ((haxe.root.Array<haxor.component.Transform>) (value) );
 						return value;
 					}
@@ -140,7 +140,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				
 			}
 			
-			if (__temp_executeDef161096) 
+			if (__temp_executeDef164746) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -157,14 +157,14 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161097 = true;
+			boolean __temp_executeDef164747 = true;
 			switch (field.hashCode())
 			{
 				case 1528462453:
 				{
 					if (field.equals("OnRender")) 
 					{
-						__temp_executeDef161097 = false;
+						__temp_executeDef164747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnRender"))) );
 					}
 					
@@ -176,7 +176,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("joints")) 
 					{
-						__temp_executeDef161097 = false;
+						__temp_executeDef164747 = false;
 						return this.get_joints();
 					}
 					
@@ -188,7 +188,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef161097 = false;
+						__temp_executeDef164747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
 					}
 					
@@ -200,7 +200,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("set_joints")) 
 					{
-						__temp_executeDef161097 = false;
+						__temp_executeDef164747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_joints"))) );
 					}
 					
@@ -212,7 +212,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("m_data")) 
 					{
-						__temp_executeDef161097 = false;
+						__temp_executeDef164747 = false;
 						return this.m_data;
 					}
 					
@@ -224,7 +224,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("get_joints")) 
 					{
-						__temp_executeDef161097 = false;
+						__temp_executeDef164747 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_joints"))) );
 					}
 					
@@ -236,7 +236,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("m_buffer")) 
 					{
-						__temp_executeDef161097 = false;
+						__temp_executeDef164747 = false;
 						return this.m_buffer;
 					}
 					
@@ -248,7 +248,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("m_joints")) 
 					{
-						__temp_executeDef161097 = false;
+						__temp_executeDef164747 = false;
 						return this.m_joints;
 					}
 					
@@ -258,7 +258,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				
 			}
 			
-			if (__temp_executeDef161097) 
+			if (__temp_executeDef164747) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -275,15 +275,15 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash161099 = field.hashCode();
-			boolean __temp_executeDef161098 = true;
-			switch (__temp_hash161099)
+			int __temp_hash164749 = field.hashCode();
+			boolean __temp_executeDef164748 = true;
+			switch (__temp_hash164749)
 			{
 				case 1528462453:case 312095663:
 				{
-					if (( (( ( __temp_hash161099 == 1528462453 ) && field.equals("OnRender") )) || field.equals("OnBuild") )) 
+					if (( (( ( __temp_hash164749 == 1528462453 ) && field.equals("OnRender") )) || field.equals("OnBuild") )) 
 					{
-						__temp_executeDef161098 = false;
+						__temp_executeDef164748 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -295,7 +295,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("set_joints")) 
 					{
-						__temp_executeDef161098 = false;
+						__temp_executeDef164748 = false;
 						return this.set_joints(((haxe.root.Array<haxor.component.Transform>) (dynargs.__get(0)) ));
 					}
 					
@@ -307,7 +307,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				{
 					if (field.equals("get_joints")) 
 					{
-						__temp_executeDef161098 = false;
+						__temp_executeDef164748 = false;
 						return this.get_joints();
 					}
 					
@@ -317,7 +317,7 @@ public  class SkinnedMeshRenderer extends haxor.component.MeshRenderer
 				
 			}
 			
-			if (__temp_executeDef161098) 
+			if (__temp_executeDef164748) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

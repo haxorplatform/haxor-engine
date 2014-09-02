@@ -1,8 +1,9 @@
 F:\development\project\web\thelab\haxor_engine_1_0
 begin defines
+-main
+_main
 android
 dce
-gl_debug
 haxe3
 haxe_ver
 hxcpp_api_level
@@ -23,9 +24,10 @@ sys
 true
 end defines
 begin defines_data
+-main=1
+_main=1
 android=1
-dce=no
-gl_debug=1
+dce=std
 haxe3=1
 haxe_ver=3.103
 hxcpp_api_level=311
@@ -146,9 +148,6 @@ M android.opengl.GLES20
 M android.database.DataSetObserver
 M android.opengl.GLSurfaceView
 M android.util.Pair
-M haxe.ds.BalancedTree
-C haxe.ds.BalancedTree
-C haxe.ds.TreeNode
 M java.lang.Process
 M android.view.ViewOverlay
 M android.content.Context
@@ -171,8 +170,8 @@ C haxor.component.Component
 M android.app.LoaderManager
 M haxor.component.Transform
 C haxor.component.Transform
-C haxor.component.Transform_Search_329__Fun
-C haxor.component.Transform_OutputHierarchy_371__Fun
+C haxor.component.Transform_Search_470__Fun
+C haxor.component.Transform_OutputHierarchy_512__Fun
 M haxor.input.Joystick
 C haxor.input.Joystick
 M java.lang.reflect.AccessibleObject
@@ -208,6 +207,8 @@ M android.view.inputmethod.ExtractedText
 M java.util.Random
 M android.app.PendingIntent
 M java.lang.reflect.Constructor
+M haxor.core.Stats
+C haxor.core.Stats
 M java.lang.Long
 M android.graphics.Canvas
 M java.nio.charset.CoderResult
@@ -248,11 +249,8 @@ C haxe.root.Type
 M android.view.MenuItem
 M android.view.ViewManager
 M haxe.ds.HashMap
-C haxe.ds._HashMap.HashMap_Impl_
 M java.security.ProtectionDomain
 M java.util.SortedMap
-M haxe.format.JsonPrinter
-C haxe.format.JsonPrinter
 M java.lang.StringBuilder
 M java.lang.reflect.Type
 M java.security.CodeSource
@@ -276,8 +274,6 @@ C haxor.io.file.ColladaAnimation
 C haxor.io.file.ColladaAnimationChannel
 C haxor.io.file.ColladaAnimationKeyFrame
 C haxor.io.file.ColladaLight
-M haxe.root.Date
-C haxe.root.Date
 M haxe.root.StdTypes
 M android.content.ContentProvider
 M android.opengl.GLES10
@@ -314,7 +310,7 @@ M android.graphics.Paint
 M android.view.accessibility.AccessibilityEvent
 M haxor.context.CameraContext
 C haxor.context.CameraContext
-C haxor.context.CameraContext_SortCameraList_215__Fun
+C haxor.context.CameraContext_SortCameraList_279__Fun
 M java.lang.Comparable
 M haxor.core.Time
 C haxor.core.Time
@@ -349,7 +345,6 @@ M haxor.core.IDisposable
 C haxor.core.IDisposable
 M java.net.NetworkInterface
 M haxe.root.Map
-C _Map.Map_Impl_
 C haxe.root.IMap
 M haxor.platform.android.net.HTTPRequest
 C haxor.platform.android.net.HTTPRequest
@@ -384,8 +379,6 @@ M java.javax.microedition.khronos.egl.EGLDisplay
 M android.view.ContextThemeWrapper
 M android.content.SharedPreferences
 M android.view.Display
-M haxe.Json
-C haxe.Json
 M java.javax.microedition.khronos.egl.EGL10
 M android.content.Intent
 M java.net.URI
@@ -408,8 +401,6 @@ M java.nio.channels.FileChannel
 M android.graphics.PathEffect
 M haxor.input.Input
 C haxor.input.Input
-M java.Lib
-C haxe.java.Lib
 M android.database.sqlite.SQLiteTransactionListener
 M haxor.graphics.GL
 C haxor.graphics.GL
@@ -421,9 +412,6 @@ M java.lang.Runnable
 M android.view.accessibility.AccessibilityRecord
 M android.content.pm.PackageInfo
 M java.util.Date
-M sys.io.Process
-C sys.io.Process
-C sys.io._Process.ProcessInput
 M haxor.graphics.Gizmo
 C haxor.graphics.Gizmo
 M haxor.graphics.texture.TextureCube
@@ -433,8 +421,6 @@ M haxe.ds.ObjectMap
 C haxe.ds.ObjectMap
 C haxe.ds.ObjectMap_keys_356__Fun
 C haxe.ds.ObjectMap_keys_367__Fun
-C haxe.ds.ObjectMap_iterator_387__Fun
-C haxe.ds.ObjectMap_iterator_398__Fun
 M haxor.graphics.material.Shader
 C haxor.graphics.material.Shader
 M haxor.graphics.Screen
@@ -484,19 +470,11 @@ M haxe.ds.StringMap
 C haxe.ds.StringMap
 C haxe.ds.StringMap_keys_356__Fun
 C haxe.ds.StringMap_keys_367__Fun
-C haxe.ds.StringMap_iterator_387__Fun
-C haxe.ds.StringMap_iterator_398__Fun
 M haxor.context.UID
 C haxor.context.UID
 M android.util.TypedValue
 M android.view.KeyEvent
 M haxe.ds.WeakMap
-C haxe.ds.WeakMap
-C haxe.ds.WeakMap_keys_388__Fun
-C haxe.ds.WeakMap_keys_407__Fun
-C haxe.ds.WeakMap_iterator_424__Fun
-C haxe.ds.WeakMap_iterator_435__Fun
-C haxe.ds._WeakMap.Entry
 M java.net.DatagramSocket
 M java.nio.channels.spi.AbstractInterruptibleChannel
 M android.database.sqlite.SQLiteProgram
@@ -514,6 +492,10 @@ M android.util.DisplayMetrics
 M haxor.input.InputHandler
 C haxor.input.InputHandler
 M android.graphics.Shader
+M haxor.ds.SAP
+C haxor.ds.SAP
+C haxor.ds.SAPList
+C haxor.ds.SAPInterval
 M haxor.graphics.mesh.Mesh
 C haxor.graphics.mesh.Mesh
 C haxor.graphics.mesh.MeshAttrib
@@ -530,8 +512,6 @@ M java.nio.channels.ScatteringByteChannel
 M haxor.math.Random
 C haxor.math.Random
 M java.util.Comparator
-M java.io.NativeInput
-C haxe.java.io.NativeInput
 M java.util.ListIterator
 M java.lang.Double
 M java.net.SocketImplFactory
@@ -567,8 +547,6 @@ M java.internal.StringExt
 C haxe.lang.StringExt
 C haxe.lang.StringRefl
 M haxe.EnumTools
-M haxe.io.BytesOutput
-C haxe.io.BytesOutput
 M android.content.ComponentCallbacks
 M android.graphics.Picture
 M android.content.pm.FeatureInfo
@@ -625,7 +603,6 @@ M java.StdTypes
 M haxe.Timer
 C haxe.Timer
 C haxe.Timer___hx_ctor_haxe_Timer_113__Fun
-C haxe.Timer_delay_128__Fun
 C haxe._Timer.TimerTask
 M android.view.SurfaceHolder
 M android.os.ParcelFileDescriptor
@@ -656,16 +633,14 @@ M java.io.InputStreamReader
 M haxor.platform.Types
 M haxe.root.Math
 M java.util.Arrays
-M haxe.root.IntIterator
-C haxe.root.IntIterator
 M android.animation.TimeInterpolator
 M android.app.Dialog
 M android.text.InputType
 M haxor.thread.Activity
 C haxor.thread.Activity
-C haxor.thread.Activity_Iterate_41__Fun
-C haxor.thread.Activity_Delay_62__Fun
-C haxor.thread.Activity_RunOnce_93__Fun
+C haxor.thread.Activity_Iterate_42__Fun
+C haxor.thread.Activity_Delay_63__Fun
+C haxor.thread.Activity_RunOnce_94__Fun
 M java.nio.DoubleBuffer
 M java.util.RandomAccess
 M haxor.core.Scene
@@ -689,8 +664,8 @@ M java.lang.Exception
 M android.view.WindowManager
 M haxe.root.Main
 C haxe.root.Main
-C haxe.root.Main_Load_99__Fun
-C haxe.root.Main_Initialize_203__Fun
+C haxe.root.Main_Load_101__Fun
+C haxe.root.Main_Initialize_209__Fun
 M android.database.sqlite.SQLiteCursorDriver
 M java.lang.System
 M android.app.Application
@@ -706,8 +681,6 @@ M java.nio.channels.GatheringByteChannel
 M android.view.InputQueue
 M android.content.ServiceConnection
 M android.content.SyncAdapterType
-M haxe.io.BytesBuffer
-C haxe.io.BytesBuffer
 M android.content.ClipDescription
 M android.os.Bundle
 M android.view.ViewParent
@@ -717,8 +690,6 @@ M java.util.Dictionary
 M haxor.core.Application
 C haxor.core.Application
 M haxe.root.Enum
-M haxe.ds.EnumValueMap
-C haxe.ds.EnumValueMap
 M haxor.component.DataComponent
 C haxor.component.DataComponent
 M android.content.IntentSender
@@ -744,8 +715,6 @@ M java.util.Map
 M android.graphics.Rect
 M haxor.context.GizmoContext
 C haxor.context.GizmoContext
-M haxe.io.BytesInput
-C haxe.io.BytesInput
 M java.lang.Byte
 M java.lang.Integer
 M android.view.ActionMode
@@ -773,26 +742,17 @@ C haxor.platform.android.AndroidApplication
 M org.xmlpull.v1.XmlPullParser
 M haxe.ds.IntMap
 C haxe.ds.IntMap
-C haxe.ds.IntMap_keys_332__Fun
-C haxe.ds.IntMap_keys_343__Fun
-C haxe.ds.IntMap_iterator_363__Fun
-C haxe.ds.IntMap_iterator_374__Fun
 M android.animation.LayoutTransition
 M android.os.CancellationSignal
 M android.database.ContentObserver
 M haxor.math.Mathf
 C haxor.math.Mathf
 M android.accounts.Account
-M haxe.io.Input
-C haxe.io.Input
 M android.content.ContentResolver
 M java.io.InputStream
 M haxe.root.StringBuf
 C haxe.root.StringBuf
 end modules
-begin main
-haxe.root.Main
-end main
 begin resources
 end resources
 begin libs

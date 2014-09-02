@@ -24,7 +24,7 @@ public  class Input extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_input_Input(haxor.input.Input __temp_me160536)
+	public static   void __hx_ctor_haxor_input_Input(haxor.input.Input __temp_me164285)
 	{
 		{
 		}
@@ -92,7 +92,7 @@ public  class Input extends haxe.lang.HxObject
 	
 	public static   haxor.core.InputState GetInputState(int p_code)
 	{
-		return haxor.input.Input.m_state.get(((int) (p_code) ));
+		return haxor.input.Input.m_state.get(p_code);
 	}
 	
 	
@@ -119,7 +119,7 @@ public  class Input extends haxe.lang.HxObject
 	
 	public static   double GetHoldTime(int p_code)
 	{
-		return ((double) (haxe.lang.Runtime.toDouble(haxor.input.Input.m_hold.get(((int) (p_code) )))) );
+		return ((double) (haxe.lang.Runtime.toDouble(haxor.input.Input.m_hold.get(p_code))) );
 	}
 	
 	
@@ -146,8 +146,8 @@ public  class Input extends haxe.lang.HxObject
 			while (( _g1 < 256 ))
 			{
 				int i1 = _g1++;
-				haxor.input.Input.m_state.set(((int) (i1) ), ((haxor.core.InputState) (haxor.core.InputState.None) ));
-				haxor.input.Input.m_hold.set(((int) (i1) ), ((java.lang.Object) (0) ));
+				haxor.input.Input.m_state.set(i1, haxor.core.InputState.None);
+				haxor.input.Input.m_hold.set(i1, 0);
 				haxor.input.Input.m_down.push(false);
 			}
 			
@@ -223,8 +223,8 @@ public  class Input extends haxe.lang.HxObject
 	
 	public static   void UpdateInputState(int p_code, boolean p_is_down, java.lang.Object p_update_state)
 	{
-		boolean __temp_p_update_state160535 = ( (( p_update_state == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_update_state)) );
-		haxor.core.InputState current = haxor.input.Input.m_state.get(((int) (p_code) ));
+		boolean __temp_p_update_state164284 = ( (( p_update_state == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_update_state)) );
+		haxor.core.InputState current = haxor.input.Input.m_state.get(p_code);
 		if (( current == null )) 
 		{
 			current = haxor.core.InputState.None;
@@ -251,24 +251,24 @@ public  class Input extends haxe.lang.HxObject
 			
 		}
 		
-		if (__temp_p_update_state160535) 
+		if (__temp_p_update_state164284) 
 		{
 			if (( current == haxor.core.InputState.Up )) 
 			{
-				haxor.input.Input.m_hold.set(((int) (p_code) ), ((java.lang.Object) (0) ));
+				haxor.input.Input.m_hold.set(p_code, 0);
 				haxor.input.Input.m_active.remove(p_code);
 			}
 			
 			if (( current == haxor.core.InputState.Hold )) 
 			{
-				double h = ((double) (haxe.lang.Runtime.toDouble(haxor.input.Input.m_hold.get(((int) (p_code) )))) );
-				haxor.input.Input.m_hold.set(((int) (p_code) ), ((java.lang.Object) (( h + haxor.core.Time.m_delta )) ));
+				double h = ((double) (haxe.lang.Runtime.toDouble(haxor.input.Input.m_hold.get(p_code))) );
+				haxor.input.Input.m_hold.set(p_code, ( h + haxor.core.Time.m_delta ));
 			}
 			
 			next = haxor.input.Input.InputStateFSM(current, d);
 			if (( current != next )) 
 			{
-				haxor.input.Input.m_state.set(((int) (p_code) ), ((haxor.core.InputState) (next) ));
+				haxor.input.Input.m_state.set(p_code, next);
 			}
 			
 		}

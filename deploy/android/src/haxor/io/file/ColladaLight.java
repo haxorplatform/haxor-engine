@@ -18,15 +18,15 @@ public  class ColladaLight extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaLight(haxor.io.file.ColladaLight __temp_me160587)
+	public static   void __hx_ctor_haxor_io_file_ColladaLight(haxor.io.file.ColladaLight __temp_me164336)
 	{
-		__temp_me160587.id = "";
-		__temp_me160587.name = "";
-		__temp_me160587.type = "";
-		__temp_me160587.color = new haxor.math.Color(((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ));
-		__temp_me160587.radius = 0.0;
-		__temp_me160587.intensity = 0.0;
-		__temp_me160587.atten = 0.0;
+		__temp_me164336.id = "";
+		__temp_me164336.name = "";
+		__temp_me164336.type = "";
+		__temp_me164336.color = new haxor.math.Color(((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ));
+		__temp_me164336.radius = 0.0;
+		__temp_me164336.intensity = 0.0;
+		__temp_me164336.atten = 0.0;
 	}
 	
 	
@@ -59,14 +59,14 @@ public  class ColladaLight extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161442 = true;
+			boolean __temp_executeDef165146 = true;
 			switch (field.hashCode())
 			{
 				case 93152010:
 				{
 					if (field.equals("atten")) 
 					{
-						__temp_executeDef161442 = false;
+						__temp_executeDef165146 = false;
 						this.atten = ((double) (value) );
 						return value;
 					}
@@ -79,7 +79,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef161442 = false;
+						__temp_executeDef165146 = false;
 						this.radius = ((double) (value) );
 						return value;
 					}
@@ -92,7 +92,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("intensity")) 
 					{
-						__temp_executeDef161442 = false;
+						__temp_executeDef165146 = false;
 						this.intensity = ((double) (value) );
 						return value;
 					}
@@ -103,7 +103,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161442) 
+			if (__temp_executeDef165146) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -120,14 +120,14 @@ public  class ColladaLight extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161443 = true;
+			boolean __temp_executeDef165147 = true;
 			switch (field.hashCode())
 			{
 				case 93152010:
 				{
 					if (field.equals("atten")) 
 					{
-						__temp_executeDef161443 = false;
+						__temp_executeDef165147 = false;
 						this.atten = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -140,7 +140,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef161443 = false;
+						__temp_executeDef165147 = false;
 						this.id = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -153,7 +153,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("intensity")) 
 					{
-						__temp_executeDef161443 = false;
+						__temp_executeDef165147 = false;
 						this.intensity = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -166,7 +166,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef161443 = false;
+						__temp_executeDef165147 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -179,7 +179,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef161443 = false;
+						__temp_executeDef165147 = false;
 						this.radius = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -192,7 +192,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef161443 = false;
+						__temp_executeDef165147 = false;
 						this.type = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -205,7 +205,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("color")) 
 					{
-						__temp_executeDef161443 = false;
+						__temp_executeDef165147 = false;
 						this.color = ((haxor.math.Color) (value) );
 						return value;
 					}
@@ -216,7 +216,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161443) 
+			if (__temp_executeDef165147) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -233,14 +233,14 @@ public  class ColladaLight extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161444 = true;
+			boolean __temp_executeDef165148 = true;
 			switch (field.hashCode())
 			{
 				case 93152010:
 				{
 					if (field.equals("atten")) 
 					{
-						__temp_executeDef161444 = false;
+						__temp_executeDef165148 = false;
 						return this.atten;
 					}
 					
@@ -252,7 +252,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef161444 = false;
+						__temp_executeDef165148 = false;
 						return this.id;
 					}
 					
@@ -264,7 +264,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("intensity")) 
 					{
-						__temp_executeDef161444 = false;
+						__temp_executeDef165148 = false;
 						return this.intensity;
 					}
 					
@@ -276,7 +276,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef161444 = false;
+						__temp_executeDef165148 = false;
 						return this.name;
 					}
 					
@@ -288,7 +288,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef161444 = false;
+						__temp_executeDef165148 = false;
 						return this.radius;
 					}
 					
@@ -300,7 +300,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef161444 = false;
+						__temp_executeDef165148 = false;
 						return this.type;
 					}
 					
@@ -312,7 +312,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("color")) 
 					{
-						__temp_executeDef161444 = false;
+						__temp_executeDef165148 = false;
 						return this.color;
 					}
 					
@@ -322,7 +322,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161444) 
+			if (__temp_executeDef165148) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -339,14 +339,14 @@ public  class ColladaLight extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161445 = true;
+			boolean __temp_executeDef165149 = true;
 			switch (field.hashCode())
 			{
 				case 93152010:
 				{
 					if (field.equals("atten")) 
 					{
-						__temp_executeDef161445 = false;
+						__temp_executeDef165149 = false;
 						return this.atten;
 					}
 					
@@ -358,7 +358,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef161445 = false;
+						__temp_executeDef165149 = false;
 						return this.radius;
 					}
 					
@@ -370,7 +370,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				{
 					if (field.equals("intensity")) 
 					{
-						__temp_executeDef161445 = false;
+						__temp_executeDef165149 = false;
 						return this.intensity;
 					}
 					
@@ -380,7 +380,7 @@ public  class ColladaLight extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161445) 
+			if (__temp_executeDef165149) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

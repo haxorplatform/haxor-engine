@@ -156,7 +156,7 @@ class HTMLInputHandler extends InputHandler
 			case "mousedown":   				
 				OnMouseButton(me.button,true);				
 			case "keyup":		OnKey(ke.keyCode, false);
-			case "keydown": 	OnKey(ke.keyCode, false);
+			case "keydown": 	OnKey(ke.keyCode, true);
 			case "contextmenu":
 			
 		}

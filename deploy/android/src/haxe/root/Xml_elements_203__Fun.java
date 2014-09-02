@@ -4,11 +4,11 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class Xml_elements_203__Fun extends haxe.lang.Function
 {
-	public    Xml_elements_203__Fun(haxe.root.Array<java.lang.Object> cur, haxe.root.Array<haxe.root.Array> x)
+	public    Xml_elements_203__Fun(haxe.root.Array<haxe.root.Array> x, haxe.root.Array<java.lang.Object> cur)
 	{
 		super(0, 0);
-		this.cur = cur;
 		this.x = x;
+		this.cur = cur;
 	}
 	
 	
@@ -32,9 +32,9 @@ public  class Xml_elements_203__Fun extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<java.lang.Object> cur;
-	
 	public  haxe.root.Array<haxe.root.Array> x;
+	
+	public  haxe.root.Array<java.lang.Object> cur;
 	
 }
 

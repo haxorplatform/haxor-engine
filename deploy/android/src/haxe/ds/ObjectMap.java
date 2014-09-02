@@ -18,9 +18,9 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 	}
 	
 	
-	public static  <K_c, V_c> void __hx_ctor_haxe_ds_ObjectMap(haxe.ds.ObjectMap<K_c, V_c> __temp_me160399)
+	public static  <K_c, V_c> void __hx_ctor_haxe_ds_ObjectMap(haxe.ds.ObjectMap<K_c, V_c> __temp_me164142)
 	{
-		__temp_me160399.cachedIndex = -1;
+		__temp_me164142.cachedIndex = -1;
 	}
 	
 	
@@ -123,20 +123,20 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				int flag = 0;
 				do 
 				{
-					boolean __temp_stmt160865 = false;
+					boolean __temp_stmt164563 = false;
 					{
 						int v = flag = hashes1[i];
-						__temp_stmt160865 = ( (( v & -2 )) == 0 );
+						__temp_stmt164563 = ( (( v & -2 )) == 0 );
 					}
 					
-					boolean __temp_boolv160866 = false;
-					if ( ! (__temp_stmt160865) ) 
+					boolean __temp_boolv164564 = false;
+					if ( ! (__temp_stmt164563) ) 
 					{
-						__temp_boolv160866 = ( ( flag == k ) && keys[i].equals(key) );
+						__temp_boolv164564 = ( ( flag == k ) && keys[i].equals(key) );
 					}
 					
-					boolean __temp_stmt160864 = ( __temp_stmt160865 || __temp_boolv160866 );
-					if ( ! ((__temp_stmt160864)) ) 
+					boolean __temp_stmt164562 = ( __temp_stmt164563 || __temp_boolv164564 );
+					if ( ! ((__temp_stmt164562)) ) 
 					{
 						i = ( ( i +  ++ nProbes ) & mask );
 					}
@@ -222,21 +222,21 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 			int flag = 0;
 			do 
 			{
-				boolean __temp_stmt160870 = false;
+				boolean __temp_stmt164568 = false;
 				{
 					int v = flag = hashes[i];
-					__temp_stmt160870 = ( v == 0 );
+					__temp_stmt164568 = ( v == 0 );
 				}
 				
-				boolean __temp_boolv160869 =  ! (__temp_stmt160870) ;
-				boolean __temp_boolv160868 = false;
-				if (__temp_boolv160869) 
+				boolean __temp_boolv164567 =  ! (__temp_stmt164568) ;
+				boolean __temp_boolv164566 = false;
+				if (__temp_boolv164567) 
 				{
-					__temp_boolv160868 = (( ( ( flag == 1 ) || ( flag != k1 ) ) ||  ! (keys[i].equals(key))  ));
+					__temp_boolv164566 = (( ( ( flag == 1 ) || ( flag != k1 ) ) ||  ! (keys[i].equals(key))  ));
 				}
 				
-				boolean __temp_stmt160867 = ( __temp_boolv160869 && __temp_boolv160868 );
-				if (__temp_stmt160867) 
+				boolean __temp_stmt164565 = ( __temp_boolv164567 && __temp_boolv164566 );
+				if (__temp_stmt164565) 
 				{
 					i = ( ( i +  ++ nProbes ) & mask );
 				}
@@ -326,13 +326,13 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 			while ((  ++ j < nBuckets ))
 			{
 				int k1 = 0;
-				boolean __temp_stmt160871 = false;
+				boolean __temp_stmt164569 = false;
 				{
 					int v1 = k1 = hashes[j];
-					__temp_stmt160871 = ( (( v1 & -2 )) == 0 );
+					__temp_stmt164569 = ( (( v1 & -2 )) == 0 );
 				}
 				
-				if ( ! (__temp_stmt160871) ) 
+				if ( ! (__temp_stmt164569) ) 
 				{
 					K key = _keys[j];
 					V val = vals[j];
@@ -347,21 +347,21 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 						}
 						
 						newHash[i] = k1;
-						boolean __temp_boolv160874 = ( i < nBuckets );
-						boolean __temp_boolv160873 = false;
-						if (__temp_boolv160874) 
+						boolean __temp_boolv164572 = ( i < nBuckets );
+						boolean __temp_boolv164571 = false;
+						if (__temp_boolv164572) 
 						{
-							boolean __temp_stmt160875 = false;
+							boolean __temp_stmt164573 = false;
 							{
 								int v2 = k1 = hashes[i];
-								__temp_stmt160875 = ( (( v2 & -2 )) == 0 );
+								__temp_stmt164573 = ( (( v2 & -2 )) == 0 );
 							}
 							
-							__temp_boolv160873 =  ! (__temp_stmt160875) ;
+							__temp_boolv164571 =  ! (__temp_stmt164573) ;
 						}
 						
-						boolean __temp_stmt160872 = ( __temp_boolv160874 && __temp_boolv160873 );
-						if (__temp_stmt160872) 
+						boolean __temp_stmt164570 = ( __temp_boolv164572 && __temp_boolv164571 );
+						if (__temp_stmt164570) 
 						{
 							{
 								K tmp = _keys[i];
@@ -435,26 +435,6 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 	}
 	
 	
-	public   V getDefault(K key, V def)
-	{
-		int idx = -1;
-		if (( haxe.lang.Runtime.eq(this.cachedKey, key) && ( (idx = this.cachedIndex) != -1 ) )) 
-		{
-			return this.vals[idx];
-		}
-		
-		idx = this.lookup(key);
-		if (( idx != -1 )) 
-		{
-			this.cachedKey = key;
-			this.cachedIndex = idx;
-			return this.vals[idx];
-		}
-		
-		return def;
-	}
-	
-	
 	public   boolean exists(K key)
 	{
 		int idx = -1;
@@ -475,101 +455,31 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 	}
 	
 	
-	public   boolean remove(K key)
-	{
-		int idx = -1;
-		if ( ! ((( haxe.lang.Runtime.eq(this.cachedKey, key) && ( (idx = this.cachedIndex) != -1 ) ))) ) 
-		{
-			idx = this.lookup(key);
-		}
-		
-		if (( idx == -1 )) 
-		{
-			return false;
-		}
-		 else 
-		{
-			if (haxe.lang.Runtime.eq(this.cachedKey, key)) 
-			{
-				this.cachedIndex = -1;
-			}
-			
-			this.hashes[idx] = 1;
-			this._keys[idx] = null;
-			this.vals[idx] = null;
-			 -- this.size;
-			return true;
-		}
-		
-	}
-	
-	
 	public   java.lang.Object keys()
 	{
 		haxe.root.Array<haxe.ds.ObjectMap> _g1 = new haxe.root.Array<haxe.ds.ObjectMap>(new haxe.ds.ObjectMap[]{((haxe.ds.ObjectMap) (this) )});
 		haxe.root.Array<java.lang.Object> i = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{0});
 		haxe.root.Array<java.lang.Object> len = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{this.nBuckets});
 		{
-			haxe.lang.Function __temp_odecl160876 = new haxe.ds.ObjectMap_keys_356__Fun<V, K>(((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (_g1) ), ((haxe.root.Array<java.lang.Object>) (len) ));
-			haxe.lang.Function __temp_odecl160877 = new haxe.ds.ObjectMap_keys_367__Fun<V, K>(((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (_g1) ));
-			return new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"hasNext", "next"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_odecl160876, __temp_odecl160877}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
+			haxe.lang.Function __temp_odecl164574 = new haxe.ds.ObjectMap_keys_356__Fun<V, K>(((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (_g1) ), ((haxe.root.Array<java.lang.Object>) (len) ));
+			haxe.lang.Function __temp_odecl164575 = new haxe.ds.ObjectMap_keys_367__Fun<V, K>(((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (_g1) ));
+			return new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"hasNext", "next"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_odecl164574, __temp_odecl164575}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
 		}
 		
-	}
-	
-	
-	public   java.lang.Object iterator()
-	{
-		haxe.root.Array<haxe.ds.ObjectMap> _g1 = new haxe.root.Array<haxe.ds.ObjectMap>(new haxe.ds.ObjectMap[]{((haxe.ds.ObjectMap) (this) )});
-		haxe.root.Array<java.lang.Object> i = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{0});
-		haxe.root.Array<java.lang.Object> len = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{this.nBuckets});
-		{
-			haxe.lang.Function __temp_odecl160878 = new haxe.ds.ObjectMap_iterator_387__Fun<V, K>(((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<java.lang.Object>) (len) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (_g1) ));
-			haxe.lang.Function __temp_odecl160879 = new haxe.ds.ObjectMap_iterator_398__Fun<K, V>(((haxe.root.Array<java.lang.Object>) (i) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (_g1) ));
-			return new haxe.lang.DynamicObject(new haxe.root.Array<java.lang.String>(new java.lang.String[]{"hasNext", "next"}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_odecl160878, __temp_odecl160879}), new haxe.root.Array<java.lang.String>(new java.lang.String[]{}), new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{}));
-		}
-		
-	}
-	
-	
-	@Override public   java.lang.String toString()
-	{
-		haxe.root.StringBuf s = new haxe.root.StringBuf();
-		s.add("{");
-		java.lang.Object it = this.keys();
-		{
-			java.lang.Object __temp_iterator160725 = it;
-			while (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(__temp_iterator160725, "hasNext", null)))
-			{
-				K i = ((K) (haxe.lang.Runtime.callField(__temp_iterator160725, "next", null)) );
-				s.add(haxe.root.Std.string(i));
-				s.add(" => ");
-				s.add(haxe.root.Std.string(this.get(i)));
-				if (haxe.lang.Runtime.toBool(haxe.lang.Runtime.callField(it, "hasNext", null))) 
-				{
-					s.add(", ");
-				}
-				
-			}
-			
-		}
-		
-		s.add("}");
-		return s.toString();
 	}
 	
 	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160880 = true;
+			boolean __temp_executeDef164576 = true;
 			switch (field.hashCode())
 			{
 				case 1005083856:
 				{
 					if (field.equals("cachedIndex")) 
 					{
-						__temp_executeDef160880 = false;
+						__temp_executeDef164576 = false;
 						this.cachedIndex = ((int) (value) );
 						return value;
 					}
@@ -582,7 +492,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("nBuckets")) 
 					{
-						__temp_executeDef160880 = false;
+						__temp_executeDef164576 = false;
 						this.nBuckets = ((int) (value) );
 						return value;
 					}
@@ -595,7 +505,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("cachedKey")) 
 					{
-						__temp_executeDef160880 = false;
+						__temp_executeDef164576 = false;
 						this.cachedKey = ((K) (((java.lang.Object) (value) )) );
 						return ((double) (haxe.lang.Runtime.toDouble(((java.lang.Object) (value) ))) );
 					}
@@ -608,7 +518,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("size")) 
 					{
-						__temp_executeDef160880 = false;
+						__temp_executeDef164576 = false;
 						this.size = ((int) (value) );
 						return value;
 					}
@@ -621,7 +531,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("upperBound")) 
 					{
-						__temp_executeDef160880 = false;
+						__temp_executeDef164576 = false;
 						this.upperBound = ((int) (value) );
 						return value;
 					}
@@ -634,7 +544,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("nOccupied")) 
 					{
-						__temp_executeDef160880 = false;
+						__temp_executeDef164576 = false;
 						this.nOccupied = ((int) (value) );
 						return value;
 					}
@@ -645,7 +555,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				
 			}
 			
-			if (__temp_executeDef160880) 
+			if (__temp_executeDef164576) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -662,14 +572,14 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160881 = true;
+			boolean __temp_executeDef164577 = true;
 			switch (field.hashCode())
 			{
 				case 1005083856:
 				{
 					if (field.equals("cachedIndex")) 
 					{
-						__temp_executeDef160881 = false;
+						__temp_executeDef164577 = false;
 						this.cachedIndex = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -682,7 +592,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("hashes")) 
 					{
-						__temp_executeDef160881 = false;
+						__temp_executeDef164577 = false;
 						this.hashes = ((int[]) (value) );
 						return value;
 					}
@@ -695,7 +605,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("cachedKey")) 
 					{
-						__temp_executeDef160881 = false;
+						__temp_executeDef164577 = false;
 						this.cachedKey = ((K) (value) );
 						return value;
 					}
@@ -708,7 +618,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("_keys")) 
 					{
-						__temp_executeDef160881 = false;
+						__temp_executeDef164577 = false;
 						this._keys = ((K[]) (value) );
 						return value;
 					}
@@ -721,7 +631,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("upperBound")) 
 					{
-						__temp_executeDef160881 = false;
+						__temp_executeDef164577 = false;
 						this.upperBound = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -734,7 +644,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("vals")) 
 					{
-						__temp_executeDef160881 = false;
+						__temp_executeDef164577 = false;
 						this.vals = ((V[]) (value) );
 						return value;
 					}
@@ -747,7 +657,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("nOccupied")) 
 					{
-						__temp_executeDef160881 = false;
+						__temp_executeDef164577 = false;
 						this.nOccupied = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -760,7 +670,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("nBuckets")) 
 					{
-						__temp_executeDef160881 = false;
+						__temp_executeDef164577 = false;
 						this.nBuckets = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -773,7 +683,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("size")) 
 					{
-						__temp_executeDef160881 = false;
+						__temp_executeDef164577 = false;
 						this.size = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -784,7 +694,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				
 			}
 			
-			if (__temp_executeDef160881) 
+			if (__temp_executeDef164577) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -801,15 +711,15 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160882 = true;
+			boolean __temp_executeDef164578 = true;
 			switch (field.hashCode())
 			{
-				case -1776922004:
+				case 3288564:
 				{
-					if (field.equals("toString")) 
+					if (field.equals("keys")) 
 					{
-						__temp_executeDef160882 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("toString"))) );
+						__temp_executeDef164578 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("keys"))) );
 					}
 					
 					break;
@@ -820,80 +730,8 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("hashes")) 
 					{
-						__temp_executeDef160882 = false;
+						__temp_executeDef164578 = false;
 						return this.hashes;
-					}
-					
-					break;
-				}
-				
-				
-				case 1182533742:
-				{
-					if (field.equals("iterator")) 
-					{
-						__temp_executeDef160882 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("iterator"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 91023059:
-				{
-					if (field.equals("_keys")) 
-					{
-						__temp_executeDef160882 = false;
-						return this._keys;
-					}
-					
-					break;
-				}
-				
-				
-				case 3288564:
-				{
-					if (field.equals("keys")) 
-					{
-						__temp_executeDef160882 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("keys"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 3612018:
-				{
-					if (field.equals("vals")) 
-					{
-						__temp_executeDef160882 = false;
-						return this.vals;
-					}
-					
-					break;
-				}
-				
-				
-				case -934610812:
-				{
-					if (field.equals("remove")) 
-					{
-						__temp_executeDef160882 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("remove"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 325636987:
-				{
-					if (field.equals("nBuckets")) 
-					{
-						__temp_executeDef160882 = false;
-						return this.nBuckets;
 					}
 					
 					break;
@@ -904,7 +742,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("exists")) 
 					{
-						__temp_executeDef160882 = false;
+						__temp_executeDef164578 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("exists"))) );
 					}
 					
@@ -912,36 +750,12 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				}
 				
 				
-				case 3530753:
+				case 91023059:
 				{
-					if (field.equals("size")) 
+					if (field.equals("_keys")) 
 					{
-						__temp_executeDef160882 = false;
-						return this.size;
-					}
-					
-					break;
-				}
-				
-				
-				case -1713303029:
-				{
-					if (field.equals("getDefault")) 
-					{
-						__temp_executeDef160882 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("getDefault"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case -394102484:
-				{
-					if (field.equals("nOccupied")) 
-					{
-						__temp_executeDef160882 = false;
-						return this.nOccupied;
+						__temp_executeDef164578 = false;
+						return this._keys;
 					}
 					
 					break;
@@ -952,7 +766,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("get")) 
 					{
-						__temp_executeDef160882 = false;
+						__temp_executeDef164578 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get"))) );
 					}
 					
@@ -960,12 +774,12 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				}
 				
 				
-				case -1690761732:
+				case 3612018:
 				{
-					if (field.equals("upperBound")) 
+					if (field.equals("vals")) 
 					{
-						__temp_executeDef160882 = false;
-						return this.upperBound;
+						__temp_executeDef164578 = false;
+						return this.vals;
 					}
 					
 					break;
@@ -976,7 +790,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("resize")) 
 					{
-						__temp_executeDef160882 = false;
+						__temp_executeDef164578 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("resize"))) );
 					}
 					
@@ -984,12 +798,12 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				}
 				
 				
-				case -553141795:
+				case 325636987:
 				{
-					if (field.equals("cachedKey")) 
+					if (field.equals("nBuckets")) 
 					{
-						__temp_executeDef160882 = false;
-						return this.cachedKey;
+						__temp_executeDef164578 = false;
+						return this.nBuckets;
 					}
 					
 					break;
@@ -1000,7 +814,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("lookup")) 
 					{
-						__temp_executeDef160882 = false;
+						__temp_executeDef164578 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("lookup"))) );
 					}
 					
@@ -1008,12 +822,12 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				}
 				
 				
-				case 1005083856:
+				case 3530753:
 				{
-					if (field.equals("cachedIndex")) 
+					if (field.equals("size")) 
 					{
-						__temp_executeDef160882 = false;
-						return this.cachedIndex;
+						__temp_executeDef164578 = false;
+						return this.size;
 					}
 					
 					break;
@@ -1024,8 +838,56 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef160882 = false;
+						__temp_executeDef164578 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -394102484:
+				{
+					if (field.equals("nOccupied")) 
+					{
+						__temp_executeDef164578 = false;
+						return this.nOccupied;
+					}
+					
+					break;
+				}
+				
+				
+				case 1005083856:
+				{
+					if (field.equals("cachedIndex")) 
+					{
+						__temp_executeDef164578 = false;
+						return this.cachedIndex;
+					}
+					
+					break;
+				}
+				
+				
+				case -1690761732:
+				{
+					if (field.equals("upperBound")) 
+					{
+						__temp_executeDef164578 = false;
+						return this.upperBound;
+					}
+					
+					break;
+				}
+				
+				
+				case -553141795:
+				{
+					if (field.equals("cachedKey")) 
+					{
+						__temp_executeDef164578 = false;
+						return this.cachedKey;
 					}
 					
 					break;
@@ -1034,7 +896,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				
 			}
 			
-			if (__temp_executeDef160882) 
+			if (__temp_executeDef164578) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -1051,14 +913,14 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160883 = true;
+			boolean __temp_executeDef164579 = true;
 			switch (field.hashCode())
 			{
 				case 1005083856:
 				{
 					if (field.equals("cachedIndex")) 
 					{
-						__temp_executeDef160883 = false;
+						__temp_executeDef164579 = false;
 						return ((double) (this.cachedIndex) );
 					}
 					
@@ -1070,7 +932,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("nBuckets")) 
 					{
-						__temp_executeDef160883 = false;
+						__temp_executeDef164579 = false;
 						return ((double) (this.nBuckets) );
 					}
 					
@@ -1082,7 +944,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("cachedKey")) 
 					{
-						__temp_executeDef160883 = false;
+						__temp_executeDef164579 = false;
 						return ((double) (haxe.lang.Runtime.toDouble(((java.lang.Object) (this.cachedKey) ))) );
 					}
 					
@@ -1094,7 +956,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("size")) 
 					{
-						__temp_executeDef160883 = false;
+						__temp_executeDef164579 = false;
 						return ((double) (this.size) );
 					}
 					
@@ -1106,7 +968,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("upperBound")) 
 					{
-						__temp_executeDef160883 = false;
+						__temp_executeDef164579 = false;
 						return ((double) (this.upperBound) );
 					}
 					
@@ -1118,7 +980,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("nOccupied")) 
 					{
-						__temp_executeDef160883 = false;
+						__temp_executeDef164579 = false;
 						return ((double) (this.nOccupied) );
 					}
 					
@@ -1128,7 +990,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				
 			}
 			
-			if (__temp_executeDef160883) 
+			if (__temp_executeDef164579) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -1145,15 +1007,15 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef160884 = true;
+			boolean __temp_executeDef164580 = true;
 			switch (field.hashCode())
 			{
-				case -1776922004:
+				case 3288564:
 				{
-					if (field.equals("toString")) 
+					if (field.equals("keys")) 
 					{
-						__temp_executeDef160884 = false;
-						return this.toString();
+						__temp_executeDef164580 = false;
+						return this.keys();
 					}
 					
 					break;
@@ -1164,80 +1026,8 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("set")) 
 					{
-						__temp_executeDef160884 = false;
+						__temp_executeDef164580 = false;
 						this.set(((K) (dynargs.__get(0)) ), ((V) (dynargs.__get(1)) ));
-					}
-					
-					break;
-				}
-				
-				
-				case 1182533742:
-				{
-					if (field.equals("iterator")) 
-					{
-						__temp_executeDef160884 = false;
-						return this.iterator();
-					}
-					
-					break;
-				}
-				
-				
-				case -1097094790:
-				{
-					if (field.equals("lookup")) 
-					{
-						__temp_executeDef160884 = false;
-						return this.lookup(((K) (dynargs.__get(0)) ));
-					}
-					
-					break;
-				}
-				
-				
-				case 3288564:
-				{
-					if (field.equals("keys")) 
-					{
-						__temp_executeDef160884 = false;
-						return this.keys();
-					}
-					
-					break;
-				}
-				
-				
-				case -934437708:
-				{
-					if (field.equals("resize")) 
-					{
-						__temp_executeDef160884 = false;
-						this.resize(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
-					}
-					
-					break;
-				}
-				
-				
-				case -934610812:
-				{
-					if (field.equals("remove")) 
-					{
-						__temp_executeDef160884 = false;
-						return this.remove(((K) (dynargs.__get(0)) ));
-					}
-					
-					break;
-				}
-				
-				
-				case 102230:
-				{
-					if (field.equals("get")) 
-					{
-						__temp_executeDef160884 = false;
-						return this.get(((K) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -1248,7 +1038,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				{
 					if (field.equals("exists")) 
 					{
-						__temp_executeDef160884 = false;
+						__temp_executeDef164580 = false;
 						return this.exists(((K) (dynargs.__get(0)) ));
 					}
 					
@@ -1256,12 +1046,36 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				}
 				
 				
-				case -1713303029:
+				case -1097094790:
 				{
-					if (field.equals("getDefault")) 
+					if (field.equals("lookup")) 
 					{
-						__temp_executeDef160884 = false;
-						return this.getDefault(((K) (dynargs.__get(0)) ), ((V) (dynargs.__get(1)) ));
+						__temp_executeDef164580 = false;
+						return this.lookup(((K) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 102230:
+				{
+					if (field.equals("get")) 
+					{
+						__temp_executeDef164580 = false;
+						return this.get(((K) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case -934437708:
+				{
+					if (field.equals("resize")) 
+					{
+						__temp_executeDef164580 = false;
+						this.resize(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -1270,7 +1084,7 @@ public  class ObjectMap<K, V> extends haxe.lang.HxObject implements haxe.root.IM
 				
 			}
 			
-			if (__temp_executeDef160884) 
+			if (__temp_executeDef164580) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

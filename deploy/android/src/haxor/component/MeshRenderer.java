@@ -17,9 +17,9 @@ public  class MeshRenderer extends haxor.component.Renderer
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_MeshRenderer(haxor.component.MeshRenderer __temp_me160436, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_component_MeshRenderer(haxor.component.MeshRenderer __temp_me164173, java.lang.String p_name)
 	{
-		haxor.component.Renderer.__hx_ctor_haxor_component_Renderer(__temp_me160436, p_name);
+		haxor.component.Renderer.__hx_ctor_haxor_component_Renderer(__temp_me164173, p_name);
 	}
 	
 	
@@ -34,6 +34,8 @@ public  class MeshRenderer extends haxor.component.Renderer
 		return new haxor.component.MeshRenderer(haxe.lang.Runtime.toString(arr.__get(0)));
 	}
 	
+	
+	public  int __fcid;
 	
 	
 	
@@ -51,41 +53,235 @@ public  class MeshRenderer extends haxor.component.Renderer
 		}
 		
 		this.m_mesh = v;
+		this.UpdateWorldBounds();
 		return v;
 	}
 	
 	
 	public  haxor.graphics.mesh.Mesh m_mesh;
 	
+	public  haxor.math.Vector3 m_ws_center;
 	
+	public  haxor.math.Vector3 m_ws_radius;
 	
-	public final   boolean get_visible()
-	{
-		return this.IsVisible(haxor.component.Camera.m_main);
-	}
-	
+	public  boolean m_culling_dirty;
 	
 	@Override public   void OnBuild()
 	{
-		super.OnBuild();
 		this.m_has_mesh = true;
+		super.OnBuild();
+		this.m_ws_center = new haxor.math.Vector3(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ));
+		this.m_ws_radius = new haxor.math.Vector3(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ));
+		this.m_culling_dirty = false;
 	}
 	
 	
 	public   boolean IsVisible(haxor.component.Camera p_camera)
 	{
-		if (( p_camera == null )) 
+		haxor.component.Camera c = p_camera;
+		if (( c == null )) 
 		{
 			return false;
 		}
 		
-		return true;
+		if (( this.m_mesh == null )) 
+		{
+			return false;
+		}
+		
+		haxor.math.Vector3 __temp_stmt164726 = null;
+		{
+			haxor.context.DataContext _this = haxor.context.EngineContext.data;
+			__temp_stmt164726 = _this.m_v3.__get(_this.m_nv3 = ( (( _this.m_nv3 + 1 )) % _this.m_v3.length ));
+		}
+		
+		haxor.math.Vector3 __temp_stmt164725 = __temp_stmt164726.Set3(this.m_ws_center);
+		haxor.math.Vector4 __temp_stmt164727 = null;
+		{
+			haxor.context.DataContext _this1 = haxor.context.EngineContext.data;
+			__temp_stmt164727 = _this1.m_v4.__get(_this1.m_nv4 = ( (( _this1.m_nv4 + 1 )) % _this1.m_v4.length ));
+		}
+		
+		haxor.math.Vector4 ps_center = c.WorldToProjection(__temp_stmt164725, __temp_stmt164727);
+		double w = ps_center.w;
+		haxor.math.Vector4 p = ps_center;
+		if (( w <= 0.0 )) 
+		{
+			return false;
+		}
+		
+		if (( p.x >=  - (w)  )) 
+		{
+			if (( p.x <= w )) 
+			{
+				if (( p.y >=  - (w)  )) 
+				{
+					if (( p.y <= w )) 
+					{
+						if (( p.z >=  - (w)  )) 
+						{
+							if (( p.z <= w )) 
+							{
+								return true;
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+		haxor.math.Vector3 __temp_stmt164729 = null;
+		{
+			haxor.context.DataContext _this2 = haxor.context.EngineContext.data;
+			__temp_stmt164729 = _this2.m_v3.__get(_this2.m_nv3 = ( (( _this2.m_nv3 + 1 )) % _this2.m_v3.length ));
+		}
+		
+		haxor.math.Vector3 __temp_stmt164728 = __temp_stmt164729.Set3(this.m_ws_radius);
+		haxor.math.Vector4 __temp_stmt164730 = null;
+		{
+			haxor.context.DataContext _this3 = haxor.context.EngineContext.data;
+			__temp_stmt164730 = _this3.m_v4.__get(_this3.m_nv4 = ( (( _this3.m_nv4 + 1 )) % _this3.m_v4.length ));
+		}
+		
+		haxor.math.Vector4 v = c.WorldToProjection(__temp_stmt164728, __temp_stmt164730);
+		double r = java.lang.Math.sqrt(( ( ( ( v.x * v.x ) + ( v.y * v.y ) ) + ( v.z * v.z ) ) + ( v.w * v.w ) ));
+		if (( ( p.x + r ) >=  - (w)  )) 
+		{
+			if (( ( p.x - r ) <= w )) 
+			{
+				if (( ( p.y + r ) >=  - (w)  )) 
+				{
+					if (( ( p.y - r ) <= w )) 
+					{
+						if (( ( p.z + r ) >=  - (w)  )) 
+						{
+							if (( ( p.z - r ) <= w )) 
+							{
+								return true;
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+		return false;
 	}
 	
 	
-	public   boolean CheckCulling()
+	@Override public   boolean CheckCulling()
 	{
-		return true;
+		haxor.component.Camera c = haxor.component.Camera.m_current;
+		if (( c == null )) 
+		{
+			return this.m_culled;
+		}
+		
+		this.UpdateWorldBounds();
+		return  ! (this.IsVisible(c)) ;
+	}
+	
+	
+	@Override public   void OnTransformUpdate()
+	{
+		this.m_culling_dirty = true;
+	}
+	
+	
+	public   void UpdateWorldBounds()
+	{
+		if (( this.m_mesh != null )) 
+		{
+			haxor.math.AABB3.Center(this.m_mesh.m_bounds, this.m_ws_center);
+			{
+				haxor.math.Matrix4 _this = this.m_entity.m_transform.get_WorldMatrix();
+				haxor.math.Vector3 p_point = this.m_ws_center;
+				double vx = ( ( ( ( _this.m00 * p_point.x ) + ( _this.m01 * p_point.y ) ) + ( _this.m02 * p_point.z ) ) + _this.m03 );
+				double vy = ( ( ( ( _this.m10 * p_point.x ) + ( _this.m11 * p_point.y ) ) + ( _this.m12 * p_point.z ) ) + _this.m13 );
+				double vz = ( ( ( ( _this.m20 * p_point.x ) + ( _this.m21 * p_point.y ) ) + ( _this.m22 * p_point.z ) ) + _this.m23 );
+				p_point.x = vx;
+				p_point.y = vy;
+				p_point.z = vz;
+				haxor.math.Vector3 __temp_expr164731 = p_point;
+			}
+			
+			double __temp_stmt164732 = 0.0;
+			{
+				haxor.math.AABB3 _this1 = this.m_mesh.m_bounds;
+				{
+					double p_a = ( _this1.m_xMax - _this1.m_xMin );
+					__temp_stmt164732 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+				}
+				
+			}
+			
+			double __temp_stmt164733 = 0.0;
+			{
+				haxor.math.AABB3 _this2 = this.m_mesh.m_bounds;
+				{
+					double p_a1 = ( _this2.m_yMax - _this2.m_yMin );
+					__temp_stmt164733 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
+				}
+				
+			}
+			
+			double __temp_stmt164734 = 0.0;
+			{
+				haxor.math.AABB3 _this3 = this.m_mesh.m_bounds;
+				{
+					double p_a2 = ( _this3.m_zMax - _this3.m_zMin );
+					__temp_stmt164734 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
+				}
+				
+			}
+			
+			this.m_ws_radius.Set(__temp_stmt164732, __temp_stmt164733, __temp_stmt164734);
+			{
+				haxor.math.Matrix4 _this4 = this.m_entity.m_transform.get_WorldMatrix();
+				haxor.math.Vector3 p_point1 = this.m_ws_radius;
+				double vx1 = ( ( ( _this4.m00 * p_point1.x ) + ( _this4.m01 * p_point1.y ) ) + ( _this4.m02 * p_point1.z ) );
+				double vy1 = ( ( ( _this4.m10 * p_point1.x ) + ( _this4.m11 * p_point1.y ) ) + ( _this4.m12 * p_point1.z ) );
+				double vz1 = ( ( ( _this4.m20 * p_point1.x ) + ( _this4.m21 * p_point1.y ) ) + ( _this4.m22 * p_point1.z ) );
+				p_point1.x = vx1;
+				p_point1.y = vy1;
+				p_point1.z = vz1;
+				haxor.math.Vector3 __temp_expr164735 = p_point1;
+			}
+			
+			double r = 0.0;
+			{
+				haxor.math.Vector3 _this5 = this.m_ws_radius;
+				r = java.lang.Math.sqrt(( ( ( _this5.x * _this5.x ) + ( _this5.y * _this5.y ) ) + ( _this5.z * _this5.z ) ));
+			}
+			
+			haxor.math.Vector3 pmin = null;
+			{
+				haxor.context.DataContext _this6 = haxor.context.EngineContext.data;
+				pmin = _this6.m_v3.__get(_this6.m_nv3 = ( (( _this6.m_nv3 + 1 )) % _this6.m_v3.length ));
+			}
+			
+			haxor.math.Vector3 pmax = null;
+			{
+				haxor.context.DataContext _this7 = haxor.context.EngineContext.data;
+				pmax = _this7.m_v3.__get(_this7.m_nv3 = ( (( _this7.m_nv3 + 1 )) % _this7.m_v3.length ));
+			}
+			
+			pmin.Set(( this.m_ws_center.x - r ), ( this.m_ws_center.y - r ), ( this.m_ws_center.z - r ));
+			pmax.Set(( this.m_ws_center.x + r ), ( this.m_ws_center.y + r ), ( this.m_ws_center.z + r ));
+			haxor.context.EngineContext.renderer.UpdateSAP(this.__fcid, this, pmin, pmax);
+			this.m_culling_dirty = false;
+		}
+		
 	}
 	
 	
@@ -101,18 +297,79 @@ public  class MeshRenderer extends haxor.component.Renderer
 	}
 	
 	
+	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
+	{
+		{
+			boolean __temp_executeDef164736 = true;
+			switch (field.hashCode())
+			{
+				case -1484326280:
+				{
+					if (field.equals("__fcid")) 
+					{
+						__temp_executeDef164736 = false;
+						this.__fcid = ((int) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+			}
+			
+			if (__temp_executeDef164736) 
+			{
+				return super.__hx_setField_f(field, value, handleProperties);
+			}
+			 else 
+			{
+				throw null;
+			}
+			
+		}
+		
+	}
+	
+	
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161088 = true;
+			boolean __temp_executeDef164737 = true;
 			switch (field.hashCode())
 			{
-				case -1083307393:
+				case 391182257:
 				{
-					if (field.equals("m_mesh")) 
+					if (field.equals("m_culling_dirty")) 
 					{
-						__temp_executeDef161088 = false;
-						this.m_mesh = ((haxor.graphics.mesh.Mesh) (value) );
+						__temp_executeDef164737 = false;
+						this.m_culling_dirty = haxe.lang.Runtime.toBool(value);
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -1484326280:
+				{
+					if (field.equals("__fcid")) 
+					{
+						__temp_executeDef164737 = false;
+						this.__fcid = ((int) (haxe.lang.Runtime.toInt(value)) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 202785283:
+				{
+					if (field.equals("m_ws_radius")) 
+					{
+						__temp_executeDef164737 = false;
+						this.m_ws_radius = ((haxor.math.Vector3) (value) );
 						return value;
 					}
 					
@@ -124,8 +381,34 @@ public  class MeshRenderer extends haxor.component.Renderer
 				{
 					if (field.equals("mesh")) 
 					{
-						__temp_executeDef161088 = false;
+						__temp_executeDef164737 = false;
 						this.set_mesh(((haxor.graphics.mesh.Mesh) (value) ));
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -222649914:
+				{
+					if (field.equals("m_ws_center")) 
+					{
+						__temp_executeDef164737 = false;
+						this.m_ws_center = ((haxor.math.Vector3) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -1083307393:
+				{
+					if (field.equals("m_mesh")) 
+					{
+						__temp_executeDef164737 = false;
+						this.m_mesh = ((haxor.graphics.mesh.Mesh) (value) );
 						return value;
 					}
 					
@@ -135,7 +418,7 @@ public  class MeshRenderer extends haxor.component.Renderer
 				
 			}
 			
-			if (__temp_executeDef161088) 
+			if (__temp_executeDef164737) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -152,15 +435,39 @@ public  class MeshRenderer extends haxor.component.Renderer
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161089 = true;
+			boolean __temp_executeDef164738 = true;
 			switch (field.hashCode())
 			{
 				case 1528462453:
 				{
 					if (field.equals("OnRender")) 
 					{
-						__temp_executeDef161089 = false;
+						__temp_executeDef164738 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnRender"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1484326280:
+				{
+					if (field.equals("__fcid")) 
+					{
+						__temp_executeDef164738 = false;
+						return this.__fcid;
+					}
+					
+					break;
+				}
+				
+				
+				case -1017704386:
+				{
+					if (field.equals("UpdateWorldBounds")) 
+					{
+						__temp_executeDef164738 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateWorldBounds"))) );
 					}
 					
 					break;
@@ -171,7 +478,7 @@ public  class MeshRenderer extends haxor.component.Renderer
 				{
 					if (field.equals("mesh")) 
 					{
-						__temp_executeDef161089 = false;
+						__temp_executeDef164738 = false;
 						return this.get_mesh();
 					}
 					
@@ -179,12 +486,12 @@ public  class MeshRenderer extends haxor.component.Renderer
 				}
 				
 				
-				case 1224889128:
+				case 1899224918:
 				{
-					if (field.equals("CheckCulling")) 
+					if (field.equals("OnTransformUpdate")) 
 					{
-						__temp_executeDef161089 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CheckCulling"))) );
+						__temp_executeDef164738 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTransformUpdate"))) );
 					}
 					
 					break;
@@ -195,7 +502,7 @@ public  class MeshRenderer extends haxor.component.Renderer
 				{
 					if (field.equals("get_mesh")) 
 					{
-						__temp_executeDef161089 = false;
+						__temp_executeDef164738 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_mesh"))) );
 					}
 					
@@ -203,12 +510,12 @@ public  class MeshRenderer extends haxor.component.Renderer
 				}
 				
 				
-				case 1890932680:
+				case 1224889128:
 				{
-					if (field.equals("IsVisible")) 
+					if (field.equals("CheckCulling")) 
 					{
-						__temp_executeDef161089 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("IsVisible"))) );
+						__temp_executeDef164738 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CheckCulling"))) );
 					}
 					
 					break;
@@ -219,7 +526,7 @@ public  class MeshRenderer extends haxor.component.Renderer
 				{
 					if (field.equals("set_mesh")) 
 					{
-						__temp_executeDef161089 = false;
+						__temp_executeDef164738 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_mesh"))) );
 					}
 					
@@ -227,12 +534,12 @@ public  class MeshRenderer extends haxor.component.Renderer
 				}
 				
 				
-				case 312095663:
+				case 1890932680:
 				{
-					if (field.equals("OnBuild")) 
+					if (field.equals("IsVisible")) 
 					{
-						__temp_executeDef161089 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
+						__temp_executeDef164738 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("IsVisible"))) );
 					}
 					
 					break;
@@ -243,7 +550,7 @@ public  class MeshRenderer extends haxor.component.Renderer
 				{
 					if (field.equals("m_mesh")) 
 					{
-						__temp_executeDef161089 = false;
+						__temp_executeDef164738 = false;
 						return this.m_mesh;
 					}
 					
@@ -251,24 +558,48 @@ public  class MeshRenderer extends haxor.component.Renderer
 				}
 				
 				
-				case 543256713:
+				case 312095663:
 				{
-					if (field.equals("get_visible")) 
+					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef161089 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_visible"))) );
+						__temp_executeDef164738 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
 					}
 					
 					break;
 				}
 				
 				
-				case 466743410:
+				case -222649914:
 				{
-					if (field.equals("visible")) 
+					if (field.equals("m_ws_center")) 
 					{
-						__temp_executeDef161089 = false;
-						return this.get_visible();
+						__temp_executeDef164738 = false;
+						return this.m_ws_center;
+					}
+					
+					break;
+				}
+				
+				
+				case 391182257:
+				{
+					if (field.equals("m_culling_dirty")) 
+					{
+						__temp_executeDef164738 = false;
+						return this.m_culling_dirty;
+					}
+					
+					break;
+				}
+				
+				
+				case 202785283:
+				{
+					if (field.equals("m_ws_radius")) 
+					{
+						__temp_executeDef164738 = false;
+						return this.m_ws_radius;
 					}
 					
 					break;
@@ -277,9 +608,43 @@ public  class MeshRenderer extends haxor.component.Renderer
 				
 			}
 			
-			if (__temp_executeDef161089) 
+			if (__temp_executeDef164738) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
+			}
+			 else 
+			{
+				throw null;
+			}
+			
+		}
+		
+	}
+	
+	
+	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
+	{
+		{
+			boolean __temp_executeDef164739 = true;
+			switch (field.hashCode())
+			{
+				case -1484326280:
+				{
+					if (field.equals("__fcid")) 
+					{
+						__temp_executeDef164739 = false;
+						return ((double) (this.__fcid) );
+					}
+					
+					break;
+				}
+				
+				
+			}
+			
+			if (__temp_executeDef164739) 
+			{
+				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
 			 else 
 			{
@@ -294,15 +659,15 @@ public  class MeshRenderer extends haxor.component.Renderer
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash161091 = field.hashCode();
-			boolean __temp_executeDef161090 = true;
-			switch (__temp_hash161091)
+			int __temp_hash164741 = field.hashCode();
+			boolean __temp_executeDef164740 = true;
+			switch (__temp_hash164741)
 			{
-				case 1528462453:case 312095663:
+				case 1528462453:case 1899224918:case 1224889128:case 312095663:
 				{
-					if (( (( ( __temp_hash161091 == 1528462453 ) && field.equals("OnRender") )) || field.equals("OnBuild") )) 
+					if (( (( ( __temp_hash164741 == 1528462453 ) && field.equals("OnRender") )) || ( (( ( __temp_hash164741 == 1899224918 ) && field.equals("OnTransformUpdate") )) || ( (( ( __temp_hash164741 == 1224889128 ) && field.equals("CheckCulling") )) || field.equals("OnBuild") ) ) )) 
 					{
-						__temp_executeDef161090 = false;
+						__temp_executeDef164740 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -314,7 +679,7 @@ public  class MeshRenderer extends haxor.component.Renderer
 				{
 					if (field.equals("get_mesh")) 
 					{
-						__temp_executeDef161090 = false;
+						__temp_executeDef164740 = false;
 						return this.get_mesh();
 					}
 					
@@ -322,12 +687,12 @@ public  class MeshRenderer extends haxor.component.Renderer
 				}
 				
 				
-				case 1224889128:
+				case -1017704386:
 				{
-					if (field.equals("CheckCulling")) 
+					if (field.equals("UpdateWorldBounds")) 
 					{
-						__temp_executeDef161090 = false;
-						return this.CheckCulling();
+						__temp_executeDef164740 = false;
+						this.UpdateWorldBounds();
 					}
 					
 					break;
@@ -338,7 +703,7 @@ public  class MeshRenderer extends haxor.component.Renderer
 				{
 					if (field.equals("set_mesh")) 
 					{
-						__temp_executeDef161090 = false;
+						__temp_executeDef164740 = false;
 						return this.set_mesh(((haxor.graphics.mesh.Mesh) (dynargs.__get(0)) ));
 					}
 					
@@ -350,7 +715,7 @@ public  class MeshRenderer extends haxor.component.Renderer
 				{
 					if (field.equals("IsVisible")) 
 					{
-						__temp_executeDef161090 = false;
+						__temp_executeDef164740 = false;
 						return this.IsVisible(((haxor.component.Camera) (dynargs.__get(0)) ));
 					}
 					
@@ -358,39 +723,27 @@ public  class MeshRenderer extends haxor.component.Renderer
 				}
 				
 				
-				case 543256713:
-				{
-					if (field.equals("get_visible")) 
-					{
-						__temp_executeDef161090 = false;
-						return this.get_visible();
-					}
-					
-					break;
-				}
-				
-				
 			}
 			
-			if (__temp_executeDef161090) 
+			if (__temp_executeDef164740) 
 			{
 				return super.__hx_invokeField(field, dynargs);
-			}
-			 else 
-			{
-				throw null;
 			}
 			
 		}
 		
+		return null;
 	}
 	
 	
 	@Override public   void __hx_getFields(haxe.root.Array<java.lang.String> baseArr)
 	{
-		baseArr.push("visible");
+		baseArr.push("m_culling_dirty");
+		baseArr.push("m_ws_radius");
+		baseArr.push("m_ws_center");
 		baseArr.push("m_mesh");
 		baseArr.push("mesh");
+		baseArr.push("__fcid");
 		{
 			super.__hx_getFields(baseArr);
 		}

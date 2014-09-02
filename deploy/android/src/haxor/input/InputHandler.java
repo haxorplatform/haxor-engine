@@ -18,7 +18,7 @@ public  class InputHandler extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_input_InputHandler(haxor.input.InputHandler __temp_me160541)
+	public static   void __hx_ctor_haxor_input_InputHandler(haxor.input.InputHandler __temp_me164290)
 	{
 		{
 		}
@@ -140,10 +140,10 @@ public  class InputHandler extends haxe.lang.HxObject
 	
 	public   void OnTouchStart(int p_id, double p_x, double p_y, java.lang.Object p_rx, java.lang.Object p_ry, java.lang.Object p_pressure, java.lang.Object p_angle)
 	{
-		double __temp_p_angle160540 = ( (( p_angle == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_angle)) )) );
-		double __temp_p_pressure160539 = ( (( p_pressure == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_pressure)) )) );
-		double __temp_p_ry160538 = ( (( p_ry == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_ry)) )) );
-		double __temp_p_rx160537 = ( (( p_rx == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_rx)) )) );
+		double __temp_p_angle164289 = ( (( p_angle == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_angle)) )) );
+		double __temp_p_pressure164288 = ( (( p_pressure == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_pressure)) )) );
+		double __temp_p_ry164287 = ( (( p_ry == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_ry)) )) );
+		double __temp_p_rx164286 = ( (( p_rx == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_rx)) )) );
 		haxor.input.Touch t = haxor.input.Input.m_api_touches.__get(p_id);
 		t.id = p_id;
 		t.position.x = p_x;
@@ -152,10 +152,10 @@ public  class InputHandler extends haxe.lang.HxObject
 		t.relativePosition.y = ( t.position.y / haxor.graphics.Screen.m_height );
 		t.delta.x = 0.0;
 		t.delta.y = 0.0;
-		t.pressure = __temp_p_pressure160539;
-		t.radius.x = __temp_p_rx160537;
-		t.radius.y = __temp_p_ry160538;
-		t.angle = __temp_p_angle160540;
+		t.pressure = __temp_p_pressure164288;
+		t.radius.x = __temp_p_rx164286;
+		t.radius.y = __temp_p_ry164287;
+		t.angle = __temp_p_angle164289;
 		t.m_down = true;
 		if (( haxor.input.Input.m_touches.indexOf(t, null) < 0 )) 
 		{
@@ -230,8 +230,8 @@ public  class InputHandler extends haxe.lang.HxObject
 			this.m_joystick.state.__set(p_code, haxor.input.Input.InputStateFSM(this.m_joystick.state.__get(p_code), ( ((double) (haxe.lang.Runtime.toDouble(this.m_joystick.button.__get(p_code))) ) >= haxor.input.Joystick.buttonBias )));
 			if (( this.m_joystick.state.__get(p_code) == haxor.core.InputState.Hold )) 
 			{
-				haxe.root.Array<java.lang.Object> __temp_array160736 = this.m_joystick.hold;
-				__temp_array160736.__set(p_code, ( ((double) (haxe.lang.Runtime.toDouble(__temp_array160736.__get(p_code))) ) + haxor.core.Time.m_delta ));
+				haxe.root.Array<java.lang.Object> __temp_array164475 = this.m_joystick.hold;
+				__temp_array164475.__set(p_code, ( ((double) (haxe.lang.Runtime.toDouble(__temp_array164475.__get(p_code))) ) + haxor.core.Time.m_delta ));
 			}
 			
 			if (( this.m_joystick.state.__get(p_code) == haxor.core.InputState.None )) 
@@ -273,13 +273,13 @@ public  class InputHandler extends haxe.lang.HxObject
 		
 		{
 			double p_v = 0.0;
-			double __temp_stmt161302 = 0.0;
+			double __temp_stmt165006 = 0.0;
 			{
 				double p_a = v.x;
-				__temp_stmt161302 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+				__temp_stmt165006 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 			}
 			
-			p_v = ( (( __temp_stmt161302 - b0 )) / (( b1 - b0 )) );
+			p_v = ( (( __temp_stmt165006 - b0 )) / (( b1 - b0 )) );
 			if (( p_v <= 0.0 )) 
 			{
 				v.x = 0.0;
@@ -312,13 +312,13 @@ public  class InputHandler extends haxe.lang.HxObject
 		
 		{
 			double p_v1 = 0.0;
-			double __temp_stmt161303 = 0.0;
+			double __temp_stmt165007 = 0.0;
 			{
 				double p_a1 = v.y;
-				__temp_stmt161303 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
+				__temp_stmt165007 = ( (( p_a1 < 0 )) ? ( - (p_a1) ) : (p_a1) );
 			}
 			
-			p_v1 = ( (( __temp_stmt161303 - b0 )) / (( b1 - b0 )) );
+			p_v1 = ( (( __temp_stmt165007 - b0 )) / (( b1 - b0 )) );
 			if (( p_v1 <= 0.0 )) 
 			{
 				v.y = 0.0;
@@ -361,13 +361,13 @@ public  class InputHandler extends haxe.lang.HxObject
 		
 		{
 			double p_v2 = 0.0;
-			double __temp_stmt161304 = 0.0;
+			double __temp_stmt165008 = 0.0;
 			{
 				double p_a2 = v.x;
-				__temp_stmt161304 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
+				__temp_stmt165008 = ( (( p_a2 < 0 )) ? ( - (p_a2) ) : (p_a2) );
 			}
 			
-			p_v2 = ( (( __temp_stmt161304 - b0 )) / (( b1 - b0 )) );
+			p_v2 = ( (( __temp_stmt165008 - b0 )) / (( b1 - b0 )) );
 			if (( p_v2 <= 0.0 )) 
 			{
 				v.x = 0.0;
@@ -400,13 +400,13 @@ public  class InputHandler extends haxe.lang.HxObject
 		
 		{
 			double p_v3 = 0.0;
-			double __temp_stmt161305 = 0.0;
+			double __temp_stmt165009 = 0.0;
 			{
 				double p_a3 = v.y;
-				__temp_stmt161305 = ( (( p_a3 < 0 )) ? ( - (p_a3) ) : (p_a3) );
+				__temp_stmt165009 = ( (( p_a3 < 0 )) ? ( - (p_a3) ) : (p_a3) );
 			}
 			
-			p_v3 = ( (( __temp_stmt161305 - b0 )) / (( b1 - b0 )) );
+			p_v3 = ( (( __temp_stmt165009 - b0 )) / (( b1 - b0 )) );
 			if (( p_v3 <= 0.0 )) 
 			{
 				v.y = 0.0;
@@ -533,13 +533,13 @@ public  class InputHandler extends haxe.lang.HxObject
 		{
 			if (haxor.input.Input.Pressed(p_code)) 
 			{
-				double __temp_stmt161306 = 0.0;
+				double __temp_stmt165010 = 0.0;
 				{
 					haxor.math.Vector2 _this1 = haxor.input.Input.deltaMouse;
-					__temp_stmt161306 = java.lang.Math.sqrt(( ( _this1.x * _this1.x ) + ( _this1.y * _this1.y ) ));
+					__temp_stmt165010 = java.lang.Math.sqrt(( ( _this1.x * _this1.x ) + ( _this1.y * _this1.y ) ));
 				}
 				
-				if (( __temp_stmt161306 > 0 )) 
+				if (( __temp_stmt165010 > 0 )) 
 				{
 					this.OnTouchMove(p_id, haxor.input.Input.mouse.x, haxor.input.Input.mouse.y);
 				}
@@ -559,14 +559,14 @@ public  class InputHandler extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161307 = true;
+			boolean __temp_executeDef165011 = true;
 			switch (field.hashCode())
 			{
 				case -792730418:
 				{
 					if (field.equals("m_joystick")) 
 					{
-						__temp_executeDef161307 = false;
+						__temp_executeDef165011 = false;
 						this.m_joystick = ((haxor.input.Joystick) (value) );
 						return value;
 					}
@@ -577,7 +577,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161307) 
+			if (__temp_executeDef165011) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -594,14 +594,14 @@ public  class InputHandler extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161308 = true;
+			boolean __temp_executeDef165012 = true;
 			switch (field.hashCode())
 			{
 				case -1333561812:
 				{
 					if (field.equals("EmulateTouch")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("EmulateTouch"))) );
 					}
 					
@@ -613,7 +613,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("m_joystick")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return this.m_joystick;
 					}
 					
@@ -625,7 +625,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("RequestJoystickVibration")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("RequestJoystickVibration"))) );
 					}
 					
@@ -637,7 +637,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("Update")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Update"))) );
 					}
 					
@@ -649,7 +649,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnJoystickAnalogUpdate")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnJoystickAnalogUpdate"))) );
 					}
 					
@@ -661,7 +661,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateInput")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateInput"))) );
 					}
 					
@@ -673,7 +673,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnJoystickDataUpdate")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnJoystickDataUpdate"))) );
 					}
 					
@@ -685,7 +685,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("Clear")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Clear"))) );
 					}
 					
@@ -697,7 +697,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnJoystickStart")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnJoystickStart"))) );
 					}
 					
@@ -709,7 +709,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseMove")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnMouseMove"))) );
 					}
 					
@@ -721,7 +721,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnTouchEnd")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchEnd"))) );
 					}
 					
@@ -733,7 +733,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseWheel")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnMouseWheel"))) );
 					}
 					
@@ -745,7 +745,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnTouchCancel")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchCancel"))) );
 					}
 					
@@ -757,7 +757,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseButton")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnMouseButton"))) );
 					}
 					
@@ -769,7 +769,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnTouchMove")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchMove"))) );
 					}
 					
@@ -781,7 +781,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnKey")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnKey"))) );
 					}
 					
@@ -793,7 +793,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnTouchStart")) 
 					{
-						__temp_executeDef161308 = false;
+						__temp_executeDef165012 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchStart"))) );
 					}
 					
@@ -803,7 +803,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161308) 
+			if (__temp_executeDef165012) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -820,14 +820,14 @@ public  class InputHandler extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef161309 = true;
+			boolean __temp_executeDef165013 = true;
 			switch (field.hashCode())
 			{
 				case -1333561812:
 				{
 					if (field.equals("EmulateTouch")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.EmulateTouch(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -839,7 +839,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("Update")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.Update();
 					}
 					
@@ -851,7 +851,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("RequestJoystickVibration")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.RequestJoystickVibration(((haxor.input.Joystick) (dynargs.__get(0)) ));
 					}
 					
@@ -863,7 +863,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("UpdateInput")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.UpdateInput();
 					}
 					
@@ -875,7 +875,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnJoystickAnalogUpdate")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnJoystickAnalogUpdate();
 					}
 					
@@ -887,7 +887,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("Clear")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.Clear();
 					}
 					
@@ -899,7 +899,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnJoystickDataUpdate")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnJoystickDataUpdate(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), haxe.lang.Runtime.toBool(dynargs.__get(2)));
 					}
 					
@@ -911,7 +911,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseMove")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnMouseMove(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -923,7 +923,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnJoystickStart")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnJoystickStart(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toString(dynargs.__get(1)));
 					}
 					
@@ -935,7 +935,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseWheel")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnMouseWheel(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -947,7 +947,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnTouchEnd")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnTouchEnd(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -959,7 +959,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnMouseButton")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnMouseButton(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toBool(dynargs.__get(1)));
 					}
 					
@@ -971,7 +971,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnTouchCancel")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnTouchCancel(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -983,7 +983,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnKey")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnKey(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), haxe.lang.Runtime.toBool(dynargs.__get(1)));
 					}
 					
@@ -995,7 +995,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnTouchMove")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnTouchMove(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ));
 					}
 					
@@ -1007,7 +1007,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				{
 					if (field.equals("OnTouchStart")) 
 					{
-						__temp_executeDef161309 = false;
+						__temp_executeDef165013 = false;
 						this.OnTouchStart(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(2))) ), dynargs.__get(3), dynargs.__get(4), dynargs.__get(5), dynargs.__get(6));
 					}
 					
@@ -1017,7 +1017,7 @@ public  class InputHandler extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161309) 
+			if (__temp_executeDef165013) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

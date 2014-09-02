@@ -18,7 +18,7 @@ public  class BaseCode extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_crypto_BaseCode(haxe.crypto.BaseCode __temp_me160391, haxe.io.Bytes base)
+	public static   void __hx_ctor_haxe_crypto_BaseCode(haxe.crypto.BaseCode __temp_me164140, haxe.io.Bytes base)
 	{
 		int len = base.length;
 		int nbits = 1;
@@ -32,22 +32,8 @@ public  class BaseCode extends haxe.lang.HxObject
 			throw haxe.lang.HaxeException.wrap("BaseCode : base length must be a power of two.");
 		}
 		
-		__temp_me160391.base = base;
-		__temp_me160391.nbits = nbits;
-	}
-	
-	
-	public static   java.lang.String encode(java.lang.String s, java.lang.String base)
-	{
-		haxe.crypto.BaseCode b = new haxe.crypto.BaseCode(((haxe.io.Bytes) (haxe.io.Bytes.ofString(base)) ));
-		return b.encodeString(s);
-	}
-	
-	
-	public static   java.lang.String decode(java.lang.String s, java.lang.String base)
-	{
-		haxe.crypto.BaseCode b = new haxe.crypto.BaseCode(((haxe.io.Bytes) (haxe.io.Bytes.ofString(base)) ));
-		return b.decodeString(s);
+		__temp_me164140.base = base;
+		__temp_me164140.nbits = nbits;
 	}
 	
 	
@@ -161,14 +147,14 @@ public  class BaseCode extends haxe.lang.HxObject
 			{
 				curbits += nbits;
 				buf <<= nbits;
-				int __temp_stmt160828 = 0;
+				int __temp_stmt164551 = 0;
 				{
 					int pos = pin++;
-					__temp_stmt160828 = ( b.b[pos] & 255 );
+					__temp_stmt164551 = ( b.b[pos] & 255 );
 				}
 				
-				java.lang.Object __temp_stmt160827 = tbl.__get(__temp_stmt160828);
-				int i = ((int) (haxe.lang.Runtime.toInt(__temp_stmt160827)) );
+				java.lang.Object __temp_stmt164550 = tbl.__get(__temp_stmt164551);
+				int i = ((int) (haxe.lang.Runtime.toInt(__temp_stmt164550)) );
 				if (( i == -1 )) 
 				{
 					throw haxe.lang.HaxeException.wrap("BaseCode : invalid encoded char");
@@ -189,29 +175,17 @@ public  class BaseCode extends haxe.lang.HxObject
 	}
 	
 	
-	public   java.lang.String encodeString(java.lang.String s)
-	{
-		return this.encodeBytes(haxe.io.Bytes.ofString(s)).toString();
-	}
-	
-	
-	public   java.lang.String decodeString(java.lang.String s)
-	{
-		return this.decodeBytes(haxe.io.Bytes.ofString(s)).toString();
-	}
-	
-	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160829 = true;
+			boolean __temp_executeDef164552 = true;
 			switch (field.hashCode())
 			{
 				case 104611444:
 				{
 					if (field.equals("nbits")) 
 					{
-						__temp_executeDef160829 = false;
+						__temp_executeDef164552 = false;
 						this.nbits = ((int) (value) );
 						return value;
 					}
@@ -222,7 +196,7 @@ public  class BaseCode extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160829) 
+			if (__temp_executeDef164552) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -239,14 +213,14 @@ public  class BaseCode extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160830 = true;
+			boolean __temp_executeDef164553 = true;
 			switch (field.hashCode())
 			{
 				case 114622:
 				{
 					if (field.equals("tbl")) 
 					{
-						__temp_executeDef160830 = false;
+						__temp_executeDef164553 = false;
 						this.tbl = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -259,7 +233,7 @@ public  class BaseCode extends haxe.lang.HxObject
 				{
 					if (field.equals("base")) 
 					{
-						__temp_executeDef160830 = false;
+						__temp_executeDef164553 = false;
 						this.base = ((haxe.io.Bytes) (value) );
 						return value;
 					}
@@ -272,7 +246,7 @@ public  class BaseCode extends haxe.lang.HxObject
 				{
 					if (field.equals("nbits")) 
 					{
-						__temp_executeDef160830 = false;
+						__temp_executeDef164553 = false;
 						this.nbits = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -283,7 +257,7 @@ public  class BaseCode extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160830) 
+			if (__temp_executeDef164553) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -300,15 +274,15 @@ public  class BaseCode extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160831 = true;
+			boolean __temp_executeDef164554 = true;
 			switch (field.hashCode())
 			{
-				case -2001259617:
+				case 1166820125:
 				{
-					if (field.equals("decodeString")) 
+					if (field.equals("decodeBytes")) 
 					{
-						__temp_executeDef160831 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("decodeString"))) );
+						__temp_executeDef164554 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("decodeBytes"))) );
 					}
 					
 					break;
@@ -319,56 +293,8 @@ public  class BaseCode extends haxe.lang.HxObject
 				{
 					if (field.equals("base")) 
 					{
-						__temp_executeDef160831 = false;
+						__temp_executeDef164554 = false;
 						return this.base;
-					}
-					
-					break;
-				}
-				
-				
-				case -864869945:
-				{
-					if (field.equals("encodeString")) 
-					{
-						__temp_executeDef160831 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("encodeString"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 104611444:
-				{
-					if (field.equals("nbits")) 
-					{
-						__temp_executeDef160831 = false;
-						return this.nbits;
-					}
-					
-					break;
-				}
-				
-				
-				case 1166820125:
-				{
-					if (field.equals("decodeBytes")) 
-					{
-						__temp_executeDef160831 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("decodeBytes"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 114622:
-				{
-					if (field.equals("tbl")) 
-					{
-						__temp_executeDef160831 = false;
-						return this.tbl;
 					}
 					
 					break;
@@ -379,8 +305,20 @@ public  class BaseCode extends haxe.lang.HxObject
 				{
 					if (field.equals("initTable")) 
 					{
-						__temp_executeDef160831 = false;
+						__temp_executeDef164554 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("initTable"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 104611444:
+				{
+					if (field.equals("nbits")) 
+					{
+						__temp_executeDef164554 = false;
+						return this.nbits;
 					}
 					
 					break;
@@ -391,8 +329,20 @@ public  class BaseCode extends haxe.lang.HxObject
 				{
 					if (field.equals("encodeBytes")) 
 					{
-						__temp_executeDef160831 = false;
+						__temp_executeDef164554 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("encodeBytes"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 114622:
+				{
+					if (field.equals("tbl")) 
+					{
+						__temp_executeDef164554 = false;
+						return this.tbl;
 					}
 					
 					break;
@@ -401,7 +351,7 @@ public  class BaseCode extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160831) 
+			if (__temp_executeDef164554) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -418,14 +368,14 @@ public  class BaseCode extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef160832 = true;
+			boolean __temp_executeDef164555 = true;
 			switch (field.hashCode())
 			{
 				case 104611444:
 				{
 					if (field.equals("nbits")) 
 					{
-						__temp_executeDef160832 = false;
+						__temp_executeDef164555 = false;
 						return ((double) (this.nbits) );
 					}
 					
@@ -435,7 +385,7 @@ public  class BaseCode extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160832) 
+			if (__temp_executeDef164555) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -452,15 +402,15 @@ public  class BaseCode extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef160833 = true;
+			boolean __temp_executeDef164556 = true;
 			switch (field.hashCode())
 			{
-				case -2001259617:
+				case 1166820125:
 				{
-					if (field.equals("decodeString")) 
+					if (field.equals("decodeBytes")) 
 					{
-						__temp_executeDef160833 = false;
-						return this.decodeString(haxe.lang.Runtime.toString(dynargs.__get(0)));
+						__temp_executeDef164556 = false;
+						return this.decodeBytes(((haxe.io.Bytes) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -471,20 +421,8 @@ public  class BaseCode extends haxe.lang.HxObject
 				{
 					if (field.equals("encodeBytes")) 
 					{
-						__temp_executeDef160833 = false;
+						__temp_executeDef164556 = false;
 						return this.encodeBytes(((haxe.io.Bytes) (dynargs.__get(0)) ));
-					}
-					
-					break;
-				}
-				
-				
-				case -864869945:
-				{
-					if (field.equals("encodeString")) 
-					{
-						__temp_executeDef160833 = false;
-						return this.encodeString(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
 					break;
@@ -495,20 +433,8 @@ public  class BaseCode extends haxe.lang.HxObject
 				{
 					if (field.equals("initTable")) 
 					{
-						__temp_executeDef160833 = false;
+						__temp_executeDef164556 = false;
 						this.initTable();
-					}
-					
-					break;
-				}
-				
-				
-				case 1166820125:
-				{
-					if (field.equals("decodeBytes")) 
-					{
-						__temp_executeDef160833 = false;
-						return this.decodeBytes(((haxe.io.Bytes) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -517,7 +443,7 @@ public  class BaseCode extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef160833) 
+			if (__temp_executeDef164556) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

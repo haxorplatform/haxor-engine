@@ -18,12 +18,12 @@ public  class ColladaGeometry extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaGeometry(haxor.io.file.ColladaGeometry __temp_me160570)
+	public static   void __hx_ctor_haxor_io_file_ColladaGeometry(haxor.io.file.ColladaGeometry __temp_me164319)
 	{
 		{
-			__temp_me160570.mesh = null;
-			__temp_me160570.name = "";
-			__temp_me160570.id = "";
+			__temp_me164319.mesh = null;
+			__temp_me164319.name = "";
+			__temp_me164319.id = "";
 		}
 		
 	}
@@ -50,14 +50,14 @@ public  class ColladaGeometry extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161400 = true;
+			boolean __temp_executeDef165104 = true;
 			switch (field.hashCode())
 			{
 				case 3347949:
 				{
 					if (field.equals("mesh")) 
 					{
-						__temp_executeDef161400 = false;
+						__temp_executeDef165104 = false;
 						this.mesh = ((haxor.io.file.ColladaMesh) (value) );
 						return value;
 					}
@@ -70,7 +70,7 @@ public  class ColladaGeometry extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef161400 = false;
+						__temp_executeDef165104 = false;
 						this.id = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -83,7 +83,7 @@ public  class ColladaGeometry extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef161400 = false;
+						__temp_executeDef165104 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -94,7 +94,7 @@ public  class ColladaGeometry extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161400) 
+			if (__temp_executeDef165104) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -111,14 +111,14 @@ public  class ColladaGeometry extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161401 = true;
+			boolean __temp_executeDef165105 = true;
 			switch (field.hashCode())
 			{
 				case 3347949:
 				{
 					if (field.equals("mesh")) 
 					{
-						__temp_executeDef161401 = false;
+						__temp_executeDef165105 = false;
 						return this.mesh;
 					}
 					
@@ -130,7 +130,7 @@ public  class ColladaGeometry extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef161401 = false;
+						__temp_executeDef165105 = false;
 						return this.id;
 					}
 					
@@ -142,7 +142,7 @@ public  class ColladaGeometry extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef161401 = false;
+						__temp_executeDef165105 = false;
 						return this.name;
 					}
 					
@@ -152,7 +152,7 @@ public  class ColladaGeometry extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161401) 
+			if (__temp_executeDef165105) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

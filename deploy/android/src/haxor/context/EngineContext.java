@@ -7,7 +7,7 @@ public  class EngineContext extends haxe.lang.HxObject
 	static 
 	{
 		haxor.context.EngineContext.uid = 0;
-		haxor.context.EngineContext.maxNodes = 1000;
+		haxor.context.EngineContext.maxNodes = 5000;
 		haxor.context.EngineContext.collectRate = 10;
 	}
 	public    EngineContext(haxe.lang.EmptyObject empty)
@@ -24,7 +24,7 @@ public  class EngineContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me160445)
+	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me164183)
 	{
 		{
 		}

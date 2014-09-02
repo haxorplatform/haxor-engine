@@ -18,11 +18,11 @@ public  class MaterialFileUniform extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_MaterialFileUniform(haxor.io.file.MaterialFileUniform __temp_me160589)
+	public static   void __hx_ctor_haxor_io_file_MaterialFileUniform(haxor.io.file.MaterialFileUniform __temp_me164338)
 	{
-		__temp_me160589.type = "";
-		__temp_me160589.name = "";
-		__temp_me160589.value = "";
+		__temp_me164338.type = "";
+		__temp_me164338.name = "";
+		__temp_me164338.value = "";
 	}
 	
 	
@@ -47,14 +47,14 @@ public  class MaterialFileUniform extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161465 = true;
+			boolean __temp_executeDef165169 = true;
 			switch (field.hashCode())
 			{
 				case 111972721:
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef161465 = false;
+						__temp_executeDef165169 = false;
 						this.value = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -67,7 +67,7 @@ public  class MaterialFileUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef161465 = false;
+						__temp_executeDef165169 = false;
 						this.type = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -80,7 +80,7 @@ public  class MaterialFileUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef161465 = false;
+						__temp_executeDef165169 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -91,7 +91,7 @@ public  class MaterialFileUniform extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161465) 
+			if (__temp_executeDef165169) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -108,14 +108,14 @@ public  class MaterialFileUniform extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161466 = true;
+			boolean __temp_executeDef165170 = true;
 			switch (field.hashCode())
 			{
 				case 111972721:
 				{
 					if (field.equals("value")) 
 					{
-						__temp_executeDef161466 = false;
+						__temp_executeDef165170 = false;
 						return this.value;
 					}
 					
@@ -127,7 +127,7 @@ public  class MaterialFileUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef161466 = false;
+						__temp_executeDef165170 = false;
 						return this.type;
 					}
 					
@@ -139,7 +139,7 @@ public  class MaterialFileUniform extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef161466 = false;
+						__temp_executeDef165170 = false;
 						return this.name;
 					}
 					
@@ -149,7 +149,7 @@ public  class MaterialFileUniform extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef161466) 
+			if (__temp_executeDef165170) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

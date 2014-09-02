@@ -17,9 +17,9 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_mesh_SkinnedMesh3(haxor.graphics.mesh.SkinnedMesh3 __temp_me160507, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_graphics_mesh_SkinnedMesh3(haxor.graphics.mesh.SkinnedMesh3 __temp_me164256, java.lang.String p_name)
 	{
-		haxor.graphics.mesh.Mesh3.__hx_ctor_haxor_graphics_mesh_Mesh3(__temp_me160507, p_name);
+		haxor.graphics.mesh.Mesh3.__hx_ctor_haxor_graphics_mesh_Mesh3(__temp_me164256, p_name);
 	}
 	
 	
@@ -87,14 +87,14 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161265 = true;
+			boolean __temp_executeDef164969 = true;
 			switch (field.hashCode())
 			{
 				case -1390323062:
 				{
 					if (field.equals("m_weight")) 
 					{
-						__temp_executeDef161265 = false;
+						__temp_executeDef164969 = false;
 						this.m_weight = ((haxe.root.Array<haxor.math.Vector4>) (value) );
 						return value;
 					}
@@ -107,7 +107,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("binds")) 
 					{
-						__temp_executeDef161265 = false;
+						__temp_executeDef164969 = false;
 						this.set_binds(((haxe.root.Array<haxor.math.Matrix4>) (value) ));
 						return value;
 					}
@@ -120,7 +120,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("weight")) 
 					{
-						__temp_executeDef161265 = false;
+						__temp_executeDef164969 = false;
 						this.set_weight(((haxe.root.Array<haxor.math.Vector4>) (value) ));
 						return value;
 					}
@@ -133,7 +133,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("m_binds")) 
 					{
-						__temp_executeDef161265 = false;
+						__temp_executeDef164969 = false;
 						this.m_binds = ((haxe.root.Array<haxor.math.Matrix4>) (value) );
 						return value;
 					}
@@ -146,7 +146,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("m_bone")) 
 					{
-						__temp_executeDef161265 = false;
+						__temp_executeDef164969 = false;
 						this.m_bone = ((haxe.root.Array<haxor.math.Vector4>) (value) );
 						return value;
 					}
@@ -159,7 +159,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("bone")) 
 					{
-						__temp_executeDef161265 = false;
+						__temp_executeDef164969 = false;
 						this.set_bone(((haxe.root.Array<haxor.math.Vector4>) (value) ));
 						return value;
 					}
@@ -170,7 +170,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				
 			}
 			
-			if (__temp_executeDef161265) 
+			if (__temp_executeDef164969) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -187,14 +187,14 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161266 = true;
+			boolean __temp_executeDef164970 = true;
 			switch (field.hashCode())
 			{
 				case -1390323062:
 				{
 					if (field.equals("m_weight")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return this.m_weight;
 					}
 					
@@ -206,7 +206,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("binds")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return this.get_binds();
 					}
 					
@@ -218,7 +218,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("set_weight")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_weight"))) );
 					}
 					
@@ -230,7 +230,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("get_binds")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_binds"))) );
 					}
 					
@@ -242,7 +242,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("get_weight")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_weight"))) );
 					}
 					
@@ -254,7 +254,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("set_binds")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_binds"))) );
 					}
 					
@@ -266,7 +266,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("weight")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return this.get_weight();
 					}
 					
@@ -278,7 +278,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("m_binds")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return this.m_binds;
 					}
 					
@@ -290,7 +290,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("m_bone")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return this.m_bone;
 					}
 					
@@ -302,7 +302,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("bone")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return this.get_bone();
 					}
 					
@@ -314,7 +314,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("set_bone")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_bone"))) );
 					}
 					
@@ -326,7 +326,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("get_bone")) 
 					{
-						__temp_executeDef161266 = false;
+						__temp_executeDef164970 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_bone"))) );
 					}
 					
@@ -336,7 +336,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				
 			}
 			
-			if (__temp_executeDef161266) 
+			if (__temp_executeDef164970) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -353,14 +353,14 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef161267 = true;
+			boolean __temp_executeDef164971 = true;
 			switch (field.hashCode())
 			{
 				case -1069076235:
 				{
 					if (field.equals("set_weight")) 
 					{
-						__temp_executeDef161267 = false;
+						__temp_executeDef164971 = false;
 						return this.set_weight(((haxe.root.Array<haxor.math.Vector4>) (dynargs.__get(0)) ));
 					}
 					
@@ -372,7 +372,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("get_binds")) 
 					{
-						__temp_executeDef161267 = false;
+						__temp_executeDef164971 = false;
 						return this.get_binds();
 					}
 					
@@ -384,7 +384,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("get_weight")) 
 					{
-						__temp_executeDef161267 = false;
+						__temp_executeDef164971 = false;
 						return this.get_weight();
 					}
 					
@@ -396,7 +396,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("set_binds")) 
 					{
-						__temp_executeDef161267 = false;
+						__temp_executeDef164971 = false;
 						return this.set_binds(((haxe.root.Array<haxor.math.Matrix4>) (dynargs.__get(0)) ));
 					}
 					
@@ -408,7 +408,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("set_bone")) 
 					{
-						__temp_executeDef161267 = false;
+						__temp_executeDef164971 = false;
 						return this.set_bone(((haxe.root.Array<haxor.math.Vector4>) (dynargs.__get(0)) ));
 					}
 					
@@ -420,7 +420,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				{
 					if (field.equals("get_bone")) 
 					{
-						__temp_executeDef161267 = false;
+						__temp_executeDef164971 = false;
 						return this.get_bone();
 					}
 					
@@ -430,7 +430,7 @@ public  class SkinnedMesh3 extends haxor.graphics.mesh.Mesh3
 				
 			}
 			
-			if (__temp_executeDef161267) 
+			if (__temp_executeDef164971) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

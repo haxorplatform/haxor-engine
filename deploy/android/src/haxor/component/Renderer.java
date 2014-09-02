@@ -17,9 +17,10 @@ public  class Renderer extends haxor.component.Behaviour
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_Renderer(haxor.component.Renderer __temp_me160435, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_component_Renderer(haxor.component.Renderer __temp_me164172, java.lang.String p_name)
 	{
-		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me160435, p_name);
+		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me164172, p_name);
+		__temp_me164172.m_has_mesh = false;
 	}
 	
 	
@@ -67,6 +68,25 @@ public  class Renderer extends haxor.component.Behaviour
 	
 	public  haxor.graphics.material.Material m_material;
 	
+	
+	
+	public final   boolean get_visible()
+	{
+		return ( this.m_visible &&  ! (this.m_culled)  );
+	}
+	
+	
+	public   boolean set_visible(boolean v)
+	{
+		this.m_visible = v;
+		return v;
+	}
+	
+	
+	public  boolean m_visible;
+	
+	public  boolean m_culled;
+	
 	public  boolean m_has_mesh;
 	
 	public  int m_last_queue;
@@ -74,21 +94,10 @@ public  class Renderer extends haxor.component.Behaviour
 	@Override public   void OnBuild()
 	{
 		super.OnBuild();
-		{
-			haxor.context.UID _this = haxor.context.EngineContext.renderer.rid;
-			if (( _this.m_cache.length <= 0 )) 
-			{
-				this.__cid = _this.m_id++;
-			}
-			 else 
-			{
-				this.__cid = ((int) (haxe.lang.Runtime.toInt(_this.m_cache.shift())) );
-			}
-			
-		}
-		
-		this.m_has_mesh = false;
 		this.m_last_queue = -1;
+		this.m_visible = true;
+		this.m_culled = false;
+		haxor.context.EngineContext.renderer.Create(this);
 	}
 	
 	
@@ -107,6 +116,25 @@ public  class Renderer extends haxor.component.Behaviour
 	}
 	
 	
+	public   void UpdateCulling()
+	{
+		boolean v0 = this.m_culled;
+		boolean v1 = this.CheckCulling();
+		this.m_culled = v1;
+		if (( v0 != v1 )) 
+		{
+			haxor.context.EngineContext.renderer.OnVisibilityChange(this,  ! (v1) );
+		}
+		
+	}
+	
+	
+	public   boolean CheckCulling()
+	{
+		return false;
+	}
+	
+	
 	@Override public   void OnDestroy()
 	{
 		haxor.context.EngineContext.renderer.Destroy(this);
@@ -116,14 +144,14 @@ public  class Renderer extends haxor.component.Behaviour
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161082 = true;
+			boolean __temp_executeDef164719 = true;
 			switch (field.hashCode())
 			{
 				case 259065146:
 				{
 					if (field.equals("m_last_queue")) 
 					{
-						__temp_executeDef161082 = false;
+						__temp_executeDef164719 = false;
 						this.m_last_queue = ((int) (value) );
 						return value;
 					}
@@ -134,7 +162,7 @@ public  class Renderer extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef161082) 
+			if (__temp_executeDef164719) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -151,14 +179,14 @@ public  class Renderer extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161083 = true;
+			boolean __temp_executeDef164720 = true;
 			switch (field.hashCode())
 			{
 				case 259065146:
 				{
 					if (field.equals("m_last_queue")) 
 					{
-						__temp_executeDef161083 = false;
+						__temp_executeDef164720 = false;
 						this.m_last_queue = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -171,7 +199,7 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("material")) 
 					{
-						__temp_executeDef161083 = false;
+						__temp_executeDef164720 = false;
 						this.set_material(((haxor.graphics.material.Material) (value) ));
 						return value;
 					}
@@ -184,7 +212,7 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("m_has_mesh")) 
 					{
-						__temp_executeDef161083 = false;
+						__temp_executeDef164720 = false;
 						this.m_has_mesh = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -197,8 +225,34 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("m_material")) 
 					{
-						__temp_executeDef161083 = false;
+						__temp_executeDef164720 = false;
 						this.m_material = ((haxor.graphics.material.Material) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -1948035677:
+				{
+					if (field.equals("m_culled")) 
+					{
+						__temp_executeDef164720 = false;
+						this.m_culled = haxe.lang.Runtime.toBool(value);
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -914040160:
+				{
+					if (field.equals("m_visible")) 
+					{
+						__temp_executeDef164720 = false;
+						this.m_visible = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
 					
@@ -208,7 +262,7 @@ public  class Renderer extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef161083) 
+			if (__temp_executeDef164720) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -225,14 +279,14 @@ public  class Renderer extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161084 = true;
+			boolean __temp_executeDef164721 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef161084 = false;
+						__temp_executeDef164721 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -244,7 +298,7 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("material")) 
 					{
-						__temp_executeDef161084 = false;
+						__temp_executeDef164721 = false;
 						return this.get_material();
 					}
 					
@@ -252,12 +306,12 @@ public  class Renderer extends haxor.component.Behaviour
 				}
 				
 				
-				case 1528462453:
+				case 1224889128:
 				{
-					if (field.equals("OnRender")) 
+					if (field.equals("CheckCulling")) 
 					{
-						__temp_executeDef161084 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnRender"))) );
+						__temp_executeDef164721 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CheckCulling"))) );
 					}
 					
 					break;
@@ -268,7 +322,7 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("get_material")) 
 					{
-						__temp_executeDef161084 = false;
+						__temp_executeDef164721 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_material"))) );
 					}
 					
@@ -276,12 +330,12 @@ public  class Renderer extends haxor.component.Behaviour
 				}
 				
 				
-				case 312095663:
+				case 424235015:
 				{
-					if (field.equals("OnBuild")) 
+					if (field.equals("UpdateCulling")) 
 					{
-						__temp_executeDef161084 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
+						__temp_executeDef164721 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateCulling"))) );
 					}
 					
 					break;
@@ -292,7 +346,7 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("set_material")) 
 					{
-						__temp_executeDef161084 = false;
+						__temp_executeDef164721 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_material"))) );
 					}
 					
@@ -300,12 +354,12 @@ public  class Renderer extends haxor.component.Behaviour
 				}
 				
 				
-				case 259065146:
+				case 1528462453:
 				{
-					if (field.equals("m_last_queue")) 
+					if (field.equals("OnRender")) 
 					{
-						__temp_executeDef161084 = false;
-						return this.m_last_queue;
+						__temp_executeDef164721 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnRender"))) );
 					}
 					
 					break;
@@ -316,8 +370,56 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("m_material")) 
 					{
-						__temp_executeDef161084 = false;
+						__temp_executeDef164721 = false;
 						return this.m_material;
+					}
+					
+					break;
+				}
+				
+				
+				case 312095663:
+				{
+					if (field.equals("OnBuild")) 
+					{
+						__temp_executeDef164721 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 466743410:
+				{
+					if (field.equals("visible")) 
+					{
+						__temp_executeDef164721 = false;
+						return this.get_visible();
+					}
+					
+					break;
+				}
+				
+				
+				case 259065146:
+				{
+					if (field.equals("m_last_queue")) 
+					{
+						__temp_executeDef164721 = false;
+						return this.m_last_queue;
+					}
+					
+					break;
+				}
+				
+				
+				case 543256713:
+				{
+					if (field.equals("get_visible")) 
+					{
+						__temp_executeDef164721 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_visible"))) );
 					}
 					
 					break;
@@ -328,8 +430,44 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("m_has_mesh")) 
 					{
-						__temp_executeDef161084 = false;
+						__temp_executeDef164721 = false;
 						return this.m_has_mesh;
+					}
+					
+					break;
+				}
+				
+				
+				case 454676885:
+				{
+					if (field.equals("set_visible")) 
+					{
+						__temp_executeDef164721 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_visible"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1948035677:
+				{
+					if (field.equals("m_culled")) 
+					{
+						__temp_executeDef164721 = false;
+						return this.m_culled;
+					}
+					
+					break;
+				}
+				
+				
+				case -914040160:
+				{
+					if (field.equals("m_visible")) 
+					{
+						__temp_executeDef164721 = false;
+						return this.m_visible;
 					}
 					
 					break;
@@ -338,7 +476,7 @@ public  class Renderer extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef161084) 
+			if (__temp_executeDef164721) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -355,14 +493,14 @@ public  class Renderer extends haxor.component.Behaviour
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef161085 = true;
+			boolean __temp_executeDef164722 = true;
 			switch (field.hashCode())
 			{
 				case 259065146:
 				{
 					if (field.equals("m_last_queue")) 
 					{
-						__temp_executeDef161085 = false;
+						__temp_executeDef164722 = false;
 						return ((double) (this.m_last_queue) );
 					}
 					
@@ -372,7 +510,7 @@ public  class Renderer extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef161085) 
+			if (__temp_executeDef164722) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -389,15 +527,15 @@ public  class Renderer extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash161087 = field.hashCode();
-			boolean __temp_executeDef161086 = true;
-			switch (__temp_hash161087)
+			int __temp_hash164724 = field.hashCode();
+			boolean __temp_executeDef164723 = true;
+			switch (__temp_hash164724)
 			{
 				case 602652923:case 312095663:
 				{
-					if (( (( ( __temp_hash161087 == 602652923 ) && field.equals("OnDestroy") )) || field.equals("OnBuild") )) 
+					if (( (( ( __temp_hash164724 == 602652923 ) && field.equals("OnDestroy") )) || field.equals("OnBuild") )) 
 					{
-						__temp_executeDef161086 = false;
+						__temp_executeDef164723 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -409,7 +547,7 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("get_material")) 
 					{
-						__temp_executeDef161086 = false;
+						__temp_executeDef164723 = false;
 						return this.get_material();
 					}
 					
@@ -417,12 +555,12 @@ public  class Renderer extends haxor.component.Behaviour
 				}
 				
 				
-				case 1528462453:
+				case 1224889128:
 				{
-					if (field.equals("OnRender")) 
+					if (field.equals("CheckCulling")) 
 					{
-						__temp_executeDef161086 = false;
-						this.OnRender();
+						__temp_executeDef164723 = false;
+						return this.CheckCulling();
 					}
 					
 					break;
@@ -433,8 +571,56 @@ public  class Renderer extends haxor.component.Behaviour
 				{
 					if (field.equals("set_material")) 
 					{
-						__temp_executeDef161086 = false;
+						__temp_executeDef164723 = false;
 						return this.set_material(((haxor.graphics.material.Material) (dynargs.__get(0)) ));
+					}
+					
+					break;
+				}
+				
+				
+				case 424235015:
+				{
+					if (field.equals("UpdateCulling")) 
+					{
+						__temp_executeDef164723 = false;
+						this.UpdateCulling();
+					}
+					
+					break;
+				}
+				
+				
+				case 543256713:
+				{
+					if (field.equals("get_visible")) 
+					{
+						__temp_executeDef164723 = false;
+						return this.get_visible();
+					}
+					
+					break;
+				}
+				
+				
+				case 1528462453:
+				{
+					if (field.equals("OnRender")) 
+					{
+						__temp_executeDef164723 = false;
+						this.OnRender();
+					}
+					
+					break;
+				}
+				
+				
+				case 454676885:
+				{
+					if (field.equals("set_visible")) 
+					{
+						__temp_executeDef164723 = false;
+						return this.set_visible(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
 					break;
@@ -443,7 +629,7 @@ public  class Renderer extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef161086) 
+			if (__temp_executeDef164723) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
@@ -458,6 +644,9 @@ public  class Renderer extends haxor.component.Behaviour
 	{
 		baseArr.push("m_last_queue");
 		baseArr.push("m_has_mesh");
+		baseArr.push("m_culled");
+		baseArr.push("m_visible");
+		baseArr.push("visible");
 		baseArr.push("m_material");
 		baseArr.push("material");
 		{

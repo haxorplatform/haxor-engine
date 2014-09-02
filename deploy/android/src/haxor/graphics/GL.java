@@ -329,7 +329,7 @@ public  class GL extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_GL(haxor.graphics.GL __temp_me160473)
+	public static   void __hx_ctor_haxor_graphics_GL(haxor.graphics.GL __temp_me164222)
 	{
 		{
 		}
@@ -1493,7 +1493,9 @@ public  class GL extends haxe.lang.HxObject
 	
 	public static   void Assert(java.lang.String p_log)
 	{
-		haxor.graphics.GL.m_gl.Assert(p_log);
+		{
+		}
+		
 	}
 	
 	
