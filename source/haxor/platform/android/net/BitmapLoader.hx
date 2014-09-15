@@ -1,6 +1,7 @@
 #if android
 
 package haxor.platform.android.net;
+import haxor.platform.Types.Float32;
 import haxor.core.Console;
 import haxor.math.Color;
 import haxor.io.Buffer;
@@ -46,7 +47,7 @@ class BitmapLoader extends HTTPLoader<Buffer>
 		m_bitmap_callback = p_callback;
 	}
 	
-	private function OnBufferCallback(p_data : Buffer, p_progress : Float):Void
+	private function OnBufferCallback(p_data : Buffer, p_progress : Float32):Void
 	{
 		
 		if (progress < 1.0)
@@ -71,7 +72,7 @@ class BitmapLoader extends HTTPLoader<Buffer>
 			if (ab == null) return;
 			var w 	: Int 			= ab.getWidth();
 			var h 	: Int 			= ab.getHeight();
-			var cc 	: Int 			= Std.int(ab.getByteCount() / (w * h));
+			var cc 	: Int 			= Std.int((ab.getRowBytes() * ab.getHeight()) / (w * h));
 			var fmt : PixelFormat 	= PixelFormat.RGBA8;
 			switch(cc)
 			{
@@ -84,9 +85,9 @@ class BitmapLoader extends HTTPLoader<Buffer>
 			for (ix in 0...w)
 			for (iy in 0...h)
 			{
-				var pix : Int = ab.getPixel(ix, iy);				
-				c.argb = pix;
-				b.SetPixel(ix, iy, c);
+				var pix : Int = ab.getPixel(ix,iy);				
+				c.argb = pix;				
+				b.SetPixel(ix,iy, c);
 			}
 			
 			if(m_bitmap_callback!=null)m_bitmap_callback(b, 1.0);

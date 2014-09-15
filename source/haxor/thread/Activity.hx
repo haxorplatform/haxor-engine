@@ -15,6 +15,7 @@ import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
 import haxor.core.Time;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes an operation to be run in the execution pool.
@@ -39,7 +40,7 @@ implements Runnable
 	{
 		var it : Int = p_offset;
 		
-		return new Activity(function(t : Float):Bool
+		return new Activity(function(t : Float32):Bool
 		{
 			var finished : Bool = false;
 			for (i in 0...p_step)
@@ -58,9 +59,9 @@ implements Runnable
 	 * @param	p_callback
 	 * @return
 	 */
-	static public function Delay(p_time : Float, p_callback : Void->Void, p_threaded:Bool=false,p_graphics_context: Bool=false):Activity
+	static public function Delay(p_time : Float32, p_callback : Void->Void, p_threaded:Bool=false,p_graphics_context: Bool=false):Activity
 	{
-		return new Activity(function(t : Float):Bool
+		return new Activity(function(t : Float32):Bool
 		{
 			
 			if (t >= p_time)
@@ -91,7 +92,7 @@ implements Runnable
 	 */
 	static public function RunOnce(p_callback : Void->Void, p_threaded : Bool = false, p_graphics_context:Bool = false):Activity
 	{
-		return new Activity(function(t : Float):Bool
+		return new Activity(function(t : Float32):Bool
 		{		
 			p_callback();
 			return false;
@@ -106,14 +107,14 @@ implements Runnable
 	/**
 	 * Starting time of this activity.
 	 */
-	private var m_time_start : Float;
+	private var m_time_start : Float32;
 	
 	/**
 	 * Elapsed time of execution.
 	 */
-	public var elapsed(get_elapsed, null):Float;
-	private inline function get_elapsed():Float { return m_elapsed; }
-	private var m_elapsed : Float;
+	public var elapsed(get_elapsed, null):Float32;
+	private inline function get_elapsed():Float32{ return m_elapsed; }
+	private var m_elapsed : Float32;
 	
 	/**
 	 * Flag that stops the execution if necessary.

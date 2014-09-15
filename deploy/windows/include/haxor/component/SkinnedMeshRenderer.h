@@ -17,8 +17,6 @@ HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,texture,ComputeTexture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture2D)
-HX_DECLARE_CLASS2(haxor,io,Buffer)
-HX_DECLARE_CLASS2(haxor,io,FloatArray)
 namespace haxor{
 namespace component{
 
@@ -52,7 +50,7 @@ class HXCPP_CLASS_ATTRIBUTES  SkinnedMeshRenderer_obj : public ::haxor::componen
 		Dynamic get_joints_dyn();
 
 		Array< ::Dynamic > m_joints;
-		::haxor::io::FloatArray m_buffer;
+		Array< Float > m_buffer;
 		::haxor::graphics::texture::ComputeTexture m_data;
 		virtual Void OnBuild( );
 

@@ -4,6 +4,7 @@ import haxor.context.UID;
 import haxor.core.Resource;
 import haxor.math.Mathf;
 import haxor.math.Vector3;
+import haxor.platform.Types.Float32;
 
 /**
  * Sweep and Prune structure for space based sorting and collision pairs detections.
@@ -56,7 +57,7 @@ class SAP
 	/**
 	 * Creates a new SAP structure.
 	 */
-	public function new(p_bias:Float=0.0,p_has_query:Bool=true) 
+	public function new(p_bias:Float32=0.0,p_has_query:Bool=true) 
 	{
 		m_has_query = p_has_query;
 		x = new SAPList(p_bias,m_has_query);
@@ -245,12 +246,12 @@ class SAPList
 	/**
 	 * Margin multiplied in the interval.
 	 */
-	private var m_bias : Float;
+	private var m_bias : Float32;
 	
 	/**
 	 * Creates a new SAPList.
 	 */
-	public function new(p_bias:Float=0.0,p_has_query:Bool=true):Void
+	public function new(p_bias:Float32=0.0,p_has_query:Bool=true):Void
 	{
 		list = [];
 		for (i in 0...5000) list.push(null);
@@ -274,11 +275,11 @@ class SAPList
 	 * @param	p_min
 	 * @param	p_max
 	 */
-	public function Update(p_id : Int,p_data:Dynamic, p_min:Float, p_max:Float):Void
+	public function Update(p_id : Int,p_data:Dynamic, p_min:Float32, p_max:Float32):Void
 	{
 		list[p_id].id = p_id;
 		list[p_id].data = p_data;
-		var d: Float = (p_max - p_min) * m_bias *0.5;
+		var d: Float32 = (p_max - p_min) * m_bias *0.5;
 		list[p_id].Set(p_min-d,p_max+d);		
 		if(m_has_query) Relocate(list[p_id]);
 	}
@@ -431,12 +432,12 @@ class SAPInterval
 	/**
 	 * Min limit.
 	 */
-	public var min 		: Float;	
+	public var min 		: Float32;	
 	
 	/**
 	 * Max limit.
 	 */
-	public var max 		: Float;	
+	public var max 		: Float32;	
 		
 	/**
 	 * Next interval in the sequence.
@@ -468,7 +469,7 @@ class SAPInterval
 	 * @param	p_min
 	 * @param	p_max
 	 */
-	public function Set(p_min:Float, p_max:Float):Void	{  min = p_min; max = p_max; }
+	public function Set(p_min:Float32, p_max:Float32):Void	{  min = p_min; max = p_max; }
 	
 	/**
 	 * Tests if a given interval overlaps this interval.

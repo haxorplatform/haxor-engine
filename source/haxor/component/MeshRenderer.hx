@@ -11,6 +11,7 @@ import haxor.math.Mathf;
 import haxor.math.Matrix4;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes a Renderer that uses a Mesh as buffer.
@@ -70,7 +71,7 @@ class MeshRenderer extends Renderer
 		if (c == null) 		return false;
 		if (mesh == null) 	return false;				
 		var ps_center : Vector4 = c.WorldToProjection(Vector3.temp.Set3(m_ws_center), Vector4.temp);				
-		var w : Float = ps_center.w;
+		var w : Float32 = ps_center.w;
 		var p : Vector4 = ps_center;
 		
 		if (w <= 0.0) return false;
@@ -84,7 +85,7 @@ class MeshRenderer extends Renderer
 		if (p.z <=  w)  return true;
 		
 		var v : Vector4 = c.WorldToProjection(Vector3.temp.Set3(m_ws_radius), Vector4.temp);	
-		var r : Float 	= v.length;
+		var r : Float32 	= v.length;
 		
 		if (p.x+r >= -w)
 		if (p.x-r <=  w)
@@ -105,9 +106,9 @@ class MeshRenderer extends Renderer
 		var c : Camera = Camera.current;
 		if (c == null) return m_culled;
 		
-		//if (!c.m_view_uniform_dirty)
-		//if (!c.m_proj_uniform_dirty)
-		//if (!m_culling_dirty) return m_culled;		
+		if (!c.m_view_uniform_dirty)
+		if (!c.m_proj_uniform_dirty)
+		if (!m_culling_dirty) return m_culled;
 		UpdateWorldBounds();
 		return !IsVisible(c);
 	}
@@ -136,7 +137,7 @@ class MeshRenderer extends Renderer
 			m_ws_radius.Set(mesh.m_bounds.width, mesh.m_bounds.height, mesh.m_bounds.depth);
 			transform.WorldMatrix.Transform3x3(m_ws_radius);
 			
-			var r : Float = m_ws_radius.length;
+			var r : Float32 = m_ws_radius.length;
 			var pmin : Vector3 = Vector3.temp;
 			var pmax : Vector3 = Vector3.temp;
 			pmin.Set(m_ws_center.x - r, m_ws_center.y - r, m_ws_center.z - r);
@@ -152,7 +153,8 @@ class MeshRenderer extends Renderer
 	override public function OnRender() : Void 
 	{			
 		super.OnRender();		
-		if (m_mesh == null) return;		
+		if (m_mesh == null) return;	
+		
 		Graphics.Render(m_mesh,material,entity.transform,Camera.current);
 	}
 	

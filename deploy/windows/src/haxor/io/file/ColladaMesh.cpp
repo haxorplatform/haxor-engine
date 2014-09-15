@@ -12,14 +12,14 @@ namespace file{
 
 Void ColladaMesh_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaMesh","new",0x8196e63b,"haxor.io.file.ColladaMesh.new","haxor/io/file/ColladaFile.hx",1072,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaMesh","new",0x8196e63b,"haxor.io.file.ColladaMesh.new","haxor/io/file/ColladaFile.hx",1079,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1075)
+	HX_STACK_LINE(1082)
 	this->primitives = null();
-	HX_STACK_LINE(1074)
+	HX_STACK_LINE(1081)
 	this->type = HX_CSTRING("");
-	HX_STACK_LINE(1078)
+	HX_STACK_LINE(1085)
 	this->primitives = Array_obj< ::Dynamic >::__new();
 }
 ;

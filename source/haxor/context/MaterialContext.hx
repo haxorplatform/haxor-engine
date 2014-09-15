@@ -32,7 +32,7 @@ import haxor.platform.Types.UniformLocation;
 @:allow(haxor)
 class MaterialContext
 {
-	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse"];
+	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix","WorldMatrixInverse","WorldMatrixIT", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse"];
 	/**
 	 * List of global uniforms.
 	 */
@@ -413,7 +413,7 @@ class MaterialContext
 		}
 		
 		//Resets the global list and filters the ones that doesn't exists in the shaders.		
-		var gl : Array<String>  = uniform_globals;
+		var gl : Array<String>  = uniform_globals.copy();
 		var k  : Int 			= 0;
 		var m4 : Matrix4		= Matrix4.temp.SetIdentity();
 		while(k < gl.length)
@@ -432,6 +432,7 @@ class MaterialContext
 				//case "ScreenDepth":			current.SetTexture("ScreenDepth",   p_camera.m_grab.depth);						
 				case "WorldMatrix":				m.SetMatrix4(un,m4);
 				case "WorldMatrixInverse":		m.SetMatrix4(un,m4);
+				case "WorldMatrixIT":			m.SetMatrix4(un,m4);
 				case "CameraPosition": 			m.SetVector3(un,Vector3.temp.Set(0,0,0));
 				case "ViewMatrix":				m.SetMatrix4(un,m4);
 				case "ViewMatrixInverse":		m.SetMatrix4(un,m4);					
@@ -570,8 +571,12 @@ class MaterialContext
 		var loc:UniformLocation;		
 		loc = uniforms[m.__cid][u.__cid];
 		if (loc == GL.INVALID) return;		
-		if (u.texture != null) { EngineContext.texture.Activate(u.texture, u.texture.__slot);} 				
-		if (!u.__d) return;
+		if (u.texture != null) 
+		{ 			
+			EngineContext.texture.Bind(u.texture);
+		} 					
+		if (!u.__d) return;		
+		
 		ApplyUniform(loc, u);
 	}
 	
@@ -628,6 +633,7 @@ class MaterialContext
 			//case "ScreenDepth":			current.SetTexture("ScreenDepth",   c.m_grab.depth);						
 			case "WorldMatrix":				if(ut) 	u.SetMatrix4(t.WorldMatrix);
 			case "WorldMatrixInverse":		if(ut)	u.SetMatrix4(t.WorldMatrixInverse);
+			case "WorldMatrixIT":			if (ut)	{ u.SetMatrix4(t.WorldMatrixInverse, true); }
 			case "CameraPosition": 			if(ucv)	u.SetVector3(c.transform.position);
 			case "ViewMatrix":				if(ucv) u.SetMatrix4(c.transform.WorldMatrixInverse);
 			case "ViewMatrixInverse":		if(ucv) u.SetMatrix4(c.transform.WorldMatrix);					

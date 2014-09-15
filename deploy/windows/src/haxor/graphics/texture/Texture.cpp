@@ -195,23 +195,24 @@ int Texture_obj::set_wrap( int v){
 			}
 		}
 		HX_STACK_LINE(43)
-		if (((hx::ObjectPtr<OBJ_>(this) == _this->bind))){
+		{
 			HX_STACK_LINE(43)
-			Dynamic();
-		}
-		else{
-			HX_STACK_LINE(43)
-			_this->bind = hx::ObjectPtr<OBJ_>(this);
-			HX_STACK_LINE(43)
-			int id = _this->ids->__get(_this->bind->__cid);		HX_STACK_VAR(id,"id");
-			HX_STACK_LINE(43)
-			int target1;		HX_STACK_VAR(target1,"target1");
+			int slot = this->__slot;		HX_STACK_VAR(slot,"slot");
 			HX_STACK_LINE(43)
 			{
 				HX_STACK_LINE(43)
-				::haxor::graphics::texture::Texture p_texture = _this->bind;		HX_STACK_VAR(p_texture,"p_texture");
+				::haxor::graphics::GL_obj::m_gl->ActiveTexture(((int)33984 + slot));
 				HX_STACK_LINE(43)
-				::haxor::core::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
+				_this->active = slot;
+			}
+			HX_STACK_LINE(43)
+			{
+				HX_STACK_LINE(43)
+				int id = _this->ids->__get(this->__cid);		HX_STACK_VAR(id,"id");
+				HX_STACK_LINE(43)
+				::haxor::core::TextureType _g3 = this->get_type();		HX_STACK_VAR(_g3,"_g3");
+				HX_STACK_LINE(43)
+				int target1;		HX_STACK_VAR(target1,"target1");
 				HX_STACK_LINE(43)
 				if (((_g3 == ::haxor::core::TextureType_obj::Texture2D))){
 					HX_STACK_LINE(43)
@@ -219,7 +220,7 @@ int Texture_obj::set_wrap( int v){
 				}
 				else{
 					HX_STACK_LINE(43)
-					::haxor::core::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
+					::haxor::core::TextureType _g4 = this->get_type();		HX_STACK_VAR(_g4,"_g4");
 					HX_STACK_LINE(43)
 					if (((_g4 == ::haxor::core::TextureType_obj::RenderTexture))){
 						HX_STACK_LINE(43)
@@ -227,7 +228,7 @@ int Texture_obj::set_wrap( int v){
 					}
 					else{
 						HX_STACK_LINE(43)
-						::haxor::core::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
+						::haxor::core::TextureType _g5 = this->get_type();		HX_STACK_VAR(_g5,"_g5");
 						HX_STACK_LINE(43)
 						if (((_g5 == ::haxor::core::TextureType_obj::TextureCube))){
 							HX_STACK_LINE(43)
@@ -239,9 +240,11 @@ int Texture_obj::set_wrap( int v){
 						}
 					}
 				}
+				HX_STACK_LINE(43)
+				::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
+				HX_STACK_LINE(43)
+				_this->bind[slot] = hx::ObjectPtr<OBJ_>(this);
 			}
-			HX_STACK_LINE(43)
-			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(43)
 		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
@@ -409,23 +412,24 @@ int Texture_obj::set_aniso( int v){
 			}
 		}
 		HX_STACK_LINE(51)
-		if (((hx::ObjectPtr<OBJ_>(this) == _this->bind))){
+		{
 			HX_STACK_LINE(51)
-			Dynamic();
-		}
-		else{
-			HX_STACK_LINE(51)
-			_this->bind = hx::ObjectPtr<OBJ_>(this);
-			HX_STACK_LINE(51)
-			int id = _this->ids->__get(_this->bind->__cid);		HX_STACK_VAR(id,"id");
-			HX_STACK_LINE(51)
-			int target1;		HX_STACK_VAR(target1,"target1");
+			int slot = this->__slot;		HX_STACK_VAR(slot,"slot");
 			HX_STACK_LINE(51)
 			{
 				HX_STACK_LINE(51)
-				::haxor::graphics::texture::Texture p_texture = _this->bind;		HX_STACK_VAR(p_texture,"p_texture");
+				::haxor::graphics::GL_obj::m_gl->ActiveTexture(((int)33984 + slot));
 				HX_STACK_LINE(51)
-				::haxor::core::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
+				_this->active = slot;
+			}
+			HX_STACK_LINE(51)
+			{
+				HX_STACK_LINE(51)
+				int id = _this->ids->__get(this->__cid);		HX_STACK_VAR(id,"id");
+				HX_STACK_LINE(51)
+				::haxor::core::TextureType _g3 = this->get_type();		HX_STACK_VAR(_g3,"_g3");
+				HX_STACK_LINE(51)
+				int target1;		HX_STACK_VAR(target1,"target1");
 				HX_STACK_LINE(51)
 				if (((_g3 == ::haxor::core::TextureType_obj::Texture2D))){
 					HX_STACK_LINE(51)
@@ -433,7 +437,7 @@ int Texture_obj::set_aniso( int v){
 				}
 				else{
 					HX_STACK_LINE(51)
-					::haxor::core::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
+					::haxor::core::TextureType _g4 = this->get_type();		HX_STACK_VAR(_g4,"_g4");
 					HX_STACK_LINE(51)
 					if (((_g4 == ::haxor::core::TextureType_obj::RenderTexture))){
 						HX_STACK_LINE(51)
@@ -441,7 +445,7 @@ int Texture_obj::set_aniso( int v){
 					}
 					else{
 						HX_STACK_LINE(51)
-						::haxor::core::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
+						::haxor::core::TextureType _g5 = this->get_type();		HX_STACK_VAR(_g5,"_g5");
 						HX_STACK_LINE(51)
 						if (((_g5 == ::haxor::core::TextureType_obj::TextureCube))){
 							HX_STACK_LINE(51)
@@ -453,9 +457,11 @@ int Texture_obj::set_aniso( int v){
 						}
 					}
 				}
+				HX_STACK_LINE(51)
+				::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
+				HX_STACK_LINE(51)
+				_this->bind[slot] = hx::ObjectPtr<OBJ_>(this);
 			}
-			HX_STACK_LINE(51)
-			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(51)
 		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
@@ -623,23 +629,24 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 			}
 		}
 		HX_STACK_LINE(60)
-		if (((hx::ObjectPtr<OBJ_>(this) == _this->bind))){
+		{
 			HX_STACK_LINE(60)
-			Dynamic();
-		}
-		else{
-			HX_STACK_LINE(60)
-			_this->bind = hx::ObjectPtr<OBJ_>(this);
-			HX_STACK_LINE(60)
-			int id = _this->ids->__get(_this->bind->__cid);		HX_STACK_VAR(id,"id");
-			HX_STACK_LINE(60)
-			int target1;		HX_STACK_VAR(target1,"target1");
+			int slot = this->__slot;		HX_STACK_VAR(slot,"slot");
 			HX_STACK_LINE(60)
 			{
 				HX_STACK_LINE(60)
-				::haxor::graphics::texture::Texture p_texture = _this->bind;		HX_STACK_VAR(p_texture,"p_texture");
+				::haxor::graphics::GL_obj::m_gl->ActiveTexture(((int)33984 + slot));
 				HX_STACK_LINE(60)
-				::haxor::core::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
+				_this->active = slot;
+			}
+			HX_STACK_LINE(60)
+			{
+				HX_STACK_LINE(60)
+				int id = _this->ids->__get(this->__cid);		HX_STACK_VAR(id,"id");
+				HX_STACK_LINE(60)
+				::haxor::core::TextureType _g3 = this->get_type();		HX_STACK_VAR(_g3,"_g3");
+				HX_STACK_LINE(60)
+				int target1;		HX_STACK_VAR(target1,"target1");
 				HX_STACK_LINE(60)
 				if (((_g3 == ::haxor::core::TextureType_obj::Texture2D))){
 					HX_STACK_LINE(60)
@@ -647,7 +654,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 				}
 				else{
 					HX_STACK_LINE(60)
-					::haxor::core::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
+					::haxor::core::TextureType _g4 = this->get_type();		HX_STACK_VAR(_g4,"_g4");
 					HX_STACK_LINE(60)
 					if (((_g4 == ::haxor::core::TextureType_obj::RenderTexture))){
 						HX_STACK_LINE(60)
@@ -655,7 +662,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 					}
 					else{
 						HX_STACK_LINE(60)
-						::haxor::core::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
+						::haxor::core::TextureType _g5 = this->get_type();		HX_STACK_VAR(_g5,"_g5");
 						HX_STACK_LINE(60)
 						if (((_g5 == ::haxor::core::TextureType_obj::TextureCube))){
 							HX_STACK_LINE(60)
@@ -667,9 +674,11 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_minFilter,return )
 						}
 					}
 				}
+				HX_STACK_LINE(60)
+				::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
+				HX_STACK_LINE(60)
+				_this->bind[slot] = hx::ObjectPtr<OBJ_>(this);
 			}
-			HX_STACK_LINE(60)
-			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(60)
 		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));
@@ -837,23 +846,24 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 			}
 		}
 		HX_STACK_LINE(68)
-		if (((hx::ObjectPtr<OBJ_>(this) == _this->bind))){
+		{
 			HX_STACK_LINE(68)
-			Dynamic();
-		}
-		else{
-			HX_STACK_LINE(68)
-			_this->bind = hx::ObjectPtr<OBJ_>(this);
-			HX_STACK_LINE(68)
-			int id = _this->ids->__get(_this->bind->__cid);		HX_STACK_VAR(id,"id");
-			HX_STACK_LINE(68)
-			int target1;		HX_STACK_VAR(target1,"target1");
+			int slot = this->__slot;		HX_STACK_VAR(slot,"slot");
 			HX_STACK_LINE(68)
 			{
 				HX_STACK_LINE(68)
-				::haxor::graphics::texture::Texture p_texture = _this->bind;		HX_STACK_VAR(p_texture,"p_texture");
+				::haxor::graphics::GL_obj::m_gl->ActiveTexture(((int)33984 + slot));
 				HX_STACK_LINE(68)
-				::haxor::core::TextureType _g3 = p_texture->get_type();		HX_STACK_VAR(_g3,"_g3");
+				_this->active = slot;
+			}
+			HX_STACK_LINE(68)
+			{
+				HX_STACK_LINE(68)
+				int id = _this->ids->__get(this->__cid);		HX_STACK_VAR(id,"id");
+				HX_STACK_LINE(68)
+				::haxor::core::TextureType _g3 = this->get_type();		HX_STACK_VAR(_g3,"_g3");
+				HX_STACK_LINE(68)
+				int target1;		HX_STACK_VAR(target1,"target1");
 				HX_STACK_LINE(68)
 				if (((_g3 == ::haxor::core::TextureType_obj::Texture2D))){
 					HX_STACK_LINE(68)
@@ -861,7 +871,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 				}
 				else{
 					HX_STACK_LINE(68)
-					::haxor::core::TextureType _g4 = p_texture->get_type();		HX_STACK_VAR(_g4,"_g4");
+					::haxor::core::TextureType _g4 = this->get_type();		HX_STACK_VAR(_g4,"_g4");
 					HX_STACK_LINE(68)
 					if (((_g4 == ::haxor::core::TextureType_obj::RenderTexture))){
 						HX_STACK_LINE(68)
@@ -869,7 +879,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 					}
 					else{
 						HX_STACK_LINE(68)
-						::haxor::core::TextureType _g5 = p_texture->get_type();		HX_STACK_VAR(_g5,"_g5");
+						::haxor::core::TextureType _g5 = this->get_type();		HX_STACK_VAR(_g5,"_g5");
 						HX_STACK_LINE(68)
 						if (((_g5 == ::haxor::core::TextureType_obj::TextureCube))){
 							HX_STACK_LINE(68)
@@ -881,9 +891,11 @@ HX_DEFINE_DYNAMIC_FUNC0(Texture_obj,get_magFilter,return )
 						}
 					}
 				}
+				HX_STACK_LINE(68)
+				::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
+				HX_STACK_LINE(68)
+				_this->bind[slot] = hx::ObjectPtr<OBJ_>(this);
 			}
-			HX_STACK_LINE(68)
-			::haxor::graphics::GL_obj::m_gl->BindTexture(target1,id);
 		}
 		HX_STACK_LINE(68)
 		::haxor::graphics::GL_obj::m_gl->TexParameteri(target,(int)10242,(  (((((int(this->m_wrap) & int(::haxor::core::TextureWrap_obj::ClampX))) != (int)0))) ? int((int)33071) : int((int)10497) ));

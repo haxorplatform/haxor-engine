@@ -83,7 +83,6 @@ LRESULT CALLBACK haxor::platform::windows::Window_obj::WndProc(HWND p_hwnd, UINT
 				
 				if (m_build)
 				{
-					//printf(">>>>> %d %d\\n", mp.x, mp.y);
 					input->OnMouseMove(mp.x, mp.y);
 					m_application->Update();
 					m_application->Render();
@@ -108,6 +107,8 @@ LRESULT CALLBACK haxor::platform::windows::Window_obj::WndProc(HWND p_hwnd, UINT
 			{
 				POINT mp;
 				GetCursorPos( & mp);
+				
+				
 				//SetCursorPos(300, 300);		
 			}
 			break;

@@ -10,6 +10,7 @@ import haxor.core.Application;
 import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
 import haxor.core.Entity;
+import haxor.core.Enums.InputState;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
@@ -31,6 +32,7 @@ import haxor.graphics.mesh.Model;
 import haxor.graphics.Screen;
 import haxor.graphics.texture.Bitmap;
 import haxor.graphics.texture.RenderTexture;
+import haxor.graphics.texture.Texture;
 import haxor.graphics.texture.Texture2D;
 import haxor.input.Input;
 import haxor.input.Joystick;
@@ -54,8 +56,10 @@ import haxor.math.Vector4;
 import haxor.net.Web;
 import haxor.graphics.GL;
 import haxor.graphics.GraphicContext.GraphicAPI;
+import haxor.platform.Types.Float32;
 import haxor.platform.Types.MeshBufferId;
 import haxor.thread.Activity;
+
 
 
 
@@ -72,23 +76,17 @@ class Main extends Application implements IUpdateable implements IRenderable
 		EntryPoint.Initialize();
 	}
 	
-	public var mesh : Mesh;
-	
 	public var cam : Camera;
 	
 	public var orbit : CameraOrbit;
-	
-	public var mr : MeshRenderer;
 	
 	public var container : Transform;
 	
 	public var mat : Material;
 	
-	public var ss : String;
+	public var player : Transform;
 	
-	var tex : Texture2D;
-	
-	var bmp : Bitmap;
+	var queue : Int = 3;
 	
 	#if html
 	var field : js.html.DivElement;
@@ -98,61 +96,38 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{	
 		Web.root = "http://haxor.thelaborat.org/resources/";
 		
-		Web.LoadTexture2D("./texture/misc/metal.jpg",true, function(t:Texture2D, p:Float):Void
+		
+		//Web.LoadCollada("./character/medieval/animations/all_idle01.DAE",function(f : ColladaFile, p:Float32):Void
+		Web.LoadCollada("./character/skeleton/grunt/animation_idle01.DAE",function(f : ColladaFile, p:Float32):Void
 		{
 			if (p >= 1.0)
 			{
-				Asset.Add("texture", t);
-				LoadComplete();
+				Asset.Add("animation_idle", f);
+				if ((--queue) <= 0) LoadComplete();
 			}
 		});
-		//*/
 		
-		
-		/*
-		Web.Load("./character/medieval/animations/all_idle01.DAE", function(s:String, p:Float):Void
+		//Web.LoadTexture2D("./character/medieval/knight/DiffuseTexture.png",true,function(t : Texture2D, p:Float32):Void
+		Web.LoadTexture2D("./character/skeleton/grunt/DiffuseTexture.png",true,function(t : Texture2D, p:Float32):Void
 		{
-		});
-		
-		
-		
-		//*/
-		/*
-		Web.Load("./shader/unlit/NDC.shader", function(d:String, p:Float):Void
-		{	
 			if (p >= 1.0)
 			{
-				ss = d;				
-				LoadComplete();
-			}
-		});
-		//*/
-		/*
-		Web.Load("./asset/dungeon/module0/asset.dae",function(d:String, p:Float):Void
-		{		
-			trace(p);
-			if (p >= 1.0)
-			{
-				if (d != null)
-				{
-					Console.Log(d.substr(0, 50));
-				}
-			}
-		});
-		//*/
-		/*
-		Web.Load("./texture/logo.png",function(d:String, p:Float):Void
-		{			
-			if (p >= 1.0)
-			{
-				if (d != null)
-				{
-					Console.Log(d.substr(0, 50));
-				}
+				Asset.Add("texture_diffuse", t);
+				if ((--queue) <= 0) LoadComplete();
 			}
 		});
 		
-		//*/
+		//Web.LoadCollada("./character/medieval/knight/asset.dae",function(f : ColladaFile, p:Float32):Void
+		Web.LoadCollada("./character/skeleton/grunt/model.DAE",function(f : ColladaFile, p:Float32):Void
+		{
+			if (p >= 1.0)
+			{
+				Asset.Add("model", f);
+				if ((--queue) <= 0) LoadComplete();
+			}
+		});
+		
+		
 				
 		return false;
 	}
@@ -168,107 +143,65 @@ class Main extends Application implements IUpdateable implements IRenderable
         ui.domElement.style.top = '0px';		
         js.Browser.document.body.appendChild(ui.domElement);
 		
-		Activity.Run(function(t:Float):Bool
+		Activity.Run(function(t:Float32):Bool
 		{
 			ui.update();
 			return true;
 		});
 		#end
 		
+		orbit = CameraOrbit.Create(400.0, 45, 30);
 		
-		
-		orbit = CameraOrbit.Create(3.5, 0, 0);
-		orbit.AddComponent(CameraOrbitInput);
+		var ci : CameraOrbitInput = orbit.AddComponent(CameraOrbitInput);
+		orbit.smooth = 5.0;
+		ci.zoomSpeed = 0.1;
 		cam = orbit.entity.GetComponentInChildren(Camera);
-		
-		//cam = (new Entity("camera")).AddComponent(Camera);
-		//cam.transform.localPosition = new Vector3(5, 5, 5);
-		//cam.transform.localRotation = Quaternion.LookAt(new Vector3(5, 5, 5), Vector3.zero);		
+		cam.far = 1000.0;
 		cam.background = new Color(0.3, 0.3, 0.3);
 		
-		var tex : Texture2D = Texture2D.green;
-		tex = Asset.Get("texture");
-		
 		container = (new Entity("container")).transform;
-		
-		//cam.transform.parent = container;
-		
-		var l : Float = 2;
-		
-		var px : Float = 0.0;
-		var py : Float = 0.0;
-		var pz : Float = 0.0;
-			
-		mat = Material.Transparent(Asset.Get("texture"));
-		mat.name = "T";
-		mat.SetTexture("Tex0", Texture2D.red);
-		mat.blend = true;
-		
-		
-		
-		Activity.Iterate(0,300,function(i:Int):Bool
-		//for (i in 0...30000)
-		{	
-			mr = (new Entity("cube" + i)).AddComponent(MeshRenderer);			
-			mr.transform.localScale = 
-			Vector3.one.Scale(0.1);
-			//Vector3.temp.Set(0.1, 0.1, 0.1).Scale(Random.Range(3.0, 50.0));
-			mr.transform.parent = container;			
-			mr.transform.localPosition =			
-			//new Vector3(0.0, 0.0, 40.0);
-			new Vector3(px, py, pz);
-			//Random.onSphere.Scale(50.0 + Random.value * 900.0);
-			mr.mesh 	= Model.cube;
-			
-			mr.material = mat;						
-			
-			px += 0.12;
-			
-			if (px >= l)
-			{
-				px = 0.0;
-				pz += 0.12;
-				if (pz >= l)
-				{
-					pz = 0.0;
-					py += 0.12;
 					
-				}
-			}
-			return true;
+		mat = Material.Opaque(Asset.Get("texture_diffuse"));
+		mat.shader = Shader.FlatTextureSkin;
+		mat.name = "PlayerMaterial";				
+		//mat.SetTexture("DiffuseTexture", Asset.Get("texture_diffuse"));
+		
+		var cf : ColladaFile = Asset.Get("model");
+		
+		player = new Entity("player").transform;
+		var asset : Transform = cast(cf.asset, Entity).transform;
+		asset.parent = player;
+		//asset.rotation = Quaternion.FromAxisAngle(Vector3.right, 90.0);
+		//asset.localScale = new Vector3(0.005, 0.005, 0.005);
+		//asset.localScale = new Vector3(2.0, 2.0, 2.0);
+		
+		var mr : Array<MeshRenderer> = cast player.GetComponentsInChildren(MeshRenderer);
+		for (i in 0...mr.length)
+		{	
+			//if (i == 1) mr[i].enabled = false;			
+			mr[i].material = mat;			
 		}
-		,10);//<<<<<<< here
 		
 	}
 	
 	public function OnUpdate():Void
 	{	
-		if (orbit != null)
-		{
-			//orbit.angle.x += Time.delta * 30.0;			
-		}
-		if (container != null)
-		{
-			//var lr : Quaternion = container.localRotation;
-			//lr.Multiply(Quaternion.FromAxisAngle(Vector3.up, Time.delta * 30));
-			//container.localRotation = lr;
-		}
-		
-		if (Input.Hit(KeyCode.A)) trace("A");
-		
 		var log : String = "";
 		
 		log += "Stats";
 		log += "\nVisible: " + Stats.visible;
 		log += "\nCulled: " + Stats.culled;
-		log += "\nTotal: " + Stats.total+"/"+Stats.renderers;
-		log += "\nTriangles: " + Stats.triangles;
+		log += "\nActive: " + Stats.total;
+		log += "\nRenderers: " + Stats.renderers;
+		log += "\nTris: " + Stats.triangles;
 		
-		if (Joystick.available)
+		if (player != null)
 		{
-			//trace(Input.joystick[0].ToString());
+			var r : Quaternion = player.localRotation;
+			//r.Multiply(Quaternion.FromAxisAngle(Vector3.up, 200.0 * Time.delta));
+			r = Quaternion.FromAxisAngle(Vector3.up, 33.0);
+			player.localRotation = r;			
 		}
-		
 		
 		#if html
 		if(field!=null) field.innerText = log;		
@@ -278,13 +211,19 @@ class Main extends Application implements IUpdateable implements IRenderable
 		application.window.title = StringTools.replace(log+" FPS: "+Time.fps, "\n", " ");
 		#end
 		
+		#if android
+		Console.Log(StringTools.replace(log + " FPS: " + Time.fps, "\n", " "));
+		#end
+
+		
 	}
 	
 	public function OnRender():Void
 	{	
 		GL.Clear(GL.DEPTH_BUFFER_BIT);
-		Gizmo.Grid(100.0,new Color(1,1,1,0.1));
-		Gizmo.Axis(50.0);
+		//Gizmo.Grid(100.0,new Color(1,1,1,0.1));
+		//Gizmo.Axis(50.0);
+		
 	}
 	
 	

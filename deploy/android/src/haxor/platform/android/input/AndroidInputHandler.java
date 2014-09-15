@@ -17,9 +17,9 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 	}
 	
 	
-	public static   void __hx_ctor_haxor_platform_android_input_AndroidInputHandler(haxor.platform.android.input.AndroidInputHandler __temp_me164451)
+	public static   void __hx_ctor_haxor_platform_android_input_AndroidInputHandler(haxor.platform.android.input.AndroidInputHandler __temp_me255649)
 	{
-		haxor.input.InputHandler.__hx_ctor_haxor_input_InputHandler(__temp_me164451);
+		haxor.input.InputHandler.__hx_ctor_haxor_input_InputHandler(__temp_me255649);
 	}
 	
 	
@@ -72,38 +72,38 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 		}
 		
 		{
-			int __temp_switch165330 = (action);
-			if (( __temp_switch165330 == android.view.MotionEvent.ACTION_DOWN )) 
+			int __temp_switch256522 = (action);
+			if (( __temp_switch256522 == android.view.MotionEvent.ACTION_DOWN )) 
 			{
 				this.OnTouchStart(id, px, py, null, null, null, null);
 			}
 			 else 
 			{
-				if (( __temp_switch165330 == android.view.MotionEvent.ACTION_CANCEL )) 
+				if (( __temp_switch256522 == android.view.MotionEvent.ACTION_CANCEL )) 
 				{
 					this.OnTouchCancel(id);
 				}
 				 else 
 				{
-					if (( __temp_switch165330 == android.view.MotionEvent.ACTION_UP )) 
+					if (( __temp_switch256522 == android.view.MotionEvent.ACTION_UP )) 
 					{
 						this.OnTouchEnd(id);
 					}
 					 else 
 					{
-						if (( __temp_switch165330 == android.view.MotionEvent.ACTION_POINTER_DOWN )) 
+						if (( __temp_switch256522 == android.view.MotionEvent.ACTION_POINTER_DOWN )) 
 						{
 							this.OnTouchStart(id, px, py, null, null, null, null);
 						}
 						 else 
 						{
-							if (( __temp_switch165330 == android.view.MotionEvent.ACTION_POINTER_UP )) 
+							if (( __temp_switch256522 == android.view.MotionEvent.ACTION_POINTER_UP )) 
 							{
 								this.OnTouchEnd(id);
 							}
 							 else 
 							{
-								if (( __temp_switch165330 == android.view.MotionEvent.ACTION_MOVE )) 
+								if (( __temp_switch256522 == android.view.MotionEvent.ACTION_MOVE )) 
 								{
 									int _g1 = 0;
 									int _g = p_event.getPointerCount();
@@ -150,44 +150,44 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 	public   java.lang.String ActionToString(int a)
 	{
 		{
-			int __temp_switch165331 = (a);
-			if (( __temp_switch165331 == android.view.MotionEvent.ACTION_DOWN )) 
+			int __temp_switch256523 = (a);
+			if (( __temp_switch256523 == android.view.MotionEvent.ACTION_DOWN )) 
 			{
 				return "down";
 			}
 			 else 
 			{
-				if (( __temp_switch165331 == android.view.MotionEvent.ACTION_MOVE )) 
+				if (( __temp_switch256523 == android.view.MotionEvent.ACTION_MOVE )) 
 				{
 					return "move";
 				}
 				 else 
 				{
-					if (( __temp_switch165331 == android.view.MotionEvent.ACTION_POINTER_DOWN )) 
+					if (( __temp_switch256523 == android.view.MotionEvent.ACTION_POINTER_DOWN )) 
 					{
 						return "pointer_down";
 					}
 					 else 
 					{
-						if (( __temp_switch165331 == android.view.MotionEvent.ACTION_UP )) 
+						if (( __temp_switch256523 == android.view.MotionEvent.ACTION_UP )) 
 						{
 							return "up";
 						}
 						 else 
 						{
-							if (( __temp_switch165331 == android.view.MotionEvent.ACTION_POINTER_UP )) 
+							if (( __temp_switch256523 == android.view.MotionEvent.ACTION_POINTER_UP )) 
 							{
 								return "pointer_up";
 							}
 							 else 
 							{
-								if (( __temp_switch165331 == android.view.MotionEvent.ACTION_OUTSIDE )) 
+								if (( __temp_switch256523 == android.view.MotionEvent.ACTION_OUTSIDE )) 
 								{
 									return "outside";
 								}
 								 else 
 								{
-									if (( __temp_switch165331 == android.view.MotionEvent.ACTION_CANCEL )) 
+									if (( __temp_switch256523 == android.view.MotionEvent.ACTION_CANCEL )) 
 									{
 										return "cancel";
 									}
@@ -213,14 +213,14 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165332 = true;
+			boolean __temp_executeDef256524 = true;
 			switch (field.hashCode())
 			{
 				case 1601727202:
 				{
 					if (field.equals("ActionToString")) 
 					{
-						__temp_executeDef165332 = false;
+						__temp_executeDef256524 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ActionToString"))) );
 					}
 					
@@ -232,7 +232,7 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 				{
 					if (field.equals("OnTouchEvent")) 
 					{
-						__temp_executeDef165332 = false;
+						__temp_executeDef256524 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTouchEvent"))) );
 					}
 					
@@ -244,7 +244,7 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 				{
 					if (field.equals("ProcessTouchEvent")) 
 					{
-						__temp_executeDef165332 = false;
+						__temp_executeDef256524 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ProcessTouchEvent"))) );
 					}
 					
@@ -256,7 +256,7 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 				{
 					if (field.equals("UpdateInput")) 
 					{
-						__temp_executeDef165332 = false;
+						__temp_executeDef256524 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateInput"))) );
 					}
 					
@@ -266,7 +266,7 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 				
 			}
 			
-			if (__temp_executeDef165332) 
+			if (__temp_executeDef256524) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -283,14 +283,14 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef165333 = true;
+			boolean __temp_executeDef256525 = true;
 			switch (field.hashCode())
 			{
 				case 1073933409:
 				{
 					if (field.equals("UpdateInput")) 
 					{
-						__temp_executeDef165333 = false;
+						__temp_executeDef256525 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -302,7 +302,7 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 				{
 					if (field.equals("OnTouchEvent")) 
 					{
-						__temp_executeDef165333 = false;
+						__temp_executeDef256525 = false;
 						this.OnTouchEvent(((android.view.MotionEvent) (dynargs.__get(0)) ));
 					}
 					
@@ -314,7 +314,7 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 				{
 					if (field.equals("ActionToString")) 
 					{
-						__temp_executeDef165333 = false;
+						__temp_executeDef256525 = false;
 						return this.ActionToString(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -326,7 +326,7 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 				{
 					if (field.equals("ProcessTouchEvent")) 
 					{
-						__temp_executeDef165333 = false;
+						__temp_executeDef256525 = false;
 						this.ProcessTouchEvent(((android.view.MotionEvent) (dynargs.__get(0)) ));
 					}
 					
@@ -336,7 +336,7 @@ public  class AndroidInputHandler extends haxor.input.InputHandler
 				
 			}
 			
-			if (__temp_executeDef165333) 
+			if (__temp_executeDef256525) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

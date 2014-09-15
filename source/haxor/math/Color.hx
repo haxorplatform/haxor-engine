@@ -1,5 +1,6 @@
 package haxor.math;
 import haxor.context.EngineContext;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes a RGBA color represented as a float tuple.
@@ -90,7 +91,7 @@ class Color
 	 * @param	p_a
 	 * @return
 	 */
-	static public function FromBytes(p_r:Float=0, p_g:Float=0, p_b:Float=0, p_a:Float=255.0):Color
+	static public function FromBytes(p_r:Float32=0, p_g:Float32=0, p_b:Float32=0, p_a:Float32=255.0):Color
 	{
 		return new Color(p_r * Mathf.Byte2Float, p_g * Mathf.Byte2Float, p_b * Mathf.Byte2Float, p_a * Mathf.Byte2Float);		
 	}
@@ -102,7 +103,7 @@ class Color
 	 * @param	r
 	 * @return
 	 */
-	static public function Lerp(a : Color, b : Color, r : Float) :Color
+	static public function Lerp(a : Color, b : Color, r : Float32) :Color
 	{
 		return new Color(Mathf.Lerp(a.r, b.r, r), Mathf.Lerp(a.g, b.g, r), Mathf.Lerp(a.b, b.b, r), Mathf.Lerp(a.a, b.a, r));
 	}
@@ -113,9 +114,9 @@ class Color
 	 * @param	r
 	 * @return
 	 */
-	static public function Sample(g: Array<Color>, r:Float):Color
+	static public function Sample(g: Array<Color>, r:Float32):Color
 	{
-		var pos : Float = cast (g.length-1); 
+		var pos : Float32 = cast (g.length-1); 
 		pos *= r*0.9999;
 		var i0 : Int = Std.int(pos);
 		var i1 : Int = (i0 + 1)%g.length;
@@ -158,11 +159,13 @@ class Color
 	private function set_argb(v:Int):Int
 	{
 		a = cast (((v >> 24) & 0xff) * Mathf.Byte2Float);
-		g = cast (((v >> 16) & 0xff) * Mathf.Byte2Float);
-		b = cast (((v >>  8) & 0xff) * Mathf.Byte2Float);
-		r = cast (((v      ) & 0xff) * Mathf.Byte2Float);
+		r = cast (((v >> 16) & 0xff) * Mathf.Byte2Float);
+		g = cast (((v >>  8) & 0xff) * Mathf.Byte2Float);
+		b = cast (((v      ) & 0xff) * Mathf.Byte2Float);
 		return v;
 	}
+	
+	
 	
 	/**
 	 * Returns the CSS representation of this color.
@@ -213,8 +216,8 @@ class Color
 	/**
 	 * Returns the luminance value of the Color.
 	 */
-	public var luminance(get_luminance, null):Float;
-	private inline function get_luminance():Float { return (r * 0.3) + (g * 0.59) + (b * 0.11); }
+	public var luminance(get_luminance, null):Float32;
+	private inline function get_luminance():Float32{ return (r * 0.3) + (g * 0.59) + (b * 0.11); }
 	
 	/**
 	 * Returns a copy of this Color with a negative transform applied.
@@ -225,22 +228,22 @@ class Color
 	/**
 	 * Red Channel.
 	 */
-	public var r:Float;
+	public var r:Float32;
 	
 	/**
 	 * Green Channel.
 	 */
-	public var g:Float;
+	public var g:Float32;
 	
 	/**
 	 * Blue Channel.
 	 */
-	public var b:Float;
+	public var b:Float32;
 	
 	/**
 	 * Alpha Channel
 	 */
-	public var a:Float;
+	public var a:Float32;
 
 
 	/**
@@ -250,7 +253,7 @@ class Color
 	 * @param	p_b
 	 * @param	p_a
 	 */
-	public function new(p_r:Float=0,p_g:Float=0,p_b:Float=0,p_a:Float=1)
+	public function new(p_r:Float32=0,p_g:Float32=0,p_b:Float32=0,p_a:Float32=1)
 	{
 		r = p_r;
 		g = p_g;
@@ -267,7 +270,7 @@ class Color
 	 * @param	p_a
 	 * @return
 	 */
-	public function Set(p_r:Float = 0, p_g:Float = 0, p_b:Float = 0, p_a:Float = 1) : Color
+	public function Set(p_r:Float32= 0, p_g:Float32= 0, p_b:Float32= 0, p_a:Float32= 1) : Color
 	{
 		r = p_r;
 		g = p_g;
@@ -302,7 +305,7 @@ class Color
 	 * @param	p
 	 * @return
 	 */
-	public function Get(p : Int):Float { return p == 0 ? r  : (p == 1 ? g : (p == 2 ? b : a)); }
+	public function Get(p : Int):Float32{ return p == 0 ? r  : (p == 1 ? g : (p == 2 ? b : a)); }
 	
 	/**
 	 * Adds this vector with another one, component-wise. Returns its own reference.
@@ -337,20 +340,20 @@ class Color
 	 * @param	p_s
 	 * @return
 	 */
-	public function Scale(p_s : Float):Color { r *= p_s; g *= p_s; b *= p_s; a *= p_s; return this; }
+	public function Scale(p_s : Float32):Color { r *= p_s; g *= p_s; b *= p_s; a *= p_s; return this; }
 	
 	/**
 	 * Scales this vector using the informed scalar ignoring alpha. Returns its own reference.
 	 * @param	p_s
 	 * @return
 	 */
-	public function ScaleRGB(p_s : Float):Color { r *= p_s; g *= p_s; b *= p_s; return this; }
+	public function ScaleRGB(p_s : Float32):Color { r *= p_s; g *= p_s; b *= p_s; return this; }
 	
 	/**
 	 * Returns all channels as an Array of Floats.
 	 * @return
 	 */
-	public function ToArray() : Array<Float> { return [r, g, b, a]; }
+	public function ToArray() : Array<Float32> { return [r, g, b, a]; }
 	
 	/**
 	 * Outputs this color channels values as String.

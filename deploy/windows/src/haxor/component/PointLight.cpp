@@ -29,14 +29,14 @@ namespace component{
 
 Void PointLight_obj::__construct()
 {
-HX_STACK_FRAME("haxor.component.PointLight","new",0x37d5d2b5,"haxor.component.PointLight.new","haxor/component/PointLight.hx",45,0x729bedd9)
+HX_STACK_FRAME("haxor.component.PointLight","new",0x37d5d2b5,"haxor.component.PointLight.new","haxor/component/PointLight.hx",46,0x729bedd9)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(46)
-	super::__construct();
 	HX_STACK_LINE(47)
-	this->atten = 1.0;
+	super::__construct();
 	HX_STACK_LINE(48)
+	this->atten = 1.0;
+	HX_STACK_LINE(49)
 	this->radius = 1.0;
 }
 ;
@@ -57,26 +57,26 @@ Dynamic PointLight_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::component::PointLight PointLight_obj::Create( ::haxor::math::Color p_color,Float p_intensity,Float p_atten,Float p_radius){
-	HX_STACK_FRAME("haxor.component.PointLight","Create",0x20fe3be7,"haxor.component.PointLight.Create","haxor/component/PointLight.hx",20,0x729bedd9)
+	HX_STACK_FRAME("haxor.component.PointLight","Create",0x20fe3be7,"haxor.component.PointLight.Create","haxor/component/PointLight.hx",21,0x729bedd9)
 	HX_STACK_ARG(p_color,"p_color")
 	HX_STACK_ARG(p_intensity,"p_intensity")
 	HX_STACK_ARG(p_atten,"p_atten")
 	HX_STACK_ARG(p_radius,"p_radius")
-	HX_STACK_LINE(21)
-	::haxor::core::Entity e = ::haxor::core::Entity_obj::__new(null());		HX_STACK_VAR(e,"e");
 	HX_STACK_LINE(22)
-	e->set_name(HX_CSTRING("PointLight"));
+	::haxor::core::Entity e = ::haxor::core::Entity_obj::__new(null());		HX_STACK_VAR(e,"e");
 	HX_STACK_LINE(23)
-	::haxor::component::PointLight l = e->AddComponent(hx::ClassOf< ::haxor::component::PointLight >());		HX_STACK_VAR(l,"l");
+	e->set_name(HX_CSTRING("PointLight"));
 	HX_STACK_LINE(24)
-	l->color = p_color;
+	::haxor::component::PointLight l = e->AddComponent(hx::ClassOf< ::haxor::component::PointLight >());		HX_STACK_VAR(l,"l");
 	HX_STACK_LINE(25)
-	l->intensity = p_intensity;
+	l->color = p_color;
 	HX_STACK_LINE(26)
-	l->atten = p_atten;
+	l->intensity = p_intensity;
 	HX_STACK_LINE(27)
-	l->radius = p_radius;
+	l->atten = p_atten;
 	HX_STACK_LINE(28)
+	l->radius = p_radius;
+	HX_STACK_LINE(29)
 	return l;
 }
 

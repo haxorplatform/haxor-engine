@@ -6,6 +6,7 @@ import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.graphics.GraphicContext.GraphicAPI;
 import haxor.platform.Types.ArrayBuffer;
+import haxor.platform.Types.Float32;
 import haxor.platform.Types.FrameBufferId;
 import haxor.platform.Types.MeshBufferId;
 import haxor.platform.Types.ProgramId;
@@ -34,6 +35,8 @@ typedef PlatformGL  =  haxor.platform.graphics.OpenGL;
 @:allow(haxor)
 class GL
 {
+	
+	
 	static public inline var ACTIVE_ATTRIBUTES : Int = 0x8B89;
 	static public inline var ACTIVE_TEXTURE : Int = 0x84E0;
 	static public inline var ACTIVE_UNIFORMS : Int = 0x8B86;
@@ -497,7 +500,7 @@ class GL
 	 * @param	p_y
 	 * @param	p_z
 	 */
-	static public inline function VertexAttrib3f(p_location : Int, p_x : Float, p_y:Float, p_z : Float):Void { m_gl.VertexAttrib3f(p_location, p_x, p_y, p_z); }
+	static public inline function VertexAttrib3f(p_location : Int, p_x : Float32, p_y:Float32, p_z : Float32):Void { m_gl.VertexAttrib3f(p_location, p_x, p_y, p_z); }
 	
 	/**
 	 * Describes a buffer attribute in a given location as a single 3-float vector.
@@ -507,7 +510,7 @@ class GL
 	 * @param	p_z
 	 * @param	p_w
 	 */
-	static public inline function VertexAttrib4f(p_location : Int, p_x : Float, p_y:Float, p_z : Float, p_w : Float):Void { m_gl.VertexAttrib4f(p_location, p_x, p_y, p_z,p_w); }
+	static public inline function VertexAttrib4f(p_location : Int, p_x : Float32, p_y:Float32, p_z : Float32, p_w : Float32):Void { m_gl.VertexAttrib4f(p_location, p_x, p_y, p_z,p_w); }
 	
 	/**
 	 * Describes given buffer attribute components type (float,int,...), how it will be treated (x,xy,xyz,...) and its location in the shader scope.
@@ -811,7 +814,7 @@ class GL
 	 * @param	p_parameter
 	 * @param	p_value
 	 */
-	static public inline function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float):Void 	{ m_gl.TexParameterf(p_target, p_parameter, p_value); }	
+	static public inline function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float32):Void 	{ m_gl.TexParameterf(p_target, p_parameter, p_value); }	
 	
 	/**
 	 * Sets Int texture parameters.
@@ -830,7 +833,7 @@ class GL
 	 * @param	p_location
 	 * @param	p_x
 	 */
-	static public inline function Uniform1f(p_location:UniformLocation, p_x:Float):Void 										{ m_gl.Uniform1f(p_location, p_x); }	
+	static public inline function Uniform1f(p_location:UniformLocation, p_x:Float32):Void 										{ m_gl.Uniform1f(p_location, p_x); }	
 	
 	/**
 	 * Sets a 2 float uniform.
@@ -838,7 +841,7 @@ class GL
 	 * @param	p_x
 	 * @param	p_y
 	 */
-	static public inline function Uniform2f(p_location:UniformLocation, p_x:Float, p_y:Float):Void 							{ m_gl.Uniform2f(p_location, p_x, p_y); }	
+	static public inline function Uniform2f(p_location:UniformLocation, p_x:Float32, p_y:Float32):Void 							{ m_gl.Uniform2f(p_location, p_x, p_y); }	
 	
 	/**
 	 * Sets a 3 float uniform.
@@ -847,7 +850,7 @@ class GL
 	 * @param	p_y
 	 * @param	p_z
 	 */
-	static public inline function Uniform3f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float):Void 				{ m_gl.Uniform3f(p_location, p_x, p_y, p_z); }		
+	static public inline function Uniform3f(p_location:UniformLocation, p_x:Float32, p_y:Float32, p_z:Float32):Void 				{ m_gl.Uniform3f(p_location, p_x, p_y, p_z); }		
 	
 	/**
 	 * Sets a 4 float uniform.
@@ -857,7 +860,7 @@ class GL
 	 * @param	p_z
 	 * @param	p_w
 	 */
-	static public inline function Uniform4f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float, p_w:Float):Void 		{ m_gl.Uniform4f(p_location, p_x, p_y, p_z, p_w); }		
+	static public inline function Uniform4f(p_location:UniformLocation, p_x:Float32, p_y:Float32, p_z:Float32, p_w:Float32):Void 		{ m_gl.Uniform4f(p_location, p_x, p_y, p_z, p_w); }		
 	
 	/**
 	 * Sets a 1 int uniform.
@@ -1034,7 +1037,7 @@ class GL
 	 * Sets the value that will be used to fill the Depth buffer.
 	 * @param	p_value
 	 */
-	static public inline function ClearDepth(p_value : Float):Void { m_gl.ClearDepth(p_value);	}	
+	static public inline function ClearDepth(p_value : Float32):Void { m_gl.ClearDepth(p_value);	}	
 	
 	/**
 	 * Sets the color that will clear the Color buffer.
@@ -1043,7 +1046,7 @@ class GL
 	 * @param	p_b
 	 * @param	p_a
 	 */
-	static public inline function ClearColor(p_r: Float, p_g:Float, p_b:Float, p_a:Float):Void { m_gl.ClearColor(p_r, p_g, p_b, p_a); 	}
+	static public inline function ClearColor(p_r: Float32, p_g:Float32, p_b:Float32, p_a:Float32):Void { m_gl.ClearColor(p_r, p_g, p_b, p_a); 	}
 	
 	/**
 	 * Defines the viewport transform rect.
@@ -1137,5 +1140,7 @@ class GL
 	
 	//=========== Misc ===========
 	
+
+
 	
 }

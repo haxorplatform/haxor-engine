@@ -24,13 +24,13 @@ class Easing { }
 class Trig
 {
 	
-	static public function Acos(v : Float):Float { return Mathf.Acos((-2 * v) + 1.0) * Mathf.InvPI; }
+	static public function Acos(v : Float32):Float32{ return Mathf.Acos((-2 * v) + 1.0) * Mathf.InvPI; }
 	
-	static public function AcosQuad(v : Float):Float { return Mathf.Pow(Acos(v), 2.0); }
+	static public function AcosQuad(v : Float32):Float32{ return Mathf.Pow(Acos(v), 2.0); }
 	
-	static public function AcosRad(v : Float):Float { return Mathf.Pow(Acos(v), 0.5); }
+	static public function AcosRad(v : Float32):Float32{ return Mathf.Pow(Acos(v), 0.5); }
 	
-	static public function Cos(v:Float):Float { return ( -Mathf.Cos(v * Mathf.PI) + 1.0) * 0.5; }
+	static public function Cos(v:Float32):Float32{ return ( -Mathf.Cos(v * Mathf.PI) + 1.0) * 0.5; }
 	
 }
 
@@ -47,14 +47,14 @@ class Cubic
 	 * @param	p_r
 	 * @return
 	 */
-	static public function In(p_r : Float) : Float { return p_r * p_r * p_r; }
+	static public function In(p_r : Float32) : Float32 { return p_r * p_r * p_r; }
 	
 	/**
 	 * Easing equation: 'y = x*(x*(x-3)+3)'.
 	 * @param	p_r
 	 * @return
 	 */
-	static public function Out(p_r : Float) : Float { return p_r * (p_r * (p_r - 3) + 3); }
+	static public function Out(p_r : Float32) : Float32 { return p_r * (p_r * (p_r - 3) + 3); }
 	
 	
 	
@@ -63,7 +63,7 @@ class Cubic
 	 * @param	p_r
 	 * @return
 	 */
-	static public function InOut(p_r : Float) : Float { return -2 * p_r * (p_r * (p_r - 1.5)); }
+	static public function InOut(p_r : Float32) : Float32 { return -2 * p_r * (p_r * (p_r - 1.5)); }
 	
 	
 	/**
@@ -71,7 +71,7 @@ class Cubic
 	 * @param	p_r
 	 * @return
 	 */
-	static public function OutIn(p_r : Float) : Float { return p_r * (p_r * (4 * p_r - 6) + 3); }
+	static public function OutIn(p_r : Float32) : Float32 { return p_r * (p_r * (4 * p_r - 6) + 3); }
 	
 	
 	/**
@@ -79,7 +79,7 @@ class Cubic
 	 * @param	p_r
 	 * @return
 	 */
-	static public function BackIn(p_r : Float) : Float { return p_r * (p_r * (4 * p_r - 3)); }
+	static public function BackIn(p_r : Float32) : Float32 { return p_r * (p_r * (4 * p_r - 3)); }
 	
 	
 	/**
@@ -87,7 +87,7 @@ class Cubic
 	 * @param	p_r
 	 * @return
 	 */
-	static public function OutBack(p_r : Float) : Float { return p_r * (p_r * (4 * p_r - 9) + 6); }
+	static public function OutBack(p_r : Float32) : Float32 { return p_r * (p_r * (4 * p_r - 9) + 6); }
 }
 
 
@@ -102,27 +102,27 @@ class Elastic
 	 * @param	p_r
 	 * @return
 	 */
-	static public function OutBig  (p_r : Float) : Float { return p_r * (p_r * (p_r * (p_r * ((56) * p_r + ( -175)) + (200)) + ( -100)) + (20)); }	
+	static public function OutBig  (p_r : Float32) : Float32 { return p_r * (p_r * (p_r * (p_r * ((56) * p_r + ( -175)) + (200)) + ( -100)) + (20)); }	
 	
 	/**
 	 * Easing equation: 'y = x*(x*(x*(x*(33*x -106) + 126) -67) + 15)'.
 	 * @param	p_r
 	 * @return
 	 */
-	static public function OutSmall(p_r : Float) : Float { return p_r * (p_r * (p_r * (p_r * ((33) * p_r + ( -106)) + (126)) + ( -67)) + (15)); }	
+	static public function OutSmall(p_r : Float32) : Float32 { return p_r * (p_r * (p_r * (p_r * ((33) * p_r + ( -106)) + (126)) + ( -67)) + (15)); }	
 	
 	/**
 	 * Easing equation: 'y = x*(x*(x*(x*(33*x -59)+32)-5))'.
 	 * @param	p_r
 	 * @return
 	 */
-	static public function InBig   (p_r : Float) : Float { return p_r * (p_r * (p_r * (p_r * ((33) * p_r + ( -59)) + ( 32)) + (  -5))); }		
+	static public function InBig   (p_r : Float32) : Float32 { return p_r * (p_r * (p_r * (p_r * ((33) * p_r + ( -59)) + ( 32)) + (  -5))); }		
 	
 	/**
 	 * Easing equation: 'y = x*(x*(x*(x*(56*x-105)+60)-10))'.
 	 * @param	p_r
 	 * @return
 	 */
-	static public function InSmall (p_r : Float) : Float { return p_r * (p_r * (p_r * (p_r * ((56) * p_r + (-105)) + ( 60)) + ( -10))); }
+	static public function InSmall (p_r : Float32) : Float32 { return p_r * (p_r * (p_r * (p_r * ((56) * p_r + (-105)) + ( 60)) + ( -10))); }
 	
 }

@@ -113,7 +113,6 @@ class EngineContext
 	 */
 	static private function Initialize():Void
 	{
-		
 		Console.Log("Haxor> Engine Context Initialize.",3);
 		update      = new Process("process.update", 	 maxNodes);
 		render      = new Process("process.render", 	 maxNodes);
@@ -121,18 +120,19 @@ class EngineContext
 		resources   = new Process("process.resources",   maxNodes);
 		disposables = new Process("process.disposables", maxNodes);
 		
-		
 		list = [update, render, resize, resources, disposables];
 		
-		
-		renderer	= new RendererContext();
-		mesh 		= new MeshContext();
-		material	= new MaterialContext();
-		texture		= new TextureContext();
 		data		= new DataContext();
+		
+		#if !ie8
+		renderer	= new RendererContext();
+		mesh 		= new MeshContext();		
+		material	= new MaterialContext();
+		texture		= new TextureContext();		
 		gizmo		= new GizmoContext();
-		camera		= new CameraContext();
+		camera		= new CameraContext();		
 		transform   = new TransformContext();
+		#end
 		
 	}
 	
@@ -141,12 +141,14 @@ class EngineContext
 	 */
 	static private function Build():Void
 	{
+		#if !ie8
 		mesh.Initialize();
 		material.Initialize();
 		texture.Initialize();
 		gizmo.Initialize();	
 		transform.Initialize();
 		renderer.Initialize();
+		#end
 	}
 	
 	/**

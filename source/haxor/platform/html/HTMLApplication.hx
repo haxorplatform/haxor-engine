@@ -1,5 +1,6 @@
 #if html
 package haxor.platform.html;
+import haxor.platform.Types.Float32;
 import js.html.DivElement;
 import haxor.core.BaseApplication;
 import js.Browser;
@@ -44,13 +45,13 @@ class HTMLApplication extends BaseApplication
 	 * See BaseApplication.
 	 * @return
 	 */
-	override function GetContainerWidth():Float { return m_container.clientWidth; }
+	override function GetContainerWidth():Float32{ return m_container.clientWidth; }
 	
 	/**
 	 * See BaseApplication.
 	 * @return
 	 */
-	override function GetContainerHeight():Float { return m_container.clientHeight; }
+	override function GetContainerHeight():Float32{ return m_container.clientHeight; }
 	
 	/*
 	private function SetupGraphics():Void

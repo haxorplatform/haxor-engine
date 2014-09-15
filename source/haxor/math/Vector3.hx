@@ -1,5 +1,6 @@
 package haxor.math;
 import haxor.context.EngineContext;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that represents a 3 float tuple.
@@ -49,7 +50,7 @@ class Vector3
 	 * @param	p_b
 	 * @return
 	 */
-	static public inline function Dot(p_a : Vector3, p_b : Vector3) : Float { return ((p_a.x * p_b.x) + (p_a.y * p_b.y) + (p_a.z * p_b.z)); }
+	static public inline function Dot(p_a : Vector3, p_b : Vector3) : Float32 { return ((p_a.x * p_b.x) + (p_a.y * p_b.y) + (p_a.z * p_b.z)); }
 	
 	/**
 	 * Measures the distance between 2 points.
@@ -59,9 +60,9 @@ class Vector3
 	 */
 	static public function Distance(p_a : Vector3, p_b : Vector3) : Float
 	{
-		var dx : Float = (p_a.x - p_b.x);
-		var dy : Float = (p_a.y - p_b.y);
-		var dz : Float = (p_a.z - p_b.z);
+		var dx : Float32 = (p_a.x - p_b.x);
+		var dy : Float32 = (p_a.y - p_b.y);
+		var dz : Float32 = (p_a.z - p_b.z);
 		return Mathf.Sqrt(dx * dx + dy * dy + dz * dz);
 	}
 	
@@ -88,7 +89,7 @@ class Vector3
 	 * @param	p_r
 	 * @return
 	 */
-	static public function Lerp(p_a : Vector3, p_b : Vector3, p_r:Float,p_result:Vector3=null):Vector3
+	static public function Lerp(p_a : Vector3, p_b : Vector3, p_r:Float32,p_result:Vector3=null):Vector3
 	{
 		p_result = p_result == null ? new Vector3() : p_result;
 		return p_result.Set(
@@ -200,14 +201,14 @@ class Vector3
 	/**
 	 * Returns the length of the vector.
 	 */
-	public var length(get_length, null) : Float;
-	private inline function get_length():Float { return Math.sqrt(x * x + y * y + z * z); }
+	public var length(get_length, null) : Float32;
+	private inline function get_length():Float32{ return Math.sqrt(x * x + y * y + z * z); }
 	
 	/**
 	 * Returns the squared length.
 	 */
-	public var lengthSqr(get_lengthSqr, null) : Float;	
-	private inline function get_lengthSqr():Float { return (x * x + y * y + z * z); }
+	public var lengthSqr(get_lengthSqr, null) : Float32;	
+	private inline function get_lengthSqr():Float32{ return (x * x + y * y + z * z); }
 	
 	/**
 	 * Returns a copy of this vector normalized.
@@ -225,17 +226,17 @@ class Vector3
 	/**
 	 * X coordinate.
 	 */
-	public var x:Float;
+	public var x:Float32;
 	
 	/**
 	 * Y coordinate.
 	 */
-	public var y:Float;
+	public var y:Float32;
 	
 	/**
 	 * Z coordinate.
 	 */
-	public var z:Float;
+	public var z:Float32;
 
 	/**
 	 * Creates a new Vector3 with the informed coordinates.
@@ -243,7 +244,7 @@ class Vector3
 	 * @param	p_y
 	 * @param	p_z
 	 */
-	public function new(p_x:Float=0,p_y:Float=0,p_z:Float=0) 
+	public function new(p_x:Float32=0,p_y:Float32=0,p_z:Float32=0) 
 	{
 		x = p_x;
 		y = p_y;
@@ -257,7 +258,7 @@ class Vector3
 	 * @param	p_z
 	 * @return
 	 */
-	public function Set(p_x:Float = 0, p_y:Float = 0, p_z:Float = 0):Vector3 { x = p_x; y = p_y; z = p_z; return this; }
+	public function Set(p_x:Float32= 0, p_y:Float32= 0, p_z:Float32= 0):Vector3 { x = p_x; y = p_y; z = p_z; return this; }
 	
 	/**
 	 * Sets all components of this vector using a Vector2 as template. Returns its own reference.
@@ -292,7 +293,7 @@ class Vector3
 	 * @param	p
 	 * @return
 	 */
-	public function Get(p : Int):Float { return p == 0 ? x  : (p == 1 ? y : z); }
+	public function Get(p : Int):Float32{ return p == 0 ? x  : (p == 1 ? y : z); }
 	
 	/**
 	 * Adds this vector with another one, component-wise. Returns its own reference.
@@ -308,7 +309,7 @@ class Vector3
 	 * @param	p_z
 	 * @return
 	 */
-	public function Add3(p_x : Float,p_y:Float,p_z:Float):Vector3 { x += p_x; y += p_y; z += p_z; return this; }
+	public function Add3(p_x : Float32,p_y:Float32,p_z:Float32):Vector3 { x += p_x; y += p_y; z += p_z; return this; }
 	
 	/**
 	 * Subtracts this vector with another one, component-wise. Returns its own reference.
@@ -330,14 +331,14 @@ class Vector3
 	 * @param	p_step
 	 * @return
 	 */
-	public function Step(p_to : Vector3, p_step : Float):Bool
+	public function Step(p_to : Vector3, p_step : Float32):Bool
 	{
-		var vx : Float = p_to.x - x;
-		var vy : Float = p_to.y - y;
-		var vz : Float = p_to.z - z;
-		var l : Float = Math.sqrt(vx * vx + vy * vy + vz * vz);
+		var vx : Float32 = p_to.x - x;
+		var vy : Float32 = p_to.y - y;
+		var vz : Float32 = p_to.z - z;
+		var l : Float32 = Math.sqrt(vx * vx + vy * vy + vz * vz);
 		if (l <= Mathf.Epsilon) return false;
-		var s : Float = p_step > l ? l : p_step;
+		var s : Float32 = p_step > l ? l : p_step;
 		l = s / l;		
 		vx *= l;
 		vy *= l;
@@ -355,7 +356,7 @@ class Vector3
 	 */
 	public function Reflect(p_normal:Vector3):Vector3
 	{
-		var d : Float = Math.min(0.0,Dot(p_normal, this)) * 2.0;		
+		var d : Float32 = Math.min(0.0,Dot(p_normal, this)) * 2.0;		
 		x += -p_normal.x * d;
 		y += -p_normal.y * d;
 		z += -p_normal.z * d;
@@ -373,7 +374,7 @@ class Vector3
 	 * @param	p_s
 	 * @return
 	 */
-	public function Scale(p_s : Float):Vector3 { x *= p_s; y *= p_s; z *= p_s; return this; }
+	public function Scale(p_s : Float32):Vector3 { x *= p_s; y *= p_s; z *= p_s; return this; }
 	
 	/**
 	 * Normalizes this vector. Returns its own reference.
@@ -381,7 +382,7 @@ class Vector3
 	 */
 	public function Normalize():Vector3
 	{
-		var l:Float = length;
+		var l:Float32= length;
 		if (l <= 0) return this;
 		x *= (l = 1.0 / l);
 		y *= l;
@@ -390,10 +391,10 @@ class Vector3
 	}
 	
 	/**
-	 * Converts this vector to an Array<Float>
+	 * Converts this vector to an Array<Float32>
 	 * @return
 	 */
-	public function ToArray() : Array<Float> { return [x, y, z]; }
+	public function ToArray() : Array<Float32> { return [x, y, z]; }
 	
 	/**
 	 * Returns the String form of this vector.

@@ -1,5 +1,6 @@
 package haxor.math;
 import haxor.context.EngineContext;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that represents a 4 float tuple.
@@ -38,7 +39,7 @@ class Vector4
 	 * @param	p_r
 	 * @return
 	 */
-	static public function Lerp(p_a : Vector4, p_b : Vector4, p_r:Float):Vector4
+	static public function Lerp(p_a : Vector4, p_b : Vector4, p_r:Float32):Vector4
 	{
 		return new Vector4(
 		p_a.x + (p_b.x - p_a.x) * p_r,
@@ -81,14 +82,14 @@ class Vector4
 	/**
 	 * Returns the length of this vector.
 	 */
-	public var length(get_length, null) : Float;	
-	private inline function get_length():Float { return Math.sqrt(x * x + y * y + z * z + w*w); }
+	public var length(get_length, null) : Float32;	
+	private inline function get_length():Float32{ return Math.sqrt(x * x + y * y + z * z + w*w); }
 	
 	/**
 	 * Returns the squared length.
 	 */
-	public var lengthSqr(get_lengthSqr, null) : Float;	
-	private inline function get_lengthSqr():Float { return (x * x + y * y + z * z + w * w); }
+	public var lengthSqr(get_lengthSqr, null) : Float32;	
+	private inline function get_lengthSqr():Float32{ return (x * x + y * y + z * z + w * w); }
 	
 	/**
 	 * Returns a copy of this vector normalized.
@@ -99,22 +100,22 @@ class Vector4
 	/**
 	 * X coordinate.
 	 */
-	public var x:Float;
+	public var x:Float32;
 	
 	/**
 	 * Y coordinate.
 	 */
-	public var y:Float;
+	public var y:Float32;
 	
 	/**
 	 * Z coordinate.
 	 */
-	public var z:Float;
+	public var z:Float32;
 	
 	/**
 	 * W coordinate.
 	 */
-	public var w:Float;
+	public var w:Float32;
 
 	/**
 	 * Creates a new Vector4.
@@ -123,7 +124,7 @@ class Vector4
 	 * @param	p_z
 	 * @param	p_w
 	 */
-	public function new(p_x:Float=0,p_y:Float=0,p_z:Float=0,p_w:Float=0) 
+	public function new(p_x:Float32=0,p_y:Float32=0,p_z:Float32=0,p_w:Float32=0) 
 	{
 		x = p_x;
 		y = p_y;
@@ -136,7 +137,7 @@ class Vector4
 	 * @param	p
 	 * @return
 	 */
-	public function Get(p : Int):Float { return p == 0 ? x  : (p == 1 ? y : (p==2 ? z : w)); }
+	public function Get(p : Int):Float32{ return p == 0 ? x  : (p == 1 ? y : (p==2 ? z : w)); }
 	
 	/**
 	 * Sets all components of this Vector4. Returns its own reference.
@@ -146,7 +147,7 @@ class Vector4
 	 * @param	p_w
 	 * @return
 	 */
-	public function Set(p_x:Float = 0, p_y:Float = 0, p_z:Float = 0, p_w:Float = 0):Vector4 { x = p_x; y = p_y; z = p_z; w = p_w; return this; }
+	public function Set(p_x:Float32= 0, p_y:Float32= 0, p_z:Float32= 0, p_w:Float32= 0):Vector4 { x = p_x; y = p_y; z = p_z; w = p_w; return this; }
 	
 	/**
 	 * Sets all components of this vector using a Vector2 as template. Returns its own reference.
@@ -195,7 +196,7 @@ class Vector4
 	 * @param	p_s
 	 * @return
 	 */
-	public function Scale(p_s : Float):Vector4 { x *= p_s; y *= p_s; z *= p_s; w *= p_s; return this; }
+	public function Scale(p_s : Float32):Vector4 { x *= p_s; y *= p_s; z *= p_s; w *= p_s; return this; }
 	
 	/**
 	 * Normalizes the vector and returns its own reference.
@@ -203,7 +204,7 @@ class Vector4
 	 */
 	public function Normalize():Vector4
 	{
-		var l:Float = length;
+		var l:Float32= length;
 		if (l <= 0) return this;
 		x *= (l = 1.0 / l);
 		y *= l;
@@ -228,10 +229,10 @@ class Vector4
 	}
 	 
 	/**
-	 * Converts this vector to an Array<Float>
+	 * Converts this vector to an Array<Float32>
 	 * @return
 	 */
-	public function ToArray() : Array<Float> { return [x,y,z,w]; }
+	public function ToArray() : Array<Float32> { return [x,y,z,w]; }
 	
 		
 	/**

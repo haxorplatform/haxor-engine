@@ -23,7 +23,7 @@ public  class Light extends haxor.component.Behaviour
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_Light(haxor.component.Light __temp_me164171)
+	public static   void __hx_ctor_haxor_component_Light(haxor.component.Light __temp_me255365)
 	{
 		if (( haxor.component.Light.m_list == null )) 
 		{
@@ -35,10 +35,10 @@ public  class Light extends haxor.component.Behaviour
 			haxor.component.Light.m_buffer = new haxor.io.FloatArray(((int) (( 12 * haxor.component.Light.max )) ));
 		}
 		
-		haxor.component.Light.m_list.push(__temp_me164171);
-		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me164171, null);
-		__temp_me164171.color = new haxor.math.Color(((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ));
-		__temp_me164171.intensity = 1.0;
+		haxor.component.Light.m_list.push(__temp_me255365);
+		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me255365, null);
+		__temp_me255365.color = new haxor.math.Color(((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ));
+		__temp_me255365.intensity = 1.0;
 	}
 	
 	
@@ -114,14 +114,14 @@ public  class Light extends haxor.component.Behaviour
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164715 = true;
+			boolean __temp_executeDef255909 = true;
 			switch (field.hashCode())
 			{
 				case 499324979:
 				{
 					if (field.equals("intensity")) 
 					{
-						__temp_executeDef164715 = false;
+						__temp_executeDef255909 = false;
 						this.intensity = ((double) (value) );
 						return value;
 					}
@@ -132,7 +132,7 @@ public  class Light extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef164715) 
+			if (__temp_executeDef255909) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -149,14 +149,14 @@ public  class Light extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164716 = true;
+			boolean __temp_executeDef255910 = true;
 			switch (field.hashCode())
 			{
 				case 499324979:
 				{
 					if (field.equals("intensity")) 
 					{
-						__temp_executeDef164716 = false;
+						__temp_executeDef255910 = false;
 						this.intensity = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -169,7 +169,7 @@ public  class Light extends haxor.component.Behaviour
 				{
 					if (field.equals("color")) 
 					{
-						__temp_executeDef164716 = false;
+						__temp_executeDef255910 = false;
 						this.color = ((haxor.math.Color) (value) );
 						return value;
 					}
@@ -180,7 +180,7 @@ public  class Light extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef164716) 
+			if (__temp_executeDef255910) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -197,14 +197,14 @@ public  class Light extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164717 = true;
+			boolean __temp_executeDef255911 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef164717 = false;
+						__temp_executeDef255911 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -216,7 +216,7 @@ public  class Light extends haxor.component.Behaviour
 				{
 					if (field.equals("color")) 
 					{
-						__temp_executeDef164717 = false;
+						__temp_executeDef255911 = false;
 						return this.color;
 					}
 					
@@ -228,7 +228,7 @@ public  class Light extends haxor.component.Behaviour
 				{
 					if (field.equals("intensity")) 
 					{
-						__temp_executeDef164717 = false;
+						__temp_executeDef255911 = false;
 						return this.intensity;
 					}
 					
@@ -238,7 +238,7 @@ public  class Light extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef164717) 
+			if (__temp_executeDef255911) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -255,14 +255,14 @@ public  class Light extends haxor.component.Behaviour
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164718 = true;
+			boolean __temp_executeDef255912 = true;
 			switch (field.hashCode())
 			{
 				case 499324979:
 				{
 					if (field.equals("intensity")) 
 					{
-						__temp_executeDef164718 = false;
+						__temp_executeDef255912 = false;
 						return this.intensity;
 					}
 					
@@ -272,7 +272,7 @@ public  class Light extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef164718) 
+			if (__temp_executeDef255912) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

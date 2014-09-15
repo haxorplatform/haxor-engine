@@ -1,4 +1,5 @@
 package haxor.io;
+import haxor.platform.Types.Float32;
 
 
 
@@ -19,7 +20,7 @@ class FloatArray extends Buffer
 	 * @param	p_data
 	 * @return
 	 */
-	static public function Alloc(p_data : Array<Float>):FloatArray
+	static public function Alloc(p_data : Array<Float32>):FloatArray
 	{
 		var b : FloatArray = new FloatArray(p_data.length);
 		b.SetRange(p_data);
@@ -106,7 +107,7 @@ class FloatArray extends Buffer
 	 * @param	p_index
 	 * @param	p_value
 	 */
-	public function Set(p_index : Int, p_value : Float):Void
+	public function Set(p_index : Int, p_value : Float32):Void
 	{
 		#if html
 		var f32 : js.html.Float32Array = cast aux;
@@ -136,7 +137,7 @@ class FloatArray extends Buffer
 	 * @param	p_data
 	 * @param	p_offset
 	 */
-	public function SetRange(p_data : Array<Float>, p_offset : Int = 0):Void
+	public function SetRange(p_data : Array<Float32>, p_offset : Int = 0):Void
 	{
 		for (i in 0...p_data.length) Set(i + p_offset, p_data[i]);
 	}

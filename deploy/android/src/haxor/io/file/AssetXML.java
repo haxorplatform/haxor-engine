@@ -17,11 +17,11 @@ public  class AssetXML extends haxor.io.file.AssetFile
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_AssetXML(haxor.io.file.AssetXML __temp_me164314, java.lang.String p_name, java.lang.String p_src)
+	public static   void __hx_ctor_haxor_io_file_AssetXML(haxor.io.file.AssetXML __temp_me255512, java.lang.String p_name, java.lang.String p_src)
 	{
-		haxor.io.file.AssetFile.__hx_ctor_haxor_io_file_AssetFile(__temp_me164314, p_name);
-		__temp_me164314.x = haxe.root.Xml.parse(p_src);
-		__temp_me164314.TraverseStep(__temp_me164314.x.firstElement());
+		haxor.io.file.AssetFile.__hx_ctor_haxor_io_file_AssetFile(__temp_me255512, p_name);
+		__temp_me255512.x = haxe.root.Xml.parse(p_src);
+		__temp_me255512.TraverseStep(__temp_me255512.x.firstElement());
 	}
 	
 	
@@ -77,13 +77,13 @@ public  class AssetXML extends haxor.io.file.AssetFile
 	{
 		if (n.exists(a)) 
 		{
-			java.lang.String __temp_stmt165055 = null;
+			java.lang.String __temp_stmt256247 = null;
 			{
 				java.lang.String s = n.get(a);
-				__temp_stmt165055 = s.trim();
+				__temp_stmt256247 = s.trim();
 			}
 			
-			return __temp_stmt165055.toLowerCase();
+			return __temp_stmt256247.toLowerCase();
 		}
 		 else 
 		{
@@ -95,8 +95,8 @@ public  class AssetXML extends haxor.io.file.AssetFile
 	
 	public   java.lang.Object _p(haxe.root.Xml n, java.lang.String p, java.lang.Object v, java.lang.Object t, java.lang.Object tl)
 	{
-		boolean __temp_tl164313 = ( (( tl == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(tl)) );
-		boolean __temp_t164312 = ( (( t == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(t)) );
+		boolean __temp_tl255511 = ( (( tl == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(tl)) );
+		boolean __temp_t255510 = ( (( t == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(t)) );
 		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(p, ".");
 		haxe.root.Xml it = n;
 		{
@@ -107,27 +107,27 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				int i = _g1++;
 				java.lang.String tk = l.__get(i);
 				{
-					java.lang.String __temp_svar165056 = (tk);
-					boolean __temp_executeDef165057 = true;
-					switch (__temp_svar165056.hashCode())
+					java.lang.String __temp_svar256248 = (tk);
+					boolean __temp_executeDef256249 = true;
+					switch (__temp_svar256248.hashCode())
 					{
 						case 36803409:
 						{
-							if (__temp_svar165056.equals("$text")) 
+							if (__temp_svar256248.equals("$text")) 
 							{
-								__temp_executeDef165057 = false;
+								__temp_executeDef256249 = false;
 								if (( it.firstChild() == null )) 
 								{
 									return v;
 								}
 								
 								java.lang.String txt = it.firstChild().toString();
-								if (__temp_t164312) 
+								if (__temp_t255510) 
 								{
 									txt = txt.trim();
 								}
 								
-								if (__temp_tl164313) 
+								if (__temp_tl255511) 
 								{
 									txt = txt.toLowerCase();
 								}
@@ -141,13 +141,13 @@ public  class AssetXML extends haxor.io.file.AssetFile
 						
 					}
 					
-					if (__temp_executeDef165057) 
+					if (__temp_executeDef256249) 
 					{
 						if (haxe.lang.Runtime.valEq(haxe.lang.StringExt.charAt(tk, 0), "@")) 
 						{
-							if (__temp_t164312) 
+							if (__temp_t255510) 
 							{
-								if (__temp_tl164313) 
+								if (__temp_tl255511) 
 								{
 									return this._tla(it, haxe.lang.StringExt.substr(tk, 1, null), v);
 								}
@@ -221,14 +221,14 @@ public  class AssetXML extends haxor.io.file.AssetFile
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165058 = true;
+			boolean __temp_executeDef256250 = true;
 			switch (field.hashCode())
 			{
 				case 120:
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef165058 = false;
+						__temp_executeDef256250 = false;
 						this.x = ((haxe.root.Xml) (value) );
 						return value;
 					}
@@ -239,7 +239,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				
 			}
 			
-			if (__temp_executeDef165058) 
+			if (__temp_executeDef256250) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -256,14 +256,14 @@ public  class AssetXML extends haxor.io.file.AssetFile
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165059 = true;
+			boolean __temp_executeDef256251 = true;
 			switch (field.hashCode())
 			{
 				case 3047:
 				{
 					if (field.equals("_f")) 
 					{
-						__temp_executeDef165059 = false;
+						__temp_executeDef256251 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("_f"))) );
 					}
 					
@@ -275,7 +275,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef165059 = false;
+						__temp_executeDef256251 = false;
 						return this.x;
 					}
 					
@@ -287,7 +287,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("_p")) 
 					{
-						__temp_executeDef165059 = false;
+						__temp_executeDef256251 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("_p"))) );
 					}
 					
@@ -299,7 +299,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("Parse")) 
 					{
-						__temp_executeDef165059 = false;
+						__temp_executeDef256251 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Parse"))) );
 					}
 					
@@ -311,7 +311,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("_tla")) 
 					{
-						__temp_executeDef165059 = false;
+						__temp_executeDef256251 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("_tla"))) );
 					}
 					
@@ -323,7 +323,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("TraverseStep")) 
 					{
-						__temp_executeDef165059 = false;
+						__temp_executeDef256251 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TraverseStep"))) );
 					}
 					
@@ -335,7 +335,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("_a")) 
 					{
-						__temp_executeDef165059 = false;
+						__temp_executeDef256251 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("_a"))) );
 					}
 					
@@ -345,7 +345,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				
 			}
 			
-			if (__temp_executeDef165059) 
+			if (__temp_executeDef256251) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -362,14 +362,14 @@ public  class AssetXML extends haxor.io.file.AssetFile
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef165060 = true;
+			boolean __temp_executeDef256252 = true;
 			switch (field.hashCode())
 			{
 				case 3047:
 				{
 					if (field.equals("_f")) 
 					{
-						__temp_executeDef165060 = false;
+						__temp_executeDef256252 = false;
 						return this._f(((haxe.root.Xml) (dynargs.__get(0)) ), haxe.lang.Runtime.toString(dynargs.__get(1)), haxe.lang.Runtime.toString(dynargs.__get(2)), haxe.lang.Runtime.toString(dynargs.__get(3)));
 					}
 					
@@ -381,7 +381,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("Parse")) 
 					{
-						__temp_executeDef165060 = false;
+						__temp_executeDef256252 = false;
 						this.Parse(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -393,7 +393,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("_p")) 
 					{
-						__temp_executeDef165060 = false;
+						__temp_executeDef256252 = false;
 						return this._p(((haxe.root.Xml) (dynargs.__get(0)) ), haxe.lang.Runtime.toString(dynargs.__get(1)), dynargs.__get(2), dynargs.__get(3), dynargs.__get(4));
 					}
 					
@@ -405,7 +405,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("TraverseStep")) 
 					{
-						__temp_executeDef165060 = false;
+						__temp_executeDef256252 = false;
 						this.TraverseStep(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -417,7 +417,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("_tla")) 
 					{
-						__temp_executeDef165060 = false;
+						__temp_executeDef256252 = false;
 						return this._tla(((haxe.root.Xml) (dynargs.__get(0)) ), haxe.lang.Runtime.toString(dynargs.__get(1)), dynargs.__get(2));
 					}
 					
@@ -429,7 +429,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				{
 					if (field.equals("_a")) 
 					{
-						__temp_executeDef165060 = false;
+						__temp_executeDef256252 = false;
 						return this._a(((haxe.root.Xml) (dynargs.__get(0)) ), haxe.lang.Runtime.toString(dynargs.__get(1)), dynargs.__get(2));
 					}
 					
@@ -439,7 +439,7 @@ public  class AssetXML extends haxor.io.file.AssetFile
 				
 			}
 			
-			if (__temp_executeDef165060) 
+			if (__temp_executeDef256252) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

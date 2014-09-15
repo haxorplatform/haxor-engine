@@ -9,6 +9,7 @@
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,PixelFormat)
 HX_DECLARE_CLASS2(haxor,core,Resource)
+HX_DECLARE_CLASS2(haxor,core,TextureType)
 HX_DECLARE_CLASS3(haxor,graphics,texture,ComputeTexture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture2D)
@@ -39,14 +40,16 @@ class HXCPP_CLASS_ATTRIBUTES  ComputeTexture_obj : public ::haxor::graphics::tex
 
 		bool m_lock;
 		bool m_dirty;
+		virtual ::haxor::core::TextureType get_type( );
+
 		virtual Void Write( int p_x,int p_y,Dynamic p_v0,Dynamic p_v1,Dynamic p_v2,Dynamic p_v3);
 		Dynamic Write_dyn();
 
 		virtual Void WriteRange( Array< Float > p_values,hx::Null< int >  p_x,hx::Null< int >  p_y,hx::Null< int >  p_width,hx::Null< int >  p_height);
 		Dynamic WriteRange_dyn();
 
-		virtual Void Refresh( );
-		Dynamic Refresh_dyn();
+		virtual Void Invalidate( );
+		Dynamic Invalidate_dyn();
 
 		virtual Void OnUploadComplete( );
 		Dynamic OnUploadComplete_dyn();

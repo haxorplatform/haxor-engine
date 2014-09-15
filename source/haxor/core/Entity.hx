@@ -73,8 +73,11 @@ class Entity extends Resource
 		super(p_name);		
 		m_enabled    = true;
 		m_components = [];
-		m_layer		 = 1;		
+		m_layer		 = 1;	
+		#if !ie8
 		m_transform = cast AddComponent(Transform);		
+		#end
+		
 		//Console.Log("entity ctor end");
 	}
 	

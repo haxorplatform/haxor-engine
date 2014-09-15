@@ -1,5 +1,6 @@
 package haxor.math;
 import haxor.context.EngineContext;
+import haxor.platform.Types.Float32;
 
 
 /**
@@ -30,15 +31,15 @@ class Matrix4
 	{
 		var m : Matrix4 = p_result == null ? (new Matrix4()) : p_result;
 		var q : Quaternion = p_quaternion;
-		var x2:Float = q.x * q.x;
-		var y2:Float = q.y * q.y;
-		var z2:Float = q.z * q.z;		
-		var xy:Float = q.x * q.y;
-		var xz:Float = q.x * q.z;
-		var yz:Float = q.y * q.z;
-		var xw:Float = q.w * q.x;
-		var yw:Float = q.w * q.y;
-		var zw:Float = q.w * q.z;		
+		var x2:Float32= q.x * q.x;
+		var y2:Float32= q.y * q.y;
+		var z2:Float32= q.z * q.z;		
+		var xy:Float32= q.x * q.y;
+		var xz:Float32= q.x * q.z;
+		var yz:Float32= q.y * q.z;
+		var xw:Float32= q.w * q.x;
+		var yw:Float32= q.w * q.y;
+		var zw:Float32= q.w * q.z;		
 		m.m00 = 1.0 - 2.0 * ( y2 + z2 ); m.m01 =       2.0 * ( xy - zw ); m.m02 =       2.0 * ( xz + yw );	
 		m.m10 =       2.0 * ( xy + zw ); m.m11 = 1.0 - 2.0 * ( x2 + z2 ); m.m12 =       2.0 * ( yz - xw );				
 		m.m20 =       2.0 * ( xz - yw ); m.m21 =       2.0 * ( yz + xw ); m.m22 = (1.0 - 2.0 * ( x2 + y2 ));		
@@ -51,7 +52,7 @@ class Matrix4
 	 * @param	p_array
 	 * @return
 	 */
-	static public function FromArray(p_array : Array<Float>,p_result:Matrix4=null):Matrix4 { var res : Matrix4 = p_result == null ? (new Matrix4()) : p_result; for (i in 0...p_array.length) res.SetIndex(i,p_array[i]); return res; }
+	static public function FromArray(p_array : Array<Float32>,p_result:Matrix4=null):Matrix4 { var res : Matrix4 = p_result == null ? (new Matrix4()) : p_result; for (i in 0...p_array.length) res.SetIndex(i,p_array[i]); return res; }
 	
 	/**
 	 * 
@@ -62,12 +63,12 @@ class Matrix4
 	 */	
 	static public inline function TRS(p_position : Vector3, p_rotation : Quaternion, p_scale:Vector3 = null,p_result : Matrix4=null):Matrix4
 	{		
-		var sx:Float = p_scale == null ? 1.0 : p_scale.x;			
-		var sy:Float = p_scale == null ? 1.0 : p_scale.y;
-		var sz:Float = p_scale == null ? 1.0 : p_scale.z;		
-		var px:Float = p_position.x;			
-		var py:Float = p_position.y;
-		var pz:Float = p_position.z;							
+		var sx:Float32= p_scale == null ? 1.0 : p_scale.x;			
+		var sy:Float32= p_scale == null ? 1.0 : p_scale.y;
+		var sz:Float32= p_scale == null ? 1.0 : p_scale.z;		
+		var px:Float32= p_position.x;			
+		var py:Float32= p_position.y;
+		var pz:Float32= p_position.z;							
 		var r : Matrix4 = Matrix4.temp;
 		Matrix4.FromQuaternion(p_rotation, r);
 		var l : Matrix4 = p_result == null ? Matrix4.identity : p_result;
@@ -89,13 +90,13 @@ class Matrix4
 	 * @param	p_result
 	 * @return
 	 */
-	static public inline function Frustum(p_left:Float,p_right:Float,p_top:Float,p_bottom:Float,p_near:Float,p_far:Float,p_result:Matrix4=null):Matrix4
+	static public inline function Frustum(p_left:Float32,p_right:Float32,p_top:Float32,p_bottom:Float32,p_near:Float32,p_far:Float32,p_result:Matrix4=null):Matrix4
 	{
 		var m : Matrix4 = p_result == null ? (new Matrix4()) : p_result;
-		var n2 :Float = p_near * 2.0;
-		var rml:Float = 1.0 / (p_right - p_left);
-		var tmb:Float = 1.0 / (p_top - p_bottom);
-		var fmn:Float = 1.0 / (p_far - p_near);		
+		var n2 :Float32= p_near * 2.0;
+		var rml:Float32= 1.0 / (p_right - p_left);
+		var tmb:Float32= 1.0 / (p_top - p_bottom);
+		var fmn:Float32= 1.0 / (p_far - p_near);		
 		m.m00 = n2 * rml;	m.m01 = 0.0;		m.m02 = (p_right + p_left) * rml;	m.m03 = 0.0;
 		m.m10 = 0.0;		m.m11 = n2 * tmb;   m.m12 = (p_top + p_bottom) * tmb;	m.m13 = 0.0;		
 		m.m20 = 0.0;		m.m21 = 0.0;		m.m22 = -(p_near + p_far) * fmn; 	m.m23 = ( -n2 * p_far) * fmn;		
@@ -113,13 +114,13 @@ class Matrix4
 	 * @param	p_far
 	 * @return
 	 */
-	static public inline function FrustumInverse(p_left:Float,p_right:Float,p_top:Float,p_bottom:Float,p_near:Float,p_far:Float,p_result:Matrix4=null):Matrix4
+	static public inline function FrustumInverse(p_left:Float32,p_right:Float32,p_top:Float32,p_bottom:Float32,p_near:Float32,p_far:Float32,p_result:Matrix4=null):Matrix4
 	{
 		var m : Matrix4 = p_result == null ? (new Matrix4()) : p_result;
-		var n2 :Float = p_near * 2.0;
-		var rml:Float = (p_right - p_left);
-		var tmb:Float = (p_top - p_bottom);
-		var fmn:Float = (p_far - p_near);		
+		var n2 :Float32= p_near * 2.0;
+		var rml:Float32= (p_right - p_left);
+		var tmb:Float32= (p_top - p_bottom);
+		var fmn:Float32= (p_far - p_near);		
 		m.m00 = rml / n2;	m.m01 = 0.0;		m.m02 = 0.0;					m.m03 = (p_right + p_left) / n2;		
 		m.m10 = 0.0;		m.m11 = tmb / n2;	m.m12 = 0.0;					m.m13 = (p_top + p_bottom) / n2;		
 		m.m20 = 0.0;		m.m21 = 0.0;		m.m22 = 0.0;					m.m23 = -1.0;		
@@ -138,13 +139,13 @@ class Matrix4
 	 * @param	p_result
 	 * @return
 	 */
-	static public function Ortho(p_left:Float,p_right:Float,p_top:Float,p_bottom:Float,p_near:Float,p_far:Float,p_result:Matrix4=null):Matrix4
+	static public function Ortho(p_left:Float32,p_right:Float32,p_top:Float32,p_bottom:Float32,p_near:Float32,p_far:Float32,p_result:Matrix4=null):Matrix4
 	{
 		var m : Matrix4 = p_result == null ? (new Matrix4()) : p_result;
-		var n2 :Float = p_near * 2.0;
-		var rml:Float = 1.0 / (p_right - p_left);
-		var tmb:Float = 1.0 / (p_top - p_bottom);
-		var fmn:Float = 1.0 / (p_far - p_near);
+		var n2 :Float32= p_near * 2.0;
+		var rml:Float32= 1.0 / (p_right - p_left);
+		var tmb:Float32= 1.0 / (p_top - p_bottom);
+		var fmn:Float32= 1.0 / (p_far - p_near);
 		m.m00 = 2.0 * rml;	m.m01 = 0.0; 		m.m02 = 0.0; 		m.m03 = -(p_right + p_left) * rml;		
 		m.m10 = 0.0;        m.m11 = 2.0 * tmb;  m.m12 = 0.0; 		m.m13 = -(p_top + p_bottom) * tmb;		
 		m.m20 = 0.0;		m.m21 = 0.0;		m.m22 = -2.0 * fmn;	m.m23 = -(p_far + p_near) * fmn;		
@@ -163,7 +164,7 @@ class Matrix4
 	 * @param	p_result
 	 * @return
 	 */
-	static public function OrthoInverse(p_left:Float,p_right:Float,p_top:Float,p_bottom:Float,p_near:Float,p_far:Float,p_result:Matrix4=null):Matrix4
+	static public function OrthoInverse(p_left:Float32,p_right:Float32,p_top:Float32,p_bottom:Float32,p_near:Float32,p_far:Float32,p_result:Matrix4=null):Matrix4
 	{
 		var m : Matrix4 = Matrix4.temp.SetOrtho(p_left,p_right,p_top,p_bottom,p_near,p_far);
 		return Matrix4.GetInverseTransform(m, p_result);
@@ -178,12 +179,12 @@ class Matrix4
 	 * @param	p_result
 	 * @return
 	 */
-	static public function Perspective(p_fov:Float,p_aspect:Float,p_near:Float,p_far:Float,p_result:Matrix4=null):Matrix4
+	static public function Perspective(p_fov:Float32,p_aspect:Float32,p_near:Float32,p_far:Float32,p_result:Matrix4=null):Matrix4
 	{
-		var t:Float = Mathf.Tan(p_fov*0.5 * Mathf.Deg2Rad) * p_near;
-		var b:Float = -t;
-		var l:Float = p_aspect * b;
-		var r:Float = p_aspect * t;		
+		var t:Float32= Mathf.Tan(p_fov*0.5 * Mathf.Deg2Rad) * p_near;
+		var b:Float32= -t;
+		var l:Float32= p_aspect * b;
+		var r:Float32= p_aspect * t;		
 		return Frustum(l, r, t, b, p_near, p_far,p_result);
 	}
 	
@@ -195,12 +196,12 @@ class Matrix4
 	 * @param	p_far
 	 * @return
 	 */
-	static public function PerspectiveInverse(p_fov:Float,p_aspect:Float,p_near:Float,p_far:Float,p_result:Matrix4=null):Matrix4
+	static public function PerspectiveInverse(p_fov:Float32,p_aspect:Float32,p_near:Float32,p_far:Float32,p_result:Matrix4=null):Matrix4
 	{
-		var t:Float = Mathf.Tan(p_fov*0.5 * Mathf.Deg2Rad) * p_near;
-		var b:Float = -t;
-		var l:Float = p_aspect * b;
-		var r:Float = p_aspect * t;
+		var t:Float32= Mathf.Tan(p_fov*0.5 * Mathf.Deg2Rad) * p_near;
+		var b:Float32= -t;
+		var l:Float32= p_aspect * b;
+		var r:Float32= p_aspect * t;
 		return FrustumInverse(l, r, t, b, p_near, p_far,p_result);
 	}
 	
@@ -232,18 +233,18 @@ class Matrix4
 		var result:Matrix4 = p_result == null ? Matrix4.identity : p_result;
 		var m : Matrix4 = p_matrix;
 		
-		var l0x:Float = m.m00; var l0y:Float = m.m01; var l0z:Float = m.m02; var l0w:Float = m.m03;
-		var l1x:Float = m.m10; var l1y:Float = m.m11; var l1z:Float = m.m12; var l1w:Float = m.m13;
-		var l2x:Float = m.m20; var l2y:Float = m.m21; var l2z:Float = m.m22; var l2w:Float = m.m23; 
+		var l0x:Float32= m.m00; var l0y:Float32= m.m01; var l0z:Float32= m.m02; var l0w:Float32= m.m03;
+		var l1x:Float32= m.m10; var l1y:Float32= m.m11; var l1z:Float32= m.m12; var l1w:Float32= m.m13;
+		var l2x:Float32= m.m20; var l2y:Float32= m.m21; var l2z:Float32= m.m22; var l2w:Float32= m.m23; 
 		
 		//length of the 3 column of the 3x3 sector are the scales
-		var vl0 : Float = Math.sqrt(l0x * l0x + l1x * l1x + l2x * l2x);
-		var vl1 : Float = Math.sqrt(l0y * l0y + l1y * l1y + l2y * l2y);
-		var vl2 : Float = Math.sqrt(l0z * l0z + l1z * l1z + l2z * l2z);
+		var vl0 : Float32 = Math.sqrt(l0x * l0x + l1x * l1x + l2x * l2x);
+		var vl1 : Float32 = Math.sqrt(l0y * l0y + l1y * l1y + l2y * l2y);
+		var vl2 : Float32 = Math.sqrt(l0z * l0z + l1z * l1z + l2z * l2z);
 		
-		var sx:Float = (Mathf.Abs(vl0)<= 0.0001) ? 0.0 : (1.0/vl0); 
-		var sy:Float = (Mathf.Abs(vl1)<= 0.0001) ? 0.0 : (1.0/vl1); 
-		var sz:Float = (Mathf.Abs(vl2)<= 0.0001) ? 0.0 : (1.0/vl2); 
+		var sx:Float32= (Mathf.Abs(vl0)<= 0.0001) ? 0.0 : (1.0/vl0); 
+		var sy:Float32= (Mathf.Abs(vl1)<= 0.0001) ? 0.0 : (1.0/vl1); 
+		var sz:Float32= (Mathf.Abs(vl2)<= 0.0001) ? 0.0 : (1.0/vl2); 
 		
 		//normalized vector lines inside the 3x3 sector are the rotation axis.	
 		l0x *= sx; l0y *= sy; l0z *= sz;
@@ -315,8 +316,8 @@ class Matrix4
 	/**
 	 * Returns the trace of this matrix.
 	 */
-	public var trace(get_trace, never):Float;
-	private inline function get_trace():Float { return (m00 + m11 + m22 + m33); }
+	public var trace(get_trace, never):Float32;
+	private inline function get_trace():Float32{ return (m00 + m11 + m22 + m33); }
 	
 	
 	/**
@@ -331,9 +332,9 @@ class Matrix4
 	public var scale(get_scale, null):Matrix4;
 	private inline function get_scale():Matrix4
 	{
-		var d0:Float = Math.sqrt(m00 * m00 + m10 * m10 + m20 * m20);
-		var d1:Float = Math.sqrt(m01 * m01 + m11 * m11 + m21 * m21);
-		var d2:Float = Math.sqrt(m02 * m02 + m12 * m12 + m22 * m22);
+		var d0:Float32= Math.sqrt(m00 * m00 + m10 * m10 + m20 * m20);
+		var d1:Float32= Math.sqrt(m01 * m01 + m11 * m11 + m21 * m21);
+		var d2:Float32= Math.sqrt(m02 * m02 + m12 * m12 + m22 * m22);
 		return new Matrix4(d0, 0, 0, 0,   0, d1, 0, 0,   0, 0, d2, 0,   0, 0, 0, 1);
 	}
 	
@@ -353,14 +354,14 @@ class Matrix4
 		var l0:Vector3 = new Vector3(m00,m01,m02);
 		var l1:Vector3 = new Vector3(m10,m11,m12);
 		var l2:Vector3 = new Vector3(m20,m21, m22);
-		var vl0 : Float = l0.length; 
-		var vl1 : Float = l1.length; 
-		var vl2 : Float = l2.length; 
+		var vl0 : Float32 = l0.length; 
+		var vl1 : Float32 = l1.length; 
+		var vl2 : Float32 = l2.length; 
 		//length of the 3 lines of the 3x3 sector are the scales
 		//TODO: The COLUMNS must be used for scale
-		var sx:Float = (Mathf.Abs(vl0)<= 0.0001) ? 0.0 : (1.0/vl0); 
-		var sy:Float = (Mathf.Abs(vl1)<= 0.0001) ? 0.0 : (1.0/vl1); 
-		var sz:Float = (Mathf.Abs(vl2)<= 0.0001) ? 0.0 : (1.0/vl2); 
+		var sx:Float32= (Mathf.Abs(vl0)<= 0.0001) ? 0.0 : (1.0/vl0); 
+		var sy:Float32= (Mathf.Abs(vl1)<= 0.0001) ? 0.0 : (1.0/vl1); 
+		var sz:Float32= (Mathf.Abs(vl2)<= 0.0001) ? 0.0 : (1.0/vl2); 
 		
 		//normalized vector lines inside the 3x3 sector are the rotation axis.
 		l0.x *= sx; l0.y *= sx; l0.z *= sx;
@@ -384,34 +385,34 @@ class Matrix4
 	{ return new Matrix4(m00,m10,m20,m30, m01,m11,m21,m31, m02,m12,m22,m32, m03,m13,m23,m33); }
 	
 	/**
-	 * Returns an Array<Float> of this matrix converted to Row Major.
+	 * Returns an Array<Float32> of this matrix converted to Row Major.
 	 */
-	public function ToRowMajor() : Array<Float> { return [m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33]; }
+	public function ToRowMajor() : Array<Float32> { return [m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33]; }
 	
 	/**
-	 * Returns an Array<Float> of this matrix converted to Column Major. 
+	 * Returns an Array<Float32> of this matrix converted to Column Major. 
 	 */
-	public function ToColumnMajor() : Array<Float> { return [m00,m10,m20,m30, m01,m11,m21,m31, m02,m12,m22,m32, m03,m13,m23,m33]; }
+	public function ToColumnMajor() : Array<Float32> { return [m00,m10,m20,m30, m01,m11,m21,m31, m02,m12,m22,m32, m03,m13,m23,m33]; }
 	
 	/**
 	 * Components
 	 */
-	public var m00 : Float;
-	public var m01 : Float;
-	public var m02 : Float;
-	public var m03 : Float;	
-	public var m10 : Float;
-	public var m11 : Float;
-	public var m12 : Float;
-	public var m13 : Float;	
-	public var m20 : Float;
-	public var m21 : Float;
-	public var m22 : Float;
-	public var m23 : Float;	
-	public var m30 : Float;
-	public var m31 : Float;
-	public var m32 : Float;
-	public var m33 : Float;
+	public var m00 : Float32;
+	public var m01 : Float32;
+	public var m02 : Float32;
+	public var m03 : Float32;	
+	public var m10 : Float32;
+	public var m11 : Float32;
+	public var m12 : Float32;
+	public var m13 : Float32;	
+	public var m20 : Float32;
+	public var m21 : Float32;
+	public var m22 : Float32;
+	public var m23 : Float32;	
+	public var m30 : Float32;
+	public var m31 : Float32;
+	public var m32 : Float32;
+	public var m33 : Float32;
 	
 	/**
 	 * Creates a new Matrix4.
@@ -432,10 +433,10 @@ class Matrix4
 	 * @param	p_m32
 	 * @param	p_m33
 	 */
-	public function new(p_m00:Float = 0, p_m01:Float = 0, p_m02:Float = 0, p_m03:Float = 0,
-						p_m10:Float = 0, p_m11:Float = 0, p_m12:Float = 0, p_m13:Float = 0,
-						p_m20:Float = 0, p_m21:Float = 0, p_m22:Float = 0, p_m23:Float = 0,
-						p_m30:Float = 0, p_m31:Float = 0, p_m32:Float = 0, p_m33:Float = 0)
+	public function new(p_m00:Float32= 0, p_m01:Float32= 0, p_m02:Float32= 0, p_m03:Float32= 0,
+						p_m10:Float32= 0, p_m11:Float32= 0, p_m12:Float32= 0, p_m13:Float32= 0,
+						p_m20:Float32= 0, p_m21:Float32= 0, p_m22:Float32= 0, p_m23:Float32= 0,
+						p_m30:Float32= 0, p_m31:Float32= 0, p_m32:Float32= 0, p_m33:Float32= 0)
 	{
 		m00 = p_m00; m01 = p_m01; m02 = p_m02; m03 = p_m03; m10 = p_m10; m11 = p_m11; m12 = p_m12; m13 = p_m13; m20 = p_m20; m21 = p_m21; m22 = p_m22; m23 = p_m23; m30 = p_m30; m31 = p_m31; m32 = p_m32;	m33 = p_m33;
 	}
@@ -460,7 +461,7 @@ class Matrix4
 	 * @param	p_w
 	 * @return
 	 */
-	public inline function SetLine(p_index:Int,p_x : Float,p_y:Float,p_z:Float,p_w:Float) : Void
+	public inline function SetLine(p_index:Int,p_x : Float32,p_y:Float32,p_z:Float32,p_w:Float32) : Void
 	{
 		switch(p_index)
 		{
@@ -491,7 +492,7 @@ class Matrix4
 	 * @param	p_w
 	 * @return
 	 */
-	public inline function SetColumn(p_index:Int,p_x : Float,p_y:Float,p_z:Float,p_w:Float) : Void
+	public inline function SetColumn(p_index:Int,p_x : Float32,p_y:Float32,p_z:Float32,p_w:Float32) : Void
 	{
 		switch(p_index)
 		{
@@ -534,10 +535,10 @@ class Matrix4
 	 * @param	p_m32
 	 * @param	p_m33
 	 */
-	public function Set(p_m00:Float = 0, p_m01:Float = 0, p_m02:Float = 0, p_m03:Float = 0,
-	                    p_m10:Float = 0, p_m11:Float = 0, p_m12:Float = 0, p_m13:Float = 0,
-	                    p_m20:Float = 0, p_m21:Float = 0, p_m22:Float = 0, p_m23:Float = 0,
-	                    p_m30:Float = 0, p_m31:Float = 0, p_m32:Float = 0, p_m33:Float = 0):Matrix4
+	public function Set(p_m00:Float32= 0, p_m01:Float32= 0, p_m02:Float32= 0, p_m03:Float32= 0,
+	                    p_m10:Float32= 0, p_m11:Float32= 0, p_m12:Float32= 0, p_m13:Float32= 0,
+	                    p_m20:Float32= 0, p_m21:Float32= 0, p_m22:Float32= 0, p_m23:Float32= 0,
+	                    p_m30:Float32= 0, p_m31:Float32= 0, p_m32:Float32= 0, p_m33:Float32= 0):Matrix4
 	{	
 		m00 = p_m00; m01 = p_m01; m02 = p_m02; m03 = p_m03;
 		m10 = p_m10; m11 = p_m11; m12 = p_m12; m13 = p_m13;
@@ -594,7 +595,7 @@ class Matrix4
 	 * @param	p_index
 	 * @param	p_value
 	 */
-	public function SetIndex(p_index : Int, p_value : Float):Matrix4
+	public function SetIndex(p_index : Int, p_value : Float32):Matrix4
 	{
 		switch(p_index)
 		{
@@ -624,7 +625,7 @@ class Matrix4
 	 * @param	p_col
 	 * @param	p_value
 	 */
-	public function SetRowCol(p_row:Int,p_col:Int, p_value:Float):Matrix4 { return SetIndex(p_col + (p_row << 2), p_value);	}
+	public function SetRowCol(p_row:Int,p_col:Int, p_value:Float32):Matrix4 { return SetIndex(p_col + (p_row << 2), p_value);	}
 	
 	/**
 	 * Sets a value of this matrix indexed by row and column.
@@ -632,7 +633,7 @@ class Matrix4
 	 * @param	p_col
 	 * @return
 	 */
-	public function GetRowCol(p_row:Int,p_col:Int):Float { return GetIndex(p_col + (p_row << 2)); }
+	public function GetRowCol(p_row:Int,p_col:Int):Float32{ return GetIndex(p_col + (p_row << 2)); }
 	
 	/**
 	 * SWap 2 columns.  Returns its own reference.
@@ -642,10 +643,10 @@ class Matrix4
 	 */
 	public function SwapCol(p_a : Int, p_b : Int):Matrix4
 	{
-		var a0 : Float = GetRowCol(0, p_a);
-		var a1 : Float = GetRowCol(1, p_a);
-		var a2 : Float = GetRowCol(2, p_a);
-		var a3 : Float = GetRowCol(3, p_a);		
+		var a0 : Float32 = GetRowCol(0, p_a);
+		var a1 : Float32 = GetRowCol(1, p_a);
+		var a2 : Float32 = GetRowCol(2, p_a);
+		var a3 : Float32 = GetRowCol(3, p_a);		
 		SetRowCol(0, p_a, GetRowCol(0, p_b));
 		SetRowCol(1, p_a, GetRowCol(1, p_b));
 		SetRowCol(2, p_a, GetRowCol(2, p_b));
@@ -665,10 +666,10 @@ class Matrix4
 	 */
 	public function SwapRow(p_a : Int, p_b : Int):Matrix4
 	{
-		var a0 : Float = GetRowCol(p_a,0);
-		var a1 : Float = GetRowCol(p_a,1);
-		var a2 : Float = GetRowCol(p_a,2);
-		var a3 : Float = GetRowCol(p_a,3);		
+		var a0 : Float32 = GetRowCol(p_a,0);
+		var a1 : Float32 = GetRowCol(p_a,1);
+		var a2 : Float32 = GetRowCol(p_a,2);
+		var a3 : Float32 = GetRowCol(p_a,3);		
 		SetRowCol(p_a,0, GetRowCol(p_b,0));
 		SetRowCol(p_a,1, GetRowCol(p_b,1));
 		SetRowCol(p_a,2, GetRowCol(p_b,2));
@@ -686,10 +687,10 @@ class Matrix4
 	 */
 	public function Transpose():Matrix4
 	{
-		var t00:Float = m00; var t01:Float = m01; var t02:Float = m02; var t03:Float = m03;		
-		var t10:Float = m10; var t11:Float = m11; var t12:Float = m12; var t13:Float = m13;
-		var t20:Float = m20; var t21:Float = m21; var t22:Float = m22; var t23:Float = m23;
-		var t30:Float = m30; var t31:Float = m31; var t32:Float = m32; var t33:Float = m33;
+		var t00:Float32= m00; var t01:Float32= m01; var t02:Float32= m02; var t03:Float32= m03;		
+		var t10:Float32= m10; var t11:Float32= m11; var t12:Float32= m12; var t13:Float32= m13;
+		var t20:Float32= m20; var t21:Float32= m21; var t22:Float32= m22; var t23:Float32= m23;
+		var t30:Float32= m30; var t31:Float32= m31; var t32:Float32= m32; var t33:Float32= m33;
 		return Set(t00, t10, t20, t30,t01, t11, t21, t31,t02, t12, t22, t32,t03, t13, t23, t33);		
 	}
 	
@@ -740,18 +741,18 @@ class Matrix4
 	 */
 	public function MultiplyTransform(p_matrix : Matrix4) : Matrix4
 	{
-		var r00:Float = m00 * p_matrix.m00 + m01 * p_matrix.m10 + m02 * p_matrix.m20;
-		var r01:Float = m00 * p_matrix.m01 + m01 * p_matrix.m11 + m02 * p_matrix.m21;
-		var r02:Float = m00 * p_matrix.m02 + m01 * p_matrix.m12 + m02 * p_matrix.m22;
-		var r03:Float = m00 * p_matrix.m03 + m01 * p_matrix.m13 + m02 * p_matrix.m23 + m03;
-		var r10:Float = m10 * p_matrix.m00 + m11 * p_matrix.m10 + m12 * p_matrix.m20;
-		var r11:Float = m10 * p_matrix.m01 + m11 * p_matrix.m11 + m12 * p_matrix.m21;
-		var r12:Float = m10 * p_matrix.m02 + m11 * p_matrix.m12 + m12 * p_matrix.m22;
-		var r13:Float = m10 * p_matrix.m03 + m11 * p_matrix.m13 + m12 * p_matrix.m23 + m13;
-		var r20:Float = m20 * p_matrix.m00 + m21 * p_matrix.m10 + m22 * p_matrix.m20;
-		var r21:Float = m20 * p_matrix.m01 + m21 * p_matrix.m11 + m22 * p_matrix.m21;
-		var r22:Float = m20 * p_matrix.m02 + m21 * p_matrix.m12 + m22 * p_matrix.m22;
-		var r23:Float = m20 * p_matrix.m03 + m21 * p_matrix.m13 + m22 * p_matrix.m23 + m23;
+		var r00:Float32= m00 * p_matrix.m00 + m01 * p_matrix.m10 + m02 * p_matrix.m20;
+		var r01:Float32= m00 * p_matrix.m01 + m01 * p_matrix.m11 + m02 * p_matrix.m21;
+		var r02:Float32= m00 * p_matrix.m02 + m01 * p_matrix.m12 + m02 * p_matrix.m22;
+		var r03:Float32= m00 * p_matrix.m03 + m01 * p_matrix.m13 + m02 * p_matrix.m23 + m03;
+		var r10:Float32= m10 * p_matrix.m00 + m11 * p_matrix.m10 + m12 * p_matrix.m20;
+		var r11:Float32= m10 * p_matrix.m01 + m11 * p_matrix.m11 + m12 * p_matrix.m21;
+		var r12:Float32= m10 * p_matrix.m02 + m11 * p_matrix.m12 + m12 * p_matrix.m22;
+		var r13:Float32= m10 * p_matrix.m03 + m11 * p_matrix.m13 + m12 * p_matrix.m23 + m13;
+		var r20:Float32= m20 * p_matrix.m00 + m21 * p_matrix.m10 + m22 * p_matrix.m20;
+		var r21:Float32= m20 * p_matrix.m01 + m21 * p_matrix.m11 + m22 * p_matrix.m21;
+		var r22:Float32= m20 * p_matrix.m02 + m21 * p_matrix.m12 + m22 * p_matrix.m22;
+		var r23:Float32= m20 * p_matrix.m03 + m21 * p_matrix.m13 + m22 * p_matrix.m23 + m23;
 		Set(
 			r00,r01,r02,r03,
 			r10,r11,r12,r13,
@@ -767,18 +768,18 @@ class Matrix4
 	 */
 	public function Multiply3x4(p_matrix : Matrix4) : Matrix4
 	{
-		var r00:Float = m00 * p_matrix.m00 + m01 * p_matrix.m10 + m02 * p_matrix.m20 + m03 * p_matrix.m30;
-		var r01:Float = m00 * p_matrix.m01 + m01 * p_matrix.m11 + m02 * p_matrix.m21 + m03 * p_matrix.m31;
-		var r02:Float = m00 * p_matrix.m02 + m01 * p_matrix.m12 + m02 * p_matrix.m22 + m03 * p_matrix.m32;
-		var r03:Float = m00 * p_matrix.m03 + m01 * p_matrix.m13 + m02 * p_matrix.m23 + m03 * p_matrix.m33;
-		var r10:Float = m10 * p_matrix.m00 + m11 * p_matrix.m10 + m12 * p_matrix.m20 + m13 * p_matrix.m30;
-		var r11:Float = m10 * p_matrix.m01 + m11 * p_matrix.m11 + m12 * p_matrix.m21 + m13 * p_matrix.m31;
-		var r12:Float = m10 * p_matrix.m02 + m11 * p_matrix.m12 + m12 * p_matrix.m22 + m13 * p_matrix.m32;
-		var r13:Float = m10 * p_matrix.m03 + m11 * p_matrix.m13 + m12 * p_matrix.m23 + m13 * p_matrix.m33;
-		var r20:Float = m20 * p_matrix.m00 + m21 * p_matrix.m10 + m22 * p_matrix.m20 + m23 * p_matrix.m30;
-		var r21:Float = m20 * p_matrix.m01 + m21 * p_matrix.m11 + m22 * p_matrix.m21 + m23 * p_matrix.m31;
-		var r22:Float = m20 * p_matrix.m02 + m21 * p_matrix.m12 + m22 * p_matrix.m22 + m23 * p_matrix.m32;
-		var r23:Float = m20 * p_matrix.m03 + m21 * p_matrix.m13 + m22 * p_matrix.m23 + m23 * p_matrix.m33;		
+		var r00:Float32= m00 * p_matrix.m00 + m01 * p_matrix.m10 + m02 * p_matrix.m20 + m03 * p_matrix.m30;
+		var r01:Float32= m00 * p_matrix.m01 + m01 * p_matrix.m11 + m02 * p_matrix.m21 + m03 * p_matrix.m31;
+		var r02:Float32= m00 * p_matrix.m02 + m01 * p_matrix.m12 + m02 * p_matrix.m22 + m03 * p_matrix.m32;
+		var r03:Float32= m00 * p_matrix.m03 + m01 * p_matrix.m13 + m02 * p_matrix.m23 + m03 * p_matrix.m33;
+		var r10:Float32= m10 * p_matrix.m00 + m11 * p_matrix.m10 + m12 * p_matrix.m20 + m13 * p_matrix.m30;
+		var r11:Float32= m10 * p_matrix.m01 + m11 * p_matrix.m11 + m12 * p_matrix.m21 + m13 * p_matrix.m31;
+		var r12:Float32= m10 * p_matrix.m02 + m11 * p_matrix.m12 + m12 * p_matrix.m22 + m13 * p_matrix.m32;
+		var r13:Float32= m10 * p_matrix.m03 + m11 * p_matrix.m13 + m12 * p_matrix.m23 + m13 * p_matrix.m33;
+		var r20:Float32= m20 * p_matrix.m00 + m21 * p_matrix.m10 + m22 * p_matrix.m20 + m23 * p_matrix.m30;
+		var r21:Float32= m20 * p_matrix.m01 + m21 * p_matrix.m11 + m22 * p_matrix.m21 + m23 * p_matrix.m31;
+		var r22:Float32= m20 * p_matrix.m02 + m21 * p_matrix.m12 + m22 * p_matrix.m22 + m23 * p_matrix.m32;
+		var r23:Float32= m20 * p_matrix.m03 + m21 * p_matrix.m13 + m22 * p_matrix.m23 + m23 * p_matrix.m33;		
 		Set(
 			r00,r01,r02,r03,
 			r10,r11,r12,r13,
@@ -794,25 +795,23 @@ class Matrix4
 	 */
 	public function Multiply(p_matrix : Matrix4) : Matrix4
 	{
-		var r00:Float = m00 * p_matrix.m00 + m01 * p_matrix.m10 + m02 * p_matrix.m20 + m03 * p_matrix.m30;
-		var r01:Float = m00 * p_matrix.m01 + m01 * p_matrix.m11 + m02 * p_matrix.m21 + m03 * p_matrix.m31;
-		var r02:Float = m00 * p_matrix.m02 + m01 * p_matrix.m12 + m02 * p_matrix.m22 + m03 * p_matrix.m32;
-		var r03:Float = m00 * p_matrix.m03 + m01 * p_matrix.m13 + m02 * p_matrix.m23 + m03 * p_matrix.m33;
+		var r00:Float32= m00 * p_matrix.m00 + m01 * p_matrix.m10 + m02 * p_matrix.m20 + m03 * p_matrix.m30;
+		var r01:Float32= m00 * p_matrix.m01 + m01 * p_matrix.m11 + m02 * p_matrix.m21 + m03 * p_matrix.m31;
+		var r02:Float32= m00 * p_matrix.m02 + m01 * p_matrix.m12 + m02 * p_matrix.m22 + m03 * p_matrix.m32;
+		var r03:Float32= m00 * p_matrix.m03 + m01 * p_matrix.m13 + m02 * p_matrix.m23 + m03 * p_matrix.m33;		
+		var r10:Float32= m10 * p_matrix.m00 + m11 * p_matrix.m10 + m12 * p_matrix.m20 + m13 * p_matrix.m30;
+		var r11:Float32= m10 * p_matrix.m01 + m11 * p_matrix.m11 + m12 * p_matrix.m21 + m13 * p_matrix.m31;
+		var r12:Float32= m10 * p_matrix.m02 + m11 * p_matrix.m12 + m12 * p_matrix.m22 + m13 * p_matrix.m32;
+		var r13:Float32= m10 * p_matrix.m03 + m11 * p_matrix.m13 + m12 * p_matrix.m23 + m13 * p_matrix.m33;		
+		var r20:Float32= m20 * p_matrix.m00 + m21 * p_matrix.m10 + m22 * p_matrix.m20 + m23 * p_matrix.m30;
+		var r21:Float32= m20 * p_matrix.m01 + m21 * p_matrix.m11 + m22 * p_matrix.m21 + m23 * p_matrix.m31;
+		var r22:Float32= m20 * p_matrix.m02 + m21 * p_matrix.m12 + m22 * p_matrix.m22 + m23 * p_matrix.m32;
+		var r23:Float32= m20 * p_matrix.m03 + m21 * p_matrix.m13 + m22 * p_matrix.m23 + m23 * p_matrix.m33;
 		
-		var r10:Float = m10 * p_matrix.m00 + m11 * p_matrix.m10 + m12 * p_matrix.m20 + m13 * p_matrix.m30;
-		var r11:Float = m10 * p_matrix.m01 + m11 * p_matrix.m11 + m12 * p_matrix.m21 + m13 * p_matrix.m31;
-		var r12:Float = m10 * p_matrix.m02 + m11 * p_matrix.m12 + m12 * p_matrix.m22 + m13 * p_matrix.m32;
-		var r13:Float = m10 * p_matrix.m03 + m11 * p_matrix.m13 + m12 * p_matrix.m23 + m13 * p_matrix.m33;
-		
-		var r20:Float = m20 * p_matrix.m00 + m21 * p_matrix.m10 + m22 * p_matrix.m20 + m23 * p_matrix.m30;
-		var r21:Float = m20 * p_matrix.m01 + m21 * p_matrix.m11 + m22 * p_matrix.m21 + m23 * p_matrix.m31;
-		var r22:Float = m20 * p_matrix.m02 + m21 * p_matrix.m12 + m22 * p_matrix.m22 + m23 * p_matrix.m32;
-		var r23:Float = m20 * p_matrix.m03 + m21 * p_matrix.m13 + m22 * p_matrix.m23 + m23 * p_matrix.m33;
-		
-		var r30:Float = m30 * p_matrix.m00 + m31 * p_matrix.m10 + m32 * p_matrix.m20 + m33 * p_matrix.m30;
-		var r31:Float = m30 * p_matrix.m01 + m31 * p_matrix.m11 + m32 * p_matrix.m21 + m33 * p_matrix.m31;
-		var r32:Float = m30 * p_matrix.m02 + m31 * p_matrix.m12 + m32 * p_matrix.m22 + m33 * p_matrix.m32;
-		var r33:Float = m30 * p_matrix.m03 + m31 * p_matrix.m13 + m32 * p_matrix.m23 + m33 * p_matrix.m33;
+		var r30:Float32= m30 * p_matrix.m00 + m31 * p_matrix.m10 + m32 * p_matrix.m20 + m33 * p_matrix.m30;
+		var r31:Float32= m30 * p_matrix.m01 + m31 * p_matrix.m11 + m32 * p_matrix.m21 + m33 * p_matrix.m31;
+		var r32:Float32= m30 * p_matrix.m02 + m31 * p_matrix.m12 + m32 * p_matrix.m22 + m33 * p_matrix.m32;
+		var r33:Float32= m30 * p_matrix.m03 + m31 * p_matrix.m13 + m32 * p_matrix.m23 + m33 * p_matrix.m33;
 		Set(
 			r00,r01,r02,r03,
 			r10,r11,r12,r13,
@@ -827,10 +826,10 @@ class Matrix4
 	 */
 	public inline function Transform4x4(p_point : Vector4):Vector4
 	{
-		var vx:Float = (m00 * p_point.x) + (m01 * p_point.y) + (m02 * p_point.z) + (m03 * p_point.w);
-		var vy:Float = (m10 * p_point.x) + (m11 * p_point.y) + (m12 * p_point.z) + (m13 * p_point.w);
-		var vz:Float = (m20 * p_point.x) + (m21 * p_point.y) + (m22 * p_point.z) + (m23 * p_point.w);
-		var vw:Float = (m30 * p_point.x) + (m31 * p_point.y) + (m32 * p_point.z) + (m33 * p_point.w);
+		var vx:Float32= (m00 * p_point.x) + (m01 * p_point.y) + (m02 * p_point.z) + (m03 * p_point.w);
+		var vy:Float32= (m10 * p_point.x) + (m11 * p_point.y) + (m12 * p_point.z) + (m13 * p_point.w);
+		var vz:Float32= (m20 * p_point.x) + (m21 * p_point.y) + (m22 * p_point.z) + (m23 * p_point.w);
+		var vw:Float32= (m30 * p_point.x) + (m31 * p_point.y) + (m32 * p_point.z) + (m33 * p_point.w);
 		p_point.x = vx;
 		p_point.y = vy;
 		p_point.z = vz;
@@ -844,9 +843,9 @@ class Matrix4
 	 */
 	public inline function Transform3x4(p_point:Vector3):Vector3
 	{
-		var vx:Float = (m00 * p_point.x) + (m01 * p_point.y) + (m02 * p_point.z) + m03;
-		var vy:Float = (m10 * p_point.x) + (m11 * p_point.y) + (m12 * p_point.z) + m13;
-		var vz:Float = (m20 * p_point.x) + (m21 * p_point.y) + (m22 * p_point.z) + m23;		
+		var vx:Float32= (m00 * p_point.x) + (m01 * p_point.y) + (m02 * p_point.z) + m03;
+		var vy:Float32= (m10 * p_point.x) + (m11 * p_point.y) + (m12 * p_point.z) + m13;
+		var vz:Float32= (m20 * p_point.x) + (m21 * p_point.y) + (m22 * p_point.z) + m23;		
 		p_point.x = vx;
 		p_point.y = vy;
 		p_point.z = vz;		
@@ -859,9 +858,9 @@ class Matrix4
 	 */
 	public inline function Transform3x3(p_point:Vector3):Vector3
 	{
-		var vx:Float = (m00 * p_point.x) + (m01 * p_point.y) + (m02 * p_point.z);
-		var vy:Float = (m10 * p_point.x) + (m11 * p_point.y) + (m12 * p_point.z);
-		var vz:Float = (m20 * p_point.x) + (m21 * p_point.y) + (m22 * p_point.z);		
+		var vx:Float32= (m00 * p_point.x) + (m01 * p_point.y) + (m02 * p_point.z);
+		var vy:Float32= (m10 * p_point.x) + (m11 * p_point.y) + (m12 * p_point.z);
+		var vz:Float32= (m20 * p_point.x) + (m21 * p_point.y) + (m22 * p_point.z);		
 		p_point.x = vx;
 		p_point.y = vy;
 		p_point.z = vz;		
@@ -874,8 +873,8 @@ class Matrix4
 	 */
 	public inline function Transform2x3(p_point:Vector2):Void
 	{
-		var vx:Float = (m00 * p_point.x) + (m01 * p_point.y) + m03;
-		var vy:Float = (m10 * p_point.x) + (m11 * p_point.y) + m13;		
+		var vx:Float32= (m00 * p_point.x) + (m01 * p_point.y) + m03;
+		var vy:Float32= (m10 * p_point.x) + (m11 * p_point.y) + m13;		
 		p_point.x = vx;
 		p_point.y = vy;
 	}
@@ -886,8 +885,8 @@ class Matrix4
 	 */
 	public inline function Transform2x2(p_point:Vector2):Void
 	{
-		var vx:Float = (m00 * p_point.x) + (m01 * p_point.y);
-		var vy:Float = (m10 * p_point.x) + (m11 * p_point.y);		
+		var vx:Float32= (m00 * p_point.x) + (m01 * p_point.y);
+		var vy:Float32= (m10 * p_point.x) + (m11 * p_point.y);		
 		p_point.x = vx;
 		p_point.y = vy;
 	}
@@ -911,7 +910,7 @@ class Matrix4
 	 * @param	p_far
 	 * @return
 	 */
-	public inline function SetFrustum(p_left:Float, p_right:Float, p_top:Float, p_bottom:Float, p_near:Float, p_far:Float):Matrix4 { return Frustum(p_left, p_right, p_top, p_bottom, p_near, p_far, this); }
+	public inline function SetFrustum(p_left:Float32, p_right:Float32, p_top:Float32, p_bottom:Float32, p_near:Float32, p_far:Float32):Matrix4 { return Frustum(p_left, p_right, p_top, p_bottom, p_near, p_far, this); }
 	
 	/**
 	 * Transforms this matrix into a frustum inverse matrix.  Returns its own reference.
@@ -923,7 +922,7 @@ class Matrix4
 	 * @param	p_far
 	 * @return
 	 */
-	public inline function SetFrustumInverse(p_left:Float, p_right:Float, p_top:Float, p_bottom:Float, p_near:Float, p_far:Float):Matrix4 { return FrustumInverse(p_left, p_right, p_top, p_bottom, p_near, p_far,this); }
+	public inline function SetFrustumInverse(p_left:Float32, p_right:Float32, p_top:Float32, p_bottom:Float32, p_near:Float32, p_far:Float32):Matrix4 { return FrustumInverse(p_left, p_right, p_top, p_bottom, p_near, p_far,this); }
 	
 	/**
 	 * Transforms this matrix into a orthographic matrix.  Returns its own reference.
@@ -935,7 +934,7 @@ class Matrix4
 	 * @param	p_far
 	 * @return
 	 */
-	public function SetOrtho(p_left:Float, p_right:Float, p_top:Float, p_bottom:Float, p_near:Float, p_far:Float):Matrix4 {	return Ortho(p_left, p_right, p_top, p_bottom, p_near, p_far, this); }
+	public function SetOrtho(p_left:Float32, p_right:Float32, p_top:Float32, p_bottom:Float32, p_near:Float32, p_far:Float32):Matrix4 {	return Ortho(p_left, p_right, p_top, p_bottom, p_near, p_far, this); }
 	
 	/**
 	 * Transforms this matrix into a perspective projection matrix. Returns its own reference.
@@ -945,7 +944,7 @@ class Matrix4
 	 * @param	p_far
 	 * @return
 	 */
-	public inline function SetPerspective(p_fov:Float, p_aspect:Float, p_near:Float, p_far:Float):Matrix4 { return Perspective(p_fov, p_aspect, p_near, p_far, this); }
+	public inline function SetPerspective(p_fov:Float32, p_aspect:Float32, p_near:Float32, p_far:Float32):Matrix4 { return Perspective(p_fov, p_aspect, p_near, p_far, this); }
 	
 	/**
 	 * Transforms this matrix into a perspective projection inverse matrix. Returns its own reference.
@@ -955,13 +954,13 @@ class Matrix4
 	 * @param	p_far
 	 * @return
 	 */
-	public inline function SetPerspectiveInverse(p_fov:Float, p_aspect:Float, p_near:Float, p_far:Float):Matrix4 { return PerspectiveInverse(p_fov, p_aspect, p_near, p_far, this);	}
+	public inline function SetPerspectiveInverse(p_fov:Float32, p_aspect:Float32, p_near:Float32, p_far:Float32):Matrix4 { return PerspectiveInverse(p_fov, p_aspect, p_near, p_far, this);	}
 	
 	/**
-	 * Returns all values as an Array<Float>
+	 * Returns all values as an Array<Float32>
 	 * @return
 	 */
-	public function ToArray() : Array<Float> { return [	m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33]; }
+	public function ToArray() : Array<Float32> { return [	m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33]; }
 	
 	/**
 	 * Returns this matrix as string.
@@ -969,7 +968,7 @@ class Matrix4
 	 */
 	public function ToString(p_linear : Bool=true,p_places:Int=2):String
 	{
-		var a : Array<Float> = ToArray();
+		var a : Array<Float32> = ToArray();
 		var s : Array<String> = [];
 		for (i in 0...a.length) 
 		{ 
@@ -998,7 +997,7 @@ class Matrix4
 		var res : Matrix4 = Matrix4.identity;
 		for (i in 0...tk.length)
 		{
-			var n : Float = Std.parseFloat(StringTools.trim(tk[i]));
+			var n : Float32 = Std.parseFloat(StringTools.trim(tk[i]));
 			//res.m[i] = n;
 			res.SetIndex(i, n);
 		}

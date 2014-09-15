@@ -111,7 +111,8 @@ class HTMLInputHandler extends InputHandler
 	 * Update the input data from events and joystick.
 	 */
 	override function UpdateInput():Void 
-	{		
+	{	
+		
 		if (m_events.length > 0) while (m_events.length > 0) ProcessInputEvent(m_events.shift());			
 		UpdateJoystick();		
 	}
@@ -122,13 +123,34 @@ class HTMLInputHandler extends InputHandler
 	 */	
 	private function OnInputEvent(p_event : UIEvent):Void
 	{	
-		m_events.push(p_event);
-		var is_mousedown  : Bool = p_event.type == "mousedown";
-		var is_mousewheel : Bool = (p_event.type == "mousewheel") ||(p_event.type == "wheel");
-		var prevent : Bool = (is_mousedown || is_mousewheel) && (Std.is(m_target, CanvasElement));
+		var e : UIEvent = p_event==null ? (cast Browser.window.event) : p_event;
+		var c : UIEvent;
+		
+		#if ie8
+		c = cast { };		
+		untyped __js__('
+		for (var x in e)
+		{
+			if (x == "keyLocation") continue;
+           c[x] = e[x];
+		}
+		');		
+		#else
+		c = e;
+		#end
+		
+		m_events.push(c);
+		var is_mousedown  : Bool = c.type == "mousedown";
+		var is_mousewheel : Bool = (c.type == "mousewheel") ||(c.type == "wheel");
+		var prevent : Bool = (is_mousedown || is_mousewheel);
+		
+		#if !ie8
+		prevent = prevent && (Std.is(m_target, CanvasElement));
+		#end
+		
 		if (Input.scroll) prevent = false;
-		if (p_event.type == "contextmenu") if (!Input.menu) prevent = true;		
-		if (prevent) if (Input.relativeMouse.x >= 0) if (Input.relativeMouse.x <= 1) if (Input.relativeMouse.y >= 0) if (Input.relativeMouse.y <= 1) p_event.preventDefault();
+		if (c.type == "contextmenu") if (!Input.menu) prevent = true;		
+		if (prevent) if (Input.relativeMouse.x >= 0) if (Input.relativeMouse.x <= 1) if (Input.relativeMouse.y >= 0) if (Input.relativeMouse.y <= 1) if(e.preventDefault != null) e.preventDefault();
 	}
 	
 	/**
@@ -147,8 +169,13 @@ class HTMLInputHandler extends InputHandler
 				var we : WheelEvent = cast p_event;
 				var dw : Int = (we.wheelDeltaY == null) ? (we.detail*40) : we.wheelDeltaY;				
 				OnMouseWheel(dw / 100.0);
-			case "mousemove":				
-				var p : Vector2 = GetAbsolutePosition(m_target, me.pageX, me.pageY);
+			case "mousemove":			
+				
+				var px : Int = me.pageX;
+				var py : Int = me.pageY;				
+				if (px == null) px = me.clientX;
+				if (py == null) py = me.clientY;				
+				var p : Vector2 = GetAbsolutePosition(m_target, px, py);				
 				OnMouseMove(p.x, p.y);
 			
 			case "mouseup":				
@@ -237,7 +264,7 @@ class HTMLInputHandler extends InputHandler
 		}while (e != null);
 		px = p_x - px;
 		py = p_y - py;
-		return new Vector2(px, py);
+		return Vector2.temp.Set(px, py);
 	}
 	
 	

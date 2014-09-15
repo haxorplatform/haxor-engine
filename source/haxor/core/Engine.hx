@@ -86,14 +86,16 @@ class Engine
 	 * Render callback. Runs at the FPS specified at the Application class.
 	 */
 	static private function Render():Void
-	{		
+	{	
 		#if profile
-		Stats.BeginRender();
+		Stats.BeginRender();		
 		#end
 		//Shadow Collect Pass		
-		RenderCameras();
-		RenderIRenderers();
+		RenderCameras();						
+		RenderIRenderers();		
 		RenderFinish();
+		
+		
 	}
 	
 	/**
@@ -101,6 +103,9 @@ class Engine
 	 */
 	static private function RenderCameras():Void
 	{
+		#if ie8
+		return;
+		#end
 		var cl  : Array<Camera> = EngineContext.camera.list;
 		for (i in 0...cl.length)
 		{
@@ -185,7 +190,10 @@ class Engine
 	 */
 	static private function RenderIRenderers():Void
 	{
+		#if !ie8
 		Camera.m_current = null;
+		#end
+		
 		var rp  : Process<IRenderable> = EngineContext.render;		
 		//"Free" renderers pass.
 		for (i in 0...rp.length)
@@ -201,6 +209,10 @@ class Engine
 	 */
 	static private function RenderFinish():Void
 	{
+		#if ie8
+		return;
+		#end
+		
 		var cl  : Array<Camera> = EngineContext.camera.list;
 		for (i in 0...cl.length)
 		{
@@ -216,7 +228,10 @@ class Engine
 	 */
 	static private function Resize():Void
 	{
+		#if !ie8
 		EngineContext.camera.Resize();
+		#end
+		
 		if (state == EngineState.Editor) return;
 		var rp : Process<IResizeable> = EngineContext.resize;				
 		for (i in 0...rp.length)

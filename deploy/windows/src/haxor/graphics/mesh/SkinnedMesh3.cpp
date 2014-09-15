@@ -30,12 +30,12 @@ namespace mesh{
 
 Void SkinnedMesh3_obj::__construct(::String __o_p_name)
 {
-HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","new",0x2fa1d812,"haxor.graphics.mesh.SkinnedMesh3.new","haxor/graphics/mesh/MeshLayout.hx",136,0x92e5291c)
+HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","new",0x2fa1d812,"haxor.graphics.mesh.SkinnedMesh3.new","haxor/graphics/mesh/MeshLayout.hx",141,0x92e5291c)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_name,"p_name")
 ::String p_name = __o_p_name.Default(HX_CSTRING(""));
 {
-	HX_STACK_LINE(136)
+	HX_STACK_LINE(141)
 	super::__construct(p_name);
 }
 ;
@@ -56,9 +56,9 @@ Dynamic SkinnedMesh3_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 Array< ::Dynamic > SkinnedMesh3_obj::get_binds( ){
-	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","get_binds",0x94a3459f,"haxor.graphics.mesh.SkinnedMesh3.get_binds","haxor/graphics/mesh/MeshLayout.hx",139,0x92e5291c)
+	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","get_binds",0x94a3459f,"haxor.graphics.mesh.SkinnedMesh3.get_binds","haxor/graphics/mesh/MeshLayout.hx",144,0x92e5291c)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(139)
+	HX_STACK_LINE(144)
 	return this->m_binds;
 }
 
@@ -66,14 +66,14 @@ Array< ::Dynamic > SkinnedMesh3_obj::get_binds( ){
 HX_DEFINE_DYNAMIC_FUNC0(SkinnedMesh3_obj,get_binds,return )
 
 Array< ::Dynamic > SkinnedMesh3_obj::set_binds( Array< ::Dynamic > v){
-	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","set_binds",0x77f431ab,"haxor.graphics.mesh.SkinnedMesh3.set_binds","haxor/graphics/mesh/MeshLayout.hx",140,0x92e5291c)
+	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","set_binds",0x77f431ab,"haxor.graphics.mesh.SkinnedMesh3.set_binds","haxor/graphics/mesh/MeshLayout.hx",145,0x92e5291c)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(140)
+	HX_STACK_LINE(145)
 	Array< ::Dynamic > _g = v->copy();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(140)
+	HX_STACK_LINE(145)
 	this->m_binds = _g;
-	HX_STACK_LINE(140)
+	HX_STACK_LINE(145)
 	return v;
 }
 
@@ -81,9 +81,9 @@ Array< ::Dynamic > SkinnedMesh3_obj::set_binds( Array< ::Dynamic > v){
 HX_DEFINE_DYNAMIC_FUNC1(SkinnedMesh3_obj,set_binds,return )
 
 Array< ::Dynamic > SkinnedMesh3_obj::get_bone( ){
-	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","get_bone",0x01d511db,"haxor.graphics.mesh.SkinnedMesh3.get_bone","haxor/graphics/mesh/MeshLayout.hx",144,0x92e5291c)
+	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","get_bone",0x01d511db,"haxor.graphics.mesh.SkinnedMesh3.get_bone","haxor/graphics/mesh/MeshLayout.hx",149,0x92e5291c)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(144)
+	HX_STACK_LINE(149)
 	return this->m_bone;
 }
 
@@ -91,12 +91,12 @@ Array< ::Dynamic > SkinnedMesh3_obj::get_bone( ){
 HX_DEFINE_DYNAMIC_FUNC0(SkinnedMesh3_obj,get_bone,return )
 
 Array< ::Dynamic > SkinnedMesh3_obj::set_bone( Array< ::Dynamic > v){
-	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","set_bone",0xb0326b4f,"haxor.graphics.mesh.SkinnedMesh3.set_bone","haxor/graphics/mesh/MeshLayout.hx",145,0x92e5291c)
+	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","set_bone",0xb0326b4f,"haxor.graphics.mesh.SkinnedMesh3.set_bone","haxor/graphics/mesh/MeshLayout.hx",150,0x92e5291c)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(145)
+	HX_STACK_LINE(150)
 	Array< ::Dynamic > _g = this->UpdateAttribute(HX_CSTRING("bone"),v,false);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(145)
+	HX_STACK_LINE(150)
 	return this->m_bone = _g;
 }
 
@@ -104,9 +104,9 @@ Array< ::Dynamic > SkinnedMesh3_obj::set_bone( Array< ::Dynamic > v){
 HX_DEFINE_DYNAMIC_FUNC1(SkinnedMesh3_obj,set_bone,return )
 
 Array< ::Dynamic > SkinnedMesh3_obj::get_weight( ){
-	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","get_weight",0x8ed213cf,"haxor.graphics.mesh.SkinnedMesh3.get_weight","haxor/graphics/mesh/MeshLayout.hx",149,0x92e5291c)
+	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","get_weight",0x8ed213cf,"haxor.graphics.mesh.SkinnedMesh3.get_weight","haxor/graphics/mesh/MeshLayout.hx",154,0x92e5291c)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(149)
+	HX_STACK_LINE(154)
 	return this->m_weight;
 }
 
@@ -114,12 +114,12 @@ Array< ::Dynamic > SkinnedMesh3_obj::get_weight( ){
 HX_DEFINE_DYNAMIC_FUNC0(SkinnedMesh3_obj,get_weight,return )
 
 Array< ::Dynamic > SkinnedMesh3_obj::set_weight( Array< ::Dynamic > v){
-	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","set_weight",0x924fb243,"haxor.graphics.mesh.SkinnedMesh3.set_weight","haxor/graphics/mesh/MeshLayout.hx",150,0x92e5291c)
+	HX_STACK_FRAME("haxor.graphics.mesh.SkinnedMesh3","set_weight",0x924fb243,"haxor.graphics.mesh.SkinnedMesh3.set_weight","haxor/graphics/mesh/MeshLayout.hx",155,0x92e5291c)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(150)
+	HX_STACK_LINE(155)
 	Array< ::Dynamic > _g = this->UpdateAttribute(HX_CSTRING("weight"),v,false);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(150)
+	HX_STACK_LINE(155)
 	return this->m_weight = _g;
 }
 

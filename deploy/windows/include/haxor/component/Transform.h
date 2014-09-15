@@ -177,7 +177,7 @@ class HXCPP_CLASS_ATTRIBUTES  Transform_obj : public ::haxor::component::Compone
 		virtual Array< ::Dynamic > GetPathToRoot( );
 		Dynamic GetPathToRoot_dyn();
 
-		virtual ::String OutputHierarchy( );
+		virtual ::String OutputHierarchy( hx::Null< bool >  p_show_transform,hx::Null< bool >  p_show_world);
 		Dynamic OutputHierarchy_dyn();
 
 		virtual Void Traverse( Dynamic p_callback);

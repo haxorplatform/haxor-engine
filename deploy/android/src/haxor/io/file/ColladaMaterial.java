@@ -18,11 +18,11 @@ public  class ColladaMaterial extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaMaterial(haxor.io.file.ColladaMaterial __temp_me164332)
+	public static   void __hx_ctor_haxor_io_file_ColladaMaterial(haxor.io.file.ColladaMaterial __temp_me255530)
 	{
 		{
-			__temp_me164332.name = "";
-			__temp_me164332.id = "";
+			__temp_me255530.name = "";
+			__temp_me255530.id = "";
 		}
 		
 	}
@@ -47,14 +47,14 @@ public  class ColladaMaterial extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165136 = true;
+			boolean __temp_executeDef256328 = true;
 			switch (field.hashCode())
 			{
 				case 3373707:
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef165136 = false;
+						__temp_executeDef256328 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -67,7 +67,7 @@ public  class ColladaMaterial extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef165136 = false;
+						__temp_executeDef256328 = false;
 						this.id = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -78,7 +78,7 @@ public  class ColladaMaterial extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165136) 
+			if (__temp_executeDef256328) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -95,14 +95,14 @@ public  class ColladaMaterial extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165137 = true;
+			boolean __temp_executeDef256329 = true;
 			switch (field.hashCode())
 			{
 				case 3373707:
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef165137 = false;
+						__temp_executeDef256329 = false;
 						return this.name;
 					}
 					
@@ -114,7 +114,7 @@ public  class ColladaMaterial extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef165137 = false;
+						__temp_executeDef256329 = false;
 						return this.id;
 					}
 					
@@ -124,7 +124,7 @@ public  class ColladaMaterial extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165137) 
+			if (__temp_executeDef256329) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

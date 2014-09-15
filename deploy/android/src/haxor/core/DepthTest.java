@@ -29,7 +29,7 @@ public  class DepthTest extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_DepthTest(haxor.core.DepthTest __temp_me164206)
+	public static   void __hx_ctor_haxor_core_DepthTest(haxor.core.DepthTest __temp_me255400)
 	{
 		{
 		}

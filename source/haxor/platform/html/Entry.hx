@@ -1,5 +1,8 @@
 #if html
 package haxor.platform.html;
+import haxor.dom.DOMStage;
+import haxe.Timer;
+import haxor.platform.Types.Float32;
 import haxor.platform.html.input.HTMLInputHandler;
 
 import haxor.input.Input;
@@ -38,7 +41,7 @@ class Entry
 	/**
 	 * Startup the application entry point.
 	 */
-	static public function Initialize():Void { Console.Initialize(); Browser.window.onload = OnWindowLoad; }
+	static public function Initialize():Void { Browser.window.onload = OnWindowLoad; }
 	
 	
 	/**
@@ -47,6 +50,8 @@ class Entry
 	 */
 	static function OnWindowLoad(p_event:Event):Void
 	{	
+		Console.Initialize();
+		
 		var script_list : NodeList = Browser.document.getElementsByTagName("SCRIPT");
 		
 		var attrib : String = "";
@@ -115,20 +120,36 @@ class Entry
 		
 		Console.Log("Haxor> Application [" + app_class_type+"] created successfully!", 1);
 		
+		#if !ie8
 		GL.Initialize(m_application);
 		GL.m_gl.Initialize(app_container_id);
 		GL.m_gl.CheckExtensions();
+		#else
+		
+		m_application.m_container = Browser.document.getElementById(app_container_id);		
+		if (m_application.m_container == null)
+		{ 
+			Console.Log("Graphics> DOM container not defined id["+app_container_id+"] using 'body'.");
+			m_application.m_container = Browser.document.body;			
+		}		
+		#end
+		
+		Console.Log("Haxor> Creating Stage with ["+app_container_id+"]");
+		var stage : DOMStage = new DOMStage(m_application.m_container);
+		
+		EngineContext.Build();
+				
+		m_input = new HTMLInputHandler(app_input_id);
+		Input.m_handler	= m_input;
 		
 		if (Browser.window.requestAnimationFrame != null)
 		{
 			Browser.window.requestAnimationFrame(RequestAnimationCallback);
 		}
-		
-		EngineContext.Build();
-		
-		
-		m_input = new HTMLInputHandler(app_input_id);
-		Input.m_handler	= m_input;
+		else
+		{
+			TimeOutLoop();
+		}
 		
 		if (m_application.Load())
 		{
@@ -142,13 +163,21 @@ class Entry
 	 * @param	p_time
 	 * @return
 	 */
-	static private function RequestAnimationCallback(p_time : Float):Bool
+	static private function RequestAnimationCallback(p_time : Float32):Bool
 	{	
-		Time.m_clock = p_time;
+		Time.m_system = p_time;
 		m_application.Update();
 		m_application.Render();
 		Browser.window.requestAnimationFrame(RequestAnimationCallback);
 		return true;
+	}
+	
+	static private function TimeOutLoop():Void
+	{
+		Time.m_system = Timer.stamp();
+		m_application.Update();
+		m_application.Render();
+		Browser.window.setTimeout(TimeOutLoop, 10);
 	}
 }
 

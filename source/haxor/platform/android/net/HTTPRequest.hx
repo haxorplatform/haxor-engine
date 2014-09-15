@@ -1,6 +1,7 @@
 #if android
 
 package haxor.platform.android.net;
+import haxor.platform.Types.Float32;
 
 import haxor.net.HTTPRequestTask;
 
@@ -97,9 +98,9 @@ class HTTPRequest extends HTTPRequestTask<HttpURLConnection,ByteArrayOutputStrea
 		}
 		response.write(m_buffer, 0, step);
 		bytesLoaded += step;		
-		var t : Float = cast bytesTotal;
-		var l : Float = cast bytesLoaded;
-		var r : Float = t <= 0.0 ? 0.0 : (l / t);
+		var t : Float32 = cast bytesTotal;
+		var l : Float32 = cast bytesLoaded;
+		var r : Float32 = t <= 0.0 ? 0.0 : (l / t);
 		if (r >= 1.0) r = 1.0;
 		progress = r * 0.999;
 	}

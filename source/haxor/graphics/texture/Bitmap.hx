@@ -5,6 +5,7 @@ import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.math.Color;
 import haxor.math.Mathf;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes a container for pixels with each channel made of bytes or floats.
@@ -100,7 +101,11 @@ class Bitmap extends Resource
 		if (p_x < 0) return new Color();
 		if (p_y < 0) return new Color();
 		if (p_x >= m_width)  return new Color();
-		if (p_y >= m_height) return new Color();		
+		if (p_y >= m_height) return new Color();
+		
+		//Textures are stored bottom-top.
+		p_y = m_height - 1 - p_y;
+		
 		var cc 	: Int 	= m_channels;
 		var pos : Int 	= (p_x + (p_y * m_width)) * cc;				
 		if (m_float)
@@ -135,7 +140,11 @@ class Bitmap extends Resource
 		if (p_x < 0) return;
 		if (p_y < 0) return;
 		if (p_x >= m_width)  return;
-		if (p_y >= m_height) return;		
+		if (p_y >= m_height) return;
+		
+		//Textures are stored bottom-top.
+		p_y = m_height - 1 - p_y;
+		
 		var cc 	: Int 	= m_channels;
 		var pos : Int 	= (p_x + (p_y * m_width)) * cc;		
 		if (m_float)
@@ -170,9 +179,13 @@ class Bitmap extends Resource
 	 * @param	p_position
 	 * @param	p_value
 	 */
-	public function Set(p_x:Int,p_y:Int, p_v0:Float=0.0,p_v1:Float=0.0,p_v2:Float=0.0,p_v3:Float=0.0):Void
-	{
+	public function Set(p_x:Int,p_y:Int, p_v0:Float32=0.0,p_v1:Float32=0.0,p_v2:Float32=0.0,p_v3:Float32=0.0):Void
+	{		
 		var cc 	: Int 	= m_channels;
+		
+		//Textures are stored bottom-top.
+		p_y = m_height - 1 - p_y;
+		
 		var pos : Int 	= ((p_x + (p_y * m_width)) * cc);		
 		if (m_float)
 		{
@@ -200,8 +213,11 @@ class Bitmap extends Resource
 	 * @param	p_channel
 	 * @param	p_value
 	 */
-	public function SetRange(p_x:Int, p_y:Int, p_width:Int, p_height:Int,p_values:Array<Float>,p_length:Int=-1):Void
+	public function SetRange(p_x:Int, p_y:Int, p_width:Int, p_height:Int,p_values:Array<Float32>,p_length:Int=-1):Void
 	{
+		//Textures are stored bottom-top.
+		p_y = m_height - 1 - p_y;
+		
 		var cc 	: Int 	= m_channels;
 		var len : Int   = p_length < 0 ? p_values.length : p_length;		
 		var k : Int 	= 0;

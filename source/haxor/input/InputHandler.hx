@@ -7,6 +7,7 @@ import haxor.math.Mathf;
 import haxor.math.Random;
 import haxor.math.Vector2;
 import haxor.math.Vector3;
+import haxor.platform.Types.Float32;
 import haxor.thread.Activity;
 
 /**
@@ -22,10 +23,13 @@ class InputHandler
 	 */
 	private var m_joystick : Joystick;
 	
+	
 	/**
 	 * Creates a new input handler.
 	 */
-	function new(){ }
+	function new()
+	{
+	}
 	
 	/**
 	 * Updates the loop logic.
@@ -63,7 +67,7 @@ class InputHandler
 	 * @param	p_x
 	 * @param	p_y
 	 */
-	private function OnMouseMove(p_x:Float,p_y:Float):Void
+	private function OnMouseMove(p_x:Float32,p_y:Float32):Void
 	{
 		Input.deltaMouse.x = p_x - Input.mouse.x;
 		Input.deltaMouse.y = p_y - Input.mouse.y;
@@ -71,13 +75,14 @@ class InputHandler
 		Input.mouse.y = p_y;
 		Input.relativeMouse.x = Input.mouse.x / Screen.width;
 		Input.relativeMouse.y = Input.mouse.y / Screen.height;
+		
 	}
 	
 	/**
 	 * Updates MouseWheel data.
 	 * @param	p_wheel
 	 */
-	private function OnMouseWheel(p_wheel:Float):Void
+	private function OnMouseWheel(p_wheel:Float32):Void
 	{
 		Input.wheel = p_wheel;
 	}
@@ -106,14 +111,14 @@ class InputHandler
 	 */
 	private function OnKey(p_code : Int, p_down:Bool):Void
 	{
-		Input.UpdateInputState(p_code, p_down);
+		Input.UpdateInputState(p_code, p_down,false);
 	}
 	
 	/**
 	 * Callback for when a touch interaction starts.
 	 * @param	p_touch
 	 */
-	private function OnTouchStart(p_id : Int,p_x:Float,p_y:Float,p_rx:Float=0.0,p_ry:Float=0.0,p_pressure:Float=0.0,p_angle:Float=0.0):Void
+	private function OnTouchStart(p_id : Int,p_x:Float32,p_y:Float32,p_rx:Float32=0.0,p_ry:Float32=0.0,p_pressure:Float32=0.0,p_angle:Float32=0.0):Void
 	{
 		//Console.Log("Input> TouchStart " + p_id);
 		var t : Touch = Input.m_api_touches[p_id];			
@@ -138,7 +143,7 @@ class InputHandler
 	 * @param	p_x
 	 * @param	p_y
 	 */
-	private function OnTouchMove(p_id : Int, p_x : Float, p_y:Float):Void
+	private function OnTouchMove(p_id : Int, p_x : Float32, p_y:Float32):Void
 	{
 		var t : Touch = Input.m_api_touches[p_id];
 		if (t.id >= 0)
@@ -197,7 +202,7 @@ class InputHandler
 	 * @param	p_code
 	 * @param	p_value
 	 */
-	private function OnJoystickDataUpdate(p_code:Int, p_value : Float,p_is_analog:Bool):Void
+	private function OnJoystickDataUpdate(p_code:Int, p_value : Float32,p_is_analog:Bool):Void
 	{
 		if (m_joystick == null) return;	
 		if (!p_is_analog)
@@ -219,9 +224,9 @@ class InputHandler
 	private function OnJoystickAnalogUpdate():Void
 	{
 		if (m_joystick == null) return;	
-		var b0 : Float = Joystick.analogBias[0];
-		var b1 : Float = Joystick.analogBias[1];
-		var s  : Float = 1.0;
+		var b0 : Float32 = Joystick.analogBias[0];
+		var b1 : Float32 = Joystick.analogBias[1];
+		var s  : Float32 = 1.0;
 		var v  : Vector3;
 		var jk : Joystick = m_joystick;
 		

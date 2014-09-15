@@ -72,8 +72,6 @@ C haxe.root.Xml_elementsNamed_238__Fun
 M android.content.DialogInterface
 M java.nio.charset.Charset
 M java.nio.channels.SelectableChannel
-M haxe.io.Output
-C haxe.io.Output
 M android.view.DragEvent
 M android.content.pm.ConfigurationInfo
 M android.content.res.TypedArray
@@ -170,8 +168,8 @@ C haxor.component.Component
 M android.app.LoaderManager
 M haxor.component.Transform
 C haxor.component.Transform
-C haxor.component.Transform_Search_470__Fun
-C haxor.component.Transform_OutputHierarchy_512__Fun
+C haxor.component.Transform_Search_471__Fun
+C haxor.component.Transform_OutputHierarchy_513__Fun
 M haxor.input.Joystick
 C haxor.input.Joystick
 M java.lang.reflect.AccessibleObject
@@ -257,8 +255,8 @@ M java.security.CodeSource
 M android.view.LayoutInflater
 M haxor.io.file.ColladaFile
 C haxor.io.file.ColladaFile
-C haxor.io.file.ColladaFile_get_asset_184__Fun
-C haxor.io.file.ColladaFile_FindNodeById_511__Fun
+C haxor.io.file.ColladaFile_get_asset_185__Fun
+C haxor.io.file.ColladaFile_FindNodeById_512__Fun
 C haxor.io.file.ColladaAssetData
 C haxor.io.file.ColladaGeometry
 C haxor.io.file.ColladaMesh
@@ -293,8 +291,6 @@ M android.widget.Adapter
 M android.util.AndroidRuntimeException
 M haxor.platform.android.graphics.AndroidGL
 C haxor.platform.android.graphics.AndroidGL
-M haxe.io.Error
-C haxe.io.Error
 M java.net.Socket
 M java.internal.Function
 C haxe.lang.Function
@@ -310,7 +306,7 @@ M android.graphics.Paint
 M android.view.accessibility.AccessibilityEvent
 M haxor.context.CameraContext
 C haxor.context.CameraContext
-C haxor.context.CameraContext_SortCameraList_279__Fun
+C haxor.context.CameraContext_SortCameraList_224__Fun
 M java.lang.Comparable
 M haxor.core.Time
 C haxor.core.Time
@@ -351,7 +347,7 @@ C haxor.platform.android.net.HTTPRequest
 M java.security.cert.CertPath
 M haxor.context.TextureContext
 C haxor.context.TextureContext
-C haxor.context.TextureContext_UploadTexture_281__Fun
+C haxor.context.TextureContext_UploadTexture_302__Fun
 M haxor.thread.Task
 C haxor.thread.Task
 M android.os.Handler
@@ -362,8 +358,6 @@ M haxe.root.Reflect
 C haxe.root.Reflect
 M android.content.pm.PermissionGroupInfo
 M android.content.pm.ActivityInfo
-M java.io.NativeOutput
-C haxe.java.io.NativeOutput
 M android.view.SubMenu
 M java.nio.channels.Channel
 M java.lang.reflect.GenericDeclaration
@@ -614,7 +608,7 @@ C haxor.component.PointLight
 M java.io.ByteArrayOutputStream
 M haxor.net.Texture2DLoader
 C haxor.net.Texture2DLoader
-C haxor.net.Texture2DLoader_OnBitmapCallback_53__Fun
+C haxor.net.Texture2DLoader_OnBitmapCallback_54__Fun
 M java.types.Char16
 M java.io.OutputStream
 M android.view.View
@@ -629,6 +623,8 @@ M haxor.graphics.texture.Texture
 C haxor.graphics.texture.Texture
 M haxor.net.Web
 C haxor.net.Web
+C haxor.net.Web_LoadCollada_61__Fun
+C haxor.net.Web_LoadShader_68__Fun
 M java.io.InputStreamReader
 M haxor.platform.Types
 M haxe.root.Math
@@ -638,9 +634,9 @@ M android.app.Dialog
 M android.text.InputType
 M haxor.thread.Activity
 C haxor.thread.Activity
-C haxor.thread.Activity_Iterate_42__Fun
-C haxor.thread.Activity_Delay_63__Fun
-C haxor.thread.Activity_RunOnce_94__Fun
+C haxor.thread.Activity_Iterate_43__Fun
+C haxor.thread.Activity_Delay_64__Fun
+C haxor.thread.Activity_RunOnce_95__Fun
 M java.nio.DoubleBuffer
 M java.util.RandomAccess
 M haxor.core.Scene
@@ -664,8 +660,9 @@ M java.lang.Exception
 M android.view.WindowManager
 M haxe.root.Main
 C haxe.root.Main
-C haxe.root.Main_Load_101__Fun
-C haxe.root.Main_Initialize_209__Fun
+C haxe.root.Main_Load_98__Fun
+C haxe.root.Main_Load_108__Fun
+C haxe.root.Main_Load_118__Fun
 M android.database.sqlite.SQLiteCursorDriver
 M java.lang.System
 M android.app.Application

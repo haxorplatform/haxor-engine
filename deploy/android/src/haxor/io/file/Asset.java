@@ -22,7 +22,7 @@ public  class Asset extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_Asset(haxor.io.file.Asset __temp_me164310)
+	public static   void __hx_ctor_haxor_io_file_Asset(haxor.io.file.Asset __temp_me255508)
 	{
 		{
 		}

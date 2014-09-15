@@ -22,7 +22,7 @@ public  class Web extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_net_Web(haxor.net.Web __temp_me164448)
+	public static   void __hx_ctor_haxor_net_Web(haxor.net.Web __temp_me255646)
 	{
 		{
 		}
@@ -47,6 +47,21 @@ public  class Web extends haxe.lang.HxObject
 	public static   void LoadTexture2D(java.lang.String p_url, boolean p_apply, haxe.lang.Function p_callback)
 	{
 		haxor.net.Texture2DLoader ld = new haxor.net.Texture2DLoader(haxe.lang.Runtime.toString(p_url), haxe.lang.Runtime.toBool(p_apply), ((haxe.lang.Function) (p_callback) ));
+	}
+	
+	
+	public static   void LoadCollada(java.lang.String p_url, haxe.lang.Function p_callback)
+	{
+		haxe.root.Array<haxe.lang.Function> p_callback1 = new haxe.root.Array<haxe.lang.Function>(new haxe.lang.Function[]{p_callback});
+		haxe.root.Array<java.lang.String> p_url1 = new haxe.root.Array<java.lang.String>(new java.lang.String[]{p_url});
+		haxor.net.Web.Load(p_url1.__get(0), new haxor.net.Web_LoadCollada_61__Fun(((haxe.root.Array<java.lang.String>) (p_url1) ), ((haxe.root.Array<haxe.lang.Function>) (p_callback1) )));
+	}
+	
+	
+	public static   void LoadShader(java.lang.String p_url, haxe.lang.Function p_callback)
+	{
+		haxe.root.Array<haxe.lang.Function> p_callback1 = new haxe.root.Array<haxe.lang.Function>(new haxe.lang.Function[]{p_callback});
+		haxor.net.Web.Load(p_url, new haxor.net.Web_LoadShader_68__Fun(((haxe.root.Array<haxe.lang.Function>) (p_callback1) )));
 	}
 	
 	

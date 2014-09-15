@@ -9,13 +9,38 @@
 namespace haxor{
 namespace ds{
 
-Void SAPList_obj::__construct()
+Void SAPList_obj::__construct(hx::Null< Float >  __o_p_bias,hx::Null< bool >  __o_p_has_query)
 {
-HX_STACK_FRAME("haxor.ds.SAPList","new",0x07a243bf,"haxor.ds.SAPList.new","haxor/ds/SAP.hx",237,0xbaeeb06f)
+HX_STACK_FRAME("haxor.ds.SAPList","new",0x07a243bf,"haxor.ds.SAPList.new","haxor/ds/SAP.hx",255,0xbaeeb06f)
 HX_STACK_THIS(this)
+HX_STACK_ARG(__o_p_bias,"p_bias")
+HX_STACK_ARG(__o_p_has_query,"p_has_query")
+Float p_bias = __o_p_bias.Default(0.0);
+bool p_has_query = __o_p_has_query.Default(true);
 {
-	HX_STACK_LINE(237)
+	HX_STACK_LINE(256)
 	this->list = Array_obj< ::Dynamic >::__new();
+	HX_STACK_LINE(257)
+	{
+		HX_STACK_LINE(257)
+		int _g = (int)0;		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(257)
+		while((true)){
+			HX_STACK_LINE(257)
+			if ((!(((_g < (int)5000))))){
+				HX_STACK_LINE(257)
+				break;
+			}
+			HX_STACK_LINE(257)
+			int i = (_g)++;		HX_STACK_VAR(i,"i");
+			HX_STACK_LINE(257)
+			this->list->push(null());
+		}
+	}
+	HX_STACK_LINE(258)
+	this->m_has_query = p_has_query;
+	HX_STACK_LINE(259)
+	this->m_bias = p_bias;
 }
 ;
 	return null();
@@ -24,34 +49,35 @@ HX_STACK_THIS(this)
 //SAPList_obj::~SAPList_obj() { }
 
 Dynamic SAPList_obj::__CreateEmpty() { return  new SAPList_obj; }
-hx::ObjectPtr< SAPList_obj > SAPList_obj::__new()
+hx::ObjectPtr< SAPList_obj > SAPList_obj::__new(hx::Null< Float >  __o_p_bias,hx::Null< bool >  __o_p_has_query)
 {  hx::ObjectPtr< SAPList_obj > result = new SAPList_obj();
-	result->__construct();
+	result->__construct(__o_p_bias,__o_p_has_query);
 	return result;}
 
 Dynamic SAPList_obj::__Create(hx::DynamicArray inArgs)
 {  hx::ObjectPtr< SAPList_obj > result = new SAPList_obj();
-	result->__construct();
+	result->__construct(inArgs[0],inArgs[1]);
 	return result;}
 
 Void SAPList_obj::Create( int p_id){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Create",0xf06a8d1d,"haxor.ds.SAPList.Create","haxor/ds/SAP.hx",246,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","Create",0xf06a8d1d,"haxor.ds.SAPList.Create","haxor/ds/SAP.hx",267,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_id,"p_id")
-		HX_STACK_LINE(246)
+		HX_STACK_LINE(268)
 		while((true)){
-			HX_STACK_LINE(246)
+			HX_STACK_LINE(268)
 			if ((!(((this->list->length <= p_id))))){
-				HX_STACK_LINE(246)
+				HX_STACK_LINE(268)
 				break;
 			}
-			HX_STACK_LINE(248)
-			::haxor::ds::SAPInterval it = ::haxor::ds::SAPInterval_obj::__new();		HX_STACK_VAR(it,"it");
-			HX_STACK_LINE(249)
-			it->id = this->list->length;
-			HX_STACK_LINE(250)
-			this->list->push(it);
+			HX_STACK_LINE(268)
+			this->list->push(null());
+		}
+		HX_STACK_LINE(269)
+		if (((this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >() == null()))){
+			HX_STACK_LINE(269)
+			this->list[p_id] = ::haxor::ds::SAPInterval_obj::__new();
 		}
 	}
 return null();
@@ -62,20 +88,25 @@ HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,Create,(void))
 
 Void SAPList_obj::Update( int p_id,Dynamic p_data,Float p_min,Float p_max){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Update",0xfb60ac2a,"haxor.ds.SAPList.Update","haxor/ds/SAP.hx",261,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","Update",0xfb60ac2a,"haxor.ds.SAPList.Update","haxor/ds/SAP.hx",279,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_id,"p_id")
 		HX_STACK_ARG(p_data,"p_data")
 		HX_STACK_ARG(p_min,"p_min")
 		HX_STACK_ARG(p_max,"p_max")
-		HX_STACK_LINE(262)
+		HX_STACK_LINE(280)
 		this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >()->id = p_id;
-		HX_STACK_LINE(263)
+		HX_STACK_LINE(281)
 		this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >()->data = p_data;
-		HX_STACK_LINE(264)
-		this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >()->Set(p_min,p_max);
-		HX_STACK_LINE(265)
-		this->Relocate(this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >());
+		HX_STACK_LINE(282)
+		Float d = ((((p_max - p_min)) * this->m_bias) * 0.5);		HX_STACK_VAR(d,"d");
+		HX_STACK_LINE(283)
+		this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >()->Set((p_min - d),(p_max + d));
+		HX_STACK_LINE(284)
+		if ((this->m_has_query)){
+			HX_STACK_LINE(284)
+			this->Relocate(this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >());
+		}
 	}
 return null();
 }
@@ -85,49 +116,49 @@ HX_DEFINE_DYNAMIC_FUNC4(SAPList_obj,Update,(void))
 
 Void SAPList_obj::Add( ::haxor::ds::SAPInterval p_item){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Add",0x07801d60,"haxor.ds.SAPList.Add","haxor/ds/SAP.hx",273,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","Add",0x07801d60,"haxor.ds.SAPList.Add","haxor/ds/SAP.hx",292,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
-		HX_STACK_LINE(274)
+		HX_STACK_LINE(293)
 		if (((this->start == null()))){
-			HX_STACK_LINE(274)
+			HX_STACK_LINE(293)
 			this->start = p_item;
-			HX_STACK_LINE(274)
+			HX_STACK_LINE(293)
 			::haxor::ds::SAPInterval _g = p_item->prev = null();		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(274)
+			HX_STACK_LINE(293)
 			p_item->next = _g;
-			HX_STACK_LINE(274)
+			HX_STACK_LINE(293)
 			return null();
 		}
-		HX_STACK_LINE(275)
+		HX_STACK_LINE(294)
 		if (((p_item == this->start))){
-			HX_STACK_LINE(275)
+			HX_STACK_LINE(294)
 			return null();
 		}
-		HX_STACK_LINE(276)
+		HX_STACK_LINE(295)
 		::haxor::ds::SAPInterval it = this->start;		HX_STACK_VAR(it,"it");
-		HX_STACK_LINE(277)
+		HX_STACK_LINE(296)
 		while((true)){
-			HX_STACK_LINE(277)
+			HX_STACK_LINE(296)
 			if ((!(((it != null()))))){
-				HX_STACK_LINE(277)
+				HX_STACK_LINE(296)
 				break;
 			}
-			HX_STACK_LINE(279)
+			HX_STACK_LINE(298)
 			if (((p_item->min < it->min))){
-				HX_STACK_LINE(279)
+				HX_STACK_LINE(298)
 				this->Insert(p_item,it);
-				HX_STACK_LINE(279)
+				HX_STACK_LINE(298)
 				return null();
 			}
-			HX_STACK_LINE(280)
+			HX_STACK_LINE(299)
 			if (((it->next == null()))){
-				HX_STACK_LINE(280)
+				HX_STACK_LINE(299)
 				this->Insert(p_item,it);
-				HX_STACK_LINE(280)
+				HX_STACK_LINE(299)
 				return null();
 			}
-			HX_STACK_LINE(281)
+			HX_STACK_LINE(300)
 			it = it->next;
 		}
 	}
@@ -139,44 +170,44 @@ HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,Add,(void))
 
 Void SAPList_obj::Insert( ::haxor::ds::SAPInterval p_item,::haxor::ds::SAPInterval p_at){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Insert",0x1238695a,"haxor.ds.SAPList.Insert","haxor/ds/SAP.hx",291,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","Insert",0x1238695a,"haxor.ds.SAPList.Insert","haxor/ds/SAP.hx",310,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
 		HX_STACK_ARG(p_at,"p_at")
-		HX_STACK_LINE(292)
+		HX_STACK_LINE(311)
 		if (((p_item == p_at))){
-			HX_STACK_LINE(292)
+			HX_STACK_LINE(311)
 			return null();
 		}
-		HX_STACK_LINE(295)
+		HX_STACK_LINE(314)
 		if (((p_item->min > p_at->min))){
-			HX_STACK_LINE(297)
+			HX_STACK_LINE(316)
 			p_item->next = p_at->next;
-			HX_STACK_LINE(298)
+			HX_STACK_LINE(317)
 			p_item->prev = p_at;
-			HX_STACK_LINE(299)
+			HX_STACK_LINE(318)
 			p_at->next = p_item;
-			HX_STACK_LINE(300)
+			HX_STACK_LINE(319)
 			if (((p_item->next != null()))){
-				HX_STACK_LINE(300)
+				HX_STACK_LINE(319)
 				p_item->next->prev = p_item;
 			}
 		}
 		else{
-			HX_STACK_LINE(304)
+			HX_STACK_LINE(323)
 			p_item->next = p_at;
-			HX_STACK_LINE(305)
+			HX_STACK_LINE(324)
 			p_item->prev = p_at->prev;
-			HX_STACK_LINE(306)
+			HX_STACK_LINE(325)
 			p_at->prev = p_item;
-			HX_STACK_LINE(307)
+			HX_STACK_LINE(326)
 			if (((p_item->prev != null()))){
-				HX_STACK_LINE(307)
+				HX_STACK_LINE(326)
 				p_item->prev->next = p_item;
 			}
-			HX_STACK_LINE(309)
+			HX_STACK_LINE(328)
 			if (((p_at == this->start))){
-				HX_STACK_LINE(309)
+				HX_STACK_LINE(328)
 				this->start = p_item;
 			}
 		}
@@ -189,86 +220,86 @@ HX_DEFINE_DYNAMIC_FUNC2(SAPList_obj,Insert,(void))
 
 Void SAPList_obj::Relocate( ::haxor::ds::SAPInterval p_item){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Relocate",0xd837d7e6,"haxor.ds.SAPList.Relocate","haxor/ds/SAP.hx",319,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","Relocate",0xd837d7e6,"haxor.ds.SAPList.Relocate","haxor/ds/SAP.hx",338,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
-		HX_STACK_LINE(321)
+		HX_STACK_LINE(340)
 		if (((p_item->prev == null()))){
-			HX_STACK_LINE(322)
+			HX_STACK_LINE(341)
 			if (((p_item->next == null()))){
-				HX_STACK_LINE(324)
+				HX_STACK_LINE(343)
 				this->Add(p_item);
-				HX_STACK_LINE(325)
+				HX_STACK_LINE(344)
 				return null();
 			}
 		}
-		HX_STACK_LINE(328)
+		HX_STACK_LINE(347)
 		::haxor::ds::SAPInterval it = p_item;		HX_STACK_VAR(it,"it");
-		HX_STACK_LINE(329)
+		HX_STACK_LINE(348)
 		int nav = (int)0;		HX_STACK_VAR(nav,"nav");
-		HX_STACK_LINE(330)
+		HX_STACK_LINE(349)
 		::haxor::ds::SAPInterval location = null();		HX_STACK_VAR(location,"location");
-		HX_STACK_LINE(333)
+		HX_STACK_LINE(352)
 		while((true)){
-			HX_STACK_LINE(333)
+			HX_STACK_LINE(352)
 			if ((!(((it != null()))))){
-				HX_STACK_LINE(333)
+				HX_STACK_LINE(352)
 				break;
 			}
-			HX_STACK_LINE(335)
+			HX_STACK_LINE(354)
 			::haxor::ds::SAPInterval n = it->next;		HX_STACK_VAR(n,"n");
-			HX_STACK_LINE(336)
+			HX_STACK_LINE(355)
 			::haxor::ds::SAPInterval p = it->prev;		HX_STACK_VAR(p,"p");
-			HX_STACK_LINE(337)
+			HX_STACK_LINE(356)
 			if (((n == null()))){
-				HX_STACK_LINE(337)
+				HX_STACK_LINE(356)
 				if (((p == null()))){
-					HX_STACK_LINE(337)
+					HX_STACK_LINE(356)
 					break;
 				}
 			}
-			HX_STACK_LINE(338)
+			HX_STACK_LINE(357)
 			if (((p != null()))){
-				HX_STACK_LINE(338)
+				HX_STACK_LINE(357)
 				if (((p_item->min < p->min))){
-					HX_STACK_LINE(338)
+					HX_STACK_LINE(357)
 					nav = (int)-1;
-					HX_STACK_LINE(338)
+					HX_STACK_LINE(357)
 					location = p;
 				}
 			}
-			HX_STACK_LINE(339)
+			HX_STACK_LINE(358)
 			if (((n != null()))){
-				HX_STACK_LINE(339)
+				HX_STACK_LINE(358)
 				if (((p_item->min > n->min))){
-					HX_STACK_LINE(339)
+					HX_STACK_LINE(358)
 					nav = (int)1;
-					HX_STACK_LINE(339)
+					HX_STACK_LINE(358)
 					location = n;
 				}
 			}
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(359)
 			if (((nav == (int)0))){
-				HX_STACK_LINE(340)
+				HX_STACK_LINE(359)
 				break;
 			}
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(360)
 			if (((nav < (int)0))){
-				HX_STACK_LINE(341)
+				HX_STACK_LINE(360)
 				it = p;
 			}
 			else{
-				HX_STACK_LINE(341)
+				HX_STACK_LINE(360)
 				it = n;
 			}
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(361)
 			nav = (int)0;
 		}
-		HX_STACK_LINE(345)
+		HX_STACK_LINE(364)
 		if (((location != null()))){
-			HX_STACK_LINE(348)
+			HX_STACK_LINE(367)
 			this->Remove(p_item);
-			HX_STACK_LINE(350)
+			HX_STACK_LINE(369)
 			this->Insert(p_item,location);
 		}
 	}
@@ -280,10 +311,10 @@ HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,Relocate,(void))
 
 Void SAPList_obj::RemoveById( int p_id){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","RemoveById",0x36617e97,"haxor.ds.SAPList.RemoveById","haxor/ds/SAP.hx",360,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","RemoveById",0x36617e97,"haxor.ds.SAPList.RemoveById","haxor/ds/SAP.hx",379,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_id,"p_id")
-		HX_STACK_LINE(360)
+		HX_STACK_LINE(379)
 		this->Remove(this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >());
 	}
 return null();
@@ -294,30 +325,35 @@ HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,RemoveById,(void))
 
 Void SAPList_obj::Remove( ::haxor::ds::SAPInterval p_item){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Remove",0x78e3c265,"haxor.ds.SAPList.Remove","haxor/ds/SAP.hx",368,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","Remove",0x78e3c265,"haxor.ds.SAPList.Remove","haxor/ds/SAP.hx",387,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
-		HX_STACK_LINE(369)
+		HX_STACK_LINE(388)
+		if ((!(this->m_has_query))){
+			HX_STACK_LINE(388)
+			return null();
+		}
+		HX_STACK_LINE(389)
 		::haxor::ds::SAPInterval p = p_item->prev;		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(370)
+		HX_STACK_LINE(390)
 		::haxor::ds::SAPInterval n = p_item->next;		HX_STACK_VAR(n,"n");
-		HX_STACK_LINE(371)
+		HX_STACK_LINE(391)
 		if (((p != null()))){
-			HX_STACK_LINE(371)
+			HX_STACK_LINE(391)
 			p->next = n;
 		}
-		HX_STACK_LINE(372)
+		HX_STACK_LINE(392)
 		if (((n != null()))){
-			HX_STACK_LINE(372)
+			HX_STACK_LINE(392)
 			n->prev = p;
 		}
-		HX_STACK_LINE(373)
+		HX_STACK_LINE(393)
 		::haxor::ds::SAPInterval _g = p_item->prev = null();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(373)
+		HX_STACK_LINE(393)
 		p_item->next = _g;
-		HX_STACK_LINE(375)
+		HX_STACK_LINE(395)
 		if (((p_item == this->start))){
-			HX_STACK_LINE(375)
+			HX_STACK_LINE(395)
 			this->start = n;
 		}
 	}
@@ -329,29 +365,52 @@ HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,Remove,(void))
 
 ::String SAPList_obj::ToString( hx::Null< int >  __o_p_places){
 int p_places = __o_p_places.Default(2);
-	HX_STACK_FRAME("haxor.ds.SAPList","ToString",0xd678810d,"haxor.ds.SAPList.ToString","haxor/ds/SAP.hx",383,0xbaeeb06f)
+	HX_STACK_FRAME("haxor.ds.SAPList","ToString",0xd678810d,"haxor.ds.SAPList.ToString","haxor/ds/SAP.hx",403,0xbaeeb06f)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_places,"p_places")
 {
-		HX_STACK_LINE(384)
+		HX_STACK_LINE(404)
 		::String s = HX_CSTRING("");		HX_STACK_VAR(s,"s");
-		HX_STACK_LINE(385)
-		::haxor::ds::SAPInterval it = this->start;		HX_STACK_VAR(it,"it");
-		HX_STACK_LINE(386)
-		while((true)){
-			HX_STACK_LINE(386)
-			if ((!(((it != null()))))){
-				HX_STACK_LINE(386)
-				break;
+		HX_STACK_LINE(405)
+		if ((this->m_has_query)){
+			HX_STACK_LINE(407)
+			::haxor::ds::SAPInterval it = this->start;		HX_STACK_VAR(it,"it");
+			HX_STACK_LINE(408)
+			while((true)){
+				HX_STACK_LINE(408)
+				if ((!(((it != null()))))){
+					HX_STACK_LINE(408)
+					break;
+				}
+				HX_STACK_LINE(410)
+				::String _g = it->ToString(p_places);		HX_STACK_VAR(_g,"_g");
+				HX_STACK_LINE(410)
+				hx::AddEq(s,_g);
+				HX_STACK_LINE(411)
+				it = it->next;
 			}
-			HX_STACK_LINE(388)
-			::String _g = it->ToString(p_places);		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(388)
-			hx::AddEq(s,_g);
-			HX_STACK_LINE(389)
-			it = it->next;
 		}
-		HX_STACK_LINE(391)
+		else{
+			HX_STACK_LINE(416)
+			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(416)
+			int _g = this->list->length;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(416)
+			while((true)){
+				HX_STACK_LINE(416)
+				if ((!(((_g1 < _g))))){
+					HX_STACK_LINE(416)
+					break;
+				}
+				HX_STACK_LINE(416)
+				int i = (_g1)++;		HX_STACK_VAR(i,"i");
+				HX_STACK_LINE(416)
+				::String _g11 = this->list->__get(i).StaticCast< ::haxor::ds::SAPInterval >()->ToString(p_places);		HX_STACK_VAR(_g11,"_g11");
+				HX_STACK_LINE(416)
+				hx::AddEq(s,_g11);
+			}
+		}
+		HX_STACK_LINE(418)
 		return s;
 	}
 }
@@ -369,6 +428,8 @@ void SAPList_obj::__Mark(HX_MARK_PARAMS)
 	HX_MARK_BEGIN_CLASS(SAPList);
 	HX_MARK_MEMBER_NAME(start,"start");
 	HX_MARK_MEMBER_NAME(list,"list");
+	HX_MARK_MEMBER_NAME(m_has_query,"m_has_query");
+	HX_MARK_MEMBER_NAME(m_bias,"m_bias");
 	HX_MARK_END_CLASS();
 }
 
@@ -376,6 +437,8 @@ void SAPList_obj::__Visit(HX_VISIT_PARAMS)
 {
 	HX_VISIT_MEMBER_NAME(start,"start");
 	HX_VISIT_MEMBER_NAME(list,"list");
+	HX_VISIT_MEMBER_NAME(m_has_query,"m_has_query");
+	HX_VISIT_MEMBER_NAME(m_bias,"m_bias");
 }
 
 Dynamic SAPList_obj::__Field(const ::String &inName,bool inCallProp)
@@ -391,6 +454,7 @@ Dynamic SAPList_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"start") ) { return start; }
 		break;
 	case 6:
+		if (HX_FIELD_EQ(inName,"m_bias") ) { return m_bias; }
 		if (HX_FIELD_EQ(inName,"Create") ) { return Create_dyn(); }
 		if (HX_FIELD_EQ(inName,"Update") ) { return Update_dyn(); }
 		if (HX_FIELD_EQ(inName,"Insert") ) { return Insert_dyn(); }
@@ -402,6 +466,9 @@ Dynamic SAPList_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 10:
 		if (HX_FIELD_EQ(inName,"RemoveById") ) { return RemoveById_dyn(); }
+		break;
+	case 11:
+		if (HX_FIELD_EQ(inName,"m_has_query") ) { return m_has_query; }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -414,6 +481,12 @@ Dynamic SAPList_obj::__SetField(const ::String &inName,const Dynamic &inValue,bo
 		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"start") ) { start=inValue.Cast< ::haxor::ds::SAPInterval >(); return inValue; }
+		break;
+	case 6:
+		if (HX_FIELD_EQ(inName,"m_bias") ) { m_bias=inValue.Cast< Float >(); return inValue; }
+		break;
+	case 11:
+		if (HX_FIELD_EQ(inName,"m_has_query") ) { m_has_query=inValue.Cast< bool >(); return inValue; }
 	}
 	return super::__SetField(inName,inValue,inCallProp);
 }
@@ -422,6 +495,8 @@ void SAPList_obj::__GetFields(Array< ::String> &outFields)
 {
 	outFields->push(HX_CSTRING("start"));
 	outFields->push(HX_CSTRING("list"));
+	outFields->push(HX_CSTRING("m_has_query"));
+	outFields->push(HX_CSTRING("m_bias"));
 	super::__GetFields(outFields);
 };
 
@@ -432,6 +507,8 @@ static ::String sStaticFields[] = {
 static hx::StorageInfo sMemberStorageInfo[] = {
 	{hx::fsObject /*::haxor::ds::SAPInterval*/ ,(int)offsetof(SAPList_obj,start),HX_CSTRING("start")},
 	{hx::fsObject /*Array< ::Dynamic >*/ ,(int)offsetof(SAPList_obj,list),HX_CSTRING("list")},
+	{hx::fsBool,(int)offsetof(SAPList_obj,m_has_query),HX_CSTRING("m_has_query")},
+	{hx::fsFloat,(int)offsetof(SAPList_obj,m_bias),HX_CSTRING("m_bias")},
 	{ hx::fsUnknown, 0, null()}
 };
 #endif
@@ -439,6 +516,8 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 static ::String sMemberFields[] = {
 	HX_CSTRING("start"),
 	HX_CSTRING("list"),
+	HX_CSTRING("m_has_query"),
+	HX_CSTRING("m_bias"),
 	HX_CSTRING("Create"),
 	HX_CSTRING("Update"),
 	HX_CSTRING("Add"),

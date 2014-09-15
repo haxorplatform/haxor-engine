@@ -1,6 +1,7 @@
 #if windows
 
 package haxor.platform.windows.input;
+import haxor.platform.Types.Float32;
 import haxor.graphics.Screen;
 import haxor.math.Vector2;
 import haxor.input.KeyCode;
@@ -56,12 +57,12 @@ class WinInputHandler extends InputHandler
 	 */
 	private function UpdateJoysticks():Void
 	{
-		var alx :Float = 0.0;
-		var aly :Float = 0.0;
-		var arx :Float = 0.0;
-		var ary :Float = 0.0;
-		var tl : Float = 0.0;
-		var tr : Float = 0.0;
+		var alx :Float32= 0.0;
+		var aly :Float32= 0.0;
+		var arx :Float32= 0.0;
+		var ary :Float32= 0.0;
+		var tl  :Float32= 0.0;
+		var tr  :Float32= 0.0;
 		
 		for (i in 0...Input.m_joysticks.length)
 		{
@@ -72,7 +73,7 @@ class WinInputHandler extends InputHandler
 			XINPUT_STATE state;
 			ZeroMemory( & state, sizeof(XINPUT_STATE));
 			//Check if device is connected.
-			if (XInputGetState(cid, &state) != ERROR_SUCCESS) continue;			
+			if (XInputGetState(cid, &state) != ERROR_SUCCESS) continue;
 			alx = ((float)state.Gamepad.sThumbLX)  / 32767.0;
 			aly = ((float)state.Gamepad.sThumbLY)  / 32767.0;			
 			arx = ((float)state.Gamepad.sThumbRX)  / 32767.0;
@@ -102,7 +103,7 @@ class WinInputHandler extends InputHandler
 			
 			for (i in 0...buttons.length)
 			{
-				var v 	 : Float = 0.0;
+				var v 	 : Float32 = 0.0;
 				var code : Int   = buttons[i];
 				if (i == KeyCode.LeftShoulderBottom)  v = tl; else
 				if (i == KeyCode.RightShoulderBottom) v = tr; else
@@ -114,7 +115,7 @@ class WinInputHandler extends InputHandler
 				
 				OnJoystickDataUpdate(i, v, false);
 			}			
-			var axes : Array<Float> = [alx, -aly, arx, -ary];			
+			var axes : Array<Float32> = [alx, -aly, arx, -ary];			
 			for (i in 0...axes.length) OnJoystickDataUpdate(i, axes[i], true);			
 			OnJoystickAnalogUpdate();			
 		}

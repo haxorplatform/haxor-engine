@@ -17,9 +17,9 @@ public  class Behaviour extends haxor.component.Component
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_Behaviour(haxor.component.Behaviour __temp_me164123, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_component_Behaviour(haxor.component.Behaviour __temp_me255318, java.lang.String p_name)
 	{
-		haxor.component.Component.__hx_ctor_haxor_component_Component(__temp_me164123, p_name);
+		haxor.component.Component.__hx_ctor_haxor_component_Component(__temp_me255318, p_name);
 	}
 	
 	
@@ -103,14 +103,14 @@ public  class Behaviour extends haxor.component.Component
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164500 = true;
+			boolean __temp_executeDef255694 = true;
 			switch (field.hashCode())
 			{
 				case 270108831:
 				{
 					if (field.equals("m_is_start")) 
 					{
-						__temp_executeDef164500 = false;
+						__temp_executeDef255694 = false;
 						this.m_is_start = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -123,7 +123,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("enabled")) 
 					{
-						__temp_executeDef164500 = false;
+						__temp_executeDef255694 = false;
 						this.set_enabled(haxe.lang.Runtime.toBool(value));
 						return value;
 					}
@@ -136,7 +136,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_awake")) 
 					{
-						__temp_executeDef164500 = false;
+						__temp_executeDef255694 = false;
 						this.m_is_awake = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -149,7 +149,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_enabled")) 
 					{
-						__temp_executeDef164500 = false;
+						__temp_executeDef255694 = false;
 						this.m_enabled = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -160,7 +160,7 @@ public  class Behaviour extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef164500) 
+			if (__temp_executeDef255694) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -177,14 +177,14 @@ public  class Behaviour extends haxor.component.Component
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164501 = true;
+			boolean __temp_executeDef255695 = true;
 			switch (field.hashCode())
 			{
 				case 327758243:
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef164501 = false;
+						__temp_executeDef255695 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStart"))) );
 					}
 					
@@ -196,7 +196,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("enabled")) 
 					{
-						__temp_executeDef164501 = false;
+						__temp_executeDef255695 = false;
 						return this.get_enabled();
 					}
 					
@@ -208,7 +208,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("OnAwake")) 
 					{
-						__temp_executeDef164501 = false;
+						__temp_executeDef255695 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnAwake"))) );
 					}
 					
@@ -220,7 +220,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("get_enabled")) 
 					{
-						__temp_executeDef164501 = false;
+						__temp_executeDef255695 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_enabled"))) );
 					}
 					
@@ -232,7 +232,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef164501 = false;
+						__temp_executeDef255695 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
 					}
 					
@@ -244,7 +244,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("set_enabled")) 
 					{
-						__temp_executeDef164501 = false;
+						__temp_executeDef255695 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_enabled"))) );
 					}
 					
@@ -256,7 +256,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_start")) 
 					{
-						__temp_executeDef164501 = false;
+						__temp_executeDef255695 = false;
 						return this.m_is_start;
 					}
 					
@@ -268,7 +268,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_enabled")) 
 					{
-						__temp_executeDef164501 = false;
+						__temp_executeDef255695 = false;
 						return this.m_enabled;
 					}
 					
@@ -280,7 +280,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("m_is_awake")) 
 					{
-						__temp_executeDef164501 = false;
+						__temp_executeDef255695 = false;
 						return this.m_is_awake;
 					}
 					
@@ -290,7 +290,7 @@ public  class Behaviour extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef164501) 
+			if (__temp_executeDef255695) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -307,14 +307,14 @@ public  class Behaviour extends haxor.component.Component
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef164502 = true;
+			boolean __temp_executeDef255696 = true;
 			switch (field.hashCode())
 			{
 				case 312095663:
 				{
 					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef164502 = false;
+						__temp_executeDef255696 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -326,7 +326,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("get_enabled")) 
 					{
-						__temp_executeDef164502 = false;
+						__temp_executeDef255696 = false;
 						return this.get_enabled();
 					}
 					
@@ -338,7 +338,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef164502 = false;
+						__temp_executeDef255696 = false;
 						this.OnStart();
 					}
 					
@@ -350,7 +350,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("set_enabled")) 
 					{
-						__temp_executeDef164502 = false;
+						__temp_executeDef255696 = false;
 						return this.set_enabled(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
@@ -362,7 +362,7 @@ public  class Behaviour extends haxor.component.Component
 				{
 					if (field.equals("OnAwake")) 
 					{
-						__temp_executeDef164502 = false;
+						__temp_executeDef255696 = false;
 						this.OnAwake();
 					}
 					
@@ -372,7 +372,7 @@ public  class Behaviour extends haxor.component.Component
 				
 			}
 			
-			if (__temp_executeDef164502) 
+			if (__temp_executeDef255696) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

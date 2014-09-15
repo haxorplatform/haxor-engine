@@ -53,11 +53,13 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		
 		Console.Initialize();
 		
-		untyped __java__('
+		untyped __java__('			
 			requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
+			getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
 			getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN, android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN); 
+			
 			requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
-			android.view.View decorView = getWindow().getDecorView();
+			android.view.View decorView = getWindow().getDecorView();			
 			// Hide both the navigation bar and the status bar.
 			// SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
 			// a general rule, you should design your app to hide the status bar whenever you
@@ -198,8 +200,8 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		if (m_active)
 		{	
 			
-			m_application.Update();
-			m_application.Render();	
+			m_application.Update();						
+			m_application.Render();				
 			
 		}
 	}
@@ -218,6 +220,7 @@ class Entry extends Activity implements GLSurfaceView_Renderer implements Runnab
 		Console.Log("OnCreated", 5);
 		gl.glClearColor(0.0, 0.0, 0.0, 1.0);
 		gl.glClear(GL.COLOR_BUFFER_BIT);
+		
 		GL.m_gl.CheckExtensions();
 		
 		EngineContext.Build();

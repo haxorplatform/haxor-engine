@@ -11,6 +11,7 @@ import haxor.graphics.texture.Texture2D;
 import haxor.graphics.texture.TextureCube;
 import haxor.graphics.GL;
 import haxor.io.Buffer;
+import haxor.platform.Types.Float32;
 import haxor.platform.Types.FrameBufferId;
 import haxor.platform.Types.RenderBufferId;
 import haxor.platform.Types.TextureId;
@@ -49,19 +50,26 @@ class TextureContext
 	 * Reference to the current render target.
 	 */
 	private var target : RenderTexture;
-	
-	
-	/**
-	 * Active texture for a given slot.
-	 */
-	private var active : Array<Texture>;
-	
-	/**
-	 * Currently bound texture.
-	 */
-	private var bind : Texture;
 		
-	private var slot : Int;
+	/**
+	 * Bound texture for a given slot.
+	 */
+	private var bind : Array<Texture>;
+		
+	/**
+	 * Currently active slot
+	 */
+	private var active : Int;
+	
+	/**
+	 * Next texture slot.
+	 */
+	private var next_slot : Int;
+	
+	/**
+	 * Flag that indicates if texture upload is going to be flipped (html);
+	 */
+	private var is_flip_y : Bool;
 	
 	/**
 	 * Creates the TextureContext.
@@ -71,9 +79,11 @@ class TextureContext
 		tid 	= new UID();
 		bind 	= null;
 		target  = null;
-		active 	= [];		
-		ids		= [];
-		slot    = 0;
+		active 	= -1;	
+		next_slot = 0;
+		bind	= [];
+		ids		= [];		
+		
 		framebuffers = [];
 		renderbuffers = [];
 	}
@@ -83,13 +93,13 @@ class TextureContext
 	 */
 	private function Initialize():Void
 	{
-		for (i in 0...GL.MAX_ACTIVE_TEXTURE) active.push(null);
+		for (i in 0...GL.MAX_ACTIVE_TEXTURE) bind.push(null);
 		for (i in 0...2048)
 		{
 			ids.push(GL.INVALID);
 			framebuffers.push(GL.INVALID);
 			renderbuffers.push(GL.INVALID);
-		}
+		}		
 	}
 	
 	/**
@@ -114,9 +124,8 @@ class TextureContext
 	 */
 	private function Create(p_texture:Texture):Void
 	{
-		p_texture.__slot = slot % GL.MAX_ACTIVE_TEXTURE;
-		
-		slot++;
+		p_texture.__slot = next_slot % (GL.MAX_ACTIVE_TEXTURE);		
+		next_slot++;
 		
 		var id : TextureId = GL.CreateTexture();
 		
@@ -171,11 +180,21 @@ class TextureContext
 	 */
 	private inline function Bind(p_texture : Texture):Void
 	{
-		if (p_texture == bind) return;
-		bind = p_texture;
-		var id 		: TextureId = ids[bind.__cid];		
-		var target 	: Int 		= TextureToTarget(bind);		
-		GL.BindTexture(target,id);
+		var slot : Int = p_texture.__slot;
+		
+		//if (active != slot)
+		{
+			GL.ActiveTexture(GL.TEXTURE0 + slot);
+			active = slot;
+		}
+		
+		//if (bind[slot] != p_texture)
+		{
+			var id 		: TextureId = ids[p_texture.__cid];		
+			var target 	: Int 		= TextureToTarget(p_texture);		
+			GL.BindTexture(target, id);
+			bind[slot] = p_texture;
+		}
 	}
 	
 	/**
@@ -183,10 +202,11 @@ class TextureContext
 	 */
 	private inline function Unbind():Void
 	{
-		if (bind == null) return;				
-		var target 	: Int 		= TextureToTarget(bind);	
-		bind = null;
-		GL.BindTexture(target, GL.NULL);
+		if (active < 0) return;
+		if(bind[active] == null) return;				
+		var target 	: Int 		= TextureToTarget(bind[active]);	
+		bind[active] = null;
+		GL.BindTexture(GL.TEXTURE_2D, GL.NULL);
 	}
 	
 	
@@ -247,8 +267,8 @@ class TextureContext
 	 */
 	private function Update(p_texture:Texture):Void
 	{
-		var target:Int = TextureToTarget(p_texture);
-		Bind(p_texture);		
+		var target:Int = TextureToTarget(p_texture);		
+		Bind(p_texture);
 		if (target == GL.TEXTURE_CUBE_MAP)
 		{
 			var tc : TextureCube = cast p_texture;
@@ -263,6 +283,7 @@ class TextureContext
 		{	
 			WriteTexture(target, p_texture);
 		}
+		
 	}
 	
 	/**
@@ -278,7 +299,7 @@ class TextureContext
 		var chn_type : Int  = FormatToChannelType(p_texture.m_format);	
 		var steps 	 : Int  = Std.int(p_height / p_steps);
 		if (steps <= 1) steps = 1;
-		var ua : Activity = new Activity(function(t : Float):Bool
+		var ua : Activity = new Activity(function(t : Float32):Bool
 		{
 			if (py >= p_height) { if (p_on_complete != null) p_on_complete(); return false; }
 			Bind(p_texture);
@@ -316,9 +337,11 @@ class TextureContext
 		}
 		else
 		{
-			if (p_texture.type == TextureType.Texture2D)
+			var is_ti2d : Bool = (p_texture.type == TextureType.Compute) || (p_texture.type == TextureType.Texture2D);			
+			if (is_ti2d)
 			{
-				var t2d : Texture2D = cast p_texture;						
+				var t2d : Texture2D = cast p_texture;
+				//trace(p_texture.name);
 				GL.TexImage2D(p_target, 0, chn_fmt, w, h, 0, chn_bit, chn_type, t2d.data.buffer);
 			}
 			else
@@ -329,20 +352,6 @@ class TextureContext
 				GL.FramebufferTexture2D(GL.FRAMEBUFFER, GL.COLOR_ATTACHMENT0,p_target,id,0);
 			}
 		}	
-	}
-	
-	/**
-	 * Activates the texture for uniform binding
-	 * @param	p_texture
-	 * @param	p_slot
-	 */
-	private function Activate(p_texture : Texture,p_slot:Int):Void
-	{		
-		var slot : Int = p_texture.__slot;
-		if (active[p_slot] == p_texture) return;		
-		active[p_slot] = p_texture;		
-		GL.ActiveTexture(GL.TEXTURE0 + p_slot);		
-		Bind(p_texture);		
 	}
 	
 	/**

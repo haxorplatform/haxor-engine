@@ -18,17 +18,17 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaAssetData(haxor.io.file.ColladaAssetData __temp_me164318)
+	public static   void __hx_ctor_haxor_io_file_ColladaAssetData(haxor.io.file.ColladaAssetData __temp_me255516)
 	{
 		{
-			__temp_me164318.axis = "y_up";
-			__temp_me164318.unitValue = 0.0;
-			__temp_me164318.unitName = "";
-			__temp_me164318.modification = "";
-			__temp_me164318.creation = "";
-			__temp_me164318.source = "";
-			__temp_me164318.tool = "";
-			__temp_me164318.author = "";
+			__temp_me255516.axis = "y_up";
+			__temp_me255516.unitValue = 0.0;
+			__temp_me255516.unitName = "";
+			__temp_me255516.modification = "";
+			__temp_me255516.creation = "";
+			__temp_me255516.source = "";
+			__temp_me255516.tool = "";
+			__temp_me255516.author = "";
 		}
 		
 	}
@@ -65,14 +65,14 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165100 = true;
+			boolean __temp_executeDef256292 = true;
 			switch (field.hashCode())
 			{
 				case -481158579:
 				{
 					if (field.equals("unitValue")) 
 					{
-						__temp_executeDef165100 = false;
+						__temp_executeDef256292 = false;
 						this.unitValue = ((double) (value) );
 						return value;
 					}
@@ -83,7 +83,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165100) 
+			if (__temp_executeDef256292) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -100,14 +100,14 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165101 = true;
+			boolean __temp_executeDef256293 = true;
 			switch (field.hashCode())
 			{
 				case 3008417:
 				{
 					if (field.equals("axis")) 
 					{
-						__temp_executeDef165101 = false;
+						__temp_executeDef256293 = false;
 						this.axis = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -120,7 +120,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("author")) 
 					{
-						__temp_executeDef165101 = false;
+						__temp_executeDef256293 = false;
 						this.author = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -133,7 +133,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("unitValue")) 
 					{
-						__temp_executeDef165101 = false;
+						__temp_executeDef256293 = false;
 						this.unitValue = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -146,7 +146,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("tool")) 
 					{
-						__temp_executeDef165101 = false;
+						__temp_executeDef256293 = false;
 						this.tool = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -159,7 +159,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("unitName")) 
 					{
-						__temp_executeDef165101 = false;
+						__temp_executeDef256293 = false;
 						this.unitName = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -172,7 +172,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("source")) 
 					{
-						__temp_executeDef165101 = false;
+						__temp_executeDef256293 = false;
 						this.source = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -185,7 +185,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("modification")) 
 					{
-						__temp_executeDef165101 = false;
+						__temp_executeDef256293 = false;
 						this.modification = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -198,7 +198,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("creation")) 
 					{
-						__temp_executeDef165101 = false;
+						__temp_executeDef256293 = false;
 						this.creation = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -209,7 +209,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165101) 
+			if (__temp_executeDef256293) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -226,14 +226,14 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165102 = true;
+			boolean __temp_executeDef256294 = true;
 			switch (field.hashCode())
 			{
 				case 3008417:
 				{
 					if (field.equals("axis")) 
 					{
-						__temp_executeDef165102 = false;
+						__temp_executeDef256294 = false;
 						return this.axis;
 					}
 					
@@ -245,7 +245,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("author")) 
 					{
-						__temp_executeDef165102 = false;
+						__temp_executeDef256294 = false;
 						return this.author;
 					}
 					
@@ -257,7 +257,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("unitValue")) 
 					{
-						__temp_executeDef165102 = false;
+						__temp_executeDef256294 = false;
 						return this.unitValue;
 					}
 					
@@ -269,7 +269,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("tool")) 
 					{
-						__temp_executeDef165102 = false;
+						__temp_executeDef256294 = false;
 						return this.tool;
 					}
 					
@@ -281,7 +281,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("unitName")) 
 					{
-						__temp_executeDef165102 = false;
+						__temp_executeDef256294 = false;
 						return this.unitName;
 					}
 					
@@ -293,7 +293,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("source")) 
 					{
-						__temp_executeDef165102 = false;
+						__temp_executeDef256294 = false;
 						return this.source;
 					}
 					
@@ -305,7 +305,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("modification")) 
 					{
-						__temp_executeDef165102 = false;
+						__temp_executeDef256294 = false;
 						return this.modification;
 					}
 					
@@ -317,7 +317,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				{
 					if (field.equals("creation")) 
 					{
-						__temp_executeDef165102 = false;
+						__temp_executeDef256294 = false;
 						return this.creation;
 					}
 					
@@ -327,7 +327,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165102) 
+			if (__temp_executeDef256294) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -344,14 +344,14 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165103 = true;
+			boolean __temp_executeDef256295 = true;
 			switch (field.hashCode())
 			{
 				case -481158579:
 				{
 					if (field.equals("unitValue")) 
 					{
-						__temp_executeDef165103 = false;
+						__temp_executeDef256295 = false;
 						return this.unitValue;
 					}
 					
@@ -361,7 +361,7 @@ public  class ColladaAssetData extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165103) 
+			if (__temp_executeDef256295) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

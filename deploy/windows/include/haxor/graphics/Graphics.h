@@ -14,7 +14,9 @@ HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS2(haxor,graphics,Graphics)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
+HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS2(haxor,math,AABB2)
+HX_DECLARE_CLASS2(haxor,math,Color)
 namespace haxor{
 namespace graphics{
 
@@ -48,6 +50,9 @@ class HXCPP_CLASS_ATTRIBUTES  Graphics_obj : public hx::Object{
 
 		static Void Render( ::haxor::graphics::mesh::Mesh p_mesh,::haxor::graphics::material::Material p_material,::haxor::component::Transform p_transform,::haxor::component::Camera p_camera);
 		static Dynamic Render_dyn();
+
+		static Void DrawTexture( ::haxor::graphics::texture::Texture p_texture,hx::Null< Float >  p_x,hx::Null< Float >  p_y,hx::Null< Float >  p_width,hx::Null< Float >  p_height,::haxor::math::Color p_color);
+		static Dynamic DrawTexture_dyn();
 
 };
 

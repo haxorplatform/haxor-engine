@@ -101,7 +101,7 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialUniform_obj : public hx::Object{
 		virtual Void SetTexture( ::haxor::graphics::texture::Texture p_texture);
 		Dynamic SetTexture_dyn();
 
-		virtual Void SetMatrix4( ::haxor::math::Matrix4 m);
+		virtual Void SetMatrix4( ::haxor::math::Matrix4 m,hx::Null< bool >  t);
 		Dynamic SetMatrix4_dyn();
 
 		virtual Void SetVector2( ::haxor::math::Vector2 p_v);

@@ -33,12 +33,12 @@ namespace windows{
 
 Void WinApplication_obj::__construct()
 {
-HX_STACK_FRAME("haxor.platform.windows.WinApplication","new",0xe4507a60,"haxor.platform.windows.WinApplication.new","haxor/platform/windows/WinApplication.hx",30,0x94d4ac0f)
+HX_STACK_FRAME("haxor.platform.windows.WinApplication","new",0xe4507a60,"haxor.platform.windows.WinApplication.new","haxor/platform/windows/WinApplication.hx",31,0x94d4ac0f)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(31)
-	super::__construct(null());
 	HX_STACK_LINE(32)
+	super::__construct(null());
+	HX_STACK_LINE(33)
 	this->m_platform = ::haxor::core::Platform_obj::Windows;
 }
 ;
@@ -59,9 +59,9 @@ Dynamic WinApplication_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::platform::windows::Window WinApplication_obj::get_window( ){
-	HX_STACK_FRAME("haxor.platform.windows.WinApplication","get_window",0x966099b9,"haxor.platform.windows.WinApplication.get_window","haxor/platform/windows/WinApplication.hx",22,0x94d4ac0f)
+	HX_STACK_FRAME("haxor.platform.windows.WinApplication","get_window",0x966099b9,"haxor.platform.windows.WinApplication.get_window","haxor/platform/windows/WinApplication.hx",23,0x94d4ac0f)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(22)
+	HX_STACK_LINE(23)
 	return this->m_window;
 }
 
@@ -69,24 +69,24 @@ Dynamic WinApplication_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(WinApplication_obj,get_window,return )
 
 Float WinApplication_obj::GetContainerWidth( ){
-	HX_STACK_FRAME("haxor.platform.windows.WinApplication","GetContainerWidth",0x0cb29e1b,"haxor.platform.windows.WinApplication.GetContainerWidth","haxor/platform/windows/WinApplication.hx",36,0x94d4ac0f)
+	HX_STACK_FRAME("haxor.platform.windows.WinApplication","GetContainerWidth",0x0cb29e1b,"haxor.platform.windows.WinApplication.GetContainerWidth","haxor/platform/windows/WinApplication.hx",37,0x94d4ac0f)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(36)
+	HX_STACK_LINE(37)
 	return this->get_window()->get_width();
 }
 
 
 Float WinApplication_obj::GetContainerHeight( ){
-	HX_STACK_FRAME("haxor.platform.windows.WinApplication","GetContainerHeight",0xc5e73232,"haxor.platform.windows.WinApplication.GetContainerHeight","haxor/platform/windows/WinApplication.hx",38,0x94d4ac0f)
+	HX_STACK_FRAME("haxor.platform.windows.WinApplication","GetContainerHeight",0xc5e73232,"haxor.platform.windows.WinApplication.GetContainerHeight","haxor/platform/windows/WinApplication.hx",39,0x94d4ac0f)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(38)
+	HX_STACK_LINE(39)
 	return this->get_window()->get_height();
 }
 
 
 Void WinApplication_obj::OnMessage( int p_msg,int p_wp,int p_lp){
 {
-		HX_STACK_FRAME("haxor.platform.windows.WinApplication","OnMessage",0x5d66f848,"haxor.platform.windows.WinApplication.OnMessage","haxor/platform/windows/WinApplication.hx",47,0x94d4ac0f)
+		HX_STACK_FRAME("haxor.platform.windows.WinApplication","OnMessage",0x5d66f848,"haxor.platform.windows.WinApplication.OnMessage","haxor/platform/windows/WinApplication.hx",48,0x94d4ac0f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_msg,"p_msg")
 		HX_STACK_ARG(p_wp,"p_wp")
@@ -99,48 +99,48 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC3(WinApplication_obj,OnMessage,(void))
 
 bool WinApplication_obj::OnFullscreenRequest( bool v){
-	HX_STACK_FRAME("haxor.platform.windows.WinApplication","OnFullscreenRequest",0xb00da815,"haxor.platform.windows.WinApplication.OnFullscreenRequest","haxor/platform/windows/WinApplication.hx",54,0x94d4ac0f)
+	HX_STACK_FRAME("haxor.platform.windows.WinApplication","OnFullscreenRequest",0xb00da815,"haxor.platform.windows.WinApplication.OnFullscreenRequest","haxor/platform/windows/WinApplication.hx",55,0x94d4ac0f)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(55)
-	this->get_window()->set_fullscreen(v);
 	HX_STACK_LINE(56)
+	this->get_window()->set_fullscreen(v);
+	HX_STACK_LINE(57)
 	return v;
 }
 
 
 bool WinApplication_obj::OnPointerLockRequest( bool v){
-	HX_STACK_FRAME("haxor.platform.windows.WinApplication","OnPointerLockRequest",0x71f71006,"haxor.platform.windows.WinApplication.OnPointerLockRequest","haxor/platform/windows/WinApplication.hx",64,0x94d4ac0f)
+	HX_STACK_FRAME("haxor.platform.windows.WinApplication","OnPointerLockRequest",0x71f71006,"haxor.platform.windows.WinApplication.OnPointerLockRequest","haxor/platform/windows/WinApplication.hx",65,0x94d4ac0f)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(65)
+	HX_STACK_LINE(66)
 	if ((v)){
-		HX_STACK_LINE(67)
+		HX_STACK_LINE(68)
 		this->get_window()->LockCursor();
 	}
 	else{
-		HX_STACK_LINE(71)
+		HX_STACK_LINE(72)
 		this->get_window()->EnableCursor();
 	}
-	HX_STACK_LINE(74)
+	HX_STACK_LINE(75)
 	return v;
 }
 
 
 bool WinApplication_obj::OnPointerVisibilityRequest( bool v){
-	HX_STACK_FRAME("haxor.platform.windows.WinApplication","OnPointerVisibilityRequest",0x1b884e7f,"haxor.platform.windows.WinApplication.OnPointerVisibilityRequest","haxor/platform/windows/WinApplication.hx",82,0x94d4ac0f)
+	HX_STACK_FRAME("haxor.platform.windows.WinApplication","OnPointerVisibilityRequest",0x1b884e7f,"haxor.platform.windows.WinApplication.OnPointerVisibilityRequest","haxor/platform/windows/WinApplication.hx",83,0x94d4ac0f)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(84)
 	if ((v)){
-		HX_STACK_LINE(83)
+		HX_STACK_LINE(84)
 		this->get_window()->EnableCursor();
 	}
 	else{
-		HX_STACK_LINE(83)
+		HX_STACK_LINE(84)
 		this->get_window()->DisableCursor();
 	}
-	HX_STACK_LINE(84)
+	HX_STACK_LINE(85)
 	return v;
 }
 

@@ -24,7 +24,7 @@ public  class Input extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_input_Input(haxor.input.Input __temp_me164285)
+	public static   void __hx_ctor_haxor_input_Input(haxor.input.Input __temp_me255483)
 	{
 		{
 		}
@@ -223,7 +223,7 @@ public  class Input extends haxe.lang.HxObject
 	
 	public static   void UpdateInputState(int p_code, boolean p_is_down, java.lang.Object p_update_state)
 	{
-		boolean __temp_p_update_state164284 = ( (( p_update_state == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_update_state)) );
+		boolean __temp_p_update_state255482 = ( (( p_update_state == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_update_state)) );
 		haxor.core.InputState current = haxor.input.Input.m_state.get(p_code);
 		if (( current == null )) 
 		{
@@ -251,7 +251,7 @@ public  class Input extends haxe.lang.HxObject
 			
 		}
 		
-		if (__temp_p_update_state164284) 
+		if (__temp_p_update_state255482) 
 		{
 			if (( current == haxor.core.InputState.Up )) 
 			{

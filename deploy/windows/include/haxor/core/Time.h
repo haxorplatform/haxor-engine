@@ -30,6 +30,11 @@ class HXCPP_CLASS_ATTRIBUTES  Time_obj : public hx::Object{
 		static void __register();
 		::String __ToString() const { return HX_CSTRING("Time"); }
 
+		static Float system;
+		static Float get_system( );
+		static Dynamic get_system_dyn();
+
+		static Float m_system;
 		static Float clock;
 		static Float get_clock( );
 		static Dynamic get_clock_dyn();
@@ -81,9 +86,6 @@ class HXCPP_CLASS_ATTRIBUTES  Time_obj : public hx::Object{
 
 		static Void Render( );
 		static Dynamic Render_dyn();
-
-		static Void UpdateClock( );
-		static Dynamic UpdateClock_dyn();
 
 };
 

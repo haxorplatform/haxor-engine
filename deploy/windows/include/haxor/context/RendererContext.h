@@ -91,6 +91,9 @@ class HXCPP_CLASS_ATTRIBUTES  RendererContext_obj : public hx::Object{
 		virtual Void Disable( ::haxor::component::Renderer r);
 		Dynamic Disable_dyn();
 
+		virtual Void UpdateCameraSAP( ::haxor::component::Camera c);
+		Dynamic UpdateCameraSAP_dyn();
+
 		virtual Void UpdateSAP( int p_id,Dynamic p_d,::haxor::math::Vector3 p_min,::haxor::math::Vector3 p_max);
 		Dynamic UpdateSAP_dyn();
 

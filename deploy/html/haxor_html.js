@@ -1,5 +1,5 @@
 (function () { "use strict";
-var $hxClasses = {},$estr = function() { return js.Boot.__string_rec(this,''); };
+var $hxClasses = {};
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -360,6 +360,7 @@ haxor.core.IUpdateable.prototype = {
 	__class__: haxor.core.IUpdateable
 };
 var Main = function() {
+	this.queue = 3;
 	haxor.core.Application.call(this);
 };
 $hxClasses["Main"] = Main;
@@ -373,16 +374,27 @@ Main.prototype = $extend(haxor.core.Application.prototype,{
 	Load: function() {
 		var _g = this;
 		haxor.net.Web.root = "http://haxor.thelaborat.org/resources/";
-		haxor.net.Web.LoadTexture2D("./texture/misc/metal.jpg",true,function(t,p) {
+		haxor.net.Web.LoadCollada("./character/skeleton/grunt/animation_idle01.DAE",function(f,p) {
 			if(p >= 1.0) {
-				haxor.io.file.Asset.Add("texture",t);
-				_g.LoadComplete();
+				haxor.io.file.Asset.Add("animation_idle",f);
+				if(--_g.queue <= 0) _g.LoadComplete();
+			}
+		});
+		haxor.net.Web.LoadTexture2D("./character/skeleton/grunt/DiffuseTexture.png",true,function(t,p1) {
+			if(p1 >= 1.0) {
+				haxor.io.file.Asset.Add("texture_diffuse",t);
+				if(--_g.queue <= 0) _g.LoadComplete();
+			}
+		});
+		haxor.net.Web.LoadCollada("./character/skeleton/grunt/model.DAE",function(f1,p2) {
+			if(p2 >= 1.0) {
+				haxor.io.file.Asset.Add("model",f1);
+				if(--_g.queue <= 0) _g.LoadComplete();
 			}
 		});
 		return false;
 	}
 	,Initialize: function() {
-		var _g = this;
 		haxor.core.Console.Log("Initialize!");
 		this.field = window.document.getElementById("field");
 		var ui = new Stats();
@@ -393,60 +405,46 @@ Main.prototype = $extend(haxor.core.Application.prototype,{
 			ui.update();
 			return true;
 		});
-		this.orbit = haxor.component.CameraOrbit.Create(3.5,0,0);
-		this.orbit.m_entity.AddComponent(haxor.component.CameraOrbitInput);
+		this.orbit = haxor.component.CameraOrbit.Create(400.0,45,30);
+		var ci = this.orbit.m_entity.AddComponent(haxor.component.CameraOrbitInput);
+		this.orbit.smooth = 5.0;
+		ci.zoomSpeed = 0.1;
 		this.cam = this.orbit.m_entity.GetComponentInChildren(haxor.component.Camera);
+		this.cam.set_far(1000.0);
 		this.cam.background = new haxor.math.Color(0.3,0.3,0.3);
-		var tex = haxor.graphics.texture.Texture2D.get_green();
-		tex = haxor.io.file.Asset.Get("texture");
 		this.container = new haxor.core.Entity("container").get_transform();
-		var l = 2;
-		var px = 0.0;
-		var py = 0.0;
-		var pz = 0.0;
-		this.mat = haxor.graphics.material.Material.Transparent(haxor.io.file.Asset.Get("texture"),null,null,null);
-		this.mat.set_name("T");
-		this.mat.SetTexture("Tex0",haxor.graphics.texture.Texture2D.get_red());
-		this.mat.blend = true;
-		haxor.thread.Activity.Iterate(0,300,function(i) {
-			_g.mr = new haxor.core.Entity("cube" + i).AddComponent(haxor.component.MeshRenderer);
-			_g.mr.m_entity.m_transform.set_localScale(new haxor.math.Vector3(1,1,1).Scale(0.1));
-			_g.mr.m_entity.m_transform.set_parent(_g.container);
-			_g.mr.m_entity.m_transform.set_localPosition(new haxor.math.Vector3(px,py,pz));
-			_g.mr.set_mesh(haxor.graphics.mesh.Model.get_cube());
-			_g.mr.set_material(_g.mat);
-			px += 0.12;
-			if(px >= l) {
-				px = 0.0;
-				pz += 0.12;
-				if(pz >= l) {
-					pz = 0.0;
-					py += 0.12;
-				}
-			}
-			return true;
-		},10);
+		this.mat = haxor.graphics.material.Material.Opaque(haxor.io.file.Asset.Get("texture_diffuse"),null,null);
+		this.mat.set_shader(haxor.graphics.material.Shader.m_flat_texture_skin_shader == null?haxor.graphics.material.Shader.m_flat_texture_skin_shader = new haxor.graphics.material.Shader(haxor.context.ShaderContext.flat_texture_skin_source):haxor.graphics.material.Shader.m_flat_texture_skin_shader);
+		this.mat.set_name("PlayerMaterial");
+		var cf = haxor.io.file.Asset.Get("model");
+		this.player = new haxor.core.Entity("player").get_transform();
+		var asset = (js.Boot.__cast(cf.get_asset() , haxor.core.Entity)).get_transform();
+		asset.set_parent(this.player);
+		var mr = this.player.m_entity.GetComponentsInChildren(haxor.component.MeshRenderer);
+		var _g1 = 0;
+		var _g = mr.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			mr[i].set_material(this.mat);
+		}
 	}
 	,OnUpdate: function() {
-		if(this.orbit != null) {
-		}
-		if(this.container != null) {
-		}
-		if(haxor.input.Input.Hit(haxor.input.KeyCode.A)) console.log("A");
 		var log = "";
 		log += "Stats";
 		log += "\nVisible: " + haxor.core.Stats.visible;
 		log += "\nCulled: " + haxor.core.Stats.culled;
-		log += "\nTotal: " + haxor.core.Stats.get_total() + "/" + haxor.core.Stats.renderers;
-		log += "\nTriangles: " + haxor.core.Stats.triangles;
-		if(haxor.input.Joystick.available) {
+		log += "\nActive: " + haxor.core.Stats.get_total();
+		log += "\nRenderers: " + haxor.core.Stats.renderers;
+		log += "\nTris: " + haxor.core.Stats.triangles;
+		if(this.player != null) {
+			var r = this.player.get_localRotation();
+			r = haxor.math.Quaternion.FromAxisAngle(new haxor.math.Vector3(0,1,0),33.0);
+			this.player.set_localRotation(r);
 		}
 		if(this.field != null) this.field.innerText = log;
 	}
 	,OnRender: function() {
 		haxor.graphics.GL.m_gl.Clear(256);
-		haxor.graphics.Gizmo.Grid(100.0,new haxor.math.Color(1,1,1,0.1));
-		haxor.context.EngineContext.gizmo.DrawAxis(50.0);
 	}
 	,__class__: Main
 });
@@ -774,6 +772,12 @@ Xml.prototype = {
 	,__class__: Xml
 };
 var haxe = {};
+haxe.Timer = function() { };
+$hxClasses["haxe.Timer"] = haxe.Timer;
+haxe.Timer.__name__ = ["haxe","Timer"];
+haxe.Timer.stamp = function() {
+	return new Date().getTime() / 1000;
+};
 haxe.io = {};
 haxe.io.Bytes = function(length,b) {
 	this.length = length;
@@ -1025,15 +1029,12 @@ haxe.io.Eof.prototype = {
 };
 haxe.io.Error = { __ename__ : true, __constructs__ : ["Blocked","Overflow","OutsideBounds","Custom"] };
 haxe.io.Error.Blocked = ["Blocked",0];
-haxe.io.Error.Blocked.toString = $estr;
 haxe.io.Error.Blocked.__enum__ = haxe.io.Error;
 haxe.io.Error.Overflow = ["Overflow",1];
-haxe.io.Error.Overflow.toString = $estr;
 haxe.io.Error.Overflow.__enum__ = haxe.io.Error;
 haxe.io.Error.OutsideBounds = ["OutsideBounds",2];
-haxe.io.Error.OutsideBounds.toString = $estr;
 haxe.io.Error.OutsideBounds.__enum__ = haxe.io.Error;
-haxe.io.Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe.io.Error; $x.toString = $estr; return $x; };
+haxe.io.Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe.io.Error; return $x; };
 haxe.xml = {};
 haxe.xml.Parser = function() { };
 $hxClasses["haxe.xml.Parser"] = haxe.xml.Parser;
@@ -1409,6 +1410,10 @@ haxor.component.Camera.prototype = $extend(haxor.component.Behaviour.prototype,{
 		if(v == null) this.m_filters = []; else this.m_filters = v;
 		return this.m_filters;
 	}
+	,get_frustum: function() {
+		this.UpdateProjection();
+		return this.m_frustum;
+	}
 	,OnBuild: function() {
 		haxor.component.Behaviour.prototype.OnBuild.call(this);
 		haxor.context.EngineContext.camera.Create(this);
@@ -1432,14 +1437,7 @@ haxor.component.Camera.prototype = $extend(haxor.component.Behaviour.prototype,{
 		this.m_projection_dirty = true;
 		this.m_view_uniform_dirty = true;
 		this.m_proj_uniform_dirty = true;
-		this.m_fn0 = new haxor.math.Vector4();
-		this.m_fn1 = new haxor.math.Vector4();
-		this.m_fn2 = new haxor.math.Vector4();
-		this.m_fn3 = new haxor.math.Vector4();
-		this.m_ff0 = new haxor.math.Vector4();
-		this.m_ff1 = new haxor.math.Vector4();
-		this.m_ff2 = new haxor.math.Vector4();
-		this.m_ff3 = new haxor.math.Vector4();
+		this.m_frustum = [new haxor.math.Vector4(),new haxor.math.Vector4(),new haxor.math.Vector4(),new haxor.math.Vector4(),new haxor.math.Vector4(),new haxor.math.Vector4(),new haxor.math.Vector4(),new haxor.math.Vector4()];
 	}
 	,WorldToProjection: function(p_world_point,p_result) {
 		var p;
@@ -1477,43 +1475,43 @@ haxor.component.Camera.prototype = $extend(haxor.component.Behaviour.prototype,{
 		haxor.math.Matrix4.Perspective(this.m_fov,this.m_aspect,0.1,100000.0,this.m_skyboxProjection);
 		haxor.math.Matrix4.PerspectiveInverse(this.m_fov,this.m_aspect,0.1,100000.0,this.m_skyboxProjectionInverse);
 		var p;
-		var iw;
-		p = this.m_fn0;
+		var iw = 0.0;
+		p = this.m_frustum[0];
 		p.Set(-1.0,1.0,0.0,1.0);
 		this.m_projectionMatrixInverse.Transform4x4(p);
 		if(p.w <= 0.0) iw = 0.0; else iw = 1.0 / p.w;
 		p.Scale(iw);
-		p = this.m_fn1;
+		p = this.m_frustum[1];
 		p.Set(1.0,1.0,0.0,1.0);
 		this.m_projectionMatrixInverse.Transform4x4(p);
 		if(p.w <= 0.0) iw = 0.0; else iw = 1.0 / p.w;
 		p.Scale(iw);
-		p = this.m_fn2;
+		p = this.m_frustum[2];
 		p.Set(-1.0,-1.0,0.0,1.0);
 		this.m_projectionMatrixInverse.Transform4x4(p);
 		if(p.w <= 0.0) iw = 0.0; else iw = 1.0 / p.w;
 		p.Scale(iw);
-		p = this.m_fn3;
+		p = this.m_frustum[3];
 		p.Set(1.0,-1.0,0.0,1.0);
 		this.m_projectionMatrixInverse.Transform4x4(p);
 		if(p.w <= 0.0) iw = 0.0; else iw = 1.0 / p.w;
 		p.Scale(iw);
-		p = this.m_ff0;
+		p = this.m_frustum[4];
 		p.Set(-1.0,1.0,1.0,1.0);
 		this.m_projectionMatrixInverse.Transform4x4(p);
 		if(p.w <= 0.0) iw = 0.0; else iw = 1.0 / p.w;
 		p.Scale(iw);
-		p = this.m_ff1;
+		p = this.m_frustum[5];
 		p.Set(1.0,1.0,1.0,1.0);
 		this.m_projectionMatrixInverse.Transform4x4(p);
 		if(p.w <= 0.0) iw = 0.0; else iw = 1.0 / p.w;
 		p.Scale(iw);
-		p = this.m_ff2;
+		p = this.m_frustum[6];
 		p.Set(-1.0,-1.0,1.0,1.0);
 		this.m_projectionMatrixInverse.Transform4x4(p);
 		if(p.w <= 0.0) iw = 0.0; else iw = 1.0 / p.w;
 		p.Scale(iw);
-		p = this.m_ff3;
+		p = this.m_frustum[7];
 		p.Set(1.0,-1.0,1.0,1.0);
 		this.m_projectionMatrixInverse.Transform4x4(p);
 		if(p.w <= 0.0) iw = 0.0; else iw = 1.0 / p.w;
@@ -1596,8 +1594,8 @@ haxor.component.CameraOrbit.prototype = $extend(haxor.component.Behaviour.protot
 	,__class__: haxor.component.CameraOrbit
 });
 haxor.component.CameraOrbitInput = function(p_name) {
-	this.rotateSpeed = 15.0;
-	this.zoomSpeed = 10.0;
+	this.rotateSpeed = 0.5;
+	this.zoomSpeed = 0.5;
 	this.zoom = true;
 	this.rotate = true;
 	haxor.component.Behaviour.call(this,p_name);
@@ -1618,13 +1616,13 @@ haxor.component.CameraOrbitInput.prototype = $extend(haxor.component.Behaviour.p
 		if(this.rotate) {
 			var is_rotate = haxor.input.Input.Pressed(haxor.input.KeyCode.Mouse0) || haxor.input.Input.get_touches().length == 1;
 			if(is_rotate) {
-				this.m_orbit.angle.x += -dx * this.rotateSpeed * haxor.core.Time.m_delta;
-				this.m_orbit.angle.y += dy * this.rotateSpeed * haxor.core.Time.m_delta;
+				this.m_orbit.angle.x += -dx * this.rotateSpeed;
+				this.m_orbit.angle.y += dy * this.rotateSpeed;
 			}
 		}
 		if(this.zoom) {
-			if(Math.abs(haxor.input.Input.wheel) > 0) this.m_orbit.distance += (haxor.input.Input.wheel < 0?this.zoomSpeed:-this.zoomSpeed) * haxor.core.Time.m_delta;
-			if(haxor.input.Input.get_touches().length == 2) this.m_orbit.distance -= haxor.input.Input.get_touches()[0].delta.y * this.zoomSpeed * 0.05 * haxor.core.Time.m_delta;
+			if(Math.abs(haxor.input.Input.wheel) > 0) if(haxor.input.Input.wheel < 0) this.m_orbit.distance += this.zoomSpeed; else this.m_orbit.distance += -this.zoomSpeed;
+			if(haxor.input.Input.get_touches().length == 2) this.m_orbit.distance += haxor.input.Input.get_touches()[0].delta.y * this.zoomSpeed * 0.05;
 		}
 	}
 	,__class__: haxor.component.CameraOrbitInput
@@ -1746,9 +1744,9 @@ haxor.math.Color.prototype = {
 	}
 	,set_argb: function(v) {
 		this.a = (v >> 24 & 255) * 0.00392156863;
-		this.g = (v >> 16 & 255) * 0.00392156863;
-		this.b = (v >> 8 & 255) * 0.00392156863;
-		this.r = (v & 255) * 0.00392156863;
+		this.r = (v >> 16 & 255) * 0.00392156863;
+		this.g = (v >> 8 & 255) * 0.00392156863;
+		this.b = (v & 255) * 0.00392156863;
 		return v;
 	}
 	,get_css: function() {
@@ -2025,6 +2023,11 @@ haxor.component.MeshRenderer.prototype = $extend(haxor.component.Renderer.protot
 	,CheckCulling: function() {
 		var c = haxor.component.Camera.m_current;
 		if(c == null) return this.m_culled;
+		if(!c.m_view_uniform_dirty) {
+			if(!c.m_proj_uniform_dirty) {
+				if(!this.m_culling_dirty) return this.m_culled;
+			}
+		}
 		this.UpdateWorldBounds();
 		return !this.IsVisible(c);
 	}
@@ -2091,12 +2094,43 @@ haxor.component.SkinnedMeshRenderer.prototype = $extend(haxor.component.MeshRend
 	,OnBuild: function() {
 		haxor.component.MeshRenderer.prototype.OnBuild.call(this);
 		this.m_joints = [];
-		this.m_buffer = new haxor.io.FloatArray(8192);
+		this.m_buffer = [];
+		var _g = 0;
+		while(_g < 8192) {
+			var i = _g++;
+			this.m_buffer.push(0);
+		}
 		this.m_data = new haxor.graphics.texture.ComputeTexture(1,2048,haxor.core.PixelFormat.Float4);
 		this.m_data.set_name("SkinningTexture" + this.get_uid());
 	}
 	,OnRender: function() {
+		if(this.m_material != null) {
+			var skm = this.m_mesh;
+			var k = 0;
+			var jm;
+			var bm;
+			var f32 = this.m_data.m_data.get_buffer();
+			var _g1 = 0;
+			var _g = this.m_joints.length;
+			while(_g1 < _g) {
+				var i = _g1++;
+				jm = this.m_joints[i].get_WorldMatrix();
+				bm = skm.get_binds()[i];
+				var _g2 = 0;
+				while(_g2 < 12) {
+					var j = _g2++;
+					f32.Set(k,jm.GetIndex(j));
+					f32.Set(k + 4096,bm.GetIndex(j));
+					k++;
+				}
+			}
+			this.m_data.Invalidate();
+			this.m_material.SetTexture("Skinning",this.m_data);
+		}
 		haxor.component.MeshRenderer.prototype.OnRender.call(this);
+		var sh = haxor.graphics.Screen.m_height;
+		var th = 2048.0;
+		haxor.graphics.Graphics.DrawTexture(this.m_data,0,th + 105,256,-th);
 	}
 	,__class__: haxor.component.SkinnedMeshRenderer
 });
@@ -2371,6 +2405,7 @@ haxor.component.Transform.prototype = $extend(haxor.component.Component.prototyp
 		}
 	}
 	,Invalidate: function() {
+		if(this.m_dirty) return;
 		this.m_uniform_dirty = true;
 		this.m_dirty = true;
 		haxor.context.EngineContext.transform.OnChange(this);
@@ -2435,7 +2470,9 @@ haxor.component.Transform.prototype = $extend(haxor.component.Component.prototyp
 		res.reverse();
 		return res;
 	}
-	,OutputHierarchy: function() {
+	,OutputHierarchy: function(p_show_transform,p_show_world) {
+		if(p_show_world == null) p_show_world = false;
+		if(p_show_transform == null) p_show_transform = true;
 		var d0 = 0;
 		var hs = "";
 		this.Traverse(function(t,d) {
@@ -2447,7 +2484,10 @@ haxor.component.Transform.prototype = $extend(haxor.component.Component.prototyp
 				var i = _g++;
 				tab += " ";
 			}
-			hs += tab + t.get_name() + " " + t.get_position().ToString() + t.get_rotation().ToString() + t.get_scale().ToString() + "\n";
+			hs += tab + t.get_name() + " ";
+			if(p_show_transform) hs += t.get_position().ToString() + t.get_rotation().ToString() + t.get_scale().ToString();
+			if(p_show_world) hs += t.get_WorldMatrix().ToString(true,3);
+			hs += "\n";
 			return true;
 		});
 		return hs;
@@ -2515,50 +2555,7 @@ haxor.context.CameraContext.prototype = {
 		var target;
 		if(ft == null) target = rt; else target = ft;
 		c.UpdateProjection();
-		var need_sap = haxor.context.EngineContext.renderer.sap_dirty || c.m_view_uniform_dirty || c.m_proj_uniform_dirty;
-		if(need_sap) {
-			var n0 = haxor.context.EngineContext.data.get_v3().Set4(c.m_fn0);
-			var n1 = haxor.context.EngineContext.data.get_v3().Set4(c.m_fn1);
-			var n2 = haxor.context.EngineContext.data.get_v3().Set4(c.m_fn2);
-			var n3 = haxor.context.EngineContext.data.get_v3().Set4(c.m_fn3);
-			var f0 = haxor.context.EngineContext.data.get_v3().Set4(c.m_ff0);
-			var f1 = haxor.context.EngineContext.data.get_v3().Set4(c.m_ff1);
-			var f2 = haxor.context.EngineContext.data.get_v3().Set4(c.m_ff2);
-			var f3 = haxor.context.EngineContext.data.get_v3().Set4(c.m_ff3);
-			c.m_entity.m_transform.get_WorldMatrix().Transform3x4(n0);
-			c.m_entity.m_transform.get_WorldMatrix().Transform3x4(n1);
-			c.m_entity.m_transform.get_WorldMatrix().Transform3x4(n2);
-			c.m_entity.m_transform.get_WorldMatrix().Transform3x4(n3);
-			c.m_entity.m_transform.get_WorldMatrix().Transform3x4(f0);
-			c.m_entity.m_transform.get_WorldMatrix().Transform3x4(f1);
-			c.m_entity.m_transform.get_WorldMatrix().Transform3x4(f2);
-			c.m_entity.m_transform.get_WorldMatrix().Transform3x4(f3);
-			var pmin = haxor.context.EngineContext.data.get_v3().Set(n0.x,n0.y,n0.z);
-			var pmax = haxor.context.EngineContext.data.get_v3().Set(n0.x,n0.y,n0.z);
-			var p;
-			pmin.x = haxor.math.Mathf.Min(pmin.x,haxor.math.Mathf.Min(n1.x,Math.min(n2.x,n3.x)));
-			pmin.y = haxor.math.Mathf.Min(pmin.y,haxor.math.Mathf.Min(n1.y,Math.min(n2.y,n3.y)));
-			pmin.z = haxor.math.Mathf.Min(pmin.z,haxor.math.Mathf.Min(n1.z,Math.min(n2.z,n3.z)));
-			pmax.x = haxor.math.Mathf.Max(pmax.x,haxor.math.Mathf.Max(n1.x,Math.max(n2.x,n3.x)));
-			pmax.y = haxor.math.Mathf.Max(pmax.y,haxor.math.Mathf.Max(n1.y,Math.max(n2.y,n3.y)));
-			pmax.z = haxor.math.Mathf.Max(pmax.z,haxor.math.Mathf.Max(n1.z,Math.max(n2.z,n3.z)));
-			pmin.x = haxor.math.Mathf.Min(pmin.x,haxor.math.Mathf.Min(f0.x,haxor.math.Mathf.Min(f1.x,Math.min(f2.x,f3.x))));
-			pmin.y = haxor.math.Mathf.Min(pmin.y,haxor.math.Mathf.Min(f0.y,haxor.math.Mathf.Min(f1.y,Math.min(f2.y,f3.y))));
-			pmin.z = haxor.math.Mathf.Min(pmin.z,haxor.math.Mathf.Min(f0.z,haxor.math.Mathf.Min(f1.z,Math.min(f2.z,f3.z))));
-			pmax.x = haxor.math.Mathf.Max(pmax.x,haxor.math.Mathf.Max(f0.x,haxor.math.Mathf.Max(f1.x,Math.min(f2.x,f3.x))));
-			pmax.y = haxor.math.Mathf.Max(pmax.y,haxor.math.Mathf.Max(f0.y,haxor.math.Mathf.Max(f1.y,Math.min(f2.y,f3.y))));
-			pmax.z = haxor.math.Mathf.Max(pmax.z,haxor.math.Mathf.Max(f0.z,haxor.math.Mathf.Max(f1.z,Math.min(f2.z,f3.z))));
-			var dx = (pmax.x - pmin.x) * 0.02;
-			var dy = (pmax.y - pmin.y) * 0.02;
-			var dz = (pmax.z - pmin.z) * 0.02;
-			pmin.x -= dx;
-			pmax.x += dx;
-			pmin.y -= dy;
-			pmax.y += dy;
-			pmin.z -= dz;
-			pmax.z += dz;
-			haxor.context.EngineContext.renderer.UpdateSAP(c.__fcid,c,pmin,pmax);
-		}
+		haxor.context.EngineContext.renderer.UpdateCameraSAP(c);
 		haxor.context.EngineContext.texture.BindTarget(target);
 		haxor.context.EngineContext.renderer.UpdateDisplayList(c);
 		haxor.graphics.Graphics.Clear(c);
@@ -2717,11 +2714,11 @@ haxor.context.EngineContext.Initialize = function() {
 	haxor.context.EngineContext.resources = new haxor.context.Process("process.resources",haxor.context.EngineContext.maxNodes);
 	haxor.context.EngineContext.disposables = new haxor.context.Process("process.disposables",haxor.context.EngineContext.maxNodes);
 	haxor.context.EngineContext.list = [haxor.context.EngineContext.update,haxor.context.EngineContext.render,haxor.context.EngineContext.resize,haxor.context.EngineContext.resources,haxor.context.EngineContext.disposables];
+	haxor.context.EngineContext.data = new haxor.context.DataContext();
 	haxor.context.EngineContext.renderer = new haxor.context.RendererContext();
 	haxor.context.EngineContext.mesh = new haxor.context.MeshContext();
 	haxor.context.EngineContext.material = new haxor.context.MaterialContext();
 	haxor.context.EngineContext.texture = new haxor.context.TextureContext();
-	haxor.context.EngineContext.data = new haxor.context.DataContext();
 	haxor.context.EngineContext.gizmo = new haxor.context.GizmoContext();
 	haxor.context.EngineContext.camera = new haxor.context.CameraContext();
 	haxor.context.EngineContext.transform = new haxor.context.TransformContext();
@@ -2793,15 +2790,33 @@ $hxClasses["haxor.context.GizmoContext"] = haxor.context.GizmoContext;
 haxor.context.GizmoContext.__name__ = ["haxor","context","GizmoContext"];
 haxor.context.GizmoContext.prototype = {
 	Initialize: function() {
-		var mat = this.gizmo_material = new haxor.graphics.material.Material("$GizmoMaterial");
+		var mat;
+		mat = this.gizmo_material = new haxor.graphics.material.Material("$GizmoMaterial");
 		mat.set_shader(new haxor.graphics.material.Shader(haxor.context.ShaderContext.gizmo_source));
 		mat.blend = true;
 		mat.SetBlending(770,771);
 		mat.SetFloat("Area",1000.0);
 		mat.SetColor("Tint",new haxor.math.Color(1.0,1.0,1.0,0.4));
 		mat.ztest = false;
+		mat = this.texture_material = new haxor.graphics.material.Material("$TextureMaterial");
+		mat.set_shader(new haxor.graphics.material.Shader(haxor.context.ShaderContext.texture_source));
+		mat.blend = true;
+		mat.SetBlending(770,771);
+		mat.SetFloat2("Screen",haxor.graphics.Screen.m_width,haxor.graphics.Screen.m_height);
+		mat.SetFloat4("Rect",0,0,100,100);
+		mat.SetColor("Tint",new haxor.math.Color(1.0,1.0,1.0,1.0));
+		mat.cull = 0;
+		mat.ztest = false;
 		this.CreateAxis();
 		this.CreateGrid(100.0);
+		this.CreateTextureQuad();
+	}
+	,CreateTextureQuad: function() {
+		var m = this.texture = new haxor.graphics.mesh.Mesh("$TextureQuad");
+		var vl;
+		vl = haxor.io.FloatArray.Alloc([0,0,0,0,-1,0,1,-1,0,0,0,0,1,-1,0,1,0,0]);
+		m.Set("vertex",vl,3);
+		m.set_bounds(m.GenerateAttribBounds("vertex",haxor.context.EngineContext.data.get_aabb3()));
 	}
 	,CreateAxis: function() {
 		var m = this.axis = new haxor.graphics.mesh.Mesh("$GridAxis");
@@ -2907,7 +2922,7 @@ haxor.context.GizmoContext.prototype = {
 	,__class__: haxor.context.GizmoContext
 };
 haxor.context.MaterialContext = function() {
-	this.uniform_globals = ["ViewMatrix","ProjectionMatrix","WorldMatrix","Time","RandomSeed","RandomTexture","ScreenTexture","ScreenDepth","Ambient","CameraPosition","ProjectionMatrixInverse","ViewMatrixInverse"];
+	this.uniform_globals = ["ViewMatrix","ProjectionMatrix","WorldMatrix","WorldMatrixInverse","WorldMatrixIT","Time","RandomSeed","RandomTexture","ScreenTexture","ScreenDepth","Ambient","CameraPosition","ProjectionMatrixInverse","ViewMatrixInverse"];
 	this.mid = new haxor.context.UID();
 	this.sid = new haxor.context.UID();
 	this.uid = new haxor.context.UID();
@@ -3089,7 +3104,7 @@ haxor.context.MaterialContext.prototype = {
 				this.locations[m.__cid][i2] = -1;
 			}
 		}
-		var gl = this.uniform_globals;
+		var gl = this.uniform_globals.slice();
 		var k = 0;
 		var m4 = haxor.context.EngineContext.data.get_m4().SetIdentity();
 		while(k < gl.length) {
@@ -3112,6 +3127,9 @@ haxor.context.MaterialContext.prototype = {
 				m.SetMatrix4(un,m4);
 				break;
 			case "WorldMatrixInverse":
+				m.SetMatrix4(un,m4);
+				break;
+			case "WorldMatrixIT":
 				m.SetMatrix4(un,m4);
 				break;
 			case "CameraPosition":
@@ -3197,7 +3215,7 @@ haxor.context.MaterialContext.prototype = {
 		var loc;
 		loc = this.uniforms[m.__cid][u.__cid];
 		if(loc == haxor.graphics.GL.INVALID) return;
-		if(u.texture != null) haxor.context.EngineContext.texture.Activate(u.texture,u.texture.__slot);
+		if(u.texture != null) haxor.context.EngineContext.texture.Bind(u.texture);
 		if(!u.__d) return;
 		this.ApplyUniform(loc,u);
 	}
@@ -3263,6 +3281,9 @@ haxor.context.MaterialContext.prototype = {
 		case "WorldMatrixInverse":
 			if(ut) u.SetMatrix4(t.get_WorldMatrixInverse());
 			break;
+		case "WorldMatrixIT":
+			if(ut) u.SetMatrix4(t.get_WorldMatrixInverse(),true);
+			break;
 		case "CameraPosition":
 			if(ucv) u.SetVector3(c.m_entity.m_transform.get_position());
 			break;
@@ -3315,7 +3336,7 @@ haxor.context.MaterialContext.prototype = {
 	,__class__: haxor.context.MaterialContext
 };
 haxor.context.MeshContext = function() {
-	this.attribs = ["vertex","normal","uv0","uv1","uv2","color","weight","index"];
+	this.attribs = ["vertex","normal","uv0","uv1","uv2","color","weight","bone"];
 	this.aid = new haxor.context.UID();
 	this.mid = new haxor.context.UID();
 	this.buffers = [];
@@ -3391,7 +3412,9 @@ haxor.context.MeshContext.prototype = {
 			haxor.core.Stats.triangles += m.m_topology_attrib.data.m_length / 3;
 		} else {
 			haxor.graphics.GL.m_gl.DrawArrays(m.primitive,0,m.m_vcount);
-			haxor.core.Stats.triangles += m.m_vcount;
+			var off = 3;
+			if(m.primitive == 1) off = 2;
+			haxor.core.Stats.triangles += m.m_vcount / off;
 		}
 	}
 	,RemoveAttrib: function(p_attrib) {
@@ -3615,6 +3638,41 @@ haxor.context.RendererContext.prototype = {
 		this.display[r.m_entity.m_layer].Remove(r);
 		this.sort[r.m_entity.m_layer] = true;
 	}
+	,UpdateCameraSAP: function(c) {
+		var need_sap = this.sap_dirty || c.m_view_uniform_dirty || c.m_proj_uniform_dirty;
+		if(!need_sap) return;
+		var n0 = haxor.context.EngineContext.data.get_v3().Set4(c.m_frustum[0]);
+		var n1 = haxor.context.EngineContext.data.get_v3().Set4(c.m_frustum[1]);
+		var n2 = haxor.context.EngineContext.data.get_v3().Set4(c.m_frustum[2]);
+		var n3 = haxor.context.EngineContext.data.get_v3().Set4(c.m_frustum[3]);
+		var f0 = haxor.context.EngineContext.data.get_v3().Set4(c.m_frustum[4]);
+		var f1 = haxor.context.EngineContext.data.get_v3().Set4(c.m_frustum[5]);
+		var f2 = haxor.context.EngineContext.data.get_v3().Set4(c.m_frustum[6]);
+		var f3 = haxor.context.EngineContext.data.get_v3().Set4(c.m_frustum[7]);
+		c.m_entity.m_transform.get_WorldMatrix().Transform3x4(n0);
+		c.m_entity.m_transform.get_WorldMatrix().Transform3x4(n1);
+		c.m_entity.m_transform.get_WorldMatrix().Transform3x4(n2);
+		c.m_entity.m_transform.get_WorldMatrix().Transform3x4(n3);
+		c.m_entity.m_transform.get_WorldMatrix().Transform3x4(f0);
+		c.m_entity.m_transform.get_WorldMatrix().Transform3x4(f1);
+		c.m_entity.m_transform.get_WorldMatrix().Transform3x4(f2);
+		c.m_entity.m_transform.get_WorldMatrix().Transform3x4(f3);
+		var pmin = haxor.context.EngineContext.data.get_v3().Set(n0.x,n0.y,n0.z);
+		var pmax = haxor.context.EngineContext.data.get_v3().Set(n0.x,n0.y,n0.z);
+		pmin.x = haxor.math.Mathf.Min(pmin.x,haxor.math.Mathf.Min(n1.x,Math.min(n2.x,n3.x)));
+		pmin.y = haxor.math.Mathf.Min(pmin.y,haxor.math.Mathf.Min(n1.y,Math.min(n2.y,n3.y)));
+		pmin.z = haxor.math.Mathf.Min(pmin.z,haxor.math.Mathf.Min(n1.z,Math.min(n2.z,n3.z)));
+		pmax.x = haxor.math.Mathf.Max(pmax.x,haxor.math.Mathf.Max(n1.x,Math.max(n2.x,n3.x)));
+		pmax.y = haxor.math.Mathf.Max(pmax.y,haxor.math.Mathf.Max(n1.y,Math.max(n2.y,n3.y)));
+		pmax.z = haxor.math.Mathf.Max(pmax.z,haxor.math.Mathf.Max(n1.z,Math.max(n2.z,n3.z)));
+		pmin.x = haxor.math.Mathf.Min(pmin.x,haxor.math.Mathf.Min(f0.x,haxor.math.Mathf.Min(f1.x,Math.min(f2.x,f3.x))));
+		pmin.y = haxor.math.Mathf.Min(pmin.y,haxor.math.Mathf.Min(f0.y,haxor.math.Mathf.Min(f1.y,Math.min(f2.y,f3.y))));
+		pmin.z = haxor.math.Mathf.Min(pmin.z,haxor.math.Mathf.Min(f0.z,haxor.math.Mathf.Min(f1.z,Math.min(f2.z,f3.z))));
+		pmax.x = haxor.math.Mathf.Max(pmax.x,haxor.math.Mathf.Max(f0.x,haxor.math.Mathf.Max(f1.x,Math.max(f2.x,f3.x))));
+		pmax.y = haxor.math.Mathf.Max(pmax.y,haxor.math.Mathf.Max(f0.y,haxor.math.Mathf.Max(f1.y,Math.max(f2.y,f3.y))));
+		pmax.z = haxor.math.Mathf.Max(pmax.z,haxor.math.Mathf.Max(f0.z,haxor.math.Mathf.Max(f1.z,Math.max(f2.z,f3.z))));
+		this.UpdateSAP(c.__fcid,c,pmin,pmax);
+	}
 	,UpdateSAP: function(p_id,p_d,p_min,p_max) {
 		this.sap_dirty = true;
 		this.sap.Update(p_id,p_d,p_min,p_max);
@@ -3677,9 +3735,10 @@ haxor.context.TextureContext = function() {
 	this.tid = new haxor.context.UID();
 	this.bind = null;
 	this.target = null;
-	this.active = [];
+	this.active = -1;
+	this.next_slot = 0;
+	this.bind = [];
 	this.ids = [];
-	this.slot = 0;
 	this.framebuffers = [];
 	this.renderbuffers = [];
 };
@@ -3750,7 +3809,7 @@ haxor.context.TextureContext.prototype = {
 		var _g = haxor.graphics.GL.MAX_ACTIVE_TEXTURE;
 		while(_g1 < _g) {
 			var i = _g1++;
-			this.active.push(null);
+			this.bind.push(null);
 		}
 		var _g2 = 0;
 		while(_g2 < 2048) {
@@ -3772,8 +3831,8 @@ haxor.context.TextureContext.prototype = {
 		haxor.graphics.GL.m_gl.TexImage2DAlloc(tex_type,0,chn_fmt,w,h,0,chn_bit,chn_type);
 	}
 	,Create: function(p_texture) {
-		p_texture.__slot = this.slot % haxor.graphics.GL.MAX_ACTIVE_TEXTURE;
-		this.slot++;
+		p_texture.__slot = this.next_slot % haxor.graphics.GL.MAX_ACTIVE_TEXTURE;
+		this.next_slot++;
 		var id = haxor.graphics.GL.m_gl.CreateTexture();
 		this.ids[p_texture.__cid] = id;
 		this.UpdateParameters(p_texture);
@@ -3800,17 +3859,21 @@ haxor.context.TextureContext.prototype = {
 		}
 	}
 	,Bind: function(p_texture) {
-		if(p_texture == this.bind) return;
-		this.bind = p_texture;
-		var id = this.ids[this.bind.__cid];
-		var target = haxor.context.TextureContext.TextureToTarget(this.bind);
+		var slot = p_texture.__slot;
+		haxor.graphics.GL.m_gl.ActiveTexture(33984 + slot);
+		this.active = slot;
+		var id = this.ids[p_texture.__cid];
+		var target;
+		if(p_texture.get_type() == haxor.core.TextureType.Texture2D) target = 3553; else if(p_texture.get_type() == haxor.core.TextureType.RenderTexture) target = 3553; else if(p_texture.get_type() == haxor.core.TextureType.TextureCube) target = 34067; else target = 3553;
 		haxor.graphics.GL.m_gl.BindTexture(target,id);
+		this.bind[slot] = p_texture;
 	}
 	,Unbind: function() {
-		if(this.bind == null) return;
-		var target = haxor.context.TextureContext.TextureToTarget(this.bind);
-		this.bind = null;
-		haxor.graphics.GL.BindTexture(target,haxor.graphics.GL.NULL);
+		if(this.active < 0) return;
+		if(this.bind[this.active] == null) return;
+		var target = haxor.context.TextureContext.TextureToTarget(this.bind[this.active]);
+		this.bind[this.active] = null;
+		haxor.graphics.GL.BindTexture(3553,haxor.graphics.GL.NULL);
 	}
 	,UpdateParameters: function(p_texture) {
 		var target;
@@ -3930,21 +3993,17 @@ haxor.context.TextureContext.prototype = {
 		var chn_fmt = haxor.context.TextureContext.FormatToChannelLayout(p_texture.m_format);
 		var chn_bit = haxor.context.TextureContext.FormatToChannelBits(p_texture.m_format);
 		var chn_type = haxor.context.TextureContext.FormatToChannelType(p_texture.m_format);
-		if(p_texture.m_format == haxor.core.PixelFormat.Depth) haxor.graphics.GL.m_gl.TexImage2DAlloc(p_target,0,chn_fmt,w,h,0,chn_fmt,chn_type); else if(p_texture.get_type() == haxor.core.TextureType.Texture2D) {
-			var t2d = p_texture;
-			haxor.graphics.GL.TexImage2D(p_target,0,chn_fmt,w,h,0,chn_bit,chn_type,t2d.m_data.get_buffer());
-		} else if(p_texture.get_type() == haxor.core.TextureType.RenderTexture) {
-			var rt = p_texture;
-			var id = this.ids[rt.__cid];
-			haxor.graphics.GL.m_gl.FramebufferTexture2D(36160,36064,p_target,id,0);
+		if(p_texture.m_format == haxor.core.PixelFormat.Depth) haxor.graphics.GL.m_gl.TexImage2DAlloc(p_target,0,chn_fmt,w,h,0,chn_fmt,chn_type); else {
+			var is_ti2d = p_texture.get_type() == haxor.core.TextureType.Compute || p_texture.get_type() == haxor.core.TextureType.Texture2D;
+			if(is_ti2d) {
+				var t2d = p_texture;
+				haxor.graphics.GL.TexImage2D(p_target,0,chn_fmt,w,h,0,chn_bit,chn_type,t2d.m_data.get_buffer());
+			} else if(p_texture.get_type() == haxor.core.TextureType.RenderTexture) {
+				var rt = p_texture;
+				var id = this.ids[rt.__cid];
+				haxor.graphics.GL.m_gl.FramebufferTexture2D(36160,36064,p_target,id,0);
+			}
 		}
-	}
-	,Activate: function(p_texture,p_slot) {
-		var slot = p_texture.__slot;
-		if(this.active[p_slot] == p_texture) return;
-		this.active[p_slot] = p_texture;
-		haxor.graphics.GL.m_gl.ActiveTexture(33984 + p_slot);
-		this.Bind(p_texture);
 	}
 	,BindTarget: function(rt) {
 		if(rt == null) {
@@ -4023,53 +4082,48 @@ haxor.context.UID.prototype = {
 };
 haxor.core.Platform = { __ename__ : true, __constructs__ : ["Unknown","Windows","Linux","Android","MacOS","iOS","HTML","NodeJS"] };
 haxor.core.Platform.Unknown = ["Unknown",0];
-haxor.core.Platform.Unknown.toString = $estr;
 haxor.core.Platform.Unknown.__enum__ = haxor.core.Platform;
 haxor.core.Platform.Windows = ["Windows",1];
-haxor.core.Platform.Windows.toString = $estr;
 haxor.core.Platform.Windows.__enum__ = haxor.core.Platform;
 haxor.core.Platform.Linux = ["Linux",2];
-haxor.core.Platform.Linux.toString = $estr;
 haxor.core.Platform.Linux.__enum__ = haxor.core.Platform;
 haxor.core.Platform.Android = ["Android",3];
-haxor.core.Platform.Android.toString = $estr;
 haxor.core.Platform.Android.__enum__ = haxor.core.Platform;
 haxor.core.Platform.MacOS = ["MacOS",4];
-haxor.core.Platform.MacOS.toString = $estr;
 haxor.core.Platform.MacOS.__enum__ = haxor.core.Platform;
 haxor.core.Platform.iOS = ["iOS",5];
-haxor.core.Platform.iOS.toString = $estr;
 haxor.core.Platform.iOS.__enum__ = haxor.core.Platform;
 haxor.core.Platform.HTML = ["HTML",6];
-haxor.core.Platform.HTML.toString = $estr;
 haxor.core.Platform.HTML.__enum__ = haxor.core.Platform;
 haxor.core.Platform.NodeJS = ["NodeJS",7];
-haxor.core.Platform.NodeJS.toString = $estr;
 haxor.core.Platform.NodeJS.__enum__ = haxor.core.Platform;
 haxor.core.ApplicationProtocol = { __ename__ : true, __constructs__ : ["None","File","HTTP","HTTPS"] };
 haxor.core.ApplicationProtocol.None = ["None",0];
-haxor.core.ApplicationProtocol.None.toString = $estr;
 haxor.core.ApplicationProtocol.None.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.ApplicationProtocol.File = ["File",1];
-haxor.core.ApplicationProtocol.File.toString = $estr;
 haxor.core.ApplicationProtocol.File.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.ApplicationProtocol.HTTP = ["HTTP",2];
-haxor.core.ApplicationProtocol.HTTP.toString = $estr;
 haxor.core.ApplicationProtocol.HTTP.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.ApplicationProtocol.HTTPS = ["HTTPS",3];
-haxor.core.ApplicationProtocol.HTTPS.toString = $estr;
 haxor.core.ApplicationProtocol.HTTPS.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.Console = function() { };
 $hxClasses["haxor.core.Console"] = haxor.core.Console;
 haxor.core.Console.__name__ = ["haxor","core","Console"];
 haxor.core.Console.Initialize = function() {
+	var c = { log : function(s) {
+	}};
+	try {
+		haxor.core.Console.m_console = console;
+	} catch( err ) {
+		haxor.core.Console.m_console = c;
+	}
 };
 haxor.core.Console.Breakpoint = function() {
 	debugger;
 };
 haxor.core.Console.Log = function(p_msg,p_level) {
 	if(p_level == null) p_level = 0;
-	if(haxor.core.Console.verbose >= p_level) console.log(p_msg);
+	if(haxor.core.Console.verbose >= p_level) haxor.core.Console.m_console.log(p_msg);
 };
 haxor.core.Console.LogImage = function(p_url,p_height) {
 	var s = "background: transparent url(" + p_url + ") no-repeat; font-size: " + (p_height - 3) + "px;";
@@ -4146,10 +4200,8 @@ haxor.core.Console.SetStyle = function(p_size,p_color,p_background,p_font) {
 };
 haxor.core.EngineState = { __ename__ : true, __constructs__ : ["Play","Editor"] };
 haxor.core.EngineState.Play = ["Play",0];
-haxor.core.EngineState.Play.toString = $estr;
 haxor.core.EngineState.Play.__enum__ = haxor.core.EngineState;
 haxor.core.EngineState.Editor = ["Editor",1];
-haxor.core.EngineState.Editor.toString = $estr;
 haxor.core.EngineState.Editor.__enum__ = haxor.core.EngineState;
 haxor.core.Engine = function() { };
 $hxClasses["haxor.core.Engine"] = haxor.core.Engine;
@@ -4420,91 +4472,67 @@ $hxClasses["haxor.core.DepthTest"] = haxor.core.DepthTest;
 haxor.core.DepthTest.__name__ = ["haxor","core","DepthTest"];
 haxor.core.PixelFormat = { __ename__ : true, __constructs__ : ["Alpha8","Luminance","RGB8","RGBA8","Half","Half3","Half4","Float","Float3","Float4","Depth"] };
 haxor.core.PixelFormat.Alpha8 = ["Alpha8",0];
-haxor.core.PixelFormat.Alpha8.toString = $estr;
 haxor.core.PixelFormat.Alpha8.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Luminance = ["Luminance",1];
-haxor.core.PixelFormat.Luminance.toString = $estr;
 haxor.core.PixelFormat.Luminance.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.RGB8 = ["RGB8",2];
-haxor.core.PixelFormat.RGB8.toString = $estr;
 haxor.core.PixelFormat.RGB8.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.RGBA8 = ["RGBA8",3];
-haxor.core.PixelFormat.RGBA8.toString = $estr;
 haxor.core.PixelFormat.RGBA8.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Half = ["Half",4];
-haxor.core.PixelFormat.Half.toString = $estr;
 haxor.core.PixelFormat.Half.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Half3 = ["Half3",5];
-haxor.core.PixelFormat.Half3.toString = $estr;
 haxor.core.PixelFormat.Half3.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Half4 = ["Half4",6];
-haxor.core.PixelFormat.Half4.toString = $estr;
 haxor.core.PixelFormat.Half4.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Float = ["Float",7];
-haxor.core.PixelFormat.Float.toString = $estr;
 haxor.core.PixelFormat.Float.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Float3 = ["Float3",8];
-haxor.core.PixelFormat.Float3.toString = $estr;
 haxor.core.PixelFormat.Float3.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Float4 = ["Float4",9];
-haxor.core.PixelFormat.Float4.toString = $estr;
 haxor.core.PixelFormat.Float4.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Depth = ["Depth",10];
-haxor.core.PixelFormat.Depth.toString = $estr;
 haxor.core.PixelFormat.Depth.__enum__ = haxor.core.PixelFormat;
 haxor.core.TextureFilter = { __ename__ : true, __constructs__ : ["Nearest","Linear","NearestMipmapNearest","NearestMipmapLinear","LinearMipmapNearest","LinearMipmapLinear","Trilinear"] };
 haxor.core.TextureFilter.Nearest = ["Nearest",0];
-haxor.core.TextureFilter.Nearest.toString = $estr;
 haxor.core.TextureFilter.Nearest.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.Linear = ["Linear",1];
-haxor.core.TextureFilter.Linear.toString = $estr;
 haxor.core.TextureFilter.Linear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.NearestMipmapNearest = ["NearestMipmapNearest",2];
-haxor.core.TextureFilter.NearestMipmapNearest.toString = $estr;
 haxor.core.TextureFilter.NearestMipmapNearest.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.NearestMipmapLinear = ["NearestMipmapLinear",3];
-haxor.core.TextureFilter.NearestMipmapLinear.toString = $estr;
 haxor.core.TextureFilter.NearestMipmapLinear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.LinearMipmapNearest = ["LinearMipmapNearest",4];
-haxor.core.TextureFilter.LinearMipmapNearest.toString = $estr;
 haxor.core.TextureFilter.LinearMipmapNearest.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.LinearMipmapLinear = ["LinearMipmapLinear",5];
-haxor.core.TextureFilter.LinearMipmapLinear.toString = $estr;
 haxor.core.TextureFilter.LinearMipmapLinear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.Trilinear = ["Trilinear",6];
-haxor.core.TextureFilter.Trilinear.toString = $estr;
 haxor.core.TextureFilter.Trilinear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureWrap = function() { };
 $hxClasses["haxor.core.TextureWrap"] = haxor.core.TextureWrap;
 haxor.core.TextureWrap.__name__ = ["haxor","core","TextureWrap"];
-haxor.core.TextureType = { __ename__ : true, __constructs__ : ["None","Texture2D","TextureCube","RenderTexture"] };
+haxor.core.TextureType = { __ename__ : true, __constructs__ : ["None","Texture2D","TextureCube","RenderTexture","Compute"] };
 haxor.core.TextureType.None = ["None",0];
-haxor.core.TextureType.None.toString = $estr;
 haxor.core.TextureType.None.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.Texture2D = ["Texture2D",1];
-haxor.core.TextureType.Texture2D.toString = $estr;
 haxor.core.TextureType.Texture2D.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.TextureCube = ["TextureCube",2];
-haxor.core.TextureType.TextureCube.toString = $estr;
 haxor.core.TextureType.TextureCube.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.RenderTexture = ["RenderTexture",3];
-haxor.core.TextureType.RenderTexture.toString = $estr;
 haxor.core.TextureType.RenderTexture.__enum__ = haxor.core.TextureType;
+haxor.core.TextureType.Compute = ["Compute",4];
+haxor.core.TextureType.Compute.__enum__ = haxor.core.TextureType;
 haxor.core.ClearFlag = function() { };
 $hxClasses["haxor.core.ClearFlag"] = haxor.core.ClearFlag;
 haxor.core.ClearFlag.__name__ = ["haxor","core","ClearFlag"];
 haxor.core.InputState = { __ename__ : true, __constructs__ : ["None","Down","Up","Hold"] };
 haxor.core.InputState.None = ["None",0];
-haxor.core.InputState.None.toString = $estr;
 haxor.core.InputState.None.__enum__ = haxor.core.InputState;
 haxor.core.InputState.Down = ["Down",1];
-haxor.core.InputState.Down.toString = $estr;
 haxor.core.InputState.Down.__enum__ = haxor.core.InputState;
 haxor.core.InputState.Up = ["Up",2];
-haxor.core.InputState.Up.toString = $estr;
 haxor.core.InputState.Up.__enum__ = haxor.core.InputState;
 haxor.core.InputState.Hold = ["Hold",3];
-haxor.core.InputState.Hold.toString = $estr;
 haxor.core.InputState.Hold.__enum__ = haxor.core.InputState;
 haxor.core.IResizeable = function() { };
 $hxClasses["haxor.core.IResizeable"] = haxor.core.IResizeable;
@@ -4542,6 +4570,9 @@ haxor.core.Stats.BeginRender = function() {
 haxor.core.Time = function() { };
 $hxClasses["haxor.core.Time"] = haxor.core.Time;
 haxor.core.Time.__name__ = ["haxor","core","Time"];
+haxor.core.Time.get_system = function() {
+	return haxor.core.Time.m_system;
+};
 haxor.core.Time.get_clock = function() {
 	return haxor.core.Time.m_clock;
 };
@@ -4564,10 +4595,11 @@ haxor.core.Time.get_frame = function() {
 	return haxor.core.Time.m_frame;
 };
 haxor.core.Time.Initialize = function() {
-	haxor.core.Time.m_clock = 0.0;
-	haxor.core.Time.m_clock_dt = 0.0;
+	haxor.core.Time.m_system = 0.0;
 	haxor.core.Time.m_clock_0 = 0.0;
-	haxor.core.Time.m_clock_0 = haxor.core.Time.m_clock;
+	haxor.core.Time.m_clock_0 = haxor.core.Time.m_system;
+	haxor.core.Time.m_clock = haxor.core.Time.m_system;
+	haxor.core.Time.m_clock_dt = 0.0;
 	haxor.core.Time.m_start_clock = haxor.core.Time.m_clock;
 	haxor.core.Time.m_last_clock = haxor.core.Time.m_clock;
 	haxor.core.Time.m_last_frame_clock = haxor.core.Time.m_clock;
@@ -4580,9 +4612,9 @@ haxor.core.Time.Initialize = function() {
 	haxor.core.Time.m_updates = 0.0;
 	haxor.core.Time.m_frame_count = 0.0;
 	haxor.core.Time.m_frame = 0;
-	null;
 };
 haxor.core.Time.Update = function() {
+	haxor.core.Time.m_clock = haxor.core.Time.m_system;
 	haxor.core.Time.m_clock_dt = haxor.core.Time.m_clock - haxor.core.Time.m_last_clock;
 	if(haxor.core.Time.m_clock_dt <= 0) haxor.core.Time.m_clock_dt = 1.0;
 	haxor.core.Time.m_last_clock = haxor.core.Time.m_clock;
@@ -4604,8 +4636,516 @@ haxor.core.Time.Render = function() {
 	haxor.core.Time.m_frame_delta = (haxor.core.Time.m_clock - haxor.core.Time.m_last_frame_clock) * 0.001;
 	haxor.core.Time.m_last_frame_clock = haxor.core.Time.m_clock;
 };
-haxor.core.Time.UpdateClock = function() {
+haxor.dom = {};
+haxor.dom.DOMEntity = function(p_element,p_name) {
+	if(p_name == null) p_name = "";
+	haxor.core.Resource.call(this,p_name);
+	this.m_layout = new haxor.dom.DOMLayout(this);
+	this.m_element = p_element;
+	if(this.m_element != null) {
+		var e = this.m_element;
+		e.style.position = "absolute";
+		e.style.zIndex = "auto";
+		e.setAttribute("script",Type.getClassName(Type.getClass(this)));
+	}
+	if(p_name == "") this.set_name(this.m_type_name + this.get_uid()); else this.set_name(p_name);
+	this.m_x = 0;
+	this.m_y = 0;
+	this.m_px = 0;
+	this.m_py = 0;
+	this.m_width = 0;
+	this.m_height = 0;
+	this.m_rotation = 0;
+	this.m_sx = 1.0;
+	this.m_sy = 1.0;
+	this.m_mouseEnabled = true;
+	this.m_alpha = 1;
+	this.m_globalAlpha = 1;
+	this.m_globalVisible = true;
+	this.m_visible = true;
+	this.m_parent = null;
 };
+$hxClasses["haxor.dom.DOMEntity"] = haxor.dom.DOMEntity;
+haxor.dom.DOMEntity.__name__ = ["haxor","dom","DOMEntity"];
+haxor.dom.DOMEntity.__super__ = haxor.core.Resource;
+haxor.dom.DOMEntity.prototype = $extend(haxor.core.Resource.prototype,{
+	get_x: function() {
+		return this.m_x;
+	}
+	,set_x: function(v) {
+		this.m_x = v;
+		this.UpdateTransform();
+		return v;
+	}
+	,get_y: function() {
+		return this.m_y;
+	}
+	,set_y: function(v) {
+		this.m_y = v;
+		this.UpdateTransform();
+		return v;
+	}
+	,get_px: function() {
+		return this.m_px;
+	}
+	,set_px: function(v) {
+		this.m_px = v;
+		this.UpdateTransform();
+		return v;
+	}
+	,get_py: function() {
+		return this.m_py;
+	}
+	,set_py: function(v) {
+		this.m_py = v;
+		this.UpdateTransform();
+		return v;
+	}
+	,get_width: function() {
+		return this.m_width;
+	}
+	,set_width: function(v) {
+		this.m_width = Math.max(0,v);
+		this.UpdateRect();
+		return this.m_width;
+	}
+	,get_height: function() {
+		return this.m_height;
+	}
+	,set_height: function(v) {
+		this.m_height = Math.max(0,v);
+		this.UpdateRect();
+		return this.m_height;
+	}
+	,get_sx: function() {
+		return this.m_sx;
+	}
+	,set_sx: function(v) {
+		this.m_sx = v;
+		this.UpdateTransform();
+		return v;
+	}
+	,get_sy: function() {
+		return this.m_sy;
+	}
+	,set_sy: function(v) {
+		this.m_sy = v;
+		this.UpdateTransform();
+		return v;
+	}
+	,get_rotation: function() {
+		return this.m_rotation;
+	}
+	,set_rotation: function(v) {
+		this.m_rotation = v;
+		this.UpdateTransform();
+		return v;
+	}
+	,get_mouseX: function() {
+		if(this.get_parent() == null) return haxor.input.Input.mouse.x; else return this.get_parent().get_mouseX() - this.m_x;
+	}
+	,get_mouseY: function() {
+		if(this.get_parent() == null) return haxor.input.Input.mouse.y; else return this.get_parent().get_mouseY() - this.get_y();
+	}
+	,get_rect: function() {
+		var m = this.get_layout().get_margin();
+		return new haxor.math.AABB2(Std["int"](this.m_x - this.m_px + m.get_xMin()),Std["int"](this.m_y - this.m_py + m.get_yMin()),Std["int"](this.m_width - (m.get_xMin() + m.get_xMax())),Std["int"](this.m_height - (m.get_yMin() + m.get_yMax())));
+	}
+	,get_alpha: function() {
+		return this.m_alpha;
+	}
+	,set_alpha: function(v) {
+		this.m_alpha = v;
+		this.UpdateMaterial();
+		return v;
+	}
+	,get_visible: function() {
+		return this.m_visible;
+	}
+	,set_visible: function(v) {
+		this.m_visible = v;
+		this.UpdateMaterial();
+		return v;
+	}
+	,get_mouseEnabled: function() {
+		return this.m_mouseEnabled;
+	}
+	,set_mouseEnabled: function(v) {
+		this.m_mouseEnabled = v;
+		if(this.m_element != null) this.m_element.style.setProperty("pointer-events",v?"auto":"none","");
+		return v;
+	}
+	,get_layout: function() {
+		return this.m_layout;
+	}
+	,get_parent: function() {
+		return this.m_parent;
+	}
+	,get_stage: function() {
+		return haxor.dom.DOMStage.m_instance;
+	}
+	,set_name: function(v) {
+		haxor.core.Resource.prototype.set_name.call(this,v);
+		this.m_element.setAttribute("name",v);
+		return v;
+	}
+	,get_element: function() {
+		return this.m_element;
+	}
+	,UpdateMaterial: function() {
+		var pa;
+		if(this.get_parent() == null) pa = 1.0; else pa = this.get_parent().m_globalAlpha;
+		var pv;
+		if(this.get_parent() == null) pv = true; else pv = this.get_parent().m_globalVisible;
+		var e = this.m_element;
+		var is_negative = pa < 0 || this.m_alpha < 0;
+		this.m_globalAlpha = haxor.math.Mathf.Clamp01(this.m_alpha) * haxor.math.Mathf.Clamp01(this.m_alpha);
+		if(is_negative) this.m_globalAlpha = -this.m_globalAlpha;
+		this.m_globalVisible = this.m_visible && pv && !is_negative;
+		e.style.opacity = this.m_globalAlpha + "";
+		if(this.m_globalVisible) e.style.display = "block"; else e.style.display = "none";
+	}
+	,UpdateRect: function() {
+		var e = this.m_element;
+		var m = this.get_layout().get_margin();
+		this.get_layout().Update();
+		e.style.width = Std["int"](this.m_width - (m.get_xMin() + m.get_xMax())) + "px";
+		e.style.height = Std["int"](this.m_height - (m.get_yMin() + m.get_yMax())) + "px";
+		this.OnRepaint();
+	}
+	,UpdateTransform: function() {
+		var e = this.m_element;
+		var m = this.get_layout().get_margin();
+		this.get_layout().Update();
+		var px = haxor.math.Mathf.Floor(this.m_x - this.m_px + m.get_xMin());
+		var py = haxor.math.Mathf.Floor(this.m_y - this.m_py + m.get_yMin());
+		var ox = px + this.m_px;
+		var oy = py + this.m_py;
+		var vdn = this.get_application().get_vendor();
+		var tov = e.style.getPropertyValue(vdn + "transform-origin");
+		if(tov != "" && tov != null) e.style.removeProperty(vdn + "transform-origin");
+		e.style.cssText = e.style.cssText + " " + vdn + "transform-origin: " + ox + "px " + oy + "px;";
+		e.style.setProperty(vdn + "transform","scale3d(" + this.m_sx + "," + this.m_sy + ",1.0) rotate3d(0,0,1," + this.m_rotation + "deg) translate3d(" + px + "px," + py + "px,0px)","");
+	}
+	,OnRepaint: function() {
+	}
+	,OnAdded: function() {
+	}
+	,OnAddedToStage: function() {
+	}
+	,OnRemoved: function() {
+	}
+	,AddedToStage: function() {
+		if(!this.m_added_stage) {
+			this.m_added_stage = true;
+			this.OnAddedToStage();
+		}
+	}
+	,__class__: haxor.dom.DOMEntity
+});
+haxor.dom.Container = function(p_name,p_element) {
+	if(p_name == null) p_name = "";
+	this.m_children = [];
+	var e;
+	if(p_element == null) {
+		var _this = window.document;
+		e = _this.createElement("div");
+	} else e = p_element;
+	haxor.dom.DOMEntity.call(this,e,p_name);
+};
+$hxClasses["haxor.dom.Container"] = haxor.dom.Container;
+haxor.dom.Container.__name__ = ["haxor","dom","Container"];
+haxor.dom.Container.DOMPath = function(p_element) {
+	var p = [];
+	var it = p_element;
+	while(it != null) {
+		if(it.hasAttribute("script")) {
+			if(it.getAttribute("script").toLowerCase().indexOf("stage") >= 0) break;
+			p.push(it.getAttribute("name"));
+		}
+		it = it.parentElement;
+	}
+	p.reverse();
+	return p.join(".");
+};
+haxor.dom.Container.__super__ = haxor.dom.DOMEntity;
+haxor.dom.Container.prototype = $extend(haxor.dom.DOMEntity.prototype,{
+	get_childCount: function() {
+		if(this.m_children == null) return 0; else return this.m_children.length;
+	}
+	,IsChild: function(p_child) {
+		if(this.m_children == null) return false;
+		var _g = 0;
+		var _g1 = this.m_children;
+		while(_g < _g1.length) {
+			var it = _g1[_g];
+			++_g;
+			if(it == p_child) return true;
+		}
+		return false;
+	}
+	,AddChild: function(p_child) {
+		this.AddChildAt(p_child);
+	}
+	,AddChildAt: function(p_child,p_index) {
+		if(p_index == null) p_index = -1;
+		if(p_child == this) return;
+		if(this.IsChild(p_child)) return;
+		if(p_child.get_parent() != null) p_child.get_parent().RemoveChild(p_child);
+		var pos;
+		if(p_index < 0) pos = this.m_children.length; else pos = p_index;
+		this.m_children.push(p_child);
+		this.m_element.appendChild(p_child.m_element);
+		p_child.m_parent = this;
+		this.SetChildIndex(p_child,pos);
+		this.UpdateTransform();
+		this.UpdateRect();
+		this.UpdateMaterial();
+		if(this.get_stage() != null || haxor.dom.DOMStage.m_instance == this) this.AddedToStage();
+	}
+	,RemoveChild: function(p_child) {
+		if(!this.IsChild(p_child)) return;
+		HxOverrides.remove(this.m_children,p_child);
+		this.m_element.removeChild(p_child.m_element);
+		p_child.m_parent = null;
+	}
+	,GetChildByName: function(p_name) {
+		var _g1 = 0;
+		var _g = this.m_children.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			if(this.m_children[i].get_name() == p_name) return this.m_children[i];
+		}
+		return null;
+	}
+	,GetChildAt: function(p_index) {
+		return this.m_children[p_index];
+	}
+	,GetChildIndex: function(p_child) {
+		var _g1 = 0;
+		var _g = this.m_children.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			if(this.m_children[i] == p_child) return i;
+		}
+		return -1;
+	}
+	,SetChildIndex: function(p_child,p_index) {
+		if(!this.IsChild(p_child)) return;
+		var p = haxor.math.Mathf.ClampInt(p_index,0,this.m_children.length - 1);
+		if(p_child == this.m_children[p]) return;
+		var e1 = this.m_children[p].m_element;
+		this.m_element.removeChild(p_child.m_element);
+		this.m_element.insertBefore(p_child.m_element,e1);
+		HxOverrides.remove(this.m_children,p_child);
+		this.m_children.splice(p,0,p_child);
+	}
+	,Find: function(p_path) {
+		var pth = p_path.split(".");
+		if(pth.length <= 0) return null;
+		var it = this;
+		var _g1 = 0;
+		var _g = pth.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var p = pth[i];
+			it = it.GetChildByName(p);
+			if(!js.Boot.__instanceof(it,haxor.dom.Container)) {
+				if(i >= pth.length - 1) return it;
+			}
+		}
+		return it;
+	}
+	,Traverse: function(p_callback) {
+		this.TraverseStep(0,this,p_callback);
+	}
+	,TraverseStep: function(d,it,p_c) {
+		if(p_c != null) {
+			if(!p_c(d,it)) return;
+		}
+		if(js.Boot.__instanceof(it,haxor.dom.Container)) {
+			var c = it;
+			var _g1 = 0;
+			var _g = c.m_children.length;
+			while(_g1 < _g) {
+				var i = _g1++;
+				this.TraverseStep(d + 1,c.m_children[i],p_c);
+			}
+		}
+	}
+	,UpdateMaterial: function() {
+		haxor.dom.DOMEntity.prototype.UpdateMaterial.call(this);
+		var _g1 = 0;
+		var _g = this.m_children.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			this.m_children[i].UpdateMaterial();
+		}
+	}
+	,UpdateTransform: function() {
+		haxor.dom.DOMEntity.prototype.UpdateTransform.call(this);
+		var _g1 = 0;
+		var _g = this.m_children.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			this.m_children[i].UpdateTransform();
+		}
+	}
+	,UpdateRect: function() {
+		haxor.dom.DOMEntity.prototype.UpdateRect.call(this);
+		var _g1 = 0;
+		var _g = this.m_children.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			this.m_children[i].UpdateRect();
+		}
+	}
+	,AddedToStage: function() {
+		haxor.dom.DOMEntity.prototype.AddedToStage.call(this);
+		var _g1 = 0;
+		var _g = this.m_children.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			this.m_children[i].AddedToStage();
+		}
+	}
+	,__class__: haxor.dom.Container
+});
+haxor.dom.DOMLayout = function(p_element) {
+	this.m_element = p_element;
+	this.m_lock = false;
+	this.m_margin = haxor.math.AABB2.get_empty();
+	this.m_x = this.m_y = 0;
+	this.m_width = 1;
+	this.m_height = 1;
+	this.m_px = 0;
+	this.m_py = 0;
+};
+$hxClasses["haxor.dom.DOMLayout"] = haxor.dom.DOMLayout;
+haxor.dom.DOMLayout.__name__ = ["haxor","dom","DOMLayout"];
+haxor.dom.DOMLayout.prototype = {
+	get_px: function() {
+		return this.m_px;
+	}
+	,set_px: function(v) {
+		this.m_px = v;
+		if((this.m_flag & haxor.dom.LayoutFlag.PivotX) != 0) this.Update();
+		return v;
+	}
+	,get_py: function() {
+		return this.m_py;
+	}
+	,set_py: function(v) {
+		this.m_py = v;
+		if((this.m_flag & haxor.dom.LayoutFlag.PivotY) != 0) this.Update();
+		return v;
+	}
+	,get_x: function() {
+		return this.m_x;
+	}
+	,set_x: function(v) {
+		this.m_x = v;
+		if((this.m_flag & haxor.dom.LayoutFlag.PositionX) != 0) this.Update();
+		return v;
+	}
+	,get_y: function() {
+		return this.m_y;
+	}
+	,set_y: function(v) {
+		this.m_y = v;
+		if((this.m_flag & haxor.dom.LayoutFlag.PositionY) != 0) this.Update();
+		return v;
+	}
+	,get_width: function() {
+		return this.m_width;
+	}
+	,set_width: function(v) {
+		this.m_width = v;
+		if((this.m_flag & haxor.dom.LayoutFlag.SizeX) != 0) this.Update();
+		return v;
+	}
+	,get_height: function() {
+		return this.m_height;
+	}
+	,set_height: function(v) {
+		this.m_height = v;
+		if((this.m_flag & haxor.dom.LayoutFlag.SizeY) != 0) this.Update();
+		return v;
+	}
+	,get_flag: function() {
+		return this.m_flag;
+	}
+	,set_flag: function(v) {
+		this.m_flag = v;
+		this.Update();
+		return v;
+	}
+	,get_margin: function() {
+		return this.m_margin.get_clone();
+	}
+	,set_margin: function(v) {
+		this.m_margin = v.get_clone();
+		this.m_element.UpdateTransform();
+		return v;
+	}
+	,Set: function(p_flag,p_px,p_py,p_x,p_y) {
+		this.m_flag = p_flag;
+		this.m_px = p_px;
+		this.m_py = p_py;
+		this.m_x = p_x;
+		this.m_y = p_y;
+		this.Update();
+	}
+	,FitSize: function() {
+		this.m_width = 1;
+		this.m_height = 1;
+		this.set_flag(haxor.dom.LayoutFlag.SizeXY);
+	}
+	,FitWidth: function() {
+		this.set_width(1);
+		this.set_flag(this.m_flag | haxor.dom.LayoutFlag.SizeX);
+	}
+	,FitHeight: function() {
+		this.set_height(1);
+		this.set_flag(this.m_flag | haxor.dom.LayoutFlag.SizeY);
+	}
+	,Update: function() {
+		if(this.m_lock) return;
+		this.m_lock = true;
+		var p = this.m_element.get_parent();
+		var pw;
+		if(p == null) pw = 0; else pw = p.get_width() - p.get_layout().get_margin().get_xMin() - p.get_layout().get_margin().get_xMax();
+		var ph;
+		if(p == null) ph = 0; else ph = p.get_height() - p.get_layout().get_margin().get_yMin() - p.get_layout().get_margin().get_yMax();
+		if((this.m_flag & haxor.dom.LayoutFlag.PositionX) != 0) this.m_element.set_x(pw * this.m_x);
+		if((this.m_flag & haxor.dom.LayoutFlag.PositionY) != 0) this.m_element.set_y(ph * this.m_y);
+		if((this.m_flag & haxor.dom.LayoutFlag.PivotX) != 0) this.m_element.set_px(this.m_element.get_width() * this.m_px);
+		if((this.m_flag & haxor.dom.LayoutFlag.PivotY) != 0) this.m_element.set_py(this.m_element.get_height() * this.m_py);
+		if((this.m_flag & haxor.dom.LayoutFlag.SizeX) != 0) this.m_element.set_width(pw * this.m_width);
+		if((this.m_flag & haxor.dom.LayoutFlag.SizeY) != 0) this.m_element.set_height(ph * this.m_height);
+		this.m_lock = false;
+	}
+	,__class__: haxor.dom.DOMLayout
+};
+haxor.dom.DOMStage = function(p_container) {
+	haxor.dom.DOMStage.m_instance = this;
+	haxor.dom.Container.call(this,"stage",p_container);
+};
+$hxClasses["haxor.dom.DOMStage"] = haxor.dom.DOMStage;
+haxor.dom.DOMStage.__name__ = ["haxor","dom","DOMStage"];
+haxor.dom.DOMStage.__interfaces__ = [haxor.core.IResizeable];
+haxor.dom.DOMStage.__super__ = haxor.dom.Container;
+haxor.dom.DOMStage.prototype = $extend(haxor.dom.Container.prototype,{
+	OnResize: function(p_width,p_height) {
+		this.m_width = this.get_width();
+		this.m_height = this.get_height();
+		this.UpdateRect();
+	}
+	,__class__: haxor.dom.DOMStage
+});
+haxor.dom.LayoutFlag = function() { };
+$hxClasses["haxor.dom.LayoutFlag"] = haxor.dom.LayoutFlag;
+haxor.dom.LayoutFlag.__name__ = ["haxor","dom","LayoutFlag"];
 haxor.ds = {};
 haxor.ds.SAP = function(p_bias,p_has_query) {
 	if(p_has_query == null) p_has_query = true;
@@ -5132,16 +5672,12 @@ haxor.graphics.Gizmo.Axis = function(p_area) {
 };
 haxor.graphics.GraphicAPI = { __ename__ : true, __constructs__ : ["None","OpenGL","OpenGLES","WebGL"] };
 haxor.graphics.GraphicAPI.None = ["None",0];
-haxor.graphics.GraphicAPI.None.toString = $estr;
 haxor.graphics.GraphicAPI.None.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicAPI.OpenGL = ["OpenGL",1];
-haxor.graphics.GraphicAPI.OpenGL.toString = $estr;
 haxor.graphics.GraphicAPI.OpenGL.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicAPI.OpenGLES = ["OpenGLES",2];
-haxor.graphics.GraphicAPI.OpenGLES.toString = $estr;
 haxor.graphics.GraphicAPI.OpenGLES.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicAPI.WebGL = ["WebGL",3];
-haxor.graphics.GraphicAPI.WebGL.toString = $estr;
 haxor.graphics.GraphicAPI.WebGL.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicContext = function(p_application) {
 	this.m_api = haxor.graphics.GraphicAPI.None;
@@ -5600,6 +6136,21 @@ haxor.graphics.Graphics.Render = function(p_mesh,p_material,p_transform,p_camera
 	haxor.context.EngineContext.mesh.Bind(p_mesh);
 	haxor.context.EngineContext.mesh.Draw(p_mesh);
 };
+haxor.graphics.Graphics.DrawTexture = function(p_texture,p_x,p_y,p_width,p_height,p_color) {
+	if(p_height == null) p_height = 256;
+	if(p_width == null) p_width = 256;
+	if(p_y == null) p_y = 0.0;
+	if(p_x == null) p_x = 0.0;
+	if(p_texture == null) return;
+	var mat = haxor.context.EngineContext.gizmo.texture_material;
+	mat.SetFloat2("Screen",haxor.graphics.Screen.m_width,haxor.graphics.Screen.m_height);
+	mat.SetFloat4("Rect",p_x,p_y,p_width,p_height);
+	mat.SetTexture("Texture",p_texture);
+	var c;
+	if(p_color == null) c = haxor.context.EngineContext.data.get_c().Set(1,1,1,1); else c = p_color;
+	mat.SetFloat4("Tint",c.r,c.g,c.b,c.a);
+	haxor.graphics.Graphics.Render(haxor.context.EngineContext.gizmo.texture,mat);
+};
 haxor.graphics.Screen = function() { };
 $hxClasses["haxor.graphics.Screen"] = haxor.graphics.Screen;
 haxor.graphics.Screen.__name__ = ["haxor","graphics","Screen"];
@@ -5640,13 +6191,10 @@ haxor.graphics.Screen.Initialize = function(p_application) {
 };
 haxor.graphics.CursorMode = { __ename__ : true, __constructs__ : ["Show","Hide","Lock"] };
 haxor.graphics.CursorMode.Show = ["Show",0];
-haxor.graphics.CursorMode.Show.toString = $estr;
 haxor.graphics.CursorMode.Show.__enum__ = haxor.graphics.CursorMode;
 haxor.graphics.CursorMode.Hide = ["Hide",1];
-haxor.graphics.CursorMode.Hide.toString = $estr;
 haxor.graphics.CursorMode.Hide.__enum__ = haxor.graphics.CursorMode;
 haxor.graphics.CursorMode.Lock = ["Lock",2];
-haxor.graphics.CursorMode.Lock.toString = $estr;
 haxor.graphics.CursorMode.Lock.__enum__ = haxor.graphics.CursorMode;
 haxor.graphics.material = {};
 haxor.graphics.material.Material = function(p_name) {
@@ -5670,6 +6218,17 @@ haxor.graphics.material.Material = function(p_name) {
 };
 $hxClasses["haxor.graphics.material.Material"] = haxor.graphics.material.Material;
 haxor.graphics.material.Material.__name__ = ["haxor","graphics","material","Material"];
+haxor.graphics.material.Material.Opaque = function(p_texture,p_ztest,p_zwrite) {
+	if(p_zwrite == null) p_zwrite = true;
+	if(p_ztest == null) p_ztest = true;
+	var m = new haxor.graphics.material.Material("Opaque");
+	m.set_shader(p_texture == null?haxor.graphics.material.Shader.m_flat_shader == null?haxor.graphics.material.Shader.m_flat_shader = new haxor.graphics.material.Shader(haxor.context.ShaderContext.flat_source):haxor.graphics.material.Shader.m_flat_shader:haxor.graphics.material.Shader.m_flat_texture_shader == null?haxor.graphics.material.Shader.m_flat_texture_shader = new haxor.graphics.material.Shader(haxor.context.ShaderContext.flat_texture_source):haxor.graphics.material.Shader.m_flat_texture_shader);
+	m.queue = 1000;
+	m.ztest = p_ztest;
+	m.zwrite = p_zwrite;
+	if(p_texture != null) m.SetTexture("DiffuseTexture",p_texture);
+	return m;
+};
 haxor.graphics.material.Material.Transparent = function(p_texture,p_ztest,p_zwrite,p_double_sided) {
 	if(p_double_sided == null) p_double_sided = false;
 	if(p_zwrite == null) p_zwrite = true;
@@ -5726,13 +6285,14 @@ haxor.graphics.material.Material.prototype = $extend(haxor.core.Resource.prototy
 		var u = this.FetchUniform(p_name,false,1,1,true);
 		if(u.exists) u.SetTexture(p_texture);
 	}
-	,SetMatrix4: function(p_name,p_matrix4) {
+	,SetMatrix4: function(p_name,p_matrix4,p_transpose) {
+		if(p_transpose == null) p_transpose = false;
 		if(p_matrix4 == null) {
 			this.RemoveUniform(p_name);
 			return;
 		}
 		var u = this.FetchUniform(p_name,true,16,16,true);
-		if(u.exists) u.SetMatrix4(p_matrix4);
+		if(u.exists) u.SetMatrix4(p_matrix4,p_transpose);
 	}
 	,SetVector2: function(p_name,p_v) {
 		this.SetFloat2(p_name,p_v.x,p_v.y);
@@ -6043,26 +6603,46 @@ haxor.graphics.material.MaterialUniform.prototype = {
 		b.Set(0,p_texture.__slot);
 		this.texture = p_texture;
 	}
-	,SetMatrix4: function(m) {
+	,SetMatrix4: function(m,t) {
+		if(t == null) t = false;
 		if(!this.exists) return;
 		this.__d = true;
 		var b = this.data;
-		b.Set(0,m.m00);
-		b.Set(1,m.m01);
-		b.Set(2,m.m02);
-		b.Set(3,m.m03);
-		b.Set(4,m.m10);
-		b.Set(5,m.m11);
-		b.Set(6,m.m12);
-		b.Set(7,m.m13);
-		b.Set(8,m.m20);
-		b.Set(9,m.m21);
-		b.Set(10,m.m22);
-		b.Set(11,m.m23);
-		b.Set(12,m.m30);
-		b.Set(13,m.m31);
-		b.Set(14,m.m32);
-		b.Set(15,m.m33);
+		if(!t) {
+			b.Set(0,m.m00);
+			b.Set(1,m.m01);
+			b.Set(2,m.m02);
+			b.Set(3,m.m03);
+			b.Set(4,m.m10);
+			b.Set(5,m.m11);
+			b.Set(6,m.m12);
+			b.Set(7,m.m13);
+			b.Set(8,m.m20);
+			b.Set(9,m.m21);
+			b.Set(10,m.m22);
+			b.Set(11,m.m23);
+			b.Set(12,m.m30);
+			b.Set(13,m.m31);
+			b.Set(14,m.m32);
+			b.Set(15,m.m33);
+		} else {
+			b.Set(0,m.m00);
+			b.Set(1,m.m10);
+			b.Set(2,m.m20);
+			b.Set(3,m.m30);
+			b.Set(4,m.m01);
+			b.Set(5,m.m11);
+			b.Set(6,m.m21);
+			b.Set(7,m.m31);
+			b.Set(8,m.m02);
+			b.Set(9,m.m12);
+			b.Set(10,m.m22);
+			b.Set(11,m.m32);
+			b.Set(12,m.m03);
+			b.Set(13,m.m13);
+			b.Set(14,m.m23);
+			b.Set(15,m.m33);
+		}
 	}
 	,SetVector2: function(p_v) {
 		this.SetFloat2(p_v.x,p_v.y);
@@ -6110,6 +6690,9 @@ haxor.graphics.material.Shader.get_Flat = function() {
 };
 haxor.graphics.material.Shader.get_FlatTexture = function() {
 	if(haxor.graphics.material.Shader.m_flat_texture_shader == null) return haxor.graphics.material.Shader.m_flat_texture_shader = new haxor.graphics.material.Shader(haxor.context.ShaderContext.flat_texture_source); else return haxor.graphics.material.Shader.m_flat_texture_shader;
+};
+haxor.graphics.material.Shader.get_FlatTextureSkin = function() {
+	if(haxor.graphics.material.Shader.m_flat_texture_skin_shader == null) return haxor.graphics.material.Shader.m_flat_texture_skin_shader = new haxor.graphics.material.Shader(haxor.context.ShaderContext.flat_texture_skin_source); else return haxor.graphics.material.Shader.m_flat_texture_skin_shader;
 };
 haxor.graphics.material.Shader.__super__ = haxor.core.Resource;
 haxor.graphics.material.Shader.prototype = $extend(haxor.core.Resource.prototype,{
@@ -6407,6 +6990,7 @@ haxor.graphics.mesh.MeshLayout.prototype = $extend(haxor.graphics.mesh.Mesh.prot
 		if(a == null) a = this.Set(p_name,new haxor.io.FloatArray(1),off);
 		var p = 0;
 		var f = a.data = new haxor.io.FloatArray(p_list.length * off);
+		console.log(this.get_name() + " a[" + p_name + "] off[" + off + "] len[" + f.m_length + "]");
 		var _g1 = 0;
 		var _g = p_list.length;
 		while(_g1 < _g) {
@@ -6445,6 +7029,7 @@ haxor.graphics.mesh.MeshLayout.prototype = $extend(haxor.graphics.mesh.Mesh.prot
 				break;
 			}
 		}
+		this.Set(p_name,f,off);
 		return p_list;
 	}
 	,__class__: haxor.graphics.mesh.MeshLayout
@@ -6689,6 +7274,7 @@ haxor.graphics.texture.Bitmap.prototype = $extend(haxor.core.Resource.prototype,
 		if(p_y < 0) return new haxor.math.Color();
 		if(p_x >= this.m_width) return new haxor.math.Color();
 		if(p_y >= this.m_height) return new haxor.math.Color();
+		p_y = this.m_height - 1 - p_y;
 		var cc = this.m_channels;
 		var pos = (p_x + p_y * this.m_width) * cc;
 		if(this.m_float) {
@@ -6737,6 +7323,7 @@ haxor.graphics.texture.Bitmap.prototype = $extend(haxor.core.Resource.prototype,
 		if(p_y < 0) return;
 		if(p_x >= this.m_width) return;
 		if(p_y >= this.m_height) return;
+		p_y = this.m_height - 1 - p_y;
 		var cc = this.m_channels;
 		var pos = (p_x + p_y * this.m_width) * cc;
 		if(this.m_float) {
@@ -6772,6 +7359,7 @@ haxor.graphics.texture.Bitmap.prototype = $extend(haxor.core.Resource.prototype,
 		if(p_v1 == null) p_v1 = 0.0;
 		if(p_v0 == null) p_v0 = 0.0;
 		var cc = this.m_channels;
+		p_y = this.m_height - 1 - p_y;
 		var pos = (p_x + p_y * this.m_width) * cc;
 		if(this.m_float) {
 			var b = this.m_buffer;
@@ -6789,6 +7377,7 @@ haxor.graphics.texture.Bitmap.prototype = $extend(haxor.core.Resource.prototype,
 	}
 	,SetRange: function(p_x,p_y,p_width,p_height,p_values,p_length) {
 		if(p_length == null) p_length = -1;
+		p_y = this.m_height - 1 - p_y;
 		var cc = this.m_channels;
 		var len;
 		if(p_length < 0) len = p_values.length; else len = p_length;
@@ -6930,6 +7519,14 @@ haxor.graphics.texture.Texture2D.get_white = function() {
 	haxor.graphics.texture.Texture2D.m_white.Apply();
 	return haxor.graphics.texture.Texture2D.m_white;
 };
+haxor.graphics.texture.Texture2D.get_black = function() {
+	if(haxor.graphics.texture.Texture2D.m_black != null) return haxor.graphics.texture.Texture2D.m_black;
+	haxor.graphics.texture.Texture2D.m_black = new haxor.graphics.texture.Texture2D(1,1,haxor.core.PixelFormat.RGB8);
+	haxor.graphics.texture.Texture2D.m_black.set_name("Black");
+	haxor.graphics.texture.Texture2D.m_black.m_data.Fill(new haxor.math.Color(0,0,0,1));
+	haxor.graphics.texture.Texture2D.m_black.Apply();
+	return haxor.graphics.texture.Texture2D.m_black;
+};
 haxor.graphics.texture.Texture2D.get_red = function() {
 	if(haxor.graphics.texture.Texture2D.m_red != null) return haxor.graphics.texture.Texture2D.m_red;
 	haxor.graphics.texture.Texture2D.m_red = new haxor.graphics.texture.Texture2D(1,1,haxor.core.PixelFormat.RGB8);
@@ -6999,14 +7596,17 @@ $hxClasses["haxor.graphics.texture.ComputeTexture"] = haxor.graphics.texture.Com
 haxor.graphics.texture.ComputeTexture.__name__ = ["haxor","graphics","texture","ComputeTexture"];
 haxor.graphics.texture.ComputeTexture.__super__ = haxor.graphics.texture.Texture2D;
 haxor.graphics.texture.ComputeTexture.prototype = $extend(haxor.graphics.texture.Texture2D.prototype,{
-	Write: function(p_x,p_y,p_v0,p_v1,p_v2,p_v3) {
+	get_type: function() {
+		return haxor.core.TextureType.Compute;
+	}
+	,Write: function(p_x,p_y,p_v0,p_v1,p_v2,p_v3) {
 		if(p_v3 == null) p_v3 = 0;
 		if(p_v2 == null) p_v2 = 0;
 		if(p_v1 == null) p_v1 = 0;
 		if(p_v0 == null) p_v0 = 0;
 		this.m_data.SetPixel(p_x,p_y,haxor.context.EngineContext.data.get_c().Set(p_v0,p_v1,p_v2,p_v3));
 		this.m_dirty = true;
-		this.Refresh();
+		this.Invalidate();
 	}
 	,WriteRange: function(p_values,p_x,p_y,p_width,p_height) {
 		if(p_height == null) p_height = -1;
@@ -7018,17 +7618,15 @@ haxor.graphics.texture.ComputeTexture.prototype = $extend(haxor.graphics.texture
 		var h;
 		if(p_height < 0) h = this.m_height; else h = p_height;
 		this.m_data.SetRange(p_x,p_y,w,h,p_values);
-		this.Refresh();
+		this.Invalidate();
 		this.m_dirty = true;
 	}
-	,Refresh: function() {
-		if(this.m_lock) return;
-		this.m_lock = true;
-		this.Upload(10,$bind(this,this.OnUploadComplete));
+	,Invalidate: function() {
+		this.Apply();
 	}
 	,OnUploadComplete: function() {
 		this.m_lock = false;
-		if(this.m_dirty) this.Refresh();
+		if(this.m_dirty) this.Invalidate();
 		this.m_dirty = false;
 	}
 	,__class__: haxor.graphics.texture.ComputeTexture
@@ -7322,7 +7920,7 @@ haxor.input.InputHandler.prototype = {
 		}
 	}
 	,OnKey: function(p_code,p_down) {
-		haxor.input.Input.UpdateInputState(p_code,p_down);
+		haxor.input.Input.UpdateInputState(p_code,p_down,false);
 	}
 	,OnTouchStart: function(p_id,p_x,p_y,p_rx,p_ry,p_pressure,p_angle) {
 		if(p_angle == null) p_angle = 0.0;
@@ -8752,7 +9350,8 @@ haxor.io.file.ColladaFile.prototype = $extend(haxor.io.file.AssetXML.prototype,{
 			source = HxOverrides.substr(source,1,null);
 			var sn = this._f(p,"source","id",source);
 			if(sn == null) continue;
-			ci.stride = Std["int"](this._p(sn,"technique_common.accessor.@stride","0"));
+			var stride_str = this._p(sn,"technique_common.accessor.@stride","0");
+			ci.stride = Std.parseInt(stride_str);
 			ci.values = this._f32a(this._p(sn,"float_array.$text",""));
 			l.push(ci);
 		}
@@ -11885,7 +12484,8 @@ haxor.platform.html.net.BitmapLoader.prototype = $extend(haxor.platform.html.net
 				g = _this.getContext("2d");
 				g.canvas.width = img.width;
 				g.canvas.height = img.height;
-				g.drawImage(img,0,0);
+				g.scale(1.0,-1.0);
+				g.drawImage(img,0,-img.height);
 				var data = g.getImageData(0,0,g.canvas.width,g.canvas.height);
 				var w = data.width;
 				var h = data.height;
@@ -11950,14 +12550,24 @@ haxor.net.Web.LoadImg = function(p_url,p_callback) {
 haxor.net.Web.LoadTexture2D = function(p_url,p_apply,p_callback) {
 	var ld = new haxor.net.Texture2DLoader(p_url,p_apply,p_callback);
 };
+haxor.net.Web.LoadCollada = function(p_url,p_callback) {
+	haxor.net.Web.Load(p_url,function(d,p) {
+		if(p < 1.0) p_callback(null,p); else p_callback(d == null?null:new haxor.io.file.ColladaFile(p_url,d),1.0);
+	});
+};
+haxor.net.Web.LoadShader = function(p_url,p_callback) {
+	haxor.net.Web.Load(p_url,function(d,p) {
+		if(p < 1.0) p_callback(null,p); else p_callback(d == null?null:new haxor.graphics.material.Shader(d),1.0);
+	});
+};
 haxor.platform.html.Entry = function() { };
 $hxClasses["haxor.platform.html.Entry"] = haxor.platform.html.Entry;
 haxor.platform.html.Entry.__name__ = ["haxor","platform","html","Entry"];
 haxor.platform.html.Entry.Initialize = function() {
-	haxor.core.Console.Initialize();
 	window.onload = haxor.platform.html.Entry.OnWindowLoad;
 };
 haxor.platform.html.Entry.OnWindowLoad = function(p_event) {
+	haxor.core.Console.Initialize();
 	var script_list = window.document.getElementsByTagName("SCRIPT");
 	var attrib = "";
 	var app_class_type = "Main";
@@ -12001,18 +12611,26 @@ haxor.platform.html.Entry.OnWindowLoad = function(p_event) {
 	haxor.graphics.GL.Initialize(haxor.platform.html.Entry.m_application);
 	haxor.graphics.GL.m_gl.Initialize(app_container_id);
 	haxor.graphics.GL.m_gl.CheckExtensions();
-	if(($_=window,$bind($_,$_.requestAnimationFrame)) != null) window.requestAnimationFrame(haxor.platform.html.Entry.RequestAnimationCallback);
+	haxor.core.Console.Log("Haxor> Creating Stage with [" + app_container_id + "]");
+	var stage = new haxor.dom.DOMStage(haxor.platform.html.Entry.m_application.m_container);
 	haxor.context.EngineContext.Build();
 	haxor.platform.html.Entry.m_input = new haxor.platform.html.input.HTMLInputHandler(app_input_id);
 	haxor.input.Input.m_handler = haxor.platform.html.Entry.m_input;
+	if(($_=window,$bind($_,$_.requestAnimationFrame)) != null) window.requestAnimationFrame(haxor.platform.html.Entry.RequestAnimationCallback); else haxor.platform.html.Entry.TimeOutLoop();
 	if(haxor.platform.html.Entry.m_application.Load()) haxor.platform.html.Entry.m_application.LoadComplete();
 };
 haxor.platform.html.Entry.RequestAnimationCallback = function(p_time) {
-	haxor.core.Time.m_clock = p_time;
+	haxor.core.Time.m_system = p_time;
 	haxor.platform.html.Entry.m_application.Update();
 	haxor.platform.html.Entry.m_application.Render();
 	window.requestAnimationFrame(haxor.platform.html.Entry.RequestAnimationCallback);
 	return true;
+};
+haxor.platform.html.Entry.TimeOutLoop = function() {
+	haxor.core.Time.m_system = haxe.Timer.stamp();
+	haxor.platform.html.Entry.m_application.Update();
+	haxor.platform.html.Entry.m_application.Render();
+	window.setTimeout(haxor.platform.html.Entry.TimeOutLoop,10);
 };
 haxor.platform.html.graphics = {};
 haxor.platform.html.graphics.WebGL = function(p_application) {
@@ -12399,19 +13017,26 @@ haxor.platform.html.input.HTMLInputHandler.prototype = $extend(haxor.input.Input
 		this.UpdateJoystick();
 	}
 	,OnInputEvent: function(p_event) {
-		this.m_events.push(p_event);
-		var is_mousedown = p_event.type == "mousedown";
-		var is_mousewheel = p_event.type == "mousewheel" || p_event.type == "wheel";
-		var prevent = (is_mousedown || is_mousewheel) && js.Boot.__instanceof(this.m_target,HTMLCanvasElement);
+		var e;
+		if(p_event == null) e = window.event; else e = p_event;
+		var c;
+		c = e;
+		this.m_events.push(c);
+		var is_mousedown = c.type == "mousedown";
+		var is_mousewheel = c.type == "mousewheel" || c.type == "wheel";
+		var prevent = is_mousedown || is_mousewheel;
+		prevent = prevent && js.Boot.__instanceof(this.m_target,HTMLCanvasElement);
 		if(haxor.input.Input.scroll) prevent = false;
-		if(p_event.type == "contextmenu") {
+		if(c.type == "contextmenu") {
 			if(!haxor.input.Input.menu) prevent = true;
 		}
 		if(prevent) {
 			if(haxor.input.Input.relativeMouse.x >= 0) {
 				if(haxor.input.Input.relativeMouse.x <= 1) {
 					if(haxor.input.Input.relativeMouse.y >= 0) {
-						if(haxor.input.Input.relativeMouse.y <= 1) p_event.preventDefault();
+						if(haxor.input.Input.relativeMouse.y <= 1) {
+							if($bind(e,e.preventDefault) != null) e.preventDefault();
+						}
 					}
 				}
 			}
@@ -12430,7 +13055,11 @@ haxor.platform.html.input.HTMLInputHandler.prototype = $extend(haxor.input.Input
 			this.OnMouseWheel(dw / 100.0);
 			break;
 		case "mousemove":
-			var p = this.GetAbsolutePosition(this.m_target,me.pageX,me.pageY);
+			var px = me.pageX;
+			var py = me.pageY;
+			if(px == null) px = me.clientX;
+			if(py == null) py = me.clientY;
+			var p = this.GetAbsolutePosition(this.m_target,px,py);
 			this.OnMouseMove(p.x,p.y);
 			break;
 		case "mouseup":
@@ -12518,7 +13147,7 @@ haxor.platform.html.input.HTMLInputHandler.prototype = $extend(haxor.input.Input
 		} while(e != null);
 		px = p_x - px;
 		py = p_y - py;
-		return new haxor.math.Vector2(px,py);
+		return haxor.context.EngineContext.data.get_v2().Set(px,py);
 	}
 	,__class__: haxor.platform.html.input.HTMLInputHandler
 });
@@ -12676,6 +13305,8 @@ String.prototype.__class__ = $hxClasses.String = String;
 String.__name__ = ["String"];
 $hxClasses.Array = Array;
 Array.__name__ = ["Array"];
+Date.prototype.__class__ = $hxClasses.Date = Date;
+Date.__name__ = ["Date"];
 var Int = $hxClasses.Int = { __name__ : ["Int"]};
 var Dynamic = $hxClasses.Dynamic = { __name__ : ["Dynamic"]};
 var Float = $hxClasses.Float = Number;
@@ -12715,9 +13346,10 @@ haxor.context.EngineContext.maxNodes = 5000;
 haxor.context.EngineContext.collectRate = 10;
 haxor.context.BaseProcess.m_cid = 0;
 haxor.context.ShaderContext.flat_source = "\r\n\t<shader id=\"haxor/unlit/Flat\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\t\t\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\tv_color = color * Tint;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) { gl_FragColor = v_color; }\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
-haxor.context.ShaderContext.flat_texture_source = "\r\n\t<shader id=\"haxor/unlit/FlatTexture\">\t\r\n\t\t<vertex>\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\t\r\n\t\tattribute vec4 color;\r\n\t\tattribute vec3 uv0;\t\t\r\n\t\tvarying vec3 v_uv0;\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\tv_uv0   = uv0;\r\n\t\t\tv_color = color;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\r\n\t\t\tvarying vec3 v_uv0;\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tuniform sampler2D DiffuseTexture;\r\n\t\t\tuniform sampler2D Tex0;\t\t\t\r\n\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy*0.1);\t\t\t\r\n\t\t\t\tif (length(tex_diffuse.xyz) < 0.01) discard;\t\t\t\t\r\n\t\t\t\tgl_FragColor.xyz = (tex_diffuse.xyz * v_color.xyz) + texture2D(Tex0, v_uv0.xy).xyz*0.5;\r\n\t\t\t\t\r\n\t\t\t\tgl_FragColor.a \t = tex_diffuse.a * v_color.a*0.5;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
+haxor.context.ShaderContext.flat_texture_source = "\r\n\t<shader id=\"haxor/unlit/FlatTexture\">\t\r\n\t\t<vertex>\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\t\r\n\t\tattribute vec4 color;\r\n\t\tattribute vec3 uv0;\t\t\r\n\t\tvarying vec3 v_uv0;\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\tv_uv0   = uv0;\r\n\t\t\tv_color = color;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\r\n\t\t\tvarying vec3 v_uv0;\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tuniform sampler2D DiffuseTexture;\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);\t\r\n\t\t\t\tgl_FragColor.xyz = (tex_diffuse.xyz * v_color.xyz);\r\n\t\t\t\tgl_FragColor.a \t = tex_diffuse.a * v_color.a;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
+haxor.context.ShaderContext.flat_texture_skin_source = "\r\n\t<shader id=\"haxor/unlit/FlatTextureSkin\">\t\r\n\t\t<vertex precision=\"high\">\r\n\t\t\r\n\t\t#define SKINNING_TEXTURE_SIZE 2048.0\r\n\t\t#define BINDS_OFFSET\t\t  1024.0\r\n\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  WorldMatrixIT;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\r\n\t\tuniform vec3  WSCameraPosition;\t\t\r\n\t\t\r\n\t\t//uniform vec4  Skinning[MAX_BONES];\r\n\t\t\r\n\t\tuniform sampler2D Skinning;\r\n\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\t\r\n\t\tattribute vec4 color;\r\n\t\tattribute vec3 normal;\r\n\t\tattribute vec3 uv0;\r\n\t\tattribute vec4 bone;\r\n\t\tattribute vec4 weight;\r\n\t\t\r\n\t\tvarying vec3 v_uv0;\r\n\t\tvarying vec3 v_normal;\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec4 v_wsVertex;\r\n\t\tvarying vec3 v_wsView;\t\r\n\t\t\r\n\t\tvec4 SkinningRead(float id)\r\n\t\t{\r\n\t\t\treturn texture2D(Skinning, vec2(0.0,(id/(SKINNING_TEXTURE_SIZE-1.0))));\r\n\t\t}\r\n\t\t\r\n\t\tmat4 GetSkinMatrix(float b,float o)\r\n\t\t{\r\n\t\t\tvec4 l0, l1, l2;\t\t\t\t\t\t\r\n\t\t\tl0 = SkinningRead(b+o); l1 = SkinningRead(b+1.0+o); l2 = SkinningRead(b+2.0+o);\r\n\t\t\treturn mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);\t\t\t\r\n\t\t}\r\n\t\t\r\n\t\tmat4 SkinWorldMatrix()\r\n\t\t{\r\n\t\t\tvec4 b = bone * 3.0;\r\n\t\t\tvec4 w = weight;\r\n\t\t\tfloat ivs = 1.0 / (weight.x + weight.y + weight.z + weight.w);\r\n\t\t\tw *= ivs;\r\n\t\t\tmat4 j0 = GetSkinMatrix(b[0],0.0);\r\n\t\t\tmat4 b0 = GetSkinMatrix(b[0],BINDS_OFFSET);\r\n\t\t\tmat4 j1 = GetSkinMatrix(b[1],0.0);\r\n\t\t\tmat4 b1 = GetSkinMatrix(b[1],BINDS_OFFSET);\r\n\t\t\tmat4 j2 = GetSkinMatrix(b[2],0.0);\r\n\t\t\tmat4 b2 = GetSkinMatrix(b[2],BINDS_OFFSET);\r\n\t\t\tmat4 j3 = GetSkinMatrix(b[3],0.0);\r\n\t\t\tmat4 b3 = GetSkinMatrix(b[3],BINDS_OFFSET);\r\n\t\t\t\r\n\t\t\treturn    ((b0 * j0) * w[0])+\r\n\t\t\t          ((b1 * j1) * w[1])+\r\n\t\t\t          ((b2 * j2) * w[2])+\r\n\t\t\t          ((b3 * j3) * w[3]);\r\n\t\t\t\r\n\t\t\t\r\n\t\t}\r\n\t\t\t\t\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tvec4 lv = vec4(vertex,1.0);\r\n\t\t\tvec3 ln = vec3(normal);\r\n\t\t\tmat4 swm = SkinWorldMatrix();\r\n\t\t\tmat4 wm;\t\t\t\t\t\r\n\t\t\twm = swm;\r\n\t\t\twm = WorldMatrix;\r\n\t\t\t\r\n\t\t\tv_uv0   = uv0;\r\n\t\t\tv_color = color;\t\t\t\r\n\t\t\tv_normal = ln * mat3(WorldMatrixIT);\t\t\t\r\n\t\t\tgl_Position = ((lv * wm) * ViewMatrix) * ProjectionMatrix;\r\n\t\t}\t\t\r\n\t\t</vertex>\r\n\t\t\r\n\t\t<fragment precision=\"high\">\r\n\t\t\t\t\t\r\n\t\t\tuniform sampler2D DiffuseTexture;\t\t\t\r\n\t\t\t\r\n\t\t\tuniform sampler2D Skinning;\r\n\t\t\t\r\n\t\t\tvarying vec3 v_uv0;\r\n\t\t\tvarying vec4 v_color;\r\n\t\t\tvarying vec3 v_normal;\r\n\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);\r\n\t\t\t\tgl_FragColor.xyz = v_color.xyz;// tex_diffuse.xyz * v_color.xyz;\r\n\t\t\t\tgl_FragColor.a \t = 1.0;// tex_diffuse.a * v_color.a;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
 haxor.context.ShaderContext.gizmo_source = "\r\n\t<shader id=\"haxor/gizmo/Grid\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tuniform float Area;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\tgl_Position = ((vec4(vertex*Area, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\tv_color = color * Tint;\t\t\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
-haxor.core.Console.m_console = console;
+haxor.context.ShaderContext.texture_source = "\r\n\t<shader id=\"haxor/gizmo/Texture\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform vec2  Screen;\r\n\t\tuniform vec4  Rect;\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec2 v_uv0;\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tvec4 p = vec4(vertex, 1);\r\n\t\t\tfloat sw = Screen.x * 0.5;\r\n\t\t\tfloat sh = Screen.y * 0.5;\r\n\t\t\tp.x *= Rect.z / sw;\r\n\t\t\tp.y *= Rect.w / sh;\r\n\t\t\tp.x += Rect.x / sw;\r\n\t\t\tp.y -= Rect.y / sh;\t\t\t\r\n\t\t\tp.x -= 1.0;\r\n\t\t\tp.y += 1.0;\t\t\t\r\n\t\t\tp.z = 0.001;\r\n\t\t\tgl_Position = p;\r\n\t\t\tv_color = Tint;\t\t\r\n\t\t\tv_uv0   = vec2(vertex.x,1.0+vertex.y);\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\r\n\t\t\tvarying vec2 v_uv0;\r\n\t\t\tuniform sampler2D Texture;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = texture2D(Texture, v_uv0) * v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor.core.Console.m_style = "";
 haxor.core.Console.verbose = 0;
 haxor.core.RenderQueue.Background = 0;
@@ -12769,6 +13401,15 @@ haxor.core.ClearFlag.Depth = 2;
 haxor.core.ClearFlag.Skybox = 4;
 haxor.core.ClearFlag.ColorDepth = 3;
 haxor.core.ClearFlag.SkyboxDepth = 6;
+haxor.dom.LayoutFlag.PivotX = 1;
+haxor.dom.LayoutFlag.PivotY = 2;
+haxor.dom.LayoutFlag.PivotXY = 3;
+haxor.dom.LayoutFlag.PositionX = 4;
+haxor.dom.LayoutFlag.PositionY = 8;
+haxor.dom.LayoutFlag.PositionXY = 12;
+haxor.dom.LayoutFlag.SizeX = 16;
+haxor.dom.LayoutFlag.SizeY = 32;
+haxor.dom.LayoutFlag.SizeXY = 48;
 haxor.graphics.GL.ACTIVE_ATTRIBUTES = 35721;
 haxor.graphics.GL.ACTIVE_TEXTURE = 34016;
 haxor.graphics.GL.ACTIVE_UNIFORMS = 35718;

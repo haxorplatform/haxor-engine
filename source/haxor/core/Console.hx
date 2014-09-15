@@ -1,5 +1,6 @@
 package haxor.core;
 import haxe.Timer;
+import haxor.platform.Types.Float32;
 
 
 
@@ -11,8 +12,11 @@ import haxe.Timer;
 class Console
 {
 	#if html
-	static var m_console 		: js.html.Console	= untyped __js__("console");	
+	static var m_console 		: js.html.Console;
 	static private var m_style 	: String		 	= "";
+	
+	//static public var field : js.html.DivElement;
+	
 	#else
 	
 	static private var m_benchmarks : Map<String,Float>;
@@ -24,7 +28,25 @@ class Console
 	 */
 	static private function Initialize():Void
 	{
+		var c : Dynamic = 
+		{
+			log : function(s:String):Void {}
+		};		
+		
+		try
+		{
+			m_console = untyped __js__("console");
+		}
+		catch (err:Dynamic)
+		{
+			m_console = c;
+		}
+		
 		#if html
+		
+		//field = cast js.Browser.document.getElementById("field");
+		
+		
 		#else		
 		m_benchmarks = new Map<String,Float>();
 		#end
@@ -56,12 +78,12 @@ class Console
 		if (verbose >= p_level)
 		{
 			#if js
-			trace(p_msg);
+			m_console.log(p_msg);
 			#end
 			
 			#if android
-			Sys.stdout().writeString(p_msg+"\n");
-			Sys.stdout().flush();
+			//Sys.stdout().writeString(p_msg+"\n");
+			//Sys.stdout().flush();
 			untyped __java__('
 			android.util.Log.v("TRACE", p_msg);			
 			');
@@ -185,7 +207,7 @@ class Console
 		if (m_console != null) m_console.timeEnd(p_id);
 		#else
 		if (!m_benchmarks.exists(p_id)) return;
-		var t: Float = m_benchmarks.get(p_id);
+		var t: Float32 = m_benchmarks.get(p_id);
 		m_benchmarks.remove(p_id);
 		Log(p_id + ": " + Math.floor(t * 1000.0) + "ms");
 		#end

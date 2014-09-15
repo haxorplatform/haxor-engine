@@ -10,6 +10,7 @@ import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.graphics.GL;
 import haxor.math.AABB3;
+import haxor.platform.Types.Float32;
 import haxor.platform.Types.MeshBufferId;
 
 
@@ -231,9 +232,9 @@ class Mesh extends Resource
 		if (step <= 0) return b.Set(0, 0, 0, 0, 0, 0);		
 		var i:Int = step;			
 		var f : FloatArray = cast a.data;
-		var vx : Float = step > 0 ? f.Get(0) : 0;
-		var vy : Float = step > 1 ? f.Get(1) : 0;
-		var vz : Float = step > 2 ? f.Get(2) : 0;				
+		var vx : Float32 = step > 0 ? f.Get(0) : 0;
+		var vy : Float32 = step > 1 ? f.Get(1) : 0;
+		var vz : Float32 = step > 2 ? f.Get(2) : 0;				
 		b.Set(vx, vx, vy, vy, vz, vz);
 		while (i < f.length)
 		{

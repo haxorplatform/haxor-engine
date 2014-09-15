@@ -19,6 +19,7 @@ import haxor.math.Quaternion;
 import haxor.math.Vector2;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes a Collada file. After parsing it will contain internal ColladaClasses that describes the Collada content.
@@ -480,10 +481,10 @@ class ColladaFile extends AssetXML
 				skm.bone   = mbi;				
 				var bsm : Matrix4 = cc.GetBSM();
 				
-				for (i in 0...mv.length)  { mv[i]  = bsm.Transform3x4(mv[i].clone); }
-				for (i in 0...mn.length)  { mn[i]  = bsm.Transform3x3(mn[i].clone); }
-				for (i in 0...mbn.length) { mbn[i] = bsm.Transform3x3(mbn[i].clone); }
-				for (i in 0...mtg.length) { mtg[i] = bsm.Transform3x3(mtg[i].clone); }
+				for (i in 0...mv.length)  { mv[i]  = (bsm.Transform3x4(mv[i].clone));   }
+				for (i in 0...mn.length)  { mn[i]  = (bsm.Transform3x3(mn[i].clone));  }
+				for (i in 0...mbn.length) { mbn[i] = (bsm.Transform3x3(mbn[i].clone)); }
+				for (i in 0...mtg.length) { mtg[i] = (bsm.Transform3x3(mtg[i].clone)); }
 				//*/
 			}
 		}			
@@ -579,7 +580,7 @@ class ColladaFile extends AssetXML
 			
 			l.type = ln.nodeName.toLowerCase();
 			
-			var ca : Array<Float> = [1, 1, 1, 1];
+			var ca : Array<Float32> = [1, 1, 1, 1];
 			switch(l.type)
 			{
 				case "point":			ca = _f32a(_p(ln, "color.$text", ""));					
@@ -678,8 +679,8 @@ class ColladaFile extends AssetXML
 					if (kf_time_node  == null) continue;
 					if (kf_value_node == null) continue;
 					
-					var kf_time_buffer  : Array<Float>  = _f32a(_p(kf_time_node, "float_array.$text", ""));
-					var kf_value_buffer : Array<Float>  = _f32a(_p(kf_value_node, "float_array.$text", ""));
+					var kf_time_buffer  : Array<Float32>  = _f32a(_p(kf_time_node, "float_array.$text", ""));
+					var kf_value_buffer : Array<Float32>  = _f32a(_p(kf_value_node, "float_array.$text", ""));
 					var kf_value_stride : Int 			= Std.parseInt(_p(kf_value_node, "technique_common.accessor.@stride", "0")); 
 					
 					for (j in 0...kf_time_buffer.length)
@@ -854,10 +855,10 @@ class ColladaFile extends AssetXML
 					case "joint": c.joints = StringTools.trim(StringTools.replace(_p(sn, "Name_array.$text", ""),"\n"," ")).split(" ");						
 						
 					case "inv_bind_matrix": 
-						var ml : Array<Float> = _f32a(_p(sn, "float_array.$text", ""));
+						var ml : Array<Float32> = _f32a(_p(sn, "float_array.$text", ""));
 						while (ml.length > 0) 
 						{
-							var mtx : Array<Float> = []; 
+							var mtx : Array<Float32> = []; 
 							for (i in 0...16) mtx.push(ml.shift()); 
 							c.binds.push(mtx);	
 						}					
@@ -986,17 +987,21 @@ class ColladaFile extends AssetXML
 			var pi : Xml = it.next();
 			var ci : ColladaInput = new ColladaInput();
 			var source	 : String = _a(pi, "source", "");			
-			ci.semantic	 = _a(pi, "semantic", "").toLowerCase();			
-			ci.offset	 = Std.parseInt(_a(pi, "offset", "-1"));
+			ci.semantic	 = _a(pi, "semantic", "").toLowerCase();						
+			ci.offset	 = Std.parseInt(_a(pi, "offset", "-1"));			
 			ci.set 		 = Std.parseInt(_a(pi, "set", "-1"));
 			if (ci.semantic == "joint") { l.push(ci); continue; }
-			if (ci.semantic == "vertex") source = _p(p, "vertices.input.@source", "");
+			if (ci.semantic == "vertex")
+			{				
+				source = _p(p, "vertices.input.@source", "");
+			}
 			if (source == "") continue;			
-			source = source.substr(1);			
-			var sn : Xml = _f(p, "source", "id", source);			
-			if (sn == null) continue;			
-			ci.stride = Std.int(_p(sn, "technique_common.accessor.@stride", "0"));
-			ci.values = _f32a(_p(sn, "float_array.$text", ""));			
+			source = source.substr(1);						
+			var sn : Xml = _f(p, "source", "id", source);						
+			if (sn == null) continue;						
+			var stride_str:String = _p(sn, "technique_common.accessor.@stride", "0");			
+			ci.stride = Std.parseInt(stride_str);			
+			ci.values = _f32a(_p(sn, "float_array.$text", ""));						
 			l.push(ci);
 		}
 		return l;
@@ -1009,11 +1014,13 @@ class ColladaFile extends AssetXML
 		while (l.hasNext()) TraverseStep(l.next());		
 	}
 	
-	private function _f32a(v : String) : Array<Float>
+	private function _f32a(v : String) : Array<Float32>
 	{
 		var l : Array<String> = StringTools.trim(StringTools.replace(v,"\n"," ")).split(" ");
-		var a : Array<Float> = [];
+		var a : Array<Float32> = [];
+		
 		for (i in 0...l.length) a.push(Std.parseFloat(l[i]));
+		
 		return a;
 	}
 	
@@ -1054,7 +1061,7 @@ class ColladaAssetData
 	public var creation 	: String = "";
 	public var modification	: String = "";
 	public var unitName 	: String = "";
-	public var unitValue 	: Float  = 0.0;
+	public var unitValue 	: Float32  = 0.0;
 	public var axis 		: String = "y_up";	
 	public function new() { }		
 }
@@ -1239,8 +1246,8 @@ class ColladaController
 	public var source	: String				= "";
 	public var id 		: String 				= "";	
 	public var name 	: String 				= "";
-	public var matrix	: Array<Float> 			= null;
-	public var binds	: Array< Array<Float> >	= null;
+	public var matrix	: Array<Float32> 			= null;
+	public var binds	: Array< Array<Float32> >	= null;
 	public var joints	: Array<String> 		= null;	
 	public var inputs	: Array<ColladaInput>	= null;
 	public var vcount	: Array<Int>			= null;
@@ -1339,7 +1346,7 @@ class ColladaController
 			for (j in 0...n)
 			{
 				var bi : Int   = indexes[k][bo];
-				var wv : Float = wi.values[indexes[k][wo]];
+				var wv : Float32 = wi.values[indexes[k][wo]];
 				
 				if (j == 0) { wv4.x = wv; bv4.x = bi; } else
 				if (j == 1) { wv4.y = wv; bv4.y = bi; } else
@@ -1348,7 +1355,7 @@ class ColladaController
 				k++;
 			}					
 			
-			var sum : Float = wv4.x + wv4.y +wv4.z + wv4.w;
+			var sum : Float32 = wv4.x + wv4.y +wv4.z + wv4.w;
 			sum = sum <= 0 ? 0.0 : (1.0 / sum);								
 			wv4.Scale(sum);
 			weights.push(wv4);
@@ -1391,7 +1398,7 @@ class ColladaNode
 	public var sid 		: String 				= "";	
 	public var name 	: String 				= "";
 	
-	public var matrix	: Array<Float>			= null;
+	public var matrix	: Array<Float32>			= null;
 	
 	public var scene	: ColladaVisualScene	= null;
 	public var parent	: ColladaNode		 	= null;
@@ -1510,9 +1517,9 @@ class ColladaAnimationChannel
 @:allow(haxor)
 class ColladaAnimationKeyFrame
 {
-	public var time : Float;
+	public var time : Float32;
 	
-	public var values : Array<Float>;
+	public var values : Array<Float32>;
 	
 	public function new ()
 	{
@@ -1528,9 +1535,9 @@ class ColladaLight
 	public var name 	  : String;
 	public var type 	  : String;
 	public var color 	  : Color;
-	public var radius 	  : Float;
-	public var intensity  : Float;
-	public var atten	  : Float;
+	public var radius 	  : Float32;
+	public var intensity  : Float32;
+	public var atten	  : Float32;
 	
 	public function new ()
 	{

@@ -29,30 +29,30 @@ namespace component{
 
 Void Light_obj::__construct()
 {
-HX_STACK_FRAME("haxor.component.Light","new",0x4234558b,"haxor.component.Light.new","haxor/component/Light.hx",58,0x76b66187)
+HX_STACK_FRAME("haxor.component.Light","new",0x4234558b,"haxor.component.Light.new","haxor/component/Light.hx",59,0x76b66187)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(59)
+	HX_STACK_LINE(60)
 	if (((::haxor::component::Light_obj::m_list == null()))){
-		HX_STACK_LINE(59)
+		HX_STACK_LINE(60)
 		::haxor::component::Light_obj::m_list = Array_obj< ::Dynamic >::__new();
 	}
-	HX_STACK_LINE(60)
+	HX_STACK_LINE(61)
 	if (((::haxor::component::Light_obj::m_buffer == null()))){
-		HX_STACK_LINE(60)
+		HX_STACK_LINE(61)
 		::haxor::io::FloatArray _g = ::haxor::io::FloatArray_obj::__new(((int)12 * ::haxor::component::Light_obj::max));		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(60)
+		HX_STACK_LINE(61)
 		::haxor::component::Light_obj::m_buffer = _g;
 	}
-	HX_STACK_LINE(61)
-	::haxor::component::Light_obj::m_list->push(hx::ObjectPtr<OBJ_>(this));
 	HX_STACK_LINE(62)
+	::haxor::component::Light_obj::m_list->push(hx::ObjectPtr<OBJ_>(this));
+	HX_STACK_LINE(63)
 	super::__construct(null());
-	HX_STACK_LINE(63)
-	::haxor::math::Color _g1 = ::haxor::math::Color_obj::__new((int)1,(int)1,(int)1,(int)1);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(63)
-	this->color = _g1;
 	HX_STACK_LINE(64)
+	::haxor::math::Color _g1 = ::haxor::math::Color_obj::__new((int)1,(int)1,(int)1,(int)1);		HX_STACK_VAR(_g1,"_g1");
+	HX_STACK_LINE(64)
+	this->color = _g1;
+	HX_STACK_LINE(65)
 	this->intensity = 1.0;
 }
 ;
@@ -74,11 +74,11 @@ Dynamic Light_obj::__Create(hx::DynamicArray inArgs)
 
 Void Light_obj::OnDestroy( ){
 {
-		HX_STACK_FRAME("haxor.component.Light","OnDestroy",0x2ab0fce6,"haxor.component.Light.OnDestroy","haxor/component/Light.hx",71,0x76b66187)
+		HX_STACK_FRAME("haxor.component.Light","OnDestroy",0x2ab0fce6,"haxor.component.Light.OnDestroy","haxor/component/Light.hx",72,0x76b66187)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(72)
-		this->super::OnDestroy();
 		HX_STACK_LINE(73)
+		this->super::OnDestroy();
+		HX_STACK_LINE(74)
 		::haxor::component::Light_obj::m_list->remove(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();
@@ -96,29 +96,29 @@ Array< ::Dynamic > Light_obj::list;
 Array< ::Dynamic > Light_obj::m_list;
 
 Array< ::Dynamic > Light_obj::get_list( ){
-	HX_STACK_FRAME("haxor.component.Light","get_list",0x61e3b6dc,"haxor.component.Light.get_list","haxor/component/Light.hx",36,0x76b66187)
-	HX_STACK_LINE(37)
-	Array< ::Dynamic > l = Array_obj< ::Dynamic >::__new();		HX_STACK_VAR(l,"l");
+	HX_STACK_FRAME("haxor.component.Light","get_list",0x61e3b6dc,"haxor.component.Light.get_list","haxor/component/Light.hx",37,0x76b66187)
 	HX_STACK_LINE(38)
+	Array< ::Dynamic > l = Array_obj< ::Dynamic >::__new();		HX_STACK_VAR(l,"l");
+	HX_STACK_LINE(39)
 	if (((::haxor::component::Light_obj::m_list == null()))){
-		HX_STACK_LINE(38)
+		HX_STACK_LINE(39)
 		return l;
 	}
-	HX_STACK_LINE(39)
-	int i = (int)0;		HX_STACK_VAR(i,"i");
 	HX_STACK_LINE(40)
+	int i = (int)0;		HX_STACK_VAR(i,"i");
+	HX_STACK_LINE(41)
 	while((true)){
-		HX_STACK_LINE(40)
+		HX_STACK_LINE(41)
 		if ((!(((i < ::haxor::component::Light_obj::m_list->length))))){
-			HX_STACK_LINE(40)
+			HX_STACK_LINE(41)
 			break;
 		}
-		HX_STACK_LINE(40)
+		HX_STACK_LINE(41)
 		l->push(::haxor::component::Light_obj::m_list->__get(i).StaticCast< ::haxor::component::Light >());
-		HX_STACK_LINE(40)
+		HX_STACK_LINE(41)
 		(i)++;
 	}
-	HX_STACK_LINE(41)
+	HX_STACK_LINE(42)
 	return l;
 }
 
@@ -127,7 +127,7 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Light_obj,get_list,return )
 
 Void Light_obj::SetLightData( int p_id,Float p_type,Float p_intensity,Float p_radius,Float p_atten,Float p_x,Float p_y,Float p_z,Float p_r,Float p_g,Float p_b,Float p_a){
 {
-		HX_STACK_FRAME("haxor.component.Light","SetLightData",0x26cc3fb3,"haxor.component.Light.SetLightData","haxor/component/Light.hx",92,0x76b66187)
+		HX_STACK_FRAME("haxor.component.Light","SetLightData",0x26cc3fb3,"haxor.component.Light.SetLightData","haxor/component/Light.hx",93,0x76b66187)
 		HX_STACK_ARG(p_id,"p_id")
 		HX_STACK_ARG(p_type,"p_type")
 		HX_STACK_ARG(p_intensity,"p_intensity")
@@ -140,29 +140,29 @@ Void Light_obj::SetLightData( int p_id,Float p_type,Float p_intensity,Float p_ra
 		HX_STACK_ARG(p_g,"p_g")
 		HX_STACK_ARG(p_b,"p_b")
 		HX_STACK_ARG(p_a,"p_a")
-		HX_STACK_LINE(93)
-		int pos = (p_id * (int)12);		HX_STACK_VAR(pos,"pos");
 		HX_STACK_LINE(94)
-		::haxor::component::Light_obj::m_buffer->Set(pos,p_type);
+		int pos = (p_id * (int)12);		HX_STACK_VAR(pos,"pos");
 		HX_STACK_LINE(95)
-		::haxor::component::Light_obj::m_buffer->Set((pos + (int)1),p_intensity);
+		::haxor::component::Light_obj::m_buffer->Set(pos,p_type);
 		HX_STACK_LINE(96)
-		::haxor::component::Light_obj::m_buffer->Set((pos + (int)2),p_radius);
+		::haxor::component::Light_obj::m_buffer->Set((pos + (int)1),p_intensity);
 		HX_STACK_LINE(97)
-		::haxor::component::Light_obj::m_buffer->Set((pos + (int)3),p_atten);
+		::haxor::component::Light_obj::m_buffer->Set((pos + (int)2),p_radius);
 		HX_STACK_LINE(98)
-		::haxor::component::Light_obj::m_buffer->Set((pos + (int)4),p_x);
+		::haxor::component::Light_obj::m_buffer->Set((pos + (int)3),p_atten);
 		HX_STACK_LINE(99)
-		::haxor::component::Light_obj::m_buffer->Set((pos + (int)5),p_y);
+		::haxor::component::Light_obj::m_buffer->Set((pos + (int)4),p_x);
 		HX_STACK_LINE(100)
-		::haxor::component::Light_obj::m_buffer->Set((pos + (int)6),p_z);
+		::haxor::component::Light_obj::m_buffer->Set((pos + (int)5),p_y);
 		HX_STACK_LINE(101)
-		::haxor::component::Light_obj::m_buffer->Set((pos + (int)8),p_r);
+		::haxor::component::Light_obj::m_buffer->Set((pos + (int)6),p_z);
 		HX_STACK_LINE(102)
-		::haxor::component::Light_obj::m_buffer->Set((pos + (int)9),p_g);
+		::haxor::component::Light_obj::m_buffer->Set((pos + (int)8),p_r);
 		HX_STACK_LINE(103)
-		::haxor::component::Light_obj::m_buffer->Set((pos + (int)10),p_b);
+		::haxor::component::Light_obj::m_buffer->Set((pos + (int)9),p_g);
 		HX_STACK_LINE(104)
+		::haxor::component::Light_obj::m_buffer->Set((pos + (int)10),p_b);
+		HX_STACK_LINE(105)
 		::haxor::component::Light_obj::m_buffer->Set((pos + (int)11),p_a);
 	}
 return null();

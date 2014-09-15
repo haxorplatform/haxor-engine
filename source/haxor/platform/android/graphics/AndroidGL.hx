@@ -1,5 +1,6 @@
 #if android
 package haxor.platform.android.graphics;
+import haxor.platform.Types.Float32;
 import haxor.graphics.GL;
 import haxor.graphics.GraphicContext;
 import haxor.io.Int32Array;
@@ -29,6 +30,7 @@ import android.opengl.GLES11;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import android.opengl.GLES30;
+import android.view.View;
 
 /**
  * Wrapper for all Android GLES API commands and context management.
@@ -71,18 +73,19 @@ class AndroidGL extends GraphicContext
 		untyped __java__('
 		 c = new android.opengl.GLSurfaceView(p_entry.getApplication());
 		 ');
-		
-		
 		 
 		if (c == null) { Console.Log("Graphics> Could not create GLSurfaceView."); return false; }
+		
 		
 		var w:Int=0;
 		var h:Int=0;
 		
 		untyped __java__('
 		c.setEGLContextClientVersion(cv);
-		c.setRenderer(p_entry);		
-		p_entry.setContentView(c);		
+		c.setRenderer(p_entry);				
+		p_entry.setContentView(c);	
+		
+		
 		
 		android.view.Display display = p_entry.getWindowManager().getDefaultDisplay();
 		
@@ -116,8 +119,11 @@ class AndroidGL extends GraphicContext
 	 */
 	override public function CheckExtensions():Void 
 	{
-		if (c == null) return;		
-		Console.Log("Graphics> Available Extensions.", 1);
+		if (c == null) return;	
+		
+		c.setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null);
+		
+		Console.Log("Graphics> Available Extensions. Hardware["+c.isHardwareAccelerated()+"]", 1);
 		var il : NativeArray<Int> = new NativeArray(1);
 		var fl : NativeArray<Single> = new NativeArray(1);
 		var exts : Array<String> = GLES20.glGetString(GLES20.GL_EXTENSIONS).split(" ");
@@ -167,8 +173,8 @@ class AndroidGL extends GraphicContext
 	override public /*inline*/ function DeleteBuffer(p_id:MeshBufferId):Void 											 { m_ids[0] = p_id; GLES.glDeleteBuffers(1,m_ids, 0); }
 	override public /*inline*/ function DisableVertexAttrib(p_location:Int):Void  										 { GLES.glDisableVertexAttribArray(p_location); }
 	override public /*inline*/ function EnableVertexAttrib(p_location:Int):Void 										 { GLES.glEnableVertexAttribArray(p_location); }
-	override public /*inline*/ function VertexAttrib3f(p_location:Int, p_x:Float, p_y:Float, p_z:Float):Void 			 { GLES.glVertexAttrib3f(p_location, p_x, p_y, p_z);	}
-	override public /*inline*/ function VertexAttrib4f(p_location:Int, p_x:Float, p_y:Float, p_z:Float, p_w:Float):Void  { GLES.glVertexAttrib4f(p_location, p_x, p_y, p_z, p_w);	}
+	override public /*inline*/ function VertexAttrib3f(p_location:Int, p_x:Float32, p_y:Float32, p_z:Float32):Void 			 { GLES.glVertexAttrib3f(p_location, p_x, p_y, p_z);	}
+	override public /*inline*/ function VertexAttrib4f(p_location:Int, p_x:Float32, p_y:Float32, p_z:Float32, p_w:Float32):Void  { GLES.glVertexAttrib4f(p_location, p_x, p_y, p_z, p_w);	}
 	override public /*inline*/ function VertexAttribPointer(p_location:Int, p_components_size:Int, p_type:Int, p_normalized:Bool, p_stride:Int, p_offset:Int):Void { GLES.glVertexAttribPointer(p_location, p_components_size, p_type, p_normalized, p_stride, p_offset); }
 	
 	///Shaders
@@ -214,14 +220,14 @@ class AndroidGL extends GraphicContext
 																															{ GLES.glTexImage2D(p_target, p_level, p_internal_format,p_width,p_height,p_border, p_format, p_channel_type,null); }																																
 	override public /*inline*/ function TexSubImage2D(p_target:Int, p_level:Int, p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_channel_type:Int, p_data:Buffer):Void 
 																															{ GLES.glTexSubImage2D(p_target, p_level, p_x, p_y,p_width,p_height,p_format, p_channel_type, p_data.buffer); }		
-	override public /*inline*/ function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float):Void 					{ GLES.glTexParameterf(p_target, p_parameter, p_value); }	
+	override public /*inline*/ function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float32):Void 					{ GLES.glTexParameterf(p_target, p_parameter, p_value); }	
 	override public /*inline*/ function TexParameteri(p_target:Int, p_parameter:Int, p_value:Int):Void 						{ GLES.glTexParameteri(p_target, p_parameter, p_value); }
 	
 	//Uniforms
-	override public /*inline*/ function Uniform1f(p_location:UniformLocation, p_x:Float):Void 										{ GLES.glUniform1f(p_location,cast p_x); }		
-	override public /*inline*/ function Uniform2f(p_location:UniformLocation, p_x:Float, p_y:Float):Void 							{ GLES.glUniform2f(p_location,cast p_x, cast p_y); }		
-	override public /*inline*/ function Uniform3f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float):Void 				{ GLES.glUniform3f(p_location,cast p_x, cast p_y, cast p_z); }	
-	override public /*inline*/ function Uniform4f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float, p_w:Float):Void 		{ GLES.glUniform4f(p_location,cast p_x, cast p_y, cast p_z, cast p_w); }			
+	override public /*inline*/ function Uniform1f(p_location:UniformLocation, p_x:Float32):Void 										{ GLES.glUniform1f(p_location,cast p_x); }		
+	override public /*inline*/ function Uniform2f(p_location:UniformLocation, p_x:Float32, p_y:Float32):Void 							{ GLES.glUniform2f(p_location,cast p_x, cast p_y); }		
+	override public /*inline*/ function Uniform3f(p_location:UniformLocation, p_x:Float32, p_y:Float32, p_z:Float32):Void 				{ GLES.glUniform3f(p_location,cast p_x, cast p_y, cast p_z); }	
+	override public /*inline*/ function Uniform4f(p_location:UniformLocation, p_x:Float32, p_y:Float32, p_z:Float32, p_w:Float32):Void 		{ GLES.glUniform4f(p_location,cast p_x, cast p_y, cast p_z, cast p_w); }			
 	override public /*inline*/ function Uniform1i(p_location:UniformLocation,p_x:Int):Void 											{ GLES.glUniform1i(p_location, p_x); }			
 	override public /*inline*/ function Uniform2i(p_location:UniformLocation,p_x:Int,p_y:Int):Void 									{ GLES.glUniform2i(p_location, p_x, p_y); }			
 	override public /*inline*/ function Uniform3i(p_location:UniformLocation,p_x:Int,p_y:Int,p_z:Int):Void 							{ GLES.glUniform3i(p_location, p_x, p_y, p_z); }			
@@ -249,8 +255,8 @@ class AndroidGL extends GraphicContext
 	
 	//Screen
 	override public /*inline*/ function Clear(p_flag : Int):Void 										{ GLES.glClear(p_flag);	}	
-	override public /*inline*/ function ClearDepth(p_value : Float):Void 								{ GLES.glClearDepthf(p_value); }	
-	override public /*inline*/ function ClearColor(p_r: Float, p_g:Float, p_b:Float, p_a:Float):Void 	{ GLES.glClearColor(p_r, p_g, p_b, p_a); }
+	override public /*inline*/ function ClearDepth(p_value : Float32):Void 								{ GLES.glClearDepthf(p_value); }	
+	override public /*inline*/ function ClearColor(p_r: Float32, p_g:Float32, p_b:Float32, p_a:Float32):Void 	{ GLES.glClearColor(p_r, p_g, p_b, p_a); }
 	override public /*inline*/ function Viewport(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ GLES.glViewport(p_x, p_y, p_width, p_height);	}
 	override public /*inline*/ function Scissor(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ GLES.glScissor(p_x, p_y, p_width, p_height);	}	
 	override public /*inline*/ function ReadPixels(p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_type:Int, p_pixels:Buffer):Void { GLES.glReadPixels(p_x, p_y, p_width, p_height, p_format, p_type, p_pixels.m_buffer); }

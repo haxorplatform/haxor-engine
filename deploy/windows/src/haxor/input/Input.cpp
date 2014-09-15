@@ -62,8 +62,8 @@ Array< int > Input_obj::m_active;
 ::haxor::input::InputHandler Input_obj::m_handler;
 
 Array< ::Dynamic > Input_obj::get_touches( ){
-	HX_STACK_FRAME("haxor.input.Input","get_touches",0x329207f0,"haxor.input.Input.get_touches","haxor/input/Input.hx",47,0xee96c766)
-	HX_STACK_LINE(47)
+	HX_STACK_FRAME("haxor.input.Input","get_touches",0x329207f0,"haxor.input.Input.get_touches","haxor/input/Input.hx",48,0xee96c766)
+	HX_STACK_LINE(48)
 	return ::haxor::input::Input_obj::m_touches;
 }
 
@@ -75,8 +75,8 @@ Array< ::Dynamic > Input_obj::m_touches;
 Array< ::Dynamic > Input_obj::m_api_touches;
 
 Array< ::Dynamic > Input_obj::get_joystick( ){
-	HX_STACK_FRAME("haxor.input.Input","get_joystick",0xa904b959,"haxor.input.Input.get_joystick","haxor/input/Input.hx",55,0xee96c766)
-	HX_STACK_LINE(55)
+	HX_STACK_FRAME("haxor.input.Input","get_joystick",0xa904b959,"haxor.input.Input.get_joystick","haxor/input/Input.hx",56,0xee96c766)
+	HX_STACK_LINE(56)
 	return ::haxor::input::Input_obj::m_joysticks;
 }
 
@@ -88,8 +88,8 @@ Array< ::Dynamic > Input_obj::m_joysticks;
 Array< ::Dynamic > Input_obj::m_api_joystick;
 
 bool Input_obj::get_multitouch( ){
-	HX_STACK_FRAME("haxor.input.Input","get_multitouch",0xeaa7f083,"haxor.input.Input.get_multitouch","haxor/input/Input.hx",64,0xee96c766)
-	HX_STACK_LINE(64)
+	HX_STACK_FRAME("haxor.input.Input","get_multitouch",0xeaa7f083,"haxor.input.Input.get_multitouch","haxor/input/Input.hx",65,0xee96c766)
+	HX_STACK_LINE(65)
 	return ::haxor::input::Input_obj::m_multitouch;
 }
 
@@ -113,9 +113,9 @@ bool Input_obj::menu;
 bool Input_obj::emulateTouch;
 
 ::haxor::core::InputState Input_obj::GetInputState( int p_code){
-	HX_STACK_FRAME("haxor.input.Input","GetInputState",0x48afc6a9,"haxor.input.Input.GetInputState","haxor/input/Input.hx",109,0xee96c766)
+	HX_STACK_FRAME("haxor.input.Input","GetInputState",0x48afc6a9,"haxor.input.Input.GetInputState","haxor/input/Input.hx",110,0xee96c766)
 	HX_STACK_ARG(p_code,"p_code")
-	HX_STACK_LINE(109)
+	HX_STACK_LINE(110)
 	return ::haxor::input::Input_obj::m_state->get(p_code);
 }
 
@@ -123,11 +123,11 @@ bool Input_obj::emulateTouch;
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Input_obj,GetInputState,return )
 
 bool Input_obj::Pressed( int p_code){
-	HX_STACK_FRAME("haxor.input.Input","Pressed",0x3d791e6e,"haxor.input.Input.Pressed","haxor/input/Input.hx",118,0xee96c766)
+	HX_STACK_FRAME("haxor.input.Input","Pressed",0x3d791e6e,"haxor.input.Input.Pressed","haxor/input/Input.hx",119,0xee96c766)
 	HX_STACK_ARG(p_code,"p_code")
-	HX_STACK_LINE(119)
-	::haxor::core::InputState s = ::haxor::input::Input_obj::GetInputState(p_code);		HX_STACK_VAR(s,"s");
 	HX_STACK_LINE(120)
+	::haxor::core::InputState s = ::haxor::input::Input_obj::GetInputState(p_code);		HX_STACK_VAR(s,"s");
+	HX_STACK_LINE(121)
 	return (bool((s == ::haxor::core::InputState_obj::Down)) || bool((s == ::haxor::core::InputState_obj::Hold)));
 }
 
@@ -135,11 +135,11 @@ bool Input_obj::Pressed( int p_code){
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Input_obj,Pressed,return )
 
 bool Input_obj::Down( int p_code){
-	HX_STACK_FRAME("haxor.input.Input","Down",0xbbbf9516,"haxor.input.Input.Down","haxor/input/Input.hx",129,0xee96c766)
+	HX_STACK_FRAME("haxor.input.Input","Down",0xbbbf9516,"haxor.input.Input.Down","haxor/input/Input.hx",130,0xee96c766)
 	HX_STACK_ARG(p_code,"p_code")
-	HX_STACK_LINE(130)
-	::haxor::core::InputState s = ::haxor::input::Input_obj::GetInputState(p_code);		HX_STACK_VAR(s,"s");
 	HX_STACK_LINE(131)
+	::haxor::core::InputState s = ::haxor::input::Input_obj::GetInputState(p_code);		HX_STACK_VAR(s,"s");
+	HX_STACK_LINE(132)
 	return (s == ::haxor::core::InputState_obj::Down);
 }
 
@@ -147,11 +147,11 @@ bool Input_obj::Down( int p_code){
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Input_obj,Down,return )
 
 bool Input_obj::Hit( int p_code){
-	HX_STACK_FRAME("haxor.input.Input","Hit",0x4dc4bc1f,"haxor.input.Input.Hit","haxor/input/Input.hx",140,0xee96c766)
+	HX_STACK_FRAME("haxor.input.Input","Hit",0x4dc4bc1f,"haxor.input.Input.Hit","haxor/input/Input.hx",141,0xee96c766)
 	HX_STACK_ARG(p_code,"p_code")
-	HX_STACK_LINE(141)
-	::haxor::core::InputState s = ::haxor::input::Input_obj::GetInputState(p_code);		HX_STACK_VAR(s,"s");
 	HX_STACK_LINE(142)
+	::haxor::core::InputState s = ::haxor::input::Input_obj::GetInputState(p_code);		HX_STACK_VAR(s,"s");
+	HX_STACK_LINE(143)
 	return (s == ::haxor::core::InputState_obj::Up);
 }
 
@@ -159,9 +159,9 @@ bool Input_obj::Hit( int p_code){
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Input_obj,Hit,return )
 
 Float Input_obj::GetHoldTime( int p_code){
-	HX_STACK_FRAME("haxor.input.Input","GetHoldTime",0x1c85b16e,"haxor.input.Input.GetHoldTime","haxor/input/Input.hx",150,0xee96c766)
+	HX_STACK_FRAME("haxor.input.Input","GetHoldTime",0x1c85b16e,"haxor.input.Input.GetHoldTime","haxor/input/Input.hx",151,0xee96c766)
 	HX_STACK_ARG(p_code,"p_code")
-	HX_STACK_LINE(150)
+	HX_STACK_LINE(151)
 	return ::haxor::input::Input_obj::m_hold->get(p_code);
 }
 
@@ -170,103 +170,103 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(Input_obj,GetHoldTime,return )
 
 Void Input_obj::Initialize( ){
 {
-		HX_STACK_FRAME("haxor.input.Input","Initialize",0x0a414d04,"haxor.input.Input.Initialize","haxor/input/Input.hx",157,0xee96c766)
-		HX_STACK_LINE(158)
+		HX_STACK_FRAME("haxor.input.Input","Initialize",0x0a414d04,"haxor.input.Input.Initialize","haxor/input/Input.hx",158,0xee96c766)
+		HX_STACK_LINE(159)
 		::haxe::ds::IntMap _g = ::haxe::ds::IntMap_obj::__new();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(158)
+		HX_STACK_LINE(159)
 		::haxor::input::Input_obj::m_state = _g;
-		HX_STACK_LINE(159)
+		HX_STACK_LINE(160)
 		::haxe::ds::IntMap _g1 = ::haxe::ds::IntMap_obj::__new();		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(159)
+		HX_STACK_LINE(160)
 		::haxor::input::Input_obj::m_hold = _g1;
-		HX_STACK_LINE(160)
+		HX_STACK_LINE(161)
 		Array< int > _g2 = Array_obj< int >::__new();		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(160)
+		HX_STACK_LINE(161)
 		::haxor::input::Input_obj::m_active = _g2;
-		HX_STACK_LINE(161)
+		HX_STACK_LINE(162)
 		Array< bool > _g3 = Array_obj< bool >::__new();		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(161)
+		HX_STACK_LINE(162)
 		::haxor::input::Input_obj::m_down = _g3;
-		HX_STACK_LINE(163)
-		::haxor::input::Input_obj::m_touches = Array_obj< ::Dynamic >::__new();
 		HX_STACK_LINE(164)
+		::haxor::input::Input_obj::m_touches = Array_obj< ::Dynamic >::__new();
+		HX_STACK_LINE(165)
 		::haxor::input::Input_obj::m_api_touches = Array_obj< ::Dynamic >::__new();
-		HX_STACK_LINE(166)
+		HX_STACK_LINE(167)
 		{
-			HX_STACK_LINE(166)
+			HX_STACK_LINE(167)
 			int _g4 = (int)0;		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(166)
+			HX_STACK_LINE(167)
 			while((true)){
-				HX_STACK_LINE(166)
+				HX_STACK_LINE(167)
 				if ((!(((_g4 < (int)10))))){
-					HX_STACK_LINE(166)
+					HX_STACK_LINE(167)
 					break;
 				}
-				HX_STACK_LINE(166)
+				HX_STACK_LINE(167)
 				int i = (_g4)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(168)
+				HX_STACK_LINE(169)
 				::haxor::input::Touch _g41 = ::haxor::input::Touch_obj::__new();		HX_STACK_VAR(_g41,"_g41");
-				HX_STACK_LINE(168)
+				HX_STACK_LINE(169)
 				::haxor::input::Input_obj::m_api_touches->push(_g41);
 			}
 		}
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		{
-			HX_STACK_LINE(171)
+			HX_STACK_LINE(172)
 			int _g4 = (int)0;		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(171)
+			HX_STACK_LINE(172)
 			while((true)){
-				HX_STACK_LINE(171)
+				HX_STACK_LINE(172)
 				if ((!(((_g4 < (int)256))))){
-					HX_STACK_LINE(171)
+					HX_STACK_LINE(172)
 					break;
 				}
-				HX_STACK_LINE(171)
+				HX_STACK_LINE(172)
 				int i = (_g4)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(173)
-				::haxor::input::Input_obj::m_state->set(i,::haxor::core::InputState_obj::None);
 				HX_STACK_LINE(174)
-				::haxor::input::Input_obj::m_hold->set(i,(int)0);
+				::haxor::input::Input_obj::m_state->set(i,::haxor::core::InputState_obj::None);
 				HX_STACK_LINE(175)
+				::haxor::input::Input_obj::m_hold->set(i,(int)0);
+				HX_STACK_LINE(176)
 				::haxor::input::Input_obj::m_down->push(false);
 			}
 		}
-		HX_STACK_LINE(178)
-		::haxor::input::Input_obj::m_joysticks = Array_obj< ::Dynamic >::__new();
 		HX_STACK_LINE(179)
-		::haxor::input::Input_obj::m_api_joystick = Array_obj< ::Dynamic >::__new();
+		::haxor::input::Input_obj::m_joysticks = Array_obj< ::Dynamic >::__new();
 		HX_STACK_LINE(180)
+		::haxor::input::Input_obj::m_api_joystick = Array_obj< ::Dynamic >::__new();
+		HX_STACK_LINE(181)
 		{
-			HX_STACK_LINE(180)
+			HX_STACK_LINE(181)
 			int _g4 = (int)0;		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(180)
+			HX_STACK_LINE(181)
 			while((true)){
-				HX_STACK_LINE(180)
+				HX_STACK_LINE(181)
 				if ((!(((_g4 < (int)10))))){
-					HX_STACK_LINE(180)
+					HX_STACK_LINE(181)
 					break;
 				}
-				HX_STACK_LINE(180)
+				HX_STACK_LINE(181)
 				int i = (_g4)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(182)
+				HX_STACK_LINE(183)
 				::haxor::input::Joystick _g5 = ::haxor::input::Joystick_obj::__new();		HX_STACK_VAR(_g5,"_g5");
-				HX_STACK_LINE(182)
+				HX_STACK_LINE(183)
 				::haxor::input::Input_obj::m_api_joystick->push(_g5);
 			}
 		}
-		HX_STACK_LINE(185)
+		HX_STACK_LINE(186)
 		::haxor::math::Vector2 _g6 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(185)
+		HX_STACK_LINE(186)
 		::haxor::input::Input_obj::mouse = _g6;
-		HX_STACK_LINE(186)
+		HX_STACK_LINE(187)
 		::haxor::math::Vector2 _g7 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g7,"_g7");
-		HX_STACK_LINE(186)
+		HX_STACK_LINE(187)
 		::haxor::input::Input_obj::deltaMouse = _g7;
-		HX_STACK_LINE(187)
+		HX_STACK_LINE(188)
 		::haxor::math::Vector2 _g8 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g8,"_g8");
-		HX_STACK_LINE(187)
+		HX_STACK_LINE(188)
 		::haxor::input::Input_obj::relativeMouse = _g8;
-		HX_STACK_LINE(189)
+		HX_STACK_LINE(190)
 		::haxor::core::Console_obj::Log(HX_CSTRING("Haxor> Input Initialize"),(int)4);
 	}
 return null();
@@ -277,21 +277,21 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Input_obj,Initialize,(void))
 
 Void Input_obj::UpdateTouchFSM( ){
 {
-		HX_STACK_FRAME("haxor.input.Input","UpdateTouchFSM",0x038468de,"haxor.input.Input.UpdateTouchFSM","haxor/input/Input.hx",197,0xee96c766)
-		HX_STACK_LINE(197)
+		HX_STACK_FRAME("haxor.input.Input","UpdateTouchFSM",0x038468de,"haxor.input.Input.UpdateTouchFSM","haxor/input/Input.hx",198,0xee96c766)
+		HX_STACK_LINE(198)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(197)
+		HX_STACK_LINE(198)
 		int _g = ::haxor::input::Input_obj::m_touches->length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(197)
+		HX_STACK_LINE(198)
 		while((true)){
-			HX_STACK_LINE(197)
+			HX_STACK_LINE(198)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(197)
+				HX_STACK_LINE(198)
 				break;
 			}
-			HX_STACK_LINE(197)
+			HX_STACK_LINE(198)
 			int j = (_g1)++;		HX_STACK_VAR(j,"j");
-			HX_STACK_LINE(197)
+			HX_STACK_LINE(198)
 			::haxor::input::Input_obj::TouchFSM(::haxor::input::Input_obj::m_touches->__get(j).StaticCast< ::haxor::input::Touch >());
 		}
 	}
@@ -303,21 +303,21 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Input_obj,UpdateTouchFSM,(void))
 
 Void Input_obj::UpdateInput( ){
 {
-		HX_STACK_FRAME("haxor.input.Input","UpdateInput",0x5b884f0d,"haxor.input.Input.UpdateInput","haxor/input/Input.hx",203,0xee96c766)
-		HX_STACK_LINE(203)
+		HX_STACK_FRAME("haxor.input.Input","UpdateInput",0x5b884f0d,"haxor.input.Input.UpdateInput","haxor/input/Input.hx",204,0xee96c766)
+		HX_STACK_LINE(204)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(203)
+		HX_STACK_LINE(204)
 		int _g = ::haxor::input::Input_obj::m_active->length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(203)
+		HX_STACK_LINE(204)
 		while((true)){
-			HX_STACK_LINE(203)
+			HX_STACK_LINE(204)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(203)
+				HX_STACK_LINE(204)
 				break;
 			}
-			HX_STACK_LINE(203)
+			HX_STACK_LINE(204)
 			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(203)
+			HX_STACK_LINE(204)
 			::haxor::input::Input_obj::UpdateInputState(::haxor::input::Input_obj::m_active->__get(i),::haxor::input::Input_obj::m_down->__get(::haxor::input::Input_obj::m_active->__get(i)),null());
 		}
 	}
@@ -329,30 +329,30 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Input_obj,UpdateInput,(void))
 
 Void Input_obj::TouchFSM( ::haxor::input::Touch t){
 {
-		HX_STACK_FRAME("haxor.input.Input","TouchFSM",0x1c7a76b5,"haxor.input.Input.TouchFSM","haxor/input/Input.hx",210,0xee96c766)
+		HX_STACK_FRAME("haxor.input.Input","TouchFSM",0x1c7a76b5,"haxor.input.Input.TouchFSM","haxor/input/Input.hx",211,0xee96c766)
 		HX_STACK_ARG(t,"t")
-		HX_STACK_LINE(211)
+		HX_STACK_LINE(212)
 		if (((t == null()))){
-			HX_STACK_LINE(211)
+			HX_STACK_LINE(212)
 			return null();
 		}
-		HX_STACK_LINE(212)
-		::haxor::core::InputState current = t->state;		HX_STACK_VAR(current,"current");
 		HX_STACK_LINE(213)
-		bool d = t->m_down;		HX_STACK_VAR(d,"d");
+		::haxor::core::InputState current = t->state;		HX_STACK_VAR(current,"current");
 		HX_STACK_LINE(214)
+		bool d = t->m_down;		HX_STACK_VAR(d,"d");
+		HX_STACK_LINE(215)
 		if (((current == ::haxor::core::InputState_obj::Up))){
-			HX_STACK_LINE(214)
+			HX_STACK_LINE(215)
 			::haxor::input::Input_obj::m_touches->remove(t);
 		}
-		HX_STACK_LINE(215)
+		HX_STACK_LINE(216)
 		if (((current == ::haxor::core::InputState_obj::Hold))){
-			HX_STACK_LINE(215)
+			HX_STACK_LINE(216)
 			hx::AddEq(t->hold,::haxor::core::Time_obj::m_delta);
 		}
-		HX_STACK_LINE(216)
+		HX_STACK_LINE(217)
 		::haxor::core::InputState _g = ::haxor::input::Input_obj::InputStateFSM(current,d);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(216)
+		HX_STACK_LINE(217)
 		t->state = _g;
 	}
 return null();
@@ -363,63 +363,63 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(Input_obj,TouchFSM,(void))
 
 Void Input_obj::UpdateInputState( int p_code,bool p_is_down,hx::Null< bool >  __o_p_update_state){
 bool p_update_state = __o_p_update_state.Default(true);
-	HX_STACK_FRAME("haxor.input.Input","UpdateInputState",0x52d5e7c4,"haxor.input.Input.UpdateInputState","haxor/input/Input.hx",225,0xee96c766)
+	HX_STACK_FRAME("haxor.input.Input","UpdateInputState",0x52d5e7c4,"haxor.input.Input.UpdateInputState","haxor/input/Input.hx",226,0xee96c766)
 	HX_STACK_ARG(p_code,"p_code")
 	HX_STACK_ARG(p_is_down,"p_is_down")
 	HX_STACK_ARG(p_update_state,"p_update_state")
 {
-		HX_STACK_LINE(226)
-		::haxor::core::InputState current = ::haxor::input::Input_obj::m_state->get(p_code);		HX_STACK_VAR(current,"current");
 		HX_STACK_LINE(227)
+		::haxor::core::InputState current = ::haxor::input::Input_obj::m_state->get(p_code);		HX_STACK_VAR(current,"current");
+		HX_STACK_LINE(228)
 		if (((current == null()))){
-			HX_STACK_LINE(227)
+			HX_STACK_LINE(228)
 			current = ::haxor::core::InputState_obj::None;
 		}
-		HX_STACK_LINE(228)
-		::haxor::core::InputState next = current;		HX_STACK_VAR(next,"next");
 		HX_STACK_LINE(229)
-		bool d0 = ::haxor::input::Input_obj::m_down->__get(p_code);		HX_STACK_VAR(d0,"d0");
+		::haxor::core::InputState next = current;		HX_STACK_VAR(next,"next");
 		HX_STACK_LINE(230)
+		bool d0 = ::haxor::input::Input_obj::m_down->__get(p_code);		HX_STACK_VAR(d0,"d0");
+		HX_STACK_LINE(231)
 		bool d = ::haxor::input::Input_obj::m_down[p_code] = p_is_down;		HX_STACK_VAR(d,"d");
-		HX_STACK_LINE(232)
+		HX_STACK_LINE(233)
 		if ((!(d0))){
-			HX_STACK_LINE(232)
+			HX_STACK_LINE(233)
 			if ((d)){
-				HX_STACK_LINE(232)
+				HX_STACK_LINE(233)
 				::haxor::input::Input_obj::m_active->push(p_code);
 			}
 		}
-		HX_STACK_LINE(233)
+		HX_STACK_LINE(234)
 		if ((!(d))){
-			HX_STACK_LINE(233)
+			HX_STACK_LINE(234)
 			if ((d0)){
-				HX_STACK_LINE(233)
+				HX_STACK_LINE(234)
 				return null();
 			}
 		}
-		HX_STACK_LINE(235)
+		HX_STACK_LINE(236)
 		if ((p_update_state)){
-			HX_STACK_LINE(237)
+			HX_STACK_LINE(238)
 			if (((current == ::haxor::core::InputState_obj::Up))){
-				HX_STACK_LINE(239)
-				::haxor::input::Input_obj::m_hold->set(p_code,(int)0);
 				HX_STACK_LINE(240)
+				::haxor::input::Input_obj::m_hold->set(p_code,(int)0);
+				HX_STACK_LINE(241)
 				::haxor::input::Input_obj::m_active->remove(p_code);
 			}
-			HX_STACK_LINE(243)
+			HX_STACK_LINE(244)
 			if (((current == ::haxor::core::InputState_obj::Hold))){
-				HX_STACK_LINE(245)
-				Float h = ::haxor::input::Input_obj::m_hold->get(p_code);		HX_STACK_VAR(h,"h");
 				HX_STACK_LINE(246)
+				Float h = ::haxor::input::Input_obj::m_hold->get(p_code);		HX_STACK_VAR(h,"h");
+				HX_STACK_LINE(247)
 				::haxor::input::Input_obj::m_hold->set(p_code,(h + ::haxor::core::Time_obj::m_delta));
 			}
-			HX_STACK_LINE(249)
+			HX_STACK_LINE(250)
 			::haxor::core::InputState _g = ::haxor::input::Input_obj::InputStateFSM(current,d);		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(249)
+			HX_STACK_LINE(250)
 			next = _g;
-			HX_STACK_LINE(251)
+			HX_STACK_LINE(252)
 			if (((current != next))){
-				HX_STACK_LINE(251)
+				HX_STACK_LINE(252)
 				::haxor::input::Input_obj::m_state->set(p_code,next);
 			}
 		}
@@ -431,50 +431,50 @@ return null();
 STATIC_HX_DEFINE_DYNAMIC_FUNC3(Input_obj,UpdateInputState,(void))
 
 ::haxor::core::InputState Input_obj::InputStateFSM( ::haxor::core::InputState p_current,bool p_is_down){
-	HX_STACK_FRAME("haxor.input.Input","InputStateFSM",0xd80d17e5,"haxor.input.Input.InputStateFSM","haxor/input/Input.hx",262,0xee96c766)
+	HX_STACK_FRAME("haxor.input.Input","InputStateFSM",0xd80d17e5,"haxor.input.Input.InputStateFSM","haxor/input/Input.hx",263,0xee96c766)
 	HX_STACK_ARG(p_current,"p_current")
 	HX_STACK_ARG(p_is_down,"p_is_down")
-	HX_STACK_LINE(263)
-	::haxor::core::InputState current = p_current;		HX_STACK_VAR(current,"current");
 	HX_STACK_LINE(264)
-	::haxor::core::InputState next = current;		HX_STACK_VAR(next,"next");
+	::haxor::core::InputState current = p_current;		HX_STACK_VAR(current,"current");
 	HX_STACK_LINE(265)
-	bool d = p_is_down;		HX_STACK_VAR(d,"d");
+	::haxor::core::InputState next = current;		HX_STACK_VAR(next,"next");
 	HX_STACK_LINE(266)
+	bool d = p_is_down;		HX_STACK_VAR(d,"d");
+	HX_STACK_LINE(267)
 	switch( (int)(current->__Index())){
 		case (int)0: {
-			HX_STACK_LINE(269)
+			HX_STACK_LINE(270)
 			if ((d)){
-				HX_STACK_LINE(269)
+				HX_STACK_LINE(270)
 				next = ::haxor::core::InputState_obj::Down;
 			}
 		}
 		;break;
 		case (int)1: {
-			HX_STACK_LINE(271)
+			HX_STACK_LINE(272)
 			if ((!(d))){
-				HX_STACK_LINE(271)
+				HX_STACK_LINE(272)
 				next = ::haxor::core::InputState_obj::Up;
 			}
-			HX_STACK_LINE(272)
+			HX_STACK_LINE(273)
 			next = ::haxor::core::InputState_obj::Hold;
 		}
 		;break;
 		case (int)2: {
-			HX_STACK_LINE(275)
+			HX_STACK_LINE(276)
 			next = ::haxor::core::InputState_obj::None;
 		}
 		;break;
 		case (int)3: {
-			HX_STACK_LINE(278)
+			HX_STACK_LINE(279)
 			if ((!(d))){
-				HX_STACK_LINE(278)
+				HX_STACK_LINE(279)
 				next = ::haxor::core::InputState_obj::Up;
 			}
 		}
 		;break;
 	}
-	HX_STACK_LINE(280)
+	HX_STACK_LINE(281)
 	return next;
 }
 

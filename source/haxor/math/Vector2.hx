@@ -1,5 +1,6 @@
 package haxor.math;
 import haxor.context.EngineContext;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that represents a 2 float tuple.
@@ -43,7 +44,7 @@ class Vector2
 	 * @param	p_b
 	 * @return
 	 */
-	static public inline function Dot(p_a : Vector2, p_b : Vector2) : Float { return ((p_a.x * p_b.x) + (p_a.y * p_b.y)); }
+	static public inline function Dot(p_a : Vector2, p_b : Vector2) : Float32 { return ((p_a.x * p_b.x) + (p_a.y * p_b.y)); }
 	
 	/**
 	 * Linear interpolates 2 vectors.
@@ -52,7 +53,7 @@ class Vector2
 	 * @param	p_r
 	 * @return
 	 */
-	static public function Lerp(p_a : Vector2, p_b : Vector2, p_r:Float):Vector2
+	static public function Lerp(p_a : Vector2, p_b : Vector2, p_r:Float32):Vector2
 	{
 		return new Vector2(
 		p_a.x + (p_b.x - p_a.x) * p_r,
@@ -79,14 +80,14 @@ class Vector2
 	/**
 	 * Returns the length of the vector.
 	 */
-	public var length(get_length, null) : Float;	
-	private inline function get_length():Float { return Math.sqrt(x * x + y * y); }
+	public var length(get_length, null) : Float32;	
+	private inline function get_length():Float32{ return Math.sqrt(x * x + y * y); }
 	
 	/**
 	 * Returns the squared length.
 	 */
-	public var lengthSqr(get_lengthSqr, null) : Float;	
-	private inline function get_lengthSqr():Float { return (x * x + y * y); }
+	public var lengthSqr(get_lengthSqr, null) : Float32;	
+	private inline function get_lengthSqr():Float32{ return (x * x + y * y); }
 	
 	/**
 	 * Returns a copy of this vector, normalized.
@@ -103,19 +104,19 @@ class Vector2
 	/**
 	 * X coordinate.
 	 */
-	public var x:Float;	
+	public var x:Float32;	
 	
 	/**
 	 * Y coordinate.
 	 */
-	public var y:Float;
+	public var y:Float32;
 	
 	/**
 	 * Creates a new Vector2 with the informed coordinates.
 	 * @param	p_x
 	 * @param	p_y
 	 */
-	public function new(p_x:Float=0,p_y:Float=0) 
+	public function new(p_x:Float32=0,p_y:Float32=0) 
 	{
 		x = p_x;
 		y = p_y;
@@ -128,7 +129,7 @@ class Vector2
 	 * @param	p_z
 	 * @return
 	 */
-	public function Set(p_x:Float = 0, p_y:Float = 0):Vector2 { x = p_x; y = p_y; return this; }
+	public function Set(p_x:Float32= 0, p_y:Float32= 0):Vector2 { x = p_x; y = p_y; return this; }
 	
 	/**
 	 * Sets all components of this vector using other vector as template. Returns its own reference.
@@ -156,7 +157,7 @@ class Vector2
 	 * @param	p
 	 * @return
 	 */
-	public function Get(p : Int):Float { return p == 0 ? x : y; }
+	public function Get(p : Int):Float32{ return p == 0 ? x : y; }
 	
 	/**
 	 * Adds this vector with another one, component-wise. Returns its own reference.
@@ -184,7 +185,7 @@ class Vector2
 	 * @param	p_s
 	 * @return
 	 */
-	public function Scale(p_s : Float):Vector2 { x *= p_s; y *= p_s; return this; }
+	public function Scale(p_s : Float32):Vector2 { x *= p_s; y *= p_s; return this; }
 	
 	/**
 	 * Moves this point towards the target using the specified step. If this point reaches target it returns true, otherwise returns false.
@@ -192,13 +193,13 @@ class Vector2
 	 * @param	p_step
 	 * @return
 	 */
-	public function Step(p_to : Vector2, p_step : Float):Bool
+	public function Step(p_to : Vector2, p_step : Float32):Bool
 	{
-		var vx : Float = p_to.x - x;
-		var vy : Float = p_to.y - y;		
-		var l : Float = Math.sqrt(vx * vx + vy * vy);
+		var vx : Float32 = p_to.x - x;
+		var vy : Float32 = p_to.y - y;		
+		var l : Float32 = Math.sqrt(vx * vx + vy * vy);
 		if (l <= Mathf.Epsilon) return false;
-		var s : Float = p_step > l ? l : p_step;
+		var s : Float32 = p_step > l ? l : p_step;
 		l = s / l;		
 		vx *= l;
 		vy *= l;		
@@ -214,7 +215,7 @@ class Vector2
 	 */
 	public function Reflect(p_normal:Vector2):Vector2
 	{
-		var d : Float = Math.min(0.0,Dot(p_normal, this)) * 2.0;		
+		var d : Float32 = Math.min(0.0,Dot(p_normal, this)) * 2.0;		
 		x += -p_normal.x * d;
 		y += -p_normal.y * d;		
 		return this;
@@ -232,7 +233,7 @@ class Vector2
 	 */
 	public function Normalize():Vector2
 	{
-		var l:Float = length;
+		var l:Float32= length;
 		if (l <= 0) return this;
 		x *= (l = 1.0 / l);
 		y *= l;		
@@ -240,10 +241,10 @@ class Vector2
 	}
 	
 	/**
-	 * Returns this Vector2 as Array<Float>.
+	 * Returns this Vector2 as Array<Float32>.
 	 * @return
 	 */
-	public function ToArray() : Array<Float> { return [x,y]; }
+	public function ToArray() : Array<Float32> { return [x,y]; }
 	
 	/**
 	 * Returns the String form of this vector.

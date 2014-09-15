@@ -321,13 +321,10 @@ Void Engine_obj::RenderCameraLayer( int l,::haxor::component::Camera c){
 				int j = (_g1)++;		HX_STACK_VAR(j,"j");
 				HX_STACK_LINE(146)
 				::haxor::component::Renderer r = renderers->list->__GetItem(j);		HX_STACK_VAR(r,"r");
-				HX_STACK_LINE(147)
-				if ((::haxor::component::Camera_obj::sap)){
+				HX_STACK_LINE(148)
+				if ((::haxor::context::EngineContext_obj::renderer->IsSAPCulled(r,c))){
 					HX_STACK_LINE(148)
-					if ((::haxor::context::EngineContext_obj::renderer->IsSAPCulled(r,c))){
-						HX_STACK_LINE(148)
-						continue;
-					}
+					continue;
 				}
 				HX_STACK_LINE(151)
 				::haxor::core::Engine_obj::RenderRenderer(r);

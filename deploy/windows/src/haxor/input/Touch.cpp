@@ -17,36 +17,36 @@ namespace input{
 
 Void Touch_obj::__construct()
 {
-HX_STACK_FRAME("haxor.input.Touch","new",0x4c236081,"haxor.input.Touch.new","haxor/input/Touch.hx",63,0x27faf2d1)
+HX_STACK_FRAME("haxor.input.Touch","new",0x4c236081,"haxor.input.Touch.new","haxor/input/Touch.hx",64,0x27faf2d1)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(64)
-	this->state = ::haxor::core::InputState_obj::None;
 	HX_STACK_LINE(65)
+	this->state = ::haxor::core::InputState_obj::None;
+	HX_STACK_LINE(66)
 	this->id = (int)-1;
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(67)
 	::haxor::math::Vector2 _g = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(67)
 	this->position = _g;
-	HX_STACK_LINE(67)
+	HX_STACK_LINE(68)
 	::haxor::math::Vector2 _g1 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(67)
+	HX_STACK_LINE(68)
 	this->delta = _g1;
-	HX_STACK_LINE(68)
-	::haxor::math::Vector2 _g2 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(68)
-	this->relativePosition = _g2;
 	HX_STACK_LINE(69)
-	this->pressure = (int)0;
+	::haxor::math::Vector2 _g2 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g2,"_g2");
+	HX_STACK_LINE(69)
+	this->relativePosition = _g2;
 	HX_STACK_LINE(70)
-	this->hold = (int)0;
+	this->pressure = (int)0;
 	HX_STACK_LINE(71)
+	this->hold = (int)0;
+	HX_STACK_LINE(72)
 	this->angle = (int)0;
-	HX_STACK_LINE(72)
-	::haxor::math::Vector2 _g3 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(72)
-	this->radius = _g3;
 	HX_STACK_LINE(73)
+	::haxor::math::Vector2 _g3 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g3,"_g3");
+	HX_STACK_LINE(73)
+	this->radius = _g3;
+	HX_STACK_LINE(74)
 	this->m_down = false;
 }
 ;
@@ -67,19 +67,19 @@ Dynamic Touch_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::String Touch_obj::ToString( ){
-	HX_STACK_FRAME("haxor.input.Touch","ToString",0x2dade50b,"haxor.input.Touch.ToString","haxor/input/Touch.hx",81,0x27faf2d1)
+	HX_STACK_FRAME("haxor.input.Touch","ToString",0x2dade50b,"haxor.input.Touch.ToString","haxor/input/Touch.hx",82,0x27faf2d1)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(82)
+	HX_STACK_LINE(83)
 	::String _g = this->position->ToString((int)2);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(82)
+	HX_STACK_LINE(83)
 	::String _g1 = (((HX_CSTRING("id[") + this->id) + HX_CSTRING("] pos")) + _g);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(82)
+	HX_STACK_LINE(83)
 	::String _g2 = (_g1 + HX_CSTRING("["));		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(82)
+	HX_STACK_LINE(83)
 	::String _g3 = ::Std_obj::string(this->state);		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(82)
+	HX_STACK_LINE(83)
 	::String _g4 = (_g2 + _g3);		HX_STACK_VAR(_g4,"_g4");
-	HX_STACK_LINE(82)
+	HX_STACK_LINE(83)
 	return (_g4 + HX_CSTRING("]"));
 }
 

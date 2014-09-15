@@ -6,7 +6,9 @@ import haxor.core.Enums.ClearFlag;
 import haxor.graphics.material.Material;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.GL;
+import haxor.graphics.texture.Texture;
 import haxor.math.AABB2;
+import haxor.math.Color;
 import haxor.math.Mathf;
 
 /**
@@ -82,6 +84,27 @@ class Graphics
 		EngineContext.material.Bind(p_material,p_transform,p_camera);
 		EngineContext.mesh.Bind(p_mesh);
 		EngineContext.mesh.Draw(p_mesh);
+	}
+	
+	/**
+	 * Render a texture quad in the screen.
+	 * @param	p_texture
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_width
+	 * @param	p_height
+	 * @param	p_color
+	 */
+	static public function DrawTexture(p_texture : Texture, p_x:Float = 0.0, p_y:Float = 0.0, p_width:Float = 256, p_height:Float = 256, p_color:Color = null):Void
+	{
+		if (p_texture == null) return;
+		var mat : Material = EngineContext.gizmo.texture_material;
+		mat.SetFloat2("Screen", Screen.width, Screen.height);
+		mat.SetFloat4("Rect", p_x, p_y, p_width, p_height);
+		mat.SetTexture("Texture", p_texture);
+		var c : Color = p_color == null ? Color.temp.Set(1, 1, 1, 1) : p_color;
+		mat.SetColor("Tint", c);		
+		Render(EngineContext.gizmo.texture, mat);
 	}
 	
 }

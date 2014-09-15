@@ -21,11 +21,11 @@ namespace file{
 
 Void AssetFile_obj::__construct(::String p_name)
 {
-HX_STACK_FRAME("haxor.io.file.AssetFile","new",0x9fd51248,"haxor.io.file.AssetFile.new","haxor/io/file/AssetFile.hx",23,0xfd53a109)
+HX_STACK_FRAME("haxor.io.file.AssetFile","new",0x9fd51248,"haxor.io.file.AssetFile.new","haxor/io/file/AssetFile.hx",24,0xfd53a109)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_name,"p_name")
 {
-	HX_STACK_LINE(23)
+	HX_STACK_LINE(24)
 	super::__construct(p_name);
 }
 ;
@@ -46,9 +46,9 @@ Dynamic AssetFile_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 Dynamic AssetFile_obj::get_asset( ){
-	HX_STACK_FRAME("haxor.io.file.AssetFile","get_asset",0xc2be662f,"haxor.io.file.AssetFile.get_asset","haxor/io/file/AssetFile.hx",15,0xfd53a109)
+	HX_STACK_FRAME("haxor.io.file.AssetFile","get_asset",0xc2be662f,"haxor.io.file.AssetFile.get_asset","haxor/io/file/AssetFile.hx",16,0xfd53a109)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(15)
+	HX_STACK_LINE(16)
 	return null();
 }
 
@@ -57,39 +57,39 @@ HX_DEFINE_DYNAMIC_FUNC0(AssetFile_obj,get_asset,return )
 
 Array< Float > AssetFile_obj::stof32a( ::String v,::String __o_sep){
 ::String sep = __o_sep.Default(HX_CSTRING(" "));
-	HX_STACK_FRAME("haxor.io.file.AssetFile","stof32a",0xd1438fd2,"haxor.io.file.AssetFile.stof32a","haxor/io/file/AssetFile.hx",33,0xfd53a109)
+	HX_STACK_FRAME("haxor.io.file.AssetFile","stof32a",0xd1438fd2,"haxor.io.file.AssetFile.stof32a","haxor/io/file/AssetFile.hx",34,0xfd53a109)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
 	HX_STACK_ARG(sep,"sep")
 {
-		HX_STACK_LINE(34)
-		::String _g = ::StringTools_obj::replace(v,HX_CSTRING("\n"),HX_CSTRING(" "));		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(34)
-		Array< ::String > l = ::StringTools_obj::trim(_g).split(sep);		HX_STACK_VAR(l,"l");
 		HX_STACK_LINE(35)
-		Array< Float > a = Array_obj< Float >::__new();		HX_STACK_VAR(a,"a");
+		::String _g = ::StringTools_obj::replace(v,HX_CSTRING("\n"),HX_CSTRING(" "));		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(35)
+		Array< ::String > l = ::StringTools_obj::trim(_g).split(sep);		HX_STACK_VAR(l,"l");
 		HX_STACK_LINE(36)
+		Array< Float > a = Array_obj< Float >::__new();		HX_STACK_VAR(a,"a");
+		HX_STACK_LINE(37)
 		{
-			HX_STACK_LINE(36)
+			HX_STACK_LINE(37)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(36)
+			HX_STACK_LINE(37)
 			int _g2 = l->length;		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(36)
+			HX_STACK_LINE(37)
 			while((true)){
-				HX_STACK_LINE(36)
+				HX_STACK_LINE(37)
 				if ((!(((_g1 < _g2))))){
-					HX_STACK_LINE(36)
+					HX_STACK_LINE(37)
 					break;
 				}
-				HX_STACK_LINE(36)
+				HX_STACK_LINE(37)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(36)
+				HX_STACK_LINE(37)
 				Float _g11 = ::Std_obj::parseFloat(l->__get(i));		HX_STACK_VAR(_g11,"_g11");
-				HX_STACK_LINE(36)
+				HX_STACK_LINE(37)
 				a->push(_g11);
 			}
 		}
-		HX_STACK_LINE(37)
+		HX_STACK_LINE(38)
 		return a;
 	}
 }
@@ -99,39 +99,39 @@ HX_DEFINE_DYNAMIC_FUNC2(AssetFile_obj,stof32a,return )
 
 Array< int > AssetFile_obj::stoi16a( ::String v,::String __o_sep){
 ::String sep = __o_sep.Default(HX_CSTRING(" "));
-	HX_STACK_FRAME("haxor.io.file.AssetFile","stoi16a",0xd33db2a9,"haxor.io.file.AssetFile.stoi16a","haxor/io/file/AssetFile.hx",47,0xfd53a109)
+	HX_STACK_FRAME("haxor.io.file.AssetFile","stoi16a",0xd33db2a9,"haxor.io.file.AssetFile.stoi16a","haxor/io/file/AssetFile.hx",48,0xfd53a109)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
 	HX_STACK_ARG(sep,"sep")
 {
-		HX_STACK_LINE(48)
-		::String _g = ::StringTools_obj::replace(v,HX_CSTRING("\n"),HX_CSTRING(" "));		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(48)
-		Array< ::String > l = ::StringTools_obj::trim(_g).split(sep);		HX_STACK_VAR(l,"l");
 		HX_STACK_LINE(49)
-		Array< int > a = Array_obj< int >::__new();		HX_STACK_VAR(a,"a");
+		::String _g = ::StringTools_obj::replace(v,HX_CSTRING("\n"),HX_CSTRING(" "));		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(49)
+		Array< ::String > l = ::StringTools_obj::trim(_g).split(sep);		HX_STACK_VAR(l,"l");
 		HX_STACK_LINE(50)
+		Array< int > a = Array_obj< int >::__new();		HX_STACK_VAR(a,"a");
+		HX_STACK_LINE(51)
 		{
-			HX_STACK_LINE(50)
+			HX_STACK_LINE(51)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(50)
+			HX_STACK_LINE(51)
 			int _g2 = l->length;		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(50)
+			HX_STACK_LINE(51)
 			while((true)){
-				HX_STACK_LINE(50)
+				HX_STACK_LINE(51)
 				if ((!(((_g1 < _g2))))){
-					HX_STACK_LINE(50)
+					HX_STACK_LINE(51)
 					break;
 				}
-				HX_STACK_LINE(50)
+				HX_STACK_LINE(51)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(50)
+				HX_STACK_LINE(51)
 				Dynamic _g11 = ::Std_obj::parseInt(l->__get(i));		HX_STACK_VAR(_g11,"_g11");
-				HX_STACK_LINE(50)
+				HX_STACK_LINE(51)
 				a->push(_g11);
 			}
 		}
-		HX_STACK_LINE(51)
+		HX_STACK_LINE(52)
 		return a;
 	}
 }
@@ -141,60 +141,60 @@ HX_DEFINE_DYNAMIC_FUNC2(AssetFile_obj,stoi16a,return )
 
 Array< ::Dynamic > AssetFile_obj::stoi16ta( ::String v,int s,::String __o_sep){
 ::String sep = __o_sep.Default(HX_CSTRING(" "));
-	HX_STACK_FRAME("haxor.io.file.AssetFile","stoi16ta",0x02beb225,"haxor.io.file.AssetFile.stoi16ta","haxor/io/file/AssetFile.hx",62,0xfd53a109)
+	HX_STACK_FRAME("haxor.io.file.AssetFile","stoi16ta",0x02beb225,"haxor.io.file.AssetFile.stoi16ta","haxor/io/file/AssetFile.hx",63,0xfd53a109)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
 	HX_STACK_ARG(s,"s")
 	HX_STACK_ARG(sep,"sep")
 {
-		HX_STACK_LINE(63)
-		::String _g = ::StringTools_obj::replace(v,HX_CSTRING("\n"),HX_CSTRING(" "));		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(63)
-		Array< ::String > l = ::StringTools_obj::trim(_g).split(sep);		HX_STACK_VAR(l,"l");
 		HX_STACK_LINE(64)
-		::String tl = HX_CSTRING("");		HX_STACK_VAR(tl,"tl");
+		::String _g = ::StringTools_obj::replace(v,HX_CSTRING("\n"),HX_CSTRING(" "));		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(64)
+		Array< ::String > l = ::StringTools_obj::trim(_g).split(sep);		HX_STACK_VAR(l,"l");
 		HX_STACK_LINE(65)
-		Array< ::Dynamic > a = Array_obj< ::Dynamic >::__new();		HX_STACK_VAR(a,"a");
+		::String tl = HX_CSTRING("");		HX_STACK_VAR(tl,"tl");
 		HX_STACK_LINE(66)
-		Array< int > bf;		HX_STACK_VAR(bf,"bf");
+		Array< ::Dynamic > a = Array_obj< ::Dynamic >::__new();		HX_STACK_VAR(a,"a");
 		HX_STACK_LINE(67)
+		Array< int > bf;		HX_STACK_VAR(bf,"bf");
+		HX_STACK_LINE(68)
 		int k = (int)0;		HX_STACK_VAR(k,"k");
-		HX_STACK_LINE(69)
+		HX_STACK_LINE(70)
 		while((true)){
-			HX_STACK_LINE(69)
+			HX_STACK_LINE(70)
 			if ((!(((k < l->length))))){
-				HX_STACK_LINE(69)
+				HX_STACK_LINE(70)
 				break;
 			}
-			HX_STACK_LINE(71)
-			bf = Array_obj< int >::__new();
 			HX_STACK_LINE(72)
+			bf = Array_obj< int >::__new();
+			HX_STACK_LINE(73)
 			{
-				HX_STACK_LINE(72)
+				HX_STACK_LINE(73)
 				int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(72)
+				HX_STACK_LINE(73)
 				while((true)){
-					HX_STACK_LINE(72)
+					HX_STACK_LINE(73)
 					if ((!(((_g1 < s))))){
-						HX_STACK_LINE(72)
+						HX_STACK_LINE(73)
 						break;
 					}
-					HX_STACK_LINE(72)
+					HX_STACK_LINE(73)
 					int j = (_g1)++;		HX_STACK_VAR(j,"j");
-					HX_STACK_LINE(72)
+					HX_STACK_LINE(73)
 					int _g11 = (k)++;		HX_STACK_VAR(_g11,"_g11");
-					HX_STACK_LINE(72)
+					HX_STACK_LINE(73)
 					::String _g2 = l->__get(_g11);		HX_STACK_VAR(_g2,"_g2");
-					HX_STACK_LINE(72)
+					HX_STACK_LINE(73)
 					Dynamic _g3 = ::Std_obj::parseInt(_g2);		HX_STACK_VAR(_g3,"_g3");
-					HX_STACK_LINE(72)
+					HX_STACK_LINE(73)
 					bf->push(_g3);
 				}
 			}
-			HX_STACK_LINE(73)
+			HX_STACK_LINE(74)
 			a->push(bf);
 		}
-		HX_STACK_LINE(75)
+		HX_STACK_LINE(76)
 		return a;
 	}
 }

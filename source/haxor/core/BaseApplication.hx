@@ -6,6 +6,7 @@ import haxor.component.Component;
 import haxor.graphics.Screen;
 import haxor.graphics.GL;
 import haxor.input.Input;
+import haxor.platform.Types.Float32;
 
 
 #if html
@@ -100,14 +101,18 @@ class BaseApplication extends Behaviour
 	private function set_fps(v:Int):Int 
 	{
 		m_fps = v;
-		var f : Float = cast v;		
-		//clock precision adjustment for html/android platform. if bigger than 60fps don't need to control time.
+		var f : Float32 = cast v;		
 		
+		//clock precision adjustment for html/android platform. if bigger than 60fps don't need to control time.		
 		#if (html||android)
 		if (f >= 60.0) f = 1000000.0;
 		#end
 		
-		#if android
+		#if windows
+		f += 5.0;
+		#end
+		
+		#if (android)
 		f *= 1.35;
 		#end
 		
@@ -121,7 +126,7 @@ class BaseApplication extends Behaviour
 	/**
 	 * Milliseconds per frame.
 	 */
-	private var m_mspf : Float;
+	private var m_mspf : Float32;
 	
 	/**
 	 * Frames per second.
@@ -131,7 +136,7 @@ class BaseApplication extends Behaviour
 	/**
 	 * Time to next frame;
 	 */
-	private var m_frame_ms : Float;
+	private var m_frame_ms : Float32;
 	
 	/**
 	 * Platform this application is currently running.
@@ -214,7 +219,6 @@ class BaseApplication extends Behaviour
 	 */
 	private function Update():Void 
 	{	
-		
 		Time.Update();
 		Input.m_handler.Update();
 		CheckResize();		
@@ -239,10 +243,17 @@ class BaseApplication extends Behaviour
 		if ((Time.m_clock - m_frame_ms) >= m_mspf)
 		{	
 			m_frame_ms += (Time.m_clock - m_frame_ms);			
-			Time.Render();			
-			GL.Focus();					
+			Time.Render();
+			
+			#if !ie8
+			GL.Focus();		
+			#end
+			
 			Engine.Render();						
-			GL.Flush();			
+			
+			#if !ie8
+			GL.Flush();		
+			#end
 		}		
 		
 	}
@@ -282,7 +293,9 @@ class BaseApplication extends Behaviour
 	private function OnResize():Void 
 	{
 		Console.Log("Application> Resize [" + Screen.m_width + "," + Screen.m_height + "]", 6);
+		#if !ie8
 		GL.Resize();
+		#end
 		Engine.Resize();
 	}
 	
@@ -319,18 +332,18 @@ class BaseApplication extends Behaviour
 	 * @param	p_x
 	 * @param	p_y
 	 */
-	private function OnMousePosition(p_x:Float,p_y:Float):Void { }
+	private function OnMousePosition(p_x:Float32,p_y:Float32):Void { }
 	
 	/**
 	 * Returns the application container (Element, OSWindow, ...) width
 	 * @return
 	 */
-	private function GetContainerWidth():Float { return 0.0; }
+	private function GetContainerWidth():Float32{ return 0.0; }
 	
 	/**
 	 * Returns the application container (Element, OSWindow, ...) height
 	 * @return
 	 */
-	private function GetContainerHeight():Float { return 0.0; }
+	private function GetContainerHeight():Float32{ return 0.0; }
 	
 }

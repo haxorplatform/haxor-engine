@@ -3,6 +3,7 @@ import haxor.core.Console;
 import haxor.core.Enums.InputState;
 import haxor.core.Time;
 import haxor.math.Vector2;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that holds Input information for the application. It includes keyboard, mouse, touch and gamepad realtime data.
@@ -82,7 +83,7 @@ class Input
 	/**
 	 * Mouse wheel delta.
 	 */
-	static public var wheel : Float;
+	static public var wheel : Float32;
 	
 	/**
 	 * Flag that tells if page scrolling is enabled (html-only)
@@ -147,7 +148,7 @@ class Input
 	 * @param	p_code
 	 * @return
 	 */
-	static public function GetHoldTime(p_code : Int) : Float { return m_hold.get(p_code); }
+	static public function GetHoldTime(p_code : Int) : Float32 { return m_hold.get(p_code); }
 	
 	/**
 	 * Initializes the Input class.
@@ -242,7 +243,7 @@ class Input
 			
 			if (current == InputState.Hold)
 			{
-				var h:Float = m_hold.get(p_code);
+				var h:Float32= m_hold.get(p_code);
 				m_hold.set(p_code, h + Time.delta);
 			}
 			

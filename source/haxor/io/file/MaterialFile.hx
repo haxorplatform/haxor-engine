@@ -9,6 +9,7 @@ import haxor.math.Matrix4;
 import haxor.math.Vector2;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes a MaterialFile.
@@ -167,7 +168,7 @@ class MaterialFile extends AssetXML
 		for (i in 0...uniforms.length)
 		{
 			var u : MaterialFileUniform = uniforms[i];			
-			var a    : Array<Float> = stof32a(u.value);
+			var a    : Array<Float32> = stof32a(u.value);
 			switch(u.type)
 			{				
 				case "int":		m.SetInt(u.name, Std.parseInt(u.value));				

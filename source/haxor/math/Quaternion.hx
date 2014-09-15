@@ -1,6 +1,7 @@
 package haxor.math;
 import haxor.context.DataContext;
 import haxor.context.EngineContext;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that represents a rotation quaternion.
@@ -31,7 +32,7 @@ class Quaternion
 		var r : Quaternion = p_result == null ? (new Quaternion()) : p_result;
 		var c : Vector3 = Vector3.temp;
 		var s : Vector3 = Vector3.temp;
-		var k : Float = 0.5 * Mathf.Deg2Rad;
+		var k : Float32 = 0.5 * Mathf.Deg2Rad;
 		var e : Vector3 = Vector3.temp.Set(p_euler.x*k,p_euler.y*k,p_euler.z*k);
 		c.Set(Math.cos(e.x), Math.cos(e.y), Math.cos(e.z));
 		s.Set(Math.sin(e.x), Math.sin(e.y), Math.sin(e.z));		
@@ -54,7 +55,7 @@ class Quaternion
 	{
 		var q : Quaternion = p_quaternion;
 		var r : Vector3 = p_result == null ? (new Vector3()) : p_result;		
-		var test : Float = (q.x * q.y) + (q.z * q.w);		
+		var test : Float32 = (q.x * q.y) + (q.z * q.w);		
 		if (test > 0.499) 
 		{ // singularity at north pole
 			r.y = 2 * Math.atan2(q.x,q.w) * Mathf.Rad2Deg;
@@ -70,9 +71,9 @@ class Quaternion
 			return r;
 		}
 		//*/
-		var sqx : Float = q.x * q.x;		
-		var sqy : Float = q.y * q.y;		
-		var sqz : Float = q.z * q.z;		
+		var sqx : Float32 = q.x * q.x;		
+		var sqy : Float32 = q.y * q.y;		
+		var sqz : Float32 = q.z * q.z;		
 		r.y  = Math.atan2(2.0 * q.y * q.w - 2.0 * q.x * q.z, 1.0 - 2.0 * sqy - 2.0 * sqz) * Mathf.Rad2Deg;
 		r.z  = Math.asin (2.0 * test) * Mathf.Rad2Deg;
 		r.x  = Math.atan2(2.0 * q.x * q.w - 2.0 * q.y * q.z , 1.0 - 2.0 * sqx - 2.0 * sqz) * Mathf.Rad2Deg;
@@ -89,17 +90,17 @@ class Quaternion
 	{
 		var r : Quaternion = p_result == null ? (new Quaternion()) : p_result;
 		var v : Matrix4 = p_matrix;
-		var fourXSquaredMinus1 : Float = v.m00 - v.m11 - v.m22;
-		var fourYSquaredMinus1 : Float = v.m11 - v.m00 - v.m22;
-		var fourZSquaredMinus1 : Float = v.m22 - v.m00 - v.m11;
-		var fourWSquaredMinus1 : Float = v.m00 + v.m11 + v.m22;
+		var fourXSquaredMinus1 : Float32 = v.m00 - v.m11 - v.m22;
+		var fourYSquaredMinus1 : Float32 = v.m11 - v.m00 - v.m22;
+		var fourZSquaredMinus1 : Float32 = v.m22 - v.m00 - v.m11;
+		var fourWSquaredMinus1 : Float32 = v.m00 + v.m11 + v.m22;
 		var biggestIndex 			 : Int = 0;
-		var fourBiggestSquaredMinus1 : Float = fourWSquaredMinus1;		
+		var fourBiggestSquaredMinus1 : Float32 = fourWSquaredMinus1;		
 		if(fourXSquaredMinus1 > fourBiggestSquaredMinus1) { fourBiggestSquaredMinus1 = fourXSquaredMinus1; biggestIndex = 1; }
 		if(fourYSquaredMinus1 > fourBiggestSquaredMinus1) {	fourBiggestSquaredMinus1 = fourYSquaredMinus1; biggestIndex = 2; }
 		if(fourZSquaredMinus1 > fourBiggestSquaredMinus1) {	fourBiggestSquaredMinus1 = fourZSquaredMinus1; biggestIndex = 3; }
-		var biggestVal 	: Float = Math.sqrt(fourBiggestSquaredMinus1 + 1.0) * 0.5;
-		var mult 		: Float = 0.25 / biggestVal;
+		var biggestVal 	: Float32 = Math.sqrt(fourBiggestSquaredMinus1 + 1.0) * 0.5;
+		var mult 		: Float32 = 0.25 / biggestVal;
 		switch(biggestIndex)
 		{
 			case 0:	r.w = biggestVal;	r.x = (v.m21 - v.m12) * mult;	r.y = (v.m02 - v.m20) * mult;	r.z = (v.m10 - v.m01) * mult;			
@@ -116,7 +117,7 @@ class Quaternion
 	 * @param	p_b
 	 * @return
 	 */
-	static public inline function Dot(p_a : Quaternion, p_b : Quaternion) : Float { return ((p_a.x * p_b.x) + (p_a.y * p_b.y) + (p_a.z * p_b.z) + (p_a.w * p_b.w)); }
+	static public inline function Dot(p_a : Quaternion, p_b : Quaternion) : Float32 { return ((p_a.x * p_b.x) + (p_a.y * p_b.y) + (p_a.z * p_b.z) + (p_a.w * p_b.w)); }
 	
 	/**
 	 * Returns the quaternion that rotates from A to B.
@@ -139,7 +140,7 @@ class Quaternion
 	 */
 	static public function Inverse(p_q : Quaternion,p_result:Quaternion=null):Quaternion
 	{
-		var d : Float = Dot(p_q, p_q);
+		var d : Float32 = Dot(p_q, p_q);
 		d = d <= 0.0 ? 0.0 : (1.0 / d);
 		var r : Quaternion = p_result == null ? (new Quaternion()) : p_result;
 		return r.Set( -p_q.x * d, -p_q.y*d, -p_q.z*d, p_q.w*d);
@@ -152,11 +153,11 @@ class Quaternion
 	 * @param	p_ratio
 	 * @return
 	 */
-	static public function Lerp(p_a:Quaternion, p_b : Quaternion, p_ratio : Float,p_result:Quaternion=null):Quaternion
+	static public function Lerp(p_a:Quaternion, p_b : Quaternion, p_ratio : Float32,p_result:Quaternion=null):Quaternion
 	{
 		var c:Quaternion    = p_result == null ? new Quaternion() : p_result;
 		var ca : Quaternion = p_a.clone;
-		var dot : Float = Quaternion.Dot(p_a,p_b);
+		var dot : Float32 = Quaternion.Dot(p_a,p_b);
 		if (dot < 0.0) 
 		{
 			ca.w = -ca.w;
@@ -179,7 +180,7 @@ class Quaternion
 	 * @param	p_ratio
 	 * @return
 	 */
-	static public function Slerp(p_a:Quaternion, p_b:Quaternion, p_ratio:Float):Quaternion
+	static public function Slerp(p_a:Quaternion, p_b:Quaternion, p_ratio:Float32):Quaternion
 	{
 		/*
 		//Faster Slerp
@@ -194,7 +195,7 @@ class Quaternion
 		// quaternion to return
 		var qm : Quaternion = new Quaternion();		
 		var z : Quaternion = Quaternion.temp.SetQuaternion(p_b);
-		var cosTheta : Float = Dot(p_a, p_b);		
+		var cosTheta : Float32 = Dot(p_a, p_b);		
 		// If cosTheta < 0, the interpolation will take the long way around the sphere. 
 		// To fix this, one quat must be negated.
 		if (cosTheta < 0.0)
@@ -216,10 +217,10 @@ class Quaternion
 		else
 		{
 			// Essential Mathematics, page 467
-			var angle : Float = Math.acos(cosTheta);
-			var s  : Float = 1.0/Math.sin(angle);
-			var s0 : Float = Math.sin((1.0 - p_ratio) * angle);
-			var s1 : Float = Math.sin(p_ratio * angle);
+			var angle : Float32 = Math.acos(cosTheta);
+			var s  : Float32 = 1.0/Math.sin(angle);
+			var s0 : Float32 = Math.sin((1.0 - p_ratio) * angle);
+			var s1 : Float32 = Math.sin(p_ratio * angle);
 			qm.x = ((s0 * p_a.x) + (s1 * z.x)) * s;
 			qm.y = ((s0 * p_a.y) + (s1 * z.y)) * s;
 			qm.z = ((s0 * p_a.z) + (s1 * z.z)) * s;
@@ -234,12 +235,12 @@ class Quaternion
 	 * @param	p_angle
 	 * @return
 	 */
-	static public function FromAxisAngle(p_axis : Vector3, p_angle : Float) : Quaternion	
+	static public function FromAxisAngle(p_axis : Vector3, p_angle : Float32) : Quaternion	
 	{		
 		p_angle = p_angle * 0.5 * Mathf.Deg2Rad;
-		var l:Float = p_axis.length;
+		var l:Float32= p_axis.length;
 		if (Mathf.Abs(l - 1.0) > Mathf.Epsilon) p_axis.Normalize();
-		var s:Float = Mathf.Sin(p_angle);		
+		var s:Float32= Mathf.Sin(p_angle);		
 		return (new Quaternion(p_axis.x * s, p_axis.y * s, p_axis.z * s, Mathf.Cos(p_angle)));
 	}
 	
@@ -292,8 +293,8 @@ class Quaternion
 	/**
 	 * Returns the length of this quaternion.
 	 */
-	public var length(get_length, null) : Float;	
-	private inline function get_length():Float { return Math.sqrt(x * x + y * y + z * z + w * w); }	
+	public var length(get_length, null) : Float32;	
+	private inline function get_length():Float32{ return Math.sqrt(x * x + y * y + z * z + w * w); }	
 	
 	/**
 	 * Returns a copy of this quaternion normalized.
@@ -304,22 +305,22 @@ class Quaternion
 	/**
 	 * X component.
 	 */
-	public var x:Float;
+	public var x:Float32;
 	
 	/**
 	 * Y component.
 	 */
-	public var y:Float;
+	public var y:Float32;
 	
 	/**
 	 * Z component.
 	 */
-	public var z:Float;
+	public var z:Float32;
 	
 	/**
 	 * W component.
 	 */
-	public var w:Float;
+	public var w:Float32;
 	
 	/**
 	 * Creates a new Quaternion.
@@ -328,7 +329,7 @@ class Quaternion
 	 * @param	p_z
 	 * @param	p_w
 	 */
-	public function new(p_x:Float=0,p_y:Float=0,p_z:Float=0,p_w:Float=1.0) 
+	public function new(p_x:Float32=0,p_y:Float32=0,p_z:Float32=0,p_w:Float32=1.0) 
 	{
 		x = p_x; y = p_y; z = p_z; w = p_w; 
 	}
@@ -341,7 +342,7 @@ class Quaternion
 	 * @param	p_w
 	 * @return
 	 */
-	public function Set(p_x:Float = 0, p_y:Float = 0, p_z:Float = 0, p_w:Float = 1.0):Quaternion { x = p_x; y = p_y; z = p_z; w = p_w; return this; }
+	public function Set(p_x:Float32= 0, p_y:Float32= 0, p_z:Float32= 0, p_w:Float32= 1.0):Quaternion { x = p_x; y = p_y; z = p_z; w = p_w; return this; }
 	
 	/**
 	 * Sets all components with the template Quaternion. Returns its own reference.
@@ -356,7 +357,7 @@ class Quaternion
 	 */
 	public function Normalize():Quaternion
 	{
-		var l:Float = length;
+		var l:Float32= length;
 		if (l <= 0)
 		{
 			x = y = z = 0.0; w = 1.0;
@@ -392,7 +393,7 @@ class Quaternion
 	 * @param	p_v
 	 * @return
 	 */
-	public function Scale(p_v:Float):Quaternion { x *= p_v; y *= p_v; z *= p_v; w *= p_v; return this; }
+	public function Scale(p_v:Float32):Quaternion { x *= p_v; y *= p_v; z *= p_v; w *= p_v; return this; }
 	
 	/**
 	 * Multiplies the informed quaternion to this instance. Returns its own reference.
@@ -402,10 +403,10 @@ class Quaternion
 	 */
 	public function Multiply(p_v:Quaternion,p_normalize:Bool=false):Quaternion
 	{
-		var vx:Float = (w * p_v.x) + (x * p_v.w) + (y * p_v.z) - (z * p_v.y);
-		var vy:Float = (w * p_v.y) + (y * p_v.w) + (z * p_v.x) - (x * p_v.z);
-		var vz:Float = (w * p_v.z) + (z * p_v.w) + (x * p_v.y) - (y * p_v.x);
-		var vw:Float = (w * p_v.w) - (x * p_v.x) - (y * p_v.y) - (z * p_v.z);   				
+		var vx:Float32= (w * p_v.x) + (x * p_v.w) + (y * p_v.z) - (z * p_v.y);
+		var vy:Float32= (w * p_v.y) + (y * p_v.w) + (z * p_v.x) - (x * p_v.z);
+		var vz:Float32= (w * p_v.z) + (z * p_v.w) + (x * p_v.y) - (y * p_v.x);
+		var vw:Float32= (w * p_v.w) - (x * p_v.x) - (y * p_v.y) - (z * p_v.z);   				
 		x = vx; y = vy;	z = vz; w = vw;				
 		return p_normalize ? Normalize() : this;
 	}
@@ -417,8 +418,8 @@ class Quaternion
 	 */
 	public function Transform(p_v:Vector3):Vector3
 	{
-		var l : Float = Math.sqrt(p_v.x * p_v.x + p_v.y * p_v.y + p_v.z * p_v.z);
-		var nl : Float = l<=0.0 ? 0.0 : (1.0 / l);
+		var l : Float32 = Math.sqrt(p_v.x * p_v.x + p_v.y * p_v.y + p_v.z * p_v.z);
+		var nl : Float32 = l<=0.0 ? 0.0 : (1.0 / l);
 		p_v.x *= nl;
 		p_v.y *= nl;
 		p_v.z *= nl;
@@ -445,20 +446,20 @@ class Quaternion
 	 * @param	p_angle
 	 * @return
 	 */
-	public function SetAxisAngle(p_axis : Vector3, p_angle : Float):Quaternion
+	public function SetAxisAngle(p_axis : Vector3, p_angle : Float32):Quaternion
 	{
 		p_angle = p_angle * 0.5 * Mathf.Deg2Rad;
-		var l:Float = p_axis.length;
+		var l:Float32= p_axis.length;
 		if (Mathf.Abs(l - 1.0) > Mathf.Epsilon) p_axis.Normalize();
-		var s:Float = Mathf.Sin(p_angle);		
+		var s:Float32= Mathf.Sin(p_angle);		
 		return Set(p_axis.x * s, p_axis.y * s, p_axis.z * s, Mathf.Cos(p_angle));		
 	}
 	
 	/**
-	 * Converts this vector to an Array<Float>
+	 * Converts this vector to an Array<Float32>
 	 * @return
 	 */
-	public function ToArray() : Array<Float> { return [x, y, z, w]; }
+	public function ToArray() : Array<Float32> { return [x, y, z, w]; }
 	
 	/**
 	 * Returns the String form of this vector.

@@ -29,38 +29,38 @@ namespace input{
 
 Void Joystick_obj::__construct()
 {
-HX_STACK_FRAME("haxor.input.Joystick","new",0x36a0c55e,"haxor.input.Joystick.new","haxor/input/Joystick.hx",98,0x86e4ec50)
+HX_STACK_FRAME("haxor.input.Joystick","new",0x36a0c55e,"haxor.input.Joystick.new","haxor/input/Joystick.hx",99,0x86e4ec50)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(99)
+	HX_STACK_LINE(100)
 	::haxor::core::InputState st = ::haxor::core::InputState_obj::None;		HX_STACK_VAR(st,"st");
-	HX_STACK_LINE(101)
-	this->name = HX_CSTRING("");
 	HX_STACK_LINE(102)
-	this->id = (int)-1;
+	this->name = HX_CSTRING("");
 	HX_STACK_LINE(103)
-	this->button = Array_obj< Float >::__new().Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0);
+	this->id = (int)-1;
 	HX_STACK_LINE(104)
-	this->state = Array_obj< ::Dynamic >::__new().Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st);
+	this->button = Array_obj< Float >::__new().Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0);
 	HX_STACK_LINE(105)
-	this->hold = Array_obj< Float >::__new().Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0);
+	this->state = Array_obj< ::Dynamic >::__new().Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st).Add(st);
 	HX_STACK_LINE(106)
+	this->hold = Array_obj< Float >::__new().Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0);
+	HX_STACK_LINE(107)
 	this->analog = Array_obj< Float >::__new().Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0);
-	HX_STACK_LINE(107)
+	HX_STACK_LINE(108)
 	::haxor::math::Vector3 _g = ::haxor::math::Vector3_obj::__new(null(),null(),null());		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(107)
+	HX_STACK_LINE(108)
 	this->analogLeft = _g;
-	HX_STACK_LINE(108)
-	::haxor::math::Vector3 _g1 = ::haxor::math::Vector3_obj::__new(null(),null(),null());		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(108)
-	this->analogRight = _g1;
 	HX_STACK_LINE(109)
-	this->triggerLeft = 0.0;
+	::haxor::math::Vector3 _g1 = ::haxor::math::Vector3_obj::__new(null(),null(),null());		HX_STACK_VAR(_g1,"_g1");
+	HX_STACK_LINE(109)
+	this->analogRight = _g1;
 	HX_STACK_LINE(110)
-	this->triggerRight = 0.0;
+	this->triggerLeft = 0.0;
 	HX_STACK_LINE(111)
-	this->m_vibrationLeft = 0.0;
+	this->triggerRight = 0.0;
 	HX_STACK_LINE(112)
+	this->m_vibrationLeft = 0.0;
+	HX_STACK_LINE(113)
 	this->m_vibrationRight = 0.0;
 }
 ;
@@ -81,9 +81,9 @@ Dynamic Joystick_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 Float Joystick_obj::get_vibrationLeft( ){
-	HX_STACK_FRAME("haxor.input.Joystick","get_vibrationLeft",0xb511060e,"haxor.input.Joystick.get_vibrationLeft","haxor/input/Joystick.hx",82,0x86e4ec50)
+	HX_STACK_FRAME("haxor.input.Joystick","get_vibrationLeft",0xb511060e,"haxor.input.Joystick.get_vibrationLeft","haxor/input/Joystick.hx",83,0x86e4ec50)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(82)
+	HX_STACK_LINE(83)
 	return this->m_vibrationLeft;
 }
 
@@ -91,31 +91,31 @@ Float Joystick_obj::get_vibrationLeft( ){
 HX_DEFINE_DYNAMIC_FUNC0(Joystick_obj,get_vibrationLeft,return )
 
 Float Joystick_obj::set_vibrationLeft( Float v){
-	HX_STACK_FRAME("haxor.input.Joystick","set_vibrationLeft",0xd87ede1a,"haxor.input.Joystick.set_vibrationLeft","haxor/input/Joystick.hx",83,0x86e4ec50)
+	HX_STACK_FRAME("haxor.input.Joystick","set_vibrationLeft",0xd87ede1a,"haxor.input.Joystick.set_vibrationLeft","haxor/input/Joystick.hx",84,0x86e4ec50)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
 	struct _Function_1_1{
 		inline static Float Block( hx::ObjectPtr< ::haxor::input::Joystick_obj > __this,Float &v){
-			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/input/Joystick.hx",83,0x86e4ec50)
+			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/input/Joystick.hx",84,0x86e4ec50)
 			{
-				HX_STACK_LINE(83)
+				HX_STACK_LINE(84)
 				Float p_a = (__this->m_vibrationLeft - v);		HX_STACK_VAR(p_a,"p_a");
-				HX_STACK_LINE(83)
+				HX_STACK_LINE(84)
 				return (  (((p_a < (int)0))) ? Float(-(p_a)) : Float(p_a) );
 			}
 			return null();
 		}
 	};
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(84)
 	if (((_Function_1_1::Block(this,v) <= 0.0))){
-		HX_STACK_LINE(83)
+		HX_STACK_LINE(84)
 		return v;
 	}
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(84)
 	this->m_vibrationLeft = v;
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(84)
 	::haxor::input::Input_obj::m_handler->RequestJoystickVibration(hx::ObjectPtr<OBJ_>(this));
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(84)
 	return v;
 }
 
@@ -123,9 +123,9 @@ Float Joystick_obj::set_vibrationLeft( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(Joystick_obj,set_vibrationLeft,return )
 
 Float Joystick_obj::get_vibrationRight( ){
-	HX_STACK_FRAME("haxor.input.Joystick","get_vibrationRight",0x30e153f5,"haxor.input.Joystick.get_vibrationRight","haxor/input/Joystick.hx",90,0x86e4ec50)
+	HX_STACK_FRAME("haxor.input.Joystick","get_vibrationRight",0x30e153f5,"haxor.input.Joystick.get_vibrationRight","haxor/input/Joystick.hx",91,0x86e4ec50)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(90)
+	HX_STACK_LINE(91)
 	return this->m_vibrationRight;
 }
 
@@ -133,31 +133,31 @@ Float Joystick_obj::get_vibrationRight( ){
 HX_DEFINE_DYNAMIC_FUNC0(Joystick_obj,get_vibrationRight,return )
 
 Float Joystick_obj::set_vibrationRight( Float v){
-	HX_STACK_FRAME("haxor.input.Joystick","set_vibrationRight",0x0d908669,"haxor.input.Joystick.set_vibrationRight","haxor/input/Joystick.hx",91,0x86e4ec50)
+	HX_STACK_FRAME("haxor.input.Joystick","set_vibrationRight",0x0d908669,"haxor.input.Joystick.set_vibrationRight","haxor/input/Joystick.hx",92,0x86e4ec50)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
 	struct _Function_1_1{
 		inline static Float Block( hx::ObjectPtr< ::haxor::input::Joystick_obj > __this,Float &v){
-			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/input/Joystick.hx",91,0x86e4ec50)
+			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/input/Joystick.hx",92,0x86e4ec50)
 			{
-				HX_STACK_LINE(91)
+				HX_STACK_LINE(92)
 				Float p_a = (__this->m_vibrationRight - v);		HX_STACK_VAR(p_a,"p_a");
-				HX_STACK_LINE(91)
+				HX_STACK_LINE(92)
 				return (  (((p_a < (int)0))) ? Float(-(p_a)) : Float(p_a) );
 			}
 			return null();
 		}
 	};
-	HX_STACK_LINE(91)
+	HX_STACK_LINE(92)
 	if (((_Function_1_1::Block(this,v) <= 0.0))){
-		HX_STACK_LINE(91)
+		HX_STACK_LINE(92)
 		return v;
 	}
-	HX_STACK_LINE(91)
+	HX_STACK_LINE(92)
 	this->m_vibrationRight = v;
-	HX_STACK_LINE(91)
+	HX_STACK_LINE(92)
 	::haxor::input::Input_obj::m_handler->RequestJoystickVibration(hx::ObjectPtr<OBJ_>(this));
-	HX_STACK_LINE(91)
+	HX_STACK_LINE(92)
 	return v;
 }
 
@@ -165,10 +165,10 @@ Float Joystick_obj::set_vibrationRight( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(Joystick_obj,set_vibrationRight,return )
 
 bool Joystick_obj::Pressed( int p_button){
-	HX_STACK_FRAME("haxor.input.Joystick","Pressed",0x58d64680,"haxor.input.Joystick.Pressed","haxor/input/Joystick.hx",120,0x86e4ec50)
+	HX_STACK_FRAME("haxor.input.Joystick","Pressed",0x58d64680,"haxor.input.Joystick.Pressed","haxor/input/Joystick.hx",121,0x86e4ec50)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_button,"p_button")
-	HX_STACK_LINE(120)
+	HX_STACK_LINE(121)
 	return (bool((this->state->__get(p_button).StaticCast< ::haxor::core::InputState >() == ::haxor::core::InputState_obj::Hold)) || bool((this->state->__get(p_button).StaticCast< ::haxor::core::InputState >() == ::haxor::core::InputState_obj::Down)));
 }
 
@@ -176,10 +176,10 @@ bool Joystick_obj::Pressed( int p_button){
 HX_DEFINE_DYNAMIC_FUNC1(Joystick_obj,Pressed,return )
 
 bool Joystick_obj::Down( int p_button){
-	HX_STACK_FRAME("haxor.input.Joystick","Down",0x7a508dc4,"haxor.input.Joystick.Down","haxor/input/Joystick.hx",127,0x86e4ec50)
+	HX_STACK_FRAME("haxor.input.Joystick","Down",0x7a508dc4,"haxor.input.Joystick.Down","haxor/input/Joystick.hx",128,0x86e4ec50)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_button,"p_button")
-	HX_STACK_LINE(127)
+	HX_STACK_LINE(128)
 	return (this->state->__get(p_button).StaticCast< ::haxor::core::InputState >() == ::haxor::core::InputState_obj::Down);
 }
 
@@ -187,10 +187,10 @@ bool Joystick_obj::Down( int p_button){
 HX_DEFINE_DYNAMIC_FUNC1(Joystick_obj,Down,return )
 
 bool Joystick_obj::Hit( int p_button){
-	HX_STACK_FRAME("haxor.input.Joystick","Hit",0x3683f331,"haxor.input.Joystick.Hit","haxor/input/Joystick.hx",134,0x86e4ec50)
+	HX_STACK_FRAME("haxor.input.Joystick","Hit",0x3683f331,"haxor.input.Joystick.Hit","haxor/input/Joystick.hx",135,0x86e4ec50)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_button,"p_button")
-	HX_STACK_LINE(134)
+	HX_STACK_LINE(135)
 	return (this->state->__get(p_button).StaticCast< ::haxor::core::InputState >() == ::haxor::core::InputState_obj::Up);
 }
 
@@ -202,300 +202,300 @@ bool p_analog = __o_p_analog.Default(true);
 bool p_button = __o_p_button.Default(true);
 bool p_trigger = __o_p_trigger.Default(true);
 bool p_pad = __o_p_pad.Default(true);
-	HX_STACK_FRAME("haxor.input.Joystick","ToString",0x2b04bf0e,"haxor.input.Joystick.ToString","haxor/input/Joystick.hx",141,0x86e4ec50)
+	HX_STACK_FRAME("haxor.input.Joystick","ToString",0x2b04bf0e,"haxor.input.Joystick.ToString","haxor/input/Joystick.hx",142,0x86e4ec50)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_analog,"p_analog")
 	HX_STACK_ARG(p_button,"p_button")
 	HX_STACK_ARG(p_trigger,"p_trigger")
 	HX_STACK_ARG(p_pad,"p_pad")
 {
-		HX_STACK_LINE(142)
-		::String s = HX_CSTRING("");		HX_STACK_VAR(s,"s");
 		HX_STACK_LINE(143)
-		hx::AddEq(s,(HX_CSTRING("J") + this->id));
+		::String s = HX_CSTRING("");		HX_STACK_VAR(s,"s");
 		HX_STACK_LINE(144)
+		hx::AddEq(s,(HX_CSTRING("J") + this->id));
+		HX_STACK_LINE(145)
 		if ((p_analog)){
-			HX_STACK_LINE(146)
+			HX_STACK_LINE(147)
 			::String _g = this->analogLeft->ToString((int)1);		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(146)
+			HX_STACK_LINE(147)
 			::String _g1 = (HX_CSTRING(" AL") + _g);		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(146)
+			HX_STACK_LINE(147)
 			hx::AddEq(s,_g1);
-			HX_STACK_LINE(147)
+			HX_STACK_LINE(148)
 			::String _g2 = this->analogRight->ToString((int)1);		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(147)
+			HX_STACK_LINE(148)
 			::String _g3 = (HX_CSTRING(" AR") + _g2);		HX_STACK_VAR(_g3,"_g3");
-			HX_STACK_LINE(147)
+			HX_STACK_LINE(148)
 			hx::AddEq(s,_g3);
 		}
-		HX_STACK_LINE(150)
+		HX_STACK_LINE(151)
 		if ((p_button)){
-			HX_STACK_LINE(152)
+			HX_STACK_LINE(153)
 			::String _g4;		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(152)
+			HX_STACK_LINE(153)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::ButtonA))){
-				HX_STACK_LINE(152)
+				HX_STACK_LINE(153)
 				_g4 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(152)
+				HX_STACK_LINE(153)
 				_g4 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(152)
+			HX_STACK_LINE(153)
 			::String _g5 = (HX_CSTRING(" A[") + _g4);		HX_STACK_VAR(_g5,"_g5");
-			HX_STACK_LINE(152)
+			HX_STACK_LINE(153)
 			hx::AddEq(s,_g5);
-			HX_STACK_LINE(153)
+			HX_STACK_LINE(154)
 			::String _g6;		HX_STACK_VAR(_g6,"_g6");
-			HX_STACK_LINE(153)
+			HX_STACK_LINE(154)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::ButtonB))){
-				HX_STACK_LINE(153)
+				HX_STACK_LINE(154)
 				_g6 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(153)
+				HX_STACK_LINE(154)
 				_g6 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(153)
+			HX_STACK_LINE(154)
 			::String _g7 = (HX_CSTRING(" B[") + _g6);		HX_STACK_VAR(_g7,"_g7");
-			HX_STACK_LINE(153)
+			HX_STACK_LINE(154)
 			hx::AddEq(s,_g7);
-			HX_STACK_LINE(154)
+			HX_STACK_LINE(155)
 			::String _g8;		HX_STACK_VAR(_g8,"_g8");
-			HX_STACK_LINE(154)
+			HX_STACK_LINE(155)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::ButtonX))){
-				HX_STACK_LINE(154)
+				HX_STACK_LINE(155)
 				_g8 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(154)
+				HX_STACK_LINE(155)
 				_g8 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(154)
+			HX_STACK_LINE(155)
 			::String _g9 = (HX_CSTRING(" X[") + _g8);		HX_STACK_VAR(_g9,"_g9");
-			HX_STACK_LINE(154)
+			HX_STACK_LINE(155)
 			hx::AddEq(s,_g9);
-			HX_STACK_LINE(155)
+			HX_STACK_LINE(156)
 			::String _g10;		HX_STACK_VAR(_g10,"_g10");
-			HX_STACK_LINE(155)
+			HX_STACK_LINE(156)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::ButtonY))){
-				HX_STACK_LINE(155)
+				HX_STACK_LINE(156)
 				_g10 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(155)
+				HX_STACK_LINE(156)
 				_g10 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(155)
+			HX_STACK_LINE(156)
 			::String _g11 = (HX_CSTRING(" Y[") + _g10);		HX_STACK_VAR(_g11,"_g11");
-			HX_STACK_LINE(155)
+			HX_STACK_LINE(156)
 			hx::AddEq(s,_g11);
-			HX_STACK_LINE(156)
+			HX_STACK_LINE(157)
 			::String _g12;		HX_STACK_VAR(_g12,"_g12");
-			HX_STACK_LINE(156)
+			HX_STACK_LINE(157)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::LeftShoulder))){
-				HX_STACK_LINE(156)
+				HX_STACK_LINE(157)
 				_g12 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(156)
+				HX_STACK_LINE(157)
 				_g12 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(156)
+			HX_STACK_LINE(157)
 			::String _g13 = (HX_CSTRING(" L[") + _g12);		HX_STACK_VAR(_g13,"_g13");
-			HX_STACK_LINE(156)
+			HX_STACK_LINE(157)
 			hx::AddEq(s,_g13);
-			HX_STACK_LINE(157)
+			HX_STACK_LINE(158)
 			::String _g14;		HX_STACK_VAR(_g14,"_g14");
-			HX_STACK_LINE(157)
+			HX_STACK_LINE(158)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::RightShoulder))){
-				HX_STACK_LINE(157)
+				HX_STACK_LINE(158)
 				_g14 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(157)
+				HX_STACK_LINE(158)
 				_g14 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(157)
+			HX_STACK_LINE(158)
 			::String _g15 = (HX_CSTRING(" R[") + _g14);		HX_STACK_VAR(_g15,"_g15");
-			HX_STACK_LINE(157)
+			HX_STACK_LINE(158)
 			hx::AddEq(s,_g15);
-			HX_STACK_LINE(158)
+			HX_STACK_LINE(159)
 			::String _g16;		HX_STACK_VAR(_g16,"_g16");
-			HX_STACK_LINE(158)
+			HX_STACK_LINE(159)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::LeftShoulderBottom))){
-				HX_STACK_LINE(158)
+				HX_STACK_LINE(159)
 				_g16 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(158)
+				HX_STACK_LINE(159)
 				_g16 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(158)
+			HX_STACK_LINE(159)
 			::String _g17 = (HX_CSTRING(" LB[") + _g16);		HX_STACK_VAR(_g17,"_g17");
-			HX_STACK_LINE(158)
+			HX_STACK_LINE(159)
 			hx::AddEq(s,_g17);
-			HX_STACK_LINE(159)
+			HX_STACK_LINE(160)
 			::String _g18;		HX_STACK_VAR(_g18,"_g18");
-			HX_STACK_LINE(159)
+			HX_STACK_LINE(160)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::RightShoulderBottom))){
-				HX_STACK_LINE(159)
+				HX_STACK_LINE(160)
 				_g18 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(159)
+				HX_STACK_LINE(160)
 				_g18 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(159)
+			HX_STACK_LINE(160)
 			::String _g19 = (HX_CSTRING(" RB[") + _g18);		HX_STACK_VAR(_g19,"_g19");
-			HX_STACK_LINE(159)
+			HX_STACK_LINE(160)
 			hx::AddEq(s,_g19);
-			HX_STACK_LINE(160)
+			HX_STACK_LINE(161)
 			::String _g20;		HX_STACK_VAR(_g20,"_g20");
-			HX_STACK_LINE(160)
+			HX_STACK_LINE(161)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::ButtonStart))){
-				HX_STACK_LINE(160)
+				HX_STACK_LINE(161)
 				_g20 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(160)
+				HX_STACK_LINE(161)
 				_g20 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(160)
+			HX_STACK_LINE(161)
 			::String _g21 = (HX_CSTRING(" Start[") + _g20);		HX_STACK_VAR(_g21,"_g21");
-			HX_STACK_LINE(160)
+			HX_STACK_LINE(161)
 			hx::AddEq(s,_g21);
-			HX_STACK_LINE(161)
+			HX_STACK_LINE(162)
 			::String _g22;		HX_STACK_VAR(_g22,"_g22");
-			HX_STACK_LINE(161)
+			HX_STACK_LINE(162)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::ButtonSelect))){
-				HX_STACK_LINE(161)
+				HX_STACK_LINE(162)
 				_g22 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(161)
+				HX_STACK_LINE(162)
 				_g22 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(161)
+			HX_STACK_LINE(162)
 			::String _g23 = (HX_CSTRING(" Select[") + _g22);		HX_STACK_VAR(_g23,"_g23");
-			HX_STACK_LINE(161)
+			HX_STACK_LINE(162)
 			hx::AddEq(s,_g23);
 		}
-		HX_STACK_LINE(164)
+		HX_STACK_LINE(165)
 		if ((p_pad)){
-			HX_STACK_LINE(166)
+			HX_STACK_LINE(167)
 			::String _g24;		HX_STACK_VAR(_g24,"_g24");
-			HX_STACK_LINE(166)
+			HX_STACK_LINE(167)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::PadLeft))){
-				HX_STACK_LINE(166)
+				HX_STACK_LINE(167)
 				_g24 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(166)
+				HX_STACK_LINE(167)
 				_g24 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(166)
+			HX_STACK_LINE(167)
 			::String _g25 = (HX_CSTRING(" PL[") + _g24);		HX_STACK_VAR(_g25,"_g25");
-			HX_STACK_LINE(166)
+			HX_STACK_LINE(167)
 			hx::AddEq(s,_g25);
-			HX_STACK_LINE(167)
+			HX_STACK_LINE(168)
 			::String _g26;		HX_STACK_VAR(_g26,"_g26");
-			HX_STACK_LINE(167)
+			HX_STACK_LINE(168)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::PadRight))){
-				HX_STACK_LINE(167)
+				HX_STACK_LINE(168)
 				_g26 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(167)
+				HX_STACK_LINE(168)
 				_g26 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(167)
+			HX_STACK_LINE(168)
 			::String _g27 = (HX_CSTRING(" PR[") + _g26);		HX_STACK_VAR(_g27,"_g27");
-			HX_STACK_LINE(167)
+			HX_STACK_LINE(168)
 			hx::AddEq(s,_g27);
-			HX_STACK_LINE(168)
+			HX_STACK_LINE(169)
 			::String _g28;		HX_STACK_VAR(_g28,"_g28");
-			HX_STACK_LINE(168)
+			HX_STACK_LINE(169)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::PadTop))){
-				HX_STACK_LINE(168)
+				HX_STACK_LINE(169)
 				_g28 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(168)
+				HX_STACK_LINE(169)
 				_g28 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(168)
+			HX_STACK_LINE(169)
 			::String _g29 = (HX_CSTRING(" PU[") + _g28);		HX_STACK_VAR(_g29,"_g29");
-			HX_STACK_LINE(168)
+			HX_STACK_LINE(169)
 			hx::AddEq(s,_g29);
-			HX_STACK_LINE(169)
+			HX_STACK_LINE(170)
 			::String _g30;		HX_STACK_VAR(_g30,"_g30");
-			HX_STACK_LINE(169)
+			HX_STACK_LINE(170)
 			if ((this->Pressed(::haxor::input::KeyCode_obj::PadBottom))){
-				HX_STACK_LINE(169)
+				HX_STACK_LINE(170)
 				_g30 = HX_CSTRING("1]");
 			}
 			else{
-				HX_STACK_LINE(169)
+				HX_STACK_LINE(170)
 				_g30 = HX_CSTRING("0]");
 			}
-			HX_STACK_LINE(169)
+			HX_STACK_LINE(170)
 			::String _g31 = (HX_CSTRING(" PD[") + _g30);		HX_STACK_VAR(_g31,"_g31");
-			HX_STACK_LINE(169)
+			HX_STACK_LINE(170)
 			hx::AddEq(s,_g31);
 		}
-		HX_STACK_LINE(172)
+		HX_STACK_LINE(173)
 		if ((p_trigger)){
-			HX_STACK_LINE(174)
+			HX_STACK_LINE(175)
 			Float _g33;		HX_STACK_VAR(_g33,"_g33");
-			HX_STACK_LINE(174)
+			HX_STACK_LINE(175)
 			{
-				HX_STACK_LINE(174)
+				HX_STACK_LINE(175)
 				Float d = ::Math_obj::pow((int)10,(int)1);		HX_STACK_VAR(d,"d");
-				HX_STACK_LINE(174)
+				HX_STACK_LINE(175)
 				Float _g32;		HX_STACK_VAR(_g32,"_g32");
-				HX_STACK_LINE(174)
+				HX_STACK_LINE(175)
 				{
-					HX_STACK_LINE(174)
+					HX_STACK_LINE(175)
 					Float p_v = (this->triggerLeft * d);		HX_STACK_VAR(p_v,"p_v");
-					HX_STACK_LINE(174)
+					HX_STACK_LINE(175)
 					_g32 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 				}
-				HX_STACK_LINE(174)
+				HX_STACK_LINE(175)
 				_g33 = (Float(_g32) / Float(d));
 			}
-			HX_STACK_LINE(174)
+			HX_STACK_LINE(175)
 			::String _g34 = (HX_CSTRING(" TL[") + _g33);		HX_STACK_VAR(_g34,"_g34");
-			HX_STACK_LINE(174)
+			HX_STACK_LINE(175)
 			::String _g35 = (_g34 + HX_CSTRING("]"));		HX_STACK_VAR(_g35,"_g35");
-			HX_STACK_LINE(174)
+			HX_STACK_LINE(175)
 			hx::AddEq(s,_g35);
-			HX_STACK_LINE(175)
+			HX_STACK_LINE(176)
 			Float _g37;		HX_STACK_VAR(_g37,"_g37");
-			HX_STACK_LINE(175)
+			HX_STACK_LINE(176)
 			{
-				HX_STACK_LINE(175)
+				HX_STACK_LINE(176)
 				Float d = ::Math_obj::pow((int)10,(int)1);		HX_STACK_VAR(d,"d");
-				HX_STACK_LINE(175)
+				HX_STACK_LINE(176)
 				Float _g36;		HX_STACK_VAR(_g36,"_g36");
-				HX_STACK_LINE(175)
+				HX_STACK_LINE(176)
 				{
-					HX_STACK_LINE(175)
+					HX_STACK_LINE(176)
 					Float p_v = (this->triggerRight * d);		HX_STACK_VAR(p_v,"p_v");
-					HX_STACK_LINE(175)
+					HX_STACK_LINE(176)
 					_g36 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 				}
-				HX_STACK_LINE(175)
+				HX_STACK_LINE(176)
 				_g37 = (Float(_g36) / Float(d));
 			}
-			HX_STACK_LINE(175)
+			HX_STACK_LINE(176)
 			::String _g38 = (HX_CSTRING(" TR[") + _g37);		HX_STACK_VAR(_g38,"_g38");
-			HX_STACK_LINE(175)
+			HX_STACK_LINE(176)
 			::String _g39 = (_g38 + HX_CSTRING("]"));		HX_STACK_VAR(_g39,"_g39");
-			HX_STACK_LINE(175)
+			HX_STACK_LINE(176)
 			hx::AddEq(s,_g39);
 		}
-		HX_STACK_LINE(177)
+		HX_STACK_LINE(178)
 		return s;
 	}
 }

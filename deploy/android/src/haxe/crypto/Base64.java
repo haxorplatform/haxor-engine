@@ -23,7 +23,7 @@ public  class Base64 extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxe_crypto_Base64(haxe.crypto.Base64 __temp_me164139)
+	public static   void __hx_ctor_haxe_crypto_Base64(haxe.crypto.Base64 __temp_me255334)
 	{
 		{
 		}
@@ -37,9 +37,9 @@ public  class Base64 extends haxe.lang.HxObject
 	
 	public static   java.lang.String encode(haxe.io.Bytes bytes, java.lang.Object complement)
 	{
-		boolean __temp_complement164137 = ( (( complement == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(complement)) );
+		boolean __temp_complement255332 = ( (( complement == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(complement)) );
 		java.lang.String str = new haxe.crypto.BaseCode(((haxe.io.Bytes) (haxe.crypto.Base64.BYTES) )).encodeBytes(bytes).toString();
-		if (__temp_complement164137) 
+		if (__temp_complement255332) 
 		{
 			int _g1 = 0;
 			int _g = ( (( 3 - ( ( bytes.length * 4 ) % 3 ) )) % 3 );
@@ -57,8 +57,8 @@ public  class Base64 extends haxe.lang.HxObject
 	
 	public static   haxe.io.Bytes decode(java.lang.String str, java.lang.Object complement)
 	{
-		boolean __temp_complement164138 = ( (( complement == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(complement)) );
-		if (__temp_complement164138) 
+		boolean __temp_complement255333 = ( (( complement == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(complement)) );
+		if (__temp_complement255333) 
 		{
 			while (haxe.lang.Runtime.eq(haxe.lang.StringExt.charCodeAt(str, ( str.length() - 1 )), 61))
 			{

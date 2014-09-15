@@ -4,6 +4,7 @@ import haxor.core.Entity;
 import haxor.io.FloatArray;
 import haxor.math.Color;
 import haxor.math.Vector3;
+import haxor.platform.Types.Float32;
 
 /**
  * Base class that describes all Lights in Haxor.
@@ -49,7 +50,7 @@ class Light extends Behaviour
 	/**
 	 * Intensity of this light.
 	 */
-	public var intensity : Float;
+	public var intensity : Float32;
 
 	/**
 	 * Creates a new Light.
@@ -88,7 +89,7 @@ class Light extends Behaviour
 	 * @param	p_b
 	 * @param	p_a
 	 */
-	static private function SetLightData(p_id : Int, p_type : Float, p_intensity:Float, p_radius:Float, p_atten:Float, p_x:Float,p_y:Float,p_z:Float,p_r:Float,p_g:Float,p_b:Float,p_a:Float):Void
+	static private function SetLightData(p_id : Int, p_type : Float32, p_intensity:Float32, p_radius:Float32, p_atten:Float32, p_x:Float32,p_y:Float32,p_z:Float32,p_r:Float32,p_g:Float32,p_b:Float32,p_a:Float32):Void
 	{
 		var pos : Int = p_id * 12;  	 // id * 3 * 4
 		m_buffer.Set(pos + 0,p_type); 	 // attrib.x

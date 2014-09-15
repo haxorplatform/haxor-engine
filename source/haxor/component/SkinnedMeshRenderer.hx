@@ -1,7 +1,13 @@
 package haxor.component;
 import haxor.core.Enums.PixelFormat;
+import haxor.graphics.Graphics;
+import haxor.graphics.mesh.MeshLayout.SkinnedMesh3;
+import haxor.graphics.Screen;
 import haxor.graphics.texture.ComputeTexture;
+import haxor.graphics.texture.Texture2D;
 import haxor.io.FloatArray;
+import haxor.math.Matrix4;
+import haxor.math.Random;
 
 /**
  * Class that renders a SkinnedMesh.
@@ -17,7 +23,7 @@ class SkinnedMeshRenderer extends MeshRenderer
 	private inline function get_joints():Array<Transform> { return m_joints; }
 	private var m_joints : Array<Transform>;
 	
-	private var m_buffer : FloatArray;
+	private var m_buffer : Array<Float>;
 	
 	private var m_data : ComputeTexture;
 	
@@ -30,40 +36,51 @@ class SkinnedMeshRenderer extends MeshRenderer
 		m_joints = [];		
 		//MAX_JOINTS = 50
 		//MAX_BINDS  = 50
-		m_buffer  	= new FloatArray(8192);// 12 * (50 + 50));
+		m_buffer  	= [];// new FloatArray(8192);// 12 * (50 + 50));
+		for (i in 0...8192) m_buffer.push(0);
 		m_data 		= new ComputeTexture(1, 2048, PixelFormat.Float4);
 		m_data.name = "SkinningTexture" + uid;
 	}
 	
 	override public function OnRender():Void 
 	{	
-		/*
+		
 		if (material != null)
 		{	
 			var skm : SkinnedMesh3 = cast mesh;
 			var k : Int = 0;
 			var jm : Matrix4;
 			var bm : Matrix4;		
+			var f32 : FloatArray = cast m_data.data.buffer;
+			
+			//Create rotation matrix and test upload.
 			
 			for (i in 0...m_joints.length)			
 			{	
-				jm = m_joints[i].m_worldMatrix;
+				jm = m_joints[i].WorldMatrix;				
 				bm = skm.binds[i];
 				for (j in 0...12)
-				{
-					m_buffer.Set(k,jm.GetIndex(j));
-					m_buffer.Set(k + 4096,bm.GetIndex(j));
+				{					
+					f32.Set(k, jm.GetIndex(j));
+					f32.Set(k + 4096, bm.GetIndex(j));
 					k++;
 				}
+				//*/
 			}
 			
-			m_data.WriteRange(m_buffer);
+			m_data.Invalidate();
 			
-			material.SetUniform("Skinning", m_data);			
+			material.SetTexture("Skinning", m_data);
 			
 		}
 		//*/
+		
 		super.OnRender();
+		
+		var sh : Float = Screen.height;
+		var th : Float = 2048.0;// sh * 0.9;		
+		Graphics.DrawTexture(m_data,0,th+105,256,-th);
+		//Graphics.DrawTexture(m_data,0,105,256,th);
 	}
 	
 }

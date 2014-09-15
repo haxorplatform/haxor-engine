@@ -12,24 +12,24 @@ namespace file{
 
 Void ColladaLight_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaLight","new",0x250f146c,"haxor.io.file.ColladaLight.new","haxor/io/file/ColladaFile.hx",1536,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaLight","new",0x250f146c,"haxor.io.file.ColladaLight.new","haxor/io/file/ColladaFile.hx",1543,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1537)
+	HX_STACK_LINE(1544)
 	this->id = HX_CSTRING("");
-	HX_STACK_LINE(1538)
+	HX_STACK_LINE(1545)
 	this->name = HX_CSTRING("");
-	HX_STACK_LINE(1539)
+	HX_STACK_LINE(1546)
 	this->type = HX_CSTRING("");
-	HX_STACK_LINE(1540)
+	HX_STACK_LINE(1547)
 	::haxor::math::Color _g = ::haxor::math::Color_obj::__new((int)1,(int)1,(int)1,(int)1);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(1540)
+	HX_STACK_LINE(1547)
 	this->color = _g;
-	HX_STACK_LINE(1541)
+	HX_STACK_LINE(1548)
 	this->radius = 0.0;
-	HX_STACK_LINE(1542)
+	HX_STACK_LINE(1549)
 	this->intensity = 0.0;
-	HX_STACK_LINE(1543)
+	HX_STACK_LINE(1550)
 	this->atten = 0.0;
 }
 ;

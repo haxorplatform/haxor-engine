@@ -1,4 +1,5 @@
 package haxor.math;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that handles different random data generation.
@@ -9,14 +10,14 @@ class Random
 	/**
 	 * Returns a random value in the [0.0,0.99999] range.
 	 */
-	static public var value(get_value, null):Float;
-	static private inline function get_value():Float { return Math.random(); }
+	static public var value(get_value, null):Float32;
+	static private inline function get_value():Float32{ return Math.random(); }
 	
 	/**
 	 * Returns a random value inside the [-0.9999,0.9999] range.
 	 */
-	static public var interval(get_interval, null):Float;
-	static private inline function get_interval():Float { return (value-0.499995)*2.0; }
+	static public var interval(get_interval, null):Float32;
+	static private inline function get_interval():Float32{ return (value-0.499995)*2.0; }
 	
 	/**
 	 * Returns a random rotation quaternion.
@@ -104,7 +105,7 @@ class Random
 	 * @param	p_max
 	 * @return
 	 */
-	static public function Range(p_min:Float, p_max:Float):Float { return Mathf.Lerp(p_min, p_max, value); }
+	static public function Range(p_min:Float32, p_max:Float32):Float32{ return Mathf.Lerp(p_min, p_max, value); }
 	
 	/**
 	 * Returns an int inside the interval min/max.
@@ -112,7 +113,7 @@ class Random
 	 * @param	p_max
 	 * @return
 	 */
-	static public function RangeInt(p_min:Int, p_max:Int):Float { return Mathf.LerpInt(p_min, p_max+1, value); }
+	static public function RangeInt(p_min:Int, p_max:Int):Float32{ return Mathf.LerpInt(p_min, p_max+1, value); }
 	
 	/**
 	 * Returns a random element from this list.

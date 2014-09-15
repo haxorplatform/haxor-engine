@@ -29,7 +29,7 @@ class MeshContext
 	/**
 	 * Default attribs for shaders.
 	 */
-	private var attribs : Array<String> = ["vertex", "normal", "uv0", "uv1", "uv2", "color", "weight", "index"];
+	private var attribs : Array<String> = ["vertex", "normal", "uv0", "uv1", "uv2", "color", "weight", "bone"];
 		
 	/**
 	 * List of created buffers.
@@ -175,7 +175,7 @@ class MeshContext
 	{
 		if (m.indexed)
 		{	
-			GL.DrawElements(m.primitive, m.m_topology_attrib.data.length, GL.UNSIGNED_SHORT, 0);						
+			GL.DrawElements(m.primitive, m.m_topology_attrib.data.length, GL.UNSIGNED_SHORT, 0);
 			
 			#if profile
 			Stats.triangles += cast(m.m_topology_attrib.data.length / 3);
@@ -186,11 +186,14 @@ class MeshContext
 			#end			
 		}
 		else
-		{			
+		{	
+			
 			GL.DrawArrays(m.primitive, 0, m.m_vcount);
 			
 			#if profile
-			Stats.triangles += m.m_vcount;
+			var off : Int = 3;
+			if (m.primitive == MeshPrimitive.Lines) off = 2;			
+			Stats.triangles += cast (m.m_vcount/off);
 			#end
 			
 			#if gldebug

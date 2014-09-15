@@ -47,12 +47,12 @@ namespace component{
 
 Void Transform_obj::__construct(::String __o_p_name)
 {
-HX_STACK_FRAME("haxor.component.Transform","new",0xe78712a1,"haxor.component.Transform.new","haxor/component/Transform.hx",17,0x28912231)
+HX_STACK_FRAME("haxor.component.Transform","new",0xe78712a1,"haxor.component.Transform.new","haxor/component/Transform.hx",18,0x28912231)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_name,"p_name")
 ::String p_name = __o_p_name.Default(HX_CSTRING(""));
 {
-	HX_STACK_LINE(17)
+	HX_STACK_LINE(18)
 	super::__construct(p_name);
 }
 ;
@@ -73,13 +73,13 @@ Dynamic Transform_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::math::Vector3 Transform_obj::get_right( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_right",0x14115134,"haxor.component.Transform.get_right","haxor/component/Transform.hx",61,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_right",0x14115134,"haxor.component.Transform.get_right","haxor/component/Transform.hx",62,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(61)
+	HX_STACK_LINE(62)
 	this->UpdateWorldMatrix();
-	HX_STACK_LINE(61)
+	HX_STACK_LINE(62)
 	::haxor::math::Vector3 _this = this->m_right;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(61)
+	HX_STACK_LINE(62)
 	return ::haxor::math::Vector3_obj::__new(_this->x,_this->y,_this->z);
 }
 
@@ -87,10 +87,10 @@ Dynamic Transform_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_right,return )
 
 ::haxor::math::Vector3 Transform_obj::set_right( ::haxor::math::Vector3 v){
-	HX_STACK_FRAME("haxor.component.Transform","set_right",0xf7623d40,"haxor.component.Transform.set_right","haxor/component/Transform.hx",62,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_right",0xf7623d40,"haxor.component.Transform.set_right","haxor/component/Transform.hx",63,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(62)
+	HX_STACK_LINE(63)
 	return v;
 }
 
@@ -98,13 +98,13 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_right,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_right,return )
 
 ::haxor::math::Vector3 Transform_obj::get_up( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_up",0xc8e8da03,"haxor.component.Transform.get_up","haxor/component/Transform.hx",69,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_up",0xc8e8da03,"haxor.component.Transform.get_up","haxor/component/Transform.hx",70,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(69)
+	HX_STACK_LINE(70)
 	this->UpdateWorldMatrix();
-	HX_STACK_LINE(69)
+	HX_STACK_LINE(70)
 	::haxor::math::Vector3 _this = this->m_up;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(69)
+	HX_STACK_LINE(70)
 	return ::haxor::math::Vector3_obj::__new(_this->x,_this->y,_this->z);
 }
 
@@ -112,10 +112,10 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_right,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_up,return )
 
 ::haxor::math::Vector3 Transform_obj::set_up( ::haxor::math::Vector3 v){
-	HX_STACK_FRAME("haxor.component.Transform","set_up",0x95312e77,"haxor.component.Transform.set_up","haxor/component/Transform.hx",70,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_up",0x95312e77,"haxor.component.Transform.set_up","haxor/component/Transform.hx",71,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(70)
+	HX_STACK_LINE(71)
 	return v;
 }
 
@@ -123,13 +123,13 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_up,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_up,return )
 
 ::haxor::math::Vector3 Transform_obj::get_forward( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_forward",0x0a562d1d,"haxor.component.Transform.get_forward","haxor/component/Transform.hx",77,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_forward",0x0a562d1d,"haxor.component.Transform.get_forward","haxor/component/Transform.hx",78,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(77)
+	HX_STACK_LINE(78)
 	this->UpdateWorldMatrix();
-	HX_STACK_LINE(77)
+	HX_STACK_LINE(78)
 	::haxor::math::Vector3 _this = this->m_forward;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(77)
+	HX_STACK_LINE(78)
 	return ::haxor::math::Vector3_obj::__new(_this->x,_this->y,_this->z)->Invert();
 }
 
@@ -137,10 +137,10 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_up,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_forward,return )
 
 ::haxor::math::Vector3 Transform_obj::set_forward( ::haxor::math::Vector3 v){
-	HX_STACK_FRAME("haxor.component.Transform","set_forward",0x14c33429,"haxor.component.Transform.set_forward","haxor/component/Transform.hx",78,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_forward",0x14c33429,"haxor.component.Transform.set_forward","haxor/component/Transform.hx",79,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(78)
+	HX_STACK_LINE(79)
 	return v;
 }
 
@@ -148,9 +148,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_forward,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_forward,return )
 
 ::haxor::component::Transform Transform_obj::get_parent( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_parent",0x1a6d6cd2,"haxor.component.Transform.get_parent","haxor/component/Transform.hx",86,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_parent",0x1a6d6cd2,"haxor.component.Transform.get_parent","haxor/component/Transform.hx",87,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(86)
+	HX_STACK_LINE(87)
 	return this->m_parent;
 }
 
@@ -158,32 +158,32 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_forward,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_parent,return )
 
 ::haxor::component::Transform Transform_obj::set_parent( ::haxor::component::Transform v){
-	HX_STACK_FRAME("haxor.component.Transform","set_parent",0x1deb0b46,"haxor.component.Transform.set_parent","haxor/component/Transform.hx",88,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_parent",0x1deb0b46,"haxor.component.Transform.set_parent","haxor/component/Transform.hx",89,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(90)
-	::haxor::math::Vector3 wp = this->get_position();		HX_STACK_VAR(wp,"wp");
 	HX_STACK_LINE(91)
-	::haxor::math::Quaternion wr = this->get_rotation();		HX_STACK_VAR(wr,"wr");
+	::haxor::math::Vector3 wp = this->get_position();		HX_STACK_VAR(wp,"wp");
 	HX_STACK_LINE(92)
+	::haxor::math::Quaternion wr = this->get_rotation();		HX_STACK_VAR(wr,"wr");
+	HX_STACK_LINE(93)
 	::haxor::math::Vector3 ws = this->get_scale();		HX_STACK_VAR(ws,"ws");
-	HX_STACK_LINE(94)
+	HX_STACK_LINE(95)
 	if (((this->m_parent != null()))){
-		HX_STACK_LINE(94)
+		HX_STACK_LINE(95)
 		this->m_parent->m_hierarchy->remove(hx::ObjectPtr<OBJ_>(this));
 	}
-	HX_STACK_LINE(95)
+	HX_STACK_LINE(96)
 	if (((v == null()))){
-		HX_STACK_LINE(95)
+		HX_STACK_LINE(96)
 		this->m_parent = ::haxor::component::Transform_obj::m_root;
 	}
 	else{
-		HX_STACK_LINE(95)
+		HX_STACK_LINE(96)
 		this->m_parent = v;
 	}
-	HX_STACK_LINE(96)
+	HX_STACK_LINE(97)
 	this->m_parent->m_hierarchy->push(hx::ObjectPtr<OBJ_>(this));
-	HX_STACK_LINE(103)
+	HX_STACK_LINE(104)
 	return this->m_parent;
 }
 
@@ -191,9 +191,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_parent,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_parent,return )
 
 int Transform_obj::get_childCount( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_childCount",0xba5f113b,"haxor.component.Transform.get_childCount","haxor/component/Transform.hx",111,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_childCount",0xba5f113b,"haxor.component.Transform.get_childCount","haxor/component/Transform.hx",112,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(111)
+	HX_STACK_LINE(112)
 	return this->m_hierarchy->length;
 }
 
@@ -201,11 +201,11 @@ int Transform_obj::get_childCount( ){
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_childCount,return )
 
 ::haxor::math::Vector3 Transform_obj::get_localPosition( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_localPosition",0xf7eb668c,"haxor.component.Transform.get_localPosition","haxor/component/Transform.hx",117,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_localPosition",0xf7eb668c,"haxor.component.Transform.get_localPosition","haxor/component/Transform.hx",118,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(117)
+	HX_STACK_LINE(118)
 	::haxor::math::Vector3 _this = this->m_localPosition;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(117)
+	HX_STACK_LINE(118)
 	return ::haxor::math::Vector3_obj::__new(_this->x,_this->y,_this->z);
 }
 
@@ -213,39 +213,39 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_childCount,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_localPosition,return )
 
 ::haxor::math::Vector3 Transform_obj::set_localPosition( ::haxor::math::Vector3 v){
-	HX_STACK_FRAME("haxor.component.Transform","set_localPosition",0x1b593e98,"haxor.component.Transform.set_localPosition","haxor/component/Transform.hx",119,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_localPosition",0x1b593e98,"haxor.component.Transform.set_localPosition","haxor/component/Transform.hx",120,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(120)
+	HX_STACK_LINE(121)
 	Float dx = (v->x - this->m_localPosition->x);		HX_STACK_VAR(dx,"dx");
-	HX_STACK_LINE(120)
+	HX_STACK_LINE(121)
 	Float dy = (v->y - this->m_localPosition->y);		HX_STACK_VAR(dy,"dy");
-	HX_STACK_LINE(120)
+	HX_STACK_LINE(121)
 	Float dz = (v->z - this->m_localPosition->z);		HX_STACK_VAR(dz,"dz");
-	HX_STACK_LINE(121)
+	HX_STACK_LINE(122)
 	Float _g = ::Math_obj::abs(dx);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(121)
+	HX_STACK_LINE(122)
 	if (((_g < 0.0001))){
-		HX_STACK_LINE(121)
+		HX_STACK_LINE(122)
 		Float _g1 = ::Math_obj::abs(dy);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(121)
+		HX_STACK_LINE(122)
 		if (((_g1 < 0.0001))){
-			HX_STACK_LINE(121)
+			HX_STACK_LINE(122)
 			Float _g2 = ::Math_obj::abs(dz);		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(121)
+			HX_STACK_LINE(122)
 			if (((_g2 < 0.0001))){
-				HX_STACK_LINE(121)
+				HX_STACK_LINE(122)
 				return v;
 			}
 		}
 	}
-	HX_STACK_LINE(122)
-	this->m_localPosition->Set3(v);
-	HX_STACK_LINE(122)
-	this->m_lmt_dirty = true;
 	HX_STACK_LINE(123)
-	this->Invalidate();
+	this->m_localPosition->Set3(v);
+	HX_STACK_LINE(123)
+	this->m_lmt_dirty = true;
 	HX_STACK_LINE(124)
+	this->Invalidate();
+	HX_STACK_LINE(125)
 	return v;
 }
 
@@ -253,11 +253,11 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_localPosition,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_localPosition,return )
 
 ::haxor::math::Quaternion Transform_obj::get_localRotation( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_localRotation",0x35770321,"haxor.component.Transform.get_localRotation","haxor/component/Transform.hx",132,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_localRotation",0x35770321,"haxor.component.Transform.get_localRotation","haxor/component/Transform.hx",133,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(132)
+	HX_STACK_LINE(133)
 	::haxor::math::Quaternion _this = this->m_localRotation;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(132)
+	HX_STACK_LINE(133)
 	return ::haxor::math::Quaternion_obj::__new(_this->x,_this->y,_this->z,_this->w);
 }
 
@@ -265,46 +265,46 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_localPosition,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_localRotation,return )
 
 ::haxor::math::Quaternion Transform_obj::set_localRotation( ::haxor::math::Quaternion v){
-	HX_STACK_FRAME("haxor.component.Transform","set_localRotation",0x58e4db2d,"haxor.component.Transform.set_localRotation","haxor/component/Transform.hx",134,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_localRotation",0x58e4db2d,"haxor.component.Transform.set_localRotation","haxor/component/Transform.hx",135,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(135)
+	HX_STACK_LINE(136)
 	Float dx = (v->x - this->m_localRotation->x);		HX_STACK_VAR(dx,"dx");
-	HX_STACK_LINE(135)
+	HX_STACK_LINE(136)
 	Float dy = (v->y - this->m_localRotation->y);		HX_STACK_VAR(dy,"dy");
-	HX_STACK_LINE(135)
+	HX_STACK_LINE(136)
 	Float dz = (v->z - this->m_localRotation->z);		HX_STACK_VAR(dz,"dz");
-	HX_STACK_LINE(135)
+	HX_STACK_LINE(136)
 	Float dw = (v->w - this->m_localRotation->w);		HX_STACK_VAR(dw,"dw");
-	HX_STACK_LINE(136)
+	HX_STACK_LINE(137)
 	Float _g = ::Math_obj::abs(dx);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(136)
+	HX_STACK_LINE(137)
 	if (((_g < 0.0001))){
-		HX_STACK_LINE(136)
+		HX_STACK_LINE(137)
 		Float _g1 = ::Math_obj::abs(dy);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(136)
+		HX_STACK_LINE(137)
 		if (((_g1 < 0.0001))){
-			HX_STACK_LINE(136)
+			HX_STACK_LINE(137)
 			Float _g2 = ::Math_obj::abs(dz);		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(136)
+			HX_STACK_LINE(137)
 			if (((_g2 < 0.0001))){
-				HX_STACK_LINE(136)
+				HX_STACK_LINE(137)
 				Float _g3 = ::Math_obj::abs(dw);		HX_STACK_VAR(_g3,"_g3");
-				HX_STACK_LINE(136)
+				HX_STACK_LINE(137)
 				if (((_g3 < 0.0001))){
-					HX_STACK_LINE(136)
+					HX_STACK_LINE(137)
 					return v;
 				}
 			}
 		}
 	}
-	HX_STACK_LINE(137)
-	this->m_localRotation->SetQuaternion(v);
-	HX_STACK_LINE(137)
-	this->m_lmrs_dirty = true;
 	HX_STACK_LINE(138)
-	this->Invalidate();
+	this->m_localRotation->SetQuaternion(v);
+	HX_STACK_LINE(138)
+	this->m_lmrs_dirty = true;
 	HX_STACK_LINE(139)
+	this->Invalidate();
+	HX_STACK_LINE(140)
 	return v;
 }
 
@@ -312,9 +312,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_localRotation,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_localRotation,return )
 
 ::haxor::math::Vector3 Transform_obj::get_localEuler( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_localEuler",0x7e94d7a6,"haxor.component.Transform.get_localEuler","haxor/component/Transform.hx",147,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_localEuler",0x7e94d7a6,"haxor.component.Transform.get_localEuler","haxor/component/Transform.hx",148,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(147)
+	HX_STACK_LINE(148)
 	return this->m_localRotation->get_euler();
 }
 
@@ -322,25 +322,25 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_localRotation,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_localEuler,return )
 
 ::haxor::math::Vector3 Transform_obj::set_localEuler( ::haxor::math::Vector3 v){
-	HX_STACK_FRAME("haxor.component.Transform","set_localEuler",0x9eb4c01a,"haxor.component.Transform.set_localEuler","haxor/component/Transform.hx",148,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_localEuler",0x9eb4c01a,"haxor.component.Transform.set_localEuler","haxor/component/Transform.hx",149,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(148)
+	HX_STACK_LINE(149)
 	::haxor::math::Quaternion _g1;		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(148)
+	HX_STACK_LINE(149)
 	{
-		HX_STACK_LINE(148)
+		HX_STACK_LINE(149)
 		::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-		HX_STACK_LINE(148)
+		HX_STACK_LINE(149)
 		int _g = _this->m_nq = hx::Mod(((_this->m_nq + (int)1)),_this->m_q->length);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(148)
+		HX_STACK_LINE(149)
 		_g1 = _this->m_q->__get(_g).StaticCast< ::haxor::math::Quaternion >();
 	}
-	HX_STACK_LINE(148)
+	HX_STACK_LINE(149)
 	::haxor::math::Quaternion _g2 = ::haxor::math::Quaternion_obj::FromEuler(v,_g1);		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(148)
+	HX_STACK_LINE(149)
 	this->set_localRotation(_g2);
-	HX_STACK_LINE(148)
+	HX_STACK_LINE(149)
 	return v;
 }
 
@@ -348,11 +348,11 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_localEuler,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_localEuler,return )
 
 ::haxor::math::Vector3 Transform_obj::get_localScale( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_localScale",0x8242ccc7,"haxor.component.Transform.get_localScale","haxor/component/Transform.hx",155,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_localScale",0x8242ccc7,"haxor.component.Transform.get_localScale","haxor/component/Transform.hx",156,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(155)
+	HX_STACK_LINE(156)
 	::haxor::math::Vector3 _this = this->m_localScale;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(155)
+	HX_STACK_LINE(156)
 	return ::haxor::math::Vector3_obj::__new(_this->x,_this->y,_this->z);
 }
 
@@ -360,39 +360,39 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_localEuler,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_localScale,return )
 
 ::haxor::math::Vector3 Transform_obj::set_localScale( ::haxor::math::Vector3 v){
-	HX_STACK_FRAME("haxor.component.Transform","set_localScale",0xa262b53b,"haxor.component.Transform.set_localScale","haxor/component/Transform.hx",157,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_localScale",0xa262b53b,"haxor.component.Transform.set_localScale","haxor/component/Transform.hx",158,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(158)
+	HX_STACK_LINE(159)
 	Float dx = (v->x - this->m_localScale->x);		HX_STACK_VAR(dx,"dx");
-	HX_STACK_LINE(158)
+	HX_STACK_LINE(159)
 	Float dy = (v->y - this->m_localScale->y);		HX_STACK_VAR(dy,"dy");
-	HX_STACK_LINE(158)
+	HX_STACK_LINE(159)
 	Float dz = (v->z - this->m_localScale->z);		HX_STACK_VAR(dz,"dz");
-	HX_STACK_LINE(159)
+	HX_STACK_LINE(160)
 	Float _g = ::Math_obj::abs(dx);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(159)
+	HX_STACK_LINE(160)
 	if (((_g < 0.0001))){
-		HX_STACK_LINE(159)
+		HX_STACK_LINE(160)
 		Float _g1 = ::Math_obj::abs(dy);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(159)
+		HX_STACK_LINE(160)
 		if (((_g1 < 0.0001))){
-			HX_STACK_LINE(159)
+			HX_STACK_LINE(160)
 			Float _g2 = ::Math_obj::abs(dz);		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(159)
+			HX_STACK_LINE(160)
 			if (((_g2 < 0.0001))){
-				HX_STACK_LINE(159)
+				HX_STACK_LINE(160)
 				return v;
 			}
 		}
 	}
-	HX_STACK_LINE(160)
-	this->m_localScale->Set3(v);
-	HX_STACK_LINE(160)
-	this->m_lmrs_dirty = true;
 	HX_STACK_LINE(161)
-	this->Invalidate();
+	this->m_localScale->Set3(v);
+	HX_STACK_LINE(161)
+	this->m_lmrs_dirty = true;
 	HX_STACK_LINE(162)
+	this->Invalidate();
+	HX_STACK_LINE(163)
 	return v;
 }
 
@@ -400,15 +400,15 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_localScale,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_localScale,return )
 
 ::haxor::math::Vector3 Transform_obj::get_position( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_position",0xa0514251,"haxor.component.Transform.get_position","haxor/component/Transform.hx",170,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_position",0xa0514251,"haxor.component.Transform.get_position","haxor/component/Transform.hx",171,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(170)
+	HX_STACK_LINE(171)
 	this->UpdateWorldMatrix();
-	HX_STACK_LINE(170)
+	HX_STACK_LINE(171)
 	this->UpdateWSP();
-	HX_STACK_LINE(170)
+	HX_STACK_LINE(171)
 	::haxor::math::Vector3 _this = this->m_position;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(170)
+	HX_STACK_LINE(171)
 	return ::haxor::math::Vector3_obj::__new(_this->x,_this->y,_this->z);
 }
 
@@ -416,49 +416,49 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_localScale,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_position,return )
 
 ::haxor::math::Vector3 Transform_obj::set_position( ::haxor::math::Vector3 v){
-	HX_STACK_FRAME("haxor.component.Transform","set_position",0xb54a65c5,"haxor.component.Transform.set_position","haxor/component/Transform.hx",171,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_position",0xb54a65c5,"haxor.component.Transform.set_position","haxor/component/Transform.hx",172,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(171)
+	HX_STACK_LINE(172)
 	::haxor::math::Vector3 _g1;		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(171)
+	HX_STACK_LINE(172)
 	{
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		::haxor::math::Matrix4 _this = this->m_parent->get_WorldMatrixInverse();		HX_STACK_VAR(_this,"_this");
 		struct _Function_2_1{
 			inline static ::haxor::math::Vector3 Block( ){
-				HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",171,0x28912231)
+				HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",172,0x28912231)
 				{
-					HX_STACK_LINE(171)
+					HX_STACK_LINE(172)
 					::haxor::context::DataContext _this1 = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this1,"_this1");
-					HX_STACK_LINE(171)
+					HX_STACK_LINE(172)
 					int _g = _this1->m_nv3 = hx::Mod(((_this1->m_nv3 + (int)1)),_this1->m_v3->length);		HX_STACK_VAR(_g,"_g");
-					HX_STACK_LINE(171)
+					HX_STACK_LINE(172)
 					return _this1->m_v3->__get(_g).StaticCast< ::haxor::math::Vector3 >();
 				}
 				return null();
 			}
 		};
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		::haxor::math::Vector3 p_point = (_Function_2_1::Block())->Set3(v);		HX_STACK_VAR(p_point,"p_point");
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		Float vx = ((((_this->m00 * p_point->x) + (_this->m01 * p_point->y)) + (_this->m02 * p_point->z)) + _this->m03);		HX_STACK_VAR(vx,"vx");
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		Float vy = ((((_this->m10 * p_point->x) + (_this->m11 * p_point->y)) + (_this->m12 * p_point->z)) + _this->m13);		HX_STACK_VAR(vy,"vy");
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		Float vz = ((((_this->m20 * p_point->x) + (_this->m21 * p_point->y)) + (_this->m22 * p_point->z)) + _this->m23);		HX_STACK_VAR(vz,"vz");
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		p_point->x = vx;
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		p_point->y = vy;
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		p_point->z = vz;
-		HX_STACK_LINE(171)
+		HX_STACK_LINE(172)
 		_g1 = p_point;
 	}
-	HX_STACK_LINE(171)
+	HX_STACK_LINE(172)
 	this->set_localPosition(_g1);
-	HX_STACK_LINE(171)
+	HX_STACK_LINE(172)
 	return v;
 }
 
@@ -466,15 +466,15 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_position,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_position,return )
 
 ::haxor::math::Quaternion Transform_obj::get_rotation( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_rotation",0xdddcdee6,"haxor.component.Transform.get_rotation","haxor/component/Transform.hx",178,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_rotation",0xdddcdee6,"haxor.component.Transform.get_rotation","haxor/component/Transform.hx",179,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(178)
+	HX_STACK_LINE(179)
 	this->UpdateWorldMatrix();
-	HX_STACK_LINE(178)
+	HX_STACK_LINE(179)
 	this->UpdateWSRS();
-	HX_STACK_LINE(178)
+	HX_STACK_LINE(179)
 	::haxor::math::Quaternion _this = this->m_rotation;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(178)
+	HX_STACK_LINE(179)
 	return ::haxor::math::Quaternion_obj::__new(_this->x,_this->y,_this->z,_this->w);
 }
 
@@ -482,45 +482,45 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_position,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_rotation,return )
 
 ::haxor::math::Quaternion Transform_obj::set_rotation( ::haxor::math::Quaternion v){
-	HX_STACK_FRAME("haxor.component.Transform","set_rotation",0xf2d6025a,"haxor.component.Transform.set_rotation","haxor/component/Transform.hx",180,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_rotation",0xf2d6025a,"haxor.component.Transform.set_rotation","haxor/component/Transform.hx",181,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(181)
-	this->UpdateWorldMatrix();
 	HX_STACK_LINE(182)
+	this->UpdateWorldMatrix();
+	HX_STACK_LINE(183)
 	this->UpdateWSRS();
-	HX_STACK_LINE(183)
+	HX_STACK_LINE(184)
 	::haxor::math::Quaternion _g1;		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(183)
+	HX_STACK_LINE(184)
 	{
-		HX_STACK_LINE(183)
+		HX_STACK_LINE(184)
 		::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-		HX_STACK_LINE(183)
+		HX_STACK_LINE(184)
 		int _g = _this->m_nq = hx::Mod(((_this->m_nq + (int)1)),_this->m_q->length);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(183)
+		HX_STACK_LINE(184)
 		_g1 = _this->m_q->__get(_g).StaticCast< ::haxor::math::Quaternion >();
 	}
-	HX_STACK_LINE(183)
+	HX_STACK_LINE(184)
 	::haxor::math::Quaternion iq = ::haxor::math::Quaternion_obj::Inverse(this->m_rotation,_g1);		HX_STACK_VAR(iq,"iq");
 	struct _Function_1_1{
 		inline static ::haxor::math::Quaternion Block( ){
-			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",184,0x28912231)
+			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",185,0x28912231)
 			{
-				HX_STACK_LINE(184)
+				HX_STACK_LINE(185)
 				::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(184)
+				HX_STACK_LINE(185)
 				int _g2 = _this->m_nq = hx::Mod(((_this->m_nq + (int)1)),_this->m_q->length);		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(184)
+				HX_STACK_LINE(185)
 				return _this->m_q->__get(_g2).StaticCast< ::haxor::math::Quaternion >();
 			}
 			return null();
 		}
 	};
-	HX_STACK_LINE(184)
-	::haxor::math::Quaternion _g3 = (_Function_1_1::Block())->SetQuaternion(v)->Multiply(iq,null());		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(184)
-	this->set_localRotation(_g3);
 	HX_STACK_LINE(185)
+	::haxor::math::Quaternion _g3 = (_Function_1_1::Block())->SetQuaternion(v)->Multiply(iq,null());		HX_STACK_VAR(_g3,"_g3");
+	HX_STACK_LINE(185)
+	this->set_localRotation(_g3);
+	HX_STACK_LINE(186)
 	return v;
 }
 
@@ -528,9 +528,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_rotation,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_rotation,return )
 
 ::haxor::math::Vector3 Transform_obj::get_euler( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_euler",0x9fce1ec1,"haxor.component.Transform.get_euler","haxor/component/Transform.hx",193,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_euler",0x9fce1ec1,"haxor.component.Transform.get_euler","haxor/component/Transform.hx",194,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(193)
+	HX_STACK_LINE(194)
 	return this->get_rotation()->get_euler();
 }
 
@@ -538,25 +538,25 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_rotation,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_euler,return )
 
 ::haxor::math::Vector3 Transform_obj::set_euler( ::haxor::math::Vector3 v){
-	HX_STACK_FRAME("haxor.component.Transform","set_euler",0x831f0acd,"haxor.component.Transform.set_euler","haxor/component/Transform.hx",194,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","set_euler",0x831f0acd,"haxor.component.Transform.set_euler","haxor/component/Transform.hx",195,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(194)
+	HX_STACK_LINE(195)
 	::haxor::math::Quaternion _g1;		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(194)
+	HX_STACK_LINE(195)
 	{
-		HX_STACK_LINE(194)
+		HX_STACK_LINE(195)
 		::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-		HX_STACK_LINE(194)
+		HX_STACK_LINE(195)
 		int _g = _this->m_nq = hx::Mod(((_this->m_nq + (int)1)),_this->m_q->length);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(194)
+		HX_STACK_LINE(195)
 		_g1 = _this->m_q->__get(_g).StaticCast< ::haxor::math::Quaternion >();
 	}
-	HX_STACK_LINE(194)
+	HX_STACK_LINE(195)
 	::haxor::math::Quaternion _g2 = ::haxor::math::Quaternion_obj::FromEuler(v,_g1);		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(194)
+	HX_STACK_LINE(195)
 	this->set_rotation(_g2);
-	HX_STACK_LINE(194)
+	HX_STACK_LINE(195)
 	return v;
 }
 
@@ -564,15 +564,15 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_euler,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_euler,return )
 
 ::haxor::math::Vector3 Transform_obj::get_scale( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_scale",0xa37c13e2,"haxor.component.Transform.get_scale","haxor/component/Transform.hx",200,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_scale",0xa37c13e2,"haxor.component.Transform.get_scale","haxor/component/Transform.hx",201,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(200)
+	HX_STACK_LINE(201)
 	this->UpdateWorldMatrix();
-	HX_STACK_LINE(200)
+	HX_STACK_LINE(201)
 	this->UpdateWSRS();
-	HX_STACK_LINE(200)
+	HX_STACK_LINE(201)
 	::haxor::math::Vector3 _this = this->m_scale;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(200)
+	HX_STACK_LINE(201)
 	return ::haxor::math::Vector3_obj::__new(_this->x,_this->y,_this->z);
 }
 
@@ -580,11 +580,11 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,set_euler,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_scale,return )
 
 ::haxor::math::Matrix4 Transform_obj::get_WorldMatrix( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_WorldMatrix",0xea38396b,"haxor.component.Transform.get_WorldMatrix","haxor/component/Transform.hx",207,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_WorldMatrix",0xea38396b,"haxor.component.Transform.get_WorldMatrix","haxor/component/Transform.hx",208,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(207)
+	HX_STACK_LINE(208)
 	this->UpdateWorldMatrix();
-	HX_STACK_LINE(207)
+	HX_STACK_LINE(208)
 	return this->m_worldMatrix;
 }
 
@@ -592,18 +592,18 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_scale,return )
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_WorldMatrix,return )
 
 ::haxor::math::Matrix4 Transform_obj::get_WorldMatrixInverse( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_WorldMatrixInverse",0x7b890d85,"haxor.component.Transform.get_WorldMatrixInverse","haxor/component/Transform.hx",214,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","get_WorldMatrixInverse",0x7b890d85,"haxor.component.Transform.get_WorldMatrixInverse","haxor/component/Transform.hx",215,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(214)
+	HX_STACK_LINE(215)
 	this->UpdateWorldMatrix();
-	HX_STACK_LINE(214)
+	HX_STACK_LINE(215)
 	if ((this->m_inverse_dirty)){
-		HX_STACK_LINE(214)
+		HX_STACK_LINE(215)
 		::haxor::math::Matrix4_obj::GetInverseTransform(this->m_worldMatrix,this->m_worldMatrixInverse);
-		HX_STACK_LINE(214)
+		HX_STACK_LINE(215)
 		this->m_inverse_dirty = false;
 	}
-	HX_STACK_LINE(214)
+	HX_STACK_LINE(215)
 	return this->m_worldMatrixInverse;
 }
 
@@ -612,99 +612,99 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,get_WorldMatrixInverse,return )
 
 Void Transform_obj::OnBuild( ){
 {
-		HX_STACK_FRAME("haxor.component.Transform","OnBuild",0xfa819830,"haxor.component.Transform.OnBuild","haxor/component/Transform.hx",267,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","OnBuild",0xfa819830,"haxor.component.Transform.OnBuild","haxor/component/Transform.hx",268,0x28912231)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(268)
+		HX_STACK_LINE(269)
 		this->super::OnBuild();
-		HX_STACK_LINE(270)
+		HX_STACK_LINE(271)
 		int _g;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(270)
+		HX_STACK_LINE(271)
 		{
-			HX_STACK_LINE(270)
+			HX_STACK_LINE(271)
 			::haxor::context::UID _this = ::haxor::context::EngineContext_obj::transform->tid;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(270)
+			HX_STACK_LINE(271)
 			if (((_this->m_cache->length <= (int)0))){
-				HX_STACK_LINE(270)
+				HX_STACK_LINE(271)
 				_g = (_this->m_id)++;
 			}
 			else{
-				HX_STACK_LINE(270)
+				HX_STACK_LINE(271)
 				_g = _this->m_cache->shift();
 			}
 		}
-		HX_STACK_LINE(270)
+		HX_STACK_LINE(271)
 		this->__cid = _g;
-		HX_STACK_LINE(271)
+		HX_STACK_LINE(272)
 		::haxor::math::Vector3 _g1 = ::haxor::math::Vector3_obj::__new((int)0,(int)0,(int)0);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(271)
+		HX_STACK_LINE(272)
 		this->m_localPosition = _g1;
-		HX_STACK_LINE(272)
+		HX_STACK_LINE(273)
 		::haxor::math::Quaternion _g2 = ::haxor::math::Quaternion_obj::__new((int)0,(int)0,(int)0,1.0);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(272)
+		HX_STACK_LINE(273)
 		this->m_localRotation = _g2;
-		HX_STACK_LINE(273)
+		HX_STACK_LINE(274)
 		::haxor::math::Vector3 _g3 = ::haxor::math::Vector3_obj::__new((int)1,(int)1,(int)1);		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(273)
+		HX_STACK_LINE(274)
 		this->m_localScale = _g3;
-		HX_STACK_LINE(275)
+		HX_STACK_LINE(276)
 		::haxor::math::Vector3 _g4 = ::haxor::math::Vector3_obj::__new((int)0,(int)0,(int)0);		HX_STACK_VAR(_g4,"_g4");
-		HX_STACK_LINE(275)
+		HX_STACK_LINE(276)
 		this->m_position = _g4;
-		HX_STACK_LINE(276)
+		HX_STACK_LINE(277)
 		::haxor::math::Quaternion _g5 = ::haxor::math::Quaternion_obj::__new((int)0,(int)0,(int)0,1.0);		HX_STACK_VAR(_g5,"_g5");
-		HX_STACK_LINE(276)
+		HX_STACK_LINE(277)
 		this->m_rotation = _g5;
-		HX_STACK_LINE(277)
+		HX_STACK_LINE(278)
 		::haxor::math::Vector3 _g6 = ::haxor::math::Vector3_obj::__new((int)1,(int)1,(int)1);		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(277)
+		HX_STACK_LINE(278)
 		this->m_scale = _g6;
-		HX_STACK_LINE(279)
-		this->m_lmt_dirty = false;
 		HX_STACK_LINE(280)
-		this->m_lmrs_dirty = false;
+		this->m_lmt_dirty = false;
 		HX_STACK_LINE(281)
-		this->m_dirty = false;
+		this->m_lmrs_dirty = false;
 		HX_STACK_LINE(282)
-		this->m_inverse_dirty = false;
+		this->m_dirty = false;
 		HX_STACK_LINE(283)
-		this->m_wsp_dirty = false;
+		this->m_inverse_dirty = false;
 		HX_STACK_LINE(284)
+		this->m_wsp_dirty = false;
+		HX_STACK_LINE(285)
 		this->m_wsrs_dirty = false;
-		HX_STACK_LINE(287)
+		HX_STACK_LINE(288)
 		this->m_uniform_dirty = true;
-		HX_STACK_LINE(289)
+		HX_STACK_LINE(290)
 		::haxor::math::Vector3 _g7 = ::haxor::math::Vector3_obj::__new((int)1,(int)0,(int)0);		HX_STACK_VAR(_g7,"_g7");
-		HX_STACK_LINE(289)
+		HX_STACK_LINE(290)
 		this->m_right = _g7;
-		HX_STACK_LINE(290)
+		HX_STACK_LINE(291)
 		::haxor::math::Vector3 _g8 = ::haxor::math::Vector3_obj::__new((int)0,(int)1,(int)0);		HX_STACK_VAR(_g8,"_g8");
-		HX_STACK_LINE(290)
+		HX_STACK_LINE(291)
 		this->m_up = _g8;
-		HX_STACK_LINE(291)
+		HX_STACK_LINE(292)
 		::haxor::math::Vector3 _g9 = ::haxor::math::Vector3_obj::get_forward();		HX_STACK_VAR(_g9,"_g9");
-		HX_STACK_LINE(291)
+		HX_STACK_LINE(292)
 		this->m_forward = _g9;
-		HX_STACK_LINE(292)
+		HX_STACK_LINE(293)
 		::haxor::math::Matrix4 _g10 = ::haxor::math::Matrix4_obj::__new((int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g10,"_g10");
-		HX_STACK_LINE(292)
+		HX_STACK_LINE(293)
 		this->m_localMatrix = _g10;
-		HX_STACK_LINE(293)
+		HX_STACK_LINE(294)
 		::haxor::math::Matrix4 _g11 = ::haxor::math::Matrix4_obj::__new((int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g11,"_g11");
-		HX_STACK_LINE(293)
+		HX_STACK_LINE(294)
 		this->m_worldMatrixInverse = _g11;
-		HX_STACK_LINE(294)
-		::haxor::math::Matrix4 _g12 = ::haxor::math::Matrix4_obj::__new((int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g12,"_g12");
-		HX_STACK_LINE(294)
-		this->m_worldMatrix = _g12;
 		HX_STACK_LINE(295)
-		this->m_hierarchy = Array_obj< ::Dynamic >::__new();
+		::haxor::math::Matrix4 _g12 = ::haxor::math::Matrix4_obj::__new((int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g12,"_g12");
+		HX_STACK_LINE(295)
+		this->m_worldMatrix = _g12;
 		HX_STACK_LINE(296)
+		this->m_hierarchy = Array_obj< ::Dynamic >::__new();
+		HX_STACK_LINE(297)
 		if (((::haxor::component::Transform_obj::m_root != null()))){
-			HX_STACK_LINE(296)
+			HX_STACK_LINE(297)
 			this->set_parent(null());
 		}
 		else{
-			HX_STACK_LINE(296)
+			HX_STACK_LINE(297)
 			::haxor::component::Transform_obj::m_root = hx::ObjectPtr<OBJ_>(this);
 		}
 	}
@@ -714,13 +714,13 @@ return null();
 
 Void Transform_obj::UpdateLMT( ){
 {
-		HX_STACK_FRAME("haxor.component.Transform","UpdateLMT",0x0bb5dd2b,"haxor.component.Transform.UpdateLMT","haxor/component/Transform.hx",303,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","UpdateLMT",0x0bb5dd2b,"haxor.component.Transform.UpdateLMT","haxor/component/Transform.hx",304,0x28912231)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(304)
-		this->m_localMatrix->m03 = this->m_localPosition->x;
 		HX_STACK_LINE(305)
-		this->m_localMatrix->m13 = this->m_localPosition->y;
+		this->m_localMatrix->m03 = this->m_localPosition->x;
 		HX_STACK_LINE(306)
+		this->m_localMatrix->m13 = this->m_localPosition->y;
+		HX_STACK_LINE(307)
 		this->m_localMatrix->m23 = this->m_localPosition->z;
 	}
 return null();
@@ -731,17 +731,17 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,UpdateLMT,(void))
 
 Void Transform_obj::UpdateWSP( ){
 {
-		HX_STACK_FRAME("haxor.component.Transform","UpdateWSP",0x0bbe3b2c,"haxor.component.Transform.UpdateWSP","haxor/component/Transform.hx",314,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","UpdateWSP",0x0bbe3b2c,"haxor.component.Transform.UpdateWSP","haxor/component/Transform.hx",315,0x28912231)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(314)
+		HX_STACK_LINE(315)
 		if ((this->m_wsp_dirty)){
-			HX_STACK_LINE(316)
-			this->m_position->x = this->m_worldMatrix->m03;
 			HX_STACK_LINE(317)
-			this->m_position->y = this->m_worldMatrix->m13;
+			this->m_position->x = this->m_worldMatrix->m03;
 			HX_STACK_LINE(318)
-			this->m_position->z = this->m_worldMatrix->m23;
+			this->m_position->y = this->m_worldMatrix->m13;
 			HX_STACK_LINE(319)
+			this->m_position->z = this->m_worldMatrix->m23;
+			HX_STACK_LINE(320)
 			this->m_wsp_dirty = false;
 		}
 	}
@@ -753,46 +753,46 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,UpdateWSP,(void))
 
 Void Transform_obj::UpdateLMRS( ){
 {
-		HX_STACK_FRAME("haxor.component.Transform","UpdateLMRS",0x336ba70a,"haxor.component.Transform.UpdateLMRS","haxor/component/Transform.hx",327,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","UpdateLMRS",0x336ba70a,"haxor.component.Transform.UpdateLMRS","haxor/component/Transform.hx",328,0x28912231)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(328)
-		Float sx = this->m_localScale->x;		HX_STACK_VAR(sx,"sx");
 		HX_STACK_LINE(329)
-		Float sy = this->m_localScale->y;		HX_STACK_VAR(sy,"sy");
+		Float sx = this->m_localScale->x;		HX_STACK_VAR(sx,"sx");
 		HX_STACK_LINE(330)
+		Float sy = this->m_localScale->y;		HX_STACK_VAR(sy,"sy");
+		HX_STACK_LINE(331)
 		Float sz = this->m_localScale->z;		HX_STACK_VAR(sz,"sz");
-		HX_STACK_LINE(331)
+		HX_STACK_LINE(332)
 		::haxor::math::Matrix4 _g1;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(331)
+		HX_STACK_LINE(332)
 		{
-			HX_STACK_LINE(331)
+			HX_STACK_LINE(332)
 			::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(331)
+			HX_STACK_LINE(332)
 			int _g = _this->m_nq = hx::Mod(((_this->m_nm4 + (int)1)),_this->m_m4->length);		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(331)
+			HX_STACK_LINE(332)
 			_g1 = _this->m_m4->__get(_g).StaticCast< ::haxor::math::Matrix4 >();
 		}
-		HX_STACK_LINE(331)
-		::haxor::math::Matrix4 r = ::haxor::math::Matrix4_obj::FromQuaternion(this->m_localRotation,_g1);		HX_STACK_VAR(r,"r");
 		HX_STACK_LINE(332)
+		::haxor::math::Matrix4 r = ::haxor::math::Matrix4_obj::FromQuaternion(this->m_localRotation,_g1);		HX_STACK_VAR(r,"r");
+		HX_STACK_LINE(333)
 		::haxor::math::Matrix4 l = this->m_localMatrix;		HX_STACK_VAR(l,"l");
-		HX_STACK_LINE(333)
+		HX_STACK_LINE(334)
 		l->m00 = (r->m00 * sx);
-		HX_STACK_LINE(333)
+		HX_STACK_LINE(334)
 		l->m01 = (r->m01 * sy);
-		HX_STACK_LINE(333)
+		HX_STACK_LINE(334)
 		l->m02 = (r->m02 * sz);
-		HX_STACK_LINE(334)
+		HX_STACK_LINE(335)
 		l->m10 = (r->m10 * sx);
-		HX_STACK_LINE(334)
+		HX_STACK_LINE(335)
 		l->m11 = (r->m11 * sy);
-		HX_STACK_LINE(334)
+		HX_STACK_LINE(335)
 		l->m12 = (r->m12 * sz);
-		HX_STACK_LINE(335)
+		HX_STACK_LINE(336)
 		l->m20 = (r->m20 * sx);
-		HX_STACK_LINE(335)
+		HX_STACK_LINE(336)
 		l->m21 = (r->m21 * sy);
-		HX_STACK_LINE(335)
+		HX_STACK_LINE(336)
 		l->m22 = (r->m22 * sz);
 	}
 return null();
@@ -803,124 +803,124 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,UpdateLMRS,(void))
 
 Void Transform_obj::UpdateWSRS( ){
 {
-		HX_STACK_FRAME("haxor.component.Transform","UpdateWSRS",0x3ab58d65,"haxor.component.Transform.UpdateWSRS","haxor/component/Transform.hx",343,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","UpdateWSRS",0x3ab58d65,"haxor.component.Transform.UpdateWSRS","haxor/component/Transform.hx",344,0x28912231)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(343)
+		HX_STACK_LINE(344)
 		if ((this->m_wsrs_dirty)){
-			HX_STACK_LINE(345)
+			HX_STACK_LINE(346)
 			::haxor::math::Matrix4 m = this->m_worldMatrix;		HX_STACK_VAR(m,"m");
 			struct _Function_2_1{
-				inline static ::haxor::math::Vector3 Block( ){
-					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",347,0x28912231)
-					{
-						HX_STACK_LINE(347)
-						::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-						HX_STACK_LINE(347)
-						int _g = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g,"_g");
-						HX_STACK_LINE(347)
-						return _this->m_v3->__get(_g).StaticCast< ::haxor::math::Vector3 >();
-					}
-					return null();
-				}
-			};
-			HX_STACK_LINE(347)
-			::haxor::math::Vector3 c0 = (_Function_2_1::Block())->Set(m->m00,m->m10,m->m20);		HX_STACK_VAR(c0,"c0");
-			struct _Function_2_2{
 				inline static ::haxor::math::Vector3 Block( ){
 					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",348,0x28912231)
 					{
 						HX_STACK_LINE(348)
 						::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
 						HX_STACK_LINE(348)
-						int _g1 = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g1,"_g1");
+						int _g = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g,"_g");
 						HX_STACK_LINE(348)
-						return _this->m_v3->__get(_g1).StaticCast< ::haxor::math::Vector3 >();
+						return _this->m_v3->__get(_g).StaticCast< ::haxor::math::Vector3 >();
 					}
 					return null();
 				}
 			};
 			HX_STACK_LINE(348)
-			::haxor::math::Vector3 c1 = (_Function_2_2::Block())->Set(m->m01,m->m11,m->m21);		HX_STACK_VAR(c1,"c1");
-			struct _Function_2_3{
+			::haxor::math::Vector3 c0 = (_Function_2_1::Block())->Set(m->m00,m->m10,m->m20);		HX_STACK_VAR(c0,"c0");
+			struct _Function_2_2{
 				inline static ::haxor::math::Vector3 Block( ){
 					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",349,0x28912231)
 					{
 						HX_STACK_LINE(349)
 						::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
 						HX_STACK_LINE(349)
-						int _g2 = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g2,"_g2");
+						int _g1 = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g1,"_g1");
 						HX_STACK_LINE(349)
-						return _this->m_v3->__get(_g2).StaticCast< ::haxor::math::Vector3 >();
+						return _this->m_v3->__get(_g1).StaticCast< ::haxor::math::Vector3 >();
 					}
 					return null();
 				}
 			};
 			HX_STACK_LINE(349)
+			::haxor::math::Vector3 c1 = (_Function_2_2::Block())->Set(m->m01,m->m11,m->m21);		HX_STACK_VAR(c1,"c1");
+			struct _Function_2_3{
+				inline static ::haxor::math::Vector3 Block( ){
+					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",350,0x28912231)
+					{
+						HX_STACK_LINE(350)
+						::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
+						HX_STACK_LINE(350)
+						int _g2 = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g2,"_g2");
+						HX_STACK_LINE(350)
+						return _this->m_v3->__get(_g2).StaticCast< ::haxor::math::Vector3 >();
+					}
+					return null();
+				}
+			};
+			HX_STACK_LINE(350)
 			::haxor::math::Vector3 c2 = (_Function_2_3::Block())->Set(m->m02,m->m12,m->m22);		HX_STACK_VAR(c2,"c2");
-			HX_STACK_LINE(351)
+			HX_STACK_LINE(352)
 			Float l0 = ::Math_obj::sqrt((((c0->x * c0->x) + (c0->y * c0->y)) + (c0->z * c0->z)));		HX_STACK_VAR(l0,"l0");
-			HX_STACK_LINE(351)
+			HX_STACK_LINE(352)
 			Float l1 = ::Math_obj::sqrt((((c1->x * c1->x) + (c1->y * c1->y)) + (c1->z * c1->z)));		HX_STACK_VAR(l1,"l1");
-			HX_STACK_LINE(351)
+			HX_STACK_LINE(352)
 			Float l2 = ::Math_obj::sqrt((((c2->x * c2->x) + (c2->y * c2->y)) + (c2->z * c2->z)));		HX_STACK_VAR(l2,"l2");
-			HX_STACK_LINE(353)
+			HX_STACK_LINE(354)
 			this->m_scale->x = l0;
-			HX_STACK_LINE(353)
+			HX_STACK_LINE(354)
 			this->m_scale->y = l1;
-			HX_STACK_LINE(353)
+			HX_STACK_LINE(354)
 			this->m_scale->z = l2;
-			HX_STACK_LINE(355)
+			HX_STACK_LINE(356)
 			if (((l0 <= 0.0))){
-				HX_STACK_LINE(355)
+				HX_STACK_LINE(356)
 				l0 = 0.0;
 			}
 			else{
-				HX_STACK_LINE(355)
+				HX_STACK_LINE(356)
 				l0 = (Float(1.0) / Float(l0));
 			}
-			HX_STACK_LINE(355)
+			HX_STACK_LINE(356)
 			if (((l1 <= 0.0))){
-				HX_STACK_LINE(355)
+				HX_STACK_LINE(356)
 				l1 = 0.0;
 			}
 			else{
-				HX_STACK_LINE(355)
+				HX_STACK_LINE(356)
 				l1 = (Float(1.0) / Float(l1));
 			}
-			HX_STACK_LINE(355)
+			HX_STACK_LINE(356)
 			if (((l2 <= 0.0))){
-				HX_STACK_LINE(355)
+				HX_STACK_LINE(356)
 				l2 = 0.0;
 			}
 			else{
-				HX_STACK_LINE(355)
+				HX_STACK_LINE(356)
 				l2 = (Float(1.0) / Float(l2));
 			}
-			HX_STACK_LINE(357)
+			HX_STACK_LINE(358)
 			c0->Scale(l0);
-			HX_STACK_LINE(357)
+			HX_STACK_LINE(358)
 			c1->Scale(l1);
-			HX_STACK_LINE(357)
+			HX_STACK_LINE(358)
 			c2->Scale(l2);
 			struct _Function_2_4{
 				inline static ::haxor::math::Matrix4 Block( ){
-					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",359,0x28912231)
+					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/Transform.hx",360,0x28912231)
 					{
-						HX_STACK_LINE(359)
+						HX_STACK_LINE(360)
 						::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-						HX_STACK_LINE(359)
+						HX_STACK_LINE(360)
 						int _g3 = _this->m_nq = hx::Mod(((_this->m_nm4 + (int)1)),_this->m_m4->length);		HX_STACK_VAR(_g3,"_g3");
-						HX_STACK_LINE(359)
+						HX_STACK_LINE(360)
 						return _this->m_m4->__get(_g3).StaticCast< ::haxor::math::Matrix4 >();
 					}
 					return null();
 				}
 			};
-			HX_STACK_LINE(359)
+			HX_STACK_LINE(360)
 			::haxor::math::Matrix4 r = (_Function_2_4::Block())->Set(c0->x,c1->x,c2->x,0.0,c0->y,c1->y,c2->y,0.0,c0->z,c1->z,c2->z,0.0,0.0,0.0,0.0,1.0);		HX_STACK_VAR(r,"r");
-			HX_STACK_LINE(365)
+			HX_STACK_LINE(366)
 			::haxor::math::Quaternion_obj::FromMatrix4(r,this->m_rotation);
-			HX_STACK_LINE(367)
+			HX_STACK_LINE(368)
 			this->m_wsrs_dirty = false;
 		}
 	}
@@ -932,40 +932,40 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,UpdateWSRS,(void))
 
 Void Transform_obj::UpdateWorldMatrix( ){
 {
-		HX_STACK_FRAME("haxor.component.Transform","UpdateWorldMatrix",0x3aab888b,"haxor.component.Transform.UpdateWorldMatrix","haxor/component/Transform.hx",375,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","UpdateWorldMatrix",0x3aab888b,"haxor.component.Transform.UpdateWorldMatrix","haxor/component/Transform.hx",376,0x28912231)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(376)
+		HX_STACK_LINE(377)
 		bool need_concat = this->m_dirty;		HX_STACK_VAR(need_concat,"need_concat");
-		HX_STACK_LINE(378)
-		if ((this->m_lmt_dirty)){
-			HX_STACK_LINE(378)
-			this->UpdateLMT();
-			HX_STACK_LINE(378)
-			this->m_lmt_dirty = false;
-			HX_STACK_LINE(378)
-			need_concat = true;
-		}
 		HX_STACK_LINE(379)
-		if ((this->m_lmrs_dirty)){
+		if ((this->m_lmt_dirty)){
 			HX_STACK_LINE(379)
-			this->UpdateLMRS();
+			this->UpdateLMT();
 			HX_STACK_LINE(379)
-			this->m_lmrs_dirty = false;
+			this->m_lmt_dirty = false;
 			HX_STACK_LINE(379)
 			need_concat = true;
 		}
-		HX_STACK_LINE(381)
+		HX_STACK_LINE(380)
+		if ((this->m_lmrs_dirty)){
+			HX_STACK_LINE(380)
+			this->UpdateLMRS();
+			HX_STACK_LINE(380)
+			this->m_lmrs_dirty = false;
+			HX_STACK_LINE(380)
+			need_concat = true;
+		}
+		HX_STACK_LINE(382)
 		if (((this->m_parent != null()))){
-			HX_STACK_LINE(383)
+			HX_STACK_LINE(384)
 			if ((this->m_dirty)){
-				HX_STACK_LINE(383)
+				HX_STACK_LINE(384)
 				this->m_parent->UpdateWorldMatrix();
 			}
-			HX_STACK_LINE(384)
-			this->m_dirty = false;
 			HX_STACK_LINE(385)
+			this->m_dirty = false;
+			HX_STACK_LINE(386)
 			if ((need_concat)){
-				HX_STACK_LINE(385)
+				HX_STACK_LINE(386)
 				::haxor::component::Transform_obj::TransformConcat(hx::ObjectPtr<OBJ_>(this));
 			}
 		}
@@ -978,30 +978,35 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,UpdateWorldMatrix,(void))
 
 Void Transform_obj::Invalidate( ){
 {
-		HX_STACK_FRAME("haxor.component.Transform","Invalidate",0xba43157a,"haxor.component.Transform.Invalidate","haxor/component/Transform.hx",393,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","Invalidate",0xba43157a,"haxor.component.Transform.Invalidate","haxor/component/Transform.hx",394,0x28912231)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(396)
-		this->m_uniform_dirty = true;
+		HX_STACK_LINE(395)
+		if ((this->m_dirty)){
+			HX_STACK_LINE(395)
+			return null();
+		}
 		HX_STACK_LINE(397)
+		this->m_uniform_dirty = true;
+		HX_STACK_LINE(398)
 		this->m_dirty = true;
-		HX_STACK_LINE(400)
+		HX_STACK_LINE(401)
 		::haxor::context::EngineContext_obj::transform->OnChange(hx::ObjectPtr<OBJ_>(this));
-		HX_STACK_LINE(403)
+		HX_STACK_LINE(404)
 		{
-			HX_STACK_LINE(403)
+			HX_STACK_LINE(404)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(403)
+			HX_STACK_LINE(404)
 			int _g = this->m_hierarchy->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(403)
+			HX_STACK_LINE(404)
 			while((true)){
-				HX_STACK_LINE(403)
+				HX_STACK_LINE(404)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(403)
+					HX_STACK_LINE(404)
 					break;
 				}
-				HX_STACK_LINE(403)
+				HX_STACK_LINE(404)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(403)
+				HX_STACK_LINE(404)
 				this->m_hierarchy->__get(i).StaticCast< ::haxor::component::Transform >()->Invalidate();
 			}
 		}
@@ -1014,79 +1019,79 @@ HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,Invalidate,(void))
 
 Void Transform_obj::LookAt( ::haxor::math::Vector3 p_at,::haxor::math::Vector3 p_up,hx::Null< Float >  __o_p_smooth){
 Float p_smooth = __o_p_smooth.Default(0.0);
-	HX_STACK_FRAME("haxor.component.Transform","LookAt",0xbc02c5b1,"haxor.component.Transform.LookAt","haxor/component/Transform.hx",412,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","LookAt",0xbc02c5b1,"haxor.component.Transform.LookAt","haxor/component/Transform.hx",413,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_at,"p_at")
 	HX_STACK_ARG(p_up,"p_up")
 	HX_STACK_ARG(p_smooth,"p_smooth")
 {
-		HX_STACK_LINE(413)
+		HX_STACK_LINE(414)
 		::haxor::math::Vector3 p = this->m_entity->m_transform->get_position();		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(414)
+		HX_STACK_LINE(415)
 		::haxor::math::Quaternion r;		HX_STACK_VAR(r,"r");
-		HX_STACK_LINE(414)
+		HX_STACK_LINE(415)
 		{
-			HX_STACK_LINE(414)
+			HX_STACK_LINE(415)
 			::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(414)
+			HX_STACK_LINE(415)
 			int _g = _this->m_nq = hx::Mod(((_this->m_nq + (int)1)),_this->m_q->length);		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(414)
+			HX_STACK_LINE(415)
 			r = _this->m_q->__get(_g).StaticCast< ::haxor::math::Quaternion >();
 		}
-		HX_STACK_LINE(415)
+		HX_STACK_LINE(416)
 		::haxor::math::Quaternion q;		HX_STACK_VAR(q,"q");
-		HX_STACK_LINE(415)
+		HX_STACK_LINE(416)
 		{
-			HX_STACK_LINE(415)
+			HX_STACK_LINE(416)
 			::haxor::math::Quaternion p_result;		HX_STACK_VAR(p_result,"p_result");
-			HX_STACK_LINE(415)
+			HX_STACK_LINE(416)
 			{
-				HX_STACK_LINE(415)
+				HX_STACK_LINE(416)
 				::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(415)
+				HX_STACK_LINE(416)
 				int _g1 = _this->m_nq = hx::Mod(((_this->m_nq + (int)1)),_this->m_q->length);		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(415)
+				HX_STACK_LINE(416)
 				p_result = _this->m_q->__get(_g1).StaticCast< ::haxor::math::Quaternion >();
 			}
-			HX_STACK_LINE(415)
+			HX_STACK_LINE(416)
 			::haxor::math::Matrix4 _g3;		HX_STACK_VAR(_g3,"_g3");
-			HX_STACK_LINE(415)
+			HX_STACK_LINE(416)
 			{
-				HX_STACK_LINE(415)
+				HX_STACK_LINE(416)
 				::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(415)
+				HX_STACK_LINE(416)
 				int _g2 = _this->m_nq = hx::Mod(((_this->m_nm4 + (int)1)),_this->m_m4->length);		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(415)
+				HX_STACK_LINE(416)
 				_g3 = _this->m_m4->__get(_g2).StaticCast< ::haxor::math::Matrix4 >();
 			}
-			HX_STACK_LINE(415)
+			HX_STACK_LINE(416)
 			::haxor::math::Matrix4 _g4 = ::haxor::math::Matrix4_obj::LookAt(p,p_at,p_up,_g3);		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(415)
+			HX_STACK_LINE(416)
 			q = ::haxor::math::Quaternion_obj::FromMatrix4(_g4,p_result);
 		}
-		HX_STACK_LINE(416)
+		HX_STACK_LINE(417)
 		if (((p_smooth > (int)0))){
-			HX_STACK_LINE(418)
+			HX_STACK_LINE(419)
 			::haxor::math::Quaternion _g6;		HX_STACK_VAR(_g6,"_g6");
-			HX_STACK_LINE(418)
+			HX_STACK_LINE(419)
 			{
-				HX_STACK_LINE(418)
+				HX_STACK_LINE(419)
 				::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(418)
+				HX_STACK_LINE(419)
 				int _g5 = _this->m_nq = hx::Mod(((_this->m_nq + (int)1)),_this->m_q->length);		HX_STACK_VAR(_g5,"_g5");
-				HX_STACK_LINE(418)
+				HX_STACK_LINE(419)
 				_g6 = _this->m_q->__get(_g5).StaticCast< ::haxor::math::Quaternion >();
 			}
-			HX_STACK_LINE(418)
+			HX_STACK_LINE(419)
 			::haxor::math::Quaternion _g7 = ::haxor::math::Quaternion_obj::Lerp(r,q,(p_smooth * ::haxor::core::Time_obj::m_delta),_g6);		HX_STACK_VAR(_g7,"_g7");
-			HX_STACK_LINE(418)
+			HX_STACK_LINE(419)
 			r = _g7;
 		}
 		else{
-			HX_STACK_LINE(422)
+			HX_STACK_LINE(423)
 			r = q;
 		}
-		HX_STACK_LINE(424)
+		HX_STACK_LINE(425)
 		this->m_entity->m_transform->set_rotation(r);
 	}
 return null();
@@ -1096,10 +1101,10 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC3(Transform_obj,LookAt,(void))
 
 ::haxor::component::Transform Transform_obj::GetChild( int p_index){
-	HX_STACK_FRAME("haxor.component.Transform","GetChild",0x2a326765,"haxor.component.Transform.GetChild","haxor/component/Transform.hx",431,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","GetChild",0x2a326765,"haxor.component.Transform.GetChild","haxor/component/Transform.hx",432,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_index,"p_index")
-	HX_STACK_LINE(431)
+	HX_STACK_LINE(432)
 	return this->m_hierarchy->__get(p_index).StaticCast< ::haxor::component::Transform >();
 }
 
@@ -1107,34 +1112,34 @@ HX_DEFINE_DYNAMIC_FUNC3(Transform_obj,LookAt,(void))
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,GetChild,return )
 
 ::haxor::component::Transform Transform_obj::GetChildByName( ::String p_name){
-	HX_STACK_FRAME("haxor.component.Transform","GetChildByName",0xa9542107,"haxor.component.Transform.GetChildByName","haxor/component/Transform.hx",438,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","GetChildByName",0xa9542107,"haxor.component.Transform.GetChildByName","haxor/component/Transform.hx",439,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_name,"p_name")
-	HX_STACK_LINE(439)
+	HX_STACK_LINE(440)
 	{
-		HX_STACK_LINE(439)
+		HX_STACK_LINE(440)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(439)
+		HX_STACK_LINE(440)
 		int _g = this->m_hierarchy->length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(439)
+		HX_STACK_LINE(440)
 		while((true)){
-			HX_STACK_LINE(439)
+			HX_STACK_LINE(440)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(439)
+				HX_STACK_LINE(440)
 				break;
 			}
-			HX_STACK_LINE(439)
+			HX_STACK_LINE(440)
 			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(439)
+			HX_STACK_LINE(440)
 			::String _g2 = this->m_hierarchy->__get(i).StaticCast< ::haxor::component::Transform >()->get_name();		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(439)
+			HX_STACK_LINE(440)
 			if (((_g2 == p_name))){
-				HX_STACK_LINE(439)
+				HX_STACK_LINE(440)
 				return this->m_hierarchy->__get(i).StaticCast< ::haxor::component::Transform >();
 			}
 		}
 	}
-	HX_STACK_LINE(440)
+	HX_STACK_LINE(441)
 	return null();
 }
 
@@ -1142,33 +1147,33 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,GetChild,return )
 HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,GetChildByName,return )
 
 ::haxor::component::Transform Transform_obj::Navigate( ::String p_path){
-	HX_STACK_FRAME("haxor.component.Transform","Navigate",0xc17f2d70,"haxor.component.Transform.Navigate","haxor/component/Transform.hx",449,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","Navigate",0xc17f2d70,"haxor.component.Transform.Navigate","haxor/component/Transform.hx",450,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_path,"p_path")
-	HX_STACK_LINE(450)
-	Array< ::String > tk = p_path.split(HX_CSTRING("."));		HX_STACK_VAR(tk,"tk");
 	HX_STACK_LINE(451)
-	::haxor::component::Transform t = hx::ObjectPtr<OBJ_>(this);		HX_STACK_VAR(t,"t");
+	Array< ::String > tk = p_path.split(HX_CSTRING("."));		HX_STACK_VAR(tk,"tk");
 	HX_STACK_LINE(452)
+	::haxor::component::Transform t = hx::ObjectPtr<OBJ_>(this);		HX_STACK_VAR(t,"t");
+	HX_STACK_LINE(453)
 	while((true)){
-		HX_STACK_LINE(452)
+		HX_STACK_LINE(453)
 		if ((!(((tk->length > (int)0))))){
-			HX_STACK_LINE(452)
+			HX_STACK_LINE(453)
 			break;
 		}
-		HX_STACK_LINE(454)
+		HX_STACK_LINE(455)
 		::String p = tk->shift();		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(455)
-		::haxor::component::Transform _g = t->GetChildByName(p);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(455)
-		t = _g;
 		HX_STACK_LINE(456)
+		::haxor::component::Transform _g = t->GetChildByName(p);		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(456)
+		t = _g;
+		HX_STACK_LINE(457)
 		if (((t == null()))){
-			HX_STACK_LINE(456)
+			HX_STACK_LINE(457)
 			return null();
 		}
 	}
-	HX_STACK_LINE(458)
+	HX_STACK_LINE(459)
 	return t;
 }
 
@@ -1177,61 +1182,61 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,Navigate,return )
 
 ::haxor::component::Transform Transform_obj::Search( ::String p_name,hx::Null< bool >  __o_p_exact){
 bool p_exact = __o_p_exact.Default(true);
-	HX_STACK_FRAME("haxor.component.Transform","Search",0xbd44efe7,"haxor.component.Transform.Search","haxor/component/Transform.hx",467,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","Search",0xbd44efe7,"haxor.component.Transform.Search","haxor/component/Transform.hx",468,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_name,"p_name")
 	HX_STACK_ARG(p_exact,"p_exact")
 {
-		HX_STACK_LINE(467)
+		HX_STACK_LINE(468)
 		Array< bool > p_exact1 = Array_obj< bool >::__new().Add(p_exact);		HX_STACK_VAR(p_exact1,"p_exact1");
-		HX_STACK_LINE(467)
+		HX_STACK_LINE(468)
 		Array< ::String > p_name1 = Array_obj< ::String >::__new().Add(p_name);		HX_STACK_VAR(p_name1,"p_name1");
-		HX_STACK_LINE(467)
+		HX_STACK_LINE(468)
 		Array< ::Dynamic > _g = Array_obj< ::Dynamic >::__new().Add(hx::ObjectPtr<OBJ_>(this));		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(469)
+		HX_STACK_LINE(470)
 		Array< ::Dynamic > res = Array_obj< ::Dynamic >::__new().Add(null());		HX_STACK_VAR(res,"res");
 
 		HX_BEGIN_LOCAL_FUNC_S4(hx::LocalFunc,_Function_1_1,Array< ::String >,p_name1,Array< ::Dynamic >,_g,Array< ::Dynamic >,res,Array< bool >,p_exact1)
 		bool run(::haxor::component::Transform it,int d){
-			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/component/Transform.hx",471,0x28912231)
+			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/component/Transform.hx",472,0x28912231)
 			HX_STACK_ARG(it,"it")
 			HX_STACK_ARG(d,"d")
 			{
-				HX_STACK_LINE(472)
-				if (((it == _g->__get((int)0).StaticCast< ::haxor::component::Transform >()))){
-					HX_STACK_LINE(472)
-					return true;
-				}
 				HX_STACK_LINE(473)
-				if (((res->__get((int)0).StaticCast< ::haxor::component::Transform >() != null()))){
+				if (((it == _g->__get((int)0).StaticCast< ::haxor::component::Transform >()))){
 					HX_STACK_LINE(473)
 					return true;
 				}
 				HX_STACK_LINE(474)
+				if (((res->__get((int)0).StaticCast< ::haxor::component::Transform >() != null()))){
+					HX_STACK_LINE(474)
+					return true;
+				}
+				HX_STACK_LINE(475)
 				if ((p_exact1->__get((int)0))){
-					HX_STACK_LINE(476)
+					HX_STACK_LINE(477)
 					if (((it->get_name() == p_name1->__get((int)0)))){
-						HX_STACK_LINE(476)
+						HX_STACK_LINE(477)
 						res[(int)0] = it;
 					}
 				}
 				else{
-					HX_STACK_LINE(480)
+					HX_STACK_LINE(481)
 					if (((it->get_name().indexOf(p_name1->__get((int)0),null()) >= (int)0))){
-						HX_STACK_LINE(480)
+						HX_STACK_LINE(481)
 						res[(int)0] = it;
 					}
 				}
-				HX_STACK_LINE(482)
+				HX_STACK_LINE(483)
 				return true;
 			}
 			return null();
 		}
 		HX_END_LOCAL_FUNC2(return)
 
-		HX_STACK_LINE(470)
+		HX_STACK_LINE(471)
 		this->Traverse( Dynamic(new _Function_1_1(p_name1,_g,res,p_exact1)));
-		HX_STACK_LINE(484)
+		HX_STACK_LINE(485)
 		return res->__get((int)0).StaticCast< ::haxor::component::Transform >();
 	}
 }
@@ -1240,89 +1245,111 @@ bool p_exact = __o_p_exact.Default(true);
 HX_DEFINE_DYNAMIC_FUNC2(Transform_obj,Search,return )
 
 Array< ::Dynamic > Transform_obj::GetPathToRoot( ){
-	HX_STACK_FRAME("haxor.component.Transform","GetPathToRoot",0x4d13a659,"haxor.component.Transform.GetPathToRoot","haxor/component/Transform.hx",492,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","GetPathToRoot",0x4d13a659,"haxor.component.Transform.GetPathToRoot","haxor/component/Transform.hx",493,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(493)
-	::haxor::component::Transform p = this->m_parent;		HX_STACK_VAR(p,"p");
 	HX_STACK_LINE(494)
-	Array< ::Dynamic > res = Array_obj< ::Dynamic >::__new();		HX_STACK_VAR(res,"res");
+	::haxor::component::Transform p = this->m_parent;		HX_STACK_VAR(p,"p");
 	HX_STACK_LINE(495)
+	Array< ::Dynamic > res = Array_obj< ::Dynamic >::__new();		HX_STACK_VAR(res,"res");
+	HX_STACK_LINE(496)
 	while((true)){
-		HX_STACK_LINE(495)
+		HX_STACK_LINE(496)
 		if ((!(((p != null()))))){
-			HX_STACK_LINE(495)
+			HX_STACK_LINE(496)
 			break;
 		}
-		HX_STACK_LINE(497)
-		res->push(p);
 		HX_STACK_LINE(498)
+		res->push(p);
+		HX_STACK_LINE(499)
 		p = p->m_parent;
 	}
-	HX_STACK_LINE(500)
-	res->reverse();
 	HX_STACK_LINE(501)
+	res->reverse();
+	HX_STACK_LINE(502)
 	return res;
 }
 
 
 HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,GetPathToRoot,return )
 
-::String Transform_obj::OutputHierarchy( ){
+::String Transform_obj::OutputHierarchy( hx::Null< bool >  __o_p_show_transform,hx::Null< bool >  __o_p_show_world){
+bool p_show_transform = __o_p_show_transform.Default(true);
+bool p_show_world = __o_p_show_world.Default(false);
 	HX_STACK_FRAME("haxor.component.Transform","OutputHierarchy",0x02eb15d5,"haxor.component.Transform.OutputHierarchy","haxor/component/Transform.hx",509,0x28912231)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(510)
-	Array< int > d0 = Array_obj< int >::__new().Add((int)0);		HX_STACK_VAR(d0,"d0");
-	HX_STACK_LINE(511)
-	Array< ::String > hs = Array_obj< ::String >::__new().Add(HX_CSTRING(""));		HX_STACK_VAR(hs,"hs");
+	HX_STACK_ARG(p_show_transform,"p_show_transform")
+	HX_STACK_ARG(p_show_world,"p_show_world")
+{
+		HX_STACK_LINE(509)
+		Array< bool > p_show_world1 = Array_obj< bool >::__new().Add(p_show_world);		HX_STACK_VAR(p_show_world1,"p_show_world1");
+		HX_STACK_LINE(509)
+		Array< bool > p_show_transform1 = Array_obj< bool >::__new().Add(p_show_transform);		HX_STACK_VAR(p_show_transform1,"p_show_transform1");
+		HX_STACK_LINE(511)
+		Array< int > d0 = Array_obj< int >::__new().Add((int)0);		HX_STACK_VAR(d0,"d0");
+		HX_STACK_LINE(512)
+		Array< ::String > hs = Array_obj< ::String >::__new().Add(HX_CSTRING(""));		HX_STACK_VAR(hs,"hs");
 
-	HX_BEGIN_LOCAL_FUNC_S2(hx::LocalFunc,_Function_1_1,Array< ::String >,hs,Array< int >,d0)
-	bool run(::haxor::component::Transform t,int d){
-		HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/component/Transform.hx",513,0x28912231)
-		HX_STACK_ARG(t,"t")
-		HX_STACK_ARG(d,"d")
-		{
-			HX_STACK_LINE(514)
-			::String tab = HX_CSTRING("");		HX_STACK_VAR(tab,"tab");
-			HX_STACK_LINE(515)
-			int td = d;		HX_STACK_VAR(td,"td");
-			HX_STACK_LINE(516)
-			int d1 = ::Math_obj::max((int)0,(td - d0->__get((int)0)));		HX_STACK_VAR(d1,"d1");
-			HX_STACK_LINE(517)
+		HX_BEGIN_LOCAL_FUNC_S4(hx::LocalFunc,_Function_1_1,Array< ::String >,hs,Array< bool >,p_show_world1,Array< int >,d0,Array< bool >,p_show_transform1)
+		bool run(::haxor::component::Transform t,int d){
+			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/component/Transform.hx",514,0x28912231)
+			HX_STACK_ARG(t,"t")
+			HX_STACK_ARG(d,"d")
 			{
+				HX_STACK_LINE(515)
+				::String tab = HX_CSTRING("");		HX_STACK_VAR(tab,"tab");
+				HX_STACK_LINE(516)
+				int td = d;		HX_STACK_VAR(td,"td");
 				HX_STACK_LINE(517)
-				int _g = (int)0;		HX_STACK_VAR(_g,"_g");
-				HX_STACK_LINE(517)
-				while(((_g < d1))){
-					HX_STACK_LINE(517)
-					int i = (_g)++;		HX_STACK_VAR(i,"i");
-					HX_STACK_LINE(517)
-					hx::AddEq(tab,HX_CSTRING(" "));
+				int d1 = ::Math_obj::max((int)0,(td - d0->__get((int)0)));		HX_STACK_VAR(d1,"d1");
+				HX_STACK_LINE(518)
+				{
+					HX_STACK_LINE(518)
+					int _g = (int)0;		HX_STACK_VAR(_g,"_g");
+					HX_STACK_LINE(518)
+					while(((_g < d1))){
+						HX_STACK_LINE(518)
+						int i = (_g)++;		HX_STACK_VAR(i,"i");
+						HX_STACK_LINE(518)
+						hx::AddEq(tab,HX_CSTRING(" "));
+					}
 				}
+				HX_STACK_LINE(519)
+				hx::AddEq(hs[(int)0],((tab + t->get_name()) + HX_CSTRING(" ")));
+				HX_STACK_LINE(520)
+				if ((p_show_transform1->__get((int)0))){
+					HX_STACK_LINE(520)
+					hx::AddEq(hs[(int)0],((t->get_position()->ToString(null()) + t->get_rotation()->ToString(null())) + t->get_scale()->ToString(null())));
+				}
+				HX_STACK_LINE(521)
+				if ((p_show_world1->__get((int)0))){
+					HX_STACK_LINE(521)
+					hx::AddEq(hs[(int)0],t->get_WorldMatrix()->ToString(true,(int)3));
+				}
+				HX_STACK_LINE(522)
+				hx::AddEq(hs[(int)0],HX_CSTRING("\n"));
+				HX_STACK_LINE(523)
+				return true;
 			}
-			HX_STACK_LINE(518)
-			hx::AddEq(hs[(int)0],((((((tab + t->get_name()) + HX_CSTRING(" ")) + t->get_position()->ToString(null())) + t->get_rotation()->ToString(null())) + t->get_scale()->ToString(null())) + HX_CSTRING("\n")));
-			HX_STACK_LINE(519)
-			return true;
+			return null();
 		}
-		return null();
-	}
-	HX_END_LOCAL_FUNC2(return)
+		HX_END_LOCAL_FUNC2(return)
 
-	HX_STACK_LINE(512)
-	this->Traverse( Dynamic(new _Function_1_1(hs,d0)));
-	HX_STACK_LINE(521)
-	return hs->__get((int)0);
+		HX_STACK_LINE(513)
+		this->Traverse( Dynamic(new _Function_1_1(hs,p_show_world1,d0,p_show_transform1)));
+		HX_STACK_LINE(525)
+		return hs->__get((int)0);
+	}
 }
 
 
-HX_DEFINE_DYNAMIC_FUNC0(Transform_obj,OutputHierarchy,return )
+HX_DEFINE_DYNAMIC_FUNC2(Transform_obj,OutputHierarchy,return )
 
 Void Transform_obj::Traverse( Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.component.Transform","Traverse",0xf10c2bf1,"haxor.component.Transform.Traverse","haxor/component/Transform.hx",529,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","Traverse",0xf10c2bf1,"haxor.component.Transform.Traverse","haxor/component/Transform.hx",533,0x28912231)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(529)
+		HX_STACK_LINE(533)
 		this->TraverseStep(hx::ObjectPtr<OBJ_>(this),(int)0,p_callback);
 	}
 return null();
@@ -1333,29 +1360,29 @@ HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,Traverse,(void))
 
 Void Transform_obj::TraverseStep( ::haxor::component::Transform p_child,int p_depth,Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.component.Transform","TraverseStep",0x9cc48bdd,"haxor.component.Transform.TraverseStep","haxor/component/Transform.hx",536,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","TraverseStep",0x9cc48bdd,"haxor.component.Transform.TraverseStep","haxor/component/Transform.hx",540,0x28912231)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_child,"p_child")
 		HX_STACK_ARG(p_depth,"p_depth")
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(536)
+		HX_STACK_LINE(540)
 		if ((p_callback(p_child,p_depth).Cast< bool >())){
-			HX_STACK_LINE(536)
+			HX_STACK_LINE(540)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(536)
+			HX_STACK_LINE(540)
 			int _g = p_child->m_hierarchy->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(536)
+			HX_STACK_LINE(540)
 			while((true)){
-				HX_STACK_LINE(536)
+				HX_STACK_LINE(540)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(536)
+					HX_STACK_LINE(540)
 					break;
 				}
-				HX_STACK_LINE(536)
+				HX_STACK_LINE(540)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(536)
+				HX_STACK_LINE(540)
 				::haxor::component::Transform _g2 = p_child->GetChild(i);		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(536)
+				HX_STACK_LINE(540)
 				this->TraverseStep(_g2,(p_depth + (int)1),p_callback);
 			}
 		}
@@ -1368,13 +1395,13 @@ HX_DEFINE_DYNAMIC_FUNC3(Transform_obj,TraverseStep,(void))
 
 Void Transform_obj::OnDestroy( ){
 {
-		HX_STACK_FRAME("haxor.component.Transform","OnDestroy",0x8507ae7c,"haxor.component.Transform.OnDestroy","haxor/component/Transform.hx",543,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","OnDestroy",0x8507ae7c,"haxor.component.Transform.OnDestroy","haxor/component/Transform.hx",547,0x28912231)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(543)
+		HX_STACK_LINE(547)
 		int v = this->__cid;		HX_STACK_VAR(v,"v");
-		HX_STACK_LINE(543)
+		HX_STACK_LINE(547)
 		::haxor::context::EngineContext_obj::transform->tid->m_cache->push(v);
-		HX_STACK_LINE(543)
+		HX_STACK_LINE(547)
 		v;
 	}
 return null();
@@ -1384,63 +1411,63 @@ return null();
 ::String Transform_obj::ToString( hx::Null< bool >  __o_p_use_local,hx::Null< int >  __o_p_places){
 bool p_use_local = __o_p_use_local.Default(false);
 int p_places = __o_p_places.Default(2);
-	HX_STACK_FRAME("haxor.component.Transform","ToString",0xbd107eeb,"haxor.component.Transform.ToString","haxor/component/Transform.hx",552,0x28912231)
+	HX_STACK_FRAME("haxor.component.Transform","ToString",0xbd107eeb,"haxor.component.Transform.ToString","haxor/component/Transform.hx",556,0x28912231)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_use_local,"p_use_local")
 	HX_STACK_ARG(p_places,"p_places")
 {
-		HX_STACK_LINE(553)
+		HX_STACK_LINE(557)
 		::haxor::math::Vector3 p;		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(553)
+		HX_STACK_LINE(557)
 		if ((p_use_local)){
-			HX_STACK_LINE(553)
+			HX_STACK_LINE(557)
 			p = this->get_localPosition();
 		}
 		else{
-			HX_STACK_LINE(553)
+			HX_STACK_LINE(557)
 			p = this->get_position();
 		}
-		HX_STACK_LINE(554)
+		HX_STACK_LINE(558)
 		::haxor::math::Vector3 e;		HX_STACK_VAR(e,"e");
-		HX_STACK_LINE(554)
+		HX_STACK_LINE(558)
 		if ((p_use_local)){
-			HX_STACK_LINE(554)
+			HX_STACK_LINE(558)
 			e = this->get_localEuler();
 		}
 		else{
-			HX_STACK_LINE(554)
+			HX_STACK_LINE(558)
 			e = this->get_euler();
 		}
-		HX_STACK_LINE(555)
+		HX_STACK_LINE(559)
 		::haxor::math::Vector3 s;		HX_STACK_VAR(s,"s");
-		HX_STACK_LINE(555)
+		HX_STACK_LINE(559)
 		if ((p_use_local)){
-			HX_STACK_LINE(555)
+			HX_STACK_LINE(559)
 			s = this->get_localScale();
 		}
 		else{
-			HX_STACK_LINE(555)
+			HX_STACK_LINE(559)
 			s = this->get_scale();
 		}
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		::String _g = this->get_name();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		::String _g1 = (_g + HX_CSTRING(" "));		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		::String _g2 = p->ToString(p_places);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		::String _g3 = (_g1 + _g2);		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		::String _g4 = (_g3 + HX_CSTRING(""));		HX_STACK_VAR(_g4,"_g4");
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		::String _g5 = e->ToString(p_places);		HX_STACK_VAR(_g5,"_g5");
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		::String _g6 = (_g4 + _g5);		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		::String _g7 = (_g6 + HX_CSTRING(""));		HX_STACK_VAR(_g7,"_g7");
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		::String _g8 = s->ToString(p_places);		HX_STACK_VAR(_g8,"_g8");
-		HX_STACK_LINE(556)
+		HX_STACK_LINE(560)
 		return (_g7 + _g8);
 	}
 }
@@ -1450,49 +1477,49 @@ HX_DEFINE_DYNAMIC_FUNC2(Transform_obj,ToString,return )
 
 Void Transform_obj::TransformConcat( ::haxor::component::Transform t){
 {
-		HX_STACK_FRAME("haxor.component.Transform","TransformConcat",0x219fab41,"haxor.component.Transform.TransformConcat","haxor/component/Transform.hx",25,0x28912231)
+		HX_STACK_FRAME("haxor.component.Transform","TransformConcat",0x219fab41,"haxor.component.Transform.TransformConcat","haxor/component/Transform.hx",26,0x28912231)
 		HX_STACK_ARG(t,"t")
-		HX_STACK_LINE(27)
+		HX_STACK_LINE(28)
 		::haxor::math::Matrix4 v = t->m_parent->m_worldMatrix;		HX_STACK_VAR(v,"v");
-		HX_STACK_LINE(30)
+		HX_STACK_LINE(31)
 		::haxor::math::Matrix4 m = t->m_worldMatrix;		HX_STACK_VAR(m,"m");
-		HX_STACK_LINE(31)
+		HX_STACK_LINE(32)
 		m->m00 = v->m00;
-		HX_STACK_LINE(31)
+		HX_STACK_LINE(32)
 		m->m01 = v->m01;
-		HX_STACK_LINE(31)
+		HX_STACK_LINE(32)
 		m->m02 = v->m02;
-		HX_STACK_LINE(31)
+		HX_STACK_LINE(32)
 		m->m03 = v->m03;
-		HX_STACK_LINE(32)
+		HX_STACK_LINE(33)
 		m->m10 = v->m10;
-		HX_STACK_LINE(32)
+		HX_STACK_LINE(33)
 		m->m11 = v->m11;
-		HX_STACK_LINE(32)
+		HX_STACK_LINE(33)
 		m->m12 = v->m12;
-		HX_STACK_LINE(32)
+		HX_STACK_LINE(33)
 		m->m13 = v->m13;
-		HX_STACK_LINE(33)
+		HX_STACK_LINE(34)
 		m->m20 = v->m20;
-		HX_STACK_LINE(33)
+		HX_STACK_LINE(34)
 		m->m21 = v->m21;
-		HX_STACK_LINE(33)
+		HX_STACK_LINE(34)
 		m->m22 = v->m22;
-		HX_STACK_LINE(33)
+		HX_STACK_LINE(34)
 		m->m23 = v->m23;
-		HX_STACK_LINE(35)
+		HX_STACK_LINE(36)
 		m->MultiplyTransform(t->m_localMatrix);
-		HX_STACK_LINE(38)
-		t->m_wsp_dirty = true;
 		HX_STACK_LINE(39)
+		t->m_wsp_dirty = true;
+		HX_STACK_LINE(40)
 		t->m_wsrs_dirty = true;
-		HX_STACK_LINE(42)
-		t->m_right->Set(m->m00,m->m10,m->m20)->Normalize();
 		HX_STACK_LINE(43)
-		t->m_up->Set(m->m01,m->m11,m->m21)->Normalize();
+		t->m_right->Set(m->m00,m->m10,m->m20)->Normalize();
 		HX_STACK_LINE(44)
+		t->m_up->Set(m->m01,m->m11,m->m21)->Normalize();
+		HX_STACK_LINE(45)
 		t->m_forward->Set(m->m02,m->m12,m->m22)->Normalize();
-		HX_STACK_LINE(47)
+		HX_STACK_LINE(48)
 		t->m_inverse_dirty = true;
 	}
 return null();
@@ -1502,8 +1529,8 @@ return null();
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Transform_obj,TransformConcat,(void))
 
 ::haxor::component::Transform Transform_obj::get_root( ){
-	HX_STACK_FRAME("haxor.component.Transform","get_root",0x76599bca,"haxor.component.Transform.get_root","haxor/component/Transform.hx",54,0x28912231)
-	HX_STACK_LINE(54)
+	HX_STACK_FRAME("haxor.component.Transform","get_root",0x76599bca,"haxor.component.Transform.get_root","haxor/component/Transform.hx",55,0x28912231)
+	HX_STACK_LINE(55)
 	return ::haxor::component::Transform_obj::m_root;
 }
 

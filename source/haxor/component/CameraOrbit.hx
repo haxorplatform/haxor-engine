@@ -11,6 +11,7 @@ import haxor.math.Mathf;
 import haxor.math.Quaternion;
 import haxor.math.Vector2;
 import haxor.math.Vector3;
+import haxor.platform.Types.Float32;
 
 
 /**
@@ -19,7 +20,7 @@ import haxor.math.Vector3;
  */
 class CameraOrbit extends Behaviour implements IUpdateable
 {
-	static public function Create(p_distance:Float=1,p_angle_x:Float=0,p_angle_y:Float=0) : CameraOrbit
+	static public function Create(p_distance:Float32=1,p_angle_x:Float32=0,p_angle_y:Float32=0) : CameraOrbit
 	{
 		var e : Entity = new Entity();		
 		e.name = "camera_orbit";		
@@ -49,17 +50,17 @@ class CameraOrbit extends Behaviour implements IUpdateable
 	}
 	var m_pivot : Transform;
 	
-	public var distance : Float;
+	public var distance : Float32;
 	
 	public var angle : Vector2;
 	
-	public var smooth : Float;
+	public var smooth : Float32;
 	
 	public var target : Transform;
 	
 	var m_angle:Vector2;
 	
-	var m_distance:Float;
+	var m_distance:Float32;
 	
 	var m_rotation : Quaternion;
 	
@@ -85,7 +86,7 @@ class CameraOrbit extends Behaviour implements IUpdateable
 	
 	public function OnUpdate():Void
 	{
-		var blend : Float = smooth <= 0 ? 1.0 : (Time.delta * smooth);
+		var blend : Float32 = smooth <= 0 ? 1.0 : (Time.delta * smooth);
 		m_angle.x = Mathf.Lerp(m_angle.x, angle.x, blend);
 		m_angle.y = Mathf.Lerp(m_angle.y, angle.y, blend);
 		m_distance = Mathf.Lerp(m_distance, distance, blend);	
@@ -114,8 +115,8 @@ class CameraOrbitInput extends Behaviour implements IUpdateable
 {
 	public var rotate 		: Bool = true;	
 	public var zoom 		: Bool = true;		
-	public var zoomSpeed 	: Float = 10.0;	
-	public var rotateSpeed 	: Float = 15.0;
+	public var zoomSpeed 	: Float32 = 0.5;	
+	public var rotateSpeed 	: Float32 = 0.5;
 	
 	private var m_orbit : CameraOrbit;
 	
@@ -126,9 +127,8 @@ class CameraOrbitInput extends Behaviour implements IUpdateable
 	
 	public function OnUpdate():Void
 	{
-		var dx : Float = (Input.touches.length == 1) ? Input.touches[0].delta.x : Input.deltaMouse.x;
-		var dy : Float = (Input.touches.length == 1) ? Input.touches[0].delta.y : Input.deltaMouse.y;
-		
+		var dx : Float32 = (Input.touches.length == 1) ? Input.touches[0].delta.x : Input.deltaMouse.x;
+		var dy : Float32 = (Input.touches.length == 1) ? Input.touches[0].delta.y : Input.deltaMouse.y;
 		
 		if (rotate)
 		{
@@ -137,8 +137,8 @@ class CameraOrbitInput extends Behaviour implements IUpdateable
 			
 			if (is_rotate)
 			{
-				m_orbit.angle.x += -dx * rotateSpeed * Time.delta;
-				m_orbit.angle.y +=  dy * rotateSpeed * Time.delta;
+				m_orbit.angle.x += -dx * rotateSpeed;
+				m_orbit.angle.y +=  dy * rotateSpeed;
 			}
 		}
 		
@@ -146,12 +146,12 @@ class CameraOrbitInput extends Behaviour implements IUpdateable
 		{
 			if (Math.abs(Input.wheel) > 0)
 			{
-				m_orbit.distance += (Input.wheel < 0 ? zoomSpeed : -zoomSpeed)*Time.delta;
+				m_orbit.distance += (Input.wheel < 0 ? zoomSpeed : -zoomSpeed);
 			}
 			
 			if (Input.touches.length == 2)
 			{
-				m_orbit.distance -= (Input.touches[0].delta.y * zoomSpeed * 0.05)*Time.delta;
+				m_orbit.distance += (Input.touches[0].delta.y * zoomSpeed * 0.05);
 			}
 		}
 		

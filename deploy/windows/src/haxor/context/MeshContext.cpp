@@ -57,7 +57,7 @@ HX_STACK_FRAME("haxor.context.MeshContext","new",0x9085c6a9,"haxor.context.MeshC
 HX_STACK_THIS(this)
 {
 	HX_STACK_LINE(32)
-	this->attribs = Array_obj< ::String >::__new().Add(HX_CSTRING("vertex")).Add(HX_CSTRING("normal")).Add(HX_CSTRING("uv0")).Add(HX_CSTRING("uv1")).Add(HX_CSTRING("uv2")).Add(HX_CSTRING("color")).Add(HX_CSTRING("weight")).Add(HX_CSTRING("index"));
+	this->attribs = Array_obj< ::String >::__new().Add(HX_CSTRING("vertex")).Add(HX_CSTRING("normal")).Add(HX_CSTRING("uv0")).Add(HX_CSTRING("uv1")).Add(HX_CSTRING("uv2")).Add(HX_CSTRING("color")).Add(HX_CSTRING("weight")).Add(HX_CSTRING("bone"));
 	HX_STACK_LINE(59)
 	::haxor::context::UID _g = ::haxor::context::UID_obj::__new();		HX_STACK_VAR(_g,"_g");
 	HX_STACK_LINE(59)
@@ -280,10 +280,17 @@ Void MeshContext_obj::Draw( ::haxor::graphics::mesh::Mesh m){
 			hx::AddEq(::haxor::core::Stats_obj::triangles,(Float(m->m_topology_attrib->data->m_length) / Float((int)3)));
 		}
 		else{
-			HX_STACK_LINE(190)
+			HX_STACK_LINE(191)
 			::haxor::graphics::GL_obj::m_gl->DrawArrays(m->primitive,(int)0,m->m_vcount);
-			HX_STACK_LINE(193)
-			hx::AddEq(::haxor::core::Stats_obj::triangles,m->m_vcount);
+			HX_STACK_LINE(194)
+			int off = (int)3;		HX_STACK_VAR(off,"off");
+			HX_STACK_LINE(195)
+			if (((m->primitive == (int)1))){
+				HX_STACK_LINE(195)
+				off = (int)2;
+			}
+			HX_STACK_LINE(196)
+			hx::AddEq(::haxor::core::Stats_obj::triangles,(Float(m->m_vcount) / Float(off)));
 		}
 	}
 return null();
@@ -294,27 +301,27 @@ HX_DEFINE_DYNAMIC_FUNC1(MeshContext_obj,Draw,(void))
 
 Void MeshContext_obj::RemoveAttrib( ::haxor::graphics::mesh::MeshAttrib p_attrib){
 {
-		HX_STACK_FRAME("haxor.context.MeshContext","RemoveAttrib",0xdd784765,"haxor.context.MeshContext.RemoveAttrib","haxor/context/MeshContext.hx",208,0xf23de969)
+		HX_STACK_FRAME("haxor.context.MeshContext","RemoveAttrib",0xdd784765,"haxor.context.MeshContext.RemoveAttrib","haxor/context/MeshContext.hx",211,0xf23de969)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_attrib,"p_attrib")
-		HX_STACK_LINE(209)
+		HX_STACK_LINE(212)
 		int id = this->buffers->__get(p_attrib->__cid);		HX_STACK_VAR(id,"id");
-		HX_STACK_LINE(210)
+		HX_STACK_LINE(213)
 		if (((id == ::haxor::graphics::GL_obj::INVALID))){
-			HX_STACK_LINE(210)
+			HX_STACK_LINE(213)
 			return null();
 		}
-		HX_STACK_LINE(211)
+		HX_STACK_LINE(214)
 		::haxor::graphics::GL_obj::m_gl->DeleteBuffer(id);
-		HX_STACK_LINE(212)
+		HX_STACK_LINE(215)
 		this->buffers[p_attrib->__cid] = ::haxor::graphics::GL_obj::INVALID;
-		HX_STACK_LINE(213)
+		HX_STACK_LINE(216)
 		{
-			HX_STACK_LINE(213)
+			HX_STACK_LINE(216)
 			int v = p_attrib->__cid;		HX_STACK_VAR(v,"v");
-			HX_STACK_LINE(213)
+			HX_STACK_LINE(216)
 			this->aid->m_cache->push(v);
-			HX_STACK_LINE(213)
+			HX_STACK_LINE(216)
 			v;
 		}
 	}
@@ -326,40 +333,40 @@ HX_DEFINE_DYNAMIC_FUNC1(MeshContext_obj,RemoveAttrib,(void))
 
 Void MeshContext_obj::UpdateAttrib( ::haxor::graphics::mesh::MeshAttrib a,int p_mode,bool p_is_index){
 {
-		HX_STACK_FRAME("haxor.context.MeshContext","UpdateAttrib",0x6e0e52ea,"haxor.context.MeshContext.UpdateAttrib","haxor/context/MeshContext.hx",221,0xf23de969)
+		HX_STACK_FRAME("haxor.context.MeshContext","UpdateAttrib",0x6e0e52ea,"haxor.context.MeshContext.UpdateAttrib","haxor/context/MeshContext.hx",224,0xf23de969)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(a,"a")
 		HX_STACK_ARG(p_mode,"p_mode")
 		HX_STACK_ARG(p_is_index,"p_is_index")
-		HX_STACK_LINE(222)
+		HX_STACK_LINE(225)
 		int id = this->buffers->__get(a->__cid);		HX_STACK_VAR(id,"id");
-		HX_STACK_LINE(223)
+		HX_STACK_LINE(226)
 		int target_flag;		HX_STACK_VAR(target_flag,"target_flag");
-		HX_STACK_LINE(223)
+		HX_STACK_LINE(226)
 		if ((p_is_index)){
-			HX_STACK_LINE(223)
+			HX_STACK_LINE(226)
 			target_flag = (int)34963;
 		}
 		else{
-			HX_STACK_LINE(223)
+			HX_STACK_LINE(226)
 			target_flag = (int)34962;
 		}
-		HX_STACK_LINE(226)
+		HX_STACK_LINE(229)
 		int _g = this->attribs->indexOf(a->m_name,null());		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(226)
+		HX_STACK_LINE(229)
 		a->_loc_ = _g;
-		HX_STACK_LINE(228)
+		HX_STACK_LINE(231)
 		if (((id == ::haxor::graphics::GL_obj::INVALID))){
-			HX_STACK_LINE(230)
+			HX_STACK_LINE(233)
 			int _g1 = ::haxor::graphics::GL_obj::m_gl->CreateBuffer();		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(230)
+			HX_STACK_LINE(233)
 			id = _g1;
-			HX_STACK_LINE(231)
+			HX_STACK_LINE(234)
 			this->buffers[a->__cid] = id;
 		}
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(237)
 		::haxor::graphics::GL_obj::m_gl->BindBuffer(target_flag,id);
-		HX_STACK_LINE(235)
+		HX_STACK_LINE(238)
 		::haxor::graphics::GL_obj::m_gl->BufferData(target_flag,a->data,p_mode);
 	}
 return null();

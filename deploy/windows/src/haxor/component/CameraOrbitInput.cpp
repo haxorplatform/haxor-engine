@@ -24,9 +24,6 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
-#ifndef INCLUDED_haxor_core_Time
-#include <haxor/core/Time.h>
-#endif
 #ifndef INCLUDED_haxor_input_Input
 #include <haxor/input/Input.h>
 #endif
@@ -47,20 +44,20 @@ namespace component{
 
 Void CameraOrbitInput_obj::__construct(::String __o_p_name)
 {
-HX_STACK_FRAME("haxor.component.CameraOrbitInput","new",0xf4da32b4,"haxor.component.CameraOrbitInput.new","haxor/component/CameraOrbit.hx",113,0xdbbd8c58)
+HX_STACK_FRAME("haxor.component.CameraOrbitInput","new",0xf4da32b4,"haxor.component.CameraOrbitInput.new","haxor/component/CameraOrbit.hx",114,0xdbbd8c58)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_name,"p_name")
 ::String p_name = __o_p_name.Default(HX_CSTRING(""));
 {
+	HX_STACK_LINE(119)
+	this->rotateSpeed = 0.5;
 	HX_STACK_LINE(118)
-	this->rotateSpeed = 15.0;
+	this->zoomSpeed = 0.5;
 	HX_STACK_LINE(117)
-	this->zoomSpeed = 10.0;
-	HX_STACK_LINE(116)
 	this->zoom = true;
-	HX_STACK_LINE(115)
+	HX_STACK_LINE(116)
 	this->rotate = true;
-	HX_STACK_LINE(113)
+	HX_STACK_LINE(114)
 	super::__construct(p_name);
 }
 ;
@@ -87,11 +84,11 @@ hx::Object *CameraOrbitInput_obj::__ToInterface(const hx::type_info &inType) {
 
 Void CameraOrbitInput_obj::OnStart( ){
 {
-		HX_STACK_FRAME("haxor.component.CameraOrbitInput","OnStart",0x39a256f7,"haxor.component.CameraOrbitInput.OnStart","haxor/component/CameraOrbit.hx",123,0xdbbd8c58)
+		HX_STACK_FRAME("haxor.component.CameraOrbitInput","OnStart",0x39a256f7,"haxor.component.CameraOrbitInput.OnStart","haxor/component/CameraOrbit.hx",124,0xdbbd8c58)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(124)
+		HX_STACK_LINE(125)
 		Dynamic _g = this->m_entity->GetComponent(hx::ClassOf< ::haxor::component::CameraOrbit >());		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(124)
+		HX_STACK_LINE(125)
 		this->m_orbit = _g;
 	}
 return null();
@@ -100,32 +97,32 @@ return null();
 
 Void CameraOrbitInput_obj::OnUpdate( ){
 {
-		HX_STACK_FRAME("haxor.component.CameraOrbitInput","OnUpdate",0xb574e5d4,"haxor.component.CameraOrbitInput.OnUpdate","haxor/component/CameraOrbit.hx",128,0xdbbd8c58)
+		HX_STACK_FRAME("haxor.component.CameraOrbitInput","OnUpdate",0xb574e5d4,"haxor.component.CameraOrbitInput.OnUpdate","haxor/component/CameraOrbit.hx",129,0xdbbd8c58)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(129)
+		HX_STACK_LINE(130)
 		Float dx;		HX_STACK_VAR(dx,"dx");
-		HX_STACK_LINE(129)
+		HX_STACK_LINE(130)
 		if (((::haxor::input::Input_obj::get_touches()->length == (int)1))){
-			HX_STACK_LINE(129)
+			HX_STACK_LINE(130)
 			Array< ::Dynamic > _g = ::haxor::input::Input_obj::get_touches();		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(129)
+			HX_STACK_LINE(130)
 			dx = _g->__get((int)0).StaticCast< ::haxor::input::Touch >()->delta->x;
 		}
 		else{
-			HX_STACK_LINE(129)
+			HX_STACK_LINE(130)
 			dx = ::haxor::input::Input_obj::deltaMouse->x;
 		}
-		HX_STACK_LINE(130)
+		HX_STACK_LINE(131)
 		Float dy;		HX_STACK_VAR(dy,"dy");
-		HX_STACK_LINE(130)
+		HX_STACK_LINE(131)
 		if (((::haxor::input::Input_obj::get_touches()->length == (int)1))){
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(131)
 			Array< ::Dynamic > _g1 = ::haxor::input::Input_obj::get_touches();		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(131)
 			dy = _g1->__get((int)0).StaticCast< ::haxor::input::Touch >()->delta->y;
 		}
 		else{
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(131)
 			dy = ::haxor::input::Input_obj::deltaMouse->y;
 		}
 		HX_STACK_LINE(133)
@@ -144,9 +141,9 @@ Void CameraOrbitInput_obj::OnUpdate( ){
 			HX_STACK_LINE(138)
 			if ((is_rotate)){
 				HX_STACK_LINE(140)
-				hx::AddEq(this->m_orbit->angle->x,((-(dx) * this->rotateSpeed) * ::haxor::core::Time_obj::m_delta));
+				hx::AddEq(this->m_orbit->angle->x,(-(dx) * this->rotateSpeed));
 				HX_STACK_LINE(141)
-				hx::AddEq(this->m_orbit->angle->y,((dy * this->rotateSpeed) * ::haxor::core::Time_obj::m_delta));
+				hx::AddEq(this->m_orbit->angle->y,(dy * this->rotateSpeed));
 			}
 		}
 		HX_STACK_LINE(145)
@@ -156,12 +153,19 @@ Void CameraOrbitInput_obj::OnUpdate( ){
 			HX_STACK_LINE(147)
 			if (((_g2 > (int)0))){
 				HX_STACK_LINE(149)
-				hx::AddEq(this->m_orbit->distance,(((  (((::haxor::input::Input_obj::wheel < (int)0))) ? Float(this->zoomSpeed) : Float(-(this->zoomSpeed)) )) * ::haxor::core::Time_obj::m_delta));
+				if (((::haxor::input::Input_obj::wheel < (int)0))){
+					HX_STACK_LINE(149)
+					hx::AddEq(this->m_orbit->distance,this->zoomSpeed);
+				}
+				else{
+					HX_STACK_LINE(149)
+					hx::AddEq(this->m_orbit->distance,-(this->zoomSpeed));
+				}
 			}
 			HX_STACK_LINE(152)
 			if (((::haxor::input::Input_obj::get_touches()->length == (int)2))){
 				HX_STACK_LINE(154)
-				hx::SubEq(this->m_orbit->distance,(((::haxor::input::Input_obj::get_touches()->__get((int)0).StaticCast< ::haxor::input::Touch >()->delta->y * this->zoomSpeed) * 0.05) * ::haxor::core::Time_obj::m_delta));
+				hx::AddEq(this->m_orbit->distance,((::haxor::input::Input_obj::get_touches()->__get((int)0).StaticCast< ::haxor::input::Touch >()->delta->y * this->zoomSpeed) * 0.05));
 			}
 		}
 	}

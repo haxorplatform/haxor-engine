@@ -35,10 +35,10 @@ Dynamic Gizmo_obj::__Create(hx::DynamicArray inArgs)
 
 Void Gizmo_obj::Grid( Float p_area,::haxor::math::Color p_color){
 {
-		HX_STACK_FRAME("haxor.graphics.Gizmo","Grid",0x0bc2b511,"haxor.graphics.Gizmo.Grid","haxor/graphics/Gizmo.hx",19,0x45aff45b)
+		HX_STACK_FRAME("haxor.graphics.Gizmo","Grid",0x0bc2b511,"haxor.graphics.Gizmo.Grid","haxor/graphics/Gizmo.hx",20,0x45aff45b)
 		HX_STACK_ARG(p_area,"p_area")
 		HX_STACK_ARG(p_color,"p_color")
-		HX_STACK_LINE(19)
+		HX_STACK_LINE(20)
 		::haxor::context::EngineContext_obj::gizmo->DrawGrid(p_area,p_color);
 	}
 return null();
@@ -49,9 +49,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Gizmo_obj,Grid,(void))
 
 Void Gizmo_obj::Axis( Float p_area){
 {
-		HX_STACK_FRAME("haxor.graphics.Gizmo","Axis",0x07cffaec,"haxor.graphics.Gizmo.Axis","haxor/graphics/Gizmo.hx",28,0x45aff45b)
+		HX_STACK_FRAME("haxor.graphics.Gizmo","Axis",0x07cffaec,"haxor.graphics.Gizmo.Axis","haxor/graphics/Gizmo.hx",29,0x45aff45b)
 		HX_STACK_ARG(p_area,"p_area")
-		HX_STACK_LINE(28)
+		HX_STACK_LINE(29)
 		::haxor::context::EngineContext_obj::gizmo->DrawAxis(p_area);
 	}
 return null();

@@ -1,5 +1,6 @@
 package haxor.thread;
 import haxor.core.Console;
+import haxor.platform.Types.Float32;
 
 /**
  * Base class for async operations that can run on the main thread or in an extra one.
@@ -11,10 +12,10 @@ class Task extends Activity
 	/**
 	 * Progress of the activity. The user must manually update it to finish the Task.
 	 */
-	public var progress(get_progress,set_progress) : Float;
-	private inline function get_progress():Float { return m_progress; }
-	private function set_progress(v:Float):Float { if (Math.abs(v-m_progress) > 0.0) { m_progress = v; m_has_progress = true; } return v; }
-	private var m_progress : Float;
+	public var progress(get_progress,set_progress) : Float32;
+	private inline function get_progress():Float32{ return m_progress; }
+	private function set_progress(v:Float32):Float32{ if (Math.abs(v-m_progress) > 0.0) { m_progress = v; m_has_progress = true; } return v; }
+	private var m_progress : Float32;
 	private var m_has_progress : Bool;
 
 	/**
@@ -63,7 +64,7 @@ class Task extends Activity
 	 * @param	p_time
 	 * @return
 	 */
-	private function OnExecute(p_time:Float):Bool
+	private function OnExecute(p_time:Float32):Bool
 	{
 		if (!m_active) { m_active = true; OnStart(); }
 		OnStep();		

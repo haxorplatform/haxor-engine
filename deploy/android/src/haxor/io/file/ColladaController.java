@@ -18,26 +18,26 @@ public  class ColladaController extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaController(haxor.io.file.ColladaController __temp_me164328)
+	public static   void __hx_ctor_haxor_io_file_ColladaController(haxor.io.file.ColladaController __temp_me255526)
 	{
-		__temp_me164328.bones = null;
-		__temp_me164328.weights = null;
-		__temp_me164328.indexes = null;
-		__temp_me164328.vcount = null;
-		__temp_me164328.inputs = null;
-		__temp_me164328.joints = null;
-		__temp_me164328.binds = null;
-		__temp_me164328.matrix = null;
-		__temp_me164328.name = "";
-		__temp_me164328.id = "";
-		__temp_me164328.source = "";
-		__temp_me164328.type = "";
-		__temp_me164328.matrix = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me164328.binds = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
-		__temp_me164328.inputs = new haxe.root.Array<haxor.io.file.ColladaInput>(new haxor.io.file.ColladaInput[]{});
-		__temp_me164328.joints = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
-		__temp_me164328.vcount = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me164328.indexes = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
+		__temp_me255526.bones = null;
+		__temp_me255526.weights = null;
+		__temp_me255526.indexes = null;
+		__temp_me255526.vcount = null;
+		__temp_me255526.inputs = null;
+		__temp_me255526.joints = null;
+		__temp_me255526.binds = null;
+		__temp_me255526.matrix = null;
+		__temp_me255526.name = "";
+		__temp_me255526.id = "";
+		__temp_me255526.source = "";
+		__temp_me255526.type = "";
+		__temp_me255526.matrix = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me255526.binds = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
+		__temp_me255526.inputs = new haxe.root.Array<haxor.io.file.ColladaInput>(new haxor.io.file.ColladaInput[]{});
+		__temp_me255526.joints = new haxe.root.Array<java.lang.String>(new java.lang.String[]{});
+		__temp_me255526.vcount = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me255526.indexes = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
 	}
 	
 	
@@ -313,14 +313,14 @@ public  class ColladaController extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165121 = true;
+			boolean __temp_executeDef256313 = true;
 			switch (field.hashCode())
 			{
 				case 93920815:
 				{
 					if (field.equals("bones")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.bones = ((haxe.root.Array<haxor.math.Vector4>) (value) );
 						return value;
 					}
@@ -333,7 +333,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.type = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -346,7 +346,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("weights")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.weights = ((haxe.root.Array<haxor.math.Vector4>) (value) );
 						return value;
 					}
@@ -359,7 +359,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("source")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.source = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -372,7 +372,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("indexes")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.indexes = ((haxe.root.Array<haxe.root.Array>) (value) );
 						return value;
 					}
@@ -385,7 +385,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.id = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -398,7 +398,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("vcount")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.vcount = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -411,7 +411,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -424,7 +424,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("inputs")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.inputs = ((haxe.root.Array<haxor.io.file.ColladaInput>) (value) );
 						return value;
 					}
@@ -437,7 +437,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("matrix")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.matrix = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -450,7 +450,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("joints")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.joints = ((haxe.root.Array<java.lang.String>) (value) );
 						return value;
 					}
@@ -463,7 +463,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("binds")) 
 					{
-						__temp_executeDef165121 = false;
+						__temp_executeDef256313 = false;
 						this.binds = ((haxe.root.Array<haxe.root.Array>) (value) );
 						return value;
 					}
@@ -474,7 +474,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165121) 
+			if (__temp_executeDef256313) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -491,14 +491,14 @@ public  class ColladaController extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165122 = true;
+			boolean __temp_executeDef256314 = true;
 			switch (field.hashCode())
 			{
 				case -1909438370:
 				{
 					if (field.equals("GenerateBonesAndWeights")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GenerateBonesAndWeights"))) );
 					}
 					
@@ -510,7 +510,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.type;
 					}
 					
@@ -522,7 +522,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetTriangulatedBones")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetTriangulatedBones"))) );
 					}
 					
@@ -534,7 +534,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("source")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.source;
 					}
 					
@@ -546,7 +546,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetTriangulatedWeights")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetTriangulatedWeights"))) );
 					}
 					
@@ -558,7 +558,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.id;
 					}
 					
@@ -570,7 +570,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetBinds")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetBinds"))) );
 					}
 					
@@ -582,7 +582,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.name;
 					}
 					
@@ -594,7 +594,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetJointIndex")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetJointIndex"))) );
 					}
 					
@@ -606,7 +606,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("matrix")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.matrix;
 					}
 					
@@ -618,7 +618,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetBSM")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetBSM"))) );
 					}
 					
@@ -630,7 +630,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("binds")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.binds;
 					}
 					
@@ -642,7 +642,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("get_offset")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_offset"))) );
 					}
 					
@@ -654,7 +654,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("joints")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.joints;
 					}
 					
@@ -666,7 +666,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.get_offset();
 					}
 					
@@ -678,7 +678,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("inputs")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.inputs;
 					}
 					
@@ -690,7 +690,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("bones")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.bones;
 					}
 					
@@ -702,7 +702,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("vcount")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.vcount;
 					}
 					
@@ -714,7 +714,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("weights")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.weights;
 					}
 					
@@ -726,7 +726,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("indexes")) 
 					{
-						__temp_executeDef165122 = false;
+						__temp_executeDef256314 = false;
 						return this.indexes;
 					}
 					
@@ -736,7 +736,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165122) 
+			if (__temp_executeDef256314) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -753,14 +753,14 @@ public  class ColladaController extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165123 = true;
+			boolean __temp_executeDef256315 = true;
 			switch (field.hashCode())
 			{
 				case -1019779949:
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef165123 = false;
+						__temp_executeDef256315 = false;
 						return ((double) (this.get_offset()) );
 					}
 					
@@ -770,7 +770,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165123) 
+			if (__temp_executeDef256315) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -787,14 +787,14 @@ public  class ColladaController extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef165124 = true;
+			boolean __temp_executeDef256316 = true;
 			switch (field.hashCode())
 			{
 				case -1909438370:
 				{
 					if (field.equals("GenerateBonesAndWeights")) 
 					{
-						__temp_executeDef165124 = false;
+						__temp_executeDef256316 = false;
 						this.GenerateBonesAndWeights();
 					}
 					
@@ -806,7 +806,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("get_offset")) 
 					{
-						__temp_executeDef165124 = false;
+						__temp_executeDef256316 = false;
 						return this.get_offset();
 					}
 					
@@ -818,7 +818,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetTriangulatedBones")) 
 					{
-						__temp_executeDef165124 = false;
+						__temp_executeDef256316 = false;
 						return this.GetTriangulatedBones(((haxor.io.file.ColladaPrimitive) (dynargs.__get(0)) ));
 					}
 					
@@ -830,7 +830,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetBSM")) 
 					{
-						__temp_executeDef165124 = false;
+						__temp_executeDef256316 = false;
 						return this.GetBSM();
 					}
 					
@@ -842,7 +842,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetTriangulatedWeights")) 
 					{
-						__temp_executeDef165124 = false;
+						__temp_executeDef256316 = false;
 						return this.GetTriangulatedWeights(((haxor.io.file.ColladaPrimitive) (dynargs.__get(0)) ));
 					}
 					
@@ -854,7 +854,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetJointIndex")) 
 					{
-						__temp_executeDef165124 = false;
+						__temp_executeDef256316 = false;
 						return this.GetJointIndex(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -866,7 +866,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				{
 					if (field.equals("GetBinds")) 
 					{
-						__temp_executeDef165124 = false;
+						__temp_executeDef256316 = false;
 						return this.GetBinds();
 					}
 					
@@ -876,7 +876,7 @@ public  class ColladaController extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165124) 
+			if (__temp_executeDef256316) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

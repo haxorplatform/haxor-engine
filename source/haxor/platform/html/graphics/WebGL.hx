@@ -1,5 +1,6 @@
 #if html
 package haxor.platform.html.graphics;
+import haxor.platform.Types.Float32;
 import haxe.ds.EnumValueMap;
 import haxe.format.JsonParser;
 import haxor.context.EngineContext;
@@ -171,8 +172,8 @@ class WebGL extends GraphicContext
 	override public /*inline*/ function DrawElements(p_primitive:Int, p_count:Int, p_type:Int, p_offset:Int):Void  		{ c.drawElements(p_primitive, p_count, p_type, p_offset); }	
 	override public /*inline*/ function DisableVertexAttrib(p_location:Int):Void 										{ c.disableVertexAttribArray(p_location); }	
 	override public /*inline*/ function EnableVertexAttrib(p_location:Int):Void  										{ c.enableVertexAttribArray(p_location); }	
-	override public /*inline*/ function VertexAttrib3f(p_location:Int, p_x:Float, p_y:Float, p_z:Float):Void 			{ c.vertexAttrib3f(p_location, p_x, p_y, p_z); }
-	override public /*inline*/ function VertexAttrib4f(p_location:Int, p_x:Float, p_y:Float, p_z:Float, p_w:Float):Void { c.vertexAttrib4f(p_location, p_x, p_y, p_z, p_w);	}
+	override public /*inline*/ function VertexAttrib3f(p_location:Int, p_x:Float32, p_y:Float32, p_z:Float32):Void 			{ c.vertexAttrib3f(p_location, p_x, p_y, p_z); }
+	override public /*inline*/ function VertexAttrib4f(p_location:Int, p_x:Float32, p_y:Float32, p_z:Float32, p_w:Float32):Void { c.vertexAttrib4f(p_location, p_x, p_y, p_z, p_w);	}
 	override public /*inline*/ function VertexAttribPointer(p_location:Int, p_components_size:Int, p_type:Int, p_normalized:Bool, p_stride:Int, p_offset:Int):Void { c.vertexAttribPointer(p_location, p_components_size, p_type, p_normalized, p_stride, p_offset); }
 	
 	//Shaders
@@ -218,7 +219,7 @@ class WebGL extends GraphicContext
 																															{ c.texImage2D(p_target, p_level, p_internal_format, p_width, p_height, p_border, p_format, p_channel_type, null); }	
 	override public /*inline*/ function TexSubImage2D(p_target:Int, p_level:Int, p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_channel_type:Int, p_data:Buffer):Void 
 																															{ c.texSubImage2D(p_target, p_level, p_x, p_y,p_width,p_height,p_format, p_channel_type, p_data.aux); }		
-	override public /*inline*/ function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float):Void 					{ c.texParameterf(p_target, p_parameter, p_value); }	
+	override public /*inline*/ function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float32):Void 					{ c.texParameterf(p_target, p_parameter, p_value); }	
 	override public /*inline*/ function TexParameteri(p_target:Int, p_parameter:Int, p_value:Int):Void 						{ c.texParameteri(p_target, p_parameter, p_value); }
 	
 	//Flags
@@ -231,10 +232,10 @@ class WebGL extends GraphicContext
 	override public /*inline*/ function FrontFace(p_face : Int):Void 						{ c.frontFace(p_face); }
 	
 	//Uniforms
-	override public /*inline*/ function Uniform1f(p_location:UniformLocation, p_x:Float):Void 										{ c.uniform1f(p_location, p_x); }		
-	override public /*inline*/ function Uniform2f(p_location:UniformLocation, p_x:Float, p_y:Float):Void 							{ c.uniform2f(p_location, p_x, p_y); }		
-	override public /*inline*/ function Uniform3f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float):Void 				{ c.uniform3f(p_location, p_x, p_y, p_z); }	
-	override public /*inline*/ function Uniform4f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float, p_w:Float):Void 		{ c.uniform4f(p_location, p_x, p_y, p_z, p_w); }			
+	override public /*inline*/ function Uniform1f(p_location:UniformLocation, p_x:Float32):Void 										{ c.uniform1f(p_location, p_x); }		
+	override public /*inline*/ function Uniform2f(p_location:UniformLocation, p_x:Float32, p_y:Float32):Void 							{ c.uniform2f(p_location, p_x, p_y); }		
+	override public /*inline*/ function Uniform3f(p_location:UniformLocation, p_x:Float32, p_y:Float32, p_z:Float32):Void 				{ c.uniform3f(p_location, p_x, p_y, p_z); }	
+	override public /*inline*/ function Uniform4f(p_location:UniformLocation, p_x:Float32, p_y:Float32, p_z:Float32, p_w:Float32):Void 		{ c.uniform4f(p_location, p_x, p_y, p_z, p_w); }			
 	override public /*inline*/ function Uniform1i(p_location:UniformLocation,p_x:Int):Void 											{ c.uniform1i(p_location, p_x); }			
 	override public /*inline*/ function Uniform2i(p_location:UniformLocation,p_x:Int,p_y:Int):Void 									{ c.uniform2i(p_location, p_x, p_y); }			
 	override public /*inline*/ function Uniform3i(p_location:UniformLocation,p_x:Int,p_y:Int,p_z:Int):Void 							{ c.uniform3i(p_location, p_x, p_y, p_z); }			
@@ -253,8 +254,8 @@ class WebGL extends GraphicContext
 	
 	//Screen
 	override public /*inline*/ function Clear(p_flag : Int):Void 										{ c.clear(p_flag);	}	
-	override public /*inline*/ function ClearDepth(p_value : Float):Void 								{ c.clearDepth(p_value); }	
-	override public /*inline*/ function ClearColor(p_r: Float, p_g:Float, p_b:Float, p_a:Float):Void 	{ c.clearColor(p_r, p_g, p_b, p_a);	}
+	override public /*inline*/ function ClearDepth(p_value : Float32):Void 								{ c.clearDepth(p_value); }	
+	override public /*inline*/ function ClearColor(p_r: Float32, p_g:Float32, p_b:Float32, p_a:Float32):Void 	{ c.clearColor(p_r, p_g, p_b, p_a);	}
 	override public /*inline*/ function Viewport(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ c.viewport(p_x, p_y, p_width, p_height); }
 	override public /*inline*/ function Scissor(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ c.scissor(p_x, p_y, p_width, p_height); }
 	override public /*inline*/ function ReadPixels(p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_type:Int, p_pixels:Buffer):Void { c.readPixels(p_x, p_y, p_width, p_height, p_format, p_type, p_pixels.m_buffer); }

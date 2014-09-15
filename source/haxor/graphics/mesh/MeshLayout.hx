@@ -10,6 +10,7 @@ import haxor.math.Matrix4;
 import haxor.math.Vector2;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
+import haxor.platform.Types.Float32;
 
 
 /**
@@ -108,16 +109,18 @@ class MeshLayout<VL,NL,UL0,UL1,TL,BL> extends Mesh
 		if (Std.is(p_list[0], Vector2)) off = 2;
 		if (Std.is(p_list[0], Vector3)) off = 3;
 		if (Std.is(p_list[0], Vector4)) off = 4;
-		if (Std.is(p_list[0], Color)) 	off = 4;		
+		if (Std.is(p_list[0], Color)) 	off = 4;			
 		if (a == null) a = Set(p_name, new FloatArray(1), off);		
+		
 		var p : Int = 0;
 		var f : FloatArray 	= cast a.data = new FloatArray(p_list.length * off);		
+		trace(name+" a[" + p_name+"] off[" + off + "] len[" + f.length + "]");
 		for (i in 0...p_list.length)
 		{
 			var it : T = p_list[i];
 			switch(off)
 			{
-				case 1:	var v  : Float 	 = cast it; 	f.Set(p++, v);			
+				case 1:	var v  : Float32 	 = cast it; 	f.Set(p++, v);			
 				case 2:	var v2 : Vector2 = cast it;  f.Set(p++, v2.x); f.Set(p++, v2.y);
 				case 3:	var v3 : Vector3 = cast it;  f.Set(p++, v3.x); f.Set(p++, v3.y); f.Set(p++, v3.z);
 				case 4:	
@@ -127,6 +130,8 @@ class MeshLayout<VL,NL,UL0,UL1,TL,BL> extends Mesh
 				{ var v4:Vector4 = cast it; f.Set(p++,v4.x); f.Set(p++, v4.y); f.Set(p++, v4.z); f.Set(p++, v4.w); }
 			}
 		}
+		
+		Set(p_name, f, off);
 		
 		return p_list;
 	}

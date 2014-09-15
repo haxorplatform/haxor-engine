@@ -452,10 +452,7 @@ class UIEntity extends Resource implements ISkinnable
 	
 	public var graphics(get_graphics, never):CanvasRenderingContext2D;
 	private function get_graphics():CanvasRenderingContext2D
-	{
-		
-		
-		
+	{		
 		if (m_graphics != null) return m_graphics;
 		var cc : DivElement = stage.document.createDivElement();
 		cc.style.overflow = "hidden";

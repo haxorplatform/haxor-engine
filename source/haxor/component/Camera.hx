@@ -15,6 +15,7 @@ import haxor.math.Matrix4;
 import haxor.math.Quaternion;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
+import haxor.platform.Types.Float32;
 
 
 /**
@@ -30,6 +31,7 @@ class Camera extends Behaviour
 	 */
 	static public var list(get_list, never):Array<Camera>;
 	static private inline function get_list():Array<Camera> { return EngineContext.camera.list.copy(); }
+	
 	/**
 	 * Current camera being used in the rendering pipeline.
 	 */
@@ -90,26 +92,26 @@ class Camera extends Behaviour
 	/**
 	 * Field of View.
 	 */
-	public var fov(get_fov, set_fov):Float;	
-	private inline function get_fov():Float { return m_fov; }
-	private inline function set_fov(v:Float):Float { m_fov = v; m_projection_dirty=true; return v; }
-	private var m_fov:Float;
+	public var fov(get_fov, set_fov):Float32;	
+	private inline function get_fov():Float32{ return m_fov; }
+	private inline function set_fov(v:Float32):Float32{ m_fov = v; m_projection_dirty=true; return v; }
+	private var m_fov:Float32;
 	
 	/**
 	 * Near plane.
 	 */
-	public var near(get_near, set_near):Float;		
-	private inline function get_near():Float { return m_near; }
-	private inline function set_near(v:Float):Float { m_near = v; m_projection_dirty = true; m_proj_uniform_dirty = true; return v; }
-	private var m_near:Float;
+	public var near(get_near, set_near):Float32;		
+	private inline function get_near():Float32{ return m_near; }
+	private inline function set_near(v:Float32):Float32{ m_near = v; m_projection_dirty = true; m_proj_uniform_dirty = true; return v; }
+	private var m_near:Float32;
 	
 	/**
 	 * Far plane.
 	 */
-	public var far(get_far, set_far):Float;	
-	private inline function get_far():Float { return m_far; }
-	private inline function set_far(v:Float):Float { m_far = v; m_projection_dirty=true; m_proj_uniform_dirty = true;return v; }
-	private var m_far:Float;	
+	public var far(get_far, set_far):Float32;	
+	private inline function get_far():Float32{ return m_far; }
+	private inline function set_far(v:Float32):Float32{ m_far = v; m_projection_dirty=true; m_proj_uniform_dirty = true;return v; }
+	private var m_far:Float32;	
 	
 	/**
 	 * Render order of this camera versus all cameras in the scene.
@@ -133,7 +135,7 @@ class Camera extends Behaviour
 	public var viewport(get_viewport, set_viewport):AABB2;	
 	private inline function get_viewport():AABB2 { return m_viewport.clone; }
 	private inline function set_viewport(v:AABB2):AABB2 { m_viewport.SetAABB2(v); EngineContext.camera.UpdateViewport(this); return v; }
-	private var m_aspect:Float;
+	private var m_aspect:Float32;
 	private var m_viewport:AABB2;	
 	
 	/**
@@ -177,10 +179,10 @@ class Camera extends Behaviour
 	/**
 	 * Quality of this camera rendering. If 1.0 the camera will render the full size of the screen, less than 1.0 it will render a fraction of the full resolution, thus generating less fragments.
 	 */
-	public var quality(get_quality, set_quality) : Float;
-	private function get_quality():Float { return m_quality; }
-	private function set_quality(v:Float):Float { m_quality = Mathf.Clamp01(v); EngineContext.camera.UpdateViewport(this); return v; }
-	private var m_quality : Float;
+	public var quality(get_quality, set_quality) : Float32;
+	private function get_quality():Float32{ return m_quality; }
+	private function set_quality(v:Float32):Float32{ m_quality = Mathf.Clamp01(v); EngineContext.camera.UpdateViewport(this); return v; }
+	private var m_quality : Float32;
 	
 	/**
 	 * Flag that indicates if this Camera needs to capture the Depth buffer.
@@ -202,6 +204,17 @@ class Camera extends Behaviour
 	}
 	private var m_filters : Array<Dynamic>;
 	
+	/**
+	 * Camera Frustum corners in CameraSpace. They are offered in the current order:
+	 * 4-,---------,-5
+	 * |  0-------1  |
+	 * |  |       |  |
+	 * |  2-------3  |
+	 * 6-´---------`-7
+	 */
+	public var frustum(get_frustum, never):Array<Vector4>;
+	private function get_frustum():Array<Vector4> { UpdateProjection(); return m_frustum; }
+	private var m_frustum : Array<Vector4>;
 	
 	/**
 	 * Flag that indicates if the projection matrix changed.
@@ -217,15 +230,6 @@ class Camera extends Behaviour
 	 * Flag that indicates if this camera uniforms must be updated.
 	 */
 	private var m_proj_uniform_dirty : Bool;
-	
-	private var m_fn0:Vector4;
-	private var m_fn1:Vector4;
-	private var m_fn2:Vector4;
-	private var m_fn3:Vector4;
-	private var m_ff0:Vector4;
-	private var m_ff1:Vector4;
-	private var m_ff2:Vector4;
-	private var m_ff3:Vector4;
 	
 	/**
 	 * Method called
@@ -255,15 +259,15 @@ class Camera extends Behaviour
 		m_view_uniform_dirty		= true;
 		m_proj_uniform_dirty		= true;
 		
-		m_fn0 = new Vector4();
-		m_fn1 = new Vector4();
-		m_fn2 = new Vector4();
-		m_fn3 = new Vector4();
-		m_ff0 = new Vector4();
-		m_ff1 = new Vector4();
-		m_ff2 = new Vector4();
-		m_ff3 = new Vector4();
-		
+		m_frustum = [		
+		new Vector4(),
+		new Vector4(),
+		new Vector4(),
+		new Vector4(),
+		new Vector4(),
+		new Vector4(),
+		new Vector4(),
+		new Vector4()];
 		
 	}
 	
@@ -311,7 +315,7 @@ class Camera extends Behaviour
 	 * @param	p_at
 	 * @param	p_up
 	 */
-	public inline function LookAt(p_at : Vector3, p_up : Vector3 = null,p_smooth:Float=0.0):Void { transform.LookAt(p_at, p_up, p_smooth); }
+	public inline function LookAt(p_at : Vector3, p_up : Vector3 = null,p_smooth:Float32=0.0):Void { transform.LookAt(p_at, p_up, p_smooth); }
 	
 	/**
 	 * Updates the Projection matrix upon request.
@@ -327,16 +331,15 @@ class Camera extends Behaviour
 		m_skyboxProjectionInverse.SetPerspectiveInverse(m_fov, m_aspect, 0.1, 100000.0);				
 		
 		var p : Vector4;
-		var iw : Float;
-		p = m_fn0; p.Set( -1.0, 1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_fn1; p.Set(  1.0, 1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_fn2; p.Set( -1.0,-1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_fn3; p.Set(  1.0,-1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);		
-		
-		p = m_ff0; p.Set( -1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_ff1; p.Set(  1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_ff2; p.Set( -1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_ff3; p.Set(  1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);		
+		var iw : Float32=0.0;
+		p = m_frustum[0]; p.Set( -1.0, 1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[1]; p.Set(  1.0, 1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[2]; p.Set( -1.0,-1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[3]; p.Set(  1.0,-1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);				
+		p = m_frustum[4]; p.Set( -1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[5]; p.Set(  1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[6]; p.Set( -1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[7]; p.Set(  1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);		
 	}
 	
 	/**

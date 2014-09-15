@@ -9,14 +9,14 @@ namespace file{
 
 Void MaterialFileUniform_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.MaterialFileUniform","new",0xde1c6d6d,"haxor.io.file.MaterialFileUniform.new","haxor/io/file/MaterialFile.hx",265,0x5b3fbce4)
+HX_STACK_FRAME("haxor.io.file.MaterialFileUniform","new",0xde1c6d6d,"haxor.io.file.MaterialFileUniform.new","haxor/io/file/MaterialFile.hx",266,0x5b3fbce4)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(266)
-	this->type = HX_CSTRING("");
 	HX_STACK_LINE(267)
-	this->name = HX_CSTRING("");
+	this->type = HX_CSTRING("");
 	HX_STACK_LINE(268)
+	this->name = HX_CSTRING("");
+	HX_STACK_LINE(269)
 	this->value = HX_CSTRING("");
 }
 ;

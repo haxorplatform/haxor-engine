@@ -1,6 +1,9 @@
 #if windows
 
 package haxor.platform.windows.net;
+import haxor.math.Mathf;
+import haxor.math.Color;
+import haxor.platform.Types.Float32;
 
 import haxe.Http;
 import haxor.core.Console;
@@ -30,20 +33,20 @@ class BitmapLoader extends HTTPLoader<Buffer>
 	/**
 	 * Internal handler of loading events.
 	 */
-	private var m_bitmap_callback : Bitmap->Float->Void;
+	private var m_bitmap_callback : Bitmap->Float32->Void;
 	
 	/**
 	 * Creates a new bitmap loader.
 	 * @param	p_url
 	 * @param	p_callback
 	 */
-	public function new(p_url:String, p_callback : Bitmap->Float->Void):Void 
+	public function new(p_url:String, p_callback : Bitmap->Float32->Void):Void 
 	{ 
 		super(p_url, true, OnBufferCallback); 
 		m_bitmap_callback = p_callback;
 	}
 	
-	private function OnBufferCallback(p_data : Buffer, p_progress : Float):Void
+	private function OnBufferCallback(p_data : Buffer, p_progress : Float32):Void
 	{
 		
 		if (progress < 1.0)
@@ -82,7 +85,18 @@ class BitmapLoader extends HTTPLoader<Buffer>
 				case 3: fmt = PixelFormat.RGB8;
 			}			 
 			var b : Bitmap = new Bitmap(w, h, fmt);
-			for (i in 0...buffer.byteLength) b.buffer.SetByte(i, buffer.GetByte(i));
+			var k  : Int = 0;
+			var c : Color = Color.temp;			
+			while(k < buffer.byteLength)
+			{
+				var pix  : Int = cast (k / cc);
+				var px 	 : Int = pix % b.width;
+				var py 	 : Int = cast (pix / b.width);
+				var ipix : Int = ((px + ((b.height - 1 - py) * b.width))*cc)+(k%cc);
+				var v : Int = buffer.GetByte(ipix);
+				b.buffer.SetByte(k, v);
+				k++;
+			}			
 			if(m_bitmap_callback!=null)m_bitmap_callback(b, 1.0);			
 		}
 	}

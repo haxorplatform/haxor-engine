@@ -1,6 +1,7 @@
 package haxor.component;
 import haxor.core.Entity;
 import haxor.math.Color;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes a Point light.
@@ -16,7 +17,7 @@ class PointLight extends Light
 	 * @param	p_radius
 	 * @return
 	 */
-	static public function Create(p_color : Color, p_intensity:Float, p_atten :Float, p_radius : Float):PointLight
+	static public function Create(p_color : Color, p_intensity:Float32, p_atten :Float32, p_radius : Float32):PointLight
 	{
 		var e : Entity = new Entity();
 		e.name = "PointLight";
@@ -31,12 +32,12 @@ class PointLight extends Light
 	/**
 	 * Attenuation exponent.
 	 */
-	public var atten : Float;
+	public var atten : Float32;
 
 	/**
 	 * Light radius.
 	 */
-	public var radius : Float;
+	public var radius : Float32;
 	
 	/**
 	 * Creates a new Light.

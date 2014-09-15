@@ -59,12 +59,12 @@ namespace component{
 
 Void Camera_obj::__construct(::String __o_p_name)
 {
-HX_STACK_FRAME("haxor.component.Camera","new",0x924d47f4,"haxor.component.Camera.new","haxor/component/Camera.hx",25,0xf5fa0e7a)
+HX_STACK_FRAME("haxor.component.Camera","new",0x924d47f4,"haxor.component.Camera.new","haxor/component/Camera.hx",26,0xf5fa0e7a)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_name,"p_name")
 ::String p_name = __o_p_name.Default(HX_CSTRING(""));
 {
-	HX_STACK_LINE(25)
+	HX_STACK_LINE(26)
 	super::__construct(p_name);
 }
 ;
@@ -85,9 +85,9 @@ Dynamic Camera_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 int Camera_obj::get_mask( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_mask",0x14398c61,"haxor.component.Camera.get_mask","haxor/component/Camera.hx",76,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_mask",0x14398c61,"haxor.component.Camera.get_mask","haxor/component/Camera.hx",74,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(76)
+	HX_STACK_LINE(74)
 	return this->m_mask;
 }
 
@@ -95,43 +95,43 @@ int Camera_obj::get_mask( ){
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_mask,return )
 
 int Camera_obj::set_mask( int v){
-	HX_STACK_FRAME("haxor.component.Camera","set_mask",0xc296e5d5,"haxor.component.Camera.set_mask","haxor/component/Camera.hx",78,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_mask",0xc296e5d5,"haxor.component.Camera.set_mask","haxor/component/Camera.hx",76,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(79)
+	HX_STACK_LINE(77)
 	if (((this->m_mask == v))){
-		HX_STACK_LINE(79)
+		HX_STACK_LINE(77)
 		return v;
 	}
-	HX_STACK_LINE(80)
+	HX_STACK_LINE(78)
 	this->m_mask = v;
-	HX_STACK_LINE(81)
+	HX_STACK_LINE(79)
 	int it = this->m_mask;		HX_STACK_VAR(it,"it");
-	HX_STACK_LINE(82)
+	HX_STACK_LINE(80)
 	this->m_layers = Array_obj< int >::__new();
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(81)
 	{
-		HX_STACK_LINE(83)
+		HX_STACK_LINE(81)
 		int _g = (int)0;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(83)
+		HX_STACK_LINE(81)
 		while((true)){
-			HX_STACK_LINE(83)
+			HX_STACK_LINE(81)
 			if ((!(((_g < (int)32))))){
-				HX_STACK_LINE(83)
+				HX_STACK_LINE(81)
 				break;
 			}
-			HX_STACK_LINE(83)
+			HX_STACK_LINE(81)
 			int i = (_g)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(85)
+			HX_STACK_LINE(83)
 			if (((((int(it) & int((int)1))) != (int)0))){
-				HX_STACK_LINE(85)
+				HX_STACK_LINE(83)
 				this->m_layers->push((int((int)1) << int(i)));
 			}
-			HX_STACK_LINE(86)
+			HX_STACK_LINE(84)
 			it = (int(it) >> int((int)1));
 		}
 	}
-	HX_STACK_LINE(88)
+	HX_STACK_LINE(86)
 	return v;
 }
 
@@ -139,9 +139,9 @@ int Camera_obj::set_mask( int v){
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_mask,return )
 
 Float Camera_obj::get_fov( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_fov",0x8f916138,"haxor.component.Camera.get_fov","haxor/component/Camera.hx",98,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_fov",0x8f916138,"haxor.component.Camera.get_fov","haxor/component/Camera.hx",96,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(98)
+	HX_STACK_LINE(96)
 	return this->m_fov;
 }
 
@@ -149,14 +149,14 @@ Float Camera_obj::get_fov( ){
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_fov,return )
 
 Float Camera_obj::set_fov( Float v){
-	HX_STACK_FRAME("haxor.component.Camera","set_fov",0x8292f244,"haxor.component.Camera.set_fov","haxor/component/Camera.hx",99,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_fov",0x8292f244,"haxor.component.Camera.set_fov","haxor/component/Camera.hx",97,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(99)
+	HX_STACK_LINE(97)
 	this->m_fov = v;
-	HX_STACK_LINE(99)
+	HX_STACK_LINE(97)
 	this->m_projection_dirty = true;
-	HX_STACK_LINE(99)
+	HX_STACK_LINE(97)
 	return v;
 }
 
@@ -164,9 +164,9 @@ Float Camera_obj::set_fov( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_fov,return )
 
 Float Camera_obj::get_near( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_near",0x14e5bc5d,"haxor.component.Camera.get_near","haxor/component/Camera.hx",106,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_near",0x14e5bc5d,"haxor.component.Camera.get_near","haxor/component/Camera.hx",104,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(106)
+	HX_STACK_LINE(104)
 	return this->m_near;
 }
 
@@ -174,16 +174,16 @@ Float Camera_obj::get_near( ){
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_near,return )
 
 Float Camera_obj::set_near( Float v){
-	HX_STACK_FRAME("haxor.component.Camera","set_near",0xc34315d1,"haxor.component.Camera.set_near","haxor/component/Camera.hx",107,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_near",0xc34315d1,"haxor.component.Camera.set_near","haxor/component/Camera.hx",105,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(107)
+	HX_STACK_LINE(105)
 	this->m_near = v;
-	HX_STACK_LINE(107)
+	HX_STACK_LINE(105)
 	this->m_projection_dirty = true;
-	HX_STACK_LINE(107)
+	HX_STACK_LINE(105)
 	this->m_proj_uniform_dirty = true;
-	HX_STACK_LINE(107)
+	HX_STACK_LINE(105)
 	return v;
 }
 
@@ -191,9 +191,9 @@ Float Camera_obj::set_near( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_near,return )
 
 Float Camera_obj::get_far( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_far",0x8f915502,"haxor.component.Camera.get_far","haxor/component/Camera.hx",114,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_far",0x8f915502,"haxor.component.Camera.get_far","haxor/component/Camera.hx",112,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(114)
+	HX_STACK_LINE(112)
 	return this->m_far;
 }
 
@@ -201,16 +201,16 @@ Float Camera_obj::get_far( ){
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_far,return )
 
 Float Camera_obj::set_far( Float v){
-	HX_STACK_FRAME("haxor.component.Camera","set_far",0x8292e60e,"haxor.component.Camera.set_far","haxor/component/Camera.hx",115,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_far",0x8292e60e,"haxor.component.Camera.set_far","haxor/component/Camera.hx",113,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(115)
+	HX_STACK_LINE(113)
 	this->m_far = v;
-	HX_STACK_LINE(115)
+	HX_STACK_LINE(113)
 	this->m_projection_dirty = true;
-	HX_STACK_LINE(115)
+	HX_STACK_LINE(113)
 	this->m_proj_uniform_dirty = true;
-	HX_STACK_LINE(115)
+	HX_STACK_LINE(113)
 	return v;
 }
 
@@ -218,9 +218,9 @@ Float Camera_obj::set_far( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_far,return )
 
 int Camera_obj::get_order( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_order",0xd01fab79,"haxor.component.Camera.get_order","haxor/component/Camera.hx",123,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_order",0xd01fab79,"haxor.component.Camera.get_order","haxor/component/Camera.hx",121,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(123)
+	HX_STACK_LINE(121)
 	return this->m_order;
 }
 
@@ -228,19 +228,19 @@ int Camera_obj::get_order( ){
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_order,return )
 
 int Camera_obj::set_order( int v){
-	HX_STACK_FRAME("haxor.component.Camera","set_order",0xb3709785,"haxor.component.Camera.set_order","haxor/component/Camera.hx",124,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_order",0xb3709785,"haxor.component.Camera.set_order","haxor/component/Camera.hx",122,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(124)
+	HX_STACK_LINE(122)
 	if (((this->m_order == v))){
-		HX_STACK_LINE(124)
+		HX_STACK_LINE(122)
 		return v;
 	}
-	HX_STACK_LINE(124)
+	HX_STACK_LINE(122)
 	this->m_order = v;
-	HX_STACK_LINE(124)
+	HX_STACK_LINE(122)
 	::haxor::context::EngineContext_obj::camera->SortCameraList();
-	HX_STACK_LINE(124)
+	HX_STACK_LINE(122)
 	return this->m_order;
 }
 
@@ -248,9 +248,9 @@ int Camera_obj::set_order( int v){
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_order,return )
 
 ::haxor::math::AABB2 Camera_obj::get_pixelViewport( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_pixelViewport",0x0871e2f7,"haxor.component.Camera.get_pixelViewport","haxor/component/Camera.hx",130,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_pixelViewport",0x0871e2f7,"haxor.component.Camera.get_pixelViewport","haxor/component/Camera.hx",128,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(130)
+	HX_STACK_LINE(128)
 	return this->m_pixelViewport->get_clone();
 }
 
@@ -258,9 +258,9 @@ HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_order,return )
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_pixelViewport,return )
 
 ::haxor::math::AABB2 Camera_obj::get_viewport( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_viewport",0x016bf65b,"haxor.component.Camera.get_viewport","haxor/component/Camera.hx",138,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_viewport",0x016bf65b,"haxor.component.Camera.get_viewport","haxor/component/Camera.hx",136,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(138)
+	HX_STACK_LINE(136)
 	return this->m_viewport->get_clone();
 }
 
@@ -268,14 +268,14 @@ HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_pixelViewport,return )
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_viewport,return )
 
 ::haxor::math::AABB2 Camera_obj::set_viewport( ::haxor::math::AABB2 v){
-	HX_STACK_FRAME("haxor.component.Camera","set_viewport",0x166519cf,"haxor.component.Camera.set_viewport","haxor/component/Camera.hx",139,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_viewport",0x166519cf,"haxor.component.Camera.set_viewport","haxor/component/Camera.hx",137,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(139)
+	HX_STACK_LINE(137)
 	this->m_viewport->SetAABB2(v);
-	HX_STACK_LINE(139)
+	HX_STACK_LINE(137)
 	::haxor::context::EngineContext_obj::camera->UpdateViewport(hx::ObjectPtr<OBJ_>(this));
-	HX_STACK_LINE(139)
+	HX_STACK_LINE(137)
 	return v;
 }
 
@@ -283,9 +283,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_viewport,return )
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_viewport,return )
 
 ::haxor::math::Matrix4 Camera_obj::get_CameraToWorld( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_CameraToWorld",0xbdba807d,"haxor.component.Camera.get_CameraToWorld","haxor/component/Camera.hx",147,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_CameraToWorld",0xbdba807d,"haxor.component.Camera.get_CameraToWorld","haxor/component/Camera.hx",145,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(147)
+	HX_STACK_LINE(145)
 	return this->m_entity->m_transform->get_WorldMatrix();
 }
 
@@ -293,9 +293,9 @@ HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_viewport,return )
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_CameraToWorld,return )
 
 ::haxor::math::Matrix4 Camera_obj::get_WorldToCamera( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_WorldToCamera",0xaa8f50bd,"haxor.component.Camera.get_WorldToCamera","haxor/component/Camera.hx",154,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_WorldToCamera",0xaa8f50bd,"haxor.component.Camera.get_WorldToCamera","haxor/component/Camera.hx",152,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(154)
+	HX_STACK_LINE(152)
 	return this->m_entity->m_transform->get_WorldMatrixInverse();
 }
 
@@ -303,11 +303,11 @@ HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_CameraToWorld,return )
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_WorldToCamera,return )
 
 ::haxor::math::Matrix4 Camera_obj::get_ProjectionMatrix( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_ProjectionMatrix",0xc4d78b45,"haxor.component.Camera.get_ProjectionMatrix","haxor/component/Camera.hx",161,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_ProjectionMatrix",0xc4d78b45,"haxor.component.Camera.get_ProjectionMatrix","haxor/component/Camera.hx",159,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(161)
+	HX_STACK_LINE(159)
 	this->UpdateProjection();
-	HX_STACK_LINE(161)
+	HX_STACK_LINE(159)
 	return this->m_projectionMatrix;
 }
 
@@ -315,11 +315,11 @@ HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_WorldToCamera,return )
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_ProjectionMatrix,return )
 
 ::haxor::math::Matrix4 Camera_obj::get_ProjectionMatrixInverse( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_ProjectionMatrixInverse",0x6ddb0aeb,"haxor.component.Camera.get_ProjectionMatrixInverse","haxor/component/Camera.hx",169,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_ProjectionMatrixInverse",0x6ddb0aeb,"haxor.component.Camera.get_ProjectionMatrixInverse","haxor/component/Camera.hx",167,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(169)
+	HX_STACK_LINE(167)
 	this->UpdateProjection();
-	HX_STACK_LINE(169)
+	HX_STACK_LINE(167)
 	return this->m_projectionMatrixInverse;
 }
 
@@ -327,9 +327,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_ProjectionMatrix,return )
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_ProjectionMatrixInverse,return )
 
 ::haxor::graphics::texture::RenderTexture Camera_obj::get_target( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_target",0x8ad1c606,"haxor.component.Camera.get_target","haxor/component/Camera.hx",177,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_target",0x8ad1c606,"haxor.component.Camera.get_target","haxor/component/Camera.hx",175,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(177)
+	HX_STACK_LINE(175)
 	return this->m_target;
 }
 
@@ -337,14 +337,14 @@ HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_ProjectionMatrixInverse,return )
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_target,return )
 
 ::haxor::graphics::texture::RenderTexture Camera_obj::set_target( ::haxor::graphics::texture::RenderTexture v){
-	HX_STACK_FRAME("haxor.component.Camera","set_target",0x8e4f647a,"haxor.component.Camera.set_target","haxor/component/Camera.hx",178,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_target",0x8e4f647a,"haxor.component.Camera.set_target","haxor/component/Camera.hx",176,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(178)
+	HX_STACK_LINE(176)
 	this->m_target = v;
-	HX_STACK_LINE(178)
+	HX_STACK_LINE(176)
 	::haxor::context::EngineContext_obj::camera->UpdateViewport(hx::ObjectPtr<OBJ_>(this));
-	HX_STACK_LINE(178)
+	HX_STACK_LINE(176)
 	return v;
 }
 
@@ -352,9 +352,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_target,return )
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_target,return )
 
 Float Camera_obj::get_quality( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_quality",0xa89f906a,"haxor.component.Camera.get_quality","haxor/component/Camera.hx",185,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_quality",0xa89f906a,"haxor.component.Camera.get_quality","haxor/component/Camera.hx",183,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(185)
+	HX_STACK_LINE(183)
 	return this->m_quality;
 }
 
@@ -362,28 +362,28 @@ Float Camera_obj::get_quality( ){
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_quality,return )
 
 Float Camera_obj::set_quality( Float v){
-	HX_STACK_FRAME("haxor.component.Camera","set_quality",0xb30c9776,"haxor.component.Camera.set_quality","haxor/component/Camera.hx",186,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_quality",0xb30c9776,"haxor.component.Camera.set_quality","haxor/component/Camera.hx",184,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(186)
+	HX_STACK_LINE(184)
 	if (((v <= 0.0))){
-		HX_STACK_LINE(186)
+		HX_STACK_LINE(184)
 		this->m_quality = 0.0;
 	}
 	else{
-		HX_STACK_LINE(186)
+		HX_STACK_LINE(184)
 		if (((v >= 1.0))){
-			HX_STACK_LINE(186)
+			HX_STACK_LINE(184)
 			this->m_quality = 1.0;
 		}
 		else{
-			HX_STACK_LINE(186)
+			HX_STACK_LINE(184)
 			this->m_quality = v;
 		}
 	}
-	HX_STACK_LINE(186)
+	HX_STACK_LINE(184)
 	::haxor::context::EngineContext_obj::camera->UpdateViewport(hx::ObjectPtr<OBJ_>(this));
-	HX_STACK_LINE(186)
+	HX_STACK_LINE(184)
 	return v;
 }
 
@@ -391,9 +391,9 @@ Float Camera_obj::set_quality( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_quality,return )
 
 bool Camera_obj::get_captureDepth( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_captureDepth",0x75413312,"haxor.component.Camera.get_captureDepth","haxor/component/Camera.hx",193,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_captureDepth",0x75413312,"haxor.component.Camera.get_captureDepth","haxor/component/Camera.hx",191,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(193)
+	HX_STACK_LINE(191)
 	return this->m_captureDepth;
 }
 
@@ -401,16 +401,16 @@ bool Camera_obj::get_captureDepth( ){
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_captureDepth,return )
 
 bool Camera_obj::set_captureDepth( bool v){
-	HX_STACK_FRAME("haxor.component.Camera","set_captureDepth",0xcb832086,"haxor.component.Camera.set_captureDepth","haxor/component/Camera.hx",194,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_captureDepth",0xcb832086,"haxor.component.Camera.set_captureDepth","haxor/component/Camera.hx",192,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(194)
+	HX_STACK_LINE(192)
 	this->m_captureDepth = v;
-	HX_STACK_LINE(194)
+	HX_STACK_LINE(192)
 	::haxor::context::EngineContext_obj::camera->ClearTargets(hx::ObjectPtr<OBJ_>(this));
-	HX_STACK_LINE(194)
+	HX_STACK_LINE(192)
 	::haxor::context::EngineContext_obj::camera->UpdateViewport(hx::ObjectPtr<OBJ_>(this));
-	HX_STACK_LINE(194)
+	HX_STACK_LINE(192)
 	return v;
 }
 
@@ -418,9 +418,9 @@ bool Camera_obj::set_captureDepth( bool v){
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_captureDepth,return )
 
 Dynamic Camera_obj::get_filters( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_filters",0x6d9a2d66,"haxor.component.Camera.get_filters","haxor/component/Camera.hx",201,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","get_filters",0x6d9a2d66,"haxor.component.Camera.get_filters","haxor/component/Camera.hx",199,0xf5fa0e7a)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(201)
+	HX_STACK_LINE(199)
 	return this->m_filters;
 }
 
@@ -428,24 +428,36 @@ Dynamic Camera_obj::get_filters( ){
 HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_filters,return )
 
 Dynamic Camera_obj::set_filters( Dynamic v){
-	HX_STACK_FRAME("haxor.component.Camera","set_filters",0x78073472,"haxor.component.Camera.set_filters","haxor/component/Camera.hx",203,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_filters",0x78073472,"haxor.component.Camera.set_filters","haxor/component/Camera.hx",201,0xf5fa0e7a)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(204)
+	HX_STACK_LINE(202)
 	if (((v == null()))){
-		HX_STACK_LINE(204)
+		HX_STACK_LINE(202)
 		this->m_filters = Dynamic( Array_obj<Dynamic>::__new());
 	}
 	else{
-		HX_STACK_LINE(204)
+		HX_STACK_LINE(202)
 		this->m_filters = v;
 	}
-	HX_STACK_LINE(205)
+	HX_STACK_LINE(203)
 	return this->m_filters;
 }
 
 
 HX_DEFINE_DYNAMIC_FUNC1(Camera_obj,set_filters,return )
+
+Array< ::Dynamic > Camera_obj::get_frustum( ){
+	HX_STACK_FRAME("haxor.component.Camera","get_frustum",0x34cdd30d,"haxor.component.Camera.get_frustum","haxor/component/Camera.hx",216,0xf5fa0e7a)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(216)
+	this->UpdateProjection();
+	HX_STACK_LINE(216)
+	return this->m_frustum;
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_frustum,return )
 
 Void Camera_obj::OnBuild( ){
 {
@@ -521,38 +533,26 @@ Void Camera_obj::OnBuild( ){
 		this->m_view_uniform_dirty = true;
 		HX_STACK_LINE(260)
 		this->m_proj_uniform_dirty = true;
-		HX_STACK_LINE(262)
+		HX_STACK_LINE(263)
 		::haxor::math::Vector4 _g7 = ::haxor::math::Vector4_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(_g7,"_g7");
-		HX_STACK_LINE(262)
-		this->m_fn0 = _g7;
-		HX_STACK_LINE(263)
+		HX_STACK_LINE(264)
 		::haxor::math::Vector4 _g8 = ::haxor::math::Vector4_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(_g8,"_g8");
-		HX_STACK_LINE(263)
-		this->m_fn1 = _g8;
-		HX_STACK_LINE(264)
+		HX_STACK_LINE(265)
 		::haxor::math::Vector4 _g9 = ::haxor::math::Vector4_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(_g9,"_g9");
-		HX_STACK_LINE(264)
-		this->m_fn2 = _g9;
-		HX_STACK_LINE(265)
+		HX_STACK_LINE(266)
 		::haxor::math::Vector4 _g10 = ::haxor::math::Vector4_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(_g10,"_g10");
-		HX_STACK_LINE(265)
-		this->m_fn3 = _g10;
-		HX_STACK_LINE(266)
+		HX_STACK_LINE(267)
 		::haxor::math::Vector4 _g11 = ::haxor::math::Vector4_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(_g11,"_g11");
-		HX_STACK_LINE(266)
-		this->m_ff0 = _g11;
-		HX_STACK_LINE(267)
+		HX_STACK_LINE(268)
 		::haxor::math::Vector4 _g12 = ::haxor::math::Vector4_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(_g12,"_g12");
-		HX_STACK_LINE(267)
-		this->m_ff1 = _g12;
-		HX_STACK_LINE(268)
+		HX_STACK_LINE(269)
 		::haxor::math::Vector4 _g13 = ::haxor::math::Vector4_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(_g13,"_g13");
-		HX_STACK_LINE(268)
-		this->m_ff2 = _g13;
-		HX_STACK_LINE(269)
+		HX_STACK_LINE(270)
 		::haxor::math::Vector4 _g14 = ::haxor::math::Vector4_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(_g14,"_g14");
-		HX_STACK_LINE(269)
-		this->m_ff3 = _g14;
+		HX_STACK_LINE(262)
+		Array< ::Dynamic > _g15 = Array_obj< ::Dynamic >::__new().Add(_g7).Add(_g8).Add(_g9).Add(_g10).Add(_g11).Add(_g12).Add(_g13).Add(_g14);		HX_STACK_VAR(_g15,"_g15");
+		HX_STACK_LINE(262)
+		this->m_frustum = _g15;
 	}
 return null();
 }
@@ -707,9 +707,9 @@ Void Camera_obj::UpdateProjection( ){
 		HX_STACK_LINE(333)
 		::haxor::math::Vector4 p;		HX_STACK_VAR(p,"p");
 		HX_STACK_LINE(334)
-		Float iw;		HX_STACK_VAR(iw,"iw");
+		Float iw = 0.0;		HX_STACK_VAR(iw,"iw");
 		HX_STACK_LINE(335)
-		p = this->m_fn0;
+		p = this->m_frustum->__get((int)0).StaticCast< ::haxor::math::Vector4 >();
 		HX_STACK_LINE(335)
 		p->Set(-1.0,1.0,0.0,1.0);
 		HX_STACK_LINE(335)
@@ -747,7 +747,7 @@ Void Camera_obj::UpdateProjection( ){
 		HX_STACK_LINE(335)
 		p->Scale(iw);
 		HX_STACK_LINE(336)
-		p = this->m_fn1;
+		p = this->m_frustum->__get((int)1).StaticCast< ::haxor::math::Vector4 >();
 		HX_STACK_LINE(336)
 		p->Set(1.0,1.0,0.0,1.0);
 		HX_STACK_LINE(336)
@@ -785,7 +785,7 @@ Void Camera_obj::UpdateProjection( ){
 		HX_STACK_LINE(336)
 		p->Scale(iw);
 		HX_STACK_LINE(337)
-		p = this->m_fn2;
+		p = this->m_frustum->__get((int)2).StaticCast< ::haxor::math::Vector4 >();
 		HX_STACK_LINE(337)
 		p->Set(-1.0,-1.0,0.0,1.0);
 		HX_STACK_LINE(337)
@@ -823,7 +823,7 @@ Void Camera_obj::UpdateProjection( ){
 		HX_STACK_LINE(337)
 		p->Scale(iw);
 		HX_STACK_LINE(338)
-		p = this->m_fn3;
+		p = this->m_frustum->__get((int)3).StaticCast< ::haxor::math::Vector4 >();
 		HX_STACK_LINE(338)
 		p->Set(1.0,-1.0,0.0,1.0);
 		HX_STACK_LINE(338)
@@ -860,157 +860,157 @@ Void Camera_obj::UpdateProjection( ){
 		}
 		HX_STACK_LINE(338)
 		p->Scale(iw);
-		HX_STACK_LINE(340)
-		p = this->m_ff0;
-		HX_STACK_LINE(340)
+		HX_STACK_LINE(339)
+		p = this->m_frustum->__get((int)4).StaticCast< ::haxor::math::Vector4 >();
+		HX_STACK_LINE(339)
 		p->Set(-1.0,1.0,1.0,1.0);
-		HX_STACK_LINE(340)
+		HX_STACK_LINE(339)
 		{
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			::haxor::math::Matrix4 _this = this->m_projectionMatrixInverse;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			Float vx = ((((_this->m00 * p->x) + (_this->m01 * p->y)) + (_this->m02 * p->z)) + (_this->m03 * p->w));		HX_STACK_VAR(vx,"vx");
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			Float vy = ((((_this->m10 * p->x) + (_this->m11 * p->y)) + (_this->m12 * p->z)) + (_this->m13 * p->w));		HX_STACK_VAR(vy,"vy");
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			Float vz = ((((_this->m20 * p->x) + (_this->m21 * p->y)) + (_this->m22 * p->z)) + (_this->m23 * p->w));		HX_STACK_VAR(vz,"vz");
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			Float vw = ((((_this->m30 * p->x) + (_this->m31 * p->y)) + (_this->m32 * p->z)) + (_this->m33 * p->w));		HX_STACK_VAR(vw,"vw");
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			p->x = vx;
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			p->y = vy;
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			p->z = vz;
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			p->w = vw;
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			p;
 		}
-		HX_STACK_LINE(340)
+		HX_STACK_LINE(339)
 		if (((p->w <= 0.0))){
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			iw = 0.0;
 		}
 		else{
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(339)
 			iw = (Float(1.0) / Float(p->w));
 		}
-		HX_STACK_LINE(340)
+		HX_STACK_LINE(339)
 		p->Scale(iw);
-		HX_STACK_LINE(341)
-		p = this->m_ff1;
-		HX_STACK_LINE(341)
+		HX_STACK_LINE(340)
+		p = this->m_frustum->__get((int)5).StaticCast< ::haxor::math::Vector4 >();
+		HX_STACK_LINE(340)
 		p->Set(1.0,1.0,1.0,1.0);
-		HX_STACK_LINE(341)
+		HX_STACK_LINE(340)
 		{
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			::haxor::math::Matrix4 _this = this->m_projectionMatrixInverse;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			Float vx = ((((_this->m00 * p->x) + (_this->m01 * p->y)) + (_this->m02 * p->z)) + (_this->m03 * p->w));		HX_STACK_VAR(vx,"vx");
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			Float vy = ((((_this->m10 * p->x) + (_this->m11 * p->y)) + (_this->m12 * p->z)) + (_this->m13 * p->w));		HX_STACK_VAR(vy,"vy");
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			Float vz = ((((_this->m20 * p->x) + (_this->m21 * p->y)) + (_this->m22 * p->z)) + (_this->m23 * p->w));		HX_STACK_VAR(vz,"vz");
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			Float vw = ((((_this->m30 * p->x) + (_this->m31 * p->y)) + (_this->m32 * p->z)) + (_this->m33 * p->w));		HX_STACK_VAR(vw,"vw");
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			p->x = vx;
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			p->y = vy;
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			p->z = vz;
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			p->w = vw;
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			p;
 		}
-		HX_STACK_LINE(341)
+		HX_STACK_LINE(340)
 		if (((p->w <= 0.0))){
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			iw = 0.0;
 		}
 		else{
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(340)
 			iw = (Float(1.0) / Float(p->w));
 		}
-		HX_STACK_LINE(341)
+		HX_STACK_LINE(340)
 		p->Scale(iw);
-		HX_STACK_LINE(342)
-		p = this->m_ff2;
-		HX_STACK_LINE(342)
+		HX_STACK_LINE(341)
+		p = this->m_frustum->__get((int)6).StaticCast< ::haxor::math::Vector4 >();
+		HX_STACK_LINE(341)
 		p->Set(-1.0,-1.0,1.0,1.0);
-		HX_STACK_LINE(342)
+		HX_STACK_LINE(341)
 		{
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			::haxor::math::Matrix4 _this = this->m_projectionMatrixInverse;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			Float vx = ((((_this->m00 * p->x) + (_this->m01 * p->y)) + (_this->m02 * p->z)) + (_this->m03 * p->w));		HX_STACK_VAR(vx,"vx");
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			Float vy = ((((_this->m10 * p->x) + (_this->m11 * p->y)) + (_this->m12 * p->z)) + (_this->m13 * p->w));		HX_STACK_VAR(vy,"vy");
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			Float vz = ((((_this->m20 * p->x) + (_this->m21 * p->y)) + (_this->m22 * p->z)) + (_this->m23 * p->w));		HX_STACK_VAR(vz,"vz");
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			Float vw = ((((_this->m30 * p->x) + (_this->m31 * p->y)) + (_this->m32 * p->z)) + (_this->m33 * p->w));		HX_STACK_VAR(vw,"vw");
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			p->x = vx;
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			p->y = vy;
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			p->z = vz;
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			p->w = vw;
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			p;
 		}
-		HX_STACK_LINE(342)
+		HX_STACK_LINE(341)
 		if (((p->w <= 0.0))){
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			iw = 0.0;
 		}
 		else{
-			HX_STACK_LINE(342)
+			HX_STACK_LINE(341)
 			iw = (Float(1.0) / Float(p->w));
 		}
-		HX_STACK_LINE(342)
+		HX_STACK_LINE(341)
 		p->Scale(iw);
-		HX_STACK_LINE(343)
-		p = this->m_ff3;
-		HX_STACK_LINE(343)
+		HX_STACK_LINE(342)
+		p = this->m_frustum->__get((int)7).StaticCast< ::haxor::math::Vector4 >();
+		HX_STACK_LINE(342)
 		p->Set(1.0,-1.0,1.0,1.0);
-		HX_STACK_LINE(343)
+		HX_STACK_LINE(342)
 		{
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			::haxor::math::Matrix4 _this = this->m_projectionMatrixInverse;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			Float vx = ((((_this->m00 * p->x) + (_this->m01 * p->y)) + (_this->m02 * p->z)) + (_this->m03 * p->w));		HX_STACK_VAR(vx,"vx");
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			Float vy = ((((_this->m10 * p->x) + (_this->m11 * p->y)) + (_this->m12 * p->z)) + (_this->m13 * p->w));		HX_STACK_VAR(vy,"vy");
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			Float vz = ((((_this->m20 * p->x) + (_this->m21 * p->y)) + (_this->m22 * p->z)) + (_this->m23 * p->w));		HX_STACK_VAR(vz,"vz");
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			Float vw = ((((_this->m30 * p->x) + (_this->m31 * p->y)) + (_this->m32 * p->z)) + (_this->m33 * p->w));		HX_STACK_VAR(vw,"vw");
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			p->x = vx;
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			p->y = vy;
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			p->z = vz;
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			p->w = vw;
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			p;
 		}
-		HX_STACK_LINE(343)
+		HX_STACK_LINE(342)
 		if (((p->w <= 0.0))){
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			iw = 0.0;
 		}
 		else{
-			HX_STACK_LINE(343)
+			HX_STACK_LINE(342)
 			iw = (Float(1.0) / Float(p->w));
 		}
-		HX_STACK_LINE(343)
+		HX_STACK_LINE(342)
 		p->Scale(iw);
 	}
 return null();
@@ -1021,9 +1021,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,UpdateProjection,(void))
 
 Void Camera_obj::OnTransformUpdate( ){
 {
-		HX_STACK_FRAME("haxor.component.Camera","OnTransformUpdate",0xef4a94aa,"haxor.component.Camera.OnTransformUpdate","haxor/component/Camera.hx",351,0xf5fa0e7a)
+		HX_STACK_FRAME("haxor.component.Camera","OnTransformUpdate",0xef4a94aa,"haxor.component.Camera.OnTransformUpdate","haxor/component/Camera.hx",350,0xf5fa0e7a)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(351)
+		HX_STACK_LINE(350)
 		this->m_view_uniform_dirty = true;
 	}
 return null();
@@ -1032,20 +1032,18 @@ return null();
 
 Void Camera_obj::OnDestroy( ){
 {
-		HX_STACK_FRAME("haxor.component.Camera","OnDestroy",0xf559240f,"haxor.component.Camera.OnDestroy","haxor/component/Camera.hx",359,0xf5fa0e7a)
+		HX_STACK_FRAME("haxor.component.Camera","OnDestroy",0xf559240f,"haxor.component.Camera.OnDestroy","haxor/component/Camera.hx",358,0xf5fa0e7a)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(359)
+		HX_STACK_LINE(358)
 		::haxor::context::EngineContext_obj::camera->Destroy(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();
 }
 
 
-bool Camera_obj::sap;
-
 Array< ::Dynamic > Camera_obj::get_list( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_list",0x139667d3,"haxor.component.Camera.get_list","haxor/component/Camera.hx",36,0xf5fa0e7a)
-	HX_STACK_LINE(36)
+	HX_STACK_FRAME("haxor.component.Camera","get_list",0x139667d3,"haxor.component.Camera.get_list","haxor/component/Camera.hx",33,0xf5fa0e7a)
+	HX_STACK_LINE(33)
 	return ::haxor::context::EngineContext_obj::camera->list->copy();
 }
 
@@ -1053,8 +1051,8 @@ Array< ::Dynamic > Camera_obj::get_list( ){
 STATIC_HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_list,return )
 
 ::haxor::component::Camera Camera_obj::get_current( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_current",0x303727e4,"haxor.component.Camera.get_current","haxor/component/Camera.hx",41,0xf5fa0e7a)
-	HX_STACK_LINE(41)
+	HX_STACK_FRAME("haxor.component.Camera","get_current",0x303727e4,"haxor.component.Camera.get_current","haxor/component/Camera.hx",39,0xf5fa0e7a)
+	HX_STACK_LINE(39)
 	return ::haxor::component::Camera_obj::m_current;
 }
 
@@ -1064,8 +1062,8 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_current,return )
 ::haxor::component::Camera Camera_obj::m_current;
 
 ::haxor::component::Camera Camera_obj::get_main( ){
-	HX_STACK_FRAME("haxor.component.Camera","get_main",0x143983ae,"haxor.component.Camera.get_main","haxor/component/Camera.hx",48,0xf5fa0e7a)
-	HX_STACK_LINE(48)
+	HX_STACK_FRAME("haxor.component.Camera","get_main",0x143983ae,"haxor.component.Camera.get_main","haxor/component/Camera.hx",46,0xf5fa0e7a)
+	HX_STACK_LINE(46)
 	return ::haxor::component::Camera_obj::m_main;
 }
 
@@ -1073,9 +1071,9 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_current,return )
 STATIC_HX_DEFINE_DYNAMIC_FUNC0(Camera_obj,get_main,return )
 
 ::haxor::component::Camera Camera_obj::set_main( ::haxor::component::Camera v){
-	HX_STACK_FRAME("haxor.component.Camera","set_main",0xc296dd22,"haxor.component.Camera.set_main","haxor/component/Camera.hx",49,0xf5fa0e7a)
+	HX_STACK_FRAME("haxor.component.Camera","set_main",0xc296dd22,"haxor.component.Camera.set_main","haxor/component/Camera.hx",47,0xf5fa0e7a)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(49)
+	HX_STACK_LINE(47)
 	return ::haxor::component::Camera_obj::m_main = v;
 }
 
@@ -1118,17 +1116,10 @@ void Camera_obj::__Mark(HX_MARK_PARAMS)
 	HX_MARK_MEMBER_NAME(m_quality,"m_quality");
 	HX_MARK_MEMBER_NAME(m_captureDepth,"m_captureDepth");
 	HX_MARK_MEMBER_NAME(m_filters,"m_filters");
+	HX_MARK_MEMBER_NAME(m_frustum,"m_frustum");
 	HX_MARK_MEMBER_NAME(m_projection_dirty,"m_projection_dirty");
 	HX_MARK_MEMBER_NAME(m_view_uniform_dirty,"m_view_uniform_dirty");
 	HX_MARK_MEMBER_NAME(m_proj_uniform_dirty,"m_proj_uniform_dirty");
-	HX_MARK_MEMBER_NAME(m_fn0,"m_fn0");
-	HX_MARK_MEMBER_NAME(m_fn1,"m_fn1");
-	HX_MARK_MEMBER_NAME(m_fn2,"m_fn2");
-	HX_MARK_MEMBER_NAME(m_fn3,"m_fn3");
-	HX_MARK_MEMBER_NAME(m_ff0,"m_ff0");
-	HX_MARK_MEMBER_NAME(m_ff1,"m_ff1");
-	HX_MARK_MEMBER_NAME(m_ff2,"m_ff2");
-	HX_MARK_MEMBER_NAME(m_ff3,"m_ff3");
 	::haxor::component::Component_obj::__Mark(HX_MARK_ARG);
 	HX_MARK_END_CLASS();
 }
@@ -1161,17 +1152,10 @@ void Camera_obj::__Visit(HX_VISIT_PARAMS)
 	HX_VISIT_MEMBER_NAME(m_quality,"m_quality");
 	HX_VISIT_MEMBER_NAME(m_captureDepth,"m_captureDepth");
 	HX_VISIT_MEMBER_NAME(m_filters,"m_filters");
+	HX_VISIT_MEMBER_NAME(m_frustum,"m_frustum");
 	HX_VISIT_MEMBER_NAME(m_projection_dirty,"m_projection_dirty");
 	HX_VISIT_MEMBER_NAME(m_view_uniform_dirty,"m_view_uniform_dirty");
 	HX_VISIT_MEMBER_NAME(m_proj_uniform_dirty,"m_proj_uniform_dirty");
-	HX_VISIT_MEMBER_NAME(m_fn0,"m_fn0");
-	HX_VISIT_MEMBER_NAME(m_fn1,"m_fn1");
-	HX_VISIT_MEMBER_NAME(m_fn2,"m_fn2");
-	HX_VISIT_MEMBER_NAME(m_fn3,"m_fn3");
-	HX_VISIT_MEMBER_NAME(m_ff0,"m_ff0");
-	HX_VISIT_MEMBER_NAME(m_ff1,"m_ff1");
-	HX_VISIT_MEMBER_NAME(m_ff2,"m_ff2");
-	HX_VISIT_MEMBER_NAME(m_ff3,"m_ff3");
 	::haxor::component::Component_obj::__Visit(HX_VISIT_ARG);
 }
 
@@ -1179,7 +1163,6 @@ Dynamic Camera_obj::__Field(const ::String &inName,bool inCallProp)
 {
 	switch(inName.length) {
 	case 3:
-		if (HX_FIELD_EQ(inName,"sap") ) { return sap; }
 		if (HX_FIELD_EQ(inName,"fov") ) { return get_fov(); }
 		if (HX_FIELD_EQ(inName,"far") ) { return get_far(); }
 		break;
@@ -1194,14 +1177,6 @@ Dynamic Camera_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"m_fov") ) { return m_fov; }
 		if (HX_FIELD_EQ(inName,"m_far") ) { return m_far; }
 		if (HX_FIELD_EQ(inName,"order") ) { return get_order(); }
-		if (HX_FIELD_EQ(inName,"m_fn0") ) { return m_fn0; }
-		if (HX_FIELD_EQ(inName,"m_fn1") ) { return m_fn1; }
-		if (HX_FIELD_EQ(inName,"m_fn2") ) { return m_fn2; }
-		if (HX_FIELD_EQ(inName,"m_fn3") ) { return m_fn3; }
-		if (HX_FIELD_EQ(inName,"m_ff0") ) { return m_ff0; }
-		if (HX_FIELD_EQ(inName,"m_ff1") ) { return m_ff1; }
-		if (HX_FIELD_EQ(inName,"m_ff2") ) { return m_ff2; }
-		if (HX_FIELD_EQ(inName,"m_ff3") ) { return m_ff3; }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"m_main") ) { return m_main; }
@@ -1221,6 +1196,7 @@ Dynamic Camera_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"m_order") ) { return m_order; }
 		if (HX_FIELD_EQ(inName,"quality") ) { return get_quality(); }
 		if (HX_FIELD_EQ(inName,"filters") ) { return get_filters(); }
+		if (HX_FIELD_EQ(inName,"frustum") ) { return get_frustum(); }
 		if (HX_FIELD_EQ(inName,"OnBuild") ) { return OnBuild_dyn(); }
 		break;
 	case 8:
@@ -1243,6 +1219,7 @@ Dynamic Camera_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"set_order") ) { return set_order_dyn(); }
 		if (HX_FIELD_EQ(inName,"m_quality") ) { return m_quality; }
 		if (HX_FIELD_EQ(inName,"m_filters") ) { return m_filters; }
+		if (HX_FIELD_EQ(inName,"m_frustum") ) { return m_frustum; }
 		if (HX_FIELD_EQ(inName,"OnDestroy") ) { return OnDestroy_dyn(); }
 		break;
 	case 10:
@@ -1257,6 +1234,7 @@ Dynamic Camera_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"set_quality") ) { return set_quality_dyn(); }
 		if (HX_FIELD_EQ(inName,"get_filters") ) { return get_filters_dyn(); }
 		if (HX_FIELD_EQ(inName,"set_filters") ) { return set_filters_dyn(); }
+		if (HX_FIELD_EQ(inName,"get_frustum") ) { return get_frustum_dyn(); }
 		break;
 	case 12:
 		if (HX_FIELD_EQ(inName,"get_viewport") ) { return get_viewport_dyn(); }
@@ -1315,7 +1293,6 @@ Dynamic Camera_obj::__SetField(const ::String &inName,const Dynamic &inValue,boo
 {
 	switch(inName.length) {
 	case 3:
-		if (HX_FIELD_EQ(inName,"sap") ) { sap=inValue.Cast< bool >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"fov") ) { return set_fov(inValue); }
 		if (HX_FIELD_EQ(inName,"far") ) { return set_far(inValue); }
 		break;
@@ -1329,14 +1306,6 @@ Dynamic Camera_obj::__SetField(const ::String &inName,const Dynamic &inValue,boo
 		if (HX_FIELD_EQ(inName,"m_fov") ) { m_fov=inValue.Cast< Float >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_far") ) { m_far=inValue.Cast< Float >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"order") ) { return set_order(inValue); }
-		if (HX_FIELD_EQ(inName,"m_fn0") ) { m_fn0=inValue.Cast< ::haxor::math::Vector4 >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_fn1") ) { m_fn1=inValue.Cast< ::haxor::math::Vector4 >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_fn2") ) { m_fn2=inValue.Cast< ::haxor::math::Vector4 >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_fn3") ) { m_fn3=inValue.Cast< ::haxor::math::Vector4 >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_ff0") ) { m_ff0=inValue.Cast< ::haxor::math::Vector4 >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_ff1") ) { m_ff1=inValue.Cast< ::haxor::math::Vector4 >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_ff2") ) { m_ff2=inValue.Cast< ::haxor::math::Vector4 >(); return inValue; }
-		if (HX_FIELD_EQ(inName,"m_ff3") ) { m_ff3=inValue.Cast< ::haxor::math::Vector4 >(); return inValue; }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"m_main") ) { m_main=inValue.Cast< ::haxor::component::Camera >(); return inValue; }
@@ -1361,6 +1330,7 @@ Dynamic Camera_obj::__SetField(const ::String &inName,const Dynamic &inValue,boo
 		if (HX_FIELD_EQ(inName,"m_current") ) { m_current=inValue.Cast< ::haxor::component::Camera >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_quality") ) { m_quality=inValue.Cast< Float >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_filters") ) { m_filters=inValue.Cast< Dynamic >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"m_frustum") ) { m_frustum=inValue.Cast< Array< ::Dynamic > >(); return inValue; }
 		break;
 	case 10:
 		if (HX_FIELD_EQ(inName,"background") ) { background=inValue.Cast< ::haxor::math::Color >(); return inValue; }
@@ -1439,22 +1409,15 @@ void Camera_obj::__GetFields(Array< ::String> &outFields)
 	outFields->push(HX_CSTRING("m_captureDepth"));
 	outFields->push(HX_CSTRING("filters"));
 	outFields->push(HX_CSTRING("m_filters"));
+	outFields->push(HX_CSTRING("frustum"));
+	outFields->push(HX_CSTRING("m_frustum"));
 	outFields->push(HX_CSTRING("m_projection_dirty"));
 	outFields->push(HX_CSTRING("m_view_uniform_dirty"));
 	outFields->push(HX_CSTRING("m_proj_uniform_dirty"));
-	outFields->push(HX_CSTRING("m_fn0"));
-	outFields->push(HX_CSTRING("m_fn1"));
-	outFields->push(HX_CSTRING("m_fn2"));
-	outFields->push(HX_CSTRING("m_fn3"));
-	outFields->push(HX_CSTRING("m_ff0"));
-	outFields->push(HX_CSTRING("m_ff1"));
-	outFields->push(HX_CSTRING("m_ff2"));
-	outFields->push(HX_CSTRING("m_ff3"));
 	super::__GetFields(outFields);
 };
 
 static ::String sStaticFields[] = {
-	HX_CSTRING("sap"),
 	HX_CSTRING("get_list"),
 	HX_CSTRING("get_current"),
 	HX_CSTRING("m_current"),
@@ -1491,17 +1454,10 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 	{hx::fsFloat,(int)offsetof(Camera_obj,m_quality),HX_CSTRING("m_quality")},
 	{hx::fsBool,(int)offsetof(Camera_obj,m_captureDepth),HX_CSTRING("m_captureDepth")},
 	{hx::fsObject /*Dynamic*/ ,(int)offsetof(Camera_obj,m_filters),HX_CSTRING("m_filters")},
+	{hx::fsObject /*Array< ::Dynamic >*/ ,(int)offsetof(Camera_obj,m_frustum),HX_CSTRING("m_frustum")},
 	{hx::fsBool,(int)offsetof(Camera_obj,m_projection_dirty),HX_CSTRING("m_projection_dirty")},
 	{hx::fsBool,(int)offsetof(Camera_obj,m_view_uniform_dirty),HX_CSTRING("m_view_uniform_dirty")},
 	{hx::fsBool,(int)offsetof(Camera_obj,m_proj_uniform_dirty),HX_CSTRING("m_proj_uniform_dirty")},
-	{hx::fsObject /*::haxor::math::Vector4*/ ,(int)offsetof(Camera_obj,m_fn0),HX_CSTRING("m_fn0")},
-	{hx::fsObject /*::haxor::math::Vector4*/ ,(int)offsetof(Camera_obj,m_fn1),HX_CSTRING("m_fn1")},
-	{hx::fsObject /*::haxor::math::Vector4*/ ,(int)offsetof(Camera_obj,m_fn2),HX_CSTRING("m_fn2")},
-	{hx::fsObject /*::haxor::math::Vector4*/ ,(int)offsetof(Camera_obj,m_fn3),HX_CSTRING("m_fn3")},
-	{hx::fsObject /*::haxor::math::Vector4*/ ,(int)offsetof(Camera_obj,m_ff0),HX_CSTRING("m_ff0")},
-	{hx::fsObject /*::haxor::math::Vector4*/ ,(int)offsetof(Camera_obj,m_ff1),HX_CSTRING("m_ff1")},
-	{hx::fsObject /*::haxor::math::Vector4*/ ,(int)offsetof(Camera_obj,m_ff2),HX_CSTRING("m_ff2")},
-	{hx::fsObject /*::haxor::math::Vector4*/ ,(int)offsetof(Camera_obj,m_ff3),HX_CSTRING("m_ff3")},
 	{ hx::fsUnknown, 0, null()}
 };
 #endif
@@ -1558,17 +1514,11 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("get_filters"),
 	HX_CSTRING("set_filters"),
 	HX_CSTRING("m_filters"),
+	HX_CSTRING("get_frustum"),
+	HX_CSTRING("m_frustum"),
 	HX_CSTRING("m_projection_dirty"),
 	HX_CSTRING("m_view_uniform_dirty"),
 	HX_CSTRING("m_proj_uniform_dirty"),
-	HX_CSTRING("m_fn0"),
-	HX_CSTRING("m_fn1"),
-	HX_CSTRING("m_fn2"),
-	HX_CSTRING("m_fn3"),
-	HX_CSTRING("m_ff0"),
-	HX_CSTRING("m_ff1"),
-	HX_CSTRING("m_ff2"),
-	HX_CSTRING("m_ff3"),
 	HX_CSTRING("OnBuild"),
 	HX_CSTRING("WorldToProjection"),
 	HX_CSTRING("WorldToDepth"),
@@ -1581,7 +1531,6 @@ static ::String sMemberFields[] = {
 
 static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Camera_obj::__mClass,"__mClass");
-	HX_MARK_MEMBER_NAME(Camera_obj::sap,"sap");
 	HX_MARK_MEMBER_NAME(Camera_obj::m_current,"m_current");
 	HX_MARK_MEMBER_NAME(Camera_obj::m_main,"m_main");
 };
@@ -1589,7 +1538,6 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 #ifdef HXCPP_VISIT_ALLOCS
 static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Camera_obj::__mClass,"__mClass");
-	HX_VISIT_MEMBER_NAME(Camera_obj::sap,"sap");
 	HX_VISIT_MEMBER_NAME(Camera_obj::m_current,"m_current");
 	HX_VISIT_MEMBER_NAME(Camera_obj::m_main,"m_main");
 };
@@ -1614,7 +1562,6 @@ void Camera_obj::__register()
 
 void Camera_obj::__boot()
 {
-	sap= true;
 }
 
 } // end namespace haxor

@@ -1,6 +1,7 @@
 #if html
 
 package haxor.platform.html.net;
+import haxor.platform.Types.Float32;
 import js.Browser;
 import haxor.core.Enums.PixelFormat;
 import js.html.Event;
@@ -38,7 +39,7 @@ class BitmapLoader extends HTTPLoader<Uint8Array>
 	 * @param	p_bitmap
 	 * @param	p_progress
 	 */
-	private function OnBufferCallback(p_data:Uint8Array, p_progress:Float):Void 
+	private function OnBufferCallback(p_data:Uint8Array, p_progress:Float32):Void 
 	{
 		if (p_progress < 1.0)
 		{
@@ -52,8 +53,9 @@ class BitmapLoader extends HTTPLoader<Uint8Array>
 			{					
 				var g : CanvasRenderingContext2D = Browser.document.createCanvasElement().getContext2d();					
 				g.canvas.width 	= img.width;
-				g.canvas.height = img.height;					
-				g.drawImage(img, 0, 0);					
+				g.canvas.height = img.height;			
+				g.scale(1.0,-1.0); 						//Set scale to flip the image in Y
+				g.drawImage(img, 0,-img.height); 		//Draw the image flipped.				
 				var data : ImageData = g.getImageData(0, 0, g.canvas.width, g.canvas.height);					
 				var w : Int = data.width;
 				var h : Int = data.height;

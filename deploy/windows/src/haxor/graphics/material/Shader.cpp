@@ -33,106 +33,106 @@ namespace material{
 
 Void Shader_obj::__construct(::String p_source)
 {
-HX_STACK_FRAME("haxor.graphics.material.Shader","new",0x2a1209a7,"haxor.graphics.material.Shader.new","haxor/graphics/material/Shader.hx",49,0x97658f68)
+HX_STACK_FRAME("haxor.graphics.material.Shader","new",0x2a1209a7,"haxor.graphics.material.Shader.new","haxor/graphics/material/Shader.hx",56,0x97658f68)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_source,"p_source")
 {
-	HX_STACK_LINE(50)
+	HX_STACK_LINE(57)
 	super::__construct(null());
-	HX_STACK_LINE(51)
+	HX_STACK_LINE(58)
 	int _g;		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(51)
+	HX_STACK_LINE(58)
 	{
-		HX_STACK_LINE(51)
+		HX_STACK_LINE(58)
 		::haxor::context::UID _this = ::haxor::context::EngineContext_obj::material->sid;		HX_STACK_VAR(_this,"_this");
-		HX_STACK_LINE(51)
+		HX_STACK_LINE(58)
 		if (((_this->m_cache->length <= (int)0))){
-			HX_STACK_LINE(51)
+			HX_STACK_LINE(58)
 			_g = (_this->m_id)++;
 		}
 		else{
-			HX_STACK_LINE(51)
+			HX_STACK_LINE(58)
 			_g = _this->m_cache->shift();
 		}
 	}
-	HX_STACK_LINE(51)
-	this->__cid = _g;
-	HX_STACK_LINE(55)
-	int vt0 = p_source.indexOf(HX_CSTRING("<vertex"),null());		HX_STACK_VAR(vt0,"vt0");
-	HX_STACK_LINE(56)
-	int vt1 = p_source.indexOf(HX_CSTRING(">"),(vt0 + (int)1));		HX_STACK_VAR(vt1,"vt1");
-	HX_STACK_LINE(57)
-	::String vt = p_source.substring(vt0,(vt1 + (int)1));		HX_STACK_VAR(vt,"vt");
 	HX_STACK_LINE(58)
+	this->__cid = _g;
+	HX_STACK_LINE(62)
+	int vt0 = p_source.indexOf(HX_CSTRING("<vertex"),null());		HX_STACK_VAR(vt0,"vt0");
+	HX_STACK_LINE(63)
+	int vt1 = p_source.indexOf(HX_CSTRING(">"),(vt0 + (int)1));		HX_STACK_VAR(vt1,"vt1");
+	HX_STACK_LINE(64)
+	::String vt = p_source.substring(vt0,(vt1 + (int)1));		HX_STACK_VAR(vt,"vt");
+	HX_STACK_LINE(65)
 	int ft0 = p_source.indexOf(HX_CSTRING("<fragment"),null());		HX_STACK_VAR(ft0,"ft0");
-	HX_STACK_LINE(59)
+	HX_STACK_LINE(66)
 	int ft1 = p_source.indexOf(HX_CSTRING(">"),(ft0 + (int)1));		HX_STACK_VAR(ft1,"ft1");
-	HX_STACK_LINE(60)
+	HX_STACK_LINE(67)
 	::String ft = p_source.substring(ft0,(ft1 + (int)1));		HX_STACK_VAR(ft,"ft");
-	HX_STACK_LINE(63)
+	HX_STACK_LINE(70)
 	::String _g1 = ::StringTools_obj::replace(p_source,vt,(vt + HX_CSTRING("<![CDATA[")));		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(63)
+	HX_STACK_LINE(70)
 	p_source = _g1;
-	HX_STACK_LINE(64)
+	HX_STACK_LINE(71)
 	::String _g2 = ::StringTools_obj::replace(p_source,HX_CSTRING("</vertex>"),HX_CSTRING("]]></vertex>"));		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(64)
+	HX_STACK_LINE(71)
 	p_source = _g2;
-	HX_STACK_LINE(65)
+	HX_STACK_LINE(72)
 	::String _g3 = ::StringTools_obj::replace(p_source,ft,(ft + HX_CSTRING("<![CDATA[")));		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(65)
+	HX_STACK_LINE(72)
 	p_source = _g3;
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(73)
 	::String _g4 = ::StringTools_obj::replace(p_source,HX_CSTRING("</fragment>"),HX_CSTRING("]]></fragment>"));		HX_STACK_VAR(_g4,"_g4");
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(73)
 	p_source = _g4;
-	HX_STACK_LINE(68)
-	::Xml x;		HX_STACK_VAR(x,"x");
-	HX_STACK_LINE(70)
-	::Xml _g5 = ::Xml_obj::parse(p_source);		HX_STACK_VAR(_g5,"_g5");
-	HX_STACK_LINE(70)
-	x = _g5;
-	HX_STACK_LINE(71)
-	::Xml _g6 = x->firstElement();		HX_STACK_VAR(_g6,"_g6");
-	HX_STACK_LINE(71)
-	x = _g6;
-	HX_STACK_LINE(73)
-	::String _g7 = x->get(HX_CSTRING("id"));		HX_STACK_VAR(_g7,"_g7");
-	HX_STACK_LINE(73)
-	this->set_name(_g7);
 	HX_STACK_LINE(75)
+	::Xml x;		HX_STACK_VAR(x,"x");
+	HX_STACK_LINE(77)
+	::Xml _g5 = ::Xml_obj::parse(p_source);		HX_STACK_VAR(_g5,"_g5");
+	HX_STACK_LINE(77)
+	x = _g5;
+	HX_STACK_LINE(78)
+	::Xml _g6 = x->firstElement();		HX_STACK_VAR(_g6,"_g6");
+	HX_STACK_LINE(78)
+	x = _g6;
+	HX_STACK_LINE(80)
+	::String _g7 = x->get(HX_CSTRING("id"));		HX_STACK_VAR(_g7,"_g7");
+	HX_STACK_LINE(80)
+	this->set_name(_g7);
+	HX_STACK_LINE(82)
 	::String _g8 = this->get_name();		HX_STACK_VAR(_g8,"_g8");
 	struct _Function_1_1{
 		inline static bool Block( hx::ObjectPtr< ::haxor::graphics::material::Shader_obj > __this){
-			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/graphics/material/Shader.hx",75,0x97658f68)
+			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/graphics/material/Shader.hx",82,0x97658f68)
 			{
-				HX_STACK_LINE(75)
+				HX_STACK_LINE(82)
 				::String _g9 = __this->get_name();		HX_STACK_VAR(_g9,"_g9");
-				HX_STACK_LINE(75)
+				HX_STACK_LINE(82)
 				return (_g9 == HX_CSTRING(""));
 			}
 			return null();
 		}
 	};
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(82)
 	if (((  ((!(((_g8 == null()))))) ? bool(_Function_1_1::Block(this)) : bool(true) ))){
-		HX_STACK_LINE(75)
+		HX_STACK_LINE(82)
 		this->set_name((HX_CSTRING("Shader") + this->__cid));
 	}
-	HX_STACK_LINE(77)
-	::Xml vs = x->elementsNamed(HX_CSTRING("vertex"))->__Field(HX_CSTRING("next"),true)();		HX_STACK_VAR(vs,"vs");
-	HX_STACK_LINE(78)
-	::Xml fs = x->elementsNamed(HX_CSTRING("fragment"))->__Field(HX_CSTRING("next"),true)();		HX_STACK_VAR(fs,"fs");
-	HX_STACK_LINE(80)
-	::String _g10 = this->GetShaderSource(vs);		HX_STACK_VAR(_g10,"_g10");
-	HX_STACK_LINE(80)
-	this->m_vss = _g10;
-	HX_STACK_LINE(81)
-	::String _g11 = this->GetShaderSource(fs);		HX_STACK_VAR(_g11,"_g11");
-	HX_STACK_LINE(81)
-	this->m_fss = _g11;
-	HX_STACK_LINE(82)
-	this->m_hasError = false;
 	HX_STACK_LINE(84)
+	::Xml vs = x->elementsNamed(HX_CSTRING("vertex"))->__Field(HX_CSTRING("next"),true)();		HX_STACK_VAR(vs,"vs");
+	HX_STACK_LINE(85)
+	::Xml fs = x->elementsNamed(HX_CSTRING("fragment"))->__Field(HX_CSTRING("next"),true)();		HX_STACK_VAR(fs,"fs");
+	HX_STACK_LINE(87)
+	::String _g10 = this->GetShaderSource(vs);		HX_STACK_VAR(_g10,"_g10");
+	HX_STACK_LINE(87)
+	this->m_vss = _g10;
+	HX_STACK_LINE(88)
+	::String _g11 = this->GetShaderSource(fs);		HX_STACK_VAR(_g11,"_g11");
+	HX_STACK_LINE(88)
+	this->m_fss = _g11;
+	HX_STACK_LINE(89)
+	this->m_hasError = false;
+	HX_STACK_LINE(91)
 	::haxor::context::EngineContext_obj::material->InitializeShader(hx::ObjectPtr<OBJ_>(this));
 }
 ;
@@ -153,9 +153,9 @@ Dynamic Shader_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 bool Shader_obj::get_hasError( ){
-	HX_STACK_FRAME("haxor.graphics.material.Shader","get_hasError",0x4c75aff0,"haxor.graphics.material.Shader.get_hasError","haxor/graphics/material/Shader.hx",41,0x97658f68)
+	HX_STACK_FRAME("haxor.graphics.material.Shader","get_hasError",0x4c75aff0,"haxor.graphics.material.Shader.get_hasError","haxor/graphics/material/Shader.hx",48,0x97658f68)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(41)
+	HX_STACK_LINE(48)
 	return this->m_hasError;
 }
 
@@ -163,35 +163,35 @@ bool Shader_obj::get_hasError( ){
 HX_DEFINE_DYNAMIC_FUNC0(Shader_obj,get_hasError,return )
 
 ::String Shader_obj::GetShaderSource( ::Xml n){
-	HX_STACK_FRAME("haxor.graphics.material.Shader","GetShaderSource",0x28a3333d,"haxor.graphics.material.Shader.GetShaderSource","haxor/graphics/material/Shader.hx",93,0x97658f68)
+	HX_STACK_FRAME("haxor.graphics.material.Shader","GetShaderSource",0x28a3333d,"haxor.graphics.material.Shader.GetShaderSource","haxor/graphics/material/Shader.hx",100,0x97658f68)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(n,"n")
-	HX_STACK_LINE(94)
+	HX_STACK_LINE(101)
 	if (((n == null()))){
-		HX_STACK_LINE(94)
+		HX_STACK_LINE(101)
 		return HX_CSTRING("");
 	}
-	HX_STACK_LINE(95)
+	HX_STACK_LINE(102)
 	::String src = n->firstChild()->get_nodeValue().toString();		HX_STACK_VAR(src,"src");
-	HX_STACK_LINE(96)
+	HX_STACK_LINE(103)
 	::String _g = n->get(HX_CSTRING("precision"));		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(96)
+	HX_STACK_LINE(103)
 	::String prec = ((  (((_g == null()))) ? ::String(HX_CSTRING("low")) : ::String(n->get(HX_CSTRING("precision"))) )).toLowerCase();		HX_STACK_VAR(prec,"prec");
-	HX_STACK_LINE(97)
+	HX_STACK_LINE(104)
 	::String _switch_1 = (prec);
 	if (  ( _switch_1==HX_CSTRING("low"))){
-		HX_STACK_LINE(99)
+		HX_STACK_LINE(106)
 		prec = HX_CSTRING("precision lowp float;");
 	}
 	else if (  ( _switch_1==HX_CSTRING("medium"))){
-		HX_STACK_LINE(100)
+		HX_STACK_LINE(107)
 		prec = HX_CSTRING("precision mediump float;");
 	}
 	else if (  ( _switch_1==HX_CSTRING("high"))){
-		HX_STACK_LINE(101)
+		HX_STACK_LINE(108)
 		prec = HX_CSTRING("precision highp float;");
 	}
-	HX_STACK_LINE(103)
+	HX_STACK_LINE(110)
 	return (prec + src);
 }
 
@@ -200,9 +200,9 @@ HX_DEFINE_DYNAMIC_FUNC1(Shader_obj,GetShaderSource,return )
 
 Void Shader_obj::OnDestroy( ){
 {
-		HX_STACK_FRAME("haxor.graphics.material.Shader","OnDestroy",0x7a26ae02,"haxor.graphics.material.Shader.OnDestroy","haxor/graphics/material/Shader.hx",111,0x97658f68)
+		HX_STACK_FRAME("haxor.graphics.material.Shader","OnDestroy",0x7a26ae02,"haxor.graphics.material.Shader.OnDestroy","haxor/graphics/material/Shader.hx",118,0x97658f68)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(111)
+		HX_STACK_LINE(118)
 		::haxor::context::EngineContext_obj::material->DestroyShader(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();
@@ -256,6 +256,30 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Shader_obj,get_Flat,return )
 STATIC_HX_DEFINE_DYNAMIC_FUNC0(Shader_obj,get_FlatTexture,return )
 
 ::haxor::graphics::material::Shader Shader_obj::m_flat_texture_shader;
+
+::haxor::graphics::material::Shader Shader_obj::FlatTextureSkin;
+
+::haxor::graphics::material::Shader Shader_obj::get_FlatTextureSkin( ){
+	HX_STACK_FRAME("haxor.graphics.material.Shader","get_FlatTextureSkin",0x29cb07fd,"haxor.graphics.material.Shader.get_FlatTextureSkin","haxor/graphics/material/Shader.hx",31,0x97658f68)
+	HX_STACK_LINE(31)
+	if (((::haxor::graphics::material::Shader_obj::m_flat_texture_skin_shader == null()))){
+		HX_STACK_LINE(31)
+		::haxor::graphics::material::Shader _g = ::haxor::graphics::material::Shader_obj::__new(::haxor::context::ShaderContext_obj::flat_texture_skin_source);		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(31)
+		return ::haxor::graphics::material::Shader_obj::m_flat_texture_skin_shader = _g;
+	}
+	else{
+		HX_STACK_LINE(31)
+		return ::haxor::graphics::material::Shader_obj::m_flat_texture_skin_shader;
+	}
+	HX_STACK_LINE(31)
+	return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC0(Shader_obj,get_FlatTextureSkin,return )
+
+::haxor::graphics::material::Shader Shader_obj::m_flat_texture_skin_shader;
 
 
 Shader_obj::Shader_obj()
@@ -311,10 +335,17 @@ Dynamic Shader_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 15:
 		if (HX_FIELD_EQ(inName,"get_FlatTexture") ) { return get_FlatTexture_dyn(); }
+		if (HX_FIELD_EQ(inName,"FlatTextureSkin") ) { return inCallProp ? get_FlatTextureSkin() : FlatTextureSkin; }
 		if (HX_FIELD_EQ(inName,"GetShaderSource") ) { return GetShaderSource_dyn(); }
+		break;
+	case 19:
+		if (HX_FIELD_EQ(inName,"get_FlatTextureSkin") ) { return get_FlatTextureSkin_dyn(); }
 		break;
 	case 21:
 		if (HX_FIELD_EQ(inName,"m_flat_texture_shader") ) { return m_flat_texture_shader; }
+		break;
+	case 26:
+		if (HX_FIELD_EQ(inName,"m_flat_texture_skin_shader") ) { return m_flat_texture_skin_shader; }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -338,8 +369,14 @@ Dynamic Shader_obj::__SetField(const ::String &inName,const Dynamic &inValue,boo
 	case 13:
 		if (HX_FIELD_EQ(inName,"m_flat_shader") ) { m_flat_shader=inValue.Cast< ::haxor::graphics::material::Shader >(); return inValue; }
 		break;
+	case 15:
+		if (HX_FIELD_EQ(inName,"FlatTextureSkin") ) { FlatTextureSkin=inValue.Cast< ::haxor::graphics::material::Shader >(); return inValue; }
+		break;
 	case 21:
 		if (HX_FIELD_EQ(inName,"m_flat_texture_shader") ) { m_flat_texture_shader=inValue.Cast< ::haxor::graphics::material::Shader >(); return inValue; }
+		break;
+	case 26:
+		if (HX_FIELD_EQ(inName,"m_flat_texture_skin_shader") ) { m_flat_texture_skin_shader=inValue.Cast< ::haxor::graphics::material::Shader >(); return inValue; }
 	}
 	return super::__SetField(inName,inValue,inCallProp);
 }
@@ -360,6 +397,9 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("FlatTexture"),
 	HX_CSTRING("get_FlatTexture"),
 	HX_CSTRING("m_flat_texture_shader"),
+	HX_CSTRING("FlatTextureSkin"),
+	HX_CSTRING("get_FlatTextureSkin"),
+	HX_CSTRING("m_flat_texture_skin_shader"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE
@@ -386,6 +426,8 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Shader_obj::m_flat_shader,"m_flat_shader");
 	HX_MARK_MEMBER_NAME(Shader_obj::FlatTexture,"FlatTexture");
 	HX_MARK_MEMBER_NAME(Shader_obj::m_flat_texture_shader,"m_flat_texture_shader");
+	HX_MARK_MEMBER_NAME(Shader_obj::FlatTextureSkin,"FlatTextureSkin");
+	HX_MARK_MEMBER_NAME(Shader_obj::m_flat_texture_skin_shader,"m_flat_texture_skin_shader");
 };
 
 #ifdef HXCPP_VISIT_ALLOCS
@@ -395,6 +437,8 @@ static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Shader_obj::m_flat_shader,"m_flat_shader");
 	HX_VISIT_MEMBER_NAME(Shader_obj::FlatTexture,"FlatTexture");
 	HX_VISIT_MEMBER_NAME(Shader_obj::m_flat_texture_shader,"m_flat_texture_shader");
+	HX_VISIT_MEMBER_NAME(Shader_obj::FlatTextureSkin,"FlatTextureSkin");
+	HX_VISIT_MEMBER_NAME(Shader_obj::m_flat_texture_skin_shader,"m_flat_texture_skin_shader");
 };
 
 #endif

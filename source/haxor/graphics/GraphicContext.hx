@@ -7,6 +7,7 @@ import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.io.UInt16Array;
 import haxor.platform.Types.ArrayBuffer;
+import haxor.platform.Types.Float32;
 import haxor.platform.Types.FrameBufferId;
 import haxor.platform.Types.MeshBufferId;
 import haxor.platform.Types.ProgramId;
@@ -78,8 +79,8 @@ class GraphicContext
 	public function DrawElements(p_primitive : Int, p_count : Int,p_type : Int,p_offset : Int) : Void { }	
 	public function EnableVertexAttrib(p_location:Int):Void { }		
 	public function DisableVertexAttrib(p_location:Int):Void { }
-	public function VertexAttrib3f(p_location : Int,p_x : Float,p_y:Float,p_z : Float):Void { }	
-	public function VertexAttrib4f(p_location : Int, p_x : Float, p_y:Float, p_z : Float, p_w : Float):Void { }	
+	public function VertexAttrib3f(p_location : Int,p_x : Float32,p_y:Float32,p_z : Float32):Void { }	
+	public function VertexAttrib4f(p_location : Int, p_x : Float32, p_y:Float32, p_z : Float32, p_w : Float32):Void { }	
 	public function VertexAttribPointer(p_location : Int,p_components_size : Int,p_type : Int,p_normalized : Bool,p_stride : Int, p_offset : Int):Void { }
 	
 	//Shaders
@@ -102,10 +103,10 @@ class GraphicContext
 	public function UseProgram(p_program : ProgramId):Void { }
 	
 	//Uniforms	
-	public function Uniform1f(p_location:UniformLocation,p_x:Float):Void 										{ }	
-	public function Uniform2f(p_location:UniformLocation,p_x:Float, p_y:Float):Void 							{ }	
-	public function Uniform3f(p_location:UniformLocation,p_x:Float, p_y:Float,p_z:Float):Void 					{ }		
-	public function Uniform4f(p_location:UniformLocation,p_x:Float, p_y:Float,p_z:Float,p_w:Float):Void 		{ }		
+	public function Uniform1f(p_location:UniformLocation,p_x:Float32):Void 										{ }	
+	public function Uniform2f(p_location:UniformLocation,p_x:Float32, p_y:Float32):Void 							{ }	
+	public function Uniform3f(p_location:UniformLocation,p_x:Float32, p_y:Float32,p_z:Float32):Void 					{ }		
+	public function Uniform4f(p_location:UniformLocation,p_x:Float32, p_y:Float32,p_z:Float32,p_w:Float32):Void 		{ }		
 	public function Uniform1i(p_location:UniformLocation,p_x:Int):Void 											{ }	
 	public function Uniform2i(p_location:UniformLocation,p_x:Int,p_y:Int):Void 									{ }	
 	public function Uniform3i(p_location:UniformLocation,p_x:Int,p_y:Int,p_z:Int):Void 							{ }		
@@ -142,7 +143,7 @@ class GraphicContext
 	public function TexImage2D(p_target:Int, p_level:Int, p_internal_format:Int, p_width:Int, p_height:Int, p_border:Int, p_format:Int, p_channel_type:Int, p_data:Buffer):Void { }	
 	public function TexSubImage2D(p_target:Int, p_level:Int, p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_channel_type:Int, p_data:Buffer):Void { }	
 	public function TexStorage2D(p_target:Int, p_num_mipmaps : Int, p_channels : Int, p_width : Int, p_height:Int) { }	
-	public function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float):Void { }	
+	public function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float32):Void { }	
 	public function TexParameteri(p_target:Int, p_parameter:Int, p_value:Int):Void { }
 	
 	
@@ -157,8 +158,8 @@ class GraphicContext
 	
 	//Screen
 	public function Clear(p_flag : Int):Void { 	}	
-	public function ClearDepth(p_value : Float):Void { 	}	
-	public function ClearColor(p_r: Float, p_g:Float, p_b:Float, p_a:Float):Void { 	}	
+	public function ClearDepth(p_value : Float32):Void { 	}	
+	public function ClearColor(p_r: Float32, p_g:Float32, p_b:Float32, p_a:Float32):Void { 	}	
 	public function Viewport(p_x:Int,p_y:Int,p_width:Int,p_height:Int):Void { }
 	public function Scissor(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ }
 	public function ReadPixels(p_x:Int,p_y:Int,p_width:Int,p_height:Int,p_format:Int,p_type:Int,p_pixels:Buffer):Void { }

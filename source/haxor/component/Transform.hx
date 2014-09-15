@@ -6,6 +6,7 @@ import haxor.math.Mathf;
 import haxor.math.Matrix4;
 import haxor.math.Quaternion;
 import haxor.math.Vector3;
+import haxor.platform.Types.Float32;
 
 
 
@@ -117,7 +118,7 @@ class Transform extends Component
 	private function get_localPosition():Vector3 {  return m_localPosition.clone; }
 	private function set_localPosition(v:Vector3):Vector3 
 	{ 
-		var dx : Float = (v.x - m_localPosition.x); var dy : Float = (v.y - m_localPosition.y); var dz : Float = (v.z - m_localPosition.z);		
+		var dx : Float32 = (v.x - m_localPosition.x); var dy : Float32 = (v.y - m_localPosition.y); var dz : Float32 = (v.z - m_localPosition.z);		
 		if (Math.abs(dx) < Mathf.Epsilon) if (Math.abs(dy) < Mathf.Epsilon)	if (Math.abs(dz) < Mathf.Epsilon) return v;	
 		m_localPosition.Set3(v); m_lmt_dirty 	= true;		
 		Invalidate();
@@ -132,7 +133,7 @@ class Transform extends Component
 	private function get_localRotation():Quaternion { return m_localRotation.clone;	}
 	private function set_localRotation(v:Quaternion):Quaternion 
 	{
-		var dx : Float = (v.x-m_localRotation.x); var dy : Float = (v.y-m_localRotation.y); var dz : Float = (v.z-m_localRotation.z); var dw : Float = (v.w-m_localRotation.w);
+		var dx : Float32 = (v.x-m_localRotation.x); var dy : Float32 = (v.y-m_localRotation.y); var dz : Float32 = (v.z-m_localRotation.z); var dw : Float32 = (v.w-m_localRotation.w);
 		if (Math.abs(dx) < Mathf.Epsilon) if (Math.abs(dy) < Mathf.Epsilon)	if (Math.abs(dz) < Mathf.Epsilon) if (Math.abs(dw) < Mathf.Epsilon) return v;	
 		m_localRotation.SetQuaternion(v); m_lmrs_dirty 	= true;			
 		Invalidate();
@@ -155,7 +156,7 @@ class Transform extends Component
 	private function get_localScale():Vector3 { return m_localScale.clone; }
 	private function set_localScale(v:Vector3):Vector3 
 	{ 
-		var dx : Float = (v.x - m_localScale.x); var dy : Float = (v.y - m_localScale.y); var dz : Float = (v.z - m_localScale.z);		
+		var dx : Float32 = (v.x - m_localScale.x); var dy : Float32 = (v.y - m_localScale.y); var dz : Float32 = (v.z - m_localScale.z);		
 		if (Math.abs(dx) < Mathf.Epsilon) if (Math.abs(dy) < Mathf.Epsilon)	if (Math.abs(dz) < Mathf.Epsilon) return v;	
 		m_localScale.Set3(v); m_lmrs_dirty 	= true;
 		Invalidate();
@@ -325,9 +326,9 @@ class Transform extends Component
 	 */
 	private function UpdateLMRS():Void
 	{
-		var sx:Float = m_localScale.x; 		
-		var sy:Float = m_localScale.y; 		
-		var sz:Float = m_localScale.z;
+		var sx:Float32= m_localScale.x; 		
+		var sy:Float32= m_localScale.y; 		
+		var sz:Float32= m_localScale.z;
 		var r : Matrix4 = Matrix4.FromQuaternion(m_localRotation, Matrix4.temp);		
 		var l : Matrix4 = m_localMatrix;
 		l.m00 = r.m00 * sx; l.m01 = r.m01 * sy; l.m02 = r.m02 * sz;
@@ -348,7 +349,7 @@ class Transform extends Component
 			var c1 : Vector3 = Vector3.temp.Set(m.m01, m.m11, m.m21);
 			var c2 : Vector3 = Vector3.temp.Set(m.m02, m.m12, m.m22);
 			
-			var l0 : Float   = c0.length;	var l1 : Float   = c1.length; var l2 : Float   = c2.length;
+			var l0 : Float32   = c0.length;	var l1 : Float32   = c1.length; var l2 : Float32   = c2.length;
 			
 			m_scale.x = l0; m_scale.y = l1;	m_scale.z = l2;
 			
@@ -391,7 +392,7 @@ class Transform extends Component
 	 */
 	private function Invalidate():Void
 	{
-		//if (m_dirty) return;
+		if (m_dirty) return;
 		
 		m_uniform_dirty = true;
 		m_dirty 		= true;
@@ -408,7 +409,7 @@ class Transform extends Component
 	 * @param	p_at
 	 * @param	p_up
 	 */
-	public function LookAt(p_at : Vector3, p_up : Vector3 = null,p_smooth:Float=0.0):Void
+	public function LookAt(p_at : Vector3, p_up : Vector3 = null,p_smooth:Float32=0.0):Void
 	{
 		var p : Vector3 	= transform.position;
 		var r : Quaternion  = Quaternion.temp;
@@ -423,7 +424,7 @@ class Transform extends Component
 		}
 		transform.rotation = r;		
 	}
-
+	
 	/**
 	 * Returns a child at a given index.
 	 * @param	p_index
@@ -505,7 +506,7 @@ class Transform extends Component
 	 * Prints the hierarchy of this transform.
 	 * @return
 	 */
-	public function OutputHierarchy():String
+	public function OutputHierarchy(p_show_transform:Bool=true,p_show_world:Bool=false):String
 	{
 		var d0 : Int = 0;// cast m_depth;
 		var hs : String = "";
@@ -515,7 +516,10 @@ class Transform extends Component
 			var td : Int = d;
 			var d	: Int = Mathf.MaxInt(0, td - d0);
 			for (i in 0...d) tab += " ";
-			hs += tab + t.name + " " + t.position.ToString() + t.rotation.ToString() + t.scale.ToString() + "\n";
+			hs += tab + t.name + " ";
+			if (p_show_transform) hs += t.position.ToString() + t.rotation.ToString() + t.scale.ToString();
+			if (p_show_world) 	  hs += t.WorldMatrix.ToString(true, 3);
+			hs += "\n";
 			return true;
 		});
 		return hs;		

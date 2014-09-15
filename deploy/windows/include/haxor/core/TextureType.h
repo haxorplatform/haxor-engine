@@ -23,6 +23,8 @@ class TextureType_obj : public hx::EnumBase_obj
 		::String GetEnumName( ) const { return HX_CSTRING("haxor.core.TextureType"); }
 		::String __ToString() const { return HX_CSTRING("TextureType.") + tag; }
 
+		static ::haxor::core::TextureType Compute;
+		static inline ::haxor::core::TextureType Compute_dyn() { return Compute; }
 		static ::haxor::core::TextureType None;
 		static inline ::haxor::core::TextureType None_dyn() { return None; }
 		static ::haxor::core::TextureType RenderTexture;

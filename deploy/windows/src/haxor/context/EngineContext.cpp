@@ -605,7 +605,7 @@ void EngineContext_obj::__register()
 void EngineContext_obj::__boot()
 {
 	uid= (int)0;
-	maxNodes= (int)1000;
+	maxNodes= (int)5000;
 	collectRate= (int)10;
 }
 

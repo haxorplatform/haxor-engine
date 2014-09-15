@@ -23,7 +23,7 @@ namespace math{
 
 Void AABB2_obj::__construct(hx::Null< Float >  __o_p_x,hx::Null< Float >  __o_p_y,hx::Null< Float >  __o_p_width,hx::Null< Float >  __o_p_height)
 {
-HX_STACK_FRAME("haxor.math.AABB2","new",0x803d220a,"haxor.math.AABB2.new","haxor/math/AABB2.hx",117,0x4f052906)
+HX_STACK_FRAME("haxor.math.AABB2","new",0x803d220a,"haxor.math.AABB2.new","haxor/math/AABB2.hx",118,0x4f052906)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_x,"p_x")
 HX_STACK_ARG(__o_p_y,"p_y")
@@ -34,7 +34,7 @@ Float p_y = __o_p_y.Default(0);
 Float p_width = __o_p_width.Default(0);
 Float p_height = __o_p_height.Default(0);
 {
-	HX_STACK_LINE(117)
+	HX_STACK_LINE(118)
 	this->SetXYWH(p_x,p_y,p_width,p_height);
 }
 ;
@@ -55,17 +55,17 @@ Dynamic AABB2_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::math::AABB2 AABB2_obj::get_clone( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_clone",0x48895cde,"haxor.math.AABB2.get_clone","haxor/math/AABB2.hx",44,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_clone",0x48895cde,"haxor.math.AABB2.get_clone","haxor/math/AABB2.hx",45,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(44)
+	HX_STACK_LINE(45)
 	Float _g = this->get_xMin();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(44)
+	HX_STACK_LINE(45)
 	Float _g1 = this->get_xMax();		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(44)
+	HX_STACK_LINE(45)
 	Float _g2 = this->get_yMin();		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(44)
+	HX_STACK_LINE(45)
 	Float _g3 = this->get_yMax();		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(44)
+	HX_STACK_LINE(45)
 	return ::haxor::math::AABB2_obj::FromMinMax(_g,_g1,_g2,_g3);
 }
 
@@ -73,9 +73,9 @@ Dynamic AABB2_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_clone,return )
 
 ::haxor::math::Vector2 AABB2_obj::get_min( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_min",0xa64c48d3,"haxor.math.AABB2.get_min","haxor/math/AABB2.hx",47,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_min",0xa64c48d3,"haxor.math.AABB2.get_min","haxor/math/AABB2.hx",48,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(47)
+	HX_STACK_LINE(48)
 	return ::haxor::math::Vector2_obj::__new(this->m_xMin,this->m_yMin);
 }
 
@@ -83,14 +83,14 @@ HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_clone,return )
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_min,return )
 
 ::haxor::math::Vector2 AABB2_obj::set_min( ::haxor::math::Vector2 v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_min",0x994dd9df,"haxor.math.AABB2.set_min","haxor/math/AABB2.hx",48,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_min",0x994dd9df,"haxor.math.AABB2.set_min","haxor/math/AABB2.hx",49,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(48)
+	HX_STACK_LINE(49)
 	this->set_xMin(v->x);
-	HX_STACK_LINE(48)
+	HX_STACK_LINE(49)
 	this->set_yMin(v->y);
-	HX_STACK_LINE(48)
+	HX_STACK_LINE(49)
 	return v;
 }
 
@@ -98,9 +98,9 @@ HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_min,return )
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_min,return )
 
 ::haxor::math::Vector2 AABB2_obj::get_max( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_max",0xa64c41e5,"haxor.math.AABB2.get_max","haxor/math/AABB2.hx",51,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_max",0xa64c41e5,"haxor.math.AABB2.get_max","haxor/math/AABB2.hx",52,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(51)
+	HX_STACK_LINE(52)
 	return ::haxor::math::Vector2_obj::__new(this->m_xMax,this->m_yMax);
 }
 
@@ -108,14 +108,14 @@ HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_min,return )
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_max,return )
 
 ::haxor::math::Vector2 AABB2_obj::set_max( ::haxor::math::Vector2 v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_max",0x994dd2f1,"haxor.math.AABB2.set_max","haxor/math/AABB2.hx",52,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_max",0x994dd2f1,"haxor.math.AABB2.set_max","haxor/math/AABB2.hx",53,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(52)
+	HX_STACK_LINE(53)
 	this->set_xMax(v->x);
-	HX_STACK_LINE(52)
+	HX_STACK_LINE(53)
 	this->set_yMax(v->y);
-	HX_STACK_LINE(52)
+	HX_STACK_LINE(53)
 	return v;
 }
 
@@ -123,9 +123,9 @@ HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_max,return )
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_max,return )
 
 Float AABB2_obj::get_xMin( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_xMin",0xe3a38599,"haxor.math.AABB2.get_xMin","haxor/math/AABB2.hx",55,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_xMin",0xe3a38599,"haxor.math.AABB2.get_xMin","haxor/math/AABB2.hx",56,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(55)
+	HX_STACK_LINE(56)
 	return this->m_xMin;
 }
 
@@ -133,14 +133,14 @@ Float AABB2_obj::get_xMin( ){
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_xMin,return )
 
 Float AABB2_obj::set_xMin( Float v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_xMin",0x9200df0d,"haxor.math.AABB2.set_xMin","haxor/math/AABB2.hx",56,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_xMin",0x9200df0d,"haxor.math.AABB2.set_xMin","haxor/math/AABB2.hx",57,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(56)
+	HX_STACK_LINE(57)
 	this->m_xMin = v;
-	HX_STACK_LINE(56)
+	HX_STACK_LINE(57)
 	this->Validate();
-	HX_STACK_LINE(56)
+	HX_STACK_LINE(57)
 	return v;
 }
 
@@ -148,9 +148,9 @@ Float AABB2_obj::set_xMin( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_xMin,return )
 
 Float AABB2_obj::get_yMin( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_yMin",0xe44cbc38,"haxor.math.AABB2.get_yMin","haxor/math/AABB2.hx",60,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_yMin",0xe44cbc38,"haxor.math.AABB2.get_yMin","haxor/math/AABB2.hx",61,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(60)
+	HX_STACK_LINE(61)
 	return this->m_yMin;
 }
 
@@ -158,14 +158,14 @@ Float AABB2_obj::get_yMin( ){
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_yMin,return )
 
 Float AABB2_obj::set_yMin( Float v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_yMin",0x92aa15ac,"haxor.math.AABB2.set_yMin","haxor/math/AABB2.hx",61,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_yMin",0x92aa15ac,"haxor.math.AABB2.set_yMin","haxor/math/AABB2.hx",62,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(61)
+	HX_STACK_LINE(62)
 	this->m_yMin = v;
-	HX_STACK_LINE(61)
+	HX_STACK_LINE(62)
 	this->Validate();
-	HX_STACK_LINE(61)
+	HX_STACK_LINE(62)
 	return v;
 }
 
@@ -173,9 +173,9 @@ Float AABB2_obj::set_yMin( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_yMin,return )
 
 Float AABB2_obj::get_xMax( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_xMax",0xe3a37eab,"haxor.math.AABB2.get_xMax","haxor/math/AABB2.hx",65,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_xMax",0xe3a37eab,"haxor.math.AABB2.get_xMax","haxor/math/AABB2.hx",66,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(65)
+	HX_STACK_LINE(66)
 	return this->m_xMax;
 }
 
@@ -183,14 +183,14 @@ Float AABB2_obj::get_xMax( ){
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_xMax,return )
 
 Float AABB2_obj::set_xMax( Float v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_xMax",0x9200d81f,"haxor.math.AABB2.set_xMax","haxor/math/AABB2.hx",66,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_xMax",0x9200d81f,"haxor.math.AABB2.set_xMax","haxor/math/AABB2.hx",67,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(67)
 	this->m_xMax = v;
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(67)
 	this->Validate();
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(67)
 	return v;
 }
 
@@ -198,9 +198,9 @@ Float AABB2_obj::set_xMax( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_xMax,return )
 
 Float AABB2_obj::get_yMax( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_yMax",0xe44cb54a,"haxor.math.AABB2.get_yMax","haxor/math/AABB2.hx",70,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_yMax",0xe44cb54a,"haxor.math.AABB2.get_yMax","haxor/math/AABB2.hx",71,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(70)
+	HX_STACK_LINE(71)
 	return this->m_yMax;
 }
 
@@ -208,14 +208,14 @@ Float AABB2_obj::get_yMax( ){
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_yMax,return )
 
 Float AABB2_obj::set_yMax( Float v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_yMax",0x92aa0ebe,"haxor.math.AABB2.set_yMax","haxor/math/AABB2.hx",71,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_yMax",0x92aa0ebe,"haxor.math.AABB2.set_yMax","haxor/math/AABB2.hx",72,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(71)
+	HX_STACK_LINE(72)
 	this->m_yMax = v;
-	HX_STACK_LINE(71)
+	HX_STACK_LINE(72)
 	this->Validate();
-	HX_STACK_LINE(71)
+	HX_STACK_LINE(72)
 	return v;
 }
 
@@ -223,33 +223,33 @@ Float AABB2_obj::set_yMax( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_yMax,return )
 
 ::haxor::math::Vector2 AABB2_obj::get_center( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_center",0x27352d34,"haxor.math.AABB2.get_center","haxor/math/AABB2.hx",75,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_center",0x27352d34,"haxor.math.AABB2.get_center","haxor/math/AABB2.hx",76,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g = this->get_xMin();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g1 = this->get_xMax();		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g2 = this->get_xMin();		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g3 = (_g1 - _g2);		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g4 = (_g3 * 0.5);		HX_STACK_VAR(_g4,"_g4");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g5 = (_g + _g4);		HX_STACK_VAR(_g5,"_g5");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g6 = this->get_yMin();		HX_STACK_VAR(_g6,"_g6");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g7 = this->get_yMax();		HX_STACK_VAR(_g7,"_g7");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g8 = this->get_yMin();		HX_STACK_VAR(_g8,"_g8");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g9 = (_g7 - _g8);		HX_STACK_VAR(_g9,"_g9");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g10 = (_g9 * 0.5);		HX_STACK_VAR(_g10,"_g10");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	Float _g11 = (_g6 + _g10);		HX_STACK_VAR(_g11,"_g11");
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(76)
 	return ::haxor::math::Vector2_obj::__new(_g5,_g11);
 }
 
@@ -257,62 +257,62 @@ HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_yMax,return )
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_center,return )
 
 ::haxor::math::Vector2 AABB2_obj::set_center( ::haxor::math::Vector2 v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_center",0x2ab2cba8,"haxor.math.AABB2.set_center","haxor/math/AABB2.hx",77,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_center",0x2ab2cba8,"haxor.math.AABB2.set_center","haxor/math/AABB2.hx",78,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(78)
+	HX_STACK_LINE(79)
 	Float _g2;		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(78)
+	HX_STACK_LINE(79)
 	{
-		HX_STACK_LINE(78)
+		HX_STACK_LINE(79)
 		Float _g = this->get_xMax();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(78)
+		HX_STACK_LINE(79)
 		Float _g1 = this->get_xMin();		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(78)
+		HX_STACK_LINE(79)
 		Float p_a = (_g - _g1);		HX_STACK_VAR(p_a,"p_a");
-		HX_STACK_LINE(78)
+		HX_STACK_LINE(79)
 		if (((p_a < (int)0))){
-			HX_STACK_LINE(78)
+			HX_STACK_LINE(79)
 			_g2 = -(p_a);
 		}
 		else{
-			HX_STACK_LINE(78)
+			HX_STACK_LINE(79)
 			_g2 = p_a;
 		}
 	}
-	HX_STACK_LINE(78)
+	HX_STACK_LINE(79)
 	Float hw = (_g2 * 0.5);		HX_STACK_VAR(hw,"hw");
-	HX_STACK_LINE(79)
+	HX_STACK_LINE(80)
 	Float _g5;		HX_STACK_VAR(_g5,"_g5");
-	HX_STACK_LINE(79)
+	HX_STACK_LINE(80)
 	{
-		HX_STACK_LINE(79)
+		HX_STACK_LINE(80)
 		Float _g3 = this->get_yMax();		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(79)
+		HX_STACK_LINE(80)
 		Float _g4 = this->get_yMin();		HX_STACK_VAR(_g4,"_g4");
-		HX_STACK_LINE(79)
+		HX_STACK_LINE(80)
 		Float p_a = (_g3 - _g4);		HX_STACK_VAR(p_a,"p_a");
-		HX_STACK_LINE(79)
+		HX_STACK_LINE(80)
 		if (((p_a < (int)0))){
-			HX_STACK_LINE(79)
+			HX_STACK_LINE(80)
 			_g5 = -(p_a);
 		}
 		else{
-			HX_STACK_LINE(79)
+			HX_STACK_LINE(80)
 			_g5 = p_a;
 		}
 	}
-	HX_STACK_LINE(79)
-	Float hh = (_g5 * 0.5);		HX_STACK_VAR(hh,"hh");
 	HX_STACK_LINE(80)
-	this->m_xMin = (v->x - hw);
+	Float hh = (_g5 * 0.5);		HX_STACK_VAR(hh,"hh");
 	HX_STACK_LINE(81)
-	this->m_xMax = (v->x + hw);
+	this->m_xMin = (v->x - hw);
 	HX_STACK_LINE(82)
-	this->m_yMin = (v->y - hh);
+	this->m_xMax = (v->x + hw);
 	HX_STACK_LINE(83)
-	this->m_yMax = (v->y + hh);
+	this->m_yMin = (v->y - hh);
 	HX_STACK_LINE(84)
+	this->m_yMax = (v->y + hh);
+	HX_STACK_LINE(85)
 	return v;
 }
 
@@ -320,9 +320,9 @@ HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_center,return )
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_center,return )
 
 Float AABB2_obj::get_x( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_x",0xdb813579,"haxor.math.AABB2.get_x","haxor/math/AABB2.hx",88,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_x",0xdb813579,"haxor.math.AABB2.get_x","haxor/math/AABB2.hx",89,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(88)
+	HX_STACK_LINE(89)
 	return this->get_xMin();
 }
 
@@ -330,12 +330,12 @@ Float AABB2_obj::get_x( ){
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_x,return )
 
 Float AABB2_obj::set_x( Float v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_x",0xc4502b85,"haxor.math.AABB2.set_x","haxor/math/AABB2.hx",89,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_x",0xc4502b85,"haxor.math.AABB2.set_x","haxor/math/AABB2.hx",90,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(89)
+	HX_STACK_LINE(90)
 	this->set_xMin(v);
-	HX_STACK_LINE(89)
+	HX_STACK_LINE(90)
 	return v;
 }
 
@@ -343,9 +343,9 @@ Float AABB2_obj::set_x( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_x,return )
 
 Float AABB2_obj::get_y( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_y",0xdb81357a,"haxor.math.AABB2.get_y","haxor/math/AABB2.hx",92,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_y",0xdb81357a,"haxor.math.AABB2.get_y","haxor/math/AABB2.hx",93,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(92)
+	HX_STACK_LINE(93)
 	return this->get_yMin();
 }
 
@@ -353,12 +353,12 @@ Float AABB2_obj::get_y( ){
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_y,return )
 
 Float AABB2_obj::set_y( Float v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_y",0xc4502b86,"haxor.math.AABB2.set_y","haxor/math/AABB2.hx",93,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_y",0xc4502b86,"haxor.math.AABB2.set_y","haxor/math/AABB2.hx",94,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(93)
+	HX_STACK_LINE(94)
 	this->set_yMin(v);
-	HX_STACK_LINE(93)
+	HX_STACK_LINE(94)
 	return v;
 }
 
@@ -366,24 +366,24 @@ Float AABB2_obj::set_y( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_y,return )
 
 Float AABB2_obj::get_width( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_width",0xca88ff87,"haxor.math.AABB2.get_width","haxor/math/AABB2.hx",97,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_width",0xca88ff87,"haxor.math.AABB2.get_width","haxor/math/AABB2.hx",98,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(97)
+	HX_STACK_LINE(98)
 	Float _g = this->get_xMax();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(97)
+	HX_STACK_LINE(98)
 	Float _g1 = this->get_xMin();		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(97)
+	HX_STACK_LINE(98)
 	Float p_a = (_g - _g1);		HX_STACK_VAR(p_a,"p_a");
-	HX_STACK_LINE(97)
+	HX_STACK_LINE(98)
 	if (((p_a < (int)0))){
-		HX_STACK_LINE(97)
+		HX_STACK_LINE(98)
 		return -(p_a);
 	}
 	else{
-		HX_STACK_LINE(97)
+		HX_STACK_LINE(98)
 		return p_a;
 	}
-	HX_STACK_LINE(97)
+	HX_STACK_LINE(98)
 	return 0.;
 }
 
@@ -391,16 +391,16 @@ Float AABB2_obj::get_width( ){
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_width,return )
 
 Float AABB2_obj::set_width( Float v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_width",0xadd9eb93,"haxor.math.AABB2.set_width","haxor/math/AABB2.hx",98,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_width",0xadd9eb93,"haxor.math.AABB2.set_width","haxor/math/AABB2.hx",99,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(98)
+	HX_STACK_LINE(99)
 	Float _g = this->get_xMin();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(98)
+	HX_STACK_LINE(99)
 	Float _g1 = (_g + v);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(98)
+	HX_STACK_LINE(99)
 	this->set_xMax(_g1);
-	HX_STACK_LINE(98)
+	HX_STACK_LINE(99)
 	return v;
 }
 
@@ -408,24 +408,24 @@ Float AABB2_obj::set_width( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_width,return )
 
 Float AABB2_obj::get_height( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_height",0x23a60f46,"haxor.math.AABB2.get_height","haxor/math/AABB2.hx",101,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_height",0x23a60f46,"haxor.math.AABB2.get_height","haxor/math/AABB2.hx",102,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(101)
+	HX_STACK_LINE(102)
 	Float _g = this->get_yMax();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(101)
+	HX_STACK_LINE(102)
 	Float _g1 = this->get_yMin();		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(101)
+	HX_STACK_LINE(102)
 	Float p_a = (_g - _g1);		HX_STACK_VAR(p_a,"p_a");
-	HX_STACK_LINE(101)
+	HX_STACK_LINE(102)
 	if (((p_a < (int)0))){
-		HX_STACK_LINE(101)
+		HX_STACK_LINE(102)
 		return -(p_a);
 	}
 	else{
-		HX_STACK_LINE(101)
+		HX_STACK_LINE(102)
 		return p_a;
 	}
-	HX_STACK_LINE(101)
+	HX_STACK_LINE(102)
 	return 0.;
 }
 
@@ -433,16 +433,16 @@ Float AABB2_obj::get_height( ){
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_height,return )
 
 Float AABB2_obj::set_height( Float v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_height",0x2723adba,"haxor.math.AABB2.set_height","haxor/math/AABB2.hx",102,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_height",0x2723adba,"haxor.math.AABB2.set_height","haxor/math/AABB2.hx",103,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(102)
+	HX_STACK_LINE(103)
 	Float _g = this->get_yMin();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(102)
+	HX_STACK_LINE(103)
 	Float _g1 = (_g + v);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(102)
+	HX_STACK_LINE(103)
 	this->set_yMax(_g1);
-	HX_STACK_LINE(102)
+	HX_STACK_LINE(103)
 	return v;
 }
 
@@ -450,49 +450,49 @@ Float AABB2_obj::set_height( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_height,return )
 
 ::haxor::math::Vector2 AABB2_obj::get_size( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_size",0xe06ac260,"haxor.math.AABB2.get_size","haxor/math/AABB2.hx",105,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","get_size",0xe06ac260,"haxor.math.AABB2.get_size","haxor/math/AABB2.hx",106,0x4f052906)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(105)
+	HX_STACK_LINE(106)
 	Float _g2;		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(105)
+	HX_STACK_LINE(106)
 	{
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(106)
 		Float _g = this->get_xMax();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(106)
 		Float _g1 = this->get_xMin();		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(106)
 		Float p_a = (_g - _g1);		HX_STACK_VAR(p_a,"p_a");
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(106)
 		if (((p_a < (int)0))){
-			HX_STACK_LINE(105)
+			HX_STACK_LINE(106)
 			_g2 = -(p_a);
 		}
 		else{
-			HX_STACK_LINE(105)
+			HX_STACK_LINE(106)
 			_g2 = p_a;
 		}
 	}
-	HX_STACK_LINE(105)
+	HX_STACK_LINE(106)
 	Float _g5;		HX_STACK_VAR(_g5,"_g5");
-	HX_STACK_LINE(105)
+	HX_STACK_LINE(106)
 	{
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(106)
 		Float _g3 = this->get_yMax();		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(106)
 		Float _g4 = this->get_yMin();		HX_STACK_VAR(_g4,"_g4");
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(106)
 		Float p_a = (_g3 - _g4);		HX_STACK_VAR(p_a,"p_a");
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(106)
 		if (((p_a < (int)0))){
-			HX_STACK_LINE(105)
+			HX_STACK_LINE(106)
 			_g5 = -(p_a);
 		}
 		else{
-			HX_STACK_LINE(105)
+			HX_STACK_LINE(106)
 			_g5 = p_a;
 		}
 	}
-	HX_STACK_LINE(105)
+	HX_STACK_LINE(106)
 	return ::haxor::math::Vector2_obj::__new(_g2,_g5);
 }
 
@@ -500,36 +500,36 @@ HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_height,return )
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_size,return )
 
 ::haxor::math::Vector2 AABB2_obj::set_size( ::haxor::math::Vector2 v){
-	HX_STACK_FRAME("haxor.math.AABB2","set_size",0x8ec81bd4,"haxor.math.AABB2.set_size","haxor/math/AABB2.hx",106,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","set_size",0x8ec81bd4,"haxor.math.AABB2.set_size","haxor/math/AABB2.hx",107,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(106)
+	HX_STACK_LINE(107)
 	{
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		Float v1 = v->x;		HX_STACK_VAR(v1,"v1");
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		Float _g = this->get_xMin();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		Float _g1 = (_g + v1);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		this->set_xMax(_g1);
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		v1;
 	}
-	HX_STACK_LINE(106)
+	HX_STACK_LINE(107)
 	{
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		Float v1 = v->y;		HX_STACK_VAR(v1,"v1");
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		Float _g2 = this->get_yMin();		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		Float _g3 = (_g2 + v1);		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		this->set_yMax(_g3);
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(107)
 		v1;
 	}
-	HX_STACK_LINE(106)
+	HX_STACK_LINE(107)
 	return v;
 }
 
@@ -538,40 +538,40 @@ HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,set_size,return )
 
 Void AABB2_obj::Validate( ){
 {
-		HX_STACK_FRAME("haxor.math.AABB2","Validate",0xf2f1f2cc,"haxor.math.AABB2.Validate","haxor/math/AABB2.hx",124,0x4f052906)
+		HX_STACK_FRAME("haxor.math.AABB2","Validate",0xf2f1f2cc,"haxor.math.AABB2.Validate","haxor/math/AABB2.hx",125,0x4f052906)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(126)
-		Float x0 = this->m_xMin;		HX_STACK_VAR(x0,"x0");
 		HX_STACK_LINE(127)
-		Float x1 = this->m_xMax;		HX_STACK_VAR(x1,"x1");
+		Float x0 = this->m_xMin;		HX_STACK_VAR(x0,"x0");
 		HX_STACK_LINE(128)
-		Float y0 = this->m_yMin;		HX_STACK_VAR(y0,"y0");
+		Float x1 = this->m_xMax;		HX_STACK_VAR(x1,"x1");
 		HX_STACK_LINE(129)
-		Float y1 = this->m_yMax;		HX_STACK_VAR(y1,"y1");
+		Float y0 = this->m_yMin;		HX_STACK_VAR(y0,"y0");
 		HX_STACK_LINE(130)
+		Float y1 = this->m_yMax;		HX_STACK_VAR(y1,"y1");
+		HX_STACK_LINE(131)
 		if (((x0 <= x1))){
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(131)
 			this->m_xMin = x0;
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(131)
 			this->m_xMax = x1;
 		}
 		else{
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(131)
 			this->m_xMin = x1;
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(131)
 			this->m_xMax = x0;
 		}
-		HX_STACK_LINE(131)
+		HX_STACK_LINE(132)
 		if (((y0 <= y1))){
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(132)
 			this->m_yMin = y0;
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(132)
 			this->m_yMax = y1;
 		}
 		else{
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(132)
 			this->m_yMin = y1;
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(132)
 			this->m_yMax = y0;
 		}
 	}
@@ -582,26 +582,26 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,Validate,(void))
 
 ::haxor::math::AABB2 AABB2_obj::Add( ::haxor::math::AABB2 p_v){
-	HX_STACK_FRAME("haxor.math.AABB2","Add",0x801afbab,"haxor.math.AABB2.Add","haxor/math/AABB2.hx",141,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","Add",0x801afbab,"haxor.math.AABB2.Add","haxor/math/AABB2.hx",142,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_v,"p_v")
-	HX_STACK_LINE(142)
+	HX_STACK_LINE(143)
 	Float _g = ::Math_obj::max(p_v->m_xMax,this->m_xMax);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(142)
+	HX_STACK_LINE(143)
 	this->m_xMax = _g;
-	HX_STACK_LINE(143)
+	HX_STACK_LINE(144)
 	Float _g1 = ::Math_obj::min(p_v->m_xMin,this->m_xMin);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(143)
+	HX_STACK_LINE(144)
 	this->m_xMin = _g1;
-	HX_STACK_LINE(144)
+	HX_STACK_LINE(145)
 	Float _g2 = ::Math_obj::max(p_v->m_yMax,this->m_yMax);		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(144)
+	HX_STACK_LINE(145)
 	this->m_yMax = _g2;
-	HX_STACK_LINE(145)
-	Float _g3 = ::Math_obj::min(p_v->m_yMin,this->m_yMin);		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(145)
-	this->m_yMin = _g3;
 	HX_STACK_LINE(146)
+	Float _g3 = ::Math_obj::min(p_v->m_yMin,this->m_yMin);		HX_STACK_VAR(_g3,"_g3");
+	HX_STACK_LINE(146)
+	this->m_yMin = _g3;
+	HX_STACK_LINE(147)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -609,23 +609,23 @@ HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,Validate,(void))
 HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,Add,return )
 
 ::haxor::math::AABB2 AABB2_obj::Set( Float p_xmin,Float p_xmax,Float p_ymin,Float p_ymax){
-	HX_STACK_FRAME("haxor.math.AABB2","Set",0x8028a52c,"haxor.math.AABB2.Set","haxor/math/AABB2.hx",158,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","Set",0x8028a52c,"haxor.math.AABB2.Set","haxor/math/AABB2.hx",159,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_xmin,"p_xmin")
 	HX_STACK_ARG(p_xmax,"p_xmax")
 	HX_STACK_ARG(p_ymin,"p_ymin")
 	HX_STACK_ARG(p_ymax,"p_ymax")
-	HX_STACK_LINE(159)
-	this->m_xMin = p_xmin;
 	HX_STACK_LINE(160)
-	this->m_yMin = p_ymin;
+	this->m_xMin = p_xmin;
 	HX_STACK_LINE(161)
-	this->m_xMax = p_xmax;
+	this->m_yMin = p_ymin;
 	HX_STACK_LINE(162)
-	this->m_yMax = p_ymax;
+	this->m_xMax = p_xmax;
 	HX_STACK_LINE(163)
-	this->Validate();
+	this->m_yMax = p_ymax;
 	HX_STACK_LINE(164)
+	this->Validate();
+	HX_STACK_LINE(165)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -633,21 +633,21 @@ HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,Add,return )
 HX_DEFINE_DYNAMIC_FUNC4(AABB2_obj,Set,return )
 
 ::haxor::math::AABB2 AABB2_obj::SetXYWH( Float p_x,Float p_y,Float p_width,Float p_height){
-	HX_STACK_FRAME("haxor.math.AABB2","SetXYWH",0x61ef467e,"haxor.math.AABB2.SetXYWH","haxor/math/AABB2.hx",176,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","SetXYWH",0x61ef467e,"haxor.math.AABB2.SetXYWH","haxor/math/AABB2.hx",177,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_x,"p_x")
 	HX_STACK_ARG(p_y,"p_y")
 	HX_STACK_ARG(p_width,"p_width")
 	HX_STACK_ARG(p_height,"p_height")
-	HX_STACK_LINE(177)
-	this->m_xMin = p_x;
 	HX_STACK_LINE(178)
-	this->m_yMin = p_y;
+	this->m_xMin = p_x;
 	HX_STACK_LINE(179)
-	this->m_xMax = (this->m_xMin + p_width);
+	this->m_yMin = p_y;
 	HX_STACK_LINE(180)
-	this->m_yMax = (this->m_yMin + p_height);
+	this->m_xMax = (this->m_xMin + p_width);
 	HX_STACK_LINE(181)
+	this->m_yMax = (this->m_yMin + p_height);
+	HX_STACK_LINE(182)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -655,18 +655,18 @@ HX_DEFINE_DYNAMIC_FUNC4(AABB2_obj,Set,return )
 HX_DEFINE_DYNAMIC_FUNC4(AABB2_obj,SetXYWH,return )
 
 ::haxor::math::AABB2 AABB2_obj::SetAABB2( ::haxor::math::AABB2 p_v){
-	HX_STACK_FRAME("haxor.math.AABB2","SetAABB2",0x0149fce6,"haxor.math.AABB2.SetAABB2","haxor/math/AABB2.hx",190,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","SetAABB2",0x0149fce6,"haxor.math.AABB2.SetAABB2","haxor/math/AABB2.hx",191,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_v,"p_v")
-	HX_STACK_LINE(191)
-	this->m_xMin = p_v->m_xMin;
 	HX_STACK_LINE(192)
-	this->m_yMin = p_v->m_yMin;
+	this->m_xMin = p_v->m_xMin;
 	HX_STACK_LINE(193)
-	this->m_xMax = p_v->m_xMax;
+	this->m_yMin = p_v->m_yMin;
 	HX_STACK_LINE(194)
-	this->m_yMax = p_v->m_yMax;
+	this->m_xMax = p_v->m_xMax;
 	HX_STACK_LINE(195)
+	this->m_yMax = p_v->m_yMax;
+	HX_STACK_LINE(196)
 	return hx::ObjectPtr<OBJ_>(this);
 }
 
@@ -675,52 +675,52 @@ HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,SetAABB2,return )
 
 Void AABB2_obj::Encapsulate( ::haxor::math::Vector2 p_point){
 {
-		HX_STACK_FRAME("haxor.math.AABB2","Encapsulate",0xf4daac5b,"haxor.math.AABB2.Encapsulate","haxor/math/AABB2.hx",203,0x4f052906)
+		HX_STACK_FRAME("haxor.math.AABB2","Encapsulate",0xf4daac5b,"haxor.math.AABB2.Encapsulate","haxor/math/AABB2.hx",204,0x4f052906)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_point,"p_point")
-		HX_STACK_LINE(204)
+		HX_STACK_LINE(205)
 		Float _g;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(204)
+		HX_STACK_LINE(205)
 		{
-			HX_STACK_LINE(204)
+			HX_STACK_LINE(205)
 			Float b = this->get_xMin();		HX_STACK_VAR(b,"b");
-			HX_STACK_LINE(204)
+			HX_STACK_LINE(205)
 			_g = ::Math_obj::min(p_point->x,b);
 		}
-		HX_STACK_LINE(204)
+		HX_STACK_LINE(205)
 		this->set_xMin(_g);
-		HX_STACK_LINE(205)
+		HX_STACK_LINE(206)
 		Float _g1;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(205)
+		HX_STACK_LINE(206)
 		{
-			HX_STACK_LINE(205)
+			HX_STACK_LINE(206)
 			Float b = this->get_xMax();		HX_STACK_VAR(b,"b");
-			HX_STACK_LINE(205)
+			HX_STACK_LINE(206)
 			_g1 = ::Math_obj::max(p_point->x,b);
 		}
-		HX_STACK_LINE(205)
+		HX_STACK_LINE(206)
 		this->set_xMax(_g1);
-		HX_STACK_LINE(206)
+		HX_STACK_LINE(207)
 		Float _g2;		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(206)
+		HX_STACK_LINE(207)
 		{
-			HX_STACK_LINE(206)
+			HX_STACK_LINE(207)
 			Float b = this->get_yMin();		HX_STACK_VAR(b,"b");
-			HX_STACK_LINE(206)
+			HX_STACK_LINE(207)
 			_g2 = ::Math_obj::min(p_point->y,b);
 		}
-		HX_STACK_LINE(206)
+		HX_STACK_LINE(207)
 		this->set_yMin(_g2);
-		HX_STACK_LINE(207)
+		HX_STACK_LINE(208)
 		Float _g3;		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(207)
+		HX_STACK_LINE(208)
 		{
-			HX_STACK_LINE(207)
+			HX_STACK_LINE(208)
 			Float b = this->get_yMax();		HX_STACK_VAR(b,"b");
-			HX_STACK_LINE(207)
+			HX_STACK_LINE(208)
 			_g3 = ::Math_obj::max(p_point->y,b);
 		}
-		HX_STACK_LINE(207)
+		HX_STACK_LINE(208)
 		this->set_yMax(_g3);
 	}
 return null();
@@ -732,30 +732,30 @@ HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,Encapsulate,(void))
 ::haxor::math::AABB2 AABB2_obj::Encapsulate3( hx::Null< Float >  __o_p_x,hx::Null< Float >  __o_p_y){
 Float p_x = __o_p_x.Default(0);
 Float p_y = __o_p_y.Default(0);
-	HX_STACK_FRAME("haxor.math.AABB2","Encapsulate3",0x4a7c2378,"haxor.math.AABB2.Encapsulate3","haxor/math/AABB2.hx",217,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","Encapsulate3",0x4a7c2378,"haxor.math.AABB2.Encapsulate3","haxor/math/AABB2.hx",218,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_x,"p_x")
 	HX_STACK_ARG(p_y,"p_y")
 {
-		HX_STACK_LINE(218)
+		HX_STACK_LINE(219)
 		Float _g = ::Math_obj::min(p_x,this->m_xMin);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(218)
+		HX_STACK_LINE(219)
 		this->m_xMin = _g;
-		HX_STACK_LINE(219)
+		HX_STACK_LINE(220)
 		Float _g1 = ::Math_obj::max(p_x,this->m_xMax);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(219)
+		HX_STACK_LINE(220)
 		this->m_xMax = _g1;
-		HX_STACK_LINE(220)
+		HX_STACK_LINE(221)
 		Float _g2 = ::Math_obj::min(p_y,this->m_yMin);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(220)
+		HX_STACK_LINE(221)
 		this->m_yMin = _g2;
-		HX_STACK_LINE(221)
-		Float _g3 = ::Math_obj::max(p_y,this->m_yMax);		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(221)
-		this->m_yMax = _g3;
 		HX_STACK_LINE(222)
-		this->Validate();
+		Float _g3 = ::Math_obj::max(p_y,this->m_yMax);		HX_STACK_VAR(_g3,"_g3");
+		HX_STACK_LINE(222)
+		this->m_yMax = _g3;
 		HX_STACK_LINE(223)
+		this->Validate();
+		HX_STACK_LINE(224)
 		return hx::ObjectPtr<OBJ_>(this);
 	}
 }
@@ -765,91 +765,91 @@ HX_DEFINE_DYNAMIC_FUNC2(AABB2_obj,Encapsulate3,return )
 
 ::String AABB2_obj::ToString( hx::Null< int >  __o_p_places){
 int p_places = __o_p_places.Default(2);
-	HX_STACK_FRAME("haxor.math.AABB2","ToString",0x267cf2e2,"haxor.math.AABB2.ToString","haxor/math/AABB2.hx",231,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","ToString",0x267cf2e2,"haxor.math.AABB2.ToString","haxor/math/AABB2.hx",232,0x4f052906)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_places,"p_places")
 {
-		HX_STACK_LINE(232)
+		HX_STACK_LINE(233)
 		Float _g1;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(232)
+		HX_STACK_LINE(233)
 		{
-			HX_STACK_LINE(232)
+			HX_STACK_LINE(233)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(232)
+			HX_STACK_LINE(233)
 			Float _g;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(232)
+			HX_STACK_LINE(233)
 			{
-				HX_STACK_LINE(232)
+				HX_STACK_LINE(233)
 				Float p_v = (this->m_xMin * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(232)
+				HX_STACK_LINE(233)
 				_g = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(232)
+			HX_STACK_LINE(233)
 			_g1 = (Float(_g) / Float(d));
 		}
-		HX_STACK_LINE(232)
+		HX_STACK_LINE(233)
 		::String s0 = (_g1 + HX_CSTRING(""));		HX_STACK_VAR(s0,"s0");
-		HX_STACK_LINE(233)
+		HX_STACK_LINE(234)
 		Float _g3;		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(233)
+		HX_STACK_LINE(234)
 		{
-			HX_STACK_LINE(233)
+			HX_STACK_LINE(234)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(233)
+			HX_STACK_LINE(234)
 			Float _g2;		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(233)
+			HX_STACK_LINE(234)
 			{
-				HX_STACK_LINE(233)
+				HX_STACK_LINE(234)
 				Float p_v = (this->m_xMax * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(233)
+				HX_STACK_LINE(234)
 				_g2 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(233)
+			HX_STACK_LINE(234)
 			_g3 = (Float(_g2) / Float(d));
 		}
-		HX_STACK_LINE(233)
+		HX_STACK_LINE(234)
 		::String s1 = (_g3 + HX_CSTRING(""));		HX_STACK_VAR(s1,"s1");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(235)
 		Float _g5;		HX_STACK_VAR(_g5,"_g5");
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(235)
 		{
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(235)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(235)
 			Float _g4;		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(235)
 			{
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(235)
 				Float p_v = (this->m_yMin * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(234)
+				HX_STACK_LINE(235)
 				_g4 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(235)
 			_g5 = (Float(_g4) / Float(d));
 		}
-		HX_STACK_LINE(234)
+		HX_STACK_LINE(235)
 		::String s2 = (_g5 + HX_CSTRING(""));		HX_STACK_VAR(s2,"s2");
-		HX_STACK_LINE(235)
+		HX_STACK_LINE(236)
 		Float _g7;		HX_STACK_VAR(_g7,"_g7");
-		HX_STACK_LINE(235)
+		HX_STACK_LINE(236)
 		{
-			HX_STACK_LINE(235)
+			HX_STACK_LINE(236)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(235)
+			HX_STACK_LINE(236)
 			Float _g6;		HX_STACK_VAR(_g6,"_g6");
-			HX_STACK_LINE(235)
+			HX_STACK_LINE(236)
 			{
-				HX_STACK_LINE(235)
+				HX_STACK_LINE(236)
 				Float p_v = (this->m_yMax * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(235)
+				HX_STACK_LINE(236)
 				_g6 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(235)
+			HX_STACK_LINE(236)
 			_g7 = (Float(_g6) / Float(d));
 		}
-		HX_STACK_LINE(235)
-		::String s3 = (_g7 + HX_CSTRING(""));		HX_STACK_VAR(s3,"s3");
 		HX_STACK_LINE(236)
+		::String s3 = (_g7 + HX_CSTRING(""));		HX_STACK_VAR(s3,"s3");
+		HX_STACK_LINE(237)
 		return ((((((((HX_CSTRING("[") + s0) + HX_CSTRING(",")) + s1) + HX_CSTRING("|")) + s2) + HX_CSTRING(",")) + s3) + HX_CSTRING("]"));
 	}
 }
@@ -860,12 +860,12 @@ HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,ToString,return )
 ::haxor::math::AABB2 AABB2_obj::temp;
 
 ::haxor::math::AABB2 AABB2_obj::get_temp( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_temp",0xe110e4b3,"haxor.math.AABB2.get_temp","haxor/math/AABB2.hx",14,0x4f052906)
-	HX_STACK_LINE(14)
+	HX_STACK_FRAME("haxor.math.AABB2","get_temp",0xe110e4b3,"haxor.math.AABB2.get_temp","haxor/math/AABB2.hx",15,0x4f052906)
+	HX_STACK_LINE(15)
 	::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-	HX_STACK_LINE(14)
+	HX_STACK_LINE(15)
 	int _g = _this->m_naabb2 = hx::Mod(((_this->m_naabb2 + (int)1)),_this->m_aabb2->length);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(14)
+	HX_STACK_LINE(15)
 	return _this->m_aabb2->__get(_g).StaticCast< ::haxor::math::AABB2 >();
 }
 
@@ -873,22 +873,22 @@ HX_DEFINE_DYNAMIC_FUNC1(AABB2_obj,ToString,return )
 STATIC_HX_DEFINE_DYNAMIC_FUNC0(AABB2_obj,get_temp,return )
 
 ::haxor::math::AABB2 AABB2_obj::FromMinMax( Float p_xmin,Float p_xmax,Float p_ymin,Float p_ymax){
-	HX_STACK_FRAME("haxor.math.AABB2","FromMinMax",0xbdb118f2,"haxor.math.AABB2.FromMinMax","haxor/math/AABB2.hx",25,0x4f052906)
+	HX_STACK_FRAME("haxor.math.AABB2","FromMinMax",0xbdb118f2,"haxor.math.AABB2.FromMinMax","haxor/math/AABB2.hx",26,0x4f052906)
 	HX_STACK_ARG(p_xmin,"p_xmin")
 	HX_STACK_ARG(p_xmax,"p_xmax")
 	HX_STACK_ARG(p_ymin,"p_ymin")
 	HX_STACK_ARG(p_ymax,"p_ymax")
-	HX_STACK_LINE(26)
-	::haxor::math::AABB2 b = ::haxor::math::AABB2_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(b,"b");
 	HX_STACK_LINE(27)
-	b->set_xMin(p_xmin);
+	::haxor::math::AABB2 b = ::haxor::math::AABB2_obj::__new(null(),null(),null(),null());		HX_STACK_VAR(b,"b");
 	HX_STACK_LINE(28)
-	b->set_xMax(p_xmax);
+	b->set_xMin(p_xmin);
 	HX_STACK_LINE(29)
-	b->set_yMin(p_ymin);
+	b->set_xMax(p_xmax);
 	HX_STACK_LINE(30)
-	b->set_yMax(p_ymax);
+	b->set_yMin(p_ymin);
 	HX_STACK_LINE(31)
+	b->set_yMax(p_ymax);
+	HX_STACK_LINE(32)
 	return b;
 }
 
@@ -898,8 +898,8 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC4(AABB2_obj,FromMinMax,return )
 ::haxor::math::AABB2 AABB2_obj::empty;
 
 ::haxor::math::AABB2 AABB2_obj::get_empty( ){
-	HX_STACK_FRAME("haxor.math.AABB2","get_empty",0x7000840e,"haxor.math.AABB2.get_empty","haxor/math/AABB2.hx",38,0x4f052906)
-	HX_STACK_LINE(38)
+	HX_STACK_FRAME("haxor.math.AABB2","get_empty",0x7000840e,"haxor.math.AABB2.get_empty","haxor/math/AABB2.hx",39,0x4f052906)
+	HX_STACK_LINE(39)
 	return ::haxor::math::AABB2_obj::__new(null(),null(),null(),null());
 }
 

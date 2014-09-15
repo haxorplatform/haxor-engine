@@ -28,6 +28,21 @@ class Texture2D extends Texture
 	static private var m_white : Texture2D;
 	
 	/**
+	 * Template texture with a single black pixel.
+	 */
+	static public var black(get_black, never):Texture2D;
+	static private function get_black():Texture2D
+	{
+		if (m_black != null) return m_black;
+		m_black = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_black.name = "Black";
+		m_black.data.Fill(Color.black);
+		m_black.Apply();
+		return m_black;
+	}
+	static private var m_black : Texture2D;
+	
+	/**
 	 * Template texture with a single red pixel.
 	 */
 	static public var red(get_red, never):Texture2D;
@@ -104,7 +119,7 @@ class Texture2D extends Texture
 	 * Returns the enum for this texture type.
 	 * @return
 	 */
-	override inline function get_type():TextureType { return TextureType.Texture2D; }
+	override function get_type():TextureType { return TextureType.Texture2D; }
 	
 	/**
 	 * 

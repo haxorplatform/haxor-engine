@@ -1,6 +1,7 @@
 #if android
 
 package haxor.platform.android;
+import haxor.platform.Types.Float32;
 import haxor.graphics.GL;
 import haxor.core.BaseApplication;
 
@@ -23,12 +24,12 @@ class AndroidApplication extends BaseApplication
 	/**
 	 * Device screen width.
 	 */
-	private var m_screen_width : Float;
+	private var m_screen_width : Float32;
 	
 	/**
 	 * Device screen width.
 	 */
-	private var m_screen_height : Float;
+	private var m_screen_height : Float32;
 	
 	override function OnBuild():Void 
 	{
@@ -42,13 +43,13 @@ class AndroidApplication extends BaseApplication
 	 * See BaseApplication.
 	 * @return
 	 */
-	override function GetContainerWidth():Float  { return m_screen_width; }
+	override function GetContainerWidth():Float32 { return m_screen_width; }
 	
 	/**
 	 * See BaseApplication.
 	 * @return
 	 */
-	override function GetContainerHeight():Float { return m_screen_height; }
+	override function GetContainerHeight():Float32{ return m_screen_height; }
 	
 	
 	/**

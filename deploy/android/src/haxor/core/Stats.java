@@ -18,7 +18,7 @@ public  class Stats extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Stats(haxor.core.Stats __temp_me164210)
+	public static   void __hx_ctor_haxor_core_Stats(haxor.core.Stats __temp_me255404)
 	{
 		{
 		}

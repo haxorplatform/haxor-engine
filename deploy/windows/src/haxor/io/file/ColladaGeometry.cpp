@@ -12,14 +12,14 @@ namespace file{
 
 Void ColladaGeometry_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaGeometry","new",0x753a8380,"haxor.io.file.ColladaGeometry.new","haxor/io/file/ColladaFile.hx",1063,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaGeometry","new",0x753a8380,"haxor.io.file.ColladaGeometry.new","haxor/io/file/ColladaFile.hx",1070,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1067)
+	HX_STACK_LINE(1074)
 	this->mesh = null();
-	HX_STACK_LINE(1066)
+	HX_STACK_LINE(1073)
 	this->name = HX_CSTRING("");
-	HX_STACK_LINE(1065)
+	HX_STACK_LINE(1072)
 	this->id = HX_CSTRING("");
 }
 ;

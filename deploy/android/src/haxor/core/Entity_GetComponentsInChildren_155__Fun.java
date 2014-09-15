@@ -4,11 +4,11 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class Entity_GetComponentsInChildren_155__Fun extends haxe.lang.Function
 {
-	public    Entity_GetComponentsInChildren_155__Fun(haxe.root.Array<haxe.root.Array> res, haxe.root.Array<java.lang.Class<haxor.component.Component>> p_type1)
+	public    Entity_GetComponentsInChildren_155__Fun(haxe.root.Array<java.lang.Class<haxor.component.Component>> p_type1, haxe.root.Array<haxe.root.Array> res)
 	{
 		super(2, 0);
-		this.res = res;
 		this.p_type1 = p_type1;
+		this.res = res;
 	}
 	
 	
@@ -32,9 +32,9 @@ public  class Entity_GetComponentsInChildren_155__Fun extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<haxe.root.Array> res;
-	
 	public  haxe.root.Array<java.lang.Class<haxor.component.Component>> p_type1;
+	
+	public  haxe.root.Array<haxe.root.Array> res;
 	
 }
 

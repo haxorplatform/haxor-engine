@@ -54,6 +54,10 @@ class HXCPP_CLASS_ATTRIBUTES  Texture2D_obj : public ::haxor::graphics::texture:
 		static Dynamic get_white_dyn();
 
 		static ::haxor::graphics::texture::Texture2D m_white;
+		static ::haxor::graphics::texture::Texture2D get_black( );
+		static Dynamic get_black_dyn();
+
+		static ::haxor::graphics::texture::Texture2D m_black;
 		static ::haxor::graphics::texture::Texture2D get_red( );
 		static Dynamic get_red_dyn();
 

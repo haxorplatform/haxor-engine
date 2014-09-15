@@ -3,6 +3,7 @@
 package haxor.net;
 
 import haxor.graphics.texture.Bitmap;
+import haxor.platform.Types.Float32;
 import haxor.thread.Activity;
 import haxor.graphics.texture.Texture2D;
 
@@ -40,7 +41,7 @@ class Texture2DLoader extends BitmapLoader
 		m_apply = p_apply;
 	}
 	
-	private function OnBitmapCallback(p_data : Bitmap, p_progress : Float):Void
+	private function OnBitmapCallback(p_data : Bitmap, p_progress : Float32):Void
 	{
 		if (progress < 1.0)
 		{

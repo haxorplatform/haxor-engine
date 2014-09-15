@@ -18,11 +18,18 @@ class Shader extends Resource
 	static private var m_flat_shader : Shader;
 	
 	/**
-	 * Returns a reference to the Flat shader (only vertex color and Tint).
+	 * Returns a reference to the Flat shader with a single diffuse texture.
 	 */
 	static public var FlatTexture(get_FlatTexture, null):Shader;
 	static private inline function get_FlatTexture():Shader { return (m_flat_texture_shader == null ? (m_flat_texture_shader = new Shader(ShaderContext.flat_texture_source)) : m_flat_texture_shader);	}
 	static private var m_flat_texture_shader : Shader;
+	
+	/**
+	 * Returns a reference to the Flat shader with a single diffuse texture and vertex skinning.
+	 */
+	static public var FlatTextureSkin(get_FlatTextureSkin, null):Shader;
+	static private inline function get_FlatTextureSkin():Shader { return (m_flat_texture_skin_shader == null ? (m_flat_texture_skin_shader = new Shader(ShaderContext.flat_texture_skin_source)) : m_flat_texture_skin_shader);	}
+	static private var m_flat_texture_skin_shader : Shader;
 	
 	/**
 	 * String containing the VertexShader source.

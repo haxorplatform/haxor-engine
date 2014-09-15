@@ -332,6 +332,7 @@ enum TextureType
 	Texture2D;
 	TextureCube;
 	RenderTexture;	
+	Compute;
 }
 
 /**

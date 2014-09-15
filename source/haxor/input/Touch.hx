@@ -1,6 +1,7 @@
 package haxor.input;
 import haxor.core.Enums.InputState;
 import haxor.math.Vector2;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes a Touch input data structure.
@@ -32,7 +33,7 @@ class Touch
 	/**
 	 * Touch angle. (not always available).
 	 */
-	public var angle : Float;
+	public var angle : Float32;
 	
 	/**
 	 * Relative position in the screen inside the [0.0,1.0] range.
@@ -47,12 +48,12 @@ class Touch
 	/**
 	 * Touch pressure. (not always available).
 	 */
-	public var pressure : Float;
+	public var pressure : Float32;
 	
 	/**
 	 * Holding time for this touch instance.
 	 */
-	public var hold : Float;
+	public var hold : Float32;
 	
 	private var m_down : Bool;
 	

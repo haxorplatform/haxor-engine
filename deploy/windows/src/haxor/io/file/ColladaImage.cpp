@@ -18,24 +18,24 @@ namespace file{
 
 Void ColladaImage_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaImage","new",0x8e25c971,"haxor.io.file.ColladaImage.new","haxor/io/file/ColladaFile.hx",1222,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaImage","new",0x8e25c971,"haxor.io.file.ColladaImage.new","haxor/io/file/ColladaFile.hx",1229,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1231)
+	HX_STACK_LINE(1238)
 	this->data = null();
-	HX_STACK_LINE(1230)
+	HX_STACK_LINE(1237)
 	this->depth = (int)0;
-	HX_STACK_LINE(1229)
+	HX_STACK_LINE(1236)
 	this->height = (int)0;
-	HX_STACK_LINE(1228)
+	HX_STACK_LINE(1235)
 	this->width = (int)0;
-	HX_STACK_LINE(1227)
+	HX_STACK_LINE(1234)
 	this->source = HX_CSTRING("");
-	HX_STACK_LINE(1226)
+	HX_STACK_LINE(1233)
 	this->format = HX_CSTRING("");
-	HX_STACK_LINE(1225)
+	HX_STACK_LINE(1232)
 	this->name = HX_CSTRING("");
-	HX_STACK_LINE(1224)
+	HX_STACK_LINE(1231)
 	this->id = HX_CSTRING("");
 }
 ;

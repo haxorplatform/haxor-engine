@@ -39,9 +39,14 @@ class HXCPP_CLASS_ATTRIBUTES  GizmoContext_obj : public hx::Object{
 
 		::haxor::graphics::mesh::Mesh grid;
 		::haxor::graphics::mesh::Mesh axis;
+		::haxor::graphics::mesh::Mesh texture;
 		::haxor::graphics::material::Material gizmo_material;
+		::haxor::graphics::material::Material texture_material;
 		virtual Void Initialize( );
 		Dynamic Initialize_dyn();
+
+		virtual Void CreateTextureQuad( );
+		Dynamic CreateTextureQuad_dyn();
 
 		virtual Void CreateAxis( );
 		Dynamic CreateAxis_dyn();

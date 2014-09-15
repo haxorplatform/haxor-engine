@@ -2,6 +2,7 @@ package haxor.input;
 import haxor.core.Enums.InputState;
 import haxor.math.Mathf;
 import haxor.math.Vector3;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes a gamepad data structure.
@@ -13,12 +14,12 @@ class Joystick
 	/**
 	 * Bias to declare a margin of 'no-input or full-input' for the analog sticks. Adjust it to tune your joystick sensitivity.
 	 */
-	static public var analogBias : Array<Float> = [0.1,0.9];
+	static public var analogBias : Array<Float32> = [0.1,0.9];
 	
 	/**
 	 * Bias to define a margin of 'no-input or full-input' for analog buttons. Adjust it to tune your joystick sensitivity.
 	 */
-	static public var buttonBias : Float = 0.9;
+	static public var buttonBias : Float32 = 0.9;
 	
 	/**
 	 * Flag that indicates if gamepads are available.
@@ -38,7 +39,7 @@ class Joystick
 	/**
 	 * Button RAW input values. Use 'KeyCode' to index the desired attribute.
 	 */
-	public var button : Array<Float>;
+	public var button : Array<Float32>;
 	
 	/**
 	 * Input state for buttons.
@@ -48,12 +49,12 @@ class Joystick
 	/**
 	 * Hold time for this joystick buttons.
 	 */
-	public var hold : Array<Float>;
+	public var hold : Array<Float32>;
 	
 	/**
 	 * Analog RAW values.
 	 */
-	public var analog : Array<Float>;
+	public var analog : Array<Float32>;
 	
 	/**
 	 * Left analog position uses x[-1,1] y[-1,1] ranges.
@@ -68,28 +69,28 @@ class Joystick
 	/**
 	 * Left trigger ranges uses [0.0,1.0] ranges.
 	 */
-	public var triggerLeft  : Float;
+	public var triggerLeft  : Float32;
 	
 	/**
 	 * Right trigger ranges uses [0.0,1.0] ranges.
 	 */
-	public var triggerRight : Float;
+	public var triggerRight : Float32;
 	
 	/**
 	 * Vibration intensity in the left motor.
 	 */
-	public var vibrationLeft(get_vibrationLeft, set_vibrationLeft):Float;
-	private inline function get_vibrationLeft():Float { return m_vibrationLeft; }
-	private function set_vibrationLeft(v:Float):Float { if (Mathf.Abs(m_vibrationLeft - v) <= 0.0) return v; m_vibrationLeft = v; Input.m_handler.RequestJoystickVibration(this); return v; }	
-	private var m_vibrationLeft : Float;
+	public var vibrationLeft(get_vibrationLeft, set_vibrationLeft):Float32;
+	private inline function get_vibrationLeft():Float32{ return m_vibrationLeft; }
+	private function set_vibrationLeft(v:Float32):Float32{ if (Mathf.Abs(m_vibrationLeft - v) <= 0.0) return v; m_vibrationLeft = v; Input.m_handler.RequestJoystickVibration(this); return v; }	
+	private var m_vibrationLeft : Float32;
 	
 	/**
 	 * Vibration intensity in the right motor.
 	 */
-	public var vibrationRight(get_vibrationRight, set_vibrationRight):Float;
-	private inline function get_vibrationRight():Float { return m_vibrationRight; }
-	private function set_vibrationRight(v:Float):Float { if (Mathf.Abs(m_vibrationRight - v) <= 0.0) return v; m_vibrationRight = v; Input.m_handler.RequestJoystickVibration(this); return v; }	
-	private var m_vibrationRight : Float;
+	public var vibrationRight(get_vibrationRight, set_vibrationRight):Float32;
+	private inline function get_vibrationRight():Float32{ return m_vibrationRight; }
+	private function set_vibrationRight(v:Float32):Float32{ if (Mathf.Abs(m_vibrationRight - v) <= 0.0) return v; m_vibrationRight = v; Input.m_handler.RequestJoystickVibration(this); return v; }	
+	private var m_vibrationRight : Float32;
 	
 	/**
 	 * Creates a new joystick instance.

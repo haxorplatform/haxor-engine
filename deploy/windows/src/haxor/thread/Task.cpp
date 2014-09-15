@@ -26,26 +26,26 @@ namespace thread{
 
 Void Task_obj::__construct(hx::Null< bool >  __o_p_threaded,Dynamic p_callback)
 {
-HX_STACK_FRAME("haxor.thread.Task","new",0x19b55acf,"haxor.thread.Task.new","haxor/thread/Task.hx",32,0x512a4561)
+HX_STACK_FRAME("haxor.thread.Task","new",0x19b55acf,"haxor.thread.Task.new","haxor/thread/Task.hx",33,0x512a4561)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_threaded,"p_threaded")
 HX_STACK_ARG(p_callback,"p_callback")
 bool p_threaded = __o_p_threaded.Default(false);
 {
-	HX_STACK_LINE(33)
-	Dynamic cb = p_callback;		HX_STACK_VAR(cb,"cb");
 	HX_STACK_LINE(34)
+	Dynamic cb = p_callback;		HX_STACK_VAR(cb,"cb");
+	HX_STACK_LINE(35)
 	if (((cb == null()))){
-		HX_STACK_LINE(34)
+		HX_STACK_LINE(35)
 		cb = this->OnExecute_dyn();
 	}
-	HX_STACK_LINE(35)
-	super::__construct(cb,p_threaded,null());
 	HX_STACK_LINE(36)
-	this->m_active = false;
+	super::__construct(cb,p_threaded,null());
 	HX_STACK_LINE(37)
-	this->m_progress = 0.0;
+	this->m_active = false;
 	HX_STACK_LINE(38)
+	this->m_progress = 0.0;
+	HX_STACK_LINE(39)
 	this->m_has_progress = false;
 }
 ;
@@ -66,9 +66,9 @@ Dynamic Task_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 Float Task_obj::get_progress( ){
-	HX_STACK_FRAME("haxor.thread.Task","get_progress",0xf2abdb67,"haxor.thread.Task.get_progress","haxor/thread/Task.hx",15,0x512a4561)
+	HX_STACK_FRAME("haxor.thread.Task","get_progress",0xf2abdb67,"haxor.thread.Task.get_progress","haxor/thread/Task.hx",16,0x512a4561)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(15)
+	HX_STACK_LINE(16)
 	return this->m_progress;
 }
 
@@ -76,19 +76,19 @@ Float Task_obj::get_progress( ){
 HX_DEFINE_DYNAMIC_FUNC0(Task_obj,get_progress,return )
 
 Float Task_obj::set_progress( Float v){
-	HX_STACK_FRAME("haxor.thread.Task","set_progress",0x07a4fedb,"haxor.thread.Task.set_progress","haxor/thread/Task.hx",16,0x512a4561)
+	HX_STACK_FRAME("haxor.thread.Task","set_progress",0x07a4fedb,"haxor.thread.Task.set_progress","haxor/thread/Task.hx",17,0x512a4561)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(16)
+	HX_STACK_LINE(17)
 	Float _g = ::Math_obj::abs((v - this->m_progress));		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(16)
+	HX_STACK_LINE(17)
 	if (((_g > 0.0))){
-		HX_STACK_LINE(16)
+		HX_STACK_LINE(17)
 		this->m_progress = v;
-		HX_STACK_LINE(16)
+		HX_STACK_LINE(17)
 		this->m_has_progress = true;
 	}
-	HX_STACK_LINE(16)
+	HX_STACK_LINE(17)
 	return v;
 }
 
@@ -96,9 +96,9 @@ Float Task_obj::set_progress( Float v){
 HX_DEFINE_DYNAMIC_FUNC1(Task_obj,set_progress,return )
 
 bool Task_obj::get_active( ){
-	HX_STACK_FRAME("haxor.thread.Task","get_active",0x49f0e300,"haxor.thread.Task.get_active","haxor/thread/Task.hx",24,0x512a4561)
+	HX_STACK_FRAME("haxor.thread.Task","get_active",0x49f0e300,"haxor.thread.Task.get_active","haxor/thread/Task.hx",25,0x512a4561)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(24)
+	HX_STACK_LINE(25)
 	return this->m_active;
 }
 
@@ -107,7 +107,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Task_obj,get_active,return )
 
 Void Task_obj::OnStart( ){
 {
-		HX_STACK_FRAME("haxor.thread.Task","OnStart",0xfb032892,"haxor.thread.Task.OnStart","haxor/thread/Task.hx",44,0x512a4561)
+		HX_STACK_FRAME("haxor.thread.Task","OnStart",0xfb032892,"haxor.thread.Task.OnStart","haxor/thread/Task.hx",45,0x512a4561)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -118,7 +118,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Task_obj,OnStart,(void))
 
 Void Task_obj::OnStep( ){
 {
-		HX_STACK_FRAME("haxor.thread.Task","OnStep",0xdd89c91c,"haxor.thread.Task.OnStep","haxor/thread/Task.hx",49,0x512a4561)
+		HX_STACK_FRAME("haxor.thread.Task","OnStep",0xdd89c91c,"haxor.thread.Task.OnStep","haxor/thread/Task.hx",50,0x512a4561)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -129,7 +129,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Task_obj,OnStep,(void))
 
 Void Task_obj::OnComplete( ){
 {
-		HX_STACK_FRAME("haxor.thread.Task","OnComplete",0x97530a89,"haxor.thread.Task.OnComplete","haxor/thread/Task.hx",54,0x512a4561)
+		HX_STACK_FRAME("haxor.thread.Task","OnComplete",0x97530a89,"haxor.thread.Task.OnComplete","haxor/thread/Task.hx",55,0x512a4561)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -140,7 +140,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Task_obj,OnComplete,(void))
 
 Void Task_obj::OnProgress( ){
 {
-		HX_STACK_FRAME("haxor.thread.Task","OnProgress",0x9db6017d,"haxor.thread.Task.OnProgress","haxor/thread/Task.hx",59,0x512a4561)
+		HX_STACK_FRAME("haxor.thread.Task","OnProgress",0x9db6017d,"haxor.thread.Task.OnProgress","haxor/thread/Task.hx",60,0x512a4561)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -150,33 +150,33 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC0(Task_obj,OnProgress,(void))
 
 bool Task_obj::OnExecute( Float p_time){
-	HX_STACK_FRAME("haxor.thread.Task","OnExecute",0xb77e2a65,"haxor.thread.Task.OnExecute","haxor/thread/Task.hx",67,0x512a4561)
+	HX_STACK_FRAME("haxor.thread.Task","OnExecute",0xb77e2a65,"haxor.thread.Task.OnExecute","haxor/thread/Task.hx",68,0x512a4561)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_time,"p_time")
-	HX_STACK_LINE(68)
+	HX_STACK_LINE(69)
 	if ((!(this->m_active))){
-		HX_STACK_LINE(68)
+		HX_STACK_LINE(69)
 		this->m_active = true;
-		HX_STACK_LINE(68)
+		HX_STACK_LINE(69)
 		this->OnStart();
 	}
-	HX_STACK_LINE(69)
-	this->OnStep();
 	HX_STACK_LINE(70)
+	this->OnStep();
+	HX_STACK_LINE(71)
 	if ((this->m_has_progress)){
-		HX_STACK_LINE(70)
+		HX_STACK_LINE(71)
 		this->OnProgress();
-		HX_STACK_LINE(70)
+		HX_STACK_LINE(71)
 		this->m_has_progress = false;
 	}
-	HX_STACK_LINE(71)
+	HX_STACK_LINE(72)
 	if (((this->m_progress >= 1.0))){
-		HX_STACK_LINE(71)
+		HX_STACK_LINE(72)
 		this->OnComplete();
-		HX_STACK_LINE(71)
+		HX_STACK_LINE(72)
 		return false;
 	}
-	HX_STACK_LINE(72)
+	HX_STACK_LINE(73)
 	return true;
 }
 

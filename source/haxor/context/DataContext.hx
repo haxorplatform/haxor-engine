@@ -7,6 +7,7 @@ import haxor.math.Quaternion;
 import haxor.math.Vector2;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
+import haxor.platform.Types.Float32;
 
 /**
  * Class to help optimize data manipulation by creating cached temporaries of it.s
@@ -29,7 +30,7 @@ class DataContext
 	/**
 	 * Temp aux vars of Floats.
 	 */
-	private var v : Array<Float>;
+	private var v : Array<Float32>;
 	
 	
 	/**
@@ -96,7 +97,7 @@ class DataContext
 	private var m_m4 : Array<Matrix4>;
 	private var m_nm4 : Int;
 	
-	private var m4l : Array<Float>;
+	private var m4l : Array<Float32>;
 	
 	private function new() 
 	{

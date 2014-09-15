@@ -44,9 +44,10 @@ class HXCPP_CLASS_ATTRIBUTES  TextureContext_obj : public hx::Object{
 		Array< int > framebuffers;
 		Array< int > renderbuffers;
 		::haxor::graphics::texture::RenderTexture target;
-		Array< ::Dynamic > active;
-		::haxor::graphics::texture::Texture bind;
-		int slot;
+		Array< ::Dynamic > bind;
+		int active;
+		int next_slot;
+		bool is_flip_y;
 		virtual Void Initialize( );
 		Dynamic Initialize_dyn();
 
@@ -73,9 +74,6 @@ class HXCPP_CLASS_ATTRIBUTES  TextureContext_obj : public hx::Object{
 
 		virtual Void WriteTexture( int p_target,::haxor::graphics::texture::Texture p_texture);
 		Dynamic WriteTexture_dyn();
-
-		virtual Void Activate( ::haxor::graphics::texture::Texture p_texture,int p_slot);
-		Dynamic Activate_dyn();
 
 		virtual Void BindTarget( ::haxor::graphics::texture::RenderTexture rt);
 		Dynamic BindTarget_dyn();

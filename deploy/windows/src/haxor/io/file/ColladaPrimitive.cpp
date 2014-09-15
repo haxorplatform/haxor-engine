@@ -30,26 +30,26 @@ namespace file{
 
 Void ColladaPrimitive_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","new",0x06746abd,"haxor.io.file.ColladaPrimitive.new","haxor/io/file/ColladaFile.hx",1083,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","new",0x06746abd,"haxor.io.file.ColladaPrimitive.new","haxor/io/file/ColladaFile.hx",1090,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1089)
+	HX_STACK_LINE(1096)
 	this->indexes = null();
-	HX_STACK_LINE(1088)
+	HX_STACK_LINE(1095)
 	this->vcount = null();
-	HX_STACK_LINE(1087)
+	HX_STACK_LINE(1094)
 	this->inputs = null();
-	HX_STACK_LINE(1086)
+	HX_STACK_LINE(1093)
 	this->material = HX_CSTRING("");
-	HX_STACK_LINE(1085)
+	HX_STACK_LINE(1092)
 	this->type = HX_CSTRING("");
-	HX_STACK_LINE(1107)
+	HX_STACK_LINE(1114)
 	this->inputs = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(1108)
+	HX_STACK_LINE(1115)
 	this->vcount = Array_obj< int >::__new();
-	HX_STACK_LINE(1109)
+	HX_STACK_LINE(1116)
 	this->indexes = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(1110)
+	HX_STACK_LINE(1117)
 	this->m_triangles = null();
 }
 ;
@@ -70,18 +70,18 @@ Dynamic ColladaPrimitive_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 Array< ::Dynamic > ColladaPrimitive_obj::get_triangles( ){
-	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","get_triangles",0xcc17151f,"haxor.io.file.ColladaPrimitive.get_triangles","haxor/io/file/ColladaFile.hx",1093,0xa1888587)
+	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","get_triangles",0xcc17151f,"haxor.io.file.ColladaPrimitive.get_triangles","haxor/io/file/ColladaFile.hx",1100,0xa1888587)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(1094)
+	HX_STACK_LINE(1101)
 	if (((this->m_triangles != null()))){
-		HX_STACK_LINE(1094)
+		HX_STACK_LINE(1101)
 		return this->m_triangles;
 	}
-	HX_STACK_LINE(1095)
+	HX_STACK_LINE(1102)
 	Array< ::Dynamic > _g = ::haxor::io::file::ColladaFile_obj::GenerateTriangles(this->type,this->indexes,this->vcount);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(1095)
+	HX_STACK_LINE(1102)
 	this->m_triangles = _g;
-	HX_STACK_LINE(1096)
+	HX_STACK_LINE(1103)
 	return this->m_triangles;
 }
 
@@ -89,32 +89,32 @@ Array< ::Dynamic > ColladaPrimitive_obj::get_triangles( ){
 HX_DEFINE_DYNAMIC_FUNC0(ColladaPrimitive_obj,get_triangles,return )
 
 int ColladaPrimitive_obj::get_offset( ){
-	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","get_offset",0x6ea1229f,"haxor.io.file.ColladaPrimitive.get_offset","haxor/io/file/ColladaFile.hx",1103,0xa1888587)
+	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","get_offset",0x6ea1229f,"haxor.io.file.ColladaPrimitive.get_offset","haxor/io/file/ColladaFile.hx",1110,0xa1888587)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(1103)
+	HX_STACK_LINE(1110)
 	int mo = (int)0;		HX_STACK_VAR(mo,"mo");
-	HX_STACK_LINE(1103)
+	HX_STACK_LINE(1110)
 	{
-		HX_STACK_LINE(1103)
+		HX_STACK_LINE(1110)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(1103)
+		HX_STACK_LINE(1110)
 		int _g = this->inputs->length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(1103)
+		HX_STACK_LINE(1110)
 		while((true)){
-			HX_STACK_LINE(1103)
+			HX_STACK_LINE(1110)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(1103)
+				HX_STACK_LINE(1110)
 				break;
 			}
-			HX_STACK_LINE(1103)
+			HX_STACK_LINE(1110)
 			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(1103)
+			HX_STACK_LINE(1110)
 			int _g2 = ::Math_obj::max(mo,(this->inputs->__get(i).StaticCast< ::haxor::io::file::ColladaInput >()->offset + (int)1));		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(1103)
+			HX_STACK_LINE(1110)
 			mo = _g2;
 		}
 	}
-	HX_STACK_LINE(1103)
+	HX_STACK_LINE(1110)
 	return mo;
 }
 
@@ -123,44 +123,44 @@ HX_DEFINE_DYNAMIC_FUNC0(ColladaPrimitive_obj,get_offset,return )
 
 ::haxor::io::file::ColladaInput ColladaPrimitive_obj::GetInput( ::String p_semantic,hx::Null< int >  __o_p_set){
 int p_set = __o_p_set.Default(-1);
-	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","GetInput",0xe2484437,"haxor.io.file.ColladaPrimitive.GetInput","haxor/io/file/ColladaFile.hx",1114,0xa1888587)
+	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","GetInput",0xe2484437,"haxor.io.file.ColladaPrimitive.GetInput","haxor/io/file/ColladaFile.hx",1121,0xa1888587)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_semantic,"p_semantic")
 	HX_STACK_ARG(p_set,"p_set")
 {
-		HX_STACK_LINE(1115)
+		HX_STACK_LINE(1122)
 		{
-			HX_STACK_LINE(1115)
+			HX_STACK_LINE(1122)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(1115)
+			HX_STACK_LINE(1122)
 			int _g = this->inputs->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(1115)
+			HX_STACK_LINE(1122)
 			while((true)){
-				HX_STACK_LINE(1115)
+				HX_STACK_LINE(1122)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(1115)
+					HX_STACK_LINE(1122)
 					break;
 				}
-				HX_STACK_LINE(1115)
+				HX_STACK_LINE(1122)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(1117)
+				HX_STACK_LINE(1124)
 				if (((this->inputs->__get(i).StaticCast< ::haxor::io::file::ColladaInput >()->semantic == p_semantic))){
-					HX_STACK_LINE(1119)
+					HX_STACK_LINE(1126)
 					if (((p_set < (int)0))){
-						HX_STACK_LINE(1119)
+						HX_STACK_LINE(1126)
 						return this->inputs->__get(i).StaticCast< ::haxor::io::file::ColladaInput >();
 					}
 					else{
-						HX_STACK_LINE(1121)
+						HX_STACK_LINE(1128)
 						if (((p_set == this->inputs->__get(i).StaticCast< ::haxor::io::file::ColladaInput >()->set))){
-							HX_STACK_LINE(1121)
+							HX_STACK_LINE(1128)
 							return this->inputs->__get(i).StaticCast< ::haxor::io::file::ColladaInput >();
 						}
 					}
 				}
 			}
 		}
-		HX_STACK_LINE(1124)
+		HX_STACK_LINE(1131)
 		return null();
 	}
 }
@@ -171,61 +171,61 @@ HX_DEFINE_DYNAMIC_FUNC2(ColladaPrimitive_obj,GetInput,return )
 Dynamic ColladaPrimitive_obj::GetTriangulatedVectorArray( ::String p_semantic,hx::Null< int >  __o_p_set,hx::Null< bool >  __o_p_debug){
 int p_set = __o_p_set.Default(-1);
 bool p_debug = __o_p_debug.Default(false);
-	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","GetTriangulatedVectorArray",0xde1f7a6b,"haxor.io.file.ColladaPrimitive.GetTriangulatedVectorArray","haxor/io/file/ColladaFile.hx",1128,0xa1888587)
+	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","GetTriangulatedVectorArray",0xde1f7a6b,"haxor.io.file.ColladaPrimitive.GetTriangulatedVectorArray","haxor/io/file/ColladaFile.hx",1135,0xa1888587)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_semantic,"p_semantic")
 	HX_STACK_ARG(p_set,"p_set")
 	HX_STACK_ARG(p_debug,"p_debug")
 {
-		HX_STACK_LINE(1129)
-		::haxor::io::file::ColladaInput ci = this->GetInput(p_semantic,p_set);		HX_STACK_VAR(ci,"ci");
-		HX_STACK_LINE(1130)
-		if (((ci == null()))){
-			HX_STACK_LINE(1130)
-			return Dynamic( Array_obj<Dynamic>::__new());
-		}
-		HX_STACK_LINE(1132)
-		Dynamic vec = ci->GetVectorArray();		HX_STACK_VAR(vec,"vec");
-		HX_STACK_LINE(1133)
-		int off = ci->offset;		HX_STACK_VAR(off,"off");
-		HX_STACK_LINE(1134)
-		Dynamic res = Dynamic( Array_obj<Dynamic>::__new());		HX_STACK_VAR(res,"res");
 		HX_STACK_LINE(1136)
-		if (((vec->__Field(HX_CSTRING("length"),true) <= (int)0))){
-			HX_STACK_LINE(1136)
-			return Dynamic( Array_obj<Dynamic>::__new());
-		}
+		::haxor::io::file::ColladaInput ci = this->GetInput(p_semantic,p_set);		HX_STACK_VAR(ci,"ci");
 		HX_STACK_LINE(1137)
-		if (((off < (int)0))){
+		if (((ci == null()))){
 			HX_STACK_LINE(1137)
 			return Dynamic( Array_obj<Dynamic>::__new());
 		}
 		HX_STACK_LINE(1139)
+		Dynamic vec = ci->GetVectorArray();		HX_STACK_VAR(vec,"vec");
+		HX_STACK_LINE(1140)
+		int off = ci->offset;		HX_STACK_VAR(off,"off");
+		HX_STACK_LINE(1141)
+		Dynamic res = Dynamic( Array_obj<Dynamic>::__new());		HX_STACK_VAR(res,"res");
+		HX_STACK_LINE(1143)
+		if (((vec->__Field(HX_CSTRING("length"),true) <= (int)0))){
+			HX_STACK_LINE(1143)
+			return Dynamic( Array_obj<Dynamic>::__new());
+		}
+		HX_STACK_LINE(1144)
+		if (((off < (int)0))){
+			HX_STACK_LINE(1144)
+			return Dynamic( Array_obj<Dynamic>::__new());
+		}
+		HX_STACK_LINE(1146)
 		{
-			HX_STACK_LINE(1139)
+			HX_STACK_LINE(1146)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(1139)
+			HX_STACK_LINE(1146)
 			int _g = this->get_triangles()->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(1139)
+			HX_STACK_LINE(1146)
 			while((true)){
-				HX_STACK_LINE(1139)
+				HX_STACK_LINE(1146)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(1139)
+					HX_STACK_LINE(1146)
 					break;
 				}
-				HX_STACK_LINE(1139)
+				HX_STACK_LINE(1146)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(1141)
+				HX_STACK_LINE(1148)
 				Array< ::Dynamic > _g2 = this->get_triangles();		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(1141)
+				HX_STACK_LINE(1148)
 				Array< int > tuple = _g2->__get(i).StaticCast< Array< int > >();		HX_STACK_VAR(tuple,"tuple");
-				HX_STACK_LINE(1142)
+				HX_STACK_LINE(1149)
 				int idx = tuple->__get(off);		HX_STACK_VAR(idx,"idx");
-				HX_STACK_LINE(1143)
+				HX_STACK_LINE(1150)
 				res->__Field(HX_CSTRING("push"),true)(vec->__GetItem(idx));
 			}
 		}
-		HX_STACK_LINE(1149)
+		HX_STACK_LINE(1156)
 		return res;
 	}
 }
@@ -235,84 +235,84 @@ HX_DEFINE_DYNAMIC_FUNC3(ColladaPrimitive_obj,GetTriangulatedVectorArray,return )
 
 Dynamic ColladaPrimitive_obj::GetVectorArray( ::String p_semantic,hx::Null< int >  __o_p_set){
 int p_set = __o_p_set.Default(-1);
-	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","GetVectorArray",0xc1a8e9c3,"haxor.io.file.ColladaPrimitive.GetVectorArray","haxor/io/file/ColladaFile.hx",1153,0xa1888587)
+	HX_STACK_FRAME("haxor.io.file.ColladaPrimitive","GetVectorArray",0xc1a8e9c3,"haxor.io.file.ColladaPrimitive.GetVectorArray","haxor/io/file/ColladaFile.hx",1160,0xa1888587)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_semantic,"p_semantic")
 	HX_STACK_ARG(p_set,"p_set")
 {
-		HX_STACK_LINE(1154)
+		HX_STACK_LINE(1161)
 		Dynamic res = Dynamic( Array_obj<Dynamic>::__new());		HX_STACK_VAR(res,"res");
-		HX_STACK_LINE(1156)
+		HX_STACK_LINE(1163)
 		{
-			HX_STACK_LINE(1156)
+			HX_STACK_LINE(1163)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(1156)
+			HX_STACK_LINE(1163)
 			int _g = this->inputs->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(1156)
+			HX_STACK_LINE(1163)
 			while((true)){
-				HX_STACK_LINE(1156)
+				HX_STACK_LINE(1163)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(1156)
+					HX_STACK_LINE(1163)
 					break;
 				}
-				HX_STACK_LINE(1156)
+				HX_STACK_LINE(1163)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(1158)
+				HX_STACK_LINE(1165)
 				if (((this->inputs->__get(i).StaticCast< ::haxor::io::file::ColladaInput >()->semantic == p_semantic))){
-					HX_STACK_LINE(1160)
+					HX_STACK_LINE(1167)
 					if (((p_set < (int)0))){
-						HX_STACK_LINE(1160)
+						HX_STACK_LINE(1167)
 						Dynamic _g2 = this->inputs->__get(i).StaticCast< ::haxor::io::file::ColladaInput >()->GetVectorArray();		HX_STACK_VAR(_g2,"_g2");
-						HX_STACK_LINE(1160)
+						HX_STACK_LINE(1167)
 						res = _g2;
-						HX_STACK_LINE(1160)
+						HX_STACK_LINE(1167)
 						break;
 					}
 					else{
-						HX_STACK_LINE(1162)
+						HX_STACK_LINE(1169)
 						if (((p_set == this->inputs->__get(i).StaticCast< ::haxor::io::file::ColladaInput >()->set))){
-							HX_STACK_LINE(1162)
+							HX_STACK_LINE(1169)
 							Dynamic _g11 = this->inputs->__get(i).StaticCast< ::haxor::io::file::ColladaInput >()->GetVectorArray();		HX_STACK_VAR(_g11,"_g11");
-							HX_STACK_LINE(1162)
+							HX_STACK_LINE(1169)
 							res = _g11;
-							HX_STACK_LINE(1162)
+							HX_STACK_LINE(1169)
 							break;
 						}
 					}
 				}
 			}
 		}
-		HX_STACK_LINE(1166)
+		HX_STACK_LINE(1173)
 		if (((p_semantic == HX_CSTRING("color")))){
-			HX_STACK_LINE(1166)
+			HX_STACK_LINE(1173)
 			if (((p_set < (int)0))){
-				HX_STACK_LINE(1168)
+				HX_STACK_LINE(1175)
 				Dynamic l = this->GetVectorArray(HX_CSTRING("color"),(int)0);		HX_STACK_VAR(l,"l");
-				HX_STACK_LINE(1169)
+				HX_STACK_LINE(1176)
 				if (((l->__Field(HX_CSTRING("length"),true) > (int)0))){
-					HX_STACK_LINE(1171)
+					HX_STACK_LINE(1178)
 					int len = ::Math_obj::min(l->__Field(HX_CSTRING("length"),true),res->__Field(HX_CSTRING("length"),true));		HX_STACK_VAR(len,"len");
-					HX_STACK_LINE(1172)
+					HX_STACK_LINE(1179)
 					{
-						HX_STACK_LINE(1172)
+						HX_STACK_LINE(1179)
 						int _g = (int)0;		HX_STACK_VAR(_g,"_g");
-						HX_STACK_LINE(1172)
+						HX_STACK_LINE(1179)
 						while((true)){
-							HX_STACK_LINE(1172)
+							HX_STACK_LINE(1179)
 							if ((!(((_g < len))))){
-								HX_STACK_LINE(1172)
+								HX_STACK_LINE(1179)
 								break;
 							}
-							HX_STACK_LINE(1172)
+							HX_STACK_LINE(1179)
 							int i = (_g)++;		HX_STACK_VAR(i,"i");
-							HX_STACK_LINE(1172)
+							HX_STACK_LINE(1179)
 							res->__GetItem(i)->__FieldRef(HX_CSTRING("a")) = l->__GetItem(i)->__Field(HX_CSTRING("r"),true);
 						}
 					}
 				}
 			}
 		}
-		HX_STACK_LINE(1176)
+		HX_STACK_LINE(1183)
 		return res;
 	}
 }

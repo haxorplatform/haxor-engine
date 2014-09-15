@@ -36,48 +36,48 @@ namespace file{
 
 Void ColladaNode_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaNode","new",0xa111d4d0,"haxor.io.file.ColladaNode.new","haxor/io/file/ColladaFile.hx",1387,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaNode","new",0xa111d4d0,"haxor.io.file.ColladaNode.new","haxor/io/file/ColladaFile.hx",1394,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1429)
+	HX_STACK_LINE(1436)
 	this->instances = null();
-	HX_STACK_LINE(1402)
+	HX_STACK_LINE(1409)
 	this->local = null();
-	HX_STACK_LINE(1400)
+	HX_STACK_LINE(1407)
 	this->data = HX_CSTRING("");
-	HX_STACK_LINE(1398)
+	HX_STACK_LINE(1405)
 	this->children = null();
-	HX_STACK_LINE(1397)
+	HX_STACK_LINE(1404)
 	this->parent = null();
-	HX_STACK_LINE(1396)
+	HX_STACK_LINE(1403)
 	this->scene = null();
-	HX_STACK_LINE(1394)
+	HX_STACK_LINE(1401)
 	this->matrix = null();
-	HX_STACK_LINE(1392)
+	HX_STACK_LINE(1399)
 	this->name = HX_CSTRING("");
-	HX_STACK_LINE(1391)
+	HX_STACK_LINE(1398)
 	this->sid = HX_CSTRING("");
-	HX_STACK_LINE(1390)
+	HX_STACK_LINE(1397)
 	this->id = HX_CSTRING("");
-	HX_STACK_LINE(1389)
+	HX_STACK_LINE(1396)
 	this->type = HX_CSTRING("");
-	HX_STACK_LINE(1433)
+	HX_STACK_LINE(1440)
 	this->children = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(1434)
+	HX_STACK_LINE(1441)
 	this->instances = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(1435)
+	HX_STACK_LINE(1442)
 	this->matrix = Array_obj< Float >::__new().Add((int)1).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)1).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)1).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)1);
-	HX_STACK_LINE(1436)
+	HX_STACK_LINE(1443)
 	::haxor::math::Vector3 _g = ::haxor::math::Vector3_obj::__new((int)0,(int)0,(int)0);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(1436)
+	HX_STACK_LINE(1443)
 	this->position = _g;
-	HX_STACK_LINE(1437)
+	HX_STACK_LINE(1444)
 	::haxor::math::Quaternion _g1 = ::haxor::math::Quaternion_obj::__new((int)0,(int)0,(int)0,1.0);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(1437)
+	HX_STACK_LINE(1444)
 	this->rotation = _g1;
-	HX_STACK_LINE(1438)
+	HX_STACK_LINE(1445)
 	::haxor::math::Vector3 _g2 = ::haxor::math::Vector3_obj::__new((int)1,(int)1,(int)1);		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(1438)
+	HX_STACK_LINE(1445)
 	this->scale = _g2;
 }
 ;
@@ -98,55 +98,55 @@ Dynamic ColladaNode_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::math::Matrix4 ColladaNode_obj::get_world( ){
-	HX_STACK_FRAME("haxor.io.file.ColladaNode","get_world",0x5c8aeb19,"haxor.io.file.ColladaNode.get_world","haxor/io/file/ColladaFile.hx",1406,0xa1888587)
+	HX_STACK_FRAME("haxor.io.file.ColladaNode","get_world",0x5c8aeb19,"haxor.io.file.ColladaNode.get_world","haxor/io/file/ColladaFile.hx",1413,0xa1888587)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(1407)
+	HX_STACK_LINE(1414)
 	if (((this->m_world != null()))){
-		HX_STACK_LINE(1407)
+		HX_STACK_LINE(1414)
 		return this->m_world;
 	}
-	HX_STACK_LINE(1408)
+	HX_STACK_LINE(1415)
 	::haxor::math::Matrix4 _g = ::haxor::math::Matrix4_obj::__new((int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(1408)
+	HX_STACK_LINE(1415)
 	this->m_world = _g;
-	HX_STACK_LINE(1409)
+	HX_STACK_LINE(1416)
 	::haxor::io::file::ColladaNode it = hx::ObjectPtr<OBJ_>(this);		HX_STACK_VAR(it,"it");
-	HX_STACK_LINE(1410)
+	HX_STACK_LINE(1417)
 	Array< ::Dynamic > h = Array_obj< ::Dynamic >::__new();		HX_STACK_VAR(h,"h");
-	HX_STACK_LINE(1411)
+	HX_STACK_LINE(1418)
 	while((true)){
-		HX_STACK_LINE(1411)
+		HX_STACK_LINE(1418)
 		if ((!(((it != null()))))){
-			HX_STACK_LINE(1411)
+			HX_STACK_LINE(1418)
 			break;
 		}
-		HX_STACK_LINE(1413)
+		HX_STACK_LINE(1420)
 		h->push(it);
-		HX_STACK_LINE(1414)
+		HX_STACK_LINE(1421)
 		it = it->parent;
 	}
-	HX_STACK_LINE(1416)
+	HX_STACK_LINE(1423)
 	h->reverse();
-	HX_STACK_LINE(1417)
+	HX_STACK_LINE(1424)
 	{
-		HX_STACK_LINE(1417)
+		HX_STACK_LINE(1424)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(1417)
+		HX_STACK_LINE(1424)
 		int _g2 = h->length;		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(1417)
+		HX_STACK_LINE(1424)
 		while((true)){
-			HX_STACK_LINE(1417)
+			HX_STACK_LINE(1424)
 			if ((!(((_g1 < _g2))))){
-				HX_STACK_LINE(1417)
+				HX_STACK_LINE(1424)
 				break;
 			}
-			HX_STACK_LINE(1417)
+			HX_STACK_LINE(1424)
 			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(1419)
+			HX_STACK_LINE(1426)
 			this->m_world->MultiplyTransform(h->__get(i).StaticCast< ::haxor::io::file::ColladaNode >()->local);
 		}
 	}
-	HX_STACK_LINE(1421)
+	HX_STACK_LINE(1428)
 	return this->m_world;
 }
 
@@ -155,101 +155,101 @@ HX_DEFINE_DYNAMIC_FUNC0(ColladaNode_obj,get_world,return )
 
 Void ColladaNode_obj::GenerateTranform( ){
 {
-		HX_STACK_FRAME("haxor.io.file.ColladaNode","GenerateTranform",0x74c172b4,"haxor.io.file.ColladaNode.GenerateTranform","haxor/io/file/ColladaFile.hx",1442,0xa1888587)
+		HX_STACK_FRAME("haxor.io.file.ColladaNode","GenerateTranform",0x74c172b4,"haxor.io.file.ColladaNode.GenerateTranform","haxor/io/file/ColladaFile.hx",1449,0xa1888587)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(1443)
+		HX_STACK_LINE(1450)
 		::haxor::math::Matrix4 _g = ::haxor::math::Matrix4_obj::FromArray(this->matrix,null());		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(1443)
+		HX_STACK_LINE(1450)
 		::haxor::math::Matrix4 mtx = this->local = _g;		HX_STACK_VAR(mtx,"mtx");
-		HX_STACK_LINE(1444)
+		HX_STACK_LINE(1451)
 		::haxor::math::Vector3 _g6;		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(1444)
+		HX_STACK_LINE(1451)
 		{
-			HX_STACK_LINE(1444)
+			HX_STACK_LINE(1451)
 			::haxor::math::Vector4 _this;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(1444)
+			HX_STACK_LINE(1451)
 			{
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				::haxor::math::Matrix4 _this1 = ::haxor::math::Matrix4_obj::__new((int)1,(int)0,(int)0,mtx->m03,(int)0,(int)1,(int)0,mtx->m13,(int)0,(int)0,(int)1,mtx->m23,(int)0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_this1,"_this1");
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				::haxor::math::Vector4 p_result = null();		HX_STACK_VAR(p_result,"p_result");
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				::haxor::math::Vector4 _g1;		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				if (((p_result == null()))){
-					HX_STACK_LINE(1444)
+					HX_STACK_LINE(1451)
 					_g1 = ::haxor::math::Vector4_obj::__new(null(),null(),null(),null());
 				}
 				else{
-					HX_STACK_LINE(1444)
+					HX_STACK_LINE(1451)
 					_g1 = p_result;
 				}
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				p_result = _g1;
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				Float _g2 = _this1->GetRowCol((int)0,(int)3);		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				Float _g3 = _this1->GetRowCol((int)1,(int)3);		HX_STACK_VAR(_g3,"_g3");
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				Float _g4 = _this1->GetRowCol((int)2,(int)3);		HX_STACK_VAR(_g4,"_g4");
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				Float _g5 = _this1->GetRowCol((int)3,(int)3);		HX_STACK_VAR(_g5,"_g5");
-				HX_STACK_LINE(1444)
+				HX_STACK_LINE(1451)
 				_this = p_result->Set(_g2,_g3,_g4,_g5);
 			}
-			HX_STACK_LINE(1444)
+			HX_STACK_LINE(1451)
 			_g6 = ::haxor::math::Vector3_obj::__new(_this->x,_this->y,_this->z);
 		}
-		HX_STACK_LINE(1444)
+		HX_STACK_LINE(1451)
 		this->position = _g6;
 		struct _Function_1_1{
 			inline static ::haxor::math::Matrix4 Block( ){
-				HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/io/file/ColladaFile.hx",1445,0xa1888587)
+				HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/io/file/ColladaFile.hx",1452,0xa1888587)
 				{
-					HX_STACK_LINE(1445)
+					HX_STACK_LINE(1452)
 					::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-					HX_STACK_LINE(1445)
+					HX_STACK_LINE(1452)
 					int _g7 = _this->m_nq = hx::Mod(((_this->m_nm4 + (int)1)),_this->m_m4->length);		HX_STACK_VAR(_g7,"_g7");
-					HX_STACK_LINE(1445)
+					HX_STACK_LINE(1452)
 					return _this->m_m4->__get(_g7).StaticCast< ::haxor::math::Matrix4 >();
 				}
 				return null();
 			}
 		};
-		HX_STACK_LINE(1445)
+		HX_STACK_LINE(1452)
 		::haxor::math::Matrix4 _g8 = (_Function_1_1::Block())->SetMatrix4(mtx)->ToRotation();		HX_STACK_VAR(_g8,"_g8");
-		HX_STACK_LINE(1445)
+		HX_STACK_LINE(1452)
 		::haxor::math::Quaternion _g9 = ::haxor::math::Quaternion_obj::FromMatrix4(_g8,null());		HX_STACK_VAR(_g9,"_g9");
-		HX_STACK_LINE(1445)
+		HX_STACK_LINE(1452)
 		this->rotation = _g9;
-		HX_STACK_LINE(1446)
+		HX_STACK_LINE(1453)
 		::haxor::math::Vector3 _g10;		HX_STACK_VAR(_g10,"_g10");
-		HX_STACK_LINE(1446)
+		HX_STACK_LINE(1453)
 		{
-			HX_STACK_LINE(1446)
+			HX_STACK_LINE(1453)
 			::haxor::math::Vector4 _this;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(1446)
+			HX_STACK_LINE(1453)
 			{
-				HX_STACK_LINE(1446)
+				HX_STACK_LINE(1453)
 				::haxor::math::Matrix4 _this1;		HX_STACK_VAR(_this1,"_this1");
-				HX_STACK_LINE(1446)
+				HX_STACK_LINE(1453)
 				{
-					HX_STACK_LINE(1446)
+					HX_STACK_LINE(1453)
 					Float d0 = ::Math_obj::sqrt((((mtx->m00 * mtx->m00) + (mtx->m10 * mtx->m10)) + (mtx->m20 * mtx->m20)));		HX_STACK_VAR(d0,"d0");
-					HX_STACK_LINE(1446)
+					HX_STACK_LINE(1453)
 					Float d1 = ::Math_obj::sqrt((((mtx->m01 * mtx->m01) + (mtx->m11 * mtx->m11)) + (mtx->m21 * mtx->m21)));		HX_STACK_VAR(d1,"d1");
-					HX_STACK_LINE(1446)
+					HX_STACK_LINE(1453)
 					Float d2 = ::Math_obj::sqrt((((mtx->m02 * mtx->m02) + (mtx->m12 * mtx->m12)) + (mtx->m22 * mtx->m22)));		HX_STACK_VAR(d2,"d2");
-					HX_STACK_LINE(1446)
+					HX_STACK_LINE(1453)
 					_this1 = ::haxor::math::Matrix4_obj::__new(d0,(int)0,(int)0,(int)0,(int)0,d1,(int)0,(int)0,(int)0,(int)0,d2,(int)0,(int)0,(int)0,(int)0,(int)1);
 				}
-				HX_STACK_LINE(1446)
+				HX_STACK_LINE(1453)
 				_this = ::haxor::math::Vector4_obj::__new(_this1->m00,_this1->m11,_this1->m22,_this1->m33);
 			}
-			HX_STACK_LINE(1446)
+			HX_STACK_LINE(1453)
 			_g10 = ::haxor::math::Vector3_obj::__new(_this->x,_this->y,_this->z);
 		}
-		HX_STACK_LINE(1446)
+		HX_STACK_LINE(1453)
 		this->scale = _g10;
 	}
 return null();

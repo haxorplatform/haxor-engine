@@ -1,14 +1,17 @@
 package haxor.context;
 import haxor.component.Camera;
 import haxor.core.Enums.BlendMode;
+import haxor.core.Enums.CullMode;
 import haxor.core.Enums.MeshPrimitive;
 import haxor.graphics.Graphics;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.mesh.Mesh;
+import haxor.graphics.Screen;
 import haxor.io.FloatArray;
 import haxor.math.AABB3;
 import haxor.math.Color;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that handles gizmo structures and operations.
@@ -28,9 +31,19 @@ class GizmoContext
 	private var axis : Mesh;
 	
 	/**
+	 * Mesh of a screen texture.
+	 */
+	private var texture : Mesh;
+	
+	/**
 	 * Material to be used by gizmos.
 	 */
 	private var gizmo_material : Material;
+	
+	/**
+	 * Material used to draw textures in screen.
+	 */
+	private var texture_material : Material;
 	
 	
 	private function new() 
@@ -41,7 +54,8 @@ class GizmoContext
 	
 	private function Initialize():Void
 	{
-		var mat : Material = gizmo_material	= new Material("$GizmoMaterial");
+		var mat : Material;
+		mat = gizmo_material	= new Material("$GizmoMaterial");
 		mat.shader 	= new Shader(ShaderContext.gizmo_source);
 		mat.blend = true;
 		mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);		
@@ -49,10 +63,43 @@ class GizmoContext
 		mat.SetColor("Tint", new Color(1.0, 1.0, 1.0, 0.4));
 		mat.ztest = false;
 		
+		mat = texture_material	= new Material("$TextureMaterial");
+		mat.shader 	= new Shader(ShaderContext.texture_source);
+		mat.blend = true;
+		mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);		
+		mat.SetFloat2("Screen", Screen.width, Screen.height);
+		mat.SetFloat4("Rect", 0, 0, 100, 100);
+		mat.SetColor("Tint", new Color(1.0, 1.0, 1.0, 1.0));
+		mat.cull = CullMode.None;
+		mat.ztest = false;
+		
 		CreateAxis();
 		CreateGrid(100.0);
+		CreateTextureQuad();
 	}
 	
+	/**
+	 * Creates the quad which will render textures on the screen.
+	 */
+	private function CreateTextureQuad():Void
+	{
+		var m : Mesh = texture = new Mesh("$TextureQuad");
+		var vl : FloatArray;		
+		vl = FloatArray.Alloc([
+		0, 0, 0, 
+		0,-1, 0,
+		1,-1, 0,		
+		0, 0, 0, 
+		1,-1, 0,
+		1, 0, 0		
+		]);		
+		m.Set("vertex", vl, 3);		
+		m.bounds = m.GenerateAttribBounds("vertex", AABB3.temp);		
+	}
+	
+	/**
+	 * Creates lines to show the world space axis.
+	 */
 	private function CreateAxis():Void
 	{
 		var m : Mesh = axis = new Mesh("$GridAxis");
@@ -100,16 +147,16 @@ class GizmoContext
 	 * Creates a Gizmo for grid.
 	 * @param	p_step
 	 */
-	private function CreateGrid(p_step:Float):Void
+	private function CreateGrid(p_step:Float32):Void
 	{	
 		grid = new Mesh("$GridMesh");
 		grid.primitive = MeshPrimitive.Lines;
 		var len : Int = cast(p_step+1);
 		p_step = 1.0 / p_step;
-		var ox : Float = 0.5;
-		var oz : Float = 0.5;
-		var px : Float = 0.0;
-		var pz : Float = 0.0;		
+		var ox : Float32 = 0.5;
+		var oz : Float32 = 0.5;
+		var px : Float32 = 0.0;
+		var pz : Float32 = 0.0;		
 		var vl : FloatArray = new FloatArray(12 * len);		
 		var k : Int;		
 		//x
@@ -137,7 +184,7 @@ class GizmoContext
 	 * @param	p_area
 	 * @param	p_color
 	 */
-	private function DrawGrid(p_area:Float,p_color:Color=null):Void
+	private function DrawGrid(p_area:Float32,p_color:Color=null):Void
 	{
 		gizmo_material.SetFloat("Area", p_area);
 		if (p_color != null) gizmo_material.SetColor("Tint", p_color);		
@@ -148,7 +195,7 @@ class GizmoContext
 	 * Renders the world axis.
 	 * @param	p_area
 	 */
-	private function DrawAxis(p_area:Float):Void
+	private function DrawAxis(p_area:Float32):Void
 	{
 		gizmo_material.SetFloat("Area", p_area);		
 		gizmo_material.SetColor("Tint", Color.temp.Set(1,1,1,1));		

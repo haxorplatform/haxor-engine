@@ -9,24 +9,24 @@ namespace file{
 
 Void ColladaAssetData_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaAssetData","new",0x28364bd0,"haxor.io.file.ColladaAssetData.new","haxor/io/file/ColladaFile.hx",1049,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaAssetData","new",0x28364bd0,"haxor.io.file.ColladaAssetData.new","haxor/io/file/ColladaFile.hx",1056,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1058)
+	HX_STACK_LINE(1065)
 	this->axis = HX_CSTRING("y_up");
-	HX_STACK_LINE(1057)
+	HX_STACK_LINE(1064)
 	this->unitValue = 0.0;
-	HX_STACK_LINE(1056)
+	HX_STACK_LINE(1063)
 	this->unitName = HX_CSTRING("");
-	HX_STACK_LINE(1055)
+	HX_STACK_LINE(1062)
 	this->modification = HX_CSTRING("");
-	HX_STACK_LINE(1054)
+	HX_STACK_LINE(1061)
 	this->creation = HX_CSTRING("");
-	HX_STACK_LINE(1053)
+	HX_STACK_LINE(1060)
 	this->source = HX_CSTRING("");
-	HX_STACK_LINE(1052)
+	HX_STACK_LINE(1059)
 	this->tool = HX_CSTRING("");
-	HX_STACK_LINE(1051)
+	HX_STACK_LINE(1058)
 	this->author = HX_CSTRING("");
 }
 ;

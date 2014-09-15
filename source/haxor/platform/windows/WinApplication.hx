@@ -1,5 +1,6 @@
 #if windows
 package haxor.platform.windows;
+import haxor.platform.Types.Float32;
 import haxor.core.Console;
 import haxor.graphics.GL;
 import cpp.Lib;
@@ -33,9 +34,9 @@ class WinApplication extends BaseApplication
 		
 	}
 	
-	override private function GetContainerWidth():Float { return cast window.width;  }
+	override private function GetContainerWidth():Float32{ return cast window.width;  }
 	
-	override private function GetContainerHeight():Float { return cast window.height; }
+	override private function GetContainerHeight():Float32{ return cast window.height; }
 	
 		
 	/**

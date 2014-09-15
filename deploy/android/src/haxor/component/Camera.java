@@ -17,9 +17,9 @@ public  class Camera extends haxor.component.Behaviour
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_Camera(haxor.component.Camera __temp_me164150, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_component_Camera(haxor.component.Camera __temp_me255344, java.lang.String p_name)
 	{
-		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me164150, p_name);
+		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me255344, p_name);
 	}
 	
 	
@@ -365,27 +365,22 @@ public  class Camera extends haxor.component.Behaviour
 	
 	public  haxe.root.Array m_filters;
 	
+	
+	
+	public   haxe.root.Array<haxor.math.Vector4> get_frustum()
+	{
+		this.UpdateProjection();
+		return this.m_frustum;
+	}
+	
+	
+	public  haxe.root.Array<haxor.math.Vector4> m_frustum;
+	
 	public  boolean m_projection_dirty;
 	
 	public  boolean m_view_uniform_dirty;
 	
 	public  boolean m_proj_uniform_dirty;
-	
-	public  haxor.math.Vector4 m_fn0;
-	
-	public  haxor.math.Vector4 m_fn1;
-	
-	public  haxor.math.Vector4 m_fn2;
-	
-	public  haxor.math.Vector4 m_fn3;
-	
-	public  haxor.math.Vector4 m_ff0;
-	
-	public  haxor.math.Vector4 m_ff1;
-	
-	public  haxor.math.Vector4 m_ff2;
-	
-	public  haxor.math.Vector4 m_ff3;
 	
 	@Override public   void OnBuild()
 	{
@@ -415,20 +410,13 @@ public  class Camera extends haxor.component.Behaviour
 			haxor.math.AABB2 v = new haxor.math.AABB2(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ));
 			this.m_viewport.SetAABB2(v);
 			haxor.context.EngineContext.camera.UpdateViewport(this);
-			haxor.math.AABB2 __temp_expr164664 = v;
+			haxor.math.AABB2 __temp_expr255858 = v;
 		}
 		
 		this.m_projection_dirty = true;
 		this.m_view_uniform_dirty = true;
 		this.m_proj_uniform_dirty = true;
-		this.m_fn0 = new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		this.m_fn1 = new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		this.m_fn2 = new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		this.m_fn3 = new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		this.m_ff0 = new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		this.m_ff1 = new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		this.m_ff2 = new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		this.m_ff3 = new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
+		this.m_frustum = new haxe.root.Array<haxor.math.Vector4>(new haxor.math.Vector4[]{new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) )), new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) )), new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) )), new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) )), new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) )), new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) )), new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) )), new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ))});
 	}
 	
 	
@@ -458,7 +446,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy;
 			p.z = vz;
 			p.w = vw;
-			haxor.math.Vector4 __temp_expr164665 = p;
+			haxor.math.Vector4 __temp_expr255859 = p;
 		}
 		
 		{
@@ -476,7 +464,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy1;
 			p.z = vz1;
 			p.w = vw1;
-			haxor.math.Vector4 __temp_expr164666 = p;
+			haxor.math.Vector4 __temp_expr255860 = p;
 		}
 		
 		return p;
@@ -498,8 +486,8 @@ public  class Camera extends haxor.component.Behaviour
 	
 	public final   void LookAt(haxor.math.Vector3 p_at, haxor.math.Vector3 p_up, java.lang.Object p_smooth)
 	{
-		double __temp_p_smooth164149 = ( (( p_smooth == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_smooth)) )) );
-		this.m_entity.m_transform.LookAt(p_at, p_up, __temp_p_smooth164149);
+		double __temp_p_smooth255343 = ( (( p_smooth == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_smooth)) )) );
+		this.m_entity.m_transform.LookAt(p_at, p_up, __temp_p_smooth255343);
 	}
 	
 	
@@ -518,7 +506,7 @@ public  class Camera extends haxor.component.Behaviour
 		haxor.math.Matrix4.PerspectiveInverse(this.m_fov, this.m_aspect, 0.1, 100000.0, this.m_skyboxProjectionInverse);
 		haxor.math.Vector4 p = null;
 		double iw = 0.0;
-		p = this.m_fn0;
+		p = this.m_frustum.__get(0);
 		p.Set(-1.0, 1.0, 0.0, 1.0);
 		{
 			haxor.math.Matrix4 _this = this.m_projectionMatrixInverse;
@@ -530,7 +518,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy;
 			p.z = vz;
 			p.w = vw;
-			haxor.math.Vector4 __temp_expr164667 = p;
+			haxor.math.Vector4 __temp_expr255861 = p;
 		}
 		
 		if (( p.w <= 0.0 )) 
@@ -543,7 +531,7 @@ public  class Camera extends haxor.component.Behaviour
 		}
 		
 		p.Scale(iw);
-		p = this.m_fn1;
+		p = this.m_frustum.__get(1);
 		p.Set(1.0, 1.0, 0.0, 1.0);
 		{
 			haxor.math.Matrix4 _this1 = this.m_projectionMatrixInverse;
@@ -555,7 +543,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy1;
 			p.z = vz1;
 			p.w = vw1;
-			haxor.math.Vector4 __temp_expr164668 = p;
+			haxor.math.Vector4 __temp_expr255862 = p;
 		}
 		
 		if (( p.w <= 0.0 )) 
@@ -568,7 +556,7 @@ public  class Camera extends haxor.component.Behaviour
 		}
 		
 		p.Scale(iw);
-		p = this.m_fn2;
+		p = this.m_frustum.__get(2);
 		p.Set(-1.0, -1.0, 0.0, 1.0);
 		{
 			haxor.math.Matrix4 _this2 = this.m_projectionMatrixInverse;
@@ -580,7 +568,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy2;
 			p.z = vz2;
 			p.w = vw2;
-			haxor.math.Vector4 __temp_expr164669 = p;
+			haxor.math.Vector4 __temp_expr255863 = p;
 		}
 		
 		if (( p.w <= 0.0 )) 
@@ -593,7 +581,7 @@ public  class Camera extends haxor.component.Behaviour
 		}
 		
 		p.Scale(iw);
-		p = this.m_fn3;
+		p = this.m_frustum.__get(3);
 		p.Set(1.0, -1.0, 0.0, 1.0);
 		{
 			haxor.math.Matrix4 _this3 = this.m_projectionMatrixInverse;
@@ -605,7 +593,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy3;
 			p.z = vz3;
 			p.w = vw3;
-			haxor.math.Vector4 __temp_expr164670 = p;
+			haxor.math.Vector4 __temp_expr255864 = p;
 		}
 		
 		if (( p.w <= 0.0 )) 
@@ -618,7 +606,7 @@ public  class Camera extends haxor.component.Behaviour
 		}
 		
 		p.Scale(iw);
-		p = this.m_ff0;
+		p = this.m_frustum.__get(4);
 		p.Set(-1.0, 1.0, 1.0, 1.0);
 		{
 			haxor.math.Matrix4 _this4 = this.m_projectionMatrixInverse;
@@ -630,7 +618,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy4;
 			p.z = vz4;
 			p.w = vw4;
-			haxor.math.Vector4 __temp_expr164671 = p;
+			haxor.math.Vector4 __temp_expr255865 = p;
 		}
 		
 		if (( p.w <= 0.0 )) 
@@ -643,7 +631,7 @@ public  class Camera extends haxor.component.Behaviour
 		}
 		
 		p.Scale(iw);
-		p = this.m_ff1;
+		p = this.m_frustum.__get(5);
 		p.Set(1.0, 1.0, 1.0, 1.0);
 		{
 			haxor.math.Matrix4 _this5 = this.m_projectionMatrixInverse;
@@ -655,7 +643,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy5;
 			p.z = vz5;
 			p.w = vw5;
-			haxor.math.Vector4 __temp_expr164672 = p;
+			haxor.math.Vector4 __temp_expr255866 = p;
 		}
 		
 		if (( p.w <= 0.0 )) 
@@ -668,7 +656,7 @@ public  class Camera extends haxor.component.Behaviour
 		}
 		
 		p.Scale(iw);
-		p = this.m_ff2;
+		p = this.m_frustum.__get(6);
 		p.Set(-1.0, -1.0, 1.0, 1.0);
 		{
 			haxor.math.Matrix4 _this6 = this.m_projectionMatrixInverse;
@@ -680,7 +668,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy6;
 			p.z = vz6;
 			p.w = vw6;
-			haxor.math.Vector4 __temp_expr164673 = p;
+			haxor.math.Vector4 __temp_expr255867 = p;
 		}
 		
 		if (( p.w <= 0.0 )) 
@@ -693,7 +681,7 @@ public  class Camera extends haxor.component.Behaviour
 		}
 		
 		p.Scale(iw);
-		p = this.m_ff3;
+		p = this.m_frustum.__get(7);
 		p.Set(1.0, -1.0, 1.0, 1.0);
 		{
 			haxor.math.Matrix4 _this7 = this.m_projectionMatrixInverse;
@@ -705,7 +693,7 @@ public  class Camera extends haxor.component.Behaviour
 			p.y = vy7;
 			p.z = vz7;
 			p.w = vw7;
-			haxor.math.Vector4 __temp_expr164674 = p;
+			haxor.math.Vector4 __temp_expr255868 = p;
 		}
 		
 		if (( p.w <= 0.0 )) 
@@ -736,14 +724,14 @@ public  class Camera extends haxor.component.Behaviour
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164675 = true;
+			boolean __temp_executeDef255869 = true;
 			switch (field.hashCode())
 			{
 				case -729568467:
 				{
 					if (field.equals("m_quality")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.m_quality = ((double) (value) );
 						return value;
 					}
@@ -756,7 +744,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("__fcid")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.__fcid = ((int) (value) );
 						return value;
 					}
@@ -769,7 +757,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("quality")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.set_quality(value);
 						return value;
 					}
@@ -782,7 +770,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("clear")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.clear = ((int) (value) );
 						return value;
 					}
@@ -795,7 +783,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_aspect")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.m_aspect = ((double) (value) );
 						return value;
 					}
@@ -808,7 +796,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("mask")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.set_mask(((int) (value) ));
 						return value;
 					}
@@ -821,7 +809,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_order")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.m_order = ((int) (value) );
 						return value;
 					}
@@ -834,7 +822,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_mask")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.m_mask = ((int) (value) );
 						return value;
 					}
@@ -847,7 +835,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("order")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.set_order(((int) (value) ));
 						return value;
 					}
@@ -860,7 +848,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("fov")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.set_fov(value);
 						return value;
 					}
@@ -873,7 +861,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_far")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.m_far = ((double) (value) );
 						return value;
 					}
@@ -886,7 +874,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_fov")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.m_fov = ((double) (value) );
 						return value;
 					}
@@ -899,7 +887,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("far")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.set_far(value);
 						return value;
 					}
@@ -912,7 +900,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("near")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.set_near(value);
 						return value;
 					}
@@ -925,7 +913,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_near")) 
 					{
-						__temp_executeDef164675 = false;
+						__temp_executeDef255869 = false;
 						this.m_near = ((double) (value) );
 						return value;
 					}
@@ -936,7 +924,7 @@ public  class Camera extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef164675) 
+			if (__temp_executeDef255869) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -953,15 +941,15 @@ public  class Camera extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164676 = true;
+			boolean __temp_executeDef255870 = true;
 			switch (field.hashCode())
 			{
-				case 103595169:
+				case 588326199:
 				{
-					if (field.equals("m_ff3")) 
+					if (field.equals("m_proj_uniform_dirty")) 
 					{
-						__temp_executeDef164676 = false;
-						this.m_ff3 = ((haxor.math.Vector4) (value) );
+						__temp_executeDef255870 = false;
+						this.m_proj_uniform_dirty = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
 					
@@ -973,216 +961,8 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("__fcid")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.__fcid = ((int) (haxe.lang.Runtime.toInt(value)) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595168:
-				{
-					if (field.equals("m_ff2")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_ff2 = ((haxor.math.Vector4) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case -1332194002:
-				{
-					if (field.equals("background")) 
-					{
-						__temp_executeDef164676 = false;
-						this.background = ((haxor.math.Color) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595167:
-				{
-					if (field.equals("m_ff1")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_ff1 = ((haxor.math.Vector4) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case -900095734:
-				{
-					if (field.equals("skybox")) 
-					{
-						__temp_executeDef164676 = false;
-						this.skybox = ((haxor.graphics.texture.TextureCube) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595166:
-				{
-					if (field.equals("m_ff0")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_ff0 = ((haxor.math.Vector4) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 94746189:
-				{
-					if (field.equals("clear")) 
-					{
-						__temp_executeDef164676 = false;
-						this.clear = ((int) (haxe.lang.Runtime.toInt(value)) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595417:
-				{
-					if (field.equals("m_fn3")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_fn3 = ((haxor.math.Vector4) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 3344108:
-				{
-					if (field.equals("mask")) 
-					{
-						__temp_executeDef164676 = false;
-						this.set_mask(((int) (haxe.lang.Runtime.toInt(value)) ));
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595416:
-				{
-					if (field.equals("m_fn2")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_fn2 = ((haxor.math.Vector4) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case -1083311234:
-				{
-					if (field.equals("m_mask")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_mask = ((int) (haxe.lang.Runtime.toInt(value)) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595415:
-				{
-					if (field.equals("m_fn1")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_fn1 = ((haxor.math.Vector4) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case -1708462764:
-				{
-					if (field.equals("m_layers")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_layers = ((haxe.root.Array<java.lang.Object>) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595414:
-				{
-					if (field.equals("m_fn0")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_fn0 = ((haxor.math.Vector4) (value) );
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 101581:
-				{
-					if (field.equals("fov")) 
-					{
-						__temp_executeDef164676 = false;
-						this.set_fov(((double) (haxe.lang.Runtime.toDouble(value)) ));
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 588326199:
-				{
-					if (field.equals("m_proj_uniform_dirty")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_proj_uniform_dirty = haxe.lang.Runtime.toBool(value);
-						return value;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595515:
-				{
-					if (field.equals("m_fov")) 
-					{
-						__temp_executeDef164676 = false;
-						this.m_fov = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
 					
@@ -1194,7 +974,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_view_uniform_dirty")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_view_uniform_dirty = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -1203,12 +983,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 3377192:
+				case -1332194002:
 				{
-					if (field.equals("near")) 
+					if (field.equals("background")) 
 					{
-						__temp_executeDef164676 = false;
-						this.set_near(((double) (haxe.lang.Runtime.toDouble(value)) ));
+						__temp_executeDef255870 = false;
+						this.background = ((haxor.math.Color) (value) );
 						return value;
 					}
 					
@@ -1220,7 +1000,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_projection_dirty")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_projection_dirty = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -1229,12 +1009,38 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1083278150:
+				case -900095734:
 				{
-					if (field.equals("m_near")) 
+					if (field.equals("skybox")) 
 					{
-						__temp_executeDef164676 = false;
-						this.m_near = ((double) (haxe.lang.Runtime.toDouble(value)) );
+						__temp_executeDef255870 = false;
+						this.skybox = ((haxor.graphics.texture.TextureCube) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -1969372272:
+				{
+					if (field.equals("m_frustum")) 
+					{
+						__temp_executeDef255870 = false;
+						this.m_frustum = ((haxe.root.Array<haxor.math.Vector4>) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 94746189:
+				{
+					if (field.equals("clear")) 
+					{
+						__temp_executeDef255870 = false;
+						this.clear = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
 					
@@ -1246,7 +1052,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_filters")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_filters = ((haxe.root.Array) (value) );
 						return value;
 					}
@@ -1255,12 +1061,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 101143:
+				case 3344108:
 				{
-					if (field.equals("far")) 
+					if (field.equals("mask")) 
 					{
-						__temp_executeDef164676 = false;
-						this.set_far(((double) (haxe.lang.Runtime.toDouble(value)) ));
+						__temp_executeDef255870 = false;
+						this.set_mask(((int) (haxe.lang.Runtime.toInt(value)) ));
 						return value;
 					}
 					
@@ -1272,7 +1078,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("filters")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.set_filters(((haxe.root.Array) (value) ));
 						return value;
 					}
@@ -1281,12 +1087,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 103595077:
+				case -1083311234:
 				{
-					if (field.equals("m_far")) 
+					if (field.equals("m_mask")) 
 					{
-						__temp_executeDef164676 = false;
-						this.m_far = ((double) (haxe.lang.Runtime.toDouble(value)) );
+						__temp_executeDef255870 = false;
+						this.m_mask = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
 					
@@ -1298,7 +1104,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_captureDepth")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_captureDepth = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -1307,12 +1113,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 106006350:
+				case -1708462764:
 				{
-					if (field.equals("order")) 
+					if (field.equals("m_layers")) 
 					{
-						__temp_executeDef164676 = false;
-						this.set_order(((int) (haxe.lang.Runtime.toInt(value)) ));
+						__temp_executeDef255870 = false;
+						this.m_layers = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
 					
@@ -1324,7 +1130,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("captureDepth")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.set_captureDepth(haxe.lang.Runtime.toBool(value));
 						return value;
 					}
@@ -1333,12 +1139,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 779429116:
+				case 101581:
 				{
-					if (field.equals("m_order")) 
+					if (field.equals("fov")) 
 					{
-						__temp_executeDef164676 = false;
-						this.m_order = ((int) (haxe.lang.Runtime.toInt(value)) );
+						__temp_executeDef255870 = false;
+						this.set_fov(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
 					
@@ -1350,7 +1156,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_quality")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_quality = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -1359,12 +1165,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1725671174:
+				case 103595515:
 				{
-					if (field.equals("m_pixelViewport")) 
+					if (field.equals("m_fov")) 
 					{
-						__temp_executeDef164676 = false;
-						this.m_pixelViewport = ((haxor.math.AABB2) (value) );
+						__temp_executeDef255870 = false;
+						this.m_fov = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
 					
@@ -1376,7 +1182,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("quality")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.set_quality(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -1385,12 +1191,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 1196685478:
+				case 3377192:
 				{
-					if (field.equals("viewport")) 
+					if (field.equals("near")) 
 					{
-						__temp_executeDef164676 = false;
-						this.set_viewport(((haxor.math.AABB2) (value) ));
+						__temp_executeDef255870 = false;
+						this.set_near(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
 					
@@ -1402,7 +1208,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_target")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_target = ((haxor.graphics.texture.RenderTexture) (value) );
 						return value;
 					}
@@ -1411,12 +1217,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -2007028630:
+				case -1083278150:
 				{
-					if (field.equals("m_aspect")) 
+					if (field.equals("m_near")) 
 					{
-						__temp_executeDef164676 = false;
-						this.m_aspect = ((double) (haxe.lang.Runtime.toDouble(value)) );
+						__temp_executeDef255870 = false;
+						this.m_near = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
 					
@@ -1428,7 +1234,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.target = ((haxor.graphics.texture.RenderTexture) (value) );
 						return value;
 					}
@@ -1437,12 +1243,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 1342067768:
+				case 101143:
 				{
-					if (field.equals("m_viewport")) 
+					if (field.equals("far")) 
 					{
-						__temp_executeDef164676 = false;
-						this.m_viewport = ((haxor.math.AABB2) (value) );
+						__temp_executeDef255870 = false;
+						this.set_far(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
 					
@@ -1454,7 +1260,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_skyboxProjectionInverse")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_skyboxProjectionInverse = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -1463,12 +1269,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1649208622:
+				case 103595077:
 				{
-					if (field.equals("CameraToWorld")) 
+					if (field.equals("m_far")) 
 					{
-						__temp_executeDef164676 = false;
-						this.CameraToWorld = ((haxor.math.Matrix4) (value) );
+						__temp_executeDef255870 = false;
+						this.m_far = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
 					
@@ -1480,7 +1286,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_projectionMatrixInverse")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_projectionMatrixInverse = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -1489,12 +1295,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 699511570:
+				case 106006350:
 				{
-					if (field.equals("WorldToCamera")) 
+					if (field.equals("order")) 
 					{
-						__temp_executeDef164676 = false;
-						this.WorldToCamera = ((haxor.math.Matrix4) (value) );
+						__temp_executeDef255870 = false;
+						this.set_order(((int) (haxe.lang.Runtime.toInt(value)) ));
 						return value;
 					}
 					
@@ -1506,7 +1312,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("ProjectionMatrixInverse")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.ProjectionMatrixInverse = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -1515,12 +1321,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1609016560:
+				case 779429116:
 				{
-					if (field.equals("ProjectionMatrix")) 
+					if (field.equals("m_order")) 
 					{
-						__temp_executeDef164676 = false;
-						this.ProjectionMatrix = ((haxor.math.Matrix4) (value) );
+						__temp_executeDef255870 = false;
+						this.m_order = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
 					
@@ -1532,8 +1338,21 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_skyboxProjection")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_skyboxProjection = ((haxor.math.Matrix4) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -1725671174:
+				{
+					if (field.equals("m_pixelViewport")) 
+					{
+						__temp_executeDef255870 = false;
+						this.m_pixelViewport = ((haxor.math.AABB2) (value) );
 						return value;
 					}
 					
@@ -1545,8 +1364,86 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_projectionMatrix")) 
 					{
-						__temp_executeDef164676 = false;
+						__temp_executeDef255870 = false;
 						this.m_projectionMatrix = ((haxor.math.Matrix4) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 1196685478:
+				{
+					if (field.equals("viewport")) 
+					{
+						__temp_executeDef255870 = false;
+						this.set_viewport(((haxor.math.AABB2) (value) ));
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -1609016560:
+				{
+					if (field.equals("ProjectionMatrix")) 
+					{
+						__temp_executeDef255870 = false;
+						this.ProjectionMatrix = ((haxor.math.Matrix4) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -2007028630:
+				{
+					if (field.equals("m_aspect")) 
+					{
+						__temp_executeDef255870 = false;
+						this.m_aspect = ((double) (haxe.lang.Runtime.toDouble(value)) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 699511570:
+				{
+					if (field.equals("WorldToCamera")) 
+					{
+						__temp_executeDef255870 = false;
+						this.WorldToCamera = ((haxor.math.Matrix4) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case 1342067768:
+				{
+					if (field.equals("m_viewport")) 
+					{
+						__temp_executeDef255870 = false;
+						this.m_viewport = ((haxor.math.AABB2) (value) );
+						return value;
+					}
+					
+					break;
+				}
+				
+				
+				case -1649208622:
+				{
+					if (field.equals("CameraToWorld")) 
+					{
+						__temp_executeDef255870 = false;
+						this.CameraToWorld = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
 					
@@ -1556,7 +1453,7 @@ public  class Camera extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef164676) 
+			if (__temp_executeDef255870) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -1573,14 +1470,14 @@ public  class Camera extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164677 = true;
+			boolean __temp_executeDef255871 = true;
 			switch (field.hashCode())
 			{
 				case 602652923:
 				{
 					if (field.equals("OnDestroy")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnDestroy"))) );
 					}
 					
@@ -1592,7 +1489,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("__fcid")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.__fcid;
 					}
 					
@@ -1604,7 +1501,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("OnTransformUpdate")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnTransformUpdate"))) );
 					}
 					
@@ -1616,7 +1513,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("background")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.background;
 					}
 					
@@ -1628,7 +1525,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("UpdateProjection")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("UpdateProjection"))) );
 					}
 					
@@ -1640,7 +1537,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("skybox")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.skybox;
 					}
 					
@@ -1652,7 +1549,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("LookAt")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("LookAt"))) );
 					}
 					
@@ -1664,7 +1561,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("clear")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.clear;
 					}
 					
@@ -1676,7 +1573,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("IsCulled")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("IsCulled"))) );
 					}
 					
@@ -1688,7 +1585,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("mask")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.get_mask();
 					}
 					
@@ -1700,7 +1597,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("WorldToDepth")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("WorldToDepth"))) );
 					}
 					
@@ -1712,7 +1609,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_mask")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_mask"))) );
 					}
 					
@@ -1724,7 +1621,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("WorldToProjection")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("WorldToProjection"))) );
 					}
 					
@@ -1736,7 +1633,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_mask")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_mask"))) );
 					}
 					
@@ -1748,7 +1645,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("OnBuild")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnBuild"))) );
 					}
 					
@@ -1760,200 +1657,8 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_mask")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_mask;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595169:
-				{
-					if (field.equals("m_ff3")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_ff3;
-					}
-					
-					break;
-				}
-				
-				
-				case -1708462764:
-				{
-					if (field.equals("m_layers")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_layers;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595168:
-				{
-					if (field.equals("m_ff2")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_ff2;
-					}
-					
-					break;
-				}
-				
-				
-				case 101581:
-				{
-					if (field.equals("fov")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.get_fov();
-					}
-					
-					break;
-				}
-				
-				
-				case 103595167:
-				{
-					if (field.equals("m_ff1")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_ff1;
-					}
-					
-					break;
-				}
-				
-				
-				case -74796956:
-				{
-					if (field.equals("get_fov")) 
-					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_fov"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 103595166:
-				{
-					if (field.equals("m_ff0")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_ff0;
-					}
-					
-					break;
-				}
-				
-				
-				case 1985312624:
-				{
-					if (field.equals("set_fov")) 
-					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_fov"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 103595417:
-				{
-					if (field.equals("m_fn3")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_fn3;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595515:
-				{
-					if (field.equals("m_fov")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_fov;
-					}
-					
-					break;
-				}
-				
-				
-				case 103595416:
-				{
-					if (field.equals("m_fn2")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_fn2;
-					}
-					
-					break;
-				}
-				
-				
-				case 3377192:
-				{
-					if (field.equals("near")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.get_near();
-					}
-					
-					break;
-				}
-				
-				
-				case 103595415:
-				{
-					if (field.equals("m_fn1")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_fn1;
-					}
-					
-					break;
-				}
-				
-				
-				case 1976489841:
-				{
-					if (field.equals("get_near")) 
-					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_near"))) );
-					}
-					
-					break;
-				}
-				
-				
-				case 103595414:
-				{
-					if (field.equals("m_fn0")) 
-					{
-						__temp_executeDef164677 = false;
-						return this.m_fn0;
-					}
-					
-					break;
-				}
-				
-				
-				case 1415377381:
-				{
-					if (field.equals("set_near")) 
-					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_near"))) );
 					}
 					
 					break;
@@ -1964,7 +1669,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_proj_uniform_dirty")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_proj_uniform_dirty;
 					}
 					
@@ -1972,12 +1677,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1083278150:
+				case -1708462764:
 				{
-					if (field.equals("m_near")) 
+					if (field.equals("m_layers")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.m_near;
+						__temp_executeDef255871 = false;
+						return this.m_layers;
 					}
 					
 					break;
@@ -1988,7 +1693,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_view_uniform_dirty")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_view_uniform_dirty;
 					}
 					
@@ -1996,12 +1701,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 101143:
+				case 101581:
 				{
-					if (field.equals("far")) 
+					if (field.equals("fov")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.get_far();
+						__temp_executeDef255871 = false;
+						return this.get_fov();
 					}
 					
 					break;
@@ -2012,7 +1717,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_projection_dirty")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_projection_dirty;
 					}
 					
@@ -2020,12 +1725,84 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -74797394:
+				case -74796956:
 				{
-					if (field.equals("get_far")) 
+					if (field.equals("get_fov")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_far"))) );
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_fov"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1969372272:
+				{
+					if (field.equals("m_frustum")) 
+					{
+						__temp_executeDef255871 = false;
+						return this.m_frustum;
+					}
+					
+					break;
+				}
+				
+				
+				case 1985312624:
+				{
+					if (field.equals("set_fov")) 
+					{
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_fov"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -512075399:
+				{
+					if (field.equals("get_frustum")) 
+					{
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_frustum"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 103595515:
+				{
+					if (field.equals("m_fov")) 
+					{
+						__temp_executeDef255871 = false;
+						return this.m_fov;
+					}
+					
+					break;
+				}
+				
+				
+				case -588588702:
+				{
+					if (field.equals("frustum")) 
+					{
+						__temp_executeDef255871 = false;
+						return this.get_frustum();
+					}
+					
+					break;
+				}
+				
+				
+				case 3377192:
+				{
+					if (field.equals("near")) 
+					{
+						__temp_executeDef255871 = false;
+						return this.get_near();
 					}
 					
 					break;
@@ -2036,7 +1813,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_filters")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_filters;
 					}
 					
@@ -2044,12 +1821,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 1985312186:
+				case 1976489841:
 				{
-					if (field.equals("set_far")) 
+					if (field.equals("get_near")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_far"))) );
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_near"))) );
 					}
 					
 					break;
@@ -2060,7 +1837,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_filters")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_filters"))) );
 					}
 					
@@ -2068,12 +1845,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 103595077:
+				case 1415377381:
 				{
-					if (field.equals("m_far")) 
+					if (field.equals("set_near")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.m_far;
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_near"))) );
 					}
 					
 					break;
@@ -2084,7 +1861,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_filters")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_filters"))) );
 					}
 					
@@ -2092,12 +1869,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 106006350:
+				case -1083278150:
 				{
-					if (field.equals("order")) 
+					if (field.equals("m_near")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.get_order();
+						__temp_executeDef255871 = false;
+						return this.m_near;
 					}
 					
 					break;
@@ -2108,7 +1885,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("filters")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.get_filters();
 					}
 					
@@ -2116,12 +1893,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 779429116:
+				case 101143:
 				{
-					if (field.equals("m_order")) 
+					if (field.equals("far")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.m_order;
+						__temp_executeDef255871 = false;
+						return this.get_far();
 					}
 					
 					break;
@@ -2132,7 +1909,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_captureDepth")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_captureDepth;
 					}
 					
@@ -2140,12 +1917,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 1142956325:
+				case -74797394:
 				{
-					if (field.equals("get_order")) 
+					if (field.equals("get_far")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_order"))) );
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_far"))) );
 					}
 					
 					break;
@@ -2156,7 +1933,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_captureDepth")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_captureDepth"))) );
 					}
 					
@@ -2164,12 +1941,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 928339249:
+				case 1985312186:
 				{
-					if (field.equals("set_order")) 
+					if (field.equals("set_far")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_order"))) );
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_far"))) );
 					}
 					
 					break;
@@ -2180,7 +1957,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_captureDepth")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_captureDepth"))) );
 					}
 					
@@ -2188,12 +1965,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -2056631988:
+				case 103595077:
 				{
-					if (field.equals("pixelViewport")) 
+					if (field.equals("m_far")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.get_pixelViewport();
+						__temp_executeDef255871 = false;
+						return this.m_far;
 					}
 					
 					break;
@@ -2204,7 +1981,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("captureDepth")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.get_captureDepth();
 					}
 					
@@ -2212,12 +1989,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -2130109405:
+				case 106006350:
 				{
-					if (field.equals("get_pixelViewport")) 
+					if (field.equals("order")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_pixelViewport"))) );
+						__temp_executeDef255871 = false;
+						return this.get_order();
 					}
 					
 					break;
@@ -2228,7 +2005,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_quality")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_quality;
 					}
 					
@@ -2236,12 +2013,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1725671174:
+				case 779429116:
 				{
-					if (field.equals("m_pixelViewport")) 
+					if (field.equals("m_order")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.m_pixelViewport;
+						__temp_executeDef255871 = false;
+						return this.m_order;
 					}
 					
 					break;
@@ -2252,7 +2029,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_quality")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_quality"))) );
 					}
 					
@@ -2260,12 +2037,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 1196685478:
+				case 1142956325:
 				{
-					if (field.equals("viewport")) 
+					if (field.equals("get_order")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.get_viewport();
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_order"))) );
 					}
 					
 					break;
@@ -2276,7 +2053,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_quality")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_quality"))) );
 					}
 					
@@ -2284,12 +2061,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -726369425:
+				case 928339249:
 				{
-					if (field.equals("get_viewport")) 
+					if (field.equals("set_order")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_viewport"))) );
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_order"))) );
 					}
 					
 					break;
@@ -2300,7 +2077,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("quality")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.get_quality();
 					}
 					
@@ -2308,12 +2085,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 822623203:
+				case -2056631988:
 				{
-					if (field.equals("set_viewport")) 
+					if (field.equals("pixelViewport")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_viewport"))) );
+						__temp_executeDef255871 = false;
+						return this.get_pixelViewport();
 					}
 					
 					break;
@@ -2324,7 +2101,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_target")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_target;
 					}
 					
@@ -2332,12 +2109,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -2007028630:
+				case -2130109405:
 				{
-					if (field.equals("m_aspect")) 
+					if (field.equals("get_pixelViewport")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.m_aspect;
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_pixelViewport"))) );
 					}
 					
 					break;
@@ -2348,7 +2125,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_target")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_target"))) );
 					}
 					
@@ -2356,12 +2133,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 1342067768:
+				case -1725671174:
 				{
-					if (field.equals("m_viewport")) 
+					if (field.equals("m_pixelViewport")) 
 					{
-						__temp_executeDef164677 = false;
-						return this.m_viewport;
+						__temp_executeDef255871 = false;
+						return this.m_pixelViewport;
 					}
 					
 					break;
@@ -2372,7 +2149,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_target")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_target"))) );
 					}
 					
@@ -2380,20 +2157,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1649208622:
+				case 1196685478:
 				{
-					if (field.equals("CameraToWorld")) 
+					if (field.equals("viewport")) 
 					{
-						__temp_executeDef164677 = false;
-						if (handleProperties) 
-						{
-							return this.get_CameraToWorld();
-						}
-						 else 
-						{
-							return this.CameraToWorld;
-						}
-						
+						__temp_executeDef255871 = false;
+						return this.get_viewport();
 					}
 					
 					break;
@@ -2404,7 +2173,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("target")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.target;
 					}
 					
@@ -2412,12 +2181,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1722686039:
+				case -726369425:
 				{
-					if (field.equals("get_CameraToWorld")) 
+					if (field.equals("get_viewport")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_CameraToWorld"))) );
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_viewport"))) );
 					}
 					
 					break;
@@ -2428,7 +2197,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_skyboxProjectionInverse")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_skyboxProjectionInverse;
 					}
 					
@@ -2436,20 +2205,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 699511570:
+				case 822623203:
 				{
-					if (field.equals("WorldToCamera")) 
+					if (field.equals("set_viewport")) 
 					{
-						__temp_executeDef164677 = false;
-						if (handleProperties) 
-						{
-							return this.get_WorldToCamera();
-						}
-						 else 
-						{
-							return this.WorldToCamera;
-						}
-						
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_viewport"))) );
 					}
 					
 					break;
@@ -2460,7 +2221,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_projectionMatrixInverse")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_projectionMatrixInverse;
 					}
 					
@@ -2468,12 +2229,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 626034153:
+				case -2007028630:
 				{
-					if (field.equals("get_WorldToCamera")) 
+					if (field.equals("m_aspect")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_WorldToCamera"))) );
+						__temp_executeDef255871 = false;
+						return this.m_aspect;
 					}
 					
 					break;
@@ -2484,7 +2245,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_ProjectionMatrixInverse")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_ProjectionMatrixInverse"))) );
 					}
 					
@@ -2492,20 +2253,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1609016560:
+				case 1342067768:
 				{
-					if (field.equals("ProjectionMatrix")) 
+					if (field.equals("m_viewport")) 
 					{
-						__temp_executeDef164677 = false;
-						if (handleProperties) 
-						{
-							return this.get_ProjectionMatrix();
-						}
-						 else 
-						{
-							return this.ProjectionMatrix;
-						}
-						
+						__temp_executeDef255871 = false;
+						return this.m_viewport;
 					}
 					
 					break;
@@ -2516,7 +2269,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("ProjectionMatrixInverse")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						if (handleProperties) 
 						{
 							return this.get_ProjectionMatrixInverse();
@@ -2532,12 +2285,20 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -141425447:
+				case -1649208622:
 				{
-					if (field.equals("get_ProjectionMatrix")) 
+					if (field.equals("CameraToWorld")) 
 					{
-						__temp_executeDef164677 = false;
-						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_ProjectionMatrix"))) );
+						__temp_executeDef255871 = false;
+						if (handleProperties) 
+						{
+							return this.get_CameraToWorld();
+						}
+						 else 
+						{
+							return this.CameraToWorld;
+						}
+						
 					}
 					
 					break;
@@ -2548,8 +2309,20 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_skyboxProjection")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_skyboxProjection;
+					}
+					
+					break;
+				}
+				
+				
+				case -1722686039:
+				{
+					if (field.equals("get_CameraToWorld")) 
+					{
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_CameraToWorld"))) );
 					}
 					
 					break;
@@ -2560,8 +2333,72 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_projectionMatrix")) 
 					{
-						__temp_executeDef164677 = false;
+						__temp_executeDef255871 = false;
 						return this.m_projectionMatrix;
+					}
+					
+					break;
+				}
+				
+				
+				case 699511570:
+				{
+					if (field.equals("WorldToCamera")) 
+					{
+						__temp_executeDef255871 = false;
+						if (handleProperties) 
+						{
+							return this.get_WorldToCamera();
+						}
+						 else 
+						{
+							return this.WorldToCamera;
+						}
+						
+					}
+					
+					break;
+				}
+				
+				
+				case -141425447:
+				{
+					if (field.equals("get_ProjectionMatrix")) 
+					{
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_ProjectionMatrix"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case 626034153:
+				{
+					if (field.equals("get_WorldToCamera")) 
+					{
+						__temp_executeDef255871 = false;
+						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_WorldToCamera"))) );
+					}
+					
+					break;
+				}
+				
+				
+				case -1609016560:
+				{
+					if (field.equals("ProjectionMatrix")) 
+					{
+						__temp_executeDef255871 = false;
+						if (handleProperties) 
+						{
+							return this.get_ProjectionMatrix();
+						}
+						 else 
+						{
+							return this.ProjectionMatrix;
+						}
+						
 					}
 					
 					break;
@@ -2570,7 +2407,7 @@ public  class Camera extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef164677) 
+			if (__temp_executeDef255871) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -2587,14 +2424,14 @@ public  class Camera extends haxor.component.Behaviour
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164678 = true;
+			boolean __temp_executeDef255872 = true;
 			switch (field.hashCode())
 			{
 				case -729568467:
 				{
 					if (field.equals("m_quality")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return this.m_quality;
 					}
 					
@@ -2606,7 +2443,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("__fcid")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return ((double) (this.__fcid) );
 					}
 					
@@ -2618,7 +2455,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("quality")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return this.get_quality();
 					}
 					
@@ -2630,7 +2467,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("clear")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return ((double) (this.clear) );
 					}
 					
@@ -2642,7 +2479,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_aspect")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return this.m_aspect;
 					}
 					
@@ -2654,7 +2491,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("mask")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return ((double) (this.get_mask()) );
 					}
 					
@@ -2666,7 +2503,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_order")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return ((double) (this.m_order) );
 					}
 					
@@ -2678,7 +2515,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_mask")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return ((double) (this.m_mask) );
 					}
 					
@@ -2690,7 +2527,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("order")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return ((double) (this.get_order()) );
 					}
 					
@@ -2702,7 +2539,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("fov")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return this.get_fov();
 					}
 					
@@ -2714,7 +2551,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_far")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return this.m_far;
 					}
 					
@@ -2726,7 +2563,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_fov")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return this.m_fov;
 					}
 					
@@ -2738,7 +2575,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("far")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return this.get_far();
 					}
 					
@@ -2750,7 +2587,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("near")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return this.get_near();
 					}
 					
@@ -2762,7 +2599,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("m_near")) 
 					{
-						__temp_executeDef164678 = false;
+						__temp_executeDef255872 = false;
 						return this.m_near;
 					}
 					
@@ -2772,7 +2609,7 @@ public  class Camera extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef164678) 
+			if (__temp_executeDef255872) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -2789,15 +2626,15 @@ public  class Camera extends haxor.component.Behaviour
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash164680 = field.hashCode();
-			boolean __temp_executeDef164679 = true;
-			switch (__temp_hash164680)
+			int __temp_hash255874 = field.hashCode();
+			boolean __temp_executeDef255873 = true;
+			switch (__temp_hash255874)
 			{
 				case 602652923:case 1899224918:case 312095663:
 				{
-					if (( (( ( __temp_hash164680 == 602652923 ) && field.equals("OnDestroy") )) || ( (( ( __temp_hash164680 == 1899224918 ) && field.equals("OnTransformUpdate") )) || field.equals("OnBuild") ) )) 
+					if (( (( ( __temp_hash255874 == 602652923 ) && field.equals("OnDestroy") )) || ( (( ( __temp_hash255874 == 1899224918 ) && field.equals("OnTransformUpdate") )) || field.equals("OnBuild") ) )) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -2809,7 +2646,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_mask")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_mask();
 					}
 					
@@ -2821,7 +2658,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("UpdateProjection")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						this.UpdateProjection();
 					}
 					
@@ -2833,7 +2670,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_mask")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.set_mask(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -2845,7 +2682,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("LookAt")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						this.LookAt(((haxor.math.Vector3) (dynargs.__get(0)) ), ((haxor.math.Vector3) (dynargs.__get(1)) ), dynargs.__get(2));
 					}
 					
@@ -2857,7 +2694,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_fov")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_fov();
 					}
 					
@@ -2869,7 +2706,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("IsCulled")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.IsCulled(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2881,7 +2718,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_fov")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.set_fov(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2893,7 +2730,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("WorldToDepth")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.WorldToDepth(((haxor.math.Vector3) (dynargs.__get(0)) ));
 					}
 					
@@ -2905,7 +2742,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_near")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_near();
 					}
 					
@@ -2917,7 +2754,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("WorldToProjection")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.WorldToProjection(((haxor.math.Vector3) (dynargs.__get(0)) ), ((haxor.math.Vector4) (dynargs.__get(1)) ));
 					}
 					
@@ -2929,7 +2766,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_near")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.set_near(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2937,12 +2774,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -866613986:
+				case -512075399:
 				{
-					if (field.equals("set_filters")) 
+					if (field.equals("get_frustum")) 
 					{
-						__temp_executeDef164679 = false;
-						return this.set_filters(((haxe.root.Array) (dynargs.__get(0)) ));
+						__temp_executeDef255873 = false;
+						return this.get_frustum();
 					}
 					
 					break;
@@ -2953,7 +2790,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_far")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_far();
 					}
 					
@@ -2961,12 +2798,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -778034158:
+				case -866613986:
 				{
-					if (field.equals("get_filters")) 
+					if (field.equals("set_filters")) 
 					{
-						__temp_executeDef164679 = false;
-						return this.get_filters();
+						__temp_executeDef255873 = false;
+						return this.set_filters(((haxe.root.Array) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -2977,7 +2814,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_far")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.set_far(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -2985,12 +2822,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -815002662:
+				case -778034158:
 				{
-					if (field.equals("set_captureDepth")) 
+					if (field.equals("get_filters")) 
 					{
-						__temp_executeDef164679 = false;
-						return this.set_captureDepth(haxe.lang.Runtime.toBool(dynargs.__get(0)));
+						__temp_executeDef255873 = false;
+						return this.get_filters();
 					}
 					
 					break;
@@ -3001,7 +2838,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_order")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_order();
 					}
 					
@@ -3009,12 +2846,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 1016440166:
+				case -815002662:
 				{
-					if (field.equals("get_captureDepth")) 
+					if (field.equals("set_captureDepth")) 
 					{
-						__temp_executeDef164679 = false;
-						return this.get_captureDepth();
+						__temp_executeDef255873 = false;
+						return this.set_captureDepth(haxe.lang.Runtime.toBool(dynargs.__get(0)));
 					}
 					
 					break;
@@ -3025,7 +2862,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_order")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.set_order(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -3033,12 +2870,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 639148578:
+				case 1016440166:
 				{
-					if (field.equals("set_quality")) 
+					if (field.equals("get_captureDepth")) 
 					{
-						__temp_executeDef164679 = false;
-						return this.set_quality(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
+						__temp_executeDef255873 = false;
+						return this.get_captureDepth();
 					}
 					
 					break;
@@ -3049,7 +2886,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_pixelViewport")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_pixelViewport();
 					}
 					
@@ -3057,12 +2894,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 727728406:
+				case 639148578:
 				{
-					if (field.equals("get_quality")) 
+					if (field.equals("set_quality")) 
 					{
-						__temp_executeDef164679 = false;
-						return this.get_quality();
+						__temp_executeDef255873 = false;
+						return this.set_quality(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
 					break;
@@ -3073,7 +2910,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_viewport")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_viewport();
 					}
 					
@@ -3081,12 +2918,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case -1158389746:
+				case 727728406:
 				{
-					if (field.equals("set_target")) 
+					if (field.equals("get_quality")) 
 					{
-						__temp_executeDef164679 = false;
-						return this.set_target(((haxor.graphics.texture.RenderTexture) (dynargs.__get(0)) ));
+						__temp_executeDef255873 = false;
+						return this.get_quality();
 					}
 					
 					break;
@@ -3097,7 +2934,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("set_viewport")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.set_viewport(((haxor.math.AABB2) (dynargs.__get(0)) ));
 					}
 					
@@ -3105,12 +2942,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 1199772314:
+				case -1158389746:
 				{
-					if (field.equals("get_target")) 
+					if (field.equals("set_target")) 
 					{
-						__temp_executeDef164679 = false;
-						return this.get_target();
+						__temp_executeDef255873 = false;
+						return this.set_target(((haxor.graphics.texture.RenderTexture) (dynargs.__get(0)) ));
 					}
 					
 					break;
@@ -3121,7 +2958,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_CameraToWorld")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_CameraToWorld();
 					}
 					
@@ -3129,12 +2966,12 @@ public  class Camera extends haxor.component.Behaviour
 				}
 				
 				
-				case 717944855:
+				case 1199772314:
 				{
-					if (field.equals("get_ProjectionMatrixInverse")) 
+					if (field.equals("get_target")) 
 					{
-						__temp_executeDef164679 = false;
-						return this.get_ProjectionMatrixInverse();
+						__temp_executeDef255873 = false;
+						return this.get_target();
 					}
 					
 					break;
@@ -3145,8 +2982,20 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_WorldToCamera")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_WorldToCamera();
+					}
+					
+					break;
+				}
+				
+				
+				case 717944855:
+				{
+					if (field.equals("get_ProjectionMatrixInverse")) 
+					{
+						__temp_executeDef255873 = false;
+						return this.get_ProjectionMatrixInverse();
 					}
 					
 					break;
@@ -3157,7 +3006,7 @@ public  class Camera extends haxor.component.Behaviour
 				{
 					if (field.equals("get_ProjectionMatrix")) 
 					{
-						__temp_executeDef164679 = false;
+						__temp_executeDef255873 = false;
 						return this.get_ProjectionMatrix();
 					}
 					
@@ -3167,7 +3016,7 @@ public  class Camera extends haxor.component.Behaviour
 				
 			}
 			
-			if (__temp_executeDef164679) 
+			if (__temp_executeDef255873) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}
@@ -3180,17 +3029,11 @@ public  class Camera extends haxor.component.Behaviour
 	
 	@Override public   void __hx_getFields(haxe.root.Array<java.lang.String> baseArr)
 	{
-		baseArr.push("m_ff3");
-		baseArr.push("m_ff2");
-		baseArr.push("m_ff1");
-		baseArr.push("m_ff0");
-		baseArr.push("m_fn3");
-		baseArr.push("m_fn2");
-		baseArr.push("m_fn1");
-		baseArr.push("m_fn0");
 		baseArr.push("m_proj_uniform_dirty");
 		baseArr.push("m_view_uniform_dirty");
 		baseArr.push("m_projection_dirty");
+		baseArr.push("m_frustum");
+		baseArr.push("frustum");
 		baseArr.push("m_filters");
 		baseArr.push("filters");
 		baseArr.push("m_captureDepth");

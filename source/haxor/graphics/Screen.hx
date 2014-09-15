@@ -3,6 +3,7 @@ package haxor.graphics;
 
 import haxor.core.BaseApplication;
 import haxor.graphics.Screen.CursorMode;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that handles screen related data and functionalities.
@@ -15,16 +16,16 @@ class Screen
 	/**
 	 * Screen width of the application rendering area.
 	 */
-	static public var width(get_width, null):Float;
-	static private inline function get_width():Float { return m_width; }
-	static private var m_width:Float;
+	static public var width(get_width, null):Float32;
+	static private inline function get_width():Float32{ return m_width; }
+	static private var m_width:Float32;
 	
 	/**
 	 * Screen width of the application rendering area.
 	 */
-	static public var height(get_height, null):Float;
-	static private inline function get_height():Float { return m_height; }
-	static private var m_height:Float;
+	static public var height(get_height, null):Float32;
+	static private inline function get_height():Float32{ return m_height; }
+	static private var m_height:Float32;
 	
 	/**
 	 * Fullscreen flag.

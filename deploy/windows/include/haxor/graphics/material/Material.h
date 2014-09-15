@@ -69,7 +69,7 @@ class HXCPP_CLASS_ATTRIBUTES  Material_obj : public ::haxor::core::Resource_obj{
 		virtual Void SetTexture( ::String p_name,::haxor::graphics::texture::Texture p_texture);
 		Dynamic SetTexture_dyn();
 
-		virtual Void SetMatrix4( ::String p_name,::haxor::math::Matrix4 p_matrix4);
+		virtual Void SetMatrix4( ::String p_name,::haxor::math::Matrix4 p_matrix4,hx::Null< bool >  p_transpose);
 		Dynamic SetMatrix4_dyn();
 
 		virtual Void SetVector2( ::String p_name,::haxor::math::Vector2 p_v);
@@ -145,6 +145,9 @@ class HXCPP_CLASS_ATTRIBUTES  Material_obj : public ::haxor::core::Resource_obj{
 		Dynamic FetchUniform_dyn();
 
 		virtual Void OnDestroy( );
+
+		static ::haxor::graphics::material::Material Opaque( ::haxor::graphics::texture::Texture p_texture,hx::Null< bool >  p_ztest,hx::Null< bool >  p_zwrite);
+		static Dynamic Opaque_dyn();
 
 		static ::haxor::graphics::material::Material Transparent( ::haxor::graphics::texture::Texture p_texture,hx::Null< bool >  p_ztest,hx::Null< bool >  p_zwrite,hx::Null< bool >  p_double_sided);
 		static Dynamic Transparent_dyn();

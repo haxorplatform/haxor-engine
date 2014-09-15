@@ -21,12 +21,12 @@ namespace mesh{
 
 Void Mesh2_obj::__construct(::String __o_p_name)
 {
-HX_STACK_FRAME("haxor.graphics.mesh.Mesh2","new",0x67dec54d,"haxor.graphics.mesh.Mesh2.new","haxor/graphics/mesh/MeshLayout.hx",160,0x92e5291c)
+HX_STACK_FRAME("haxor.graphics.mesh.Mesh2","new",0x67dec54d,"haxor.graphics.mesh.Mesh2.new","haxor/graphics/mesh/MeshLayout.hx",165,0x92e5291c)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_name,"p_name")
 ::String p_name = __o_p_name.Default(HX_CSTRING(""));
 {
-	HX_STACK_LINE(160)
+	HX_STACK_LINE(165)
 	super::__construct(p_name);
 }
 ;

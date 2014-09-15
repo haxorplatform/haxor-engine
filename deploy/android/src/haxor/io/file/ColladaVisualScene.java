@@ -18,13 +18,13 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaVisualScene(haxor.io.file.ColladaVisualScene __temp_me164329)
+	public static   void __hx_ctor_haxor_io_file_ColladaVisualScene(haxor.io.file.ColladaVisualScene __temp_me255527)
 	{
-		__temp_me164329.children = null;
-		__temp_me164329.name = "";
-		__temp_me164329.id = "";
-		__temp_me164329.type = "";
-		__temp_me164329.children = new haxe.root.Array<haxor.io.file.ColladaNode>(new haxor.io.file.ColladaNode[]{});
+		__temp_me255527.children = null;
+		__temp_me255527.name = "";
+		__temp_me255527.id = "";
+		__temp_me255527.type = "";
+		__temp_me255527.children = new haxe.root.Array<haxor.io.file.ColladaNode>(new haxor.io.file.ColladaNode[]{});
 	}
 	
 	
@@ -85,14 +85,14 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165125 = true;
+			boolean __temp_executeDef256317 = true;
 			switch (field.hashCode())
 			{
 				case 1659526655:
 				{
 					if (field.equals("children")) 
 					{
-						__temp_executeDef165125 = false;
+						__temp_executeDef256317 = false;
 						this.children = ((haxe.root.Array<haxor.io.file.ColladaNode>) (value) );
 						return value;
 					}
@@ -105,7 +105,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef165125 = false;
+						__temp_executeDef256317 = false;
 						this.type = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -118,7 +118,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef165125 = false;
+						__temp_executeDef256317 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -131,7 +131,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef165125 = false;
+						__temp_executeDef256317 = false;
 						this.id = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -142,7 +142,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165125) 
+			if (__temp_executeDef256317) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -159,14 +159,14 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165126 = true;
+			boolean __temp_executeDef256318 = true;
 			switch (field.hashCode())
 			{
 				case 265423742:
 				{
 					if (field.equals("TraverseStep")) 
 					{
-						__temp_executeDef165126 = false;
+						__temp_executeDef256318 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TraverseStep"))) );
 					}
 					
@@ -178,7 +178,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef165126 = false;
+						__temp_executeDef256318 = false;
 						return this.type;
 					}
 					
@@ -190,7 +190,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				{
 					if (field.equals("Traverse")) 
 					{
-						__temp_executeDef165126 = false;
+						__temp_executeDef256318 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Traverse"))) );
 					}
 					
@@ -202,7 +202,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef165126 = false;
+						__temp_executeDef256318 = false;
 						return this.id;
 					}
 					
@@ -214,7 +214,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				{
 					if (field.equals("children")) 
 					{
-						__temp_executeDef165126 = false;
+						__temp_executeDef256318 = false;
 						return this.children;
 					}
 					
@@ -226,7 +226,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef165126 = false;
+						__temp_executeDef256318 = false;
 						return this.name;
 					}
 					
@@ -236,7 +236,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165126) 
+			if (__temp_executeDef256318) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -253,14 +253,14 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef165127 = true;
+			boolean __temp_executeDef256319 = true;
 			switch (field.hashCode())
 			{
 				case 265423742:
 				{
 					if (field.equals("TraverseStep")) 
 					{
-						__temp_executeDef165127 = false;
+						__temp_executeDef256319 = false;
 						this.TraverseStep(((haxor.io.file.ColladaNode) (dynargs.__get(0)) ), ((haxe.lang.Function) (dynargs.__get(1)) ));
 					}
 					
@@ -272,7 +272,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				{
 					if (field.equals("Traverse")) 
 					{
-						__temp_executeDef165127 = false;
+						__temp_executeDef256319 = false;
 						this.Traverse(((haxe.lang.Function) (dynargs.__get(0)) ));
 					}
 					
@@ -282,7 +282,7 @@ public  class ColladaVisualScene extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef165127) 
+			if (__temp_executeDef256319) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

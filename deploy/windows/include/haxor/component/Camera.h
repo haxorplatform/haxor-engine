@@ -146,17 +146,13 @@ class HXCPP_CLASS_ATTRIBUTES  Camera_obj : public ::haxor::component::Behaviour_
 		Dynamic set_filters_dyn();
 
 		Dynamic m_filters;
+		virtual Array< ::Dynamic > get_frustum( );
+		Dynamic get_frustum_dyn();
+
+		Array< ::Dynamic > m_frustum;
 		bool m_projection_dirty;
 		bool m_view_uniform_dirty;
 		bool m_proj_uniform_dirty;
-		::haxor::math::Vector4 m_fn0;
-		::haxor::math::Vector4 m_fn1;
-		::haxor::math::Vector4 m_fn2;
-		::haxor::math::Vector4 m_fn3;
-		::haxor::math::Vector4 m_ff0;
-		::haxor::math::Vector4 m_ff1;
-		::haxor::math::Vector4 m_ff2;
-		::haxor::math::Vector4 m_ff3;
 		virtual Void OnBuild( );
 
 		virtual ::haxor::math::Vector4 WorldToProjection( ::haxor::math::Vector3 p_world_point,::haxor::math::Vector4 p_result);
@@ -178,7 +174,6 @@ class HXCPP_CLASS_ATTRIBUTES  Camera_obj : public ::haxor::component::Behaviour_
 
 		virtual Void OnDestroy( );
 
-		static bool sap;
 		static Array< ::Dynamic > get_list( );
 		static Dynamic get_list_dyn();
 

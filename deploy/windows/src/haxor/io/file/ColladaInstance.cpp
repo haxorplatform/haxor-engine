@@ -9,14 +9,14 @@ namespace file{
 
 Void ColladaInstance_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaInstance","new",0xe4a64de3,"haxor.io.file.ColladaInstance.new","haxor/io/file/ColladaFile.hx",1454,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaInstance","new",0xe4a64de3,"haxor.io.file.ColladaInstance.new","haxor/io/file/ColladaFile.hx",1461,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1458)
+	HX_STACK_LINE(1465)
 	this->target = HX_CSTRING("");
-	HX_STACK_LINE(1456)
+	HX_STACK_LINE(1463)
 	this->type = HX_CSTRING("");
-	HX_STACK_LINE(1464)
+	HX_STACK_LINE(1471)
 	this->materials = Array_obj< ::String >::__new();
 }
 ;

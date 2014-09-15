@@ -3,6 +3,7 @@ import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.math.AABB3;
 import haxor.math.Vector3;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that handles templates for different kind of models.
@@ -20,7 +21,7 @@ class Model
 	{
 		if (m_screen != null) return m_screen;
 		var m : Mesh = new Mesh("$ModelScreen");
-		var s : Float = 1.0;		
+		var s : Float32 = 1.0;		
 		var v : FloatArray =  FloatArray.Alloc([-s, -s, 0.5,  s, -s, 0.5,  s,  s, 0.5, -s,  s, 0.5]);
 		var uv : FloatArray  =  FloatArray.Alloc([ 0.0, 0.0, 0.0, 	1.0, 0.0, 0.0, 	1.0, 1.0, 0.0,	0.0, 1.0, 0.0]);		 
 		m.Set("vertex", v, 3);
@@ -39,7 +40,7 @@ class Model
 	{
 		if (m_planeXY != null) return m_planeXY;
 		var m : Mesh = new Mesh("$ModelPlaneXY");
-		var s : Float = 0.5;		
+		var s : Float32 = 0.5;		
 		var v : FloatArray =  FloatArray.Alloc([-s, -s, 0.0,  s, -s, 0.0,  s,  s, 0.0, -s,  s, 0.0]);
 		var uv : FloatArray  =  FloatArray.Alloc([ 0.0, 0.0, 0.0, 	1.0, 0.0, 0.0, 	1.0, 1.0, 0.0,	0.0, 1.0, 0.0]);		 
 		m.Set("vertex", v, 3);
@@ -58,7 +59,7 @@ class Model
 	{
 		if (m_planeXZ != null) return m_planeXZ;
 		var m : Mesh = new Mesh("$ModelPlaneXZ");
-		var s : Float = 0.5;		
+		var s : Float32 = 0.5;		
 		var v : FloatArray =  FloatArray.Alloc([-s, 0.0, -s,  s, 0.0, -s,  s,  0.0, s, -s,  0.0, s]);
 		var uv : FloatArray  =  FloatArray.Alloc([ 0.0, 0.0, 0.0, 	1.0, 0.0, 0.0, 	1.0, 1.0, 0.0,	0.0, 1.0, 0.0]);		 
 		m.Set("vertex", v, 3);
@@ -77,7 +78,7 @@ class Model
 	{
 		if (m_planeYZ != null) return m_planeYZ;
 		var m : Mesh = new Mesh("$ModelPlaneYZ");
-		var s : Float = 0.5;		
+		var s : Float32 = 0.5;		
 		var v : FloatArray =  FloatArray.Alloc([0.0,-s,-s,  0.0,s,-s,  0.0,s,s, 0.0,-s, s]);
 		var uv : FloatArray  =  FloatArray.Alloc([ 0.0, 0.0, 0.0, 	1.0, 0.0, 0.0, 	1.0, 1.0, 0.0,	0.0, 1.0, 0.0]);		 
 		m.Set("vertex", v, 3);

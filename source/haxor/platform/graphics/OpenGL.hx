@@ -1,5 +1,6 @@
 #if (windows || osx || linux)
 package haxor.platform.graphics;
+import haxor.platform.Types.Float32;
 import cpp.NativeArray;
 import cpp.Pointer;
 import haxe.io.Bytes;
@@ -64,7 +65,7 @@ haxor.platform.windows.graphics.WinGL
 		extstr.length = len;				
 		');		
 		
-		var f : Float = 0.0;
+		var f : Float32 = 0.0;
 		var i : Int = 0;
 		
 		var exts : Array<String> = extstr.split(" ");				
@@ -125,8 +126,8 @@ haxor.platform.windows.graphics.WinGL
 	override public function DeleteBuffer(p_id:MeshBufferId):Void 												{ untyped __cpp__('GLuint id = p_id; glDeleteBuffers(1, &id);'); }	
 	override public function DisableVertexAttrib(p_location:Int):Void 											{ untyped __cpp__('glDisableVertexAttribArray(p_location);'); }		
 	override public function EnableVertexAttrib(p_location:Int):Void 											{ untyped __cpp__('glEnableVertexAttribArray(p_location);'); }		
-	override public function VertexAttrib3f(p_location:Int, p_x:Float, p_y:Float, p_z:Float):Void 				{ untyped __cpp__('glVertexAttrib3f(p_location,p_x,p_y,p_z);'); }	
-	override public function VertexAttrib4f(p_location:Int, p_x:Float, p_y:Float, p_z:Float, p_w:Float):Void    { untyped __cpp__('glVertexAttrib4f(p_location,p_x,p_y,p_z,p_w);'); }	
+	override public function VertexAttrib3f(p_location:Int, p_x:Float32, p_y:Float32, p_z:Float32):Void 				{ untyped __cpp__('glVertexAttrib3f(p_location,p_x,p_y,p_z);'); }	
+	override public function VertexAttrib4f(p_location:Int, p_x:Float32, p_y:Float32, p_z:Float32, p_w:Float32):Void    { untyped __cpp__('glVertexAttrib4f(p_location,p_x,p_y,p_z,p_w);'); }	
 	override public function VertexAttribPointer(p_location:Int, p_components_size:Int, p_type:Int, p_normalized:Bool, p_stride:Int, p_offset:Int):Void { untyped __cpp__('glVertexAttribPointer(p_location,p_components_size,p_type,p_normalized,p_stride,(void*)p_offset);');	}
 	
 	//Shaders
@@ -188,14 +189,14 @@ haxor.platform.windows.graphics.WinGL
 		var off : Int = p_data.m_offset;
 		untyped __cpp__('glTexSubImage2D(p_target, p_level, p_x, p_y,p_width,p_height,p_format, p_channel_type,(void*)((&ba->b[0])+off));'); 
 	}		
-	override public function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float):Void 						{ untyped __cpp__('glTexParameterf(p_target, p_parameter, p_value);'); }	
+	override public function TexParameterf(p_target:Int, p_parameter:Int, p_value:Float32):Void 						{ untyped __cpp__('glTexParameterf(p_target, p_parameter, p_value);'); }	
 	override public function TexParameteri(p_target:Int, p_parameter:Int, p_value:Int):Void 						{ untyped __cpp__('glTexParameteri(p_target, p_parameter, p_value);'); }
 	
 	//Uniforms
-	override public function Uniform1f(p_location:UniformLocation, p_x:Float):Void 										{ untyped __cpp__('glUniform1f(p_location, p_x);'); }		
-	override public function Uniform2f(p_location:UniformLocation, p_x:Float, p_y:Float):Void 							{ untyped __cpp__('glUniform2f(p_location, p_x, p_y);'); }		
-	override public function Uniform3f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float):Void 				{ untyped __cpp__('glUniform3f(p_location, p_x, p_y, p_z);'); }	
-	override public function Uniform4f(p_location:UniformLocation, p_x:Float, p_y:Float, p_z:Float, p_w:Float):Void 	{ untyped __cpp__('glUniform4f(p_location, p_x, p_y, p_z, p_w);'); }			
+	override public function Uniform1f(p_location:UniformLocation, p_x:Float32):Void 										{ untyped __cpp__('glUniform1f(p_location, p_x);'); }		
+	override public function Uniform2f(p_location:UniformLocation, p_x:Float32, p_y:Float32):Void 							{ untyped __cpp__('glUniform2f(p_location, p_x, p_y);'); }		
+	override public function Uniform3f(p_location:UniformLocation, p_x:Float32, p_y:Float32, p_z:Float32):Void 				{ untyped __cpp__('glUniform3f(p_location, p_x, p_y, p_z);'); }	
+	override public function Uniform4f(p_location:UniformLocation, p_x:Float32, p_y:Float32, p_z:Float32, p_w:Float32):Void 	{ untyped __cpp__('glUniform4f(p_location, p_x, p_y, p_z, p_w);'); }			
 	override public function Uniform1i(p_location:UniformLocation,p_x:Int):Void 										{ untyped __cpp__('glUniform1i(p_location, p_x);'); }			
 	override public function Uniform2i(p_location:UniformLocation,p_x:Int,p_y:Int):Void 								{ untyped __cpp__('glUniform2i(p_location, p_x, p_y);'); }			
 	override public function Uniform3i(p_location:UniformLocation,p_x:Int,p_y:Int,p_z:Int):Void 						{ untyped __cpp__('glUniform3i(p_location, p_x, p_y, p_z);'); }			
@@ -232,8 +233,8 @@ haxor.platform.windows.graphics.WinGL
 	
 	//Screen
 	override public function Clear(p_flag : Int):Void 										{ untyped __cpp__('glClear(p_flag);');	}	
-	override public function ClearDepth(p_value : Float):Void 								{ untyped __cpp__('glClearDepthf(p_value);'); }	
-	override public function ClearColor(p_r: Float, p_g:Float, p_b:Float, p_a:Float):Void 	{ untyped __cpp__('glClearColor(p_r, p_g, p_b, p_a);'); }
+	override public function ClearDepth(p_value : Float32):Void 								{ untyped __cpp__('glClearDepthf(p_value);'); }	
+	override public function ClearColor(p_r: Float32, p_g:Float32, p_b:Float32, p_a:Float32):Void 	{ untyped __cpp__('glClearColor(p_r, p_g, p_b, p_a);'); }
 	override public function Viewport(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 	{ untyped __cpp__('glViewport(p_x, p_y, p_width, p_height);');	}
 	override public function Scissor(p_x:Int, p_y:Int, p_width:Int, p_height:Int):Void 		{ untyped __cpp__('glScissor(p_x, p_y, p_width, p_height);');	}
 	override public function ReadPixels(p_x:Int, p_y:Int, p_width:Int, p_height:Int, p_format:Int, p_type:Int, p_pixels:Buffer):Void 

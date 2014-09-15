@@ -250,6 +250,55 @@ class RendererContext
 	}
 	
 	/**
+	 * Updates the Camera SAP structure using the camera space frustum corners.
+	 * @param	c
+	 */
+	private function UpdateCameraSAP(c: Camera):Void
+	{
+		var need_sap :Bool = sap_dirty || c.m_view_uniform_dirty || c.m_proj_uniform_dirty;
+		if (!need_sap) return;		
+		var n0 : Vector3 = Vector3.temp.Set4(c.m_frustum[0]);			
+		var n1 : Vector3 = Vector3.temp.Set4(c.m_frustum[1]);
+		var n2 : Vector3 = Vector3.temp.Set4(c.m_frustum[2]);
+		var n3 : Vector3 = Vector3.temp.Set4(c.m_frustum[3]);
+		var f0 : Vector3 = Vector3.temp.Set4(c.m_frustum[4]);
+		var f1 : Vector3 = Vector3.temp.Set4(c.m_frustum[5]);
+		var f2 : Vector3 = Vector3.temp.Set4(c.m_frustum[6]);
+		var f3 : Vector3 = Vector3.temp.Set4(c.m_frustum[7]);
+		
+		c.CameraToWorld.Transform3x4(n0);			
+		c.CameraToWorld.Transform3x4(n1);
+		c.CameraToWorld.Transform3x4(n2);
+		c.CameraToWorld.Transform3x4(n3);
+		c.CameraToWorld.Transform3x4(f0);
+		c.CameraToWorld.Transform3x4(f1);
+		c.CameraToWorld.Transform3x4(f2);			
+		c.CameraToWorld.Transform3x4(f3);
+	
+		var pmin:Vector3 = Vector3.temp.Set(n0.x, n0.y, n0.z);			
+		var pmax:Vector3 = Vector3.temp.Set(n0.x, n0.y, n0.z);
+				
+		pmin.x = Mathf.Min(pmin.x, Mathf.Min(n1.x, Mathf.Min(n2.x, n3.x)));
+		pmin.y = Mathf.Min(pmin.y, Mathf.Min(n1.y, Mathf.Min(n2.y, n3.y)));
+		pmin.z = Mathf.Min(pmin.z, Mathf.Min(n1.z, Mathf.Min(n2.z, n3.z)));	
+		
+		pmax.x = Mathf.Max(pmax.x, Mathf.Max(n1.x, Mathf.Max(n2.x, n3.x)));
+		pmax.y = Mathf.Max(pmax.y, Mathf.Max(n1.y, Mathf.Max(n2.y, n3.y)));
+		pmax.z = Mathf.Max(pmax.z, Mathf.Max(n1.z, Mathf.Max(n2.z, n3.z)));
+		
+		pmin.x = Mathf.Min(pmin.x, Mathf.Min(f0.x, Mathf.Min(f1.x, Mathf.Min(f2.x,f3.x))));
+		pmin.y = Mathf.Min(pmin.y, Mathf.Min(f0.y, Mathf.Min(f1.y, Mathf.Min(f2.y,f3.y))));
+		pmin.z = Mathf.Min(pmin.z, Mathf.Min(f0.z, Mathf.Min(f1.z, Mathf.Min(f2.z,f3.z))));			
+		
+		pmax.x = Mathf.Max(pmax.x, Mathf.Max(f0.x, Mathf.Max(f1.x, Mathf.Max(f2.x,f3.x))));
+		pmax.y = Mathf.Max(pmax.y, Mathf.Max(f0.y, Mathf.Max(f1.y, Mathf.Max(f2.y,f3.y))));
+		pmax.z = Mathf.Max(pmax.z, Mathf.Max(f0.z, Mathf.Max(f1.z, Mathf.Max(f2.z,f3.z))));
+		
+		UpdateSAP(c.__fcid, c, pmin, pmax);			
+		
+	}
+	
+	/**
 	 * Update SAP interval 
 	 * @param	r
 	 * @param	p_min

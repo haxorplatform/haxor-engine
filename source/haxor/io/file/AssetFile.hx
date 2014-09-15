@@ -1,5 +1,6 @@
 package haxor.io.file;
 import haxor.core.Resource;
+import haxor.platform.Types.Float32;
 
 
 /**
@@ -24,15 +25,15 @@ class AssetFile extends Resource
 	}
 	
 	/**
-	 * Auxiliar method to convert a string with separator in an Array<Float>
+	 * Auxiliar method to convert a string with separator in an Array<Float32>
 	 * @param	v
 	 * @param	sep
 	 * @return
 	 */
-	private function stof32a(v : String,sep:String=" ") : Array<Float>
+	private function stof32a(v : String,sep:String=" ") : Array<Float32>
 	{
 		var l : Array<String> = StringTools.trim(StringTools.replace(v,"\n"," ")).split(sep);
-		var a : Array<Float> = [];
+		var a : Array<Float32> = [];
 		for (i in 0...l.length) a.push(Std.parseFloat(l[i]));
 		return a;
 	}

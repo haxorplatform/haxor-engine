@@ -30,6 +30,23 @@ bool p_update_cid = __o_p_update_cid.Default(true);
 	this->list = Dynamic( Array_obj<Dynamic>::__new());
 	HX_STACK_LINE(34)
 	this->m_length = (int)0;
+	HX_STACK_LINE(36)
+	{
+		HX_STACK_LINE(36)
+		int _g = (int)0;		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(36)
+		while((true)){
+			HX_STACK_LINE(36)
+			if ((!(((_g < p_size))))){
+				HX_STACK_LINE(36)
+				break;
+			}
+			HX_STACK_LINE(36)
+			int i = (_g)++;		HX_STACK_VAR(i,"i");
+			HX_STACK_LINE(38)
+			this->list->__Field(HX_CSTRING("push"),true)(null());
+		}
+	}
 }
 ;
 	return null();

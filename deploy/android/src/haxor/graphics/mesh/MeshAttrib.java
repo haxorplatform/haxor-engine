@@ -18,25 +18,25 @@ public  class MeshAttrib extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_mesh_MeshAttrib(haxor.graphics.mesh.MeshAttrib __temp_me164252)
+	public static   void __hx_ctor_haxor_graphics_mesh_MeshAttrib(haxor.graphics.mesh.MeshAttrib __temp_me255450)
 	{
 		{
 			haxor.context.UID _this = haxor.context.EngineContext.mesh.aid;
 			if (( _this.m_cache.length <= 0 )) 
 			{
-				__temp_me164252.__cid = _this.m_id++;
+				__temp_me255450.__cid = _this.m_id++;
 			}
 			 else 
 			{
-				__temp_me164252.__cid = ((int) (haxe.lang.Runtime.toInt(_this.m_cache.shift())) );
+				__temp_me255450.__cid = ((int) (haxe.lang.Runtime.toInt(_this.m_cache.shift())) );
 			}
 			
 		}
 		
-		__temp_me164252._loc_ = -1;
-		__temp_me164252.m_name = "";
-		__temp_me164252.data = null;
-		__temp_me164252.offset = 0;
+		__temp_me255450._loc_ = -1;
+		__temp_me255450.m_name = "";
+		__temp_me255450.data = null;
+		__temp_me255450.offset = 0;
 	}
 	
 	
@@ -89,14 +89,14 @@ public  class MeshAttrib extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164961 = true;
+			boolean __temp_executeDef256157 = true;
 			switch (field.hashCode())
 			{
 				case -1019779949:
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef164961 = false;
+						__temp_executeDef256157 = false;
 						this.offset = ((int) (value) );
 						return value;
 					}
@@ -109,7 +109,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("__cid")) 
 					{
-						__temp_executeDef164961 = false;
+						__temp_executeDef256157 = false;
 						this.__cid = ((int) (value) );
 						return value;
 					}
@@ -122,7 +122,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("_loc_")) 
 					{
-						__temp_executeDef164961 = false;
+						__temp_executeDef256157 = false;
 						this._loc_ = ((int) (value) );
 						return value;
 					}
@@ -133,7 +133,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef164961) 
+			if (__temp_executeDef256157) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -150,14 +150,14 @@ public  class MeshAttrib extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164962 = true;
+			boolean __temp_executeDef256158 = true;
 			switch (field.hashCode())
 			{
 				case -1019779949:
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef164962 = false;
+						__temp_executeDef256158 = false;
 						this.offset = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -170,7 +170,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("__cid")) 
 					{
-						__temp_executeDef164962 = false;
+						__temp_executeDef256158 = false;
 						this.__cid = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -183,7 +183,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef164962 = false;
+						__temp_executeDef256158 = false;
 						this.data = ((haxor.io.Buffer) (value) );
 						return value;
 					}
@@ -196,7 +196,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("_loc_")) 
 					{
-						__temp_executeDef164962 = false;
+						__temp_executeDef256158 = false;
 						this._loc_ = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -209,7 +209,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("m_name")) 
 					{
-						__temp_executeDef164962 = false;
+						__temp_executeDef256158 = false;
 						this.m_name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -220,7 +220,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef164962) 
+			if (__temp_executeDef256158) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -237,14 +237,14 @@ public  class MeshAttrib extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164963 = true;
+			boolean __temp_executeDef256159 = true;
 			switch (field.hashCode())
 			{
 				case 1131801318:
 				{
 					if (field.equals("get_count")) 
 					{
-						__temp_executeDef164963 = false;
+						__temp_executeDef256159 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_count"))) );
 					}
 					
@@ -256,7 +256,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("__cid")) 
 					{
-						__temp_executeDef164963 = false;
+						__temp_executeDef256159 = false;
 						return this.__cid;
 					}
 					
@@ -268,7 +268,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("count")) 
 					{
-						__temp_executeDef164963 = false;
+						__temp_executeDef256159 = false;
 						return this.get_count();
 					}
 					
@@ -280,7 +280,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("_loc_")) 
 					{
-						__temp_executeDef164963 = false;
+						__temp_executeDef256159 = false;
 						return this._loc_;
 					}
 					
@@ -292,7 +292,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef164963 = false;
+						__temp_executeDef256159 = false;
 						return this.offset;
 					}
 					
@@ -304,7 +304,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef164963 = false;
+						__temp_executeDef256159 = false;
 						return this.get_name();
 					}
 					
@@ -316,7 +316,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef164963 = false;
+						__temp_executeDef256159 = false;
 						return this.data;
 					}
 					
@@ -328,7 +328,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("get_name")) 
 					{
-						__temp_executeDef164963 = false;
+						__temp_executeDef256159 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_name"))) );
 					}
 					
@@ -340,7 +340,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("m_name")) 
 					{
-						__temp_executeDef164963 = false;
+						__temp_executeDef256159 = false;
 						return this.m_name;
 					}
 					
@@ -350,7 +350,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef164963) 
+			if (__temp_executeDef256159) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -367,14 +367,14 @@ public  class MeshAttrib extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef164964 = true;
+			boolean __temp_executeDef256160 = true;
 			switch (field.hashCode())
 			{
 				case 94851343:
 				{
 					if (field.equals("count")) 
 					{
-						__temp_executeDef164964 = false;
+						__temp_executeDef256160 = false;
 						return ((double) (this.get_count()) );
 					}
 					
@@ -386,7 +386,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("__cid")) 
 					{
-						__temp_executeDef164964 = false;
+						__temp_executeDef256160 = false;
 						return ((double) (this.__cid) );
 					}
 					
@@ -398,7 +398,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef164964 = false;
+						__temp_executeDef256160 = false;
 						return ((double) (this.offset) );
 					}
 					
@@ -410,7 +410,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("_loc_")) 
 					{
-						__temp_executeDef164964 = false;
+						__temp_executeDef256160 = false;
 						return ((double) (this._loc_) );
 					}
 					
@@ -420,7 +420,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef164964) 
+			if (__temp_executeDef256160) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -437,14 +437,14 @@ public  class MeshAttrib extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef164965 = true;
+			boolean __temp_executeDef256161 = true;
 			switch (field.hashCode())
 			{
 				case 1131801318:
 				{
 					if (field.equals("get_count")) 
 					{
-						__temp_executeDef164965 = false;
+						__temp_executeDef256161 = false;
 						return this.get_count();
 					}
 					
@@ -456,7 +456,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				{
 					if (field.equals("get_name")) 
 					{
-						__temp_executeDef164965 = false;
+						__temp_executeDef256161 = false;
 						return this.get_name();
 					}
 					
@@ -466,7 +466,7 @@ public  class MeshAttrib extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef164965) 
+			if (__temp_executeDef256161) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

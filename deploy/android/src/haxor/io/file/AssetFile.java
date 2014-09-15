@@ -17,9 +17,9 @@ public  class AssetFile extends haxor.core.Resource
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_AssetFile(haxor.io.file.AssetFile __temp_me164311, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_io_file_AssetFile(haxor.io.file.AssetFile __temp_me255509, java.lang.String p_name)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me164311, p_name);
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me255509, p_name);
 	}
 	
 	
@@ -50,13 +50,13 @@ public  class AssetFile extends haxor.core.Resource
 			sep = " ";
 		}
 		
-		java.lang.String __temp_stmt165047 = null;
+		java.lang.String __temp_stmt256239 = null;
 		{
 			java.lang.String s = haxe.root.StringTools.replace(v, "\n", " ");
-			__temp_stmt165047 = s.trim();
+			__temp_stmt256239 = s.trim();
 		}
 		
-		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt165047, sep);
+		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt256239, sep);
 		haxe.root.Array<java.lang.Object> a = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 		{
 			int _g1 = 0;
@@ -80,13 +80,13 @@ public  class AssetFile extends haxor.core.Resource
 			sep = " ";
 		}
 		
-		java.lang.String __temp_stmt165048 = null;
+		java.lang.String __temp_stmt256240 = null;
 		{
 			java.lang.String s = haxe.root.StringTools.replace(v, "\n", " ");
-			__temp_stmt165048 = s.trim();
+			__temp_stmt256240 = s.trim();
 		}
 		
-		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt165048, sep);
+		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt256240, sep);
 		haxe.root.Array<java.lang.Object> a = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 		{
 			int _g1 = 0;
@@ -110,13 +110,13 @@ public  class AssetFile extends haxor.core.Resource
 			sep = " ";
 		}
 		
-		java.lang.String __temp_stmt165049 = null;
+		java.lang.String __temp_stmt256241 = null;
 		{
 			java.lang.String s1 = haxe.root.StringTools.replace(v, "\n", " ");
-			__temp_stmt165049 = s1.trim();
+			__temp_stmt256241 = s1.trim();
 		}
 		
-		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt165049, sep);
+		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt256241, sep);
 		java.lang.String tl = "";
 		haxe.root.Array<haxe.root.Array> a = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
 		haxe.root.Array<java.lang.Object> bf = null;
@@ -144,14 +144,14 @@ public  class AssetFile extends haxor.core.Resource
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165050 = true;
+			boolean __temp_executeDef256242 = true;
 			switch (field.hashCode())
 			{
 				case 93121264:
 				{
 					if (field.equals("asset")) 
 					{
-						__temp_executeDef165050 = false;
+						__temp_executeDef256242 = false;
 						this.asset = ((java.lang.Object) (value) );
 						return value;
 					}
@@ -162,7 +162,7 @@ public  class AssetFile extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef165050) 
+			if (__temp_executeDef256242) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -179,14 +179,14 @@ public  class AssetFile extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165051 = true;
+			boolean __temp_executeDef256243 = true;
 			switch (field.hashCode())
 			{
 				case 93121264:
 				{
 					if (field.equals("asset")) 
 					{
-						__temp_executeDef165051 = false;
+						__temp_executeDef256243 = false;
 						this.asset = ((java.lang.Object) (value) );
 						return value;
 					}
@@ -197,7 +197,7 @@ public  class AssetFile extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef165051) 
+			if (__temp_executeDef256243) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -214,14 +214,14 @@ public  class AssetFile extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165052 = true;
+			boolean __temp_executeDef256244 = true;
 			switch (field.hashCode())
 			{
 				case 1707258317:
 				{
 					if (field.equals("stoi16ta")) 
 					{
-						__temp_executeDef165052 = false;
+						__temp_executeDef256244 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("stoi16ta"))) );
 					}
 					
@@ -233,7 +233,7 @@ public  class AssetFile extends haxor.core.Resource
 				{
 					if (field.equals("asset")) 
 					{
-						__temp_executeDef165052 = false;
+						__temp_executeDef256244 = false;
 						if (handleProperties) 
 						{
 							return this.get_asset();
@@ -253,7 +253,7 @@ public  class AssetFile extends haxor.core.Resource
 				{
 					if (field.equals("stoi16a")) 
 					{
-						__temp_executeDef165052 = false;
+						__temp_executeDef256244 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("stoi16a"))) );
 					}
 					
@@ -265,7 +265,7 @@ public  class AssetFile extends haxor.core.Resource
 				{
 					if (field.equals("get_asset")) 
 					{
-						__temp_executeDef165052 = false;
+						__temp_executeDef256244 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_asset"))) );
 					}
 					
@@ -277,7 +277,7 @@ public  class AssetFile extends haxor.core.Resource
 				{
 					if (field.equals("stof32a")) 
 					{
-						__temp_executeDef165052 = false;
+						__temp_executeDef256244 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("stof32a"))) );
 					}
 					
@@ -287,7 +287,7 @@ public  class AssetFile extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef165052) 
+			if (__temp_executeDef256244) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -304,14 +304,14 @@ public  class AssetFile extends haxor.core.Resource
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165053 = true;
+			boolean __temp_executeDef256245 = true;
 			switch (field.hashCode())
 			{
 				case 93121264:
 				{
 					if (field.equals("asset")) 
 					{
-						__temp_executeDef165053 = false;
+						__temp_executeDef256245 = false;
 						if (handleProperties) 
 						{
 							return ((double) (haxe.lang.Runtime.toDouble(this.get_asset())) );
@@ -329,7 +329,7 @@ public  class AssetFile extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef165053) 
+			if (__temp_executeDef256245) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -346,14 +346,14 @@ public  class AssetFile extends haxor.core.Resource
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef165054 = true;
+			boolean __temp_executeDef256246 = true;
 			switch (field.hashCode())
 			{
 				case 1707258317:
 				{
 					if (field.equals("stoi16ta")) 
 					{
-						__temp_executeDef165054 = false;
+						__temp_executeDef256246 = false;
 						return this.stoi16ta(haxe.lang.Runtime.toString(dynargs.__get(0)), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ), haxe.lang.Runtime.toString(dynargs.__get(2)));
 					}
 					
@@ -365,7 +365,7 @@ public  class AssetFile extends haxor.core.Resource
 				{
 					if (field.equals("get_asset")) 
 					{
-						__temp_executeDef165054 = false;
+						__temp_executeDef256246 = false;
 						return this.get_asset();
 					}
 					
@@ -377,7 +377,7 @@ public  class AssetFile extends haxor.core.Resource
 				{
 					if (field.equals("stoi16a")) 
 					{
-						__temp_executeDef165054 = false;
+						__temp_executeDef256246 = false;
 						return this.stoi16a(haxe.lang.Runtime.toString(dynargs.__get(0)), haxe.lang.Runtime.toString(dynargs.__get(1)));
 					}
 					
@@ -389,7 +389,7 @@ public  class AssetFile extends haxor.core.Resource
 				{
 					if (field.equals("stof32a")) 
 					{
-						__temp_executeDef165054 = false;
+						__temp_executeDef256246 = false;
 						return this.stof32a(haxe.lang.Runtime.toString(dynargs.__get(0)), haxe.lang.Runtime.toString(dynargs.__get(1)));
 					}
 					
@@ -399,7 +399,7 @@ public  class AssetFile extends haxor.core.Resource
 				
 			}
 			
-			if (__temp_executeDef165054) 
+			if (__temp_executeDef256246) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

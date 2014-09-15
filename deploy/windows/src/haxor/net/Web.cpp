@@ -12,6 +12,9 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
+#ifndef INCLUDED_haxor_graphics_material_Shader
+#include <haxor/graphics/material/Shader.h>
+#endif
 #ifndef INCLUDED_haxor_graphics_texture_Bitmap
 #include <haxor/graphics/texture/Bitmap.h>
 #endif
@@ -20,6 +23,15 @@
 #endif
 #ifndef INCLUDED_haxor_graphics_texture_Texture2D
 #include <haxor/graphics/texture/Texture2D.h>
+#endif
+#ifndef INCLUDED_haxor_io_file_AssetFile
+#include <haxor/io/file/AssetFile.h>
+#endif
+#ifndef INCLUDED_haxor_io_file_AssetXML
+#include <haxor/io/file/AssetXML.h>
+#endif
+#ifndef INCLUDED_haxor_io_file_ColladaFile
+#include <haxor/io/file/ColladaFile.h>
 #endif
 #ifndef INCLUDED_haxor_net_HTTPRequestTask
 #include <haxor/net/HTTPRequestTask.h>
@@ -70,10 +82,10 @@ Dynamic Web_obj::__Create(hx::DynamicArray inArgs)
 
 Void Web_obj::Load( ::String p_url,Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.net.Web","Load",0x1fa4e45d,"haxor.net.Web.Load","haxor/net/Web.hx",37,0x66abd769)
+		HX_STACK_FRAME("haxor.net.Web","Load",0x1fa4e45d,"haxor.net.Web.Load","haxor/net/Web.hx",40,0x66abd769)
 		HX_STACK_ARG(p_url,"p_url")
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(37)
+		HX_STACK_LINE(40)
 		::haxor::platform::windows::net::HTTPLoader ld = ::haxor::platform::windows::net::HTTPLoader_obj::__new(p_url,false,p_callback);		HX_STACK_VAR(ld,"ld");
 	}
 return null();
@@ -84,10 +96,10 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,Load,(void))
 
 Void Web_obj::LoadImg( ::String p_url,Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.net.Web","LoadImg",0x313237a6,"haxor.net.Web.LoadImg","haxor/net/Web.hx",44,0x66abd769)
+		HX_STACK_FRAME("haxor.net.Web","LoadImg",0x313237a6,"haxor.net.Web.LoadImg","haxor/net/Web.hx",47,0x66abd769)
 		HX_STACK_ARG(p_url,"p_url")
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(44)
+		HX_STACK_LINE(47)
 		::haxor::platform::windows::net::BitmapLoader ld = ::haxor::platform::windows::net::BitmapLoader_obj::__new(p_url,p_callback);		HX_STACK_VAR(ld,"ld");
 	}
 return null();
@@ -98,11 +110,11 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,LoadImg,(void))
 
 Void Web_obj::LoadTexture2D( ::String p_url,bool p_apply,Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.net.Web","LoadTexture2D",0x4ac82950,"haxor.net.Web.LoadTexture2D","haxor/net/Web.hx",51,0x66abd769)
+		HX_STACK_FRAME("haxor.net.Web","LoadTexture2D",0x4ac82950,"haxor.net.Web.LoadTexture2D","haxor/net/Web.hx",54,0x66abd769)
 		HX_STACK_ARG(p_url,"p_url")
 		HX_STACK_ARG(p_apply,"p_apply")
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(51)
+		HX_STACK_LINE(54)
 		::haxor::net::Texture2DLoader ld = ::haxor::net::Texture2DLoader_obj::__new(p_url,p_apply,p_callback);		HX_STACK_VAR(ld,"ld");
 	}
 return null();
@@ -110,6 +122,82 @@ return null();
 
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC3(Web_obj,LoadTexture2D,(void))
+
+Void Web_obj::LoadCollada( ::String p_url,Dynamic p_callback){
+{
+		HX_STACK_FRAME("haxor.net.Web","LoadCollada",0x4c81d695,"haxor.net.Web.LoadCollada","haxor/net/Web.hx",61,0x66abd769)
+		HX_STACK_ARG(p_url,"p_url")
+		HX_STACK_ARG(p_callback,"p_callback")
+		HX_STACK_LINE(61)
+		Dynamic p_callback1 = Dynamic( Array_obj<Dynamic>::__new().Add(p_callback));		HX_STACK_VAR(p_callback1,"p_callback1");
+		HX_STACK_LINE(61)
+		Array< ::String > p_url1 = Array_obj< ::String >::__new().Add(p_url);		HX_STACK_VAR(p_url1,"p_url1");
+
+		HX_BEGIN_LOCAL_FUNC_S2(hx::LocalFunc,_Function_1_1,Array< ::String >,p_url1,Dynamic,p_callback1)
+		Void run(::String d,Float p){
+			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/net/Web.hx",61,0x66abd769)
+			HX_STACK_ARG(d,"d")
+			HX_STACK_ARG(p,"p")
+			{
+				HX_STACK_LINE(61)
+				if (((p < 1.0))){
+					HX_STACK_LINE(61)
+					p_callback1->__GetItem((int)0)(null(),p).Cast< Void >();
+				}
+				else{
+					HX_STACK_LINE(61)
+					p_callback1->__GetItem((int)0)((  (((d == null()))) ? ::haxor::io::file::ColladaFile(null()) : ::haxor::io::file::ColladaFile(::haxor::io::file::ColladaFile_obj::__new(p_url1->__get((int)0),d)) ),1.0).Cast< Void >();
+				}
+			}
+			return null();
+		}
+		HX_END_LOCAL_FUNC2((void))
+
+		HX_STACK_LINE(61)
+		::haxor::net::Web_obj::Load(p_url1->__get((int)0), Dynamic(new _Function_1_1(p_url1,p_callback1)));
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,LoadCollada,(void))
+
+Void Web_obj::LoadShader( ::String p_url,Dynamic p_callback){
+{
+		HX_STACK_FRAME("haxor.net.Web","LoadShader",0xfd693b62,"haxor.net.Web.LoadShader","haxor/net/Web.hx",68,0x66abd769)
+		HX_STACK_ARG(p_url,"p_url")
+		HX_STACK_ARG(p_callback,"p_callback")
+		HX_STACK_LINE(68)
+		Dynamic p_callback1 = Dynamic( Array_obj<Dynamic>::__new().Add(p_callback));		HX_STACK_VAR(p_callback1,"p_callback1");
+
+		HX_BEGIN_LOCAL_FUNC_S1(hx::LocalFunc,_Function_1_1,Dynamic,p_callback1)
+		Void run(::String d,Float p){
+			HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","haxor/net/Web.hx",68,0x66abd769)
+			HX_STACK_ARG(d,"d")
+			HX_STACK_ARG(p,"p")
+			{
+				HX_STACK_LINE(68)
+				if (((p < 1.0))){
+					HX_STACK_LINE(68)
+					p_callback1->__GetItem((int)0)(null(),p).Cast< Void >();
+				}
+				else{
+					HX_STACK_LINE(68)
+					p_callback1->__GetItem((int)0)((  (((d == null()))) ? ::haxor::graphics::material::Shader(null()) : ::haxor::graphics::material::Shader(::haxor::graphics::material::Shader_obj::__new(d)) ),1.0).Cast< Void >();
+				}
+			}
+			return null();
+		}
+		HX_END_LOCAL_FUNC2((void))
+
+		HX_STACK_LINE(68)
+		::haxor::net::Web_obj::Load(p_url, Dynamic(new _Function_1_1(p_callback1)));
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC2(Web_obj,LoadShader,(void))
 
 
 Web_obj::Web_obj()
@@ -125,6 +213,12 @@ Dynamic Web_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"LoadImg") ) { return LoadImg_dyn(); }
+		break;
+	case 10:
+		if (HX_FIELD_EQ(inName,"LoadShader") ) { return LoadShader_dyn(); }
+		break;
+	case 11:
+		if (HX_FIELD_EQ(inName,"LoadCollada") ) { return LoadCollada_dyn(); }
 		break;
 	case 13:
 		if (HX_FIELD_EQ(inName,"LoadTexture2D") ) { return LoadTexture2D_dyn(); }
@@ -151,6 +245,8 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("Load"),
 	HX_CSTRING("LoadImg"),
 	HX_CSTRING("LoadTexture2D"),
+	HX_CSTRING("LoadCollada"),
+	HX_CSTRING("LoadShader"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE

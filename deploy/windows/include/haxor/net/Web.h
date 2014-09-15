@@ -7,9 +7,13 @@
 
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
+HX_DECLARE_CLASS3(haxor,graphics,material,Shader)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Bitmap)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture2D)
+HX_DECLARE_CLASS3(haxor,io,file,AssetFile)
+HX_DECLARE_CLASS3(haxor,io,file,AssetXML)
+HX_DECLARE_CLASS3(haxor,io,file,ColladaFile)
 HX_DECLARE_CLASS2(haxor,net,Web)
 namespace haxor{
 namespace net{
@@ -44,6 +48,12 @@ class HXCPP_CLASS_ATTRIBUTES  Web_obj : public hx::Object{
 
 		static Void LoadTexture2D( ::String p_url,bool p_apply,Dynamic p_callback);
 		static Dynamic LoadTexture2D_dyn();
+
+		static Void LoadCollada( ::String p_url,Dynamic p_callback);
+		static Dynamic LoadCollada_dyn();
+
+		static Void LoadShader( ::String p_url,Dynamic p_callback);
+		static Dynamic LoadShader_dyn();
 
 };
 

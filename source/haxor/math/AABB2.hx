@@ -1,5 +1,6 @@
 package haxor.math;
 import haxor.context.EngineContext;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that represents 2D Axis Aligned Bounding Box.
@@ -21,7 +22,7 @@ class AABB2
 	 * @param	p_ymax
 	 * @return
 	 */
-	static public function FromMinMax(p_xmin : Float, p_xmax : Float, p_ymin:Float, p_ymax : Float ) :AABB2
+	static public function FromMinMax(p_xmin : Float32, p_xmax : Float32, p_ymin:Float32, p_ymax : Float32 ) :AABB2
 	{
 		var b : AABB2 = new AABB2();
 		b.xMin = p_xmin;
@@ -51,32 +52,32 @@ class AABB2
 	private function get_max():Vector2 { return new Vector2(m_xMax, m_yMax); }
 	private function set_max(v:Vector2):Vector2 { xMax = v.x; yMax = v.y; return v; }
 	
-	public var xMin(get_xMin, set_xMin):Float;		
-	private function get_xMin():Float { return m_xMin; }
-	private function set_xMin(v:Float):Float { m_xMin = v; Validate(); return v; }	
-	private var m_xMin:Float;
+	public var xMin(get_xMin, set_xMin):Float32;		
+	private function get_xMin():Float32{ return m_xMin; }
+	private function set_xMin(v:Float32):Float32{ m_xMin = v; Validate(); return v; }	
+	private var m_xMin:Float32;
 	
-	public var yMin(get_yMin, set_yMin):Float;		
-	private function get_yMin():Float { return m_yMin; }
-	private function set_yMin(v:Float):Float { m_yMin = v; Validate(); return v; }	
-	private var m_yMin:Float;
+	public var yMin(get_yMin, set_yMin):Float32;		
+	private function get_yMin():Float32{ return m_yMin; }
+	private function set_yMin(v:Float32):Float32{ m_yMin = v; Validate(); return v; }	
+	private var m_yMin:Float32;
 	
-	public var xMax(get_xMax, set_xMax):Float;		
-	private function get_xMax():Float { return m_xMax; }
-	private function set_xMax(v:Float):Float { m_xMax = v; Validate(); return v; }	
-	private var m_xMax:Float;
+	public var xMax(get_xMax, set_xMax):Float32;		
+	private function get_xMax():Float32{ return m_xMax; }
+	private function set_xMax(v:Float32):Float32{ m_xMax = v; Validate(); return v; }	
+	private var m_xMax:Float32;
 	
-	public var yMax(get_yMax, set_yMax):Float;		
-	private function get_yMax():Float { return m_yMax; }
-	private function set_yMax(v:Float):Float { m_yMax = v; Validate(); return v; }
-	private var m_yMax:Float;
+	public var yMax(get_yMax, set_yMax):Float32;		
+	private function get_yMax():Float32{ return m_yMax; }
+	private function set_yMax(v:Float32):Float32{ m_yMax = v; Validate(); return v; }
+	private var m_yMax:Float32;
 	
 	public var center(get_center, set_center):Vector2;
 	private function get_center():Vector2 { return new Vector2(xMin + (xMax - xMin) * 0.5, yMin + (yMax - yMin) * 0.5); }
 	private function set_center(v:Vector2):Vector2 
 	{ 
-		var hw:Float = width * 0.5;
-		var hh:Float = height * 0.5;
+		var hw:Float32= width * 0.5;
+		var hh:Float32= height * 0.5;
 		m_xMin = v.x - hw;
 		m_xMax = v.x + hw;
 		m_yMin = v.y - hh;
@@ -84,22 +85,22 @@ class AABB2
 		return v;
 	}
 	
-	public var x(get_x, set_x):Float;
-	private inline function get_x():Float { return get_xMin(); }
-	private inline function set_x(v:Float):Float { set_xMin(v); return v; }
+	public var x(get_x, set_x):Float32;
+	private inline function get_x():Float32{ return get_xMin(); }
+	private inline function set_x(v:Float32):Float32{ set_xMin(v); return v; }
 	
-	public var y(get_y, set_y):Float;
-	private inline function get_y():Float { return get_yMin(); }
-	private inline function set_y(v:Float):Float { set_yMin(v); return v; }
+	public var y(get_y, set_y):Float32;
+	private inline function get_y():Float32{ return get_yMin(); }
+	private inline function set_y(v:Float32):Float32{ set_yMin(v); return v; }
 	
 	
-	public var width(get_width, set_width):Float;
-	private inline function get_width():Float { return Mathf.Abs(xMax - xMin); }
-	private inline function set_width(v:Float):Float { xMax = xMin + v; return v; }
+	public var width(get_width, set_width):Float32;
+	private inline function get_width():Float32{ return Mathf.Abs(xMax - xMin); }
+	private inline function set_width(v:Float32):Float32{ xMax = xMin + v; return v; }
 	
-	public var height(get_height, set_height):Float;
-	private inline function get_height():Float { return Mathf.Abs(yMax - yMin); }
-	private inline function set_height(v:Float):Float { yMax = yMin + v; return v; }
+	public var height(get_height, set_height):Float32;
+	private inline function get_height():Float32{ return Mathf.Abs(yMax - yMin); }
+	private inline function set_height(v:Float32):Float32{ yMax = yMin + v; return v; }
 	
 	public var size(get_size, set_size):Vector2;
 	private inline function get_size():Vector2 { return new Vector2(width, height); }
@@ -112,7 +113,7 @@ class AABB2
 	 * @param	p_width
 	 * @param	p_height
 	 */
-	public function new(p_x:Float = 0, p_y : Float =0, p_width:Float = 0,p_height : Float=0)
+	public function new(p_x:Float32= 0, p_y : Float32 =0, p_width:Float32= 0,p_height : Float=0)
 	{            
 		SetXYWH(p_x, p_y, p_width, p_height);
 	}
@@ -123,10 +124,10 @@ class AABB2
 	private function Validate():Void
 	{
 		
-		var x0 : Float = m_xMin;
-		var x1 : Float = m_xMax;
-		var y0 : Float = m_yMin;
-		var y1 : Float = m_yMax;
+		var x0 : Float32 = m_xMin;
+		var x1 : Float32 = m_xMax;
+		var y0 : Float32 = m_yMin;
+		var y1 : Float32 = m_yMax;
 		if (x0 <= x1) { m_xMin = x0; m_xMax = x1; } else { m_xMin = x1; m_xMax = x0; }
 		if (y0 <= y1) { m_yMin = y0; m_yMax = y1; } else { m_yMin  = y1; m_yMax = y0; }
 		//*/
@@ -154,7 +155,7 @@ class AABB2
 	 * @param	p_ymax
 	 * @return
 	 */
-	public function Set(p_xmin:Float, p_xmax:Float, p_ymin:Float, p_ymax:Float):AABB2
+	public function Set(p_xmin:Float32, p_xmax:Float32, p_ymin:Float32, p_ymax:Float32):AABB2
 	{
 		m_xMin = p_xmin;
 		m_yMin = p_ymin;		
@@ -172,7 +173,7 @@ class AABB2
 	 * @param	p_height
 	 * @return
 	 */
-	public function SetXYWH(p_x:Float, p_y:Float, p_width:Float, p_height:Float):AABB2
+	public function SetXYWH(p_x:Float32, p_y:Float32, p_width:Float32, p_height:Float32):AABB2
 	{
 		m_xMin = p_x;
 		m_yMin = p_y;
@@ -213,7 +214,7 @@ class AABB2
 	 * @param	p_y
 	 * @param	p_z
 	 */
-	public function Encapsulate3(p_x:Float = 0, p_y:Float = 0):AABB2
+	public function Encapsulate3(p_x:Float32= 0, p_y:Float32= 0):AABB2
 	{
 		m_xMin = Mathf.Min(p_x, m_xMin);
 		m_xMax = Mathf.Max(p_x, m_xMax);

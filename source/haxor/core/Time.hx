@@ -1,5 +1,6 @@
 package haxor.core;
 import haxe.Timer;
+import haxor.platform.Types.Float32;
 
 #if android
 import haxe.Int64;
@@ -14,34 +15,56 @@ import java.lang.System;
 class Time
 {
 	/**
+	 * Samples the system time using the offered API in 'ms'.
+	 */
+	static public var system(get_system, null):Float32;
+	static private inline function get_system():Float32
+	{ 		
+		#if html
+		return m_system; 
+		#end
+		
+		#if android
+		var t : Float32 = cast System.nanoTime();
+		return m_system = (t * 0.000001) - m_clock_0;		
+		#end
+		
+		#if (windows || osx || linux)		
+		return m_system = (Timer.stamp() * 1000.0) - m_clock_0;
+		#end
+		
+	}
+	static private var m_system : Float32;
+	
+	/**
 	 * Returns the execution time in ms.
 	 */
-	static public var clock(get_clock, null):Float;
-	static private inline function get_clock():Float { return m_clock; }
-	static private var m_clock : Float;
-	static private var m_clock_dt : Float;
-	static private var m_clock_0 : Float;
+	static public var clock(get_clock, null):Float32;
+	static private inline function get_clock():Float32{ return m_clock; }
+	static private var m_clock : Float32;
+	static private var m_clock_dt : Float32;
+	static private var m_clock_0 : Float32;
 	
 	/**
 	 * Returns the delta time in seconds between frames.
 	 */
-	static public var delta(get_delta, null):Float;
-	static inline function get_delta():Float { return m_delta; }	
-	static private var m_delta : Float;
+	static public var delta(get_delta, null):Float32;
+	static inline function get_delta():Float32{ return m_delta; }	
+	static private var m_delta : Float32;
 	
 	/**
 	 * Returns the last frame delta time. This attribute is useful to update time based things on the render loop.
 	 */
-	static public var framedelta(get_framedelta, null):Float;
-	static inline function get_framedelta():Float { return m_frame_delta; }
-	static private var m_frame_delta : Float;
+	static public var framedelta(get_framedelta, null):Float32;
+	static inline function get_framedelta():Float32{ return m_frame_delta; }
+	static private var m_frame_delta : Float32;
 	
 	/**
 	 * Returns the elapsed time in seconds.
 	 */
-	static public var elapsed(get_elapsed, null):Float;
-	static inline function get_elapsed():Float { return m_elapsed; }	
-	static private var m_elapsed : Float;
+	static public var elapsed(get_elapsed, null):Float32;
+	static inline function get_elapsed():Float32{ return m_elapsed; }	
+	static private var m_elapsed : Float32;
 	
 	/**
 	 * Frames per second.
@@ -63,17 +86,17 @@ class Time
 	static public var frame(get_frame, null):Int;
 	static inline function get_frame():Int { return m_frame; }
 	static private var m_frame : Int;
-	static private var m_frame_count : Float;
+	static private var m_frame_count : Float32;
 	
-	static private var m_updates : Float;
+	static private var m_updates : Float32;
 	
-	static private var m_stats_clock : Float;
+	static private var m_stats_clock : Float32;
 	
-	static private var m_start_clock : Float;
+	static private var m_start_clock : Float32;
 	
-	static private var m_last_clock : Float;
+	static private var m_last_clock : Float32;
 	
-	static private var m_last_frame_clock : Float;
+	static private var m_last_frame_clock : Float32;
 	
 	
 	
@@ -82,13 +105,12 @@ class Time
 	 */
 	static private function Initialize():Void
 	{	
-		m_clock 		= 0.0;
-		m_clock_dt		= 0.0;
+		m_system		= 0.0;
 		m_clock_0		= 0.0;
-		UpdateClock();
-		m_clock_0		= m_clock;
-		UpdateClock();
+		m_clock_0		= system;
 		
+		m_clock 		= system;
+		m_clock_dt		= 0.0;
 		m_start_clock 	= m_clock;
 		m_last_clock    = m_clock;	
 		m_last_frame_clock = m_clock;
@@ -100,13 +122,12 @@ class Time
 		m_fps			= 0;
 		m_updates		= 0.0;
 		m_frame_count	= 0.0;
-		m_frame			= 0;
-		UpdateClock();
+		m_frame			= 0;		
 	}
 	
 	static private function Update():Void
 	{		
-		UpdateClock();	
+		m_clock			= system;
 		m_clock_dt		= (m_clock - m_last_clock);
 		if (m_clock_dt <= 0) m_clock_dt = 1.0;
 		m_last_clock 	= m_clock;
@@ -137,23 +158,7 @@ class Time
 		m_last_frame_clock = m_clock;
 	}
 	
-	/**
-	 * Updates the internal 'ms' clock. In the HTML platform the 'time' argumento of RequestAnimationFrame is used.
-	 */
-	static private inline function UpdateClock():Void
-	{
-		#if html
-		#end
-		
-		#if android
-		var t : Float = cast System.nanoTime();
-		m_clock = (t * 0.000001)-m_clock_0;		
-		#end
-		
-		#if (windows || osx || linux)		
-		m_clock = (Timer.stamp() * 1000.0) - m_clock_0;
-		#end
-	}
+	
 	
 	
 }

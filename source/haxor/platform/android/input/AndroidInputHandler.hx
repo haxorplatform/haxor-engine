@@ -1,6 +1,7 @@
 #if android
 
 package haxor.platform.android.input;
+import haxor.platform.Types.Float32;
 import haxor.core.Console;
 import haxor.input.InputHandler;
 
@@ -53,8 +54,8 @@ class AndroidInputHandler extends InputHandler
 		
 		//if (action != MotionEvent.ACTION_MOVE) Console.Log(ActionToString(action)+" a["+aid+"] id["+id+"]");
 		
-		var px : Float  = 0.0; 
-		var py : Float  = 0.0; 
+		var px : Float32  = 0.0; 
+		var py : Float32  = 0.0; 
 		
 		if(aid >= 0) px = p_event.getX(aid);						 
 		if(aid >= 0) py = p_event.getY(aid);

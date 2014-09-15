@@ -21,40 +21,40 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 	}
 	
 	
-	public static   void __hx_ctor_haxor_thread_Activity(haxor.thread.Activity __temp_me164440, haxe.lang.Function p_callback, java.lang.Object p_threaded, java.lang.Object p_graphics_context)
+	public static   void __hx_ctor_haxor_thread_Activity(haxor.thread.Activity __temp_me255638, haxe.lang.Function p_callback, java.lang.Object p_threaded, java.lang.Object p_graphics_context)
 	{
-		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me164440, null);
-		boolean __temp_p_graphics_context164439 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
-		boolean __temp_p_threaded164438 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
+		haxor.core.Resource.__hx_ctor_haxor_core_Resource(__temp_me255638, null);
+		boolean __temp_p_graphics_context255637 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
+		boolean __temp_p_threaded255636 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
 		if (( p_callback == null )) 
 		{
 			return ;
 		}
 		
-		__temp_me164440.m_time_start = haxor.core.Time.m_elapsed;
-		__temp_me164440.m_elapsed = 0.0;
-		__temp_me164440.m_callback = p_callback;
-		__temp_me164440.m_cancelled = false;
-		if (__temp_p_graphics_context164439) 
+		__temp_me255638.m_time_start = haxor.core.Time.m_elapsed;
+		__temp_me255638.m_elapsed = 0.0;
+		__temp_me255638.m_callback = p_callback;
+		__temp_me255638.m_cancelled = false;
+		if (__temp_p_graphics_context255637) 
 		{
-			__temp_p_threaded164438 = false;
+			__temp_p_threaded255636 = false;
 		}
 		
-		if ( ! (__temp_p_threaded164438) ) 
+		if ( ! (__temp_p_threaded255636) ) 
 		{
-			if (__temp_p_graphics_context164439) 
+			if (__temp_p_graphics_context255637) 
 			{
-				haxor.context.EngineContext.render.Add(__temp_me164440);
+				haxor.context.EngineContext.render.Add(__temp_me255638);
 			}
 			 else 
 			{
-				haxor.context.EngineContext.update.Add(__temp_me164440);
+				haxor.context.EngineContext.update.Add(__temp_me255638);
 			}
 			
 		}
 		 else 
 		{
-			java.lang.Thread thread = new java.lang.Thread(((java.lang.Runnable) (__temp_me164440) ));
+			java.lang.Thread thread = new java.lang.Thread(((java.lang.Runnable) (__temp_me255638) ));
 			thread.start();
 		}
 		
@@ -65,41 +65,41 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 	
 	public static   haxor.thread.Activity Iterate(int p_offset, int p_length, haxe.lang.Function p_callback, java.lang.Object p_step, java.lang.Object p_threaded, java.lang.Object p_graphics_context)
 	{
-		boolean __temp_p_graphics_context164431 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
-		boolean __temp_p_threaded164430 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
-		int __temp_p_step164429 = ( (( p_step == null )) ? (((int) (1) )) : (((int) (haxe.lang.Runtime.toInt(p_step)) )) );
-		haxe.root.Array<java.lang.Object> p_step1 = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_p_step164429});
+		boolean __temp_p_graphics_context255629 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
+		boolean __temp_p_threaded255628 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
+		int __temp_p_step255627 = ( (( p_step == null )) ? (((int) (1) )) : (((int) (haxe.lang.Runtime.toInt(p_step)) )) );
+		haxe.root.Array<java.lang.Object> p_step1 = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{__temp_p_step255627});
 		haxe.root.Array<haxe.lang.Function> p_callback1 = new haxe.root.Array<haxe.lang.Function>(new haxe.lang.Function[]{p_callback});
 		haxe.root.Array<java.lang.Object> p_length1 = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{p_length});
 		haxe.root.Array<java.lang.Object> it = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{p_offset});
-		return new haxor.thread.Activity(((haxe.lang.Function) (new haxor.thread.Activity_Iterate_42__Fun(((haxe.root.Array<haxe.lang.Function>) (p_callback1) ), ((haxe.root.Array<java.lang.Object>) (p_length1) ), ((haxe.root.Array<java.lang.Object>) (p_step1) ), ((haxe.root.Array<java.lang.Object>) (it) ))) ), ((java.lang.Object) (__temp_p_threaded164430) ), ((java.lang.Object) (__temp_p_graphics_context164431) ));
+		return new haxor.thread.Activity(((haxe.lang.Function) (new haxor.thread.Activity_Iterate_43__Fun(((haxe.root.Array<java.lang.Object>) (p_length1) ), ((haxe.root.Array<java.lang.Object>) (it) ), ((haxe.root.Array<java.lang.Object>) (p_step1) ), ((haxe.root.Array<haxe.lang.Function>) (p_callback1) ))) ), ((java.lang.Object) (__temp_p_threaded255628) ), ((java.lang.Object) (__temp_p_graphics_context255629) ));
 	}
 	
 	
 	public static   haxor.thread.Activity Delay(double p_time, haxe.lang.Function p_callback, java.lang.Object p_threaded, java.lang.Object p_graphics_context)
 	{
-		boolean __temp_p_graphics_context164433 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
-		boolean __temp_p_threaded164432 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
+		boolean __temp_p_graphics_context255631 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
+		boolean __temp_p_threaded255630 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
 		haxe.root.Array<haxe.lang.Function> p_callback1 = new haxe.root.Array<haxe.lang.Function>(new haxe.lang.Function[]{p_callback});
 		haxe.root.Array<java.lang.Object> p_time1 = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (p_time) )});
-		return new haxor.thread.Activity(((haxe.lang.Function) (new haxor.thread.Activity_Delay_63__Fun(((haxe.root.Array<java.lang.Object>) (p_time1) ), ((haxe.root.Array<haxe.lang.Function>) (p_callback1) ))) ), ((java.lang.Object) (__temp_p_threaded164432) ), ((java.lang.Object) (__temp_p_graphics_context164433) ));
+		return new haxor.thread.Activity(((haxe.lang.Function) (new haxor.thread.Activity_Delay_64__Fun(((haxe.root.Array<java.lang.Object>) (p_time1) ), ((haxe.root.Array<haxe.lang.Function>) (p_callback1) ))) ), ((java.lang.Object) (__temp_p_threaded255630) ), ((java.lang.Object) (__temp_p_graphics_context255631) ));
 	}
 	
 	
 	public static   haxor.thread.Activity Run(haxe.lang.Function p_callback, java.lang.Object p_threaded, java.lang.Object p_graphics_context)
 	{
-		boolean __temp_p_graphics_context164435 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
-		boolean __temp_p_threaded164434 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
-		return new haxor.thread.Activity(((haxe.lang.Function) (p_callback) ), ((java.lang.Object) (__temp_p_threaded164434) ), ((java.lang.Object) (__temp_p_graphics_context164435) ));
+		boolean __temp_p_graphics_context255633 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
+		boolean __temp_p_threaded255632 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
+		return new haxor.thread.Activity(((haxe.lang.Function) (p_callback) ), ((java.lang.Object) (__temp_p_threaded255632) ), ((java.lang.Object) (__temp_p_graphics_context255633) ));
 	}
 	
 	
 	public static   haxor.thread.Activity RunOnce(haxe.lang.Function p_callback, java.lang.Object p_threaded, java.lang.Object p_graphics_context)
 	{
-		boolean __temp_p_graphics_context164437 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
-		boolean __temp_p_threaded164436 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
+		boolean __temp_p_graphics_context255635 = ( (( p_graphics_context == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_graphics_context)) );
+		boolean __temp_p_threaded255634 = ( (( p_threaded == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_threaded)) );
 		haxe.root.Array<haxe.lang.Function> p_callback1 = new haxe.root.Array<haxe.lang.Function>(new haxe.lang.Function[]{p_callback});
-		return new haxor.thread.Activity(((haxe.lang.Function) (new haxor.thread.Activity_RunOnce_94__Fun(((haxe.root.Array<haxe.lang.Function>) (p_callback1) ))) ), ((java.lang.Object) (__temp_p_threaded164436) ), ((java.lang.Object) (__temp_p_graphics_context164437) ));
+		return new haxor.thread.Activity(((haxe.lang.Function) (new haxor.thread.Activity_RunOnce_95__Fun(((haxe.root.Array<haxe.lang.Function>) (p_callback1) ))) ), ((java.lang.Object) (__temp_p_threaded255634) ), ((java.lang.Object) (__temp_p_graphics_context255635) ));
 	}
 	
 	
@@ -191,14 +191,14 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165291 = true;
+			boolean __temp_executeDef256483 = true;
 			switch (field.hashCode())
 			{
 				case 1247755178:
 				{
 					if (field.equals("m_elapsed")) 
 					{
-						__temp_executeDef165291 = false;
+						__temp_executeDef256483 = false;
 						this.m_elapsed = ((double) (value) );
 						return value;
 					}
@@ -211,7 +211,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("m_time_start")) 
 					{
-						__temp_executeDef165291 = false;
+						__temp_executeDef256483 = false;
 						this.m_time_start = ((double) (value) );
 						return value;
 					}
@@ -224,7 +224,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("elapsed")) 
 					{
-						__temp_executeDef165291 = false;
+						__temp_executeDef256483 = false;
 						this.elapsed = ((double) (value) );
 						return value;
 					}
@@ -235,7 +235,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef165291) 
+			if (__temp_executeDef256483) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -252,14 +252,14 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165292 = true;
+			boolean __temp_executeDef256484 = true;
 			switch (field.hashCode())
 			{
 				case 688472063:
 				{
 					if (field.equals("m_cancelled")) 
 					{
-						__temp_executeDef165292 = false;
+						__temp_executeDef256484 = false;
 						this.m_cancelled = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -272,7 +272,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("m_callback")) 
 					{
-						__temp_executeDef165292 = false;
+						__temp_executeDef256484 = false;
 						this.m_callback = ((haxe.lang.Function) (value) );
 						return value;
 					}
@@ -285,7 +285,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("m_elapsed")) 
 					{
-						__temp_executeDef165292 = false;
+						__temp_executeDef256484 = false;
 						this.m_elapsed = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -298,7 +298,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("m_time_start")) 
 					{
-						__temp_executeDef165292 = false;
+						__temp_executeDef256484 = false;
 						this.m_time_start = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -311,7 +311,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("elapsed")) 
 					{
-						__temp_executeDef165292 = false;
+						__temp_executeDef256484 = false;
 						this.elapsed = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -322,7 +322,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef165292) 
+			if (__temp_executeDef256484) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -339,14 +339,14 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165293 = true;
+			boolean __temp_executeDef256485 = true;
 			switch (field.hashCode())
 			{
 				case 113291:
 				{
 					if (field.equals("run")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("run"))) );
 					}
 					
@@ -358,7 +358,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("m_callback")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return this.m_callback;
 					}
 					
@@ -370,7 +370,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("OnRun")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnRun"))) );
 					}
 					
@@ -382,7 +382,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("m_time_start")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return this.m_time_start;
 					}
 					
@@ -394,7 +394,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("OnRender")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnRender"))) );
 					}
 					
@@ -406,7 +406,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("elapsed")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						if (handleProperties) 
 						{
 							return this.get_elapsed();
@@ -426,7 +426,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("OnUpdate")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnUpdate"))) );
 					}
 					
@@ -438,7 +438,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("get_elapsed")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_elapsed"))) );
 					}
 					
@@ -450,7 +450,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("Cancel")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Cancel"))) );
 					}
 					
@@ -462,7 +462,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("m_elapsed")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return this.m_elapsed;
 					}
 					
@@ -474,7 +474,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("m_cancelled")) 
 					{
-						__temp_executeDef165293 = false;
+						__temp_executeDef256485 = false;
 						return this.m_cancelled;
 					}
 					
@@ -484,7 +484,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef165293) 
+			if (__temp_executeDef256485) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -501,14 +501,14 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef165294 = true;
+			boolean __temp_executeDef256486 = true;
 			switch (field.hashCode())
 			{
 				case 1247755178:
 				{
 					if (field.equals("m_elapsed")) 
 					{
-						__temp_executeDef165294 = false;
+						__temp_executeDef256486 = false;
 						return this.m_elapsed;
 					}
 					
@@ -520,7 +520,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("m_time_start")) 
 					{
-						__temp_executeDef165294 = false;
+						__temp_executeDef256486 = false;
 						return this.m_time_start;
 					}
 					
@@ -532,7 +532,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("elapsed")) 
 					{
-						__temp_executeDef165294 = false;
+						__temp_executeDef256486 = false;
 						if (handleProperties) 
 						{
 							return this.get_elapsed();
@@ -550,7 +550,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef165294) 
+			if (__temp_executeDef256486) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -567,14 +567,14 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef165295 = true;
+			boolean __temp_executeDef256487 = true;
 			switch (field.hashCode())
 			{
 				case 113291:
 				{
 					if (field.equals("run")) 
 					{
-						__temp_executeDef165295 = false;
+						__temp_executeDef256487 = false;
 						this.run();
 					}
 					
@@ -586,7 +586,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("get_elapsed")) 
 					{
-						__temp_executeDef165295 = false;
+						__temp_executeDef256487 = false;
 						return this.get_elapsed();
 					}
 					
@@ -598,7 +598,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("OnRun")) 
 					{
-						__temp_executeDef165295 = false;
+						__temp_executeDef256487 = false;
 						this.OnRun();
 					}
 					
@@ -610,7 +610,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("Cancel")) 
 					{
-						__temp_executeDef165295 = false;
+						__temp_executeDef256487 = false;
 						this.Cancel();
 					}
 					
@@ -622,7 +622,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("OnRender")) 
 					{
-						__temp_executeDef165295 = false;
+						__temp_executeDef256487 = false;
 						this.OnRender();
 					}
 					
@@ -634,7 +634,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				{
 					if (field.equals("OnUpdate")) 
 					{
-						__temp_executeDef165295 = false;
+						__temp_executeDef256487 = false;
 						this.OnUpdate();
 					}
 					
@@ -644,7 +644,7 @@ public  class Activity extends haxor.core.Resource implements java.lang.Runnable
 				
 			}
 			
-			if (__temp_executeDef165295) 
+			if (__temp_executeDef256487) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

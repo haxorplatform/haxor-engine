@@ -17,12 +17,12 @@ class HXCPP_CLASS_ATTRIBUTES  SAP_obj : public hx::Object{
 		typedef hx::Object super;
 		typedef SAP_obj OBJ_;
 		SAP_obj();
-		Void __construct();
+		Void __construct(hx::Null< Float >  __o_p_bias,hx::Null< bool >  __o_p_has_query);
 
 	public:
 		inline void *operator new( size_t inSize, bool inContainer=true)
 			{ return hx::Object::operator new(inSize,inContainer); }
-		static hx::ObjectPtr< SAP_obj > __new();
+		static hx::ObjectPtr< SAP_obj > __new(hx::Null< Float >  __o_p_bias,hx::Null< bool >  __o_p_has_query);
 		static Dynamic __CreateEmpty();
 		static Dynamic __Create(hx::DynamicArray inArgs);
 		//~SAP_obj();
@@ -41,6 +41,7 @@ class HXCPP_CLASS_ATTRIBUTES  SAP_obj : public hx::Object{
 		::haxor::ds::SAPList x;
 		::haxor::ds::SAPList y;
 		::haxor::ds::SAPList z;
+		bool m_has_query;
 		virtual Void Create( int p_id);
 		Dynamic Create_dyn();
 
