@@ -46,7 +46,7 @@ class Stats
 	{ 
 		visible   = 0;
 		culled 	  = 0;
-		triangles = 0;
+		triangles = 0;		
 		renderers = EngineContext.renderer.rid.next;
 	}
 	

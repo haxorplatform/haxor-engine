@@ -290,7 +290,6 @@ class DOMEntity extends Resource
 		e.style.setProperty(vdn+"transform","scale3d("+m_sx+","+m_sy+",1.0) rotate3d(0,0,1,"+m_rotation+"deg) translate3d("+px+"px,"+py+"px,0px)","");
 		#end
 		
-		
 		//for (i in 0...m_components.length) m_components[i].OnTransformUpdate();
 		
 	}

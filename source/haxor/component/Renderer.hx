@@ -1,3 +1,4 @@
+
 package haxor.component;
 import haxor.context.EngineContext;
 import haxor.core.Entity;

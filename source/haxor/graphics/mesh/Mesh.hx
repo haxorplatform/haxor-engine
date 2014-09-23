@@ -1,6 +1,5 @@
 package haxor.graphics.mesh;
 import haxor.context.EngineContext;
-import haxor.context.MeshContext;
 import haxor.core.Console;
 import haxor.core.Resource;
 import haxor.core.Enums.MeshMode;
@@ -8,10 +7,14 @@ import haxor.core.Enums.MeshPrimitive;
 import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
-import haxor.graphics.GL;
 import haxor.math.AABB3;
 import haxor.platform.Types.Float32;
 import haxor.platform.Types.MeshBufferId;
+
+#if !ie8
+import haxor.context.MeshContext;
+import haxor.graphics.GL;
+#end
 
 
 

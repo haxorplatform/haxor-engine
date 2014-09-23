@@ -3,7 +3,6 @@ package haxor.component;
 import haxor.context.EngineContext;
 import haxor.core.Entity;
 import haxor.core.Time;
-import haxor.graphics.Graphics;
 import haxor.graphics.mesh.Mesh;
 import haxor.math.AABB2;
 import haxor.math.AABB3;
@@ -12,6 +11,10 @@ import haxor.math.Matrix4;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
 import haxor.platform.Types.Float32;
+
+#if !ie8
+import haxor.graphics.Graphics;
+#end
 
 /**
  * Class that describes a Renderer that uses a Mesh as buffer.
@@ -155,7 +158,9 @@ class MeshRenderer extends Renderer
 		super.OnRender();		
 		if (m_mesh == null) return;	
 		
-		Graphics.Render(m_mesh,material,entity.transform,Camera.current);
+		#if !ie8
+		Graphics.Render(m_mesh, material, entity.transform, Camera.current);
+		#end
 	}
 	
 }

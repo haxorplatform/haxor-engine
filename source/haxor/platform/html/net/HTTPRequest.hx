@@ -20,7 +20,15 @@ class HTTPRequest extends HTTPRequestTask<XMLHttpRequest,Dynamic>
 	public function new(p_url:String,p_method:String, p_binary:Bool,p_data:Dynamic=null):Void
 	{
 		super(p_url, p_method, p_binary, p_data);	
+		#if ie8
+		var req : Dynamic=null;
+		untyped __js__('		
+		if (window.XDomainRequest) req = new XDomainRequest(); else req = new XMLHttpRequest();
+		');
+		request = req;
+		#else
 		request = new XMLHttpRequest();						
+		#end
 		if (request.withCredentials){ request.withCredentials = false; }		
 		if (request.overrideMimeType != null) {  request.overrideMimeType(p_binary ? "application/octet-stream" : "text/plain");  }				
 		request.onprogress 	= function(e : XMLHttpRequestProgressEvent)

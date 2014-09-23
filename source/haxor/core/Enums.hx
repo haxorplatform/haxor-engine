@@ -2,6 +2,7 @@ package haxor.core;
 
 import haxor.graphics.GL;
 
+
 /**
  * File that describes the enumerations used for the engine.
  */
@@ -100,6 +101,7 @@ class BlendMode
 	static public inline var SrcAlphaSaturate 			: Int	= GL.SRC_ALPHA_SATURATE;
 	
 }
+
 
 /**
  * Storage type of the mesh.

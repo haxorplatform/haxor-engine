@@ -1,4 +1,3 @@
-
 package haxor.graphics.material;
 
 import haxor.context.EngineContext;

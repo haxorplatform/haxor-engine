@@ -4,10 +4,8 @@ import haxor.dom.DOMStage;
 import haxe.Timer;
 import haxor.platform.Types.Float32;
 import haxor.platform.html.input.HTMLInputHandler;
-
 import haxor.input.Input;
 import haxor.context.EngineContext;
-import haxor.graphics.GL;
 import haxor.core.Engine;
 import haxor.core.Entity;
 import haxor.core.Time;
@@ -19,6 +17,8 @@ import js.html.NodeList;
 import js.html.Element;
 import js.html.Event;
 import js.Browser;
+import haxor.graphics.GL;
+
 
 /**
  * Entry point class that controls the initialization of JS/HTML projects.
@@ -148,6 +148,7 @@ class Entry
 		}
 		else
 		{
+			Time.m_clock_0 = (Timer.stamp() * 1000.0);
 			TimeOutLoop();
 		}
 		
@@ -174,7 +175,7 @@ class Entry
 	
 	static private function TimeOutLoop():Void
 	{
-		Time.m_system = Timer.stamp();
+		Time.m_system = (Timer.stamp() * 1000.0) - Time.m_clock_0;
 		m_application.Update();
 		m_application.Render();
 		Browser.window.setTimeout(TimeOutLoop, 10);

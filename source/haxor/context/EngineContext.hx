@@ -1,10 +1,7 @@
 package haxor.context;
 import haxor.component.Component;
 import haxor.component.MeshRenderer;
-import haxor.component.Renderer;
 import haxor.context.Process.BaseProcess;
-import haxor.context.RendererContext;
-import haxor.context.RendererContext;
 import haxor.core.Console;
 import haxor.core.Entity;
 import haxor.core.IDisposable;
@@ -12,7 +9,10 @@ import haxor.core.IRenderable;
 import haxor.core.IResizeable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
+import haxor.component.Renderer;
 import haxor.core.Stats;
+
+
 
 /**
  * Class that holds all backstage processing and optimizations for the main Engine class.
@@ -67,7 +67,6 @@ class EngineContext
 	 */
 	static private var list : Array<BaseProcess>;
 	
-	
 	/**
 	 * Reference to the mesh context.
 	 */
@@ -84,20 +83,10 @@ class EngineContext
 	static private var texture : TextureContext;
 	
 	/**
-	 * Reference to the Data context.
-	 */
-	static private var data : DataContext;
-	
-	/**
 	 * Reference to the Camera context.
 	 */
 	static private var camera : CameraContext;
-	
-	/**
-	 * Reference to the Transform context.
-	 */
-	static private var transform : TransformContext;
-	
+		
 	/**
 	 * Reference to the Renderer context.
 	 */
@@ -107,6 +96,16 @@ class EngineContext
 	 * Reference to the Gizmo context.
 	 */
 	static private var gizmo : GizmoContext;
+	
+	/**
+	 * Reference to the Data context.
+	 */
+	static private var data : DataContext;
+	
+	/**
+	 * Reference to the Transform context.
+	 */
+	static private var transform : TransformContext;
 	
 	/**
 	 * Initializes the Haxor context.
@@ -159,8 +158,11 @@ class EngineContext
 	{
 		if(Std.is(p_resource,IUpdateable)) 	update.Add(p_resource);
 		if(Std.is(p_resource,IRenderable)) 	render.Add(p_resource);
-		if(Std.is(p_resource, IResizeable)) resize.Add(p_resource);
-		if(Std.is(p_resource,Renderer)) 	renderer.Enable(cast p_resource);
+		if (Std.is(p_resource, IResizeable)) resize.Add(p_resource);		
+		
+		
+		if (Std.is(p_resource, Renderer)) 	renderer.Enable(cast p_resource);
+		
 		if (Std.is(p_resource, Entity))
 		{
 			var e :Entity = cast p_resource;
@@ -208,7 +210,9 @@ class EngineContext
 		for (i in 0...e.m_components.length)
 		{
 			var c : Component = e.m_components[i];
-			if (Std.is(c, Renderer)) EngineContext.renderer.OnLayerChange(cast c, p_from, p_to);			
+			#if !ie8
+			if (Std.is(c, Renderer)) EngineContext.renderer.OnLayerChange(cast c, p_from, p_to);
+			#end
 		}
 	}
 	

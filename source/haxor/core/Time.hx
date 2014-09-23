@@ -19,7 +19,7 @@ class Time
 	 */
 	static public var system(get_system, null):Float32;
 	static private inline function get_system():Float32
-	{ 		
+	{ 	
 		#if html
 		return m_system; 
 		#end
@@ -133,7 +133,7 @@ class Time
 		m_last_clock 	= m_clock;
 		m_delta 		= m_clock_dt * 0.001;		
 		
-		m_elapsed		= m_clock*0.001;
+		m_elapsed		= (m_clock)*0.001;
 		m_updates 		+= 1.0;
 		
 		if ((m_clock - m_stats_clock) >= 1000.0)

@@ -24,7 +24,7 @@
     <option noInlineOnDebug="False" />
     <option mainClass="MainIE8" />
     <option enabledebug="False" />
-    <option additional="" />
+    <option additional="-dce std" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
@@ -48,7 +48,7 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Webserver" />
-    <option testMovieCommand="deploy\html\index.html" />
+    <option testMovieCommand="deploy\html\index-ie8.html" />
   </options>
   <!-- Plugin storage -->
   <storage />
