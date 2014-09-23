@@ -25,10 +25,11 @@ class AABB2
 	static public function FromMinMax(p_xmin : Float32, p_xmax : Float32, p_ymin:Float32, p_ymax : Float32 ) :AABB2
 	{
 		var b : AABB2 = new AABB2();
-		b.xMin = p_xmin;
-		b.xMax = p_xmax;
-		b.yMin = p_ymin;
-		b.yMax = p_ymax;
+		b.m_xMin = p_xmin;
+		b.m_xMax = p_xmax;
+		b.m_yMin = p_ymin;
+		b.m_yMax = p_ymax;
+		b.Validate();
 		return b;
 	}
 	
@@ -123,7 +124,7 @@ class AABB2
 	 */
 	private function Validate():Void
 	{
-		
+		/*
 		var x0 : Float32 = m_xMin;
 		var x1 : Float32 = m_xMax;
 		var y0 : Float32 = m_yMin;

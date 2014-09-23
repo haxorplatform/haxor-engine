@@ -29,7 +29,7 @@ class DOMStage extends Container  implements IResizeable
 	private function new(p_container:Element) 
 	{
 		m_instance = this;
-		super("stage",p_container);
+		super(p_container,"stage");
 	}
 	
 	/**

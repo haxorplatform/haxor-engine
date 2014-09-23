@@ -46,7 +46,7 @@ class Container extends DOMEntity
 	 * Creates a new Container.
 	 * @param	p_name
 	 */
-	public function new(p_name:String="",p_element:Element=null) 
+	public function new(p_element:Element=null,p_name:String="") 
 	{	
 		m_children = [];
 		var e: Element = p_element == null ? Browser.document.createDivElement() : p_element;

@@ -48,7 +48,7 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Webserver" />
-    <option testMovieCommand="deploy\html\index.html" />
+    <option testMovieCommand="deploy\html\index-ie8.html" />
   </options>
   <!-- Plugin storage -->
   <storage />

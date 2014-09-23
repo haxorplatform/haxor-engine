@@ -1,5 +1,5 @@
 (function () { "use strict";
-var $hxClasses = {};
+var $hxClasses = {},$estr = function() { return js.Boot.__string_rec(this,''); };
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -40,13 +40,6 @@ HxOverrides.remove = function(a,obj) {
 	if(i == -1) return false;
 	a.splice(i,1);
 	return true;
-};
-HxOverrides.iter = function(a) {
-	return { cur : 0, arr : a, hasNext : function() {
-		return this.cur < this.arr.length;
-	}, next : function() {
-		return this.arr[this.cur++];
-	}};
 };
 var haxor = {};
 haxor.core = {};
@@ -269,9 +262,7 @@ haxor.core.BaseApplication.prototype = $extend(haxor.component.Behaviour.prototy
 		if(haxor.core.Time.m_clock - this.m_frame_ms >= this.m_mspf) {
 			this.m_frame_ms += haxor.core.Time.m_clock - this.m_frame_ms;
 			haxor.core.Time.Render();
-			haxor.graphics.GL.m_gl.Focus();
 			haxor.core.Engine.Render();
-			null;
 		}
 	}
 	,OnQuit: function() {
@@ -294,7 +285,6 @@ haxor.core.BaseApplication.prototype = $extend(haxor.component.Behaviour.prototy
 	}
 	,OnResize: function() {
 		haxor.core.Console.Log("Application> Resize [" + haxor.graphics.Screen.m_width + "," + haxor.graphics.Screen.m_height + "]",6);
-		haxor.graphics.GL.m_gl.Resize();
 		haxor.core.Engine.Resize();
 	}
 	,OnFullscreenEnter: function() {
@@ -359,94 +349,55 @@ haxor.core.IUpdateable.__name__ = ["haxor","core","IUpdateable"];
 haxor.core.IUpdateable.prototype = {
 	__class__: haxor.core.IUpdateable
 };
-var Main = function() {
-	this.queue = 3;
+var MainIE8 = function() {
+	this.log = "";
 	haxor.core.Application.call(this);
 };
-$hxClasses["Main"] = Main;
-Main.__name__ = ["Main"];
-Main.__interfaces__ = [haxor.core.IRenderable,haxor.core.IUpdateable];
-Main.main = function() {
+$hxClasses["MainIE8"] = MainIE8;
+MainIE8.__name__ = ["MainIE8"];
+MainIE8.__interfaces__ = [haxor.core.IRenderable,haxor.core.IUpdateable];
+MainIE8.main = function() {
 	haxor.platform.html.Entry.Initialize();
 };
-Main.__super__ = haxor.core.Application;
-Main.prototype = $extend(haxor.core.Application.prototype,{
+MainIE8.__super__ = haxor.core.Application;
+MainIE8.prototype = $extend(haxor.core.Application.prototype,{
 	Load: function() {
-		var _g = this;
-		haxor.net.Web.root = "http://haxor.thelaborat.org/resources/";
-		haxor.net.Web.LoadCollada("./character/skeleton/grunt/animation_idle01.DAE",function(f,p) {
-			if(p >= 1.0) {
-				haxor.io.file.Asset.Add("animation_idle",f);
-				if(--_g.queue <= 0) _g.LoadComplete();
-			}
-		});
-		haxor.net.Web.LoadTexture2D("./character/skeleton/grunt/DiffuseTexture.png",true,function(t,p1) {
-			if(p1 >= 1.0) {
-				haxor.io.file.Asset.Add("texture_diffuse",t);
-				if(--_g.queue <= 0) _g.LoadComplete();
-			}
-		});
-		haxor.net.Web.LoadCollada("./character/skeleton/grunt/model.DAE",function(f1,p2) {
-			if(p2 >= 1.0) {
-				haxor.io.file.Asset.Add("model",f1);
-				if(--_g.queue <= 0) _g.LoadComplete();
-			}
-		});
-		return false;
+		return true;
 	}
 	,Initialize: function() {
 		haxor.core.Console.Log("Initialize!");
-		this.field = window.document.getElementById("field");
-		var ui = new Stats();
-		ui.domElement.style.position = "absolute";
-		ui.domElement.style.top = "0px";
-		window.document.body.appendChild(ui.domElement);
+		var c = new haxor.dom.Container(null,"content");
+		c.m_element.style.background = "#f00";
+		c.get_stage().AddChild(c);
+		c.set_width(200);
+		c.set_height(200);
+		c.set_px(100);
+		c.set_py(100);
+		c.set_x(350);
+		c.set_y(150);
+		var logo = new haxor.dom.Sprite("assets/img/lamp.jpg");
+		c.AddChild(logo);
+		logo.get_layout().FitSize();
+		logo.get_layout().set_margin(logo.get_layout().get_margin().Set(15,15,15,15));
+		var _g = logo.get_layout();
+		_g.set_flag(_g.m_flag | (haxor.dom.LayoutFlag.PivotXY | haxor.dom.LayoutFlag.PositionXY));
+		logo.get_layout().set_x(0.5);
+		logo.get_layout().set_y(0.5);
+		logo.get_layout().set_px(0.5);
+		logo.get_layout().set_py(0.5);
 		haxor.thread.Activity.Run(function(t) {
-			ui.update();
+			if(haxor.input.Input.Down(haxor.input.KeyCode.Space)) logo.set_pattern(!logo.get_pattern());
+			c.set_rotation(t * 60);
 			return true;
 		});
-		this.orbit = haxor.component.CameraOrbit.Create(400.0,45,30);
-		var ci = this.orbit.m_entity.AddComponent(haxor.component.CameraOrbitInput);
-		this.orbit.smooth = 5.0;
-		ci.zoomSpeed = 0.1;
-		this.cam = this.orbit.m_entity.GetComponentInChildren(haxor.component.Camera);
-		this.cam.set_far(1000.0);
-		this.cam.background = new haxor.math.Color(0.3,0.3,0.3);
-		this.container = new haxor.core.Entity("container").get_transform();
-		this.mat = haxor.graphics.material.Material.Opaque(haxor.io.file.Asset.Get("texture_diffuse"),null,null);
-		this.mat.set_shader(haxor.graphics.material.Shader.m_flat_texture_skin_shader == null?haxor.graphics.material.Shader.m_flat_texture_skin_shader = new haxor.graphics.material.Shader(haxor.context.ShaderContext.flat_texture_skin_source):haxor.graphics.material.Shader.m_flat_texture_skin_shader);
-		this.mat.set_name("PlayerMaterial");
-		var cf = haxor.io.file.Asset.Get("model");
-		this.player = new haxor.core.Entity("player").get_transform();
-		var asset = (js.Boot.__cast(cf.get_asset() , haxor.core.Entity)).get_transform();
-		asset.set_parent(this.player);
-		var mr = this.player.m_entity.GetComponentsInChildren(haxor.component.MeshRenderer);
-		var _g1 = 0;
-		var _g = mr.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			mr[i].set_material(this.mat);
-		}
+		this.field = window.document.getElementById("field");
 	}
 	,OnUpdate: function() {
-		var log = "";
-		log += "Stats";
-		log += "\nVisible: " + haxor.core.Stats.visible;
-		log += "\nCulled: " + haxor.core.Stats.culled;
-		log += "\nActive: " + haxor.core.Stats.get_total();
-		log += "\nRenderers: " + haxor.core.Stats.renderers;
-		log += "\nTris: " + haxor.core.Stats.triangles;
-		if(this.player != null) {
-			var r = this.player.get_localRotation();
-			r = haxor.math.Quaternion.FromAxisAngle(new haxor.math.Vector3(0,1,0),33.0);
-			this.player.set_localRotation(r);
-		}
-		if(this.field != null) this.field.innerText = log;
+		if(this.field != null) this.field.innerText = this.log;
 	}
 	,OnRender: function() {
-		haxor.graphics.GL.m_gl.Clear(256);
 	}
-	,__class__: Main
+	,__class__: MainIE8
 });
 var IMap = function() { };
 $hxClasses["IMap"] = IMap;
@@ -490,10 +441,6 @@ StringBuf.prototype = {
 var StringTools = function() { };
 $hxClasses["StringTools"] = StringTools;
 StringTools.__name__ = ["StringTools"];
-StringTools.htmlEscape = function(s,quotes) {
-	s = s.split("&").join("&amp;").split("<").join("&lt;").split(">").join("&gt;");
-	if(quotes) return s.split("\"").join("&quot;").split("'").join("&#039;"); else return s;
-};
 StringTools.isSpace = function(s,pos) {
 	var c = HxOverrides.cca(s,pos);
 	return c > 8 && c < 14 || c == 32;
@@ -652,39 +599,6 @@ Xml.prototype = {
 		if(this.nodeType != Xml.Element) throw "bad nodeType";
 		return this._attributes.exists(att);
 	}
-	,iterator: function() {
-		if(this._children == null) throw "bad nodetype";
-		return { cur : 0, x : this._children, hasNext : function() {
-			return this.cur < this.x.length;
-		}, next : function() {
-			return this.x[this.cur++];
-		}};
-	}
-	,elements: function() {
-		if(this._children == null) throw "bad nodetype";
-		return { cur : 0, x : this._children, hasNext : function() {
-			var k = this.cur;
-			var l = this.x.length;
-			while(k < l) {
-				if(this.x[k].nodeType == Xml.Element) break;
-				k += 1;
-			}
-			this.cur = k;
-			return k < l;
-		}, next : function() {
-			var k1 = this.cur;
-			var l1 = this.x.length;
-			while(k1 < l1) {
-				var n = this.x[k1];
-				k1 += 1;
-				if(n.nodeType == Xml.Element) {
-					this.cur = k1;
-					return n;
-				}
-			}
-			return null;
-		}};
-	}
 	,elementsNamed: function(name) {
 		if(this._children == null) throw "bad nodetype";
 		return { cur : 0, x : this._children, hasNext : function() {
@@ -731,43 +645,6 @@ Xml.prototype = {
 		if(x._parent != null) HxOverrides.remove(x._parent._children,x);
 		x._parent = this;
 		this._children.push(x);
-	}
-	,toString: function() {
-		if(this.nodeType == Xml.PCData) return StringTools.htmlEscape(this._nodeValue);
-		if(this.nodeType == Xml.CData) return "<![CDATA[" + this._nodeValue + "]]>";
-		if(this.nodeType == Xml.Comment) return "<!--" + this._nodeValue + "-->";
-		if(this.nodeType == Xml.DocType) return "<!DOCTYPE " + this._nodeValue + ">";
-		if(this.nodeType == Xml.ProcessingInstruction) return "<?" + this._nodeValue + "?>";
-		var s = new StringBuf();
-		if(this.nodeType == Xml.Element) {
-			s.b += "<";
-			s.b += Std.string(this._nodeName);
-			var $it0 = this._attributes.keys();
-			while( $it0.hasNext() ) {
-				var k = $it0.next();
-				s.b += " ";
-				if(k == null) s.b += "null"; else s.b += "" + k;
-				s.b += "=\"";
-				s.add(this._attributes.get(k));
-				s.b += "\"";
-			}
-			if(this._children.length == 0) {
-				s.b += "/>";
-				return s.b;
-			}
-			s.b += ">";
-		}
-		var $it1 = this.iterator();
-		while( $it1.hasNext() ) {
-			var x = $it1.next();
-			s.add(x.toString());
-		}
-		if(this.nodeType == Xml.Element) {
-			s.b += "</";
-			s.b += Std.string(this._nodeName);
-			s.b += ">";
-		}
-		return s.b;
 	}
 	,__class__: Xml
 };
@@ -965,28 +842,6 @@ haxe.ds.IntMap.prototype = {
 	}
 	,__class__: haxe.ds.IntMap
 };
-haxe.ds.ObjectMap = function() {
-	this.h = { };
-	this.h.__keys__ = { };
-};
-$hxClasses["haxe.ds.ObjectMap"] = haxe.ds.ObjectMap;
-haxe.ds.ObjectMap.__name__ = ["haxe","ds","ObjectMap"];
-haxe.ds.ObjectMap.__interfaces__ = [IMap];
-haxe.ds.ObjectMap.prototype = {
-	set: function(key,value) {
-		var id = key.__id__ || (key.__id__ = ++haxe.ds.ObjectMap.count);
-		this.h[id] = value;
-		this.h.__keys__[id] = key;
-	}
-	,keys: function() {
-		var a = [];
-		for( var key in this.h.__keys__ ) {
-		if(this.h.hasOwnProperty(key)) a.push(this.h.__keys__[key]);
-		}
-		return HxOverrides.iter(a);
-	}
-	,__class__: haxe.ds.ObjectMap
-};
 haxe.ds.StringMap = function() {
 	this.h = { };
 };
@@ -1009,13 +864,6 @@ haxe.ds.StringMap.prototype = {
 		delete(this.h[key]);
 		return true;
 	}
-	,keys: function() {
-		var a = [];
-		for( var key in this.h ) {
-		if(this.h.hasOwnProperty(key)) a.push(key.substr(1));
-		}
-		return HxOverrides.iter(a);
-	}
 	,__class__: haxe.ds.StringMap
 };
 haxe.io.Eof = function() { };
@@ -1029,12 +877,15 @@ haxe.io.Eof.prototype = {
 };
 haxe.io.Error = { __ename__ : true, __constructs__ : ["Blocked","Overflow","OutsideBounds","Custom"] };
 haxe.io.Error.Blocked = ["Blocked",0];
+haxe.io.Error.Blocked.toString = $estr;
 haxe.io.Error.Blocked.__enum__ = haxe.io.Error;
 haxe.io.Error.Overflow = ["Overflow",1];
+haxe.io.Error.Overflow.toString = $estr;
 haxe.io.Error.Overflow.__enum__ = haxe.io.Error;
 haxe.io.Error.OutsideBounds = ["OutsideBounds",2];
+haxe.io.Error.OutsideBounds.toString = $estr;
 haxe.io.Error.OutsideBounds.__enum__ = haxe.io.Error;
-haxe.io.Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe.io.Error; return $x; };
+haxe.io.Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe.io.Error; $x.toString = $estr; return $x; };
 haxe.xml = {};
 haxe.xml.Parser = function() { };
 $hxClasses["haxe.xml.Parser"] = haxe.xml.Parser;
@@ -1525,118 +1376,6 @@ haxor.component.Camera.prototype = $extend(haxor.component.Behaviour.prototype,{
 	}
 	,__class__: haxor.component.Camera
 });
-haxor.component.CameraOrbit = function(p_name) {
-	haxor.component.Behaviour.call(this,p_name);
-};
-$hxClasses["haxor.component.CameraOrbit"] = haxor.component.CameraOrbit;
-haxor.component.CameraOrbit.__name__ = ["haxor","component","CameraOrbit"];
-haxor.component.CameraOrbit.__interfaces__ = [haxor.core.IUpdateable];
-haxor.component.CameraOrbit.Create = function(p_distance,p_angle_x,p_angle_y) {
-	if(p_angle_y == null) p_angle_y = 0;
-	if(p_angle_x == null) p_angle_x = 0;
-	if(p_distance == null) p_distance = 1;
-	var e = new haxor.core.Entity();
-	e.set_name("camera_orbit");
-	var c = e.AddComponent(haxor.component.Camera);
-	c.background = new haxor.math.Color(0,0,0,1);
-	var orbit = e.AddComponent(haxor.component.CameraOrbit);
-	orbit.distance = p_distance;
-	orbit.smooth = 0;
-	orbit.angle = new haxor.math.Vector2(p_angle_x,p_angle_y);
-	return orbit;
-};
-haxor.component.CameraOrbit.__super__ = haxor.component.Behaviour;
-haxor.component.CameraOrbit.prototype = $extend(haxor.component.Behaviour.prototype,{
-	get_pivot: function() {
-		if(this.m_pivot == null) {
-			var e = new haxor.core.Entity();
-			this.m_pivot = e.m_transform;
-			this.m_pivot.set_name(this.m_entity.get_name());
-			this.m_pivot.set_parent(this.m_entity.m_transform.m_parent);
-			this.m_entity.m_transform.set_parent(this.m_pivot);
-			this.m_entity.set_name("camera");
-			this.m_pivot.set_position(this.m_entity.m_transform.get_position());
-		}
-		return this.m_pivot;
-	}
-	,OnBuild: function() {
-		haxor.component.Behaviour.prototype.OnBuild.call(this);
-		this.distance = 0.0;
-		this.m_pivot = this.get_pivot();
-	}
-	,OnStart: function() {
-		this.m_distance = this.distance;
-		if(this.angle == null) this.m_angle = new haxor.math.Vector2(0,0); else this.m_angle = this.angle.get_clone();
-		this.m_rotation = new haxor.math.Quaternion(0,0,0,1.0);
-		var p = haxor.context.EngineContext.data.get_v3();
-		p.Set(0,0,this.m_distance);
-		this.m_entity.m_transform.set_localPosition(p);
-	}
-	,OnUpdate: function() {
-		var blend;
-		if(this.smooth <= 0) blend = 1.0; else blend = haxor.core.Time.m_delta * this.smooth;
-		this.m_angle.x = haxor.math.Mathf.Lerp(this.m_angle.x,this.angle.x,blend);
-		this.m_angle.y = haxor.math.Mathf.Lerp(this.m_angle.y,this.angle.y,blend);
-		this.m_distance = haxor.math.Mathf.Lerp(this.m_distance,this.distance,blend);
-		var q = haxor.context.EngineContext.data.get_q();
-		q.SetAxisAngle(new haxor.math.Vector3(0,1,0),this.m_angle.x);
-		q.Multiply(haxor.context.EngineContext.data.get_q().SetAxisAngle(new haxor.math.Vector3(1,0,0),-this.m_angle.y));
-		this.get_pivot().set_localRotation(q);
-		var p = haxor.context.EngineContext.data.get_v3();
-		p.Set(0,0,this.m_distance);
-		this.m_entity.m_transform.set_localPosition(p);
-		if(this.target != null) {
-			var p1 = this.get_pivot().get_localPosition();
-			p1 = haxor.math.Vector3.Lerp(p1,this.target.get_localPosition(),haxor.core.Time.m_delta * this.smooth);
-			this.get_pivot().set_localPosition(p1);
-		}
-	}
-	,__class__: haxor.component.CameraOrbit
-});
-haxor.component.CameraOrbitInput = function(p_name) {
-	this.rotateSpeed = 0.5;
-	this.zoomSpeed = 0.5;
-	this.zoom = true;
-	this.rotate = true;
-	haxor.component.Behaviour.call(this,p_name);
-};
-$hxClasses["haxor.component.CameraOrbitInput"] = haxor.component.CameraOrbitInput;
-haxor.component.CameraOrbitInput.__name__ = ["haxor","component","CameraOrbitInput"];
-haxor.component.CameraOrbitInput.__interfaces__ = [haxor.core.IUpdateable];
-haxor.component.CameraOrbitInput.__super__ = haxor.component.Behaviour;
-haxor.component.CameraOrbitInput.prototype = $extend(haxor.component.Behaviour.prototype,{
-	OnStart: function() {
-		this.m_orbit = this.m_entity.GetComponent(haxor.component.CameraOrbit);
-	}
-	,OnUpdate: function() {
-		var dx;
-		if(haxor.input.Input.get_touches().length == 1) dx = haxor.input.Input.get_touches()[0].delta.x; else dx = haxor.input.Input.deltaMouse.x;
-		var dy;
-		if(haxor.input.Input.get_touches().length == 1) dy = haxor.input.Input.get_touches()[0].delta.y; else dy = haxor.input.Input.deltaMouse.y;
-		if(this.rotate) {
-			var is_rotate = haxor.input.Input.Pressed(haxor.input.KeyCode.Mouse0) || haxor.input.Input.get_touches().length == 1;
-			if(is_rotate) {
-				this.m_orbit.angle.x += -dx * this.rotateSpeed;
-				this.m_orbit.angle.y += dy * this.rotateSpeed;
-			}
-		}
-		if(this.zoom) {
-			if(Math.abs(haxor.input.Input.wheel) > 0) if(haxor.input.Input.wheel < 0) this.m_orbit.distance += this.zoomSpeed; else this.m_orbit.distance += -this.zoomSpeed;
-			if(haxor.input.Input.get_touches().length == 2) this.m_orbit.distance += haxor.input.Input.get_touches()[0].delta.y * this.zoomSpeed * 0.05;
-		}
-	}
-	,__class__: haxor.component.CameraOrbitInput
-});
-haxor.component.DataComponent = function() {
-	haxor.component.Component.call(this);
-	this.data = new haxe.ds.StringMap();
-};
-$hxClasses["haxor.component.DataComponent"] = haxor.component.DataComponent;
-haxor.component.DataComponent.__name__ = ["haxor","component","DataComponent"];
-haxor.component.DataComponent.__super__ = haxor.component.Component;
-haxor.component.DataComponent.prototype = $extend(haxor.component.Component.prototype,{
-	__class__: haxor.component.DataComponent
-});
 haxor.math = {};
 haxor.math.Color = function(p_r,p_g,p_b,p_a) {
 	if(p_a == null) p_a = 1;
@@ -2055,84 +1794,6 @@ haxor.component.MeshRenderer.prototype = $extend(haxor.component.Renderer.protot
 		haxor.graphics.Graphics.Render(this.m_mesh,this.m_material,this.m_entity.m_transform,haxor.component.Camera.m_current);
 	}
 	,__class__: haxor.component.MeshRenderer
-});
-haxor.component.PointLight = function() {
-	haxor.component.Light.call(this);
-	this.atten = 1.0;
-	this.radius = 1.0;
-};
-$hxClasses["haxor.component.PointLight"] = haxor.component.PointLight;
-haxor.component.PointLight.__name__ = ["haxor","component","PointLight"];
-haxor.component.PointLight.Create = function(p_color,p_intensity,p_atten,p_radius) {
-	var e = new haxor.core.Entity();
-	e.set_name("PointLight");
-	var l = e.AddComponent(haxor.component.PointLight);
-	l.color = p_color;
-	l.intensity = p_intensity;
-	l.atten = p_atten;
-	l.radius = p_radius;
-	return l;
-};
-haxor.component.PointLight.__super__ = haxor.component.Light;
-haxor.component.PointLight.prototype = $extend(haxor.component.Light.prototype,{
-	__class__: haxor.component.PointLight
-});
-haxor.component.SkinnedMeshRenderer = function(p_name) {
-	haxor.component.MeshRenderer.call(this,p_name);
-};
-$hxClasses["haxor.component.SkinnedMeshRenderer"] = haxor.component.SkinnedMeshRenderer;
-haxor.component.SkinnedMeshRenderer.__name__ = ["haxor","component","SkinnedMeshRenderer"];
-haxor.component.SkinnedMeshRenderer.__super__ = haxor.component.MeshRenderer;
-haxor.component.SkinnedMeshRenderer.prototype = $extend(haxor.component.MeshRenderer.prototype,{
-	set_joints: function(v) {
-		if(v == null) this.m_joints = []; else this.m_joints = v;
-		return this.m_joints;
-	}
-	,get_joints: function() {
-		return this.m_joints;
-	}
-	,OnBuild: function() {
-		haxor.component.MeshRenderer.prototype.OnBuild.call(this);
-		this.m_joints = [];
-		this.m_buffer = [];
-		var _g = 0;
-		while(_g < 8192) {
-			var i = _g++;
-			this.m_buffer.push(0);
-		}
-		this.m_data = new haxor.graphics.texture.ComputeTexture(1,2048,haxor.core.PixelFormat.Float4);
-		this.m_data.set_name("SkinningTexture" + this.get_uid());
-	}
-	,OnRender: function() {
-		if(this.m_material != null) {
-			var skm = this.m_mesh;
-			var k = 0;
-			var jm;
-			var bm;
-			var f32 = this.m_data.m_data.get_buffer();
-			var _g1 = 0;
-			var _g = this.m_joints.length;
-			while(_g1 < _g) {
-				var i = _g1++;
-				jm = this.m_joints[i].get_WorldMatrix();
-				bm = skm.get_binds()[i];
-				var _g2 = 0;
-				while(_g2 < 12) {
-					var j = _g2++;
-					f32.Set(k,jm.GetIndex(j));
-					f32.Set(k + 4096,bm.GetIndex(j));
-					k++;
-				}
-			}
-			this.m_data.Invalidate();
-			this.m_material.SetTexture("Skinning",this.m_data);
-		}
-		haxor.component.MeshRenderer.prototype.OnRender.call(this);
-		var sh = haxor.graphics.Screen.m_height;
-		var th = 2048.0;
-		haxor.graphics.Graphics.DrawTexture(this.m_data,0,th + 105,256,-th);
-	}
-	,__class__: haxor.component.SkinnedMeshRenderer
 });
 haxor.component.Transform = function(p_name) {
 	haxor.component.Component.call(this,p_name);
@@ -2715,21 +2376,8 @@ haxor.context.EngineContext.Initialize = function() {
 	haxor.context.EngineContext.disposables = new haxor.context.Process("process.disposables",haxor.context.EngineContext.maxNodes);
 	haxor.context.EngineContext.list = [haxor.context.EngineContext.update,haxor.context.EngineContext.render,haxor.context.EngineContext.resize,haxor.context.EngineContext.resources,haxor.context.EngineContext.disposables];
 	haxor.context.EngineContext.data = new haxor.context.DataContext();
-	haxor.context.EngineContext.renderer = new haxor.context.RendererContext();
-	haxor.context.EngineContext.mesh = new haxor.context.MeshContext();
-	haxor.context.EngineContext.material = new haxor.context.MaterialContext();
-	haxor.context.EngineContext.texture = new haxor.context.TextureContext();
-	haxor.context.EngineContext.gizmo = new haxor.context.GizmoContext();
-	haxor.context.EngineContext.camera = new haxor.context.CameraContext();
-	haxor.context.EngineContext.transform = new haxor.context.TransformContext();
 };
 haxor.context.EngineContext.Build = function() {
-	haxor.context.EngineContext.mesh.Initialize();
-	haxor.context.EngineContext.material.Initialize();
-	haxor.context.EngineContext.texture.Initialize();
-	haxor.context.EngineContext.gizmo.Initialize();
-	haxor.context.EngineContext.transform.Initialize();
-	haxor.context.EngineContext.renderer.Initialize();
 };
 haxor.context.EngineContext.Enable = function(p_resource) {
 	if(js.Boot.__instanceof(p_resource,haxor.core.IUpdateable)) haxor.context.EngineContext.update.Add(p_resource);
@@ -3407,15 +3055,7 @@ haxor.context.MeshContext.prototype = {
 	,Unbind: function() {
 	}
 	,Draw: function(m) {
-		if(m.m_indexed) {
-			haxor.graphics.GL.m_gl.DrawElements(m.primitive,m.m_topology_attrib.data.m_length,5123,0);
-			haxor.core.Stats.triangles += m.m_topology_attrib.data.m_length / 3;
-		} else {
-			haxor.graphics.GL.m_gl.DrawArrays(m.primitive,0,m.m_vcount);
-			var off = 3;
-			if(m.primitive == 1) off = 2;
-			haxor.core.Stats.triangles += m.m_vcount / off;
-		}
+		if(m.m_indexed) haxor.graphics.GL.m_gl.DrawElements(m.primitive,m.m_topology_attrib.data.m_length,5123,0); else haxor.graphics.GL.m_gl.DrawArrays(m.primitive,0,m.m_vcount);
 	}
 	,RemoveAttrib: function(p_attrib) {
 		var id = this.buffers[p_attrib.__cid];
@@ -4082,29 +3722,41 @@ haxor.context.UID.prototype = {
 };
 haxor.core.Platform = { __ename__ : true, __constructs__ : ["Unknown","Windows","Linux","Android","MacOS","iOS","HTML","NodeJS"] };
 haxor.core.Platform.Unknown = ["Unknown",0];
+haxor.core.Platform.Unknown.toString = $estr;
 haxor.core.Platform.Unknown.__enum__ = haxor.core.Platform;
 haxor.core.Platform.Windows = ["Windows",1];
+haxor.core.Platform.Windows.toString = $estr;
 haxor.core.Platform.Windows.__enum__ = haxor.core.Platform;
 haxor.core.Platform.Linux = ["Linux",2];
+haxor.core.Platform.Linux.toString = $estr;
 haxor.core.Platform.Linux.__enum__ = haxor.core.Platform;
 haxor.core.Platform.Android = ["Android",3];
+haxor.core.Platform.Android.toString = $estr;
 haxor.core.Platform.Android.__enum__ = haxor.core.Platform;
 haxor.core.Platform.MacOS = ["MacOS",4];
+haxor.core.Platform.MacOS.toString = $estr;
 haxor.core.Platform.MacOS.__enum__ = haxor.core.Platform;
 haxor.core.Platform.iOS = ["iOS",5];
+haxor.core.Platform.iOS.toString = $estr;
 haxor.core.Platform.iOS.__enum__ = haxor.core.Platform;
 haxor.core.Platform.HTML = ["HTML",6];
+haxor.core.Platform.HTML.toString = $estr;
 haxor.core.Platform.HTML.__enum__ = haxor.core.Platform;
 haxor.core.Platform.NodeJS = ["NodeJS",7];
+haxor.core.Platform.NodeJS.toString = $estr;
 haxor.core.Platform.NodeJS.__enum__ = haxor.core.Platform;
 haxor.core.ApplicationProtocol = { __ename__ : true, __constructs__ : ["None","File","HTTP","HTTPS"] };
 haxor.core.ApplicationProtocol.None = ["None",0];
+haxor.core.ApplicationProtocol.None.toString = $estr;
 haxor.core.ApplicationProtocol.None.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.ApplicationProtocol.File = ["File",1];
+haxor.core.ApplicationProtocol.File.toString = $estr;
 haxor.core.ApplicationProtocol.File.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.ApplicationProtocol.HTTP = ["HTTP",2];
+haxor.core.ApplicationProtocol.HTTP.toString = $estr;
 haxor.core.ApplicationProtocol.HTTP.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.ApplicationProtocol.HTTPS = ["HTTPS",3];
+haxor.core.ApplicationProtocol.HTTPS.toString = $estr;
 haxor.core.ApplicationProtocol.HTTPS.__enum__ = haxor.core.ApplicationProtocol;
 haxor.core.Console = function() { };
 $hxClasses["haxor.core.Console"] = haxor.core.Console;
@@ -4200,8 +3852,10 @@ haxor.core.Console.SetStyle = function(p_size,p_color,p_background,p_font) {
 };
 haxor.core.EngineState = { __ename__ : true, __constructs__ : ["Play","Editor"] };
 haxor.core.EngineState.Play = ["Play",0];
+haxor.core.EngineState.Play.toString = $estr;
 haxor.core.EngineState.Play.__enum__ = haxor.core.EngineState;
 haxor.core.EngineState.Editor = ["Editor",1];
+haxor.core.EngineState.Editor.toString = $estr;
 haxor.core.EngineState.Editor.__enum__ = haxor.core.EngineState;
 haxor.core.Engine = function() { };
 $hxClasses["haxor.core.Engine"] = haxor.core.Engine;
@@ -4247,12 +3901,12 @@ haxor.core.Engine.Update = function() {
 	}
 };
 haxor.core.Engine.Render = function() {
-	haxor.core.Stats.BeginRender();
 	haxor.core.Engine.RenderCameras();
 	haxor.core.Engine.RenderIRenderers();
 	haxor.core.Engine.RenderFinish();
 };
 haxor.core.Engine.RenderCameras = function() {
+	return;
 	var cl = haxor.context.EngineContext.camera.list;
 	var _g1 = 0;
 	var _g = cl.length;
@@ -4289,15 +3943,10 @@ haxor.core.Engine.RenderCameraLayer = function(l,c) {
 };
 haxor.core.Engine.RenderRenderer = function(r) {
 	r.UpdateCulling();
-	if(!(r.m_visible && !r.m_culled)) {
-		haxor.core.Stats.culled++;
-		return;
-	}
-	haxor.core.Stats.visible++;
+	if(!(r.m_visible && !r.m_culled)) return;
 	r.OnRender();
 };
 haxor.core.Engine.RenderIRenderers = function() {
-	haxor.component.Camera.m_current = null;
 	var rp = haxor.context.EngineContext.render;
 	var _g1 = 0;
 	var _g = rp.m_length;
@@ -4309,6 +3958,7 @@ haxor.core.Engine.RenderIRenderers = function() {
 	}
 };
 haxor.core.Engine.RenderFinish = function() {
+	return;
 	var cl = haxor.context.EngineContext.camera.list;
 	var _g1 = 0;
 	var _g = cl.length;
@@ -4320,7 +3970,6 @@ haxor.core.Engine.RenderFinish = function() {
 	haxor.context.EngineContext.renderer.sap_dirty = false;
 };
 haxor.core.Engine.Resize = function() {
-	haxor.context.EngineContext.camera.Resize();
 	if(haxor.core.Engine.state == haxor.core.EngineState.Editor) return;
 	var rp = haxor.context.EngineContext.resize;
 	var _g1 = 0;
@@ -4338,7 +3987,6 @@ haxor.core.Entity = function(p_name) {
 	this.m_enabled = true;
 	this.m_components = [];
 	this.m_layer = 1;
-	this.m_transform = this.AddComponent(haxor.component.Transform);
 };
 $hxClasses["haxor.core.Entity"] = haxor.core.Entity;
 haxor.core.Entity.__name__ = ["haxor","core","Entity"];
@@ -4472,67 +4120,94 @@ $hxClasses["haxor.core.DepthTest"] = haxor.core.DepthTest;
 haxor.core.DepthTest.__name__ = ["haxor","core","DepthTest"];
 haxor.core.PixelFormat = { __ename__ : true, __constructs__ : ["Alpha8","Luminance","RGB8","RGBA8","Half","Half3","Half4","Float","Float3","Float4","Depth"] };
 haxor.core.PixelFormat.Alpha8 = ["Alpha8",0];
+haxor.core.PixelFormat.Alpha8.toString = $estr;
 haxor.core.PixelFormat.Alpha8.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Luminance = ["Luminance",1];
+haxor.core.PixelFormat.Luminance.toString = $estr;
 haxor.core.PixelFormat.Luminance.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.RGB8 = ["RGB8",2];
+haxor.core.PixelFormat.RGB8.toString = $estr;
 haxor.core.PixelFormat.RGB8.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.RGBA8 = ["RGBA8",3];
+haxor.core.PixelFormat.RGBA8.toString = $estr;
 haxor.core.PixelFormat.RGBA8.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Half = ["Half",4];
+haxor.core.PixelFormat.Half.toString = $estr;
 haxor.core.PixelFormat.Half.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Half3 = ["Half3",5];
+haxor.core.PixelFormat.Half3.toString = $estr;
 haxor.core.PixelFormat.Half3.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Half4 = ["Half4",6];
+haxor.core.PixelFormat.Half4.toString = $estr;
 haxor.core.PixelFormat.Half4.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Float = ["Float",7];
+haxor.core.PixelFormat.Float.toString = $estr;
 haxor.core.PixelFormat.Float.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Float3 = ["Float3",8];
+haxor.core.PixelFormat.Float3.toString = $estr;
 haxor.core.PixelFormat.Float3.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Float4 = ["Float4",9];
+haxor.core.PixelFormat.Float4.toString = $estr;
 haxor.core.PixelFormat.Float4.__enum__ = haxor.core.PixelFormat;
 haxor.core.PixelFormat.Depth = ["Depth",10];
+haxor.core.PixelFormat.Depth.toString = $estr;
 haxor.core.PixelFormat.Depth.__enum__ = haxor.core.PixelFormat;
 haxor.core.TextureFilter = { __ename__ : true, __constructs__ : ["Nearest","Linear","NearestMipmapNearest","NearestMipmapLinear","LinearMipmapNearest","LinearMipmapLinear","Trilinear"] };
 haxor.core.TextureFilter.Nearest = ["Nearest",0];
+haxor.core.TextureFilter.Nearest.toString = $estr;
 haxor.core.TextureFilter.Nearest.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.Linear = ["Linear",1];
+haxor.core.TextureFilter.Linear.toString = $estr;
 haxor.core.TextureFilter.Linear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.NearestMipmapNearest = ["NearestMipmapNearest",2];
+haxor.core.TextureFilter.NearestMipmapNearest.toString = $estr;
 haxor.core.TextureFilter.NearestMipmapNearest.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.NearestMipmapLinear = ["NearestMipmapLinear",3];
+haxor.core.TextureFilter.NearestMipmapLinear.toString = $estr;
 haxor.core.TextureFilter.NearestMipmapLinear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.LinearMipmapNearest = ["LinearMipmapNearest",4];
+haxor.core.TextureFilter.LinearMipmapNearest.toString = $estr;
 haxor.core.TextureFilter.LinearMipmapNearest.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.LinearMipmapLinear = ["LinearMipmapLinear",5];
+haxor.core.TextureFilter.LinearMipmapLinear.toString = $estr;
 haxor.core.TextureFilter.LinearMipmapLinear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureFilter.Trilinear = ["Trilinear",6];
+haxor.core.TextureFilter.Trilinear.toString = $estr;
 haxor.core.TextureFilter.Trilinear.__enum__ = haxor.core.TextureFilter;
 haxor.core.TextureWrap = function() { };
 $hxClasses["haxor.core.TextureWrap"] = haxor.core.TextureWrap;
 haxor.core.TextureWrap.__name__ = ["haxor","core","TextureWrap"];
 haxor.core.TextureType = { __ename__ : true, __constructs__ : ["None","Texture2D","TextureCube","RenderTexture","Compute"] };
 haxor.core.TextureType.None = ["None",0];
+haxor.core.TextureType.None.toString = $estr;
 haxor.core.TextureType.None.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.Texture2D = ["Texture2D",1];
+haxor.core.TextureType.Texture2D.toString = $estr;
 haxor.core.TextureType.Texture2D.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.TextureCube = ["TextureCube",2];
+haxor.core.TextureType.TextureCube.toString = $estr;
 haxor.core.TextureType.TextureCube.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.RenderTexture = ["RenderTexture",3];
+haxor.core.TextureType.RenderTexture.toString = $estr;
 haxor.core.TextureType.RenderTexture.__enum__ = haxor.core.TextureType;
 haxor.core.TextureType.Compute = ["Compute",4];
+haxor.core.TextureType.Compute.toString = $estr;
 haxor.core.TextureType.Compute.__enum__ = haxor.core.TextureType;
 haxor.core.ClearFlag = function() { };
 $hxClasses["haxor.core.ClearFlag"] = haxor.core.ClearFlag;
 haxor.core.ClearFlag.__name__ = ["haxor","core","ClearFlag"];
 haxor.core.InputState = { __ename__ : true, __constructs__ : ["None","Down","Up","Hold"] };
 haxor.core.InputState.None = ["None",0];
+haxor.core.InputState.None.toString = $estr;
 haxor.core.InputState.None.__enum__ = haxor.core.InputState;
 haxor.core.InputState.Down = ["Down",1];
+haxor.core.InputState.Down.toString = $estr;
 haxor.core.InputState.Down.__enum__ = haxor.core.InputState;
 haxor.core.InputState.Up = ["Up",2];
+haxor.core.InputState.Up.toString = $estr;
 haxor.core.InputState.Up.__enum__ = haxor.core.InputState;
 haxor.core.InputState.Hold = ["Hold",3];
+haxor.core.InputState.Hold.toString = $estr;
 haxor.core.InputState.Hold.__enum__ = haxor.core.InputState;
 haxor.core.IResizeable = function() { };
 $hxClasses["haxor.core.IResizeable"] = haxor.core.IResizeable;
@@ -4645,7 +4320,7 @@ haxor.dom.DOMEntity = function(p_element,p_name) {
 	if(this.m_element != null) {
 		var e = this.m_element;
 		e.style.position = "absolute";
-		e.style.zIndex = "auto";
+		e.style.left = e.style.top = "0px";
 		e.setAttribute("script",Type.getClassName(Type.getClass(this)));
 	}
 	if(p_name == "") this.set_name(this.m_type_name + this.get_uid()); else this.set_name(p_name);
@@ -4807,7 +4482,7 @@ haxor.dom.DOMEntity.prototype = $extend(haxor.core.Resource.prototype,{
 	}
 	,UpdateRect: function() {
 		var e = this.m_element;
-		var m = this.get_layout().get_margin();
+		var m = this.get_layout().m_margin;
 		this.get_layout().Update();
 		e.style.width = Std["int"](this.m_width - (m.get_xMin() + m.get_xMax())) + "px";
 		e.style.height = Std["int"](this.m_height - (m.get_yMin() + m.get_yMax())) + "px";
@@ -4815,17 +4490,14 @@ haxor.dom.DOMEntity.prototype = $extend(haxor.core.Resource.prototype,{
 	}
 	,UpdateTransform: function() {
 		var e = this.m_element;
-		var m = this.get_layout().get_margin();
+		var m = this.get_layout().m_margin;
 		this.get_layout().Update();
-		var px = haxor.math.Mathf.Floor(this.m_x - this.m_px + m.get_xMin());
-		var py = haxor.math.Mathf.Floor(this.m_y - this.m_py + m.get_yMin());
+		var px = this.m_x - this.m_px + m.get_xMin();
+		var py = this.m_y - this.m_py + m.get_yMin();
 		var ox = px + this.m_px;
 		var oy = py + this.m_py;
-		var vdn = this.get_application().get_vendor();
-		var tov = e.style.getPropertyValue(vdn + "transform-origin");
-		if(tov != "" && tov != null) e.style.removeProperty(vdn + "transform-origin");
-		e.style.cssText = e.style.cssText + " " + vdn + "transform-origin: " + ox + "px " + oy + "px;";
-		e.style.setProperty(vdn + "transform","scale3d(" + this.m_sx + "," + this.m_sy + ",1.0) rotate3d(0,0,1," + this.m_rotation + "deg) translate3d(" + px + "px," + py + "px,0px)","");
+		e.style.left = (px | 0) + "px";
+		e.style.top = (py | 0) + "px";
 	}
 	,OnRepaint: function() {
 	}
@@ -4843,7 +4515,7 @@ haxor.dom.DOMEntity.prototype = $extend(haxor.core.Resource.prototype,{
 	}
 	,__class__: haxor.dom.DOMEntity
 });
-haxor.dom.Container = function(p_name,p_element) {
+haxor.dom.Container = function(p_element,p_name) {
 	if(p_name == null) p_name = "";
 	this.m_children = [];
 	var e;
@@ -5084,7 +4756,7 @@ haxor.dom.DOMLayout.prototype = {
 		return this.m_margin.get_clone();
 	}
 	,set_margin: function(v) {
-		this.m_margin = v.get_clone();
+		this.m_margin.SetAABB2(v);
 		this.m_element.UpdateTransform();
 		return v;
 	}
@@ -5129,7 +4801,7 @@ haxor.dom.DOMLayout.prototype = {
 };
 haxor.dom.DOMStage = function(p_container) {
 	haxor.dom.DOMStage.m_instance = this;
-	haxor.dom.Container.call(this,"stage",p_container);
+	haxor.dom.Container.call(this,p_container,"stage");
 };
 $hxClasses["haxor.dom.DOMStage"] = haxor.dom.DOMStage;
 haxor.dom.DOMStage.__name__ = ["haxor","dom","DOMStage"];
@@ -5146,6 +4818,200 @@ haxor.dom.DOMStage.prototype = $extend(haxor.dom.Container.prototype,{
 haxor.dom.LayoutFlag = function() { };
 $hxClasses["haxor.dom.LayoutFlag"] = haxor.dom.LayoutFlag;
 haxor.dom.LayoutFlag.__name__ = ["haxor","dom","LayoutFlag"];
+haxor.dom.Sprite = function(p_src,p_use_canvas,p_name) {
+	if(p_name == null) p_name = "";
+	if(p_use_canvas == null) p_use_canvas = false;
+	p_use_canvas = false;
+	this.m_pattern = false;
+	this.m_slices = [];
+	this.m_src = "";
+	var e = null;
+	if(p_use_canvas) {
+		var c;
+		var _this = window.document;
+		c = _this.createElement("canvas");
+		c.style.position = "absolute";
+		this._rc = c.getContext("2d");
+		e = c;
+	}
+	var img = new Image();
+	if(p_src != "") {
+		img.src = this.m_src = p_src;
+		img.style.backgroundImage = "url(" + this.m_src + ")";
+		img.style.backgroundRepeat = "repeat";
+		this.set_image(img);
+	}
+	if(e == null) e = img;
+	haxor.dom.Container.call(this,e,p_name);
+};
+$hxClasses["haxor.dom.Sprite"] = haxor.dom.Sprite;
+haxor.dom.Sprite.__name__ = ["haxor","dom","Sprite"];
+haxor.dom.Sprite.__super__ = haxor.dom.Container;
+haxor.dom.Sprite.prototype = $extend(haxor.dom.Container.prototype,{
+	get_slices: function() {
+		return this.m_slices.slice();
+	}
+	,set_slices: function(v) {
+		if(v == null) this.m_slices = v = []; else this.m_slices = v.slice();
+		this.OnRepaint();
+		return v;
+	}
+	,get_image: function() {
+		return this.m_image;
+	}
+	,set_image: function(v) {
+		if(this.m_image == v) return v;
+		this.m_image = v;
+		if(this.m_image == null) return v;
+		this.OnRepaint();
+		return v;
+	}
+	,set_pattern: function(v) {
+		if(this.m_pattern == v) return v;
+		this.m_pattern = v;
+		this.OnRepaint();
+		return v;
+	}
+	,get_pattern: function() {
+		return this.m_pattern;
+	}
+	,OnRepaint: function() {
+		haxor.dom.Container.prototype.OnRepaint.call(this);
+		if(this.m_image == null) return;
+		if(this.m_element == null) return;
+		if(this._rc == null) {
+			if(this.m_pattern) {
+				this.m_image.src = "";
+				this.m_image.style.backgroundImage = "url(" + this.m_src + ")";
+				this.m_image.style.backgroundRepeat = "repeat";
+			} else {
+				this.m_image.src = this.m_src;
+				this.m_image.style.removeProperty("background-image");
+			}
+		} else {
+			var c = this.m_element;
+			c.width = this.m_width - (this.get_layout().get_margin().get_xMin() + this.get_layout().get_margin().get_xMax());
+			c.height = this.m_height - (this.get_layout().get_margin().get_yMin() + this.get_layout().get_margin().get_yMax());
+			if(!this.m_pattern) this.DrawSlicedImage(this._rc,this.m_image,c.width,c.height,this.m_slices); else {
+				var p = this._rc.createPattern(this.m_image,"repeat");
+				this._rc.rect(0,0,c.width,c.height);
+				this._rc.fillStyle = p;
+				this._rc.fill();
+			}
+		}
+	}
+	,DrawSlicedImage: function(p_graphics,p_image,w,h,p_slices) {
+		if(p_image == null) return;
+		if(p_slices == null) p_slices = []; else p_slices = p_slices;
+		var c = p_graphics.canvas;
+		var iw = p_image.naturalWidth;
+		var ih = p_image.naturalHeight;
+		var w1 = c.width;
+		var h1 = c.height;
+		var l;
+		if(p_slices.length <= 0) l = 0; else if(p_slices.length <= 1) l = p_slices[0]; else l = p_slices[0];
+		l = Math.min(l,w1 / 2);
+		var r;
+		if(p_slices.length <= 0) r = 0; else if(p_slices.length <= 1) r = p_slices[0]; else r = p_slices[1];
+		r = Math.min(r,w1 / 2);
+		var t;
+		if(p_slices.length <= 0) t = 0; else if(p_slices.length <= 1) t = p_slices[0]; else t = p_slices[2];
+		t = Math.min(t,h1 / 2);
+		var b;
+		if(p_slices.length <= 0) b = 0; else if(p_slices.length <= 1) b = p_slices[0]; else b = p_slices[3];
+		b = Math.min(b,h1 / 2);
+		var ix0 = 0;
+		var iy0 = 0;
+		var iw0 = l;
+		var ih0 = t;
+		var ix1 = l;
+		var iy1 = 0;
+		var iw1 = Math.max(1,iw - l - r);
+		var ih1 = t;
+		var ix2 = Math.max(1,iw - r);
+		var iy2 = 0;
+		var iw2 = r;
+		var ih2 = t;
+		var ix3 = 0;
+		var iy3 = t;
+		var iw3 = l;
+		var ih3 = Math.max(1,ih - t - b);
+		var ix4 = l;
+		var iy4 = t;
+		var iw4 = Math.max(1,iw - l - r);
+		var ih4 = Math.max(1,ih - t - b);
+		var ix5 = Math.max(1,iw - r);
+		var iy5 = t;
+		var iw5 = r;
+		var ih5 = Math.max(1,ih - t - b);
+		var ix6 = 0;
+		var iy6 = Math.max(1,ih - b);
+		var iw6 = l;
+		var ih6 = b;
+		var ix7 = l;
+		var iy7 = Math.max(1,ih - b);
+		var iw7 = Math.max(1,iw - l - r);
+		var ih7 = b;
+		var ix8 = Math.max(1,iw - r);
+		var iy8 = Math.max(1,ih - b);
+		var iw8 = r;
+		var ih8 = b;
+		var x0 = 0;
+		var y0 = 0;
+		var w0 = l;
+		var h0 = t;
+		var x1 = l;
+		var y1 = 0;
+		var w11 = Math.max(0,w1 - l - r);
+		var h11 = t;
+		var x2 = Math.max(0,w1 - r);
+		var y2 = 0;
+		var w2 = r;
+		var h2 = t;
+		var x3 = 0;
+		var y3 = t;
+		var w3 = l;
+		var h3 = Math.max(0,h1 - t - b);
+		var x4 = l;
+		var y4 = t;
+		var w4 = Math.max(0,w1 - l - r);
+		var h4 = Math.max(0,h1 - t - b);
+		var x5 = Math.max(0,w1 - r);
+		var y5 = t;
+		var w5 = r;
+		var h5 = Math.max(0,h1 - t - b);
+		var x6 = 0;
+		var y6 = Math.max(0,h1 - b);
+		var w6 = l;
+		var h6 = b;
+		var x7 = l;
+		var y7 = Math.max(0,h1 - b);
+		var w7 = Math.max(0,w1 - l - r);
+		var h7 = b;
+		var x8 = Math.max(0,w1 - r);
+		var y8 = Math.max(0,h1 - b);
+		var w8 = r;
+		var h8 = b;
+		if(l > 0) {
+			if(t > 0) p_graphics.drawImage(p_image,ix0,iy0,iw0,ih0,x0,y0,w0,h0);
+		}
+		if(t > 0) p_graphics.drawImage(p_image,ix1,iy1,iw1,ih1,x1,y1,w11,h11);
+		if(r > 0) {
+			if(t > 0) p_graphics.drawImage(p_image,ix2,iy2,iw2,ih2,x2,y2,w2,h2);
+		}
+		if(l > 0) p_graphics.drawImage(p_image,ix3,iy3,iw3,ih3,x3,y3,w3,h3);
+		p_graphics.drawImage(p_image,ix4,iy4,iw4,ih4,x4,y4,w4,h4);
+		if(r > 0) p_graphics.drawImage(p_image,ix5,iy5,iw5,ih5,x5,y5,w5,h5);
+		if(l > 0) {
+			if(b > 0) p_graphics.drawImage(p_image,ix6,iy6,iw6,ih6,x6,y6,w6,h6);
+		}
+		if(b > 0) p_graphics.drawImage(p_image,ix7,iy7,iw7,ih7,x7,y7,w7,h7);
+		if(r > 0) {
+			if(b > 0) p_graphics.drawImage(p_image,ix8,iy8,iw8,ih8,x8,y8,w8,h8);
+		}
+	}
+	,__class__: haxor.dom.Sprite
+});
 haxor.ds = {};
 haxor.ds.SAP = function(p_bias,p_has_query) {
 	if(p_has_query == null) p_has_query = true;
@@ -5661,23 +5527,18 @@ haxor.graphics.GL.Flush = function() {
 haxor.graphics.GL.Focus = function() {
 	haxor.graphics.GL.m_gl.Focus();
 };
-haxor.graphics.Gizmo = function() { };
-$hxClasses["haxor.graphics.Gizmo"] = haxor.graphics.Gizmo;
-haxor.graphics.Gizmo.__name__ = ["haxor","graphics","Gizmo"];
-haxor.graphics.Gizmo.Grid = function(p_area,p_color) {
-	haxor.context.EngineContext.gizmo.DrawGrid(p_area,p_color);
-};
-haxor.graphics.Gizmo.Axis = function(p_area) {
-	haxor.context.EngineContext.gizmo.DrawAxis(p_area);
-};
 haxor.graphics.GraphicAPI = { __ename__ : true, __constructs__ : ["None","OpenGL","OpenGLES","WebGL"] };
 haxor.graphics.GraphicAPI.None = ["None",0];
+haxor.graphics.GraphicAPI.None.toString = $estr;
 haxor.graphics.GraphicAPI.None.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicAPI.OpenGL = ["OpenGL",1];
+haxor.graphics.GraphicAPI.OpenGL.toString = $estr;
 haxor.graphics.GraphicAPI.OpenGL.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicAPI.OpenGLES = ["OpenGLES",2];
+haxor.graphics.GraphicAPI.OpenGLES.toString = $estr;
 haxor.graphics.GraphicAPI.OpenGLES.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicAPI.WebGL = ["WebGL",3];
+haxor.graphics.GraphicAPI.WebGL.toString = $estr;
 haxor.graphics.GraphicAPI.WebGL.__enum__ = haxor.graphics.GraphicAPI;
 haxor.graphics.GraphicContext = function(p_application) {
 	this.m_api = haxor.graphics.GraphicAPI.None;
@@ -5921,10 +5782,11 @@ haxor.math.AABB2.get_temp = function() {
 };
 haxor.math.AABB2.FromMinMax = function(p_xmin,p_xmax,p_ymin,p_ymax) {
 	var b = new haxor.math.AABB2();
-	b.set_xMin(p_xmin);
-	b.set_xMax(p_xmax);
-	b.set_yMin(p_ymin);
-	b.set_yMax(p_ymax);
+	b.m_xMin = p_xmin;
+	b.m_xMax = p_xmax;
+	b.m_yMin = p_ymin;
+	b.m_yMax = p_ymax;
+	b.Validate();
 	return b;
 };
 haxor.math.AABB2.get_empty = function() {
@@ -6031,24 +5893,6 @@ haxor.math.AABB2.prototype = {
 		return v;
 	}
 	,Validate: function() {
-		var x0 = this.m_xMin;
-		var x1 = this.m_xMax;
-		var y0 = this.m_yMin;
-		var y1 = this.m_yMax;
-		if(x0 <= x1) {
-			this.m_xMin = x0;
-			this.m_xMax = x1;
-		} else {
-			this.m_xMin = x1;
-			this.m_xMax = x0;
-		}
-		if(y0 <= y1) {
-			this.m_yMin = y0;
-			this.m_yMax = y1;
-		} else {
-			this.m_yMin = y1;
-			this.m_yMax = y0;
-		}
 	}
 	,Add: function(p_v) {
 		this.m_xMax = Math.max(p_v.m_xMax,this.m_xMax);
@@ -6191,10 +6035,13 @@ haxor.graphics.Screen.Initialize = function(p_application) {
 };
 haxor.graphics.CursorMode = { __ename__ : true, __constructs__ : ["Show","Hide","Lock"] };
 haxor.graphics.CursorMode.Show = ["Show",0];
+haxor.graphics.CursorMode.Show.toString = $estr;
 haxor.graphics.CursorMode.Show.__enum__ = haxor.graphics.CursorMode;
 haxor.graphics.CursorMode.Hide = ["Hide",1];
+haxor.graphics.CursorMode.Hide.toString = $estr;
 haxor.graphics.CursorMode.Hide.__enum__ = haxor.graphics.CursorMode;
 haxor.graphics.CursorMode.Lock = ["Lock",2];
+haxor.graphics.CursorMode.Lock.toString = $estr;
 haxor.graphics.CursorMode.Lock.__enum__ = haxor.graphics.CursorMode;
 haxor.graphics.material = {};
 haxor.graphics.material.Material = function(p_name) {
@@ -6910,289 +6757,6 @@ haxor.graphics.mesh.MeshAttrib.prototype = {
 		if(this.data == null) return 0; else return this.data.m_length / this.offset | 0;
 	}
 	,__class__: haxor.graphics.mesh.MeshAttrib
-};
-haxor.graphics.mesh.MeshLayout = function(p_name) {
-	if(p_name == null) p_name = "";
-	haxor.graphics.mesh.Mesh.call(this,p_name);
-	this.m_vertex = [];
-	this.m_normal = [];
-	this.m_color = [];
-	this.m_uv0 = [];
-	this.m_uv1 = [];
-	this.m_tangent = [];
-	this.m_binormal = [];
-};
-$hxClasses["haxor.graphics.mesh.MeshLayout"] = haxor.graphics.mesh.MeshLayout;
-haxor.graphics.mesh.MeshLayout.__name__ = ["haxor","graphics","mesh","MeshLayout"];
-haxor.graphics.mesh.MeshLayout.__super__ = haxor.graphics.mesh.Mesh;
-haxor.graphics.mesh.MeshLayout.prototype = $extend(haxor.graphics.mesh.Mesh.prototype,{
-	get_vertex: function() {
-		return this.m_vertex;
-	}
-	,set_vertex: function(v) {
-		return this.m_vertex = this.UpdateAttribute("vertex",v,false);
-	}
-	,get_normal: function() {
-		return this.m_normal;
-	}
-	,set_normal: function(v) {
-		return this.m_normal = this.UpdateAttribute("normal",v,false);
-	}
-	,get_color: function() {
-		return this.m_color;
-	}
-	,set_color: function(v) {
-		return this.m_color = this.UpdateAttribute("color",v,true);
-	}
-	,get_uv0: function() {
-		return this.m_uv0;
-	}
-	,set_uv0: function(v) {
-		return this.m_uv0 = this.UpdateAttribute("uv0",v,false);
-	}
-	,get_uv1: function() {
-		return this.m_uv1;
-	}
-	,set_uv1: function(v) {
-		return this.m_uv1 = this.UpdateAttribute("uv1",v,false);
-	}
-	,get_tangent: function() {
-		return this.m_tangent;
-	}
-	,set_tangent: function(v) {
-		return this.m_tangent = this.UpdateAttribute("tangent",v,false);
-	}
-	,get_binormal: function() {
-		return this.m_binormal;
-	}
-	,set_binormal: function(v) {
-		return this.m_binormal = this.UpdateAttribute("binormal",v,false);
-	}
-	,GenerateBounds: function() {
-		this.GenerateAttribBounds("vertex",this.m_bounds);
-	}
-	,UpdateAttribute: function(p_name,p_list,p_is_color) {
-		if(p_is_color == null) p_is_color = false;
-		if(p_list == null) {
-			this.Remove(p_name);
-			return [];
-		}
-		if(p_list.length <= 0) {
-			this.Remove(p_name);
-			return [];
-		}
-		var a = this.GetAttribute(p_name);
-		var off = 1;
-		if(js.Boot.__instanceof(p_list[0],haxor.math.Vector2)) off = 2;
-		if(js.Boot.__instanceof(p_list[0],haxor.math.Vector3)) off = 3;
-		if(js.Boot.__instanceof(p_list[0],haxor.math.Vector4)) off = 4;
-		if(js.Boot.__instanceof(p_list[0],haxor.math.Color)) off = 4;
-		if(a == null) a = this.Set(p_name,new haxor.io.FloatArray(1),off);
-		var p = 0;
-		var f = a.data = new haxor.io.FloatArray(p_list.length * off);
-		console.log(this.get_name() + " a[" + p_name + "] off[" + off + "] len[" + f.m_length + "]");
-		var _g1 = 0;
-		var _g = p_list.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var it = p_list[i];
-			switch(off) {
-			case 1:
-				var v = it;
-				f.Set(p++,v);
-				break;
-			case 2:
-				var v2 = it;
-				f.Set(p++,v2.x);
-				f.Set(p++,v2.y);
-				break;
-			case 3:
-				var v3 = it;
-				f.Set(p++,v3.x);
-				f.Set(p++,v3.y);
-				f.Set(p++,v3.z);
-				break;
-			case 4:
-				if(p_is_color) {
-					var c = it;
-					f.Set(p++,c.r);
-					f.Set(p++,c.g);
-					f.Set(p++,c.b);
-					f.Set(p++,c.a);
-				} else {
-					var v4 = it;
-					f.Set(p++,v4.x);
-					f.Set(p++,v4.y);
-					f.Set(p++,v4.z);
-					f.Set(p++,v4.w);
-				}
-				break;
-			}
-		}
-		this.Set(p_name,f,off);
-		return p_list;
-	}
-	,__class__: haxor.graphics.mesh.MeshLayout
-});
-haxor.graphics.mesh.Mesh3 = function(p_name) {
-	haxor.graphics.mesh.MeshLayout.call(this,p_name);
-};
-$hxClasses["haxor.graphics.mesh.Mesh3"] = haxor.graphics.mesh.Mesh3;
-haxor.graphics.mesh.Mesh3.__name__ = ["haxor","graphics","mesh","Mesh3"];
-haxor.graphics.mesh.Mesh3.__super__ = haxor.graphics.mesh.MeshLayout;
-haxor.graphics.mesh.Mesh3.prototype = $extend(haxor.graphics.mesh.MeshLayout.prototype,{
-	__class__: haxor.graphics.mesh.Mesh3
-});
-haxor.graphics.mesh.SkinnedMesh3 = function(p_name) {
-	haxor.graphics.mesh.Mesh3.call(this,p_name);
-};
-$hxClasses["haxor.graphics.mesh.SkinnedMesh3"] = haxor.graphics.mesh.SkinnedMesh3;
-haxor.graphics.mesh.SkinnedMesh3.__name__ = ["haxor","graphics","mesh","SkinnedMesh3"];
-haxor.graphics.mesh.SkinnedMesh3.__super__ = haxor.graphics.mesh.Mesh3;
-haxor.graphics.mesh.SkinnedMesh3.prototype = $extend(haxor.graphics.mesh.Mesh3.prototype,{
-	get_binds: function() {
-		return this.m_binds;
-	}
-	,set_binds: function(v) {
-		this.m_binds = v.slice();
-		return v;
-	}
-	,get_bone: function() {
-		return this.m_bone;
-	}
-	,set_bone: function(v) {
-		return this.m_bone = this.UpdateAttribute("bone",v,false);
-	}
-	,get_weight: function() {
-		return this.m_weight;
-	}
-	,set_weight: function(v) {
-		return this.m_weight = this.UpdateAttribute("weight",v,false);
-	}
-	,__class__: haxor.graphics.mesh.SkinnedMesh3
-});
-haxor.graphics.mesh.Mesh2D = function(p_name) {
-	haxor.graphics.mesh.MeshLayout.call(this,p_name);
-};
-$hxClasses["haxor.graphics.mesh.Mesh2D"] = haxor.graphics.mesh.Mesh2D;
-haxor.graphics.mesh.Mesh2D.__name__ = ["haxor","graphics","mesh","Mesh2D"];
-haxor.graphics.mesh.Mesh2D.__super__ = haxor.graphics.mesh.MeshLayout;
-haxor.graphics.mesh.Mesh2D.prototype = $extend(haxor.graphics.mesh.MeshLayout.prototype,{
-	__class__: haxor.graphics.mesh.Mesh2D
-});
-haxor.graphics.mesh.Mesh23 = function(p_name) {
-	haxor.graphics.mesh.MeshLayout.call(this,p_name);
-};
-$hxClasses["haxor.graphics.mesh.Mesh23"] = haxor.graphics.mesh.Mesh23;
-haxor.graphics.mesh.Mesh23.__name__ = ["haxor","graphics","mesh","Mesh23"];
-haxor.graphics.mesh.Mesh23.__super__ = haxor.graphics.mesh.MeshLayout;
-haxor.graphics.mesh.Mesh23.prototype = $extend(haxor.graphics.mesh.MeshLayout.prototype,{
-	__class__: haxor.graphics.mesh.Mesh23
-});
-haxor.graphics.mesh.Mesh2 = function(p_name) {
-	haxor.graphics.mesh.MeshLayout.call(this,p_name);
-};
-$hxClasses["haxor.graphics.mesh.Mesh2"] = haxor.graphics.mesh.Mesh2;
-haxor.graphics.mesh.Mesh2.__name__ = ["haxor","graphics","mesh","Mesh2"];
-haxor.graphics.mesh.Mesh2.__super__ = haxor.graphics.mesh.MeshLayout;
-haxor.graphics.mesh.Mesh2.prototype = $extend(haxor.graphics.mesh.MeshLayout.prototype,{
-	__class__: haxor.graphics.mesh.Mesh2
-});
-haxor.graphics.mesh.Mesh4 = function(p_name) {
-	haxor.graphics.mesh.MeshLayout.call(this,p_name);
-};
-$hxClasses["haxor.graphics.mesh.Mesh4"] = haxor.graphics.mesh.Mesh4;
-haxor.graphics.mesh.Mesh4.__name__ = ["haxor","graphics","mesh","Mesh4"];
-haxor.graphics.mesh.Mesh4.__super__ = haxor.graphics.mesh.MeshLayout;
-haxor.graphics.mesh.Mesh4.prototype = $extend(haxor.graphics.mesh.MeshLayout.prototype,{
-	__class__: haxor.graphics.mesh.Mesh4
-});
-haxor.graphics.mesh.Model = function() { };
-$hxClasses["haxor.graphics.mesh.Model"] = haxor.graphics.mesh.Model;
-haxor.graphics.mesh.Model.__name__ = ["haxor","graphics","mesh","Model"];
-haxor.graphics.mesh.Model.get_screen = function() {
-	if(haxor.graphics.mesh.Model.m_screen != null) return haxor.graphics.mesh.Model.m_screen;
-	var m = new haxor.graphics.mesh.Mesh("$ModelScreen");
-	var s = 1.0;
-	var v = haxor.io.FloatArray.Alloc([-s,-s,0.5,s,-s,0.5,s,s,0.5,-s,s,0.5]);
-	var uv = haxor.io.FloatArray.Alloc([0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0]);
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor.context.EngineContext.data.get_aabb3()));
-	m.set_topology(haxor.io.UInt16Array.Alloc([0,1,2,0,2,3]));
-	return haxor.graphics.mesh.Model.m_screen = m;
-};
-haxor.graphics.mesh.Model.get_planeXY = function() {
-	if(haxor.graphics.mesh.Model.m_planeXY != null) return haxor.graphics.mesh.Model.m_planeXY;
-	var m = new haxor.graphics.mesh.Mesh("$ModelPlaneXY");
-	var s = 0.5;
-	var v = haxor.io.FloatArray.Alloc([-s,-s,0.0,s,-s,0.0,s,s,0.0,-s,s,0.0]);
-	var uv = haxor.io.FloatArray.Alloc([0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0]);
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor.context.EngineContext.data.get_aabb3()));
-	m.set_topology(haxor.io.UInt16Array.Alloc([0,1,2,0,2,3]));
-	return haxor.graphics.mesh.Model.m_planeXY = m;
-};
-haxor.graphics.mesh.Model.get_planeXZ = function() {
-	if(haxor.graphics.mesh.Model.m_planeXZ != null) return haxor.graphics.mesh.Model.m_planeXZ;
-	var m = new haxor.graphics.mesh.Mesh("$ModelPlaneXZ");
-	var s = 0.5;
-	var v = haxor.io.FloatArray.Alloc([-s,0.0,-s,s,0.0,-s,s,0.0,s,-s,0.0,s]);
-	var uv = haxor.io.FloatArray.Alloc([0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0]);
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor.context.EngineContext.data.get_aabb3()));
-	m.set_topology(haxor.io.UInt16Array.Alloc([0,1,2,0,2,3]));
-	return haxor.graphics.mesh.Model.m_planeXZ = m;
-};
-haxor.graphics.mesh.Model.get_planeYZ = function() {
-	if(haxor.graphics.mesh.Model.m_planeYZ != null) return haxor.graphics.mesh.Model.m_planeYZ;
-	var m = new haxor.graphics.mesh.Mesh("$ModelPlaneYZ");
-	var s = 0.5;
-	var v = haxor.io.FloatArray.Alloc([0.0,-s,-s,0.0,s,-s,0.0,s,s,0.0,-s,s]);
-	var uv = haxor.io.FloatArray.Alloc([0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0]);
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor.context.EngineContext.data.get_aabb3()));
-	m.set_topology(haxor.io.UInt16Array.Alloc([0,1,2,0,2,3]));
-	return haxor.graphics.mesh.Model.m_planeYZ = m;
-};
-haxor.graphics.mesh.Model.get_cube = function() {
-	if(haxor.graphics.mesh.Model.m_cube != null) return haxor.graphics.mesh.Model.m_cube;
-	var m = new haxor.graphics.mesh.Mesh("$ModelCube");
-	var v = haxor.io.FloatArray.FromBase64("AAAAvwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/");
-	var uv = haxor.io.FloatArray.FromBase64("AACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAA");
-	var n = haxor.io.FloatArray.FromBase64("AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAA");
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.Set("normal",n,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor.context.EngineContext.data.get_aabb3()));
-	return haxor.graphics.mesh.Model.m_cube = m;
-};
-haxor.graphics.mesh.Model.get_tetrahedron = function() {
-	if(haxor.graphics.mesh.Model.m_tetrahedron != null) return haxor.graphics.mesh.Model.m_tetrahedron;
-	var m = new haxor.graphics.mesh.Mesh("$ModelTetrahedron");
-	var v = haxor.io.FloatArray.FromBase64("AAAAAAAAAAAAAAAAsb+cvpm/Bz8AAAAAsb8cPwAAAAAAAAAAAAAAAAAAAAAAAAAArr+cvpu/B78AAAAAsb+cvpm/Bz8AAAAAAAAAAAAAAAAAAAAAsb8cPwAAAAAAAAAArr+cvpu/B78AAAAAsb8cPwAAAAAAAAAAAAAAAAAAAACX/1A/AAAAAAAAAACX/1A/sb8cPwAAAAAAAAAAsb+cvpm/Bz8AAAAAAAAAAAAAAACX/1A/sb+cvpm/Bz8AAAAAAAAAAAAAAACX/1A/AAAAAAAAAACX/1A/sb+cvpm/Bz8AAAAArr+cvpu/B78AAAAAAAAAAAAAAACX/1A/rr+cvpu/B78AAAAAAAAAAAAAAACX/1A/AAAAAAAAAACX/1A/rr+cvpu/B78AAAAAsb8cPwAAAAAAAAAAAAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/");
-	var uv = haxor.io.FloatArray.FromBase64("AAAAPwAAAAAAAAAAraqqPQAAAAAAAIA/AACAvgAAAAAAAIA/AAAAPwAAAAAAAAAAVlXVPgAAAAD+/38/raqqPQAAAAAAAIA/AAAAPwAAAAAAAAAAAABAPwAAAAAAAIA/VlXVPgAAAAD+/38/AABAPwAAAAAAAIA/AAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAACAvgAAAAAAAIA/raqqPQAAAAAAAIA/AAAAPwAAgD8AAAAAraqqPQAAAAAAAIA/AAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAraqqPQAAAAAAAIA/VlXVPgAAAAD+/38/AAAAPwAAgD8AAAAAVlXVPgAAAAD+/38/AAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAVlXVPgAAAAD+/38/AABAPwAAAAAAAIA/AAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAA");
-	var n = haxor.io.FloatArray.FromBase64("AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAQrPvPiWWTz9yxrM+QrPvPiWWTz9yxrM+QrPvPiWWTz9yxrM+AACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAARbNvv4aDqbNyxrM+RbNvv4aDqbN2xrM+RLNvv4aDqbNyxrM+AACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAARbPvPiWWT792xrM+SbPvPiWWT792xrM+RbPvPiWWT792xrM+AACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAA");
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.Set("normal",n,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor.context.EngineContext.data.get_aabb3()));
-	return haxor.graphics.mesh.Model.m_tetrahedron = m;
-};
-haxor.graphics.mesh.Model.get_sphere = function() {
-	if(haxor.graphics.mesh.Model.m_sphere != null) return haxor.graphics.mesh.Model.m_sphere;
-	var m = new haxor.graphics.mesh.Mesh("$ModelSphere");
-	var v = haxor.io.FloatArray.FromBase64("AAAAAAAAAAAAAIA/fLG4PgAAAAB+w24/HkvkPV6nrz5+w24/fLG4PgAAAAB+w24/DkIsPwAAAAAvYD0/yYH1Pgxfsj4hME4/fLG4PgAAAAB+w24/yYH1Pgxfsj4hME4/HkvkPV6nrz5+w24/HkvkPV6nrz5+w24/yYH1Pgxfsj4hME4/LuxUPr7TIz8vYD0/DkIsPwAAAAAvYD0/LvlkPwAAAAAu+eQ+cstIP16nrz5mTQQ/DkIsPwAAAAAvYD0/cstIP16nrz5mTQQ/yYH1Pgxfsj4hME4/yYH1Pgxfsj4hME4/cstIP16nrz5mTQQ/yZMRP77TIz9mTQQ/yYH1Pgxfsj4hME4/yZMRP77TIz9mTQQ/LuxUPr7TIz8vYD0/LuxUPr7TIz8vYD0/yZMRP77TIz9mTQQ/aYONPkDEWT8u+eQ+AAAAAAAAAAAAAIA/HkvkPV6nrz5+w24/h2uVvrUeWT5+w24/HkvkPV6nrz5+w24/LuxUPr7TIz8vYD0/9Yw7vi5OED8hME4/HkvkPV6nrz5+w24/9Yw7vi5OED8hME4/h2uVvrUeWT5+w24/h2uVvrUeWT5+w24/9Yw7vi5OED8hME4/FVwLv16Ayj4vYD0/LuxUPr7TIz8vYD0/aYONPkDEWT8u+eQ+vdWrvW0bWj9mTQQ/LuxUPr7TIz8vYD0/vdWrvW0bWj9mTQQ/9Yw7vi5OED8hME4/9Yw7vi5OED8hME4/vdWrvW0bWj9mTQQ/X6Xdvt4TPT9mTQQ/9Yw7vi5OED8hME4/X6Xdvt4TPT9mTQQ/FVwLv16Ayj4vYD0/FVwLv16Ayj4vYD0/X6Xdvt4TPT9mTQQ/TD45v0+WBj8u+eQ+AAAAAAAAAAAAAIA/h2uVvrUeWT5+w24/h2uVvrweWb5+w24/h2uVvrUeWT5+w24/FVwLv16Ayj4vYD0/ULsXv+oihLMhME4/h2uVvrUeWT5+w24/ULsXv+oihLMhME4/h2uVvrweWb5+w24/h2uVvrweWb5+w24/ULsXv+oihLMhME4/E1wLv2GAyr4vYD0/FVwLv16Ayj4vYD0/TD45v0+WBj8u+eQ+1xFWv//hOz5mTQQ/FVwLv16Ayj4vYD0/1xFWv//hOz5mTQQ/ULsXv+oihLMhME4/ULsXv+oihLMhME4/1xFWv//hOz5mTQQ/1xFWvw3iO75mTQQ/ULsXv+oihLMhME4/1xFWvw3iO75mTQQ/E1wLv2GAyr4vYD0/E1wLv2GAyr4vYD0/1xFWvw3iO75mTQQ/TD45v1KWBr8u+eQ+AAAAAAAAAAAAAIA/h2uVvrweWb5+w24/K0vkPV6nr75+w24/h2uVvrweWb5+w24/E1wLv2GAyr4vYD0/9Yw7vi5OEL8hME4/h2uVvrweWb5+w24/9Yw7vi5OEL8hME4/K0vkPV6nr75+w24/K0vkPV6nr75+w24/9Yw7vi5OEL8hME4/O+xUPr3TI78vYD0/E1wLv2GAyr4vYD0/TD45v1KWBr8u+eQ+W6XdvuATPb9mTQQ/E1wLv2GAyr4vYD0/W6XdvuATPb9mTQQ/9Yw7vi5OEL8hME4/9Yw7vi5OEL8hME4/W6XdvuATPb9mTQQ/q9WrvW0bWr9mTQQ/9Yw7vi5OEL8hME4/q9WrvW0bWr9mTQQ/O+xUPr3TI78vYD0/O+xUPr3TI78vYD0/q9WrvW0bWr9mTQQ/bIONPkDEWb8u+eQ+AAAAAAAAAAAAAIA/K0vkPV6nr75+w24/fLG4PgAAAAB+w24/K0vkPV6nr75+w24/O+xUPr3TI78vYD0/zIH1Pgxfsr4hME4/K0vkPV6nr75+w24/zIH1Pgxfsr4hME4/fLG4PgAAAAB+w24/fLG4PgAAAAB+w24/zIH1Pgxfsr4hME4/DkIsPwAAAAAvYD0/O+xUPr3TI78vYD0/bIONPkDEWb8u+eQ+zZMRP77TI79mTQQ/O+xUPr3TI78vYD0/zZMRP77TI79mTQQ/zIH1Pgxfsr4hME4/zIH1Pgxfsr4hME4/zZMRP77TI79mTQQ/c8tIP16nr75mTQQ/zIH1Pgxfsr4hME4/c8tIP16nr75mTQQ/DkIsPwAAAAAvYD0/DkIsPwAAAAAvYD0/c8tIP16nr75mTQQ/LvlkPwAAAAAu+eQ+LvlkPwAAAAAu+eQ+0fd2P7weWb6f0h8+0fd2P7UeWT6f0h8+0fd2P7weWb6f0h8+0bRnP2GAyr6f0h++0UZ8P6AusLLrAi6+0fd2P7weWb6f0h8+0UZ8P6AusLLrAi6+0fd2P7UeWT6f0h8+0fd2P7UeWT6f0h8+0UZ8P6AusLLrAi6+07RnP16Ayj6f0h++0bRnP2GAyr6f0h++TD45P1CWBr8u+eS+1xFWPwbiO75mTQS/0bRnP2GAyr6f0h++1xFWPwbiO75mTQS/0UZ8P6AusLLrAi6+0UZ8P6AusLLrAi6+1xFWPwbiO75mTQS/1xFWPwbiOz5mTQS/0UZ8P6AusLLrAi6+1xFWPwbiOz5mTQS/07RnP16Ayj6f0h++07RnP16Ayj6f0h++1xFWPwbiOz5mTQS/TD45P1CWBj8u+eS+aYONPkDEWT8u+eQ+nuH/Pm0bWj+f0h8+PY3FPW6nez+f0h8+nuH/Pm0bWj+f0h8+eeUnP+ATPT+f0h++YOqbPuntbz/rAi6+nuH/Pm0bWj+f0h8+YOqbPuntbz/rAi6+PY3FPW6nez+f0h8+PY3FPW6nez+f0h8+YOqbPuntbz/rAi6+R43FvW6nez+f0h++eeUnP+ATPT+f0h++TD45P1CWBj8u+eS+X6XdPuATPT9mTQS/eeUnP+ATPT+f0h++X6XdPuATPT9mTQS/YOqbPuntbz/rAi6+YOqbPuntbz/rAi6+X6XdPuATPT9mTQS/t9WrPWwbWj9mTQS/YOqbPuntbz/rAi6+t9WrPWwbWj9mTQS/R43FvW6nez+f0h++R43FvW6nez+f0h++t9WrPWwbWj9mTQS/aYONvkDEWT8u+eS+TD45v0+WBj8u+eQ+eeUnv9wTPT+f0h8+07Rnv16Ayj6f0h8+eeUnv9wTPT+f0h8+oeH/vmobWj+f0h++mBhMv9FIFD/rAi6+eeUnv9wTPT+f0h8+mBhMv9FIFD/rAi6+07Rnv16Ayj6f0h8+07Rnv16Ayj6f0h8+mBhMv9FIFD/rAi6+0fd2v7UeWT6f0h++oeH/vmobWj+f0h++aYONvkDEWT8u+eS+y5MRv73TIz9mTQS/oeH/vmobWj+f0h++y5MRv73TIz9mTQS/mBhMv9FIFD/rAi6+mBhMv9FIFD/rAi6+y5MRv73TIz9mTQS/cstIv1unrz5mTQS/mBhMv9FIFD/rAi6+cstIv1unrz5mTQS/0fd2v7UeWT6f0h++0fd2v7UeWT6f0h++cstIv1unrz5mTQS/Lvlkvznrp7Mu+eS+TD45v1KWBr8u+eQ+0bRnv2SAyr6f0h8+eeUnv+ETPb+f0h8+0bRnv2SAyr6f0h8+0fd2v8IeWb6f0h++lxhMv9ZIFL/rAi6+0bRnv2SAyr6f0h8+lxhMv9ZIFL/rAi6+eeUnv+ETPb+f0h8+eeUnv+ETPb+f0h8+lxhMv9ZIFL/rAi6+m+H/vnEbWr+f0h++0fd2v8IeWb6f0h++Lvlkvznrp7Mu+eS+cstIv2Knr75oTQS/0fd2v8IeWb6f0h++cstIv2Knr75oTQS/lxhMv9ZIFL/rAi6+lxhMv9ZIFL/rAi6+cstIv2Knr75oTQS/yZMRv8LTI79oTQS/lxhMv9ZIFL/rAi6+yZMRv8LTI79oTQS/m+H/vnEbWr+f0h++m+H/vnEbWr+f0h++yZMRv8LTI79oTQS/X4ONvkDEWb8u+eS+bIONPkDEWb8u+eQ+X43FPW6ne7+f0h8+oeH/Pm0bWr+f0h8+X43FPW6ne7+f0h8+G43FvW6ne7+f0h++Y+qbPubtb7/rAi6+X43FPW6ne7+f0h8+Y+qbPubtb7/rAi6+oeH/Pm0bWr+f0h8+oeH/Pm0bWr+f0h8+Y+qbPubtb7/rAi6+eeUnP+ATPb+f0h++G43FvW6ne7+f0h++X4ONvkDEWb8u+eS+2NWrPW0bWr9mTQS/G43FvW6ne7+f0h++2NWrPW0bWr9mTQS/Y+qbPubtb7/rAi6+Y+qbPubtb7/rAi6+2NWrPW0bWr9mTQS/YqXdPt4TPb9mTQS/Y+qbPubtb7/rAi6+YqXdPt4TPb9mTQS/eeUnP+ATPb+f0h++eeUnP+ATPb+f0h++YqXdPt4TPb9mTQS/TD45P1CWBr8u+eS+TD45P1CWBj8u+eS+eeUnP+ATPT+f0h++07RnP16Ayj6f0h++eeUnP+ATPT+f0h++nuH/Pm0bWj+f0h8+mBhMP9NIFD/rAi4+eeUnP+ATPT+f0h++mBhMP9NIFD/rAi4+07RnP16Ayj6f0h++07RnP16Ayj6f0h++mBhMP9NIFD/rAi4+0fd2P7UeWT6f0h8+nuH/Pm0bWj+f0h8+aYONPkDEWT8u+eQ+yZMRP77TIz9mTQQ/nuH/Pm0bWj+f0h8+yZMRP77TIz9mTQQ/mBhMP9NIFD/rAi4+mBhMP9NIFD/rAi4+yZMRP77TIz9mTQQ/cstIP16nrz5mTQQ/mBhMP9NIFD/rAi4+cstIP16nrz5mTQQ/0fd2P7UeWT6f0h8+0fd2P7UeWT6f0h8+cstIP16nrz5mTQQ/LvlkPwAAAAAu+eQ+aYONvkDEWT8u+eS+oeH/vmobWj+f0h++R43FvW6nez+f0h++oeH/vmobWj+f0h++eeUnv9wTPT+f0h8+YOqbvubtbz/rAi4+oeH/vmobWj+f0h++YOqbvubtbz/rAi4+R43FvW6nez+f0h++R43FvW6nez+f0h++YOqbvubtbz/rAi4+PY3FPW6nez+f0h8+eeUnv9wTPT+f0h8+TD45v0+WBj8u+eQ+X6Xdvt4TPT9mTQQ/eeUnv9wTPT+f0h8+X6Xdvt4TPT9mTQQ/YOqbvubtbz/rAi4+YOqbvubtbz/rAi4+X6Xdvt4TPT9mTQQ/vdWrvW0bWj9mTQQ/YOqbvubtbz/rAi4+vdWrvW0bWj9mTQQ/PY3FPW6nez+f0h8+PY3FPW6nez+f0h8+vdWrvW0bWj9mTQQ/aYONPkDEWT8u+eQ+Lvlkvznrp7Mu+eS+0fd2v8IeWb6f0h++0fd2v7UeWT6f0h++0fd2v8IeWb6f0h++0bRnv2SAyr6f0h8+0UZ8vwI63LPrAi4+0fd2v8IeWb6f0h++0UZ8vwI63LPrAi4+0fd2v7UeWT6f0h++0fd2v7UeWT6f0h++0UZ8vwI63LPrAi4+07Rnv16Ayj6f0h8+0bRnv2SAyr6f0h8+TD45v1KWBr8u+eQ+1xFWvw3iO75mTQQ/0bRnv2SAyr6f0h8+1xFWvw3iO75mTQQ/0UZ8vwI63LPrAi4+0UZ8vwI63LPrAi4+1xFWvw3iO75mTQQ/1xFWv//hOz5mTQQ/0UZ8vwI63LPrAi4+1xFWv//hOz5mTQQ/07Rnv16Ayj6f0h8+07Rnv16Ayj6f0h8+1xFWv//hOz5mTQQ/TD45v0+WBj8u+eQ+X4ONvkDEWb8u+eS+G43FvW6ne7+f0h++m+H/vnEbWr+f0h++G43FvW6ne7+f0h++X43FPW6ne7+f0h8+XOqbvuntb7/rAi4+G43FvW6ne7+f0h++XOqbvuntb7/rAi4+m+H/vnEbWr+f0h++m+H/vnEbWr+f0h++XOqbvuntb7/rAi4+eeUnv+ETPb+f0h8+X43FPW6ne7+f0h8+bIONPkDEWb8u+eQ+q9WrvW0bWr9mTQQ/X43FPW6ne7+f0h8+q9WrvW0bWr9mTQQ/XOqbvuntb7/rAi4+XOqbvuntb7/rAi4+q9WrvW0bWr9mTQQ/W6XdvuATPb9mTQQ/XOqbvuntb7/rAi4+W6XdvuATPb9mTQQ/eeUnv+ETPb+f0h8+eeUnv+ETPb+f0h8+W6XdvuATPb9mTQQ/TD45v1KWBr8u+eQ+TD45P1CWBr8u+eS+0bRnP2GAyr6f0h++eeUnP+ATPb+f0h++0bRnP2GAyr6f0h++0fd2P7weWb6f0h8+mBhMP9VIFL/rAi4+0bRnP2GAyr6f0h++mBhMP9VIFL/rAi4+eeUnP+ATPb+f0h++eeUnP+ATPb+f0h++mBhMP9VIFL/rAi4+oeH/Pm0bWr+f0h8+0fd2P7weWb6f0h8+LvlkPwAAAAAu+eQ+c8tIP16nr75mTQQ/0fd2P7weWb6f0h8+c8tIP16nr75mTQQ/mBhMP9VIFL/rAi4+mBhMP9VIFL/rAi4+c8tIP16nr75mTQQ/zZMRP77TI79mTQQ/mBhMP9VIFL/rAi4+zZMRP77TI79mTQQ/oeH/Pm0bWr+f0h8+oeH/Pm0bWr+f0h8+zZMRP77TI79mTQQ/bIONPkDEWb8u+eQ+AAAAAAAAAAAAAIC/HkvkvV6nrz5+w26/h2uVPrUeWT5+w26/HkvkvV6nrz5+w26/NOxUvr3TIz8vYD2/9Yw7Pi5OED8hME6/HkvkvV6nrz5+w26/9Yw7Pi5OED8hME6/h2uVPrUeWT5+w26/h2uVPrUeWT5+w26/9Yw7Pi5OED8hME6/FVwLP16Ayj4vYD2/NOxUvr3TIz8vYD2/aYONvkDEWT8u+eS+t9WrPWwbWj9mTQS/NOxUvr3TIz8vYD2/t9WrPWwbWj9mTQS/9Yw7Pi5OED8hME6/9Yw7Pi5OED8hME6/t9WrPWwbWj9mTQS/X6XdPuATPT9mTQS/9Yw7Pi5OED8hME6/X6XdPuATPT9mTQS/FVwLP16Ayj4vYD2/FVwLP16Ayj4vYD2/X6XdPuATPT9mTQS/TD45P1CWBj8u+eS+AAAAAAAAAAAAAIC/fLG4vhdyB7N+w26/HkvkvV6nrz5+w26/fLG4vhdyB7N+w26/DkIsvxqnfLMvYD2/yYH1vglfsj4hME6/fLG4vhdyB7N+w26/yYH1vglfsj4hME6/HkvkvV6nrz5+w26/HkvkvV6nrz5+w26/yYH1vglfsj4hME6/NOxUvr3TIz8vYD2/DkIsvxqnfLMvYD2/Lvlkvznrp7Mu+eS+cstIv1unrz5mTQS/DkIsvxqnfLMvYD2/cstIv1unrz5mTQS/yYH1vglfsj4hME6/yYH1vglfsj4hME6/cstIv1unrz5mTQS/y5MRv73TIz9mTQS/yYH1vglfsj4hME6/y5MRv73TIz9mTQS/NOxUvr3TIz8vYD2/NOxUvr3TIz8vYD2/y5MRv73TIz9mTQS/aYONvkDEWT8u+eS+AAAAAAAAAAAAAIC/EUvkvV6nr75+w26/fLG4vhdyB7N+w26/EUvkvV6nr75+w26/IOxUvr7TI78vYD2/xYH1vgxfsr4hME6/EUvkvV6nr75+w26/xYH1vgxfsr4hME6/fLG4vhdyB7N+w26/fLG4vhdyB7N+w26/xYH1vgxfsr4hME6/DkIsvxqnfLMvYD2/IOxUvr7TI78vYD2/X4ONvkDEWb8u+eS+yZMRv8LTI79oTQS/IOxUvr7TI78vYD2/yZMRv8LTI79oTQS/xYH1vgxfsr4hME6/xYH1vgxfsr4hME6/yZMRv8LTI79oTQS/cstIv2Knr75oTQS/xYH1vgxfsr4hME6/cstIv2Knr75oTQS/DkIsvxqnfLMvYD2/DkIsvxqnfLMvYD2/cstIv2Knr75oTQS/Lvlkvznrp7Mu+eS+AAAAAAAAAAAAAIC/h2uVPrweWb5+w26/EUvkvV6nr75+w26/h2uVPrweWb5+w26/E1wLP2GAyr4vYD2/A407Pi5OEL8hME6/h2uVPrweWb5+w26/A407Pi5OEL8hME6/EUvkvV6nr75+w26/EUvkvV6nr75+w26/A407Pi5OEL8hME6/IOxUvr7TI78vYD2/E1wLP2GAyr4vYD2/TD45P1CWBr8u+eS+YqXdPt4TPb9mTQS/E1wLP2GAyr4vYD2/YqXdPt4TPb9mTQS/A407Pi5OEL8hME6/A407Pi5OEL8hME6/YqXdPt4TPb9mTQS/2NWrPW0bWr9mTQS/A407Pi5OEL8hME6/2NWrPW0bWr9mTQS/IOxUvr7TI78vYD2/IOxUvr7TI78vYD2/2NWrPW0bWr9mTQS/X4ONvkDEWb8u+eS+AAAAAAAAAAAAAIC/h2uVPrUeWT5+w26/h2uVPrweWb5+w26/h2uVPrUeWT5+w26/FVwLP16Ayj4vYD2/ULsXP6AusLIhME6/h2uVPrUeWT5+w26/ULsXP6AusLIhME6/h2uVPrweWb5+w26/h2uVPrweWb5+w26/ULsXP6AusLIhME6/E1wLP2GAyr4vYD2/FVwLP16Ayj4vYD2/TD45P1CWBj8u+eS+1xFWPwbiOz5mTQS/FVwLP16Ayj4vYD2/1xFWPwbiOz5mTQS/ULsXP6AusLIhME6/ULsXP6AusLIhME6/1xFWPwbiOz5mTQS/1xFWPwbiO75mTQS/ULsXP6AusLIhME6/1xFWPwbiO75mTQS/E1wLP2GAyr4vYD2/E1wLP2GAyr4vYD2/1xFWPwbiO75mTQS/TD45P1CWBr8u+eS+");
-	var uv = haxor.io.FloatArray.FromBase64("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");
-	var n = haxor.io.FloatArray.FromBase64("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");
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.Set("normal",n,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor.context.EngineContext.data.get_aabb3()));
-	return haxor.graphics.mesh.Model.m_sphere = m;
 };
 haxor.graphics.texture = {};
 haxor.graphics.texture.Bitmap = function(p_width,p_height,p_format) {
@@ -8459,1643 +8023,6 @@ haxor.io.file.Asset.Add = function(p_id,p_asset) {
 	var value = p_asset;
 	haxor.io.file.Asset.m_database.set(p_id,value);
 	if(js.Boot.__instanceof(p_asset,haxor.core.Resource)) (js.Boot.__cast(p_asset , haxor.core.Resource)).__db = p_id;
-};
-haxor.io.file.AssetFile = function(p_name) {
-	haxor.core.Resource.call(this,p_name);
-};
-$hxClasses["haxor.io.file.AssetFile"] = haxor.io.file.AssetFile;
-haxor.io.file.AssetFile.__name__ = ["haxor","io","file","AssetFile"];
-haxor.io.file.AssetFile.__super__ = haxor.core.Resource;
-haxor.io.file.AssetFile.prototype = $extend(haxor.core.Resource.prototype,{
-	get_asset: function() {
-		return null;
-	}
-	,stof32a: function(v,sep) {
-		if(sep == null) sep = " ";
-		var l = StringTools.trim(StringTools.replace(v,"\n"," ")).split(sep);
-		var a = [];
-		var _g1 = 0;
-		var _g = l.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			a.push(Std.parseFloat(l[i]));
-		}
-		return a;
-	}
-	,stoi16a: function(v,sep) {
-		if(sep == null) sep = " ";
-		var l = StringTools.trim(StringTools.replace(v,"\n"," ")).split(sep);
-		var a = [];
-		var _g1 = 0;
-		var _g = l.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			a.push(Std.parseInt(l[i]));
-		}
-		return a;
-	}
-	,stoi16ta: function(v,s,sep) {
-		if(sep == null) sep = " ";
-		var l = StringTools.trim(StringTools.replace(v,"\n"," ")).split(sep);
-		var tl = "";
-		var a = [];
-		var bf;
-		var k = 0;
-		while(k < l.length) {
-			bf = [];
-			var _g = 0;
-			while(_g < s) {
-				var j = _g++;
-				bf.push(Std.parseInt(l[k++]));
-			}
-			a.push(bf);
-		}
-		return a;
-	}
-	,__class__: haxor.io.file.AssetFile
-});
-haxor.io.file.AssetXML = function(p_name,p_src) {
-	haxor.io.file.AssetFile.call(this,p_name);
-	this.x = Xml.parse(p_src);
-	this.TraverseStep(this.x.firstElement());
-};
-$hxClasses["haxor.io.file.AssetXML"] = haxor.io.file.AssetXML;
-haxor.io.file.AssetXML.__name__ = ["haxor","io","file","AssetXML"];
-haxor.io.file.AssetXML.__super__ = haxor.io.file.AssetFile;
-haxor.io.file.AssetXML.prototype = $extend(haxor.io.file.AssetFile.prototype,{
-	Parse: function(n) {
-	}
-	,TraverseStep: function(n) {
-		this.Parse(n);
-		var l = n.elements();
-		while(l.hasNext()) this.TraverseStep(l.next());
-	}
-	,_a: function(n,a,v) {
-		if(n.exists(a)) return n.get(a); else return v;
-	}
-	,_tla: function(n,a,v) {
-		if(n.exists(a)) return StringTools.trim(n.get(a)).toLowerCase(); else return v;
-	}
-	,_p: function(n,p,v,t,tl) {
-		if(tl == null) tl = false;
-		if(t == null) t = false;
-		var l = p.split(".");
-		var it = n;
-		var _g1 = 0;
-		var _g = l.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var tk = l[i];
-			switch(tk) {
-			case "$text":
-				if(it.firstChild() == null) return v;
-				var txt = it.firstChild().toString();
-				if(t) txt = StringTools.trim(txt);
-				if(tl) txt = txt.toLowerCase();
-				return txt;
-			default:
-				if(tk.charAt(0) == "@") {
-					if(t) {
-						if(tl) return this._tla(it,HxOverrides.substr(tk,1,null),v);
-					}
-					return this._a(it,HxOverrides.substr(tk,1,null),v);
-				}
-				var eit = it.elementsNamed(tk);
-				if(eit == null) return v;
-				if(i == l.length - 1) return eit;
-				if(!eit.hasNext()) return v;
-				it = eit.next();
-			}
-		}
-		return v;
-	}
-	,_f: function(n,p,a,t) {
-		var f = this._p(n,p,"");
-		var it;
-		if(f == "") it = null; else it = f;
-		if(it == null) return null;
-		while(it.hasNext()) {
-			var e = it.next();
-			if(this._a(e,a,"") == t) return e;
-		}
-		return null;
-	}
-	,__class__: haxor.io.file.AssetXML
-});
-haxor.io.file.ColladaFile = function(p_name,p_src) {
-	this.xmlns = "";
-	this.version = "";
-	this.data = new haxor.io.file.ColladaAssetData();
-	this.geometries = [];
-	this.images = [];
-	this.controllers = [];
-	this.materials = [];
-	this.animations = [];
-	this.lights = [];
-	this.scene = null;
-	this.m_id = Std["int"](Math.random() * 16777215);
-	haxor.io.file.AssetXML.call(this,p_name,p_src);
-};
-$hxClasses["haxor.io.file.ColladaFile"] = haxor.io.file.ColladaFile;
-haxor.io.file.ColladaFile.__name__ = ["haxor","io","file","ColladaFile"];
-haxor.io.file.ColladaFile.GenerateTriangles = function(p_type,p_indexes,p_vcount) {
-	var triangles = [];
-	switch(p_type) {
-	case "triangles":
-		if(p_indexes.length <= 0) triangles = []; else triangles = p_indexes[0];
-		break;
-	case "polygons":
-		var _g1 = 0;
-		var _g = p_indexes.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var tris = haxor.io.file.ColladaFile.TriangulatePolygon(p_indexes[i],p_indexes[i].length);
-			while(tris.length > 0) triangles.push(tris.shift());
-		}
-		break;
-	case "polylist":
-		var k = 0;
-		var _g11 = 0;
-		var _g2 = p_vcount.length;
-		while(_g11 < _g2) {
-			var i1 = _g11++;
-			var o = p_vcount[i1];
-			var tris1 = haxor.io.file.ColladaFile.TriangulatePolygon(p_indexes[0],o,k);
-			while(tris1.length > 0) triangles.push(tris1.shift());
-			k += o;
-		}
-		break;
-	}
-	return triangles;
-};
-haxor.io.file.ColladaFile.TriangulatePolygon = function(t,c,o) {
-	if(o == null) o = 0;
-	var i = 0;
-	var i0 = 0;
-	var i1 = 1;
-	var i2 = 2;
-	var res = [];
-	while(i2 < c) {
-		res.push(t[i0 + o].slice());
-		res.push(t[i1 + o].slice());
-		res.push(t[i2 + o].slice());
-		i1++;
-		i2++;
-	}
-	return res;
-};
-haxor.io.file.ColladaFile.__super__ = haxor.io.file.AssetXML;
-haxor.io.file.ColladaFile.prototype = $extend(haxor.io.file.AssetXML.prototype,{
-	get_asset: function() {
-		var _g3 = this;
-		var re = new haxor.core.Entity();
-		re.set_name("collada_asset");
-		if(this.scene == null) {
-			haxor.core.Console.LogError("ColladaFile> Trying to get asset of NULL scene.");
-			return re;
-		}
-		if(this.scene.name != "") re.set_name(this.scene.name); else if(this.scene.id != "") re.set_name(this.scene.id);
-		var hm = new haxe.ds.ObjectMap();
-		var cm = new haxe.ds.ObjectMap();
-		var mm = new haxe.ds.ObjectMap();
-		var joint_transforms = [];
-		var joint_nodes = [];
-		var skinned_meshes = [];
-		var _g1 = 0;
-		var _g = this.materials.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var m = this.materials[i];
-			var mn = m.name;
-			var _g2 = 0;
-			while(_g2 < 10) {
-				var i1 = _g2++;
-				mn = StringTools.replace(mn,"_" + i1,"");
-			}
-			mn = StringTools.replace(mn,"_","/");
-			var mat = haxor.io.file.Asset.Get(mn);
-			if(mat == null) {
-				mat = new haxor.graphics.material.Material();
-				mat.set_name(mn);
-				mat.set_shader(haxor.io.file.Asset.Get("haxor/unlit/FlatTexture"));
-				haxor.io.file.Asset.Add(mn,mat);
-			}
-			mm.set(m,mat);
-		}
-		this.scene.Traverse(function(n) {
-			var pe;
-			if(n.parent == null) pe = re; else if(hm.h.__keys__[n.parent.__id__] != null) pe = hm.h[n.parent.__id__]; else pe = re;
-			var ne = null;
-			if(n.name == "EnvironmentAmbientLight") return;
-			ne = new haxor.core.Entity();
-			ne.set_name("node" + ne.get_uid());
-			if(n.sid != "") ne.set_name(n.sid); else if(n.id != "") ne.set_name(n.id); else if(n.name != "") ne.set_name(n.name);
-			if(n.type == "joint") {
-				joint_transforms.push(ne.m_transform);
-				joint_nodes.push(n);
-			}
-			ne.m_transform.set_parent(pe.m_transform);
-			ne.m_transform.set_localPosition(n.position);
-			ne.m_transform.set_localRotation(n.rotation);
-			ne.m_transform.set_localScale(n.scale);
-			if(n.data != "") {
-				var ad = ne.AddComponent(haxor.component.DataComponent);
-				try {
-					ad.data = JSON.parse(n.data);
-				} catch( err ) {
-				}
-			}
-			hm.set(n,ne);
-			var _g11 = 0;
-			var _g4 = n.instances.length;
-			while(_g11 < _g4) {
-				var i2 = _g11++;
-				var ci = n.instances[i2];
-				var mr = null;
-				var cmat = null;
-				var cg = null;
-				var cc = null;
-				var cg_target = "";
-				var _g21 = ci.type;
-				switch(_g21) {
-				case "light":
-					var cl = _g3.FindLightById(ci.target);
-					if(cl == null) continue;
-					var _g41 = cl.type;
-					switch(_g41) {
-					case "ambient":
-						break;
-					case "point":
-						var pl = ne.AddComponent(haxor.component.PointLight);
-						pl.color.SetColor(cl.color);
-						pl.intensity = cl.intensity;
-						pl.radius = cl.radius * 2.0;
-						pl.atten = cl.atten;
-						break;
-					case "directional":
-						break;
-					}
-					continue;
-					break;
-				case "geometry":
-					cg_target = ci.target;
-					break;
-				case "controller":
-					cc = _g3.FindControllerById(ci.target);
-					if(cc != null) {
-						cm.set(ne.m_transform,cc);
-						cg_target = cc.source;
-					}
-					break;
-				}
-				cg = _g3.FindGeometryById(cg_target);
-				if(cg != null) {
-					var _g42 = 0;
-					var _g22 = cg.mesh.primitives.length;
-					while(_g42 < _g22) {
-						var i3 = _g42++;
-						var mn1 = cg.mesh.primitives[i3].material;
-						cmat = _g3.FindMaterialById(mn1);
-						mr = _g3.CreateMeshRenderer(ne,cg_target,cg.mesh.primitives[i3],cc == null?haxor.component.MeshRenderer:haxor.component.SkinnedMeshRenderer,cc);
-						if(cc != null) skinned_meshes.push(mr);
-						if(cmat != null) mr.set_material(mm.h.__keys__[cmat.__id__] != null?mm.h[cmat.__id__]:mr.m_material); else {
-							var _g5 = 0;
-							while(_g5 < 10) {
-								var i4 = _g5++;
-								mn1 = StringTools.replace(mn1,"_" + i4,"");
-							}
-							mn1 = StringTools.replace(mn1,"_","/");
-							var mat1 = haxor.io.file.Asset.Get(mn1);
-							mr.set_material(mat1);
-						}
-					}
-				}
-			}
-		});
-		var _g12 = 0;
-		var _g6 = skinned_meshes.length;
-		while(_g12 < _g6) {
-			var i5 = _g12++;
-			var skr = skinned_meshes[i5];
-			var cc1;
-			if(cm.h.__keys__[skr.m_entity.m_transform.__id__] != null) cc1 = cm.h[skr.m_entity.m_transform.__id__]; else cc1 = null;
-			if(cc1 == null) continue;
-			skr.set_joints([]);
-			var _g31 = 0;
-			var _g23 = cc1.joints.length;
-			while(_g31 < _g23) {
-				var j = _g31++;
-				var _g51 = 0;
-				var _g43 = joint_transforms.length;
-				while(_g51 < _g43) {
-					var k = _g51++;
-					if(joint_transforms[k].get_name() == cc1.joints[j]) skr.m_joints.push(joint_transforms[k]);
-				}
-			}
-		}
-		var nit = hm.keys();
-		while(nit.hasNext()) {
-			var n1 = nit.next();
-			var e = hm.h[n1.__id__];
-			if(e == re) continue;
-			e.set_name(n1.name);
-		}
-		this.AddAnimations(re);
-		if(this.data.axis == "z_up") re.m_transform.set_rotation(haxor.math.Quaternion.FromAxisAngle(new haxor.math.Vector3(1,0,0),-90.0));
-		return re;
-	}
-	,AddAnimations: function(p_entity,p_exact) {
-		if(p_exact == null) p_exact = true;
-	}
-	,CreateMeshRenderer: function(e,msh,cp,t,cc) {
-		var r = e.AddComponent(t);
-		var mid = msh + "_" + this.m_id;
-		var m = haxor.io.file.Asset.Get(mid);
-		if(m != null) {
-			r.set_mesh(m);
-			return r;
-		}
-		var mv = cp.GetTriangulatedVectorArray("vertex");
-		var mn = cp.GetTriangulatedVectorArray("normal");
-		var mc = cp.GetTriangulatedVectorArray("color");
-		var muv0 = cp.GetTriangulatedVectorArray("texcoord",0);
-		var muv1 = cp.GetTriangulatedVectorArray("texcoord",1);
-		var mbn = cp.GetTriangulatedVectorArray("texbinormal");
-		var mtg = cp.GetTriangulatedVectorArray("textangent");
-		var is_skinned = js.Boot.__instanceof(r,haxor.component.SkinnedMeshRenderer);
-		if(is_skinned) m = new haxor.graphics.mesh.SkinnedMesh3(); else m = new haxor.graphics.mesh.Mesh3();
-		m.set_name(mid);
-		haxor.io.file.Asset.Add(mid,m);
-		if(mc.length > 0) m.set_color(mc);
-		if(muv0.length > 0) m.set_uv0(muv0);
-		if(muv1.length > 0) m.set_uv1(muv1);
-		if(is_skinned) {
-			if(cc != null) {
-				cc.GenerateBonesAndWeights();
-				var skm = m;
-				var mvw = cc.GetTriangulatedWeights(cp);
-				var mbi = cc.GetTriangulatedBones(cp);
-				var mbm = cc.GetBinds();
-				skm.set_binds(mbm);
-				skm.set_weight(mvw);
-				skm.set_bone(mbi);
-				var bsm = cc.GetBSM();
-				var _g1 = 0;
-				var _g = mv.length;
-				while(_g1 < _g) {
-					var i = _g1++;
-					mv[i] = bsm.Transform3x4(mv[i].get_clone());
-				}
-				var _g11 = 0;
-				var _g2 = mn.length;
-				while(_g11 < _g2) {
-					var i1 = _g11++;
-					mn[i1] = bsm.Transform3x3(mn[i1].get_clone());
-				}
-				var _g12 = 0;
-				var _g3 = mbn.length;
-				while(_g12 < _g3) {
-					var i2 = _g12++;
-					mbn[i2] = bsm.Transform3x3(mbn[i2].get_clone());
-				}
-				var _g13 = 0;
-				var _g4 = mtg.length;
-				while(_g13 < _g4) {
-					var i3 = _g13++;
-					mtg[i3] = bsm.Transform3x3(mtg[i3].get_clone());
-				}
-			}
-		}
-		if(mv.length > 0) m.set_vertex(mv);
-		if(mn.length > 0) m.set_normal(mn);
-		if(mbn.length > 0) m.set_binormal(mbn);
-		if(mtg.length > 0) m.set_tangent(mtg);
-		m.GenerateBounds();
-		r.set_mesh(m);
-		return r;
-	}
-	,FindLightById: function(p_id) {
-		var _g1 = 0;
-		var _g = this.lights.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(this.lights[i].id == p_id) return this.lights[i];
-		}
-		return null;
-	}
-	,FindGeometryById: function(p_id) {
-		var _g1 = 0;
-		var _g = this.geometries.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(this.geometries[i].id == p_id) return this.geometries[i];
-		}
-		return null;
-	}
-	,FindControllerById: function(p_id) {
-		var _g1 = 0;
-		var _g = this.controllers.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(this.controllers[i].id == p_id) return this.controllers[i];
-		}
-		return null;
-	}
-	,FindNodeById: function(p_id) {
-		var res = null;
-		this.scene.Traverse(function(it) {
-			if(it.id == p_id) res = it;
-		});
-		return res;
-	}
-	,FindMaterialById: function(p_id) {
-		var _g1 = 0;
-		var _g = this.materials.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(this.materials[i].id == p_id) return this.materials[i]; else if(this.materials[i].name == p_id) return this.materials[i];
-		}
-		return null;
-	}
-	,Parse: function(n) {
-		var _g = n.get_nodeName();
-		switch(_g) {
-		case "COLLADA":
-			this.xmlns = this._a(n,"xmlns","");
-			this.version = this._a(n,"version","0.0");
-			break;
-		case "asset":
-			this.data.author = this._p(n,"contributor.author.$text","none");
-			this.data.tool = this._p(n,"contributor.authoring_tool.$text","none");
-			this.data.source = this._p(n,"contributor.source_data.$text","none");
-			this.data.axis = this._p(n,"up_axis.$text","y_up").toLowerCase();
-			this.data.creation = this._p(n,"created.$text","00/00/00");
-			this.data.modification = this._p(n,"modified.$text","00/00/00");
-			this.data.unitName = this._p(n,"unit.@name","none");
-			this.data.unitValue = Std.parseFloat(this._p(n,"unit.@meter","0.0"));
-			break;
-		case "library_effects":
-			break;
-		case "library_materials":
-			this.ParseMaterialLibrary(n);
-			break;
-		case "scene":
-			break;
-		case "library_geometries":
-			this.ParseGeometryLibrary(n);
-			break;
-		case "library_controllers":
-			this.ParseControllerLibrary(n);
-			break;
-		case "library_images":
-			this.ParseImageLibrary(n);
-			break;
-		case "library_visual_scenes":
-			this.ParseSceneLibrary(n);
-			break;
-		case "library_animations":
-			this.ParseAnimationLibrary(n);
-			break;
-		case "library_lights":
-			this.ParseLightLibrary(n);
-			break;
-		}
-	}
-	,ParseLightLibrary: function(n) {
-		var it = n.elementsNamed("light");
-		var l;
-		var lit;
-		var ln;
-		while(it.hasNext()) {
-			n = it.next();
-			l = new haxor.io.file.ColladaLight();
-			l.id = this._p(n,"@id","light" + this.lights.length);
-			l.name = this._p(n,"@name",l.id);
-			this.lights.push(l);
-			lit = n.elementsNamed("technique_common");
-			if(!lit.hasNext()) continue;
-			lit = lit.next().elements();
-			if(!lit.hasNext()) continue;
-			ln = lit.next();
-			l.type = ln.get_nodeName().toLowerCase();
-			var ca = [1,1,1,1];
-			var _g = l.type;
-			switch(_g) {
-			case "point":
-				ca = this._f32a(this._p(ln,"color.$text",""));
-				break;
-			case "ambient":
-				ca = this._f32a(this._p(ln,"color.$text",""));
-				break;
-			case "directional":
-				ca = this._f32a(this._p(ln,"color.$text",""));
-				break;
-			}
-			l.color.Set(ca[0],ca[1],ca[2],ca.length >= 4?ca[3]:1.0);
-			lit = n.elementsNamed("extra");
-			if(!lit.hasNext()) continue;
-			lit = lit.next().elementsNamed("technique");
-			if(!lit.hasNext()) continue;
-			lit = lit.next().elementsNamed("max_light");
-			if(!lit.hasNext()) continue;
-			ln = lit.next();
-			var _g1 = l.type;
-			switch(_g1) {
-			case "point":
-				l.radius = Std.parseFloat(this._p(ln,"decay_radius.$text","1.0"));
-				l.intensity = Std.parseFloat(this._p(ln,"multiplier.$text","1.0"));
-				var atten_type = Std.parseInt(this._p(ln,"decay_type.$text","1.0"));
-				if(atten_type == 0) l.atten = 0.0; else if(atten_type == 1) l.atten = 1.0; else l.atten = 2.0;
-				break;
-			case "ambient":
-				break;
-			case "directional":
-				l.intensity = Std.parseFloat(this._p(ln,"multiplier.$text","1.0"));
-				break;
-			}
-		}
-	}
-	,ParseAnimationLibrary: function(n) {
-		var it = n.elementsNamed("animation");
-		var anim_id = 0;
-		while(it.hasNext()) {
-			n = it.next();
-			if(n.elementsNamed("animation").hasNext()) n = n.elementsNamed("animation").next();
-			var ca = new haxor.io.file.ColladaAnimation();
-			ca.id = this._a(n,"id","");
-			if(ca.id == "") ca.id = "Clip" + anim_id++; else ca.id = ca.id;
-			ca.name = this._a(n,"name",ca.id);
-			var source_iterator = n.elementsNamed("source");
-			var sampler_iterator = n.elementsNamed("sampler");
-			var source_list = [];
-			var sampler_list = [];
-			while(source_iterator.hasNext()) source_list.push(source_iterator.next());
-			while(sampler_iterator.hasNext()) sampler_list.push(sampler_iterator.next());
-			var channel_list = n.elementsNamed("channel");
-			while(channel_list.hasNext()) {
-				var chn = channel_list.next();
-				var cch = new haxor.io.file.ColladaAnimationChannel();
-				var _this = this._a(chn,"source","");
-				cch.source = HxOverrides.substr(_this,1,null);
-				cch.target = this._a(chn,"target","");
-				var _g1 = 0;
-				var _g = sampler_list.length;
-				while(_g1 < _g) {
-					var i = _g1++;
-					var sampler_id = this._a(sampler_list[i],"id","");
-					if(sampler_id != cch.source) continue;
-					var input_iterator = sampler_list[i].elementsNamed("input");
-					var keyframe_time_source = "";
-					var keyframe_value_source = "";
-					while(input_iterator.hasNext()) {
-						var chsi = input_iterator.next();
-						var _g2 = this._a(chsi,"semantic","").toLowerCase();
-						switch(_g2) {
-						case "input":
-							var _this1 = this._a(chsi,"source","");
-							keyframe_time_source = HxOverrides.substr(_this1,1,null);
-							break;
-						case "output":
-							var _this2 = this._a(chsi,"source","");
-							keyframe_value_source = HxOverrides.substr(_this2,1,null);
-							break;
-						}
-					}
-					if(keyframe_time_source == "") continue;
-					if(keyframe_value_source == "") continue;
-					var kf_time_node = null;
-					var kf_value_node = null;
-					var _g3 = 0;
-					var _g21 = source_list.length;
-					while(_g3 < _g21) {
-						var j = _g3++;
-						var sn = source_list[j];
-						if(this._a(sn,"id","") == keyframe_time_source) kf_time_node = sn;
-						if(this._a(sn,"id","") == keyframe_value_source) kf_value_node = sn;
-					}
-					if(kf_time_node == null) continue;
-					if(kf_value_node == null) continue;
-					var kf_time_buffer = this._f32a(this._p(kf_time_node,"float_array.$text",""));
-					var kf_value_buffer = this._f32a(this._p(kf_value_node,"float_array.$text",""));
-					var kf_value_stride = Std.parseInt(this._p(kf_value_node,"technique_common.accessor.@stride","0"));
-					var _g31 = 0;
-					var _g22 = kf_time_buffer.length;
-					while(_g31 < _g22) {
-						var j1 = _g31++;
-						var kf = new haxor.io.file.ColladaAnimationKeyFrame();
-						kf.time = kf_time_buffer[j1];
-						var _g4 = 0;
-						while(_g4 < kf_value_stride) {
-							var k = _g4++;
-							kf.values.push(kf_value_buffer.shift());
-						}
-						cch.keyframes.push(kf);
-					}
-				}
-				ca.channels.push(cch);
-			}
-			this.animations.push(ca);
-		}
-	}
-	,ParseMaterialLibrary: function(n) {
-		var it = n.elements();
-		while(it.hasNext()) {
-			n = it.next();
-			var _g = n.get_nodeName();
-			switch(_g) {
-			case "material":
-				var mat = new haxor.io.file.ColladaMaterial();
-				mat.id = this._a(n,"id","");
-				mat.name = this._a(n,"name","");
-				if(mat.id == "") mat.id = mat.name;
-				this.materials.push(mat);
-				break;
-			}
-		}
-	}
-	,ParseSceneLibrary: function(n) {
-		var it = n.elements();
-		while(it.hasNext()) {
-			n = it.next();
-			var _g = n.get_nodeName();
-			switch(_g) {
-			case "visual_scene":
-				this.ParseVisualScene(n);
-				break;
-			}
-		}
-	}
-	,ParseVisualScene: function(n) {
-		if(this.scene != null) return;
-		this.scene = new haxor.io.file.ColladaVisualScene();
-		this.scene.id = this._a(n,"id","collada_scene");
-		this.scene.name = this._a(n,"name",this.scene.id);
-		this.scene.type = n.get_nodeName();
-		this.TraverseVisualSceneNodes(this.scene,null,n);
-	}
-	,TraverseVisualSceneNodes: function(scn,p,n) {
-		var cn = null;
-		if(n.get_nodeName() == "node") cn = this.ParseVisualSceneNode(scn,p,n);
-		var cn_it = n.elementsNamed("node");
-		while(cn_it.hasNext()) this.TraverseVisualSceneNodes(scn,cn,cn_it.next());
-	}
-	,ParseVisualSceneNode: function(scn,p,n) {
-		var cn = new haxor.io.file.ColladaNode();
-		cn.scene = scn;
-		cn.sid = this._a(n,"sid","node" + Std["int"](Math.random() * 16777215));
-		cn.id = this._a(n,"id",cn.sid);
-		cn.name = this._a(n,"name",cn.sid);
-		if(cn.sid == "") cn.sid = cn.id;
-		cn.type = this._a(n,"type","NODE").toLowerCase();
-		cn.matrix = this._f32a(this._p(n,"matrix.$text","1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1"));
-		cn.parent = p;
-		cn.GenerateTranform();
-		var iit = n.elements();
-		while(iit.hasNext()) {
-			var nin = iit.next();
-			var ni = null;
-			var _g = nin.get_nodeName();
-			switch(_g) {
-			case "instance_geometry":
-				ni = new haxor.io.file.ColladaInstance();
-				ni.type = "geometry";
-				var _this = this._a(nin,"url","");
-				ni.target = HxOverrides.substr(_this,1,null);
-				break;
-			case "instance_controller":
-				ni = new haxor.io.file.ColladaInstance();
-				ni.type = "controller";
-				var _this1 = this._a(nin,"url","");
-				ni.target = HxOverrides.substr(_this1,1,null);
-				break;
-			case "instance_light":
-				ni = new haxor.io.file.ColladaInstance();
-				ni.type = "light";
-				var _this2 = this._a(nin,"url","");
-				ni.target = HxOverrides.substr(_this2,1,null);
-				break;
-			case "extra":
-				cn.data = this._p(nin,"technique.user_properties.$text","");
-				if(cn.data.indexOf(";") < 0) cn.data = "";
-				break;
-			}
-			if(ni != null) cn.instances.push(ni);
-		}
-		if(p == null) scn.children.push(cn); else p.children.push(cn);
-		return cn;
-	}
-	,ParseInstanceMaterials: function(ci,n) {
-	}
-	,ParseControllerLibrary: function(n) {
-		var it = n.elementsNamed("controller");
-		var c = null;
-		while(it.hasNext()) {
-			n = it.next();
-			c = new haxor.io.file.ColladaController();
-			c.id = this._a(n,"id","none");
-			c.name = this._a(n,"name",c.id);
-			this.ParseController(c,n);
-			this.controllers.push(c);
-		}
-	}
-	,ParseController: function(c,n) {
-		n = n.firstElement();
-		if(n == null) return;
-		if(n.get_nodeName() == null) c.type = "none"; else c.type = n.get_nodeName().toLowerCase();
-		var _g = c.type;
-		switch(_g) {
-		case "skin":
-			this.ParseControllerSkin(c,n);
-			break;
-		case "morph":
-			break;
-		}
-	}
-	,ParseControllerSkin: function(c,n) {
-		var _this = this._a(n,"source","");
-		c.source = HxOverrides.substr(_this,1,null);
-		c.matrix = this._f32a(this._p(n,"bind_shape_matrix.$text",""));
-		var source = "";
-		var sn = null;
-		var jn;
-		if(this._p(n,"joints") == null) jn = null; else jn = this._p(n,"joints").next();
-		if(jn != null) {
-			var jn_it = jn.elementsNamed("input");
-			while(jn_it.hasNext()) {
-				var jni = jn_it.next();
-				var _this1 = this._a(jni,"source","");
-				source = HxOverrides.substr(_this1,1,null);
-				if(source == "") continue;
-				sn = this._f(n,"source","id",source);
-				if(sn == null) continue;
-				var _g = this._a(jni,"semantic","").toLowerCase();
-				switch(_g) {
-				case "joint":
-					c.joints = StringTools.trim(StringTools.replace(this._p(sn,"Name_array.$text",""),"\n"," ")).split(" ");
-					break;
-				case "inv_bind_matrix":
-					var ml = this._f32a(this._p(sn,"float_array.$text",""));
-					while(ml.length > 0) {
-						var mtx = [];
-						var _g1 = 0;
-						while(_g1 < 16) {
-							var i = _g1++;
-							mtx.push(ml.shift());
-						}
-						c.binds.push(mtx);
-					}
-					break;
-				}
-			}
-		}
-		var vwn;
-		if(this._p(n,"vertex_weights") == null) vwn = null; else vwn = this._p(n,"vertex_weights").next();
-		if(vwn != null) {
-			c.inputs = this.ParseInputList(n,vwn);
-			c.vcount = this._i16a(this._p(vwn,"vcount.$text",""));
-			var vwb = this._p(vwn,"v.$text","");
-			c.indexes = this._i16ta(vwb,c.get_offset());
-		}
-	}
-	,ParseImageLibrary: function(n) {
-		var it = n.elementsNamed("image");
-		var img = null;
-		while(it.hasNext()) {
-			n = it.next();
-			img = new haxor.io.file.ColladaImage();
-			img.id = this._a(n,"id","none");
-			img.name = this._a(n,"name",img.id);
-			img.format = this._a(n,"format","");
-			img.width = Std.parseInt(this._a(n,"width","-1"));
-			img.height = Std.parseInt(this._a(n,"height","-1"));
-			img.depth = Std.parseInt(this._a(n,"depth","-1"));
-			this.images.push(img);
-		}
-	}
-	,ParseGeometryLibrary: function(n) {
-		var it = n.elementsNamed("geometry");
-		var g = null;
-		while(it.hasNext()) {
-			n = it.next();
-			g = new haxor.io.file.ColladaGeometry();
-			g.id = this._a(n,"id","none");
-			g.name = this._a(n,"name","none");
-			this.ParseGeometry(g,n);
-			this.geometries.push(g);
-		}
-	}
-	,ParseGeometry: function(g,n) {
-		n = n.firstElement();
-		if(n == null) return;
-		g.mesh = new haxor.io.file.ColladaMesh();
-		if(n.get_nodeName() == null) g.mesh.type = "none"; else g.mesh.type = n.get_nodeName().toLowerCase();
-		var _g = g.mesh.type;
-		switch(_g) {
-		case "mesh":
-			this.ParseMesh(g.mesh,n);
-			break;
-		case "convex_mesh":
-			break;
-		case "spline":
-			break;
-		}
-	}
-	,ParseMesh: function(m,n) {
-		var it = n.elements();
-		var p = n;
-		while(it.hasNext()) {
-			n = it.next();
-			if(n.get_nodeName() == "vertices") continue;
-			if(n.get_nodeName() == "source") continue;
-			var cp = new haxor.io.file.ColladaPrimitive();
-			cp.type = n.get_nodeName();
-			cp.material = this._a(n,"material","");
-			this.ParsePrimitive(cp,p,n);
-			m.primitives.push(cp);
-		}
-	}
-	,ParsePrimitive: function(cp,p,n) {
-		cp.inputs = this.ParseInputList(p,n);
-		var p_it = n.elementsNamed("p");
-		var vc_it = n.elementsNamed("vcount");
-		if(vc_it.hasNext()) {
-			var ncitn = vc_it.next().firstChild();
-			if(ncitn == null) cp.vcount = []; else cp.vcount = this._i16a(ncitn.toString());
-		}
-		while(p_it.hasNext()) {
-			var vn = p_it.next();
-			var vb;
-			if(vn.firstChild() != null) vb = vn.firstChild().toString(); else vb = "0";
-			var off = cp.get_offset();
-			var ti = this._i16ta(vb,off);
-			cp.indexes.push(ti);
-		}
-	}
-	,ParseInputList: function(p,n) {
-		var l = [];
-		var it = n.elementsNamed("input");
-		while(it.hasNext()) {
-			var pi = it.next();
-			var ci = new haxor.io.file.ColladaInput();
-			var source = this._a(pi,"source","");
-			ci.semantic = this._a(pi,"semantic","").toLowerCase();
-			ci.offset = Std.parseInt(this._a(pi,"offset","-1"));
-			ci.set = Std.parseInt(this._a(pi,"set","-1"));
-			if(ci.semantic == "joint") {
-				l.push(ci);
-				continue;
-			}
-			if(ci.semantic == "vertex") source = this._p(p,"vertices.input.@source","");
-			if(source == "") continue;
-			source = HxOverrides.substr(source,1,null);
-			var sn = this._f(p,"source","id",source);
-			if(sn == null) continue;
-			var stride_str = this._p(sn,"technique_common.accessor.@stride","0");
-			ci.stride = Std.parseInt(stride_str);
-			ci.values = this._f32a(this._p(sn,"float_array.$text",""));
-			l.push(ci);
-		}
-		return l;
-	}
-	,TraverseStep: function(n) {
-		this.Parse(n);
-		var l = n.elements();
-		while(l.hasNext()) this.TraverseStep(l.next());
-	}
-	,_f32a: function(v) {
-		var l = StringTools.trim(StringTools.replace(v,"\n"," ")).split(" ");
-		var a = [];
-		var _g1 = 0;
-		var _g = l.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			a.push(Std.parseFloat(l[i]));
-		}
-		return a;
-	}
-	,_i16a: function(v) {
-		var l = StringTools.trim(StringTools.replace(v,"\n"," ")).split(" ");
-		var a = [];
-		var _g1 = 0;
-		var _g = l.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			a.push(Std.parseInt(l[i]));
-		}
-		return a;
-	}
-	,_i16ta: function(v,s) {
-		var l = StringTools.trim(StringTools.replace(v,"\n"," ")).split(" ");
-		var tl = "";
-		var a = [];
-		var bf;
-		var k = 0;
-		while(k < l.length) {
-			bf = [];
-			var _g = 0;
-			while(_g < s) {
-				var j = _g++;
-				bf.push(Std.parseInt(l[k++]));
-			}
-			a.push(bf);
-		}
-		return a;
-	}
-	,__class__: haxor.io.file.ColladaFile
-});
-haxor.io.file.ColladaAssetData = function() {
-	this.axis = "y_up";
-	this.unitValue = 0.0;
-	this.unitName = "";
-	this.modification = "";
-	this.creation = "";
-	this.source = "";
-	this.tool = "";
-	this.author = "";
-};
-$hxClasses["haxor.io.file.ColladaAssetData"] = haxor.io.file.ColladaAssetData;
-haxor.io.file.ColladaAssetData.__name__ = ["haxor","io","file","ColladaAssetData"];
-haxor.io.file.ColladaAssetData.prototype = {
-	__class__: haxor.io.file.ColladaAssetData
-};
-haxor.io.file.ColladaGeometry = function() {
-	this.mesh = null;
-	this.name = "";
-	this.id = "";
-};
-$hxClasses["haxor.io.file.ColladaGeometry"] = haxor.io.file.ColladaGeometry;
-haxor.io.file.ColladaGeometry.__name__ = ["haxor","io","file","ColladaGeometry"];
-haxor.io.file.ColladaGeometry.prototype = {
-	__class__: haxor.io.file.ColladaGeometry
-};
-haxor.io.file.ColladaMesh = function() {
-	this.primitives = null;
-	this.type = "";
-	this.primitives = [];
-};
-$hxClasses["haxor.io.file.ColladaMesh"] = haxor.io.file.ColladaMesh;
-haxor.io.file.ColladaMesh.__name__ = ["haxor","io","file","ColladaMesh"];
-haxor.io.file.ColladaMesh.prototype = {
-	__class__: haxor.io.file.ColladaMesh
-};
-haxor.io.file.ColladaPrimitive = function() {
-	this.indexes = null;
-	this.vcount = null;
-	this.inputs = null;
-	this.material = "";
-	this.type = "";
-	this.inputs = [];
-	this.vcount = [];
-	this.indexes = [];
-	this.m_triangles = null;
-};
-$hxClasses["haxor.io.file.ColladaPrimitive"] = haxor.io.file.ColladaPrimitive;
-haxor.io.file.ColladaPrimitive.__name__ = ["haxor","io","file","ColladaPrimitive"];
-haxor.io.file.ColladaPrimitive.prototype = {
-	get_triangles: function() {
-		if(this.m_triangles != null) return this.m_triangles;
-		this.m_triangles = haxor.io.file.ColladaFile.GenerateTriangles(this.type,this.indexes,this.vcount);
-		return this.m_triangles;
-	}
-	,get_offset: function() {
-		var mo = 0;
-		var _g1 = 0;
-		var _g = this.inputs.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			mo = Math.max(mo,this.inputs[i].offset + 1);
-		}
-		return mo;
-	}
-	,GetInput: function(p_semantic,p_set) {
-		if(p_set == null) p_set = -1;
-		var _g1 = 0;
-		var _g = this.inputs.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(this.inputs[i].semantic == p_semantic) {
-				if(p_set < 0) return this.inputs[i]; else if(p_set == this.inputs[i].set) return this.inputs[i];
-			}
-		}
-		return null;
-	}
-	,GetTriangulatedVectorArray: function(p_semantic,p_set,p_debug) {
-		if(p_debug == null) p_debug = false;
-		if(p_set == null) p_set = -1;
-		var ci = this.GetInput(p_semantic,p_set);
-		if(ci == null) return [];
-		var vec = ci.GetVectorArray();
-		var off = ci.offset;
-		var res = [];
-		if(vec.length <= 0) return [];
-		if(off < 0) return [];
-		var _g1 = 0;
-		var _g = this.get_triangles().length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var tuple = this.get_triangles()[i];
-			var idx = tuple[off];
-			res.push(vec[idx]);
-		}
-		return res;
-	}
-	,GetVectorArray: function(p_semantic,p_set) {
-		if(p_set == null) p_set = -1;
-		var res = [];
-		var _g1 = 0;
-		var _g = this.inputs.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(this.inputs[i].semantic == p_semantic) {
-				if(p_set < 0) {
-					res = this.inputs[i].GetVectorArray();
-					break;
-				} else if(p_set == this.inputs[i].set) {
-					res = this.inputs[i].GetVectorArray();
-					break;
-				}
-			}
-		}
-		if(p_semantic == "color") {
-			if(p_set < 0) {
-				var l = this.GetVectorArray("color",0);
-				if(l.length > 0) {
-					var len = Math.min(l.length,res.length);
-					var _g2 = 0;
-					while(_g2 < len) {
-						var i1 = _g2++;
-						res[i1].a = l[i1].r;
-					}
-				}
-			}
-		}
-		return res;
-	}
-	,__class__: haxor.io.file.ColladaPrimitive
-};
-haxor.io.file.ColladaInput = function() {
-	this.stride = 0;
-	this.values = null;
-	this.set = -1;
-	this.offset = 0;
-	this.semantic = "";
-	this.values = [];
-};
-$hxClasses["haxor.io.file.ColladaInput"] = haxor.io.file.ColladaInput;
-haxor.io.file.ColladaInput.__name__ = ["haxor","io","file","ColladaInput"];
-haxor.io.file.ColladaInput.prototype = {
-	GetVectorArray: function() {
-		if(this.stride <= 0) return [];
-		var res = [];
-		var i = 0;
-		while(i < this.values.length) {
-			var v = null;
-			var _g = this.stride;
-			switch(_g) {
-			case 1:
-				v = this.values[i];
-				break;
-			case 2:
-				v = new haxor.math.Vector2(this.values[i],this.values[i + 1]);
-				break;
-			case 3:
-				if(this.semantic == "color") v = new haxor.math.Color(this.values[i],this.values[i + 1],this.values[i + 2]); else v = new haxor.math.Vector3(this.values[i],this.values[i + 1],this.values[i + 2]);
-				break;
-			case 4:
-				if(this.semantic == "color") v = new haxor.math.Color(this.values[i],this.values[i + 1],this.values[i + 2],this.values[i + 3]); else v = new haxor.math.Vector4(this.values[i],this.values[i + 1],this.values[i + 2],this.values[i + 3]);
-				break;
-			}
-			if(v == null) continue;
-			res.push(v);
-			i += this.stride;
-		}
-		return res;
-	}
-	,__class__: haxor.io.file.ColladaInput
-};
-haxor.io.file.ColladaImage = function() {
-	this.data = null;
-	this.depth = 0;
-	this.height = 0;
-	this.width = 0;
-	this.source = "";
-	this.format = "";
-	this.name = "";
-	this.id = "";
-};
-$hxClasses["haxor.io.file.ColladaImage"] = haxor.io.file.ColladaImage;
-haxor.io.file.ColladaImage.__name__ = ["haxor","io","file","ColladaImage"];
-haxor.io.file.ColladaImage.prototype = {
-	__class__: haxor.io.file.ColladaImage
-};
-haxor.io.file.ColladaController = function() {
-	this.bones = null;
-	this.weights = null;
-	this.indexes = null;
-	this.vcount = null;
-	this.inputs = null;
-	this.joints = null;
-	this.binds = null;
-	this.matrix = null;
-	this.name = "";
-	this.id = "";
-	this.source = "";
-	this.type = "";
-	this.matrix = [];
-	this.binds = [];
-	this.inputs = [];
-	this.joints = [];
-	this.vcount = [];
-	this.indexes = [];
-};
-$hxClasses["haxor.io.file.ColladaController"] = haxor.io.file.ColladaController;
-haxor.io.file.ColladaController.__name__ = ["haxor","io","file","ColladaController"];
-haxor.io.file.ColladaController.prototype = {
-	get_offset: function() {
-		var mo = 0;
-		var _g1 = 0;
-		var _g = this.inputs.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			mo = Math.max(mo,this.inputs[i].offset + 1);
-		}
-		return mo;
-	}
-	,GetBSM: function() {
-		var mtx = new haxor.math.Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
-		var _g1 = 0;
-		var _g = this.matrix.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			mtx.SetIndex(i,this.matrix[i]);
-		}
-		return mtx;
-	}
-	,GetJointIndex: function(p_joint) {
-		var _g1 = 0;
-		var _g = this.joints.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(p_joint == this.joints[i]) return i;
-		}
-		return -1;
-	}
-	,GetBinds: function() {
-		var res = [];
-		var _g1 = 0;
-		var _g = this.binds.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var mtx = new haxor.math.Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
-			var _g3 = 0;
-			var _g2 = this.binds[i].length;
-			while(_g3 < _g2) {
-				var j = _g3++;
-				mtx.SetIndex(j,this.binds[i][j]);
-			}
-			res.push(mtx);
-		}
-		return res;
-	}
-	,GetTriangulatedWeights: function(cp) {
-		var v_off = cp.GetInput("vertex").offset;
-		var res = [];
-		var _g1 = 0;
-		var _g = cp.get_triangles().length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var idx = cp.get_triangles()[i][v_off];
-			res.push(this.weights[idx]);
-		}
-		return res;
-	}
-	,GetTriangulatedBones: function(cp) {
-		var v_off = cp.GetInput("vertex").offset;
-		var res = [];
-		var _g1 = 0;
-		var _g = cp.get_triangles().length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var idx = cp.get_triangles()[i][v_off];
-			res.push(this.bones[idx]);
-		}
-		return res;
-	}
-	,GenerateBonesAndWeights: function() {
-		this.weights = [];
-		this.bones = [];
-		var off = this.get_offset();
-		var wi = null;
-		var wo = 0;
-		var bo = 0;
-		var _g1 = 0;
-		var _g = this.inputs.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(this.inputs[i].semantic == "weight") {
-				wi = this.inputs[i];
-				wo = wi.offset;
-			}
-			if(this.inputs[i].semantic == "joint") bo = this.inputs[i].offset;
-		}
-		var k = 0;
-		var _g11 = 0;
-		var _g2 = this.vcount.length;
-		while(_g11 < _g2) {
-			var i1 = _g11++;
-			var n = this.vcount[i1];
-			var wv4 = new haxor.math.Vector4();
-			var bv4 = new haxor.math.Vector4();
-			var _g21 = 0;
-			while(_g21 < n) {
-				var j = _g21++;
-				var bi = this.indexes[k][bo];
-				var wv = wi.values[this.indexes[k][wo]];
-				if(j == 0) {
-					wv4.x = wv;
-					bv4.x = bi;
-				} else if(j == 1) {
-					wv4.y = wv;
-					bv4.y = bi;
-				} else if(j == 2) {
-					wv4.z = wv;
-					bv4.z = bi;
-				} else if(j == 3) {
-					wv4.w = wv;
-					bv4.w = bi;
-				}
-				k++;
-			}
-			var sum = wv4.x + wv4.y + wv4.z + wv4.w;
-			if(sum <= 0) sum = 0.0; else sum = 1.0 / sum;
-			wv4.Scale(sum);
-			this.weights.push(wv4);
-			this.bones.push(bv4);
-		}
-	}
-	,__class__: haxor.io.file.ColladaController
-};
-haxor.io.file.ColladaVisualScene = function() {
-	this.children = null;
-	this.name = "";
-	this.id = "";
-	this.type = "";
-	this.children = [];
-};
-$hxClasses["haxor.io.file.ColladaVisualScene"] = haxor.io.file.ColladaVisualScene;
-haxor.io.file.ColladaVisualScene.__name__ = ["haxor","io","file","ColladaVisualScene"];
-haxor.io.file.ColladaVisualScene.prototype = {
-	Traverse: function(p_callback) {
-		var _g1 = 0;
-		var _g = this.children.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			this.TraverseStep(this.children[i],p_callback);
-		}
-	}
-	,TraverseStep: function(p_node,p_callback) {
-		if(p_callback != null) p_callback(p_node);
-		var _g1 = 0;
-		var _g = p_node.children.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			this.TraverseStep(p_node.children[i],p_callback);
-		}
-	}
-	,__class__: haxor.io.file.ColladaVisualScene
-};
-haxor.io.file.ColladaNode = function() {
-	this.instances = null;
-	this.local = null;
-	this.data = "";
-	this.children = null;
-	this.parent = null;
-	this.scene = null;
-	this.matrix = null;
-	this.name = "";
-	this.sid = "";
-	this.id = "";
-	this.type = "";
-	this.children = [];
-	this.instances = [];
-	this.matrix = [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];
-	this.position = new haxor.math.Vector3(0,0,0);
-	this.rotation = new haxor.math.Quaternion(0,0,0,1.0);
-	this.scale = new haxor.math.Vector3(1,1,1);
-};
-$hxClasses["haxor.io.file.ColladaNode"] = haxor.io.file.ColladaNode;
-haxor.io.file.ColladaNode.__name__ = ["haxor","io","file","ColladaNode"];
-haxor.io.file.ColladaNode.prototype = {
-	get_world: function() {
-		if(this.m_world != null) return this.m_world;
-		this.m_world = new haxor.math.Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
-		var it = this;
-		var h = [];
-		while(it != null) {
-			h.push(it);
-			it = it.parent;
-		}
-		h.reverse();
-		var _g1 = 0;
-		var _g = h.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			this.m_world.MultiplyTransform(h[i].local);
-		}
-		return this.m_world;
-	}
-	,GenerateTranform: function() {
-		var mtx = this.local = haxor.math.Matrix4.FromArray(this.matrix);
-		this.position = new haxor.math.Matrix4(1,0,0,mtx.m03,0,1,0,mtx.m13,0,0,1,mtx.m23,0,0,0,1).GetColumn(3,null).get_xyz();
-		this.rotation = haxor.math.Quaternion.FromMatrix4(haxor.context.EngineContext.data.get_m4().SetMatrix4(mtx).ToRotation());
-		this.scale = mtx.get_scale().get_diagonalLR().get_xyz();
-	}
-	,__class__: haxor.io.file.ColladaNode
-};
-haxor.io.file.ColladaInstance = function() {
-	this.target = "";
-	this.type = "";
-	this.materials = [];
-};
-$hxClasses["haxor.io.file.ColladaInstance"] = haxor.io.file.ColladaInstance;
-haxor.io.file.ColladaInstance.__name__ = ["haxor","io","file","ColladaInstance"];
-haxor.io.file.ColladaInstance.prototype = {
-	__class__: haxor.io.file.ColladaInstance
-};
-haxor.io.file.ColladaMaterial = function() {
-	this.name = "";
-	this.id = "";
-};
-$hxClasses["haxor.io.file.ColladaMaterial"] = haxor.io.file.ColladaMaterial;
-haxor.io.file.ColladaMaterial.__name__ = ["haxor","io","file","ColladaMaterial"];
-haxor.io.file.ColladaMaterial.prototype = {
-	__class__: haxor.io.file.ColladaMaterial
-};
-haxor.io.file.ColladaAnimation = function() {
-	this.name = "";
-	this.id = "";
-	this.channels = [];
-};
-$hxClasses["haxor.io.file.ColladaAnimation"] = haxor.io.file.ColladaAnimation;
-haxor.io.file.ColladaAnimation.__name__ = ["haxor","io","file","ColladaAnimation"];
-haxor.io.file.ColladaAnimation.prototype = {
-	__class__: haxor.io.file.ColladaAnimation
-};
-haxor.io.file.ColladaAnimationChannel = function() {
-	this.target = "";
-	this.source = "";
-	this.keyframes = [];
-};
-$hxClasses["haxor.io.file.ColladaAnimationChannel"] = haxor.io.file.ColladaAnimationChannel;
-haxor.io.file.ColladaAnimationChannel.__name__ = ["haxor","io","file","ColladaAnimationChannel"];
-haxor.io.file.ColladaAnimationChannel.prototype = {
-	__class__: haxor.io.file.ColladaAnimationChannel
-};
-haxor.io.file.ColladaAnimationKeyFrame = function() {
-	this.time = 0.0;
-	this.values = [];
-};
-$hxClasses["haxor.io.file.ColladaAnimationKeyFrame"] = haxor.io.file.ColladaAnimationKeyFrame;
-haxor.io.file.ColladaAnimationKeyFrame.__name__ = ["haxor","io","file","ColladaAnimationKeyFrame"];
-haxor.io.file.ColladaAnimationKeyFrame.prototype = {
-	__class__: haxor.io.file.ColladaAnimationKeyFrame
-};
-haxor.io.file.ColladaLight = function() {
-	this.id = "";
-	this.name = "";
-	this.type = "";
-	this.color = new haxor.math.Color(1,1,1,1);
-	this.radius = 0.0;
-	this.intensity = 0.0;
-	this.atten = 0.0;
-};
-$hxClasses["haxor.io.file.ColladaLight"] = haxor.io.file.ColladaLight;
-haxor.io.file.ColladaLight.__name__ = ["haxor","io","file","ColladaLight"];
-haxor.io.file.ColladaLight.prototype = {
-	__class__: haxor.io.file.ColladaLight
-};
-haxor.io.file.MaterialFile = function(p_src) {
-	this.mguid = "";
-	this.mname = "";
-	this.queue = "opaque";
-	this.offset = 0;
-	this.shader = "";
-	this.ztest = true;
-	this.zfunc = "lessequal";
-	this.zwrite = true;
-	this.blend = false;
-	this.blendSrc = "one";
-	this.blendDst = "zero";
-	this.invert = false;
-	this.lighting = false;
-	this.grab = false;
-	this.cull = "back";
-	this.uniforms = [];
-	haxor.io.file.AssetXML.call(this,"",p_src);
-};
-$hxClasses["haxor.io.file.MaterialFile"] = haxor.io.file.MaterialFile;
-haxor.io.file.MaterialFile.__name__ = ["haxor","io","file","MaterialFile"];
-haxor.io.file.MaterialFile.__super__ = haxor.io.file.AssetXML;
-haxor.io.file.MaterialFile.prototype = $extend(haxor.io.file.AssetXML.prototype,{
-	get_asset: function() {
-		var m = new haxor.graphics.material.Material();
-		m.set_name(this.mname);
-		m.m_guid = this.mguid;
-		var _g = this.queue;
-		switch(_g) {
-		case "background":
-			m.queue = 0;
-			break;
-		case "opaque":
-			m.queue = 1000;
-			break;
-		case "transparent":
-			m.queue = 2000;
-			break;
-		case "overlay":
-			m.queue = 3000;
-			break;
-		case "interface":
-			m.queue = 4000;
-			break;
-		}
-		m.queue += this.offset;
-		m.set_shader(haxor.io.file.Asset.Get(this.shader));
-		m.ztest = this.ztest;
-		m.zfunc = 515;
-		var _g1 = this.zfunc;
-		switch(_g1) {
-		case "never":
-			m.zfunc = 512;
-			break;
-		case "always":
-			m.zfunc = 519;
-			break;
-		case "notequal":
-			m.zfunc = 517;
-			break;
-		case "equal":
-			m.zfunc = 514;
-			break;
-		case "less":
-			m.zfunc = 513;
-			break;
-		case "lessequal":
-			m.zfunc = 515;
-			break;
-		case "greater":
-			m.zfunc = 516;
-			break;
-		case "greaterequal":
-			m.zfunc = 518;
-			break;
-		}
-		m.zwrite = this.zwrite;
-		m.blend = this.blend;
-		m.blendSrc = this.BlendModeNameToEnum(this.blendSrc);
-		m.blendDst = this.BlendModeNameToEnum(this.blendDst);
-		m.invert = this.invert;
-		m.lighting = this.lighting;
-		m.grab = this.grab;
-		var _g2 = this.cull;
-		switch(_g2) {
-		case "none":
-			m.cull = 0;
-			break;
-		case "front":
-			m.cull = 1;
-			break;
-		case "back":
-			m.cull = 2;
-			break;
-		}
-		var _g11 = 0;
-		var _g3 = this.uniforms.length;
-		while(_g11 < _g3) {
-			var i = _g11++;
-			var u = this.uniforms[i];
-			var a = this.stof32a(u.value);
-			var _g21 = u.type;
-			switch(_g21) {
-			case "int":
-				m.SetInt(u.name,Std.parseInt(u.value));
-				break;
-			case "vec2":
-				m.SetFloat2(u.name,a[0],a[1]);
-				break;
-			case "vec3":
-				m.SetFloat3(u.name,a[0],a[1],a[2]);
-				break;
-			case "vec4":
-				m.SetFloat4(u.name,a[0],a[1],a[2],a[3]);
-				break;
-			case "mat4":
-				m.SetMatrix4(u.name,haxor.math.Matrix4.FromArray(a,haxor.context.EngineContext.data.get_m4()));
-				break;
-			case "color":
-				m.SetFloat4(u.name,a[0],a[1],a[2],a[3]);
-				break;
-			case "texture":
-				m.SetTexture(u.name,haxor.io.file.Asset.Get(u.value));
-				break;
-			}
-		}
-		return m;
-	}
-	,Parse: function(n) {
-		var _g = n.get_nodeName();
-		switch(_g) {
-		case "material":
-			this.guid = this._a(n,"guid","");
-			this.set_name(this._a(n,"name",""));
-			break;
-		case "queue":
-			this.offset = Std.parseInt(this._a(n,"offset","0"));
-			this.queue = this._p(n,"$text","geometry",true,true);
-			break;
-		case "shader":
-			this.shader = this._p(n,"$text","");
-			break;
-		case "ztest":
-			this.ztest = this._p(n,"$text","true",true,true) == "true";
-			break;
-		case "zfunc":
-			this.zfunc = this._p(n,"$text",this.zfunc);
-			break;
-		case "zwrite":
-			this.zwrite = this._p(n,"$text","true",true,true) == "true";
-			break;
-		case "blend":
-			this.blend = this._a(n,"enabled","false") == "true";
-			this.blendSrc = this._p(n,"src.$text","one",true,true);
-			this.blendDst = this._p(n,"dst.$text","zero",true,true);
-			break;
-		case "invert":
-			this.invert = this._p(n,"$text","false",true,true) == "true";
-			break;
-		case "lighting":
-			this.lighting = this._p(n,"$text","false",true,true) == "true";
-			break;
-		case "grab":
-			this.grab = this._p(n,"$text","false",true,true) == "true";
-			break;
-		case "cull":
-			this.cull = this._p(n,"$text",this.cull,true,true);
-			break;
-		case "uniforms":
-			this.ParseUniforms(n);
-			break;
-		}
-	}
-	,ParseUniforms: function(n) {
-		var it = n.elements();
-		while(it.hasNext()) {
-			n = it.next();
-			var u = new haxor.io.file.MaterialFileUniform();
-			u.type = n.get_nodeName().toLowerCase();
-			u.name = this._a(n,"name","");
-			u.value = this._p(n,"$text","",true);
-			this.uniforms.push(u);
-		}
-	}
-	,BlendModeNameToEnum: function(b) {
-		switch(b) {
-		case "zero":
-			return 0;
-		case "one":
-			return 1;
-		case "srccolor":
-			return 768;
-		case "oneminussrccolor":
-			return 769;
-		case "srcalpha":
-			return 770;
-		case "oneminussrcalpha":
-			return 771;
-		case "dstalpha":
-			return 772;
-		case "oneminusdstalpha":
-			return 773;
-		case "dstcolor":
-			return 774;
-		case "oneminusdstcolor":
-			return 775;
-		case "srcalphasaturate":
-			return 776;
-		}
-		return 0;
-	}
-	,__class__: haxor.io.file.MaterialFile
-});
-haxor.io.file.MaterialFileUniform = function() {
-	this.type = "";
-	this.name = "";
-	this.value = "";
-};
-$hxClasses["haxor.io.file.MaterialFileUniform"] = haxor.io.file.MaterialFileUniform;
-haxor.io.file.MaterialFileUniform.__name__ = ["haxor","io","file","MaterialFileUniform"];
-haxor.io.file.MaterialFileUniform.prototype = {
-	__class__: haxor.io.file.MaterialFileUniform
 };
 haxor.math.AABB3 = function(p_x,p_y,p_z,p_width,p_height,p_depth) {
 	if(p_depth == null) p_depth = 0;
@@ -12241,325 +10168,6 @@ haxor.math.Vector4.prototype = {
 	}
 	,__class__: haxor.math.Vector4
 };
-haxor.thread = {};
-haxor.thread.Activity = function(p_callback,p_threaded,p_graphics_context) {
-	if(p_graphics_context == null) p_graphics_context = false;
-	if(p_threaded == null) p_threaded = false;
-	haxor.core.Resource.call(this);
-	if(p_callback == null) return;
-	this.m_time_start = haxor.core.Time.m_elapsed;
-	this.m_elapsed = 0.0;
-	this.m_callback = p_callback;
-	this.m_cancelled = false;
-	p_threaded = false;
-	if(p_graphics_context) p_threaded = false;
-	if(!p_threaded) {
-		if(p_graphics_context) haxor.context.EngineContext.render.Add(this); else haxor.context.EngineContext.update.Add(this);
-	} else {
-	}
-};
-$hxClasses["haxor.thread.Activity"] = haxor.thread.Activity;
-haxor.thread.Activity.__name__ = ["haxor","thread","Activity"];
-haxor.thread.Activity.__interfaces__ = [haxor.core.IRenderable,haxor.core.IUpdateable];
-haxor.thread.Activity.Iterate = function(p_offset,p_length,p_callback,p_step,p_threaded,p_graphics_context) {
-	if(p_graphics_context == null) p_graphics_context = false;
-	if(p_threaded == null) p_threaded = false;
-	if(p_step == null) p_step = 1;
-	var it = p_offset;
-	return new haxor.thread.Activity(function(t) {
-		var finished = false;
-		var _g = 0;
-		while(_g < p_step) {
-			var i = _g++;
-			if(it >= p_length) return false;
-			if(!p_callback(it)) {
-				finished = true;
-				break;
-			}
-			it++;
-		}
-		return !finished;
-	},p_threaded,p_graphics_context);
-};
-haxor.thread.Activity.Delay = function(p_time,p_callback,p_threaded,p_graphics_context) {
-	if(p_graphics_context == null) p_graphics_context = false;
-	if(p_threaded == null) p_threaded = false;
-	return new haxor.thread.Activity(function(t) {
-		if(t >= p_time) {
-			p_callback();
-			return false;
-		}
-		return true;
-	},p_threaded,p_graphics_context);
-};
-haxor.thread.Activity.Run = function(p_callback,p_threaded,p_graphics_context) {
-	if(p_graphics_context == null) p_graphics_context = false;
-	if(p_threaded == null) p_threaded = false;
-	return new haxor.thread.Activity(p_callback,p_threaded,p_graphics_context);
-};
-haxor.thread.Activity.RunOnce = function(p_callback,p_threaded,p_graphics_context) {
-	if(p_graphics_context == null) p_graphics_context = false;
-	if(p_threaded == null) p_threaded = false;
-	return new haxor.thread.Activity(function(t) {
-		p_callback();
-		return false;
-	},p_threaded,p_graphics_context);
-};
-haxor.thread.Activity.__super__ = haxor.core.Resource;
-haxor.thread.Activity.prototype = $extend(haxor.core.Resource.prototype,{
-	get_elapsed: function() {
-		return this.m_elapsed;
-	}
-	,Cancel: function() {
-		this.m_cancelled = true;
-	}
-	,OnUpdate: function() {
-		this.OnRun();
-	}
-	,OnRender: function() {
-		this.OnRun();
-	}
-	,OnRun: function() {
-		if(this.m_cancelled) {
-			haxor.core.Resource.Destroy(this);
-			return;
-		}
-		this.m_elapsed = haxor.core.Time.m_elapsed - this.m_time_start;
-		if(!this.m_callback(this.m_elapsed)) haxor.core.Resource.Destroy(this);
-	}
-	,__class__: haxor.thread.Activity
-});
-haxor.thread.Task = function(p_threaded,p_callback) {
-	if(p_threaded == null) p_threaded = false;
-	var cb = p_callback;
-	if(cb == null) cb = $bind(this,this.OnExecute);
-	haxor.thread.Activity.call(this,cb,p_threaded);
-	this.m_active = false;
-	this.m_progress = 0.0;
-	this.m_has_progress = false;
-};
-$hxClasses["haxor.thread.Task"] = haxor.thread.Task;
-haxor.thread.Task.__name__ = ["haxor","thread","Task"];
-haxor.thread.Task.__super__ = haxor.thread.Activity;
-haxor.thread.Task.prototype = $extend(haxor.thread.Activity.prototype,{
-	get_progress: function() {
-		return this.m_progress;
-	}
-	,set_progress: function(v) {
-		if(Math.abs(v - this.m_progress) > 0.0) {
-			this.m_progress = v;
-			this.m_has_progress = true;
-		}
-		return v;
-	}
-	,get_active: function() {
-		return this.m_active;
-	}
-	,OnStart: function() {
-	}
-	,OnStep: function() {
-	}
-	,OnComplete: function() {
-	}
-	,OnProgress: function() {
-	}
-	,OnExecute: function(p_time) {
-		if(!this.m_active) {
-			this.m_active = true;
-			this.OnStart();
-		}
-		this.OnStep();
-		if(this.m_has_progress) {
-			this.OnProgress();
-			this.m_has_progress = false;
-		}
-		if(this.m_progress >= 1.0) {
-			this.OnComplete();
-			return false;
-		}
-		return true;
-	}
-	,__class__: haxor.thread.Task
-});
-haxor.net = {};
-haxor.net.HTTPRequestTask = function(p_url,p_method,p_binary,p_data) {
-	haxor.thread.Task.call(this);
-	if(p_url.indexOf("./") >= 0) p_url = StringTools.replace(p_url,"./",haxor.net.Web.root);
-	this.url = p_url;
-	this.binary = p_binary;
-	this.method = p_method;
-	this.data = p_data;
-	this.bytesLoaded = 0;
-	this.bytesTotal = 0;
-	this.error = "";
-	haxor.core.Console.Log("HTTPRequest> " + this.url,4);
-};
-$hxClasses["haxor.net.HTTPRequestTask"] = haxor.net.HTTPRequestTask;
-haxor.net.HTTPRequestTask.__name__ = ["haxor","net","HTTPRequestTask"];
-haxor.net.HTTPRequestTask.__super__ = haxor.thread.Task;
-haxor.net.HTTPRequestTask.prototype = $extend(haxor.thread.Task.prototype,{
-	OnStart: function() {
-	}
-	,OnError: function() {
-		haxor.core.Console.LogError("HTTPRequest> Error [" + this.error + "]");
-	}
-	,__class__: haxor.net.HTTPRequestTask
-});
-haxor.platform.html.net = {};
-haxor.platform.html.net.HTTPRequest = function(p_url,p_method,p_binary,p_data) {
-	var _g = this;
-	haxor.net.HTTPRequestTask.call(this,p_url,p_method,p_binary,p_data);
-	this.request = new XMLHttpRequest();
-	if(this.request.withCredentials) this.request.withCredentials = false;
-	if(($_=this.request,$bind($_,$_.overrideMimeType)) != null) this.request.overrideMimeType(p_binary?"application/octet-stream":"text/plain");
-	this.request.onprogress = function(e) {
-		_g.bytesLoaded = e.loaded;
-		_g.bytesTotal = e.total;
-		_g.set_progress((e.total <= 0?0:e.loaded / (e.total + 5)) * 0.999);
-	};
-	this.request.onload = function(e1) {
-		_g.set_progress(1.0);
-	};
-	this.request.onerror = function(e2) {
-		_g.request = null;
-		_g.set_progress(1.0);
-		_g.error = e2.message;
-		_g.OnError();
-	};
-	this.request.open(this.method,this.url,true);
-};
-$hxClasses["haxor.platform.html.net.HTTPRequest"] = haxor.platform.html.net.HTTPRequest;
-haxor.platform.html.net.HTTPRequest.__name__ = ["haxor","platform","html","net","HTTPRequest"];
-haxor.platform.html.net.HTTPRequest.__super__ = haxor.net.HTTPRequestTask;
-haxor.platform.html.net.HTTPRequest.prototype = $extend(haxor.net.HTTPRequestTask.prototype,{
-	OnStart: function() {
-		if(this.data == null) this.request.send(); else this.request.send(this.data);
-	}
-	,__class__: haxor.platform.html.net.HTTPRequest
-});
-haxor.platform.html.net.HTTPLoader = function(p_url,p_binary,p_callback) {
-	haxor.platform.html.net.HTTPRequest.call(this,p_url,"get",p_binary);
-	this.callback = p_callback;
-};
-$hxClasses["haxor.platform.html.net.HTTPLoader"] = haxor.platform.html.net.HTTPLoader;
-haxor.platform.html.net.HTTPLoader.__name__ = ["haxor","platform","html","net","HTTPLoader"];
-haxor.platform.html.net.HTTPLoader.__super__ = haxor.platform.html.net.HTTPRequest;
-haxor.platform.html.net.HTTPLoader.prototype = $extend(haxor.platform.html.net.HTTPRequest.prototype,{
-	OnStart: function() {
-		haxor.platform.html.net.HTTPRequest.prototype.OnStart.call(this);
-		if(this.callback != null) this.callback(null,0.0);
-	}
-	,OnComplete: function() {
-		if(this.callback == null) return;
-		if(this.request == null) {
-			this.callback(null,1.0);
-			return;
-		}
-		this.response = this.request.response;
-		if(this.binary) this.callback(this.request.response,1.0); else this.callback(this.request.responseText,1.0);
-	}
-	,__class__: haxor.platform.html.net.HTTPLoader
-});
-haxor.platform.html.net.BitmapLoader = function(p_url,p_callback) {
-	haxor.platform.html.net.HTTPLoader.call(this,p_url,true,$bind(this,this.OnBufferCallback));
-	this.m_bitmap_callback = p_callback;
-	this.request.responseType = "blob";
-};
-$hxClasses["haxor.platform.html.net.BitmapLoader"] = haxor.platform.html.net.BitmapLoader;
-haxor.platform.html.net.BitmapLoader.__name__ = ["haxor","platform","html","net","BitmapLoader"];
-haxor.platform.html.net.BitmapLoader.__super__ = haxor.platform.html.net.HTTPLoader;
-haxor.platform.html.net.BitmapLoader.prototype = $extend(haxor.platform.html.net.HTTPLoader.prototype,{
-	OnBufferCallback: function(p_data,p_progress) {
-		var _g = this;
-		if(p_progress < 1.0) {
-			if(this.m_bitmap_callback != null) this.m_bitmap_callback(null,this.m_progress);
-		} else {
-			if(p_data == null) return;
-			var img = new Image();
-			img.onload = function(e) {
-				var g;
-				var _this;
-				var _this1 = window.document;
-				_this = _this1.createElement("canvas");
-				g = _this.getContext("2d");
-				g.canvas.width = img.width;
-				g.canvas.height = img.height;
-				g.scale(1.0,-1.0);
-				g.drawImage(img,0,-img.height);
-				var data = g.getImageData(0,0,g.canvas.width,g.canvas.height);
-				var w = data.width;
-				var h = data.height;
-				var cc = data.data.byteLength / (w * h) | 0;
-				var fmt = haxor.core.PixelFormat.RGBA8;
-				switch(cc) {
-				case 1:
-					fmt = haxor.core.PixelFormat.Alpha8;
-					break;
-				case 3:
-					fmt = haxor.core.PixelFormat.RGB8;
-					break;
-				}
-				var b = new haxor.graphics.texture.Bitmap(w,h,fmt);
-				b.get_buffer().m_buffer.set(data.data);
-				if(_g.m_bitmap_callback != null) _g.m_bitmap_callback(b,1.0);
-			};
-			img.src = URL.createObjectURL(this.request.response);
-		}
-	}
-	,OnError: function() {
-		if(this.m_bitmap_callback != null) this.m_bitmap_callback(null,1.0);
-	}
-	,__class__: haxor.platform.html.net.BitmapLoader
-});
-haxor.net.Texture2DLoader = function(p_url,p_apply,p_callback) {
-	haxor.platform.html.net.BitmapLoader.call(this,p_url,$bind(this,this.OnBitmapCallback));
-	this.m_t2d_callback = p_callback;
-	this.m_apply = p_apply;
-};
-$hxClasses["haxor.net.Texture2DLoader"] = haxor.net.Texture2DLoader;
-haxor.net.Texture2DLoader.__name__ = ["haxor","net","Texture2DLoader"];
-haxor.net.Texture2DLoader.__super__ = haxor.platform.html.net.BitmapLoader;
-haxor.net.Texture2DLoader.prototype = $extend(haxor.platform.html.net.BitmapLoader.prototype,{
-	OnBitmapCallback: function(p_data,p_progress) {
-		var _g = this;
-		if(this.m_progress < 1.0) {
-			if(this.m_t2d_callback != null) this.m_t2d_callback(null,this.m_progress);
-		} else {
-			if(p_data == null) return;
-			haxor.thread.Activity.RunOnce(function() {
-				var t = haxor.graphics.texture.Texture2D.FromBitmap(p_data,_g.m_apply);
-				_g.m_t2d_callback(t,1.0);
-			},false,true);
-		}
-	}
-	,OnError: function() {
-		haxor.platform.html.net.BitmapLoader.prototype.OnError.call(this);
-		if(this.m_t2d_callback != null) this.m_bitmap_callback(null,1.0);
-	}
-	,__class__: haxor.net.Texture2DLoader
-});
-haxor.net.Web = function() { };
-$hxClasses["haxor.net.Web"] = haxor.net.Web;
-haxor.net.Web.__name__ = ["haxor","net","Web"];
-haxor.net.Web.Load = function(p_url,p_callback) {
-	var ld = new haxor.platform.html.net.HTTPLoader(p_url,false,p_callback);
-};
-haxor.net.Web.LoadImg = function(p_url,p_callback) {
-	var ld = new haxor.platform.html.net.BitmapLoader(p_url,p_callback);
-};
-haxor.net.Web.LoadTexture2D = function(p_url,p_apply,p_callback) {
-	var ld = new haxor.net.Texture2DLoader(p_url,p_apply,p_callback);
-};
-haxor.net.Web.LoadCollada = function(p_url,p_callback) {
-	haxor.net.Web.Load(p_url,function(d,p) {
-		if(p < 1.0) p_callback(null,p); else p_callback(d == null?null:new haxor.io.file.ColladaFile(p_url,d),1.0);
-	});
-};
-haxor.net.Web.LoadShader = function(p_url,p_callback) {
-	haxor.net.Web.Load(p_url,function(d,p) {
-		if(p < 1.0) p_callback(null,p); else p_callback(d == null?null:new haxor.graphics.material.Shader(d),1.0);
-	});
-};
 haxor.platform.html.Entry = function() { };
 $hxClasses["haxor.platform.html.Entry"] = haxor.platform.html.Entry;
 haxor.platform.html.Entry.__name__ = ["haxor","platform","html","Entry"];
@@ -12608,9 +10216,11 @@ haxor.platform.html.Entry.OnWindowLoad = function(p_event) {
 		return;
 	}
 	haxor.core.Console.Log("Haxor> Application [" + app_class_type + "] created successfully!",1);
-	haxor.graphics.GL.Initialize(haxor.platform.html.Entry.m_application);
-	haxor.graphics.GL.m_gl.Initialize(app_container_id);
-	haxor.graphics.GL.m_gl.CheckExtensions();
+	haxor.platform.html.Entry.m_application.m_container = window.document.getElementById(app_container_id);
+	if(haxor.platform.html.Entry.m_application.m_container == null) {
+		haxor.core.Console.Log("Graphics> DOM container not defined id[" + app_container_id + "] using 'body'.");
+		haxor.platform.html.Entry.m_application.m_container = window.document.body;
+	}
 	haxor.core.Console.Log("Haxor> Creating Stage with [" + app_container_id + "]");
 	var stage = new haxor.dom.DOMStage(haxor.platform.html.Entry.m_application.m_container);
 	haxor.context.EngineContext.Build();
@@ -13020,12 +10630,18 @@ haxor.platform.html.input.HTMLInputHandler.prototype = $extend(haxor.input.Input
 		var e;
 		if(p_event == null) e = window.event; else e = p_event;
 		var c;
-		c = e;
+		c = { };
+		
+		for (var x in e)
+		{
+			if (x == "keyLocation") continue;
+           c[x] = e[x];
+		}
+		;
 		this.m_events.push(c);
 		var is_mousedown = c.type == "mousedown";
 		var is_mousewheel = c.type == "mousewheel" || c.type == "wheel";
 		var prevent = is_mousedown || is_mousewheel;
-		prevent = prevent && js.Boot.__instanceof(this.m_target,HTMLCanvasElement);
 		if(haxor.input.Input.scroll) prevent = false;
 		if(c.type == "contextmenu") {
 			if(!haxor.input.Input.menu) prevent = true;
@@ -13150,6 +10766,94 @@ haxor.platform.html.input.HTMLInputHandler.prototype = $extend(haxor.input.Input
 		return haxor.context.EngineContext.data.get_v2().Set(px,py);
 	}
 	,__class__: haxor.platform.html.input.HTMLInputHandler
+});
+haxor.thread = {};
+haxor.thread.Activity = function(p_callback,p_threaded,p_graphics_context) {
+	if(p_graphics_context == null) p_graphics_context = false;
+	if(p_threaded == null) p_threaded = false;
+	haxor.core.Resource.call(this);
+	if(p_callback == null) return;
+	this.m_time_start = haxor.core.Time.m_elapsed;
+	this.m_elapsed = 0.0;
+	this.m_callback = p_callback;
+	this.m_cancelled = false;
+	p_threaded = false;
+	if(p_graphics_context) p_threaded = false;
+	if(!p_threaded) {
+		if(p_graphics_context) haxor.context.EngineContext.render.Add(this); else haxor.context.EngineContext.update.Add(this);
+	} else {
+	}
+};
+$hxClasses["haxor.thread.Activity"] = haxor.thread.Activity;
+haxor.thread.Activity.__name__ = ["haxor","thread","Activity"];
+haxor.thread.Activity.__interfaces__ = [haxor.core.IRenderable,haxor.core.IUpdateable];
+haxor.thread.Activity.Iterate = function(p_offset,p_length,p_callback,p_step,p_threaded,p_graphics_context) {
+	if(p_graphics_context == null) p_graphics_context = false;
+	if(p_threaded == null) p_threaded = false;
+	if(p_step == null) p_step = 1;
+	var it = p_offset;
+	return new haxor.thread.Activity(function(t) {
+		var finished = false;
+		var _g = 0;
+		while(_g < p_step) {
+			var i = _g++;
+			if(it >= p_length) return false;
+			if(!p_callback(it)) {
+				finished = true;
+				break;
+			}
+			it++;
+		}
+		return !finished;
+	},p_threaded,p_graphics_context);
+};
+haxor.thread.Activity.Delay = function(p_time,p_callback,p_threaded,p_graphics_context) {
+	if(p_graphics_context == null) p_graphics_context = false;
+	if(p_threaded == null) p_threaded = false;
+	return new haxor.thread.Activity(function(t) {
+		if(t >= p_time) {
+			p_callback();
+			return false;
+		}
+		return true;
+	},p_threaded,p_graphics_context);
+};
+haxor.thread.Activity.Run = function(p_callback,p_threaded,p_graphics_context) {
+	if(p_graphics_context == null) p_graphics_context = false;
+	if(p_threaded == null) p_threaded = false;
+	return new haxor.thread.Activity(p_callback,p_threaded,p_graphics_context);
+};
+haxor.thread.Activity.RunOnce = function(p_callback,p_threaded,p_graphics_context) {
+	if(p_graphics_context == null) p_graphics_context = false;
+	if(p_threaded == null) p_threaded = false;
+	return new haxor.thread.Activity(function(t) {
+		p_callback();
+		return false;
+	},p_threaded,p_graphics_context);
+};
+haxor.thread.Activity.__super__ = haxor.core.Resource;
+haxor.thread.Activity.prototype = $extend(haxor.core.Resource.prototype,{
+	get_elapsed: function() {
+		return this.m_elapsed;
+	}
+	,Cancel: function() {
+		this.m_cancelled = true;
+	}
+	,OnUpdate: function() {
+		this.OnRun();
+	}
+	,OnRender: function() {
+		this.OnRun();
+	}
+	,OnRun: function() {
+		if(this.m_cancelled) {
+			haxor.core.Resource.Destroy(this);
+			return;
+		}
+		this.m_elapsed = haxor.core.Time.m_elapsed - this.m_time_start;
+		if(!this.m_callback(this.m_elapsed)) haxor.core.Resource.Destroy(this);
+	}
+	,__class__: haxor.thread.Activity
 });
 var js = {};
 js.Boot = function() { };
@@ -13324,7 +11028,6 @@ Xml.ProcessingInstruction = "processingInstruction";
 Xml.Document = "document";
 haxe.crypto.Base64.CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 haxe.crypto.Base64.BYTES = haxe.io.Bytes.ofString(haxe.crypto.Base64.CHARS);
-haxe.ds.ObjectMap.count = 0;
 haxe.xml.Parser.escapes = (function($this) {
 	var $r;
 	var h = new haxe.ds.StringMap();
@@ -13962,6 +11665,5 @@ haxor.math.Mathf.Long2Float = 0.00000000023283064365386962890625;
 haxor.math.Mathf.Float2Byte = 255.0;
 haxor.math.Mathf.Float2Short = 65536.0;
 haxor.math.Mathf.Float2Long = 4294967296.0;
-haxor.net.Web.root = "";
-Main.main();
+MainIE8.main();
 })();
