@@ -73,7 +73,7 @@ class DOMLayout
 	 */
 	public var margin(get_margin, set_margin) : AABB2;	
 	private function get_margin():AABB2 	      { return m_margin.clone; }
-	private function set_margin(v:AABB2):AABB2 { m_margin = v.clone; m_element.UpdateTransform(); return v; }
+	private function set_margin(v:AABB2):AABB2 { m_margin.SetAABB2(v); m_element.UpdateTransform(); return v; }
 	private var m_margin : AABB2;
 	
 	/**
@@ -125,14 +125,14 @@ class DOMLayout
 	 */
 	private function new(p_element : DOMEntity)
 	{
-		m_element = p_element;
-		m_lock = false;
-		m_margin = AABB2.empty;
-		m_x = m_y = 0;
-		m_width = 1;
-		m_height = 1;
-		m_px = 0;
-		m_py = 0;
+		m_element 	= p_element;
+		m_lock 		= false;
+		m_margin 	= AABB2.empty;
+		m_x = m_y 	= 0;
+		m_width 	= 1;
+		m_height 	= 1;
+		m_px 		= 0;
+		m_py 		= 0;
 	}
 	
 	/**

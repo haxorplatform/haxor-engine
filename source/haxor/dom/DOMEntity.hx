@@ -19,11 +19,12 @@ import haxor.core.Resource;
 @:allow(haxor)
 class DOMEntity extends Resource
 {
+	
 	/**
 	 * X coord of the local position.
 	 */
 	public var x(get_x, set_x):Float32;	
-	private inline function get_x():Float32 	      { return m_x; }
+	private inline function get_x():Float32   { return m_x; }
 	private function set_x(v:Float32):Float32 { m_x = v; UpdateTransform(); return v; }
 	private var m_x : Float32;
 	
@@ -193,8 +194,8 @@ class DOMEntity extends Resource
 		if (m_element != null)
 		{
 			var e : Element = cast m_element;
-			e.style.position = "absolute";			
-			e.style.zIndex 	 = "auto";	
+			e.style.position = "absolute";
+			e.style.left = e.style.top = "0px";
 			e.setAttribute("script", Type.getClassName(Type.getClass(this)));
 		}
 		
@@ -252,7 +253,7 @@ class DOMEntity extends Resource
 	private function UpdateRect():Void
 	{		
 		var e : Element = cast m_element; 		
-		var m : AABB2   = layout.margin;		
+		var m : AABB2   = layout.m_margin;		
 		layout.Update();		
 		e.style.width 	= Std.int(m_width - (m.xMin + m.xMax)) + "px";
 		e.style.height 	= Std.int(m_height - (m.yMin + m.yMax)) + "px";		
@@ -266,28 +267,24 @@ class DOMEntity extends Resource
 	private function UpdateTransform():Void 
 	{
 		var e : Element = cast m_element; 		
-		var m : AABB2   = layout.margin;
+		var m : AABB2   = layout.m_margin;
 		
 		layout.Update();
 		
-		var px : Float =  Mathf.Floor(m_x - m_px + m.xMin);
-		var py : Float =  Mathf.Floor(m_y - m_py + m.yMin);
+		var px : Float = (m_x - m_px + m.xMin);
+		var py : Float = (m_y - m_py + m.yMin);
 		var ox : Float = px + m_px;
 		var oy : Float = py + m_py;
 		
-		#if ie8
-		e.style.left 	= Std.int(m_x - m_px + m.xMin) + "px"; 		
-		e.style.top 	= Std.int(m_y - m_py + m.yMin) + "px";		
+		#if ie8			
+		e.style.left 	= Mathf.Floor(px) + "px"; 		
+		e.style.top 	= Mathf.Floor(py) + "px";
 		#else
-		//var flags : Array<String> = ["-webkit-", "-moz-", "-o-", "-ms-"];		
-		//for (i in 0...flags.length) e.style.setProperty(flags[i]+"transform","scale("+m_sx+","+m_sy+") rotate("+m_rotation+"deg) translate("+px+"px,"+py+"px)","");		
 		var vdn : String = application.vendor;
 		var tov : String = e.style.getPropertyValue(vdn + "transform-origin");
 		if ((tov != "") && (tov != null)) e.style.removeProperty(vdn + "transform-origin");		
 		e.style.cssText = e.style.cssText + " " + vdn + "transform-origin: "+ox+"px "+oy+"px;";
-		//e.style.setProperty(Application.vendor + "transform-origin", (ox) + "px " + (oy) + " px", "");
-		//e.style.setProperty(Application.vendor+"transform","scale("+m_sx+","+m_sy+") rotate("+m_rotation+"deg) translate("+px+"px,"+py+"px)","");
-		e.style.setProperty(vdn+"transform","scale3d("+m_sx+","+m_sy+",1.0) rotate3d(0,0,1,"+m_rotation+"deg) translate3d("+px+"px,"+py+"px,0px)","");
+		e.style.setProperty(vdn+"transform","rotate3d(0,0,1,"+m_rotation+"deg) scale3d("+m_sx+","+m_sy+",1.0) translate3d("+px+"px,"+py+"px,0px)","");
 		#end
 		
 		//for (i in 0...m_components.length) m_components[i].OnTransformUpdate();

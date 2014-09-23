@@ -68,8 +68,7 @@ class Sprite extends Container
 		if (p_use_canvas)
 		{
 			var c : CanvasElement = Browser.document.createCanvasElement();
-			c.style.setProperty("pointer-events","none", "");
-			c.style.zIndex = "auto";	
+			c.style.setProperty("pointer-events","none", "");				
 			c.style.position = "absolute";
 			m_buffer = c.getContext2d();
 			m_element.appendChild(c);

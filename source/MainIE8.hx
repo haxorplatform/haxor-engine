@@ -1,22 +1,15 @@
 package ;
-import haxe.Timer;
 import haxor.core.Application;
 import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
-import haxor.core.Time;
+import haxor.dom.LayoutFlag;
+import haxor.dom.Sprite;
 import haxor.input.Input;
 import haxor.input.KeyCode;
-import haxor.math.Mathf;
-import haxor.math.Random;
-import haxor.net.Web;
-import haxor.platform.Types.Float32;
-import js.Browser;
-import js.html.DivElement;
-import js.html.DocumentFragment;
-import js.html.Element;
-import js.html.ParagraphElement;
+import haxor.math.AABB2;
+import haxor.thread.Activity;
 
 
 #if html
@@ -39,34 +32,65 @@ class MainIE8 extends Application implements IUpdateable implements IRenderable
 		EntryPoint.Initialize();
 	}
 	
-	
-	var field : DivElement;	
-	var log : String = "";
-	
-	
+	#if html
+	var field : js.html.DivElement;
+	#end
 	
 	override public function Load():Bool 
 	{			
 		return true;
 	}
 	
-	
 	override public function Initialize():Void 
 	{
 		Console.Log("Initialize!");	
 		
-	
+		var c : Container = new Container("content");
 		
-		field = cast Browser.document.getElementById("field");
+		c.element.style.background = "#f00";
+		c.stage.AddChild(c);
+		c.width  = 200;
+		c.height = 200;
 		
+		c.px = 100;
+		c.py = 100;
 		
+		c.x = 350;
+		c.y = 150;
+		
+		var logo : Sprite = new Sprite("assets/img/lamp.jpg");
+		
+		c.AddChild(logo);
+		
+		logo.layout.FitSize();
+		logo.layout.margin = logo.layout.margin.Set(15, 15, 15, 15);
+		
+		logo.layout.flag |= LayoutFlag.PivotXY | LayoutFlag.PositionXY;		
+		logo.layout.x  = 0.5;		
+		logo.layout.y  = 0.5;
+		logo.layout.px = 0.5;
+		logo.layout.py = 0.5;
+		
+		Activity.Run(function(t:Float):Bool
+		{
+			if (Input.Down(KeyCode.Space)) logo.pattern = !logo.pattern;
+			c.rotation = t * 60;
+			return true;
+		});
+		
+		#if html
+		field = cast js.Browser.document.getElementById("field");
+		#end		
 	}
+	
+	var log : String = "";
 	
 	public function OnUpdate():Void
 	{	
-		if (pl == null) return;
-
-		if (field != null) field.innerText = log;		
+		
+		#if html
+		if (field != null) field.innerText = log;
+		#end				
 	}
 	
 	public function OnRender():Void
