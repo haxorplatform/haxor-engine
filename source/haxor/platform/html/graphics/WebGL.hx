@@ -70,7 +70,7 @@ class WebGL extends GraphicContext
 		}
 		
 		m_canvas = Browser.document.createCanvasElement();
-		/*
+		
 		m_canvas.style.position = "absolute";
 		m_canvas.style.left   	= "0px";
 		m_canvas.style.top  	= "0px";

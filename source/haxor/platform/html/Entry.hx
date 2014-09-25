@@ -1,5 +1,8 @@
 #if html
 package haxor.platform.html;
+import haxor.dom.Container;
+import haxor.io.file.Asset;
+import js.html.NamedNodeMap;
 import haxor.dom.DOMStage;
 import haxe.Timer;
 import haxor.platform.Types.Float32;
@@ -92,6 +95,37 @@ class Entry
 		
 		Console.Log("Haxor> HTML Platform Init verbose[" + Console.verbose+"] application[" + app_class_type+"] container["+app_container_id+"]", 1);
 		
+		var tag_strings : NodeList = Browser.document.getElementsByTagName("strings");
+		
+		if (tag_strings != null)
+		{
+			if (tag_strings.length > 0)
+			{
+				var k:Int = 0;				
+				for (i in 0...tag_strings.length)
+				{
+					var it : Element = cast tag_strings.item(i);
+					var l : NodeList = it.childNodes;
+					for (j in 0...l.length)
+					{
+						var e : Element = cast l.item(j);
+						switch(e.nodeName.toLowerCase())
+						{
+							case "entry":
+							var key : String = e.getAttribute("key");
+							var val : String = e.textContent;		
+							Asset.Add(key, val);
+							k++;
+						}					
+						
+					}			
+					it.remove();
+				}
+				
+				Console.Log("Haxor> Found " + k + " Strings",2);
+			}
+		}
+		
 		if (app_class_type == "")
 		{
 			Console.Log("Haxor> Error. You must define an Application class.");
@@ -173,6 +207,9 @@ class Entry
 		return true;
 	}
 	
+	/**
+	 * IE8 compatible loop.
+	 */
 	static private function TimeOutLoop():Void
 	{
 		Time.m_system = (Timer.stamp() * 1000.0) - Time.m_clock_0;
@@ -180,6 +217,8 @@ class Entry
 		m_application.Render();
 		Browser.window.setTimeout(TimeOutLoop, 10);
 	}
+	
+	
 }
 
 #end

@@ -45,38 +45,26 @@ class MainIE8 extends Application implements IUpdateable implements IRenderable
 	{
 		Console.Log("Initialize!");	
 		
-		var c : Container = new Container("content");
 		
-		c.element.style.background = "#f00";
-		c.stage.AddChild(c);
-		c.width  = 200;
-		c.height = 200;
+		var img : Sprite = new Sprite("http://noticiajato.com.br/wp-content/uploads/2014/01/google-fiber-rabbit.jpg");
+		img.stage.AddChild(img);
+		img.width  = 256;
+		img.height = 256;
 		
-		c.px = 100;
-		c.py = 100;
+		img.x = 50;
+		img.y = 50;
 		
-		c.x = 350;
-		c.y = 150;
-		
-		var logo : Sprite = new Sprite("assets/img/lamp.jpg");
-		
-		c.AddChild(logo);
-		
-		logo.layout.FitSize();
-		logo.layout.margin = logo.layout.margin.Set(15, 15, 15, 15);
-		
-		logo.layout.flag |= LayoutFlag.PivotXY | LayoutFlag.PositionXY;		
-		logo.layout.x  = 0.5;		
-		logo.layout.y  = 0.5;
-		logo.layout.px = 0.5;
-		logo.layout.py = 0.5;
+		img.layout.flag = LayoutFlag.PositionXY;
+		img.layout.x = 0.5;
+		img.layout.y = 0.5;
 		
 		Activity.Run(function(t:Float):Bool
 		{
-			if (Input.Down(KeyCode.Space)) logo.pattern = !logo.pattern;
-			c.rotation = t * 60;
+			img.rotation = t * 90;
 			return true;
 		});
+		
+		
 		
 		#if html
 		field = cast js.Browser.document.getElementById("field");

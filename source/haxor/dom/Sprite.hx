@@ -32,6 +32,15 @@ class Sprite extends Container
 	{ 
 		if (m_image == v) return v;		
 		m_image = v; 
+		var olc : Dynamic = function()
+		{
+			if (width <= 0)  width  = m_image.naturalWidth;
+			if (height <= 0) height = m_image.naturalHeight;
+			m_image.onload = null;
+		};
+		m_image.onload = olc;
+		if (width <= 0)  width  = m_image.naturalWidth;
+		if (height <= 0) height = m_image.naturalHeight;		
 		if (m_image == null) return v;		
 		OnRepaint(); 
 		return v; 
@@ -69,7 +78,7 @@ class Sprite extends Container
 			e = c;
 		}
 				
-		var img : Image = new Image();		
+		var img : Image = new Image();
 		if (p_src != "")
 		{
 			img.src = m_src = p_src;

@@ -165,13 +165,37 @@ class DOMEntity extends Resource
 	 * @param	v
 	 * @return
 	 */
-	override private function set_name(v:String):String { super.set_name(v); m_element.setAttribute("name", v); return v; }
+	override private function set_name(v:String):String { super.set_name(v); if(m_element != null) m_element.setAttribute("name", v); return v; }
 	
 	/**
 	 * Reference to the DOM element being used by this entity.
 	 */
-	public var element(get_element, never):Element;
+	public var element(get_element, set_element):Element;
 	private inline function get_element():Element { return m_element; }	
+	private function set_element(v:Element):Element 
+	{ 
+		if (m_element == v) return v;
+		var e : Element = cast m_element;				
+		
+		if (stage != this)
+		if (e != null)
+		{
+			var pe : Element = e.parentElement;				
+			pe.replaceChild(v, e);
+			e.remove();			
+		}
+		m_element = e = v;		
+		
+		if (stage != this)
+		if (e != null)
+		{
+			e.style.position = "absolute";
+			e.style.left = e.style.top = "0px";
+			e.setAttribute("script", GetTypeName());
+			e.setAttribute("name", name);
+		}		
+		return e; 
+	}	
 	private var m_element : Element;
 	
 	/**
@@ -189,17 +213,6 @@ class DOMEntity extends Resource
 		super(p_name);
 		
 		m_layout  = new DOMLayout(this);				
-		m_element = p_element;
-		
-		if (m_element != null)
-		{
-			var e : Element = cast m_element;
-			e.style.position = "absolute";
-			e.style.left = e.style.top = "0px";
-			e.setAttribute("script", Type.getClassName(Type.getClass(this)));
-		}
-		
-		if (p_name == "") name = GetTypeName() + uid; else name = p_name;
 		
 		m_x 			= 0;
 		m_y 			= 0;
@@ -218,7 +231,9 @@ class DOMEntity extends Resource
 		m_parent 		= null;
 		
 		//selectable = false;
+		element = p_element;
 		
+		if (p_name == "") name = GetTypeName() + uid; else name = p_name;
 	}
 	
 	/**
@@ -226,6 +241,7 @@ class DOMEntity extends Resource
 	 */
 	private function UpdateMaterial():Void
 	{
+		if (stage == this) return;
 		var pa : Float = parent == null ? 1.0  : parent.m_globalAlpha;
 		var pv : Bool  = parent == null ? true : parent.m_globalVisible;
 		var e : Element = cast m_element; 
@@ -252,6 +268,7 @@ class DOMEntity extends Resource
 	 */
 	private function UpdateRect():Void
 	{		
+		if (stage == this) return;
 		var e : Element = cast m_element; 		
 		var m : AABB2   = layout.m_margin;		
 		layout.Update();		
@@ -266,6 +283,7 @@ class DOMEntity extends Resource
 	 */
 	private function UpdateTransform():Void 
 	{
+		if (stage == this) return;
 		var e : Element = cast m_element; 		
 		var m : AABB2   = layout.m_margin;
 		
