@@ -59,11 +59,20 @@ class DOMStage extends Container  implements IResizeable
 	}
 	
 	/**
+	 * Builds a DOMEntity hierarchy using the informed target as data.
+	 * @param	p_target
+	 */
+	static public function Build(p_target : Element):Void
+	{
+		
+	}
+	
+	/**
 	 * Traverse the DOM tree and create the UI hierarchy from the tags.
 	 * @param	n
 	 * @param	c
 	 */
-	static private function TraverseDOMStep(n:Element, p : Container) : Void
+	static private function BuildStep(n:Element, p : Container) : Void
 	{
 		var e : DOMEntity=null;
 		
