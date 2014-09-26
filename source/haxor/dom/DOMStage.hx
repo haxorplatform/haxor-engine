@@ -59,15 +59,6 @@ class DOMStage extends Container  implements IResizeable
 	}
 	
 	/**
-	 * Builds a DOMEntity hierarchy using the informed target as data.
-	 * @param	p_target
-	 */
-	static public function Build(p_target : Element):Void
-	{
-		
-	}
-	
-	/**
 	 * Traverse the DOM tree and create the UI hierarchy from the tags.
 	 * @param	n
 	 * @param	c
@@ -78,12 +69,22 @@ class DOMStage extends Container  implements IResizeable
 		
 		if (p != null)
 		{
+			trace(">>> " + n.nodeName.toLowerCase());
 			switch(n.nodeName.toLowerCase())
 			{
 				case "container":	e = BuildContainer(n);
 				case "sprite":		e = BuildSprite(n);
 			}
-			if (e != null) p.AddChild(e); else if (p.element != null) p.element.appendChild(n);
+			if (e != null)
+			{
+				trace(e);
+				p.AddChild(e);
+			}
+			else
+			if (p.element != null)
+			{
+				if(p.element != n) p.element.appendChild(n);
+			}
 		}
 		
 		if (!Std.is(e, Container)) return;
@@ -132,6 +133,10 @@ class DOMStage extends Container  implements IResizeable
 		var sa : String;
 		sa = n.getAttribute("name");		
 		if (sa != null) if (sa != "") e.name = _ss(sa);
+		
+		sa = n.getAttribute("style");
+		if (sa != null) if (sa != "") e.element.style.cssText = sa;
+		
 		var pivot 	 : Array<Float> = _tv(n.getAttribute("px"), n.getAttribute("py"), n.getAttribute("pxy"));
 		var position : Array<Float> = _tv(n.getAttribute("x"), n.getAttribute("y"), n.getAttribute("xy"));
 		var scale 	 : Array<Float> = _tv(n.getAttribute("sx"), n.getAttribute("sy"), n.getAttribute("sxy"));

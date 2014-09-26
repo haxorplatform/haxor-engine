@@ -8,7 +8,9 @@ import haxor.dom.LayoutFlag;
 import haxor.dom.Sprite;
 import haxor.input.Input;
 import haxor.input.KeyCode;
+import haxor.io.file.Asset;
 import haxor.math.AABB2;
+import haxor.math.Mathf;
 import haxor.thread.Activity;
 
 
@@ -45,22 +47,26 @@ class MainIE8 extends Application implements IUpdateable implements IRenderable
 	{
 		Console.Log("Initialize!");	
 		
-		
-		var img : Sprite = new Sprite("http://noticiajato.com.br/wp-content/uploads/2014/01/google-fiber-rabbit.jpg");
+		var img : Sprite = new Sprite("http://noticiajato.com.br/wp-content/uploads/2014/01/google-fiber-rabbit.jpg");		
 		img.stage.AddChild(img);
 		img.width  = 256;
 		img.height = 256;
 		
-		img.x = 50;
-		img.y = 50;
-		
-		img.layout.flag = LayoutFlag.PositionXY;
+		img.layout.flag = LayoutFlag.PositionXY | LayoutFlag.PivotXY;
 		img.layout.x = 0.5;
 		img.layout.y = 0.5;
+		img.layout.px = 0.5;
+		img.layout.py = 0.5;
+		
+		
 		
 		Activity.Run(function(t:Float):Bool
 		{
 			img.rotation = t * 90;
+			
+			img.alpha = (Math.sin(t * 90 * Mathf.Deg2Rad) +1.0) * 0.5;
+			trace(img.alpha);
+			
 			return true;
 		});
 		

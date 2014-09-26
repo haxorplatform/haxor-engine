@@ -1,6 +1,7 @@
 #if html
 
 package haxor.dom;
+import js.html.NodeList;
 import haxor.dom.DOMEntity;
 import js.Browser;
 import js.html.DivElement;
@@ -63,6 +64,20 @@ class Container extends DOMEntity
 		if (m_children == null) return false;
 		for (it in m_children) { if (it == p_child) return true; }
 		return false;
+	}
+	
+	/**
+	 * Builds a DOMEntity hierarchy using the informed target as data.
+	 * @param	p_target
+	 */
+	public function Build(p_target : Element):Void
+	{
+		var l : NodeList = p_target.childNodes;
+		for (i in 0...l.length)
+		{
+			DOMStage.BuildStep(cast l.item(i), this);
+		}
+		
 	}
 	
 	public function AddChild(p_child : DOMEntity):Void

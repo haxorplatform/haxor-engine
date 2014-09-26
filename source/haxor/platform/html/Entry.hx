@@ -170,6 +170,8 @@ class Entry
 		
 		Console.Log("Haxor> Creating Stage with ["+app_container_id+"]");
 		var stage : DOMStage = new DOMStage(m_application.m_container);
+		stage.Build(m_application.m_container);
+		
 		
 		EngineContext.Build();
 				
