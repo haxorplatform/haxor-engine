@@ -83,7 +83,7 @@ class DOMStage extends Container  implements IResizeable
 				case "container":	e = BuildContainer(n);
 				case "sprite":		e = BuildSprite(n);
 			}
-			if(e!=null)p.AddChild(e);
+			if (e != null) p.AddChild(e); else if (p.element != null) p.element.appendChild(n);
 		}
 		
 		if (!Std.is(e, Container)) return;
@@ -92,7 +92,7 @@ class DOMStage extends Container  implements IResizeable
 		for (i in 0...l.length)
 		{
 			var it : Element = cast l.item(i);			
-			TraverseDOMStep(it, cast e);
+			BuildStep(it, cast e);
 		}
 	}
 	
