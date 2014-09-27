@@ -1,6 +1,8 @@
 #if html
 
 package haxor.dom;
+import js.html.Node;
+import js.html.HTMLCollection;
 import js.html.NodeList;
 import haxor.dom.DOMEntity;
 import js.Browser;
@@ -72,10 +74,22 @@ class Container extends DOMEntity
 	 */
 	public function Build(p_target : Element):Void
 	{
-		var l : NodeList = p_target.childNodes;
+		var l : HTMLCollection = p_target.children;
+		for (i in 1...l.length)
+		{
+			var it : Element = cast l.item(i);
+			DOMStage.BuildStep(it, this);			
+		}
+		
 		for (i in 0...l.length)
 		{
-			DOMStage.BuildStep(cast l.item(i), this);
+			var it : Element = cast l.item(i);
+			if (it == null) continue;
+			switch(it.nodeName.toLowerCase())
+			{				
+				case "container": it.remove();
+				case "sprite":    it.remove();
+			}
 		}
 		
 	}

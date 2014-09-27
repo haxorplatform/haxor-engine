@@ -1,5 +1,8 @@
 #if html
 package haxor.platform.html.graphics;
+import js.html.HTMLCollection;
+import js.html.NodeList;
+import js.html.Node;
 import haxor.platform.Types.Float32;
 import haxe.ds.EnumValueMap;
 import haxe.format.JsonParser;
@@ -79,7 +82,11 @@ class WebGL extends GraphicContext
 		//*/
 		m_canvas.width 			= m_container.clientWidth;		
 		m_canvas.height 		= m_container.clientHeight;
-		m_container.appendChild(m_canvas);
+		m_canvas.id 			= "haxor-canvas";
+		
+		var fc : Element = m_container.firstElementChild;		
+		m_container.appendChild(m_canvas);				
+		if (fc != null) m_container.insertBefore(m_canvas, fc);
 		
 		var ctx_attrib 			: Dynamic 		 = { };		
 		var ctx_attrib_list 	: Array<String>  = ["alpha", "antialias", "depth", "stencil", "premultipliedAlpha", "preserveDrawingBuffer"];

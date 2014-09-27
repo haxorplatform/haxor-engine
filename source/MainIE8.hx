@@ -46,7 +46,7 @@ class MainIE8 extends Application implements IUpdateable implements IRenderable
 	override public function Initialize():Void 
 	{
 		Console.Log("Initialize!");	
-		
+		/*
 		var img : Sprite = new Sprite("http://noticiajato.com.br/wp-content/uploads/2014/01/google-fiber-rabbit.jpg");		
 		img.stage.AddChild(img);
 		img.width  = 256;
@@ -64,12 +64,9 @@ class MainIE8 extends Application implements IUpdateable implements IRenderable
 		{
 			img.rotation = t * 90;
 			
-			img.alpha = (Math.sin(t * 90 * Mathf.Deg2Rad) +1.0) * 0.5;
-			trace(img.alpha);
-			
 			return true;
 		});
-		
+		//*/
 		
 		
 		#if html

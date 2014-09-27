@@ -1,6 +1,7 @@
 #if html
 
 package haxor.dom;
+import js.html.HTMLCollection;
 import haxor.platform.Types.Float32;
 import haxor.context.EngineContext;
 import haxor.math.Mathf;
@@ -69,7 +70,7 @@ class DOMStage extends Container  implements IResizeable
 		
 		if (p != null)
 		{
-			trace(">>> " + n.nodeName.toLowerCase());
+			
 			switch(n.nodeName.toLowerCase())
 			{
 				case "container":	e = BuildContainer(n);
@@ -77,24 +78,32 @@ class DOMStage extends Container  implements IResizeable
 			}
 			if (e != null)
 			{
-				trace(e);
 				p.AddChild(e);
 			}
 			else
 			if (p.element != null)
 			{
-				if(p.element != n) p.element.appendChild(n);
+				
+				if (n.getAttribute("script") == null)
+				{
+					if (p.element != n)
+					{						
+						p.element.appendChild(n);
+					}
+				}				
 			}
 		}
 		
-		if (!Std.is(e, Container)) return;
-		
-		var l : NodeList = n.childNodes;		
-		for (i in 0...l.length)
-		{
-			var it : Element = cast l.item(i);			
-			BuildStep(it, cast e);
+		if (Std.is(e, Container))
+		{		
+			var l : HTMLCollection = n.children;		
+			for (i in 0...l.length)
+			{
+				var it : Element = cast l.item(i);			
+				BuildStep(it, cast e);				
+			}
 		}
+		
 	}
 	
 	/**
@@ -137,16 +146,18 @@ class DOMStage extends Container  implements IResizeable
 		sa = n.getAttribute("style");
 		if (sa != null) if (sa != "") e.element.style.cssText = sa;
 		
+		if (e.element != null) e.element.style.position = "absolute";
+		
 		var pivot 	 : Array<Float> = _tv(n.getAttribute("px"), n.getAttribute("py"), n.getAttribute("pxy"));
 		var position : Array<Float> = _tv(n.getAttribute("x"), n.getAttribute("y"), n.getAttribute("xy"));
-		var scale 	 : Array<Float> = _tv(n.getAttribute("sx"), n.getAttribute("sy"), n.getAttribute("sxy"));
+		var scale 	 : Array<Float> = _tv(n.getAttribute("sx"), n.getAttribute("sy"), n.getAttribute("sxy"),1,1);
 		var size 	 : Array<Float> = _tv(n.getAttribute("w"), n.getAttribute("h"), n.getAttribute("wh"));		
 		var tv : Array<Float>;
 		var v : Array<Float> = [0];
 		var fx : Int;
 		var fy : Int;		
 		
-		tv = scale;	e.sx = v[2];	e.sy = v[3];		
+		tv = scale;	e.sx = tv[2];	e.sy = tv[3];		
 		
 		tv = pivot; fx = LayoutFlag.PivotX; fy = LayoutFlag.PivotY;		
 		if (tv[0] > 0) { e.layout.flag |= fx; e.layout.px = tv[2]; } else { e.px = tv[2]; }
@@ -159,6 +170,8 @@ class DOMStage extends Container  implements IResizeable
 		tv = size; fx = LayoutFlag.SizeX; fy = LayoutFlag.SizeY;		
 		if (tv[0] > 0) { e.layout.flag |= fx; e.layout.width  = tv[2]; } else { e.width  = tv[2]; }
 		if (tv[1] > 0) { e.layout.flag |= fy; e.layout.height = tv[3]; } else { e.height = tv[3]; }		
+		
+		
 		
 		_sn(n.getAttribute("alpha"),    v, 1.0); e.alpha    = v[0];
 		_sn(n.getAttribute("rotation"), v, 0.0); e.rotation = v[0];		
@@ -173,8 +186,9 @@ class DOMStage extends Container  implements IResizeable
 	 * @param	v
 	 * @return
 	 */
-	static private function _tv(sx:String,sy:String,sxy:String):Array<Float>
+	static private function _tv(sx:String,sy:String,sxy:String,v0 : Float=0.0,v1 : Float=0.0):Array<Float>
 	{
+		
 		var res : Array<Float> = [0, 0, 0, 0];
 		var v : Array<Float> = [0];
 		var ixr : Bool = false;
@@ -182,16 +196,34 @@ class DOMStage extends Container  implements IResizeable
 		if (sxy != null)	
 		{ 
 			var sl:Array<String> = sxy.split(" ");			
-			if (sl.length >= 1) { ixr = ixr || _sn(sl[0], v); res[2] = v[0];  }
-			if (sl.length >= 2) { iyr = iyr || _sn(sl[1], v); res[3] = v[0];  }
+			if (sl.length == 1)
+			{ 
+				ixr = ixr || _sn(sl[0], v); 
+				iyr = iyr || ixr;
+				res[2] = v[0];  
+				res[3] = v[0];  
+			}
+			
+			if (sl.length >= 2)
+			{
+				ixr = ixr || _sn(sl[0], v); res[2] = v[0];  
+				iyr = iyr || _sn(sl[1], v); res[3] = v[0];
+			}			
 		}
 		else
-		if (sx != null)	{ ixr = ixr || _sn(sx, v); res[2] = v[0]; } else
-		if (sy != null)	{ iyr = iyr || _sn(sy, v); res[3] = v[0]; }		
+		{
+			if (sx != null)	{ ixr = ixr || _sn(sx, v); res[2] = v[0]; } 		
+			if (sy != null)	{ iyr = iyr || _sn(sy, v); res[3] = v[0]; }		
+		}
+		
+		if (sxy == null) if (sx == null) res[2] = v0;
+		if (sxy == null) if (sy == null) res[3] = v1;
+		
 		if (ixr) res[2] = Mathf.Abs(res[2]) <= 0.000001 ? 0.0 : (res[2] / 100);
 		if (iyr) res[3] = Mathf.Abs(res[3]) <= 0.000001 ? 0.0 : (res[3] / 100);		
 		res[0] = ixr ? 1 : 0;
 		res[1] = iyr ? 1 : 0;		
+		
 		return res;
 	}
 	
@@ -215,7 +247,11 @@ class DOMStage extends Container  implements IResizeable
 	 * @param	s
 	 * @return
 	 */
-	static private function _ss(s:String):String { if (s == null) return ""; return (s.indexOf("@") == 0) ? Asset.Get(StringTools.replace(s, "@", "")) : s; }
+	static private function _ss(s:String):String 
+	{ 
+		if (s == null) return ""; 		
+		return (s.indexOf("@") == 0) ? Asset.Get(s.substr(1)) : s;
+	}
 	
 }
 

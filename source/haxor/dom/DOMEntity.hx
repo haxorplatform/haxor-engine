@@ -188,11 +188,11 @@ class DOMEntity extends Resource
 		
 		if (stage != this)
 		if (e != null)
-		{
+		{			
 			e.style.position = "absolute";
 			e.style.left = e.style.top = "0px";
 			e.setAttribute("script", GetTypeName());
-			e.setAttribute("name", name);
+			e.setAttribute("name", name);			
 		}		
 		return e; 
 	}	
@@ -297,11 +297,13 @@ class DOMEntity extends Resource
 		#if ie8			
 		e.style.left 	= Mathf.Floor(px) + "px"; 		
 		e.style.top 	= Mathf.Floor(py) + "px";
-		#else
+		#else		
 		var vdn : String = application.vendor;
 		var tov : String = e.style.getPropertyValue(vdn + "transform-origin");
 		if ((tov != "") && (tov != null)) e.style.removeProperty(vdn + "transform-origin");		
-		e.style.cssText = e.style.cssText + " " + vdn + "transform-origin: "+ox+"px "+oy+"px;";
+		e.style.cssText = e.style.cssText + " " + vdn + "transform-origin: " + ox + "px " + oy + "px;";
+		var tp : String = vdn + "transform(" + "rotate3d(0,0,1," + m_rotation + "deg) scale3d(" + m_sx + "," + m_sy + ",1.0) translate3d(" + px + "px," + py + "px,0px)" + ")";
+		
 		e.style.setProperty(vdn+"transform","rotate3d(0,0,1,"+m_rotation+"deg) scale3d("+m_sx+","+m_sy+",1.0) translate3d("+px+"px,"+py+"px,0px)","");
 		#end
 		
