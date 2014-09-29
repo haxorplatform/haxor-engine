@@ -72,7 +72,7 @@ class Container extends DOMEntity
 	 * Builds a DOMEntity hierarchy using the informed target as data.
 	 * @param	p_target
 	 */
-	public function Build(p_target : Element):Void
+	public function Parse(p_target : Element):Void
 	{
 		var l : HTMLCollection = p_target.children;
 		for (i in 1...l.length)

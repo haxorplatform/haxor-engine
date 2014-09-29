@@ -12,6 +12,7 @@ import haxor.io.file.Asset;
 import haxor.math.AABB2;
 import haxor.math.Mathf;
 import haxor.thread.Activity;
+import js.html.svg.SVGElement;
 
 
 #if html
@@ -46,6 +47,7 @@ class MainIE8 extends Application implements IUpdateable implements IRenderable
 	override public function Initialize():Void 
 	{
 		Console.Log("Initialize!");	
+				
 		/*
 		var img : Sprite = new Sprite("http://noticiajato.com.br/wp-content/uploads/2014/01/google-fiber-rabbit.jpg");		
 		img.stage.AddChild(img);

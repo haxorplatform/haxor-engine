@@ -1,5 +1,3 @@
 /docs
-*.bat
-*.json
-*.zip
+/tools/PackLib.bat
 *.exe

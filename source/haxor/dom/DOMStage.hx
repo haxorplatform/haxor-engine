@@ -1,6 +1,7 @@
 #if html
 
 package haxor.dom;
+import haxor.math.AABB2;
 import js.html.HTMLCollection;
 import haxor.platform.Types.Float32;
 import haxor.context.EngineContext;
@@ -64,13 +65,12 @@ class DOMStage extends Container  implements IResizeable
 	 * @param	n
 	 * @param	c
 	 */
-	static private function BuildStep(n:Element, p : Container) : Void
+	static private function BuildStep(n:Element, p : Container) : Bool
 	{
 		var e : DOMEntity=null;
-		
+		if (n == null) return false;
 		if (p != null)
-		{
-			
+		{			
 			switch(n.nodeName.toLowerCase())
 			{
 				case "container":	e = BuildContainer(n);
@@ -89,6 +89,7 @@ class DOMStage extends Container  implements IResizeable
 					if (p.element != n)
 					{						
 						p.element.appendChild(n);
+						return true;
 					}
 				}				
 			}
@@ -97,13 +98,16 @@ class DOMStage extends Container  implements IResizeable
 		if (Std.is(e, Container))
 		{		
 			var l : HTMLCollection = n.children;		
-			for (i in 0...l.length)
+			var i : Int = 0;
+			while(i < l.length)
 			{
 				var it : Element = cast l.item(i);			
-				BuildStep(it, cast e);				
+				var is_dom : Bool = BuildStep(it, cast e);				
+				if (is_dom) i--;
+				i++;
 			}
 		}
-		
+		return false;
 	}
 	
 	/**
@@ -171,10 +175,30 @@ class DOMStage extends Container  implements IResizeable
 		if (tv[0] > 0) { e.layout.flag |= fx; e.layout.width  = tv[2]; } else { e.width  = tv[2]; }
 		if (tv[1] > 0) { e.layout.flag |= fy; e.layout.height = tv[3]; } else { e.height = tv[3]; }		
 		
-		
-		
 		_sn(n.getAttribute("alpha"),    v, 1.0); e.alpha    = v[0];
 		_sn(n.getAttribute("rotation"), v, 0.0); e.rotation = v[0];		
+	
+		sa = n.getAttribute("margin");
+		if (sa != null) 
+		if (sa != "")
+		{
+			var mtk : Array<String> = sa.split(" ");
+			var m : AABB2 = e.layout.m_margin;
+			var n : Float = 0.0;
+			if (mtk.length == 1)
+			{
+				n = Std.parseFloat(mtk[0]);
+				m.Set(n, n, n, n);
+			}
+			else
+			{
+				if (mtk.length >= 1) { n = Std.parseFloat(mtk[0]); m.xMin = n; }
+				if (mtk.length >= 2) { n = Std.parseFloat(mtk[0]); m.xMax = n; }
+				if (mtk.length >= 3) { n = Std.parseFloat(mtk[0]); m.yMin = n; }
+				if (mtk.length >= 4) { n = Std.parseFloat(mtk[0]); m.yMax = n; }
+			}
+			e.layout.margin = m;
+		}
 		
 	}
 	

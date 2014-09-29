@@ -1,0 +1,14 @@
+{
+  "name": "haxor",
+  "url": "https://github.com/haxorplatform/haxor-engine",
+  "license": "CC_BY_ND_3_0",
+  "tags": ["webgl","canvas","engine","game","input","touch","gamepad","websocket","webrtc","multiplayer","audio"],
+  "description": "Haxor Game Engine",
+  "version": "1.0.0",
+  "releasenote": "1.0 - Release Candidate",
+  "contributors": ["eduardo_costa"],
+  "dependencies": 
+  {
+
+  }
+}
