@@ -4893,7 +4893,9 @@ haxor.dom.DOMStage.BuildStep = function(n,p) {
 haxor.dom.DOMStage.BuildSprite = function(n) {
 	var a_src = haxor.dom.DOMStage._ss(n.getAttribute("src"));
 	var a_canvas = n.getAttribute("canvas") != null;
+	var a_pattern = n.getAttribute("pattern") != null;
 	var res = new haxor.dom.Sprite(a_src,a_canvas);
+	res.set_pattern(a_pattern);
 	haxor.dom.DOMStage.BuildDOMEntity(n,res);
 	return res;
 };

@@ -118,8 +118,10 @@ class DOMStage extends Container  implements IResizeable
 	static private function BuildSprite(n : Element):Container
 	{
 		var a_src : String = _ss(n.getAttribute("src"));
-		var a_canvas : Bool = n.getAttribute("canvas") != null;
-		var res : Sprite = new Sprite(a_src,a_canvas);		
+		var a_canvas : Bool  = n.getAttribute("canvas") != null;
+		var a_pattern : Bool = n.getAttribute("pattern") != null;
+		var res : Sprite = new Sprite(a_src, a_canvas);		
+		res.pattern = a_pattern;
 		BuildDOMEntity(n, res);
 		return res;
 	}
