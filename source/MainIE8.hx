@@ -4,12 +4,14 @@ import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
+import haxor.core.Tween;
 import haxor.dom.LayoutFlag;
 import haxor.dom.Sprite;
 import haxor.input.Input;
 import haxor.input.KeyCode;
 import haxor.io.file.Asset;
 import haxor.math.AABB2;
+import haxor.math.Easing.Cubic;
 import haxor.math.Mathf;
 import haxor.thread.Activity;
 import js.html.svg.SVGElement;
@@ -48,6 +50,7 @@ class MainIE8 extends Application implements IUpdateable implements IRenderable
 	{
 		Console.Log("Initialize!");	
 				
+		
 		/*
 		var img : Sprite = new Sprite("http://noticiajato.com.br/wp-content/uploads/2014/01/google-fiber-rabbit.jpg");		
 		img.stage.AddChild(img);

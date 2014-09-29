@@ -1,5 +1,6 @@
 #if html
 package haxor.platform.html;
+import haxor.dom.DOMStage;
 import haxor.platform.Types.Float32;
 import js.html.DivElement;
 import haxor.core.BaseApplication;
@@ -25,6 +26,12 @@ import js.html.Element;
 @:allow(haxor)
 class HTMLApplication extends BaseApplication
 {
+	/**
+	 * Referene to the DOMStage UI root.
+	 */
+	public var stage(get_stage, never):DOMStage;
+	private function get_stage():DOMStage { return DOMStage.m_instance; }
+	
 	
 	/**
 	 * Reference to the Element container in the HTML

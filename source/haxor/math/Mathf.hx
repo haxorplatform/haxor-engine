@@ -248,14 +248,14 @@ class Mathf
 	 * @param	v
 	 * @return
 	 */
-	static public inline function ASin(v:Float32):Float32{ return Math.asin(v); }
+	static public inline function Asin(v:Float32):Float32{ return Math.asin(v); }
 	
 	/**
 	 * Returns the ArcCos of the informed angle in radians.
 	 * @param	v
 	 * @return
 	 */
-	static public inline function ACos(v:Float32):Float32{ return Math.acos(v); }
+	static public inline function Acos(v:Float32):Float32{ return Math.acos(v); }
 	
 	/**
 	 * Returns the Tangent of the informed angle in radians.

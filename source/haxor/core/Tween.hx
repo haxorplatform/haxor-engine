@@ -1,5 +1,6 @@
 package haxor.core;
 import haxe.ds.ObjectMap;
+import haxor.context.EngineContext;
 import haxor.math.Color;
 import haxor.math.Mathf;
 import haxor.math.Quaternion;
@@ -139,10 +140,10 @@ class Tween extends Resource implements IUpdateable
 		m_active  = true;		
 		if (!m_added) 
 		{			
-			Engine.Add(this); m_added = true; m_table.get(m_target).push(this); 
-			//if(m_property=="width")trace("tween ADD "+m_table.get(m_target).length);
-		}
-		
+			EngineContext.update.Add(this);			
+			m_added = true; 
+			m_table.get(m_target).push(this); 
+		}		
 	}
 	
 	/**
@@ -167,7 +168,7 @@ class Tween extends Resource implements IUpdateable
 	 */
 	public function Remove():Void
 	{
-		if (m_added) { Engine.Remove(this); m_added = false; }		
+		if (m_added) { EngineContext.update.Remove(this); m_added = false; }		
 		m_active = false;
 		var l : Array<Tween> = m_table.get(m_target);
 		l.remove(this);
@@ -182,7 +183,7 @@ class Tween extends Resource implements IUpdateable
 		
 		if (m_elapsed <= 0) 
 		{			
-			m_elapsed += Time.deltaTime; 
+			m_elapsed += Time.delta; 
 			if (m_elapsed >= 0)
 			{
 				var l : Array<Tween> = GetTweens(m_target, m_property, true);
@@ -195,7 +196,7 @@ class Tween extends Resource implements IUpdateable
 		//if(m_property=="alpha")trace("tween: " +  m_value+" "+r);
 		Sample(r);
 				
-		m_elapsed += Time.deltaTime; 
+		m_elapsed += Time.delta; 
 		
 		if (m_elapsed >= m_duration)
 		{

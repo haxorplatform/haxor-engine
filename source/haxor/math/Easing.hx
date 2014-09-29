@@ -1,4 +1,5 @@
 package haxor.math;
+import haxor.platform.Types.Float32;
 
 
 /**
