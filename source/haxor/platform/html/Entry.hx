@@ -154,24 +154,28 @@ class Entry
 		
 		Console.Log("Haxor> Application [" + app_class_type+"] created successfully!", 1);
 		
+		m_application.m_container = Browser.document.getElementById(app_container_id);
+		
+		if (m_application.m_container == null)
+		{
+			Console.Log("Graphics> DOM container not defined id["+app_container_id+"] using 'body'.");
+			m_application.m_container = Browser.document.body;
+		}
+		
+		var cd : String = m_application.m_container.style.display;
+		m_application.m_container.style.display = "none";
+		
 		#if !ie8
 		GL.Initialize(m_application);
 		GL.m_gl.Initialize(app_container_id);
 		GL.m_gl.CheckExtensions();
-		#else
-		
-		m_application.m_container = Browser.document.getElementById(app_container_id);		
-		if (m_application.m_container == null)
-		{ 
-			Console.Log("Graphics> DOM container not defined id["+app_container_id+"] using 'body'.");
-			m_application.m_container = Browser.document.body;			
-		}		
 		#end
 		
 		Console.Log("Haxor> Creating Stage with ["+app_container_id+"]");
 		var stage : DOMStage = new DOMStage(m_application.m_container);
 		stage.Parse(m_application.m_container);
 		
+		Timer.delay(function():Void {  m_application.m_container.style.display = cd; }, 100);
 		
 		EngineContext.Build();
 				

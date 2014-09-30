@@ -195,9 +195,9 @@ class DOMStage extends Container  implements IResizeable
 			else
 			{
 				if (mtk.length >= 1) { n = Std.parseFloat(mtk[0]); m.xMin = n; }
-				if (mtk.length >= 2) { n = Std.parseFloat(mtk[0]); m.xMax = n; }
-				if (mtk.length >= 3) { n = Std.parseFloat(mtk[0]); m.yMin = n; }
-				if (mtk.length >= 4) { n = Std.parseFloat(mtk[0]); m.yMax = n; }
+				if (mtk.length >= 2) { n = Std.parseFloat(mtk[1]); m.xMax = n; }
+				if (mtk.length >= 3) { n = Std.parseFloat(mtk[2]); m.yMin = n; }
+				if (mtk.length >= 4) { n = Std.parseFloat(mtk[3]); m.yMax = n; }
 			}
 			e.layout.margin = m;
 		}
