@@ -171,7 +171,7 @@ class Entry
 		GL.m_gl.CheckExtensions();
 		#end
 		
-		Console.Log("Haxor> Creating Stage with ["+app_container_id+"]");
+		Console.Log("Haxor> Creating Stage with ["+app_container_id+"]",1);
 		var stage : DOMStage = new DOMStage(m_application.m_container);
 		stage.Parse(m_application.m_container);
 		

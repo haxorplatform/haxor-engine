@@ -145,7 +145,7 @@ class WebGL extends GraphicContext
 					GL.TEXTURE_ANISOTROPY     = ext.TEXTURE_MAX_ANISOTROPY_EXT;
 					GL.MAX_TEXTURE_ANISOTROPY = c.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT);							
 					GL.TEXTURE_ANISOTROPY_ENABLED = true;					
-					Console.Log("\t\tMax Aniso: " +GL.MAX_TEXTURE_ANISOTROPY);
+					Console.Log("\t\tMax Aniso: " +GL.MAX_TEXTURE_ANISOTROPY,1);
 				
 				case "OES_texture_float":
 					GL.TEXTURE_FLOAT = true;	
@@ -156,7 +156,7 @@ class WebGL extends GraphicContext
 		}
 		
 		GL.MAX_ACTIVE_TEXTURE = cast c.getParameter(GL.MAX_TEXTURE_IMAGE_UNITS);
-		Console.Log("\tMax Active Textures: " + GL.MAX_ACTIVE_TEXTURE);
+		Console.Log("\tMax Active Textures: " + GL.MAX_ACTIVE_TEXTURE,1);
 		
 	}
 	
