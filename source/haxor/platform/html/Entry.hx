@@ -44,7 +44,11 @@ class Entry
 	/**
 	 * Startup the application entry point.
 	 */
-	static public function Initialize():Void { Browser.window.onload = OnWindowLoad; }
+	static public function Initialize():Void 
+	{ 
+		
+		Browser.window.onload = OnWindowLoad; 
+	}
 	
 	
 	/**

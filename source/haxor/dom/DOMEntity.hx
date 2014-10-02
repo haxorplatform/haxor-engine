@@ -289,14 +289,14 @@ class DOMEntity extends Resource
 		
 		layout.Update();
 		
-		var px : Float = (m_x - m_px + m.xMin);
-		var py : Float = (m_y - m_py + m.yMin);
+		var px : Float = Mathf.Floor(m_x - m_px + m.xMin);
+		var py : Float = Mathf.Floor(m_y - m_py + m.yMin);
 		var ox : Float = px + m_px;
 		var oy : Float = py + m_py;
 		
 		#if ie8			
-		e.style.left 	= Mathf.Floor(px) + "px"; 		
-		e.style.top 	= Mathf.Floor(py) + "px";
+		e.style.left 	= (px) + "px"; 		
+		e.style.top 	= (py) + "px";
 		#else		
 		var vdn : String = application.vendor;
 		var tov : String = e.style.getPropertyValue(vdn + "transform-origin");
