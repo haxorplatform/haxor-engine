@@ -94,7 +94,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	override public function Load():Bool 
 	{	
-		Web.root = "http://haxor.thelaborat.org/resources/";
+		Web.root = "http://www.haxor.xyz/resources/";
 		
 		
 		//Web.LoadCollada("./character/medieval/animations/all_idle01.DAE",function(f : ColladaFile, p:Float32):Void

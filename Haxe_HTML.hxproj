@@ -19,7 +19,7 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="html&#xA;profile" />
+    <option directives="html&#xA;profile&#xA;js-es5&#xA;js-flatten&#xA;dce" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="Main" />

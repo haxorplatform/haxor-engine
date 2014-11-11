@@ -1,0 +1,10 @@
+body {
+	background-image : url("../image/bkg.jpg");
+	background-color : #f00;
+}
+.class_a {
+	background-color : #f00;
+}
+.class_a .class_b {
+	background-color : #0f0;
+}
