@@ -1,4 +1,4 @@
-package haxor.component;
+package haxor.component.light;
 
 import haxor.core.Entity;
 import haxor.io.FloatArray;

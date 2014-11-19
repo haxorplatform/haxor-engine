@@ -21,7 +21,7 @@ class RenderEngine
 		#end
 		//Shadow Collect Pass		
 		RenderCameras();	
-		RenderFinish();
+		
 	}
 	
 	

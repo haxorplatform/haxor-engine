@@ -1,6 +1,6 @@
 package haxor.context;
 import haxor.component.Camera;
-import haxor.component.Light;
+import haxor.component.light.Light;
 import haxor.component.Transform;
 import haxor.core.Console;
 import haxor.core.Time;
@@ -623,6 +623,7 @@ class MaterialContext
 	 */
 	private function UploadGlobalUniform(u:MaterialUniform,ut:Bool,ucv:Bool,ucp:Bool,t:Transform,c:Camera):Void
 	{
+		
 		switch(u.name)
 		{
 			case "Ambient":					u.SetColor(Light.ambient);					

@@ -1,4 +1,5 @@
 package haxor.context;
+import haxor.component.animation.Animation;
 import haxor.component.Component;
 import haxor.component.MeshRenderer;
 import haxor.context.Process.BaseProcess;
@@ -124,6 +125,10 @@ class EngineContext
 		data		= new DataContext();
 		
 		#if !ie8
+		
+		//Temp
+		Animation.Initialize();
+		
 		renderer	= new RendererContext();
 		mesh 		= new MeshContext();		
 		material	= new MaterialContext();

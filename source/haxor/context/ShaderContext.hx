@@ -74,7 +74,7 @@ class ShaderContext
 	static private var flat_texture_skin_source : String = 
 	'
 	<shader id="haxor/unlit/FlatTextureSkin">	
-		<vertex precision="high">
+		<vertex precision="low">
 		
 		#define SKINNING_TEXTURE_SIZE 2048.0
 		#define BINDS_OFFSET		  1024.0
@@ -144,7 +144,7 @@ class ShaderContext
 			mat4 swm = SkinWorldMatrix();
 			mat4 wm;					
 			wm = swm;
-			wm = WorldMatrix;
+			//wm = WorldMatrix;
 			
 			v_uv0   = uv0;
 			v_color = color;			
@@ -153,7 +153,7 @@ class ShaderContext
 		}		
 		</vertex>
 		
-		<fragment precision="high">
+		<fragment precision="low">
 					
 			uniform sampler2D DiffuseTexture;			
 			
@@ -166,8 +166,8 @@ class ShaderContext
 			void main(void) 
 			{	
 				vec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);
-				gl_FragColor.xyz = v_color.xyz;// tex_diffuse.xyz * v_color.xyz;
-				gl_FragColor.a 	 = 1.0;// tex_diffuse.a * v_color.a;
+				gl_FragColor.xyz = tex_diffuse.xyz * v_color.xyz;
+				gl_FragColor.a 	 = tex_diffuse.a * v_color.a;
 			}
 		</fragment>	
 	</shader>

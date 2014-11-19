@@ -1,4 +1,5 @@
 package haxor.core;
+import haxor.component.animation.Animation;
 import haxor.component.Behaviour;
 import haxor.context.EngineContext;
 import haxor.context.Process;
@@ -61,6 +62,10 @@ class Engine
 		
 		if (state == EngineState.Editor) return;
 		
+		#if !ie8
+		Animation.Update();
+		#end
+		
 		var up : Process<IUpdateable> = EngineContext.update;				
 		
 		for (i in 0...up.length)
@@ -83,9 +88,14 @@ class Engine
 	static private function Render():Void
 	{	
 		#if !ie8
-		RenderEngine.Render();					
+		RenderEngine.Render();
 		#end
+		
 		RenderIRenderers();
+		
+		#if !ie8
+		RenderEngine.RenderFinish();
+		#end
 	}
 	
 	
@@ -114,6 +124,7 @@ class Engine
 		#end
 		
 		if (state == EngineState.Editor) return;
+		
 		var rp : Process<IResizeable> = EngineContext.resize;				
 		for (i in 0...rp.length)
 		{

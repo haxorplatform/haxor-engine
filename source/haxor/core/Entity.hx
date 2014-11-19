@@ -1,4 +1,5 @@
 package haxor.core;
+import haxor.component.animation.Animation;
 import haxor.component.Behaviour;
 import haxor.component.Component;
 import haxor.component.Transform;
@@ -41,6 +42,13 @@ class Entity extends Resource
 	public var transform(get_transform, null):Transform;
 	private inline function get_transform():Transform { return m_transform; }
 	private var m_transform : Transform;
+	
+	/**
+	 * Reference to this Entity Animation component.
+	 */
+	public var animation(get_animation, null):Animation;
+	private inline function get_animation():Animation { return m_animation; }
+	private var m_animation : Animation;
 
 	/**
 	 * Layer mask of this entity. Layer masks will tell which camera, raycast, and other components/operations will target this entity.
@@ -74,6 +82,7 @@ class Entity extends Resource
 		m_enabled    = true;
 		m_components = [];
 		m_layer		 = 1;	
+		
 		#if !ie8
 		m_transform = cast AddComponent(Transform);		
 		#end
@@ -90,11 +99,16 @@ class Entity extends Resource
 	{
 		if (m_destroyed) return null;
 		
-		if (m_transform != null) if (p_type == Transform) return m_transform;
+		if (m_transform != null) if (p_type == Transform) return m_transform; else
+		if (m_animation != null) if (p_type == Animation) return m_animation;
+		
 		var c:Component = null;		
 		c = Type.createInstance(p_type, [""]);		
 		if (c == null) return null;
 		c.m_entity 		= this;		
+		
+		if (p_type == Animation) m_animation = cast c;
+		
 		if (c.m_is_behaviour)
 		{ 
 			var b : Behaviour = cast c; 

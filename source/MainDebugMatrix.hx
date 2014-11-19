@@ -1,9 +1,7 @@
 package ;
 import haxe.Timer;
-import haxor.component.animation.Animation;
 import haxor.component.Camera;
 import haxor.component.CameraOrbit;
-import haxor.component.light.Light;
 import haxor.component.MeshRenderer;
 import haxor.component.Transform;
 import haxor.context.Process;
@@ -12,7 +10,6 @@ import haxor.core.Application;
 import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
 import haxor.core.Entity;
-import haxor.core.Enums.AnimationWrap;
 import haxor.core.Enums.InputState;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
@@ -153,33 +150,29 @@ class Main extends Application implements IUpdateable implements IRenderable
 		});
 		#end
 		
-		orbit = CameraOrbit.Create(40.0, 45, 30);
+		orbit = CameraOrbit.Create(400.0, 45, 30);
 		
 		var ci : CameraOrbitInput = orbit.AddComponent(CameraOrbitInput);
 		orbit.smooth = 5.0;
-		ci.zoomSpeed = 1.0;
+		ci.zoomSpeed = 0.1;
 		cam = orbit.entity.GetComponentInChildren(Camera);
 		cam.far = 1000.0;
 		cam.background = new Color(0.3, 0.3, 0.3);
 		
-		
-		
 		container = (new Entity("container")).transform;
 					
 		mat = Material.Opaque(Asset.Get("texture_diffuse"));
-		mat.shader = Shader.FlatTextureSkin;		
+		mat.shader = Shader.FlatTextureSkin;
 		mat.name = "PlayerMaterial";				
-		mat.SetTexture("DiffuseTexture", Asset.Get("texture_diffuse"));
+		//mat.SetTexture("DiffuseTexture", Asset.Get("texture_diffuse"));
 		
-		var cf : ColladaFile;
-		
-		cf = Asset.Get("model");
+		var cf : ColladaFile = Asset.Get("model");
 		
 		player = new Entity("player").transform;
 		var asset : Transform = cast(cf.asset, Entity).transform;
 		asset.parent = player;
 		//asset.rotation = Quaternion.FromAxisAngle(Vector3.right, 90.0);
-		asset.localScale = new Vector3(0.1, 0.1, 0.1);
+		//asset.localScale = new Vector3(0.005, 0.005, 0.005);
 		//asset.localScale = new Vector3(2.0, 2.0, 2.0);
 		
 		var mr : Array<MeshRenderer> = cast player.GetComponentsInChildren(MeshRenderer);
@@ -188,13 +181,6 @@ class Main extends Application implements IUpdateable implements IRenderable
 			//if (i == 1) mr[i].enabled = false;			
 			mr[i].material = mat;			
 		}
-		
-		var anim : Animation;
-		cf = Asset.Get("animation_idle");
-		cf.AddAnimations(asset.entity);
-		anim = asset.entity.animation;
-		anim.Play(anim.clips[0]);
-		anim.clips[0].wrap = AnimationWrap.Loop;
 		
 	}
 	
@@ -233,8 +219,9 @@ class Main extends Application implements IUpdateable implements IRenderable
 	}
 	
 	public function OnRender():Void
-	{			
-		Gizmo.Grid(100.0,new Color(1,1,1,0.1));
+	{	
+		GL.Clear(GL.DEPTH_BUFFER_BIT);
+		//Gizmo.Grid(100.0,new Color(1,1,1,0.1));
 		//Gizmo.Axis(50.0);
 		
 	}

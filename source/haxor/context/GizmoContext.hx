@@ -187,7 +187,7 @@ class GizmoContext
 	private function DrawGrid(p_area:Float32,p_color:Color=null):Void
 	{
 		gizmo_material.SetFloat("Area", p_area);
-		if (p_color != null) gizmo_material.SetColor("Tint", p_color);		
+		if (p_color != null) gizmo_material.SetColor("Tint", p_color);					
 		Graphics.Render(grid, gizmo_material,null,Camera.main);
 	}
 	

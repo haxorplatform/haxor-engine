@@ -1,9 +1,12 @@
 package haxor.io.file;
 import haxe.Json;
+import haxor.component.animation.Animation;
+import haxor.component.animation.AnimationClip;
+import haxor.component.animation.ClipTrack;
 import haxor.component.Component;
 import haxor.component.DataComponent;
 import haxor.component.MeshRenderer;
-import haxor.component.PointLight;
+import haxor.component.light.PointLight;
 import haxor.component.SkinnedMeshRenderer;
 import haxor.component.Transform;
 import haxor.core.Console;
@@ -382,7 +385,7 @@ class ColladaFile extends AssetXML
 	 */
 	public function AddAnimations(p_entity : Entity,p_exact : Bool=true):Void
 	{
-		/*
+		
 		if (animations.length <= 0) return;
 		var re : Entity   = p_entity;
 		var a : Animation = re.animation;
@@ -412,17 +415,16 @@ class ColladaFile extends AssetXML
 				switch(src_target)
 				{
 					case "matrix":
-						var position_track  : ClipTrack = clip.Add(n.transform, "position");							
-						var rotation_track  : ClipTrack = clip.Add(n.transform, "rotation");
-						//var scale_track 	: ClipTrack = clip.Add(n.transform, "scale");
+						var position_track  : ClipTrack = clip.Add(n.transform, "localPosition");							
+						var rotation_track  : ClipTrack = clip.Add(n.transform, "localRotation");
+						//var scale_track 	: ClipTrack = clip.Add(n.transform, "localScale");
 						for (k in 0...cch.keyframes.length)
 						{
 							var kf : ColladaAnimationKeyFrame = cch.keyframes[k];
-							var m : Matrix4 = Matrix4.FromArray(kf.values);
-							var td : Array<Dynamic> = m.transform;
-							position_track.Add(kf.time, td[0]);
-							rotation_track.Add(kf.time, td[1]);
-							//scale_track.Add(kf.time, td[2]);
+							var m : Matrix4 = Matrix4.FromArray(kf.values);							
+							position_track.Add(kf.time, m.GetColumn(3).xyz);
+							rotation_track.Add(kf.time, m.quaternion);
+							//scale_track.Add(kf.time, m.scale);
 						}
 						
 				}

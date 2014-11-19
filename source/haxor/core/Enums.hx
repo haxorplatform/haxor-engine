@@ -394,3 +394,24 @@ enum InputState
 	 */
 	Hold;
 }
+
+/**
+ * Animation Wrapping.
+ */
+enum AnimationWrap
+{            
+	/**
+	 * Stops at the last frame.
+	 */
+	Clamp; 			   
+	
+	/**
+	 * Returns to the first frame.
+	 */
+	Loop; 				 	      
+    
+	/**
+	 * Cycle backwards after last frame.
+	 */
+	Oscilate;	
+}
