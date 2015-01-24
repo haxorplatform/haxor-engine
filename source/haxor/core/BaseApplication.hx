@@ -242,7 +242,8 @@ class BaseApplication extends Behaviour
 		
 		if ((Time.m_clock - m_frame_ms) >= m_mspf)
 		{	
-			m_frame_ms += (Time.m_clock - m_frame_ms);			
+			m_frame_ms += (Time.m_clock - m_frame_ms);	
+			
 			Time.Render();
 			
 			#if !ie8

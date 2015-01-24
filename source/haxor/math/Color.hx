@@ -72,6 +72,46 @@ class Color
 	static public var gray90 (get_gray90 , null):Color;	static private inline function get_gray90 ():Color { return new Color(0.9, 0.9, 0.9, 1); }
 	
 	/**
+	 * 50% washed red.
+	 */
+	static public var red50 (get_red50 , null):Color;	static private inline function get_red50 ():Color { return new Color(0.9, 0.5, 0.5, 1); }
+	
+	/**
+	 * 50% washed green.
+	 */
+	static public var green50 (get_green50 , null):Color;	static private inline function get_green50 ():Color { return new Color(0.5, 0.9, 0.5, 1); }
+	
+	/**
+	 * 50% washed blue.
+	 */
+	static public var blue50 (get_blue50 , null):Color;	static private inline function get_blue50 ():Color { return new Color(0.5, 0.5, 0.9, 1); }
+	
+	/**
+	 * 50% washed yellow.
+	 */
+	static public var yellow50 (get_yellow50 , null):Color;	static private inline function get_yellow50 ():Color { return new Color(0.9, 0.9, 0.5, 1); }
+	
+	/**
+	 * 50% washed magenta.
+	 */
+	static public var magenta50 (get_magenta50 , null):Color;	static private inline function get_magenta50 ():Color { return new Color(0.9, 0.5, 0.9, 1); }
+	
+	/**
+	 * 30% washed red.
+	 */
+	static public var red30 (get_red30 , null):Color;	static private inline function get_red30 ():Color { return new Color(0.9, 0.3, 0.3, 1); }
+	
+	/**
+	 * 30% washed green.
+	 */
+	static public var green30 (get_green30 , null):Color;	static private inline function get_green30 ():Color { return new Color(0.3, 0.9, 0.3, 1); }
+	
+	/**
+	 * 30% washed blue.
+	 */
+	static public var blue30 (get_blue30 , null):Color;	static private inline function get_blue30 ():Color { return new Color(0.3, 0.3, 0.9, 1); }
+	
+	/**
 	 * Creates a new Color instance from a Hexadecimal string representation.
 	 * @param	p_hex
 	 * @return
@@ -299,6 +339,20 @@ class Color
 	 * @return
 	 */
 	public function SetColor(p_color : Color) : Color { r = p_color.r; g = p_color.g; b = p_color.b; a = p_color.a; return this; }
+	
+	/**
+	 * Sets only the RGB channels.
+	 * @param	p_color
+	 * @return
+	 */
+	public function SetRGB(p_color : Color) : Color { r = p_color.r; g = p_color.g; b = p_color.b; return this; }
+	
+	/**
+	 * 
+	 * @param	p_color
+	 * @return
+	 */
+	public function SetAlpha(p_color : Color) : Color { a = p_color.a; return this; }
 	
 	/**
 	 * Returns one of its coordinates indexed by an integer where 0 == x, 1 == y and 2 == z.

@@ -163,6 +163,10 @@ class MaterialContext
 	 */
 	public var cull : Int;
 	
+	/**
+	 * Flag that indicates if point smoothing is activated.
+	 */
+	public var pointSmooth : Bool;
 	
 	/**
 	 * Creates the Mesh context to handle internal structures.
@@ -182,6 +186,7 @@ class MaterialContext
 		blendDst        = BlendMode.Zero;
 		invert		    = false;
 		cull            = CullMode.Back;
+		pointSmooth		= true;
 		
 		var max_buffers : Int = 512;
 		var max_programs : Int = 1024;
@@ -238,6 +243,18 @@ class MaterialContext
 		//Enables scissor test
 		GL.Enable(GL.SCISSOR_TEST);
 		
+		
+	}
+	
+	/**
+	 * Updates the point smoothing flag.
+	 * @param	p_flag
+	 */
+	private function SetPointSmooth(p_flag : Bool):Void
+	{
+		if (p_flag == pointSmooth) return;
+		pointSmooth = p_flag;
+		//if (pointSmooth) GL.Enable(GL.POINT_SMOOTH); else GL.Disable(GL.POINT_SMOOTH);
 	}
 	
 	/**

@@ -17,7 +17,7 @@ import haxor.core.Enums.InputState;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
-import haxor.core.Stats;
+import haxor.core.RenderStats;
 import haxor.core.Time;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
@@ -203,11 +203,11 @@ class Main extends Application implements IUpdateable implements IRenderable
 		var log : String = "";
 		
 		log += "Stats";
-		log += "\nVisible: " + Stats.visible;
-		log += "\nCulled: " + Stats.culled;
-		log += "\nActive: " + Stats.total;
-		log += "\nRenderers: " + Stats.renderers;
-		log += "\nTris: " + Stats.triangles;
+		log += "\nVisible: " + RenderStats.visible;
+		log += "\nCulled: " + RenderStats.culled;
+		log += "\nActive: " + RenderStats.total;
+		log += "\nRenderers: " + RenderStats.renderers;
+		log += "\nTris: " + RenderStats.triangles;
 		
 		if (player != null)
 		{
@@ -232,9 +232,50 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 	}
 	
+	var pl : Array<Vector4>;
+	
 	public function OnRender():Void
 	{			
-		Gizmo.Grid(100.0,new Color(1,1,1,0.1));
+		Gizmo.Grid(100.0, new Color(1, 1, 1, 0.1));
+		
+		/*
+		for (i in 0...10)
+		for (j in 0...10)
+		for (k in 0...10)		
+		{
+			Gizmo.Axis(new Vector3(i,k,j), new Vector3(1.0,1.0,1.0), Color.temp.Set(1,1,1,1.0));
+		}
+		/**/
+		
+		if (pl == null)
+		{
+			pl = [];
+			for (i in 0...5000)
+			{
+				var pt : Vector4 = new Vector4();
+				pt.Set3(Random.sphere.Scale(25.0));
+				pt.w = Random.Range(1.0, 10.0);
+				pl.push(pt);
+			}
+		}
+		
+		for (i in 0...pl.length)
+		{
+			Gizmo.Point(pl[i].xyz, pl[i].w, Color.temp.Set(0, 0, 0, 0.25).SetRGB(Color.red30), true);
+			Gizmo.WireCube(pl[i].xyz, Vector3.temp.Set(1, 1, 1).Scale(0.5), Color.temp.Set(0, 0, 0, 0.5).SetRGB(Color.green30));
+			Gizmo.WireSphere(pl[i].xyz, 1.0, Color.temp.Set(0, 0, 0, 0.5).SetRGB(Color.blue30));
+		}
+		
+		
+		
+		/*				
+		Gizmo.WireSphere(1.0, Color.red);
+		Gizmo.WireSphere(0.5, Color.green);
+		Gizmo.WireSphere(0.1, Color.blue);
+		Gizmo.WireSphere(1.0, Color.red);
+		Gizmo.WireSphere(0.5, Color.green);
+		Gizmo.WireSphere(0.1, Color.blue);
+		//*/
 		//Gizmo.Axis(50.0);
 		
 	}

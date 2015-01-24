@@ -1,11 +1,12 @@
 package haxor.context;
 import haxor.core.Console;
 import haxor.core.Enums.MeshPrimitive;
-import haxor.core.Stats;
+import haxor.core.RenderStats;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.mesh.Mesh.MeshAttrib;
 import haxor.io.FloatArray;
 import haxor.graphics.GL;
+import haxor.math.Mathf;
 import haxor.platform.Types.MeshBufferId;
 
 /**
@@ -125,7 +126,7 @@ class MeshContext
 				loc = EngineContext.material.GetAttribLocation(a); 
 				if (loc < 0) continue; 
 			}
-			type = GL.FLOAT; //TODO: GL.FIXED	
+			type = GL.FLOAT; //TODO: Include GL.FIXED	
 			
 			if (!activated[loc])
 			{
@@ -157,6 +158,10 @@ class MeshContext
 	private function Unbind():Void
 	{	
 		//DisableAttribArray
+		
+		//We can expect that future meshes will overwrite things.
+		//So we can keep they activated.
+		
 		/*
 		for (i in 0...10)
 		{
@@ -178,7 +183,7 @@ class MeshContext
 			GL.DrawElements(m.primitive, m.m_topology_attrib.data.length, GL.UNSIGNED_SHORT, 0);
 			
 			#if profile
-			Stats.triangles += cast(m.m_topology_attrib.data.length / 3);
+			RenderStats.triangles += cast Mathf.Floor(m.m_topology_attrib.data.length / 3);
 			#end
 			
 			#if gldebug
@@ -192,8 +197,9 @@ class MeshContext
 			
 			#if profile
 			var off : Int = 3;
-			if (m.primitive == MeshPrimitive.Lines) off = 2;			
-			Stats.triangles += cast (m.m_vcount/off);
+			if (m.primitive == MeshPrimitive.Lines)  off = 2;
+			if (m.primitive == MeshPrimitive.Points) off = 1;
+			RenderStats.triangles += cast Mathf.Floor(m.m_vcount / off);
 			#end
 			
 			#if gldebug

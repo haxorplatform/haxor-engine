@@ -541,8 +541,7 @@ class TransformGizmo extends GizmoRenderer
 	override public function OnRender():Void 
 	{
 		material.SetUniform("Size",size);		
-		Graphics.Render(Camera.current, transform, m_mesh, material);
-		
+		Graphics.Render(Camera.current, transform, m_mesh, material);		
 	}
 }
 

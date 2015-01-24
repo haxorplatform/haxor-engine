@@ -217,6 +217,7 @@ class Mesh extends Resource
 			var c: Int = m_attribs[i].count;
 			m_vcount = m_vcount < c ? m_vcount : c;			
 		}	
+		//Console.Log("Mesh> Set attrib[" + a.name+"] offset["+a.offset+"]",5);
 		EngineContext.mesh.UpdateAttrib(a, m_mode, false);
 		return a;
 	}

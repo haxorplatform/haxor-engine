@@ -14,7 +14,7 @@ import haxor.core.Enums.InputState;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
-import haxor.core.Stats;
+import haxor.core.RenderStats;
 import haxor.core.Time;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
@@ -189,11 +189,11 @@ class Main extends Application implements IUpdateable implements IRenderable
 		var log : String = "";
 		
 		log += "Stats";
-		log += "\nVisible: " + Stats.visible;
-		log += "\nCulled: " + Stats.culled;
-		log += "\nActive: " + Stats.total;
-		log += "\nRenderers: " + Stats.renderers;
-		log += "\nTris: " + Stats.triangles;
+		log += "\nVisible: " + RenderStats.visible;
+		log += "\nCulled: " + RenderStats.culled;
+		log += "\nActive: " + RenderStats.total;
+		log += "\nRenderers: " + RenderStats.renderers;
+		log += "\nTris: " + RenderStats.triangles;
 		
 		if (player != null)
 		{

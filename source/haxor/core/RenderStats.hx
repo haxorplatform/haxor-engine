@@ -6,7 +6,7 @@ import haxor.context.EngineContext;
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 @:allow(haxor)
-class Stats
+class RenderStats
 {
 	/**
 	 * Visible renderers.

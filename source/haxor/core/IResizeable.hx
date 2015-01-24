@@ -9,7 +9,7 @@ interface IResizeable
 {
 
 	/**
-	 * 
+	 * Resize callback.
 	 * @param	p_width
 	 * @param	p_height
 	 */

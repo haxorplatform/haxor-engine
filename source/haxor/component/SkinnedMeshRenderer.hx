@@ -1,4 +1,5 @@
 package haxor.component;
+import haxor.context.EngineContext;
 import haxor.core.Enums.PixelFormat;
 import haxor.graphics.Graphics;
 import haxor.graphics.mesh.MeshLayout.SkinnedMesh3;
@@ -77,9 +78,11 @@ class SkinnedMeshRenderer extends MeshRenderer
 		
 		super.OnRender();
 		
+		
 		var sh : Float = Screen.height;
 		var th : Float = 2048.0;// sh * 0.9;		
-		Graphics.DrawTexture(m_data,0,th+105,256,-th);
+		Graphics.DrawTexture(m_data,0,th+105,256,-th);		
+		//*/
 		//Graphics.DrawTexture(m_data,0,105,256,th);
 	}
 	

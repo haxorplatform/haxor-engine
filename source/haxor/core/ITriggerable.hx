@@ -1,26 +1,29 @@
-/*
-HAXOR HTML5 ENGINE (c) 2013 - 2014 by Eduardo Pons - eduardo@thelaborat.org
-
-HAXOR HTML5 ENGINE is licensed under a
-Creative Commons Attribution-NoDerivs 3.0 Unported License.
-
-You should have received a copy of the license along with this
-work.  If not, see <http://creativecommons.org/licenses/by-nd/3.0/>.
- */
 package haxor.core;
 import haxor.physics.Collider;
 
 /**
- * ...
+ * Interface that describes an object that has trigger behaviour.
  * @author Eduardo Pons
  */
 interface ITriggerable
 {
 
+	/**
+	 * Callback called when the object entered a trigger.
+	 * @param	c
+	 */
 	public function OnTriggerEnter(c:Collider):Void;
 	
+	/**
+	 * Callback called when the object exited the trigger.
+	 * @param	c
+	 */
 	public function OnTriggerExit(c:Collider):Void;
 	
+	/**
+	 * Callback called when the object is inside the trigger.
+	 * @param	c
+	 */
 	public function OnTriggerStay(c:Collider):Void;
 	
 	

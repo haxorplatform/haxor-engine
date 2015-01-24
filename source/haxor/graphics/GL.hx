@@ -332,7 +332,6 @@ class GL
 	static public inline var VERTEX_SHADER : Int = 0x8B31;
 	static public inline var VIEWPORT : Int = 0x0BA2;
 	static public inline var ZERO : Int = 0;
-
 		
 	/**
 	 * Flag that indicates that the platform supports VAOs.

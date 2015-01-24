@@ -177,7 +177,7 @@ class ShaderContext
 	/**
 	 * Grid gizmo shader.
 	 */
-	static private var gizmo_source : String = 
+	static private var grid_source : String = 
 	'
 	<shader id="haxor/gizmo/Grid">	
 		<vertex>		
@@ -248,4 +248,117 @@ class ShaderContext
 		</fragment>	
 	</shader>	
 	';
+	
+	
+	/**
+	 * Gizmos shader.
+	 */
+	static private var gizmo_source : String = 
+	'
+	<shader id="haxor/gizmo/Gizmo">	
+		<vertex>	
+		
+		#define GIZMO_POINT       0
+		#define GIZMO_LINE        1
+		#define GIZMO_AXIS        2
+		#define GIZMO_WIRE_CUBE   3
+		#define GIZMO_WIRE_SPHERE 4
+		
+		
+		
+				mat4         WorldMatrix;
+		uniform mat4  		 ViewMatrix;
+		uniform mat4  		 ProjectionMatrix;				
+		uniform int   		 Count;
+		uniform int   		 Type;		
+		uniform sampler2D 	 Data;
+		uniform int  		 DataSize;
+				vec4		 DataColor;
+				vec4		 DataA;
+				vec4		 DataB;
+		
+		attribute float id;
+		attribute vec3 vertex;		
+		attribute vec4 color;
+		
+		varying vec4 v_color;
+		
+		vec4 GetPixel(float p_pix,float p_ds,float p_ids)
+		{			
+			float px = mod(p_pix, p_ds) * p_ids;
+			float py = (p_pix * p_ids) * p_ids;
+			return texture2D(Data, vec2(px,py));
+		}
+		
+		void main(void) 
+		{	
+			if (id >= float(Count)) 
+			{
+				gl_Position = vec4( -2.0, 0.0, 0.0, 1.0);
+				return; 
+			}			
+			float p  	= id * 6.0;
+			float ds	= float(DataSize);
+			float ids	= 1.0 / ds;			
+			DataColor 	= GetPixel(p,ds,ids);
+			DataA 		= GetPixel(p + 1.0,ds,ids);
+			DataB 		= GetPixel(p + 2.0,ds,ids);			
+			vec4 l0 	= GetPixel(p + 3.0,ds,ids);
+			vec4 l1 	= GetPixel(p + 4.0,ds,ids);
+			vec4 l2 	= GetPixel(p + 5.0,ds,ids);	
+			vec4 v		= vec4(vertex, 1.0);
+			WorldMatrix = mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);
+			
+			if (Type == GIZMO_POINT)
+			{	
+				vec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;				
+				v.xyz += DataB.xyz;
+				gl_PointSize = DataA.x * (ncp.z / ncp.w);				
+				gl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;
+			}
+			else
+			if (Type == GIZMO_LINE)
+			{
+				float r = v.x;
+				v.xyz = DataA.xyz + (DataB.xyz - DataA.xyz) * r;
+				gl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;
+			}
+			else
+			if (Type == GIZMO_AXIS)
+			{		
+				float sx   = length(vec3(WorldMatrix[0][0],WorldMatrix[1][0],WorldMatrix[2][0]));
+				float sy   = length(vec3(WorldMatrix[0][1],WorldMatrix[1][1],WorldMatrix[2][1]));
+				float sz   = length(vec3(WorldMatrix[0][2],WorldMatrix[1][2],WorldMatrix[2][2]));				
+				vec3 scale = vec3(sx, sy, sz);				
+				vec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;				
+				v.xyz *= (DataA.xyz / scale.xyz) * ncp.w * 0.025;
+				v.xyz += DataB.xyz;
+				gl_Position  = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;				
+			}
+			else
+			if (Type == GIZMO_WIRE_CUBE)
+			{
+				v.xyz *= DataA.xyz;
+				v.xyz += DataB.xyz;
+				gl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;
+			}
+			else
+			if (Type == GIZMO_WIRE_SPHERE)
+			{
+				v.xyz *= DataA.x;
+				v.xyz += DataB.xyz;
+				gl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;
+			}
+			
+							
+			v_color = DataColor * color;
+		}		
+		</vertex>		
+		<fragment>			
+			varying vec4 v_color;			
+			void main(void) { gl_FragColor = v_color; }
+		</fragment>	
+	</shader>	
+	';
+	
 }

@@ -6,8 +6,9 @@ package haxor.core;
  */
 interface IRenderable
 {
-
-	public function OnRender():Void;
-	
+	/**
+	 * Rendering method.
+	 */
+	public function OnRender():Void;	
 	
 }

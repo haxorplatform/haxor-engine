@@ -11,7 +11,7 @@ import haxor.core.IResizeable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
 import haxor.component.Renderer;
-import haxor.core.Stats;
+import haxor.core.RenderStats;
 
 
 

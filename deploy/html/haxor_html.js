@@ -431,11 +431,11 @@ Main.prototype = $extend(haxor_core_Application.prototype,{
 	,OnUpdate: function() {
 		var log = "";
 		log += "Stats";
-		log += "\nVisible: " + haxor_core_Stats.visible;
-		log += "\nCulled: " + haxor_core_Stats.culled;
-		log += "\nActive: " + haxor_core_Stats.get_total();
-		log += "\nRenderers: " + haxor_core_Stats.renderers;
-		log += "\nTris: " + haxor_core_Stats.triangles;
+		log += "\nVisible: " + haxor_core_RenderStats.visible;
+		log += "\nCulled: " + haxor_core_RenderStats.culled;
+		log += "\nActive: " + haxor_core_RenderStats.get_total();
+		log += "\nRenderers: " + haxor_core_RenderStats.renderers;
+		log += "\nTris: " + haxor_core_RenderStats.triangles;
 		if(this.player != null) {
 			var r = this.player.get_localRotation();
 			r = haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),33.0);
@@ -445,6 +445,25 @@ Main.prototype = $extend(haxor_core_Application.prototype,{
 	}
 	,OnRender: function() {
 		haxor_graphics_Gizmo.Grid(100.0,new haxor_math_Color(1,1,1,0.1));
+		if(this.pl == null) {
+			this.pl = [];
+			var _g = 0;
+			while(_g < 5000) {
+				var i = _g++;
+				var pt = new haxor_math_Vector4();
+				pt.Set3(new haxor_math_Vector3((Math.random() - 0.499995) * 2.0,(Math.random() - 0.499995) * 2.0,(Math.random() - 0.499995) * 2.0).Normalize().Scale(Math.random()).Scale(25.0));
+				pt.w = haxor_math_Random.Range(1.0,10.0);
+				this.pl.push(pt);
+			}
+		}
+		var _g1 = 0;
+		var _g2 = this.pl.length;
+		while(_g1 < _g2) {
+			var i1 = _g1++;
+			haxor_graphics_Gizmo.Point(this.pl[i1].get_xyz(),this.pl[i1].w,haxor_context_EngineContext.data.get_c().Set(0,0,0,0.25).SetRGB(new haxor_math_Color(0.9,0.3,0.3,1)),true);
+			haxor_graphics_Gizmo.WireCube(this.pl[i1].get_xyz(),haxor_context_EngineContext.data.get_v3().Set(1,1,1).Scale(0.5),haxor_context_EngineContext.data.get_c().Set(0,0,0,0.5).SetRGB(new haxor_math_Color(0.3,0.9,0.3,1)));
+			haxor_graphics_Gizmo.WireSphere(this.pl[i1].get_xyz(),1.0,haxor_context_EngineContext.data.get_c().Set(0,0,0,0.5).SetRGB(new haxor_math_Color(0.3,0.3,0.9,1)));
+		}
 	}
 	,__class__: Main
 });
@@ -3310,7 +3329,7 @@ var haxor_math_Color = function(p_r,p_g,p_b,p_a) {
 };
 $hxClasses["haxor.math.Color"] = haxor_math_Color;
 haxor_math_Color.__name__ = ["haxor","math","Color"];
-haxor_math_Color.__properties__ = {get_gray90:"get_gray90",get_gray75:"get_gray75",get_gray50:"get_gray50",get_gray25:"get_gray25",get_gray10:"get_gray10",get_empty:"get_empty",get_white:"get_white",get_black:"get_black",get_magenta:"get_magenta",get_blue:"get_blue",get_cyan:"get_cyan",get_green:"get_green",get_yellow:"get_yellow",get_red:"get_red",get_temp:"get_temp"}
+haxor_math_Color.__properties__ = {get_blue30:"get_blue30",get_green30:"get_green30",get_red30:"get_red30",get_magenta50:"get_magenta50",get_yellow50:"get_yellow50",get_blue50:"get_blue50",get_green50:"get_green50",get_red50:"get_red50",get_gray90:"get_gray90",get_gray75:"get_gray75",get_gray50:"get_gray50",get_gray25:"get_gray25",get_gray10:"get_gray10",get_empty:"get_empty",get_white:"get_white",get_black:"get_black",get_magenta:"get_magenta",get_blue:"get_blue",get_cyan:"get_cyan",get_green:"get_green",get_yellow:"get_yellow",get_red:"get_red",get_temp:"get_temp"}
 haxor_math_Color.get_temp = function() {
 	return haxor_context_EngineContext.data.get_c();
 };
@@ -3355,6 +3374,30 @@ haxor_math_Color.get_gray75 = function() {
 };
 haxor_math_Color.get_gray90 = function() {
 	return new haxor_math_Color(0.9,0.9,0.9,1);
+};
+haxor_math_Color.get_red50 = function() {
+	return new haxor_math_Color(0.9,0.5,0.5,1);
+};
+haxor_math_Color.get_green50 = function() {
+	return new haxor_math_Color(0.5,0.9,0.5,1);
+};
+haxor_math_Color.get_blue50 = function() {
+	return new haxor_math_Color(0.5,0.5,0.9,1);
+};
+haxor_math_Color.get_yellow50 = function() {
+	return new haxor_math_Color(0.9,0.9,0.5,1);
+};
+haxor_math_Color.get_magenta50 = function() {
+	return new haxor_math_Color(0.9,0.5,0.9,1);
+};
+haxor_math_Color.get_red30 = function() {
+	return new haxor_math_Color(0.9,0.3,0.3,1);
+};
+haxor_math_Color.get_green30 = function() {
+	return new haxor_math_Color(0.3,0.9,0.3,1);
+};
+haxor_math_Color.get_blue30 = function() {
+	return new haxor_math_Color(0.3,0.3,0.9,1);
 };
 haxor_math_Color.FromHex = function(p_hex) {
 	var c = new haxor_math_Color();
@@ -3473,6 +3516,16 @@ haxor_math_Color.prototype = {
 		this.r = p_color.r;
 		this.g = p_color.g;
 		this.b = p_color.b;
+		this.a = p_color.a;
+		return this;
+	}
+	,SetRGB: function(p_color) {
+		this.r = p_color.r;
+		this.g = p_color.g;
+		this.b = p_color.b;
+		return this;
+	}
+	,SetAlpha: function(p_color) {
 		this.a = p_color.a;
 		return this;
 	}
@@ -3865,7 +3918,7 @@ haxor_context_GizmoContext.prototype = {
 	Initialize: function() {
 		var mat;
 		mat = this.gizmo_material = new haxor_graphics_material_Material("$GizmoMaterial");
-		mat.set_shader(new haxor_graphics_material_Shader(haxor_context_ShaderContext.gizmo_source));
+		mat.set_shader(new haxor_graphics_material_Shader(haxor_context_ShaderContext.grid_source));
 		mat.blend = true;
 		mat.SetBlending(770,771);
 		mat.SetFloat("Area",1000.0);
@@ -3883,6 +3936,11 @@ haxor_context_GizmoContext.prototype = {
 		this.CreateAxis();
 		this.CreateGrid(100.0);
 		this.CreateTextureQuad();
+		this.wire_sphere_renderer = new haxor_context_WireSphereGizmo();
+		this.wire_cube_renderer = new haxor_context_WireCubeGizmo();
+		this.axis_renderer = new haxor_context_AxisGizmo();
+		this.line_renderer = new haxor_context_LineGizmo();
+		this.point_renderer = new haxor_context_PointGizmo();
 	}
 	,CreateTextureQuad: function() {
 		var m = this.texture = new haxor_graphics_mesh_Mesh("$TextureQuad");
@@ -3987,13 +4045,1189 @@ haxor_context_GizmoContext.prototype = {
 		if(p_color != null) this.gizmo_material.SetFloat4("Tint",p_color.r,p_color.g,p_color.b,p_color.a);
 		haxor_graphics_Graphics.Render(this.grid,this.gizmo_material,null,haxor_component_Camera.m_main);
 	}
-	,DrawAxis: function(p_area) {
-		this.gizmo_material.SetFloat("Area",p_area);
-		this.gizmo_material.SetColor("Tint",haxor_context_EngineContext.data.get_c().Set(1,1,1,1));
-		haxor_graphics_Graphics.Render(this.axis,this.gizmo_material,null,haxor_component_Camera.m_main);
+	,DrawWireSphere: function(p_position,p_radius,p_color,p_transform) {
+		this.wire_sphere_renderer.Push(p_color,haxor_context_EngineContext.data.get_v4().Set(p_radius,p_radius,p_radius,1.0),haxor_context_EngineContext.data.get_v4().Set3(p_position),p_transform);
+	}
+	,DrawWireCube: function(p_position,p_size,p_color,p_transform) {
+		this.wire_cube_renderer.Push(p_color,haxor_context_EngineContext.data.get_v4().Set3(p_size),haxor_context_EngineContext.data.get_v4().Set3(p_position),p_transform);
+	}
+	,DrawAxis: function(p_position,p_size,p_color,p_transform) {
+		this.axis_renderer.Push(p_color,haxor_context_EngineContext.data.get_v4().Set3(p_size),haxor_context_EngineContext.data.get_v4().Set3(p_position),p_transform);
+	}
+	,DrawLine: function(p_from,p_to,p_color,p_transform) {
+		this.line_renderer.Push(p_color,haxor_context_EngineContext.data.get_v4().Set3(p_from),haxor_context_EngineContext.data.get_v4().Set3(p_to),p_transform);
+	}
+	,DrawPoint: function(p_position,p_size,p_color,p_smooth,p_transform) {
+		this.point_renderer.Push(p_color,haxor_context_EngineContext.data.get_v4().Set(p_size,p_smooth?1.0:0.0,0.0,0.0),haxor_context_EngineContext.data.get_v4().Set3(p_position),p_transform);
+	}
+	,Render: function() {
+		var gr;
+		gr = this.wire_sphere_renderer;
+		gr.Render();
+		gr.Clear();
+		gr = this.wire_cube_renderer;
+		gr.Render();
+		gr.Clear();
+		gr = this.axis_renderer;
+		gr.Render();
+		gr.Clear();
+		gr = this.line_renderer;
+		gr.Render();
+		gr.Clear();
+		gr = this.point_renderer;
+		gr.Render();
+		gr.Clear();
 	}
 	,__class__: haxor_context_GizmoContext
 };
+var haxor_math_Matrix4 = function(p_m00,p_m01,p_m02,p_m03,p_m10,p_m11,p_m12,p_m13,p_m20,p_m21,p_m22,p_m23,p_m30,p_m31,p_m32,p_m33) {
+	if(p_m33 == null) p_m33 = 0;
+	if(p_m32 == null) p_m32 = 0;
+	if(p_m31 == null) p_m31 = 0;
+	if(p_m30 == null) p_m30 = 0;
+	if(p_m23 == null) p_m23 = 0;
+	if(p_m22 == null) p_m22 = 0;
+	if(p_m21 == null) p_m21 = 0;
+	if(p_m20 == null) p_m20 = 0;
+	if(p_m13 == null) p_m13 = 0;
+	if(p_m12 == null) p_m12 = 0;
+	if(p_m11 == null) p_m11 = 0;
+	if(p_m10 == null) p_m10 = 0;
+	if(p_m03 == null) p_m03 = 0;
+	if(p_m02 == null) p_m02 = 0;
+	if(p_m01 == null) p_m01 = 0;
+	if(p_m00 == null) p_m00 = 0;
+	this.m00 = p_m00;
+	this.m01 = p_m01;
+	this.m02 = p_m02;
+	this.m03 = p_m03;
+	this.m10 = p_m10;
+	this.m11 = p_m11;
+	this.m12 = p_m12;
+	this.m13 = p_m13;
+	this.m20 = p_m20;
+	this.m21 = p_m21;
+	this.m22 = p_m22;
+	this.m23 = p_m23;
+	this.m30 = p_m30;
+	this.m31 = p_m31;
+	this.m32 = p_m32;
+	this.m33 = p_m33;
+};
+$hxClasses["haxor.math.Matrix4"] = haxor_math_Matrix4;
+haxor_math_Matrix4.__name__ = ["haxor","math","Matrix4"];
+haxor_math_Matrix4.__properties__ = {get_identity:"get_identity",get_temp:"get_temp"}
+haxor_math_Matrix4.get_temp = function() {
+	return haxor_context_EngineContext.data.get_m4();
+};
+haxor_math_Matrix4.get_identity = function() {
+	return new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+};
+haxor_math_Matrix4.FromQuaternion = function(p_quaternion,p_result) {
+	var m;
+	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
+	var q = p_quaternion;
+	var x2 = q.x * q.x;
+	var y2 = q.y * q.y;
+	var z2 = q.z * q.z;
+	var xy = q.x * q.y;
+	var xz = q.x * q.z;
+	var yz = q.y * q.z;
+	var xw = q.w * q.x;
+	var yw = q.w * q.y;
+	var zw = q.w * q.z;
+	m.m00 = 1.0 - 2.0 * (y2 + z2);
+	m.m01 = 2.0 * (xy - zw);
+	m.m02 = 2.0 * (xz + yw);
+	m.m10 = 2.0 * (xy + zw);
+	m.m11 = 1.0 - 2.0 * (x2 + z2);
+	m.m12 = 2.0 * (yz - xw);
+	m.m20 = 2.0 * (xz - yw);
+	m.m21 = 2.0 * (yz + xw);
+	m.m22 = 1.0 - 2.0 * (x2 + y2);
+	m.m30 = m.m31 = m.m32 = 0.0;
+	m.m33 = 1.0;
+	return m;
+};
+haxor_math_Matrix4.FromArray = function(p_array,p_result) {
+	var res;
+	if(p_result == null) res = new haxor_math_Matrix4(); else res = p_result;
+	var _g1 = 0;
+	var _g = p_array.length;
+	while(_g1 < _g) {
+		var i = _g1++;
+		res.SetIndex(i,p_array[i]);
+	}
+	return res;
+};
+haxor_math_Matrix4.TRS = function(p_position,p_rotation,p_scale,p_result) {
+	var sx;
+	if(p_scale == null) sx = 1.0; else sx = p_scale.x;
+	var sy;
+	if(p_scale == null) sy = 1.0; else sy = p_scale.y;
+	var sz;
+	if(p_scale == null) sz = 1.0; else sz = p_scale.z;
+	var px = p_position.x;
+	var py = p_position.y;
+	var pz = p_position.z;
+	var r = haxor_context_EngineContext.data.get_m4();
+	haxor_math_Matrix4.FromQuaternion(p_rotation,r);
+	var l;
+	if(p_result == null) l = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1); else l = p_result;
+	l.m00 = r.m00 * sx;
+	l.m01 = r.m01 * sy;
+	l.m02 = r.m02 * sz;
+	l.m03 = px;
+	l.m10 = r.m10 * sx;
+	l.m11 = r.m11 * sy;
+	l.m12 = r.m12 * sz;
+	l.m13 = py;
+	l.m20 = r.m20 * sx;
+	l.m21 = r.m21 * sy;
+	l.m22 = r.m22 * sz;
+	l.m23 = pz;
+	l.m30 = l.m31 = l.m32 = 0.0;
+	l.m33 = 1.0;
+	return l;
+};
+haxor_math_Matrix4.Frustum = function(p_left,p_right,p_top,p_bottom,p_near,p_far,p_result) {
+	var m;
+	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
+	var n2 = p_near * 2.0;
+	var rml = 1.0 / (p_right - p_left);
+	var tmb = 1.0 / (p_top - p_bottom);
+	var fmn = 1.0 / (p_far - p_near);
+	m.m00 = n2 * rml;
+	m.m01 = 0.0;
+	m.m02 = (p_right + p_left) * rml;
+	m.m03 = 0.0;
+	m.m10 = 0.0;
+	m.m11 = n2 * tmb;
+	m.m12 = (p_top + p_bottom) * tmb;
+	m.m13 = 0.0;
+	m.m20 = 0.0;
+	m.m21 = 0.0;
+	m.m22 = -(p_near + p_far) * fmn;
+	m.m23 = -n2 * p_far * fmn;
+	m.m30 = 0.0;
+	m.m31 = 0.0;
+	m.m32 = -1.0;
+	m.m33 = 0;
+	return m;
+};
+haxor_math_Matrix4.FrustumInverse = function(p_left,p_right,p_top,p_bottom,p_near,p_far,p_result) {
+	var m;
+	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
+	var n2 = p_near * 2.0;
+	var rml = p_right - p_left;
+	var tmb = p_top - p_bottom;
+	var fmn = p_far - p_near;
+	m.m00 = rml / n2;
+	m.m01 = 0.0;
+	m.m02 = 0.0;
+	m.m03 = (p_right + p_left) / n2;
+	m.m10 = 0.0;
+	m.m11 = tmb / n2;
+	m.m12 = 0.0;
+	m.m13 = (p_top + p_bottom) / n2;
+	m.m20 = 0.0;
+	m.m21 = 0.0;
+	m.m22 = 0.0;
+	m.m23 = -1.0;
+	m.m30 = 0.0;
+	m.m31 = 0.0;
+	m.m32 = fmn / (-n2 * p_far);
+	m.m33 = (p_far + p_near) / (n2 * p_far);
+	return m;
+};
+haxor_math_Matrix4.Ortho = function(p_left,p_right,p_top,p_bottom,p_near,p_far,p_result) {
+	var m;
+	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
+	var n2 = p_near * 2.0;
+	var rml = 1.0 / (p_right - p_left);
+	var tmb = 1.0 / (p_top - p_bottom);
+	var fmn = 1.0 / (p_far - p_near);
+	m.m00 = 2.0 * rml;
+	m.m01 = 0.0;
+	m.m02 = 0.0;
+	m.m03 = -(p_right + p_left) * rml;
+	m.m10 = 0.0;
+	m.m11 = 2.0 * tmb;
+	m.m12 = 0.0;
+	m.m13 = -(p_top + p_bottom) * tmb;
+	m.m20 = 0.0;
+	m.m21 = 0.0;
+	m.m22 = -2. * fmn;
+	m.m23 = -(p_far + p_near) * fmn;
+	m.m30 = 0.0;
+	m.m31 = 0.0;
+	m.m32 = 0.0;
+	m.m33 = 1.0;
+	return m;
+};
+haxor_math_Matrix4.OrthoInverse = function(p_left,p_right,p_top,p_bottom,p_near,p_far,p_result) {
+	var m = haxor_context_EngineContext.data.get_m4().SetOrtho(p_left,p_right,p_top,p_bottom,p_near,p_far);
+	return haxor_math_Matrix4.GetInverseTransform(m,p_result);
+};
+haxor_math_Matrix4.Perspective = function(p_fov,p_aspect,p_near,p_far,p_result) {
+	var t = Math.tan(p_fov * 0.5 * 0.01745329251994329576923690768489) * p_near;
+	var b = -t;
+	var l = p_aspect * b;
+	var r = p_aspect * t;
+	return haxor_math_Matrix4.Frustum(l,r,t,b,p_near,p_far,p_result);
+};
+haxor_math_Matrix4.PerspectiveInverse = function(p_fov,p_aspect,p_near,p_far,p_result) {
+	var t = Math.tan(p_fov * 0.5 * 0.01745329251994329576923690768489) * p_near;
+	var b = -t;
+	var l = p_aspect * b;
+	var r = p_aspect * t;
+	return haxor_math_Matrix4.FrustumInverse(l,r,t,b,p_near,p_far,p_result);
+};
+haxor_math_Matrix4.GetRotation = function(p_matrix4,p_result) {
+	var m;
+	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
+	var tmp = haxor_context_EngineContext.data.get_v3();
+	tmp.Set(m.m00,m.m01,m.m02).Normalize();
+	m.m00 = tmp.x;
+	m.m01 = tmp.y;
+	m.m02 = tmp.z;
+	m.m03 = 0.0;
+	tmp.Set(m.m10,m.m11,m.m12).Normalize();
+	m.m10 = tmp.x;
+	m.m11 = tmp.y;
+	m.m12 = tmp.z;
+	m.m13 = 0.0;
+	tmp.Set(m.m20,m.m21,m.m22).Normalize();
+	m.m20 = tmp.x;
+	m.m21 = tmp.y;
+	m.m22 = tmp.z;
+	m.m23 = 0.0;
+	m.m30 = m.m31 = m.m32 = 0.0;
+	m.m33 = 1.0;
+	return m;
+};
+haxor_math_Matrix4.GetInverseTransform = function(p_matrix,p_result) {
+	var result;
+	if(p_result == null) result = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1); else result = p_result;
+	var m = p_matrix;
+	var l0x = m.m00;
+	var l0y = m.m01;
+	var l0z = m.m02;
+	var l0w = m.m03;
+	var l1x = m.m10;
+	var l1y = m.m11;
+	var l1z = m.m12;
+	var l1w = m.m13;
+	var l2x = m.m20;
+	var l2y = m.m21;
+	var l2z = m.m22;
+	var l2w = m.m23;
+	var vl0 = Math.sqrt(l0x * l0x + l1x * l1x + l2x * l2x);
+	var vl1 = Math.sqrt(l0y * l0y + l1y * l1y + l2y * l2y);
+	var vl2 = Math.sqrt(l0z * l0z + l1z * l1z + l2z * l2z);
+	var sx;
+	if((vl0 < 0?-vl0:vl0) <= 0.0001) sx = 0.0; else sx = 1.0 / vl0;
+	var sy;
+	if((vl1 < 0?-vl1:vl1) <= 0.0001) sy = 0.0; else sy = 1.0 / vl1;
+	var sz;
+	if((vl2 < 0?-vl2:vl2) <= 0.0001) sz = 0.0; else sz = 1.0 / vl2;
+	l0x *= sx;
+	l0y *= sy;
+	l0z *= sz;
+	l1x *= sx;
+	l1y *= sy;
+	l1z *= sz;
+	l2x *= sx;
+	l2y *= sy;
+	l2z *= sz;
+	result.Set(sx * l0x,sx * l1x,sx * l2x,sx * (l0x * -l0w + l1x * -l1w + l2x * -l2w),sy * l0y,sy * l1y,sy * l2y,sy * (l0y * -l0w + l1y * -l1w + l2y * -l2w),sz * l0z,sz * l1z,sz * l2z,sz * (l0z * -l0w + l1z * -l1w + l2z * -l2w),0,0,0,1);
+	return result;
+};
+haxor_math_Matrix4.LookRotation = function(p_forward,p_up,p_result) {
+	return haxor_math_Matrix4.LookAt(haxor_context_EngineContext.data.get_v3().Set(0,0,0),p_forward,p_up,p_result);
+};
+haxor_math_Matrix4.LookAt = function(p_eye,p_at,p_up,p_result) {
+	if(p_result == null) p_result = new haxor_math_Matrix4(); else p_result = p_result;
+	if(p_up == null) p_up = haxor_context_EngineContext.data.get_v3().Set(0,1,0); else p_up = p_up;
+	var f = haxor_context_EngineContext.data.get_v3().Set3(p_at).Sub(p_eye).Normalize();
+	var s = haxor_math_Vector3.Cross(f,p_up,haxor_context_EngineContext.data.get_v3()).Normalize();
+	var u = haxor_math_Vector3.Cross(s,f,haxor_context_EngineContext.data.get_v3());
+	p_result.m00 = s.x;
+	p_result.m10 = s.y;
+	p_result.m20 = s.z;
+	p_result.m01 = u.x;
+	p_result.m11 = u.y;
+	p_result.m21 = u.z;
+	p_result.m02 = -f.x;
+	p_result.m12 = -f.y;
+	p_result.m22 = -f.z;
+	p_result.m03 = -(s.x * p_eye.x + s.y * p_eye.y + s.z * p_eye.z);
+	p_result.m13 = -(u.x * p_eye.x + u.y * p_eye.y + u.z * p_eye.z);
+	p_result.m23 = f.x * p_eye.x + f.y * p_eye.y + f.z * p_eye.z;
+	p_result.m30 = p_result.m31 = p_result.m32 = 0.0;
+	p_result.m33 = 1.0;
+	return p_result;
+};
+haxor_math_Matrix4.Parse = function(p_data,p_delimiter) {
+	if(p_delimiter == null) p_delimiter = " ";
+	var tk = p_data.split(p_delimiter);
+	var res = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+	var _g1 = 0;
+	var _g = tk.length;
+	while(_g1 < _g) {
+		var i = _g1++;
+		var n = Std.parseFloat(StringTools.trim(tk[i]));
+		res.SetIndex(i,n);
+	}
+	return res;
+};
+haxor_math_Matrix4.prototype = {
+	get_clone: function() {
+		return new haxor_math_Matrix4(this.m00,this.m01,this.m02,this.m03,this.m10,this.m11,this.m12,this.m13,this.m20,this.m21,this.m22,this.m23,this.m30,this.m31,this.m32,this.m33);
+	}
+	,get_quaternion: function() {
+		return haxor_math_Quaternion.FromMatrix4(haxor_context_EngineContext.data.get_m4().SetMatrix4(this).ToRotation());
+	}
+	,set_quaternion: function(v) {
+		haxor_math_Matrix4.FromQuaternion(v,this);
+		return v;
+	}
+	,get_trace: function() {
+		return this.m00 + this.m11 + this.m22 + this.m33;
+	}
+	,get_rotation: function() {
+		return new haxor_math_Matrix4(this.m00,this.m01,this.m02,this.m03,this.m10,this.m11,this.m12,this.m13,this.m20,this.m21,this.m22,this.m23,this.m30,this.m31,this.m32,this.m33).ToRotation();
+	}
+	,get_scale: function() {
+		var d0 = Math.sqrt(this.m00 * this.m00 + this.m10 * this.m10 + this.m20 * this.m20);
+		var d1 = Math.sqrt(this.m01 * this.m01 + this.m11 * this.m11 + this.m21 * this.m21);
+		var d2 = Math.sqrt(this.m02 * this.m02 + this.m12 * this.m12 + this.m22 * this.m22);
+		return new haxor_math_Matrix4(d0,0,0,0,0,d1,0,0,0,0,d2,0,0,0,0,1);
+	}
+	,get_translation: function() {
+		return new haxor_math_Matrix4(1,0,0,this.m03,0,1,0,this.m13,0,0,1,this.m23,0,0,0,1);
+	}
+	,get_inverseTransform: function() {
+		var result = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+		var l0 = new haxor_math_Vector3(this.m00,this.m01,this.m02);
+		var l1 = new haxor_math_Vector3(this.m10,this.m11,this.m12);
+		var l2 = new haxor_math_Vector3(this.m20,this.m21,this.m22);
+		var vl0 = Math.sqrt(l0.x * l0.x + l0.y * l0.y + l0.z * l0.z);
+		var vl1 = Math.sqrt(l1.x * l1.x + l1.y * l1.y + l1.z * l1.z);
+		var vl2 = Math.sqrt(l2.x * l2.x + l2.y * l2.y + l2.z * l2.z);
+		var sx;
+		if((vl0 < 0?-vl0:vl0) <= 0.0001) sx = 0.0; else sx = 1.0 / vl0;
+		var sy;
+		if((vl1 < 0?-vl1:vl1) <= 0.0001) sy = 0.0; else sy = 1.0 / vl1;
+		var sz;
+		if((vl2 < 0?-vl2:vl2) <= 0.0001) sz = 0.0; else sz = 1.0 / vl2;
+		l0.x *= sx;
+		l0.y *= sx;
+		l0.z *= sx;
+		l1.x *= sy;
+		l1.y *= sy;
+		l1.z *= sy;
+		l2.x *= sz;
+		l2.y *= sz;
+		l2.z *= sz;
+		result.Set(sx * l0.x,sx * l1.x,sx * l2.x,sx * (l0.x * -this.m03 + l1.x * -this.m13 + l2.x * -this.m23),sy * l0.y,sy * l1.y,sy * l2.y,sy * (l0.y * -this.m03 + l1.y * -this.m13 + l2.y * -this.m23),sz * l0.z,sz * l1.z,sz * l2.z,sz * (l0.z * -this.m03 + l1.z * -this.m13 + l2.z * -this.m23),0,0,0,1);
+		return result;
+	}
+	,get_transposed: function() {
+		return new haxor_math_Matrix4(this.m00,this.m10,this.m20,this.m30,this.m01,this.m11,this.m21,this.m31,this.m02,this.m12,this.m22,this.m32,this.m03,this.m13,this.m23,this.m33);
+	}
+	,ToRowMajor: function() {
+		return [this.m00,this.m01,this.m02,this.m03,this.m10,this.m11,this.m12,this.m13,this.m20,this.m21,this.m22,this.m23,this.m30,this.m31,this.m32,this.m33];
+	}
+	,ToColumnMajor: function() {
+		return [this.m00,this.m10,this.m20,this.m30,this.m01,this.m11,this.m21,this.m31,this.m02,this.m12,this.m22,this.m32,this.m03,this.m13,this.m23,this.m33];
+	}
+	,GetLine: function(p_index,p_result) {
+		if(p_result == null) p_result = new haxor_math_Vector4(); else p_result = p_result;
+		return p_result.Set(this.GetRowCol(p_index,0),this.GetRowCol(p_index,1),this.GetRowCol(p_index,2),this.GetRowCol(p_index,3));
+	}
+	,SetLine: function(p_index,p_x,p_y,p_z,p_w) {
+		switch(p_index) {
+		case 0:
+			this.m00 = p_x;
+			this.m01 = p_y;
+			this.m02 = p_z;
+			this.m03 = p_w;
+			break;
+		case 1:
+			this.m10 = p_x;
+			this.m11 = p_y;
+			this.m12 = p_z;
+			this.m13 = p_w;
+			break;
+		case 2:
+			this.m20 = p_x;
+			this.m21 = p_y;
+			this.m22 = p_z;
+			this.m23 = p_w;
+			break;
+		case 3:
+			this.m30 = p_x;
+			this.m31 = p_y;
+			this.m32 = p_z;
+			this.m33 = p_w;
+			break;
+		}
+	}
+	,GetColumn: function(p_index,p_result) {
+		if(p_result == null) p_result = new haxor_math_Vector4(); else p_result = p_result;
+		return p_result.Set(this.GetRowCol(0,p_index),this.GetRowCol(1,p_index),this.GetRowCol(2,p_index),this.GetRowCol(3,p_index));
+	}
+	,SetColumn: function(p_index,p_x,p_y,p_z,p_w) {
+		switch(p_index) {
+		case 0:
+			this.m00 = p_x;
+			this.m10 = p_y;
+			this.m20 = p_z;
+			this.m30 = p_w;
+			break;
+		case 1:
+			this.m01 = p_x;
+			this.m11 = p_y;
+			this.m21 = p_z;
+			this.m31 = p_w;
+			break;
+		case 2:
+			this.m02 = p_x;
+			this.m12 = p_y;
+			this.m22 = p_z;
+			this.m32 = p_w;
+			break;
+		case 3:
+			this.m03 = p_x;
+			this.m13 = p_y;
+			this.m23 = p_z;
+			this.m33 = p_w;
+			break;
+		}
+	}
+	,get_diagonalLR: function() {
+		return new haxor_math_Vector4(this.m00,this.m11,this.m22,this.m33);
+	}
+	,set_diagonalLR: function(v) {
+		this.m00 = v.x;
+		this.m11 = v.y;
+		this.m22 = v.z;
+		this.m33 = v.w;
+		return v;
+	}
+	,SetIdentity: function() {
+		return this.Set(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+	}
+	,Set: function(p_m00,p_m01,p_m02,p_m03,p_m10,p_m11,p_m12,p_m13,p_m20,p_m21,p_m22,p_m23,p_m30,p_m31,p_m32,p_m33) {
+		if(p_m33 == null) p_m33 = 0;
+		if(p_m32 == null) p_m32 = 0;
+		if(p_m31 == null) p_m31 = 0;
+		if(p_m30 == null) p_m30 = 0;
+		if(p_m23 == null) p_m23 = 0;
+		if(p_m22 == null) p_m22 = 0;
+		if(p_m21 == null) p_m21 = 0;
+		if(p_m20 == null) p_m20 = 0;
+		if(p_m13 == null) p_m13 = 0;
+		if(p_m12 == null) p_m12 = 0;
+		if(p_m11 == null) p_m11 = 0;
+		if(p_m10 == null) p_m10 = 0;
+		if(p_m03 == null) p_m03 = 0;
+		if(p_m02 == null) p_m02 = 0;
+		if(p_m01 == null) p_m01 = 0;
+		if(p_m00 == null) p_m00 = 0;
+		this.m00 = p_m00;
+		this.m01 = p_m01;
+		this.m02 = p_m02;
+		this.m03 = p_m03;
+		this.m10 = p_m10;
+		this.m11 = p_m11;
+		this.m12 = p_m12;
+		this.m13 = p_m13;
+		this.m20 = p_m20;
+		this.m21 = p_m21;
+		this.m22 = p_m22;
+		this.m23 = p_m23;
+		this.m30 = p_m30;
+		this.m31 = p_m31;
+		this.m32 = p_m32;
+		this.m33 = p_m33;
+		return this;
+	}
+	,SetMatrix4: function(p_matrix) {
+		this.m00 = p_matrix.m00;
+		this.m01 = p_matrix.m01;
+		this.m02 = p_matrix.m02;
+		this.m03 = p_matrix.m03;
+		this.m10 = p_matrix.m10;
+		this.m11 = p_matrix.m11;
+		this.m12 = p_matrix.m12;
+		this.m13 = p_matrix.m13;
+		this.m20 = p_matrix.m20;
+		this.m21 = p_matrix.m21;
+		this.m22 = p_matrix.m22;
+		this.m23 = p_matrix.m23;
+		this.m30 = p_matrix.m30;
+		this.m31 = p_matrix.m31;
+		this.m32 = p_matrix.m32;
+		this.m33 = p_matrix.m33;
+		return this;
+	}
+	,GetIndex: function(p_index) {
+		switch(p_index) {
+		case 0:
+			return this.m00;
+		case 1:
+			return this.m01;
+		case 2:
+			return this.m02;
+		case 3:
+			return this.m03;
+		case 4:
+			return this.m10;
+		case 5:
+			return this.m11;
+		case 6:
+			return this.m12;
+		case 7:
+			return this.m13;
+		case 8:
+			return this.m20;
+		case 9:
+			return this.m21;
+		case 10:
+			return this.m22;
+		case 11:
+			return this.m23;
+		case 12:
+			return this.m30;
+		case 13:
+			return this.m31;
+		case 14:
+			return this.m32;
+		case 15:
+			return this.m33;
+		}
+		return 0;
+	}
+	,SetIndex: function(p_index,p_value) {
+		switch(p_index) {
+		case 0:
+			this.m00 = p_value;
+			break;
+		case 1:
+			this.m01 = p_value;
+			break;
+		case 2:
+			this.m02 = p_value;
+			break;
+		case 3:
+			this.m03 = p_value;
+			break;
+		case 4:
+			this.m10 = p_value;
+			break;
+		case 5:
+			this.m11 = p_value;
+			break;
+		case 6:
+			this.m12 = p_value;
+			break;
+		case 7:
+			this.m13 = p_value;
+			break;
+		case 8:
+			this.m20 = p_value;
+			break;
+		case 9:
+			this.m21 = p_value;
+			break;
+		case 10:
+			this.m22 = p_value;
+			break;
+		case 11:
+			this.m23 = p_value;
+			break;
+		case 12:
+			this.m30 = p_value;
+			break;
+		case 13:
+			this.m31 = p_value;
+			break;
+		case 14:
+			this.m32 = p_value;
+			break;
+		case 15:
+			this.m33 = p_value;
+			break;
+		}
+		return this;
+	}
+	,SetRowCol: function(p_row,p_col,p_value) {
+		return this.SetIndex(p_col + (p_row << 2),p_value);
+	}
+	,GetRowCol: function(p_row,p_col) {
+		return this.GetIndex(p_col + (p_row << 2));
+	}
+	,SwapCol: function(p_a,p_b) {
+		var a0 = this.GetRowCol(0,p_a);
+		var a1 = this.GetRowCol(1,p_a);
+		var a2 = this.GetRowCol(2,p_a);
+		var a3 = this.GetRowCol(3,p_a);
+		this.SetRowCol(0,p_a,this.GetRowCol(0,p_b));
+		this.SetRowCol(1,p_a,this.GetRowCol(1,p_b));
+		this.SetRowCol(2,p_a,this.GetRowCol(2,p_b));
+		this.SetRowCol(3,p_a,this.GetRowCol(3,p_b));
+		this.SetRowCol(0,p_b,a0);
+		this.SetRowCol(1,p_b,a1);
+		this.SetRowCol(2,p_b,a2);
+		this.SetRowCol(3,p_b,a3);
+		return this;
+	}
+	,SwapRow: function(p_a,p_b) {
+		var a0 = this.GetRowCol(p_a,0);
+		var a1 = this.GetRowCol(p_a,1);
+		var a2 = this.GetRowCol(p_a,2);
+		var a3 = this.GetRowCol(p_a,3);
+		this.SetRowCol(p_a,0,this.GetRowCol(p_b,0));
+		this.SetRowCol(p_a,1,this.GetRowCol(p_b,1));
+		this.SetRowCol(p_a,2,this.GetRowCol(p_b,2));
+		this.SetRowCol(p_a,3,this.GetRowCol(p_b,3));
+		this.SetRowCol(p_b,0,a0);
+		this.SetRowCol(p_b,1,a1);
+		this.SetRowCol(p_b,2,a2);
+		this.SetRowCol(p_b,3,a3);
+		return this;
+	}
+	,Transpose: function() {
+		var t00 = this.m00;
+		var t01 = this.m01;
+		var t02 = this.m02;
+		var t03 = this.m03;
+		var t10 = this.m10;
+		var t11 = this.m11;
+		var t12 = this.m12;
+		var t13 = this.m13;
+		var t20 = this.m20;
+		var t21 = this.m21;
+		var t22 = this.m22;
+		var t23 = this.m23;
+		var t30 = this.m30;
+		var t31 = this.m31;
+		var t32 = this.m32;
+		var t33 = this.m33;
+		return this.Set(t00,t10,t20,t30,t01,t11,t21,t31,t02,t12,t22,t32,t03,t13,t23,t33);
+	}
+	,ToRotation: function() {
+		var tmp = haxor_context_EngineContext.data.get_v3();
+		tmp.Set(this.m00,this.m01,this.m02).Normalize();
+		this.m00 = tmp.x;
+		this.m01 = tmp.y;
+		this.m02 = tmp.z;
+		this.m03 = 0.0;
+		tmp.Set(this.m10,this.m11,this.m12).Normalize();
+		this.m10 = tmp.x;
+		this.m11 = tmp.y;
+		this.m12 = tmp.z;
+		this.m13 = 0.0;
+		tmp.Set(this.m20,this.m21,this.m22).Normalize();
+		this.m20 = tmp.x;
+		this.m21 = tmp.y;
+		this.m22 = tmp.z;
+		this.m23 = 0.0;
+		this.m30 = this.m31 = this.m32 = 0.0;
+		this.m33 = 1.0;
+		return this;
+	}
+	,Rotate: function(p_vector) {
+		var tmp = haxor_context_EngineContext.data.get_v3();
+		tmp.Set(this.m00,this.m01,this.m02).Normalize();
+		p_vector.x = tmp.x * p_vector.x + tmp.y * p_vector.y + tmp.z * p_vector.z;
+		tmp.Set(this.m10,this.m11,this.m12).Normalize();
+		p_vector.y = tmp.x * p_vector.x + tmp.y * p_vector.y + tmp.z * p_vector.z;
+		tmp.Set(this.m20,this.m21,this.m22).Normalize();
+		p_vector.z = tmp.x * p_vector.x + tmp.y * p_vector.y + tmp.z * p_vector.z;
+		return p_vector;
+	}
+	,SetTRS: function(p_position,p_rotation,p_scale) {
+		return haxor_math_Matrix4.TRS(p_position,p_rotation,p_scale,this);
+	}
+	,MultiplyTransform: function(p_matrix) {
+		var r00 = this.m00 * p_matrix.m00 + this.m01 * p_matrix.m10 + this.m02 * p_matrix.m20;
+		var r01 = this.m00 * p_matrix.m01 + this.m01 * p_matrix.m11 + this.m02 * p_matrix.m21;
+		var r02 = this.m00 * p_matrix.m02 + this.m01 * p_matrix.m12 + this.m02 * p_matrix.m22;
+		var r03 = this.m00 * p_matrix.m03 + this.m01 * p_matrix.m13 + this.m02 * p_matrix.m23 + this.m03;
+		var r10 = this.m10 * p_matrix.m00 + this.m11 * p_matrix.m10 + this.m12 * p_matrix.m20;
+		var r11 = this.m10 * p_matrix.m01 + this.m11 * p_matrix.m11 + this.m12 * p_matrix.m21;
+		var r12 = this.m10 * p_matrix.m02 + this.m11 * p_matrix.m12 + this.m12 * p_matrix.m22;
+		var r13 = this.m10 * p_matrix.m03 + this.m11 * p_matrix.m13 + this.m12 * p_matrix.m23 + this.m13;
+		var r20 = this.m20 * p_matrix.m00 + this.m21 * p_matrix.m10 + this.m22 * p_matrix.m20;
+		var r21 = this.m20 * p_matrix.m01 + this.m21 * p_matrix.m11 + this.m22 * p_matrix.m21;
+		var r22 = this.m20 * p_matrix.m02 + this.m21 * p_matrix.m12 + this.m22 * p_matrix.m22;
+		var r23 = this.m20 * p_matrix.m03 + this.m21 * p_matrix.m13 + this.m22 * p_matrix.m23 + this.m23;
+		this.Set(r00,r01,r02,r03,r10,r11,r12,r13,r20,r21,r22,r23,0,0,0,1);
+		return this;
+	}
+	,Multiply3x4: function(p_matrix) {
+		var r00 = this.m00 * p_matrix.m00 + this.m01 * p_matrix.m10 + this.m02 * p_matrix.m20 + this.m03 * p_matrix.m30;
+		var r01 = this.m00 * p_matrix.m01 + this.m01 * p_matrix.m11 + this.m02 * p_matrix.m21 + this.m03 * p_matrix.m31;
+		var r02 = this.m00 * p_matrix.m02 + this.m01 * p_matrix.m12 + this.m02 * p_matrix.m22 + this.m03 * p_matrix.m32;
+		var r03 = this.m00 * p_matrix.m03 + this.m01 * p_matrix.m13 + this.m02 * p_matrix.m23 + this.m03 * p_matrix.m33;
+		var r10 = this.m10 * p_matrix.m00 + this.m11 * p_matrix.m10 + this.m12 * p_matrix.m20 + this.m13 * p_matrix.m30;
+		var r11 = this.m10 * p_matrix.m01 + this.m11 * p_matrix.m11 + this.m12 * p_matrix.m21 + this.m13 * p_matrix.m31;
+		var r12 = this.m10 * p_matrix.m02 + this.m11 * p_matrix.m12 + this.m12 * p_matrix.m22 + this.m13 * p_matrix.m32;
+		var r13 = this.m10 * p_matrix.m03 + this.m11 * p_matrix.m13 + this.m12 * p_matrix.m23 + this.m13 * p_matrix.m33;
+		var r20 = this.m20 * p_matrix.m00 + this.m21 * p_matrix.m10 + this.m22 * p_matrix.m20 + this.m23 * p_matrix.m30;
+		var r21 = this.m20 * p_matrix.m01 + this.m21 * p_matrix.m11 + this.m22 * p_matrix.m21 + this.m23 * p_matrix.m31;
+		var r22 = this.m20 * p_matrix.m02 + this.m21 * p_matrix.m12 + this.m22 * p_matrix.m22 + this.m23 * p_matrix.m32;
+		var r23 = this.m20 * p_matrix.m03 + this.m21 * p_matrix.m13 + this.m22 * p_matrix.m23 + this.m23 * p_matrix.m33;
+		this.Set(r00,r01,r02,r03,r10,r11,r12,r13,r20,r21,r22,r23,this.m30,this.m31,this.m32,this.m33);
+		return this;
+	}
+	,Multiply: function(p_matrix) {
+		var r00 = this.m00 * p_matrix.m00 + this.m01 * p_matrix.m10 + this.m02 * p_matrix.m20 + this.m03 * p_matrix.m30;
+		var r01 = this.m00 * p_matrix.m01 + this.m01 * p_matrix.m11 + this.m02 * p_matrix.m21 + this.m03 * p_matrix.m31;
+		var r02 = this.m00 * p_matrix.m02 + this.m01 * p_matrix.m12 + this.m02 * p_matrix.m22 + this.m03 * p_matrix.m32;
+		var r03 = this.m00 * p_matrix.m03 + this.m01 * p_matrix.m13 + this.m02 * p_matrix.m23 + this.m03 * p_matrix.m33;
+		var r10 = this.m10 * p_matrix.m00 + this.m11 * p_matrix.m10 + this.m12 * p_matrix.m20 + this.m13 * p_matrix.m30;
+		var r11 = this.m10 * p_matrix.m01 + this.m11 * p_matrix.m11 + this.m12 * p_matrix.m21 + this.m13 * p_matrix.m31;
+		var r12 = this.m10 * p_matrix.m02 + this.m11 * p_matrix.m12 + this.m12 * p_matrix.m22 + this.m13 * p_matrix.m32;
+		var r13 = this.m10 * p_matrix.m03 + this.m11 * p_matrix.m13 + this.m12 * p_matrix.m23 + this.m13 * p_matrix.m33;
+		var r20 = this.m20 * p_matrix.m00 + this.m21 * p_matrix.m10 + this.m22 * p_matrix.m20 + this.m23 * p_matrix.m30;
+		var r21 = this.m20 * p_matrix.m01 + this.m21 * p_matrix.m11 + this.m22 * p_matrix.m21 + this.m23 * p_matrix.m31;
+		var r22 = this.m20 * p_matrix.m02 + this.m21 * p_matrix.m12 + this.m22 * p_matrix.m22 + this.m23 * p_matrix.m32;
+		var r23 = this.m20 * p_matrix.m03 + this.m21 * p_matrix.m13 + this.m22 * p_matrix.m23 + this.m23 * p_matrix.m33;
+		var r30 = this.m30 * p_matrix.m00 + this.m31 * p_matrix.m10 + this.m32 * p_matrix.m20 + this.m33 * p_matrix.m30;
+		var r31 = this.m30 * p_matrix.m01 + this.m31 * p_matrix.m11 + this.m32 * p_matrix.m21 + this.m33 * p_matrix.m31;
+		var r32 = this.m30 * p_matrix.m02 + this.m31 * p_matrix.m12 + this.m32 * p_matrix.m22 + this.m33 * p_matrix.m32;
+		var r33 = this.m30 * p_matrix.m03 + this.m31 * p_matrix.m13 + this.m32 * p_matrix.m23 + this.m33 * p_matrix.m33;
+		this.Set(r00,r01,r02,r03,r10,r11,r12,r13,r20,r21,r22,r23,r30,r31,r32,r33);
+		return this;
+	}
+	,Transform4x4: function(p_point) {
+		var vx = this.m00 * p_point.x + this.m01 * p_point.y + this.m02 * p_point.z + this.m03 * p_point.w;
+		var vy = this.m10 * p_point.x + this.m11 * p_point.y + this.m12 * p_point.z + this.m13 * p_point.w;
+		var vz = this.m20 * p_point.x + this.m21 * p_point.y + this.m22 * p_point.z + this.m23 * p_point.w;
+		var vw = this.m30 * p_point.x + this.m31 * p_point.y + this.m32 * p_point.z + this.m33 * p_point.w;
+		p_point.x = vx;
+		p_point.y = vy;
+		p_point.z = vz;
+		p_point.w = vw;
+		return p_point;
+	}
+	,Transform3x4: function(p_point) {
+		var vx = this.m00 * p_point.x + this.m01 * p_point.y + this.m02 * p_point.z + this.m03;
+		var vy = this.m10 * p_point.x + this.m11 * p_point.y + this.m12 * p_point.z + this.m13;
+		var vz = this.m20 * p_point.x + this.m21 * p_point.y + this.m22 * p_point.z + this.m23;
+		p_point.x = vx;
+		p_point.y = vy;
+		p_point.z = vz;
+		return p_point;
+	}
+	,Transform3x3: function(p_point) {
+		var vx = this.m00 * p_point.x + this.m01 * p_point.y + this.m02 * p_point.z;
+		var vy = this.m10 * p_point.x + this.m11 * p_point.y + this.m12 * p_point.z;
+		var vz = this.m20 * p_point.x + this.m21 * p_point.y + this.m22 * p_point.z;
+		p_point.x = vx;
+		p_point.y = vy;
+		p_point.z = vz;
+		return p_point;
+	}
+	,Transform2x3: function(p_point) {
+		var vx = this.m00 * p_point.x + this.m01 * p_point.y + this.m03;
+		var vy = this.m10 * p_point.x + this.m11 * p_point.y + this.m13;
+		p_point.x = vx;
+		p_point.y = vy;
+	}
+	,Transform2x2: function(p_point) {
+		var vx = this.m00 * p_point.x + this.m01 * p_point.y;
+		var vy = this.m10 * p_point.x + this.m11 * p_point.y;
+		p_point.x = vx;
+		p_point.y = vy;
+	}
+	,SetLookAt: function(p_eye,p_at,p_up) {
+		return haxor_math_Matrix4.LookAt(p_eye,p_at,p_up,this);
+	}
+	,SetFrustum: function(p_left,p_right,p_top,p_bottom,p_near,p_far) {
+		return haxor_math_Matrix4.Frustum(p_left,p_right,p_top,p_bottom,p_near,p_far,this);
+	}
+	,SetFrustumInverse: function(p_left,p_right,p_top,p_bottom,p_near,p_far) {
+		return haxor_math_Matrix4.FrustumInverse(p_left,p_right,p_top,p_bottom,p_near,p_far,this);
+	}
+	,SetOrtho: function(p_left,p_right,p_top,p_bottom,p_near,p_far) {
+		return haxor_math_Matrix4.Ortho(p_left,p_right,p_top,p_bottom,p_near,p_far,this);
+	}
+	,SetPerspective: function(p_fov,p_aspect,p_near,p_far) {
+		return haxor_math_Matrix4.Perspective(p_fov,p_aspect,p_near,p_far,this);
+	}
+	,SetPerspectiveInverse: function(p_fov,p_aspect,p_near,p_far) {
+		return haxor_math_Matrix4.PerspectiveInverse(p_fov,p_aspect,p_near,p_far,this);
+	}
+	,ToArray: function() {
+		return [this.m00,this.m01,this.m02,this.m03,this.m10,this.m11,this.m12,this.m13,this.m20,this.m21,this.m22,this.m23,this.m30,this.m31,this.m32,this.m33];
+	}
+	,ToString: function(p_linear,p_places) {
+		if(p_places == null) p_places = 2;
+		if(p_linear == null) p_linear = true;
+		var a = this.ToArray();
+		var s = [];
+		var _g1 = 0;
+		var _g = a.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			a[i] = haxor_math_Mathf.RoundPlaces(a[i],p_places);
+			s.push(a[i] >= 0?" " + a[i]:a[i] + "");
+		}
+		var res;
+		if(p_linear) res = "["; else res = "";
+		var _g2 = 0;
+		while(_g2 < 4) {
+			var i1 = _g2++;
+			var _g11 = 0;
+			while(_g11 < 4) {
+				var j = _g11++;
+				res += s[j + i1 * 4] + (j < 3?",":"");
+			}
+			if(i1 == 3) res += ""; else if(p_linear) res += " |"; else res += "\n";
+		}
+		if(p_linear) res += "]";
+		return res;
+	}
+	,__class__: haxor_math_Matrix4
+	,__properties__: {set_diagonalLR:"set_diagonalLR",get_diagonalLR:"get_diagonalLR",get_transposed:"get_transposed",get_inverseTransform:"get_inverseTransform",get_translation:"get_translation",get_scale:"get_scale",get_rotation:"get_rotation",get_trace:"get_trace",set_quaternion:"set_quaternion",get_quaternion:"get_quaternion",get_clone:"get_clone"}
+};
+var haxor_context_Gizmo = function(p_type,p_count) {
+	this.type = p_type;
+	this.m_render_count = 0;
+	this.m_gizmo_count = p_count;
+	if(haxor_context_Gizmo.SHADER == null) haxor_context_Gizmo.SHADER = new haxor_graphics_material_Shader(haxor_context_ShaderContext.gizmo_source);
+	this.material = new haxor_graphics_material_Material("Gizmo" + p_type + "Material");
+	this.material.set_shader(haxor_context_Gizmo.SHADER);
+	this.material.blend = true;
+	this.material.SetBlending(770,771);
+	this.material.SetInt("Type",p_type);
+	this.material.ztest = false;
+	var tw = 0;
+	var th = 0;
+	if(p_count >= 1) {
+		var data_tex_size = haxor_math_Mathf.Max(2,haxor_math_Mathf.NextPOT(haxor_math_Mathf.Ceil(Math.sqrt(p_count * (haxor_context_Gizmo.DATA_OFFSET / 4)))));
+		this.data = new haxor_graphics_texture_ComputeTexture(data_tex_size,data_tex_size,haxor_core_PixelFormat.Float4);
+		this.material.SetTexture("Data",this.data);
+		this.material.SetInt("DataSize",this.data.m_width);
+		tw = this.data.m_width;
+		th = this.data.m_height;
+	}
+	haxor_core_Console.Log("Gizmos> Created Renderer [" + p_type + "] data[" + tw + "x" + th + "]");
+	this.OnBuild();
+};
+$hxClasses["haxor.context.Gizmo"] = haxor_context_Gizmo;
+haxor_context_Gizmo.__name__ = ["haxor","context","Gizmo"];
+haxor_context_Gizmo.prototype = {
+	OnBuild: function() {
+	}
+	,Push: function(p_color,p_a,p_b,p_transform) {
+		if(this.m_render_count >= this.m_gizmo_count) return;
+		var id = this.m_render_count;
+		var f32 = this.data.m_data.get_buffer();
+		var p = id * haxor_context_Gizmo.DATA_OFFSET;
+		var c;
+		if(p_color == null) c = haxor_context_EngineContext.data.get_c().Set(1,1,1,1); else c = p_color;
+		f32.Set(p++,c.r);
+		f32.Set(p++,c.g);
+		f32.Set(p++,c.b);
+		f32.Set(p++,c.a);
+		f32.Set(p++,p_a.x);
+		f32.Set(p++,p_a.y);
+		f32.Set(p++,p_a.z);
+		f32.Set(p++,p_a.w);
+		f32.Set(p++,p_b.x);
+		f32.Set(p++,p_b.y);
+		f32.Set(p++,p_b.z);
+		f32.Set(p++,p_b.w);
+		var m;
+		if(p_transform == null) m = haxor_context_Gizmo.IDM; else m = p_transform;
+		var _g = 0;
+		while(_g < 12) {
+			var i = _g++;
+			f32.Set(p++,m.GetIndex(i));
+		}
+		this.m_render_count++;
+	}
+	,Clear: function() {
+		this.m_render_count = 0;
+	}
+	,Render: function() {
+		if(this.m_render_count > 0) {
+			this.data.Apply();
+			this.material.SetInt("Count",this.m_render_count);
+			haxor_graphics_Graphics.Render(this.mesh,this.material,null,haxor_component_Camera.m_main);
+		}
+	}
+	,__class__: haxor_context_Gizmo
+};
+var haxor_context_WireSphereGizmo = function() {
+	haxor_context_Gizmo.call(this,haxor_context_Gizmo.WIRE_SPHERE,haxor_context_Gizmo.MAX_GIZMOS);
+};
+$hxClasses["haxor.context.WireSphereGizmo"] = haxor_context_WireSphereGizmo;
+haxor_context_WireSphereGizmo.__name__ = ["haxor","context","WireSphereGizmo"];
+haxor_context_WireSphereGizmo.__super__ = haxor_context_Gizmo;
+haxor_context_WireSphereGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
+	OnBuild: function() {
+		var m = new haxor_graphics_mesh_Mesh3();
+		m.set_name("$GizmoWireSphereMesh");
+		m.primitive = 1;
+		var r = 1.0;
+		var v;
+		var steps = 720;
+		var ia = new haxor_io_FloatArray(steps * 6 * this.m_gizmo_count);
+		var va = new haxor_io_FloatArray(steps * 18 * this.m_gizmo_count);
+		var va_k = 0;
+		var ia_k = 0;
+		var id = 0.0;
+		var _g1 = 0;
+		var _g = this.m_gizmo_count;
+		while(_g1 < _g) {
+			var k = _g1++;
+			var _g2 = 0;
+			while(_g2 < steps) {
+				var i = _g2++;
+				var astp = 1.0 / (steps - 1);
+				var a;
+				a = 360 * i * astp;
+				var sv0 = Math.sin(a * 0.01745329251994329576923690768489) * r * 0.5;
+				var cv0 = Math.cos(a * 0.01745329251994329576923690768489) * r * 0.5;
+				a = 360 * (i + 1) * astp;
+				var sv1 = Math.sin(a * 0.01745329251994329576923690768489) * r * 0.5;
+				var cv1 = Math.cos(a * 0.01745329251994329576923690768489) * r * 0.5;
+				va.Set(va_k++,cv0);
+				va.Set(va_k++,0.0);
+				va.Set(va_k++,sv0);
+				ia.Set(ia_k++,id);
+				va.Set(va_k++,cv1);
+				va.Set(va_k++,0.0);
+				va.Set(va_k++,sv1);
+				ia.Set(ia_k++,id);
+				va.Set(va_k++,0.0);
+				va.Set(va_k++,cv0);
+				va.Set(va_k++,sv0);
+				ia.Set(ia_k++,id);
+				va.Set(va_k++,0.0);
+				va.Set(va_k++,cv1);
+				va.Set(va_k++,sv1);
+				ia.Set(ia_k++,id);
+				va.Set(va_k++,cv0);
+				va.Set(va_k++,sv0);
+				va.Set(va_k++,0.0);
+				ia.Set(ia_k++,id);
+				va.Set(va_k++,cv1);
+				va.Set(va_k++,sv1);
+				va.Set(va_k++,0.0);
+				ia.Set(ia_k++,id);
+			}
+			id += 1.0;
+		}
+		m.Set("id",ia,1);
+		m.Set("vertex",va,3);
+		this.mesh = m;
+	}
+	,__class__: haxor_context_WireSphereGizmo
+});
+var haxor_context_WireCubeGizmo = function() {
+	haxor_context_Gizmo.call(this,haxor_context_Gizmo.WIRE_CUBE,haxor_context_Gizmo.MAX_GIZMOS);
+};
+$hxClasses["haxor.context.WireCubeGizmo"] = haxor_context_WireCubeGizmo;
+haxor_context_WireCubeGizmo.__name__ = ["haxor","context","WireCubeGizmo"];
+haxor_context_WireCubeGizmo.__super__ = haxor_context_Gizmo;
+haxor_context_WireCubeGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
+	OnBuild: function() {
+		var m = new haxor_graphics_mesh_Mesh3();
+		m.set_name("$GizmoWireCubeMesh");
+		m.primitive = 1;
+		var a = -0.5;
+		var b = 0.5;
+		var p = [new haxor_math_Vector3(a,a,a),new haxor_math_Vector3(a,a,b),new haxor_math_Vector3(b,a,b),new haxor_math_Vector3(b,a,a),new haxor_math_Vector3(a,b,a),new haxor_math_Vector3(a,b,b),new haxor_math_Vector3(b,b,b),new haxor_math_Vector3(b,b,a)];
+		var tp = [0,1,1,2,2,3,3,0,4,5,5,6,6,7,7,4,0,1,1,5,5,4,4,0,3,2,2,6,6,7,7,3,0,3,3,7,7,4,4,0,1,5,5,6,6,2,2,1];
+		var va = new haxor_io_FloatArray(tp.length * 3 * this.m_gizmo_count);
+		var ia = new haxor_io_FloatArray(tp.length * this.m_gizmo_count);
+		var va_k = 0;
+		var ia_k = 0;
+		var id = 0.0;
+		var _g1 = 0;
+		var _g = this.m_gizmo_count;
+		while(_g1 < _g) {
+			var k = _g1++;
+			var _g3 = 0;
+			var _g2 = tp.length;
+			while(_g3 < _g2) {
+				var i = _g3++;
+				var vid = tp[i];
+				va.Set(va_k++,p[vid].x);
+				va.Set(va_k++,p[vid].y);
+				va.Set(va_k++,p[vid].z);
+				ia.Set(ia_k++,id);
+			}
+			id += 1.0;
+		}
+		m.Set("id",ia,1);
+		m.Set("vertex",va,3);
+		this.mesh = m;
+	}
+	,__class__: haxor_context_WireCubeGizmo
+});
+var haxor_context_AxisGizmo = function() {
+	haxor_context_Gizmo.call(this,haxor_context_Gizmo.AXIS,haxor_context_Gizmo.MAX_GIZMOS);
+};
+$hxClasses["haxor.context.AxisGizmo"] = haxor_context_AxisGizmo;
+haxor_context_AxisGizmo.__name__ = ["haxor","context","AxisGizmo"];
+haxor_context_AxisGizmo.__super__ = haxor_context_Gizmo;
+haxor_context_AxisGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
+	OnBuild: function() {
+		var m = new haxor_graphics_mesh_Mesh3();
+		m.set_name("$GizmoAxisMesh");
+		m.primitive = 1;
+		var cr = new haxor_math_Color(0.9,0.3,0.3,1);
+		var cg = new haxor_math_Color(0.3,0.9,0.3,1);
+		var cb = new haxor_math_Color(0.3,0.3,0.9,1);
+		var id = 0.0;
+		var ia = new haxor_io_FloatArray(this.m_gizmo_count * 6);
+		var va = new haxor_io_FloatArray(this.m_gizmo_count * 6 * 3);
+		var ca = new haxor_io_FloatArray(this.m_gizmo_count * 6 * 3);
+		var va_k = 0;
+		var ca_k = 0;
+		var ia_k = 0;
+		var _g1 = 0;
+		var _g = this.m_gizmo_count;
+		while(_g1 < _g) {
+			var k = _g1++;
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			va.Set(va_k++,1.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,1.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,1.0);
+			ia.Set(ia_k++,id);
+			var c;
+			c = cr;
+			ca.Set(ca_k++,c.r);
+			ca.Set(ca_k++,c.g);
+			ca.Set(ca_k++,c.b);
+			ca.Set(ca_k++,c.a);
+			ca.Set(ca_k++,c.r);
+			ca.Set(ca_k++,c.g);
+			ca.Set(ca_k++,c.b);
+			ca.Set(ca_k++,c.a);
+			c = cg;
+			ca.Set(ca_k++,c.r);
+			ca.Set(ca_k++,c.g);
+			ca.Set(ca_k++,c.b);
+			ca.Set(ca_k++,c.a);
+			ca.Set(ca_k++,c.r);
+			ca.Set(ca_k++,c.g);
+			ca.Set(ca_k++,c.b);
+			ca.Set(ca_k++,c.a);
+			c = cb;
+			ca.Set(ca_k++,c.r);
+			ca.Set(ca_k++,c.g);
+			ca.Set(ca_k++,c.b);
+			ca.Set(ca_k++,c.a);
+			ca.Set(ca_k++,c.r);
+			ca.Set(ca_k++,c.g);
+			ca.Set(ca_k++,c.b);
+			ca.Set(ca_k++,c.a);
+			id += 1.0;
+		}
+		m.Set("id",ia,1);
+		m.Set("vertex",va,3);
+		m.Set("color",ca,4);
+		this.mesh = m;
+	}
+	,__class__: haxor_context_AxisGizmo
+});
+var haxor_context_LineGizmo = function() {
+	haxor_context_Gizmo.call(this,haxor_context_Gizmo.LINE,haxor_context_Gizmo.MAX_GIZMOS * 3);
+};
+$hxClasses["haxor.context.LineGizmo"] = haxor_context_LineGizmo;
+haxor_context_LineGizmo.__name__ = ["haxor","context","LineGizmo"];
+haxor_context_LineGizmo.__super__ = haxor_context_Gizmo;
+haxor_context_LineGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
+	OnBuild: function() {
+		var m = new haxor_graphics_mesh_Mesh3();
+		m.set_name("$GizmoLineMesh");
+		m.primitive = 1;
+		var id = 0.0;
+		var ia = new haxor_io_FloatArray(this.m_gizmo_count * 2);
+		var va = new haxor_io_FloatArray(this.m_gizmo_count * 2 * 3);
+		var va_k = 0;
+		var ia_k = 0;
+		var _g1 = 0;
+		var _g = this.m_gizmo_count;
+		while(_g1 < _g) {
+			var k = _g1++;
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			va.Set(va_k++,1.0);
+			va.Set(va_k++,1.0);
+			va.Set(va_k++,1.0);
+			ia.Set(ia_k++,id);
+			id += 1.0;
+		}
+		m.Set("id",ia,1);
+		m.Set("vertex",va,3);
+		this.mesh = m;
+	}
+	,__class__: haxor_context_LineGizmo
+});
+var haxor_context_PointGizmo = function() {
+	haxor_context_Gizmo.call(this,haxor_context_Gizmo.POINT,haxor_context_Gizmo.MAX_GIZMOS * 5);
+};
+$hxClasses["haxor.context.PointGizmo"] = haxor_context_PointGizmo;
+haxor_context_PointGizmo.__name__ = ["haxor","context","PointGizmo"];
+haxor_context_PointGizmo.__super__ = haxor_context_Gizmo;
+haxor_context_PointGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
+	OnBuild: function() {
+		var m = new haxor_graphics_mesh_Mesh3();
+		m.set_name("$GizmoPointMesh");
+		m.primitive = 0;
+		var id = 0.0;
+		var ia = new haxor_io_FloatArray(this.m_gizmo_count);
+		var va = new haxor_io_FloatArray(this.m_gizmo_count * 3);
+		var va_k = 0;
+		var ia_k = 0;
+		var _g1 = 0;
+		var _g = this.m_gizmo_count;
+		while(_g1 < _g) {
+			var k = _g1++;
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			id += 1.0;
+		}
+		m.Set("id",ia,1);
+		m.Set("vertex",va,3);
+		this.mesh = m;
+	}
+	,__class__: haxor_context_PointGizmo
+});
 var haxor_context_MaterialContext = function() {
 	this.uniform_globals = ["ViewMatrix","ProjectionMatrix","WorldMatrix","WorldMatrixInverse","WorldMatrixIT","Time","RandomSeed","RandomTexture","ScreenTexture","ScreenDepth","Ambient","CameraPosition","ProjectionMatrixInverse","ViewMatrixInverse"];
 	this.mid = new haxor_context_UID();
@@ -4007,6 +5241,7 @@ var haxor_context_MaterialContext = function() {
 	this.blendDst = 0;
 	this.invert = false;
 	this.cull = 2;
+	this.pointSmooth = true;
 	var max_buffers = 512;
 	var max_programs = 1024;
 	this.locations = [];
@@ -4060,6 +5295,10 @@ haxor_context_MaterialContext.prototype = {
 		haxor_graphics_GL.m_gl.FrontFace(2305);
 		haxor_graphics_GL.m_gl.CullFace(1029);
 		haxor_graphics_GL.m_gl.Enable(3089);
+	}
+	,SetPointSmooth: function(p_flag) {
+		if(p_flag == this.pointSmooth) return;
+		this.pointSmooth = p_flag;
 	}
 	,UpdateFlags: function(m) {
 		if(m.zfunc != this.zfunc) {
@@ -4482,12 +5721,13 @@ haxor_context_MeshContext.prototype = {
 	,Draw: function(m) {
 		if(m.m_indexed) {
 			haxor_graphics_GL.m_gl.DrawElements(m.primitive,m.m_topology_attrib.data.m_length,5123,0);
-			haxor_core_Stats.triangles += m.m_topology_attrib.data.m_length / 3;
+			haxor_core_RenderStats.triangles += m.m_topology_attrib.data.m_length / 3 | 0;
 		} else {
 			haxor_graphics_GL.m_gl.DrawArrays(m.primitive,0,m.m_vcount);
 			var off = 3;
 			if(m.primitive == 1) off = 2;
-			haxor_core_Stats.triangles += m.m_vcount / off;
+			if(m.primitive == 0) off = 1;
+			haxor_core_RenderStats.triangles += m.m_vcount / off | 0;
 		}
 	}
 	,RemoveAttrib: function(p_attrib) {
@@ -5627,7 +6867,7 @@ var haxor_core_RenderEngine = function() { };
 $hxClasses["haxor.core.RenderEngine"] = haxor_core_RenderEngine;
 haxor_core_RenderEngine.__name__ = ["haxor","core","RenderEngine"];
 haxor_core_RenderEngine.Render = function() {
-	haxor_core_Stats.BeginRender();
+	haxor_core_RenderStats.BeginRender();
 	haxor_core_RenderEngine.RenderCameras();
 };
 haxor_core_RenderEngine.RenderCameras = function() {
@@ -5651,6 +6891,7 @@ haxor_core_RenderEngine.RenderCamera = function(c) {
 		var l = layers[i];
 		haxor_core_RenderEngine.RenderCameraLayer(l,c);
 	}
+	if(c == haxor_component_Camera.m_main) haxor_context_EngineContext.gizmo.Render();
 	haxor_context_EngineContext.camera.Unbind(c);
 };
 haxor_core_RenderEngine.RenderCameraLayer = function(l,c) {
@@ -5668,10 +6909,10 @@ haxor_core_RenderEngine.RenderCameraLayer = function(l,c) {
 haxor_core_RenderEngine.RenderRenderer = function(r) {
 	r.UpdateCulling();
 	if(!(r.m_visible && !r.m_culled)) {
-		haxor_core_Stats.culled++;
+		haxor_core_RenderStats.culled++;
 		return;
 	}
-	haxor_core_Stats.visible++;
+	haxor_core_RenderStats.visible++;
 	r.OnRender();
 };
 haxor_core_RenderEngine.RenderFinish = function() {
@@ -5688,6 +6929,25 @@ haxor_core_RenderEngine.RenderFinish = function() {
 haxor_core_RenderEngine.Resize = function() {
 	haxor_context_EngineContext.camera.Resize();
 };
+var haxor_core_RenderStats = function() { };
+$hxClasses["haxor.core.RenderStats"] = haxor_core_RenderStats;
+haxor_core_RenderStats.__name__ = ["haxor","core","RenderStats"];
+haxor_core_RenderStats.__properties__ = {get_total:"get_total"}
+haxor_core_RenderStats.get_total = function() {
+	return haxor_core_RenderStats.visible + haxor_core_RenderStats.culled;
+};
+haxor_core_RenderStats.Initialize = function() {
+	haxor_core_RenderStats.visible = 0;
+	haxor_core_RenderStats.culled = 0;
+	haxor_core_RenderStats.triangles = 0;
+	haxor_core_RenderStats.renderers = 0;
+};
+haxor_core_RenderStats.BeginRender = function() {
+	haxor_core_RenderStats.visible = 0;
+	haxor_core_RenderStats.culled = 0;
+	haxor_core_RenderStats.triangles = 0;
+	haxor_core_RenderStats.renderers = haxor_context_EngineContext.renderer.rid.get_next();
+};
 var haxor_core_Scene = function(p_name) {
 	haxor_core_Resource.call(this,p_name);
 };
@@ -5697,25 +6957,6 @@ haxor_core_Scene.__super__ = haxor_core_Resource;
 haxor_core_Scene.prototype = $extend(haxor_core_Resource.prototype,{
 	__class__: haxor_core_Scene
 });
-var haxor_core_Stats = function() { };
-$hxClasses["haxor.core.Stats"] = haxor_core_Stats;
-haxor_core_Stats.__name__ = ["haxor","core","Stats"];
-haxor_core_Stats.__properties__ = {get_total:"get_total"}
-haxor_core_Stats.get_total = function() {
-	return haxor_core_Stats.visible + haxor_core_Stats.culled;
-};
-haxor_core_Stats.Initialize = function() {
-	haxor_core_Stats.visible = 0;
-	haxor_core_Stats.culled = 0;
-	haxor_core_Stats.triangles = 0;
-	haxor_core_Stats.renderers = 0;
-};
-haxor_core_Stats.BeginRender = function() {
-	haxor_core_Stats.visible = 0;
-	haxor_core_Stats.culled = 0;
-	haxor_core_Stats.triangles = 0;
-	haxor_core_Stats.renderers = haxor_context_EngineContext.renderer.rid.get_next();
-};
 var haxor_core_Time = function() { };
 $hxClasses["haxor.core.Time"] = haxor_core_Time;
 haxor_core_Time.__name__ = ["haxor","core","Time"];
@@ -7277,8 +8518,23 @@ haxor_graphics_Gizmo.__name__ = ["haxor","graphics","Gizmo"];
 haxor_graphics_Gizmo.Grid = function(p_area,p_color) {
 	haxor_context_EngineContext.gizmo.DrawGrid(p_area,p_color);
 };
-haxor_graphics_Gizmo.Axis = function(p_area) {
-	haxor_context_EngineContext.gizmo.DrawAxis(p_area);
+haxor_graphics_Gizmo.Axis = function(p_position,p_size,p_color,p_transform) {
+	haxor_context_EngineContext.gizmo.DrawAxis(p_position,p_size,p_color,p_transform);
+};
+haxor_graphics_Gizmo.Line = function(p_from,p_to,p_color,p_transform) {
+	haxor_context_EngineContext.gizmo.DrawLine(p_from,p_to,p_color,p_transform);
+};
+haxor_graphics_Gizmo.Point = function(p_position,p_size,p_color,p_smooth,p_transform) {
+	if(p_smooth == null) p_smooth = true;
+	if(p_size == null) p_size = 1.0;
+	haxor_context_EngineContext.gizmo.DrawPoint(p_position,p_size,p_color,p_smooth,p_transform);
+};
+haxor_graphics_Gizmo.WireSphere = function(p_position,p_radius,p_color,p_transform) {
+	if(p_radius == null) p_radius = 1.0;
+	haxor_context_EngineContext.gizmo.DrawWireSphere(p_position,p_radius,p_color,p_transform);
+};
+haxor_graphics_Gizmo.WireCube = function(p_position,p_size,p_color,p_transform) {
+	haxor_context_EngineContext.gizmo.DrawWireCube(p_position,p_size,p_color,p_transform);
 };
 var haxor_graphics_GraphicAPI = { __ename__ : true, __constructs__ : ["None","OpenGL","OpenGLES","WebGL"] };
 haxor_graphics_GraphicAPI.None = ["None",0];
@@ -12185,822 +13441,6 @@ haxor_math_Mathf.WrapAngle = function(p_angle) {
 	if(p_angle > 360.0) return p_angle - 360;
 	return p_angle;
 };
-var haxor_math_Matrix4 = function(p_m00,p_m01,p_m02,p_m03,p_m10,p_m11,p_m12,p_m13,p_m20,p_m21,p_m22,p_m23,p_m30,p_m31,p_m32,p_m33) {
-	if(p_m33 == null) p_m33 = 0;
-	if(p_m32 == null) p_m32 = 0;
-	if(p_m31 == null) p_m31 = 0;
-	if(p_m30 == null) p_m30 = 0;
-	if(p_m23 == null) p_m23 = 0;
-	if(p_m22 == null) p_m22 = 0;
-	if(p_m21 == null) p_m21 = 0;
-	if(p_m20 == null) p_m20 = 0;
-	if(p_m13 == null) p_m13 = 0;
-	if(p_m12 == null) p_m12 = 0;
-	if(p_m11 == null) p_m11 = 0;
-	if(p_m10 == null) p_m10 = 0;
-	if(p_m03 == null) p_m03 = 0;
-	if(p_m02 == null) p_m02 = 0;
-	if(p_m01 == null) p_m01 = 0;
-	if(p_m00 == null) p_m00 = 0;
-	this.m00 = p_m00;
-	this.m01 = p_m01;
-	this.m02 = p_m02;
-	this.m03 = p_m03;
-	this.m10 = p_m10;
-	this.m11 = p_m11;
-	this.m12 = p_m12;
-	this.m13 = p_m13;
-	this.m20 = p_m20;
-	this.m21 = p_m21;
-	this.m22 = p_m22;
-	this.m23 = p_m23;
-	this.m30 = p_m30;
-	this.m31 = p_m31;
-	this.m32 = p_m32;
-	this.m33 = p_m33;
-};
-$hxClasses["haxor.math.Matrix4"] = haxor_math_Matrix4;
-haxor_math_Matrix4.__name__ = ["haxor","math","Matrix4"];
-haxor_math_Matrix4.__properties__ = {get_identity:"get_identity",get_temp:"get_temp"}
-haxor_math_Matrix4.get_temp = function() {
-	return haxor_context_EngineContext.data.get_m4();
-};
-haxor_math_Matrix4.get_identity = function() {
-	return new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
-};
-haxor_math_Matrix4.FromQuaternion = function(p_quaternion,p_result) {
-	var m;
-	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
-	var q = p_quaternion;
-	var x2 = q.x * q.x;
-	var y2 = q.y * q.y;
-	var z2 = q.z * q.z;
-	var xy = q.x * q.y;
-	var xz = q.x * q.z;
-	var yz = q.y * q.z;
-	var xw = q.w * q.x;
-	var yw = q.w * q.y;
-	var zw = q.w * q.z;
-	m.m00 = 1.0 - 2.0 * (y2 + z2);
-	m.m01 = 2.0 * (xy - zw);
-	m.m02 = 2.0 * (xz + yw);
-	m.m10 = 2.0 * (xy + zw);
-	m.m11 = 1.0 - 2.0 * (x2 + z2);
-	m.m12 = 2.0 * (yz - xw);
-	m.m20 = 2.0 * (xz - yw);
-	m.m21 = 2.0 * (yz + xw);
-	m.m22 = 1.0 - 2.0 * (x2 + y2);
-	m.m30 = m.m31 = m.m32 = 0.0;
-	m.m33 = 1.0;
-	return m;
-};
-haxor_math_Matrix4.FromArray = function(p_array,p_result) {
-	var res;
-	if(p_result == null) res = new haxor_math_Matrix4(); else res = p_result;
-	var _g1 = 0;
-	var _g = p_array.length;
-	while(_g1 < _g) {
-		var i = _g1++;
-		res.SetIndex(i,p_array[i]);
-	}
-	return res;
-};
-haxor_math_Matrix4.TRS = function(p_position,p_rotation,p_scale,p_result) {
-	var sx;
-	if(p_scale == null) sx = 1.0; else sx = p_scale.x;
-	var sy;
-	if(p_scale == null) sy = 1.0; else sy = p_scale.y;
-	var sz;
-	if(p_scale == null) sz = 1.0; else sz = p_scale.z;
-	var px = p_position.x;
-	var py = p_position.y;
-	var pz = p_position.z;
-	var r = haxor_context_EngineContext.data.get_m4();
-	haxor_math_Matrix4.FromQuaternion(p_rotation,r);
-	var l;
-	if(p_result == null) l = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1); else l = p_result;
-	l.m00 = r.m00 * sx;
-	l.m01 = r.m01 * sy;
-	l.m02 = r.m02 * sz;
-	l.m03 = px;
-	l.m10 = r.m10 * sx;
-	l.m11 = r.m11 * sy;
-	l.m12 = r.m12 * sz;
-	l.m13 = py;
-	l.m20 = r.m20 * sx;
-	l.m21 = r.m21 * sy;
-	l.m22 = r.m22 * sz;
-	l.m23 = pz;
-	l.m30 = l.m31 = l.m32 = 0.0;
-	l.m33 = 1.0;
-	return l;
-};
-haxor_math_Matrix4.Frustum = function(p_left,p_right,p_top,p_bottom,p_near,p_far,p_result) {
-	var m;
-	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
-	var n2 = p_near * 2.0;
-	var rml = 1.0 / (p_right - p_left);
-	var tmb = 1.0 / (p_top - p_bottom);
-	var fmn = 1.0 / (p_far - p_near);
-	m.m00 = n2 * rml;
-	m.m01 = 0.0;
-	m.m02 = (p_right + p_left) * rml;
-	m.m03 = 0.0;
-	m.m10 = 0.0;
-	m.m11 = n2 * tmb;
-	m.m12 = (p_top + p_bottom) * tmb;
-	m.m13 = 0.0;
-	m.m20 = 0.0;
-	m.m21 = 0.0;
-	m.m22 = -(p_near + p_far) * fmn;
-	m.m23 = -n2 * p_far * fmn;
-	m.m30 = 0.0;
-	m.m31 = 0.0;
-	m.m32 = -1.0;
-	m.m33 = 0;
-	return m;
-};
-haxor_math_Matrix4.FrustumInverse = function(p_left,p_right,p_top,p_bottom,p_near,p_far,p_result) {
-	var m;
-	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
-	var n2 = p_near * 2.0;
-	var rml = p_right - p_left;
-	var tmb = p_top - p_bottom;
-	var fmn = p_far - p_near;
-	m.m00 = rml / n2;
-	m.m01 = 0.0;
-	m.m02 = 0.0;
-	m.m03 = (p_right + p_left) / n2;
-	m.m10 = 0.0;
-	m.m11 = tmb / n2;
-	m.m12 = 0.0;
-	m.m13 = (p_top + p_bottom) / n2;
-	m.m20 = 0.0;
-	m.m21 = 0.0;
-	m.m22 = 0.0;
-	m.m23 = -1.0;
-	m.m30 = 0.0;
-	m.m31 = 0.0;
-	m.m32 = fmn / (-n2 * p_far);
-	m.m33 = (p_far + p_near) / (n2 * p_far);
-	return m;
-};
-haxor_math_Matrix4.Ortho = function(p_left,p_right,p_top,p_bottom,p_near,p_far,p_result) {
-	var m;
-	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
-	var n2 = p_near * 2.0;
-	var rml = 1.0 / (p_right - p_left);
-	var tmb = 1.0 / (p_top - p_bottom);
-	var fmn = 1.0 / (p_far - p_near);
-	m.m00 = 2.0 * rml;
-	m.m01 = 0.0;
-	m.m02 = 0.0;
-	m.m03 = -(p_right + p_left) * rml;
-	m.m10 = 0.0;
-	m.m11 = 2.0 * tmb;
-	m.m12 = 0.0;
-	m.m13 = -(p_top + p_bottom) * tmb;
-	m.m20 = 0.0;
-	m.m21 = 0.0;
-	m.m22 = -2. * fmn;
-	m.m23 = -(p_far + p_near) * fmn;
-	m.m30 = 0.0;
-	m.m31 = 0.0;
-	m.m32 = 0.0;
-	m.m33 = 1.0;
-	return m;
-};
-haxor_math_Matrix4.OrthoInverse = function(p_left,p_right,p_top,p_bottom,p_near,p_far,p_result) {
-	var m = haxor_context_EngineContext.data.get_m4().SetOrtho(p_left,p_right,p_top,p_bottom,p_near,p_far);
-	return haxor_math_Matrix4.GetInverseTransform(m,p_result);
-};
-haxor_math_Matrix4.Perspective = function(p_fov,p_aspect,p_near,p_far,p_result) {
-	var t = Math.tan(p_fov * 0.5 * 0.01745329251994329576923690768489) * p_near;
-	var b = -t;
-	var l = p_aspect * b;
-	var r = p_aspect * t;
-	return haxor_math_Matrix4.Frustum(l,r,t,b,p_near,p_far,p_result);
-};
-haxor_math_Matrix4.PerspectiveInverse = function(p_fov,p_aspect,p_near,p_far,p_result) {
-	var t = Math.tan(p_fov * 0.5 * 0.01745329251994329576923690768489) * p_near;
-	var b = -t;
-	var l = p_aspect * b;
-	var r = p_aspect * t;
-	return haxor_math_Matrix4.FrustumInverse(l,r,t,b,p_near,p_far,p_result);
-};
-haxor_math_Matrix4.GetRotation = function(p_matrix4,p_result) {
-	var m;
-	if(p_result == null) m = new haxor_math_Matrix4(); else m = p_result;
-	var tmp = haxor_context_EngineContext.data.get_v3();
-	tmp.Set(m.m00,m.m01,m.m02).Normalize();
-	m.m00 = tmp.x;
-	m.m01 = tmp.y;
-	m.m02 = tmp.z;
-	m.m03 = 0.0;
-	tmp.Set(m.m10,m.m11,m.m12).Normalize();
-	m.m10 = tmp.x;
-	m.m11 = tmp.y;
-	m.m12 = tmp.z;
-	m.m13 = 0.0;
-	tmp.Set(m.m20,m.m21,m.m22).Normalize();
-	m.m20 = tmp.x;
-	m.m21 = tmp.y;
-	m.m22 = tmp.z;
-	m.m23 = 0.0;
-	m.m30 = m.m31 = m.m32 = 0.0;
-	m.m33 = 1.0;
-	return m;
-};
-haxor_math_Matrix4.GetInverseTransform = function(p_matrix,p_result) {
-	var result;
-	if(p_result == null) result = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1); else result = p_result;
-	var m = p_matrix;
-	var l0x = m.m00;
-	var l0y = m.m01;
-	var l0z = m.m02;
-	var l0w = m.m03;
-	var l1x = m.m10;
-	var l1y = m.m11;
-	var l1z = m.m12;
-	var l1w = m.m13;
-	var l2x = m.m20;
-	var l2y = m.m21;
-	var l2z = m.m22;
-	var l2w = m.m23;
-	var vl0 = Math.sqrt(l0x * l0x + l1x * l1x + l2x * l2x);
-	var vl1 = Math.sqrt(l0y * l0y + l1y * l1y + l2y * l2y);
-	var vl2 = Math.sqrt(l0z * l0z + l1z * l1z + l2z * l2z);
-	var sx;
-	if((vl0 < 0?-vl0:vl0) <= 0.0001) sx = 0.0; else sx = 1.0 / vl0;
-	var sy;
-	if((vl1 < 0?-vl1:vl1) <= 0.0001) sy = 0.0; else sy = 1.0 / vl1;
-	var sz;
-	if((vl2 < 0?-vl2:vl2) <= 0.0001) sz = 0.0; else sz = 1.0 / vl2;
-	l0x *= sx;
-	l0y *= sy;
-	l0z *= sz;
-	l1x *= sx;
-	l1y *= sy;
-	l1z *= sz;
-	l2x *= sx;
-	l2y *= sy;
-	l2z *= sz;
-	result.Set(sx * l0x,sx * l1x,sx * l2x,sx * (l0x * -l0w + l1x * -l1w + l2x * -l2w),sy * l0y,sy * l1y,sy * l2y,sy * (l0y * -l0w + l1y * -l1w + l2y * -l2w),sz * l0z,sz * l1z,sz * l2z,sz * (l0z * -l0w + l1z * -l1w + l2z * -l2w),0,0,0,1);
-	return result;
-};
-haxor_math_Matrix4.LookRotation = function(p_forward,p_up,p_result) {
-	return haxor_math_Matrix4.LookAt(haxor_context_EngineContext.data.get_v3().Set(0,0,0),p_forward,p_up,p_result);
-};
-haxor_math_Matrix4.LookAt = function(p_eye,p_at,p_up,p_result) {
-	if(p_result == null) p_result = new haxor_math_Matrix4(); else p_result = p_result;
-	if(p_up == null) p_up = haxor_context_EngineContext.data.get_v3().Set(0,1,0); else p_up = p_up;
-	var f = haxor_context_EngineContext.data.get_v3().Set3(p_at).Sub(p_eye).Normalize();
-	var s = haxor_math_Vector3.Cross(f,p_up,haxor_context_EngineContext.data.get_v3()).Normalize();
-	var u = haxor_math_Vector3.Cross(s,f,haxor_context_EngineContext.data.get_v3());
-	p_result.m00 = s.x;
-	p_result.m10 = s.y;
-	p_result.m20 = s.z;
-	p_result.m01 = u.x;
-	p_result.m11 = u.y;
-	p_result.m21 = u.z;
-	p_result.m02 = -f.x;
-	p_result.m12 = -f.y;
-	p_result.m22 = -f.z;
-	p_result.m03 = -(s.x * p_eye.x + s.y * p_eye.y + s.z * p_eye.z);
-	p_result.m13 = -(u.x * p_eye.x + u.y * p_eye.y + u.z * p_eye.z);
-	p_result.m23 = f.x * p_eye.x + f.y * p_eye.y + f.z * p_eye.z;
-	p_result.m30 = p_result.m31 = p_result.m32 = 0.0;
-	p_result.m33 = 1.0;
-	return p_result;
-};
-haxor_math_Matrix4.Parse = function(p_data,p_delimiter) {
-	if(p_delimiter == null) p_delimiter = " ";
-	var tk = p_data.split(p_delimiter);
-	var res = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
-	var _g1 = 0;
-	var _g = tk.length;
-	while(_g1 < _g) {
-		var i = _g1++;
-		var n = Std.parseFloat(StringTools.trim(tk[i]));
-		res.SetIndex(i,n);
-	}
-	return res;
-};
-haxor_math_Matrix4.prototype = {
-	get_clone: function() {
-		return new haxor_math_Matrix4(this.m00,this.m01,this.m02,this.m03,this.m10,this.m11,this.m12,this.m13,this.m20,this.m21,this.m22,this.m23,this.m30,this.m31,this.m32,this.m33);
-	}
-	,get_quaternion: function() {
-		return haxor_math_Quaternion.FromMatrix4(haxor_context_EngineContext.data.get_m4().SetMatrix4(this).ToRotation());
-	}
-	,set_quaternion: function(v) {
-		haxor_math_Matrix4.FromQuaternion(v,this);
-		return v;
-	}
-	,get_trace: function() {
-		return this.m00 + this.m11 + this.m22 + this.m33;
-	}
-	,get_rotation: function() {
-		return new haxor_math_Matrix4(this.m00,this.m01,this.m02,this.m03,this.m10,this.m11,this.m12,this.m13,this.m20,this.m21,this.m22,this.m23,this.m30,this.m31,this.m32,this.m33).ToRotation();
-	}
-	,get_scale: function() {
-		var d0 = Math.sqrt(this.m00 * this.m00 + this.m10 * this.m10 + this.m20 * this.m20);
-		var d1 = Math.sqrt(this.m01 * this.m01 + this.m11 * this.m11 + this.m21 * this.m21);
-		var d2 = Math.sqrt(this.m02 * this.m02 + this.m12 * this.m12 + this.m22 * this.m22);
-		return new haxor_math_Matrix4(d0,0,0,0,0,d1,0,0,0,0,d2,0,0,0,0,1);
-	}
-	,get_translation: function() {
-		return new haxor_math_Matrix4(1,0,0,this.m03,0,1,0,this.m13,0,0,1,this.m23,0,0,0,1);
-	}
-	,get_inverseTransform: function() {
-		var result = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
-		var l0 = new haxor_math_Vector3(this.m00,this.m01,this.m02);
-		var l1 = new haxor_math_Vector3(this.m10,this.m11,this.m12);
-		var l2 = new haxor_math_Vector3(this.m20,this.m21,this.m22);
-		var vl0 = Math.sqrt(l0.x * l0.x + l0.y * l0.y + l0.z * l0.z);
-		var vl1 = Math.sqrt(l1.x * l1.x + l1.y * l1.y + l1.z * l1.z);
-		var vl2 = Math.sqrt(l2.x * l2.x + l2.y * l2.y + l2.z * l2.z);
-		var sx;
-		if((vl0 < 0?-vl0:vl0) <= 0.0001) sx = 0.0; else sx = 1.0 / vl0;
-		var sy;
-		if((vl1 < 0?-vl1:vl1) <= 0.0001) sy = 0.0; else sy = 1.0 / vl1;
-		var sz;
-		if((vl2 < 0?-vl2:vl2) <= 0.0001) sz = 0.0; else sz = 1.0 / vl2;
-		l0.x *= sx;
-		l0.y *= sx;
-		l0.z *= sx;
-		l1.x *= sy;
-		l1.y *= sy;
-		l1.z *= sy;
-		l2.x *= sz;
-		l2.y *= sz;
-		l2.z *= sz;
-		result.Set(sx * l0.x,sx * l1.x,sx * l2.x,sx * (l0.x * -this.m03 + l1.x * -this.m13 + l2.x * -this.m23),sy * l0.y,sy * l1.y,sy * l2.y,sy * (l0.y * -this.m03 + l1.y * -this.m13 + l2.y * -this.m23),sz * l0.z,sz * l1.z,sz * l2.z,sz * (l0.z * -this.m03 + l1.z * -this.m13 + l2.z * -this.m23),0,0,0,1);
-		return result;
-	}
-	,get_transposed: function() {
-		return new haxor_math_Matrix4(this.m00,this.m10,this.m20,this.m30,this.m01,this.m11,this.m21,this.m31,this.m02,this.m12,this.m22,this.m32,this.m03,this.m13,this.m23,this.m33);
-	}
-	,ToRowMajor: function() {
-		return [this.m00,this.m01,this.m02,this.m03,this.m10,this.m11,this.m12,this.m13,this.m20,this.m21,this.m22,this.m23,this.m30,this.m31,this.m32,this.m33];
-	}
-	,ToColumnMajor: function() {
-		return [this.m00,this.m10,this.m20,this.m30,this.m01,this.m11,this.m21,this.m31,this.m02,this.m12,this.m22,this.m32,this.m03,this.m13,this.m23,this.m33];
-	}
-	,GetLine: function(p_index,p_result) {
-		if(p_result == null) p_result = new haxor_math_Vector4(); else p_result = p_result;
-		return p_result.Set(this.GetRowCol(p_index,0),this.GetRowCol(p_index,1),this.GetRowCol(p_index,2),this.GetRowCol(p_index,3));
-	}
-	,SetLine: function(p_index,p_x,p_y,p_z,p_w) {
-		switch(p_index) {
-		case 0:
-			this.m00 = p_x;
-			this.m01 = p_y;
-			this.m02 = p_z;
-			this.m03 = p_w;
-			break;
-		case 1:
-			this.m10 = p_x;
-			this.m11 = p_y;
-			this.m12 = p_z;
-			this.m13 = p_w;
-			break;
-		case 2:
-			this.m20 = p_x;
-			this.m21 = p_y;
-			this.m22 = p_z;
-			this.m23 = p_w;
-			break;
-		case 3:
-			this.m30 = p_x;
-			this.m31 = p_y;
-			this.m32 = p_z;
-			this.m33 = p_w;
-			break;
-		}
-	}
-	,GetColumn: function(p_index,p_result) {
-		if(p_result == null) p_result = new haxor_math_Vector4(); else p_result = p_result;
-		return p_result.Set(this.GetRowCol(0,p_index),this.GetRowCol(1,p_index),this.GetRowCol(2,p_index),this.GetRowCol(3,p_index));
-	}
-	,SetColumn: function(p_index,p_x,p_y,p_z,p_w) {
-		switch(p_index) {
-		case 0:
-			this.m00 = p_x;
-			this.m10 = p_y;
-			this.m20 = p_z;
-			this.m30 = p_w;
-			break;
-		case 1:
-			this.m01 = p_x;
-			this.m11 = p_y;
-			this.m21 = p_z;
-			this.m31 = p_w;
-			break;
-		case 2:
-			this.m02 = p_x;
-			this.m12 = p_y;
-			this.m22 = p_z;
-			this.m32 = p_w;
-			break;
-		case 3:
-			this.m03 = p_x;
-			this.m13 = p_y;
-			this.m23 = p_z;
-			this.m33 = p_w;
-			break;
-		}
-	}
-	,get_diagonalLR: function() {
-		return new haxor_math_Vector4(this.m00,this.m11,this.m22,this.m33);
-	}
-	,set_diagonalLR: function(v) {
-		this.m00 = v.x;
-		this.m11 = v.y;
-		this.m22 = v.z;
-		this.m33 = v.w;
-		return v;
-	}
-	,SetIdentity: function() {
-		return this.Set(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
-	}
-	,Set: function(p_m00,p_m01,p_m02,p_m03,p_m10,p_m11,p_m12,p_m13,p_m20,p_m21,p_m22,p_m23,p_m30,p_m31,p_m32,p_m33) {
-		if(p_m33 == null) p_m33 = 0;
-		if(p_m32 == null) p_m32 = 0;
-		if(p_m31 == null) p_m31 = 0;
-		if(p_m30 == null) p_m30 = 0;
-		if(p_m23 == null) p_m23 = 0;
-		if(p_m22 == null) p_m22 = 0;
-		if(p_m21 == null) p_m21 = 0;
-		if(p_m20 == null) p_m20 = 0;
-		if(p_m13 == null) p_m13 = 0;
-		if(p_m12 == null) p_m12 = 0;
-		if(p_m11 == null) p_m11 = 0;
-		if(p_m10 == null) p_m10 = 0;
-		if(p_m03 == null) p_m03 = 0;
-		if(p_m02 == null) p_m02 = 0;
-		if(p_m01 == null) p_m01 = 0;
-		if(p_m00 == null) p_m00 = 0;
-		this.m00 = p_m00;
-		this.m01 = p_m01;
-		this.m02 = p_m02;
-		this.m03 = p_m03;
-		this.m10 = p_m10;
-		this.m11 = p_m11;
-		this.m12 = p_m12;
-		this.m13 = p_m13;
-		this.m20 = p_m20;
-		this.m21 = p_m21;
-		this.m22 = p_m22;
-		this.m23 = p_m23;
-		this.m30 = p_m30;
-		this.m31 = p_m31;
-		this.m32 = p_m32;
-		this.m33 = p_m33;
-		return this;
-	}
-	,SetMatrix4: function(p_matrix) {
-		this.m00 = p_matrix.m00;
-		this.m01 = p_matrix.m01;
-		this.m02 = p_matrix.m02;
-		this.m03 = p_matrix.m03;
-		this.m10 = p_matrix.m10;
-		this.m11 = p_matrix.m11;
-		this.m12 = p_matrix.m12;
-		this.m13 = p_matrix.m13;
-		this.m20 = p_matrix.m20;
-		this.m21 = p_matrix.m21;
-		this.m22 = p_matrix.m22;
-		this.m23 = p_matrix.m23;
-		this.m30 = p_matrix.m30;
-		this.m31 = p_matrix.m31;
-		this.m32 = p_matrix.m32;
-		this.m33 = p_matrix.m33;
-		return this;
-	}
-	,GetIndex: function(p_index) {
-		switch(p_index) {
-		case 0:
-			return this.m00;
-		case 1:
-			return this.m01;
-		case 2:
-			return this.m02;
-		case 3:
-			return this.m03;
-		case 4:
-			return this.m10;
-		case 5:
-			return this.m11;
-		case 6:
-			return this.m12;
-		case 7:
-			return this.m13;
-		case 8:
-			return this.m20;
-		case 9:
-			return this.m21;
-		case 10:
-			return this.m22;
-		case 11:
-			return this.m23;
-		case 12:
-			return this.m30;
-		case 13:
-			return this.m31;
-		case 14:
-			return this.m32;
-		case 15:
-			return this.m33;
-		}
-		return 0;
-	}
-	,SetIndex: function(p_index,p_value) {
-		switch(p_index) {
-		case 0:
-			this.m00 = p_value;
-			break;
-		case 1:
-			this.m01 = p_value;
-			break;
-		case 2:
-			this.m02 = p_value;
-			break;
-		case 3:
-			this.m03 = p_value;
-			break;
-		case 4:
-			this.m10 = p_value;
-			break;
-		case 5:
-			this.m11 = p_value;
-			break;
-		case 6:
-			this.m12 = p_value;
-			break;
-		case 7:
-			this.m13 = p_value;
-			break;
-		case 8:
-			this.m20 = p_value;
-			break;
-		case 9:
-			this.m21 = p_value;
-			break;
-		case 10:
-			this.m22 = p_value;
-			break;
-		case 11:
-			this.m23 = p_value;
-			break;
-		case 12:
-			this.m30 = p_value;
-			break;
-		case 13:
-			this.m31 = p_value;
-			break;
-		case 14:
-			this.m32 = p_value;
-			break;
-		case 15:
-			this.m33 = p_value;
-			break;
-		}
-		return this;
-	}
-	,SetRowCol: function(p_row,p_col,p_value) {
-		return this.SetIndex(p_col + (p_row << 2),p_value);
-	}
-	,GetRowCol: function(p_row,p_col) {
-		return this.GetIndex(p_col + (p_row << 2));
-	}
-	,SwapCol: function(p_a,p_b) {
-		var a0 = this.GetRowCol(0,p_a);
-		var a1 = this.GetRowCol(1,p_a);
-		var a2 = this.GetRowCol(2,p_a);
-		var a3 = this.GetRowCol(3,p_a);
-		this.SetRowCol(0,p_a,this.GetRowCol(0,p_b));
-		this.SetRowCol(1,p_a,this.GetRowCol(1,p_b));
-		this.SetRowCol(2,p_a,this.GetRowCol(2,p_b));
-		this.SetRowCol(3,p_a,this.GetRowCol(3,p_b));
-		this.SetRowCol(0,p_b,a0);
-		this.SetRowCol(1,p_b,a1);
-		this.SetRowCol(2,p_b,a2);
-		this.SetRowCol(3,p_b,a3);
-		return this;
-	}
-	,SwapRow: function(p_a,p_b) {
-		var a0 = this.GetRowCol(p_a,0);
-		var a1 = this.GetRowCol(p_a,1);
-		var a2 = this.GetRowCol(p_a,2);
-		var a3 = this.GetRowCol(p_a,3);
-		this.SetRowCol(p_a,0,this.GetRowCol(p_b,0));
-		this.SetRowCol(p_a,1,this.GetRowCol(p_b,1));
-		this.SetRowCol(p_a,2,this.GetRowCol(p_b,2));
-		this.SetRowCol(p_a,3,this.GetRowCol(p_b,3));
-		this.SetRowCol(p_b,0,a0);
-		this.SetRowCol(p_b,1,a1);
-		this.SetRowCol(p_b,2,a2);
-		this.SetRowCol(p_b,3,a3);
-		return this;
-	}
-	,Transpose: function() {
-		var t00 = this.m00;
-		var t01 = this.m01;
-		var t02 = this.m02;
-		var t03 = this.m03;
-		var t10 = this.m10;
-		var t11 = this.m11;
-		var t12 = this.m12;
-		var t13 = this.m13;
-		var t20 = this.m20;
-		var t21 = this.m21;
-		var t22 = this.m22;
-		var t23 = this.m23;
-		var t30 = this.m30;
-		var t31 = this.m31;
-		var t32 = this.m32;
-		var t33 = this.m33;
-		return this.Set(t00,t10,t20,t30,t01,t11,t21,t31,t02,t12,t22,t32,t03,t13,t23,t33);
-	}
-	,ToRotation: function() {
-		var tmp = haxor_context_EngineContext.data.get_v3();
-		tmp.Set(this.m00,this.m01,this.m02).Normalize();
-		this.m00 = tmp.x;
-		this.m01 = tmp.y;
-		this.m02 = tmp.z;
-		this.m03 = 0.0;
-		tmp.Set(this.m10,this.m11,this.m12).Normalize();
-		this.m10 = tmp.x;
-		this.m11 = tmp.y;
-		this.m12 = tmp.z;
-		this.m13 = 0.0;
-		tmp.Set(this.m20,this.m21,this.m22).Normalize();
-		this.m20 = tmp.x;
-		this.m21 = tmp.y;
-		this.m22 = tmp.z;
-		this.m23 = 0.0;
-		this.m30 = this.m31 = this.m32 = 0.0;
-		this.m33 = 1.0;
-		return this;
-	}
-	,Rotate: function(p_vector) {
-		var tmp = haxor_context_EngineContext.data.get_v3();
-		tmp.Set(this.m00,this.m01,this.m02).Normalize();
-		p_vector.x = tmp.x * p_vector.x + tmp.y * p_vector.y + tmp.z * p_vector.z;
-		tmp.Set(this.m10,this.m11,this.m12).Normalize();
-		p_vector.y = tmp.x * p_vector.x + tmp.y * p_vector.y + tmp.z * p_vector.z;
-		tmp.Set(this.m20,this.m21,this.m22).Normalize();
-		p_vector.z = tmp.x * p_vector.x + tmp.y * p_vector.y + tmp.z * p_vector.z;
-		return p_vector;
-	}
-	,SetTRS: function(p_position,p_rotation,p_scale) {
-		return haxor_math_Matrix4.TRS(p_position,p_rotation,p_scale,this);
-	}
-	,MultiplyTransform: function(p_matrix) {
-		var r00 = this.m00 * p_matrix.m00 + this.m01 * p_matrix.m10 + this.m02 * p_matrix.m20;
-		var r01 = this.m00 * p_matrix.m01 + this.m01 * p_matrix.m11 + this.m02 * p_matrix.m21;
-		var r02 = this.m00 * p_matrix.m02 + this.m01 * p_matrix.m12 + this.m02 * p_matrix.m22;
-		var r03 = this.m00 * p_matrix.m03 + this.m01 * p_matrix.m13 + this.m02 * p_matrix.m23 + this.m03;
-		var r10 = this.m10 * p_matrix.m00 + this.m11 * p_matrix.m10 + this.m12 * p_matrix.m20;
-		var r11 = this.m10 * p_matrix.m01 + this.m11 * p_matrix.m11 + this.m12 * p_matrix.m21;
-		var r12 = this.m10 * p_matrix.m02 + this.m11 * p_matrix.m12 + this.m12 * p_matrix.m22;
-		var r13 = this.m10 * p_matrix.m03 + this.m11 * p_matrix.m13 + this.m12 * p_matrix.m23 + this.m13;
-		var r20 = this.m20 * p_matrix.m00 + this.m21 * p_matrix.m10 + this.m22 * p_matrix.m20;
-		var r21 = this.m20 * p_matrix.m01 + this.m21 * p_matrix.m11 + this.m22 * p_matrix.m21;
-		var r22 = this.m20 * p_matrix.m02 + this.m21 * p_matrix.m12 + this.m22 * p_matrix.m22;
-		var r23 = this.m20 * p_matrix.m03 + this.m21 * p_matrix.m13 + this.m22 * p_matrix.m23 + this.m23;
-		this.Set(r00,r01,r02,r03,r10,r11,r12,r13,r20,r21,r22,r23,0,0,0,1);
-		return this;
-	}
-	,Multiply3x4: function(p_matrix) {
-		var r00 = this.m00 * p_matrix.m00 + this.m01 * p_matrix.m10 + this.m02 * p_matrix.m20 + this.m03 * p_matrix.m30;
-		var r01 = this.m00 * p_matrix.m01 + this.m01 * p_matrix.m11 + this.m02 * p_matrix.m21 + this.m03 * p_matrix.m31;
-		var r02 = this.m00 * p_matrix.m02 + this.m01 * p_matrix.m12 + this.m02 * p_matrix.m22 + this.m03 * p_matrix.m32;
-		var r03 = this.m00 * p_matrix.m03 + this.m01 * p_matrix.m13 + this.m02 * p_matrix.m23 + this.m03 * p_matrix.m33;
-		var r10 = this.m10 * p_matrix.m00 + this.m11 * p_matrix.m10 + this.m12 * p_matrix.m20 + this.m13 * p_matrix.m30;
-		var r11 = this.m10 * p_matrix.m01 + this.m11 * p_matrix.m11 + this.m12 * p_matrix.m21 + this.m13 * p_matrix.m31;
-		var r12 = this.m10 * p_matrix.m02 + this.m11 * p_matrix.m12 + this.m12 * p_matrix.m22 + this.m13 * p_matrix.m32;
-		var r13 = this.m10 * p_matrix.m03 + this.m11 * p_matrix.m13 + this.m12 * p_matrix.m23 + this.m13 * p_matrix.m33;
-		var r20 = this.m20 * p_matrix.m00 + this.m21 * p_matrix.m10 + this.m22 * p_matrix.m20 + this.m23 * p_matrix.m30;
-		var r21 = this.m20 * p_matrix.m01 + this.m21 * p_matrix.m11 + this.m22 * p_matrix.m21 + this.m23 * p_matrix.m31;
-		var r22 = this.m20 * p_matrix.m02 + this.m21 * p_matrix.m12 + this.m22 * p_matrix.m22 + this.m23 * p_matrix.m32;
-		var r23 = this.m20 * p_matrix.m03 + this.m21 * p_matrix.m13 + this.m22 * p_matrix.m23 + this.m23 * p_matrix.m33;
-		this.Set(r00,r01,r02,r03,r10,r11,r12,r13,r20,r21,r22,r23,this.m30,this.m31,this.m32,this.m33);
-		return this;
-	}
-	,Multiply: function(p_matrix) {
-		var r00 = this.m00 * p_matrix.m00 + this.m01 * p_matrix.m10 + this.m02 * p_matrix.m20 + this.m03 * p_matrix.m30;
-		var r01 = this.m00 * p_matrix.m01 + this.m01 * p_matrix.m11 + this.m02 * p_matrix.m21 + this.m03 * p_matrix.m31;
-		var r02 = this.m00 * p_matrix.m02 + this.m01 * p_matrix.m12 + this.m02 * p_matrix.m22 + this.m03 * p_matrix.m32;
-		var r03 = this.m00 * p_matrix.m03 + this.m01 * p_matrix.m13 + this.m02 * p_matrix.m23 + this.m03 * p_matrix.m33;
-		var r10 = this.m10 * p_matrix.m00 + this.m11 * p_matrix.m10 + this.m12 * p_matrix.m20 + this.m13 * p_matrix.m30;
-		var r11 = this.m10 * p_matrix.m01 + this.m11 * p_matrix.m11 + this.m12 * p_matrix.m21 + this.m13 * p_matrix.m31;
-		var r12 = this.m10 * p_matrix.m02 + this.m11 * p_matrix.m12 + this.m12 * p_matrix.m22 + this.m13 * p_matrix.m32;
-		var r13 = this.m10 * p_matrix.m03 + this.m11 * p_matrix.m13 + this.m12 * p_matrix.m23 + this.m13 * p_matrix.m33;
-		var r20 = this.m20 * p_matrix.m00 + this.m21 * p_matrix.m10 + this.m22 * p_matrix.m20 + this.m23 * p_matrix.m30;
-		var r21 = this.m20 * p_matrix.m01 + this.m21 * p_matrix.m11 + this.m22 * p_matrix.m21 + this.m23 * p_matrix.m31;
-		var r22 = this.m20 * p_matrix.m02 + this.m21 * p_matrix.m12 + this.m22 * p_matrix.m22 + this.m23 * p_matrix.m32;
-		var r23 = this.m20 * p_matrix.m03 + this.m21 * p_matrix.m13 + this.m22 * p_matrix.m23 + this.m23 * p_matrix.m33;
-		var r30 = this.m30 * p_matrix.m00 + this.m31 * p_matrix.m10 + this.m32 * p_matrix.m20 + this.m33 * p_matrix.m30;
-		var r31 = this.m30 * p_matrix.m01 + this.m31 * p_matrix.m11 + this.m32 * p_matrix.m21 + this.m33 * p_matrix.m31;
-		var r32 = this.m30 * p_matrix.m02 + this.m31 * p_matrix.m12 + this.m32 * p_matrix.m22 + this.m33 * p_matrix.m32;
-		var r33 = this.m30 * p_matrix.m03 + this.m31 * p_matrix.m13 + this.m32 * p_matrix.m23 + this.m33 * p_matrix.m33;
-		this.Set(r00,r01,r02,r03,r10,r11,r12,r13,r20,r21,r22,r23,r30,r31,r32,r33);
-		return this;
-	}
-	,Transform4x4: function(p_point) {
-		var vx = this.m00 * p_point.x + this.m01 * p_point.y + this.m02 * p_point.z + this.m03 * p_point.w;
-		var vy = this.m10 * p_point.x + this.m11 * p_point.y + this.m12 * p_point.z + this.m13 * p_point.w;
-		var vz = this.m20 * p_point.x + this.m21 * p_point.y + this.m22 * p_point.z + this.m23 * p_point.w;
-		var vw = this.m30 * p_point.x + this.m31 * p_point.y + this.m32 * p_point.z + this.m33 * p_point.w;
-		p_point.x = vx;
-		p_point.y = vy;
-		p_point.z = vz;
-		p_point.w = vw;
-		return p_point;
-	}
-	,Transform3x4: function(p_point) {
-		var vx = this.m00 * p_point.x + this.m01 * p_point.y + this.m02 * p_point.z + this.m03;
-		var vy = this.m10 * p_point.x + this.m11 * p_point.y + this.m12 * p_point.z + this.m13;
-		var vz = this.m20 * p_point.x + this.m21 * p_point.y + this.m22 * p_point.z + this.m23;
-		p_point.x = vx;
-		p_point.y = vy;
-		p_point.z = vz;
-		return p_point;
-	}
-	,Transform3x3: function(p_point) {
-		var vx = this.m00 * p_point.x + this.m01 * p_point.y + this.m02 * p_point.z;
-		var vy = this.m10 * p_point.x + this.m11 * p_point.y + this.m12 * p_point.z;
-		var vz = this.m20 * p_point.x + this.m21 * p_point.y + this.m22 * p_point.z;
-		p_point.x = vx;
-		p_point.y = vy;
-		p_point.z = vz;
-		return p_point;
-	}
-	,Transform2x3: function(p_point) {
-		var vx = this.m00 * p_point.x + this.m01 * p_point.y + this.m03;
-		var vy = this.m10 * p_point.x + this.m11 * p_point.y + this.m13;
-		p_point.x = vx;
-		p_point.y = vy;
-	}
-	,Transform2x2: function(p_point) {
-		var vx = this.m00 * p_point.x + this.m01 * p_point.y;
-		var vy = this.m10 * p_point.x + this.m11 * p_point.y;
-		p_point.x = vx;
-		p_point.y = vy;
-	}
-	,SetLookAt: function(p_eye,p_at,p_up) {
-		return haxor_math_Matrix4.LookAt(p_eye,p_at,p_up,this);
-	}
-	,SetFrustum: function(p_left,p_right,p_top,p_bottom,p_near,p_far) {
-		return haxor_math_Matrix4.Frustum(p_left,p_right,p_top,p_bottom,p_near,p_far,this);
-	}
-	,SetFrustumInverse: function(p_left,p_right,p_top,p_bottom,p_near,p_far) {
-		return haxor_math_Matrix4.FrustumInverse(p_left,p_right,p_top,p_bottom,p_near,p_far,this);
-	}
-	,SetOrtho: function(p_left,p_right,p_top,p_bottom,p_near,p_far) {
-		return haxor_math_Matrix4.Ortho(p_left,p_right,p_top,p_bottom,p_near,p_far,this);
-	}
-	,SetPerspective: function(p_fov,p_aspect,p_near,p_far) {
-		return haxor_math_Matrix4.Perspective(p_fov,p_aspect,p_near,p_far,this);
-	}
-	,SetPerspectiveInverse: function(p_fov,p_aspect,p_near,p_far) {
-		return haxor_math_Matrix4.PerspectiveInverse(p_fov,p_aspect,p_near,p_far,this);
-	}
-	,ToArray: function() {
-		return [this.m00,this.m01,this.m02,this.m03,this.m10,this.m11,this.m12,this.m13,this.m20,this.m21,this.m22,this.m23,this.m30,this.m31,this.m32,this.m33];
-	}
-	,ToString: function(p_linear,p_places) {
-		if(p_places == null) p_places = 2;
-		if(p_linear == null) p_linear = true;
-		var a = this.ToArray();
-		var s = [];
-		var _g1 = 0;
-		var _g = a.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			a[i] = haxor_math_Mathf.RoundPlaces(a[i],p_places);
-			s.push(a[i] >= 0?" " + a[i]:a[i] + "");
-		}
-		var res;
-		if(p_linear) res = "["; else res = "";
-		var _g2 = 0;
-		while(_g2 < 4) {
-			var i1 = _g2++;
-			var _g11 = 0;
-			while(_g11 < 4) {
-				var j = _g11++;
-				res += s[j + i1 * 4] + (j < 3?",":"");
-			}
-			if(i1 == 3) res += ""; else if(p_linear) res += " |"; else res += "\n";
-		}
-		if(p_linear) res += "]";
-		return res;
-	}
-	,__class__: haxor_math_Matrix4
-	,__properties__: {set_diagonalLR:"set_diagonalLR",get_diagonalLR:"get_diagonalLR",get_transposed:"get_transposed",get_inverseTransform:"get_inverseTransform",get_translation:"get_translation",get_scale:"get_scale",get_rotation:"get_rotation",get_trace:"get_trace",set_quaternion:"set_quaternion",get_quaternion:"get_quaternion",get_clone:"get_clone"}
-};
 var haxor_math_Random = function() { };
 $hxClasses["haxor.math.Random"] = haxor_math_Random;
 haxor_math_Random.__name__ = ["haxor","math","Random"];
@@ -14522,12 +14962,21 @@ haxor_context_DataContext.MAX_TEMP = 128;
 haxor_context_EngineContext.uid = 0;
 haxor_context_EngineContext.maxNodes = 5000;
 haxor_context_EngineContext.collectRate = 10;
+haxor_context_Gizmo.POINT = 0;
+haxor_context_Gizmo.LINE = 1;
+haxor_context_Gizmo.AXIS = 2;
+haxor_context_Gizmo.WIRE_CUBE = 3;
+haxor_context_Gizmo.WIRE_SPHERE = 4;
+haxor_context_Gizmo.DATA_OFFSET = 24;
+haxor_context_Gizmo.MAX_GIZMOS = 5000;
+haxor_context_Gizmo.IDM = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
 haxor_context_BaseProcess.m_cid = 0;
 haxor_context_ShaderContext.flat_source = "\r\n\t<shader id=\"haxor/unlit/Flat\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\t\t\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\tv_color = color * Tint;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) { gl_FragColor = v_color; }\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_context_ShaderContext.flat_texture_source = "\r\n\t<shader id=\"haxor/unlit/FlatTexture\">\t\r\n\t\t<vertex>\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\t\r\n\t\tattribute vec4 color;\r\n\t\tattribute vec3 uv0;\t\t\r\n\t\tvarying vec3 v_uv0;\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\tv_uv0   = uv0;\r\n\t\t\tv_color = color;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\r\n\t\t\tvarying vec3 v_uv0;\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tuniform sampler2D DiffuseTexture;\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);\t\r\n\t\t\t\tgl_FragColor.xyz = (tex_diffuse.xyz * v_color.xyz);\r\n\t\t\t\tgl_FragColor.a \t = tex_diffuse.a * v_color.a;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
 haxor_context_ShaderContext.flat_texture_skin_source = "\r\n\t<shader id=\"haxor/unlit/FlatTextureSkin\">\t\r\n\t\t<vertex precision=\"low\">\r\n\t\t\r\n\t\t#define SKINNING_TEXTURE_SIZE 2048.0\r\n\t\t#define BINDS_OFFSET\t\t  1024.0\r\n\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  WorldMatrixIT;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\r\n\t\tuniform vec3  WSCameraPosition;\t\t\r\n\t\t\r\n\t\t//uniform vec4  Skinning[MAX_BONES];\r\n\t\t\r\n\t\tuniform sampler2D Skinning;\r\n\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\t\r\n\t\tattribute vec4 color;\r\n\t\tattribute vec3 normal;\r\n\t\tattribute vec3 uv0;\r\n\t\tattribute vec4 bone;\r\n\t\tattribute vec4 weight;\r\n\t\t\r\n\t\tvarying vec3 v_uv0;\r\n\t\tvarying vec3 v_normal;\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec4 v_wsVertex;\r\n\t\tvarying vec3 v_wsView;\t\r\n\t\t\r\n\t\tvec4 SkinningRead(float id)\r\n\t\t{\r\n\t\t\treturn texture2D(Skinning, vec2(0.0,(id/(SKINNING_TEXTURE_SIZE-1.0))));\r\n\t\t}\r\n\t\t\r\n\t\tmat4 GetSkinMatrix(float b,float o)\r\n\t\t{\r\n\t\t\tvec4 l0, l1, l2;\t\t\t\t\t\t\r\n\t\t\tl0 = SkinningRead(b+o); l1 = SkinningRead(b+1.0+o); l2 = SkinningRead(b+2.0+o);\r\n\t\t\treturn mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);\t\t\t\r\n\t\t}\r\n\t\t\r\n\t\tmat4 SkinWorldMatrix()\r\n\t\t{\r\n\t\t\tvec4 b = bone * 3.0;\r\n\t\t\tvec4 w = weight;\r\n\t\t\tfloat ivs = 1.0 / (weight.x + weight.y + weight.z + weight.w);\r\n\t\t\tw *= ivs;\r\n\t\t\tmat4 j0 = GetSkinMatrix(b[0],0.0);\r\n\t\t\tmat4 b0 = GetSkinMatrix(b[0],BINDS_OFFSET);\r\n\t\t\tmat4 j1 = GetSkinMatrix(b[1],0.0);\r\n\t\t\tmat4 b1 = GetSkinMatrix(b[1],BINDS_OFFSET);\r\n\t\t\tmat4 j2 = GetSkinMatrix(b[2],0.0);\r\n\t\t\tmat4 b2 = GetSkinMatrix(b[2],BINDS_OFFSET);\r\n\t\t\tmat4 j3 = GetSkinMatrix(b[3],0.0);\r\n\t\t\tmat4 b3 = GetSkinMatrix(b[3],BINDS_OFFSET);\r\n\t\t\t\r\n\t\t\treturn    ((b0 * j0) * w[0])+\r\n\t\t\t          ((b1 * j1) * w[1])+\r\n\t\t\t          ((b2 * j2) * w[2])+\r\n\t\t\t          ((b3 * j3) * w[3]);\r\n\t\t\t\r\n\t\t\t\r\n\t\t}\r\n\t\t\t\t\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tvec4 lv = vec4(vertex,1.0);\r\n\t\t\tvec3 ln = vec3(normal);\r\n\t\t\tmat4 swm = SkinWorldMatrix();\r\n\t\t\tmat4 wm;\t\t\t\t\t\r\n\t\t\twm = swm;\r\n\t\t\t//wm = WorldMatrix;\r\n\t\t\t\r\n\t\t\tv_uv0   = uv0;\r\n\t\t\tv_color = color;\t\t\t\r\n\t\t\tv_normal = ln * mat3(WorldMatrixIT);\t\t\t\r\n\t\t\tgl_Position = ((lv * wm) * ViewMatrix) * ProjectionMatrix;\r\n\t\t}\t\t\r\n\t\t</vertex>\r\n\t\t\r\n\t\t<fragment precision=\"low\">\r\n\t\t\t\t\t\r\n\t\t\tuniform sampler2D DiffuseTexture;\t\t\t\r\n\t\t\t\r\n\t\t\tuniform sampler2D Skinning;\r\n\t\t\t\r\n\t\t\tvarying vec3 v_uv0;\r\n\t\t\tvarying vec4 v_color;\r\n\t\t\tvarying vec3 v_normal;\r\n\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);\r\n\t\t\t\tgl_FragColor.xyz = tex_diffuse.xyz * v_color.xyz;\r\n\t\t\t\tgl_FragColor.a \t = tex_diffuse.a * v_color.a;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
-haxor_context_ShaderContext.gizmo_source = "\r\n\t<shader id=\"haxor/gizmo/Grid\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tuniform float Area;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\tgl_Position = ((vec4(vertex*Area, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\tv_color = color * Tint;\t\t\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
+haxor_context_ShaderContext.grid_source = "\r\n\t<shader id=\"haxor/gizmo/Grid\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tuniform float Area;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\tgl_Position = ((vec4(vertex*Area, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\tv_color = color * Tint;\t\t\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_context_ShaderContext.texture_source = "\r\n\t<shader id=\"haxor/gizmo/Texture\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform vec2  Screen;\r\n\t\tuniform vec4  Rect;\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec2 v_uv0;\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tvec4 p = vec4(vertex, 1);\r\n\t\t\tfloat sw = Screen.x * 0.5;\r\n\t\t\tfloat sh = Screen.y * 0.5;\r\n\t\t\tp.x *= Rect.z / sw;\r\n\t\t\tp.y *= Rect.w / sh;\r\n\t\t\tp.x += Rect.x / sw;\r\n\t\t\tp.y -= Rect.y / sh;\t\t\t\r\n\t\t\tp.x -= 1.0;\r\n\t\t\tp.y += 1.0;\t\t\t\r\n\t\t\tp.z = 0.001;\r\n\t\t\tgl_Position = p;\r\n\t\t\tv_color = Tint;\t\t\r\n\t\t\tv_uv0   = vec2(vertex.x,1.0+vertex.y);\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\r\n\t\t\tvarying vec2 v_uv0;\r\n\t\t\tuniform sampler2D Texture;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = texture2D(Texture, v_uv0) * v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
+haxor_context_ShaderContext.gizmo_source = "\r\n\t<shader id=\"haxor/gizmo/Gizmo\">\t\r\n\t\t<vertex>\t\r\n\t\t\r\n\t\t#define GIZMO_POINT       0\r\n\t\t#define GIZMO_LINE        1\r\n\t\t#define GIZMO_AXIS        2\r\n\t\t#define GIZMO_WIRE_CUBE   3\r\n\t\t#define GIZMO_WIRE_SPHERE 4\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\t\tmat4         WorldMatrix;\r\n\t\tuniform mat4  \t\t ViewMatrix;\r\n\t\tuniform mat4  \t\t ProjectionMatrix;\t\t\t\t\r\n\t\tuniform int   \t\t Count;\r\n\t\tuniform int   \t\t Type;\t\t\r\n\t\tuniform sampler2D \t Data;\r\n\t\tuniform int  \t\t DataSize;\r\n\t\t\t\tvec4\t\t DataColor;\r\n\t\t\t\tvec4\t\t DataA;\r\n\t\t\t\tvec4\t\t DataB;\r\n\t\t\r\n\t\tattribute float id;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\r\n\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\t\r\n\t\tvec4 GetPixel(float p_pix,float p_ds,float p_ids)\r\n\t\t{\t\t\t\r\n\t\t\tfloat px = mod(p_pix, p_ds) * p_ids;\r\n\t\t\tfloat py = (p_pix * p_ids) * p_ids;\r\n\t\t\treturn texture2D(Data, vec2(px,py));\r\n\t\t}\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tif (id >= float(Count)) \r\n\t\t\t{\r\n\t\t\t\tgl_Position = vec4( -2.0, 0.0, 0.0, 1.0);\r\n\t\t\t\treturn; \r\n\t\t\t}\t\t\t\r\n\t\t\tfloat p  \t= id * 6.0;\r\n\t\t\tfloat ds\t= float(DataSize);\r\n\t\t\tfloat ids\t= 1.0 / ds;\t\t\t\r\n\t\t\tDataColor \t= GetPixel(p,ds,ids);\r\n\t\t\tDataA \t\t= GetPixel(p + 1.0,ds,ids);\r\n\t\t\tDataB \t\t= GetPixel(p + 2.0,ds,ids);\t\t\t\r\n\t\t\tvec4 l0 \t= GetPixel(p + 3.0,ds,ids);\r\n\t\t\tvec4 l1 \t= GetPixel(p + 4.0,ds,ids);\r\n\t\t\tvec4 l2 \t= GetPixel(p + 5.0,ds,ids);\t\r\n\t\t\tvec4 v\t\t= vec4(vertex, 1.0);\r\n\t\t\tWorldMatrix = mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);\r\n\t\t\t\r\n\t\t\tif (Type == GIZMO_POINT)\r\n\t\t\t{\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_PointSize = DataA.x * (ncp.z / ncp.w);\t\t\t\t\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_LINE)\r\n\t\t\t{\r\n\t\t\t\tfloat r = v.x;\r\n\t\t\t\tv.xyz = DataA.xyz + (DataB.xyz - DataA.xyz) * r;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_AXIS)\r\n\t\t\t{\t\t\r\n\t\t\t\tfloat sx   = length(vec3(WorldMatrix[0][0],WorldMatrix[1][0],WorldMatrix[2][0]));\r\n\t\t\t\tfloat sy   = length(vec3(WorldMatrix[0][1],WorldMatrix[1][1],WorldMatrix[2][1]));\r\n\t\t\t\tfloat sz   = length(vec3(WorldMatrix[0][2],WorldMatrix[1][2],WorldMatrix[2][2]));\t\t\t\t\r\n\t\t\t\tvec3 scale = vec3(sx, sy, sz);\t\t\t\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz *= (DataA.xyz / scale.xyz) * ncp.w * 0.025;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position  = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_CUBE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.xyz;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_SPHERE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.x;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t\t\t\t\t\r\n\t\t\tv_color = DataColor * color;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) { gl_FragColor = v_color; }\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_core_Console.m_style = "";
 haxor_core_Console.verbose = 0;
 haxor_core_RenderQueue.Background = 0;

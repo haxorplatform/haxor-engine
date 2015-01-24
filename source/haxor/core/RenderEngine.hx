@@ -17,7 +17,7 @@ class RenderEngine
 	static private function Render():Void
 	{
 		#if profile
-		Stats.BeginRender();		
+		RenderStats.BeginRender();		
 		#end
 		//Shadow Collect Pass		
 		RenderCameras();	
@@ -54,6 +54,11 @@ class RenderEngine
 		}		
 		
 		//Filters			
+		
+		if (c == Camera.main)
+		{
+			EngineContext.gizmo.Render();
+		}
 		
 		EngineContext.camera.Unbind(c);
 	}
@@ -93,20 +98,20 @@ class RenderEngine
 		if (!r.visible)
 		{
 			#if profile
-			Stats.culled++;
+			RenderStats.culled++;
 			#end
 			return;
 		}
 		
 		#if profile
-		Stats.visible++;
+		RenderStats.visible++;
 		#end
 		
 		//Grab Texture if requested. Check index of start then capture up to it, then stop for optimization.
 			
 		r.OnRender();
 			
-		//Shadow Cast if receiver.			
+		//Shadow Cast if receiver.
 	}
 	
 	/**

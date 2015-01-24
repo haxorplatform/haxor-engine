@@ -330,10 +330,25 @@ class TextureWrap
  */
 enum TextureType
 {
+	/**
+	 * Invalid Texture type.
+	 */
 	None;
+	/**
+	 * 2D Texture Image.
+	 */
 	Texture2D;
+	/**
+	 * Cubemap Texture.
+	 */
 	TextureCube;
+	/**
+	 * Render Target Texture.
+	 */
 	RenderTexture;	
+	/**
+	 * Similar to Texture2D but focused on floating point texels for computing ops.
+	 */
 	Compute;
 }
 

@@ -1,16 +1,30 @@
 package haxor.context;
 import haxor.component.Camera;
+import haxor.component.Transform;
+import haxor.context.GizmoContext.Gizmo;
+import haxor.context.GizmoContext.PointGizmo;
+import haxor.core.Console;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
 import haxor.core.Enums.MeshPrimitive;
+import haxor.core.Enums.PixelFormat;
+import haxor.graphics.GL;
+import haxor.graphics.GraphicContext;
 import haxor.graphics.Graphics;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.mesh.Mesh;
+import haxor.graphics.mesh.MeshLayout.Mesh3;
 import haxor.graphics.Screen;
+import haxor.graphics.texture.ComputeTexture;
+import haxor.graphics.texture.Texture;
 import haxor.io.FloatArray;
 import haxor.math.AABB3;
 import haxor.math.Color;
+import haxor.math.Mathf;
+import haxor.math.Matrix4;
+import haxor.math.Vector3;
+import haxor.math.Vector4;
 import haxor.platform.Types.Float32;
 
 /**
@@ -45,18 +59,21 @@ class GizmoContext
 	 */
 	private var texture_material : Material;
 	
+	private var wire_sphere_renderer : WireSphereGizmo;	
+	private var wire_cube_renderer 	 : WireCubeGizmo;
+	private var axis_renderer 		 : AxisGizmo;
+	private var line_renderer 		 : LineGizmo;
+	private var point_renderer 		 : PointGizmo;
+	private var point_smooth_renderer 		 : PointGizmo;
 	
-	private function new() 
-	{
-		
-	}
+	private function new() { }
 	
 	
 	private function Initialize():Void
 	{
 		var mat : Material;
 		mat = gizmo_material	= new Material("$GizmoMaterial");
-		mat.shader 	= new Shader(ShaderContext.gizmo_source);
+		mat.shader 	= new Shader(ShaderContext.grid_source);
 		mat.blend = true;
 		mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);		
 		mat.SetFloat("Area", 1000.0);
@@ -72,10 +89,17 @@ class GizmoContext
 		mat.SetColor("Tint", new Color(1.0, 1.0, 1.0, 1.0));
 		mat.cull = CullMode.None;
 		mat.ztest = false;
-		
+				
 		CreateAxis();
 		CreateGrid(100.0);
 		CreateTextureQuad();
+		
+		
+		wire_sphere_renderer  = new WireSphereGizmo();
+		wire_cube_renderer    = new WireCubeGizmo();
+		axis_renderer		  = new AxisGizmo();
+		line_renderer		  = new LineGizmo();
+		point_renderer		  = new PointGizmo();		
 	}
 	
 	/**
@@ -94,7 +118,7 @@ class GizmoContext
 		1, 0, 0		
 		]);		
 		m.Set("vertex", vl, 3);		
-		m.bounds = m.GenerateAttribBounds("vertex", AABB3.temp);		
+		m.bounds = m.GenerateAttribBounds("vertex", AABB3.temp);
 	}
 	
 	/**
@@ -190,16 +214,465 @@ class GizmoContext
 		if (p_color != null) gizmo_material.SetColor("Tint", p_color);					
 		Graphics.Render(grid, gizmo_material,null,Camera.main);
 	}
-	
+		
 	/**
-	 * Renders the world axis.
-	 * @param	p_area
+	 * 
+	 * @param	p_color
+	 * @param	p_radius
+	 * @param	p_transform
 	 */
-	private function DrawAxis(p_area:Float32):Void
+	private function DrawWireSphere(p_position:Vector3,p_radius : Float,p_color : Color, p_transform : Matrix4):Void
 	{
-		gizmo_material.SetFloat("Area", p_area);		
-		gizmo_material.SetColor("Tint", Color.temp.Set(1,1,1,1));		
-		Graphics.Render(axis, gizmo_material,null,Camera.main);
+		wire_sphere_renderer.Push(p_color, Vector4.temp.Set(p_radius, p_radius, p_radius, 1.0), Vector4.temp.Set3(p_position), p_transform);
 	}
 	
+	/**
+	 * 
+	 * @param	p_position
+	 * @param	p_size
+	 * @param	p_color
+	 * @param	p_transform
+	 */
+	private function DrawWireCube(p_position:Vector3,p_size : Vector3,p_color : Color, p_transform : Matrix4):Void
+	{
+		wire_cube_renderer.Push(p_color, Vector4.temp.Set3(p_size), Vector4.temp.Set3(p_position), p_transform);
+	}
+	
+	/**
+	 * 
+	 * @param	p_position
+	 * @param	p_size
+	 * @param	p_color
+	 * @param	p_transform
+	 */
+	private function DrawAxis(p_position:Vector3,p_size : Vector3,p_color : Color, p_transform : Matrix4):Void
+	{
+		axis_renderer.Push(p_color, Vector4.temp.Set3(p_size), Vector4.temp.Set3(p_position), p_transform);
+	}
+	
+	/**
+	 * 
+	 * @param	p_from
+	 * @param	p_to
+	 * @param	p_color
+	 * @param	p_transform
+	 */
+	private function DrawLine(p_from:Vector3,p_to : Vector3,p_color : Color, p_transform : Matrix4):Void
+	{
+		line_renderer.Push(p_color, Vector4.temp.Set3(p_from), Vector4.temp.Set3(p_to), p_transform);
+	}
+	
+	/**
+	 * 
+	 * @param	p_position
+	 * @param	p_radius
+	 * @param	p_color
+	 * @param	p_smooth
+	 * @param	p_transform
+	 */
+	private function DrawPoint(p_position:Vector3,p_size : Float,p_color : Color,p_smooth:Bool, p_transform : Matrix4):Void
+	{
+		point_renderer.Push(p_color, Vector4.temp.Set(p_size, p_smooth ? 1.0 : 0.0, 0.0, 0.0), Vector4.temp.Set3(p_position), p_transform);
+	}
+	
+	/**
+	 * Render all gizmos if any have queued rendering.
+	 */
+	private function Render():Void
+	{
+		var gr : Gizmo;		
+		gr = wire_sphere_renderer; gr.Render(); gr.Clear();
+		gr = wire_cube_renderer; gr.Render(); gr.Clear();
+		gr = axis_renderer; gr.Render(); gr.Clear();
+		gr = line_renderer; gr.Render(); gr.Clear();
+		gr = point_renderer; gr.Render(); gr.Clear();
+	}
+}
+
+/**
+ * 
+ */
+@:noCompletion
+class Gizmo
+{
+	static public var POINT       : Int = 0;
+	static public var LINE        : Int = 1;
+	static public var AXIS		  : Int = 2;
+	static public var WIRE_CUBE   : Int = 3;
+	static public var WIRE_SPHERE : Int = 4;
+	static var DATA_OFFSET 		  : Int = 24;
+	static var MAX_GIZMOS		  : Int = 5000;
+	static var IDM				  : Matrix4 = Matrix4.identity;
+	static var SHADER			  : Shader;
+	
+	/**
+	 * Texture data for information such as color, position, transform and others.
+	 */
+	public var data : ComputeTexture;
+	
+	/**
+	 * Mesh of the gizmos.
+	 */
+	public var mesh : Mesh;
+	
+	/**
+	 * Material used for rendering.
+	 */
+	public var material : Material;
+	
+	/**
+	 * Type of the gizmo.
+	 */
+	public var type : Int;
+	
+	/**
+	 * Currently rendered elements.
+	 */
+	private var m_render_count : Int;
+	
+	/**
+	 * Number of gizmos pre-allocated.
+	 */
+	private var m_gizmo_count : Int;
+	
+	/**
+	 * Creates the gizmo renderer.
+	 */
+	public function new(p_type : Int,p_count : Int)
+	{		
+		type 			= p_type;
+		m_render_count  = 0;				
+		m_gizmo_count 	= p_count;		
+		
+		if (SHADER == null) SHADER = new Shader(ShaderContext.gizmo_source);
+		
+		material = new Material("Gizmo" + p_type+"Material");
+		material.shader = SHADER;
+		material.blend = true;
+		material.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);		
+		material.SetInt("Type", p_type);				
+		material.ztest = false;		
+		var tw : Int = 0;
+		var th : Int = 0;
+		
+		if (p_count >= 1)
+		{
+			var data_tex_size	 : Int = cast Mathf.Max(2,cast Mathf.NextPOT(cast Mathf.Ceil(Mathf.Sqrt((p_count * (DATA_OFFSET/4))))));
+			data = new ComputeTexture(data_tex_size, data_tex_size, PixelFormat.Float4);
+			material.SetTexture("Data", data);
+			material.SetInt("DataSize", data.width);
+			tw = data.width;
+			th = data.height;
+		}		
+		Console.Log("Gizmos> Created Renderer [" + p_type+"] data["+tw+"x"+th+"]");		
+		OnBuild();
+	}
+	
+	/**
+	 * Method that will be overriden in order to create extra data for a specific gizmo.
+	 */
+	public function OnBuild():Void { }
+	
+	/**
+	 * Adds one gizmo to the rendering queue.
+	 * @param	p_color
+	 * @param	p_a
+	 * @param	p_b
+	 * @param	p_transform
+	 */
+	public function Push(p_color : Color, p_a : Vector4, p_b : Vector4, p_transform : Matrix4):Void
+	{		
+		if (m_render_count >= m_gizmo_count)
+		{			
+			return;
+		}
+		var id  : Int 		 = m_render_count;
+		var f32 : FloatArray = cast data.data.buffer;
+		var p   : Int 		 = id * DATA_OFFSET;		
+		var c   : Color      = p_color == null ? Color.temp.Set(1, 1, 1, 1) : p_color;
+		f32.Set(p++,c.r);
+		f32.Set(p++,c.g);
+		f32.Set(p++,c.b);
+		f32.Set(p++,c.a);		
+		f32.Set(p++,p_a.x);
+		f32.Set(p++,p_a.y);
+		f32.Set(p++,p_a.z);
+		f32.Set(p++,p_a.w);
+		f32.Set(p++,p_b.x);
+		f32.Set(p++,p_b.y);
+		f32.Set(p++,p_b.z);
+		f32.Set(p++,p_b.w);		
+		var m : Matrix4 = (p_transform == null ? IDM : p_transform);
+		for (i in 0...12) f32.Set(p++,m.GetIndex(i));			
+		m_render_count++;
+	}
+	
+	/**
+	 * Clears the rendering.
+	 */
+	public function Clear():Void 
+	{ 
+		m_render_count = 0;		
+	}
+	
+	/**
+	 * Render all gizmos in the queue.
+	 */
+	public function Render():Void 
+	{	
+		if (m_render_count > 0)
+		{
+			/*
+			if (type == Gizmo.POINT)
+			{				
+				//var pr : PointGizmo = cast this;
+				//EngineContext.material.SetPointSmooth(pr.smooth);
+			}
+			//*/
+			data.Apply();
+			material.SetInt("Count", m_render_count);
+			Graphics.Render(mesh, material, null, Camera.main);
+		}
+	}
+	
+	
+}
+
+/**
+ * Wireframe sphere gizmo.
+ */
+class WireSphereGizmo extends Gizmo
+{
+	/**
+	 * Creates the gizmo.
+	 */
+	public function new() { super(Gizmo.WIRE_SPHERE, Gizmo.MAX_GIZMOS); }
+	
+	/**
+	 * Creates the mesh and other data.
+	 */
+	override public function OnBuild():Void
+	{
+		var m : Mesh3 = new Mesh3();		
+		m.name 	 = "$GizmoWireSphereMesh";
+		m.primitive = MeshPrimitive.Lines;		
+		var r : Float32 = 1.0;
+		var v : Vector3;
+		var steps : Int = 720;				
+		var ia : FloatArray = new FloatArray(steps * 6 * m_gizmo_count);
+		var va : FloatArray = new FloatArray(steps * 18 * m_gizmo_count);		
+		var va_k : Int = 0;
+		var ia_k : Int = 0;		
+		var id : Float32 = 0.0;		
+		for (k in 0...m_gizmo_count)
+		{		
+			for (i in 0...steps)
+			{
+				var astp : Float32 = 1.0 / (steps - 1);
+				var a : Float32;
+				a = 360 * i * astp;
+				var sv0 : Float32 = Mathf.Sin(a * Mathf.Deg2Rad)*r*0.5;
+				var cv0 : Float32 = Mathf.Cos(a * Mathf.Deg2Rad) * r * 0.5;
+				a = 360 * (i+1) * astp;
+				var sv1 : Float32 = Mathf.Sin(a * Mathf.Deg2Rad)*r*0.5;
+				var cv1 : Float32 = Mathf.Cos(a * Mathf.Deg2Rad)*r* 0.5;				
+				va.Set(va_k++, cv0); va.Set(va_k++, 0.0); va.Set(va_k++, sv0); ia.Set(ia_k++, id);
+				va.Set(va_k++, cv1); va.Set(va_k++, 0.0); va.Set(va_k++, sv1); ia.Set(ia_k++, id);				
+				va.Set(va_k++, 0.0); va.Set(va_k++, cv0); va.Set(va_k++, sv0); ia.Set(ia_k++, id);
+				va.Set(va_k++, 0.0); va.Set(va_k++, cv1); va.Set(va_k++, sv1); ia.Set(ia_k++, id);				
+				va.Set(va_k++, cv0); va.Set(va_k++, sv0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);
+				va.Set(va_k++, cv1); va.Set(va_k++, sv1); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);				
+			}
+			id += 1.0;
+		}		
+		m.Set("id", ia, 1);
+		m.Set("vertex", va, 3);		
+		mesh = m;
+	}
+}
+
+/**
+ * Wireframe cube gizmo.
+ */
+class WireCubeGizmo extends Gizmo
+{
+	/**
+	 * Creates the gizmo.
+	 */
+	public function new() { super(Gizmo.WIRE_CUBE, Gizmo.MAX_GIZMOS); }
+	
+	/**
+	 * Creates the gizmo data.
+	 */
+	override public function OnBuild():Void 
+	{
+		var m : Mesh3 = new Mesh3();		
+		m.name 	 = "$GizmoWireCubeMesh";
+		m.primitive = MeshPrimitive.Lines;		
+		var a : Float = -0.5;
+		var b : Float =  0.5;
+		var p : Array<Vector3> = 
+		[
+			new Vector3(a, a, a), new Vector3(a, a, b), new Vector3(b, a, b), new Vector3(b, a, a), 
+			new Vector3(a, b, a), new Vector3(a, b, b), new Vector3(b, b, b), new Vector3(b, b, a)
+		];				
+		var tp : Array<Int> = 
+		[
+			0, 1, 1, 2, 2, 3, 3, 0,
+			4, 5, 5, 6, 6, 7, 7, 4,
+			0, 1, 1, 5, 5, 4, 4, 0,
+			3, 2, 2, 6, 6, 7, 7, 3,
+			0, 3, 3, 7, 7, 4, 4, 0,
+			1, 5, 5, 6, 6, 2, 2, 1
+		];
+		var va : FloatArray = new FloatArray(tp.length * 3 * m_gizmo_count);
+		var ia : FloatArray = new FloatArray(tp.length * 1 * m_gizmo_count);
+		var va_k : Int = 0;
+		var ia_k : Int = 0;
+		var id : Float = 0.0;
+		for (k in 0...m_gizmo_count)
+		{
+			for (i in 0...tp.length)
+			{
+				var vid : Int = tp[i];
+				va.Set(va_k++, p[vid].x); 
+				va.Set(va_k++, p[vid].y); 
+				va.Set(va_k++, p[vid].z); 
+				ia.Set(ia_k++, id);
+			}
+			id += 1.0;
+		}
+		m.Set("id", ia, 1);
+		m.Set("vertex", va, 3);	
+		mesh = m;
+	}
+}
+
+/**
+ * Gizmo that shows the axis of a transform space.
+ */
+class AxisGizmo extends Gizmo
+{
+	/**
+	 * Creates the gizmo.
+	 */
+	public function new() { super(Gizmo.AXIS, Gizmo.MAX_GIZMOS); }
+	
+	/**
+	 * Builds the gizmo data.
+	 */
+	override public function OnBuild():Void 
+	{
+		var m : Mesh3 = new Mesh3();		
+		m.name 	 = "$GizmoAxisMesh";
+		m.primitive = MeshPrimitive.Lines;
+		
+		var cr : Color = Color.red30;
+		var cg : Color = Color.green30;
+		var cb : Color = Color.blue30;
+		
+		var id : Float = 0.0;
+		var ia : FloatArray = new FloatArray(m_gizmo_count * 6 * 1);
+		var va : FloatArray = new FloatArray(m_gizmo_count * 6 * 3);
+		var ca : FloatArray = new FloatArray(m_gizmo_count * 6 * 3);
+		
+		var va_k : Int = 0;
+		var ca_k : Int = 0;
+		var ia_k : Int = 0;
+		
+		for (k in 0...m_gizmo_count)
+		{
+			
+			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);
+			va.Set(va_k++, 1.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);			
+			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);			
+			va.Set(va_k++, 0.0); va.Set(va_k++, 1.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);			
+			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);			
+			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 1.0); ia.Set(ia_k++, id);
+			var c : Color;			
+			c = cr;
+			ca.Set(ca_k++, c.r); ca.Set(ca_k++, c.g); ca.Set(ca_k++, c.b); ca.Set(ca_k++, c.a);
+			ca.Set(ca_k++, c.r); ca.Set(ca_k++, c.g); ca.Set(ca_k++, c.b); ca.Set(ca_k++, c.a);
+			c = cg;
+			ca.Set(ca_k++, c.r); ca.Set(ca_k++, c.g); ca.Set(ca_k++, c.b); ca.Set(ca_k++, c.a);
+			ca.Set(ca_k++, c.r); ca.Set(ca_k++, c.g); ca.Set(ca_k++, c.b); ca.Set(ca_k++, c.a);
+			c = cb;
+			ca.Set(ca_k++, c.r); ca.Set(ca_k++, c.g); ca.Set(ca_k++, c.b); ca.Set(ca_k++, c.a);
+			ca.Set(ca_k++, c.r); ca.Set(ca_k++, c.g); ca.Set(ca_k++, c.b); ca.Set(ca_k++, c.a);
+			id += 1.0;
+		}		
+		m.Set("id", ia,1);
+		m.Set("vertex", va,3);
+		m.Set("color",  ca, 4);
+		mesh = m;		
+	}
+}
+
+/**
+ * Gizmo that renders a line.
+ */
+class LineGizmo extends Gizmo
+{
+	/**
+	 * Creates the gizmo.
+	 */
+	public function new() { super(Gizmo.LINE, Gizmo.MAX_GIZMOS*3); }
+	
+	/**
+	 * Builds the gizmo data.
+	 */
+	override public function OnBuild():Void 
+	{
+		var m : Mesh3 = new Mesh3();		
+		m.name 	 = "$GizmoLineMesh";
+		m.primitive = MeshPrimitive.Lines;		
+		var id : Float = 0.0;
+		var ia : FloatArray = new FloatArray(m_gizmo_count * 2 * 1);
+		var va : FloatArray = new FloatArray(m_gizmo_count * 2 * 3);
+		var va_k : Int = 0;		
+		var ia_k : Int = 0;		
+		for (k in 0...m_gizmo_count)
+		{
+			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);
+			va.Set(va_k++, 1.0); va.Set(va_k++, 1.0); va.Set(va_k++, 1.0); ia.Set(ia_k++, id);			
+			id += 1.0;
+		}		
+		m.Set("id", ia,1);
+		m.Set("vertex", va,3);		
+		mesh = m;		
+	}
+}
+
+/**
+ * Gizmo that renders points.
+ */
+class PointGizmo extends Gizmo
+{
+	/**
+	 * Creates the gizmo.
+	 */
+	public function new() { super(Gizmo.POINT, Gizmo.MAX_GIZMOS * 5); }
+	
+	/**
+	 * Builds the gizmo data.
+	 */
+	override public function OnBuild():Void 
+	{
+		var m : Mesh3 = new Mesh3();		
+		m.name 	 = "$GizmoPointMesh";
+		m.primitive = MeshPrimitive.Points;		
+		var id : Float = 0.0;
+		var ia : FloatArray = new FloatArray(m_gizmo_count * 1 * 1);
+		var va : FloatArray = new FloatArray(m_gizmo_count * 1 * 3);
+		var va_k : Int = 0;		
+		var ia_k : Int = 0;		
+		for (k in 0...m_gizmo_count)
+		{
+			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);		
+			id += 1.0;
+		}		
+		m.Set("id", ia,1);
+		m.Set("vertex", va,3);		
+		mesh = m;		
+	}
 }

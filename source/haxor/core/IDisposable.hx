@@ -7,6 +7,9 @@ package haxor.core;
 interface IDisposable
 {
 
+	/**
+	 * Callback called when the object is destroyed.
+	 */
 	public function OnDestroy():Void;
 	
 	

@@ -66,7 +66,7 @@ class Resource implements IDisposable
 	private var __cid : Int;
 	
 	/**
-	 * Id of the location of this Resource in the global database.
+	 * Id of the location of this Resource in the global database accessible from the 'Asset' class.
 	 */
 	private var __db : String;
 	
