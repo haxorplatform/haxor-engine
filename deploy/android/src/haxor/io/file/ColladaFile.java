@@ -17,24 +17,24 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaFile(haxor.io.file.ColladaFile __temp_me255515, java.lang.String p_name, java.lang.String p_src)
+	public static   void __hx_ctor_haxor_io_file_ColladaFile(haxor.io.file.ColladaFile __temp_me292, java.lang.String p_name, java.lang.String p_src)
 	{
-		__temp_me255515.xmlns = "";
-		__temp_me255515.version = "";
-		__temp_me255515.data = new haxor.io.file.ColladaAssetData();
-		__temp_me255515.geometries = new haxe.root.Array<haxor.io.file.ColladaGeometry>(new haxor.io.file.ColladaGeometry[]{});
-		__temp_me255515.images = new haxe.root.Array<haxor.io.file.ColladaImage>(new haxor.io.file.ColladaImage[]{});
-		__temp_me255515.controllers = new haxe.root.Array<haxor.io.file.ColladaController>(new haxor.io.file.ColladaController[]{});
-		__temp_me255515.materials = new haxe.root.Array<haxor.io.file.ColladaMaterial>(new haxor.io.file.ColladaMaterial[]{});
-		__temp_me255515.animations = new haxe.root.Array<haxor.io.file.ColladaAnimation>(new haxor.io.file.ColladaAnimation[]{});
-		__temp_me255515.lights = new haxe.root.Array<haxor.io.file.ColladaLight>(new haxor.io.file.ColladaLight[]{});
-		__temp_me255515.scene = null;
+		__temp_me292.xmlns = "";
+		__temp_me292.version = "";
+		__temp_me292.data = new haxor.io.file.ColladaAssetData();
+		__temp_me292.geometries = new haxe.root.Array<haxor.io.file.ColladaGeometry>(new haxor.io.file.ColladaGeometry[]{});
+		__temp_me292.images = new haxe.root.Array<haxor.io.file.ColladaImage>(new haxor.io.file.ColladaImage[]{});
+		__temp_me292.controllers = new haxe.root.Array<haxor.io.file.ColladaController>(new haxor.io.file.ColladaController[]{});
+		__temp_me292.materials = new haxe.root.Array<haxor.io.file.ColladaMaterial>(new haxor.io.file.ColladaMaterial[]{});
+		__temp_me292.animations = new haxe.root.Array<haxor.io.file.ColladaAnimation>(new haxor.io.file.ColladaAnimation[]{});
+		__temp_me292.lights = new haxe.root.Array<haxor.io.file.ColladaLight>(new haxor.io.file.ColladaLight[]{});
+		__temp_me292.scene = null;
 		{
 			double x = ( java.lang.Math.random() * 16777215 );
-			__temp_me255515.m_id = ((int) (x) );
+			__temp_me292.m_id = ((int) (x) );
 		}
 		
-		haxor.io.file.AssetXML.__hx_ctor_haxor_io_file_AssetXML(__temp_me255515, p_name, p_src);
+		haxor.io.file.AssetXML.__hx_ctor_haxor_io_file_AssetXML(__temp_me292, p_name, p_src);
 	}
 	
 	
@@ -42,12 +42,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	{
 		haxe.root.Array<haxe.root.Array> triangles = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
 		{
-			java.lang.String __temp_svar256284 = (p_type);
-			switch (__temp_svar256284.hashCode())
+			java.lang.String __temp_svar1156 = (p_type);
+			switch (__temp_svar1156.hashCode())
 			{
 				case -814008469:
 				{
-					if (__temp_svar256284.equals("triangles")) 
+					if (__temp_svar1156.equals("triangles")) 
 					{
 						if (( p_indexes.length <= 0 )) 
 						{
@@ -66,7 +66,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case 561939050:
 				{
-					if (__temp_svar256284.equals("polylist")) 
+					if (__temp_svar1156.equals("polylist")) 
 					{
 						int k = 0;
 						{
@@ -95,7 +95,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case 561795705:
 				{
-					if (__temp_svar256284.equals("polygons")) 
+					if (__temp_svar1156.equals("polygons")) 
 					{
 						int _g1 = 0;
 						int _g = p_indexes.length;
@@ -126,7 +126,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	
 	public static   haxe.root.Array<haxe.root.Array> TriangulatePolygon(haxe.root.Array<haxe.root.Array> t, int c, java.lang.Object o)
 	{
-		int __temp_o255514 = ( (( o == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(o)) )) );
+		int __temp_o291 = ( (( o == null )) ? (((int) (0) )) : (((int) (haxe.lang.Runtime.toInt(o)) )) );
 		int i = 0;
 		int i0 = 0;
 		int i1 = 1;
@@ -134,9 +134,9 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 		haxe.root.Array<haxe.root.Array> res = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
 		while (( i2 < c ))
 		{
-			res.push(((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (t.__get(( i0 + __temp_o255514 ))) )) ).copy()) )) )) ));
-			res.push(((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (t.__get(( i1 + __temp_o255514 ))) )) ).copy()) )) )) ));
-			res.push(((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (t.__get(( i2 + __temp_o255514 ))) )) ).copy()) )) )) ));
+			res.push(((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (t.__get(( i0 + __temp_o291 ))) )) ).copy()) )) )) ));
+			res.push(((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (t.__get(( i1 + __temp_o291 ))) )) ).copy()) )) )) ));
+			res.push(((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (((haxe.root.Array<java.lang.Object>) (((haxe.root.Array) (t.__get(( i2 + __temp_o291 ))) )) ).copy()) )) )) ));
 			i1++;
 			i2++;
 		}
@@ -242,7 +242,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 			
 		}
 		
-		this.scene.Traverse(new haxor.io.file.ColladaFile_get_asset_185__Fun(((haxe.root.Array<haxe.root.Array>) (skinned_meshes) ), ((haxe.root.Array<haxe.root.Array>) (joint_nodes) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (cm) ), ((haxe.root.Array<haxor.core.Entity>) (re) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (mm) ), ((haxe.root.Array<haxe.root.Array>) (joint_transforms) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (hm) ), ((haxe.root.Array<haxor.io.file.ColladaFile>) (_g3) )));
+		this.scene.Traverse(new haxor.io.file.ColladaFile_get_asset_188__Fun(((haxe.root.Array<haxe.root.Array>) (skinned_meshes) ), ((haxe.root.Array<haxor.io.file.ColladaFile>) (_g3) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (hm) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (cm) ), ((haxe.root.Array<haxe.root.Array>) (joint_transforms) ), ((haxe.root.Array<haxe.ds.ObjectMap>) (mm) ), ((haxe.root.Array<haxor.core.Entity>) (re) ), ((haxe.root.Array<haxe.root.Array>) (joint_nodes) )));
 		{
 			int _g12 = 0;
 			int _g6 = ((haxe.root.Array<haxor.component.SkinnedMeshRenderer>) (((haxe.root.Array) (skinned_meshes.__get(0)) )) ).length;
@@ -317,7 +317,116 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	
 	public   void AddAnimations(haxor.core.Entity p_entity, java.lang.Object p_exact)
 	{
-		boolean __temp_p_exact255513 = ( (( p_exact == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_exact)) );
+		boolean __temp_p_exact290 = ( (( p_exact == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_exact)) );
+		if (( this.animations.length <= 0 )) 
+		{
+			return ;
+		}
+		
+		haxor.core.Entity re = p_entity;
+		haxor.component.animation.Animation a = re.m_animation;
+		if (( a == null )) 
+		{
+			a = ((haxor.component.animation.Animation) (re.AddComponent(((java.lang.Class<haxor.component.Component>) (((java.lang.Class) (haxor.component.animation.Animation.class) )) ))) );
+		}
+		
+		{
+			int _g1 = 0;
+			int _g = this.animations.length;
+			while (( _g1 < _g ))
+			{
+				int i = _g1++;
+				haxor.io.file.ColladaAnimation ca = this.animations.__get(i);
+				haxor.component.animation.AnimationClip clip = new haxor.component.animation.AnimationClip();
+				clip.set_name(( (haxe.lang.Runtime.valEq(ca.id, "")) ? (( (haxe.lang.Runtime.valEq(ca.name, "")) ? (( "clip" + i )) : (ca.name) )) : (ca.id) ));
+				{
+					int _g3 = 0;
+					int _g2 = ca.channels.length;
+					while (( _g3 < _g2 ))
+					{
+						int j = _g3++;
+						haxor.io.file.ColladaAnimationChannel cch = ca.channels.__get(j);
+						java.lang.String src_node = haxe.lang.StringExt.split(cch.target, "/").__get(0);
+						src_node = haxe.root.StringTools.replace(src_node, "node-", "");
+						java.lang.String src_target = haxe.lang.StringExt.split(cch.target, "/").__get(1);
+						haxor.component.Transform nt = re.m_transform.Search(src_node, __temp_p_exact290);
+						if (( nt == null )) 
+						{
+							continue;
+						}
+						
+						haxor.core.Entity n = nt.m_entity;
+						{
+							java.lang.String __temp_svar1123 = (src_target);
+							switch (__temp_svar1123.hashCode())
+							{
+								case -1081239615:
+								{
+									if (__temp_svar1123.equals("matrix")) 
+									{
+										haxor.component.animation.ClipTrack position_track = clip.Add(n.m_transform, "localPosition");
+										haxor.component.animation.ClipTrack rotation_track = clip.Add(n.m_transform, "localRotation");
+										{
+											int _g5 = 0;
+											int _g4 = cch.keyframes.length;
+											while (( _g5 < _g4 ))
+											{
+												int k = _g5++;
+												haxor.io.file.ColladaAnimationKeyFrame kf = cch.keyframes.__get(k);
+												haxor.math.Matrix4 m = haxor.math.Matrix4.FromArray(kf.values, null);
+												haxor.math.Vector3 __temp_stmt1119 = null;
+												{
+													haxor.math.Vector4 _this = null;
+													{
+														haxor.math.Vector4 p_result = null;
+														if (( p_result == null )) 
+														{
+															p_result = new haxor.math.Vector4(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
+														}
+														 else 
+														{
+															p_result = p_result;
+														}
+														
+														_this = p_result.Set(m.GetRowCol(0, 3), m.GetRowCol(1, 3), m.GetRowCol(2, 3), m.GetRowCol(3, 3));
+													}
+													
+													__temp_stmt1119 = new haxor.math.Vector3(((java.lang.Object) (_this.x) ), ((java.lang.Object) (_this.y) ), ((java.lang.Object) (_this.z) ));
+												}
+												
+												position_track.Add(kf.time, __temp_stmt1119);
+												haxor.math.Matrix4 __temp_stmt1122 = null;
+												{
+													haxor.context.DataContext _this1 = haxor.context.EngineContext.data;
+													__temp_stmt1122 = _this1.m_m4.__get(_this1.m_nq = ( (( _this1.m_nm4 + 1 )) % _this1.m_m4.length ));
+												}
+												
+												haxor.math.Matrix4 __temp_stmt1121 = __temp_stmt1122.SetMatrix4(m);
+												haxor.math.Matrix4 __temp_stmt1120 = __temp_stmt1121.ToRotation();
+												rotation_track.Add(kf.time, haxor.math.Quaternion.FromMatrix4(__temp_stmt1120, null));
+											}
+											
+										}
+										
+									}
+									
+									break;
+								}
+								
+								
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+				a.Add(clip);
+			}
+			
+		}
+		
 	}
 	
 	
@@ -580,7 +689,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	{
 		haxe.root.Array<java.lang.String> p_id1 = new haxe.root.Array<java.lang.String>(new java.lang.String[]{p_id});
 		haxe.root.Array<haxor.io.file.ColladaNode> res = new haxe.root.Array<haxor.io.file.ColladaNode>(new haxor.io.file.ColladaNode[]{null});
-		this.scene.Traverse(new haxor.io.file.ColladaFile_FindNodeById_512__Fun(((haxe.root.Array<java.lang.String>) (p_id1) ), ((haxe.root.Array<haxor.io.file.ColladaNode>) (res) )));
+		this.scene.Traverse(new haxor.io.file.ColladaFile_FindNodeById_514__Fun(((haxe.root.Array<java.lang.String>) (p_id1) ), ((haxe.root.Array<haxor.io.file.ColladaNode>) (res) )));
 		return res.__get(0);
 	}
 	
@@ -618,12 +727,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	{
 		java.lang.String _g = n.get_nodeName();
 		{
-			java.lang.String __temp_svar256253 = (_g);
-			switch (__temp_svar256253.hashCode())
+			java.lang.String __temp_svar1125 = (_g);
+			switch (__temp_svar1125.hashCode())
 			{
 				case 1667423762:
 				{
-					if (__temp_svar256253.equals("COLLADA")) 
+					if (__temp_svar1125.equals("COLLADA")) 
 					{
 						this.xmlns = this._a(n, "xmlns", "");
 						this.version = this._a(n, "version", "0.0");
@@ -635,7 +744,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case 1821806113:
 				{
-					if (__temp_svar256253.equals("library_lights")) 
+					if (__temp_svar1125.equals("library_lights")) 
 					{
 						this.ParseLightLibrary(n);
 					}
@@ -646,7 +755,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case 93121264:
 				{
-					if (__temp_svar256253.equals("asset")) 
+					if (__temp_svar1125.equals("asset")) 
 					{
 						this.data.author = haxe.lang.Runtime.toString(this._p(n, "contributor.author.$text", "none", null, null));
 						this.data.tool = haxe.lang.Runtime.toString(this._p(n, "contributor.authoring_tool.$text", "none", null, null));
@@ -664,7 +773,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case 582210419:
 				{
-					if (__temp_svar256253.equals("library_animations")) 
+					if (__temp_svar1125.equals("library_animations")) 
 					{
 						this.ParseAnimationLibrary(n);
 					}
@@ -675,7 +784,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case -1363060354:
 				{
-					if (__temp_svar256253.equals("library_effects")) 
+					if (__temp_svar1125.equals("library_effects")) 
 					{
 						{
 						}
@@ -688,7 +797,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case -264676670:
 				{
-					if (__temp_svar256253.equals("library_visual_scenes")) 
+					if (__temp_svar1125.equals("library_visual_scenes")) 
 					{
 						this.ParseSceneLibrary(n);
 					}
@@ -699,7 +808,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case -2081164888:
 				{
-					if (__temp_svar256253.equals("library_materials")) 
+					if (__temp_svar1125.equals("library_materials")) 
 					{
 						this.ParseMaterialLibrary(n);
 					}
@@ -710,7 +819,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case 1739432572:
 				{
-					if (__temp_svar256253.equals("library_images")) 
+					if (__temp_svar1125.equals("library_images")) 
 					{
 						this.ParseImageLibrary(n);
 					}
@@ -721,7 +830,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case 109254796:
 				{
-					if (__temp_svar256253.equals("scene")) 
+					if (__temp_svar1125.equals("scene")) 
 					{
 						{
 						}
@@ -734,7 +843,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case -1992142125:
 				{
-					if (__temp_svar256253.equals("library_controllers")) 
+					if (__temp_svar1125.equals("library_controllers")) 
 					{
 						this.ParseControllerLibrary(n);
 					}
@@ -745,7 +854,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 				case 472056468:
 				{
-					if (__temp_svar256253.equals("library_geometries")) 
+					if (__temp_svar1125.equals("library_geometries")) 
 					{
 						this.ParseGeometryLibrary(n);
 					}
@@ -792,12 +901,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 			{
 				java.lang.String _g = l.type;
 				{
-					java.lang.String __temp_svar256255 = (_g);
-					switch (__temp_svar256255.hashCode())
+					java.lang.String __temp_svar1127 = (_g);
+					switch (__temp_svar1127.hashCode())
 					{
 						case 106845584:
 						{
-							if (__temp_svar256255.equals("point")) 
+							if (__temp_svar1127.equals("point")) 
 							{
 								ca = this._f32a(haxe.lang.Runtime.toString(this._p(ln, "color.$text", "", null, null)));
 							}
@@ -808,7 +917,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 						
 						case -1631834134:
 						{
-							if (__temp_svar256255.equals("directional")) 
+							if (__temp_svar1127.equals("directional")) 
 							{
 								ca = this._f32a(haxe.lang.Runtime.toString(this._p(ln, "color.$text", "", null, null)));
 							}
@@ -819,7 +928,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 						
 						case -892145000:
 						{
-							if (__temp_svar256255.equals("ambient")) 
+							if (__temp_svar1127.equals("ambient")) 
 							{
 								ca = this._f32a(haxe.lang.Runtime.toString(this._p(ln, "color.$text", "", null, null)));
 							}
@@ -857,12 +966,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 			{
 				java.lang.String _g1 = l.type;
 				{
-					java.lang.String __temp_svar256257 = (_g1);
-					switch (__temp_svar256257.hashCode())
+					java.lang.String __temp_svar1129 = (_g1);
+					switch (__temp_svar1129.hashCode())
 					{
 						case 106845584:
 						{
-							if (__temp_svar256257.equals("point")) 
+							if (__temp_svar1129.equals("point")) 
 							{
 								l.radius = haxe.root.Std.parseFloat(haxe.lang.Runtime.toString(this._p(ln, "decay_radius.$text", "1.0", null, null)));
 								l.intensity = haxe.root.Std.parseFloat(haxe.lang.Runtime.toString(this._p(ln, "multiplier.$text", "1.0", null, null)));
@@ -892,7 +1001,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 						
 						case -1631834134:
 						{
-							if (__temp_svar256257.equals("directional")) 
+							if (__temp_svar1129.equals("directional")) 
 							{
 								l.intensity = haxe.root.Std.parseFloat(haxe.lang.Runtime.toString(this._p(ln, "multiplier.$text", "1.0", null, null)));
 							}
@@ -903,7 +1012,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 						
 						case -892145000:
 						{
-							if (__temp_svar256257.equals("ambient")) 
+							if (__temp_svar1129.equals("ambient")) 
 							{
 								{
 								}
@@ -991,12 +1100,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 							{
 								java.lang.String _g2 = this._a(chsi, "semantic", "").toLowerCase();
 								{
-									java.lang.String __temp_svar256259 = (_g2);
-									switch (__temp_svar256259.hashCode())
+									java.lang.String __temp_svar1131 = (_g2);
+									switch (__temp_svar1131.hashCode())
 									{
 										case 100358090:
 										{
-											if (__temp_svar256259.equals("input")) 
+											if (__temp_svar1131.equals("input")) 
 											{
 												keyframe_time_source = haxe.lang.StringExt.substr(this._a(chsi, "source", ""), 1, null);
 											}
@@ -1007,7 +1116,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 										
 										case -1005512447:
 										{
-											if (__temp_svar256259.equals("output")) 
+											if (__temp_svar1131.equals("output")) 
 											{
 												keyframe_value_source = haxe.lang.StringExt.substr(this._a(chsi, "source", ""), 1, null);
 											}
@@ -1115,12 +1224,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 			{
 				java.lang.String _g = n.get_nodeName();
 				{
-					java.lang.String __temp_svar256261 = (_g);
-					switch (__temp_svar256261.hashCode())
+					java.lang.String __temp_svar1133 = (_g);
+					switch (__temp_svar1133.hashCode())
 					{
 						case 299066663:
 						{
-							if (__temp_svar256261.equals("material")) 
+							if (__temp_svar1133.equals("material")) 
 							{
 								haxor.io.file.ColladaMaterial mat = new haxor.io.file.ColladaMaterial();
 								mat.id = this._a(n, "id", "");
@@ -1157,12 +1266,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 			{
 				java.lang.String _g = n.get_nodeName();
 				{
-					java.lang.String __temp_svar256263 = (_g);
-					switch (__temp_svar256263.hashCode())
+					java.lang.String __temp_svar1135 = (_g);
+					switch (__temp_svar1135.hashCode())
 					{
 						case 1946587853:
 						{
-							if (__temp_svar256263.equals("visual_scene")) 
+							if (__temp_svar1135.equals("visual_scene")) 
 							{
 								this.ParseVisualScene(n);
 							}
@@ -1218,13 +1327,13 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	{
 		haxor.io.file.ColladaNode cn = new haxor.io.file.ColladaNode();
 		cn.scene = scn;
-		int __temp_stmt256265 = 0;
+		int __temp_stmt1137 = 0;
 		{
 			double x = ( java.lang.Math.random() * 16777215 );
-			__temp_stmt256265 = ((int) (x) );
+			__temp_stmt1137 = ((int) (x) );
 		}
 		
-		cn.sid = this._a(n, "sid", ( "node" + __temp_stmt256265 ));
+		cn.sid = this._a(n, "sid", ( "node" + __temp_stmt1137 ));
 		cn.id = this._a(n, "id", cn.sid);
 		cn.name = this._a(n, "name", cn.sid);
 		if (haxe.lang.Runtime.valEq(cn.sid, "")) 
@@ -1244,12 +1353,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 			{
 				java.lang.String _g = nin.get_nodeName();
 				{
-					java.lang.String __temp_svar256266 = (_g);
-					switch (__temp_svar256266.hashCode())
+					java.lang.String __temp_svar1138 = (_g);
+					switch (__temp_svar1138.hashCode())
 					{
 						case -818152228:
 						{
-							if (__temp_svar256266.equals("instance_geometry")) 
+							if (__temp_svar1138.equals("instance_geometry")) 
 							{
 								ni = new haxor.io.file.ColladaInstance();
 								ni.type = "geometry";
@@ -1262,7 +1371,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 						
 						case 96965648:
 						{
-							if (__temp_svar256266.equals("extra")) 
+							if (__temp_svar1138.equals("extra")) 
 							{
 								cn.data = haxe.lang.Runtime.toString(this._p(nin, "technique.user_properties.$text", "", null, null));
 								if (( haxe.lang.StringExt.indexOf(cn.data, ";", null) < 0 )) 
@@ -1278,7 +1387,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 						
 						case 168224134:
 						{
-							if (__temp_svar256266.equals("instance_controller")) 
+							if (__temp_svar1138.equals("instance_controller")) 
 							{
 								ni = new haxor.io.file.ColladaInstance();
 								ni.type = "controller";
@@ -1291,7 +1400,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 						
 						case 85436652:
 						{
-							if (__temp_svar256266.equals("instance_light")) 
+							if (__temp_svar1138.equals("instance_light")) 
 							{
 								ni = new haxor.io.file.ColladaInstance();
 								ni.type = "light";
@@ -1373,12 +1482,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 		{
 			java.lang.String _g = c.type;
 			{
-				java.lang.String __temp_svar256268 = (_g);
-				switch (__temp_svar256268.hashCode())
+				java.lang.String __temp_svar1140 = (_g);
+				switch (__temp_svar1140.hashCode())
 				{
 					case 3532157:
 					{
-						if (__temp_svar256268.equals("skin")) 
+						if (__temp_svar1140.equals("skin")) 
 						{
 							this.ParseControllerSkin(c, n);
 						}
@@ -1389,7 +1498,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 					
 					case 104083720:
 					{
-						if (__temp_svar256268.equals("morph")) 
+						if (__temp_svar1140.equals("morph")) 
 						{
 							{
 							}
@@ -1446,20 +1555,20 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					java.lang.String _g = this._a(jni, "semantic", "").toLowerCase();
 					{
-						java.lang.String __temp_svar256271 = (_g);
-						switch (__temp_svar256271.hashCode())
+						java.lang.String __temp_svar1143 = (_g);
+						switch (__temp_svar1143.hashCode())
 						{
 							case 101304458:
 							{
-								if (__temp_svar256271.equals("joint")) 
+								if (__temp_svar1143.equals("joint")) 
 								{
-									java.lang.String __temp_stmt256270 = null;
+									java.lang.String __temp_stmt1142 = null;
 									{
 										java.lang.String s = haxe.root.StringTools.replace(haxe.lang.Runtime.toString(this._p(sn, "Name_array.$text", "", null, null)), "\n", " ");
-										__temp_stmt256270 = s.trim();
+										__temp_stmt1142 = s.trim();
 									}
 									
-									c.joints = haxe.lang.StringExt.split(__temp_stmt256270, " ");
+									c.joints = haxe.lang.StringExt.split(__temp_stmt1142, " ");
 								}
 								
 								break;
@@ -1468,7 +1577,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 							
 							case -1885129035:
 							{
-								if (__temp_svar256271.equals("inv_bind_matrix")) 
+								if (__temp_svar1143.equals("inv_bind_matrix")) 
 								{
 									haxe.root.Array<java.lang.Object> ml = this._f32a(haxe.lang.Runtime.toString(this._p(sn, "float_array.$text", "", null, null)));
 									while (( ml.length > 0 ))
@@ -1582,12 +1691,12 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 		{
 			java.lang.String _g = g.mesh.type;
 			{
-				java.lang.String __temp_svar256273 = (_g);
-				switch (__temp_svar256273.hashCode())
+				java.lang.String __temp_svar1145 = (_g);
+				switch (__temp_svar1145.hashCode())
 				{
 					case 3347949:
 					{
-						if (__temp_svar256273.equals("mesh")) 
+						if (__temp_svar1145.equals("mesh")) 
 						{
 							this.ParseMesh(g.mesh, n);
 						}
@@ -1598,7 +1707,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 					
 					case -895858735:
 					{
-						if (__temp_svar256273.equals("spline")) 
+						if (__temp_svar1145.equals("spline")) 
 						{
 							{
 							}
@@ -1611,7 +1720,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 					
 					case -930854843:
 					{
-						if (__temp_svar256273.equals("convex_mesh")) 
+						if (__temp_svar1145.equals("convex_mesh")) 
 						{
 							{
 							}
@@ -1757,13 +1866,13 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	
 	public   haxe.root.Array<java.lang.Object> _f32a(java.lang.String v)
 	{
-		java.lang.String __temp_stmt256275 = null;
+		java.lang.String __temp_stmt1147 = null;
 		{
 			java.lang.String s = haxe.root.StringTools.replace(v, "\n", " ");
-			__temp_stmt256275 = s.trim();
+			__temp_stmt1147 = s.trim();
 		}
 		
-		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt256275, " ");
+		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt1147, " ");
 		haxe.root.Array<java.lang.Object> a = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 		{
 			int _g1 = 0;
@@ -1782,13 +1891,13 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	
 	public   haxe.root.Array<java.lang.Object> _i16a(java.lang.String v)
 	{
-		java.lang.String __temp_stmt256276 = null;
+		java.lang.String __temp_stmt1148 = null;
 		{
 			java.lang.String s = haxe.root.StringTools.replace(v, "\n", " ");
-			__temp_stmt256276 = s.trim();
+			__temp_stmt1148 = s.trim();
 		}
 		
-		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt256276, " ");
+		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt1148, " ");
 		haxe.root.Array<java.lang.Object> a = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 		{
 			int _g1 = 0;
@@ -1807,13 +1916,13 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	
 	public   haxe.root.Array<haxe.root.Array> _i16ta(java.lang.String v, int s)
 	{
-		java.lang.String __temp_stmt256277 = null;
+		java.lang.String __temp_stmt1149 = null;
 		{
 			java.lang.String s1 = haxe.root.StringTools.replace(v, "\n", " ");
-			__temp_stmt256277 = s1.trim();
+			__temp_stmt1149 = s1.trim();
 		}
 		
-		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt256277, " ");
+		haxe.root.Array<java.lang.String> l = haxe.lang.StringExt.split(__temp_stmt1149, " ");
 		java.lang.String tl = "";
 		haxe.root.Array<haxe.root.Array> a = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
 		haxe.root.Array<java.lang.Object> bf = null;
@@ -1841,14 +1950,14 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256278 = true;
+			boolean __temp_executeDef1150 = true;
 			switch (field.hashCode())
 			{
 				case 3341869:
 				{
 					if (field.equals("m_id")) 
 					{
-						__temp_executeDef256278 = false;
+						__temp_executeDef1150 = false;
 						this.m_id = ((int) (value) );
 						return value;
 					}
@@ -1859,7 +1968,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef256278) 
+			if (__temp_executeDef1150) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -1876,14 +1985,14 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256279 = true;
+			boolean __temp_executeDef1151 = true;
 			switch (field.hashCode())
 			{
 				case 3341869:
 				{
 					if (field.equals("m_id")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.m_id = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -1896,7 +2005,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("xmlns")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.xmlns = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -1909,7 +2018,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("scene")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.scene = ((haxor.io.file.ColladaVisualScene) (value) );
 						return value;
 					}
@@ -1922,7 +2031,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("version")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.version = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -1935,7 +2044,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("animations")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.animations = ((haxe.root.Array<haxor.io.file.ColladaAnimation>) (value) );
 						return value;
 					}
@@ -1948,7 +2057,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.data = ((haxor.io.file.ColladaAssetData) (value) );
 						return value;
 					}
@@ -1961,7 +2070,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("lights")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.lights = ((haxe.root.Array<haxor.io.file.ColladaLight>) (value) );
 						return value;
 					}
@@ -1974,7 +2083,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("geometries")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.geometries = ((haxe.root.Array<haxor.io.file.ColladaGeometry>) (value) );
 						return value;
 					}
@@ -1987,7 +2096,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("materials")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.materials = ((haxe.root.Array<haxor.io.file.ColladaMaterial>) (value) );
 						return value;
 					}
@@ -2000,7 +2109,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("images")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.images = ((haxe.root.Array<haxor.io.file.ColladaImage>) (value) );
 						return value;
 					}
@@ -2013,7 +2122,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("controllers")) 
 					{
-						__temp_executeDef256279 = false;
+						__temp_executeDef1151 = false;
 						this.controllers = ((haxe.root.Array<haxor.io.file.ColladaController>) (value) );
 						return value;
 					}
@@ -2024,7 +2133,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef256279) 
+			if (__temp_executeDef1151) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -2041,14 +2150,14 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256280 = true;
+			boolean __temp_executeDef1152 = true;
 			switch (field.hashCode())
 			{
 				case -1476712900:
 				{
 					if (field.equals("_i16ta")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("_i16ta"))) );
 					}
 					
@@ -2060,7 +2169,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("xmlns")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.xmlns;
 					}
 					
@@ -2072,7 +2181,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("_i16a")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("_i16a"))) );
 					}
 					
@@ -2084,7 +2193,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("version")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.version;
 					}
 					
@@ -2096,7 +2205,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("_f32a")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("_f32a"))) );
 					}
 					
@@ -2108,7 +2217,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.data;
 					}
 					
@@ -2120,7 +2229,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("TraverseStep")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TraverseStep"))) );
 					}
 					
@@ -2132,7 +2241,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("geometries")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.geometries;
 					}
 					
@@ -2144,7 +2253,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseInputList")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseInputList"))) );
 					}
 					
@@ -2156,7 +2265,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("images")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.images;
 					}
 					
@@ -2168,7 +2277,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParsePrimitive")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParsePrimitive"))) );
 					}
 					
@@ -2180,7 +2289,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("controllers")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.controllers;
 					}
 					
@@ -2192,7 +2301,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseMesh")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseMesh"))) );
 					}
 					
@@ -2204,7 +2313,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("materials")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.materials;
 					}
 					
@@ -2216,7 +2325,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseGeometry")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseGeometry"))) );
 					}
 					
@@ -2228,7 +2337,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("lights")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.lights;
 					}
 					
@@ -2240,7 +2349,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseGeometryLibrary")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseGeometryLibrary"))) );
 					}
 					
@@ -2252,7 +2361,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("animations")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.animations;
 					}
 					
@@ -2264,7 +2373,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseImageLibrary")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseImageLibrary"))) );
 					}
 					
@@ -2276,7 +2385,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("scene")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.scene;
 					}
 					
@@ -2288,7 +2397,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseControllerSkin")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseControllerSkin"))) );
 					}
 					
@@ -2300,7 +2409,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("m_id")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return this.m_id;
 					}
 					
@@ -2312,7 +2421,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseController")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseController"))) );
 					}
 					
@@ -2324,7 +2433,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("get_asset")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_asset"))) );
 					}
 					
@@ -2336,7 +2445,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseControllerLibrary")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseControllerLibrary"))) );
 					}
 					
@@ -2348,7 +2457,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("AddAnimations")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("AddAnimations"))) );
 					}
 					
@@ -2360,7 +2469,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseInstanceMaterials")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseInstanceMaterials"))) );
 					}
 					
@@ -2372,7 +2481,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("CreateMeshRenderer")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("CreateMeshRenderer"))) );
 					}
 					
@@ -2384,7 +2493,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseVisualSceneNode")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseVisualSceneNode"))) );
 					}
 					
@@ -2396,7 +2505,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindLightById")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FindLightById"))) );
 					}
 					
@@ -2408,7 +2517,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("TraverseVisualSceneNodes")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("TraverseVisualSceneNodes"))) );
 					}
 					
@@ -2420,7 +2529,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindGeometryById")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FindGeometryById"))) );
 					}
 					
@@ -2432,7 +2541,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseVisualScene")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseVisualScene"))) );
 					}
 					
@@ -2444,7 +2553,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindControllerById")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FindControllerById"))) );
 					}
 					
@@ -2456,7 +2565,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseSceneLibrary")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseSceneLibrary"))) );
 					}
 					
@@ -2468,7 +2577,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindNodeById")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FindNodeById"))) );
 					}
 					
@@ -2480,7 +2589,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseMaterialLibrary")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseMaterialLibrary"))) );
 					}
 					
@@ -2492,7 +2601,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindMaterialById")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("FindMaterialById"))) );
 					}
 					
@@ -2504,7 +2613,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseAnimationLibrary")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseAnimationLibrary"))) );
 					}
 					
@@ -2516,7 +2625,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("Parse")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Parse"))) );
 					}
 					
@@ -2528,7 +2637,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseLightLibrary")) 
 					{
-						__temp_executeDef256280 = false;
+						__temp_executeDef1152 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ParseLightLibrary"))) );
 					}
 					
@@ -2538,7 +2647,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef256280) 
+			if (__temp_executeDef1152) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -2555,14 +2664,14 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256281 = true;
+			boolean __temp_executeDef1153 = true;
 			switch (field.hashCode())
 			{
 				case 3341869:
 				{
 					if (field.equals("m_id")) 
 					{
-						__temp_executeDef256281 = false;
+						__temp_executeDef1153 = false;
 						return ((double) (this.m_id) );
 					}
 					
@@ -2572,7 +2681,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef256281) 
+			if (__temp_executeDef1153) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -2589,15 +2698,15 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			int __temp_hash256283 = field.hashCode();
-			boolean __temp_executeDef256282 = true;
-			switch (__temp_hash256283)
+			int __temp_hash1155 = field.hashCode();
+			boolean __temp_executeDef1154 = true;
+			switch (__temp_hash1155)
 			{
 				case 265423742:case 76884627:case 1130071239:
 				{
-					if (( (( ( __temp_hash256283 == 265423742 ) && field.equals("TraverseStep") )) || ( (( ( __temp_hash256283 == 76884627 ) && field.equals("Parse") )) || field.equals("get_asset") ) )) 
+					if (( (( ( __temp_hash1155 == 265423742 ) && field.equals("TraverseStep") )) || ( (( ( __temp_hash1155 == 76884627 ) && field.equals("Parse") )) || field.equals("get_asset") ) )) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -2609,7 +2718,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("AddAnimations")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.AddAnimations(((haxor.core.Entity) (dynargs.__get(0)) ), dynargs.__get(1));
 					}
 					
@@ -2621,7 +2730,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("_i16ta")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this._i16ta(haxe.lang.Runtime.toString(dynargs.__get(0)), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -2633,7 +2742,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("CreateMeshRenderer")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this.CreateMeshRenderer(((haxor.core.Entity) (dynargs.__get(0)) ), haxe.lang.Runtime.toString(dynargs.__get(1)), ((haxor.io.file.ColladaPrimitive) (dynargs.__get(2)) ), ((java.lang.Class<haxor.component.Component>) (dynargs.__get(3)) ), ((haxor.io.file.ColladaController) (dynargs.__get(4)) ));
 					}
 					
@@ -2645,7 +2754,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("_i16a")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this._i16a(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -2657,7 +2766,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindLightById")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this.FindLightById(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -2669,7 +2778,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("_f32a")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this._f32a(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -2681,7 +2790,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindGeometryById")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this.FindGeometryById(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -2693,7 +2802,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseInputList")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this.ParseInputList(((haxe.root.Xml) (dynargs.__get(0)) ), ((haxe.root.Xml) (dynargs.__get(1)) ));
 					}
 					
@@ -2705,7 +2814,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindControllerById")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this.FindControllerById(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -2717,7 +2826,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParsePrimitive")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParsePrimitive(((haxor.io.file.ColladaPrimitive) (dynargs.__get(0)) ), ((haxe.root.Xml) (dynargs.__get(1)) ), ((haxe.root.Xml) (dynargs.__get(2)) ));
 					}
 					
@@ -2729,7 +2838,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindNodeById")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this.FindNodeById(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -2741,7 +2850,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseMesh")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseMesh(((haxor.io.file.ColladaMesh) (dynargs.__get(0)) ), ((haxe.root.Xml) (dynargs.__get(1)) ));
 					}
 					
@@ -2753,7 +2862,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("FindMaterialById")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this.FindMaterialById(haxe.lang.Runtime.toString(dynargs.__get(0)));
 					}
 					
@@ -2765,7 +2874,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseGeometry")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseGeometry(((haxor.io.file.ColladaGeometry) (dynargs.__get(0)) ), ((haxe.root.Xml) (dynargs.__get(1)) ));
 					}
 					
@@ -2777,7 +2886,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseLightLibrary")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseLightLibrary(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -2789,7 +2898,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseGeometryLibrary")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseGeometryLibrary(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -2801,7 +2910,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseAnimationLibrary")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseAnimationLibrary(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -2813,7 +2922,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseImageLibrary")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseImageLibrary(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -2825,7 +2934,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseMaterialLibrary")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseMaterialLibrary(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -2837,7 +2946,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseControllerSkin")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseControllerSkin(((haxor.io.file.ColladaController) (dynargs.__get(0)) ), ((haxe.root.Xml) (dynargs.__get(1)) ));
 					}
 					
@@ -2849,7 +2958,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseSceneLibrary")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseSceneLibrary(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -2861,7 +2970,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseController")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseController(((haxor.io.file.ColladaController) (dynargs.__get(0)) ), ((haxe.root.Xml) (dynargs.__get(1)) ));
 					}
 					
@@ -2873,7 +2982,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseVisualScene")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseVisualScene(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -2885,7 +2994,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseControllerLibrary")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseControllerLibrary(((haxe.root.Xml) (dynargs.__get(0)) ));
 					}
 					
@@ -2897,7 +3006,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("TraverseVisualSceneNodes")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.TraverseVisualSceneNodes(((haxor.io.file.ColladaVisualScene) (dynargs.__get(0)) ), ((haxor.io.file.ColladaNode) (dynargs.__get(1)) ), ((haxe.root.Xml) (dynargs.__get(2)) ));
 					}
 					
@@ -2909,7 +3018,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseInstanceMaterials")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						this.ParseInstanceMaterials(((haxor.io.file.ColladaInstance) (dynargs.__get(0)) ), ((haxe.root.Xml) (dynargs.__get(1)) ));
 					}
 					
@@ -2921,7 +3030,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				{
 					if (field.equals("ParseVisualSceneNode")) 
 					{
-						__temp_executeDef256282 = false;
+						__temp_executeDef1154 = false;
 						return this.ParseVisualSceneNode(((haxor.io.file.ColladaVisualScene) (dynargs.__get(0)) ), ((haxor.io.file.ColladaNode) (dynargs.__get(1)) ), ((haxe.root.Xml) (dynargs.__get(2)) ));
 					}
 					
@@ -2931,7 +3040,7 @@ public  class ColladaFile extends haxor.io.file.AssetXML
 				
 			}
 			
-			if (__temp_executeDef256282) 
+			if (__temp_executeDef1154) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

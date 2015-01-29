@@ -1,4 +1,3 @@
-cd ..
 cd deploy/android/
 taskkill /F /FI "WINDOWTITLE eq AndroidConsole" /T
 adb shell setprop debug.perfhudes 0

@@ -19,11 +19,8 @@
 #include <haxor/thread/Task.h>
 #include <haxor/thread/Activity.h>
 #include <haxor/math/Vector4.h>
-#include <haxor/math/Vector3.h>
 #include <haxor/math/Vector2.h>
 #include <haxor/math/Random.h>
-#include <haxor/math/Quaternion.h>
-#include <haxor/math/Matrix4.h>
 #include <haxor/math/Mathf.h>
 #include <haxor/math/AABB3.h>
 #include <haxor/io/file/MaterialFileUniform.h>
@@ -88,9 +85,12 @@
 #include <haxor/ds/SAPList.h>
 #include <haxor/ds/SAP.h>
 #include <haxor/core/Time.h>
-#include <haxor/core/Stats.h>
 #include <haxor/core/Scene.h>
+#include <haxor/core/RenderStats.h>
+#include <haxor/core/RenderEngine.h>
 #include <haxor/core/IResizeable.h>
+#include <haxor/core/ILateUpdateable.h>
+#include <haxor/core/AnimationWrap.h>
 #include <haxor/core/InputState.h>
 #include <haxor/core/ClearFlag.h>
 #include <haxor/core/TextureType.h>
@@ -118,17 +118,34 @@
 #include <haxor/context/BaseProcess.h>
 #include <haxor/context/MeshContext.h>
 #include <haxor/context/MaterialContext.h>
+#include <haxor/context/PointGizmo.h>
+#include <haxor/context/LineGizmo.h>
+#include <haxor/context/AxisGizmo.h>
+#include <haxor/context/WireCubeGizmo.h>
+#include <haxor/context/WireSphereGizmo.h>
+#include <haxor/context/Gizmo.h>
+#include <haxor/math/Matrix4.h>
 #include <haxor/context/GizmoContext.h>
 #include <haxor/context/EngineContext.h>
 #include <haxor/context/DataContext.h>
 #include <haxor/context/CameraContext.h>
+#include <haxor/component/light/PointLight.h>
+#include <haxor/component/light/Light.h>
+#include <haxor/math/Color.h>
+#include <haxor/component/animation/QuaternionKeyFrame.h>
+#include <haxor/math/Quaternion.h>
+#include <haxor/component/animation/Vector3KeyFrame.h>
+#include <haxor/math/Vector3.h>
+#include <haxor/component/animation/FloatKeyFrame.h>
+#include <haxor/component/animation/KeyFrame.h>
+#include <haxor/component/animation/ClipTrack.h>
+#include <haxor/component/animation/AnimationEvent.h>
+#include <haxor/component/animation/AnimationClip.h>
+#include <haxor/component/animation/Animation.h>
 #include <haxor/component/Transform.h>
 #include <haxor/component/SkinnedMeshRenderer.h>
-#include <haxor/component/PointLight.h>
 #include <haxor/component/MeshRenderer.h>
 #include <haxor/component/Renderer.h>
-#include <haxor/component/Light.h>
-#include <haxor/math/Color.h>
 #include <haxor/component/DataComponent.h>
 #include <haxor/component/CameraOrbitInput.h>
 #include <haxor/component/CameraOrbit.h>
@@ -199,11 +216,8 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::thread::Task_obj::__register();
 ::haxor::thread::Activity_obj::__register();
 ::haxor::math::Vector4_obj::__register();
-::haxor::math::Vector3_obj::__register();
 ::haxor::math::Vector2_obj::__register();
 ::haxor::math::Random_obj::__register();
-::haxor::math::Quaternion_obj::__register();
-::haxor::math::Matrix4_obj::__register();
 ::haxor::math::Mathf_obj::__register();
 ::haxor::math::AABB3_obj::__register();
 ::haxor::io::file::MaterialFileUniform_obj::__register();
@@ -268,9 +282,12 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::ds::SAPList_obj::__register();
 ::haxor::ds::SAP_obj::__register();
 ::haxor::core::Time_obj::__register();
-::haxor::core::Stats_obj::__register();
 ::haxor::core::Scene_obj::__register();
+::haxor::core::RenderStats_obj::__register();
+::haxor::core::RenderEngine_obj::__register();
 ::haxor::core::IResizeable_obj::__register();
+::haxor::core::ILateUpdateable_obj::__register();
+::haxor::core::AnimationWrap_obj::__register();
 ::haxor::core::InputState_obj::__register();
 ::haxor::core::ClearFlag_obj::__register();
 ::haxor::core::TextureType_obj::__register();
@@ -298,17 +315,34 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::context::BaseProcess_obj::__register();
 ::haxor::context::MeshContext_obj::__register();
 ::haxor::context::MaterialContext_obj::__register();
+::haxor::context::PointGizmo_obj::__register();
+::haxor::context::LineGizmo_obj::__register();
+::haxor::context::AxisGizmo_obj::__register();
+::haxor::context::WireCubeGizmo_obj::__register();
+::haxor::context::WireSphereGizmo_obj::__register();
+::haxor::context::Gizmo_obj::__register();
+::haxor::math::Matrix4_obj::__register();
 ::haxor::context::GizmoContext_obj::__register();
 ::haxor::context::EngineContext_obj::__register();
 ::haxor::context::DataContext_obj::__register();
 ::haxor::context::CameraContext_obj::__register();
+::haxor::component::light::PointLight_obj::__register();
+::haxor::component::light::Light_obj::__register();
+::haxor::math::Color_obj::__register();
+::haxor::component::animation::QuaternionKeyFrame_obj::__register();
+::haxor::math::Quaternion_obj::__register();
+::haxor::component::animation::Vector3KeyFrame_obj::__register();
+::haxor::math::Vector3_obj::__register();
+::haxor::component::animation::FloatKeyFrame_obj::__register();
+::haxor::component::animation::KeyFrame_obj::__register();
+::haxor::component::animation::ClipTrack_obj::__register();
+::haxor::component::animation::AnimationEvent_obj::__register();
+::haxor::component::animation::AnimationClip_obj::__register();
+::haxor::component::animation::Animation_obj::__register();
 ::haxor::component::Transform_obj::__register();
 ::haxor::component::SkinnedMeshRenderer_obj::__register();
-::haxor::component::PointLight_obj::__register();
 ::haxor::component::MeshRenderer_obj::__register();
 ::haxor::component::Renderer_obj::__register();
-::haxor::component::Light_obj::__register();
-::haxor::math::Color_obj::__register();
 ::haxor::component::DataComponent_obj::__register();
 ::haxor::component::CameraOrbitInput_obj::__register();
 ::haxor::component::CameraOrbit_obj::__register();
@@ -399,17 +433,34 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::component::CameraOrbit_obj::__boot();
 ::haxor::component::CameraOrbitInput_obj::__boot();
 ::haxor::component::DataComponent_obj::__boot();
-::haxor::math::Color_obj::__boot();
-::haxor::component::Light_obj::__boot();
 ::haxor::component::Renderer_obj::__boot();
 ::haxor::component::MeshRenderer_obj::__boot();
-::haxor::component::PointLight_obj::__boot();
 ::haxor::component::SkinnedMeshRenderer_obj::__boot();
 ::haxor::component::Transform_obj::__boot();
+::haxor::component::animation::Animation_obj::__boot();
+::haxor::component::animation::AnimationClip_obj::__boot();
+::haxor::component::animation::AnimationEvent_obj::__boot();
+::haxor::component::animation::ClipTrack_obj::__boot();
+::haxor::component::animation::KeyFrame_obj::__boot();
+::haxor::component::animation::FloatKeyFrame_obj::__boot();
+::haxor::math::Vector3_obj::__boot();
+::haxor::component::animation::Vector3KeyFrame_obj::__boot();
+::haxor::math::Quaternion_obj::__boot();
+::haxor::component::animation::QuaternionKeyFrame_obj::__boot();
+::haxor::math::Color_obj::__boot();
+::haxor::component::light::Light_obj::__boot();
+::haxor::component::light::PointLight_obj::__boot();
 ::haxor::context::CameraContext_obj::__boot();
 ::haxor::context::DataContext_obj::__boot();
 ::haxor::context::EngineContext_obj::__boot();
 ::haxor::context::GizmoContext_obj::__boot();
+::haxor::math::Matrix4_obj::__boot();
+::haxor::context::Gizmo_obj::__boot();
+::haxor::context::WireSphereGizmo_obj::__boot();
+::haxor::context::WireCubeGizmo_obj::__boot();
+::haxor::context::AxisGizmo_obj::__boot();
+::haxor::context::LineGizmo_obj::__boot();
+::haxor::context::PointGizmo_obj::__boot();
 ::haxor::context::MaterialContext_obj::__boot();
 ::haxor::context::MeshContext_obj::__boot();
 ::haxor::context::BaseProcess_obj::__boot();
@@ -437,9 +488,12 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::TextureType_obj::__boot();
 ::haxor::core::ClearFlag_obj::__boot();
 ::haxor::core::InputState_obj::__boot();
+::haxor::core::AnimationWrap_obj::__boot();
+::haxor::core::ILateUpdateable_obj::__boot();
 ::haxor::core::IResizeable_obj::__boot();
+::haxor::core::RenderEngine_obj::__boot();
+::haxor::core::RenderStats_obj::__boot();
 ::haxor::core::Scene_obj::__boot();
-::haxor::core::Stats_obj::__boot();
 ::haxor::core::Time_obj::__boot();
 ::haxor::ds::SAP_obj::__boot();
 ::haxor::ds::SAPList_obj::__boot();
@@ -504,11 +558,8 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::io::file::MaterialFileUniform_obj::__boot();
 ::haxor::math::AABB3_obj::__boot();
 ::haxor::math::Mathf_obj::__boot();
-::haxor::math::Matrix4_obj::__boot();
-::haxor::math::Quaternion_obj::__boot();
 ::haxor::math::Random_obj::__boot();
 ::haxor::math::Vector2_obj::__boot();
-::haxor::math::Vector3_obj::__boot();
 ::haxor::math::Vector4_obj::__boot();
 ::haxor::thread::Activity_obj::__boot();
 ::haxor::thread::Task_obj::__boot();

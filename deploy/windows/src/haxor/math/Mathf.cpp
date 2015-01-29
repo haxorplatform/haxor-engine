@@ -384,25 +384,25 @@ Float Mathf_obj::Cos( Float v){
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Mathf_obj,Cos,return )
 
-Float Mathf_obj::ASin( Float v){
-	HX_STACK_FRAME("haxor.math.Mathf","ASin",0x1bb7c501,"haxor.math.Mathf.ASin","haxor/math/Mathf.hx",251,0x3182889a)
+Float Mathf_obj::Asin( Float v){
+	HX_STACK_FRAME("haxor.math.Mathf","Asin",0x1bd00d21,"haxor.math.Mathf.Asin","haxor/math/Mathf.hx",251,0x3182889a)
 	HX_STACK_ARG(v,"v")
 	HX_STACK_LINE(251)
 	return ::Math_obj::asin(v);
 }
 
 
-STATIC_HX_DEFINE_DYNAMIC_FUNC1(Mathf_obj,ASin,return )
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(Mathf_obj,Asin,return )
 
-Float Mathf_obj::ACos( Float v){
-	HX_STACK_FRAME("haxor.math.Mathf","ACos",0x1baba630,"haxor.math.Mathf.ACos","haxor/math/Mathf.hx",258,0x3182889a)
+Float Mathf_obj::Acos( Float v){
+	HX_STACK_FRAME("haxor.math.Mathf","Acos",0x1bc3ee50,"haxor.math.Mathf.Acos","haxor/math/Mathf.hx",258,0x3182889a)
 	HX_STACK_ARG(v,"v")
 	HX_STACK_LINE(258)
 	return ::Math_obj::acos(v);
 }
 
 
-STATIC_HX_DEFINE_DYNAMIC_FUNC1(Mathf_obj,ACos,return )
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(Mathf_obj,Acos,return )
 
 Float Mathf_obj::Tan( Float v){
 	HX_STACK_FRAME("haxor.math.Mathf","Tan",0xcb5fa5d7,"haxor.math.Mathf.Tan","haxor/math/Mathf.hx",265,0x3182889a)
@@ -695,8 +695,8 @@ Dynamic Mathf_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 4:
 		if (HX_FIELD_EQ(inName,"Sign") ) { return Sign_dyn(); }
-		if (HX_FIELD_EQ(inName,"ASin") ) { return ASin_dyn(); }
-		if (HX_FIELD_EQ(inName,"ACos") ) { return ACos_dyn(); }
+		if (HX_FIELD_EQ(inName,"Asin") ) { return Asin_dyn(); }
+		if (HX_FIELD_EQ(inName,"Acos") ) { return Acos_dyn(); }
 		if (HX_FIELD_EQ(inName,"ATan") ) { return ATan_dyn(); }
 		if (HX_FIELD_EQ(inName,"Sqrt") ) { return Sqrt_dyn(); }
 		if (HX_FIELD_EQ(inName,"Ceil") ) { return Ceil_dyn(); }
@@ -802,8 +802,8 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("MaxInt"),
 	HX_CSTRING("Sin"),
 	HX_CSTRING("Cos"),
-	HX_CSTRING("ASin"),
-	HX_CSTRING("ACos"),
+	HX_CSTRING("Asin"),
+	HX_CSTRING("Acos"),
 	HX_CSTRING("Tan"),
 	HX_CSTRING("ATan"),
 	HX_CSTRING("ATan2"),

@@ -81,5 +81,34 @@ class Gizmo
 		EngineContext.gizmo.DrawWireCube(p_position,p_size,p_color, p_transform);
 	}
 	
+	/**
+	 * Begins a canvas-like drawing routine.
+	 * @param	p_fill
+	 * @param	p_line
+	 * @param	p_transform
+	 */
+	static public function BeginPath(p_fill:Color, p_line : Color = null, p_transform : Matrix4=null):Void
+	{
+		EngineContext.gizmo.canvas_renderer.Begin(p_fill, p_line, p_transform);
+	}
+	
+	/**
+	 * Pushes a line into the canvas routine.
+	 * @param	p_position
+	 */
+	static public function LinePath(p_position:Vector3):Void
+	{
+		EngineContext.gizmo.canvas_renderer.Line(p_position);
+	}
+	
+	/**
+	 * Ends the canvas-like rendering routine.
+	 */
+	static public function EndPath():Void
+	{
+		EngineContext.gizmo.canvas_renderer.End();
+	}
+	
+	
 	
 }

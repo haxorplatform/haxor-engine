@@ -64,7 +64,7 @@ class GizmoContext
 	private var axis_renderer 		 : AxisGizmo;
 	private var line_renderer 		 : LineGizmo;
 	private var point_renderer 		 : PointGizmo;
-	private var point_smooth_renderer 		 : PointGizmo;
+	private var canvas_renderer		 : CanvasGizmo;	
 	
 	private function new() { }
 	
@@ -98,6 +98,7 @@ class GizmoContext
 		wire_sphere_renderer  = new WireSphereGizmo();
 		wire_cube_renderer    = new WireCubeGizmo();
 		axis_renderer		  = new AxisGizmo();
+		canvas_renderer       = new CanvasGizmo();
 		line_renderer		  = new LineGizmo();
 		point_renderer		  = new PointGizmo();		
 	}
@@ -258,7 +259,7 @@ class GizmoContext
 	 * @param	p_transform
 	 */
 	private function DrawLine(p_from:Vector3,p_to : Vector3,p_color : Color, p_transform : Matrix4):Void
-	{
+	{		
 		line_renderer.Push(p_color, Vector4.temp.Set3(p_from), Vector4.temp.Set3(p_to), p_transform);
 	}
 	
@@ -284,6 +285,7 @@ class GizmoContext
 		gr = wire_sphere_renderer; gr.Render(); gr.Clear();
 		gr = wire_cube_renderer; gr.Render(); gr.Clear();
 		gr = axis_renderer; gr.Render(); gr.Clear();
+		gr = canvas_renderer; gr.Render(); gr.Clear();
 		gr = line_renderer; gr.Render(); gr.Clear();
 		gr = point_renderer; gr.Render(); gr.Clear();
 	}
@@ -300,8 +302,9 @@ class Gizmo
 	static public var AXIS		  : Int = 2;
 	static public var WIRE_CUBE   : Int = 3;
 	static public var WIRE_SPHERE : Int = 4;
+	static public var CANVAS	  : Int = 10;
 	static var DATA_OFFSET 		  : Int = 24;
-	static var MAX_GIZMOS		  : Int = 5000;
+	static var MAX_GIZMOS		  : Int = 500;
 	static var IDM				  : Matrix4 = Matrix4.identity;
 	static var SHADER			  : Shader;
 	
@@ -359,6 +362,8 @@ class Gizmo
 		{
 			var data_tex_size	 : Int = cast Mathf.Max(2,cast Mathf.NextPOT(cast Mathf.Ceil(Mathf.Sqrt((p_count * (DATA_OFFSET/4))))));
 			data = new ComputeTexture(data_tex_size, data_tex_size, PixelFormat.Float4);
+			var f32 : FloatArray = cast data.data.buffer;
+			for (i in 0...f32.length) f32.Set(i, ((i % 4) == 3 ? 1.0 : 0.0));
 			material.SetTexture("Data", data);
 			material.SetInt("DataSize", data.width);
 			tw = data.width;
@@ -401,9 +406,31 @@ class Gizmo
 		f32.Set(p++,p_b.x);
 		f32.Set(p++,p_b.y);
 		f32.Set(p++,p_b.z);
-		f32.Set(p++,p_b.w);		
+		f32.Set(p++, p_b.w);		
+		//trace("push "+m_render_count);
 		var m : Matrix4 = (p_transform == null ? IDM : p_transform);
-		for (i in 0...12) f32.Set(p++,m.GetIndex(i));			
+		for (i in 0...12) f32.Set(p++, m.GetIndex(i));			
+		
+		/*
+		p = id * DATA_OFFSET;
+		f32.Set(p++,0.2);
+		f32.Set(p++,0.2);
+		f32.Set(p++,0.2);
+		f32.Set(p++,1.0);		
+		f32.Set(p++,0.4);
+		f32.Set(p++,0.4);
+		f32.Set(p++,0.4);
+		f32.Set(p++,1.0);
+		f32.Set(p++,0.8);
+		f32.Set(p++,0.8);
+		f32.Set(p++,0.8);
+		f32.Set(p++, 1.0);	
+		
+		f32.Set(p++, 0.5); f32.Set(p++, 0.0); f32.Set(p++, 0.0); f32.Set(p++, 0.5);
+		f32.Set(p++, 0.0); f32.Set(p++, 0.5); f32.Set(p++, 0.0); f32.Set(p++, 0.5);
+		f32.Set(p++, 0.0); f32.Set(p++, 0.0); f32.Set(p++, 0.5); f32.Set(p++, 0.5);
+		//*/
+		
 		m_render_count++;
 	}
 	
@@ -421,14 +448,7 @@ class Gizmo
 	public function Render():Void 
 	{	
 		if (m_render_count > 0)
-		{
-			/*
-			if (type == Gizmo.POINT)
-			{				
-				//var pr : PointGizmo = cast this;
-				//EngineContext.material.SetPointSmooth(pr.smooth);
-			}
-			//*/
+		{			
 			data.Apply();
 			material.SetInt("Count", m_render_count);
 			Graphics.Render(mesh, material, null, Camera.main);
@@ -670,6 +690,141 @@ class PointGizmo extends Gizmo
 		{
 			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id);		
 			id += 1.0;
+		}		
+		m.Set("id", ia,1);
+		m.Set("vertex", va,3);		
+		mesh = m;		
+	}
+}
+
+/**
+ * Gizmo that renders solid shapes using triangle fans.
+ */
+class CanvasGizmo extends Gizmo
+{
+	/**
+	 * 
+	 */
+	public var fill : Color;
+	
+	/**
+	 * 
+	 */
+	public var line : Color;
+	
+	/**
+	 * 
+	 */
+	public var start : Vector3;
+	
+	/**
+	 * 
+	 */
+	public var p0 : Vector3;
+	public var p1 : Vector3;
+	
+	/**
+	 * 
+	 */
+	public var transform : Matrix4;
+	
+	/**
+	 * 
+	 */
+	public var count : Int;
+	
+	/**
+	 * 
+	 */
+	public var active : Bool;
+	
+	/**
+	 * Creates the gizmo.
+	 */
+	public function new() 
+	{
+		super(Gizmo.CANVAS, 3*1000);
+		fill = Color.white;
+		line = Color.black;
+		p0 = Vector3.zero;
+		p1 = Vector3.zero;
+		start = Vector3.zero;
+		count = 0;
+		active = false;
+		
+		material.cull = CullMode.None;
+	}
+	
+	/**
+	 * 
+	 * @param	p_fill
+	 * @param	p_line
+	 * @param	p_transform
+	 */
+	public function Begin(p_fill : Color, p_line : Color = null,p_transform : Matrix4 = null):Void
+	{
+		if (active) return;
+		fill.SetColor(p_fill);
+		if (p_line == null) { line.a = 0.0; } else line.SetColor(p_line);
+		transform = p_transform;	
+		count = 0;
+		active = true;
+	}
+	
+	/**
+	 * 
+	 * @param	p_position
+	 */
+	public function Line(p_position : Vector3):Void
+	{		
+		if (!active) return;
+		if (count >= 2) haxor.graphics.Gizmo.Line(p0, p1, line, transform); 
+		if (count <= 0) start.Set3(p_position);
+		
+		p1.Set3(p0);
+		p0.Set3(p_position);		
+		
+		if (count >= 2)
+		{			
+			Push(fill, Vector4.temp.Set(1,0,0,1), Vector4.temp.Set3(start), transform);
+			Push(fill, Vector4.temp.Set(1,0,0,1), Vector4.temp.Set3(p1), transform);
+			Push(fill, Vector4.temp.Set(1,0,0,1), Vector4.temp.Set3(p0), transform);
+		}
+		
+		count++;
+	}
+	
+	/**
+	 * 
+	 */
+	public function End():Void
+	{
+		if (!active) return;
+		haxor.graphics.Gizmo.Line(p0, start, line, transform);
+		haxor.graphics.Gizmo.Line(p0, p1, line, transform);		
+		
+		active = false;
+	}
+	
+	/**
+	 * Builds the gizmo data.
+	 */
+	override public function OnBuild():Void 
+	{
+		var m : Mesh3 = new Mesh3();		
+		m.name 	 = "$GizmoCanvasMesh";
+		m.primitive = MeshPrimitive.Triangles;		
+		var id : Float = 0.0;
+		var ia : FloatArray = new FloatArray(m_gizmo_count * 3 * 1);
+		var va : FloatArray = new FloatArray(m_gizmo_count * 3 * 3);
+		var va_k : Int = 0;		
+		var ia_k : Int = 0;		
+		for (k in 0...m_gizmo_count)
+		{
+			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id); id += 1.0;
+			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id); id += 1.0;
+			va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); va.Set(va_k++, 0.0); ia.Set(ia_k++, id); id += 1.0;
+			
 		}		
 		m.Set("id", ia,1);
 		m.Set("vertex", va,3);		

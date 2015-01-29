@@ -1,5 +1,6 @@
 package haxor.component;
 import haxor.context.EngineContext;
+import haxor.core.Enums.CameraMode;
 import haxor.core.IResizeable;
 import haxor.core.Resource;
 import haxor.core.Time;
@@ -23,7 +24,7 @@ import haxor.platform.Types.Float32;
  * @author Eduardo Pons
  */
 @:allow(haxor)
-class Camera extends Behaviour
+class Camera extends Behaviour implements IResizeable
 {
 		
 	/**
@@ -205,7 +206,7 @@ class Camera extends Behaviour
 	private var m_filters : Array<Dynamic>;
 	
 	/**
-	 * Camera Frustum corners in CameraSpace. They are offered in the current order:
+	 * Camera Frustum corners in CameraSpace. They are offered in the current order Back to Front:
 	 * 4-,---------,-5
 	 * |  0-------1  |
 	 * |  |       |  |
@@ -215,6 +216,23 @@ class Camera extends Behaviour
 	public var frustum(get_frustum, never):Array<Vector4>;
 	private function get_frustum():Array<Vector4> { UpdateProjection(); return m_frustum; }
 	private var m_frustum : Array<Vector4>;
+	
+	
+	/**
+	 * Flag that indicates the type of behaviour of the camera.
+	 */
+	public var mode(get_mode, set_mode):CameraMode;
+	private function get_mode():CameraMode { return m_mode; }
+	private function set_mode(v:CameraMode):CameraMode { if (m_mode == v) return v; m_mode = v; UpdateProjection(); return v; }
+	private var m_mode : CameraMode;
+	
+	/**
+	 * Visible region of the orthographic frustum. Ignored when not using orthographic mode.
+	 */
+	public var screen(get_screen, set_screen) : AABB2;
+	private function get_screen():AABB2{ return m_screen.clone; }
+	private function set_screen(v:AABB2):AABB2 { m_screen.SetAABB2(v); UpdateProjection(); return v; }
+	private var m_screen : AABB2;
 	
 	/**
 	 * Flag that indicates if the projection matrix changed.
@@ -258,6 +276,10 @@ class Camera extends Behaviour
 		m_projection_dirty			= true;	
 		m_view_uniform_dirty		= true;
 		m_proj_uniform_dirty		= true;
+		
+		m_mode = CameraMode.Perspective;
+		
+		m_screen = AABB2.FromMinMax( -1, 1, -1, 1);
 		
 		m_frustum = [		
 		new Vector4(),
@@ -325,10 +347,32 @@ class Camera extends Behaviour
 		if (!m_projection_dirty) return;
 		m_projection_dirty = false;
 		m_view_uniform_dirty = true;
-		m_projectionMatrix.SetPerspective(m_fov, m_aspect, m_near, m_far);
-		m_projectionMatrixInverse.SetPerspectiveInverse(m_fov, m_aspect, m_near, m_far);
-		m_skyboxProjection.SetPerspective(m_fov, m_aspect, 0.1,100000.0);
-		m_skyboxProjectionInverse.SetPerspectiveInverse(m_fov, m_aspect, 0.1, 100000.0);				
+		
+		switch(m_mode)
+		{
+			case CameraMode.Custom:
+								
+				
+			case CameraMode.Perspective:
+				m_projectionMatrix.SetPerspective(m_fov, m_aspect, m_near, m_far);
+				m_projectionMatrixInverse.SetPerspectiveInverse(m_fov, m_aspect, m_near, m_far);		
+				m_skyboxProjection.SetPerspective(m_fov, m_aspect, 0.1,100000.0);
+				m_skyboxProjectionInverse.SetPerspectiveInverse(m_fov, m_aspect, 0.1, 100000.0);				
+				
+			case CameraMode.Ortho:
+				m_projectionMatrix.SetOrtho(m_screen.xMin, m_screen.xMax, m_screen.yMax, m_screen.yMin, m_near, -m_far);
+				m_projectionMatrixInverse.SetOrthoInverse(m_screen.xMin, m_screen.xMax, m_screen.yMax, m_screen.yMin, m_near, -m_far);
+				m_skyboxProjection.SetOrtho(m_screen.xMin, m_screen.xMax, m_screen.yMax, m_screen.yMin, m_near, -m_far);
+				m_skyboxProjectionInverse.SetOrthoInverse(m_screen.xMin, m_screen.xMax, m_screen.yMax, m_screen.yMin, m_near, -m_far);				
+				
+			case CameraMode.UI:
+				m_projectionMatrix.SetOrtho(0, Screen.width, 0, Screen.height, m_near, -m_far);
+				m_projectionMatrixInverse.SetOrthoInverse(0, Screen.width, 0, Screen.height, m_near, -m_far);
+				m_skyboxProjection.SetOrtho(0, Screen.width, 0, Screen.height, m_near, -m_far);
+				m_skyboxProjectionInverse.SetOrthoInverse(0, Screen.width, 0, Screen.height, m_near, -m_far);		
+		}
+		
+		
 		
 		var p : Vector4;
 		var iw : Float32=0.0;
@@ -358,5 +402,14 @@ class Camera extends Behaviour
 		EngineContext.camera.Destroy(this);
 	}
 	
+	/**
+	 * Callback called when the screen changes size.
+	 * @param	p_w
+	 * @param	p_h
+	 */
+	public function OnResize(p_w:Float32, p_h:Float32):Void
+	{
+		if (m_mode == CameraMode.UI) UpdateProjection();
+	}
 	
 }

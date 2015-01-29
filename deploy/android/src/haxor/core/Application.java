@@ -17,9 +17,9 @@ public  class Application extends haxor.platform.android.AndroidApplication
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_Application(haxor.core.Application __temp_me255321, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_core_Application(haxor.core.Application __temp_me8, java.lang.String p_name)
 	{
-		haxor.platform.android.AndroidApplication.__hx_ctor_haxor_platform_android_AndroidApplication(__temp_me255321, p_name);
+		haxor.platform.android.AndroidApplication.__hx_ctor_haxor_platform_android_AndroidApplication(__temp_me8, p_name);
 	}
 	
 	

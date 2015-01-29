@@ -18,11 +18,11 @@ public  class ColladaMesh extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaMesh(haxor.io.file.ColladaMesh __temp_me255518)
+	public static   void __hx_ctor_haxor_io_file_ColladaMesh(haxor.io.file.ColladaMesh __temp_me295)
 	{
-		__temp_me255518.primitives = null;
-		__temp_me255518.type = "";
-		__temp_me255518.primitives = new haxe.root.Array<haxor.io.file.ColladaPrimitive>(new haxor.io.file.ColladaPrimitive[]{});
+		__temp_me295.primitives = null;
+		__temp_me295.type = "";
+		__temp_me295.primitives = new haxe.root.Array<haxor.io.file.ColladaPrimitive>(new haxor.io.file.ColladaPrimitive[]{});
 	}
 	
 	
@@ -45,14 +45,14 @@ public  class ColladaMesh extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256298 = true;
+			boolean __temp_executeDef1170 = true;
 			switch (field.hashCode())
 			{
 				case -1044475796:
 				{
 					if (field.equals("primitives")) 
 					{
-						__temp_executeDef256298 = false;
+						__temp_executeDef1170 = false;
 						this.primitives = ((haxe.root.Array<haxor.io.file.ColladaPrimitive>) (value) );
 						return value;
 					}
@@ -65,7 +65,7 @@ public  class ColladaMesh extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef256298 = false;
+						__temp_executeDef1170 = false;
 						this.type = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -76,7 +76,7 @@ public  class ColladaMesh extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256298) 
+			if (__temp_executeDef1170) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -93,14 +93,14 @@ public  class ColladaMesh extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256299 = true;
+			boolean __temp_executeDef1171 = true;
 			switch (field.hashCode())
 			{
 				case -1044475796:
 				{
 					if (field.equals("primitives")) 
 					{
-						__temp_executeDef256299 = false;
+						__temp_executeDef1171 = false;
 						return this.primitives;
 					}
 					
@@ -112,7 +112,7 @@ public  class ColladaMesh extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef256299 = false;
+						__temp_executeDef1171 = false;
 						return this.type;
 					}
 					
@@ -122,7 +122,7 @@ public  class ColladaMesh extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256299) 
+			if (__temp_executeDef1171) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}

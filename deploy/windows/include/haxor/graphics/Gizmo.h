@@ -7,6 +7,8 @@
 
 HX_DECLARE_CLASS2(haxor,graphics,Gizmo)
 HX_DECLARE_CLASS2(haxor,math,Color)
+HX_DECLARE_CLASS2(haxor,math,Matrix4)
+HX_DECLARE_CLASS2(haxor,math,Vector3)
 namespace haxor{
 namespace graphics{
 
@@ -34,8 +36,20 @@ class HXCPP_CLASS_ATTRIBUTES  Gizmo_obj : public hx::Object{
 		static Void Grid( Float p_area,::haxor::math::Color p_color);
 		static Dynamic Grid_dyn();
 
-		static Void Axis( Float p_area);
+		static Void Axis( ::haxor::math::Vector3 p_position,::haxor::math::Vector3 p_size,::haxor::math::Color p_color,::haxor::math::Matrix4 p_transform);
 		static Dynamic Axis_dyn();
+
+		static Void Line( ::haxor::math::Vector3 p_from,::haxor::math::Vector3 p_to,::haxor::math::Color p_color,::haxor::math::Matrix4 p_transform);
+		static Dynamic Line_dyn();
+
+		static Void Point( ::haxor::math::Vector3 p_position,hx::Null< Float >  p_size,::haxor::math::Color p_color,hx::Null< bool >  p_smooth,::haxor::math::Matrix4 p_transform);
+		static Dynamic Point_dyn();
+
+		static Void WireSphere( ::haxor::math::Vector3 p_position,hx::Null< Float >  p_radius,::haxor::math::Color p_color,::haxor::math::Matrix4 p_transform);
+		static Dynamic WireSphere_dyn();
+
+		static Void WireCube( ::haxor::math::Vector3 p_position,::haxor::math::Vector3 p_size,::haxor::math::Color p_color,::haxor::math::Matrix4 p_transform);
+		static Dynamic WireCube_dyn();
 
 };
 

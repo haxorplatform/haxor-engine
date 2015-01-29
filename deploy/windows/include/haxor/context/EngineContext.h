@@ -55,11 +55,11 @@ class HXCPP_CLASS_ATTRIBUTES  EngineContext_obj : public hx::Object{
 		static ::haxor::context::MeshContext mesh;
 		static ::haxor::context::MaterialContext material;
 		static ::haxor::context::TextureContext texture;
-		static ::haxor::context::DataContext data;
 		static ::haxor::context::CameraContext camera;
-		static ::haxor::context::TransformContext transform;
 		static ::haxor::context::RendererContext renderer;
 		static ::haxor::context::GizmoContext gizmo;
+		static ::haxor::context::DataContext data;
+		static ::haxor::context::TransformContext transform;
 		static Void Initialize( );
 		static Dynamic Initialize_dyn();
 

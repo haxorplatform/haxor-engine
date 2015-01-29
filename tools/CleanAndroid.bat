@@ -1,4 +1,3 @@
-cd ..
 cd deploy/
 cd android/
 rmdir /Q /S src

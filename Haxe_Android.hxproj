@@ -42,14 +42,14 @@
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>CleanAndroid.bat</preBuildCommand>
+  <preBuildCommand>tools/CleanAndroid.bat</preBuildCommand>
   <!-- Executed after build -->
-  <postBuildCommand alwaysRun="False">BuildAndroid.bat</postBuildCommand>
+  <postBuildCommand alwaysRun="False">tools/BuildAndroid.bat</postBuildCommand>
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="RunAndroid.bat" />
+    <option testMovieCommand="tools/RunAndroid.bat" />
   </options>
   <!-- Plugin storage -->
   <storage />

@@ -18,18 +18,18 @@ public  class Touch extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_input_Touch(haxor.input.Touch __temp_me255495)
+	public static   void __hx_ctor_haxor_input_Touch(haxor.input.Touch __temp_me272)
 	{
-		__temp_me255495.state = haxor.core.InputState.None;
-		__temp_me255495.id = -1;
-		__temp_me255495.position = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		__temp_me255495.delta = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		__temp_me255495.relativePosition = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		__temp_me255495.pressure = ((double) (0) );
-		__temp_me255495.hold = ((double) (0) );
-		__temp_me255495.angle = ((double) (0) );
-		__temp_me255495.radius = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		__temp_me255495.m_down = false;
+		__temp_me272.state = haxor.core.InputState.None;
+		__temp_me272.id = -1;
+		__temp_me272.position = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
+		__temp_me272.delta = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
+		__temp_me272.relativePosition = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
+		__temp_me272.pressure = ((double) (0) );
+		__temp_me272.hold = ((double) (0) );
+		__temp_me272.angle = ((double) (0) );
+		__temp_me272.radius = new haxor.math.Vector2(((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
+		__temp_me272.m_down = false;
 	}
 	
 	
@@ -74,14 +74,14 @@ public  class Touch extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256217 = true;
+			boolean __temp_executeDef1083 = true;
 			switch (field.hashCode())
 			{
 				case 3208383:
 				{
 					if (field.equals("hold")) 
 					{
-						__temp_executeDef256217 = false;
+						__temp_executeDef1083 = false;
 						this.hold = ((double) (value) );
 						return value;
 					}
@@ -94,7 +94,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256217 = false;
+						__temp_executeDef1083 = false;
 						this.id = ((int) (value) );
 						return value;
 					}
@@ -107,7 +107,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("pressure")) 
 					{
-						__temp_executeDef256217 = false;
+						__temp_executeDef1083 = false;
 						this.pressure = ((double) (value) );
 						return value;
 					}
@@ -120,7 +120,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("angle")) 
 					{
-						__temp_executeDef256217 = false;
+						__temp_executeDef1083 = false;
 						this.angle = ((double) (value) );
 						return value;
 					}
@@ -131,7 +131,7 @@ public  class Touch extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256217) 
+			if (__temp_executeDef1083) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -148,14 +148,14 @@ public  class Touch extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256218 = true;
+			boolean __temp_executeDef1084 = true;
 			switch (field.hashCode())
 			{
 				case -1083565772:
 				{
 					if (field.equals("m_down")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.m_down = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -168,7 +168,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("state")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.state = ((haxor.core.InputState) (value) );
 						return value;
 					}
@@ -181,7 +181,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("hold")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.hold = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -194,7 +194,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.id = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -207,7 +207,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("pressure")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.pressure = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -220,7 +220,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.position = ((haxor.math.Vector2) (value) );
 						return value;
 					}
@@ -233,7 +233,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("delta")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.delta = ((haxor.math.Vector2) (value) );
 						return value;
 					}
@@ -246,7 +246,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.radius = ((haxor.math.Vector2) (value) );
 						return value;
 					}
@@ -259,7 +259,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("relativePosition")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.relativePosition = ((haxor.math.Vector2) (value) );
 						return value;
 					}
@@ -272,7 +272,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("angle")) 
 					{
-						__temp_executeDef256218 = false;
+						__temp_executeDef1084 = false;
 						this.angle = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -283,7 +283,7 @@ public  class Touch extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256218) 
+			if (__temp_executeDef1084) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -300,14 +300,14 @@ public  class Touch extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256219 = true;
+			boolean __temp_executeDef1085 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToString"))) );
 					}
 					
@@ -319,7 +319,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("state")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.state;
 					}
 					
@@ -331,7 +331,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("m_down")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.m_down;
 					}
 					
@@ -343,7 +343,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.id;
 					}
 					
@@ -355,7 +355,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("hold")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.hold;
 					}
 					
@@ -367,7 +367,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.position;
 					}
 					
@@ -379,7 +379,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("pressure")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.pressure;
 					}
 					
@@ -391,7 +391,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("radius")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.radius;
 					}
 					
@@ -403,7 +403,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("delta")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.delta;
 					}
 					
@@ -415,7 +415,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("angle")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.angle;
 					}
 					
@@ -427,7 +427,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("relativePosition")) 
 					{
-						__temp_executeDef256219 = false;
+						__temp_executeDef1085 = false;
 						return this.relativePosition;
 					}
 					
@@ -437,7 +437,7 @@ public  class Touch extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256219) 
+			if (__temp_executeDef1085) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -454,14 +454,14 @@ public  class Touch extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256220 = true;
+			boolean __temp_executeDef1086 = true;
 			switch (field.hashCode())
 			{
 				case 3208383:
 				{
 					if (field.equals("hold")) 
 					{
-						__temp_executeDef256220 = false;
+						__temp_executeDef1086 = false;
 						return this.hold;
 					}
 					
@@ -473,7 +473,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256220 = false;
+						__temp_executeDef1086 = false;
 						return ((double) (this.id) );
 					}
 					
@@ -485,7 +485,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("pressure")) 
 					{
-						__temp_executeDef256220 = false;
+						__temp_executeDef1086 = false;
 						return this.pressure;
 					}
 					
@@ -497,7 +497,7 @@ public  class Touch extends haxe.lang.HxObject
 				{
 					if (field.equals("angle")) 
 					{
-						__temp_executeDef256220 = false;
+						__temp_executeDef1086 = false;
 						return this.angle;
 					}
 					
@@ -507,7 +507,7 @@ public  class Touch extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256220) 
+			if (__temp_executeDef1086) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -524,14 +524,14 @@ public  class Touch extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef256221 = true;
+			boolean __temp_executeDef1087 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef256221 = false;
+						__temp_executeDef1087 = false;
 						return this.ToString();
 					}
 					
@@ -541,7 +541,7 @@ public  class Touch extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256221) 
+			if (__temp_executeDef1087) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

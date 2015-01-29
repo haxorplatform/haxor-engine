@@ -32,7 +32,7 @@ public  class BlendMode extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_core_BlendMode(haxor.core.BlendMode __temp_me255396)
+	public static   void __hx_ctor_haxor_core_BlendMode(haxor.core.BlendMode __temp_me165)
 	{
 		{
 		}

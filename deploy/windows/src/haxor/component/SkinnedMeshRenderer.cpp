@@ -77,12 +77,12 @@ namespace component{
 
 Void SkinnedMeshRenderer_obj::__construct(::String __o_p_name)
 {
-HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","new",0xfc589b55,"haxor.component.SkinnedMeshRenderer.new","haxor/component/SkinnedMeshRenderer.hx",16,0x9853527d)
+HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","new",0xfc589b55,"haxor.component.SkinnedMeshRenderer.new","haxor/component/SkinnedMeshRenderer.hx",17,0x9853527d)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_name,"p_name")
 ::String p_name = __o_p_name.Default(HX_CSTRING(""));
 {
-	HX_STACK_LINE(16)
+	HX_STACK_LINE(17)
 	super::__construct(p_name);
 }
 ;
@@ -103,19 +103,19 @@ Dynamic SkinnedMeshRenderer_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 Array< ::Dynamic > SkinnedMeshRenderer_obj::set_joints( Array< ::Dynamic > v){
-	HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","set_joints",0x5cdea3d1,"haxor.component.SkinnedMeshRenderer.set_joints","haxor/component/SkinnedMeshRenderer.hx",22,0x9853527d)
+	HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","set_joints",0x5cdea3d1,"haxor.component.SkinnedMeshRenderer.set_joints","haxor/component/SkinnedMeshRenderer.hx",23,0x9853527d)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(22)
+	HX_STACK_LINE(23)
 	if (((v == null()))){
-		HX_STACK_LINE(22)
+		HX_STACK_LINE(23)
 		this->m_joints = Array_obj< ::Dynamic >::__new();
 	}
 	else{
-		HX_STACK_LINE(22)
+		HX_STACK_LINE(23)
 		this->m_joints = v;
 	}
-	HX_STACK_LINE(22)
+	HX_STACK_LINE(23)
 	return this->m_joints;
 }
 
@@ -123,9 +123,9 @@ Array< ::Dynamic > SkinnedMeshRenderer_obj::set_joints( Array< ::Dynamic > v){
 HX_DEFINE_DYNAMIC_FUNC1(SkinnedMeshRenderer_obj,set_joints,return )
 
 Array< ::Dynamic > SkinnedMeshRenderer_obj::get_joints( ){
-	HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","get_joints",0x5961055d,"haxor.component.SkinnedMeshRenderer.get_joints","haxor/component/SkinnedMeshRenderer.hx",23,0x9853527d)
+	HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","get_joints",0x5961055d,"haxor.component.SkinnedMeshRenderer.get_joints","haxor/component/SkinnedMeshRenderer.hx",24,0x9853527d)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(23)
+	HX_STACK_LINE(24)
 	return this->m_joints;
 }
 
@@ -134,40 +134,40 @@ HX_DEFINE_DYNAMIC_FUNC0(SkinnedMeshRenderer_obj,get_joints,return )
 
 Void SkinnedMeshRenderer_obj::OnBuild( ){
 {
-		HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","OnBuild",0x6ed78ae4,"haxor.component.SkinnedMeshRenderer.OnBuild","haxor/component/SkinnedMeshRenderer.hx",34,0x9853527d)
+		HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","OnBuild",0x6ed78ae4,"haxor.component.SkinnedMeshRenderer.OnBuild","haxor/component/SkinnedMeshRenderer.hx",35,0x9853527d)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(35)
-		this->super::OnBuild();
 		HX_STACK_LINE(36)
+		this->super::OnBuild();
+		HX_STACK_LINE(37)
 		this->m_joints = Array_obj< ::Dynamic >::__new();
-		HX_STACK_LINE(39)
-		this->m_buffer = Array_obj< Float >::__new();
 		HX_STACK_LINE(40)
+		this->m_buffer = Array_obj< Float >::__new();
+		HX_STACK_LINE(41)
 		{
-			HX_STACK_LINE(40)
+			HX_STACK_LINE(41)
 			int _g = (int)0;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(40)
+			HX_STACK_LINE(41)
 			while((true)){
-				HX_STACK_LINE(40)
+				HX_STACK_LINE(41)
 				if ((!(((_g < (int)8192))))){
-					HX_STACK_LINE(40)
+					HX_STACK_LINE(41)
 					break;
 				}
-				HX_STACK_LINE(40)
+				HX_STACK_LINE(41)
 				int i = (_g)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(40)
+				HX_STACK_LINE(41)
 				this->m_buffer->push((int)0);
 			}
 		}
-		HX_STACK_LINE(41)
+		HX_STACK_LINE(42)
 		::haxor::graphics::texture::ComputeTexture _g = ::haxor::graphics::texture::ComputeTexture_obj::__new((int)1,(int)2048,::haxor::core::PixelFormat_obj::Float4);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(41)
+		HX_STACK_LINE(42)
 		this->m_data = _g;
-		HX_STACK_LINE(42)
+		HX_STACK_LINE(43)
 		int _g1 = this->get_uid();		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(42)
+		HX_STACK_LINE(43)
 		::String _g2 = (HX_CSTRING("SkinningTexture") + _g1);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(42)
+		HX_STACK_LINE(43)
 		this->m_data->set_name(_g2);
 	}
 return null();
@@ -176,84 +176,84 @@ return null();
 
 Void SkinnedMeshRenderer_obj::OnRender( ){
 {
-		HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","OnRender",0xc0567ae0,"haxor.component.SkinnedMeshRenderer.OnRender","haxor/component/SkinnedMeshRenderer.hx",46,0x9853527d)
+		HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","OnRender",0xc0567ae0,"haxor.component.SkinnedMeshRenderer.OnRender","haxor/component/SkinnedMeshRenderer.hx",47,0x9853527d)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(48)
+		HX_STACK_LINE(49)
 		if (((this->m_material != null()))){
-			HX_STACK_LINE(50)
-			::haxor::graphics::mesh::SkinnedMesh3 skm = this->m_mesh;		HX_STACK_VAR(skm,"skm");
 			HX_STACK_LINE(51)
-			int k = (int)0;		HX_STACK_VAR(k,"k");
+			::haxor::graphics::mesh::SkinnedMesh3 skm = this->m_mesh;		HX_STACK_VAR(skm,"skm");
 			HX_STACK_LINE(52)
-			::haxor::math::Matrix4 jm;		HX_STACK_VAR(jm,"jm");
+			int k = (int)0;		HX_STACK_VAR(k,"k");
 			HX_STACK_LINE(53)
-			::haxor::math::Matrix4 bm;		HX_STACK_VAR(bm,"bm");
+			::haxor::math::Matrix4 jm;		HX_STACK_VAR(jm,"jm");
 			HX_STACK_LINE(54)
+			::haxor::math::Matrix4 bm;		HX_STACK_VAR(bm,"bm");
+			HX_STACK_LINE(55)
 			::haxor::io::FloatArray f32 = this->m_data->m_data->get_buffer();		HX_STACK_VAR(f32,"f32");
-			HX_STACK_LINE(56)
+			HX_STACK_LINE(59)
 			{
-				HX_STACK_LINE(56)
+				HX_STACK_LINE(59)
 				int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(56)
+				HX_STACK_LINE(59)
 				int _g = this->m_joints->length;		HX_STACK_VAR(_g,"_g");
-				HX_STACK_LINE(56)
+				HX_STACK_LINE(59)
 				while((true)){
-					HX_STACK_LINE(56)
+					HX_STACK_LINE(59)
 					if ((!(((_g1 < _g))))){
-						HX_STACK_LINE(56)
+						HX_STACK_LINE(59)
 						break;
 					}
-					HX_STACK_LINE(56)
+					HX_STACK_LINE(59)
 					int i = (_g1)++;		HX_STACK_VAR(i,"i");
-					HX_STACK_LINE(58)
+					HX_STACK_LINE(61)
 					::haxor::math::Matrix4 _g2 = this->m_joints->__get(i).StaticCast< ::haxor::component::Transform >()->get_WorldMatrix();		HX_STACK_VAR(_g2,"_g2");
-					HX_STACK_LINE(58)
+					HX_STACK_LINE(61)
 					jm = _g2;
-					HX_STACK_LINE(59)
+					HX_STACK_LINE(62)
 					Array< ::Dynamic > _g11 = skm->get_binds();		HX_STACK_VAR(_g11,"_g11");
-					HX_STACK_LINE(59)
+					HX_STACK_LINE(62)
 					::haxor::math::Matrix4 _g21 = _g11->__get(i).StaticCast< ::haxor::math::Matrix4 >();		HX_STACK_VAR(_g21,"_g21");
-					HX_STACK_LINE(59)
+					HX_STACK_LINE(62)
 					bm = _g21;
-					HX_STACK_LINE(60)
+					HX_STACK_LINE(63)
 					{
-						HX_STACK_LINE(60)
+						HX_STACK_LINE(63)
 						int _g22 = (int)0;		HX_STACK_VAR(_g22,"_g22");
-						HX_STACK_LINE(60)
+						HX_STACK_LINE(63)
 						while((true)){
-							HX_STACK_LINE(60)
+							HX_STACK_LINE(63)
 							if ((!(((_g22 < (int)12))))){
-								HX_STACK_LINE(60)
+								HX_STACK_LINE(63)
 								break;
 							}
-							HX_STACK_LINE(60)
+							HX_STACK_LINE(63)
 							int j = (_g22)++;		HX_STACK_VAR(j,"j");
-							HX_STACK_LINE(62)
+							HX_STACK_LINE(65)
 							Float _g3 = jm->GetIndex(j);		HX_STACK_VAR(_g3,"_g3");
-							HX_STACK_LINE(62)
+							HX_STACK_LINE(65)
 							f32->Set(k,_g3);
-							HX_STACK_LINE(63)
+							HX_STACK_LINE(66)
 							Float _g4 = bm->GetIndex(j);		HX_STACK_VAR(_g4,"_g4");
-							HX_STACK_LINE(63)
+							HX_STACK_LINE(66)
 							f32->Set((k + (int)4096),_g4);
-							HX_STACK_LINE(64)
+							HX_STACK_LINE(67)
 							(k)++;
 						}
 					}
 				}
 			}
-			HX_STACK_LINE(69)
+			HX_STACK_LINE(72)
 			this->m_data->Invalidate();
-			HX_STACK_LINE(71)
+			HX_STACK_LINE(74)
 			this->m_material->SetTexture(HX_CSTRING("Skinning"),this->m_data);
 		}
-		HX_STACK_LINE(76)
-		this->super::OnRender();
-		HX_STACK_LINE(78)
-		Float sh = ::haxor::graphics::Screen_obj::m_height;		HX_STACK_VAR(sh,"sh");
 		HX_STACK_LINE(79)
+		this->super::OnRender();
+		HX_STACK_LINE(82)
+		Float sh = ::haxor::graphics::Screen_obj::m_height;		HX_STACK_VAR(sh,"sh");
+		HX_STACK_LINE(83)
 		Float th = 2048.0;		HX_STACK_VAR(th,"th");
-		HX_STACK_LINE(80)
+		HX_STACK_LINE(84)
 		::haxor::graphics::Graphics_obj::DrawTexture(this->m_data,(int)0,(th + (int)105),(int)256,-(th),null());
 	}
 return null();

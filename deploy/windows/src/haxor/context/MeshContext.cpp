@@ -1,5 +1,8 @@
 #include <hxcpp.h>
 
+#ifndef INCLUDED_Std
+#include <Std.h>
+#endif
 #ifndef INCLUDED_haxor_context_EngineContext
 #include <haxor/context/EngineContext.h>
 #endif
@@ -18,11 +21,11 @@
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
+#ifndef INCLUDED_haxor_core_RenderStats
+#include <haxor/core/RenderStats.h>
+#endif
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
-#endif
-#ifndef INCLUDED_haxor_core_Stats
-#include <haxor/core/Stats.h>
 #endif
 #ifndef INCLUDED_haxor_graphics_GL
 #include <haxor/graphics/GL.h>
@@ -53,56 +56,56 @@ namespace context{
 
 Void MeshContext_obj::__construct()
 {
-HX_STACK_FRAME("haxor.context.MeshContext","new",0x9085c6a9,"haxor.context.MeshContext.new","haxor/context/MeshContext.hx",16,0xf23de969)
+HX_STACK_FRAME("haxor.context.MeshContext","new",0x9085c6a9,"haxor.context.MeshContext.new","haxor/context/MeshContext.hx",17,0xf23de969)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(32)
+	HX_STACK_LINE(33)
 	this->attribs = Array_obj< ::String >::__new().Add(HX_CSTRING("vertex")).Add(HX_CSTRING("normal")).Add(HX_CSTRING("uv0")).Add(HX_CSTRING("uv1")).Add(HX_CSTRING("uv2")).Add(HX_CSTRING("color")).Add(HX_CSTRING("weight")).Add(HX_CSTRING("bone"));
-	HX_STACK_LINE(59)
+	HX_STACK_LINE(60)
 	::haxor::context::UID _g = ::haxor::context::UID_obj::__new();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(59)
+	HX_STACK_LINE(60)
 	this->aid = _g;
-	HX_STACK_LINE(60)
-	::haxor::context::UID _g1 = ::haxor::context::UID_obj::__new();		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(60)
-	this->mid = _g1;
 	HX_STACK_LINE(61)
-	this->buffers = Array_obj< int >::__new();
+	::haxor::context::UID _g1 = ::haxor::context::UID_obj::__new();		HX_STACK_VAR(_g1,"_g1");
+	HX_STACK_LINE(61)
+	this->mid = _g1;
 	HX_STACK_LINE(62)
+	this->buffers = Array_obj< int >::__new();
+	HX_STACK_LINE(63)
 	this->activated = Array_obj< bool >::__new();
-	HX_STACK_LINE(65)
+	HX_STACK_LINE(66)
 	{
-		HX_STACK_LINE(65)
+		HX_STACK_LINE(66)
 		int _g2 = (int)0;		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(65)
+		HX_STACK_LINE(66)
 		while((true)){
-			HX_STACK_LINE(65)
+			HX_STACK_LINE(66)
 			if ((!(((_g2 < (int)32))))){
-				HX_STACK_LINE(65)
+				HX_STACK_LINE(66)
 				break;
 			}
-			HX_STACK_LINE(65)
+			HX_STACK_LINE(66)
 			int i = (_g2)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(65)
+			HX_STACK_LINE(66)
 			this->activated->push(false);
 		}
 	}
-	HX_STACK_LINE(67)
+	HX_STACK_LINE(68)
 	int max_buffers = (int)512;		HX_STACK_VAR(max_buffers,"max_buffers");
-	HX_STACK_LINE(69)
+	HX_STACK_LINE(70)
 	{
-		HX_STACK_LINE(69)
+		HX_STACK_LINE(70)
 		int _g2 = (int)0;		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(69)
+		HX_STACK_LINE(70)
 		while((true)){
-			HX_STACK_LINE(69)
+			HX_STACK_LINE(70)
 			if ((!(((_g2 < max_buffers))))){
-				HX_STACK_LINE(69)
+				HX_STACK_LINE(70)
 				break;
 			}
-			HX_STACK_LINE(69)
+			HX_STACK_LINE(70)
 			int i = (_g2)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(71)
+			HX_STACK_LINE(72)
 			this->buffers->push(::haxor::graphics::GL_obj::INVALID);
 		}
 	}
@@ -126,9 +129,9 @@ Dynamic MeshContext_obj::__Create(hx::DynamicArray inArgs)
 
 Void MeshContext_obj::Initialize( ){
 {
-		HX_STACK_FRAME("haxor.context.MeshContext","Initialize",0xf4678a47,"haxor.context.MeshContext.Initialize","haxor/context/MeshContext.hx",80,0xf23de969)
+		HX_STACK_FRAME("haxor.context.MeshContext","Initialize",0xf4678a47,"haxor.context.MeshContext.Initialize","haxor/context/MeshContext.hx",81,0xf23de969)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(80)
+		HX_STACK_LINE(81)
 		::haxor::core::Console_obj::Log(HX_CSTRING("MeshContext> Initialize."),(int)3);
 	}
 return null();
@@ -139,18 +142,18 @@ HX_DEFINE_DYNAMIC_FUNC0(MeshContext_obj,Initialize,(void))
 
 Void MeshContext_obj::Bind( ::haxor::graphics::mesh::Mesh p_mesh){
 {
-		HX_STACK_FRAME("haxor.context.MeshContext","Bind",0xc775ab74,"haxor.context.MeshContext.Bind","haxor/context/MeshContext.hx",89,0xf23de969)
+		HX_STACK_FRAME("haxor.context.MeshContext","Bind",0xc775ab74,"haxor.context.MeshContext.Bind","haxor/context/MeshContext.hx",90,0xf23de969)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_mesh,"p_mesh")
-		HX_STACK_LINE(89)
+		HX_STACK_LINE(90)
 		if (((p_mesh != this->current))){
-			HX_STACK_LINE(91)
-			this->Unbind();
 			HX_STACK_LINE(92)
+			this->Unbind();
+			HX_STACK_LINE(93)
 			this->current = p_mesh;
-			HX_STACK_LINE(94)
+			HX_STACK_LINE(95)
 			if (((this->current != null()))){
-				HX_STACK_LINE(97)
+				HX_STACK_LINE(98)
 				this->ActivateAttributes();
 			}
 		}
@@ -163,90 +166,90 @@ HX_DEFINE_DYNAMIC_FUNC1(MeshContext_obj,Bind,(void))
 
 Void MeshContext_obj::ActivateAttributes( ){
 {
-		HX_STACK_FRAME("haxor.context.MeshContext","ActivateAttributes",0x6a542e61,"haxor.context.MeshContext.ActivateAttributes","haxor/context/MeshContext.hx",109,0xf23de969)
+		HX_STACK_FRAME("haxor.context.MeshContext","ActivateAttributes",0x6a542e61,"haxor.context.MeshContext.ActivateAttributes","haxor/context/MeshContext.hx",110,0xf23de969)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(110)
-		::haxor::graphics::mesh::MeshAttrib a;		HX_STACK_VAR(a,"a");
 		HX_STACK_LINE(111)
-		Array< ::Dynamic > al = this->current->m_attribs;		HX_STACK_VAR(al,"al");
+		::haxor::graphics::mesh::MeshAttrib a;		HX_STACK_VAR(a,"a");
 		HX_STACK_LINE(112)
-		int id;		HX_STACK_VAR(id,"id");
+		Array< ::Dynamic > al = this->current->m_attribs;		HX_STACK_VAR(al,"al");
 		HX_STACK_LINE(113)
-		int type;		HX_STACK_VAR(type,"type");
+		int id;		HX_STACK_VAR(id,"id");
 		HX_STACK_LINE(114)
+		int type;		HX_STACK_VAR(type,"type");
+		HX_STACK_LINE(115)
 		bool has_color = false;		HX_STACK_VAR(has_color,"has_color");
-		HX_STACK_LINE(116)
+		HX_STACK_LINE(117)
 		{
-			HX_STACK_LINE(116)
+			HX_STACK_LINE(117)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(116)
+			HX_STACK_LINE(117)
 			int _g = al->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(116)
+			HX_STACK_LINE(117)
 			while((true)){
-				HX_STACK_LINE(116)
+				HX_STACK_LINE(117)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(116)
+					HX_STACK_LINE(117)
 					break;
 				}
-				HX_STACK_LINE(116)
+				HX_STACK_LINE(117)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(118)
-				a = al->__get(i).StaticCast< ::haxor::graphics::mesh::MeshAttrib >();
 				HX_STACK_LINE(119)
-				int loc = a->_loc_;		HX_STACK_VAR(loc,"loc");
+				a = al->__get(i).StaticCast< ::haxor::graphics::mesh::MeshAttrib >();
 				HX_STACK_LINE(120)
+				int loc = a->_loc_;		HX_STACK_VAR(loc,"loc");
+				HX_STACK_LINE(121)
 				if (((loc == (int)5))){
-					HX_STACK_LINE(120)
+					HX_STACK_LINE(121)
 					has_color = true;
 				}
-				HX_STACK_LINE(121)
+				HX_STACK_LINE(122)
 				if (((loc < (int)0))){
-					HX_STACK_LINE(125)
-					int _g2 = ::haxor::context::EngineContext_obj::material->GetAttribLocation(a);		HX_STACK_VAR(_g2,"_g2");
-					HX_STACK_LINE(125)
-					loc = _g2;
 					HX_STACK_LINE(126)
+					int _g2 = ::haxor::context::EngineContext_obj::material->GetAttribLocation(a);		HX_STACK_VAR(_g2,"_g2");
+					HX_STACK_LINE(126)
+					loc = _g2;
+					HX_STACK_LINE(127)
 					if (((loc < (int)0))){
-						HX_STACK_LINE(126)
+						HX_STACK_LINE(127)
 						continue;
 					}
 				}
-				HX_STACK_LINE(128)
+				HX_STACK_LINE(129)
 				type = (int)5126;
-				HX_STACK_LINE(130)
+				HX_STACK_LINE(131)
 				if ((!(this->activated->__get(loc)))){
-					HX_STACK_LINE(132)
+					HX_STACK_LINE(133)
 					this->activated[loc] = true;
-					HX_STACK_LINE(133)
-					int _g11 = ::Math_obj::max(this->active_max,loc);		HX_STACK_VAR(_g11,"_g11");
-					HX_STACK_LINE(133)
-					this->active_max = _g11;
 					HX_STACK_LINE(134)
+					int _g11 = ::Math_obj::max(this->active_max,loc);		HX_STACK_VAR(_g11,"_g11");
+					HX_STACK_LINE(134)
+					this->active_max = _g11;
+					HX_STACK_LINE(135)
 					::haxor::graphics::GL_obj::m_gl->EnableVertexAttrib(loc);
 				}
-				HX_STACK_LINE(136)
-				::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34962,this->buffers->__get(a->__cid));
 				HX_STACK_LINE(137)
+				::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34962,this->buffers->__get(a->__cid));
+				HX_STACK_LINE(138)
 				::haxor::graphics::GL_obj::m_gl->VertexAttribPointer(loc,a->offset,type,false,(int)0,(int)0);
 			}
 		}
-		HX_STACK_LINE(141)
+		HX_STACK_LINE(142)
 		if ((!(has_color))){
-			HX_STACK_LINE(143)
+			HX_STACK_LINE(144)
 			if ((this->activated->__get((int)5))){
-				HX_STACK_LINE(143)
+				HX_STACK_LINE(144)
 				::haxor::graphics::GL_obj::m_gl->DisableVertexAttrib((int)5);
-				HX_STACK_LINE(143)
+				HX_STACK_LINE(144)
 				this->activated[(int)5] = false;
 			}
-			HX_STACK_LINE(144)
+			HX_STACK_LINE(145)
 			::haxor::graphics::GL_obj::m_gl->VertexAttrib4f((int)5,1.0,1.0,1.0,1.0);
 		}
-		HX_STACK_LINE(147)
+		HX_STACK_LINE(148)
 		if ((this->current->m_indexed)){
-			HX_STACK_LINE(149)
-			a = this->current->m_topology_attrib;
 			HX_STACK_LINE(150)
+			a = this->current->m_topology_attrib;
+			HX_STACK_LINE(151)
 			::haxor::graphics::GL_obj::m_gl->BindBuffer((int)34963,this->buffers->__get(a->__cid));
 		}
 	}
@@ -258,7 +261,7 @@ HX_DEFINE_DYNAMIC_FUNC0(MeshContext_obj,ActivateAttributes,(void))
 
 Void MeshContext_obj::Unbind( ){
 {
-		HX_STACK_FRAME("haxor.context.MeshContext","Unbind",0x42acce0d,"haxor.context.MeshContext.Unbind","haxor/context/MeshContext.hx",158,0xf23de969)
+		HX_STACK_FRAME("haxor.context.MeshContext","Unbind",0x42acce0d,"haxor.context.MeshContext.Unbind","haxor/context/MeshContext.hx",159,0xf23de969)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -269,28 +272,37 @@ HX_DEFINE_DYNAMIC_FUNC0(MeshContext_obj,Unbind,(void))
 
 Void MeshContext_obj::Draw( ::haxor::graphics::mesh::Mesh m){
 {
-		HX_STACK_FRAME("haxor.context.MeshContext","Draw",0xc8cee1bb,"haxor.context.MeshContext.Draw","haxor/context/MeshContext.hx",176,0xf23de969)
+		HX_STACK_FRAME("haxor.context.MeshContext","Draw",0xc8cee1bb,"haxor.context.MeshContext.Draw","haxor/context/MeshContext.hx",181,0xf23de969)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(m,"m")
-		HX_STACK_LINE(176)
+		HX_STACK_LINE(181)
 		if ((m->m_indexed)){
-			HX_STACK_LINE(178)
+			HX_STACK_LINE(183)
 			::haxor::graphics::GL_obj::m_gl->DrawElements(m->primitive,m->m_topology_attrib->data->m_length,(int)5123,(int)0);
-			HX_STACK_LINE(181)
-			hx::AddEq(::haxor::core::Stats_obj::triangles,(Float(m->m_topology_attrib->data->m_length) / Float((int)3)));
+			HX_STACK_LINE(186)
+			int _g = ::Std_obj::_int((Float(m->m_topology_attrib->data->m_length) / Float((int)3)));		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(186)
+			hx::AddEq(::haxor::core::RenderStats_obj::triangles,_g);
 		}
 		else{
-			HX_STACK_LINE(191)
+			HX_STACK_LINE(196)
 			::haxor::graphics::GL_obj::m_gl->DrawArrays(m->primitive,(int)0,m->m_vcount);
-			HX_STACK_LINE(194)
+			HX_STACK_LINE(199)
 			int off = (int)3;		HX_STACK_VAR(off,"off");
-			HX_STACK_LINE(195)
+			HX_STACK_LINE(200)
 			if (((m->primitive == (int)1))){
-				HX_STACK_LINE(195)
+				HX_STACK_LINE(200)
 				off = (int)2;
 			}
-			HX_STACK_LINE(196)
-			hx::AddEq(::haxor::core::Stats_obj::triangles,(Float(m->m_vcount) / Float(off)));
+			HX_STACK_LINE(201)
+			if (((m->primitive == (int)0))){
+				HX_STACK_LINE(201)
+				off = (int)1;
+			}
+			HX_STACK_LINE(202)
+			int _g1 = ::Std_obj::_int((Float(m->m_vcount) / Float(off)));		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(202)
+			hx::AddEq(::haxor::core::RenderStats_obj::triangles,_g1);
 		}
 	}
 return null();
@@ -301,27 +313,27 @@ HX_DEFINE_DYNAMIC_FUNC1(MeshContext_obj,Draw,(void))
 
 Void MeshContext_obj::RemoveAttrib( ::haxor::graphics::mesh::MeshAttrib p_attrib){
 {
-		HX_STACK_FRAME("haxor.context.MeshContext","RemoveAttrib",0xdd784765,"haxor.context.MeshContext.RemoveAttrib","haxor/context/MeshContext.hx",211,0xf23de969)
+		HX_STACK_FRAME("haxor.context.MeshContext","RemoveAttrib",0xdd784765,"haxor.context.MeshContext.RemoveAttrib","haxor/context/MeshContext.hx",217,0xf23de969)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_attrib,"p_attrib")
-		HX_STACK_LINE(212)
+		HX_STACK_LINE(218)
 		int id = this->buffers->__get(p_attrib->__cid);		HX_STACK_VAR(id,"id");
-		HX_STACK_LINE(213)
+		HX_STACK_LINE(219)
 		if (((id == ::haxor::graphics::GL_obj::INVALID))){
-			HX_STACK_LINE(213)
+			HX_STACK_LINE(219)
 			return null();
 		}
-		HX_STACK_LINE(214)
+		HX_STACK_LINE(220)
 		::haxor::graphics::GL_obj::m_gl->DeleteBuffer(id);
-		HX_STACK_LINE(215)
+		HX_STACK_LINE(221)
 		this->buffers[p_attrib->__cid] = ::haxor::graphics::GL_obj::INVALID;
-		HX_STACK_LINE(216)
+		HX_STACK_LINE(222)
 		{
-			HX_STACK_LINE(216)
+			HX_STACK_LINE(222)
 			int v = p_attrib->__cid;		HX_STACK_VAR(v,"v");
-			HX_STACK_LINE(216)
+			HX_STACK_LINE(222)
 			this->aid->m_cache->push(v);
-			HX_STACK_LINE(216)
+			HX_STACK_LINE(222)
 			v;
 		}
 	}
@@ -333,40 +345,40 @@ HX_DEFINE_DYNAMIC_FUNC1(MeshContext_obj,RemoveAttrib,(void))
 
 Void MeshContext_obj::UpdateAttrib( ::haxor::graphics::mesh::MeshAttrib a,int p_mode,bool p_is_index){
 {
-		HX_STACK_FRAME("haxor.context.MeshContext","UpdateAttrib",0x6e0e52ea,"haxor.context.MeshContext.UpdateAttrib","haxor/context/MeshContext.hx",224,0xf23de969)
+		HX_STACK_FRAME("haxor.context.MeshContext","UpdateAttrib",0x6e0e52ea,"haxor.context.MeshContext.UpdateAttrib","haxor/context/MeshContext.hx",230,0xf23de969)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(a,"a")
 		HX_STACK_ARG(p_mode,"p_mode")
 		HX_STACK_ARG(p_is_index,"p_is_index")
-		HX_STACK_LINE(225)
+		HX_STACK_LINE(231)
 		int id = this->buffers->__get(a->__cid);		HX_STACK_VAR(id,"id");
-		HX_STACK_LINE(226)
+		HX_STACK_LINE(232)
 		int target_flag;		HX_STACK_VAR(target_flag,"target_flag");
-		HX_STACK_LINE(226)
+		HX_STACK_LINE(232)
 		if ((p_is_index)){
-			HX_STACK_LINE(226)
+			HX_STACK_LINE(232)
 			target_flag = (int)34963;
 		}
 		else{
-			HX_STACK_LINE(226)
+			HX_STACK_LINE(232)
 			target_flag = (int)34962;
 		}
-		HX_STACK_LINE(229)
+		HX_STACK_LINE(235)
 		int _g = this->attribs->indexOf(a->m_name,null());		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(229)
+		HX_STACK_LINE(235)
 		a->_loc_ = _g;
-		HX_STACK_LINE(231)
+		HX_STACK_LINE(237)
 		if (((id == ::haxor::graphics::GL_obj::INVALID))){
-			HX_STACK_LINE(233)
+			HX_STACK_LINE(239)
 			int _g1 = ::haxor::graphics::GL_obj::m_gl->CreateBuffer();		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(233)
+			HX_STACK_LINE(239)
 			id = _g1;
-			HX_STACK_LINE(234)
+			HX_STACK_LINE(240)
 			this->buffers[a->__cid] = id;
 		}
-		HX_STACK_LINE(237)
+		HX_STACK_LINE(243)
 		::haxor::graphics::GL_obj::m_gl->BindBuffer(target_flag,id);
-		HX_STACK_LINE(238)
+		HX_STACK_LINE(244)
 		::haxor::graphics::GL_obj::m_gl->BufferData(target_flag,a->data,p_mode);
 	}
 return null();

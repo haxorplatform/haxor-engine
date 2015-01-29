@@ -17,13 +17,13 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 	}
 	
 	
-	public static   void __hx_ctor_haxor_component_CameraOrbitInput(haxor.component.CameraOrbitInput __temp_me255349, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_component_CameraOrbitInput(haxor.component.CameraOrbitInput __temp_me36, java.lang.String p_name)
 	{
-		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me255349, p_name);
-		__temp_me255349.rotateSpeed = 0.5;
-		__temp_me255349.zoomSpeed = 0.5;
-		__temp_me255349.zoom = true;
-		__temp_me255349.rotate = true;
+		haxor.component.Behaviour.__hx_ctor_haxor_component_Behaviour(__temp_me36, p_name);
+		__temp_me36.rotateSpeed = 0.5;
+		__temp_me36.zoomSpeed = 0.5;
+		__temp_me36.zoom = true;
+		__temp_me36.rotate = true;
 	}
 	
 	
@@ -116,14 +116,14 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef255883 = true;
+			boolean __temp_executeDef625 = true;
 			switch (field.hashCode())
 			{
 				case 1853248428:
 				{
 					if (field.equals("rotateSpeed")) 
 					{
-						__temp_executeDef255883 = false;
+						__temp_executeDef625 = false;
 						this.rotateSpeed = ((double) (value) );
 						return value;
 					}
@@ -136,7 +136,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("zoomSpeed")) 
 					{
-						__temp_executeDef255883 = false;
+						__temp_executeDef625 = false;
 						this.zoomSpeed = ((double) (value) );
 						return value;
 					}
@@ -147,7 +147,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				
 			}
 			
-			if (__temp_executeDef255883) 
+			if (__temp_executeDef625) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -164,14 +164,14 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef255884 = true;
+			boolean __temp_executeDef626 = true;
 			switch (field.hashCode())
 			{
 				case 779427320:
 				{
 					if (field.equals("m_orbit")) 
 					{
-						__temp_executeDef255884 = false;
+						__temp_executeDef626 = false;
 						this.m_orbit = ((haxor.component.CameraOrbit) (value) );
 						return value;
 					}
@@ -184,7 +184,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("rotate")) 
 					{
-						__temp_executeDef255884 = false;
+						__temp_executeDef626 = false;
 						this.rotate = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -197,7 +197,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("rotateSpeed")) 
 					{
-						__temp_executeDef255884 = false;
+						__temp_executeDef626 = false;
 						this.rotateSpeed = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -210,7 +210,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("zoom")) 
 					{
-						__temp_executeDef255884 = false;
+						__temp_executeDef626 = false;
 						this.zoom = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -223,7 +223,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("zoomSpeed")) 
 					{
-						__temp_executeDef255884 = false;
+						__temp_executeDef626 = false;
 						this.zoomSpeed = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -234,7 +234,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				
 			}
 			
-			if (__temp_executeDef255884) 
+			if (__temp_executeDef626) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -251,14 +251,14 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef255885 = true;
+			boolean __temp_executeDef627 = true;
 			switch (field.hashCode())
 			{
 				case 1624208296:
 				{
 					if (field.equals("OnUpdate")) 
 					{
-						__temp_executeDef255885 = false;
+						__temp_executeDef627 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnUpdate"))) );
 					}
 					
@@ -270,7 +270,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("rotate")) 
 					{
-						__temp_executeDef255885 = false;
+						__temp_executeDef627 = false;
 						return this.rotate;
 					}
 					
@@ -282,7 +282,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef255885 = false;
+						__temp_executeDef627 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnStart"))) );
 					}
 					
@@ -294,7 +294,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("zoom")) 
 					{
-						__temp_executeDef255885 = false;
+						__temp_executeDef627 = false;
 						return this.zoom;
 					}
 					
@@ -306,7 +306,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("m_orbit")) 
 					{
-						__temp_executeDef255885 = false;
+						__temp_executeDef627 = false;
 						return this.m_orbit;
 					}
 					
@@ -318,7 +318,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("zoomSpeed")) 
 					{
-						__temp_executeDef255885 = false;
+						__temp_executeDef627 = false;
 						return this.zoomSpeed;
 					}
 					
@@ -330,7 +330,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("rotateSpeed")) 
 					{
-						__temp_executeDef255885 = false;
+						__temp_executeDef627 = false;
 						return this.rotateSpeed;
 					}
 					
@@ -340,7 +340,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				
 			}
 			
-			if (__temp_executeDef255885) 
+			if (__temp_executeDef627) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -357,14 +357,14 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef255886 = true;
+			boolean __temp_executeDef628 = true;
 			switch (field.hashCode())
 			{
 				case 1853248428:
 				{
 					if (field.equals("rotateSpeed")) 
 					{
-						__temp_executeDef255886 = false;
+						__temp_executeDef628 = false;
 						return this.rotateSpeed;
 					}
 					
@@ -376,7 +376,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("zoomSpeed")) 
 					{
-						__temp_executeDef255886 = false;
+						__temp_executeDef628 = false;
 						return this.zoomSpeed;
 					}
 					
@@ -386,7 +386,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				
 			}
 			
-			if (__temp_executeDef255886) 
+			if (__temp_executeDef628) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -403,14 +403,14 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef255887 = true;
+			boolean __temp_executeDef629 = true;
 			switch (field.hashCode())
 			{
 				case 327758243:
 				{
 					if (field.equals("OnStart")) 
 					{
-						__temp_executeDef255887 = false;
+						__temp_executeDef629 = false;
 						return haxe.lang.Runtime.slowCallField(this, field, dynargs);
 					}
 					
@@ -422,7 +422,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				{
 					if (field.equals("OnUpdate")) 
 					{
-						__temp_executeDef255887 = false;
+						__temp_executeDef629 = false;
 						this.OnUpdate();
 					}
 					
@@ -432,7 +432,7 @@ public  class CameraOrbitInput extends haxor.component.Behaviour implements haxo
 				
 			}
 			
-			if (__temp_executeDef255887) 
+			if (__temp_executeDef629) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

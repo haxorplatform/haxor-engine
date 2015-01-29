@@ -3,6 +3,7 @@ package haxor.graphics;
 
 import haxor.core.BaseApplication;
 import haxor.graphics.Screen.CursorMode;
+import haxor.math.Vector2;
 import haxor.platform.Types.Float32;
 
 /**
@@ -73,9 +74,6 @@ class Screen
 		m_cursor 		= CursorMode.Show;
 		m_application 	= null;
 	}
-	
-	
-	
 	
 }
 

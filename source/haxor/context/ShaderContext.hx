@@ -263,6 +263,7 @@ class ShaderContext
 		#define GIZMO_AXIS        2
 		#define GIZMO_WIRE_CUBE   3
 		#define GIZMO_WIRE_SPHERE 4
+		#define GIZMO_CANVAS	  10
 		
 		
 		
@@ -272,8 +273,8 @@ class ShaderContext
 		uniform int   		 Count;
 		uniform int   		 Type;		
 		uniform sampler2D 	 Data;
-		uniform int  		 DataSize;
-				vec4		 DataColor;
+		uniform int  		 DataSize;		
+			    vec4		 DataColor;
 				vec4		 DataA;
 				vec4		 DataB;
 		
@@ -291,10 +292,10 @@ class ShaderContext
 		}
 		
 		void main(void) 
-		{	
+		{				
 			if (id >= float(Count)) 
 			{
-				gl_Position = vec4( -2.0, 0.0, 0.0, 1.0);
+				gl_Position = vec4( -2.0, 0.0, 0.0, 0.0);
 				return; 
 			}			
 			float p  	= id * 6.0;
@@ -313,7 +314,8 @@ class ShaderContext
 			{	
 				vec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;				
 				v.xyz += DataB.xyz;
-				gl_PointSize = DataA.x * (ncp.z / ncp.w);				
+				float pf = (ncp.z / ncp.w);
+				gl_PointSize = pf <= 0.0 ? DataA.x : (DataA.x * pf);
 				gl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;
 			}
 			else
@@ -346,6 +348,12 @@ class ShaderContext
 			if (Type == GIZMO_WIRE_SPHERE)
 			{
 				v.xyz *= DataA.x;
+				v.xyz += DataB.xyz;
+				gl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;
+			}
+			else
+			if (Type == GIZMO_CANVAS)
+			{				
 				v.xyz += DataB.xyz;
 				gl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;
 			}

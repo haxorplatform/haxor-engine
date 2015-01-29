@@ -7,6 +7,7 @@ import haxor.math.Quaternion;
 import haxor.math.Vector2;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
+import haxor.physics.Collision;
 import haxor.platform.Types.Float32;
 
 /**
@@ -90,6 +91,14 @@ class DataContext
 	private var m_naabb2 : Int;
 	
 	/**
+	 * Temp aux vars for collision data.
+	 */
+	private var collision(get_collision, null):Collision; 
+	private inline function get_collision():Collision { return m_collision[m_ncollision = (m_ncollision + 1) % m_collision.length]; }
+	private var m_collision : Array<Collision>;
+	private var m_ncollision : Int;
+	
+	/**
 	 * Temp aux vars of Quaternion.
 	 */
 	private var m4(get_m4, null):Matrix4; 
@@ -101,25 +110,27 @@ class DataContext
 	
 	private function new() 
 	{
-		i	 	= [];
-		v 		= [];
-		m_v2 	= [];
-		m_v3 	= [];
-		m_v4 	= [];
-		m_c 	= [];
-		m_q 	= [];
-		m_m4	= [];
-		m_aabb3 = [];
-		m_aabb2 = [];
+		i	 	    = [];
+		v 		    = [];
+		m_v2 	    = [];
+		m_v3 	    = [];
+		m_v4 	    = [];
+		m_c 	    = [];
+		m_q 	    = [];
+		m_m4	    = [];
+		m_aabb3     = [];
+		m_aabb2     = [];
+		m_collision = [];
 		
-		m_nv2 	 = 0;
-		m_nv3 	 = 0;
-		m_nv4 	 = 0;
-		m_nc 	 = 0;
-		m_nq 	 = 0;
-		m_nm4	 = 0;
-		m_naabb3 = 0;
-		m_naabb2 = 0;
+		m_nv2 	     = 0;
+		m_nv3 	     = 0;
+		m_nv4 	     = 0;
+		m_nc 	     = 0;
+		m_nq 	     = 0;
+		m_nm4	     = 0;
+		m_naabb3     = 0;
+		m_naabb2     = 0;
+		m_ncollision = 0;
 		
 		m4l	    = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 		
@@ -135,6 +146,7 @@ class DataContext
 			m_m4.push(Matrix4.identity);
 			m_aabb3.push(AABB3.empty);
 			m_aabb2.push(AABB2.empty);
+			m_collision.push(new Collision());
 		}
 	}
 	

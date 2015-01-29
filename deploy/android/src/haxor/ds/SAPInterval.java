@@ -18,11 +18,11 @@ public  class SAPInterval extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_ds_SAPInterval(haxor.ds.SAPInterval __temp_me255415)
+	public static   void __hx_ctor_haxor_ds_SAPInterval(haxor.ds.SAPInterval __temp_me185)
 	{
-		__temp_me255415.min = 0.0;
-		__temp_me255415.max = 0.0;
-		__temp_me255415.id = 0;
+		__temp_me185.min = 0.0;
+		__temp_me185.max = 0.0;
+		__temp_me185.id = 0;
 	}
 	
 	
@@ -70,46 +70,46 @@ public  class SAPInterval extends haxe.lang.HxObject
 	
 	public   java.lang.String ToString(java.lang.Object p_places)
 	{
-		int __temp_p_places255414 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
-		double __temp_stmt256089 = 0.0;
+		int __temp_p_places184 = ( (( p_places == null )) ? (((int) (2) )) : (((int) (haxe.lang.Runtime.toInt(p_places)) )) );
+		double __temp_stmt954 = 0.0;
 		{
-			double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places255414) ));
-			double __temp_stmt256090 = 0.0;
+			double d = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places184) ));
+			double __temp_stmt955 = 0.0;
 			{
 				double p_v = ( this.min * d );
-				__temp_stmt256090 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt955 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt256089 = ( __temp_stmt256090 / d );
+			__temp_stmt954 = ( __temp_stmt955 / d );
 		}
 		
-		double __temp_stmt256091 = 0.0;
+		double __temp_stmt956 = 0.0;
 		{
-			double d1 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places255414) ));
-			double __temp_stmt256092 = 0.0;
+			double d1 = java.lang.Math.pow(((double) (10) ), ((double) (__temp_p_places184) ));
+			double __temp_stmt957 = 0.0;
 			{
 				double p_v1 = ( this.max * d1 );
-				__temp_stmt256092 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+				__temp_stmt957 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 			}
 			
-			__temp_stmt256091 = ( __temp_stmt256092 / d1 );
+			__temp_stmt956 = ( __temp_stmt957 / d1 );
 		}
 		
-		return ( ( ( ( "[" + haxe.lang.Runtime.toString(__temp_stmt256089) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt256091) ) + "]" );
+		return ( ( ( ( "[" + haxe.lang.Runtime.toString(__temp_stmt954) ) + "," ) + haxe.lang.Runtime.toString(__temp_stmt956) ) + "]" );
 	}
 	
 	
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256093 = true;
+			boolean __temp_executeDef958 = true;
 			switch (field.hashCode())
 			{
 				case 3076010:
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef256093 = false;
+						__temp_executeDef958 = false;
 						this.data = ((java.lang.Object) (value) );
 						return value;
 					}
@@ -122,7 +122,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256093 = false;
+						__temp_executeDef958 = false;
 						this.id = ((int) (value) );
 						return value;
 					}
@@ -135,7 +135,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef256093 = false;
+						__temp_executeDef958 = false;
 						this.max = ((double) (value) );
 						return value;
 					}
@@ -148,7 +148,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef256093 = false;
+						__temp_executeDef958 = false;
 						this.min = ((double) (value) );
 						return value;
 					}
@@ -159,7 +159,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256093) 
+			if (__temp_executeDef958) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -176,14 +176,14 @@ public  class SAPInterval extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256094 = true;
+			boolean __temp_executeDef959 = true;
 			switch (field.hashCode())
 			{
 				case 3076010:
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef256094 = false;
+						__temp_executeDef959 = false;
 						this.data = ((java.lang.Object) (value) );
 						return value;
 					}
@@ -196,7 +196,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256094 = false;
+						__temp_executeDef959 = false;
 						this.id = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -209,7 +209,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("prev")) 
 					{
-						__temp_executeDef256094 = false;
+						__temp_executeDef959 = false;
 						this.prev = ((haxor.ds.SAPInterval) (value) );
 						return value;
 					}
@@ -222,7 +222,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef256094 = false;
+						__temp_executeDef959 = false;
 						this.min = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -235,7 +235,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("next")) 
 					{
-						__temp_executeDef256094 = false;
+						__temp_executeDef959 = false;
 						this.next = ((haxor.ds.SAPInterval) (value) );
 						return value;
 					}
@@ -248,7 +248,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef256094 = false;
+						__temp_executeDef959 = false;
 						this.max = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -259,7 +259,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256094) 
+			if (__temp_executeDef959) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -276,14 +276,14 @@ public  class SAPInterval extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256095 = true;
+			boolean __temp_executeDef960 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef256095 = false;
+						__temp_executeDef960 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToString"))) );
 					}
 					
@@ -295,7 +295,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256095 = false;
+						__temp_executeDef960 = false;
 						return this.id;
 					}
 					
@@ -307,7 +307,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("Overlap")) 
 					{
-						__temp_executeDef256095 = false;
+						__temp_executeDef960 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Overlap"))) );
 					}
 					
@@ -319,7 +319,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef256095 = false;
+						__temp_executeDef960 = false;
 						return this.min;
 					}
 					
@@ -331,7 +331,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef256095 = false;
+						__temp_executeDef960 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Set"))) );
 					}
 					
@@ -343,7 +343,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef256095 = false;
+						__temp_executeDef960 = false;
 						return this.max;
 					}
 					
@@ -355,7 +355,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef256095 = false;
+						__temp_executeDef960 = false;
 						return this.data;
 					}
 					
@@ -367,7 +367,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("next")) 
 					{
-						__temp_executeDef256095 = false;
+						__temp_executeDef960 = false;
 						return this.next;
 					}
 					
@@ -379,7 +379,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("prev")) 
 					{
-						__temp_executeDef256095 = false;
+						__temp_executeDef960 = false;
 						return this.prev;
 					}
 					
@@ -389,7 +389,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256095) 
+			if (__temp_executeDef960) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -406,14 +406,14 @@ public  class SAPInterval extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256096 = true;
+			boolean __temp_executeDef961 = true;
 			switch (field.hashCode())
 			{
 				case 3076010:
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef256096 = false;
+						__temp_executeDef961 = false;
 						return ((double) (haxe.lang.Runtime.toDouble(this.data)) );
 					}
 					
@@ -425,7 +425,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256096 = false;
+						__temp_executeDef961 = false;
 						return ((double) (this.id) );
 					}
 					
@@ -437,7 +437,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("max")) 
 					{
-						__temp_executeDef256096 = false;
+						__temp_executeDef961 = false;
 						return this.max;
 					}
 					
@@ -449,7 +449,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("min")) 
 					{
-						__temp_executeDef256096 = false;
+						__temp_executeDef961 = false;
 						return this.min;
 					}
 					
@@ -459,7 +459,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256096) 
+			if (__temp_executeDef961) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -476,14 +476,14 @@ public  class SAPInterval extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef256097 = true;
+			boolean __temp_executeDef962 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef256097 = false;
+						__temp_executeDef962 = false;
 						return this.ToString(dynargs.__get(0));
 					}
 					
@@ -495,7 +495,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("Set")) 
 					{
-						__temp_executeDef256097 = false;
+						__temp_executeDef962 = false;
 						this.Set(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ), ((double) (haxe.lang.Runtime.toDouble(dynargs.__get(1))) ));
 					}
 					
@@ -507,7 +507,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				{
 					if (field.equals("Overlap")) 
 					{
-						__temp_executeDef256097 = false;
+						__temp_executeDef962 = false;
 						return this.Overlap(((haxor.ds.SAPInterval) (dynargs.__get(0)) ));
 					}
 					
@@ -517,7 +517,7 @@ public  class SAPInterval extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256097) 
+			if (__temp_executeDef962) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

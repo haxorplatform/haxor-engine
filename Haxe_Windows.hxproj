@@ -41,14 +41,14 @@
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>BuildSetupWindows.bat</preBuildCommand>
+  <preBuildCommand>tools/BuildSetupWindows.bat</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="RunWindows.bat" />
+    <option testMovieCommand="tools/RunWindows.bat" />
   </options>
   <!-- Plugin storage -->
   <storage />

@@ -925,7 +925,7 @@ class Matrix4
 	public inline function SetFrustumInverse(p_left:Float32, p_right:Float32, p_top:Float32, p_bottom:Float32, p_near:Float32, p_far:Float32):Matrix4 { return FrustumInverse(p_left, p_right, p_top, p_bottom, p_near, p_far,this); }
 	
 	/**
-	 * Transforms this matrix into a orthographic matrix.  Returns its own reference.
+	 * Transforms this matrix into an orthographic matrix.  Returns its own reference.
 	 * @param	p_left
 	 * @param	p_right
 	 * @param	p_top
@@ -935,6 +935,12 @@ class Matrix4
 	 * @return
 	 */
 	public function SetOrtho(p_left:Float32, p_right:Float32, p_top:Float32, p_bottom:Float32, p_near:Float32, p_far:Float32):Matrix4 {	return Ortho(p_left, p_right, p_top, p_bottom, p_near, p_far, this); }
+	
+	/**
+	 * Transforms this matrix into an inverse orthographic matrix. Returns its own reference.
+	 * @return
+	 */
+	public function SetOrthoInverse(p_left:Float32, p_right:Float32, p_top:Float32, p_bottom:Float32, p_near:Float32, p_far:Float32):Matrix4 { return OrthoInverse(p_left, p_right, p_top, p_bottom, p_near, p_far, this); }
 	
 	/**
 	 * Transforms this matrix into a perspective projection matrix. Returns its own reference.

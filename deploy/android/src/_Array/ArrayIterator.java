@@ -18,11 +18,11 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 	}
 	
 	
-	public static  <T_c> void __hx_ctor__Array_ArrayIterator(_Array.ArrayIterator<T_c> __temp_me255315, haxe.root.Array<T_c> a)
+	public static  <T_c> void __hx_ctor__Array_ArrayIterator(_Array.ArrayIterator<T_c> __temp_me2, haxe.root.Array<T_c> a)
 	{
-		__temp_me255315.arr = a;
-		__temp_me255315.len = a.length;
-		__temp_me255315.i = 0;
+		__temp_me2.arr = a;
+		__temp_me2.len = a.length;
+		__temp_me2.i = 0;
 	}
 	
 	
@@ -59,14 +59,14 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef255680 = true;
+			boolean __temp_executeDef406 = true;
 			switch (field.hashCode())
 			{
 				case 105:
 				{
 					if (field.equals("i")) 
 					{
-						__temp_executeDef255680 = false;
+						__temp_executeDef406 = false;
 						this.i = ((int) (value) );
 						return value;
 					}
@@ -79,7 +79,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				{
 					if (field.equals("len")) 
 					{
-						__temp_executeDef255680 = false;
+						__temp_executeDef406 = false;
 						this.len = ((int) (value) );
 						return value;
 					}
@@ -90,7 +90,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef255680) 
+			if (__temp_executeDef406) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -107,14 +107,14 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef255681 = true;
+			boolean __temp_executeDef407 = true;
 			switch (field.hashCode())
 			{
 				case 105:
 				{
 					if (field.equals("i")) 
 					{
-						__temp_executeDef255681 = false;
+						__temp_executeDef407 = false;
 						this.i = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -127,7 +127,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				{
 					if (field.equals("arr")) 
 					{
-						__temp_executeDef255681 = false;
+						__temp_executeDef407 = false;
 						this.arr = ((haxe.root.Array<T>) (value) );
 						return value;
 					}
@@ -140,7 +140,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				{
 					if (field.equals("len")) 
 					{
-						__temp_executeDef255681 = false;
+						__temp_executeDef407 = false;
 						this.len = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -151,7 +151,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef255681) 
+			if (__temp_executeDef407) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -168,14 +168,14 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef255682 = true;
+			boolean __temp_executeDef408 = true;
 			switch (field.hashCode())
 			{
 				case 3377907:
 				{
 					if (field.equals("next")) 
 					{
-						__temp_executeDef255682 = false;
+						__temp_executeDef408 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("next"))) );
 					}
 					
@@ -187,7 +187,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				{
 					if (field.equals("arr")) 
 					{
-						__temp_executeDef255682 = false;
+						__temp_executeDef408 = false;
 						return this.arr;
 					}
 					
@@ -199,7 +199,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				{
 					if (field.equals("hasNext")) 
 					{
-						__temp_executeDef255682 = false;
+						__temp_executeDef408 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("hasNext"))) );
 					}
 					
@@ -211,7 +211,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				{
 					if (field.equals("len")) 
 					{
-						__temp_executeDef255682 = false;
+						__temp_executeDef408 = false;
 						return this.len;
 					}
 					
@@ -223,7 +223,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				{
 					if (field.equals("i")) 
 					{
-						__temp_executeDef255682 = false;
+						__temp_executeDef408 = false;
 						return this.i;
 					}
 					
@@ -233,7 +233,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef255682) 
+			if (__temp_executeDef408) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -250,14 +250,14 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef255683 = true;
+			boolean __temp_executeDef409 = true;
 			switch (field.hashCode())
 			{
 				case 105:
 				{
 					if (field.equals("i")) 
 					{
-						__temp_executeDef255683 = false;
+						__temp_executeDef409 = false;
 						return ((double) (this.i) );
 					}
 					
@@ -269,7 +269,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				{
 					if (field.equals("len")) 
 					{
-						__temp_executeDef255683 = false;
+						__temp_executeDef409 = false;
 						return ((double) (this.len) );
 					}
 					
@@ -279,7 +279,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef255683) 
+			if (__temp_executeDef409) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -296,14 +296,14 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef255684 = true;
+			boolean __temp_executeDef410 = true;
 			switch (field.hashCode())
 			{
 				case 3377907:
 				{
 					if (field.equals("next")) 
 					{
-						__temp_executeDef255684 = false;
+						__temp_executeDef410 = false;
 						return this.next();
 					}
 					
@@ -315,7 +315,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				{
 					if (field.equals("hasNext")) 
 					{
-						__temp_executeDef255684 = false;
+						__temp_executeDef410 = false;
 						return this.hasNext();
 					}
 					
@@ -325,7 +325,7 @@ public final class ArrayIterator<T> extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef255684) 
+			if (__temp_executeDef410) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

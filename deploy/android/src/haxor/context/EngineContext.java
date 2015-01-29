@@ -24,7 +24,7 @@ public  class EngineContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me255377)
+	public static   void __hx_ctor_haxor_context_EngineContext(haxor.context.EngineContext __temp_me105)
 	{
 		{
 		}
@@ -56,15 +56,15 @@ public  class EngineContext extends haxe.lang.HxObject
 	
 	public static  haxor.context.TextureContext texture;
 	
-	public static  haxor.context.DataContext data;
-	
 	public static  haxor.context.CameraContext camera;
-	
-	public static  haxor.context.TransformContext transform;
 	
 	public static  haxor.context.RendererContext renderer;
 	
 	public static  haxor.context.GizmoContext gizmo;
+	
+	public static  haxor.context.DataContext data;
+	
+	public static  haxor.context.TransformContext transform;
 	
 	public static   void Initialize()
 	{
@@ -75,11 +75,12 @@ public  class EngineContext extends haxe.lang.HxObject
 		haxor.context.EngineContext.resources = new haxor.context.Process<haxor.core.Resource>(haxe.lang.Runtime.toString("process.resources"), ((int) (haxor.context.EngineContext.maxNodes) ), ((java.lang.Object) (null) ));
 		haxor.context.EngineContext.disposables = new haxor.context.Process<haxor.core.IDisposable>(haxe.lang.Runtime.toString("process.disposables"), ((int) (haxor.context.EngineContext.maxNodes) ), ((java.lang.Object) (null) ));
 		haxor.context.EngineContext.list = new haxe.root.Array<haxor.context.BaseProcess>(new haxor.context.BaseProcess[]{haxor.context.EngineContext.update, haxor.context.EngineContext.render, haxor.context.EngineContext.resize, haxor.context.EngineContext.resources, haxor.context.EngineContext.disposables});
+		haxor.context.EngineContext.data = new haxor.context.DataContext();
+		haxor.component.animation.Animation.Initialize();
 		haxor.context.EngineContext.renderer = new haxor.context.RendererContext();
 		haxor.context.EngineContext.mesh = new haxor.context.MeshContext();
 		haxor.context.EngineContext.material = new haxor.context.MaterialContext();
 		haxor.context.EngineContext.texture = new haxor.context.TextureContext();
-		haxor.context.EngineContext.data = new haxor.context.DataContext();
 		haxor.context.EngineContext.gizmo = new haxor.context.GizmoContext();
 		haxor.context.EngineContext.camera = new haxor.context.CameraContext();
 		haxor.context.EngineContext.transform = new haxor.context.TransformContext();

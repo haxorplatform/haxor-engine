@@ -18,18 +18,18 @@ public  class SAP extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_ds_SAP(haxor.ds.SAP __temp_me255409, java.lang.Object p_bias, java.lang.Object p_has_query)
+	public static   void __hx_ctor_haxor_ds_SAP(haxor.ds.SAP __temp_me179, java.lang.Object p_bias, java.lang.Object p_has_query)
 	{
-		boolean __temp_p_has_query255408 = ( (( p_has_query == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_has_query)) );
-		double __temp_p_bias255407 = ( (( p_bias == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_bias)) )) );
-		__temp_me255409.m_has_query = __temp_p_has_query255408;
-		__temp_me255409.x = new haxor.ds.SAPList(((java.lang.Object) (__temp_p_bias255407) ), ((java.lang.Object) (__temp_me255409.m_has_query) ));
-		__temp_me255409.y = new haxor.ds.SAPList(((java.lang.Object) (__temp_p_bias255407) ), ((java.lang.Object) (__temp_me255409.m_has_query) ));
-		__temp_me255409.z = new haxor.ds.SAPList(((java.lang.Object) (__temp_p_bias255407) ), ((java.lang.Object) (__temp_me255409.m_has_query) ));
-		__temp_me255409.inside = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me255409.outside = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me255409.countIn = 0;
-		__temp_me255409.countOut = 0;
+		boolean __temp_p_has_query178 = ( (( p_has_query == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_has_query)) );
+		double __temp_p_bias177 = ( (( p_bias == null )) ? (((double) (0.0) )) : (((double) (haxe.lang.Runtime.toDouble(p_bias)) )) );
+		__temp_me179.m_has_query = __temp_p_has_query178;
+		__temp_me179.x = new haxor.ds.SAPList(((java.lang.Object) (__temp_p_bias177) ), ((java.lang.Object) (__temp_me179.m_has_query) ));
+		__temp_me179.y = new haxor.ds.SAPList(((java.lang.Object) (__temp_p_bias177) ), ((java.lang.Object) (__temp_me179.m_has_query) ));
+		__temp_me179.z = new haxor.ds.SAPList(((java.lang.Object) (__temp_p_bias177) ), ((java.lang.Object) (__temp_me179.m_has_query) ));
+		__temp_me179.inside = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me179.outside = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me179.countIn = 0;
+		__temp_me179.countOut = 0;
 	}
 	
 	
@@ -132,7 +132,7 @@ public  class SAP extends haxe.lang.HxObject
 	
 	public   void Query(int p_id, java.lang.Object p_outside)
 	{
-		boolean __temp_p_outside255406 = ( (( p_outside == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_outside)) );
+		boolean __temp_p_outside176 = ( (( p_outside == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_outside)) );
 		if ( ! (this.m_has_query) ) 
 		{
 			return ;
@@ -163,7 +163,7 @@ public  class SAP extends haxe.lang.HxObject
 					}
 					 else 
 					{
-						if (__temp_p_outside255406) 
+						if (__temp_p_outside176) 
 						{
 							this.outside.__set(this.countOut++, it.id);
 						}
@@ -173,7 +173,7 @@ public  class SAP extends haxe.lang.HxObject
 				}
 				 else 
 				{
-					if (__temp_p_outside255406) 
+					if (__temp_p_outside176) 
 					{
 						this.outside.__set(this.countOut++, it.id);
 					}
@@ -183,7 +183,7 @@ public  class SAP extends haxe.lang.HxObject
 			}
 			 else 
 			{
-				if (__temp_p_outside255406) 
+				if (__temp_p_outside176) 
 				{
 					this.outside.__set(this.countOut++, it.id);
 				}
@@ -206,7 +206,7 @@ public  class SAP extends haxe.lang.HxObject
 					}
 					 else 
 					{
-						if (__temp_p_outside255406) 
+						if (__temp_p_outside176) 
 						{
 							this.outside.__set(this.countOut++, it.id);
 						}
@@ -216,7 +216,7 @@ public  class SAP extends haxe.lang.HxObject
 				}
 				 else 
 				{
-					if (__temp_p_outside255406) 
+					if (__temp_p_outside176) 
 					{
 						this.outside.__set(this.countOut++, it.id);
 					}
@@ -226,7 +226,7 @@ public  class SAP extends haxe.lang.HxObject
 			}
 			 else 
 			{
-				if (__temp_p_outside255406) 
+				if (__temp_p_outside176) 
 				{
 					this.outside.__set(this.countOut++, it.id);
 				}
@@ -242,14 +242,14 @@ public  class SAP extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256079 = true;
+			boolean __temp_executeDef944 = true;
 			switch (field.hashCode())
 			{
 				case -372041793:
 				{
 					if (field.equals("countOut")) 
 					{
-						__temp_executeDef256079 = false;
+						__temp_executeDef944 = false;
 						this.countOut = ((int) (value) );
 						return value;
 					}
@@ -262,7 +262,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("countIn")) 
 					{
-						__temp_executeDef256079 = false;
+						__temp_executeDef944 = false;
 						this.countIn = ((int) (value) );
 						return value;
 					}
@@ -273,7 +273,7 @@ public  class SAP extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256079) 
+			if (__temp_executeDef944) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -290,14 +290,14 @@ public  class SAP extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256080 = true;
+			boolean __temp_executeDef945 = true;
 			switch (field.hashCode())
 			{
 				case 280512913:
 				{
 					if (field.equals("m_has_query")) 
 					{
-						__temp_executeDef256080 = false;
+						__temp_executeDef945 = false;
 						this.m_has_query = haxe.lang.Runtime.toBool(value);
 						return value;
 					}
@@ -310,7 +310,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("inside")) 
 					{
-						__temp_executeDef256080 = false;
+						__temp_executeDef945 = false;
 						this.inside = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -323,7 +323,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef256080 = false;
+						__temp_executeDef945 = false;
 						this.z = ((haxor.ds.SAPList) (value) );
 						return value;
 					}
@@ -336,7 +336,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("outside")) 
 					{
-						__temp_executeDef256080 = false;
+						__temp_executeDef945 = false;
 						this.outside = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -349,7 +349,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef256080 = false;
+						__temp_executeDef945 = false;
 						this.y = ((haxor.ds.SAPList) (value) );
 						return value;
 					}
@@ -362,7 +362,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("countIn")) 
 					{
-						__temp_executeDef256080 = false;
+						__temp_executeDef945 = false;
 						this.countIn = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -375,7 +375,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef256080 = false;
+						__temp_executeDef945 = false;
 						this.x = ((haxor.ds.SAPList) (value) );
 						return value;
 					}
@@ -388,7 +388,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("countOut")) 
 					{
-						__temp_executeDef256080 = false;
+						__temp_executeDef945 = false;
 						this.countOut = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -399,7 +399,7 @@ public  class SAP extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256080) 
+			if (__temp_executeDef945) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -416,14 +416,14 @@ public  class SAP extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256081 = true;
+			boolean __temp_executeDef946 = true;
 			switch (field.hashCode())
 			{
 				case 78391464:
 				{
 					if (field.equals("Query")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Query"))) );
 					}
 					
@@ -435,7 +435,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("inside")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return this.inside;
 					}
 					
@@ -447,7 +447,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("Overlap")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Overlap"))) );
 					}
 					
@@ -459,7 +459,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("outside")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return this.outside;
 					}
 					
@@ -471,7 +471,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("Remove")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Remove"))) );
 					}
 					
@@ -483,7 +483,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("countIn")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return this.countIn;
 					}
 					
@@ -495,7 +495,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("Update")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Update"))) );
 					}
 					
@@ -507,7 +507,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("countOut")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return this.countOut;
 					}
 					
@@ -519,7 +519,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("Create")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Create"))) );
 					}
 					
@@ -531,7 +531,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("x")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return this.x;
 					}
 					
@@ -543,7 +543,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("m_has_query")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return this.m_has_query;
 					}
 					
@@ -555,7 +555,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("y")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return this.y;
 					}
 					
@@ -567,7 +567,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("z")) 
 					{
-						__temp_executeDef256081 = false;
+						__temp_executeDef946 = false;
 						return this.z;
 					}
 					
@@ -577,7 +577,7 @@ public  class SAP extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256081) 
+			if (__temp_executeDef946) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -594,14 +594,14 @@ public  class SAP extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256082 = true;
+			boolean __temp_executeDef947 = true;
 			switch (field.hashCode())
 			{
 				case -372041793:
 				{
 					if (field.equals("countOut")) 
 					{
-						__temp_executeDef256082 = false;
+						__temp_executeDef947 = false;
 						return ((double) (this.countOut) );
 					}
 					
@@ -613,7 +613,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("countIn")) 
 					{
-						__temp_executeDef256082 = false;
+						__temp_executeDef947 = false;
 						return ((double) (this.countIn) );
 					}
 					
@@ -623,7 +623,7 @@ public  class SAP extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256082) 
+			if (__temp_executeDef947) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -640,14 +640,14 @@ public  class SAP extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef256083 = true;
+			boolean __temp_executeDef948 = true;
 			switch (field.hashCode())
 			{
 				case 78391464:
 				{
 					if (field.equals("Query")) 
 					{
-						__temp_executeDef256083 = false;
+						__temp_executeDef948 = false;
 						this.Query(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), dynargs.__get(1));
 					}
 					
@@ -659,7 +659,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("Create")) 
 					{
-						__temp_executeDef256083 = false;
+						__temp_executeDef948 = false;
 						this.Create(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -671,7 +671,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("Overlap")) 
 					{
-						__temp_executeDef256083 = false;
+						__temp_executeDef948 = false;
 						return this.Overlap(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), ((int) (haxe.lang.Runtime.toInt(dynargs.__get(1))) ));
 					}
 					
@@ -683,7 +683,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("Update")) 
 					{
-						__temp_executeDef256083 = false;
+						__temp_executeDef948 = false;
 						this.Update(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ), dynargs.__get(1), ((haxor.math.Vector3) (dynargs.__get(2)) ), ((haxor.math.Vector3) (dynargs.__get(3)) ));
 					}
 					
@@ -695,7 +695,7 @@ public  class SAP extends haxe.lang.HxObject
 				{
 					if (field.equals("Remove")) 
 					{
-						__temp_executeDef256083 = false;
+						__temp_executeDef948 = false;
 						this.Remove(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -705,7 +705,7 @@ public  class SAP extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256083) 
+			if (__temp_executeDef948) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

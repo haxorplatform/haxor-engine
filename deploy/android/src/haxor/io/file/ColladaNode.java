@@ -18,25 +18,25 @@ public  class ColladaNode extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaNode(haxor.io.file.ColladaNode __temp_me255528)
+	public static   void __hx_ctor_haxor_io_file_ColladaNode(haxor.io.file.ColladaNode __temp_me305)
 	{
-		__temp_me255528.instances = null;
-		__temp_me255528.local = null;
-		__temp_me255528.data = "";
-		__temp_me255528.children = null;
-		__temp_me255528.parent = null;
-		__temp_me255528.scene = null;
-		__temp_me255528.matrix = null;
-		__temp_me255528.name = "";
-		__temp_me255528.sid = "";
-		__temp_me255528.id = "";
-		__temp_me255528.type = "";
-		__temp_me255528.children = new haxe.root.Array<haxor.io.file.ColladaNode>(new haxor.io.file.ColladaNode[]{});
-		__temp_me255528.instances = new haxe.root.Array<haxor.io.file.ColladaInstance>(new haxor.io.file.ColladaInstance[]{});
-		__temp_me255528.matrix = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (1) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) )});
-		__temp_me255528.position = new haxor.math.Vector3(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ));
-		__temp_me255528.rotation = new haxor.math.Quaternion(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1.0) ));
-		__temp_me255528.scale = new haxor.math.Vector3(((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ));
+		__temp_me305.instances = null;
+		__temp_me305.local = null;
+		__temp_me305.data = "";
+		__temp_me305.children = null;
+		__temp_me305.parent = null;
+		__temp_me305.scene = null;
+		__temp_me305.matrix = null;
+		__temp_me305.name = "";
+		__temp_me305.sid = "";
+		__temp_me305.id = "";
+		__temp_me305.type = "";
+		__temp_me305.children = new haxe.root.Array<haxor.io.file.ColladaNode>(new haxor.io.file.ColladaNode[]{});
+		__temp_me305.instances = new haxe.root.Array<haxor.io.file.ColladaInstance>(new haxor.io.file.ColladaInstance[]{});
+		__temp_me305.matrix = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (1) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1) )});
+		__temp_me305.position = new haxor.math.Vector3(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ));
+		__temp_me305.rotation = new haxor.math.Quaternion(((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (1.0) ));
+		__temp_me305.scale = new haxor.math.Vector3(((java.lang.Object) (1) ), ((java.lang.Object) (1) ), ((java.lang.Object) (1) ));
 	}
 	
 	
@@ -139,15 +139,15 @@ public  class ColladaNode extends haxe.lang.HxObject
 			this.position = new haxor.math.Vector3(((java.lang.Object) (_this.x) ), ((java.lang.Object) (_this.y) ), ((java.lang.Object) (_this.z) ));
 		}
 		
-		haxor.math.Matrix4 __temp_stmt256322 = null;
+		haxor.math.Matrix4 __temp_stmt1194 = null;
 		{
 			haxor.context.DataContext _this2 = haxor.context.EngineContext.data;
-			__temp_stmt256322 = _this2.m_m4.__get(_this2.m_nq = ( (( _this2.m_nm4 + 1 )) % _this2.m_m4.length ));
+			__temp_stmt1194 = _this2.m_m4.__get(_this2.m_nq = ( (( _this2.m_nm4 + 1 )) % _this2.m_m4.length ));
 		}
 		
-		haxor.math.Matrix4 __temp_stmt256321 = __temp_stmt256322.SetMatrix4(mtx);
-		haxor.math.Matrix4 __temp_stmt256320 = __temp_stmt256321.ToRotation();
-		this.rotation = haxor.math.Quaternion.FromMatrix4(__temp_stmt256320, null);
+		haxor.math.Matrix4 __temp_stmt1193 = __temp_stmt1194.SetMatrix4(mtx);
+		haxor.math.Matrix4 __temp_stmt1192 = __temp_stmt1193.ToRotation();
+		this.rotation = haxor.math.Quaternion.FromMatrix4(__temp_stmt1192, null);
 		{
 			haxor.math.Vector4 _this3 = null;
 			{
@@ -171,14 +171,14 @@ public  class ColladaNode extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256323 = true;
+			boolean __temp_executeDef1195 = true;
 			switch (field.hashCode())
 			{
 				case 29097598:
 				{
 					if (field.equals("instances")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.instances = ((haxe.root.Array<haxor.io.file.ColladaInstance>) (value) );
 						return value;
 					}
@@ -191,7 +191,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.type = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -204,7 +204,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("scale")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.scale = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -217,7 +217,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.id = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -230,7 +230,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("rotation")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.rotation = ((haxor.math.Quaternion) (value) );
 						return value;
 					}
@@ -243,7 +243,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("sid")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.sid = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -256,7 +256,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.position = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -269,7 +269,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -282,7 +282,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("m_world")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.m_world = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -295,7 +295,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("matrix")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.matrix = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -308,7 +308,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("local")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.local = ((haxor.math.Matrix4) (value) );
 						return value;
 					}
@@ -321,7 +321,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("scene")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.scene = ((haxor.io.file.ColladaVisualScene) (value) );
 						return value;
 					}
@@ -334,7 +334,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.data = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -347,7 +347,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("parent")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.parent = ((haxor.io.file.ColladaNode) (value) );
 						return value;
 					}
@@ -360,7 +360,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("children")) 
 					{
-						__temp_executeDef256323 = false;
+						__temp_executeDef1195 = false;
 						this.children = ((haxe.root.Array<haxor.io.file.ColladaNode>) (value) );
 						return value;
 					}
@@ -371,7 +371,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256323) 
+			if (__temp_executeDef1195) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -388,14 +388,14 @@ public  class ColladaNode extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256324 = true;
+			boolean __temp_executeDef1196 = true;
 			switch (field.hashCode())
 			{
 				case -2110035164:
 				{
 					if (field.equals("GenerateTranform")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GenerateTranform"))) );
 					}
 					
@@ -407,7 +407,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.type;
 					}
 					
@@ -419,7 +419,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("instances")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.instances;
 					}
 					
@@ -431,7 +431,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.id;
 					}
 					
@@ -443,7 +443,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("scale")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.scale;
 					}
 					
@@ -455,7 +455,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("sid")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.sid;
 					}
 					
@@ -467,7 +467,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("rotation")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.rotation;
 					}
 					
@@ -479,7 +479,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.name;
 					}
 					
@@ -491,7 +491,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("position")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.position;
 					}
 					
@@ -503,7 +503,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("matrix")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.matrix;
 					}
 					
@@ -515,7 +515,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("m_world")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.m_world;
 					}
 					
@@ -527,7 +527,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("scene")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.scene;
 					}
 					
@@ -539,7 +539,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("get_world")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_world"))) );
 					}
 					
@@ -551,7 +551,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("parent")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.parent;
 					}
 					
@@ -563,7 +563,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("world")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.get_world();
 					}
 					
@@ -575,7 +575,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("children")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.children;
 					}
 					
@@ -587,7 +587,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("local")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.local;
 					}
 					
@@ -599,7 +599,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("data")) 
 					{
-						__temp_executeDef256324 = false;
+						__temp_executeDef1196 = false;
 						return this.data;
 					}
 					
@@ -609,7 +609,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256324) 
+			if (__temp_executeDef1196) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -626,14 +626,14 @@ public  class ColladaNode extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef256325 = true;
+			boolean __temp_executeDef1197 = true;
 			switch (field.hashCode())
 			{
 				case -2110035164:
 				{
 					if (field.equals("GenerateTranform")) 
 					{
-						__temp_executeDef256325 = false;
+						__temp_executeDef1197 = false;
 						this.GenerateTranform();
 					}
 					
@@ -645,7 +645,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				{
 					if (field.equals("get_world")) 
 					{
-						__temp_executeDef256325 = false;
+						__temp_executeDef1197 = false;
 						return this.get_world();
 					}
 					
@@ -655,7 +655,7 @@ public  class ColladaNode extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256325) 
+			if (__temp_executeDef1197) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

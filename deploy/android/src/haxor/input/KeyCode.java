@@ -239,7 +239,7 @@ public  class KeyCode extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_input_KeyCode(haxor.input.KeyCode __temp_me255494)
+	public static   void __hx_ctor_haxor_input_KeyCode(haxor.input.KeyCode __temp_me271)
 	{
 		{
 		}

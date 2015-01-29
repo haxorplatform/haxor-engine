@@ -83,7 +83,7 @@ class SkinnedMeshRenderer extends MeshRenderer
 		var th : Float = 2048.0;// sh * 0.9;		
 		Graphics.DrawTexture(m_data,0,th+105,256,-th);		
 		//*/
-		//Graphics.DrawTexture(m_data,0,105,256,th);
+		//Graphics.DrawTexture(EngineContext.gizmo.canvas_renderer.data,0,400,128,-128);
 	}
 	
 }

@@ -21,6 +21,7 @@ HX_DECLARE_CLASS2(haxor,core,IRenderable)
 HX_DECLARE_CLASS2(haxor,core,IUpdateable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
+HX_DECLARE_CLASS2(haxor,math,Vector4)
 HX_DECLARE_CLASS3(haxor,platform,windows,WinApplication)
 
 
@@ -64,6 +65,7 @@ class HXCPP_CLASS_ATTRIBUTES  Main_obj : public ::haxor::core::Application_obj{
 		virtual Void OnUpdate( );
 		Dynamic OnUpdate_dyn();
 
+		Array< ::Dynamic > pl;
 		virtual Void OnRender( );
 		Dynamic OnRender_dyn();
 

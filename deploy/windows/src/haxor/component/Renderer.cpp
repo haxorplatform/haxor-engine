@@ -29,14 +29,14 @@ namespace component{
 
 Void Renderer_obj::__construct(::String __o_p_name)
 {
-HX_STACK_FRAME("haxor.component.Renderer","new",0x83675ed2,"haxor.component.Renderer.new","haxor/component/Renderer.hx",13,0x7c4f98dc)
+HX_STACK_FRAME("haxor.component.Renderer","new",0x83675ed2,"haxor.component.Renderer.new","haxor/component/Renderer.hx",14,0x7c4f98dc)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_name,"p_name")
 ::String p_name = __o_p_name.Default(HX_CSTRING(""));
 {
-	HX_STACK_LINE(44)
+	HX_STACK_LINE(45)
 	this->m_has_mesh = false;
-	HX_STACK_LINE(13)
+	HX_STACK_LINE(14)
 	super::__construct(p_name);
 }
 ;
@@ -57,9 +57,9 @@ Dynamic Renderer_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::graphics::material::Material Renderer_obj::get_material( ){
-	HX_STACK_FRAME("haxor.component.Renderer","get_material",0x97f323fe,"haxor.component.Renderer.get_material","haxor/component/Renderer.hx",21,0x7c4f98dc)
+	HX_STACK_FRAME("haxor.component.Renderer","get_material",0x97f323fe,"haxor.component.Renderer.get_material","haxor/component/Renderer.hx",22,0x7c4f98dc)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(21)
+	HX_STACK_LINE(22)
 	return this->m_material;
 }
 
@@ -67,28 +67,28 @@ Dynamic Renderer_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(Renderer_obj,get_material,return )
 
 ::haxor::graphics::material::Material Renderer_obj::set_material( ::haxor::graphics::material::Material v){
-	HX_STACK_FRAME("haxor.component.Renderer","set_material",0xacec4772,"haxor.component.Renderer.set_material","haxor/component/Renderer.hx",23,0x7c4f98dc)
+	HX_STACK_FRAME("haxor.component.Renderer","set_material",0xacec4772,"haxor.component.Renderer.set_material","haxor/component/Renderer.hx",24,0x7c4f98dc)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(24)
+	HX_STACK_LINE(25)
 	if (((this->m_material == v))){
-		HX_STACK_LINE(24)
+		HX_STACK_LINE(25)
 		return v;
 	}
-	HX_STACK_LINE(25)
-	this->m_material = v;
 	HX_STACK_LINE(26)
+	this->m_material = v;
+	HX_STACK_LINE(27)
 	if (((v == null()))){
-		HX_STACK_LINE(26)
+		HX_STACK_LINE(27)
 		this->m_last_queue = (int)-1;
 	}
 	else{
-		HX_STACK_LINE(26)
+		HX_STACK_LINE(27)
 		this->m_last_queue = v->queue;
 	}
-	HX_STACK_LINE(27)
-	::haxor::context::EngineContext_obj::renderer->OnMaterialChange(hx::ObjectPtr<OBJ_>(this));
 	HX_STACK_LINE(28)
+	::haxor::context::EngineContext_obj::renderer->OnMaterialChange(hx::ObjectPtr<OBJ_>(this));
+	HX_STACK_LINE(29)
 	return v;
 }
 
@@ -96,9 +96,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Renderer_obj,get_material,return )
 HX_DEFINE_DYNAMIC_FUNC1(Renderer_obj,set_material,return )
 
 bool Renderer_obj::get_visible( ){
-	HX_STACK_FRAME("haxor.component.Renderer","get_visible",0x4ef128fb,"haxor.component.Renderer.get_visible","haxor/component/Renderer.hx",36,0x7c4f98dc)
+	HX_STACK_FRAME("haxor.component.Renderer","get_visible",0x4ef128fb,"haxor.component.Renderer.get_visible","haxor/component/Renderer.hx",37,0x7c4f98dc)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(36)
+	HX_STACK_LINE(37)
 	return (bool(this->m_visible) && bool(!(this->m_culled)));
 }
 
@@ -106,12 +106,12 @@ bool Renderer_obj::get_visible( ){
 HX_DEFINE_DYNAMIC_FUNC0(Renderer_obj,get_visible,return )
 
 bool Renderer_obj::set_visible( bool v){
-	HX_STACK_FRAME("haxor.component.Renderer","set_visible",0x595e3007,"haxor.component.Renderer.set_visible","haxor/component/Renderer.hx",37,0x7c4f98dc)
+	HX_STACK_FRAME("haxor.component.Renderer","set_visible",0x595e3007,"haxor.component.Renderer.set_visible","haxor/component/Renderer.hx",38,0x7c4f98dc)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(37)
+	HX_STACK_LINE(38)
 	this->m_visible = v;
-	HX_STACK_LINE(37)
+	HX_STACK_LINE(38)
 	return v;
 }
 
@@ -120,17 +120,17 @@ HX_DEFINE_DYNAMIC_FUNC1(Renderer_obj,set_visible,return )
 
 Void Renderer_obj::OnBuild( ){
 {
-		HX_STACK_FRAME("haxor.component.Renderer","OnBuild",0xb11a50e1,"haxor.component.Renderer.OnBuild","haxor/component/Renderer.hx",55,0x7c4f98dc)
+		HX_STACK_FRAME("haxor.component.Renderer","OnBuild",0xb11a50e1,"haxor.component.Renderer.OnBuild","haxor/component/Renderer.hx",56,0x7c4f98dc)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(56)
-		this->super::OnBuild();
 		HX_STACK_LINE(57)
-		this->m_last_queue = (int)-1;
+		this->super::OnBuild();
 		HX_STACK_LINE(58)
-		this->m_visible = true;
+		this->m_last_queue = (int)-1;
 		HX_STACK_LINE(59)
-		this->m_culled = false;
+		this->m_visible = true;
 		HX_STACK_LINE(60)
+		this->m_culled = false;
+		HX_STACK_LINE(61)
 		::haxor::context::EngineContext_obj::renderer->Create(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();
@@ -139,15 +139,15 @@ return null();
 
 Void Renderer_obj::OnRender( ){
 {
-		HX_STACK_FRAME("haxor.component.Renderer","OnRender",0x7880f243,"haxor.component.Renderer.OnRender","haxor/component/Renderer.hx",67,0x7c4f98dc)
+		HX_STACK_FRAME("haxor.component.Renderer","OnRender",0x7880f243,"haxor.component.Renderer.OnRender","haxor/component/Renderer.hx",68,0x7c4f98dc)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(67)
+		HX_STACK_LINE(68)
 		if (((this->m_material != null()))){
-			HX_STACK_LINE(68)
+			HX_STACK_LINE(69)
 			if (((this->m_last_queue != this->m_material->queue))){
-				HX_STACK_LINE(70)
-				this->m_last_queue = this->m_material->queue;
 				HX_STACK_LINE(71)
+				this->m_last_queue = this->m_material->queue;
+				HX_STACK_LINE(72)
 				::haxor::context::EngineContext_obj::renderer->OnMaterialChange(hx::ObjectPtr<OBJ_>(this));
 			}
 		}
@@ -160,17 +160,17 @@ HX_DEFINE_DYNAMIC_FUNC0(Renderer_obj,OnRender,(void))
 
 Void Renderer_obj::UpdateCulling( ){
 {
-		HX_STACK_FRAME("haxor.component.Renderer","UpdateCulling",0x62436839,"haxor.component.Renderer.UpdateCulling","haxor/component/Renderer.hx",79,0x7c4f98dc)
+		HX_STACK_FRAME("haxor.component.Renderer","UpdateCulling",0x62436839,"haxor.component.Renderer.UpdateCulling","haxor/component/Renderer.hx",80,0x7c4f98dc)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(82)
-		bool v0 = this->m_culled;		HX_STACK_VAR(v0,"v0");
 		HX_STACK_LINE(83)
-		bool v1 = this->CheckCulling();		HX_STACK_VAR(v1,"v1");
+		bool v0 = this->m_culled;		HX_STACK_VAR(v0,"v0");
 		HX_STACK_LINE(84)
+		bool v1 = this->CheckCulling();		HX_STACK_VAR(v1,"v1");
+		HX_STACK_LINE(85)
 		this->m_culled = v1;
-		HX_STACK_LINE(86)
+		HX_STACK_LINE(87)
 		if (((v0 != v1))){
-			HX_STACK_LINE(88)
+			HX_STACK_LINE(89)
 			::haxor::context::EngineContext_obj::renderer->OnVisibilityChange(hx::ObjectPtr<OBJ_>(this),!(v1));
 		}
 	}
@@ -181,9 +181,9 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC0(Renderer_obj,UpdateCulling,(void))
 
 bool Renderer_obj::CheckCulling( ){
-	HX_STACK_FRAME("haxor.component.Renderer","CheckCulling",0xfb54f9f6,"haxor.component.Renderer.CheckCulling","haxor/component/Renderer.hx",95,0x7c4f98dc)
+	HX_STACK_FRAME("haxor.component.Renderer","CheckCulling",0xfb54f9f6,"haxor.component.Renderer.CheckCulling","haxor/component/Renderer.hx",96,0x7c4f98dc)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(95)
+	HX_STACK_LINE(96)
 	return false;
 }
 
@@ -192,9 +192,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Renderer_obj,CheckCulling,return )
 
 Void Renderer_obj::OnDestroy( ){
 {
-		HX_STACK_FRAME("haxor.component.Renderer","OnDestroy",0x9dc4b56d,"haxor.component.Renderer.OnDestroy","haxor/component/Renderer.hx",102,0x7c4f98dc)
+		HX_STACK_FRAME("haxor.component.Renderer","OnDestroy",0x9dc4b56d,"haxor.component.Renderer.OnDestroy","haxor/component/Renderer.hx",103,0x7c4f98dc)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(102)
+		HX_STACK_LINE(103)
 		::haxor::context::EngineContext_obj::renderer->Destroy(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();

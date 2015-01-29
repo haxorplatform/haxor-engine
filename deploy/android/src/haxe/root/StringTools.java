@@ -18,7 +18,7 @@ public  class StringTools extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor__StringTools(haxe.root.StringTools __temp_me255325)
+	public static   void __hx_ctor__StringTools(haxe.root.StringTools __temp_me12)
 	{
 		{
 		}

@@ -235,6 +235,29 @@ class DepthTest
 } 
 
 
+/**
+ * Enumeration that describes the camera projection matrix mode.
+ */
+enum CameraMode
+{
+	/**
+	 * Camera expects the user to set the perspective matrix.
+	 */
+	Custom;
+	/**
+	 * Perspective matrix mode.
+	 */
+	Perspective;
+	/**
+	 * Orthographic projection mode.
+	 */	
+	Ortho;
+	/**
+	 * Orthographic screen mode.
+	 */
+	UI;	
+}
+
 
 /**
  * Enumeration that describes the channel format of the Bitmap/Texture.
@@ -429,4 +452,36 @@ enum AnimationWrap
 	 * Cycle backwards after last frame.
 	 */
 	Oscilate;	
+}
+
+
+/**
+ * Collider Type.
+ */
+enum ColliderType
+{
+	/**
+	 * Point Collider.
+	 */
+	Point;
+	/**
+	 * Plane Collider.
+	 */
+	Plane;
+	/**
+	 * Box Collider.
+	 */
+	Box;
+	/**
+	 * Sphere Collider.
+	 */
+	Sphere;
+	/**
+	 * Capsule Collider.
+	 */
+	Capsule;
+	/**
+	 * Mesh Collider.
+	 */
+	Mesh;
 }

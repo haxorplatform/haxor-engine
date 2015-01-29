@@ -17,9 +17,9 @@ public  class Mesh4 extends haxor.graphics.mesh.MeshLayout<haxor.math.Vector3, h
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_mesh_Mesh4(haxor.graphics.mesh.Mesh4 __temp_me255458, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_graphics_mesh_Mesh4(haxor.graphics.mesh.Mesh4 __temp_me235, java.lang.String p_name)
 	{
-		haxor.graphics.mesh.MeshLayout.__hx_ctor_haxor_graphics_mesh_MeshLayout(__temp_me255458, p_name);
+		haxor.graphics.mesh.MeshLayout.__hx_ctor_haxor_graphics_mesh_MeshLayout(__temp_me235, p_name);
 	}
 	
 	

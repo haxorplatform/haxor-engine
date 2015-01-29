@@ -4,11 +4,13 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class Transform_OutputHierarchy_513__Fun extends haxe.lang.Function
 {
-	public    Transform_OutputHierarchy_513__Fun(haxe.root.Array<java.lang.Object> d0, haxe.root.Array<java.lang.String> hs)
+	public    Transform_OutputHierarchy_513__Fun(haxe.root.Array<java.lang.Object> p_show_transform1, haxe.root.Array<java.lang.String> hs, haxe.root.Array<java.lang.Object> d0, haxe.root.Array<java.lang.Object> p_show_world1)
 	{
 		super(2, 0);
-		this.d0 = d0;
+		this.p_show_transform1 = p_show_transform1;
 		this.hs = hs;
+		this.d0 = d0;
+		this.p_show_world1 = p_show_world1;
 	}
 	
 	
@@ -30,17 +32,38 @@ public  class Transform_OutputHierarchy_513__Fun extends haxe.lang.Function
 		}
 		
 		{
-			int __temp_index255662 = 0;
-			this.hs.__set(__temp_index255662, ( this.hs.__get(__temp_index255662) + ( ( ( ( ( ( tab + t.get_name() ) + " " ) + t.get_position().ToString(null) ) + t.get_rotation().ToString(null) ) + t.get_scale().ToString(null) ) + "\n" ) ));
+			int __temp_index385 = 0;
+			this.hs.__set(__temp_index385, ( this.hs.__get(__temp_index385) + ( ( tab + t.get_name() ) + " " ) ));
+		}
+		
+		if (haxe.lang.Runtime.toBool(this.p_show_transform1.__get(0))) 
+		{
+			int __temp_index386 = 0;
+			this.hs.__set(__temp_index386, ( this.hs.__get(__temp_index386) + ( ( t.get_position().ToString(null) + t.get_rotation().ToString(null) ) + t.get_scale().ToString(null) ) ));
+		}
+		
+		if (haxe.lang.Runtime.toBool(this.p_show_world1.__get(0))) 
+		{
+			int __temp_index387 = 0;
+			this.hs.__set(__temp_index387, ( this.hs.__get(__temp_index387) + t.get_WorldMatrix().ToString(true, 3) ));
+		}
+		
+		{
+			int __temp_index388 = 0;
+			this.hs.__set(__temp_index388, ( this.hs.__get(__temp_index388) + "\n" ));
 		}
 		
 		return true;
 	}
 	
 	
-	public  haxe.root.Array<java.lang.Object> d0;
+	public  haxe.root.Array<java.lang.Object> p_show_transform1;
 	
 	public  haxe.root.Array<java.lang.String> hs;
+	
+	public  haxe.root.Array<java.lang.Object> d0;
+	
+	public  haxe.root.Array<java.lang.Object> p_show_world1;
 	
 }
 

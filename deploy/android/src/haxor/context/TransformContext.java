@@ -18,9 +18,9 @@ public  class TransformContext extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_context_TransformContext(haxor.context.TransformContext __temp_me255389)
+	public static   void __hx_ctor_haxor_context_TransformContext(haxor.context.TransformContext __temp_me158)
 	{
-		__temp_me255389.tid = new haxor.context.UID();
+		__temp_me158.tid = new haxor.context.UID();
 	}
 	
 	
@@ -67,14 +67,14 @@ public  class TransformContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256066 = true;
+			boolean __temp_executeDef931 = true;
 			switch (field.hashCode())
 			{
 				case 114831:
 				{
 					if (field.equals("tid")) 
 					{
-						__temp_executeDef256066 = false;
+						__temp_executeDef931 = false;
 						this.tid = ((haxor.context.UID) (value) );
 						return value;
 					}
@@ -85,7 +85,7 @@ public  class TransformContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256066) 
+			if (__temp_executeDef931) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -102,14 +102,14 @@ public  class TransformContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256067 = true;
+			boolean __temp_executeDef932 = true;
 			switch (field.hashCode())
 			{
 				case 1101418127:
 				{
 					if (field.equals("OnChange")) 
 					{
-						__temp_executeDef256067 = false;
+						__temp_executeDef932 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("OnChange"))) );
 					}
 					
@@ -121,7 +121,7 @@ public  class TransformContext extends haxe.lang.HxObject
 				{
 					if (field.equals("tid")) 
 					{
-						__temp_executeDef256067 = false;
+						__temp_executeDef932 = false;
 						return this.tid;
 					}
 					
@@ -133,7 +133,7 @@ public  class TransformContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef256067 = false;
+						__temp_executeDef932 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Initialize"))) );
 					}
 					
@@ -143,7 +143,7 @@ public  class TransformContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256067) 
+			if (__temp_executeDef932) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -160,14 +160,14 @@ public  class TransformContext extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef256068 = true;
+			boolean __temp_executeDef933 = true;
 			switch (field.hashCode())
 			{
 				case 1101418127:
 				{
 					if (field.equals("OnChange")) 
 					{
-						__temp_executeDef256068 = false;
+						__temp_executeDef933 = false;
 						this.OnChange(((haxor.component.Transform) (dynargs.__get(0)) ));
 					}
 					
@@ -179,7 +179,7 @@ public  class TransformContext extends haxe.lang.HxObject
 				{
 					if (field.equals("Initialize")) 
 					{
-						__temp_executeDef256068 = false;
+						__temp_executeDef933 = false;
 						this.Initialize();
 					}
 					
@@ -189,7 +189,7 @@ public  class TransformContext extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256068) 
+			if (__temp_executeDef933) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

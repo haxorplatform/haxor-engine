@@ -24,21 +24,21 @@ public  class Joystick extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_input_Joystick(haxor.input.Joystick __temp_me255493)
+	public static   void __hx_ctor_haxor_input_Joystick(haxor.input.Joystick __temp_me270)
 	{
 		haxor.core.InputState st = haxor.core.InputState.None;
-		__temp_me255493.name = "";
-		__temp_me255493.id = -1;
-		__temp_me255493.button = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) )});
-		__temp_me255493.state = new haxe.root.Array<haxor.core.InputState>(new haxor.core.InputState[]{st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st});
-		__temp_me255493.hold = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) )});
-		__temp_me255493.analog = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) )});
-		__temp_me255493.analogLeft = new haxor.math.Vector3(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		__temp_me255493.analogRight = new haxor.math.Vector3(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
-		__temp_me255493.triggerLeft = 0.0;
-		__temp_me255493.triggerRight = 0.0;
-		__temp_me255493.m_vibrationLeft = 0.0;
-		__temp_me255493.m_vibrationRight = 0.0;
+		__temp_me270.name = "";
+		__temp_me270.id = -1;
+		__temp_me270.button = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) )});
+		__temp_me270.state = new haxe.root.Array<haxor.core.InputState>(new haxor.core.InputState[]{st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st, st});
+		__temp_me270.hold = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) )});
+		__temp_me270.analog = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) ), ((java.lang.Object) (0) )});
+		__temp_me270.analogLeft = new haxor.math.Vector3(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
+		__temp_me270.analogRight = new haxor.math.Vector3(((java.lang.Object) (null) ), ((java.lang.Object) (null) ), ((java.lang.Object) (null) ));
+		__temp_me270.triggerLeft = 0.0;
+		__temp_me270.triggerRight = 0.0;
+		__temp_me270.m_vibrationLeft = 0.0;
+		__temp_me270.m_vibrationRight = 0.0;
 	}
 	
 	
@@ -90,13 +90,13 @@ public  class Joystick extends haxe.lang.HxObject
 	
 	public   double set_vibrationLeft(double v)
 	{
-		double __temp_stmt256206 = 0.0;
+		double __temp_stmt1072 = 0.0;
 		{
 			double p_a = ( this.m_vibrationLeft - v );
-			__temp_stmt256206 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			__temp_stmt1072 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 		}
 		
-		if (( __temp_stmt256206 <= 0.0 )) 
+		if (( __temp_stmt1072 <= 0.0 )) 
 		{
 			return v;
 		}
@@ -119,13 +119,13 @@ public  class Joystick extends haxe.lang.HxObject
 	
 	public   double set_vibrationRight(double v)
 	{
-		double __temp_stmt256207 = 0.0;
+		double __temp_stmt1073 = 0.0;
 		{
 			double p_a = ( this.m_vibrationRight - v );
-			__temp_stmt256207 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
+			__temp_stmt1073 = ( (( p_a < 0 )) ? ( - (p_a) ) : (p_a) );
 		}
 		
-		if (( __temp_stmt256207 <= 0.0 )) 
+		if (( __temp_stmt1073 <= 0.0 )) 
 		{
 			return v;
 		}
@@ -158,19 +158,19 @@ public  class Joystick extends haxe.lang.HxObject
 	
 	public   java.lang.String ToString(java.lang.Object p_analog, java.lang.Object p_button, java.lang.Object p_trigger, java.lang.Object p_pad)
 	{
-		boolean __temp_p_pad255492 = ( (( p_pad == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_pad)) );
-		boolean __temp_p_trigger255491 = ( (( p_trigger == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_trigger)) );
-		boolean __temp_p_button255490 = ( (( p_button == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_button)) );
-		boolean __temp_p_analog255489 = ( (( p_analog == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_analog)) );
+		boolean __temp_p_pad269 = ( (( p_pad == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_pad)) );
+		boolean __temp_p_trigger268 = ( (( p_trigger == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_trigger)) );
+		boolean __temp_p_button267 = ( (( p_button == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_button)) );
+		boolean __temp_p_analog266 = ( (( p_analog == null )) ? (haxe.lang.Runtime.toBool(true)) : (haxe.lang.Runtime.toBool(p_analog)) );
 		java.lang.String s = "";
 		s += ( "J" + this.id );
-		if (__temp_p_analog255489) 
+		if (__temp_p_analog266) 
 		{
 			s += ( " AL" + this.analogLeft.ToString(1) );
 			s += ( " AR" + this.analogRight.ToString(1) );
 		}
 		
-		if (__temp_p_button255490) 
+		if (__temp_p_button267) 
 		{
 			s += ( " A[" + (( (this.Pressed(haxor.input.KeyCode.ButtonA)) ? ("1]") : ("0]") )) );
 			s += ( " B[" + (( (this.Pressed(haxor.input.KeyCode.ButtonB)) ? ("1]") : ("0]") )) );
@@ -184,7 +184,7 @@ public  class Joystick extends haxe.lang.HxObject
 			s += ( " Select[" + (( (this.Pressed(haxor.input.KeyCode.ButtonSelect)) ? ("1]") : ("0]") )) );
 		}
 		
-		if (__temp_p_pad255492) 
+		if (__temp_p_pad269) 
 		{
 			s += ( " PL[" + (( (this.Pressed(haxor.input.KeyCode.PadLeft)) ? ("1]") : ("0]") )) );
 			s += ( " PR[" + (( (this.Pressed(haxor.input.KeyCode.PadRight)) ? ("1]") : ("0]") )) );
@@ -192,34 +192,34 @@ public  class Joystick extends haxe.lang.HxObject
 			s += ( " PD[" + (( (this.Pressed(haxor.input.KeyCode.PadBottom)) ? ("1]") : ("0]") )) );
 		}
 		
-		if (__temp_p_trigger255491) 
+		if (__temp_p_trigger268) 
 		{
-			double __temp_stmt256208 = 0.0;
+			double __temp_stmt1074 = 0.0;
 			{
 				double d = java.lang.Math.pow(((double) (10) ), ((double) (1) ));
-				double __temp_stmt256209 = 0.0;
+				double __temp_stmt1075 = 0.0;
 				{
 					double p_v = ( this.triggerLeft * d );
-					__temp_stmt256209 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
+					__temp_stmt1075 = ((double) (((int) (( p_v + (( (( p_v < 0 )) ? (-0.5) : (0.5) )) )) )) );
 				}
 				
-				__temp_stmt256208 = ( __temp_stmt256209 / d );
+				__temp_stmt1074 = ( __temp_stmt1075 / d );
 			}
 			
-			s += ( ( " TL[" + haxe.lang.Runtime.toString(__temp_stmt256208) ) + "]" );
-			double __temp_stmt256210 = 0.0;
+			s += ( ( " TL[" + haxe.lang.Runtime.toString(__temp_stmt1074) ) + "]" );
+			double __temp_stmt1076 = 0.0;
 			{
 				double d1 = java.lang.Math.pow(((double) (10) ), ((double) (1) ));
-				double __temp_stmt256211 = 0.0;
+				double __temp_stmt1077 = 0.0;
 				{
 					double p_v1 = ( this.triggerRight * d1 );
-					__temp_stmt256211 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
+					__temp_stmt1077 = ((double) (((int) (( p_v1 + (( (( p_v1 < 0 )) ? (-0.5) : (0.5) )) )) )) );
 				}
 				
-				__temp_stmt256210 = ( __temp_stmt256211 / d1 );
+				__temp_stmt1076 = ( __temp_stmt1077 / d1 );
 			}
 			
-			s += ( ( " TR[" + haxe.lang.Runtime.toString(__temp_stmt256210) ) + "]" );
+			s += ( ( " TR[" + haxe.lang.Runtime.toString(__temp_stmt1076) ) + "]" );
 		}
 		
 		return s;
@@ -229,14 +229,14 @@ public  class Joystick extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256212 = true;
+			boolean __temp_executeDef1078 = true;
 			switch (field.hashCode())
 			{
 				case -1647800132:
 				{
 					if (field.equals("m_vibrationRight")) 
 					{
-						__temp_executeDef256212 = false;
+						__temp_executeDef1078 = false;
 						this.m_vibrationRight = ((double) (value) );
 						return value;
 					}
@@ -249,7 +249,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256212 = false;
+						__temp_executeDef1078 = false;
 						this.id = ((int) (value) );
 						return value;
 					}
@@ -262,7 +262,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("vibrationRight")) 
 					{
-						__temp_executeDef256212 = false;
+						__temp_executeDef1078 = false;
 						this.set_vibrationRight(value);
 						return value;
 					}
@@ -275,7 +275,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("triggerLeft")) 
 					{
-						__temp_executeDef256212 = false;
+						__temp_executeDef1078 = false;
 						this.triggerLeft = ((double) (value) );
 						return value;
 					}
@@ -288,7 +288,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("m_vibrationLeft")) 
 					{
-						__temp_executeDef256212 = false;
+						__temp_executeDef1078 = false;
 						this.m_vibrationLeft = ((double) (value) );
 						return value;
 					}
@@ -301,7 +301,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("triggerRight")) 
 					{
-						__temp_executeDef256212 = false;
+						__temp_executeDef1078 = false;
 						this.triggerRight = ((double) (value) );
 						return value;
 					}
@@ -314,7 +314,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("vibrationLeft")) 
 					{
-						__temp_executeDef256212 = false;
+						__temp_executeDef1078 = false;
 						this.set_vibrationLeft(value);
 						return value;
 					}
@@ -325,7 +325,7 @@ public  class Joystick extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256212) 
+			if (__temp_executeDef1078) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -342,14 +342,14 @@ public  class Joystick extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256213 = true;
+			boolean __temp_executeDef1079 = true;
 			switch (field.hashCode())
 			{
 				case -1647800132:
 				{
 					if (field.equals("m_vibrationRight")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.m_vibrationRight = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -362,7 +362,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.name = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -375,7 +375,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("vibrationRight")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.set_vibrationRight(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -388,7 +388,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.id = ((int) (haxe.lang.Runtime.toInt(value)) );
 						return value;
 					}
@@ -401,7 +401,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("m_vibrationLeft")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.m_vibrationLeft = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -414,7 +414,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("button")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.button = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -427,7 +427,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("vibrationLeft")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.set_vibrationLeft(((double) (haxe.lang.Runtime.toDouble(value)) ));
 						return value;
 					}
@@ -440,7 +440,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("state")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.state = ((haxe.root.Array<haxor.core.InputState>) (value) );
 						return value;
 					}
@@ -453,7 +453,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("triggerRight")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.triggerRight = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -466,7 +466,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("hold")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.hold = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -479,7 +479,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("triggerLeft")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.triggerLeft = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -492,7 +492,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("analog")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.analog = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -505,7 +505,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("analogRight")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.analogRight = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -518,7 +518,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("analogLeft")) 
 					{
-						__temp_executeDef256213 = false;
+						__temp_executeDef1079 = false;
 						this.analogLeft = ((haxor.math.Vector3) (value) );
 						return value;
 					}
@@ -529,7 +529,7 @@ public  class Joystick extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256213) 
+			if (__temp_executeDef1079) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -546,14 +546,14 @@ public  class Joystick extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256214 = true;
+			boolean __temp_executeDef1080 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("ToString"))) );
 					}
 					
@@ -565,7 +565,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("name")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.name;
 					}
 					
@@ -577,7 +577,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("Hit")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Hit"))) );
 					}
 					
@@ -589,7 +589,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.id;
 					}
 					
@@ -601,7 +601,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("Down")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Down"))) );
 					}
 					
@@ -613,7 +613,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("button")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.button;
 					}
 					
@@ -625,7 +625,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("Pressed")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("Pressed"))) );
 					}
 					
@@ -637,7 +637,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("state")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.state;
 					}
 					
@@ -649,7 +649,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("m_vibrationRight")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.m_vibrationRight;
 					}
 					
@@ -661,7 +661,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("hold")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.hold;
 					}
 					
@@ -673,7 +673,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("set_vibrationRight")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_vibrationRight"))) );
 					}
 					
@@ -685,7 +685,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("analog")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.analog;
 					}
 					
@@ -697,7 +697,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("get_vibrationRight")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_vibrationRight"))) );
 					}
 					
@@ -709,7 +709,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("analogLeft")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.analogLeft;
 					}
 					
@@ -721,7 +721,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("vibrationRight")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.get_vibrationRight();
 					}
 					
@@ -733,7 +733,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("analogRight")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.analogRight;
 					}
 					
@@ -745,7 +745,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("m_vibrationLeft")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.m_vibrationLeft;
 					}
 					
@@ -757,7 +757,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("triggerLeft")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.triggerLeft;
 					}
 					
@@ -769,7 +769,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("set_vibrationLeft")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("set_vibrationLeft"))) );
 					}
 					
@@ -781,7 +781,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("triggerRight")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.triggerRight;
 					}
 					
@@ -793,7 +793,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("get_vibrationLeft")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_vibrationLeft"))) );
 					}
 					
@@ -805,7 +805,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("vibrationLeft")) 
 					{
-						__temp_executeDef256214 = false;
+						__temp_executeDef1080 = false;
 						return this.get_vibrationLeft();
 					}
 					
@@ -815,7 +815,7 @@ public  class Joystick extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256214) 
+			if (__temp_executeDef1080) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -832,14 +832,14 @@ public  class Joystick extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256215 = true;
+			boolean __temp_executeDef1081 = true;
 			switch (field.hashCode())
 			{
 				case -1647800132:
 				{
 					if (field.equals("m_vibrationRight")) 
 					{
-						__temp_executeDef256215 = false;
+						__temp_executeDef1081 = false;
 						return this.m_vibrationRight;
 					}
 					
@@ -851,7 +851,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("id")) 
 					{
-						__temp_executeDef256215 = false;
+						__temp_executeDef1081 = false;
 						return ((double) (this.id) );
 					}
 					
@@ -863,7 +863,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("vibrationRight")) 
 					{
-						__temp_executeDef256215 = false;
+						__temp_executeDef1081 = false;
 						return this.get_vibrationRight();
 					}
 					
@@ -875,7 +875,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("triggerLeft")) 
 					{
-						__temp_executeDef256215 = false;
+						__temp_executeDef1081 = false;
 						return this.triggerLeft;
 					}
 					
@@ -887,7 +887,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("m_vibrationLeft")) 
 					{
-						__temp_executeDef256215 = false;
+						__temp_executeDef1081 = false;
 						return this.m_vibrationLeft;
 					}
 					
@@ -899,7 +899,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("triggerRight")) 
 					{
-						__temp_executeDef256215 = false;
+						__temp_executeDef1081 = false;
 						return this.triggerRight;
 					}
 					
@@ -911,7 +911,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("vibrationLeft")) 
 					{
-						__temp_executeDef256215 = false;
+						__temp_executeDef1081 = false;
 						return this.get_vibrationLeft();
 					}
 					
@@ -921,7 +921,7 @@ public  class Joystick extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256215) 
+			if (__temp_executeDef1081) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -938,14 +938,14 @@ public  class Joystick extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef256216 = true;
+			boolean __temp_executeDef1082 = true;
 			switch (field.hashCode())
 			{
 				case -1712277876:
 				{
 					if (field.equals("ToString")) 
 					{
-						__temp_executeDef256216 = false;
+						__temp_executeDef1082 = false;
 						return this.ToString(dynargs.__get(0), dynargs.__get(1), dynargs.__get(2), dynargs.__get(3));
 					}
 					
@@ -957,7 +957,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("get_vibrationLeft")) 
 					{
-						__temp_executeDef256216 = false;
+						__temp_executeDef1082 = false;
 						return this.get_vibrationLeft();
 					}
 					
@@ -969,7 +969,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("Hit")) 
 					{
-						__temp_executeDef256216 = false;
+						__temp_executeDef1082 = false;
 						return this.Hit(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -981,7 +981,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("set_vibrationLeft")) 
 					{
-						__temp_executeDef256216 = false;
+						__temp_executeDef1082 = false;
 						return this.set_vibrationLeft(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -993,7 +993,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("Down")) 
 					{
-						__temp_executeDef256216 = false;
+						__temp_executeDef1082 = false;
 						return this.Down(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -1005,7 +1005,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("get_vibrationRight")) 
 					{
-						__temp_executeDef256216 = false;
+						__temp_executeDef1082 = false;
 						return this.get_vibrationRight();
 					}
 					
@@ -1017,7 +1017,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("Pressed")) 
 					{
-						__temp_executeDef256216 = false;
+						__temp_executeDef1082 = false;
 						return this.Pressed(((int) (haxe.lang.Runtime.toInt(dynargs.__get(0))) ));
 					}
 					
@@ -1029,7 +1029,7 @@ public  class Joystick extends haxe.lang.HxObject
 				{
 					if (field.equals("set_vibrationRight")) 
 					{
-						__temp_executeDef256216 = false;
+						__temp_executeDef1082 = false;
 						return this.set_vibrationRight(((double) (haxe.lang.Runtime.toDouble(dynargs.__get(0))) ));
 					}
 					
@@ -1039,7 +1039,7 @@ public  class Joystick extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256216) 
+			if (__temp_executeDef1082) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

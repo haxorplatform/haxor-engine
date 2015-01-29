@@ -14,17 +14,17 @@ public  class Xml_iterator_181__Fun extends haxe.lang.Function
 	
 	@Override public   java.lang.Object __hx_invoke0_o()
 	{
-		int __temp_stmt255732 = 0;
+		int __temp_stmt474 = 0;
 		{
-			int __temp_arrIndex255659 = 0;
-			int __temp_arrVal255657 = ((int) (haxe.lang.Runtime.toInt(this.cur.__get(__temp_arrIndex255659))) );
-			int __temp_arrRet255658 = __temp_arrVal255657++;
-			int __temp_expr255733 = ((int) (haxe.lang.Runtime.toInt(this.cur.__set(__temp_arrIndex255659, __temp_arrVal255657))) );
-			__temp_stmt255732 = __temp_arrRet255658;
+			int __temp_arrIndex382 = 0;
+			int __temp_arrVal380 = ((int) (haxe.lang.Runtime.toInt(this.cur.__get(__temp_arrIndex382))) );
+			int __temp_arrRet381 = __temp_arrVal380++;
+			int __temp_expr475 = ((int) (haxe.lang.Runtime.toInt(this.cur.__set(__temp_arrIndex382, __temp_arrVal380))) );
+			__temp_stmt474 = __temp_arrRet381;
 		}
 		
-		haxe.root.Array<haxe.root.Xml> __temp_stmt255734 = ((haxe.root.Array<haxe.root.Xml>) (((haxe.root.Array) (this.x.__get(0)) )) );
-		return __temp_stmt255734.__get(__temp_stmt255732);
+		haxe.root.Array<haxe.root.Xml> __temp_stmt476 = ((haxe.root.Array<haxe.root.Xml>) (((haxe.root.Array) (this.x.__get(0)) )) );
+		return __temp_stmt476.__get(__temp_stmt474);
 	}
 	
 	

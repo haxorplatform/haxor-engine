@@ -12,18 +12,18 @@ namespace file{
 
 Void ColladaVisualScene_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaVisualScene","new",0x24d68802,"haxor.io.file.ColladaVisualScene.new","haxor/io/file/ColladaFile.hx",1369,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaVisualScene","new",0x24d68802,"haxor.io.file.ColladaVisualScene.new","haxor/io/file/ColladaFile.hx",1371,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1374)
+	HX_STACK_LINE(1376)
 	this->children = null();
-	HX_STACK_LINE(1373)
+	HX_STACK_LINE(1375)
 	this->name = HX_CSTRING("");
-	HX_STACK_LINE(1372)
+	HX_STACK_LINE(1374)
 	this->id = HX_CSTRING("");
-	HX_STACK_LINE(1371)
+	HX_STACK_LINE(1373)
 	this->type = HX_CSTRING("");
-	HX_STACK_LINE(1378)
+	HX_STACK_LINE(1380)
 	this->children = Array_obj< ::Dynamic >::__new();
 }
 ;
@@ -45,23 +45,23 @@ Dynamic ColladaVisualScene_obj::__Create(hx::DynamicArray inArgs)
 
 Void ColladaVisualScene_obj::Traverse( Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.io.file.ColladaVisualScene","Traverse",0x9f3296f0,"haxor.io.file.ColladaVisualScene.Traverse","haxor/io/file/ColladaFile.hx",1383,0xa1888587)
+		HX_STACK_FRAME("haxor.io.file.ColladaVisualScene","Traverse",0x9f3296f0,"haxor.io.file.ColladaVisualScene.Traverse","haxor/io/file/ColladaFile.hx",1385,0xa1888587)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(1383)
+		HX_STACK_LINE(1385)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(1383)
+		HX_STACK_LINE(1385)
 		int _g = this->children->length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(1383)
+		HX_STACK_LINE(1385)
 		while((true)){
-			HX_STACK_LINE(1383)
+			HX_STACK_LINE(1385)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(1383)
+				HX_STACK_LINE(1385)
 				break;
 			}
-			HX_STACK_LINE(1383)
+			HX_STACK_LINE(1385)
 			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(1383)
+			HX_STACK_LINE(1385)
 			this->TraverseStep(this->children->__get(i).StaticCast< ::haxor::io::file::ColladaNode >(),p_callback);
 		}
 	}
@@ -73,31 +73,31 @@ HX_DEFINE_DYNAMIC_FUNC1(ColladaVisualScene_obj,Traverse,(void))
 
 Void ColladaVisualScene_obj::TraverseStep( ::haxor::io::file::ColladaNode p_node,Dynamic p_callback){
 {
-		HX_STACK_FRAME("haxor.io.file.ColladaVisualScene","TraverseStep",0xa295e25c,"haxor.io.file.ColladaVisualScene.TraverseStep","haxor/io/file/ColladaFile.hx",1387,0xa1888587)
+		HX_STACK_FRAME("haxor.io.file.ColladaVisualScene","TraverseStep",0xa295e25c,"haxor.io.file.ColladaVisualScene.TraverseStep","haxor/io/file/ColladaFile.hx",1389,0xa1888587)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_node,"p_node")
 		HX_STACK_ARG(p_callback,"p_callback")
-		HX_STACK_LINE(1388)
+		HX_STACK_LINE(1390)
 		if (((p_callback != null()))){
-			HX_STACK_LINE(1388)
+			HX_STACK_LINE(1390)
 			p_callback(p_node).Cast< Void >();
 		}
-		HX_STACK_LINE(1389)
+		HX_STACK_LINE(1391)
 		{
-			HX_STACK_LINE(1389)
+			HX_STACK_LINE(1391)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(1389)
+			HX_STACK_LINE(1391)
 			int _g = p_node->children->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(1389)
+			HX_STACK_LINE(1391)
 			while((true)){
-				HX_STACK_LINE(1389)
+				HX_STACK_LINE(1391)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(1389)
+					HX_STACK_LINE(1391)
 					break;
 				}
-				HX_STACK_LINE(1389)
+				HX_STACK_LINE(1391)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(1389)
+				HX_STACK_LINE(1391)
 				this->TraverseStep(p_node->children->__get(i).StaticCast< ::haxor::io::file::ColladaNode >(),p_callback);
 			}
 		}

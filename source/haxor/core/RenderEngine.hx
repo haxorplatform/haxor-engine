@@ -77,8 +77,8 @@ class RenderEngine
 		var renderers : Process<Renderer> = EngineContext.renderer.display[l];
 		for (j in 0...renderers.length)
 		{
-			var r : Renderer = renderers.list[j];
-			
+			var r : Renderer = renderers.list[j];			
+			if ((r.entity.layer & l) == 0) continue;
 			if (EngineContext.renderer.IsSAPCulled(r, c)) continue;
 			//If the current Renderer's Entity is different reset the uniform flag of the last transform.
 			//if (r.transform != lt) { if(lt!=null) lt.m_uniform_dirty = false; lt = r.transform; }

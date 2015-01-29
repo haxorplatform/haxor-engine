@@ -101,11 +101,11 @@ class HXCPP_CLASS_ATTRIBUTES  Mathf_obj : public hx::Object{
 		static Float Cos( Float v);
 		static Dynamic Cos_dyn();
 
-		static Float ASin( Float v);
-		static Dynamic ASin_dyn();
+		static Float Asin( Float v);
+		static Dynamic Asin_dyn();
 
-		static Float ACos( Float v);
-		static Dynamic ACos_dyn();
+		static Float Acos( Float v);
+		static Dynamic Acos_dyn();
 
 		static Float Tan( Float v);
 		static Dynamic Tan_dyn();

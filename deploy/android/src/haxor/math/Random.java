@@ -18,7 +18,7 @@ public  class Random extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_math_Random(haxor.math.Random __temp_me255602)
+	public static   void __hx_ctor_haxor_math_Random(haxor.math.Random __temp_me333)
 	{
 		{
 		}
@@ -221,13 +221,13 @@ public  class Random extends haxe.lang.HxObject
 	{
 		{
 			double p_ratio = java.lang.Math.random();
-			double __temp_stmt256449 = 0.0;
+			double __temp_stmt1269 = 0.0;
 			{
 				double p_a = ((double) (p_min) );
-				__temp_stmt256449 = ( p_a + ( (( ((double) (( p_max + 1 )) ) - p_a )) * p_ratio ) );
+				__temp_stmt1269 = ( p_a + ( (( ((double) (( p_max + 1 )) ) - p_a )) * p_ratio ) );
 			}
 			
-			return ((double) (((int) (__temp_stmt256449) )) );
+			return ((double) (((int) (__temp_stmt1269) )) );
 		}
 		
 	}

@@ -83,6 +83,25 @@ class Vector3
 	}
 	
 	/**
+	 * Projects a point into a line.
+	 * @param	p_a
+	 * @param	p_b
+	 * @param	p_result
+	 * @return
+	 */
+	static public function Project(p_point : Vector3,p_origin : Vector3,p_dir : Vector3,p_result:Vector3=null): Vector3
+	{
+		p_result = p_result == null ? new Vector3() : p_result;
+		var d : Vector3 = Vector3.temp.Set3(p_dir).Normalize();
+		var v : Vector3 = Vector3.temp.Set3(p_point).Sub(p_origin);
+		var dot : Float = Vector3.Dot(d, v);
+		p_result.x = p_origin.x + (v.x * dot);
+		p_result.y = p_origin.y + (v.y * dot);
+		p_result.z = p_origin.z + (v.z * dot);
+		return p_result;
+	}
+	
+	/**
 	 * Linear interpolates 2 vectors.
 	 * @param	p_a
 	 * @param	p_b

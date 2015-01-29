@@ -18,10 +18,10 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaAnimationKeyFrame(haxor.io.file.ColladaAnimationKeyFrame __temp_me255533)
+	public static   void __hx_ctor_haxor_io_file_ColladaAnimationKeyFrame(haxor.io.file.ColladaAnimationKeyFrame __temp_me310)
 	{
-		__temp_me255533.time = 0.0;
-		__temp_me255533.values = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me310.time = 0.0;
+		__temp_me310.values = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
 	}
 	
 	
@@ -44,14 +44,14 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 	@Override public   double __hx_setField_f(java.lang.String field, double value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256334 = true;
+			boolean __temp_executeDef1206 = true;
 			switch (field.hashCode())
 			{
 				case 3560141:
 				{
 					if (field.equals("time")) 
 					{
-						__temp_executeDef256334 = false;
+						__temp_executeDef1206 = false;
 						this.time = ((double) (value) );
 						return value;
 					}
@@ -62,7 +62,7 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256334) 
+			if (__temp_executeDef1206) 
 			{
 				return super.__hx_setField_f(field, value, handleProperties);
 			}
@@ -79,14 +79,14 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256335 = true;
+			boolean __temp_executeDef1207 = true;
 			switch (field.hashCode())
 			{
 				case -823812830:
 				{
 					if (field.equals("values")) 
 					{
-						__temp_executeDef256335 = false;
+						__temp_executeDef1207 = false;
 						this.values = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -99,7 +99,7 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 				{
 					if (field.equals("time")) 
 					{
-						__temp_executeDef256335 = false;
+						__temp_executeDef1207 = false;
 						this.time = ((double) (haxe.lang.Runtime.toDouble(value)) );
 						return value;
 					}
@@ -110,7 +110,7 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256335) 
+			if (__temp_executeDef1207) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -127,14 +127,14 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256336 = true;
+			boolean __temp_executeDef1208 = true;
 			switch (field.hashCode())
 			{
 				case -823812830:
 				{
 					if (field.equals("values")) 
 					{
-						__temp_executeDef256336 = false;
+						__temp_executeDef1208 = false;
 						return this.values;
 					}
 					
@@ -146,7 +146,7 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 				{
 					if (field.equals("time")) 
 					{
-						__temp_executeDef256336 = false;
+						__temp_executeDef1208 = false;
 						return this.time;
 					}
 					
@@ -156,7 +156,7 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256336) 
+			if (__temp_executeDef1208) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -173,14 +173,14 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256337 = true;
+			boolean __temp_executeDef1209 = true;
 			switch (field.hashCode())
 			{
 				case 3560141:
 				{
 					if (field.equals("time")) 
 					{
-						__temp_executeDef256337 = false;
+						__temp_executeDef1209 = false;
 						return this.time;
 					}
 					
@@ -190,7 +190,7 @@ public  class ColladaAnimationKeyFrame extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256337) 
+			if (__temp_executeDef1209) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}

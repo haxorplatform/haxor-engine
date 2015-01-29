@@ -17,9 +17,9 @@ public  class Mesh23 extends haxor.graphics.mesh.MeshLayout<haxor.math.Vector2, 
 	}
 	
 	
-	public static   void __hx_ctor_haxor_graphics_mesh_Mesh23(haxor.graphics.mesh.Mesh23 __temp_me255456, java.lang.String p_name)
+	public static   void __hx_ctor_haxor_graphics_mesh_Mesh23(haxor.graphics.mesh.Mesh23 __temp_me233, java.lang.String p_name)
 	{
-		haxor.graphics.mesh.MeshLayout.__hx_ctor_haxor_graphics_mesh_MeshLayout(__temp_me255456, p_name);
+		haxor.graphics.mesh.MeshLayout.__hx_ctor_haxor_graphics_mesh_MeshLayout(__temp_me233, p_name);
 	}
 	
 	

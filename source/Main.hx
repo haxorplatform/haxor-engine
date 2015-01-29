@@ -13,6 +13,8 @@ import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
 import haxor.core.Entity;
 import haxor.core.Enums.AnimationWrap;
+import haxor.core.Enums.CameraMode;
+import haxor.core.Enums.ClearFlag;
 import haxor.core.Enums.InputState;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
@@ -164,6 +166,17 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		
 		
+		var ortho : Camera = cast (new Entity("ortho")).AddComponent(Camera);
+		ortho.clear = ClearFlag.Depth;
+		ortho.order = 2;
+		ortho.mode = CameraMode.UI;
+		ortho.near = 0.0;
+		ortho.far =  100.0;
+		ortho.mask = 2;	
+		
+		Camera.main = ortho;
+		
+		
 		container = (new Entity("container")).transform;
 					
 		mat = Material.Opaque(Asset.Get("texture_diffuse"));
@@ -176,6 +189,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		cf = Asset.Get("model");
 		
 		player = new Entity("player").transform;
+		player.entity.layer = 2;
 		var asset : Transform = cast(cf.asset, Entity).transform;
 		asset.parent = player;
 		//asset.rotation = Quaternion.FromAxisAngle(Vector3.right, 90.0);
@@ -238,46 +252,55 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{			
 		Gizmo.Grid(100.0, new Color(1, 1, 1, 0.1));
 		
-		/*
-		for (i in 0...10)
-		for (j in 0...10)
-		for (k in 0...10)		
-		{
-			Gizmo.Axis(new Vector3(i,k,j), new Vector3(1.0,1.0,1.0), Color.temp.Set(1,1,1,1.0));
-		}
-		/**/
+		var p0 : Vector3 = Vector3.temp.Set(2, 2);
+		var p1 : Vector3 = Vector3.temp.Set(4,4);
 		
+		/*
+		Gizmo.Point(p0, 10.0, Color.yellow);
+		Gizmo.Line(p0, p1, Color.yellow);
+		Gizmo.Point(p1, 10.0, Color.red);
+		//*/
+		
+		Gizmo.BeginPath(new Color(1.0, 0.0, 0.0, 0.5), Color.red);
+		
+		Gizmo.LinePath(new Vector3(40, 40));
+		Gizmo.LinePath(new Vector3(30, 70));		
+		Gizmo.LinePath(new Vector3(80, 140));		
+		Gizmo.LinePath(new Vector3(Input.mouse.x,Input.mouse.y));
+		//*/
+		Gizmo.EndPath();
+		//*/
+		
+		
+		Gizmo.BeginPath(new Color(1.0, 1.0, 0.0, 0.5), Color.green);
+		Gizmo.LinePath(new Vector3(580, 80));
+		Gizmo.LinePath(new Vector3(570, 150));		
+		Gizmo.LinePath(new Vector3(660, 280));				
+		Gizmo.LinePath(new Vector3(860, 280));		
+		Gizmo.EndPath();
+		//*/
+		
+		/*
 		if (pl == null)
 		{
 			pl = [];
-			for (i in 0...5000)
+			for (i in 0...1000)
 			{
-				var pt : Vector4 = new Vector4();
-				pt.Set3(Random.sphere.Scale(25.0));
-				pt.w = Random.Range(1.0, 10.0);
-				pl.push(pt);
+				var p : Vector4 = new Vector4();
+				p.Set3(Random.sphere.Scale(50));
+				p.w = Random.Range(2.0, 10.0);
+				pl.push(p);				
 			}
 		}
 		
 		for (i in 0...pl.length)
 		{
-			Gizmo.Point(pl[i].xyz, pl[i].w, Color.temp.Set(0, 0, 0, 0.25).SetRGB(Color.red30), true);
-			Gizmo.WireCube(pl[i].xyz, Vector3.temp.Set(1, 1, 1).Scale(0.5), Color.temp.Set(0, 0, 0, 0.5).SetRGB(Color.green30));
-			Gizmo.WireSphere(pl[i].xyz, 1.0, Color.temp.Set(0, 0, 0, 0.5).SetRGB(Color.blue30));
+			var p : Vector3 = pl[i].xyz;
+			Gizmo.Point(p, 10, Color.magenta);
+			Gizmo.WireSphere(p, 1, Color.magenta);
+			Gizmo.WireCube(p, Vector3.one.Scale(2), Color.magenta);
 		}
-		
-		
-		
-		/*				
-		Gizmo.WireSphere(1.0, Color.red);
-		Gizmo.WireSphere(0.5, Color.green);
-		Gizmo.WireSphere(0.1, Color.blue);
-		Gizmo.WireSphere(1.0, Color.red);
-		Gizmo.WireSphere(0.5, Color.green);
-		Gizmo.WireSphere(0.1, Color.blue);
 		//*/
-		//Gizmo.Axis(50.0);
-		
 	}
 	
 	

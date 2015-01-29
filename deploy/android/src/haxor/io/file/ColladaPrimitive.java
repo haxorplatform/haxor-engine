@@ -18,17 +18,17 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 	}
 	
 	
-	public static   void __hx_ctor_haxor_io_file_ColladaPrimitive(haxor.io.file.ColladaPrimitive __temp_me255523)
+	public static   void __hx_ctor_haxor_io_file_ColladaPrimitive(haxor.io.file.ColladaPrimitive __temp_me300)
 	{
-		__temp_me255523.indexes = null;
-		__temp_me255523.vcount = null;
-		__temp_me255523.inputs = null;
-		__temp_me255523.material = "";
-		__temp_me255523.type = "";
-		__temp_me255523.inputs = new haxe.root.Array<haxor.io.file.ColladaInput>(new haxor.io.file.ColladaInput[]{});
-		__temp_me255523.vcount = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
-		__temp_me255523.indexes = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
-		__temp_me255523.m_triangles = null;
+		__temp_me300.indexes = null;
+		__temp_me300.vcount = null;
+		__temp_me300.inputs = null;
+		__temp_me300.material = "";
+		__temp_me300.type = "";
+		__temp_me300.inputs = new haxe.root.Array<haxor.io.file.ColladaInput>(new haxor.io.file.ColladaInput[]{});
+		__temp_me300.vcount = new haxe.root.Array<java.lang.Object>(new java.lang.Object[]{});
+		__temp_me300.indexes = new haxe.root.Array<haxe.root.Array>(new haxe.root.Array[]{});
+		__temp_me300.m_triangles = null;
 	}
 	
 	
@@ -92,7 +92,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 	
 	public   haxor.io.file.ColladaInput GetInput(java.lang.String p_semantic, java.lang.Object p_set)
 	{
-		int __temp_p_set255519 = ( (( p_set == null )) ? (((int) (-1) )) : (((int) (haxe.lang.Runtime.toInt(p_set)) )) );
+		int __temp_p_set296 = ( (( p_set == null )) ? (((int) (-1) )) : (((int) (haxe.lang.Runtime.toInt(p_set)) )) );
 		{
 			int _g1 = 0;
 			int _g = this.inputs.length;
@@ -101,13 +101,13 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				int i = _g1++;
 				if (haxe.lang.Runtime.valEq(this.inputs.__get(i).semantic, p_semantic)) 
 				{
-					if (( __temp_p_set255519 < 0 )) 
+					if (( __temp_p_set296 < 0 )) 
 					{
 						return this.inputs.__get(i);
 					}
 					 else 
 					{
-						if (( __temp_p_set255519 == this.inputs.__get(i).set )) 
+						if (( __temp_p_set296 == this.inputs.__get(i).set )) 
 						{
 							return this.inputs.__get(i);
 						}
@@ -126,9 +126,9 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 	
 	public   java.lang.Object GetTriangulatedVectorArray(java.lang.String p_semantic, java.lang.Object p_set, java.lang.Object p_debug)
 	{
-		boolean __temp_p_debug255521 = ( (( p_debug == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_debug)) );
-		int __temp_p_set255520 = ( (( p_set == null )) ? (((int) (-1) )) : (((int) (haxe.lang.Runtime.toInt(p_set)) )) );
-		haxor.io.file.ColladaInput ci = this.GetInput(p_semantic, __temp_p_set255520);
+		boolean __temp_p_debug298 = ( (( p_debug == null )) ? (haxe.lang.Runtime.toBool(false)) : (haxe.lang.Runtime.toBool(p_debug)) );
+		int __temp_p_set297 = ( (( p_set == null )) ? (((int) (-1) )) : (((int) (haxe.lang.Runtime.toInt(p_set)) )) );
+		haxor.io.file.ColladaInput ci = this.GetInput(p_semantic, __temp_p_set297);
 		if (( ci == null )) 
 		{
 			return new haxe.root.Array(new java.lang.Object[]{});
@@ -166,7 +166,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 	
 	public   java.lang.Object GetVectorArray(java.lang.String p_semantic, java.lang.Object p_set)
 	{
-		int __temp_p_set255522 = ( (( p_set == null )) ? (((int) (-1) )) : (((int) (haxe.lang.Runtime.toInt(p_set)) )) );
+		int __temp_p_set299 = ( (( p_set == null )) ? (((int) (-1) )) : (((int) (haxe.lang.Runtime.toInt(p_set)) )) );
 		java.lang.Object res = new haxe.root.Array(new java.lang.Object[]{});
 		{
 			int _g1 = 0;
@@ -176,14 +176,14 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				int i = _g1++;
 				if (haxe.lang.Runtime.valEq(this.inputs.__get(i).semantic, p_semantic)) 
 				{
-					if (( __temp_p_set255522 < 0 )) 
+					if (( __temp_p_set299 < 0 )) 
 					{
 						res = this.inputs.__get(i).GetVectorArray();
 						break;
 					}
 					 else 
 					{
-						if (( __temp_p_set255522 == this.inputs.__get(i).set )) 
+						if (( __temp_p_set299 == this.inputs.__get(i).set )) 
 						{
 							res = this.inputs.__get(i).GetVectorArray();
 							break;
@@ -199,7 +199,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 		
 		if (haxe.lang.Runtime.valEq(p_semantic, "color")) 
 		{
-			if (( __temp_p_set255522 < 0 )) 
+			if (( __temp_p_set299 < 0 )) 
 			{
 				java.lang.Object l = this.GetVectorArray("color", 0);
 				if (( haxe.lang.Runtime.compare(haxe.lang.Runtime.getField(l, "length", true), 0) > 0 )) 
@@ -228,14 +228,14 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_setField(java.lang.String field, java.lang.Object value, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256300 = true;
+			boolean __temp_executeDef1172 = true;
 			switch (field.hashCode())
 			{
 				case -602124775:
 				{
 					if (field.equals("m_triangles")) 
 					{
-						__temp_executeDef256300 = false;
+						__temp_executeDef1172 = false;
 						this.m_triangles = ((haxe.root.Array<haxe.root.Array>) (value) );
 						return value;
 					}
@@ -248,7 +248,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef256300 = false;
+						__temp_executeDef1172 = false;
 						this.type = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -261,7 +261,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("indexes")) 
 					{
-						__temp_executeDef256300 = false;
+						__temp_executeDef1172 = false;
 						this.indexes = ((haxe.root.Array<haxe.root.Array>) (value) );
 						return value;
 					}
@@ -274,7 +274,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("material")) 
 					{
-						__temp_executeDef256300 = false;
+						__temp_executeDef1172 = false;
 						this.material = haxe.lang.Runtime.toString(value);
 						return value;
 					}
@@ -287,7 +287,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("vcount")) 
 					{
-						__temp_executeDef256300 = false;
+						__temp_executeDef1172 = false;
 						this.vcount = ((haxe.root.Array<java.lang.Object>) (value) );
 						return value;
 					}
@@ -300,7 +300,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("inputs")) 
 					{
-						__temp_executeDef256300 = false;
+						__temp_executeDef1172 = false;
 						this.inputs = ((haxe.root.Array<haxor.io.file.ColladaInput>) (value) );
 						return value;
 					}
@@ -311,7 +311,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256300) 
+			if (__temp_executeDef1172) 
 			{
 				return super.__hx_setField(field, value, handleProperties);
 			}
@@ -328,14 +328,14 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_getField(java.lang.String field, boolean throwErrors, boolean isCheck, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256301 = true;
+			boolean __temp_executeDef1173 = true;
 			switch (field.hashCode())
 			{
 				case -1088027200:
 				{
 					if (field.equals("GetVectorArray")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetVectorArray"))) );
 					}
 					
@@ -347,7 +347,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("type")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return this.type;
 					}
 					
@@ -359,7 +359,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("GetTriangulatedVectorArray")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetTriangulatedVectorArray"))) );
 					}
 					
@@ -371,7 +371,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("material")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return this.material;
 					}
 					
@@ -383,7 +383,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("GetInput")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("GetInput"))) );
 					}
 					
@@ -395,7 +395,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("inputs")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return this.inputs;
 					}
 					
@@ -407,7 +407,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("get_offset")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_offset"))) );
 					}
 					
@@ -419,7 +419,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("vcount")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return this.vcount;
 					}
 					
@@ -431,7 +431,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return this.get_offset();
 					}
 					
@@ -443,7 +443,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("indexes")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return this.indexes;
 					}
 					
@@ -455,7 +455,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("m_triangles")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return this.m_triangles;
 					}
 					
@@ -467,7 +467,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("triangles")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return this.get_triangles();
 					}
 					
@@ -479,7 +479,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("get_triangles")) 
 					{
-						__temp_executeDef256301 = false;
+						__temp_executeDef1173 = false;
 						return ((haxe.lang.Function) (new haxe.lang.Closure(((java.lang.Object) (this) ), haxe.lang.Runtime.toString("get_triangles"))) );
 					}
 					
@@ -489,7 +489,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256301) 
+			if (__temp_executeDef1173) 
 			{
 				return super.__hx_getField(field, throwErrors, isCheck, handleProperties);
 			}
@@ -506,14 +506,14 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 	@Override public   double __hx_getField_f(java.lang.String field, boolean throwErrors, boolean handleProperties)
 	{
 		{
-			boolean __temp_executeDef256302 = true;
+			boolean __temp_executeDef1174 = true;
 			switch (field.hashCode())
 			{
 				case -1019779949:
 				{
 					if (field.equals("offset")) 
 					{
-						__temp_executeDef256302 = false;
+						__temp_executeDef1174 = false;
 						return ((double) (this.get_offset()) );
 					}
 					
@@ -523,7 +523,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256302) 
+			if (__temp_executeDef1174) 
 			{
 				return super.__hx_getField_f(field, throwErrors, handleProperties);
 			}
@@ -540,14 +540,14 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 	@Override public   java.lang.Object __hx_invokeField(java.lang.String field, haxe.root.Array dynargs)
 	{
 		{
-			boolean __temp_executeDef256303 = true;
+			boolean __temp_executeDef1175 = true;
 			switch (field.hashCode())
 			{
 				case -1088027200:
 				{
 					if (field.equals("GetVectorArray")) 
 					{
-						__temp_executeDef256303 = false;
+						__temp_executeDef1175 = false;
 						return this.GetVectorArray(haxe.lang.Runtime.toString(dynargs.__get(0)), dynargs.__get(1));
 					}
 					
@@ -559,7 +559,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("get_triangles")) 
 					{
-						__temp_executeDef256303 = false;
+						__temp_executeDef1175 = false;
 						return this.get_triangles();
 					}
 					
@@ -571,7 +571,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("GetTriangulatedVectorArray")) 
 					{
-						__temp_executeDef256303 = false;
+						__temp_executeDef1175 = false;
 						return this.GetTriangulatedVectorArray(haxe.lang.Runtime.toString(dynargs.__get(0)), dynargs.__get(1), dynargs.__get(2));
 					}
 					
@@ -583,7 +583,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("get_offset")) 
 					{
-						__temp_executeDef256303 = false;
+						__temp_executeDef1175 = false;
 						return this.get_offset();
 					}
 					
@@ -595,7 +595,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				{
 					if (field.equals("GetInput")) 
 					{
-						__temp_executeDef256303 = false;
+						__temp_executeDef1175 = false;
 						return this.GetInput(haxe.lang.Runtime.toString(dynargs.__get(0)), dynargs.__get(1));
 					}
 					
@@ -605,7 +605,7 @@ public  class ColladaPrimitive extends haxe.lang.HxObject
 				
 			}
 			
-			if (__temp_executeDef256303) 
+			if (__temp_executeDef1175) 
 			{
 				return super.__hx_invokeField(field, dynargs);
 			}

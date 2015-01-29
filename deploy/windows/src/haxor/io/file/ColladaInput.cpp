@@ -21,20 +21,20 @@ namespace file{
 
 Void ColladaInput_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaInput","new",0x731bf1a0,"haxor.io.file.ColladaInput.new","haxor/io/file/ColladaFile.hx",1189,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaInput","new",0x731bf1a0,"haxor.io.file.ColladaInput.new","haxor/io/file/ColladaFile.hx",1191,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1195)
+	HX_STACK_LINE(1197)
 	this->stride = (int)0;
-	HX_STACK_LINE(1194)
+	HX_STACK_LINE(1196)
 	this->values = null();
-	HX_STACK_LINE(1193)
+	HX_STACK_LINE(1195)
 	this->set = (int)-1;
-	HX_STACK_LINE(1192)
+	HX_STACK_LINE(1194)
 	this->offset = (int)0;
-	HX_STACK_LINE(1191)
+	HX_STACK_LINE(1193)
 	this->semantic = HX_CSTRING("");
-	HX_STACK_LINE(1199)
+	HX_STACK_LINE(1201)
 	this->values = Dynamic( Array_obj<Dynamic>::__new());
 }
 ;
@@ -55,89 +55,89 @@ Dynamic ColladaInput_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 Dynamic ColladaInput_obj::GetVectorArray( ){
-	HX_STACK_FRAME("haxor.io.file.ColladaInput","GetVectorArray",0xd88157c0,"haxor.io.file.ColladaInput.GetVectorArray","haxor/io/file/ColladaFile.hx",1203,0xa1888587)
+	HX_STACK_FRAME("haxor.io.file.ColladaInput","GetVectorArray",0xd88157c0,"haxor.io.file.ColladaInput.GetVectorArray","haxor/io/file/ColladaFile.hx",1205,0xa1888587)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(1204)
+	HX_STACK_LINE(1206)
 	if (((this->stride <= (int)0))){
-		HX_STACK_LINE(1204)
+		HX_STACK_LINE(1206)
 		return Dynamic( Array_obj<Dynamic>::__new());
 	}
-	HX_STACK_LINE(1205)
+	HX_STACK_LINE(1207)
 	Dynamic res = Dynamic( Array_obj<Dynamic>::__new());		HX_STACK_VAR(res,"res");
-	HX_STACK_LINE(1206)
-	int i = (int)0;		HX_STACK_VAR(i,"i");
 	HX_STACK_LINE(1208)
+	int i = (int)0;		HX_STACK_VAR(i,"i");
+	HX_STACK_LINE(1210)
 	while((true)){
-		HX_STACK_LINE(1208)
+		HX_STACK_LINE(1210)
 		if ((!(((i < this->values->__Field(HX_CSTRING("length"),true)))))){
-			HX_STACK_LINE(1208)
+			HX_STACK_LINE(1210)
 			break;
 		}
-		HX_STACK_LINE(1210)
+		HX_STACK_LINE(1212)
 		Dynamic v = null();		HX_STACK_VAR(v,"v");
-		HX_STACK_LINE(1211)
+		HX_STACK_LINE(1213)
 		{
-			HX_STACK_LINE(1211)
+			HX_STACK_LINE(1213)
 			int _g = this->stride;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(1211)
+			HX_STACK_LINE(1213)
 			switch( (int)(_g)){
 				case (int)1: {
-					HX_STACK_LINE(1213)
+					HX_STACK_LINE(1215)
 					v = this->values->__GetItem(i);
 				}
 				;break;
 				case (int)2: {
-					HX_STACK_LINE(1214)
+					HX_STACK_LINE(1216)
 					::haxor::math::Vector2 _g1 = ::haxor::math::Vector2_obj::__new(this->values->__GetItem(i),this->values->__GetItem((i + (int)1)));		HX_STACK_VAR(_g1,"_g1");
-					HX_STACK_LINE(1214)
+					HX_STACK_LINE(1216)
 					v = _g1;
 				}
 				;break;
 				case (int)3: {
-					HX_STACK_LINE(1215)
+					HX_STACK_LINE(1217)
 					Dynamic _g1;		HX_STACK_VAR(_g1,"_g1");
-					HX_STACK_LINE(1215)
+					HX_STACK_LINE(1217)
 					if (((this->semantic == HX_CSTRING("color")))){
-						HX_STACK_LINE(1215)
+						HX_STACK_LINE(1217)
 						_g1 = ::haxor::math::Color_obj::__new(this->values->__GetItem(i),this->values->__GetItem((i + (int)1)),this->values->__GetItem((i + (int)2)),null());
 					}
 					else{
-						HX_STACK_LINE(1215)
+						HX_STACK_LINE(1217)
 						_g1 = ::haxor::math::Vector3_obj::__new(this->values->__GetItem(i),this->values->__GetItem((i + (int)1)),this->values->__GetItem((i + (int)2)));
 					}
-					HX_STACK_LINE(1215)
+					HX_STACK_LINE(1217)
 					v = _g1;
 				}
 				;break;
 				case (int)4: {
-					HX_STACK_LINE(1216)
+					HX_STACK_LINE(1218)
 					Dynamic _g2;		HX_STACK_VAR(_g2,"_g2");
-					HX_STACK_LINE(1216)
+					HX_STACK_LINE(1218)
 					if (((this->semantic == HX_CSTRING("color")))){
-						HX_STACK_LINE(1216)
+						HX_STACK_LINE(1218)
 						_g2 = ::haxor::math::Color_obj::__new(this->values->__GetItem(i),this->values->__GetItem((i + (int)1)),this->values->__GetItem((i + (int)2)),this->values->__GetItem((i + (int)3)));
 					}
 					else{
-						HX_STACK_LINE(1216)
+						HX_STACK_LINE(1218)
 						_g2 = ::haxor::math::Vector4_obj::__new(this->values->__GetItem(i),this->values->__GetItem((i + (int)1)),this->values->__GetItem((i + (int)2)),this->values->__GetItem((i + (int)3)));
 					}
-					HX_STACK_LINE(1216)
+					HX_STACK_LINE(1218)
 					v = _g2;
 				}
 				;break;
 			}
 		}
-		HX_STACK_LINE(1218)
+		HX_STACK_LINE(1220)
 		if (((v == null()))){
-			HX_STACK_LINE(1218)
+			HX_STACK_LINE(1220)
 			continue;
 		}
-		HX_STACK_LINE(1220)
+		HX_STACK_LINE(1222)
 		res->__Field(HX_CSTRING("push"),true)(v);
-		HX_STACK_LINE(1221)
+		HX_STACK_LINE(1223)
 		hx::AddEq(i,this->stride);
 	}
-	HX_STACK_LINE(1223)
+	HX_STACK_LINE(1225)
 	return res;
 }
 

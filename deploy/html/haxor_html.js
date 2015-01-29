@@ -1,5 +1,5 @@
 (function () { "use strict";
-var $hxClasses = {},$estr = function() { return js_Boot.__string_rec(this,''); };
+var $hxClasses = {};
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -403,6 +403,20 @@ Main.prototype = $extend(haxor_core_Application.prototype,{
 		this.cam = this.orbit.m_entity.GetComponentInChildren(haxor_component_Camera);
 		this.cam.set_far(1000.0);
 		this.cam.background = new haxor_math_Color(0.3,0.3,0.3);
+		var ortho = new haxor_core_Entity("ortho").AddComponent(haxor_component_Camera);
+		ortho.clear = haxor_core_ClearFlag.Depth;
+		ortho.set_order(2);
+		ortho.set_mode(haxor_core_CameraMode.UI);
+		ortho.m_near = 0.0;
+		ortho.m_projection_dirty = true;
+		ortho.m_proj_uniform_dirty = true;
+		0.0;
+		ortho.m_far = 100.0;
+		ortho.m_projection_dirty = true;
+		ortho.m_proj_uniform_dirty = true;
+		100.0;
+		ortho.set_mask(2);
+		haxor_component_Camera.m_main = ortho;
 		this.container = new haxor_core_Entity("container").get_transform();
 		this.mat = haxor_graphics_material_Material.Opaque(haxor_io_file_Asset.Get("texture_diffuse"),null,null);
 		this.mat.set_shader(haxor_graphics_material_Shader.m_flat_texture_skin_shader == null?haxor_graphics_material_Shader.m_flat_texture_skin_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_texture_skin_source):haxor_graphics_material_Shader.m_flat_texture_skin_shader);
@@ -411,6 +425,7 @@ Main.prototype = $extend(haxor_core_Application.prototype,{
 		var cf;
 		cf = haxor_io_file_Asset.Get("model");
 		this.player = new haxor_core_Entity("player").get_transform();
+		this.player.m_entity.set_layer(2);
 		var asset = (js_Boot.__cast(cf.get_asset() , haxor_core_Entity)).get_transform();
 		asset.set_parent(this.player);
 		asset.set_localScale(new haxor_math_Vector3(0.1,0.1,0.1));
@@ -445,25 +460,20 @@ Main.prototype = $extend(haxor_core_Application.prototype,{
 	}
 	,OnRender: function() {
 		haxor_graphics_Gizmo.Grid(100.0,new haxor_math_Color(1,1,1,0.1));
-		if(this.pl == null) {
-			this.pl = [];
-			var _g = 0;
-			while(_g < 5000) {
-				var i = _g++;
-				var pt = new haxor_math_Vector4();
-				pt.Set3(new haxor_math_Vector3((Math.random() - 0.499995) * 2.0,(Math.random() - 0.499995) * 2.0,(Math.random() - 0.499995) * 2.0).Normalize().Scale(Math.random()).Scale(25.0));
-				pt.w = haxor_math_Random.Range(1.0,10.0);
-				this.pl.push(pt);
-			}
-		}
-		var _g1 = 0;
-		var _g2 = this.pl.length;
-		while(_g1 < _g2) {
-			var i1 = _g1++;
-			haxor_graphics_Gizmo.Point(this.pl[i1].get_xyz(),this.pl[i1].w,haxor_context_EngineContext.data.get_c().Set(0,0,0,0.25).SetRGB(new haxor_math_Color(0.9,0.3,0.3,1)),true);
-			haxor_graphics_Gizmo.WireCube(this.pl[i1].get_xyz(),haxor_context_EngineContext.data.get_v3().Set(1,1,1).Scale(0.5),haxor_context_EngineContext.data.get_c().Set(0,0,0,0.5).SetRGB(new haxor_math_Color(0.3,0.9,0.3,1)));
-			haxor_graphics_Gizmo.WireSphere(this.pl[i1].get_xyz(),1.0,haxor_context_EngineContext.data.get_c().Set(0,0,0,0.5).SetRGB(new haxor_math_Color(0.3,0.3,0.9,1)));
-		}
+		var p0 = haxor_context_EngineContext.data.get_v3().Set(2,2);
+		var p1 = haxor_context_EngineContext.data.get_v3().Set(4,4);
+		haxor_graphics_Gizmo.BeginPath(new haxor_math_Color(1.0,0.0,0.0,0.5),new haxor_math_Color(1.0,0,0,1));
+		haxor_graphics_Gizmo.LinePath(new haxor_math_Vector3(40,40));
+		haxor_graphics_Gizmo.LinePath(new haxor_math_Vector3(30,70));
+		haxor_graphics_Gizmo.LinePath(new haxor_math_Vector3(80,140));
+		haxor_graphics_Gizmo.LinePath(new haxor_math_Vector3(haxor_input_Input.mouse.x,haxor_input_Input.mouse.y));
+		haxor_graphics_Gizmo.EndPath();
+		haxor_graphics_Gizmo.BeginPath(new haxor_math_Color(1.0,1.0,0.0,0.5),new haxor_math_Color(0,1,0,1));
+		haxor_graphics_Gizmo.LinePath(new haxor_math_Vector3(580,80));
+		haxor_graphics_Gizmo.LinePath(new haxor_math_Vector3(570,150));
+		haxor_graphics_Gizmo.LinePath(new haxor_math_Vector3(660,280));
+		haxor_graphics_Gizmo.LinePath(new haxor_math_Vector3(860,280));
+		haxor_graphics_Gizmo.EndPath();
 	}
 	,__class__: Main
 });
@@ -1079,15 +1089,12 @@ haxe_io_Eof.prototype = {
 };
 var haxe_io_Error = { __ename__ : true, __constructs__ : ["Blocked","Overflow","OutsideBounds","Custom"] };
 haxe_io_Error.Blocked = ["Blocked",0];
-haxe_io_Error.Blocked.toString = $estr;
 haxe_io_Error.Blocked.__enum__ = haxe_io_Error;
 haxe_io_Error.Overflow = ["Overflow",1];
-haxe_io_Error.Overflow.toString = $estr;
 haxe_io_Error.Overflow.__enum__ = haxe_io_Error;
 haxe_io_Error.OutsideBounds = ["OutsideBounds",2];
-haxe_io_Error.OutsideBounds.toString = $estr;
 haxe_io_Error.OutsideBounds.__enum__ = haxe_io_Error;
-haxe_io_Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe_io_Error; $x.toString = $estr; return $x; };
+haxe_io_Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe_io_Error; return $x; };
 var haxe_xml_Parser = function() { };
 $hxClasses["haxe.xml.Parser"] = haxe_xml_Parser;
 haxe_xml_Parser.__name__ = ["haxe","xml","Parser"];
@@ -1335,11 +1342,18 @@ haxe_xml_Parser.doParse = function(str,p,parent) {
 	}
 	throw "Unexpected end";
 };
+var haxor_core_IResizeable = function() { };
+$hxClasses["haxor.core.IResizeable"] = haxor_core_IResizeable;
+haxor_core_IResizeable.__name__ = ["haxor","core","IResizeable"];
+haxor_core_IResizeable.prototype = {
+	__class__: haxor_core_IResizeable
+};
 var haxor_component_Camera = function(p_name) {
 	haxor_component_Behaviour.call(this,p_name);
 };
 $hxClasses["haxor.component.Camera"] = haxor_component_Camera;
 haxor_component_Camera.__name__ = ["haxor","component","Camera"];
+haxor_component_Camera.__interfaces__ = [haxor_core_IResizeable];
 haxor_component_Camera.__properties__ = {set_main:"set_main",get_main:"get_main",get_current:"get_current",get_list:"get_list"}
 haxor_component_Camera.get_list = function() {
 	return haxor_context_EngineContext.camera.list.slice();
@@ -1467,6 +1481,23 @@ haxor_component_Camera.prototype = $extend(haxor_component_Behaviour.prototype,{
 		this.UpdateProjection();
 		return this.m_frustum;
 	}
+	,get_mode: function() {
+		return this.m_mode;
+	}
+	,set_mode: function(v) {
+		if(this.m_mode == v) return v;
+		this.m_mode = v;
+		this.UpdateProjection();
+		return v;
+	}
+	,get_screen: function() {
+		return this.m_screen.get_clone();
+	}
+	,set_screen: function(v) {
+		this.m_screen.SetAABB2(v);
+		this.UpdateProjection();
+		return v;
+	}
 	,OnBuild: function() {
 		haxor_component_Behaviour.prototype.OnBuild.call(this);
 		haxor_context_EngineContext.camera.Create(this);
@@ -1490,6 +1521,8 @@ haxor_component_Camera.prototype = $extend(haxor_component_Behaviour.prototype,{
 		this.m_projection_dirty = true;
 		this.m_view_uniform_dirty = true;
 		this.m_proj_uniform_dirty = true;
+		this.m_mode = haxor_core_CameraMode.Perspective;
+		this.m_screen = haxor_math_AABB2.FromMinMax(-1,1,-1,1);
 		this.m_frustum = [new haxor_math_Vector4(),new haxor_math_Vector4(),new haxor_math_Vector4(),new haxor_math_Vector4(),new haxor_math_Vector4(),new haxor_math_Vector4(),new haxor_math_Vector4(),new haxor_math_Vector4()];
 	}
 	,WorldToProjection: function(p_world_point,p_result) {
@@ -1523,10 +1556,29 @@ haxor_component_Camera.prototype = $extend(haxor_component_Behaviour.prototype,{
 		if(!this.m_projection_dirty) return;
 		this.m_projection_dirty = false;
 		this.m_view_uniform_dirty = true;
-		haxor_math_Matrix4.Perspective(this.m_fov,this.m_aspect,this.m_near,this.m_far,this.m_projectionMatrix);
-		haxor_math_Matrix4.PerspectiveInverse(this.m_fov,this.m_aspect,this.m_near,this.m_far,this.m_projectionMatrixInverse);
-		haxor_math_Matrix4.Perspective(this.m_fov,this.m_aspect,0.1,100000.0,this.m_skyboxProjection);
-		haxor_math_Matrix4.PerspectiveInverse(this.m_fov,this.m_aspect,0.1,100000.0,this.m_skyboxProjectionInverse);
+		var _g = this.m_mode;
+		switch(_g[1]) {
+		case 0:
+			break;
+		case 1:
+			haxor_math_Matrix4.Perspective(this.m_fov,this.m_aspect,this.m_near,this.m_far,this.m_projectionMatrix);
+			haxor_math_Matrix4.PerspectiveInverse(this.m_fov,this.m_aspect,this.m_near,this.m_far,this.m_projectionMatrixInverse);
+			haxor_math_Matrix4.Perspective(this.m_fov,this.m_aspect,0.1,100000.0,this.m_skyboxProjection);
+			haxor_math_Matrix4.PerspectiveInverse(this.m_fov,this.m_aspect,0.1,100000.0,this.m_skyboxProjectionInverse);
+			break;
+		case 2:
+			this.m_projectionMatrix.SetOrtho(this.m_screen.get_xMin(),this.m_screen.get_xMax(),this.m_screen.get_yMax(),this.m_screen.get_yMin(),this.m_near,-this.m_far);
+			this.m_projectionMatrixInverse.SetOrthoInverse(this.m_screen.get_xMin(),this.m_screen.get_xMax(),this.m_screen.get_yMax(),this.m_screen.get_yMin(),this.m_near,-this.m_far);
+			this.m_skyboxProjection.SetOrtho(this.m_screen.get_xMin(),this.m_screen.get_xMax(),this.m_screen.get_yMax(),this.m_screen.get_yMin(),this.m_near,-this.m_far);
+			this.m_skyboxProjectionInverse.SetOrthoInverse(this.m_screen.get_xMin(),this.m_screen.get_xMax(),this.m_screen.get_yMax(),this.m_screen.get_yMin(),this.m_near,-this.m_far);
+			break;
+		case 3:
+			this.m_projectionMatrix.SetOrtho(0,haxor_graphics_Screen.m_width,0,haxor_graphics_Screen.m_height,this.m_near,-this.m_far);
+			this.m_projectionMatrixInverse.SetOrthoInverse(0,haxor_graphics_Screen.m_width,0,haxor_graphics_Screen.m_height,this.m_near,-this.m_far);
+			this.m_skyboxProjection.SetOrtho(0,haxor_graphics_Screen.m_width,0,haxor_graphics_Screen.m_height,this.m_near,-this.m_far);
+			this.m_skyboxProjectionInverse.SetOrthoInverse(0,haxor_graphics_Screen.m_width,0,haxor_graphics_Screen.m_height,this.m_near,-this.m_far);
+			break;
+		}
 		var p;
 		var iw = 0.0;
 		p = this.m_frustum[0];
@@ -1576,8 +1628,11 @@ haxor_component_Camera.prototype = $extend(haxor_component_Behaviour.prototype,{
 	,OnDestroy: function() {
 		haxor_context_EngineContext.camera.Destroy(this);
 	}
+	,OnResize: function(p_w,p_h) {
+		if(this.m_mode == haxor_core_CameraMode.UI) this.UpdateProjection();
+	}
 	,__class__: haxor_component_Camera
-	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{get_frustum:"get_frustum",set_filters:"set_filters",get_filters:"get_filters",set_captureDepth:"set_captureDepth",get_captureDepth:"get_captureDepth",set_quality:"set_quality",get_quality:"get_quality",get_ProjectionMatrixInverse:"get_ProjectionMatrixInverse",get_ProjectionMatrix:"get_ProjectionMatrix",get_WorldToCamera:"get_WorldToCamera",get_CameraToWorld:"get_CameraToWorld",set_viewport:"set_viewport",get_viewport:"get_viewport",get_pixelViewport:"get_pixelViewport",set_order:"set_order",get_order:"get_order",set_far:"set_far",get_far:"get_far",set_near:"set_near",get_near:"get_near",set_fov:"set_fov",get_fov:"get_fov",set_mask:"set_mask",get_mask:"get_mask"})
+	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{set_screen:"set_screen",get_screen:"get_screen",set_mode:"set_mode",get_mode:"get_mode",get_frustum:"get_frustum",set_filters:"set_filters",get_filters:"get_filters",set_captureDepth:"set_captureDepth",get_captureDepth:"get_captureDepth",set_quality:"set_quality",get_quality:"get_quality",get_ProjectionMatrixInverse:"get_ProjectionMatrixInverse",get_ProjectionMatrix:"get_ProjectionMatrix",get_WorldToCamera:"get_WorldToCamera",get_CameraToWorld:"get_CameraToWorld",set_viewport:"set_viewport",get_viewport:"get_viewport",get_pixelViewport:"get_pixelViewport",set_order:"set_order",get_order:"get_order",set_far:"set_far",get_far:"get_far",set_near:"set_near",get_near:"get_near",set_fov:"set_fov",get_fov:"get_fov",set_mask:"set_mask",get_mask:"get_mask"})
 });
 var haxor_component_CameraOrbit = function(p_name) {
 	haxor_component_Behaviour.call(this,p_name);
@@ -2757,6 +2812,16 @@ haxor_math_Vector3.Cross = function(p_a,p_b,p_result) {
 	if(p_result == null) p_result = new haxor_math_Vector3(); else p_result = p_result;
 	return p_result.Set(p_a.y * p_b.z - p_a.z * p_b.y,p_a.z * p_b.x - p_a.x * p_b.z,p_a.x * p_b.y - p_a.y * p_b.x);
 };
+haxor_math_Vector3.Project = function(p_point,p_origin,p_dir,p_result) {
+	if(p_result == null) p_result = new haxor_math_Vector3(); else p_result = p_result;
+	var d = haxor_context_EngineContext.data.get_v3().Set3(p_dir).Normalize();
+	var v = haxor_context_EngineContext.data.get_v3().Set3(p_point).Sub(p_origin);
+	var dot = d.x * v.x + d.y * v.y + d.z * v.z;
+	p_result.x = p_origin.x + v.x * dot;
+	p_result.y = p_origin.y + v.y * dot;
+	p_result.z = p_origin.z + v.z * dot;
+	return p_result;
+};
 haxor_math_Vector3.Lerp = function(p_a,p_b,p_r,p_result) {
 	if(p_result == null) p_result = new haxor_math_Vector3(); else p_result = p_result;
 	return p_result.Set(p_a.x + (p_b.x - p_a.x) * p_r,p_a.y + (p_b.y - p_a.y) * p_r,p_a.z + (p_b.z - p_a.z) * p_r);
@@ -3646,6 +3711,15 @@ haxor_component_light_PointLight.__super__ = haxor_component_light_Light;
 haxor_component_light_PointLight.prototype = $extend(haxor_component_light_Light.prototype,{
 	__class__: haxor_component_light_PointLight
 });
+var haxor_component_physics_Collider = function(p_name) {
+	haxor_component_Behaviour.call(this,p_name);
+};
+$hxClasses["haxor.component.physics.Collider"] = haxor_component_physics_Collider;
+haxor_component_physics_Collider.__name__ = ["haxor","component","physics","Collider"];
+haxor_component_physics_Collider.__super__ = haxor_component_Behaviour;
+haxor_component_physics_Collider.prototype = $extend(haxor_component_Behaviour.prototype,{
+	__class__: haxor_component_physics_Collider
+});
 var haxor_context_CameraContext = function() {
 	this.cid = new haxor_context_UID();
 	this.list = [];
@@ -3773,6 +3847,7 @@ var haxor_context_DataContext = function() {
 	this.m_m4 = [];
 	this.m_aabb3 = [];
 	this.m_aabb2 = [];
+	this.m_collision = [];
 	this.m_nv2 = 0;
 	this.m_nv3 = 0;
 	this.m_nv4 = 0;
@@ -3781,6 +3856,7 @@ var haxor_context_DataContext = function() {
 	this.m_nm4 = 0;
 	this.m_naabb3 = 0;
 	this.m_naabb2 = 0;
+	this.m_ncollision = 0;
 	this.m4l = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	var _g1 = 0;
 	var _g = haxor_context_DataContext.MAX_TEMP;
@@ -3796,6 +3872,7 @@ var haxor_context_DataContext = function() {
 		this.m_m4.push(new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1));
 		this.m_aabb3.push(haxor_math_AABB3.get_empty());
 		this.m_aabb2.push(haxor_math_AABB2.get_empty());
+		this.m_collision.push(new haxor_physics_Collision());
 	}
 };
 $hxClasses["haxor.context.DataContext"] = haxor_context_DataContext;
@@ -3822,11 +3899,14 @@ haxor_context_DataContext.prototype = {
 	,get_aabb2: function() {
 		return this.m_aabb2[this.m_naabb2 = (this.m_naabb2 + 1) % this.m_aabb2.length];
 	}
+	,get_collision: function() {
+		return this.m_collision[this.m_ncollision = (this.m_ncollision + 1) % this.m_collision.length];
+	}
 	,get_m4: function() {
 		return this.m_m4[this.m_nq = (this.m_nm4 + 1) % this.m_m4.length];
 	}
 	,__class__: haxor_context_DataContext
-	,__properties__: {get_m4:"get_m4",get_aabb2:"get_aabb2",get_aabb3:"get_aabb3",get_q:"get_q",get_c:"get_c",get_v4:"get_v4",get_v3:"get_v3",get_v2:"get_v2"}
+	,__properties__: {get_m4:"get_m4",get_collision:"get_collision",get_aabb2:"get_aabb2",get_aabb3:"get_aabb3",get_q:"get_q",get_c:"get_c",get_v4:"get_v4",get_v3:"get_v3",get_v2:"get_v2"}
 };
 var haxor_context_EngineContext = function() { };
 $hxClasses["haxor.context.EngineContext"] = haxor_context_EngineContext;
@@ -3939,6 +4019,7 @@ haxor_context_GizmoContext.prototype = {
 		this.wire_sphere_renderer = new haxor_context_WireSphereGizmo();
 		this.wire_cube_renderer = new haxor_context_WireCubeGizmo();
 		this.axis_renderer = new haxor_context_AxisGizmo();
+		this.canvas_renderer = new haxor_context_CanvasGizmo();
 		this.line_renderer = new haxor_context_LineGizmo();
 		this.point_renderer = new haxor_context_PointGizmo();
 	}
@@ -4069,6 +4150,9 @@ haxor_context_GizmoContext.prototype = {
 		gr.Render();
 		gr.Clear();
 		gr = this.axis_renderer;
+		gr.Render();
+		gr.Clear();
+		gr = this.canvas_renderer;
 		gr.Render();
 		gr.Clear();
 		gr = this.line_renderer;
@@ -4857,6 +4941,9 @@ haxor_math_Matrix4.prototype = {
 	,SetOrtho: function(p_left,p_right,p_top,p_bottom,p_near,p_far) {
 		return haxor_math_Matrix4.Ortho(p_left,p_right,p_top,p_bottom,p_near,p_far,this);
 	}
+	,SetOrthoInverse: function(p_left,p_right,p_top,p_bottom,p_near,p_far) {
+		return haxor_math_Matrix4.OrthoInverse(p_left,p_right,p_top,p_bottom,p_near,p_far,this);
+	}
 	,SetPerspective: function(p_fov,p_aspect,p_near,p_far) {
 		return haxor_math_Matrix4.Perspective(p_fov,p_aspect,p_near,p_far,this);
 	}
@@ -4912,6 +4999,13 @@ var haxor_context_Gizmo = function(p_type,p_count) {
 	if(p_count >= 1) {
 		var data_tex_size = haxor_math_Mathf.Max(2,haxor_math_Mathf.NextPOT(haxor_math_Mathf.Ceil(Math.sqrt(p_count * (haxor_context_Gizmo.DATA_OFFSET / 4)))));
 		this.data = new haxor_graphics_texture_ComputeTexture(data_tex_size,data_tex_size,haxor_core_PixelFormat.Float4);
+		var f32 = this.data.m_data.get_buffer();
+		var _g1 = 0;
+		var _g = f32.m_length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			f32.Set(i,i % 4 == 3?1.0:0.0);
+		}
 		this.material.SetTexture("Data",this.data);
 		this.material.SetInt("DataSize",this.data.m_width);
 		tw = this.data.m_width;
@@ -5227,6 +5321,83 @@ haxor_context_PointGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
 		this.mesh = m;
 	}
 	,__class__: haxor_context_PointGizmo
+});
+var haxor_context_CanvasGizmo = function() {
+	haxor_context_Gizmo.call(this,haxor_context_Gizmo.CANVAS,3000);
+	this.fill = new haxor_math_Color(1,1,1,1);
+	this.line = new haxor_math_Color(0,0,0,1);
+	this.p0 = new haxor_math_Vector3(0,0,0);
+	this.p1 = new haxor_math_Vector3(0,0,0);
+	this.start = new haxor_math_Vector3(0,0,0);
+	this.count = 0;
+	this.active = false;
+	this.material.cull = 0;
+};
+$hxClasses["haxor.context.CanvasGizmo"] = haxor_context_CanvasGizmo;
+haxor_context_CanvasGizmo.__name__ = ["haxor","context","CanvasGizmo"];
+haxor_context_CanvasGizmo.__super__ = haxor_context_Gizmo;
+haxor_context_CanvasGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
+	Begin: function(p_fill,p_line,p_transform) {
+		if(this.active) return;
+		this.fill.SetColor(p_fill);
+		if(p_line == null) this.line.a = 0.0; else this.line.SetColor(p_line);
+		this.transform = p_transform;
+		this.count = 0;
+		this.active = true;
+	}
+	,Line: function(p_position) {
+		if(!this.active) return;
+		if(this.count >= 2) haxor_context_EngineContext.gizmo.DrawLine(this.p0,this.p1,this.line,this.transform);
+		if(this.count <= 0) this.start.Set3(p_position);
+		this.p1.Set3(this.p0);
+		this.p0.Set3(p_position);
+		if(this.count >= 2) {
+			this.Push(this.fill,haxor_context_EngineContext.data.get_v4().Set(1,0,0,1),haxor_context_EngineContext.data.get_v4().Set3(this.start),this.transform);
+			this.Push(this.fill,haxor_context_EngineContext.data.get_v4().Set(1,0,0,1),haxor_context_EngineContext.data.get_v4().Set3(this.p1),this.transform);
+			this.Push(this.fill,haxor_context_EngineContext.data.get_v4().Set(1,0,0,1),haxor_context_EngineContext.data.get_v4().Set3(this.p0),this.transform);
+		}
+		this.count++;
+	}
+	,End: function() {
+		if(!this.active) return;
+		haxor_context_EngineContext.gizmo.DrawLine(this.p0,this.start,this.line,this.transform);
+		haxor_context_EngineContext.gizmo.DrawLine(this.p0,this.p1,this.line,this.transform);
+		this.active = false;
+	}
+	,OnBuild: function() {
+		var m = new haxor_graphics_mesh_Mesh3();
+		m.set_name("$GizmoCanvasMesh");
+		m.primitive = 4;
+		var id = 0.0;
+		var ia = new haxor_io_FloatArray(this.m_gizmo_count * 3);
+		var va = new haxor_io_FloatArray(this.m_gizmo_count * 3 * 3);
+		var va_k = 0;
+		var ia_k = 0;
+		var _g1 = 0;
+		var _g = this.m_gizmo_count;
+		while(_g1 < _g) {
+			var k = _g1++;
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			id += 1.0;
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			id += 1.0;
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			va.Set(va_k++,0.0);
+			ia.Set(ia_k++,id);
+			id += 1.0;
+		}
+		m.Set("id",ia,1);
+		m.Set("vertex",va,3);
+		this.mesh = m;
+	}
+	,__class__: haxor_context_CanvasGizmo
 });
 var haxor_context_MaterialContext = function() {
 	this.uniform_globals = ["ViewMatrix","ProjectionMatrix","WorldMatrix","WorldMatrixInverse","WorldMatrixIT","Time","RandomSeed","RandomTexture","ScreenTexture","ScreenDepth","Ambient","CameraPosition","ProjectionMatrixInverse","ViewMatrixInverse"];
@@ -6397,41 +6568,29 @@ haxor_context_UID.prototype = {
 };
 var haxor_core_Platform = { __ename__ : true, __constructs__ : ["Unknown","Windows","Linux","Android","MacOS","iOS","HTML","NodeJS"] };
 haxor_core_Platform.Unknown = ["Unknown",0];
-haxor_core_Platform.Unknown.toString = $estr;
 haxor_core_Platform.Unknown.__enum__ = haxor_core_Platform;
 haxor_core_Platform.Windows = ["Windows",1];
-haxor_core_Platform.Windows.toString = $estr;
 haxor_core_Platform.Windows.__enum__ = haxor_core_Platform;
 haxor_core_Platform.Linux = ["Linux",2];
-haxor_core_Platform.Linux.toString = $estr;
 haxor_core_Platform.Linux.__enum__ = haxor_core_Platform;
 haxor_core_Platform.Android = ["Android",3];
-haxor_core_Platform.Android.toString = $estr;
 haxor_core_Platform.Android.__enum__ = haxor_core_Platform;
 haxor_core_Platform.MacOS = ["MacOS",4];
-haxor_core_Platform.MacOS.toString = $estr;
 haxor_core_Platform.MacOS.__enum__ = haxor_core_Platform;
 haxor_core_Platform.iOS = ["iOS",5];
-haxor_core_Platform.iOS.toString = $estr;
 haxor_core_Platform.iOS.__enum__ = haxor_core_Platform;
 haxor_core_Platform.HTML = ["HTML",6];
-haxor_core_Platform.HTML.toString = $estr;
 haxor_core_Platform.HTML.__enum__ = haxor_core_Platform;
 haxor_core_Platform.NodeJS = ["NodeJS",7];
-haxor_core_Platform.NodeJS.toString = $estr;
 haxor_core_Platform.NodeJS.__enum__ = haxor_core_Platform;
 var haxor_core_ApplicationProtocol = { __ename__ : true, __constructs__ : ["None","File","HTTP","HTTPS"] };
 haxor_core_ApplicationProtocol.None = ["None",0];
-haxor_core_ApplicationProtocol.None.toString = $estr;
 haxor_core_ApplicationProtocol.None.__enum__ = haxor_core_ApplicationProtocol;
 haxor_core_ApplicationProtocol.File = ["File",1];
-haxor_core_ApplicationProtocol.File.toString = $estr;
 haxor_core_ApplicationProtocol.File.__enum__ = haxor_core_ApplicationProtocol;
 haxor_core_ApplicationProtocol.HTTP = ["HTTP",2];
-haxor_core_ApplicationProtocol.HTTP.toString = $estr;
 haxor_core_ApplicationProtocol.HTTP.__enum__ = haxor_core_ApplicationProtocol;
 haxor_core_ApplicationProtocol.HTTPS = ["HTTPS",3];
-haxor_core_ApplicationProtocol.HTTPS.toString = $estr;
 haxor_core_ApplicationProtocol.HTTPS.__enum__ = haxor_core_ApplicationProtocol;
 var haxor_core_Console = function() { };
 $hxClasses["haxor.core.Console"] = haxor_core_Console;
@@ -6527,10 +6686,8 @@ haxor_core_Console.SetStyle = function(p_size,p_color,p_background,p_font) {
 };
 var haxor_core_EngineState = { __ename__ : true, __constructs__ : ["Play","Editor"] };
 haxor_core_EngineState.Play = ["Play",0];
-haxor_core_EngineState.Play.toString = $estr;
 haxor_core_EngineState.Play.__enum__ = haxor_core_EngineState;
 haxor_core_EngineState.Editor = ["Editor",1];
-haxor_core_EngineState.Editor.toString = $estr;
 haxor_core_EngineState.Editor.__enum__ = haxor_core_EngineState;
 var haxor_core_Engine = function() { };
 $hxClasses["haxor.core.Engine"] = haxor_core_Engine;
@@ -6750,118 +6907,104 @@ haxor_core_CullMode.__name__ = ["haxor","core","CullMode"];
 var haxor_core_DepthTest = function() { };
 $hxClasses["haxor.core.DepthTest"] = haxor_core_DepthTest;
 haxor_core_DepthTest.__name__ = ["haxor","core","DepthTest"];
+var haxor_core_CameraMode = { __ename__ : true, __constructs__ : ["Custom","Perspective","Ortho","UI"] };
+haxor_core_CameraMode.Custom = ["Custom",0];
+haxor_core_CameraMode.Custom.__enum__ = haxor_core_CameraMode;
+haxor_core_CameraMode.Perspective = ["Perspective",1];
+haxor_core_CameraMode.Perspective.__enum__ = haxor_core_CameraMode;
+haxor_core_CameraMode.Ortho = ["Ortho",2];
+haxor_core_CameraMode.Ortho.__enum__ = haxor_core_CameraMode;
+haxor_core_CameraMode.UI = ["UI",3];
+haxor_core_CameraMode.UI.__enum__ = haxor_core_CameraMode;
 var haxor_core_PixelFormat = { __ename__ : true, __constructs__ : ["Alpha8","Luminance","RGB8","RGBA8","Half","Half3","Half4","Float","Float3","Float4","Depth"] };
 haxor_core_PixelFormat.Alpha8 = ["Alpha8",0];
-haxor_core_PixelFormat.Alpha8.toString = $estr;
 haxor_core_PixelFormat.Alpha8.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Luminance = ["Luminance",1];
-haxor_core_PixelFormat.Luminance.toString = $estr;
 haxor_core_PixelFormat.Luminance.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.RGB8 = ["RGB8",2];
-haxor_core_PixelFormat.RGB8.toString = $estr;
 haxor_core_PixelFormat.RGB8.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.RGBA8 = ["RGBA8",3];
-haxor_core_PixelFormat.RGBA8.toString = $estr;
 haxor_core_PixelFormat.RGBA8.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Half = ["Half",4];
-haxor_core_PixelFormat.Half.toString = $estr;
 haxor_core_PixelFormat.Half.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Half3 = ["Half3",5];
-haxor_core_PixelFormat.Half3.toString = $estr;
 haxor_core_PixelFormat.Half3.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Half4 = ["Half4",6];
-haxor_core_PixelFormat.Half4.toString = $estr;
 haxor_core_PixelFormat.Half4.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Float = ["Float",7];
-haxor_core_PixelFormat.Float.toString = $estr;
 haxor_core_PixelFormat.Float.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Float3 = ["Float3",8];
-haxor_core_PixelFormat.Float3.toString = $estr;
 haxor_core_PixelFormat.Float3.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Float4 = ["Float4",9];
-haxor_core_PixelFormat.Float4.toString = $estr;
 haxor_core_PixelFormat.Float4.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Depth = ["Depth",10];
-haxor_core_PixelFormat.Depth.toString = $estr;
 haxor_core_PixelFormat.Depth.__enum__ = haxor_core_PixelFormat;
 var haxor_core_TextureFilter = { __ename__ : true, __constructs__ : ["Nearest","Linear","NearestMipmapNearest","NearestMipmapLinear","LinearMipmapNearest","LinearMipmapLinear","Trilinear"] };
 haxor_core_TextureFilter.Nearest = ["Nearest",0];
-haxor_core_TextureFilter.Nearest.toString = $estr;
 haxor_core_TextureFilter.Nearest.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.Linear = ["Linear",1];
-haxor_core_TextureFilter.Linear.toString = $estr;
 haxor_core_TextureFilter.Linear.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.NearestMipmapNearest = ["NearestMipmapNearest",2];
-haxor_core_TextureFilter.NearestMipmapNearest.toString = $estr;
 haxor_core_TextureFilter.NearestMipmapNearest.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.NearestMipmapLinear = ["NearestMipmapLinear",3];
-haxor_core_TextureFilter.NearestMipmapLinear.toString = $estr;
 haxor_core_TextureFilter.NearestMipmapLinear.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.LinearMipmapNearest = ["LinearMipmapNearest",4];
-haxor_core_TextureFilter.LinearMipmapNearest.toString = $estr;
 haxor_core_TextureFilter.LinearMipmapNearest.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.LinearMipmapLinear = ["LinearMipmapLinear",5];
-haxor_core_TextureFilter.LinearMipmapLinear.toString = $estr;
 haxor_core_TextureFilter.LinearMipmapLinear.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.Trilinear = ["Trilinear",6];
-haxor_core_TextureFilter.Trilinear.toString = $estr;
 haxor_core_TextureFilter.Trilinear.__enum__ = haxor_core_TextureFilter;
 var haxor_core_TextureWrap = function() { };
 $hxClasses["haxor.core.TextureWrap"] = haxor_core_TextureWrap;
 haxor_core_TextureWrap.__name__ = ["haxor","core","TextureWrap"];
 var haxor_core_TextureType = { __ename__ : true, __constructs__ : ["None","Texture2D","TextureCube","RenderTexture","Compute"] };
 haxor_core_TextureType.None = ["None",0];
-haxor_core_TextureType.None.toString = $estr;
 haxor_core_TextureType.None.__enum__ = haxor_core_TextureType;
 haxor_core_TextureType.Texture2D = ["Texture2D",1];
-haxor_core_TextureType.Texture2D.toString = $estr;
 haxor_core_TextureType.Texture2D.__enum__ = haxor_core_TextureType;
 haxor_core_TextureType.TextureCube = ["TextureCube",2];
-haxor_core_TextureType.TextureCube.toString = $estr;
 haxor_core_TextureType.TextureCube.__enum__ = haxor_core_TextureType;
 haxor_core_TextureType.RenderTexture = ["RenderTexture",3];
-haxor_core_TextureType.RenderTexture.toString = $estr;
 haxor_core_TextureType.RenderTexture.__enum__ = haxor_core_TextureType;
 haxor_core_TextureType.Compute = ["Compute",4];
-haxor_core_TextureType.Compute.toString = $estr;
 haxor_core_TextureType.Compute.__enum__ = haxor_core_TextureType;
 var haxor_core_ClearFlag = function() { };
 $hxClasses["haxor.core.ClearFlag"] = haxor_core_ClearFlag;
 haxor_core_ClearFlag.__name__ = ["haxor","core","ClearFlag"];
 var haxor_core_InputState = { __ename__ : true, __constructs__ : ["None","Down","Up","Hold"] };
 haxor_core_InputState.None = ["None",0];
-haxor_core_InputState.None.toString = $estr;
 haxor_core_InputState.None.__enum__ = haxor_core_InputState;
 haxor_core_InputState.Down = ["Down",1];
-haxor_core_InputState.Down.toString = $estr;
 haxor_core_InputState.Down.__enum__ = haxor_core_InputState;
 haxor_core_InputState.Up = ["Up",2];
-haxor_core_InputState.Up.toString = $estr;
 haxor_core_InputState.Up.__enum__ = haxor_core_InputState;
 haxor_core_InputState.Hold = ["Hold",3];
-haxor_core_InputState.Hold.toString = $estr;
 haxor_core_InputState.Hold.__enum__ = haxor_core_InputState;
 var haxor_core_AnimationWrap = { __ename__ : true, __constructs__ : ["Clamp","Loop","Oscilate"] };
 haxor_core_AnimationWrap.Clamp = ["Clamp",0];
-haxor_core_AnimationWrap.Clamp.toString = $estr;
 haxor_core_AnimationWrap.Clamp.__enum__ = haxor_core_AnimationWrap;
 haxor_core_AnimationWrap.Loop = ["Loop",1];
-haxor_core_AnimationWrap.Loop.toString = $estr;
 haxor_core_AnimationWrap.Loop.__enum__ = haxor_core_AnimationWrap;
 haxor_core_AnimationWrap.Oscilate = ["Oscilate",2];
-haxor_core_AnimationWrap.Oscilate.toString = $estr;
 haxor_core_AnimationWrap.Oscilate.__enum__ = haxor_core_AnimationWrap;
+var haxor_core_ColliderType = { __ename__ : true, __constructs__ : ["Point","Plane","Box","Sphere","Capsule","Mesh"] };
+haxor_core_ColliderType.Point = ["Point",0];
+haxor_core_ColliderType.Point.__enum__ = haxor_core_ColliderType;
+haxor_core_ColliderType.Plane = ["Plane",1];
+haxor_core_ColliderType.Plane.__enum__ = haxor_core_ColliderType;
+haxor_core_ColliderType.Box = ["Box",2];
+haxor_core_ColliderType.Box.__enum__ = haxor_core_ColliderType;
+haxor_core_ColliderType.Sphere = ["Sphere",3];
+haxor_core_ColliderType.Sphere.__enum__ = haxor_core_ColliderType;
+haxor_core_ColliderType.Capsule = ["Capsule",4];
+haxor_core_ColliderType.Capsule.__enum__ = haxor_core_ColliderType;
+haxor_core_ColliderType.Mesh = ["Mesh",5];
+haxor_core_ColliderType.Mesh.__enum__ = haxor_core_ColliderType;
 var haxor_core_ILateUpdateable = function() { };
 $hxClasses["haxor.core.ILateUpdateable"] = haxor_core_ILateUpdateable;
 haxor_core_ILateUpdateable.__name__ = ["haxor","core","ILateUpdateable"];
 haxor_core_ILateUpdateable.prototype = {
 	__class__: haxor_core_ILateUpdateable
-};
-var haxor_core_IResizeable = function() { };
-$hxClasses["haxor.core.IResizeable"] = haxor_core_IResizeable;
-haxor_core_IResizeable.__name__ = ["haxor","core","IResizeable"];
-haxor_core_IResizeable.prototype = {
-	__class__: haxor_core_IResizeable
 };
 var haxor_core_RenderEngine = function() { };
 $hxClasses["haxor.core.RenderEngine"] = haxor_core_RenderEngine;
@@ -6902,6 +7045,7 @@ haxor_core_RenderEngine.RenderCameraLayer = function(l,c) {
 	while(_g1 < _g) {
 		var j = _g1++;
 		var r = renderers.list[j];
+		if((r.m_entity.m_layer & l) == 0) continue;
 		if(haxor_context_EngineContext.renderer.IsSAPCulled(r,c)) continue;
 		haxor_core_RenderEngine.RenderRenderer(r);
 	}
@@ -8536,18 +8680,23 @@ haxor_graphics_Gizmo.WireSphere = function(p_position,p_radius,p_color,p_transfo
 haxor_graphics_Gizmo.WireCube = function(p_position,p_size,p_color,p_transform) {
 	haxor_context_EngineContext.gizmo.DrawWireCube(p_position,p_size,p_color,p_transform);
 };
+haxor_graphics_Gizmo.BeginPath = function(p_fill,p_line,p_transform) {
+	haxor_context_EngineContext.gizmo.canvas_renderer.Begin(p_fill,p_line,p_transform);
+};
+haxor_graphics_Gizmo.LinePath = function(p_position) {
+	haxor_context_EngineContext.gizmo.canvas_renderer.Line(p_position);
+};
+haxor_graphics_Gizmo.EndPath = function() {
+	haxor_context_EngineContext.gizmo.canvas_renderer.End();
+};
 var haxor_graphics_GraphicAPI = { __ename__ : true, __constructs__ : ["None","OpenGL","OpenGLES","WebGL"] };
 haxor_graphics_GraphicAPI.None = ["None",0];
-haxor_graphics_GraphicAPI.None.toString = $estr;
 haxor_graphics_GraphicAPI.None.__enum__ = haxor_graphics_GraphicAPI;
 haxor_graphics_GraphicAPI.OpenGL = ["OpenGL",1];
-haxor_graphics_GraphicAPI.OpenGL.toString = $estr;
 haxor_graphics_GraphicAPI.OpenGL.__enum__ = haxor_graphics_GraphicAPI;
 haxor_graphics_GraphicAPI.OpenGLES = ["OpenGLES",2];
-haxor_graphics_GraphicAPI.OpenGLES.toString = $estr;
 haxor_graphics_GraphicAPI.OpenGLES.__enum__ = haxor_graphics_GraphicAPI;
 haxor_graphics_GraphicAPI.WebGL = ["WebGL",3];
-haxor_graphics_GraphicAPI.WebGL.toString = $estr;
 haxor_graphics_GraphicAPI.WebGL.__enum__ = haxor_graphics_GraphicAPI;
 var haxor_graphics_GraphicContext = function(p_application) {
 	this.m_api = haxor_graphics_GraphicAPI.None;
@@ -9048,13 +9197,10 @@ haxor_graphics_Screen.Initialize = function(p_application) {
 };
 var haxor_graphics_CursorMode = { __ename__ : true, __constructs__ : ["Show","Hide","Lock"] };
 haxor_graphics_CursorMode.Show = ["Show",0];
-haxor_graphics_CursorMode.Show.toString = $estr;
 haxor_graphics_CursorMode.Show.__enum__ = haxor_graphics_CursorMode;
 haxor_graphics_CursorMode.Hide = ["Hide",1];
-haxor_graphics_CursorMode.Hide.toString = $estr;
 haxor_graphics_CursorMode.Hide.__enum__ = haxor_graphics_CursorMode;
 haxor_graphics_CursorMode.Lock = ["Lock",2];
-haxor_graphics_CursorMode.Lock.toString = $estr;
 haxor_graphics_CursorMode.Lock.__enum__ = haxor_graphics_CursorMode;
 var haxor_graphics_material_Material = function(p_name) {
 	if(p_name == null) p_name = "";
@@ -14131,6 +14277,38 @@ haxor_net_Web.LoadShader = function(p_url,p_callback) {
 		if(p < 1.0) p_callback(null,p); else p_callback(d == null?null:new haxor_graphics_material_Shader(d),1.0);
 	});
 };
+var haxor_physics_Collision = function() {
+	this.normal = new haxor_math_Vector3(0,0,0);
+	this.point = new haxor_math_Vector3(0,0,0);
+	this.depth = 0.0;
+	this.speed = 0.0;
+	this.m_id = -1;
+	this.m_active = false;
+	this.m_destroyed = false;
+};
+$hxClasses["haxor.physics.Collision"] = haxor_physics_Collision;
+haxor_physics_Collision.__name__ = ["haxor","physics","Collision"];
+haxor_physics_Collision.prototype = {
+	__class__: haxor_physics_Collision
+};
+var haxor_physics_PhysicsMaterial = function() {
+	haxor_core_Resource.call(this);
+	this.bounce = 0.0;
+	this.friction = 0.0;
+};
+$hxClasses["haxor.physics.PhysicsMaterial"] = haxor_physics_PhysicsMaterial;
+haxor_physics_PhysicsMaterial.__name__ = ["haxor","physics","PhysicsMaterial"];
+haxor_physics_PhysicsMaterial.__properties__ = {get_empty:"get_empty"}
+haxor_physics_PhysicsMaterial.get_empty = function() {
+	if(haxor_physics_PhysicsMaterial.m_empty != null) return haxor_physics_PhysicsMaterial.m_empty;
+	haxor_physics_PhysicsMaterial.m_empty = new haxor_physics_PhysicsMaterial();
+	haxor_physics_PhysicsMaterial.m_empty.set_name("$DefaultPhysicsMaterial");
+	return haxor_physics_PhysicsMaterial.m_empty;
+};
+haxor_physics_PhysicsMaterial.__super__ = haxor_core_Resource;
+haxor_physics_PhysicsMaterial.prototype = $extend(haxor_core_Resource.prototype,{
+	__class__: haxor_physics_PhysicsMaterial
+});
 var haxor_platform_html_Entry = function() { };
 $hxClasses["haxor.platform.html.Entry"] = haxor_platform_html_Entry;
 haxor_platform_html_Entry.__name__ = ["haxor","platform","html","Entry"];
@@ -14967,8 +15145,9 @@ haxor_context_Gizmo.LINE = 1;
 haxor_context_Gizmo.AXIS = 2;
 haxor_context_Gizmo.WIRE_CUBE = 3;
 haxor_context_Gizmo.WIRE_SPHERE = 4;
+haxor_context_Gizmo.CANVAS = 10;
 haxor_context_Gizmo.DATA_OFFSET = 24;
-haxor_context_Gizmo.MAX_GIZMOS = 5000;
+haxor_context_Gizmo.MAX_GIZMOS = 500;
 haxor_context_Gizmo.IDM = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
 haxor_context_BaseProcess.m_cid = 0;
 haxor_context_ShaderContext.flat_source = "\r\n\t<shader id=\"haxor/unlit/Flat\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\t\t\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\tv_color = color * Tint;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) { gl_FragColor = v_color; }\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
@@ -14976,7 +15155,7 @@ haxor_context_ShaderContext.flat_texture_source = "\r\n\t<shader id=\"haxor/unli
 haxor_context_ShaderContext.flat_texture_skin_source = "\r\n\t<shader id=\"haxor/unlit/FlatTextureSkin\">\t\r\n\t\t<vertex precision=\"low\">\r\n\t\t\r\n\t\t#define SKINNING_TEXTURE_SIZE 2048.0\r\n\t\t#define BINDS_OFFSET\t\t  1024.0\r\n\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  WorldMatrixIT;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\r\n\t\tuniform vec3  WSCameraPosition;\t\t\r\n\t\t\r\n\t\t//uniform vec4  Skinning[MAX_BONES];\r\n\t\t\r\n\t\tuniform sampler2D Skinning;\r\n\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\t\r\n\t\tattribute vec4 color;\r\n\t\tattribute vec3 normal;\r\n\t\tattribute vec3 uv0;\r\n\t\tattribute vec4 bone;\r\n\t\tattribute vec4 weight;\r\n\t\t\r\n\t\tvarying vec3 v_uv0;\r\n\t\tvarying vec3 v_normal;\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec4 v_wsVertex;\r\n\t\tvarying vec3 v_wsView;\t\r\n\t\t\r\n\t\tvec4 SkinningRead(float id)\r\n\t\t{\r\n\t\t\treturn texture2D(Skinning, vec2(0.0,(id/(SKINNING_TEXTURE_SIZE-1.0))));\r\n\t\t}\r\n\t\t\r\n\t\tmat4 GetSkinMatrix(float b,float o)\r\n\t\t{\r\n\t\t\tvec4 l0, l1, l2;\t\t\t\t\t\t\r\n\t\t\tl0 = SkinningRead(b+o); l1 = SkinningRead(b+1.0+o); l2 = SkinningRead(b+2.0+o);\r\n\t\t\treturn mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);\t\t\t\r\n\t\t}\r\n\t\t\r\n\t\tmat4 SkinWorldMatrix()\r\n\t\t{\r\n\t\t\tvec4 b = bone * 3.0;\r\n\t\t\tvec4 w = weight;\r\n\t\t\tfloat ivs = 1.0 / (weight.x + weight.y + weight.z + weight.w);\r\n\t\t\tw *= ivs;\r\n\t\t\tmat4 j0 = GetSkinMatrix(b[0],0.0);\r\n\t\t\tmat4 b0 = GetSkinMatrix(b[0],BINDS_OFFSET);\r\n\t\t\tmat4 j1 = GetSkinMatrix(b[1],0.0);\r\n\t\t\tmat4 b1 = GetSkinMatrix(b[1],BINDS_OFFSET);\r\n\t\t\tmat4 j2 = GetSkinMatrix(b[2],0.0);\r\n\t\t\tmat4 b2 = GetSkinMatrix(b[2],BINDS_OFFSET);\r\n\t\t\tmat4 j3 = GetSkinMatrix(b[3],0.0);\r\n\t\t\tmat4 b3 = GetSkinMatrix(b[3],BINDS_OFFSET);\r\n\t\t\t\r\n\t\t\treturn    ((b0 * j0) * w[0])+\r\n\t\t\t          ((b1 * j1) * w[1])+\r\n\t\t\t          ((b2 * j2) * w[2])+\r\n\t\t\t          ((b3 * j3) * w[3]);\r\n\t\t\t\r\n\t\t\t\r\n\t\t}\r\n\t\t\t\t\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tvec4 lv = vec4(vertex,1.0);\r\n\t\t\tvec3 ln = vec3(normal);\r\n\t\t\tmat4 swm = SkinWorldMatrix();\r\n\t\t\tmat4 wm;\t\t\t\t\t\r\n\t\t\twm = swm;\r\n\t\t\t//wm = WorldMatrix;\r\n\t\t\t\r\n\t\t\tv_uv0   = uv0;\r\n\t\t\tv_color = color;\t\t\t\r\n\t\t\tv_normal = ln * mat3(WorldMatrixIT);\t\t\t\r\n\t\t\tgl_Position = ((lv * wm) * ViewMatrix) * ProjectionMatrix;\r\n\t\t}\t\t\r\n\t\t</vertex>\r\n\t\t\r\n\t\t<fragment precision=\"low\">\r\n\t\t\t\t\t\r\n\t\t\tuniform sampler2D DiffuseTexture;\t\t\t\r\n\t\t\t\r\n\t\t\tuniform sampler2D Skinning;\r\n\t\t\t\r\n\t\t\tvarying vec3 v_uv0;\r\n\t\t\tvarying vec4 v_color;\r\n\t\t\tvarying vec3 v_normal;\r\n\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);\r\n\t\t\t\tgl_FragColor.xyz = tex_diffuse.xyz * v_color.xyz;\r\n\t\t\t\tgl_FragColor.a \t = tex_diffuse.a * v_color.a;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
 haxor_context_ShaderContext.grid_source = "\r\n\t<shader id=\"haxor/gizmo/Grid\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tuniform float Area;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\tgl_Position = ((vec4(vertex*Area, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\tv_color = color * Tint;\t\t\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_context_ShaderContext.texture_source = "\r\n\t<shader id=\"haxor/gizmo/Texture\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform vec2  Screen;\r\n\t\tuniform vec4  Rect;\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec2 v_uv0;\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tvec4 p = vec4(vertex, 1);\r\n\t\t\tfloat sw = Screen.x * 0.5;\r\n\t\t\tfloat sh = Screen.y * 0.5;\r\n\t\t\tp.x *= Rect.z / sw;\r\n\t\t\tp.y *= Rect.w / sh;\r\n\t\t\tp.x += Rect.x / sw;\r\n\t\t\tp.y -= Rect.y / sh;\t\t\t\r\n\t\t\tp.x -= 1.0;\r\n\t\t\tp.y += 1.0;\t\t\t\r\n\t\t\tp.z = 0.001;\r\n\t\t\tgl_Position = p;\r\n\t\t\tv_color = Tint;\t\t\r\n\t\t\tv_uv0   = vec2(vertex.x,1.0+vertex.y);\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\r\n\t\t\tvarying vec2 v_uv0;\r\n\t\t\tuniform sampler2D Texture;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = texture2D(Texture, v_uv0) * v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
-haxor_context_ShaderContext.gizmo_source = "\r\n\t<shader id=\"haxor/gizmo/Gizmo\">\t\r\n\t\t<vertex>\t\r\n\t\t\r\n\t\t#define GIZMO_POINT       0\r\n\t\t#define GIZMO_LINE        1\r\n\t\t#define GIZMO_AXIS        2\r\n\t\t#define GIZMO_WIRE_CUBE   3\r\n\t\t#define GIZMO_WIRE_SPHERE 4\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\t\tmat4         WorldMatrix;\r\n\t\tuniform mat4  \t\t ViewMatrix;\r\n\t\tuniform mat4  \t\t ProjectionMatrix;\t\t\t\t\r\n\t\tuniform int   \t\t Count;\r\n\t\tuniform int   \t\t Type;\t\t\r\n\t\tuniform sampler2D \t Data;\r\n\t\tuniform int  \t\t DataSize;\r\n\t\t\t\tvec4\t\t DataColor;\r\n\t\t\t\tvec4\t\t DataA;\r\n\t\t\t\tvec4\t\t DataB;\r\n\t\t\r\n\t\tattribute float id;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\r\n\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\t\r\n\t\tvec4 GetPixel(float p_pix,float p_ds,float p_ids)\r\n\t\t{\t\t\t\r\n\t\t\tfloat px = mod(p_pix, p_ds) * p_ids;\r\n\t\t\tfloat py = (p_pix * p_ids) * p_ids;\r\n\t\t\treturn texture2D(Data, vec2(px,py));\r\n\t\t}\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tif (id >= float(Count)) \r\n\t\t\t{\r\n\t\t\t\tgl_Position = vec4( -2.0, 0.0, 0.0, 1.0);\r\n\t\t\t\treturn; \r\n\t\t\t}\t\t\t\r\n\t\t\tfloat p  \t= id * 6.0;\r\n\t\t\tfloat ds\t= float(DataSize);\r\n\t\t\tfloat ids\t= 1.0 / ds;\t\t\t\r\n\t\t\tDataColor \t= GetPixel(p,ds,ids);\r\n\t\t\tDataA \t\t= GetPixel(p + 1.0,ds,ids);\r\n\t\t\tDataB \t\t= GetPixel(p + 2.0,ds,ids);\t\t\t\r\n\t\t\tvec4 l0 \t= GetPixel(p + 3.0,ds,ids);\r\n\t\t\tvec4 l1 \t= GetPixel(p + 4.0,ds,ids);\r\n\t\t\tvec4 l2 \t= GetPixel(p + 5.0,ds,ids);\t\r\n\t\t\tvec4 v\t\t= vec4(vertex, 1.0);\r\n\t\t\tWorldMatrix = mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);\r\n\t\t\t\r\n\t\t\tif (Type == GIZMO_POINT)\r\n\t\t\t{\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_PointSize = DataA.x * (ncp.z / ncp.w);\t\t\t\t\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_LINE)\r\n\t\t\t{\r\n\t\t\t\tfloat r = v.x;\r\n\t\t\t\tv.xyz = DataA.xyz + (DataB.xyz - DataA.xyz) * r;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_AXIS)\r\n\t\t\t{\t\t\r\n\t\t\t\tfloat sx   = length(vec3(WorldMatrix[0][0],WorldMatrix[1][0],WorldMatrix[2][0]));\r\n\t\t\t\tfloat sy   = length(vec3(WorldMatrix[0][1],WorldMatrix[1][1],WorldMatrix[2][1]));\r\n\t\t\t\tfloat sz   = length(vec3(WorldMatrix[0][2],WorldMatrix[1][2],WorldMatrix[2][2]));\t\t\t\t\r\n\t\t\t\tvec3 scale = vec3(sx, sy, sz);\t\t\t\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz *= (DataA.xyz / scale.xyz) * ncp.w * 0.025;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position  = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_CUBE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.xyz;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_SPHERE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.x;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t\t\t\t\t\r\n\t\t\tv_color = DataColor * color;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) { gl_FragColor = v_color; }\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
+haxor_context_ShaderContext.gizmo_source = "\r\n\t<shader id=\"haxor/gizmo/Gizmo\">\t\r\n\t\t<vertex>\t\r\n\t\t\r\n\t\t#define GIZMO_POINT       0\r\n\t\t#define GIZMO_LINE        1\r\n\t\t#define GIZMO_AXIS        2\r\n\t\t#define GIZMO_WIRE_CUBE   3\r\n\t\t#define GIZMO_WIRE_SPHERE 4\r\n\t\t#define GIZMO_CANVAS\t  10\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\t\tmat4         WorldMatrix;\r\n\t\tuniform mat4  \t\t ViewMatrix;\r\n\t\tuniform mat4  \t\t ProjectionMatrix;\t\t\t\t\r\n\t\tuniform int   \t\t Count;\r\n\t\tuniform int   \t\t Type;\t\t\r\n\t\tuniform sampler2D \t Data;\r\n\t\tuniform int  \t\t DataSize;\t\t\r\n\t\t\t    vec4\t\t DataColor;\r\n\t\t\t\tvec4\t\t DataA;\r\n\t\t\t\tvec4\t\t DataB;\r\n\t\t\r\n\t\tattribute float id;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\r\n\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\t\r\n\t\tvec4 GetPixel(float p_pix,float p_ds,float p_ids)\r\n\t\t{\t\t\t\r\n\t\t\tfloat px = mod(p_pix, p_ds) * p_ids;\r\n\t\t\tfloat py = (p_pix * p_ids) * p_ids;\r\n\t\t\treturn texture2D(Data, vec2(px,py));\r\n\t\t}\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\t\t\r\n\t\t\tif (id >= float(Count)) \r\n\t\t\t{\r\n\t\t\t\tgl_Position = vec4( -2.0, 0.0, 0.0, 0.0);\r\n\t\t\t\treturn; \r\n\t\t\t}\t\t\t\r\n\t\t\tfloat p  \t= id * 6.0;\r\n\t\t\tfloat ds\t= float(DataSize);\r\n\t\t\tfloat ids\t= 1.0 / ds;\t\t\t\r\n\t\t\tDataColor \t= GetPixel(p,ds,ids);\r\n\t\t\tDataA \t\t= GetPixel(p + 1.0,ds,ids);\r\n\t\t\tDataB \t\t= GetPixel(p + 2.0,ds,ids);\t\t\t\r\n\t\t\tvec4 l0 \t= GetPixel(p + 3.0,ds,ids);\r\n\t\t\tvec4 l1 \t= GetPixel(p + 4.0,ds,ids);\r\n\t\t\tvec4 l2 \t= GetPixel(p + 5.0,ds,ids);\t\r\n\t\t\tvec4 v\t\t= vec4(vertex, 1.0);\r\n\t\t\tWorldMatrix = mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);\r\n\t\t\t\r\n\t\t\tif (Type == GIZMO_POINT)\r\n\t\t\t{\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tfloat pf = (ncp.z / ncp.w);\r\n\t\t\t\tgl_PointSize = pf <= 0.0 ? DataA.x : (DataA.x * pf);\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_LINE)\r\n\t\t\t{\r\n\t\t\t\tfloat r = v.x;\r\n\t\t\t\tv.xyz = DataA.xyz + (DataB.xyz - DataA.xyz) * r;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_AXIS)\r\n\t\t\t{\t\t\r\n\t\t\t\tfloat sx   = length(vec3(WorldMatrix[0][0],WorldMatrix[1][0],WorldMatrix[2][0]));\r\n\t\t\t\tfloat sy   = length(vec3(WorldMatrix[0][1],WorldMatrix[1][1],WorldMatrix[2][1]));\r\n\t\t\t\tfloat sz   = length(vec3(WorldMatrix[0][2],WorldMatrix[1][2],WorldMatrix[2][2]));\t\t\t\t\r\n\t\t\t\tvec3 scale = vec3(sx, sy, sz);\t\t\t\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz *= (DataA.xyz / scale.xyz) * ncp.w * 0.025;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position  = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_CUBE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.xyz;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_SPHERE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.x;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_CANVAS)\r\n\t\t\t{\t\t\t\t\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t\t\t\t\t\r\n\t\t\tv_color = DataColor * color;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) { gl_FragColor = v_color; }\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_core_Console.m_style = "";
 haxor_core_Console.verbose = 0;
 haxor_core_RenderQueue.Background = 0;

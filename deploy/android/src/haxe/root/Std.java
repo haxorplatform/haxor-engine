@@ -32,13 +32,13 @@ public  class Std
 		
 		java.lang.String name = clt.getName();
 		{
-			java.lang.String __temp_svar255712 = (name);
-			int __temp_hash255714 = __temp_svar255712.hashCode();
-			switch (__temp_hash255714)
+			java.lang.String __temp_svar454 = (name);
+			int __temp_hash456 = __temp_svar454.hashCode();
+			switch (__temp_hash456)
 			{
 				case 761287205:case -1325958191:
 				{
-					if (( (( ( __temp_hash255714 == 761287205 ) && __temp_svar255712.equals("java.lang.Double") )) || __temp_svar255712.equals("double") )) 
+					if (( (( ( __temp_hash456 == 761287205 ) && __temp_svar454.equals("java.lang.Double") )) || __temp_svar454.equals("double") )) 
 					{
 						return haxe.lang.Runtime.isDouble(v);
 					}
@@ -49,7 +49,7 @@ public  class Std
 				
 				case 1063877011:
 				{
-					if (__temp_svar255712.equals("java.lang.Object")) 
+					if (__temp_svar454.equals("java.lang.Object")) 
 					{
 						return true;
 					}
@@ -60,7 +60,7 @@ public  class Std
 				
 				case -2056817302:case 104431:
 				{
-					if (( (( ( __temp_hash255714 == -2056817302 ) && __temp_svar255712.equals("java.lang.Integer") )) || __temp_svar255712.equals("int") )) 
+					if (( (( ( __temp_hash456 == -2056817302 ) && __temp_svar454.equals("java.lang.Integer") )) || __temp_svar454.equals("int") )) 
 					{
 						return haxe.lang.Runtime.isInt(v);
 					}
@@ -71,7 +71,7 @@ public  class Std
 				
 				case 344809556:case 64711720:
 				{
-					if (( (( ( __temp_hash255714 == 344809556 ) && __temp_svar255712.equals("java.lang.Boolean") )) || __temp_svar255712.equals("boolean") )) 
+					if (( (( ( __temp_hash456 == 344809556 ) && __temp_svar454.equals("java.lang.Boolean") )) || __temp_svar454.equals("boolean") )) 
 					{
 						return v instanceof java.lang.Boolean;
 					}

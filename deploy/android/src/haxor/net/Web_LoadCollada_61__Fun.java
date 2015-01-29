@@ -4,11 +4,11 @@ import haxe.root.*;
 @SuppressWarnings(value={"rawtypes", "unchecked"})
 public  class Web_LoadCollada_61__Fun extends haxe.lang.Function
 {
-	public    Web_LoadCollada_61__Fun(haxe.root.Array<java.lang.String> p_url1, haxe.root.Array<haxe.lang.Function> p_callback1)
+	public    Web_LoadCollada_61__Fun(haxe.root.Array<haxe.lang.Function> p_callback1, haxe.root.Array<java.lang.String> p_url1)
 	{
 		super(2, 0);
-		this.p_url1 = p_url1;
 		this.p_callback1 = p_callback1;
+		this.p_url1 = p_url1;
 	}
 	
 	
@@ -29,9 +29,9 @@ public  class Web_LoadCollada_61__Fun extends haxe.lang.Function
 	}
 	
 	
-	public  haxe.root.Array<java.lang.String> p_url1;
-	
 	public  haxe.root.Array<haxe.lang.Function> p_callback1;
+	
+	public  haxe.root.Array<java.lang.String> p_url1;
 	
 }
 

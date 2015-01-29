@@ -91,6 +91,12 @@ class HXCPP_CLASS_ATTRIBUTES  Color_obj : public hx::Object{
 		virtual ::haxor::math::Color SetColor( ::haxor::math::Color p_color);
 		Dynamic SetColor_dyn();
 
+		virtual ::haxor::math::Color SetRGB( ::haxor::math::Color p_color);
+		Dynamic SetRGB_dyn();
+
+		virtual ::haxor::math::Color SetAlpha( ::haxor::math::Color p_color);
+		Dynamic SetAlpha_dyn();
+
 		virtual Float Get( int p);
 		Dynamic Get_dyn();
 
@@ -177,6 +183,38 @@ class HXCPP_CLASS_ATTRIBUTES  Color_obj : public hx::Object{
 		static ::haxor::math::Color gray90;
 		static ::haxor::math::Color get_gray90( );
 		static Dynamic get_gray90_dyn();
+
+		static ::haxor::math::Color red50;
+		static ::haxor::math::Color get_red50( );
+		static Dynamic get_red50_dyn();
+
+		static ::haxor::math::Color green50;
+		static ::haxor::math::Color get_green50( );
+		static Dynamic get_green50_dyn();
+
+		static ::haxor::math::Color blue50;
+		static ::haxor::math::Color get_blue50( );
+		static Dynamic get_blue50_dyn();
+
+		static ::haxor::math::Color yellow50;
+		static ::haxor::math::Color get_yellow50( );
+		static Dynamic get_yellow50_dyn();
+
+		static ::haxor::math::Color magenta50;
+		static ::haxor::math::Color get_magenta50( );
+		static Dynamic get_magenta50_dyn();
+
+		static ::haxor::math::Color red30;
+		static ::haxor::math::Color get_red30( );
+		static Dynamic get_red30_dyn();
+
+		static ::haxor::math::Color green30;
+		static ::haxor::math::Color get_green30( );
+		static Dynamic get_green30_dyn();
+
+		static ::haxor::math::Color blue30;
+		static ::haxor::math::Color get_blue30( );
+		static Dynamic get_blue30_dyn();
 
 		static ::haxor::math::Color FromHex( ::String p_hex);
 		static Dynamic FromHex_dyn();

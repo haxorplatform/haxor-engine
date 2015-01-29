@@ -5,12 +5,20 @@
 #include <hxcpp.h>
 #endif
 
+HX_DECLARE_CLASS2(haxor,context,AxisGizmo)
+HX_DECLARE_CLASS2(haxor,context,Gizmo)
 HX_DECLARE_CLASS2(haxor,context,GizmoContext)
+HX_DECLARE_CLASS2(haxor,context,LineGizmo)
+HX_DECLARE_CLASS2(haxor,context,PointGizmo)
+HX_DECLARE_CLASS2(haxor,context,WireCubeGizmo)
+HX_DECLARE_CLASS2(haxor,context,WireSphereGizmo)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
 HX_DECLARE_CLASS2(haxor,math,Color)
+HX_DECLARE_CLASS2(haxor,math,Matrix4)
+HX_DECLARE_CLASS2(haxor,math,Vector3)
 namespace haxor{
 namespace context{
 
@@ -42,6 +50,12 @@ class HXCPP_CLASS_ATTRIBUTES  GizmoContext_obj : public hx::Object{
 		::haxor::graphics::mesh::Mesh texture;
 		::haxor::graphics::material::Material gizmo_material;
 		::haxor::graphics::material::Material texture_material;
+		::haxor::context::WireSphereGizmo wire_sphere_renderer;
+		::haxor::context::WireCubeGizmo wire_cube_renderer;
+		::haxor::context::AxisGizmo axis_renderer;
+		::haxor::context::LineGizmo line_renderer;
+		::haxor::context::PointGizmo point_renderer;
+		::haxor::context::PointGizmo point_smooth_renderer;
 		virtual Void Initialize( );
 		Dynamic Initialize_dyn();
 
@@ -57,8 +71,23 @@ class HXCPP_CLASS_ATTRIBUTES  GizmoContext_obj : public hx::Object{
 		virtual Void DrawGrid( Float p_area,::haxor::math::Color p_color);
 		Dynamic DrawGrid_dyn();
 
-		virtual Void DrawAxis( Float p_area);
+		virtual Void DrawWireSphere( ::haxor::math::Vector3 p_position,Float p_radius,::haxor::math::Color p_color,::haxor::math::Matrix4 p_transform);
+		Dynamic DrawWireSphere_dyn();
+
+		virtual Void DrawWireCube( ::haxor::math::Vector3 p_position,::haxor::math::Vector3 p_size,::haxor::math::Color p_color,::haxor::math::Matrix4 p_transform);
+		Dynamic DrawWireCube_dyn();
+
+		virtual Void DrawAxis( ::haxor::math::Vector3 p_position,::haxor::math::Vector3 p_size,::haxor::math::Color p_color,::haxor::math::Matrix4 p_transform);
 		Dynamic DrawAxis_dyn();
+
+		virtual Void DrawLine( ::haxor::math::Vector3 p_from,::haxor::math::Vector3 p_to,::haxor::math::Color p_color,::haxor::math::Matrix4 p_transform);
+		Dynamic DrawLine_dyn();
+
+		virtual Void DrawPoint( ::haxor::math::Vector3 p_position,Float p_size,::haxor::math::Color p_color,bool p_smooth,::haxor::math::Matrix4 p_transform);
+		Dynamic DrawPoint_dyn();
+
+		virtual Void Render( );
+		Dynamic Render_dyn();
 
 };
 

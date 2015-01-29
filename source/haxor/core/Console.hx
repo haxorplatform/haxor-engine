@@ -28,6 +28,8 @@ class Console
 	 */
 	static private function Initialize():Void
 	{
+		#if html
+		
 		var c : Dynamic = 
 		{
 			log : function(s:String):Void {}
@@ -42,11 +44,8 @@ class Console
 			m_console = c;
 		}
 		
-		#if html
-		
 		//field = cast js.Browser.document.getElementById("field");
-		
-		
+				
 		#else		
 		m_benchmarks = new Map<String,Float>();
 		#end

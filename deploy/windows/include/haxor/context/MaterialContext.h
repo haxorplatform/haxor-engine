@@ -69,8 +69,12 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 		int blendDst;
 		bool invert;
 		int cull;
+		bool pointSmooth;
 		virtual Void Initialize( );
 		Dynamic Initialize_dyn();
+
+		virtual Void SetPointSmooth( bool p_flag);
+		Dynamic SetPointSmooth_dyn();
 
 		virtual Void UpdateFlags( ::haxor::graphics::material::Material m);
 		Dynamic UpdateFlags_dyn();
