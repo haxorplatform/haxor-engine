@@ -4,14 +4,17 @@ import haxor.component.Component;
 import haxor.component.MeshRenderer;
 import haxor.context.Process.BaseProcess;
 import haxor.core.Console;
+import haxor.core.Debug;
 import haxor.core.Entity;
 import haxor.core.IDisposable;
+import haxor.core.IFixedUpdateable;
 import haxor.core.IRenderable;
 import haxor.core.IResizeable;
 import haxor.core.IUpdateable;
 import haxor.core.Resource;
 import haxor.component.Renderer;
 import haxor.core.RenderStats;
+import haxor.physics.Physics;
 
 
 
@@ -42,6 +45,11 @@ class EngineContext
 	 * List of IUpdateable nodes.
 	 */
 	static private var update : Process<IUpdateable>;
+	
+	/**
+	 * List of IFixedUpdateable nodes.
+	 */
+	static private var fixed_update : Process<IFixedUpdateable>;
 	
 	/**
 	 * List of IResizeable nodes.
@@ -109,16 +117,22 @@ class EngineContext
 	static private var transform : TransformContext;
 	
 	/**
+	 * Reference to the Physics context.
+	 */
+	static private var physics : PhysicsContext;
+	
+	/**
 	 * Initializes the Haxor context.
 	 */
 	static private function Initialize():Void
 	{
 		Console.Log("Haxor> Engine Context Initialize.",3);
-		update      = new Process("process.update", 	 maxNodes);
-		render      = new Process("process.render", 	 maxNodes);
-		resize      = new Process("process.resize", 	 maxNodes);
-		resources   = new Process("process.resources",   maxNodes);
-		disposables = new Process("process.disposables", maxNodes);
+		update       = new Process("process.update", 	 maxNodes);
+		fixed_update = new Process("process.fixed-update", 	 maxNodes);
+		render       = new Process("process.render", 	 maxNodes);
+		resize       = new Process("process.resize", 	 maxNodes);
+		resources    = new Process("process.resources",   maxNodes);
+		disposables  = new Process("process.disposables", maxNodes);
 		
 		list = [update, render, resize, resources, disposables];
 		
@@ -128,6 +142,8 @@ class EngineContext
 		
 		//Temp
 		Animation.Initialize();
+		Physics.Initialize();
+		Debug.Initialize();
 		
 		renderer	= new RendererContext();
 		mesh 		= new MeshContext();		
@@ -136,6 +152,7 @@ class EngineContext
 		gizmo		= new GizmoContext();
 		camera		= new CameraContext();		
 		transform   = new TransformContext();
+		physics     = new PhysicsContext();
 		#end
 		
 	}
@@ -152,6 +169,7 @@ class EngineContext
 		gizmo.Initialize();	
 		transform.Initialize();
 		renderer.Initialize();
+		physics.Initialize();
 		#end
 	}
 	
@@ -161,7 +179,8 @@ class EngineContext
 	 */
 	static private function Enable(p_resource:Resource):Void
 	{
-		if(Std.is(p_resource,IUpdateable)) 	update.Add(p_resource);
+		if (Std.is(p_resource, IUpdateable)) 	update.Add(p_resource);
+		if(Std.is(p_resource,IFixedUpdateable)) fixed_update.Add(p_resource);
 		if(Std.is(p_resource,IRenderable)) 	render.Add(p_resource);
 		if (Std.is(p_resource, IResizeable)) resize.Add(p_resource);		
 		
@@ -189,7 +208,8 @@ class EngineContext
 	 */
 	static private function Disable(p_resource:Resource):Void
 	{
-		if(Std.is(p_resource,IUpdateable)) 		update.Remove(p_resource);
+		if (Std.is(p_resource, IUpdateable)) 		update.Remove(p_resource);
+		if(Std.is(p_resource,IFixedUpdateable)) fixed_update.Remove(p_resource);
 		if(Std.is(p_resource,IRenderable)) 		render.Remove(p_resource);
 		if(Std.is(p_resource, IResizeable)) 	resize.Remove(p_resource);
 		if(Std.is(p_resource,Renderer)) 	 	renderer.Disable(cast p_resource);

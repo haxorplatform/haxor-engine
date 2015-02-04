@@ -1,10 +1,19 @@
 package haxor.physics;
 import haxor.component.physics.Collider;
+import haxor.ds.USet.IUSetItem;
 import haxor.math.Vector3;
 
+/**
+ * Class that describes a collision structure between colliders and 1 or 2 rigidbodies.
+ */
 @:allow(haxor)
-class Collision
+class Collision implements IUSetItem
 {
+	/**
+	 * 
+	 */
+	public var usid:Int;
+	
 	public var from   : Collider;
 	public var to     : Collider;
 	public var point  : Vector3;
@@ -12,29 +21,42 @@ class Collision
 	public var normal : Vector3;
 	public var speed  : Float;
 	
-	private var m_id : Int;
-	
-	private var m_active : Bool;
-	
-	private var m_destroyed : Bool;
-	
 	public function new()
 	{
 		normal = Vector3.zero;
 		point  = Vector3.zero;
 		depth  = 0.0;
-		speed  = 0.0;		
-		m_id = -1;
-		m_active = false;
-		m_destroyed = false;
+		speed  = 0.0;	
+		usid   = -1;
 	}
-	/*
-		
+	
+	/**
+	 * Inverts the collision normal direction.
+	 * @return
+	 */
 	public function Invert():Collision
 	{
+		var tc : Collider = from;
+		from = to;
+		to   = tc;
 		normal.Invert();
 		return this;
 	}
+	
+	/**
+	 * 
+	 */
+	public function Reset():Void
+	{
+		normal.Set();
+		point.Set();
+		depth = 0;
+		speed = 0;		
+	}
+	
+	/*
+		
+	
 	
 	private function Update():Bool
 	{

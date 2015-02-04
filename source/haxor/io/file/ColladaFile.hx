@@ -9,10 +9,12 @@ import haxor.component.MeshRenderer;
 import haxor.component.light.PointLight;
 import haxor.component.SkinnedMeshRenderer;
 import haxor.component.Transform;
+import haxor.core.Asset;
 import haxor.core.Console;
 import haxor.core.Entity;
 import haxor.core.Resource;
 import haxor.graphics.material.Material;
+import haxor.graphics.material.Shader;
 import haxor.graphics.mesh.MeshLayout.Mesh3;
 import haxor.graphics.mesh.MeshLayout.SkinnedMesh3;
 import haxor.graphics.texture.Bitmap;
@@ -179,7 +181,7 @@ class ColladaFile extends AssetXML
 			{
 				mat = new Material();
 				mat.name = mn;
-				mat.shader = Asset.Get("haxor/unlit/FlatTexture");
+				mat.shader = Shader.FlatTexture;
 				Asset.Add(mn, mat);
 			}			
 			mm.set(m, mat);

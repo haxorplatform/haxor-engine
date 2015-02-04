@@ -51,7 +51,6 @@ import haxor.input.Input;
 import haxor.input.Joystick;
 import haxor.input.KeyCode;
 import haxor.io.Buffer;
-import haxor.io.file.Asset;
 import haxor.io.file.ColladaFile;
 import haxor.io.file.MaterialFile;
 import haxor.io.FloatArray;
@@ -85,7 +84,7 @@ import haxor.thread.Activity;
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 
-class Main extends Application implements IUpdateable implements IRenderable
+class Dungeon00 extends Application implements IUpdateable implements IRenderable
 {
 	
 	static public function main():Void 
@@ -97,15 +96,14 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	public var orbit : CameraOrbit;
 	
-	public var container : Transform;
-	
-	public var mat : Material;
-	
 	public var player : Transform;
+	
+	public var debug : Bool;
 	
 	var queue : Int = 3;
 	
 	#if html
+	var ui : js.Stats;
 	var field : js.html.DivElement;
 	#end
 	
@@ -113,40 +111,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{	
 		Web.root = "http://www.haxor.xyz/resources/";
 		
-		
-		//Web.LoadCollada("./character/medieval/animations/all_idle01.DAE",function(f : ColladaFile, p:Float32):Void
-		Web.LoadCollada("./character/skeleton/grunt/animation_idle01.DAE",function(f : ColladaFile, p:Float32):Void
-		{
-			if (p >= 1.0)
-			{
-				Asset.Add("animation_idle", f);
-				if ((--queue) <= 0) LoadComplete();
-			}
-		});
-		
-		//Web.LoadTexture2D("./character/medieval/knight/DiffuseTexture.png",true,function(t : Texture2D, p:Float32):Void
-		Web.LoadTexture2D("./character/skeleton/grunt/DiffuseTexture.png",true,function(t : Texture2D, p:Float32):Void
-		{
-			if (p >= 1.0)
-			{
-				Asset.Add("texture_diffuse", t);
-				if ((--queue) <= 0) LoadComplete();
-			}
-		});
-		
-		//Web.LoadCollada("./character/medieval/knight/asset.dae",function(f : ColladaFile, p:Float32):Void
-		Web.LoadCollada("./character/skeleton/grunt/model.DAE",function(f : ColladaFile, p:Float32):Void
-		{
-			if (p >= 1.0)
-			{
-				Asset.Add("model", f);
-				if ((--queue) <= 0) LoadComplete();
-			}
-		});
-		
-		
-				
-		return false;
+		return true;
 	}
 	
 	override public function Initialize():Void 
@@ -155,7 +120,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		#if html
 		field = cast js.Browser.document.getElementById("field");
-		var ui : js.Stats = new js.Stats();
+		ui = new js.Stats();
 		ui.domElement.style.position = "absolute";
         ui.domElement.style.top = '0px';		
         js.Browser.document.body.appendChild(ui.domElement);
@@ -167,6 +132,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 		});
 		#end
 		
+		debug = false;
+		
 		orbit = CameraOrbit.Create(80.0, 45, 30);
 		
 		var ci : CameraOrbitInput = orbit.AddComponent(CameraOrbitInput);
@@ -177,43 +144,6 @@ class Main extends Application implements IUpdateable implements IRenderable
 		cam.background = new Color(0.3, 0.3, 0.3);
 		
 		
-		container = (new Entity("container")).transform;
-					
-		mat = Material.Opaque(Asset.Get("texture_diffuse"));
-		mat.shader = Shader.FlatTextureSkin;		
-		mat.name = "PlayerMaterial";				
-		mat.SetTexture("DiffuseTexture", Asset.Get("texture_diffuse"));
-		
-		var cf : ColladaFile;
-		
-		cf = Asset.Get("model");
-		
-		player = new Entity("player").transform;
-		player.entity.layer = 2;
-		var asset : Transform = cast(cf.asset, Entity).transform;
-		asset.parent = player;
-		//asset.rotation = Quaternion.FromAxisAngle(Vector3.right, 90.0);
-		asset.localScale = new Vector3(0.1, 0.1, 0.1);
-		//asset.localScale = new Vector3(2.0, 2.0, 2.0);
-		
-		var mr : Array<MeshRenderer> = cast player.GetComponentsInChildren(MeshRenderer);
-		for (i in 0...mr.length)
-		{	
-			//if (i == 1) mr[i].enabled = false;			
-			mr[i].material = mat;			
-		}
-		
-		var anim : Animation;
-		cf = Asset.Get("animation_idle");
-		cf.AddAnimations(asset.entity);
-		anim = asset.entity.animation;
-		anim.Play(anim.clips[0]);
-		anim.clips[0].wrap = AnimationWrap.Loop;
-		//*/
-		
-		
-		
-		//*/
 	}
 	
 	
@@ -241,10 +171,20 @@ class Main extends Application implements IUpdateable implements IRenderable
 			
 		}
 		
-		
-		
 		#if html
-		if(field!=null) field.innerText = log;		
+		
+		if (Input.Down(KeyCode.D1))
+		{
+			debug = !debug;
+			if (!debug)
+			{
+				field.innerText = "";				
+			}
+			ui.domElement.style.display = debug ? "block" : "none";
+		}
+		
+		
+		if(debug) if(field!=null) field.innerText = log;		
 		#end
 		
 		#if windows		
@@ -262,8 +202,6 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{			
 		Gizmo.Grid(100.0, new Color(1, 1, 1, 0.1));
 		Gizmo.Axis(Vector3.temp.Set(), Vector3.temp.Set(2, 2, 2));
-		
-		
 	}
 	
 	

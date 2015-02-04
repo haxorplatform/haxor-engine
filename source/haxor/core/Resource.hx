@@ -1,7 +1,7 @@
 package haxor.core;
 import haxor.component.Behaviour;
 import haxor.context.EngineContext;
-import haxor.io.file.Asset;
+
 
 
 /**

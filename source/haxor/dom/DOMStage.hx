@@ -1,12 +1,12 @@
 #if html
 
 package haxor.dom;
+import haxor.core.Asset;
 import haxor.math.AABB2;
 import js.html.HTMLCollection;
 import haxor.platform.Types.Float32;
 import haxor.context.EngineContext;
 import haxor.math.Mathf;
-import haxor.io.file.Asset;
 import js.html.NodeList;
 import js.html.MouseEvent;
 import haxor.core.IResizeable;

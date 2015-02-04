@@ -22,7 +22,7 @@
     <option directives="html&#xA;profile&#xA;js-es5&#xA;js-flatten&#xA;dce" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="Main" />
+    <option mainClass="Dungeon00" />
     <option enabledebug="False" />
     <option additional="" />
   </build>
@@ -34,7 +34,7 @@
   <compileTargets>
     <compile path="src\Main.hx" />
     <compile path="src\MainHTML.hx" />
-    <compile path="source\Main.hx" />
+    <compile path="source\Dungeon00.hx" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

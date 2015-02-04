@@ -11,28 +11,8 @@ import haxor.platform.Types.Float32;
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 class SAP
-{
-	
-	/**
-	 * Result for the requested intersection query.
-	 */
-	public var inside : Array<Int>;
-	
-	/**
-	 * Result for the requested intersection query.
-	 */
-	public var outside : Array<Int>;
-	
-	/**
-	 * Number of elements returned by the query.
-	 */
-	public var countIn : Int;
-	
-	/**
-	 * Number of elements returned by the query.
-	 */
-	public var countOut : Int;
-	
+{	
+		
 	/**
 	 * Linked list interval x.
 	 */
@@ -62,11 +42,7 @@ class SAP
 		m_has_query = p_has_query;
 		x = new SAPList(p_bias,m_has_query);
 		y = new SAPList(p_bias,m_has_query);
-		z = new SAPList(p_bias,m_has_query);		
-		inside = [];
-		outside = [];
-		countIn = 0;
-		countOut = 0;
+		z = new SAPList(p_bias, m_has_query);
 	}
 	
 	/**
@@ -77,12 +53,7 @@ class SAP
 	{
 		x.Create(p_id);
 		y.Create(p_id);
-		z.Create(p_id);		
-		while (inside.length <= p_id)
-		{
-			inside.push( -1);
-			outside.push( -1);
-		}
+		z.Create(p_id);				
 	}
 	
 	/**
@@ -95,7 +66,7 @@ class SAP
 	{
 		x.Update(p_id,p_data, p_min.x, p_max.x);
 		y.Update(p_id,p_data, p_min.y, p_max.y);
-		z.Update(p_id,p_data, p_min.z, p_max.z);		
+		z.Update(p_id,p_data, p_min.z, p_max.z);
 	}
 	
 	/**
@@ -104,9 +75,9 @@ class SAP
 	 */
 	public function Remove(p_id:Int):Void
 	{
-		x.RemoveById(p_id);
-		y.RemoveById(p_id);
-		z.RemoveById(p_id);
+		x.Remove(p_id);
+		y.Remove(p_id);
+		z.Remove(p_id);
 	}
 	
 	/**
@@ -117,29 +88,31 @@ class SAP
 	 */
 	public function Overlap(p_a:Int, p_b:Int):Bool
 	{
-		var ax : SAPInterval = x.list[p_a];
-		var bx : SAPInterval = x.list[p_b];
+		var ia : SAPInterval;
+		var ib : SAPInterval;
 		
-		if (!ax.Overlap(bx)) return true;		
-		var ay : SAPInterval = y.list[p_a];
-		var by : SAPInterval = y.list[p_b];		
-		if (!ay.Overlap(by)) return true;		
-		var az : SAPInterval = z.list[p_a];		
-		var bz : SAPInterval = z.list[p_b];		
-		if (!az.Overlap(bz)) return true;
-		return false;
+		ia = x.list[p_a];
+		ib = x.list[p_b];		
+		if (!ia.Overlap(ib)) return false;		
+		
+		ia = y.list[p_a];
+		ib = y.list[p_b];		
+		if (!ia.Overlap(ib)) return false;		
+		
+		ia = z.list[p_a];
+		ib = z.list[p_b];
+		if (!ia.Overlap(ib)) return false;
+		return true;
 	}
 	
 	/**
 	 * Performs a intersection query and updates the query list with the result. Use 'count' to iterate in the results.
 	 * @param	p_id
 	 */
-	public function Query(p_id:Int,p_outside:Bool=false):Void
+	public function Query(p_id:Int,p_on_fetch : Dynamic -> Dynamic -> Void=null):Void
 	{
 		if (!m_has_query) return;
-		countIn  = 0;
-		countOut = 0;
-		
+						
 		//Target nodes in the different SAPLists.
 		var tx   : SAPInterval;
 		var ty   : SAPInterval;
@@ -170,23 +143,11 @@ class SAP
 					//HitZ
 					if (z.list[it.id].Overlap(tz))
 					{
-						inside[countIn++] = it.id;
-					}
-					else
-					{
-						if (p_outside) outside[countOut++] = it.id;
-					}
-				}									
-				else
-				{
-					if (p_outside) outside[countOut++] = it.id;
+						if (p_on_fetch != null) p_on_fetch(tx.data,it.data);
+					}					
 				}
-			}	
-			else
-			{
-				if (p_outside) outside[countOut++] = it.id;
 			}
-			it = it.next;
+			it = it.next;			
 		}
 		
 		//Backward Check
@@ -202,22 +163,10 @@ class SAP
 					//HitZ
 					if (z.list[it.id].Overlap(tz))
 					{
-						inside[countIn++] = it.id;
-					}
-					else
-					{
-						if (p_outside) outside[countOut++] = it.id;
-					}
-				}
-				else
-				{
-					if (p_outside) outside[countOut++] = it.id;
-				}
-			}			
-			else
-			{
-				if (p_outside) outside[countOut++] = it.id;
-			}
+						if (p_on_fetch != null) p_on_fetch(tx.data,it.data);						
+					}					
+				}				
+			}						
 			it = it.prev;
 		}
 	}
@@ -254,7 +203,7 @@ class SAPList
 	public function new(p_bias:Float32=0.0,p_has_query:Bool=true):Void
 	{
 		list = [];
-		for (i in 0...5000) list.push(null);
+		for (i in 0...1000) list.push(null);
 		m_has_query = p_has_query;
 		m_bias = p_bias;
 	}
@@ -279,24 +228,24 @@ class SAPList
 	{
 		list[p_id].id = p_id;
 		list[p_id].data = p_data;
-		var d: Float32 = (p_max - p_min) * m_bias *0.5;
+		var d: Float32 = (p_max - p_min) * m_bias * 0.5;
 		list[p_id].Set(p_min-d,p_max+d);		
-		if(m_has_query) Relocate(list[p_id]);
+		if(m_has_query) RelocateInterval(list[p_id]);
 	}
 	
 	/**
 	 * Searches the list from start and inserts the item in the correct location.
 	 * @param	p_item
 	 */
-	public function Add(p_item:SAPInterval):Void
+	private function AddInterval(p_item:SAPInterval):Void
 	{
 		if (start == null) { start = p_item; p_item.next = p_item.prev = null; return; }
 		if (p_item == start) return;		
 		var it : SAPInterval = start;
 		while (it != null)
 		{	
-			if (p_item.min < it.min) { Insert(p_item, it); return;	}			
-			if(it.next==null) {	Insert(p_item, it);	return;	}
+			if (p_item.min < it.min) { InsertInterval(p_item, it); return;	}			
+			if(it.next==null) {	InsertInterval(p_item, it);	return;	}
 			it = it.next;				
 		}				
 	}
@@ -306,7 +255,7 @@ class SAPList
 	 * @param	p_target
 	 * @param	p_at
 	 */
-	public function Insert(p_item : SAPInterval, p_at : SAPInterval):Void
+	private function InsertInterval(p_item : SAPInterval, p_at : SAPInterval):Void
 	{		
 		if (p_item == p_at) return;		
 		//check min max to add left or right		
@@ -334,13 +283,13 @@ class SAPList
 	 * @param	p_target
 	 * @param	p_start
 	 */
-	public function Relocate(p_item : SAPInterval):Void
+	private function RelocateInterval(p_item : SAPInterval):Void
 	{
 		//Check if interval belongs anywhere
 		if (p_item.prev == null) 
 		if (p_item.next == null)
 		{
-			Add(p_item);
+			AddInterval(p_item);
 			return;
 		}		
 		
@@ -364,9 +313,9 @@ class SAPList
 		if (location != null)
 		{			
 			//Unlink target
-			Remove(p_item);
+			RemoveInterval(p_item);
 			//Inserts in the correct location.
-			Insert(p_item, location);		
+			InsertInterval(p_item, location);		
 		}
 	}
 	
@@ -374,16 +323,16 @@ class SAPList
 	 * Removes a node using its id.
 	 * @param	p_id
 	 */
-	public inline function RemoveById(p_id : Int):Void
+	public inline function Remove(p_id : Int):Void
 	{
-		Remove(list[p_id]);
+		RemoveInterval(list[p_id]);
 	}
 	
 	/**
 	 * Removes the interval from the linked list topology.
 	 * @param	p_target
 	 */
-	public function Remove(p_item : SAPInterval):Void
+	private function RemoveInterval(p_item : SAPInterval):Void
 	{
 		if (!m_has_query) return;
 		var p : SAPInterval = p_item.prev;
@@ -394,6 +343,21 @@ class SAPList
 		//Update starting nodes
 		if (p_item == start) start = n;		
 	}
+	
+	/**
+	 * Iterates the list.
+	 * @param	p_callback
+	 */
+	public function Iterate(p_callback : SAPInterval -> Void):Void
+	{
+		var it : SAPInterval = start;
+		while (it != null)
+		{
+			p_callback(it);
+			it = it.next;
+		}
+	}
+	
 	/**
 	 * Returns the string representation of this list.
 	 * @param	p_places

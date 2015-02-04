@@ -4,6 +4,7 @@ import haxor.component.Behaviour;
 import haxor.context.EngineContext;
 import haxor.context.Process;
 import haxor.graphics.Screen;
+import haxor.physics.Physics;
 
 /**
  * Engine execution state.
@@ -62,10 +63,6 @@ class Engine
 		
 		if (state == EngineState.Editor) return;
 		
-		#if !ie8
-		Animation.Update();
-		#end
-		
 		var up : Process<IUpdateable> = EngineContext.update;				
 		
 		for (i in 0...up.length)
@@ -80,6 +77,12 @@ class Engine
 			}			
 			up.list[i].OnUpdate();
 		}
+		
+		#if !ie8
+		Animation.Update();
+		EngineContext.physics.Step();
+		#end
+		
 	}
 	
 	/**

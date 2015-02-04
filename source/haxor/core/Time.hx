@@ -55,9 +55,17 @@ class Time
 	/**
 	 * Returns the last frame delta time. This attribute is useful to update time based things on the render loop.
 	 */
-	static public var framedelta(get_framedelta, null):Float32;
-	static inline function get_framedelta():Float32{ return m_frame_delta; }
+	static public var frameDelta(get_frameDelta, null):Float32;
+	static inline function get_frameDelta():Float32{ return m_frame_delta; }
 	static private var m_frame_delta : Float32;
+	
+	/**
+	 * Get or Set the fixed timestep for physics iterations.
+	 */
+	static public var fixedDelta(get_fixedDelta, set_fixedDelta) : Float32;	
+	static function get_fixedDelta(): Float32 { return m_fixedDelta; }
+	static function set_fixedDelta(v:Float32): Float32 { m_fixedDelta = v; return v; }
+	static var m_fixedDelta : Float32;
 	
 	/**
 	 * Returns the elapsed time in seconds.
@@ -122,7 +130,8 @@ class Time
 		m_fps			= 0;
 		m_updates		= 0.0;
 		m_frame_count	= 0.0;
-		m_frame			= 0;		
+		m_frame			= 0;	
+		m_fixedDelta    = 1.0 / 100.0;
 	}
 	
 	static private function Update():Void

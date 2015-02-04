@@ -43,13 +43,7 @@ class AABB3
 	static public function FromMinMax(p_xmin : Float32, p_xmax : Float32, p_ymin:Float32, p_ymax : Float32, p_zmin:Float32, p_zmax : Float32,p_result:AABB3=null) :AABB3
 	{
 		var b : AABB3 = p_result == null ? (new AABB3()) : p_result;
-		b.xMin = p_xmin;
-		b.xMax = p_xmax;
-		b.yMin = p_ymin;
-		b.yMax = p_ymax;
-		b.zMin = p_zmin;
-		b.zMax = p_zmax;
-		return b;
+		return b.Set(p_xmin, p_xmax, p_ymin, p_ymax, p_zmin, p_zmax);		
 	}
 	
 	/**
@@ -63,13 +57,11 @@ class AABB3
 	 * @return
 	 */
 	static public function FromCenter(p_x : Float32, p_y : Float32, p_z:Float32, p_width : Float32, p_height:Float32, p_depth : Float32,p_result:AABB3=null) :AABB3
-	{
-		var b : AABB3 = p_result == null ? new AABB3() : p_result;
-		b.width  = p_width;
-		b.height = p_height;
-		b.depth  = p_depth;
-		b.center = new Vector3(p_x, p_y, p_z);
-		return b;
+	{		
+		var w2 : Float32 = p_width  * 0.5;
+		var h2 : Float32 = p_height * 0.5;
+		var d2 : Float32 = p_depth  * 0.5;
+		return FromMinMax(p_x - w2, p_x + w2, p_y - h2, p_y + h2, p_z - d2, p_z + d2,p_result);
 	}
 	
 	/**
@@ -199,7 +191,7 @@ class AABB3
 		var y1 : Float32 = m_yMax;
 		var z0 : Float32 = m_zMin;
 		var z1 : Float32 = m_zMax;
-		if (x0 <= x1) { m_xMin = x0; m_xMax = x1; } else { m_xMin = x1; m_xMax = x0; }
+		if (x0 <= x1) { m_xMin = x0; m_xMax = x1; } else { m_xMin  = x1; m_xMax = x0; }
 		if (y0 <= y1) { m_yMin = y0; m_yMax = y1; } else { m_yMin  = y1; m_yMax = y0; }
 		if (z0 <= z1) { m_zMin = z0; m_zMax = z1; } else { m_zMin  = z1; m_zMax = z0; }
 	}
@@ -230,7 +222,7 @@ class AABB3
 	 * @param	p_zmax
 	 * @return
 	 */
-	public function Set(p_xmin:Float32, p_xmax:Float32, p_ymin:Float32, p_ymax:Float32, p_zmin:Float32, p_zmax:Float32):AABB3
+	public function Set(p_xmin:Float32=0, p_xmax:Float32=0, p_ymin:Float32=0, p_ymax:Float32=0, p_zmin:Float32=0, p_zmax:Float32=0):AABB3
 	{
 		m_xMin = p_xmin;
 		m_yMin = p_ymin;

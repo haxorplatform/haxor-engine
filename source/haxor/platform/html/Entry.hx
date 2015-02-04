@@ -1,7 +1,7 @@
 #if html
 package haxor.platform.html;
+import haxor.core.Asset;
 import haxor.dom.Container;
-import haxor.io.file.Asset;
 import js.html.NamedNodeMap;
 import haxor.dom.DOMStage;
 import haxe.Timer;

@@ -320,7 +320,7 @@ class RendererContext
 	{
 		if (!r.m_has_mesh) return false;
 		var mr : MeshRenderer = cast r;
-		return sap.Overlap(mr.__fcid, c.__fcid);
+		return !sap.Overlap(mr.__fcid, c.__fcid);
 	}
 	
 	/**

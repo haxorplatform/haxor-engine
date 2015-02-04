@@ -1,9 +1,13 @@
 package haxor.context;
 import haxor.component.Camera;
+import haxor.component.MeshRenderer;
+import haxor.component.physics.Collider;
+import haxor.component.Renderer;
 import haxor.component.Transform;
 import haxor.context.GizmoContext.Gizmo;
 import haxor.context.GizmoContext.PointGizmo;
 import haxor.core.Console;
+import haxor.core.Debug;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
 import haxor.core.Enums.MeshPrimitive;
@@ -406,30 +410,14 @@ class Gizmo
 		f32.Set(p++,p_b.x);
 		f32.Set(p++,p_b.y);
 		f32.Set(p++,p_b.z);
-		f32.Set(p++, p_b.w);		
+		f32.Set(p++,p_b.w);		
 		//trace("push "+m_render_count);
 		var m : Matrix4 = (p_transform == null ? IDM : p_transform);
-		for (i in 0...12) f32.Set(p++, m.GetIndex(i));			
-		
-		/*
-		p = id * DATA_OFFSET;
-		f32.Set(p++,0.2);
-		f32.Set(p++,0.2);
-		f32.Set(p++,0.2);
-		f32.Set(p++,1.0);		
-		f32.Set(p++,0.4);
-		f32.Set(p++,0.4);
-		f32.Set(p++,0.4);
-		f32.Set(p++,1.0);
-		f32.Set(p++,0.8);
-		f32.Set(p++,0.8);
-		f32.Set(p++,0.8);
-		f32.Set(p++, 1.0);	
-		
-		f32.Set(p++, 0.5); f32.Set(p++, 0.0); f32.Set(p++, 0.0); f32.Set(p++, 0.5);
-		f32.Set(p++, 0.0); f32.Set(p++, 0.5); f32.Set(p++, 0.0); f32.Set(p++, 0.5);
-		f32.Set(p++, 0.0); f32.Set(p++, 0.0); f32.Set(p++, 0.5); f32.Set(p++, 0.5);
-		//*/
+		var ms : String = "";
+		for (i in 0...12)
+		{			
+			f32.Set(p++, m.GetIndex(i));			
+		}
 		
 		m_render_count++;
 	}
@@ -447,6 +435,36 @@ class Gizmo
 	 */
 	public function Render():Void 
 	{	
+		var gizmo_collider : Bool = Debug.collider || Debug.colliderAABB || Debug.colliderSB;
+		
+		if (gizmo_collider)
+		{
+			var cl : Array<Collider> = EngineContext.physics.colliders;			
+			for (i in 0...cl.length)
+			{
+				var c : Collider = cl[i];				
+				if (Debug.collider) Debug.Collider(c);
+				if (Debug.colliderAABB)     Debug.BoundingAABB(c);
+				if (Debug.colliderSB)   Debug.BoundingSphere(c);				
+			}
+		}
+		
+		if (Debug.renderer)
+		{
+			var rpl :Array<Process<Renderer>> = EngineContext.renderer.display;
+			for (i in 0...rpl.length)
+			{
+				var rp : Process<Renderer> = rpl[i];
+				for (j in 0...rp.length)
+				{	
+					var mr : MeshRenderer = cast rp.list[j];
+					
+					if (mr == null) continue;
+					Debug.MeshRenderer(mr);
+				}
+			}
+		}
+		
 		if (m_render_count > 0)
 		{			
 			data.Apply();

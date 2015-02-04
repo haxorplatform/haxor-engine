@@ -119,7 +119,7 @@ class MeshRenderer extends Renderer
 	/**
 	 * Updates culling and other data.
 	 */
-	override function OnTransformUpdate():Void 
+	override function OnTransformUpdate(p_hierarchy : Bool):Void 
 	{		
 		m_culling_dirty = true;		
 	}

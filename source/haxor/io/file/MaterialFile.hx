@@ -1,4 +1,5 @@
 package haxor.io.file;
+import haxor.core.Asset;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
 import haxor.core.Enums.DepthTest;
@@ -179,8 +180,7 @@ class MaterialFile extends AssetXML
 				case "color":	m.SetFloat4(u.name,a[0], a[1], a[2], a[3]);
 				case "texture":	m.SetTexture(u.name,Asset.Get(u.value));
 			}
-		}
-		
+		}		
 		return m;
 	}
 	

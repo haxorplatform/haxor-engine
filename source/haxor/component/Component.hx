@@ -83,7 +83,7 @@ class Component extends Resource
 	/**
 	 * Callback called when the Transform of the Entity changed.
 	 */
-	private function OnTransformUpdate():Void { }
+	private function OnTransformUpdate(p_hierarchy : Bool):Void { }
 	
 	/**
 	 * Callback called when the MeshRenderer's visibility of this Entity changed.

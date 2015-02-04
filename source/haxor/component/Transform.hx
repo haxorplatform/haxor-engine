@@ -134,7 +134,7 @@ class Transform extends Component
 	private function set_localRotation(v:Quaternion):Quaternion 
 	{
 		var dx : Float32 = (v.x-m_localRotation.x); var dy : Float32 = (v.y-m_localRotation.y); var dz : Float32 = (v.z-m_localRotation.z); var dw : Float32 = (v.w-m_localRotation.w);
-		if (Math.abs(dx) < Mathf.Epsilon) if (Math.abs(dy) < Mathf.Epsilon)	if (Math.abs(dz) < Mathf.Epsilon) if (Math.abs(dw) < Mathf.Epsilon) return v;	
+		if (Mathf.Abs(dx) < Mathf.Epsilon) if (Mathf.Abs(dy) < Mathf.Epsilon)	if (Mathf.Abs(dz) < Mathf.Epsilon) if (Mathf.Abs(dw) < Mathf.Epsilon) return v;	
 		m_localRotation.SetQuaternion(v); m_lmrs_dirty 	= true;			
 		Invalidate();
 		return v; 

@@ -40,7 +40,17 @@ class TransformContext
 	{
 		t.m_uniform_dirty = true;
 		var cl : Array<Component>   = t.m_entity.m_components;
-		for (i in 0...cl.length) cl[i].OnTransformUpdate();
+		for (i in 0...cl.length) cl[i].OnTransformUpdate(false);
+	}
+	
+	/**
+	 * Notifies all components from Entity that the hierarchy location has changed.
+	 * @param	t
+	 */
+	private function OnHierarchyChange(t:Transform):Void
+	{
+		var cl : Array<Component>   = t.m_entity.m_components;
+		for (i in 0...cl.length) cl[i].OnTransformUpdate(true);
 	}
 	
 }

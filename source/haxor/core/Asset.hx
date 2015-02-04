@@ -1,4 +1,4 @@
-package haxor.io.file;
+package haxor.core;
 import haxor.core.Resource;
 
 /**

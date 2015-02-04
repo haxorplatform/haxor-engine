@@ -1,6 +1,7 @@
 package haxor.math;
 import haxor.context.EngineContext;
 import haxor.platform.Types.Float32;
+import haxor.platform.Types.Float32;
 
 
 /**
@@ -223,6 +224,22 @@ class Matrix4
 	}
 	
 	/**
+	 * Returns the scale component of the informed matrix.
+	 * @param	p_matrix4
+	 * @param	p_result
+	 * @return
+	 */
+	static public function GetScale(p_matrix4 : Matrix4, p_result : Matrix4 = null) : Matrix4
+	{
+		var m : Matrix4 = p_matrix4;
+		var res : Matrix4 = p_result == null ? (new Matrix4()) : p_result;		
+		var d0:Float32= Math.sqrt(m.m00 * m.m00 + m.m10 * m.m10 + m.m20 * m.m20);
+		var d1:Float32= Math.sqrt(m.m01 * m.m01 + m.m11 * m.m11 + m.m21 * m.m21);
+		var d2:Float32= Math.sqrt(m.m02 * m.m02 + m.m12 * m.m12 + m.m22 * m.m22);
+		return res.Set(d0, 0, 0, 0,   0, d1, 0, 0,   0, 0, d2, 0,   0, 0, 0, 1);
+	}
+	
+	/**
 	 * Returns a new matrix with the inverse transform of the informed matrix.
 	 * @param	p_matrix
 	 * @param	p_result
@@ -330,13 +347,7 @@ class Matrix4
 	 * Returns the scale component of this matrix as copy.
 	 */
 	public var scale(get_scale, null):Matrix4;
-	private inline function get_scale():Matrix4
-	{
-		var d0:Float32= Math.sqrt(m00 * m00 + m10 * m10 + m20 * m20);
-		var d1:Float32= Math.sqrt(m01 * m01 + m11 * m11 + m21 * m21);
-		var d2:Float32= Math.sqrt(m02 * m02 + m12 * m12 + m22 * m22);
-		return new Matrix4(d0, 0, 0, 0,   0, d1, 0, 0,   0, 0, d2, 0,   0, 0, 0, 1);
-	}
+	private inline function get_scale():Matrix4 { return GetScale(this); }
 	
 	/**
 	 * Returns the translation component of this matrix as copy.
@@ -350,6 +361,7 @@ class Matrix4
 	public var inverseTransform(get_inverseTransform, null):Matrix4;
 	private function get_inverseTransform():Matrix4
 	{   
+		/*
 		var result:Matrix4 = Matrix4.identity;
 		var l0:Vector3 = new Vector3(m00,m01,m02);
 		var l1:Vector3 = new Vector3(m10,m11,m12);
@@ -375,6 +387,8 @@ class Matrix4
 		0,0,0,1
 		);		
 		return result;		
+		//*/		
+		return GetInverseTransform(this, null);		
 	}
 	
 	/**
@@ -733,6 +747,12 @@ class Matrix4
 	 * @return
 	 */
 	public inline function SetTRS(p_position : Vector3, p_rotation : Quaternion, p_scale:Vector3 = null):Matrix4 { return TRS(p_position, p_rotation, p_scale, this); }
+	
+	/**
+	 * Converts this instance to its inverse transform form.
+	 * @return
+	 */
+	public inline function ToInverseTransform():Matrix4 { return GetInverseTransform(Matrix4.temp.SetMatrix4(this), this); }
 	
 	/**
 	 * Multiplies the informed matrix using only the transform "sector" of the 2 matrix.  Returns its own reference.

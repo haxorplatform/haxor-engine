@@ -308,6 +308,13 @@ class Mathf
 	static public inline function Ceil(p_v : Float32):Float32 { return cast Std.int(p_v + (p_v < 0 ? -0.9999999 : 0.9999999)); }        
 	
 	/**
+	 * Returns the inverse of the number avoiding an NaN exception.
+	 * @param	p_v
+	 * @return
+	 */
+	static public inline function Inverse(p_v : Float32):Float32 { return Mathf.Abs(p_v) <= 0.0 ? 0.0 : (1.0/p_v); }        
+	
+	/**
 	 * Rounds the informed number to the nearest integer.
 	 * @param	p_v
 	 * @return

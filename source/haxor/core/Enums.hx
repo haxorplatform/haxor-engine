@@ -485,3 +485,26 @@ enum ColliderType
 	 */
 	Mesh;
 }
+
+/**
+ * Enumeration that describes how Force must be applied on a RigidBody
+ */
+enum ForceMode
+{
+	/**
+	 * 
+	 */
+	Acceleration;
+	/**
+	 * 
+	 */
+	Force;
+	/**
+	 * 
+	 */
+	Impulse;
+	/**
+	 * 
+	 */
+	Velocity;
+}

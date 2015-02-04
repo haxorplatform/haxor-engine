@@ -1,7 +1,9 @@
 package haxor.component.physics;
+import haxor.context.EngineContext;
 import haxor.core.Enums.ColliderType;
 import haxor.math.AABB3;
 import haxor.math.Vector4;
+import haxor.physics.Physics;
 import haxor.physics.PhysicsMaterial;
 
 /**
@@ -11,6 +13,87 @@ import haxor.physics.PhysicsMaterial;
 @:allow(haxor)
 class Collider extends Behaviour// implements IUpdateable
 {
+	
+	/**
+	 * Flag that indicates the type of collider.
+	 */
+	public var type(get_type, never):ColliderType;
+	private function get_type():ColliderType { return m_type; }
+	private var m_type : ColliderType;
+	
+	/**
+	 * 
+	 * @param	v
+	 * @return
+	 */
+	override function set_enabled(v:Bool):Bool 
+	{
+		super.set_enabled(v);
+		EngineContext.physics.OnColliderUpdate(this,false);
+		return v;
+	}
+	
+	/**
+	 * Flag that indicates if this collider should behave as a trigger.
+	 */
+	public var trigger : Bool;
+	
+	/**
+	 * Material that describes physical properties of this collider.
+	 */
+	public var material : PhysicsMaterial;
+	
+	/**
+	 * Bounding sphere.
+	 */
+	public var sphere(get_sphere, never) : Vector4;
+	private function get_sphere():Vector4	{ if (m_sphere_dirty) { GenerateSphere(); m_sphere_dirty = false; } return m_sphere.clone; }
+	private var m_sphere : Vector4;
+	private var m_sphere_dirty : Bool;
+	
+	/**
+	 * Boundings
+	 */
+	public var aabb(get_aabb, never) : AABB3;
+	private function get_aabb():AABB3	{ if (m_aabb_dirty) { GenerateAABB(); m_aabb_dirty = false; } return m_aabb.clone; }
+	private var m_aabb : AABB3;
+	private var m_aabb_dirty : Bool;
+		
+	
+	/**
+	 * Method called after creation is complete.
+	 */
+	override function OnBuild():Void 
+	{
+		super.OnBuild();
+		EngineContext.physics.CreateCollider(this);
+		trigger  = false;
+		m_aabb 	 = AABB3.empty;
+		m_sphere = Vector4.zero;
+		m_aabb_dirty = false;
+		m_sphere_dirty = false;
+	}
+	
+	/**
+	 * Callback called when this element Transform has changed.
+	 */
+	override function OnTransformUpdate(p_hierarchy:Bool):Void 
+	{
+		super.OnTransformUpdate(p_hierarchy);		
+		Refresh();
+		EngineContext.physics.OnColliderUpdate(this,p_hierarchy);
+	}
+	
+	
+	/**
+	 * Method that will generate the bounding sphere in world coords of this collider.
+	 */
+	private function GenerateSphere() : Void { }
+	
+	/**
+	 * Method that will generate the aabb in world coords of this collider.
+	 */
+	private function GenerateAABB() : Void { }
 	
 	/*
 	static public var list(get_list, never):Array<Collider>;
@@ -25,29 +108,13 @@ class Collider extends Behaviour// implements IUpdateable
 		m_indexes 	= [];
 	}
 	
-	public var trigger : Bool;
 	
-	public var material : PhysicsMaterial;
 	
-	public var boundSphere(get_boundSphere, never) : Vector4;
-	private function get_boundSphere():Vector4	{ if (m_sphere_refresh) { GenerateBoundSphere();  } return m_boundSphere; }
-	private var m_boundSphere : Vector4;
 	
-	private function GenerateBoundSphere() : Void { }
-	
-	public var boundAABB(get_boundAABB, never) : AABB3;
-	private function get_boundAABB():AABB3	{ if (m_aabb_refresh) { GenerateBoundAABB();  } return m_boundAABB; }
-	private var m_boundAABB : AABB3;
-	
-	private function GenerateBoundAABB() : Void { }
 	
 	private var m_cid : Int;
 	
 	private var m_sid : Int;
-	
-	public var primitive(get_primitive, never):ColliderType;
-	private function get_primitive():ColliderType { return m_primitive; }
-	private var m_primitive : ColliderType;
 		
 	private var m_query : Array<Collider>;
 	
@@ -83,13 +150,6 @@ class Collider extends Behaviour// implements IUpdateable
 	{
 		m_init = true;
 		Refresh();
-	}
-	
-	private function Refresh():Void
-	{	
-		m_sphere_refresh = true;
-		m_aabb_refresh   = true;		
-		if(m_init)Physics.broadphase.SetDirty(this);
 	}
 	
 	public function OnUpdate():Void
@@ -218,4 +278,11 @@ class Collider extends Behaviour// implements IUpdateable
 		}
 	}
 	//*/
+	
+	private function Refresh():Void
+	{	
+		m_aabb_dirty   = true;
+		m_sphere_dirty = true;
+	}
+	
 }

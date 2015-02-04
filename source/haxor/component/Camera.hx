@@ -250,7 +250,7 @@ class Camera extends Behaviour implements IResizeable
 	private var m_proj_uniform_dirty : Bool;
 	
 	/**
-	 * Method called
+	 * Method called after creation is complete.
 	 */
 	override function OnBuild():Void 
 	{
@@ -389,7 +389,7 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Updates the internal matrix when the transform updates.
 	 */
-	override private function OnTransformUpdate():Void
+	override private function OnTransformUpdate(p_hierarchy : Bool):Void
 	{ 
 		m_view_uniform_dirty = true; 
 	}

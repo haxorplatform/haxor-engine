@@ -1,5 +1,6 @@
 package haxor.physics;
 import haxor.core.Resource;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that describes the physical properties of a collider.
@@ -23,12 +24,12 @@ class PhysicsMaterial extends Resource
 	/**
 	 * 
 	 */
-	public var bounce : Float;
+	public var bounce : Float32;
 	
 	/**
 	 * 
 	 */
-	public var friction : Float;
+	public var friction : Float32;
 
 	/**
 	 * 
