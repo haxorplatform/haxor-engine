@@ -335,7 +335,7 @@ class ColladaFile extends AssetXML
 						{
 							for(i in 0...10) mn = StringTools.replace(mn, "_"+i, ""); //Maybe 10 checks will hold?
 							mn = StringTools.replace(mn, "_", "/");
-							var mat : Material = Asset.Get(mn);
+							var mat : Material = Asset.Get(mn);							
 							mr.material = mat;
 						}
 					}					

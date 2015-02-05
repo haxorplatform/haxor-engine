@@ -219,8 +219,8 @@ class Dungeon extends Behaviour
 		{	
 			if (t.name.indexOf("Frame") >= 0) return true;
 			if (t.name.indexOf("Right") >= 0) return true;
-			if (t.name.indexOf("Left") >= 0) return true;			
-			//t.entity.AddComponent(DungeonDoor);
+			if (t.name.indexOf("Left") >= 0) return true;						
+			t.entity.AddComponent(DungeonDoor);
 		}
 		
 		return true;

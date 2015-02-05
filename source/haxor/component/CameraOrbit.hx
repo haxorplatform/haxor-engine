@@ -106,7 +106,7 @@ class CameraOrbit extends Behaviour implements IUpdateable
 		if (target != null)
 		{
 			if (follow)
-			{
+			{				
 				var p : Vector3 = pivot.localPosition;
 				p = Vector3.Lerp(p, target.localPosition, Time.delta * smooth);
 				pivot.localPosition = p;

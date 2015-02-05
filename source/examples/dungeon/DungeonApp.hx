@@ -76,6 +76,7 @@ import haxor.physics.PhysicsMaterial;
 import haxor.platform.Types.Float32;
 import haxor.platform.Types.MeshBufferId;
 import haxor.thread.Activity;
+import js.Browser;
 
 
 
@@ -101,7 +102,7 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 	
 	public var debug : Bool;
 	
-	public var load_big_dungeon : Bool = false;
+	public var load_big_dungeon : Bool = true;
 	
 	/**
 	 * 
@@ -160,7 +161,7 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 		if (Input.Down(KeyCode.Q))  Camera.SAPCulling   = !Camera.SAPCulling;
 		if (Input.Down(KeyCode.D2)) Debug.transform 	= !Debug.transform;		
 		if (Input.Down(KeyCode.D3)) Debug.collider 		= !Debug.collider;		
-		//if (Input.Down(KeyCode.D4)) Debug.light 		= !Debug.lights;		
+		if (Input.Down(KeyCode.D4)) Debug.light 		= !Debug.light;		
 		if (Input.Down(KeyCode.D5)) Debug.renderer 		= !Debug.renderer;		
 		//if (Input.Down(KeyCode.D6)) Debug.particles 	= !Debug.particles;
 		
@@ -174,9 +175,9 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 			debug = !debug;
 			if (!debug)
 			{
-				field.innerText = "";
-				game.orbit.follow = !debug;
+				field.innerText = "";				
 			}
+			game.orbit.follow = !debug;
 			ui.domElement.style.display = debug ? "block" : "none";
 		}
 		
@@ -215,7 +216,7 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 	
 	public function OnRender():Void
 	{
-		if(debug)
+		if(Debug.transform)
 		{
 			Gizmo.Grid(8000.0, new Color(1, 1, 1, 0.1));
 			Gizmo.Axis(Vector3.temp.Set(), Vector3.temp.Set(2, 2, 2));
@@ -230,7 +231,9 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 	{	
 		Web.root = "http://www.haxor.xyz/resources/";
 		
-		
+		#if html
+		load_big_dungeon = js.Browser.window.location.hash.toLowerCase().indexOf("big") >= 0;
+		#end
 		
 		//Falloff Ramp
 		Asset.LoadTexture2D("player/ramp", 	  "./texture/misc/ramp00.jpg");		
@@ -316,6 +319,8 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 		Asset.LoadShader("haxor/diffuse/ToonSkin", 									"./shader/diffuse/ToonSkin.shader");
 		Asset.LoadShader("haxor/diffuse/ToonSkinFalloff", 							"./shader/diffuse/ToonSkinFalloff.shader");		
 		Asset.LoadShader("haxor/screen/Displacement",								"./shader/screen/Displacement.shader");
+		
+		Asset.LoadShader("haxor/kernel/ParticleKernel", 							"./shader/kernel/ParticleKernel.shader");
 		
 		Asset.LoadMaterial("haxor/material/opaque/unlit/Flat", 		  				"./material/opaque/unlit/Flat.mat");		
 		Asset.LoadMaterial("haxor/material/opaque/unlit/FlatTexture", 				"./material/opaque/unlit/FlatTexture.mat");						   

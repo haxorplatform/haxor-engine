@@ -1,6 +1,7 @@
 package examples.dungeon;
 import haxor.component.Behaviour;
 import haxor.component.CameraOrbit;
+import haxor.component.light.Light;
 import haxor.component.physics.Collider;
 import haxor.core.Application;
 import haxor.core.Asset;
@@ -44,7 +45,7 @@ class GameController extends Behaviour
 		
 		
 		
-		//Light.ambient = Color.FromBytes(130, 140, 160);
+		Light.ambient = Color.FromBytes(130, 140, 160);
 		
 		
 		dungeon = (new Entity()).AddComponent(Dungeon);

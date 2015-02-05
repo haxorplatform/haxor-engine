@@ -1,5 +1,7 @@
 package haxor.core;
 import haxor.component.Camera;
+import haxor.component.light.Light;
+import haxor.component.light.PointLight;
 import haxor.component.MeshRenderer;
 import haxor.component.physics.BoxCollider;
 import haxor.component.physics.Collider;
@@ -53,12 +55,18 @@ class Debug
 	 */
 	static public var rendererAABB : Bool;
 	
+	/**
+	 * 
+	 */
+	static public var light : Bool;
+	
 	
 	static private var color_white     : Color = Color.white;
 	static private var color_collider  : Color = Color.green50;
 	static private var color_trigger   : Color = Color.red50;
 	static private var color_bounding  : Color = Color.blue30;
 	static private var color_renderer  : Color = Color.blue50;
+	static private var color_light     : Color = Color.yellow50;
 	
 	/**
 	 * 
@@ -71,6 +79,7 @@ class Debug
 		transform = false;
 		renderer  = false;
 		rendererAABB = false;
+		light = false;
 	}
 	
 	/**
@@ -197,5 +206,24 @@ class Debug
 		p0.Set4(fp[2]); p1.Set4(fp[6]); Gizmo.Line(p0, p1, color_white);
 		p0.Set4(fp[3]); p1.Set4(fp[7]); Gizmo.Line(p0, p1, color_white);
 		//*/
+	}
+	
+	/**
+	 * 
+	 * @param	l
+	 */
+	static public function Light(l :Light):Void
+	{
+		var cl : Color = Color.temp;
+		if (Std.is(l, PointLight))
+		{			
+			var pl : PointLight = cast l;
+			var p : Vector3 = l.transform.position;			
+			cl.SetColor(color_light); cl.a = l.enabled ? 1.0 : 0.33;						
+			Gizmo.WireSphere(p, pl.radius, cl);
+			cl.SetColor(l.color);cl.a = l.enabled ? 1.0 : 0.33;			
+			Gizmo.Point(p, 15.0, l.color);
+			return;
+		}
 	}
 }

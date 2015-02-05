@@ -80,8 +80,8 @@ class Graphics
 	 * @param	p_material
 	 */
 	static public function Render(p_mesh : Mesh, p_material : Material,p_transform:Transform=null,p_camera : Camera=null):Void
-	{
-		EngineContext.material.Bind(p_material,p_transform,p_camera);
+	{		
+		EngineContext.material.Bind(p_material,p_transform,p_camera,p_mesh);
 		EngineContext.mesh.Bind(p_mesh);
 		EngineContext.mesh.Draw(p_mesh);
 	}

@@ -184,8 +184,6 @@ class MaterialAPI
 		//*/
 		
 		m.SetUniform("Lights",b);
-		
-		
 	}
 	
 	static public function SetUniforms(p_camera : Camera, p_transform : Transform, p_material : Material):Void

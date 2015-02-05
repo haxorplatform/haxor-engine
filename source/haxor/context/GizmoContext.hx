@@ -1,5 +1,7 @@
 package haxor.context;
 import haxor.component.Camera;
+import haxor.component.light.Light;
+import haxor.component.light.PointLight;
 import haxor.component.MeshRenderer;
 import haxor.component.physics.Collider;
 import haxor.component.Renderer;
@@ -474,6 +476,15 @@ class Gizmo
 				Debug.Transform(p_t);
 				return true;
 			});
+		}
+		
+		if (Debug.light)
+		{
+			var ll : Array<Light> = Light.m_list;
+			for (i in 0...ll.length)
+			{				
+				Debug.Light(ll[i]);
+			}
 		}
 		
 		if (m_render_count > 0)

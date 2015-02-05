@@ -196,8 +196,8 @@ class MaterialFile extends AssetXML
 		switch(n.nodeName)
 		{
 			case "material":
-				guid    = _a(n, "guid", "");
-				name  = _a(n, "name", "");
+				mguid    = _a(n, "guid", "");
+				mname  = _a(n, "name", "");
 				
 			case "queue":
 				offset = Std.parseInt(_a(n, "offset", "0"));

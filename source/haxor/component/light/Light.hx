@@ -6,6 +6,7 @@ import haxor.math.Color;
 import haxor.math.Vector3;
 import haxor.platform.Types.Float32;
 
+
 /**
  * Base class that describes all Lights in Haxor.
  * @author Eduardo Pons - eduardo@thelaborat.org
@@ -26,7 +27,7 @@ class Light extends Behaviour
 	/**
 	 * Float array that will contain the raw light information for shaders.
 	 */
-	static private var m_buffer : FloatArray;
+	static private var m_buffer : Array<Float32> = [];
 	
 	/**
 	 * List of all lights in the scene.
@@ -35,11 +36,7 @@ class Light extends Behaviour
 	static private var m_list : Array<Light> = [];
 	static private function get_list():Array<Light>
 	{
-		var l:Array<Light> = new Array<Light>();
-		if (m_list == null) return l;
-		var i:Int = 0;
-		while (i < m_list.length) { l.push(m_list[i]); i++; }		
-		return l;
+		return m_list.copy();
 	}
 	
 	/**
@@ -58,9 +55,14 @@ class Light extends Behaviour
 	private function new() 
 	{
 		if (m_list == null) m_list = [];
-		if (m_buffer == null) m_buffer = new FloatArray(12 * max);
+		if(m_buffer.length<=0) for (i in 0...(12 * max)) m_buffer.push(0.0);
 		m_list.push(this);		
-		super();
+		super();		
+	}
+	
+	override function OnBuild():Void 
+	{
+		super.OnBuild();
 		color 		= Color.white;
 		intensity 	= 1.0;
 	}
@@ -92,17 +94,17 @@ class Light extends Behaviour
 	static private function SetLightData(p_id : Int, p_type : Float32, p_intensity:Float32, p_radius:Float32, p_atten:Float32, p_x:Float32,p_y:Float32,p_z:Float32,p_r:Float32,p_g:Float32,p_b:Float32,p_a:Float32):Void
 	{
 		var pos : Int = p_id * 12;  	 // id * 3 * 4
-		m_buffer.Set(pos + 0,p_type); 	 // attrib.x
-		m_buffer.Set(pos + 1,p_intensity); // attrib.y
-		m_buffer.Set(pos + 2,p_radius);    // attrib.z
-		m_buffer.Set(pos + 3,p_atten);     // attrib.w		
-		m_buffer.Set(pos + 4,p_x);
-		m_buffer.Set(pos + 5,p_y);
-		m_buffer.Set(pos + 6,p_z);		
-		m_buffer.Set(pos + 8,p_r);
-		m_buffer.Set(pos + 9,p_g);
-		m_buffer.Set(pos +10,p_b);
-		m_buffer.Set(pos +11,p_a);
+		m_buffer[pos + 0] = p_type; 	 // attrib.x
+		m_buffer[pos + 1] = p_intensity; // attrib.y
+		m_buffer[pos + 2] = p_radius;    // attrib.z
+		m_buffer[pos + 3] = p_atten;     // attrib.w		
+		m_buffer[pos + 4] = p_x;
+		m_buffer[pos + 5] = p_y;
+		m_buffer[pos + 6] = p_z;		
+		m_buffer[pos + 8] = p_r;
+		m_buffer[pos + 9] = p_g;
+		m_buffer[pos +10] = p_b;
+		m_buffer[pos +11] = p_a;
 		//m_buffer[pos + 7] = 0.0;		
 	}
 	

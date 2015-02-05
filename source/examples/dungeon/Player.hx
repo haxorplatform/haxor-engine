@@ -91,15 +91,15 @@ class Player extends Behaviour implements IUpdateable
 		for (i in 0...rl.length)
 		{
 			var mr  	: MeshRenderer  = cast rl[i];
-			var mat_id 	: String 	    = mr.material.name;
+			var mat_id 	: String 	    = mr.material.name;			
 			mat_id = StringTools.replace(mat_id,"DiffuseSkin", "ToonSkin");
 			var mat		: Material  	= Asset.Get(mat_id);			
 			
 			if (mat == null)
 			{
 				trace("Player> Material [" + mat_id + "] is null!");
-				mat = Material.Opaque();
-				mat.shader = Shader.FlatTextureSkin;
+				//mat = Material.Opaque();
+				//mat.shader = Shader.FlatTextureSkin;
 			}
 			
 			var tex 	: Texture       = Asset.Get(character+"/diffuse");			
@@ -110,11 +110,11 @@ class Player extends Behaviour implements IUpdateable
 			}
 			else
 			{
-				m_falloff_mat = mat = Asset.Instantiate(mat);
-				
+				m_falloff_mat = mat = Asset.Instantiate(mat);				
 				mat.name = new_mat_id;					
-				mat.shader = Shader.FlatTextureSkin;
-				//Asset.Get("haxor/diffuse/ToonSkinFalloff");
+				
+				mat.shader = Asset.Get("haxor/diffuse/ToonSkinFalloff");
+				trace(Asset.Get("haxor/diffuse/ToonSkinFalloff"));
 				mat.SetTexture("DiffuseTexture", tex);
 				mat.SetFloat("Falloff", 1.5);
 				mat.SetFloat("FalloffIntensity", 1.0);
@@ -139,12 +139,13 @@ class Player extends Behaviour implements IUpdateable
 				mat.SetColor("Tint", Color.FromBytes(45, 90, 125));
 				Asset.Add("PlayerHilight", mat);
 			}
-			
+			/*
 			var  skr : SkinnedMeshRenderer = cast mr;
 			var nskr : SkinnedMeshRenderer = mr.entity.AddComponent(SkinnedMeshRenderer);
 			nskr.mesh   	= skr.mesh;
 			nskr.joints 	= skr.joints;			
 			nskr.material 	= mat;
+			//*/
 		}
 		
 		var sc : SphereCollider = entity.AddComponent(SphereCollider);
@@ -327,7 +328,7 @@ class Player extends Behaviour implements IUpdateable
 				m_animation_speed = Mathf.Lerp(0.3, 1.2, m_animation_speed);
 				
 				GetClip("run").speed = m_animation_speed;
-				speed = 50 * m_animation_speed;
+				speed = TOP_SPEED * m_animation_speed;
 				
 				dir.Add(fv.Scale(js.analogLeft.y));
 				dir.Add(rv.Scale(js.analogLeft.x));

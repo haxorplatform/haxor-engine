@@ -1,13 +1,16 @@
 package haxor.context;
 import haxor.component.Camera;
 import haxor.component.light.Light;
+import haxor.component.light.PointLight;
 import haxor.component.MeshRenderer;
 import haxor.component.Transform;
 import haxor.core.Console;
+import haxor.core.Debug;
 import haxor.core.Time;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
 import haxor.core.Enums.DepthTest;
+import haxor.graphics.Gizmo;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.material.UberShader;
@@ -16,6 +19,7 @@ import haxor.graphics.mesh.Mesh.MeshAttrib;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.graphics.GL;
+import haxor.math.AABB3;
 import haxor.math.Color;
 import haxor.math.Matrix4;
 import haxor.math.Quaternion;
@@ -33,7 +37,7 @@ import haxor.platform.Types.UniformLocation;
 @:allow(haxor)
 class MaterialContext
 {
-	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix","WorldMatrixInverse","WorldMatrixIT", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse"];
+	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix","WorldMatrixInverse","WorldMatrixIT", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse","Lights"];
 	/**
 	 * List of global uniforms.
 	 */
@@ -441,6 +445,7 @@ class MaterialContext
 				
 				switch(un)
 				{
+					case "Lights":					m.SetFloat4Array(un, Light.m_buffer);
 					case "Ambient":					m.SetColor(un, Color.temp.Set(1,1,1,1));					
 					case "Time":					m.SetFloat(un, 0.0);					
 					case "RandomSeed":				m.SetFloat(un, 0.0);
@@ -494,11 +499,11 @@ class MaterialContext
 	 * Activates the passed material.
 	 * @param	p_material
 	 */
-	private function Bind(m : Material,t:Transform=null,c:Camera=null):Void
+	private function Bind(m : Material,t:Transform=null,c:Camera=null,msh:Mesh=null):Void
 	{		
 		var material_change : Bool = (m != current);		
 		UseMaterial(m);		
-		UpdateMaterialUniforms(t,c,material_change);
+		UpdateMaterialUniforms(t,c,msh,material_change);
 	}
 	
 	/**
@@ -517,7 +522,7 @@ class MaterialContext
 				viewmatrix[m.__cid] = false;
 				projmatrix[m.__cid] = false;				
 				var p : ProgramId = programs[m.__cid];
-				UpdateFlags(m);								
+				UpdateFlags(m);				
 				GL.UseProgram(p);
 			}			
 		}		
@@ -529,7 +534,7 @@ class MaterialContext
 	 * @param	c
 	 * @param	p_changed
 	 */
-	private function UpdateMaterialUniforms(t:Transform,c:Camera,p_changed:Bool):Void
+	private function UpdateMaterialUniforms(t:Transform,c:Camera,msh:Mesh,p_changed:Bool):Void
 	{
 		
 		//var mr : MeshRenderer = MeshRenderer.current;
@@ -557,6 +562,8 @@ class MaterialContext
 			var ucv : Bool = viewmatrix[current.__cid] || uc; 
 			var ucp : Bool = projmatrix[current.__cid] || uc;
 			if(c!=null) camera[current.__cid] = c;
+			
+			SetLights(t, current, msh);
 			
 			UploadUniforms(ut,ucv,ucp,t,c);
 			
@@ -625,17 +632,20 @@ class MaterialContext
 	{
 		var off : Int = u.offset;
 		
+		var is_array : Bool = u.data.length > off;
+		
 		if (u.isFloat)
 		{
-			var b : FloatArray = cast u.data;					
+			var b : FloatArray = cast u.data;
+			
 			switch(off)
 			{
-				case 1:  GL.Uniform1f(loc, b.Get(0));
-				case 2:  GL.Uniform2f(loc, b.Get(0), b.Get(1));
-				case 3:  GL.Uniform3f(loc, b.Get(0), b.Get(1), b.Get(2));
-				case 4:  GL.Uniform4f(loc, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
+				case 1:  if(is_array) GL.Uniform1fv(loc, b); else GL.Uniform1f(loc, b.Get(0));
+				case 2:  if(is_array) GL.Uniform2fv(loc, b); else GL.Uniform2f(loc, b.Get(0), b.Get(1));
+				case 3:  if(is_array) GL.Uniform3fv(loc, b); else GL.Uniform3f(loc, b.Get(0), b.Get(1), b.Get(2));
+				case 4:  if(is_array) GL.Uniform4fv(loc, b); else GL.Uniform4f(loc, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
 				case 16: GL.UniformMatrix4fv(loc, false, b);
-				default: GL.Uniform1fv(loc, b);
+				
 			}
 		}
 		else
@@ -643,11 +653,11 @@ class MaterialContext
 			var b : Int32Array = cast u.data;			
 			switch(off)
 			{
-				case 1:  GL.Uniform1i(loc, b.Get(0));				
-				case 2:  GL.Uniform2i(loc, b.Get(0), b.Get(1));
-				case 3:  GL.Uniform3i(loc, b.Get(0), b.Get(1), b.Get(2));
-				case 4:  GL.Uniform4i(loc, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
-				default: GL.Uniform1iv(loc, b);
+				case 1:  if(is_array) GL.Uniform1iv(loc, b); else GL.Uniform1i(loc, b.Get(0));				
+				case 2:  if(is_array) GL.Uniform2iv(loc, b); else GL.Uniform2i(loc, b.Get(0), b.Get(1));
+				case 3:  if(is_array) GL.Uniform3iv(loc, b); else GL.Uniform3i(loc, b.Get(0), b.Get(1), b.Get(2));
+				case 4:  if(is_array) GL.Uniform4iv(loc, b); else GL.Uniform4i(loc, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
+				
 			}
 		}				
 		u.__d = false;
@@ -664,6 +674,8 @@ class MaterialContext
 		
 		switch(u.name)
 		{
+			case "Lights":									
+				u.SetFloat4Array(Light.m_buffer);
 			case "Ambient":					u.SetColor(Light.ambient);					
 			case "Time":					u.SetFloat(Time.elapsed);					
 			case "RandomSeed":				u.SetFloat(Random.value);
@@ -679,6 +691,82 @@ class MaterialContext
 			case "ProjectionMatrix":  		if(ucp)	u.SetMatrix4(c.ProjectionMatrix);					
 			case "ProjectionMatrixInverse": if(ucp)	u.SetMatrix4(c.ProjectionMatrixInverse);										
 		}	
+	}
+	
+	/**
+	 * 
+	 * @param	t
+	 * @param	m
+	 * @param	msh
+	 */
+	private function SetLights(t : Transform,m : Material,msh:Mesh):Void
+	{
+		if (!m.lighting) 	return;
+		
+		var ll : Array<Light> = Light.m_list;
+		if (ll.length <= 0) return;
+		
+		var b : AABB3 	= msh.m_bounds;		
+		
+		var c : Vector3 = Vector3.temp;
+		var p  : Vector3 = Vector3.temp;
+		
+		AABB3.Center(msh.bounds, c);		
+		t.WorldMatrix.Transform3x4(c);
+		
+		var k : Int = 0;
+		//trace(" ");
+		
+		for (i in 0...ll.length)
+		{
+			//if (k >= Light.max) break;
+			var l : Light = ll[i];
+			if (!l.enabled) continue;
+			if (Std.is(l, PointLight))
+			{
+				//trace(l.name);
+				var pl : PointLight = cast l;								
+				l.transform.WorldMatrix.Transform3x4(p.Set());
+								
+				if (Vector3.Distance(c, p) > (pl.radius * 0.5)) continue;				
+				
+				if (Debug.light)
+				{
+					var cl : Color = new Color(1, 1, 1, 0.1);
+					Gizmo.Line(c, p,cl);
+					Gizmo.Point(c, 3.0,cl);
+					Gizmo.Point(p, 3.0,cl);
+				}
+				
+				//trace(l.name+" "+l.intensity+" "+l.color.ToString()+" "+l.intensity);
+				Light.SetLightData(k, 
+				0.0, pl.intensity, pl.radius, pl.atten,  
+				p.x, p.y, p.z,   
+				pl.color.r, pl.color.g, pl.color.b, pl.color.a);
+				k++;
+			}
+			/*
+			else
+			if (Std.is(l, DirectionalLight))
+			{
+				var p : Vector3 = l.transform.forward;
+				Light.SetLightData(k, 
+				1.0, l.intensity, 0.0,0.0,  
+				p.x, p.y, p.z,   
+				l.color.r, l.color.g, l.color.b, l.color.a);
+				k++;
+			}
+			//*/
+		}
+		//*/		
+		
+		while(k < Light.max)
+		{
+			Light.SetLightData(k, -1.0, 0.0, 0.0,0.0,  0.0,0.0,0.0,   1.0, 0.0, 1.0, 1.0);
+			k++;
+		}
+		//*/
+		
 	}
 	
 	/**
