@@ -295,8 +295,8 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 		 */
 		if (load_big_dungeon)
 		{
-			//Asset.LoadCollada("dungeon", 			"./projects/dungeon/big/asset.dae");				
-			Asset.LoadCollada("dungeon", 			"assets/dungeon/big.dae");				
+			Asset.LoadCollada("dungeon", 			"./projects/dungeon/big/asset.dae");				
+			//Asset.LoadCollada("dungeon", 			"assets/dungeon/big.dae");				
 			Asset.LoadTexture2D("DungeonAtlas01", 	"./projects/dungeon/big/DungeonAtlas01.jpg");
 			Asset.LoadTexture2D("DungeonAtlas02", 	"./projects/dungeon/big/DungeonAtlas02.png");
 			Asset.LoadTexture2D("DungeonAtlas03", 	"./projects/dungeon/big/DungeonAtlas03.png");
