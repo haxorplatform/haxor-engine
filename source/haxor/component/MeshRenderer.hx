@@ -23,6 +23,8 @@ import haxor.graphics.Graphics;
 @:allow(haxor)
 class MeshRenderer extends Renderer
 {
+	static public var current : MeshRenderer;
+	
 	/**
 	 * Id used for frustum culling optimization.
 	 */
@@ -47,6 +49,11 @@ class MeshRenderer extends Renderer
 	private var m_ws_radius : Vector3;
 	
 	/**
+	 * 
+	 */
+	private var m_aabb : AABB3;
+	
+	/**
 	 * Flag that indicates that the culling must be retested.
 	 */
 	private var m_culling_dirty:Bool;
@@ -61,6 +68,7 @@ class MeshRenderer extends Renderer
 		m_ws_center = Vector3.zero;
 		m_ws_radius = Vector3.zero;
 		m_culling_dirty = false;		
+		m_aabb = AABB3.empty;
 	}
 	
 	/**
@@ -72,7 +80,8 @@ class MeshRenderer extends Renderer
 	{
 		var c : Camera = p_camera;
 		if (c == null) 		return false;
-		if (mesh == null) 	return false;				
+		if (mesh == null) 	return false;	
+		
 		var ps_center : Vector4 = c.WorldToProjection(Vector3.temp.Set3(m_ws_center), Vector4.temp);				
 		var w : Float32 = ps_center.w;
 		var p : Vector4 = ps_center;
@@ -121,7 +130,7 @@ class MeshRenderer extends Renderer
 	 */
 	override function OnTransformUpdate(p_hierarchy : Bool):Void 
 	{		
-		m_culling_dirty = true;		
+		m_culling_dirty = true;			
 	}
 		
 	
@@ -132,20 +141,24 @@ class MeshRenderer extends Renderer
 	{
 		if (mesh != null)
 		{			
+			
 			//world bounding sphere center
 			AABB3.Center(mesh.m_bounds, m_ws_center);
+			
 			transform.WorldMatrix.Transform3x4(m_ws_center);
 			
 			//world bounding sphere radius
 			m_ws_radius.Set(mesh.m_bounds.width, mesh.m_bounds.height, mesh.m_bounds.depth);
 			transform.WorldMatrix.Transform3x3(m_ws_radius);
 			
-			var r : Float32 = m_ws_radius.length;
+			var r : Float32 = m_ws_radius.length*0.5;
 			var pmin : Vector3 = Vector3.temp;
 			var pmax : Vector3 = Vector3.temp;
 			pmin.Set(m_ws_center.x - r, m_ws_center.y - r, m_ws_center.z - r);
 			pmax.Set(m_ws_center.x + r, m_ws_center.y + r, m_ws_center.z + r);
-			EngineContext.renderer.UpdateSAP(__fcid,this, pmin, pmax);			
+			m_aabb.Set3(pmin, pmax);
+			EngineContext.renderer.UpdateSAP(__fcid, this, pmin, pmax);
+			
 			m_culling_dirty = false;
 		}
 	}
@@ -158,7 +171,8 @@ class MeshRenderer extends Renderer
 		super.OnRender();		
 		if (m_mesh == null) return;	
 		
-		#if !ie8
+		current = this;		
+		#if !ie8		
 		Graphics.Render(m_mesh, material, entity.transform, Camera.current);
 		#end
 	}

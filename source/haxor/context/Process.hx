@@ -48,27 +48,39 @@ class Process<T> extends BaseProcess
 	override public function Add(p_item : Resource):Void
 	{	
 		var iid : Int = p_item.__pid[__cid];
-		if (iid >= 0) return;
+		
+		if (iid >= 0)
+		{
+			Console.Log("Process " + name+"> Failed to Add ["+p_item.name+"@"+p_item.GetTypeName()+"]",7);
+			return;
+		}		
 		if (m_length >= list.length) { list.push(null); }
 		list[m_length] = cast p_item;
-		p_item.__pid[__cid] = m_length++;
+		p_item.__pid[__cid] = m_length;		
+		m_length++;		
+		//trace("added " + p_item.name+"["+p_item.__pid[__cid]+"]["+length+"/"+list.length+"]");
 	}
 	
 	/**
 	 * Removes the element from the process.
 	 * @param	p_item
 	 */
-	override public function Remove(p_item : Resource):Resource
+	override public function Remove(p_item : Resource):Void
 	{	
 		var iid : Int = p_item.__pid[__cid];
-		if (iid < 0) return p_item;
-		p_item.__pid[__cid] = -1;
-		m_length--;
-		if (m_length <= 0) return p_item;
-		list[iid] = list[m_length];
-		p_item = cast list[iid];
-		p_item.__pid[__cid] = iid;
-		return p_item;
+		if (iid < 0)
+		{
+			Console.Log("Process " + name+"> Failed to Remove ["+p_item.name+"@"+p_item.GetTypeName()+"]",7);
+			return;		
+		}		
+		var old_item : Resource = p_item;
+		var new_item : Resource = cast list[m_length - 1];				
+		new_item.__pid[__cid] = old_item.__pid[__cid];
+		old_item.__pid[__cid] = -1;		
+		list[iid]          = cast new_item;
+		list[m_length - 1] = cast old_item;		
+		m_length--;		
+		//trace("removed " + old_item.name+"["+iid+"]["+length+"/"+list.length+"] curr["+new_item.name+"]["+new_item.__pid[__cid]+"]");
 	}
 	
 	/**
@@ -184,7 +196,7 @@ class BaseProcess
 	 * @param	p_item
 	 * @return
 	 */
-	public function Remove(p_item : Resource):Resource { return null; }
+	public function Remove(p_item : Resource):Void { }
 		
 	/**
 	 * Clears the process list.

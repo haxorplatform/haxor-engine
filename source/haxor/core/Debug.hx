@@ -1,4 +1,5 @@
 package haxor.core;
+import haxor.component.Camera;
 import haxor.component.MeshRenderer;
 import haxor.component.physics.BoxCollider;
 import haxor.component.physics.Collider;
@@ -47,6 +48,11 @@ class Debug
 	 */
 	static public var renderer : Bool;
 	
+	/**
+	 * 
+	 */
+	static public var rendererAABB : Bool;
+	
 	
 	static private var color_white     : Color = Color.white;
 	static private var color_collider  : Color = Color.green50;
@@ -64,6 +70,7 @@ class Debug
 		colliderSB    = false;
 		transform = false;
 		renderer  = false;
+		rendererAABB = false;
 	}
 	
 	/**
@@ -107,9 +114,9 @@ class Debug
 	 * 
 	 * @param	c
 	 */
-	static public function BoundingAABB(c:Collider):Void
+	static public function BoundingAABB(c:AABB3):Void
 	{
-		var bb : AABB3 = c.aabb;		
+		var bb : AABB3 = c;		
 		Gizmo.WireCube(bb.center, bb.size, color_bounding);
 	}
 	
@@ -117,9 +124,9 @@ class Debug
 	 * 
 	 * @param	c
 	 */
-	static public function BoundingSphere(c:Collider):Void
+	static public function BoundingSphere(c:Vector4):Void
 	{
-		var sb : Vector4 = c.sphere;
+		var sb : Vector4 = c;
 		Gizmo.WireSphere(Vector3.temp.Set(sb.x,sb.y,sb.z), sb.w, color_bounding);
 	}
 	
@@ -130,7 +137,18 @@ class Debug
 	static public function MeshRenderer(r : MeshRenderer):Void
 	{
 		var bb : AABB3 = r.mesh.m_bounds;
-		Gizmo.WireCube(bb.center, bb.size, color_renderer,r.transform.WorldMatrix);
+		var c : Color = Color.temp.SetColor(color_renderer);
+		c.a = r.visible ? 1.0 : 0.2;
+		Gizmo.WireCube(bb.center, bb.size, c, r.transform.WorldMatrix);
+		
+		if (rendererAABB)
+		{
+			bb = r.m_aabb;
+			c = Color.temp.SetColor(color_bounding);
+			c.a = r.visible ? 1.0 : 0.2;
+			Gizmo.WireCube(bb.center, bb.size, c);
+		}
+		
 	}
 	
 	/**
@@ -139,6 +157,45 @@ class Debug
 	 */
 	static public function Transform(t : Transform):Void
 	{
-		Gizmo.Axis(Vector3.temp.Set(), Vector3.temp.Set(1, 1, 1), color_white, t.WorldMatrix);
+		Gizmo.Axis(Vector3.temp.Set(), Vector3.temp.Set(0.5, 0.5, 0.5), color_white, t.WorldMatrix);
+	}
+	
+	/**
+	 * Draws the camera frustum.
+	 * @param	c
+	 */
+	static public function Camera(c: Camera):Void
+	{
+		
+		Debug.Transform(c.transform);
+		Debug.Transform(c.transform.parent);
+		
+		var fp : Array<Vector4> = c.m_frustum;		
+		var l : Array<Vector4> = [];
+		for (i in 0...fp.length)
+		{
+			l.push(Vector4.temp.Set4(fp[i]));
+			c.CameraToWorld.Transform4x4(l[i]);
+		}
+		fp = l;
+		
+		var p0 : Vector3 = Vector3.temp;
+		var p1 : Vector3 = Vector3.temp;
+		
+		p0.Set4(fp[0]); p1.Set4(fp[1]); Gizmo.Line(p0, p1, color_white);
+		p0.Set4(fp[1]); p1.Set4(fp[2]); Gizmo.Line(p0, p1, color_white);
+		p0.Set4(fp[2]); p1.Set4(fp[3]); Gizmo.Line(p0, p1, color_white);
+		p0.Set4(fp[3]); p1.Set4(fp[0]); Gizmo.Line(p0, p1, color_white);
+		
+		p0.Set4(fp[4]); p1.Set4(fp[5]); Gizmo.Line(p0, p1, color_white);		
+		p0.Set4(fp[5]); p1.Set4(fp[6]); Gizmo.Line(p0, p1, color_white);
+		p0.Set4(fp[6]); p1.Set4(fp[7]); Gizmo.Line(p0, p1, color_white);
+		p0.Set4(fp[7]); p1.Set4(fp[4]); Gizmo.Line(p0, p1, color_white);		
+		
+		p0.Set4(fp[0]); p1.Set4(fp[4]); Gizmo.Line(p0, p1, color_white);		
+		p0.Set4(fp[1]); p1.Set4(fp[5]); Gizmo.Line(p0, p1, color_white);
+		p0.Set4(fp[2]); p1.Set4(fp[6]); Gizmo.Line(p0, p1, color_white);
+		p0.Set4(fp[3]); p1.Set4(fp[7]); Gizmo.Line(p0, p1, color_white);
+		//*/
 	}
 }

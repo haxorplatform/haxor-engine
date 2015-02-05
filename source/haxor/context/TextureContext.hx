@@ -1,4 +1,6 @@
 package haxor.context;
+import haxor.component.MeshRenderer;
+import haxor.component.SkinnedMeshRenderer;
 import haxor.core.Console;
 import haxor.core.Enums.PixelFormat;
 import haxor.core.Enums.TextureFilter;
@@ -124,8 +126,8 @@ class TextureContext
 	 */
 	private function Create(p_texture:Texture):Void
 	{
-		p_texture.__slot = next_slot % (GL.MAX_ACTIVE_TEXTURE);		
-		next_slot++;
+		p_texture.__slot = -1;// next_slot % (GL.MAX_ACTIVE_TEXTURE);		
+		//next_slot++;
 		
 		var id : TextureId = GL.CreateTexture();
 		
@@ -178,34 +180,40 @@ class TextureContext
 	 * Binds the Texture for usage.
 	 * @param	p_texture
 	 */
-	private inline function Bind(p_texture : Texture):Void
+	private function Bind(p_texture : Texture,p_slot:Int=-1):Void
 	{
-		var slot : Int = p_texture.__slot;
+		var slot : Int = p_slot;
 		
 		//if (active != slot)
 		{
-			GL.ActiveTexture(GL.TEXTURE0 + slot);
-			active = slot;
+			if (slot >= 0)
+			{
+				GL.ActiveTexture(GL.TEXTURE0 + slot);
+				active = slot;
+			}
 		}
-		
+		//var need_bind : Bool = p_slot < 0 ? true : (bind[slot] != p_texture);
 		//if (bind[slot] != p_texture)
 		{
+			
 			var id 		: TextureId = ids[p_texture.__cid];		
 			var target 	: Int 		= TextureToTarget(p_texture);		
+			//if (need_bind) 
 			GL.BindTexture(target, id);
-			bind[slot] = p_texture;
+			//if (slot >= 0) bind[slot] = p_texture;
 		}
 	}
 	
 	/**
 	 * Unbinds the current texture.
 	 */
-	private inline function Unbind():Void
-	{
-		if (active < 0) return;
-		if(bind[active] == null) return;				
-		var target 	: Int 		= TextureToTarget(bind[active]);	
-		bind[active] = null;
+	private function Unbind():Void
+	{	
+		
+		//if (active < 0) return;
+		//if(bind[active] == null) return;
+		//var target 	: Int 		= TextureToTarget(bind[active]);	
+		//bind[active] = null;
 		GL.BindTexture(GL.TEXTURE_2D, GL.NULL);
 	}
 	

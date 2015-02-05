@@ -1,6 +1,7 @@
 package haxor.context;
 import haxor.component.Camera;
 import haxor.component.light.Light;
+import haxor.component.MeshRenderer;
 import haxor.component.Transform;
 import haxor.core.Console;
 import haxor.core.Time;
@@ -427,39 +428,38 @@ class MaterialContext
 			
 			//Clear all attribs cache.
 			for (i in 0...locations[m.__cid].length) locations[m.__cid][i] = -1;
-		}
-		
-		//Resets the global list and filters the ones that doesn't exists in the shaders.		
-		var gl : Array<String>  = uniform_globals.copy();
-		var k  : Int 			= 0;
-		var m4 : Matrix4		= Matrix4.temp.SetIdentity();
-		while(k < gl.length)
-		{
-			var un : String = gl[k];
-			if (GL.GetUniformLocation(p, un) == GL.INVALID) { gl.remove(un); continue; }
-			//Initializes these uniforms so they don't need to be searched later.
 			
-			switch(un)
+			//Resets the global list and filters the ones that doesn't exists in the shaders.		
+			var gl : Array<String>  = uniform_globals.copy();
+			var k  : Int 			= 0;
+			var m4 : Matrix4		= Matrix4.temp.SetIdentity();
+			while(k < gl.length)
 			{
-				case "Ambient":					m.SetColor(un, Color.temp.Set(1,1,1,1));					
-				case "Time":					m.SetFloat(un, 0.0);					
-				case "RandomSeed":				m.SetFloat(un, 0.0);
-				//case "RandomTexture":			current.SetTexture(un, Asset.Get("haxor/texture/random"));
-				//case "ScreenTexture":			if (current.grab) current.SetTexture("ScreenTexture", current.screen);						
-				//case "ScreenDepth":			current.SetTexture("ScreenDepth",   p_camera.m_grab.depth);						
-				case "WorldMatrix":				m.SetMatrix4(un,m4);
-				case "WorldMatrixInverse":		m.SetMatrix4(un,m4);
-				case "WorldMatrixIT":			m.SetMatrix4(un,m4);
-				case "CameraPosition": 			m.SetVector3(un,Vector3.temp.Set(0,0,0));
-				case "ViewMatrix":				m.SetMatrix4(un,m4);
-				case "ViewMatrixInverse":		m.SetMatrix4(un,m4);					
-				case "ProjectionMatrix":  		m.SetMatrix4(un,m4);					
-				case "ProjectionMatrixInverse": m.SetMatrix4(un,m4);				
-			}	
-			k++;
-		}		
-		globals[m.__cid] = gl;				
-		
+				var un : String = gl[k];
+				if (GL.GetUniformLocation(p, un) == GL.INVALID) { gl.remove(un); continue; }
+				//Initializes these uniforms so they don't need to be searched later.
+				
+				switch(un)
+				{
+					case "Ambient":					m.SetColor(un, Color.temp.Set(1,1,1,1));					
+					case "Time":					m.SetFloat(un, 0.0);					
+					case "RandomSeed":				m.SetFloat(un, 0.0);
+					//case "RandomTexture":			current.SetTexture(un, Asset.Get("haxor/texture/random"));
+					//case "ScreenTexture":			if (current.grab) current.SetTexture("ScreenTexture", current.screen);						
+					//case "ScreenDepth":			current.SetTexture("ScreenDepth",   p_camera.m_grab.depth);						
+					case "WorldMatrix":				m.SetMatrix4(un,m4);
+					case "WorldMatrixInverse":		m.SetMatrix4(un,m4);
+					case "WorldMatrixIT":			m.SetMatrix4(un,m4);
+					case "CameraPosition": 			m.SetVector3(un,Vector3.temp.Set(0,0,0));
+					case "ViewMatrix":				m.SetMatrix4(un,m4);
+					case "ViewMatrixInverse":		m.SetMatrix4(un,m4);					
+					case "ProjectionMatrix":  		m.SetMatrix4(un,m4);					
+					case "ProjectionMatrixInverse": m.SetMatrix4(un,m4);				
+				}	
+				k++;
+			}		
+			globals[m.__cid] = gl;			
+		}
 		
 	}
 	
@@ -513,6 +513,7 @@ class MaterialContext
 			current = m; 			
 			if (m != null)
 			{
+				slot = 0;				
 				viewmatrix[m.__cid] = false;
 				projmatrix[m.__cid] = false;				
 				var p : ProgramId = programs[m.__cid];
@@ -531,6 +532,8 @@ class MaterialContext
 	private function UpdateMaterialUniforms(t:Transform,c:Camera,p_changed:Bool):Void
 	{
 		
+		//var mr : MeshRenderer = MeshRenderer.current;
+		
 		if (current != null)
 		{	
 			//if (p_changed)
@@ -542,8 +545,11 @@ class MaterialContext
 			//update transform uniform if transform changed or if material changed
 			t = t == null ? Transform.root : t;
 			var ut : Bool = (t != transform[current.__cid]);
-			if(transform[current.__cid] != null)transform[current.__cid].m_uniform_dirty = false;
+			
+			if(ut) if (transform[current.__cid] != null) transform[current.__cid].m_uniform_dirty = false;
+			
 			transform[current.__cid] = t;
+			
 			ut = ut || t.m_uniform_dirty;
 			
 			//update camera uniform if camera changed or if material changed
@@ -566,7 +572,7 @@ class MaterialContext
 	private function UploadUniforms(ut:Bool,ucv:Bool,ucp:Bool,t:Transform,c:Camera):Void
 	{
 		var ul : Array<MaterialUniform> = current.m_uniforms;			
-		//slot = 0;
+		
 		for (i in 0...ul.length)
 		{
 			var u : MaterialUniform = ul[i];				
@@ -587,14 +593,27 @@ class MaterialContext
 	{
 		var loc:UniformLocation;		
 		loc = uniforms[m.__cid][u.__cid];
-		if (loc == GL.INVALID) return;		
-		if (u.texture != null) 
-		{ 			
-			EngineContext.texture.Bind(u.texture);
-		} 					
-		if (!u.__d) return;		
+		if (loc == GL.INVALID)
+		{			
+			return;		
+		}
 		
-		ApplyUniform(loc, u);
+		var is_texture : Bool = u.texture != null;
+		var changed : Bool = u.__d;
+		var texture_slot : Int = -1;
+		
+		if (is_texture) 
+		{ 				
+			if (u.texture.__slot < 0) { u.texture.__slot = texture_slot = slot++; }
+			var b : Int32Array = cast u.data;
+			if (u.texture.__slot != b.Get(0)) { changed = true; b.Set(0, u.texture.__slot); }
+			
+			EngineContext.texture.Bind(u.texture, u.texture.__slot);
+			
+		} 					
+		if (!changed) return;		
+		
+		ApplyUniform(loc, u,texture_slot);
 	}
 	
 	/**
@@ -602,7 +621,7 @@ class MaterialContext
 	 * @param	loc
 	 * @param	u
 	 */
-	private function ApplyUniform(loc : UniformLocation,u:MaterialUniform):Void
+	private function ApplyUniform(loc : UniformLocation,u:MaterialUniform,ts : Int):Void
 	{
 		var off : Int = u.offset;
 		
@@ -611,7 +630,7 @@ class MaterialContext
 			var b : FloatArray = cast u.data;					
 			switch(off)
 			{
-				case 1:  GL.Uniform1f(loc, b.Get(0));				
+				case 1:  GL.Uniform1f(loc, b.Get(0));
 				case 2:  GL.Uniform2f(loc, b.Get(0), b.Get(1));
 				case 3:  GL.Uniform3f(loc, b.Get(0), b.Get(1), b.Get(2));
 				case 4:  GL.Uniform4f(loc, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
@@ -624,7 +643,7 @@ class MaterialContext
 			var b : Int32Array = cast u.data;			
 			switch(off)
 			{
-				case 1:  GL.Uniform1i(loc,b.Get(0));				
+				case 1:  GL.Uniform1i(loc, b.Get(0));				
 				case 2:  GL.Uniform2i(loc, b.Get(0), b.Get(1));
 				case 3:  GL.Uniform3i(loc, b.Get(0), b.Get(1), b.Get(2));
 				case 4:  GL.Uniform4i(loc, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
@@ -640,6 +659,8 @@ class MaterialContext
 	 */
 	private function UploadGlobalUniform(u:MaterialUniform,ut:Bool,ucv:Bool,ucp:Bool,t:Transform,c:Camera):Void
 	{
+		
+		//var mr : MeshRenderer = MeshRenderer.current;
 		
 		switch(u.name)
 		{
@@ -666,6 +687,9 @@ class MaterialContext
 	private function Unbind():Void
 	{	
 		//Disable something
+		if (current == null) return;
+		var ul : Array<MaterialUniform> = current.m_uniforms;
+		for (i in 0...ul.length) if (ul[i].texture != null) ul[i].texture.__slot = -1;
 	}
 	
 	/**

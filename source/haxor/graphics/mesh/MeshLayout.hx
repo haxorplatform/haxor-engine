@@ -114,7 +114,7 @@ class MeshLayout<VL,NL,UL0,UL1,TL,BL> extends Mesh
 		
 		var p : Int = 0;
 		var f : FloatArray 	= cast a.data = new FloatArray(p_list.length * off);		
-		trace(name+" a[" + p_name+"] off[" + off + "] len[" + f.length + "]");
+		//trace(name+" a[" + p_name+"] off[" + off + "] len[" + f.length + "]");
 		for (i in 0...p_list.length)
 		{
 			var it : T = p_list[i];

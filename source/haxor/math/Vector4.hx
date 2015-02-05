@@ -164,6 +164,13 @@ class Vector4
 	public function Set3(v:Vector3):Vector4 { x = v.x; y = v.y; z = v.z; return this; }
 	
 	/**
+	 * Sets all components of this vector using other vector as template. Returns its own reference.
+	 * @param	v
+	 * @return
+	 */
+	public function Set4(v:Vector4):Vector4 { x = v.x; y = v.y; z = v.z; w = v.w; return this; }
+	
+	/**
 	 * Sets all components of this vector using a Color as template. Returns its own reference.
 	 * @param	v
 	 * @return

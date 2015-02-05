@@ -294,6 +294,8 @@ class RendererContext
 		pmax.y = Mathf.Max(pmax.y, Mathf.Max(f0.y, Mathf.Max(f1.y, Mathf.Max(f2.y,f3.y))));
 		pmax.z = Mathf.Max(pmax.z, Mathf.Max(f0.z, Mathf.Max(f1.z, Mathf.Max(f2.z,f3.z))));
 		
+		c.m_aabb.Set3(pmin, pmax);
+		
 		UpdateSAP(c.__fcid, c, pmin, pmax);			
 		
 	}
@@ -317,9 +319,10 @@ class RendererContext
 	 * @return
 	 */
 	private function IsSAPCulled(r:Renderer, c:Camera):Bool
-	{
-		if (!r.m_has_mesh) return false;
+	{		
+		if (!r.m_has_mesh) return false;		
 		var mr : MeshRenderer = cast r;
+		if (mr.m_culling_dirty) return false;
 		return !sap.Overlap(mr.__fcid, c.__fcid);
 	}
 	

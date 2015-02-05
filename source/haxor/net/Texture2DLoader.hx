@@ -34,6 +34,12 @@ class Texture2DLoader extends BitmapLoader
 	 */
 	private var m_apply : Bool;
 	
+	/**
+	 * 
+	 * @param	p_url
+	 * @param	p_apply
+	 * @param	p_callback
+	 */
 	public function new(p_url:String,p_apply:Bool, p_callback : Texture2D->Float->Void):Void 
 	{
 		super(p_url, OnBitmapCallback);
@@ -41,6 +47,11 @@ class Texture2DLoader extends BitmapLoader
 		m_apply = p_apply;
 	}
 	
+	/**
+	 * 
+	 * @param	p_data
+	 * @param	p_progress
+	 */
 	private function OnBitmapCallback(p_data : Bitmap, p_progress : Float32):Void
 	{
 		if (progress < 1.0)

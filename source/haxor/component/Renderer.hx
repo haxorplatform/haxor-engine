@@ -77,7 +77,7 @@ class Renderer extends Behaviour
 	 * Callback called by the engine to update this renderer culling flags.
 	 */
 	private function UpdateCulling():Void
-	{
+	{		
 		//If visible. Can post-pone not-visibility culling a bit.
 		//if (EngineContext.renderer.DeferredCulling(this)) return;
 		var v0 : Bool = m_culled;
@@ -88,6 +88,7 @@ class Renderer extends Behaviour
 		{			
 			EngineContext.renderer.OnVisibilityChange(this, !v1);
 		}
+		
 	}
 	
 	/**

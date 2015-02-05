@@ -1,10 +1,12 @@
 package haxor.io.file;
 import haxor.core.Asset;
+import haxor.core.Console;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
 import haxor.core.Enums.DepthTest;
 import haxor.core.Enums.RenderQueue;
 import haxor.graphics.material.Material;
+import haxor.graphics.material.Shader;
 import haxor.math.Color;
 import haxor.math.Matrix4;
 import haxor.math.Vector2;
@@ -132,14 +134,17 @@ class MaterialFile extends AssetXML
 		
 		switch(queue)
 		{
+			case "geometry":   	 m.queue = RenderQueue.Opaque;
 			case "background":   m.queue = RenderQueue.Background;
-			case "opaque":   	 m.queue = RenderQueue.Opaque;			
+			case "opaque":   	 m.queue = RenderQueue.Opaque;
 			case "transparent":	 m.queue = RenderQueue.Transparent;
 			case "overlay":		 m.queue = RenderQueue.Overlay;
 			case "interface":	 m.queue = RenderQueue.Interface;
 		}		
 		m.queue += offset;		
-		m.shader = Asset.Get(shader);		
+		var shd : Shader = Asset.Get(shader);
+		if (shd == null) { Console.LogWarning("MaterialFile> [" + m_name+"] shader[" + shader + "] is null!"); shd = Shader.Flat; }
+		m.shader = shd;		
 		m.ztest  = ztest;		
 		m.zfunc = DepthTest.LessEqual;
 		switch(zfunc)

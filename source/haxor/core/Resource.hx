@@ -152,4 +152,10 @@ class Resource implements IDisposable
 	 */
 	public function OnDestroy():Void { }
 	
+	/**
+	 * Method that must be overriden in order to make a Resource instantiatable.
+	 * @return
+	 */
+	private function Clone():Dynamic { return null; }
+	
 }

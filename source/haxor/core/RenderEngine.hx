@@ -75,11 +75,13 @@ class RenderEngine
 		
 		var lt  : Transform			   	  = null; //Last used transform.
 		var renderers : Process<Renderer> = EngineContext.renderer.display[l];
+		
 		for (j in 0...renderers.length)
 		{
 			var r : Renderer = renderers.list[j];			
 			if ((r.entity.layer & l) == 0) continue;
-			if (EngineContext.renderer.IsSAPCulled(r, c)) continue;
+						
+			if(Camera.SAPCulling) if (EngineContext.renderer.IsSAPCulled(r, c)) continue;
 			//If the current Renderer's Entity is different reset the uniform flag of the last transform.
 			//if (r.transform != lt) { if(lt!=null) lt.m_uniform_dirty = false; lt = r.transform; }
 			RenderRenderer(r);
@@ -92,9 +94,9 @@ class RenderEngine
 	 */
 	static private function RenderRenderer(r : Renderer):Void
 	{	
-		
+	
 		r.UpdateCulling();
-		
+		/*				
 		if (!r.visible)
 		{
 			#if profile
@@ -102,6 +104,7 @@ class RenderEngine
 			#end
 			return;
 		}
+		//*/
 		
 		#if profile
 		RenderStats.visible++;

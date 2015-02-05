@@ -373,7 +373,7 @@ class Gizmo
 			tw = data.width;
 			th = data.height;
 		}		
-		Console.Log("Gizmos> Created Renderer [" + p_type+"] data["+tw+"x"+th+"]");		
+		Console.Log("Gizmos> Created Renderer [" + p_type+"] data["+tw+"x"+th+"]",6);		
 		OnBuild();
 	}
 	
@@ -444,8 +444,8 @@ class Gizmo
 			{
 				var c : Collider = cl[i];				
 				if (Debug.collider) Debug.Collider(c);
-				if (Debug.colliderAABB)     Debug.BoundingAABB(c);
-				if (Debug.colliderSB)   Debug.BoundingSphere(c);				
+				if (Debug.colliderAABB)     Debug.BoundingAABB(c.aabb);
+				if (Debug.colliderSB)   Debug.BoundingSphere(c.sphere);				
 			}
 		}
 		
@@ -465,11 +465,28 @@ class Gizmo
 			}
 		}
 		
+		if (Debug.transform)
+		{
+			Transform.root.Traverse(function(p_t : Transform, p_d : Int):Bool
+			{
+				if (p_t == Transform.root) return true;
+				if (p_t == Camera.main.transform) return true;
+				Debug.Transform(p_t);
+				return true;
+			});
+		}
+		
 		if (m_render_count > 0)
 		{			
 			data.Apply();
 			material.SetInt("Count", m_render_count);
-			Graphics.Render(mesh, material, null, Camera.main);
+			var np : Float32 = Camera.main.near;
+			var fp : Float32 = Camera.main.far;
+			Camera.main.near = 1.0;
+			Camera.main.far  = 50000;
+			Graphics.Render(mesh, material, null, Camera.main);			
+			Camera.main.near = np;
+			Camera.main.far = fp;
 		}
 	}
 	

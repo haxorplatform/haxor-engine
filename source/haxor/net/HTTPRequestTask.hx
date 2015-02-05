@@ -69,7 +69,7 @@ class HTTPRequestTask<T,U> extends Task
 		bytesLoaded = 0;
 		bytesTotal  = 0;
 		error = "";
-		Console.Log("HTTPRequest> " + url,4);
+		Console.Log("HTTPRequest> " + url,6);
 	}
 	
 	/**

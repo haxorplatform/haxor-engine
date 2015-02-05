@@ -6,6 +6,7 @@ import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
 import haxor.core.Enums.DepthTest;
 import haxor.core.Enums.RenderQueue;
+import haxor.graphics.material.Material.MaterialUniform;
 import haxor.graphics.texture.Texture;
 import haxor.io.Buffer;
 import haxor.io.FloatArray;
@@ -200,8 +201,7 @@ class Material extends Resource
 		invert		    = false;
 		cull            = CullMode.Back; 			
 		lighting		= false;
-		grab			= false;	
-		
+		grab			= false;			
 		EngineContext.material.InitializeMaterial(this);
 	}
 	
@@ -479,9 +479,13 @@ class Material extends Resource
 		return u;
 	}
 		
-	/*
+	
+	/**
+	 * 
+	 * @return
+	 */
 	override private function Clone():Dynamic 
-	{
+	{		
 		var m : Material = new Material();
 		m.name 			= name + "Copy";
 		m.shader 		= shader;
@@ -496,15 +500,73 @@ class Material extends Resource
 		m.cull          = cull; 	
 		m.lighting		= lighting;
 		m.grab			= grab;
-		var ul : Iterator<String> = uniforms;
-		while (ul.hasNext())
+		var ul : Array<MaterialUniform> = m_uniforms;
+		for(i in 0...ul.length)
 		{
-			var u : String = ul.next();
-			m.SetUniform(u, GetUniform(u));
+			var u : MaterialUniform = ul[i];
+			if (u.isFloat) SetUniformFloat(u); else SetUniformInt(u);
 		}
 		return m;		
 	}
 	//*/
+	
+	private function SetUniformFloat(u : MaterialUniform):Void
+	{		
+		var d : FloatArray = cast u.data;		
+		var is_array : Bool = d.length > u.offset;
+		var l : Array<Float32> = null;
+		if (is_array)
+		{
+			l = [];
+			for (i in 0...d.length) l.push(d.Get(i));			
+		}
+		
+		switch(u.offset)
+		{
+			case 1:  if(is_array) SetFloatArray(u.name,l)  else SetFloat(u.name,  d.Get(0));
+			case 2:  if(is_array) SetFloat2Array(u.name,l) else SetFloat2(u.name, d.Get(0), d.Get(1));
+			case 3:  if(is_array) SetFloat3Array(u.name,l) else SetFloat3(u.name, d.Get(0), d.Get(1), d.Get(2));
+			case 4:  if(is_array) SetFloat4Array(u.name,l) else SetFloat4(u.name, d.Get(0), d.Get(1), d.Get(2), d.Get(3));
+			case 16: 			
+			var mat : Matrix4 = Matrix4.temp;
+			for (i in 0...16) mat.SetIndex(i, d.Get(i));			
+			if (u.transposed) mat.Transpose();
+			SetMatrix4(u.name, mat, u.transposed);
+			
+			default:			
+			
+		}
+	}
+	
+	
+	
+	private function SetUniformInt(u : MaterialUniform):Void
+	{		
+		var d : Int32Array = cast u.data;
+		var is_array : Bool = d.length > u.offset;
+		var l : Array<Int> = null;
+		if (is_array)
+		{
+			l = [];
+			for (i in 0...d.length) l.push(d.Get(i));			
+		}
+		
+		switch(u.offset)
+		{
+			case 1:  
+				if (u.texture != null)
+				{
+					SetTexture(u.name, u.texture);
+				}
+				else
+				{
+					if(is_array) SetIntArray(u.name,l) else SetInt(u.name,  d.Get(0));
+				}
+			case 2: if(is_array) SetInt2Array(u.name,l) else SetInt2(u.name, d.Get(0), d.Get(1));
+			case 3: if(is_array) SetInt3Array(u.name,l) else SetInt3(u.name, d.Get(0), d.Get(1), d.Get(2));
+			case 4: if(is_array) SetInt4Array(u.name,l) else SetInt4(u.name, d.Get(0), d.Get(1), d.Get(2), d.Get(3));			
+		}
+	}
 	
 	/**
 	 * Clears the Material data.
@@ -547,6 +609,11 @@ class MaterialUniform
 	private var offset : Int;
 	
 	/**
+	 * If matrix4 uniform, is transposed?
+	 */
+	private var transposed : Bool;
+	
+	/**
 	 * Reference to the texture if any.
 	 */
 	private var texture : Texture;
@@ -575,6 +642,7 @@ class MaterialUniform
 		isFloat = p_is_float;
 		offset	= p_offset;
 		exists	= false;
+		transposed = false;
 		if (p_is_float)
 		{
 			data = new FloatArray(p_length);
@@ -584,8 +652,8 @@ class MaterialUniform
 			data = new Int32Array(p_length);
 		}
 	}
-	
-	public function SetFloat	  (p_v : Float32):Void 								{ if (!exists) return; __d = true;	var b : FloatArray = cast data; b.Set(0, p_v); }
+		
+	public function SetFloat	  (p_v : Float32):Void 									{ if (!exists) return; __d = true;	var b : FloatArray = cast data; b.Set(0, p_v); }
 	public function SetFloat2	  (p_x:Float32, p_y:Float32):Void 						{ if (!exists) return; __d = true;	var b : FloatArray = cast data; b.Set(0, p_x); b.Set(1, p_y); }
 	public function SetFloat3	  (p_x:Float32, p_y:Float32, p_z:Float32):Void 			{ if (!exists) return; __d = true;	var b : FloatArray = cast data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); }
 	public function SetFloat4	  (p_x:Float32, p_y:Float32, p_z:Float32,p_w:Float32):Void 	{ if (!exists) return; __d = true;	var b : FloatArray = cast data; b.Set(0, p_x); b.Set(1, p_y); b.Set(2, p_z); b.Set(3, p_w);	}
@@ -615,6 +683,7 @@ class MaterialUniform
 	public function SetMatrix4(m:Matrix4,t:Bool=false):Void 
 	{ 
 		if (!exists) return; __d = true; 
+		transposed = t;
 		var b : FloatArray = cast data; 
 		//var l : Array<Float32> = EngineContext.data.Matrix4ToArray(p_matrix4); 		for (i in 0...16) b.Set(i, l[i]); 		
 		if (!t)

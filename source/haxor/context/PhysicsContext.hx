@@ -84,7 +84,7 @@ class PhysicsContext
 		
 		collider_dirty = [];
 		
-		accum_dt = 0;
+		
 		
 	}
 	
@@ -93,7 +93,7 @@ class PhysicsContext
 	 */
 	private function Initialize():Void
 	{
-		
+		accum_dt = 0;
 	}
 	
 	/**
@@ -172,11 +172,11 @@ class PhysicsContext
 		
 		cs.broadphase = bp;			
 		
-		accum_dt += Time.delta;
+		accum_dt = Time.delta;
 		
 		var t0 : Float32;
 		
-		while (accum_dt > Time.fixedDelta)
+		while (accum_dt >= 0)
 		{
 			//Fail-safe
 			if (steps >= 5) break;

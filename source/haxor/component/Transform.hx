@@ -394,6 +394,8 @@ class Transform extends Component
 	{
 		if (m_dirty) return;
 		
+		
+		
 		m_uniform_dirty = true;
 		m_dirty 		= true;
 		

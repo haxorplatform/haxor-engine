@@ -45,7 +45,11 @@ class Behaviour extends Component
 		super.OnBuild();		
 		m_enabled 		= true;
 		m_is_behaviour  = true;
+		m_is_awake		= false;
+		m_is_start		= false;
 		EngineContext.Enable(this);
+		EngineContext.awake.push(this);
+		EngineContext.start.push(this);
 	}
 	
 	/**

@@ -58,6 +58,8 @@ class CameraOrbit extends Behaviour implements IUpdateable
 	
 	public var target : Transform;
 	
+	public var follow : Bool;
+	
 	var m_angle:Vector2;
 	
 	var m_distance:Float32;
@@ -69,6 +71,7 @@ class CameraOrbit extends Behaviour implements IUpdateable
 		super.OnBuild();
 		distance = 0.0;		
 		m_pivot	= pivot;
+		follow = false;
 	}
 	
 	
@@ -102,9 +105,12 @@ class CameraOrbit extends Behaviour implements IUpdateable
 		
 		if (target != null)
 		{
-			var p : Vector3 = pivot.localPosition;
-			p = Vector3.Lerp(p, target.localPosition, Time.delta * smooth);
-			pivot.localPosition = p;
+			if (follow)
+			{
+				var p : Vector3 = pivot.localPosition;
+				p = Vector3.Lerp(p, target.localPosition, Time.delta * smooth);
+				pivot.localPosition = p;
+			}
 		}
 	}
 	
@@ -126,7 +132,7 @@ class CameraOrbitInput extends Behaviour implements IUpdateable
 	}
 	
 	public function OnUpdate():Void
-	{
+	{		
 		var dx : Float32 = (Input.touches.length == 1) ? Input.touches[0].delta.x : Input.deltaMouse.x;
 		var dy : Float32 = (Input.touches.length == 1) ? Input.touches[0].delta.y : Input.deltaMouse.y;
 		

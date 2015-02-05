@@ -10,6 +10,7 @@ import haxor.graphics.Screen;
 import haxor.graphics.texture.RenderTexture;
 import haxor.graphics.texture.TextureCube;
 import haxor.math.AABB2;
+import haxor.math.AABB3;
 import haxor.math.Color;
 import haxor.math.Mathf;
 import haxor.math.Matrix4;
@@ -27,6 +28,12 @@ import haxor.platform.Types.Float32;
 class Camera extends Behaviour implements IResizeable
 {
 		
+	
+	/**
+	 * 
+	 */
+	static public var SAPCulling : Bool = true;
+	
 	/**
 	 * Returns the list of cameras in the runtime.
 	 */
@@ -206,12 +213,12 @@ class Camera extends Behaviour implements IResizeable
 	private var m_filters : Array<Dynamic>;
 	
 	/**
-	 * Camera Frustum corners in CameraSpace. They are offered in the current order Back to Front:
-	 * 4-,---------,-5
-	 * |  0-------1  |
+	 * Camera Frustum corners in CameraSpace. They are offered in the current order Front to Back:
+	 * 0-,---------,-3
+	 * |  4-------7  |
 	 * |  |       |  |
-	 * |  2-------3  |
-	 * 6-´---------`-7
+	 * |  5-------6  |
+	 * 1-´---------`-2
 	 */
 	public var frustum(get_frustum, never):Array<Vector4>;
 	private function get_frustum():Array<Vector4> { UpdateProjection(); return m_frustum; }
@@ -250,6 +257,11 @@ class Camera extends Behaviour implements IResizeable
 	private var m_proj_uniform_dirty : Bool;
 	
 	/**
+	 * 
+	 */
+	private var m_aabb : AABB3;
+	
+	/**
 	 * Method called after creation is complete.
 	 */
 	override function OnBuild():Void 
@@ -261,6 +273,7 @@ class Camera extends Behaviour implements IResizeable
 		m_quality					= 1.0;
 		m_pixelViewport 			= AABB2.empty;
 		m_viewport 					= AABB2.empty;
+		m_aabb						= AABB3.empty;
 		m_projectionMatrix  		= Matrix4.identity;		
 		m_projectionMatrixInverse 	= Matrix4.identity;
 		m_skyboxProjection 			= Matrix4.identity;
@@ -375,15 +388,21 @@ class Camera extends Behaviour implements IResizeable
 		
 		
 		var p : Vector4;
-		var iw : Float32=0.0;
-		p = m_frustum[0]; p.Set( -1.0, 1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_frustum[1]; p.Set(  1.0, 1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_frustum[2]; p.Set( -1.0,-1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_frustum[3]; p.Set(  1.0,-1.0, 0.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);				
-		p = m_frustum[4]; p.Set( -1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_frustum[5]; p.Set(  1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_frustum[6]; p.Set( -1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
-		p = m_frustum[7]; p.Set(  1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);		
+		var iw : Float32 = 0.0;
+		var k : Int = 0;
+		
+		p = m_frustum[k++]; p.Set( -1.0, 1.0, -1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[k++]; p.Set( -1.0,-1.0, -1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[k++]; p.Set(  1.0,-1.0, -1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);				
+		p = m_frustum[k++]; p.Set(  1.0, 1.0, -1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);		
+		
+		
+		p = m_frustum[k++]; p.Set( -1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[k++]; p.Set( -1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[k++]; p.Set(  1.0,-1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);
+		p = m_frustum[k++]; p.Set(  1.0, 1.0, 1.0, 1.0); m_projectionMatrixInverse.Transform4x4(p); iw = p.w <= 0.0 ? 0.0 : 1.0 / p.w; p.Scale(iw);		
+		
+		
 	}
 	
 	/**

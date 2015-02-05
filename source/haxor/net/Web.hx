@@ -1,8 +1,10 @@
 package haxor.net;
+import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.texture.Bitmap;
 import haxor.graphics.texture.Texture2D;
 import haxor.io.file.ColladaFile;
+import haxor.io.file.MaterialFile;
 import haxor.net.Texture2DLoader;
 import haxor.platform.Types.Float32;
 
@@ -65,6 +67,14 @@ class Web
 	 * @param	p_url
 	 * @param	p_callback
 	 */
-	static public function LoadShader(p_url:String, p_callback : Shader-> Float32->Void):Void {	Load(p_url, function(d : String, p:Float):Void { if (p < 1.0) p_callback(null, p); else p_callback(d==null ? null : new Shader(d), 1.0); }); }
+	static public function LoadShader(p_url:String, p_callback : Shader-> Float32->Void):Void {	Load(p_url, function(d : String, p:Float):Void { if (p < 1.0) p_callback(null, p); else p_callback(d == null ? null : new Shader(d), 1.0); } ); }
+	
+	/**
+	 * Loads a material from the web.
+	 * @param	p_url
+	 * @param	p_callback
+	 */
+	static public function LoadMaterial(p_url:String, p_callback : MaterialFile-> Float32->Void):Void {	Load(p_url, function(d : String, p:Float):Void { if (p < 1.0) p_callback(null, p); else p_callback(d == null ? null : new MaterialFile(d), 1.0); } ); }
+	
 	
 }

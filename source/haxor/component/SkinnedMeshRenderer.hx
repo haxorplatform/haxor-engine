@@ -78,7 +78,7 @@ class SkinnedMeshRenderer extends MeshRenderer
 		
 		super.OnRender();
 		
-		
+		/*
 		var sh : Float = Screen.height;
 		var th : Float = 2048.0;// sh * 0.9;		
 		Graphics.DrawTexture(m_data,0,th+105,256,-th);		

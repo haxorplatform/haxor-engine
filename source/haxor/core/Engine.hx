@@ -63,17 +63,42 @@ class Engine
 		
 		if (state == EngineState.Editor) return;
 		
+		var bl : Array<Behaviour>;
+		var k  : Int;
+		
+		bl = EngineContext.awake;
+		for (i in 0...bl.length)
+		{
+			var b : Behaviour = bl.shift();			
+			b.OnAwake();
+			b.m_is_awake = true;
+		}
+		
+		
+		bl = EngineContext.start; k = 0;
+		while(k < bl.length)
+		{
+			var b : Behaviour = bl[k++];
+			if (!b.enabled) 	continue;
+			if (!b.m_is_awake)  continue;
+			b.OnStart();
+			b.m_is_start = true;
+			bl.remove(b);
+			k--;
+		}
+		
 		var up : Process<IUpdateable> = EngineContext.update;				
 		
 		for (i in 0...up.length)
 		{
 			var r : Resource = cast up.list[i];
+			if (r == null) continue;
 			if (r.m_destroyed) continue;
 			if (r.m_is_behaviour)
 			{
 				var b : Behaviour = cast r;
-				if (!b.m_is_awake) { b.OnAwake(); b.m_is_awake = true; }
-				if (!b.m_is_start) { b.OnStart(); b.m_is_start = true; }
+				if (!b.m_is_awake) { continue; }
+				if (!b.m_is_start) { continue; }
 			}			
 			up.list[i].OnUpdate();
 		}

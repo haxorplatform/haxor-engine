@@ -215,6 +215,20 @@ class BaseApplication extends Behaviour
 	}
 	
 	/**
+	 * Callback called by the asset manager while assets are loaded.
+	 * @param	p_id
+	 * @param	p_progress
+	 */
+	public function OnLoadProgress(p_id : String, p_progress : Float32):Void { }
+	
+	/**
+	 * Callback called when some asset finished loading and is ready to use.
+	 * @param	p_id
+	 * @param	p_asset
+	 */
+	public function OnLoadComplete(p_id : String,p_asset : Dynamic):Void { }
+	
+	/**
 	 * Update callback.
 	 */
 	private function Update():Void 

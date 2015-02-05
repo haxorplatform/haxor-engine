@@ -1,7 +1,11 @@
 package haxor.core;
 import haxor.component.animation.Animation;
 import haxor.component.Behaviour;
+import haxor.component.Camera;
 import haxor.component.Component;
+import haxor.component.DataComponent;
+import haxor.component.physics.RigidBody;
+import haxor.component.Renderer;
 import haxor.component.Transform;
 import haxor.context.EngineContext;
 
@@ -44,11 +48,35 @@ class Entity extends Resource
 	private var m_transform : Transform;
 	
 	/**
+	 * Reference to this Entity Camera component.
+	 */
+	public var camera(get_camera, never):Camera;
+	function get_camera():Camera { return cast GetComponent(Camera); }
+	
+	
+	/**
+	 * Reference to the first instance of DataComponent
+	 */
+	public var data(get_data, never):DataComponent;
+	function get_data():DataComponent { return cast GetComponent(DataComponent); }
+	
+	/**
 	 * Reference to this Entity Animation component.
 	 */
-	public var animation(get_animation, null):Animation;
-	private inline function get_animation():Animation { return m_animation; }
-	private var m_animation : Animation;
+	public var animation(get_animation, never):Animation;
+	function get_animation():Animation { return cast GetComponent(Animation); }
+	
+	/**
+	 * Reference to this Entity Renderer component.
+	 */
+	public var renderer(get_renderer, never) : Renderer;	
+	function get_renderer():Renderer { return cast GetComponent(Renderer); }
+	
+	/**
+	 * Reference to this Entity RigidBody component.
+	 */
+	public var rigidbody(get_rigidbody, never) : RigidBody;	
+	function get_rigidbody():RigidBody { return cast GetComponent(RigidBody); }
 
 	/**
 	 * Layer mask of this entity. Layer masks will tell which camera, raycast, and other components/operations will target this entity.
@@ -99,15 +127,15 @@ class Entity extends Resource
 	{
 		if (m_destroyed) return null;
 		
-		if (m_transform != null) if (p_type == Transform) return m_transform; else
-		if (m_animation != null) if (p_type == Animation) return m_animation;
+		if (m_transform != null) if (p_type == Transform) return m_transform;
+		
 		
 		var c:Component = null;		
 		c = Type.createInstance(p_type, [""]);		
 		if (c == null) return null;
 		c.m_entity 		= this;		
 		
-		if (p_type == Animation) m_animation = cast c;
+		
 		
 		if (c.m_is_behaviour)
 		{ 

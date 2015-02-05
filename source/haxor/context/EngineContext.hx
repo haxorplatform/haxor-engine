@@ -1,5 +1,6 @@
 package haxor.context;
 import haxor.component.animation.Animation;
+import haxor.component.Behaviour;
 import haxor.component.Component;
 import haxor.component.MeshRenderer;
 import haxor.context.Process.BaseProcess;
@@ -50,6 +51,16 @@ class EngineContext
 	 * List of IFixedUpdateable nodes.
 	 */
 	static private var fixed_update : Process<IFixedUpdateable>;
+	
+	/**
+	 * 
+	 */
+	static private var awake : Array<Behaviour>;
+	
+	/**
+	 * 
+	 */
+	static private var start : Array<Behaviour>;
 	
 	/**
 	 * List of IResizeable nodes.
@@ -134,6 +145,9 @@ class EngineContext
 		resources    = new Process("process.resources",   maxNodes);
 		disposables  = new Process("process.disposables", maxNodes);
 		
+		awake = [];
+		start = [];
+		
 		list = [update, render, resize, resources, disposables];
 		
 		data		= new DataContext();
@@ -179,10 +193,10 @@ class EngineContext
 	 */
 	static private function Enable(p_resource:Resource):Void
 	{
-		if (Std.is(p_resource, IUpdateable)) 	update.Add(p_resource);
-		if(Std.is(p_resource,IFixedUpdateable)) fixed_update.Add(p_resource);
-		if(Std.is(p_resource,IRenderable)) 	render.Add(p_resource);
-		if (Std.is(p_resource, IResizeable)) resize.Add(p_resource);		
+		if (Std.is(p_resource, IUpdateable)) 	 update.Add(p_resource);
+		if (Std.is(p_resource,IFixedUpdateable)) fixed_update.Add(p_resource);
+		if (Std.is(p_resource,IRenderable)) 	 render.Add(p_resource);
+		if (Std.is(p_resource, IResizeable)) 	 resize.Add(p_resource);		
 		
 		
 		if (Std.is(p_resource, Renderer)) 	renderer.Enable(cast p_resource);
@@ -213,7 +227,7 @@ class EngineContext
 		if(Std.is(p_resource,IRenderable)) 		render.Remove(p_resource);
 		if(Std.is(p_resource, IResizeable)) 	resize.Remove(p_resource);
 		if(Std.is(p_resource,Renderer)) 	 	renderer.Disable(cast p_resource);
-		if (Std.is(p_resource, Entity))
+		if(Std.is(p_resource, Entity))
 		{
 			var e :Entity = cast p_resource;
 			for (i in 0...e.m_components.length)

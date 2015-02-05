@@ -174,7 +174,7 @@ class ColladaFile extends AssetXML
 			
 			var mn : String = m.name;
 			for(i in 0...10) mn = StringTools.replace(mn, "_"+i, "");
-			mn = StringTools.replace(mn, "_", "/");
+			mn = StringTools.replace(mn, "_", "/");			
 			var mat : Material = Asset.Get(mn);
 			
 			if (mat == null)

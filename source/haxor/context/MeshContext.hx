@@ -53,6 +53,11 @@ class MeshContext
 	private var current : Mesh;
 	
 	/**
+	 * Flag that indicates the default color attrib is active
+	 */
+	private var m_auto_white : Bool;
+	
+	/**
 	 * Creates the Mesh context to handle internal structures.
 	 */
 	private function new() 
@@ -61,6 +66,8 @@ class MeshContext
 		mid = new UID();
 		buffers 	= [];		
 		activated 	= [];
+		
+		m_auto_white = false;
 		
 		//Max 32 Active attribs.
 		for (i in 0...32) activated.push(false);
@@ -118,7 +125,7 @@ class MeshContext
 		{					
 			a = al[i];
 			var loc : Int = a._loc_; //Default attribs can be cached! wooray!				
-			if (loc == 5) has_color = true;
+			if (loc == 5) { has_color = true; m_auto_white = false; }
 			if (loc < 0) 
 			{ 
 				//User defined attribs needs to be searched though.
@@ -142,7 +149,7 @@ class MeshContext
 		if (!has_color)
 		{					
 			if (activated[5]) { GL.DisableVertexAttrib(5); activated[5] = false; }
-			GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0);
+			if (!m_auto_white) { GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0); m_auto_white = true; }
 		}
 		
 		if (current.indexed)

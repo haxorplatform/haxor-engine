@@ -235,6 +235,17 @@ class AABB3
 	}
 	
 	/**
+	 * Set this AABB limits using vectors. Returns its own reference.
+	 * @param	p_min
+	 * @param	p_max
+	 * @return
+	 */
+	public function Set3(p_min:Vector3, p_max : Vector3):AABB3
+	{
+		return Set(p_min.x, p_max.x, p_min.y, p_max.y, p_min.z, p_max.z);
+	}
+	
+	/**
 	 * Copies the values of the informed AABB3 into this instance.  Returns its own reference.
 	 * @param	p_v
 	 * @return
