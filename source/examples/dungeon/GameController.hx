@@ -7,6 +7,7 @@ import haxor.core.Application;
 import haxor.core.Asset;
 import haxor.core.Console;
 import haxor.core.Entity;
+import haxor.graphics.Fog;
 import haxor.math.Color;
 import haxor.math.Quaternion;
 import haxor.math.Vector3;
@@ -63,8 +64,8 @@ class GameController extends Behaviour
 		//orbit = CameraOrbit.Create(-0.1, 2, -10);
 		orbit.transform.localPosition = new Vector3(0, 9, 26);
 		orbit.smooth = 5;		
-		orbit.camera.background = Color.FromBytes(0, 0, 0);		
-		orbit.camera.near = 150.0;
+		orbit.camera.background = Color.FromBytes(10, 0, 40);		
+		orbit.camera.near = 100.0;
 		orbit.camera.far  = 2000;
 		orbit.camera.fov  = 40;
 		orbit.target = player.transform;
@@ -78,6 +79,9 @@ class GameController extends Behaviour
 		orbit_input.zoomSpeed = 35;
 		//*/
 	
+		Fog.color = Color.FromBytes(10, 0, 40);
+		Fog.exp   = 1.5;
+		Fog.end   = 0.7;
 		
 		/*
 		fxaa = new FXAA();

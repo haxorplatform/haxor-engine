@@ -114,7 +114,7 @@ class Player extends Behaviour implements IUpdateable
 				mat.name = new_mat_id;					
 				
 				mat.shader = Asset.Get("haxor/diffuse/ToonSkinFalloff");
-				trace(Asset.Get("haxor/diffuse/ToonSkinFalloff"));
+				
 				mat.SetTexture("DiffuseTexture", tex);
 				mat.SetFloat("Falloff", 1.5);
 				mat.SetFloat("FalloffIntensity", 1.0);
@@ -139,7 +139,7 @@ class Player extends Behaviour implements IUpdateable
 				mat.SetColor("Tint", Color.FromBytes(45, 90, 125));
 				Asset.Add("PlayerHilight", mat);
 			}
-			/*
+			
 			var  skr : SkinnedMeshRenderer = cast mr;
 			var nskr : SkinnedMeshRenderer = mr.entity.AddComponent(SkinnedMeshRenderer);
 			nskr.mesh   	= skr.mesh;

@@ -107,7 +107,7 @@ class Dungeon extends Behaviour
 			}
 			else
 			{
-				trace(mat.name + " " + mat.queue+" "+mat.blend+" "+new_mat_id);
+				trace(mr.name+" "+mat.shader.name);
 				mat = Asset.Instantiate(mat);				
 				if (!mat.blend) mat.queue = RenderQueue.Opaque - 100;				
 				mat.name = new_mat_id;			

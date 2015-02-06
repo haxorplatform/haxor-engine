@@ -755,7 +755,7 @@ examples_dungeon_Dungeon.prototype = $extend(haxor_component_Behaviour.prototype
 			if(lm_id == "") lm = null; else lm = haxor_core_Asset.Get(lm_id);
 			var new_mat_id = mat_id + "@" + tex_id + lm_id + "Material";
 			if(haxor_core_Asset.Get(new_mat_id) != null) mat = haxor_core_Asset.Get(new_mat_id); else {
-				console.log(mat.get_name() + " " + mat.queue + " " + (mat.blend == null?"null":"" + mat.blend) + " " + new_mat_id);
+				console.log(mr.get_name() + " " + mat.m_shader.get_name());
 				mat = haxor_core_Asset.Instantiate(mat);
 				if(!mat.blend) mat.queue = 900;
 				mat.set_name(new_mat_id);
@@ -1104,16 +1104,18 @@ examples_dungeon_DungeonApp.prototype = $extend(haxor_core_Application.prototype
 		haxor_core_Asset.LoadTexture2D("Fire","./texture/particle/sheet/cartoon_fire_alpha.png");
 		haxor_core_Asset.LoadTexture2D("FireColor","./texture/particle/sheet/cartoon_fire_ramp_color.png");
 		if(!this.load_big_dungeon) {
-			haxor_core_Asset.LoadCollada("dungeon","./projects/dungeon/small/asset.dae");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas01","./projects/dungeon/small/DungeonAtlas01.jpg");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas02","./projects/dungeon/small/DungeonAtlas02.jpg");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas03","./projects/dungeon/small/DungeonAtlas03.jpg");
-			haxor_core_Asset.LoadTexture2D("Lightmap01","./projects/dungeon/small/Lightmap01.png");
-			haxor_core_Asset.LoadTexture2D("Lightmap02","./projects/dungeon/small/Lightmap02.png");
-			haxor_core_Asset.LoadTexture2D("Lightmap03","./projects/dungeon/small/Lightmap03.png");
+			var dt = "small1";
+			haxor_core_Asset.LoadCollada("dungeon","./projects/dungeon/" + dt + "/asset.dae");
+			haxor_core_Asset.LoadTexture2D("DungeonTile01","./projects/dungeon/" + dt + "/DungeonTile01.jpg");
+			haxor_core_Asset.LoadTexture2D("DungeonAtlas01","./projects/dungeon/" + dt + "/DungeonAtlas01.jpg");
+			haxor_core_Asset.LoadTexture2D("DungeonAtlas02","./projects/dungeon/" + dt + "/DungeonAtlas02.jpg");
+			haxor_core_Asset.LoadTexture2D("DungeonAtlas03","./projects/dungeon/" + dt + "/DungeonAtlas03.jpg");
+			haxor_core_Asset.LoadTexture2D("Lightmap01","./projects/dungeon/" + dt + "/Lightmap01.png");
+			haxor_core_Asset.LoadTexture2D("Lightmap02","./projects/dungeon/" + dt + "/Lightmap02.png");
+			haxor_core_Asset.LoadTexture2D("Lightmap03","./projects/dungeon/" + dt + "/Lightmap03.png");
 		}
 		if(this.load_big_dungeon) {
-			haxor_core_Asset.LoadCollada("dungeon","./projects/dungeon/big/asset.dae");
+			if(this.get_protocol() == haxor_core_ApplicationProtocol.File) haxor_core_Asset.LoadCollada("dungeon","big.dae"); else haxor_core_Asset.LoadCollada("dungeon","./projects/dungeon/big/asset.dae");
 			haxor_core_Asset.LoadTexture2D("DungeonAtlas01","./projects/dungeon/big/DungeonAtlas01.jpg");
 			haxor_core_Asset.LoadTexture2D("DungeonAtlas02","./projects/dungeon/big/DungeonAtlas02.png");
 			haxor_core_Asset.LoadTexture2D("DungeonAtlas03","./projects/dungeon/big/DungeonAtlas03.png");
@@ -1225,14 +1227,17 @@ examples_dungeon_GameController.prototype = $extend(haxor_component_Behaviour.pr
 		this.orbit = haxor_component_CameraOrbit.Create(700,-135,45);
 		this.orbit.m_entity.m_transform.set_localPosition(new haxor_math_Vector3(0,9,26));
 		this.orbit.smooth = 5;
-		this.orbit.get_camera().background = haxor_math_Color.FromBytes(0,0,0);
-		this.orbit.get_camera().set_near(150.0);
+		this.orbit.get_camera().background = haxor_math_Color.FromBytes(10,0,40);
+		this.orbit.get_camera().set_near(100.0);
 		this.orbit.get_camera().set_far(2000);
 		this.orbit.get_camera().set_fov(40);
 		this.orbit.target = this.player.m_entity.m_transform;
 		this.orbit.follow = true;
 		var orbit_input = this.orbit.m_entity.AddComponent(haxor_component_CameraOrbitInput);
 		orbit_input.zoomSpeed = 35;
+		haxor_graphics_Fog.color = haxor_math_Color.FromBytes(10,0,40);
+		haxor_graphics_Fog.exp = 1.5;
+		haxor_graphics_Fog.end = 0.7;
 	}
 	,OnDungeonLoaded: function() {
 		console.log("GameController> Dungeon Loaded");
@@ -1309,7 +1314,6 @@ examples_dungeon_Player.prototype = $extend(haxor_component_Behaviour.prototype,
 				this.m_falloff_mat = mat = haxor_core_Asset.Instantiate(mat);
 				mat.set_name(new_mat_id);
 				mat.set_shader(haxor_core_Asset.Get("haxor/diffuse/ToonSkinFalloff"));
-				console.log(haxor_core_Asset.Get("haxor/diffuse/ToonSkinFalloff"));
 				mat.SetTexture("DiffuseTexture",tex);
 				mat.SetFloat("Falloff",1.5);
 				mat.SetFloat("FalloffIntensity",1.0);
@@ -1329,6 +1333,11 @@ examples_dungeon_Player.prototype = $extend(haxor_component_Behaviour.prototype,
 				mat.SetColor("Tint",haxor_math_Color.FromBytes(45,90,125));
 				haxor_core_Asset.Add("PlayerHilight",mat);
 			}
+			var skr = mr;
+			var nskr = mr.m_entity.AddComponent(haxor_component_SkinnedMeshRenderer);
+			nskr.set_mesh(skr.m_mesh);
+			nskr.set_joints(skr.m_joints);
+			nskr.set_material(mat);
 		}
 		var sc = this.m_entity.AddComponent(haxor_component_physics_SphereCollider);
 		sc.set_radius(80);
@@ -6448,7 +6457,7 @@ haxor_context_CanvasGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
 	,__class__: haxor_context_CanvasGizmo
 });
 var haxor_context_MaterialContext = function() {
-	this.uniform_globals = ["ViewMatrix","ProjectionMatrix","WorldMatrix","WorldMatrixInverse","WorldMatrixIT","Time","RandomSeed","RandomTexture","ScreenTexture","ScreenDepth","Ambient","CameraPosition","ProjectionMatrixInverse","ViewMatrixInverse","Lights"];
+	this.uniform_globals = ["ViewMatrix","ProjectionMatrix","WorldMatrix","WorldMatrixInverse","WorldMatrixIT","Time","RandomSeed","RandomTexture","ScreenTexture","ScreenDepth","Ambient","CameraPosition","ProjectionMatrixInverse","ViewMatrixInverse","Lights","Fog","CameraProjection"];
 	this.mid = new haxor_context_UID();
 	this.sid = new haxor_context_UID();
 	this.uid = new haxor_context_UID();
@@ -6644,6 +6653,9 @@ haxor_context_MaterialContext.prototype = {
 					continue;
 				}
 				switch(un) {
+				case "Fog":
+					m.SetFloat4Array(un,[haxor_graphics_Fog.color.r,haxor_graphics_Fog.color.g,haxor_graphics_Fog.color.b,haxor_graphics_Fog.color.a,haxor_graphics_Fog.density,haxor_graphics_Fog.exp,haxor_graphics_Fog.start,haxor_graphics_Fog.end]);
+					break;
 				case "Lights":
 					m.SetFloat4Array(un,haxor_component_light_Light.m_buffer);
 					break;
@@ -6666,6 +6678,9 @@ haxor_context_MaterialContext.prototype = {
 					m.SetMatrix4(un,m4);
 					break;
 				case "CameraPosition":
+					m.SetVector3(un,haxor_context_EngineContext.data.get_v3().Set(0,0,0));
+					break;
+				case "CameraProjection":
 					m.SetVector3(un,haxor_context_EngineContext.data.get_v3().Set(0,0,0));
 					break;
 				case "ViewMatrix":
@@ -6812,6 +6827,9 @@ haxor_context_MaterialContext.prototype = {
 	,UploadGlobalUniform: function(u,ut,ucv,ucp,t,c) {
 		var _g = u.name;
 		switch(_g) {
+		case "Fog":
+			u.SetFloat4Array([haxor_graphics_Fog.color.r,haxor_graphics_Fog.color.g,haxor_graphics_Fog.color.b,haxor_graphics_Fog.color.a,haxor_graphics_Fog.density,haxor_graphics_Fog.exp,haxor_graphics_Fog.start,haxor_graphics_Fog.end]);
+			break;
 		case "Lights":
 			u.SetFloat4Array(haxor_component_light_Light.m_buffer);
 			break;
@@ -6835,6 +6853,9 @@ haxor_context_MaterialContext.prototype = {
 			break;
 		case "CameraPosition":
 			if(ucv) u.SetVector3(c.m_entity.m_transform.get_position());
+			break;
+		case "CameraProjection":
+			if(ucv) u.SetVector3(haxor_context_EngineContext.data.get_v3().Set(c.m_near,c.m_far,0));
 			break;
 		case "ViewMatrix":
 			if(ucv) u.SetMatrix4(c.m_entity.m_transform.get_WorldMatrixInverse());
@@ -6867,7 +6888,13 @@ haxor_context_MaterialContext.prototype = {
 		var b = msh.m_bounds;
 		var c = haxor_context_EngineContext.data.get_v3();
 		var p = haxor_context_EngineContext.data.get_v3();
-		haxor_math_AABB3.Center(msh.get_bounds(),c);
+		var hs = 0.0;
+		haxor_math_AABB3.Center(b,c);
+		hs = Math.max(hs,b.m_xMax - b.m_xMin);
+		hs = Math.max(hs,b.m_yMax - b.m_yMin);
+		hs = Math.max(hs,b.m_zMax - b.m_zMin);
+		var sm = haxor_math_Matrix4.GetScale(t.get_WorldMatrix(),haxor_context_EngineContext.data.get_m4());
+		hs *= haxor_math_Mathf.Max(sm.m00,Math.max(sm.m11,sm.m22)) * 0.5;
 		t.get_WorldMatrix().Transform3x4(c);
 		var k = 0;
 		var _g1 = 0;
@@ -6878,8 +6905,9 @@ haxor_context_MaterialContext.prototype = {
 			if(!l.get_enabled()) continue;
 			if(js_Boot.__instanceof(l,haxor_component_light_PointLight)) {
 				var pl = l;
+				var limit = hs + 0.5 * pl.radius;
 				l.m_entity.m_transform.get_WorldMatrix().Transform3x4(p.Set());
-				if(haxor_math_Vector3.Distance(c,p) > pl.radius * 0.5) continue;
+				if(haxor_math_Vector3.Distance(c,p) > limit) continue;
 				if(haxor_core_Debug.light) {
 					var cl = new haxor_math_Color(1,1,1,0.1);
 					haxor_context_EngineContext.gizmo.DrawLine(c,p,cl,null);
@@ -6891,7 +6919,7 @@ haxor_context_MaterialContext.prototype = {
 			}
 		}
 		while(k < haxor_component_light_Light.max) {
-			haxor_component_light_Light.SetLightData(k,-1.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0);
+			haxor_component_light_Light.SetLightData(k,-1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 			k++;
 		}
 	}
@@ -10165,6 +10193,9 @@ haxor_ds_USet.prototype = {
 	,__class__: haxor_ds_USet
 	,__properties__: {get_length:"get_length"}
 };
+var haxor_graphics_Fog = function() { };
+$hxClasses["haxor.graphics.Fog"] = haxor_graphics_Fog;
+haxor_graphics_Fog.__name__ = ["haxor","graphics","Fog"];
 var haxor_graphics_GL = function() { };
 $hxClasses["haxor.graphics.GL"] = haxor_graphics_GL;
 haxor_graphics_GL.__name__ = ["haxor","graphics","GL"];
@@ -17510,6 +17541,11 @@ haxor_dom_LayoutFlag.PositionXY = 12;
 haxor_dom_LayoutFlag.SizeX = 16;
 haxor_dom_LayoutFlag.SizeY = 32;
 haxor_dom_LayoutFlag.SizeXY = 48;
+haxor_graphics_Fog.color = new haxor_math_Color(0.5,0.5,0.5,1);
+haxor_graphics_Fog.density = 1.0;
+haxor_graphics_Fog.exp = 1.0;
+haxor_graphics_Fog.start = 0.0;
+haxor_graphics_Fog.end = 1.0;
 haxor_graphics_GL.ACTIVE_ATTRIBUTES = 35721;
 haxor_graphics_GL.ACTIVE_TEXTURE = 34016;
 haxor_graphics_GL.ACTIVE_UNIFORMS = 35718;

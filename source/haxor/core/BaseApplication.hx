@@ -75,7 +75,7 @@ class BaseApplication extends Behaviour
 	}
 	
 	/**
-	 * Browser vender for HTML builds.
+	 * Browser vendor for HTML builds.
 	 */
 	public var vendor(get_vendor, never) : String;	
 	private function get_vendor():String	 

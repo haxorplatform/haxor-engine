@@ -10,6 +10,7 @@ import haxor.core.Time;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
 import haxor.core.Enums.DepthTest;
+import haxor.graphics.Fog;
 import haxor.graphics.Gizmo;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
@@ -21,6 +22,7 @@ import haxor.io.Int32Array;
 import haxor.graphics.GL;
 import haxor.math.AABB3;
 import haxor.math.Color;
+import haxor.math.Mathf;
 import haxor.math.Matrix4;
 import haxor.math.Quaternion;
 import haxor.math.Random;
@@ -37,7 +39,7 @@ import haxor.platform.Types.UniformLocation;
 @:allow(haxor)
 class MaterialContext
 {
-	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix","WorldMatrixInverse","WorldMatrixIT", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse","Lights"];
+	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix","WorldMatrixInverse","WorldMatrixIT", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse","Lights","Fog","CameraProjection"];
 	/**
 	 * List of global uniforms.
 	 */
@@ -445,6 +447,7 @@ class MaterialContext
 				
 				switch(un)
 				{
+					case "Fog":						m.SetFloat4Array(un, [Fog.color.r, Fog.color.g, Fog.color.b, Fog.color.a, Fog.density, Fog.exp, Fog.start, Fog.end]);
 					case "Lights":					m.SetFloat4Array(un, Light.m_buffer);
 					case "Ambient":					m.SetColor(un, Color.temp.Set(1,1,1,1));					
 					case "Time":					m.SetFloat(un, 0.0);					
@@ -455,7 +458,8 @@ class MaterialContext
 					case "WorldMatrix":				m.SetMatrix4(un,m4);
 					case "WorldMatrixInverse":		m.SetMatrix4(un,m4);
 					case "WorldMatrixIT":			m.SetMatrix4(un,m4);
-					case "CameraPosition": 			m.SetVector3(un,Vector3.temp.Set(0,0,0));
+					case "CameraPosition": 			m.SetVector3(un, Vector3.temp.Set(0, 0, 0));
+					case "CameraProjection":		m.SetVector3(un, Vector3.temp.Set(0, 0, 0));
 					case "ViewMatrix":				m.SetMatrix4(un,m4);
 					case "ViewMatrixInverse":		m.SetMatrix4(un,m4);					
 					case "ProjectionMatrix":  		m.SetMatrix4(un,m4);					
@@ -674,8 +678,8 @@ class MaterialContext
 		
 		switch(u.name)
 		{
-			case "Lights":									
-				u.SetFloat4Array(Light.m_buffer);
+			case "Fog":						u.SetFloat4Array([Fog.color.r, Fog.color.g, Fog.color.b, Fog.color.a, Fog.density, Fog.exp, Fog.start, Fog.end]);
+			case "Lights":					u.SetFloat4Array(Light.m_buffer);
 			case "Ambient":					u.SetColor(Light.ambient);					
 			case "Time":					u.SetFloat(Time.elapsed);					
 			case "RandomSeed":				u.SetFloat(Random.value);
@@ -685,7 +689,8 @@ class MaterialContext
 			case "WorldMatrix":				if(ut) 	u.SetMatrix4(t.WorldMatrix);
 			case "WorldMatrixInverse":		if(ut)	u.SetMatrix4(t.WorldMatrixInverse);
 			case "WorldMatrixIT":			if (ut)	{ u.SetMatrix4(t.WorldMatrixInverse, true); }
-			case "CameraPosition": 			if(ucv)	u.SetVector3(c.transform.position);
+			case "CameraPosition": 			if (ucv) u.SetVector3(c.transform.position);
+			case "CameraProjection":		if (ucv) u.SetVector3(Vector3.temp.Set(c.near, c.far, 0));
 			case "ViewMatrix":				if(ucv) u.SetMatrix4(c.transform.WorldMatrixInverse);
 			case "ViewMatrixInverse":		if(ucv) u.SetMatrix4(c.transform.WorldMatrix);					
 			case "ProjectionMatrix":  		if(ucp)	u.SetMatrix4(c.ProjectionMatrix);					
@@ -710,8 +715,17 @@ class MaterialContext
 		
 		var c : Vector3 = Vector3.temp;
 		var p  : Vector3 = Vector3.temp;
+		var hs : Float = 0.0;
 		
-		AABB3.Center(msh.bounds, c);		
+		AABB3.Center(b, c);	
+		
+		hs = Mathf.Max(hs, b.xMax - b.xMin);
+		hs = Mathf.Max(hs, b.yMax - b.yMin);
+		hs = Mathf.Max(hs, b.zMax - b.zMin);
+		
+		var sm : Matrix4  = Matrix4.GetScale(t.WorldMatrix, Matrix4.temp);
+		hs *= Mathf.Max(sm.m00, Mathf.Max(sm.m11, sm.m22))*0.5;
+		
 		t.WorldMatrix.Transform3x4(c);
 		
 		var k : Int = 0;
@@ -724,11 +738,12 @@ class MaterialContext
 			if (!l.enabled) continue;
 			if (Std.is(l, PointLight))
 			{
-				//trace(l.name);
+				//trace(l.name);				
 				var pl : PointLight = cast l;								
+				var limit : Float = hs + (0.5 * pl.radius);
 				l.transform.WorldMatrix.Transform3x4(p.Set());
-								
-				if (Vector3.Distance(c, p) > (pl.radius * 0.5)) continue;				
+				
+				if (Vector3.Distance(c, p) > limit) continue;				
 				
 				if (Debug.light)
 				{
@@ -762,7 +777,7 @@ class MaterialContext
 		
 		while(k < Light.max)
 		{
-			Light.SetLightData(k, -1.0, 0.0, 0.0,0.0,  0.0,0.0,0.0,   1.0, 0.0, 1.0, 1.0);
+			Light.SetLightData(k, -1.0, 0.0, 0.0,0.0,  0.0,0.0,0.0,   0.0, 0.0,0.0,0.0);
 			k++;
 		}
 		//*/

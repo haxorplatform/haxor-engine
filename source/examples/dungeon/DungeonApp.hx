@@ -14,6 +14,7 @@ import haxor.context.Process;
 import haxor.context.UID;
 import haxor.core.Application;
 import haxor.core.Asset;
+import haxor.core.BaseApplication.ApplicationProtocol;
 import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
 import haxor.core.Debug;
@@ -281,13 +282,15 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 		 */
 		if (!load_big_dungeon)
 		{
-			Asset.LoadCollada("dungeon", 				"./projects/dungeon/small/asset.dae");					
-			Asset.LoadTexture2D("DungeonAtlas01", 	"./projects/dungeon/small/DungeonAtlas01.jpg");
-			Asset.LoadTexture2D("DungeonAtlas02", 	"./projects/dungeon/small/DungeonAtlas02.jpg");
-			Asset.LoadTexture2D("DungeonAtlas03", 	"./projects/dungeon/small/DungeonAtlas03.jpg");
-			Asset.LoadTexture2D("Lightmap01", 		"./projects/dungeon/small/Lightmap01.png");
-			Asset.LoadTexture2D("Lightmap02", 		"./projects/dungeon/small/Lightmap02.png");
-			Asset.LoadTexture2D("Lightmap03", 		"./projects/dungeon/small/Lightmap03.png");
+			var dt : String = "small1";
+			Asset.LoadCollada("dungeon", 			"./projects/dungeon/"+dt+"/asset.dae");			
+			Asset.LoadTexture2D("DungeonTile01", 	"./projects/dungeon/"+dt+"/DungeonTile01.jpg");
+			Asset.LoadTexture2D("DungeonAtlas01", 	"./projects/dungeon/"+dt+"/DungeonAtlas01.jpg");
+			Asset.LoadTexture2D("DungeonAtlas02", 	"./projects/dungeon/"+dt+"/DungeonAtlas02.jpg");
+			Asset.LoadTexture2D("DungeonAtlas03", 	"./projects/dungeon/"+dt+"/DungeonAtlas03.jpg");
+			Asset.LoadTexture2D("Lightmap01", 		"./projects/dungeon/"+dt+"/Lightmap01.png");
+			Asset.LoadTexture2D("Lightmap02", 		"./projects/dungeon/"+dt+"/Lightmap02.png");
+			Asset.LoadTexture2D("Lightmap03", 		"./projects/dungeon/"+dt+"/Lightmap03.png");
 		}
 		
 		/**
@@ -295,8 +298,15 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 		 */
 		if (load_big_dungeon)
 		{
-			Asset.LoadCollada("dungeon", 			"./projects/dungeon/big/asset.dae");				
-			//Asset.LoadCollada("dungeon", 			"assets/dungeon/big.dae");				
+			if (protocol == ApplicationProtocol.File)
+			{
+				Asset.LoadCollada("dungeon", 			"big.dae");	
+			}
+			else
+			{
+				Asset.LoadCollada("dungeon", 			"./projects/dungeon/big/asset.dae");
+			}
+			//
 			Asset.LoadTexture2D("DungeonAtlas01", 	"./projects/dungeon/big/DungeonAtlas01.jpg");
 			Asset.LoadTexture2D("DungeonAtlas02", 	"./projects/dungeon/big/DungeonAtlas02.png");
 			Asset.LoadTexture2D("DungeonAtlas03", 	"./projects/dungeon/big/DungeonAtlas03.png");
