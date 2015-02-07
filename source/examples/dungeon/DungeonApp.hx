@@ -117,6 +117,11 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 	var field : js.html.DivElement;
 	#end
 	
+	
+	public var cursor : Vector3 = Vector3.zero;
+	
+	public var path : Array<Vector3>;
+	
 	/**
 	 * 
 	 */
@@ -149,6 +154,7 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 	
 	public function OnUpdate():Void
 	{	
+		if (game == null) return;
 		var log : String = "";
 		
 		log += "Stats";
@@ -182,23 +188,67 @@ class DungeonApp extends Application implements IUpdateable implements IRenderab
 			ui.domElement.style.display = debug ? "block" : "none";
 		}
 		
+		var p : Vector3 = game.orbit.pivot.localPosition;
+		var vz : Vector3 = game.orbit.pivot.forward;
+		var vx : Vector3 = game.orbit.pivot.right;
+		vz.y = 0; vz.Normalize();
+		vx.y = 0; vx.Normalize();
+		
 		if (debug)
 		{
-			var p : Vector3 = game.orbit.pivot.localPosition;
-			var vz : Vector3 = game.orbit.pivot.forward;
-			var vx : Vector3 = game.orbit.pivot.right;
-			vz.y = 0; vz.Normalize();
-			vx.y = 0; vx.Normalize();
-			
 			if (Input.Pressed(KeyCode.W)) p.Add(vz.Scale(Time.delta * 500.0));
-			if (Input.Pressed(KeyCode.S)) p.Sub(vz.Scale(Time.delta * 500.0));
-			
+			if (Input.Pressed(KeyCode.S)) p.Sub(vz.Scale(Time.delta * 500.0));			
 			if (Input.Pressed(KeyCode.A)) p.Sub(vx.Scale(Time.delta * 500.0));
 			if (Input.Pressed(KeyCode.D)) p.Add(vx.Scale(Time.delta * 500.0));
+			game.orbit.pivot.localPosition = p;			
+		}
+		
+		if (path == null)
+		{
+		
+			path = [new Vector3(323.8,0,72.74),
+			new Vector3(299.72,0,-224.01),
+			new Vector3(198,0,-433.37),
+			new Vector3(7.04,0,-560.07),
+			new Vector3(-316.19,0,-311.91),
+			new Vector3(-419.82,0,-158.65),
+			new Vector3(-135.42,0,-62.95),
+			new Vector3(531.08,0,-302.58),
+			new Vector3(602.21,0,-209.92),
+			new Vector3(462.61,0,126.38),
+			new Vector3(255.05,0,222.19),
+			new Vector3(-27.75,0,481.21),
+			new Vector3(273.31,0,601.23),
+			new Vector3(492.09,0,581.36),
+			new Vector3(608.63,0,474.62),
+			new Vector3(597.1,0,66.89),
+			new Vector3(427.59, 0, 53.27)];
+		}
+		
+		if (Input.Pressed(KeyCode.W)) cursor.Add(vz.Scale(Time.delta * 500.0));
+		if (Input.Pressed(KeyCode.S)) cursor.Sub(vz.Scale(Time.delta * 500.0));		
+		if (Input.Pressed(KeyCode.A)) cursor.Sub(vx.Scale(Time.delta * 500.0));
+		if (Input.Pressed(KeyCode.D)) cursor.Add(vx.Scale(Time.delta * 500.0));		
+		if (Input.Down(KeyCode.Space))
+		{
+			path.push(cursor.clone);
+			for (i in 0...path.length) trace(path[i].ToString());
+		}		
+		
+		if (debug)
+		{
+			//Gizmo.Point(cursor, 10.0, Color.magenta);
 			
-			
-			game.orbit.pivot.localPosition = p;
-			
+			if (path.length > 0)
+			{
+				var k : Int = 0;
+				while(k<path.length)
+				{
+					//Gizmo.Point(path[k], 5.0, Color.green);
+					//if (path.length >= 2) if (k >= 1) Gizmo.Line(path[k - 1], path[k], Color.green);
+					k++;
+				}
+			}
 		}
 		
 		if(debug) if(field!=null) field.innerText = log;		

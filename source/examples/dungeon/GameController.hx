@@ -81,7 +81,7 @@ class GameController extends Behaviour
 	
 		Fog.color = Color.FromBytes(10, 0, 40);
 		Fog.exp   = 1.5;
-		Fog.end   = 0.7;
+		Fog.end   = 0.6;
 		
 		/*
 		fxaa = new FXAA();

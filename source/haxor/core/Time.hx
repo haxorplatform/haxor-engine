@@ -140,7 +140,8 @@ class Time
 		m_clock_dt		= (m_clock - m_last_clock);
 		if (m_clock_dt <= 0) m_clock_dt = 1.0;
 		m_last_clock 	= m_clock;
-		m_delta 		= m_clock_dt * 0.001;		
+		m_delta 		= m_clock_dt * 0.001;
+		m_delta = m_delta > 0.1 ? 0.1 : m_delta;
 		
 		m_elapsed		= (m_clock)*0.001;
 		m_updates 		+= 1.0;
@@ -164,6 +165,7 @@ class Time
 		m_frame_count += 1.0;
 		m_frame++;
 		m_frame_delta = (m_clock - m_last_frame_clock) * 0.001;
+		m_frame_delta = m_frame_delta > 0.1 ? 0.1 : m_frame_delta;
 		m_last_frame_clock = m_clock;
 	}
 	

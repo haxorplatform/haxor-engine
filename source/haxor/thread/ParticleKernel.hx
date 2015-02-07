@@ -1,3 +1,7 @@
+import haxor.component.ParticleRenderer;
+import haxor.graphics.material.Shader;
+import haxor.graphics.texture.RenderTexture;
+import haxor.thread.Kernel.KernelFloat;
 /**
  * ...
  * @author Eduardo Pons - eduardo@thelaborat.org

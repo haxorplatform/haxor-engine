@@ -58,6 +58,8 @@ class Player extends Behaviour implements IUpdateable
 	
 	private var m_shadow : Transform;
 	
+	private var m_path_current : Int = 0;
+	
 	//private var m_dust_particle : ParticleRunning;
 	
 	public var state(get_state, set_state):String;
@@ -413,12 +415,43 @@ class Player extends Behaviour implements IUpdateable
 		
 	}
 	
+	var lerp_dir : Vector3 = Vector3.zero;
+	
+	var path_enabled : Bool = false;
 	
 	public function OnUpdate():Void
 	{
 		UpdateKeyboardInput();
 		
+		
+		var app : DungeonApp = cast application;
+		
+		var pt : Vector3 = app.path[m_path_current];
+		
+		var dir : Vector3 = pt.clone.Sub(transform.localPosition);
+		
+		
+		
+		dir.y = 0;
+		dir.Normalize();
+		
+		lerp_dir = Vector3.Lerp(lerp_dir, dir, Time.delta * 3.0);
+		
+		if(path_enabled) Move(lerp_dir);
+		
+		if (Input.Down(KeyCode.Enter)) path_enabled = !path_enabled;
+		
+		var d : Float32 = Vector3.Distance(pt, transform.localPosition);
+		
+		
+		
+		if (d < 50.0)
+		{
+			m_path_current = (m_path_current + 1) % app.path.length;
+		}
+		
 		state = OnFSM();
+		
 	
 		/*		
 		if (Input.IsDown(KeyCode.D))

@@ -41,6 +41,8 @@ class Entry
 	 */
 	static private var m_input : HTMLInputHandler;
 	
+	
+	
 	/**
 	 * Startup the application entry point.
 	 */
