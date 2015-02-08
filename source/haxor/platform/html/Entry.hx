@@ -1,5 +1,9 @@
 #if html
 package haxor.platform.html;
+import js.html.CanvasElement;
+import js.html.CanvasRenderingContext2D;
+import haxor.platform.html.graphics.WebGL;
+import haxor.math.Mathf;
 import haxor.core.Asset;
 import haxor.dom.Container;
 import js.html.NamedNodeMap;
@@ -41,14 +45,51 @@ class Entry
 	 */
 	static private var m_input : HTMLInputHandler;
 	
+	/**
+	 * Flag that indicates if the browser window is focused.
+	 */
+	static private var m_window_focus : Bool;
 	
+	/**
+	 * Flag that indicates if RequestAnimationFrame exists.
+	 */
+	static private var m_raf_enabled : Bool;
+	
+	/**
+	 * Flag that indicates if the browser has precision clock.
+	 */
+	static private var m_has_pc : Bool;
+	
+	/**
+	 * Id of the RAF loop.
+	 */
+	static private var m_raf_id : Int;
+	
+	/**
+	 * SetTimeout loop id.
+	 */
+	static private var m_interval_id : Int;
+	
+	/**
+	 * Last interval clock.
+	 */
+	static private var m_step_clock : Float;
+	
+	/**
+	 * Starting time of RAF.
+	 */
+	static private var m_raf_offset_clock : Float;
+	
+	/**
+	 * Starting time of SetInterval
+	 */
+	static private var m_itv_offset_clock : Float;
 	
 	/**
 	 * Startup the application entry point.
 	 */
 	static public function Initialize():Void 
-	{ 
-		
+	{ 		
 		Browser.window.onload = OnWindowLoad; 
 	}
 	
@@ -188,16 +229,16 @@ class Entry
 		m_input = new HTMLInputHandler(app_input_id);
 		Input.m_handler	= m_input;
 		
-		if (Browser.window.requestAnimationFrame != null)
-		{
-			Browser.window.requestAnimationFrame(RequestAnimationCallback);
-		}
-		else
-		{
-			Time.m_clock_0 = (Timer.stamp() * 1000.0);
-			TimeOutLoop();
-		}
+		m_raf_enabled  = Browser.window.requestAnimationFrame != null;
+		m_has_pc	   = Browser.window.performance != null;		
+		m_raf_id	   = -1;
+		m_interval_id  = -1;						
+		m_step_clock   = -1;
 		
+		m_application.runOnBackground = true;
+		
+		Run();
+				
 		if (m_application.Load())
 		{
 			m_application.LoadComplete();
@@ -206,29 +247,78 @@ class Entry
 	}
 	
 	/**
+	 * Starts the loop.
+	 */
+	static private function Run():Void
+	{
+		
+		CancelInterval();		
+		m_itv_offset_clock = m_has_pc ? Browser.window.performance.now() : (Timer.stamp() * 1000);
+		m_interval_id = Browser.window.setInterval(IntervalLoop, 16);
+		
+		if (m_raf_enabled)
+		{
+			CancelRAF();
+			m_raf_offset_clock = m_has_pc ? Browser.window.performance.now() : 0.0;
+			m_raf_id = Browser.window.requestAnimationFrame(RAFLoop);
+		}
+	}
+		
+	/**
+	 * Executes the loop step.
+	 * @param	p_time
+	 * @param	p_visible
+	 */
+	static private function Step(p_time : Float32,p_visible:Bool):Void
+	{	
+		if (m_step_clock < 0) m_step_clock = p_time;		
+		var t : Float    = p_time;		
+		var dt : Float   = t - m_step_clock;
+		m_step_clock 	 = t;		
+		var steps : Int  = p_visible ? 1 : Mathf.MaxInt(1, cast Mathf.Floor(dt / 16));
+		for (i in 0...steps)
+		{
+			Time.m_system = m_has_pc ? Browser.window.performance.now() : t;
+			m_application.Update();
+			if(p_visible) m_application.Render();
+		}
+	}
+		
+	/**
 	 * Browser update/rendering loop.
 	 * @param	p_time
 	 * @return
 	 */
-	static private function RequestAnimationCallback(p_time : Float32):Bool
+	static private function RAFLoop(p_time : Float32):Bool
 	{	
-		Time.m_system = p_time;
-		m_application.Update();
-		m_application.Render();
-		Browser.window.requestAnimationFrame(RequestAnimationCallback);
+		var t : Float32 = m_has_pc ? Browser.window.performance.now() : p_time;				
+		Step(t - m_raf_offset_clock,true);
+		m_raf_id = Browser.window.requestAnimationFrame(RAFLoop);
 		return true;
 	}
 	
 	/**
-	 * IE8 compatible loop.
+	 * IE8/Windows Unfocus compatible loop.
 	 */
-	static private function TimeOutLoop():Void
-	{
-		Time.m_system = (Timer.stamp() * 1000.0) - Time.m_clock_0;
-		m_application.Update();
-		m_application.Render();
-		Browser.window.setTimeout(TimeOutLoop, 10);
+	static private function IntervalLoop():Void
+	{			
+		var v : Bool = Browser.document.visibilityState != "hidden";
+		if (v) return;
+		if (!m_application.runOnBackground) return;
+		var t : Float    = m_has_pc ? Browser.window.performance.now() : (Timer.stamp() * 1000.0);
+		Step(t - m_itv_offset_clock, v);
 	}
+	
+	
+	/**
+	 * Cancels the RAF Loop
+	 */
+	static private function CancelRAF():Void { if (m_raf_id > 0) Browser.window.cancelAnimationFrame(m_raf_id); m_raf_id = -1; }
+	
+	/**
+	 * Cancels the set interval loop.
+	 */
+	static private function CancelInterval():Void { if (m_interval_id > 0) Browser.window.clearInterval(m_interval_id); m_interval_id = -1; }
 	
 	
 }

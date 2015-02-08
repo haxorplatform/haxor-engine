@@ -37,6 +37,7 @@ import js.html.webgl.RenderingContext;
  * Wrapper for all WebGL API commands and context management.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
+@:allow(haxor)
 class WebGL extends GraphicContext
 {	
 	private var c : RenderingContext;

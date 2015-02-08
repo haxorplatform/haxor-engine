@@ -867,6 +867,13 @@ haxor_core_BaseApplication.prototype = $extend(haxor_component_Behaviour.prototy
 	,get_platform: function() {
 		return this.m_platform;
 	}
+	,get_runOnBackground: function() {
+		return this.m_run_on_background;
+	}
+	,set_runOnBackground: function(v) {
+		this.m_run_on_background = v;
+		return v;
+	}
 	,OnBuild: function() {
 		haxor_component_Behaviour.prototype.OnBuild.call(this);
 		haxor_core_BaseApplication.m_instance = this;
@@ -874,6 +881,7 @@ haxor_core_BaseApplication.prototype = $extend(haxor_component_Behaviour.prototy
 		this.set_fps(60);
 		this.m_frame_ms = 0.0;
 		this.m_init_allowed = false;
+		this.m_run_on_background = false;
 		this.m_platform = haxor_core_Platform.Unknown;
 		haxor_core_Time.Initialize();
 		haxor_graphics_Screen.Initialize(this);
@@ -909,8 +917,9 @@ haxor_core_BaseApplication.prototype = $extend(haxor_component_Behaviour.prototy
 			this.Initialize();
 			this.m_init_allowed = false;
 		}
-		if(haxor_core_Time.m_clock - this.m_frame_ms >= this.m_mspf) {
-			this.m_frame_ms += haxor_core_Time.m_clock - this.m_frame_ms;
+		this.m_frame_ms += haxor_core_Time.m_delta;
+		if(this.m_frame_ms >= this.m_mspf) {
+			this.m_frame_ms = 0.0;
 			haxor_core_Time.Render();
 			haxor_graphics_GL.m_gl.Focus();
 			haxor_core_Engine.Render();
@@ -962,7 +971,7 @@ haxor_core_BaseApplication.prototype = $extend(haxor_component_Behaviour.prototy
 		return 0.0;
 	}
 	,__class__: haxor_core_BaseApplication
-	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{get_platform:"get_platform",set_fps:"set_fps",get_fps:"get_fps",get_vendor:"get_vendor",get_protocol:"get_protocol"})
+	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{set_runOnBackground:"set_runOnBackground",get_runOnBackground:"get_runOnBackground",get_platform:"get_platform",set_fps:"set_fps",get_fps:"get_fps",get_vendor:"get_vendor",get_protocol:"get_protocol"})
 });
 var haxor_platform_html_HTMLApplication = function() {
 	haxor_core_BaseApplication.call(this);
@@ -8741,7 +8750,7 @@ $hxClasses["haxor.core.Time"] = haxor_core_Time;
 haxor_core_Time.__name__ = ["haxor","core","Time"];
 haxor_core_Time.__properties__ = {get_frame:"get_frame",get_ups:"get_ups",get_fps:"get_fps",get_elapsed:"get_elapsed",set_fixedDelta:"set_fixedDelta",get_fixedDelta:"get_fixedDelta",get_frameDelta:"get_frameDelta",get_delta:"get_delta",get_clock:"get_clock",get_system:"get_system"}
 haxor_core_Time.get_system = function() {
-	return haxor_core_Time.m_system;
+	return haxor_core_Time.m_system - haxor_core_Time.m_clock_0;
 };
 haxor_core_Time.get_clock = function() {
 	return haxor_core_Time.m_clock;
@@ -8774,8 +8783,8 @@ haxor_core_Time.get_frame = function() {
 haxor_core_Time.Initialize = function() {
 	haxor_core_Time.m_system = 0.0;
 	haxor_core_Time.m_clock_0 = 0.0;
-	haxor_core_Time.m_clock_0 = haxor_core_Time.m_system;
-	haxor_core_Time.m_clock = haxor_core_Time.m_system;
+	haxor_core_Time.m_clock_0 = haxor_core_Time.m_system - haxor_core_Time.m_clock_0;
+	haxor_core_Time.m_clock = haxor_core_Time.m_system - haxor_core_Time.m_clock_0;
 	haxor_core_Time.m_clock_dt = 0.0;
 	haxor_core_Time.m_start_clock = haxor_core_Time.m_clock;
 	haxor_core_Time.m_last_clock = haxor_core_Time.m_clock;
@@ -8792,13 +8801,13 @@ haxor_core_Time.Initialize = function() {
 	haxor_core_Time.m_fixedDelta = 0.01;
 };
 haxor_core_Time.Update = function() {
-	haxor_core_Time.m_clock = haxor_core_Time.m_system;
+	haxor_core_Time.m_clock = haxor_core_Time.m_system - haxor_core_Time.m_clock_0;
 	haxor_core_Time.m_clock_dt = haxor_core_Time.m_clock - haxor_core_Time.m_last_clock;
 	if(haxor_core_Time.m_clock_dt <= 0) haxor_core_Time.m_clock_dt = 1.0;
 	haxor_core_Time.m_last_clock = haxor_core_Time.m_clock;
 	haxor_core_Time.m_delta = haxor_core_Time.m_clock_dt * 0.001;
-	if(haxor_core_Time.m_delta > 0.1) haxor_core_Time.m_delta = 0.1; else haxor_core_Time.m_delta = haxor_core_Time.m_delta;
-	haxor_core_Time.m_elapsed = haxor_core_Time.m_clock * 0.001;
+	if(haxor_core_Time.m_delta > 0.1) haxor_core_Time.m_delta = 0.1; else if(haxor_core_Time.m_delta <= 0.0) haxor_core_Time.m_delta = 0.01; else haxor_core_Time.m_delta = haxor_core_Time.m_delta;
+	haxor_core_Time.m_elapsed += haxor_core_Time.m_delta;
 	haxor_core_Time.m_updates += 1.0;
 	if(haxor_core_Time.m_clock - haxor_core_Time.m_stats_clock >= 1000.0) {
 		haxor_core_Time.m_stats_clock += haxor_core_Time.m_clock - haxor_core_Time.m_stats_clock;
@@ -8813,8 +8822,8 @@ haxor_core_Time.Render = function() {
 	haxor_core_Time.m_frame_count += 1.0;
 	haxor_core_Time.m_frame++;
 	haxor_core_Time.m_frame_delta = (haxor_core_Time.m_clock - haxor_core_Time.m_last_frame_clock) * 0.001;
-	if(haxor_core_Time.m_frame_delta > 0.1) haxor_core_Time.m_frame_delta = 0.1; else haxor_core_Time.m_frame_delta = haxor_core_Time.m_frame_delta;
-	haxor_core_Time.m_last_frame_clock = haxor_core_Time.m_clock;
+	if(haxor_core_Time.m_frame_delta > 0.1) haxor_core_Time.m_frame_delta = 0.1; else if(haxor_core_Time.m_frame_delta <= 0.0) haxor_core_Time.m_frame_delta = 0.01; else haxor_core_Time.m_frame_delta = haxor_core_Time.m_frame_delta;
+	if(haxor_core_Time.m_clock > haxor_core_Time.m_last_frame_clock) haxor_core_Time.m_last_frame_clock = haxor_core_Time.m_clock;
 };
 var haxor_core_Tween = function(p_target,p_property,p_value,p_duration,p_delay,p_easing) {
 	if(p_delay == null) p_delay = 0;
@@ -16820,24 +16829,62 @@ haxor_platform_html_Entry.OnWindowLoad = function(p_event) {
 	haxor_context_EngineContext.Build();
 	haxor_platform_html_Entry.m_input = new haxor_platform_html_input_HTMLInputHandler(app_input_id);
 	haxor_input_Input.m_handler = haxor_platform_html_Entry.m_input;
-	if(($_=window,$bind($_,$_.requestAnimationFrame)) != null) window.requestAnimationFrame(haxor_platform_html_Entry.RequestAnimationCallback); else {
-		haxor_core_Time.m_clock_0 = haxe_Timer.stamp() * 1000.0;
-		haxor_platform_html_Entry.TimeOutLoop();
-	}
+	haxor_platform_html_Entry.m_raf_enabled = ($_=window,$bind($_,$_.requestAnimationFrame)) != null;
+	haxor_platform_html_Entry.m_has_pc = window.performance != null;
+	haxor_platform_html_Entry.m_raf_id = -1;
+	haxor_platform_html_Entry.m_interval_id = -1;
+	haxor_platform_html_Entry.m_step_clock = -1;
+	haxor_platform_html_Entry.m_application.set_runOnBackground(true);
+	haxor_platform_html_Entry.Run();
 	if(haxor_platform_html_Entry.m_application.Load()) haxor_platform_html_Entry.m_application.LoadComplete();
 };
-haxor_platform_html_Entry.RequestAnimationCallback = function(p_time) {
-	haxor_core_Time.m_system = p_time;
-	haxor_platform_html_Entry.m_application.Update();
-	haxor_platform_html_Entry.m_application.Render();
-	window.requestAnimationFrame(haxor_platform_html_Entry.RequestAnimationCallback);
+haxor_platform_html_Entry.Run = function() {
+	haxor_platform_html_Entry.CancelInterval();
+	if(haxor_platform_html_Entry.m_has_pc) haxor_platform_html_Entry.m_itv_offset_clock = window.performance.now(); else haxor_platform_html_Entry.m_itv_offset_clock = haxe_Timer.stamp() * 1000;
+	haxor_platform_html_Entry.m_interval_id = window.setInterval(haxor_platform_html_Entry.IntervalLoop,16);
+	if(haxor_platform_html_Entry.m_raf_enabled) {
+		haxor_platform_html_Entry.CancelRAF();
+		if(haxor_platform_html_Entry.m_has_pc) haxor_platform_html_Entry.m_raf_offset_clock = window.performance.now(); else haxor_platform_html_Entry.m_raf_offset_clock = 0.0;
+		haxor_platform_html_Entry.m_raf_id = window.requestAnimationFrame(haxor_platform_html_Entry.RAFLoop);
+	}
+};
+haxor_platform_html_Entry.Step = function(p_time,p_visible) {
+	if(haxor_platform_html_Entry.m_step_clock < 0) haxor_platform_html_Entry.m_step_clock = p_time;
+	var t = p_time;
+	var dt = t - haxor_platform_html_Entry.m_step_clock;
+	haxor_platform_html_Entry.m_step_clock = t;
+	var steps;
+	if(p_visible) steps = 1; else steps = Math.max(1,dt / 16 | 0);
+	var _g = 0;
+	while(_g < steps) {
+		var i = _g++;
+		if(haxor_platform_html_Entry.m_has_pc) haxor_core_Time.m_system = window.performance.now(); else haxor_core_Time.m_system = t;
+		haxor_platform_html_Entry.m_application.Update();
+		if(p_visible) haxor_platform_html_Entry.m_application.Render();
+	}
+};
+haxor_platform_html_Entry.RAFLoop = function(p_time) {
+	var t;
+	if(haxor_platform_html_Entry.m_has_pc) t = window.performance.now(); else t = p_time;
+	haxor_platform_html_Entry.Step(t - haxor_platform_html_Entry.m_raf_offset_clock,true);
+	haxor_platform_html_Entry.m_raf_id = window.requestAnimationFrame(haxor_platform_html_Entry.RAFLoop);
 	return true;
 };
-haxor_platform_html_Entry.TimeOutLoop = function() {
-	haxor_core_Time.m_system = haxe_Timer.stamp() * 1000.0 - haxor_core_Time.m_clock_0;
-	haxor_platform_html_Entry.m_application.Update();
-	haxor_platform_html_Entry.m_application.Render();
-	window.setTimeout(haxor_platform_html_Entry.TimeOutLoop,10);
+haxor_platform_html_Entry.IntervalLoop = function() {
+	var v = window.document.visibilityState != "hidden";
+	if(v) return;
+	if(!haxor_platform_html_Entry.m_application.get_runOnBackground()) return;
+	var t;
+	if(haxor_platform_html_Entry.m_has_pc) t = window.performance.now(); else t = haxe_Timer.stamp() * 1000.0;
+	haxor_platform_html_Entry.Step(t - haxor_platform_html_Entry.m_itv_offset_clock,v);
+};
+haxor_platform_html_Entry.CancelRAF = function() {
+	if(haxor_platform_html_Entry.m_raf_id > 0) window.cancelAnimationFrame(haxor_platform_html_Entry.m_raf_id);
+	haxor_platform_html_Entry.m_raf_id = -1;
+};
+haxor_platform_html_Entry.CancelInterval = function() {
+	if(haxor_platform_html_Entry.m_interval_id > 0) window.clearInterval(haxor_platform_html_Entry.m_interval_id);
+	haxor_platform_html_Entry.m_interval_id = -1;
 };
 var haxor_platform_html_graphics_WebGL = function(p_application) {
 	haxor_graphics_GraphicContext.call(this,p_application);

@@ -145,6 +145,13 @@ class BaseApplication extends Behaviour
 	private inline function get_platform():Platform { return m_platform; }
 	private var m_platform : Platform;
 	
+	/**
+	 * Flag that indicates if the application must run on the window's focus state changes.
+	 */
+	public var runOnBackground(get_runOnBackground, set_runOnBackground):Bool;
+	private function get_runOnBackground():Bool { return m_run_on_background; }
+	private function set_runOnBackground(v:Bool):Bool { m_run_on_background = v; return v; }	
+	private var m_run_on_background : Bool;
 	
 	/**
 	 * List of scenes of the project.
@@ -166,7 +173,8 @@ class BaseApplication extends Behaviour
 		m_scenes   		= [];
 		fps 			= 60;
 		m_frame_ms	    = 0.0;		
-		m_init_allowed  = false;		
+		m_init_allowed  = false;
+		m_run_on_background = false;
 		m_platform 		= Platform.Unknown;		
 		Time.Initialize();		
 		Screen.Initialize(this);
@@ -232,7 +240,7 @@ class BaseApplication extends Behaviour
 	 * Update callback.
 	 */
 	private function Update():Void 
-	{	
+	{			
 		Time.Update();
 		Input.m_handler.Update();
 		CheckResize();		
@@ -253,10 +261,11 @@ class BaseApplication extends Behaviour
 			m_init_allowed = false;
 		}		
 		
+		m_frame_ms += Time.delta;
 		
-		if ((Time.m_clock - m_frame_ms) >= m_mspf)
+		if (m_frame_ms >= m_mspf)
 		{	
-			m_frame_ms += (Time.m_clock - m_frame_ms);	
+			m_frame_ms = 0.0;
 			
 			Time.Render();
 			
