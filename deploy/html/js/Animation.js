@@ -132,14 +132,14 @@ haxor.Animation =
 	/**
 	Removes the Animations that matches the specified criteria.
 	//*/
-	Clear: function(p_target,p_property,p_ignore)
+	Clear: function(p_target,p_property,p_ignore_list)
 	{		
-		var l  = haxor.Animation.m_list;
-		var il = p_ignore == null ? [] : p_ignore;
+		var l  	   = haxor.Animation.m_list;
+		var il 	   = p_ignore_list == null ? [] : p_ignore_list;
 		p_property = p_property == null ? "" : p_property;
 		for(var i=0;i<l.length;i++)
 		{
-			var match_target   = p_target == null ? true : (l[i].target == p_target);
+			var match_target = p_target == null ? true : (l[i].target == p_target);
 			if(match_target)
 			{
 				var match_property = (l[i].property == p_property) || (p_property == "");

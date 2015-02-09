@@ -93,7 +93,7 @@ haxor.Activity =
 	{
 		var a = haxor.Activity;
 		if(a.m_list.indexOf(p_node)>=0) return;
-		p_node.runOnBackground = p_run_on_background ? p_run_on_background : true;
+		p_node.runOnBackground = p_run_on_background != null ? p_run_on_background : true;
 		a.m_list.push(p_node);		
 	},
 	
@@ -135,7 +135,7 @@ haxor.Activity =
 	Delay: function(p_callback,p_delay,p_run_on_background)
 	{		
 		var al = [];
-		for(var i=2;i<arguments.length;i++) al.push(arguments[i]);
+		for(var i=3;i<arguments.length;i++) al.push(arguments[i]);
 		return haxor.Activity.Run(function(n) 
 		{			
 			p_callback.apply(window,al); 
@@ -216,7 +216,7 @@ haxor.Activity =
 	ItvLoop: function()
 	{	
 		var a = haxor.Activity;		
-		var v = document.visibilityState ? (document.visibilityState != "hidden") : true;
+		var v = document.visibilityState != null ? (document.visibilityState != "hidden") : true;
 		if(a.hasReqAnimFrame) if(v) return;				
 		var t = a.hasPerfTime ? window.performance.now() : Date.now();
 		a.Step(t - a.m_itv_offset_clock, v);
