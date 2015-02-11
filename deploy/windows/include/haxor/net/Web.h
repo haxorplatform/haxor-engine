@@ -14,6 +14,7 @@ HX_DECLARE_CLASS3(haxor,graphics,texture,Texture2D)
 HX_DECLARE_CLASS3(haxor,io,file,AssetFile)
 HX_DECLARE_CLASS3(haxor,io,file,AssetXML)
 HX_DECLARE_CLASS3(haxor,io,file,ColladaFile)
+HX_DECLARE_CLASS3(haxor,io,file,MaterialFile)
 HX_DECLARE_CLASS2(haxor,net,Web)
 namespace haxor{
 namespace net{
@@ -54,6 +55,9 @@ class HXCPP_CLASS_ATTRIBUTES  Web_obj : public hx::Object{
 
 		static Void LoadShader( ::String p_url,Dynamic p_callback);
 		static Dynamic LoadShader_dyn();
+
+		static Void LoadMaterial( ::String p_url,Dynamic p_callback);
+		static Dynamic LoadMaterial_dyn();
 
 };
 

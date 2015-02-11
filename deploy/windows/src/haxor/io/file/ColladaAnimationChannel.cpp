@@ -12,14 +12,14 @@ namespace file{
 
 Void ColladaAnimationChannel_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaAnimationChannel","new",0xf7a2596d,"haxor.io.file.ColladaAnimationChannel.new","haxor/io/file/ColladaFile.hx",1504,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaAnimationChannel","new",0xf7a2596d,"haxor.io.file.ColladaAnimationChannel.new","haxor/io/file/ColladaFile.hx",1512,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1508)
+	HX_STACK_LINE(1516)
 	this->target = HX_CSTRING("");
-	HX_STACK_LINE(1506)
-	this->source = HX_CSTRING("");
 	HX_STACK_LINE(1514)
+	this->source = HX_CSTRING("");
+	HX_STACK_LINE(1522)
 	this->keyframes = Array_obj< ::Dynamic >::__new();
 }
 ;

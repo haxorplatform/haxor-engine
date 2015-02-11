@@ -29,6 +29,13 @@ class Bitmap extends Resource
 	private var m_float : Bool;
 	
 	/**
+	 * Flag that indicates if the float information is half-precision.
+	 */
+	public var half(get_half, null):Bool;
+	private inline function get_half():Bool { return m_half; }
+	private var m_half : Bool;
+	
+	/**
 	 * Bitmap width.
 	 */
 	public var width(get_width, null):Int;
@@ -70,6 +77,7 @@ class Bitmap extends Resource
 		m_height 	= p_height;				
 		m_format 	= p_format;
 		m_float		= false;
+		m_half 		= false;
 		m_channels 	= 1;		
 		switch (p_format)
 		{
@@ -79,11 +87,11 @@ class Bitmap extends Resource
 			case PixelFormat.RGBA8: 	m_channels = 4;			
 			case PixelFormat.Depth:	{ m_channels = 1; m_float = true; }
 			case PixelFormat.Float: { m_channels = 1; m_float = true; }
-			case PixelFormat.Half:  { m_channels = 1; m_float = true; }
+			case PixelFormat.Half:  { m_channels = 1; m_half = m_float = true; }
 			case PixelFormat.Float3:{ m_channels = 3; m_float = true; }
-			case PixelFormat.Half3:	{ m_channels = 3; m_float = true; }
+			case PixelFormat.Half3:	{ m_channels = 3; m_half = m_float = true; }
 			case PixelFormat.Float4:{ m_channels = 4; m_float = true; }
-			case PixelFormat.Half4:	{ m_channels = 4; m_float = true; }			
+			case PixelFormat.Half4:	{ m_channels = 4; m_half = m_float = true; }			
 			
 		}				
 		var len : Int = m_width * m_height * m_channels;		
@@ -164,6 +172,30 @@ class Bitmap extends Resource
 	}
 	
 	/**
+	 * Sets a list of pixels in the specified rectangle.
+	 * @param	p_colors
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_width
+	 * @param	p_height
+	 */
+	public function SetPixels(p_colors:Array<Color>, p_x:Int = 0, p_y:Int = 0, p_width:Int = -1, p_height:Int = -1):Void
+	{
+		var rw : Int = p_width  < 0 ? m_width : p_width;
+		var rh : Int = p_height < 0 ? m_height : p_height;
+		var k : Int = 0;
+		for (i in p_x...(p_x + rw))
+		{
+			for (j in p_y...(p_y + rh))
+			{
+				SetPixel(i, j, p_colors[k++]);
+				if (k >= p_colors.length) break;
+			}
+			if (k >= p_colors.length) break;
+		}		
+	}
+	
+	/**
 	 * Fills the data with the same color.
 	 * @param	p_color
 	 */
@@ -213,26 +245,28 @@ class Bitmap extends Resource
 	 * @param	p_channel
 	 * @param	p_value
 	 */
-	public function SetRange(p_x:Int, p_y:Int, p_width:Int, p_height:Int,p_values:Array<Float32>,p_length:Int=-1):Void
+	public function SetRange(p_values:Array<Float32>,p_x:Int=0, p_y:Int=0, p_width:Int=-1, p_height:Int=-1):Void
 	{
 		//Textures are stored bottom-top.
 		p_y = m_height - 1 - p_y;
 		
 		var cc 	: Int 	= m_channels;
-		var len : Int   = p_length < 0 ? p_values.length : p_length;		
+		var len : Int   = p_values.length;
 		var k : Int 	= 0;
 		var px : Int = p_x;
 		var py : Int = p_y;
 		var v0 : Float=0.0;
 		var v1 : Float=0.0;
 		var v2 : Float=0.0;
-		var v3 : Float=0.0;
+		var v3 : Float = 0.0;
+		var rw : Int = p_width < 0 ? m_width : p_width;
+		var rh : Int = p_height < 0 ? m_height : p_height;
 		
 		for (i in 0...len)
 		{
 			var pos : Int 	= ((px + (py * m_width)) * cc);
 			px++;
-			if (px >= p_width) { px = p_x; py++; }
+			if (px >= (p_x + rw)) { px = p_x; py++; if (py >= (p_y + rh)) break; }
 			
 						 v0	= p_values[k++];
 			if (cc >= 2) v1 = p_values[k++];

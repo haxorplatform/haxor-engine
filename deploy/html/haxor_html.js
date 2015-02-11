@@ -720,6 +720,7 @@ examples_dungeon_Dungeon.__name__ = ["examples","dungeon","Dungeon"];
 examples_dungeon_Dungeon.__super__ = haxor_component_Behaviour;
 examples_dungeon_Dungeon.prototype = $extend(haxor_component_Behaviour.prototype,{
 	OnStart: function() {
+		this.app = this.get_application();
 		var f = haxor_core_Asset.Get("dungeon");
 		this.asset = f.get_asset();
 		this.asset.m_transform.set_parent(this.m_entity.m_transform);
@@ -799,6 +800,16 @@ examples_dungeon_Dungeon.prototype = $extend(haxor_component_Behaviour.prototype
 		if(p_target.get_name() == "Triggers") return false;
 		var t = p_target;
 		if(t.get_name().indexOf("Torch") >= 0) {
+			if(t.get_name().indexOf("Point") < 0) {
+				if(t.m_entity.GetComponentsInChildren(examples_dungeon_ParticleTorch).length <= 0) {
+					if(this.app.os.toLowerCase().indexOf("arm") < 0) {
+						var tp = new haxor_core_Entity().AddComponent(examples_dungeon_ParticleTorch);
+						tp.m_entity.set_name("Torch");
+						tp.m_entity.m_transform.set_parent(t);
+						tp.m_entity.m_transform.set_localPosition(new haxor_math_Vector3(0,0,0));
+					}
+				}
+			}
 		}
 		if(t.get_name().indexOf("Collider_") >= 0) {
 			var c = t.m_entity.AddComponent(haxor_component_physics_BoxCollider);
@@ -829,6 +840,430 @@ examples_dungeon_Dungeon.prototype = $extend(haxor_component_Behaviour.prototype
 		return p;
 	}
 	,__class__: examples_dungeon_Dungeon
+});
+var examples_dungeon_DungeonDoor = function(p_name) {
+	haxor_component_Behaviour.call(this,p_name);
+};
+$hxClasses["examples.dungeon.DungeonDoor"] = examples_dungeon_DungeonDoor;
+examples_dungeon_DungeonDoor.__name__ = ["examples","dungeon","DungeonDoor"];
+examples_dungeon_DungeonDoor.__super__ = haxor_component_Behaviour;
+examples_dungeon_DungeonDoor.prototype = $extend(haxor_component_Behaviour.prototype,{
+	OnBuild: function() {
+		haxor_component_Behaviour.prototype.OnBuild.call(this);
+		this.locked = false;
+		this.open = false;
+	}
+	,OnStart: function() {
+		var _g = this;
+		this.m_entity.m_transform.Traverse(function(it,d) {
+			var n = it.get_name().toLowerCase();
+			if(n.indexOf("left") >= 0) {
+				if(_g.m_left == null) _g.m_left = it;
+			}
+			if(n.indexOf("right") >= 0) {
+				if(_g.m_right == null) _g.m_right = it;
+			}
+			return true;
+		});
+		haxor_thread_Activity.Delay(haxor_math_Random.Range(2,4),$bind(this,this.Open));
+	}
+	,Open: function() {
+		if(this.locked) return;
+		this.open = true;
+		console.log("DungeonDoor> " + this.get_name() + " Open");
+		haxor_core_Tween.Add(this.m_left,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),80),1.5,0.0,haxor_math_Cubic.OutBack);
+		haxor_core_Tween.Add(this.m_right,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),-80),1.5,0.0,haxor_math_Cubic.OutBack);
+	}
+	,Close: function() {
+		console.log("DungeonDoor> " + this.get_name() + " Close");
+		this.open = false;
+		haxor_core_Tween.Add(this.m_left,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),0),1.5,0.0,haxor_math_Cubic.Out);
+		haxor_core_Tween.Add(this.m_right,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),0),1.5,0.0,haxor_math_Cubic.Out);
+	}
+	,__class__: examples_dungeon_DungeonDoor
+});
+var examples_dungeon_GameController = function(p_name) {
+	haxor_component_Behaviour.call(this,p_name);
+};
+$hxClasses["examples.dungeon.GameController"] = examples_dungeon_GameController;
+examples_dungeon_GameController.__name__ = ["examples","dungeon","GameController"];
+examples_dungeon_GameController.__super__ = haxor_component_Behaviour;
+examples_dungeon_GameController.prototype = $extend(haxor_component_Behaviour.prototype,{
+	Initialize: function() {
+		haxor_core_Console.Log("GameController> Initialize");
+		this.app = this.get_application();
+		haxor_physics_Physics.gravity = new haxor_math_Vector3(0,-980,0);
+		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Default,examples_dungeon_GameLayer.Default,true);
+		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Default,examples_dungeon_GameLayer.Player,true);
+		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Player,examples_dungeon_GameLayer.CameraArea,true);
+		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Player,examples_dungeon_GameLayer.Door,true);
+		haxor_component_light_Light.ambient = haxor_math_Color.FromBytes(130,140,160);
+		this.dungeon = new haxor_core_Entity().AddComponent(examples_dungeon_Dungeon);
+		this.dungeon.set_name("dungeon");
+		this.player = new haxor_core_Entity().AddComponent(examples_dungeon_Knight);
+		this.player.set_name("player");
+		this.orbit = haxor_component_CameraOrbit.Create(700,-135,45);
+		this.orbit.m_entity.m_transform.set_localPosition(new haxor_math_Vector3(0,9,26));
+		this.orbit.smooth = 5;
+		this.orbit.get_camera().background = haxor_math_Color.FromBytes(10,0,40);
+		this.orbit.get_camera().set_near(100.0);
+		this.orbit.get_camera().set_far(2000);
+		this.orbit.get_camera().set_fov(40);
+		this.orbit.target = this.player.m_entity.m_transform;
+		this.orbit.follow = true;
+		var orbit_input = this.orbit.m_entity.AddComponent(haxor_component_CameraOrbitInput);
+		orbit_input.zoomSpeed = 35;
+		haxor_graphics_Fog.color = haxor_math_Color.FromBytes(10,0,40);
+		haxor_graphics_Fog.exp = 1.5;
+		haxor_graphics_Fog.end = 0.6;
+	}
+	,OnDungeonLoaded: function() {
+		console.log("GameController> Dungeon Loaded");
+		var p = this.dungeon.GetSpawnPosition("Player_Start_001");
+		p.y += 10.0;
+		console.log("\tSpawn Point [" + p.ToString() + "]");
+		if(this.player != null) this.player.m_entity.m_transform.set_localPosition(p);
+		this.orbit.get_pivot().set_localPosition(p);
+	}
+	,OnTriggerEnter: function(p_entity,p_collider) {
+		console.log("GameController> TriggerEnter [" + p_entity.get_name() + "][" + p_collider.get_name() + "]");
+		var _g = p_entity.m_layer;
+		switch(_g) {
+		case examples_dungeon_GameLayer.Door:
+			if(p_collider.get_layer() == examples_dungeon_GameLayer.Player) console.log("GameController> Door Trigger Enter");
+			break;
+		case examples_dungeon_GameLayer.Player:
+			break;
+		default:
+		}
+	}
+	,OnTriggerExit: function(p_entity,p_collider) {
+		console.log("GameController> TriggerExit [" + p_entity.get_name() + "][" + p_collider.get_name() + "]");
+		var _g = p_entity.m_layer;
+		switch(_g) {
+		case examples_dungeon_GameLayer.Door:
+			if(p_collider.get_layer() == examples_dungeon_GameLayer.Player) console.log("GameController> Door Trigger Exit");
+			break;
+		default:
+		}
+	}
+	,__class__: examples_dungeon_GameController
+});
+var examples_dungeon_GameLayer = function() { };
+$hxClasses["examples.dungeon.GameLayer"] = examples_dungeon_GameLayer;
+examples_dungeon_GameLayer.__name__ = ["examples","dungeon","GameLayer"];
+var haxor_core_IUpdateable = function() { };
+$hxClasses["haxor.core.IUpdateable"] = haxor_core_IUpdateable;
+haxor_core_IUpdateable.__name__ = ["haxor","core","IUpdateable"];
+haxor_core_IUpdateable.prototype = {
+	__class__: haxor_core_IUpdateable
+};
+var examples_dungeon_Player = function(p_name) {
+	this.path_enabled = false;
+	this.lerp_dir = new haxor_math_Vector3(0,0,0);
+	this.m_path_current = 0;
+	haxor_component_Behaviour.call(this,p_name);
+};
+$hxClasses["examples.dungeon.Player"] = examples_dungeon_Player;
+examples_dungeon_Player.__name__ = ["examples","dungeon","Player"];
+examples_dungeon_Player.__interfaces__ = [haxor_core_IUpdateable];
+examples_dungeon_Player.__super__ = haxor_component_Behaviour;
+examples_dungeon_Player.prototype = $extend(haxor_component_Behaviour.prototype,{
+	get_state: function() {
+		return this.m_state;
+	}
+	,set_state: function(v) {
+		if(this.m_state != v) this.OnStateChange(this.m_state,v);
+		this.m_state = v;
+		return v;
+	}
+	,OnStart: function() {
+		var _g = this;
+		var f = haxor_core_Asset.Get(this.character);
+		this.asset = f.get_asset();
+		this.asset.m_transform.set_localScale(new haxor_math_Vector3(400,400,400));
+		this.asset.m_transform.set_parent(this.m_entity.m_transform);
+		this.speed = examples_dungeon_Player.TOP_SPEED;
+		this.m_velocity = new haxor_math_Vector3(0,0,0);
+		this.m_is_attack = false;
+		var rl = this.asset.GetComponentsInChildren(haxor_component_MeshRenderer);
+		var _g1 = 0;
+		var _g2 = rl.length;
+		while(_g1 < _g2) {
+			var i = _g1++;
+			var mr = rl[i];
+			var mat_id = mr.m_material.get_name();
+			mat_id = StringTools.replace(mat_id,"DiffuseSkin","ToonSkin");
+			var mat = haxor_core_Asset.Get(mat_id);
+			if(mat == null) console.log("Player> Material [" + mat_id + "] is null!");
+			var tex = haxor_core_Asset.Get(this.character + "/diffuse");
+			var new_mat_id = mat_id + "_" + this.character;
+			if(haxor_core_Asset.Get(new_mat_id) != null) mat = haxor_core_Asset.Get(new_mat_id); else {
+				this.m_falloff_mat = mat = haxor_core_Asset.Instantiate(mat);
+				mat.set_name(new_mat_id);
+				mat.set_shader(haxor_core_Asset.Get("haxor/diffuse/ToonSkinFalloff"));
+				mat.SetTexture("DiffuseTexture",tex);
+				mat.SetFloat("Falloff",1.5);
+				mat.SetFloat("FalloffIntensity",1.0);
+				tex = haxor_core_Asset.Get("player/ramp");
+				mat.SetTexture("RampTexture",tex);
+				haxor_core_Asset.Add(new_mat_id,mat);
+			}
+			mr.set_material(mat);
+			mat = haxor_core_Asset.Get("PlayerHilight");
+			if(mat == null) {
+				mat = new haxor_graphics_material_Material();
+				mat.set_shader(haxor_core_Asset.Get("haxor/unlit/FlatSkin"));
+				mat.set_name("PlayerHilight");
+				mat.queue = 995;
+				mat.ztest = false;
+				mat.zwrite = false;
+				mat.SetColor("Tint",haxor_math_Color.FromBytes(45,90,125));
+				haxor_core_Asset.Add("PlayerHilight",mat);
+			}
+			var skr = mr;
+			var nskr = mr.m_entity.AddComponent(haxor_component_SkinnedMeshRenderer);
+			nskr.set_mesh(skr.m_mesh);
+			nskr.set_joints(skr.m_joints);
+			nskr.set_material(mat);
+		}
+		var sc = this.m_entity.AddComponent(haxor_component_physics_SphereCollider);
+		sc.set_radius(80);
+		sc.set_center(new haxor_math_Vector3(0,40,0));
+		this.m_entity.AddComponent(haxor_component_physics_RigidBody);
+		this.m_entity.set_layer(examples_dungeon_GameLayer.Player);
+		this.m_clips = new haxe_ds_StringMap();
+		this.m_state = "";
+		this.m_shadow = new haxor_core_Entity().get_transform();
+		this.m_shadow.set_name("shadow");
+		this.m_shadow.set_parent(this.m_entity.m_transform);
+		this.m_shadow.set_localScale(new haxor_math_Vector3(110,0,110));
+		this.m_shadow.set_localPosition(new haxor_math_Vector3(0,5,0));
+		this.m_shadow.m_entity.AddComponent(examples_dungeon_BlobShadow);
+		var app = this.get_application();
+		if(app.os.toLowerCase().indexOf("arm") < 0) {
+			this.m_dust_particle = new haxor_core_Entity().AddComponent(examples_dungeon_ParticleRunning);
+			this.m_dust_particle.m_entity.m_transform.set_parent(this.m_entity.m_transform);
+			this.m_dust_particle.m_entity.m_transform.set_localPosition(new haxor_math_Vector3(0,10,0));
+		}
+		haxor_thread_Activity.Delay(2.0,function() {
+			_g.path_enabled = true;
+		});
+	}
+	,SplitClip: function(p_name,p_start,p_end,p_lib,p_loop,p_speed) {
+		if(p_speed == null) p_speed = 1.0;
+		if(p_loop == null) p_loop = true;
+		var c = p_lib.Split(p_start,p_end);
+		if(p_loop) c.wrap = haxor_core_AnimationWrap.Loop; else c.wrap = haxor_core_AnimationWrap.Clamp;
+		c.speed = p_speed;
+		this.m_clips.set(p_name,c);
+		this.asset.get_animation().Add(c);
+	}
+	,LoadClip: function(p_id,p_name,p_loop,p_speed) {
+		if(p_speed == null) p_speed = 1.0;
+		if(p_loop == null) p_loop = true;
+		var cf;
+		cf = haxor_core_Asset.Get(p_id);
+		cf.AddAnimations(this.asset);
+		var cid = this.asset.get_animation().clips.length - 1;
+		var c = this.asset.get_animation().clips[cid];
+		c.set_name(p_name);
+		if(p_loop) c.wrap = haxor_core_AnimationWrap.Loop; else c.wrap = haxor_core_AnimationWrap.Clamp;
+		c.speed = p_speed;
+		this.m_clips.set(p_name,c);
+		return c;
+	}
+	,PlayClip: function(p_name,p_fade) {
+		if(p_fade == null) p_fade = 0.0;
+		var c = this.m_clips.get(p_name);
+		if(c == null) return;
+		this.asset.get_animation().Stop();
+		this.asset.get_animation().Fade(c,0.0,p_fade);
+	}
+	,GetClip: function(p_name) {
+		return this.m_clips.get(p_name);
+	}
+	,Stop: function() {
+		this.m_velocity.Set();
+	}
+	,Move: function(p_direction) {
+		this.m_velocity.Set(p_direction.x,p_direction.y,p_direction.z);
+	}
+	,OnStateChange: function(p_from,p_to) {
+		switch(p_to) {
+		case "idle_attack":
+			this.PlayClip("idle_attack");
+			break;
+		case "idle":
+			haxor_thread_Activity.Delay(1.5,function() {
+			});
+			this.PlayClip("idle",2);
+			break;
+		case "attack01":
+			this.get_rigidbody().set_velocity(new haxor_math_Vector3(0,0,0));
+			this.PlayClip("attack01",2);
+			break;
+		case "attack02":
+			this.get_rigidbody().set_velocity(new haxor_math_Vector3(0,0,0));
+			this.PlayClip("attack02");
+			break;
+		case "run":
+			this.PlayClip("run",0.5);
+			break;
+		}
+	}
+	,OnFSM: function() {
+		var s = this.m_state;
+		switch(s) {
+		case "idle_attack":
+			if(this.m_velocity.get_length() > 0) s = "run";
+			break;
+		case "idle":
+			if(this.m_velocity.get_length() > 0) s = "run";
+			break;
+		case "attack01":
+			if(!this.m_is_attack) s = "idle";
+			break;
+		case "attack02":
+			break;
+		case "run":
+			var nv = this.m_velocity.get_clone();
+			nv.y = 0.0;
+			var spd = this.speed;
+			nv.Scale(spd);
+			var v = this.get_rigidbody().get_velocity();
+			var vy = v.y;
+			v = haxor_math_Vector3.Lerp(v,nv,haxor_core_Time.m_delta * 20);
+			v.y = vy;
+			this.get_rigidbody().set_velocity(v);
+			if(Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z) < 0.1) {
+				this.get_rigidbody().set_velocity(new haxor_math_Vector3(0,0,0));
+				s = "idle";
+			}
+			v.y = 0.0;
+			this.m_entity.m_transform.set_localRotation(haxor_math_Quaternion.LookRotation(v.Invert(),new haxor_math_Vector3(0,1,0)));
+			break;
+		default:
+			s = "idle";
+		}
+		return s;
+	}
+	,UpdateKeyboardInput: function() {
+		if(haxor_input_Input.Pressed(haxor_input_KeyCode.ControlKey)) return;
+		var app = this.get_application();
+		var c = app.game.orbit;
+		var dir = new haxor_math_Vector3(0,0,0);
+		var fv = c.get_pivot().get_transform().get_forward();
+		var rv = c.get_pivot().get_transform().get_right();
+		this.m_is_attack = false;
+		var is_joystick = false;
+		if(haxor_input_Joystick.available) {
+			if(haxor_input_Input.get_joystick().length > 0) {
+				var js = haxor_input_Input.get_joystick()[0];
+				this.m_animation_speed = haxor_math_Mathf.Clamp01(js.analogLeft.get_length() * 1.1);
+				this.m_animation_speed = 0.3 + 0.89999999999999991 * this.m_animation_speed;
+				this.GetClip("run").speed = this.m_animation_speed;
+				this.speed = examples_dungeon_Player.TOP_SPEED * this.m_animation_speed;
+				dir.Add(fv.Scale(js.analogLeft.y));
+				dir.Add(rv.Scale(js.analogLeft.x));
+				dir.y = 0;
+				if(js.Pressed(haxor_input_KeyCode.Face1)) {
+					this.Stop();
+					this.set_state("attack01");
+					this.m_is_attack = true;
+					is_joystick = true;
+				}
+				if(Math.sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z) > 0) is_joystick = true;
+			}
+		}
+		if(!is_joystick) {
+			if(Math.sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z) <= 2) {
+				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Down)) {
+					dir.Add(fv.Invert());
+					this.m_animation_speed = 1.0;
+				}
+				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Up)) {
+					dir.Add(fv);
+					this.m_animation_speed = 1.0;
+				}
+				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Right)) {
+					dir.Add(rv);
+					this.m_animation_speed = 1.0;
+				}
+				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Left)) {
+					dir.Add(rv.Invert());
+					this.m_animation_speed = 1.0;
+				}
+				if(haxor_input_Input.Pressed(haxor_input_KeyCode.C)) {
+					this.Stop();
+					this.set_state("attack01");
+					this.m_is_attack = true;
+				}
+				dir.y = 0;
+				dir.Normalize();
+				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Z)) {
+					this.GetClip("run").speed = 1.3;
+					this.speed = examples_dungeon_Player.TOP_SPEED * 1.3;
+				} else if(this.speed > 150) {
+					this.GetClip("run").speed = 1;
+					this.speed = examples_dungeon_Player.TOP_SPEED;
+				}
+			}
+		}
+		if(Math.sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z) <= 0.5) this.Stop(); else this.Move(dir);
+	}
+	,OnUpdate: function() {
+		this.UpdateKeyboardInput();
+		var app = this.get_application();
+		if(this.path_enabled) {
+			var pt = app.path[this.m_path_current];
+			var dir = haxor_context_EngineContext.data.get_v3().Set3(pt).Sub(this.m_entity.m_transform.get_localPosition());
+			dir.y = 0;
+			dir.Normalize();
+			this.lerp_dir.Set3(haxor_math_Vector3.Lerp(this.lerp_dir,dir,haxor_core_Time.m_delta * 3.0,haxor_context_EngineContext.data.get_v3()));
+			this.Move(this.lerp_dir);
+			var d = haxor_math_Vector3.Distance(pt,this.m_entity.m_transform.get_localPosition());
+			if(d < 50.0) this.m_path_current = (this.m_path_current + 1) % app.path.length;
+		}
+		if(haxor_input_Input.get_touches().length >= 2) {
+			if(haxor_input_Input.get_touches()[0].get_down() || haxor_input_Input.get_touches()[1].get_down()) this.path_enabled = !this.path_enabled;
+		}
+		if(haxor_input_Input.Down(haxor_input_KeyCode.Enter)) this.path_enabled = !this.path_enabled;
+		this.set_state(this.OnFSM());
+	}
+	,__class__: examples_dungeon_Player
+	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{set_state:"set_state",get_state:"get_state"})
+});
+var examples_dungeon_Knight = function(p_name) {
+	examples_dungeon_Player.call(this,p_name);
+};
+$hxClasses["examples.dungeon.Knight"] = examples_dungeon_Knight;
+examples_dungeon_Knight.__name__ = ["examples","dungeon","Knight"];
+examples_dungeon_Knight.__super__ = examples_dungeon_Player;
+examples_dungeon_Knight.prototype = $extend(examples_dungeon_Player.prototype,{
+	OnStart: function() {
+		var _g = this;
+		this.character = "knight";
+		examples_dungeon_Player.prototype.OnStart.call(this);
+		this.LoadClip("player/animation/all/idle01","idle");
+		this.LoadClip("player/animation/all/walk","walk");
+		this.LoadClip("player/animation/all/run","run");
+		this.LoadClip("player/animation/kp/attack01","attack01");
+		this.LoadClip("player/animation/kp/attack02","attack02");
+		this.LoadClip("player/animation/kp/idle01","idle_attack");
+		this.LoadClip("player/animation/kp/die01","die");
+		this.LoadClip("player/animation/kp/hit01","hit");
+		this.PlayClip("idle");
+		var c;
+		c = this.GetClip("run");
+		if(this.m_dust_particle != null) c.AddEvent(9,function(e) {
+			_g.m_dust_particle.Emit(2.0);
+		});
+		if(this.m_dust_particle != null) c.AddEvent(17,function(e1) {
+			_g.m_dust_particle.Emit(2.0);
+		});
+	}
+	,__class__: examples_dungeon_Knight
 });
 var haxor_core_BaseApplication = function(p_name) {
 	haxor_component_Behaviour.call(this,p_name);
@@ -1008,29 +1443,25 @@ haxor_core_IRenderable.__name__ = ["haxor","core","IRenderable"];
 haxor_core_IRenderable.prototype = {
 	__class__: haxor_core_IRenderable
 };
-var haxor_core_IUpdateable = function() { };
-$hxClasses["haxor.core.IUpdateable"] = haxor_core_IUpdateable;
-haxor_core_IUpdateable.__name__ = ["haxor","core","IUpdateable"];
-haxor_core_IUpdateable.prototype = {
-	__class__: haxor_core_IUpdateable
-};
-var examples_dungeon_DungeonApp = function() {
+var examples_dungeon_Main = function() {
 	this.cursor = new haxor_math_Vector3(0,0,0);
 	this.queue = 3;
 	this.load_big_dungeon = true;
 	haxor_core_Application.call(this);
 };
-$hxClasses["examples.dungeon.DungeonApp"] = examples_dungeon_DungeonApp;
-examples_dungeon_DungeonApp.__name__ = ["examples","dungeon","DungeonApp"];
-examples_dungeon_DungeonApp.__interfaces__ = [haxor_core_IRenderable,haxor_core_IUpdateable];
-examples_dungeon_DungeonApp.main = function() {
+$hxClasses["examples.dungeon.Main"] = examples_dungeon_Main;
+examples_dungeon_Main.__name__ = ["examples","dungeon","Main"];
+examples_dungeon_Main.__interfaces__ = [haxor_core_IRenderable,haxor_core_IUpdateable];
+examples_dungeon_Main.main = function() {
 	haxor_platform_html_Entry.Initialize();
 };
-examples_dungeon_DungeonApp.__super__ = haxor_core_Application;
-examples_dungeon_DungeonApp.prototype = $extend(haxor_core_Application.prototype,{
+examples_dungeon_Main.__super__ = haxor_core_Application;
+examples_dungeon_Main.prototype = $extend(haxor_core_Application.prototype,{
 	Initialize: function() {
 		var _g = this;
-		haxor_core_Console.Log("Initialize!");
+		this.os = "";
+		this.os = window.navigator.platform;
+		haxor_core_Console.Log("Initialize [" + this.os + "]");
 		this.field = window.document.getElementById("field");
 		this.ui = new Stats();
 		this.ui.domElement.style.position = "absolute";
@@ -1096,7 +1527,13 @@ examples_dungeon_DungeonApp.prototype = $extend(haxor_core_Application.prototype
 		if(this.debug) {
 			if(this.path.length > 0) {
 				var k = 0;
-				while(k < this.path.length) k++;
+				while(k < this.path.length) {
+					haxor_graphics_Gizmo.Point(this.path[k],5.0,new haxor_math_Color(0,1,0,1));
+					if(this.path.length >= 2) {
+						if(k >= 1) haxor_graphics_Gizmo.Line(this.path[k - 1],this.path[k],new haxor_math_Color(0,1,0,1),null);
+					}
+					k++;
+				}
 			}
 		}
 		if(this.debug) {
@@ -1192,402 +1629,251 @@ examples_dungeon_DungeonApp.prototype = $extend(haxor_core_Application.prototype
 		var f = window.document.getElementById("field");
 		if(haxor_core_Asset.get_progress() >= 1.0) f.innerText = "";
 	}
-	,__class__: examples_dungeon_DungeonApp
+	,__class__: examples_dungeon_Main
 });
-var examples_dungeon_DungeonDoor = function(p_name) {
-	haxor_component_Behaviour.call(this,p_name);
+var haxor_component_ParticleRenderer = function(p_name) {
+	haxor_component_MeshRenderer.call(this,p_name);
 };
-$hxClasses["examples.dungeon.DungeonDoor"] = examples_dungeon_DungeonDoor;
-examples_dungeon_DungeonDoor.__name__ = ["examples","dungeon","DungeonDoor"];
-examples_dungeon_DungeonDoor.__super__ = haxor_component_Behaviour;
-examples_dungeon_DungeonDoor.prototype = $extend(haxor_component_Behaviour.prototype,{
-	OnBuild: function() {
-		haxor_component_Behaviour.prototype.OnBuild.call(this);
-		this.locked = false;
-		this.open = false;
+$hxClasses["haxor.component.ParticleRenderer"] = haxor_component_ParticleRenderer;
+haxor_component_ParticleRenderer.__name__ = ["haxor","component","ParticleRenderer"];
+haxor_component_ParticleRenderer.__interfaces__ = [haxor_core_IUpdateable];
+haxor_component_ParticleRenderer.__super__ = haxor_component_MeshRenderer;
+haxor_component_ParticleRenderer.prototype = $extend(haxor_component_MeshRenderer.prototype,{
+	get_emitted: function() {
+		return this.m_emitted_count;
 	}
-	,OnStart: function() {
-		var _g = this;
-		this.m_entity.m_transform.Traverse(function(it,d) {
-			var n = it.get_name().toLowerCase();
-			if(n.indexOf("left") >= 0) {
-				if(_g.m_left == null) _g.m_left = it;
-			}
-			if(n.indexOf("right") >= 0) {
-				if(_g.m_right == null) _g.m_right = it;
-			}
-			return true;
-		});
-		haxor_thread_Activity.Delay(haxor_math_Random.Range(2,4),$bind(this,this.Open));
+	,get_playing: function() {
+		return this.m_playing;
 	}
-	,Open: function() {
-		if(this.locked) return;
-		this.open = true;
-		console.log("DungeonDoor> " + this.get_name() + " Open");
-		haxor_core_Tween.Add(this.m_left,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),80),1.5,0.0,haxor_math_Cubic.OutBack);
-		haxor_core_Tween.Add(this.m_right,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),-80),1.5,0.0,haxor_math_Cubic.OutBack);
+	,get_bounds: function() {
+		return this.m_mesh.get_bounds();
 	}
-	,Close: function() {
-		console.log("DungeonDoor> " + this.get_name() + " Close");
-		this.open = false;
-		haxor_core_Tween.Add(this.m_left,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),0),1.5,0.0,haxor_math_Cubic.Out);
-		haxor_core_Tween.Add(this.m_right,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),0),1.5,0.0,haxor_math_Cubic.Out);
-	}
-	,__class__: examples_dungeon_DungeonDoor
-});
-var examples_dungeon_GameController = function(p_name) {
-	haxor_component_Behaviour.call(this,p_name);
-};
-$hxClasses["examples.dungeon.GameController"] = examples_dungeon_GameController;
-examples_dungeon_GameController.__name__ = ["examples","dungeon","GameController"];
-examples_dungeon_GameController.__super__ = haxor_component_Behaviour;
-examples_dungeon_GameController.prototype = $extend(haxor_component_Behaviour.prototype,{
-	Initialize: function() {
-		haxor_core_Console.Log("GameController> Initialize");
-		this.app = this.get_application();
-		haxor_physics_Physics.gravity = new haxor_math_Vector3(0,-980,0);
-		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Default,examples_dungeon_GameLayer.Default,true);
-		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Default,examples_dungeon_GameLayer.Player,true);
-		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Player,examples_dungeon_GameLayer.CameraArea,true);
-		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Player,examples_dungeon_GameLayer.Door,true);
-		haxor_component_light_Light.ambient = haxor_math_Color.FromBytes(130,140,160);
-		this.dungeon = new haxor_core_Entity().AddComponent(examples_dungeon_Dungeon);
-		this.dungeon.set_name("dungeon");
-		this.player = new haxor_core_Entity().AddComponent(examples_dungeon_Knight);
-		this.player.set_name("player");
-		this.orbit = haxor_component_CameraOrbit.Create(700,-135,45);
-		this.orbit.m_entity.m_transform.set_localPosition(new haxor_math_Vector3(0,9,26));
-		this.orbit.smooth = 5;
-		this.orbit.get_camera().background = haxor_math_Color.FromBytes(10,0,40);
-		this.orbit.get_camera().set_near(100.0);
-		this.orbit.get_camera().set_far(2000);
-		this.orbit.get_camera().set_fov(40);
-		this.orbit.target = this.player.m_entity.m_transform;
-		this.orbit.follow = true;
-		var orbit_input = this.orbit.m_entity.AddComponent(haxor_component_CameraOrbitInput);
-		orbit_input.zoomSpeed = 35;
-		haxor_graphics_Fog.color = haxor_math_Color.FromBytes(10,0,40);
-		haxor_graphics_Fog.exp = 1.5;
-		haxor_graphics_Fog.end = 0.6;
-	}
-	,OnDungeonLoaded: function() {
-		console.log("GameController> Dungeon Loaded");
-		var p = this.dungeon.GetSpawnPosition("Player_Start_001");
-		p.y += 10.0;
-		console.log("\tSpawn Point [" + p.ToString() + "]");
-		if(this.player != null) this.player.m_entity.m_transform.set_localPosition(p);
-		this.orbit.get_pivot().set_localPosition(p);
-	}
-	,OnTriggerEnter: function(p_entity,p_collider) {
-		console.log("GameController> TriggerEnter [" + p_entity.get_name() + "][" + p_collider.get_name() + "]");
-		var _g = p_entity.m_layer;
-		switch(_g) {
-		case examples_dungeon_GameLayer.Door:
-			if(p_collider.get_layer() == examples_dungeon_GameLayer.Player) console.log("GameController> Door Trigger Enter");
-			break;
-		case examples_dungeon_GameLayer.Player:
-			break;
-		default:
-		}
-	}
-	,OnTriggerExit: function(p_entity,p_collider) {
-		console.log("GameController> TriggerExit [" + p_entity.get_name() + "][" + p_collider.get_name() + "]");
-		var _g = p_entity.m_layer;
-		switch(_g) {
-		case examples_dungeon_GameLayer.Door:
-			if(p_collider.get_layer() == examples_dungeon_GameLayer.Player) console.log("GameController> Door Trigger Exit");
-			break;
-		default:
-		}
-	}
-	,__class__: examples_dungeon_GameController
-});
-var examples_dungeon_GameLayer = function() { };
-$hxClasses["examples.dungeon.GameLayer"] = examples_dungeon_GameLayer;
-examples_dungeon_GameLayer.__name__ = ["examples","dungeon","GameLayer"];
-var examples_dungeon_Player = function(p_name) {
-	this.path_enabled = false;
-	this.lerp_dir = new haxor_math_Vector3(0,0,0);
-	this.m_path_current = 0;
-	haxor_component_Behaviour.call(this,p_name);
-};
-$hxClasses["examples.dungeon.Player"] = examples_dungeon_Player;
-examples_dungeon_Player.__name__ = ["examples","dungeon","Player"];
-examples_dungeon_Player.__interfaces__ = [haxor_core_IUpdateable];
-examples_dungeon_Player.__super__ = haxor_component_Behaviour;
-examples_dungeon_Player.prototype = $extend(haxor_component_Behaviour.prototype,{
-	get_state: function() {
-		return this.m_state;
-	}
-	,set_state: function(v) {
-		if(this.m_state != v) this.OnStateChange(this.m_state,v);
-		this.m_state = v;
+	,set_bounds: function(v) {
+		this.m_mesh.set_bounds(v);
 		return v;
 	}
-	,OnStart: function() {
-		var f = haxor_core_Asset.Get(this.character);
-		this.asset = f.get_asset();
-		this.asset.m_transform.set_localScale(new haxor_math_Vector3(400,400,400));
-		this.asset.m_transform.set_parent(this.m_entity.m_transform);
-		this.speed = examples_dungeon_Player.TOP_SPEED;
-		this.m_velocity = new haxor_math_Vector3(0,0,0);
-		this.m_is_attack = false;
-		var rl = this.asset.GetComponentsInChildren(haxor_component_MeshRenderer);
-		var _g1 = 0;
-		var _g = rl.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var mr = rl[i];
-			var mat_id = mr.m_material.get_name();
-			mat_id = StringTools.replace(mat_id,"DiffuseSkin","ToonSkin");
-			var mat = haxor_core_Asset.Get(mat_id);
-			if(mat == null) console.log("Player> Material [" + mat_id + "] is null!");
-			var tex = haxor_core_Asset.Get(this.character + "/diffuse");
-			var new_mat_id = mat_id + "_" + this.character;
-			if(haxor_core_Asset.Get(new_mat_id) != null) mat = haxor_core_Asset.Get(new_mat_id); else {
-				this.m_falloff_mat = mat = haxor_core_Asset.Instantiate(mat);
-				mat.set_name(new_mat_id);
-				mat.set_shader(haxor_core_Asset.Get("haxor/diffuse/ToonSkinFalloff"));
-				mat.SetTexture("DiffuseTexture",tex);
-				mat.SetFloat("Falloff",1.5);
-				mat.SetFloat("FalloffIntensity",1.0);
-				tex = haxor_core_Asset.Get("player/ramp");
-				mat.SetTexture("RampTexture",tex);
-				haxor_core_Asset.Add(new_mat_id,mat);
-			}
-			mr.set_material(mat);
-			mat = haxor_core_Asset.Get("PlayerHilight");
-			if(mat == null) {
-				mat = new haxor_graphics_material_Material();
-				mat.set_shader(haxor_core_Asset.Get("haxor/unlit/FlatSkin"));
-				mat.set_name("PlayerHilight");
-				mat.queue = 995;
-				mat.ztest = false;
-				mat.zwrite = false;
-				mat.SetColor("Tint",haxor_math_Color.FromBytes(45,90,125));
-				haxor_core_Asset.Add("PlayerHilight",mat);
-			}
-			var skr = mr;
-			var nskr = mr.m_entity.AddComponent(haxor_component_SkinnedMeshRenderer);
-			nskr.set_mesh(skr.m_mesh);
-			nskr.set_joints(skr.m_joints);
-			nskr.set_material(mat);
-		}
-		var sc = this.m_entity.AddComponent(haxor_component_physics_SphereCollider);
-		sc.set_radius(80);
-		sc.set_center(new haxor_math_Vector3(0,40,0));
-		this.m_entity.AddComponent(haxor_component_physics_RigidBody);
-		this.m_entity.set_layer(examples_dungeon_GameLayer.Player);
-		this.m_clips = new haxe_ds_StringMap();
-		this.m_state = "";
-		this.m_shadow = new haxor_core_Entity().get_transform();
-		this.m_shadow.set_name("shadow");
-		this.m_shadow.set_parent(this.m_entity.m_transform);
-		this.m_shadow.set_localScale(new haxor_math_Vector3(110,0,110));
-		this.m_shadow.set_localPosition(new haxor_math_Vector3(0,5,0));
-		this.m_shadow.m_entity.AddComponent(examples_dungeon_BlobShadow);
+	,get_count: function() {
+		return this.m_count;
 	}
-	,SplitClip: function(p_name,p_start,p_end,p_lib,p_loop,p_speed) {
-		if(p_speed == null) p_speed = 1.0;
-		if(p_loop == null) p_loop = true;
-		var c = p_lib.Split(p_start,p_end);
-		if(p_loop) c.wrap = haxor_core_AnimationWrap.Loop; else c.wrap = haxor_core_AnimationWrap.Clamp;
-		c.speed = p_speed;
-		this.m_clips.set(p_name,c);
-		this.asset.get_animation().Add(c);
+	,set_count: function(v) {
+		this.m_count = v;
+		this.Reset();
+		this.UpdateMesh();
+		return v;
 	}
-	,LoadClip: function(p_id,p_name,p_loop,p_speed) {
-		if(p_speed == null) p_speed = 1.0;
-		if(p_loop == null) p_loop = true;
-		var cf;
-		cf = haxor_core_Asset.Get(p_id);
-		cf.AddAnimations(this.asset);
-		var cid = this.asset.get_animation().clips.length - 1;
-		var c = this.asset.get_animation().clips[cid];
-		c.set_name(p_name);
-		if(p_loop) c.wrap = haxor_core_AnimationWrap.Loop; else c.wrap = haxor_core_AnimationWrap.Clamp;
-		c.speed = p_speed;
-		this.m_clips.set(p_name,c);
-		return c;
+	,OnBuild: function() {
+		haxor_component_MeshRenderer.prototype.OnBuild.call(this);
+		this.m_state = haxor_component_ParticleSystemState.Reset;
+		this.m_kernel = new haxor_thread_ParticleKernel(this);
+		this.elapsed = 0.0;
+		this.m_playing = false;
+		this.m_emitted_count = 0.0;
+		this.m_emitted_start = 0.0;
+		this.set_count(10);
+		this.duration = 1.0;
+		this.emitter = new haxor_component_SphereEmitter(1.0);
+		this.sheet = new haxor_component_ParticleSheet();
+		this.local = true;
+		this.loop = true;
+		this.billboard = true;
+		this.start = new haxor_component_ParticleStart();
+		this.life = new haxor_component_ParticleLife();
+		this.rate = new haxor_component_ParticleAttribute(1.0,1.0);
+		this.force = new haxor_math_Vector3();
 	}
-	,PlayClip: function(p_name,p_fade) {
-		if(p_fade == null) p_fade = 0.0;
-		var c = this.m_clips.get(p_name);
-		if(c == null) return;
-		this.asset.get_animation().Stop();
-		this.asset.get_animation().Fade(c,0.0,p_fade);
+	,Emit: function(p_emit_count) {
+		if(p_emit_count == null) p_emit_count = 1.0;
+		var remain = this.get_count() - this.get_emitted();
+		var c = Math.min(p_emit_count,remain);
+		var d = p_emit_count - c;
+		if(this.loop) this.m_emitted_start += d;
+		this.m_emitted_count += c;
+		this.m_playing = true;
 	}
-	,GetClip: function(p_name) {
-		return this.m_clips.get(p_name);
+	,Play: function() {
+		this.m_playing = true;
+	}
+	,Pause: function() {
+		this.m_playing = false;
+	}
+	,Reset: function() {
+		this.elapsed = 0.0;
+		this.m_emitted_count = 0.0;
+		this.m_emitted_start = 0.0;
 	}
 	,Stop: function() {
-		this.m_velocity.Set();
+		this.elapsed = 0.0;
+		this.m_emitted_count = 0.0;
+		this.m_emitted_start = 0.0;
+		this.m_state = haxor_component_ParticleSystemState.Reset;
+		this.m_playing = false;
 	}
-	,Move: function(p_direction) {
-		this.m_velocity.Set(p_direction.x,p_direction.y,p_direction.z);
-	}
-	,OnStateChange: function(p_from,p_to) {
-		switch(p_to) {
-		case "idle_attack":
-			this.PlayClip("idle_attack");
+	,Simulate: function() {
+		var _g = this.m_state;
+		switch(_g[1]) {
+		case 0:
+			if(this.m_playing) this.m_state = haxor_component_ParticleSystemState.Update;
 			break;
-		case "idle":
-			haxor_thread_Activity.Delay(1.5,function() {
-			});
-			this.PlayClip("idle",2);
+		case 1:
+			if(this.m_playing) this.m_state = haxor_component_ParticleSystemState.Update; else this.m_state = haxor_component_ParticleSystemState.None;
 			break;
-		case "attack01":
-			this.get_rigidbody().set_velocity(new haxor_math_Vector3(0,0,0));
-			this.PlayClip("attack01",2);
-			break;
-		case "attack02":
-			this.get_rigidbody().set_velocity(new haxor_math_Vector3(0,0,0));
-			this.PlayClip("attack02");
-			break;
-		case "run":
-			this.PlayClip("run",0.5);
-			break;
-		}
-	}
-	,OnFSM: function() {
-		var s = this.m_state;
-		switch(s) {
-		case "idle_attack":
-			if(this.m_velocity.get_length() > 0) s = "run";
-			break;
-		case "idle":
-			if(this.m_velocity.get_length() > 0) s = "run";
-			break;
-		case "attack01":
-			if(!this.m_is_attack) s = "idle";
-			break;
-		case "attack02":
-			break;
-		case "run":
-			var nv = this.m_velocity.get_clone();
-			nv.y = 0.0;
-			var spd = this.speed;
-			nv.Scale(spd);
-			var v = this.get_rigidbody().get_velocity();
-			var vy = v.y;
-			v = haxor_math_Vector3.Lerp(v,nv,haxor_core_Time.m_delta * 20);
-			v.y = vy;
-			this.get_rigidbody().set_velocity(v);
-			if(Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z) < 0.1) {
-				this.get_rigidbody().set_velocity(new haxor_math_Vector3(0,0,0));
-				s = "idle";
+		case 2:
+			if(!this.m_playing) {
+				this.m_state = haxor_component_ParticleSystemState.None;
+				return;
 			}
-			v.y = 0.0;
-			this.m_entity.m_transform.set_localRotation(haxor_math_Quaternion.LookRotation(v.Invert(),new haxor_math_Vector3(0,1,0)));
+			var max_life = Math.max(this.start.life.start,this.start.life.end);
+			if(this.elapsed >= this.duration + max_life) {
+				if(!this.loop) return;
+			}
+			var dt = haxor_core_Time.m_delta;
+			var r = haxor_math_Mathf.Clamp01(this.duration <= 0.0?0.0:this.elapsed / this.duration);
+			this.elapsed += dt;
+			if(this.elapsed >= this.duration + max_life) this.elapsed = this.duration + max_life;
+			var er = dt * haxor_math_Mathf.Lerp(this.rate.start,this.rate.end,this.rate.random?Math.random():Math.pow(r,this.rate.curve));
+			this.Emit(er);
 			break;
-		default:
-			s = "idle";
 		}
-		return s;
-	}
-	,UpdateKeyboardInput: function() {
-		if(haxor_input_Input.Pressed(haxor_input_KeyCode.ControlKey)) return;
-		var app = this.get_application();
-		var c = app.game.orbit;
-		var dir = new haxor_math_Vector3(0,0,0);
-		var fv = c.get_pivot().get_transform().get_forward();
-		var rv = c.get_pivot().get_transform().get_right();
-		this.m_is_attack = false;
-		var is_joystick = false;
-		if(haxor_input_Joystick.available) {
-			if(haxor_input_Input.get_joystick().length > 0) {
-				var js = haxor_input_Input.get_joystick()[0];
-				this.m_animation_speed = haxor_math_Mathf.Clamp01(js.analogLeft.get_length() * 1.1);
-				this.m_animation_speed = 0.3 + 0.89999999999999991 * this.m_animation_speed;
-				this.GetClip("run").speed = this.m_animation_speed;
-				this.speed = examples_dungeon_Player.TOP_SPEED * this.m_animation_speed;
-				dir.Add(fv.Scale(js.analogLeft.y));
-				dir.Add(rv.Scale(js.analogLeft.x));
-				dir.y = 0;
-				if(js.Pressed(haxor_input_KeyCode.Face1)) {
-					this.Stop();
-					this.set_state("attack01");
-					this.m_is_attack = true;
-					is_joystick = true;
-				}
-				if(Math.sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z) > 0) is_joystick = true;
-			}
-		}
-		if(!is_joystick) {
-			if(Math.sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z) <= 2) {
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Down)) {
-					dir.Add(fv.Invert());
-					this.m_animation_speed = 1.0;
-				}
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Up)) {
-					dir.Add(fv);
-					this.m_animation_speed = 1.0;
-				}
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Right)) {
-					dir.Add(rv);
-					this.m_animation_speed = 1.0;
-				}
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Left)) {
-					dir.Add(rv.Invert());
-					this.m_animation_speed = 1.0;
-				}
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.C)) {
-					this.Stop();
-					this.set_state("attack01");
-					this.m_is_attack = true;
-				}
-				dir.y = 0;
-				dir.Normalize();
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Z)) {
-					this.GetClip("run").speed = 1.3;
-					this.speed = examples_dungeon_Player.TOP_SPEED * 1.3;
-				} else if(this.speed > 150) {
-					this.GetClip("run").speed = 1;
-					this.speed = examples_dungeon_Player.TOP_SPEED;
-				}
-			}
-		}
-		if(Math.sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z) <= 0.5) this.Stop(); else this.Move(dir);
 	}
 	,OnUpdate: function() {
-		this.UpdateKeyboardInput();
-		var app = this.get_application();
-		var pt = app.path[this.m_path_current];
-		var dir = new haxor_math_Vector3(pt.x,pt.y,pt.z).Sub(this.m_entity.m_transform.get_localPosition());
-		dir.y = 0;
-		dir.Normalize();
-		this.lerp_dir = haxor_math_Vector3.Lerp(this.lerp_dir,dir,haxor_core_Time.m_delta * 3.0);
-		if(this.path_enabled) this.Move(this.lerp_dir);
-		if(haxor_input_Input.Down(haxor_input_KeyCode.Enter)) this.path_enabled = !this.path_enabled;
-		var d = haxor_math_Vector3.Distance(pt,this.m_entity.m_transform.get_localPosition());
-		if(d < 50.0) this.m_path_current = (this.m_path_current + 1) % app.path.length;
-		this.set_state(this.OnFSM());
+		this.Simulate();
 	}
-	,__class__: examples_dungeon_Player
-	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{set_state:"set_state",get_state:"get_state"})
+	,UpdateMesh: function() {
+		if(this.m_particles != null) haxor_core_Resource.Destroy(this.m_particles);
+		this.m_particles = new haxor_graphics_mesh_Mesh3();
+		this.m_particles.set_name("ParticleMesh" + this.get_uid());
+		this.m_particles.set_bounds(haxor_math_AABB3.FromCenter(0,0,0,1,1,1));
+		this.set_mesh(this.m_particles);
+		var vl = [];
+		var s = 0.5;
+		var plane = [new haxor_math_Vector3(-s,s,0),new haxor_math_Vector3(-s,-s,0),new haxor_math_Vector3(s,-s,0),new haxor_math_Vector3(-s,s,0),new haxor_math_Vector3(s,-s,0),new haxor_math_Vector3(s,s,0)];
+		var _g1 = 0;
+		var _g = this.get_count();
+		while(_g1 < _g) {
+			var i = _g1++;
+			var _g3 = 0;
+			var _g2 = plane.length;
+			while(_g3 < _g2) {
+				var j = _g3++;
+				var v = plane[j].get_clone();
+				v.z = i;
+				vl.push(v);
+			}
+		}
+		this.m_particles.set_vertex(vl);
+	}
+	,__class__: haxor_component_ParticleRenderer
+	,__properties__: $extend(haxor_component_MeshRenderer.prototype.__properties__,{set_count:"set_count",get_count:"get_count",set_bounds:"set_bounds",get_bounds:"get_bounds",get_playing:"get_playing",get_emitted:"get_emitted"})
 });
-var examples_dungeon_Knight = function(p_name) {
-	examples_dungeon_Player.call(this,p_name);
+var examples_dungeon_ParticleRunning = function(p_name) {
+	haxor_component_ParticleRenderer.call(this,p_name);
 };
-$hxClasses["examples.dungeon.Knight"] = examples_dungeon_Knight;
-examples_dungeon_Knight.__name__ = ["examples","dungeon","Knight"];
-examples_dungeon_Knight.__super__ = examples_dungeon_Player;
-examples_dungeon_Knight.prototype = $extend(examples_dungeon_Player.prototype,{
-	OnStart: function() {
-		this.character = "knight";
-		examples_dungeon_Player.prototype.OnStart.call(this);
-		this.LoadClip("player/animation/all/idle01","idle");
-		this.LoadClip("player/animation/all/walk","walk");
-		this.LoadClip("player/animation/all/run","run");
-		this.LoadClip("player/animation/kp/attack01","attack01");
-		this.LoadClip("player/animation/kp/attack02","attack02");
-		this.LoadClip("player/animation/kp/idle01","idle_attack");
-		this.LoadClip("player/animation/kp/die01","die");
-		this.LoadClip("player/animation/kp/hit01","hit");
-		this.PlayClip("idle");
-		var c;
+$hxClasses["examples.dungeon.ParticleRunning"] = examples_dungeon_ParticleRunning;
+examples_dungeon_ParticleRunning.__name__ = ["examples","dungeon","ParticleRunning"];
+examples_dungeon_ParticleRunning.__super__ = haxor_component_ParticleRenderer;
+examples_dungeon_ParticleRunning.prototype = $extend(haxor_component_ParticleRenderer.prototype,{
+	OnBuild: function() {
+		haxor_component_ParticleRenderer.prototype.OnBuild.call(this);
+		this.set_name("ParticleRunning");
+		var mat = haxor_core_Asset.Get("ParticleRunningMaterial");
+		if(mat == null) {
+			mat = haxor_core_Asset.Instantiate(haxor_core_Asset.Get("haxor/material/transparent/unlit/ParticleAlpha"));
+			mat.set_name("ParticleRunningMaterial");
+			var tex = haxor_core_Asset.Get("Dust");
+			mat.SetTexture("Texture",tex);
+			mat.zwrite = false;
+			haxor_core_Asset.Add("ParticleRunningMaterial",mat);
+		}
+		this.set_material(mat);
+		var tint_color = this.life.color = new haxor_graphics_texture_Texture2D(1,1,haxor_core_PixelFormat.RGBA8);
+		var pix = haxor_math_Color.FromBytes(70,100,145);
+		tint_color.m_data.SetPixel(0,0,pix);
+		tint_color.Apply();
+		var emt = this.emitter = new haxor_component_BoxEmitter(45.0,1.0,30.0);
+		emt.ranges = [0,0,0,1000,0,0];
+		this.set_count(30);
+		this.loop = true;
+		this.local = false;
+		this.rate.start = this.rate.end = 5.0;
+		this.sheet.frame.start = 0;
+		this.sheet.frame.end = 0;
+		this.sheet.frame.random = true;
+		this.sheet.length = 10;
+		this.sheet.fps = 15;
+		this.sheet.width = 51.2;
+		this.sheet.height = 64.0;
+		this.start.life.start = 1.0;
+		this.start.life.end = 1.0;
+		this.start.life.random = true;
+		this.start.speed.start = 3.0;
+		this.start.speed.end = 8.0;
+		this.start.speed.random = true;
+		var ps = 40.0;
+		this.life.size.start = new haxor_math_Vector3(1,1,1).Scale(ps);
+		this.life.size.end = new haxor_math_Vector3(1,1,1).Scale(ps);
+		this.m_mesh.set_bounds(haxor_math_AABB3.FromCenter(0,0,0,30,30,30));
 	}
-	,__class__: examples_dungeon_Knight
+	,__class__: examples_dungeon_ParticleRunning
+});
+var examples_dungeon_ParticleTorch = function(p_name) {
+	haxor_component_ParticleRenderer.call(this,p_name);
+};
+$hxClasses["examples.dungeon.ParticleTorch"] = examples_dungeon_ParticleTorch;
+examples_dungeon_ParticleTorch.__name__ = ["examples","dungeon","ParticleTorch"];
+examples_dungeon_ParticleTorch.__super__ = haxor_component_ParticleRenderer;
+examples_dungeon_ParticleTorch.prototype = $extend(haxor_component_ParticleRenderer.prototype,{
+	get_strength: function() {
+		return this.m_strength;
+	}
+	,set_strength: function(v) {
+		if(v <= 0.0) this.m_strength = 0.0; else if(v >= 1.0) this.m_strength = 1.0; else this.m_strength = v;
+		this.start.life.start = 2.0 + this.m_strength;
+		this.start.life.end = 3.0 + 2. * this.m_strength;
+		return this.m_strength;
+	}
+	,OnBuild: function() {
+		haxor_component_ParticleRenderer.prototype.OnBuild.call(this);
+		this.set_name("ParticleTorch");
+		var mat_id = "ParticleTorchMaterial";
+		var mat = haxor_core_Asset.Get(mat_id);
+		var tex = haxor_core_Asset.Get("Fire");
+		mat = haxor_core_Asset.Instantiate(haxor_core_Asset.Get("haxor/material/transparent/unlit/ParticleAdditive"));
+		mat.set_name(mat_id);
+		mat.SetTexture("Texture",tex);
+		mat.zwrite = false;
+		this.set_material(mat);
+		var emt = this.emitter = new haxor_component_SphereEmitter(10.0);
+		this.set_count(34);
+		this.loop = true;
+		this.local = false;
+		this.rate.start = this.rate.end = 4.0;
+		this.sheet.length = 4;
+		this.sheet.fps = 8;
+		this.sheet.width = tex.m_width / 2.0;
+		this.sheet.height = tex.m_height / 2.0;
+		this.sheet.wrap = haxor_core_AnimationWrap.Loop;
+		this.start.life.start = 3;
+		this.start.life.end = 5;
+		this.start.life.random = true;
+		this.start.speed.start = 1.0;
+		this.start.speed.end = 1.0;
+		this.start.speed.random = true;
+		this.life.speed.start = 4.0;
+		this.life.speed.end = 4.0;
+		this.life.speed.random = true;
+		this.force = new haxor_math_Vector3(0,2,0);
+		this.life.color = haxor_core_Asset.Get("FireColor");
+		var ps = 22.0;
+		this.start.size.start = new haxor_math_Vector3(1,1,1).Scale(ps);
+		this.start.size.end = new haxor_math_Vector3(1,1,1).Scale(ps * 2.0);
+		this.life.size.start = new haxor_math_Vector3(1,1,1).Scale(2.0);
+		this.life.size.end = new haxor_math_Vector3(1,1,1).Scale(0.0);
+		this.m_mesh.set_bounds(haxor_math_AABB3.FromCenter(0,0,0,30,30,30));
+		this.set_strength(1.0);
+		this.Play();
+	}
+	,__class__: examples_dungeon_ParticleTorch
+	,__properties__: $extend(haxor_component_ParticleRenderer.prototype.__properties__,{set_strength:"set_strength",get_strength:"get_strength"})
 });
 var haxe_Timer = function(time_ms) {
 	var me = this;
@@ -2546,6 +2832,206 @@ haxor_component_DataComponent.__super__ = haxor_component_Component;
 haxor_component_DataComponent.prototype = $extend(haxor_component_Component.prototype,{
 	__class__: haxor_component_DataComponent
 });
+var haxor_component_ParticleAttribute = function(p_start,p_end,p_curve,p_random) {
+	if(p_random == null) p_random = false;
+	if(p_curve == null) p_curve = 1.0;
+	this.start = p_start;
+	this.end = p_end;
+	this.curve = p_curve;
+	this.random = p_random;
+};
+$hxClasses["haxor.component.ParticleAttribute"] = haxor_component_ParticleAttribute;
+haxor_component_ParticleAttribute.__name__ = ["haxor","component","ParticleAttribute"];
+haxor_component_ParticleAttribute.prototype = {
+	__class__: haxor_component_ParticleAttribute
+};
+var haxor_component_ParticleStart = function() {
+	this.life = new haxor_component_ParticleAttribute(1.0,1.0);
+	this.speed = new haxor_component_ParticleAttribute(1.0,1.0);
+	this.size = new haxor_component_ParticleAttribute(new haxor_math_Vector3(1,1,1),new haxor_math_Vector3(1,1,1));
+	this.rotation = new haxor_component_ParticleAttribute(new haxor_math_Vector3(0,0,0),new haxor_math_Vector3(0,0,0));
+	this.color = haxor_graphics_texture_Texture2D.get_white();
+};
+$hxClasses["haxor.component.ParticleStart"] = haxor_component_ParticleStart;
+haxor_component_ParticleStart.__name__ = ["haxor","component","ParticleStart"];
+haxor_component_ParticleStart.prototype = {
+	__class__: haxor_component_ParticleStart
+};
+var haxor_component_ParticleLife = function() {
+	this.speed = new haxor_component_ParticleAttribute(1.0,1.0);
+	this.motion = new haxor_component_ParticleAttribute(new haxor_math_Vector3(1,1,1),new haxor_math_Vector3(1,1,1));
+	this.size = new haxor_component_ParticleAttribute(new haxor_math_Vector3(1,1,1),new haxor_math_Vector3(1,1,1));
+	this.rotation = new haxor_component_ParticleAttribute(new haxor_math_Vector3(0,0,0),new haxor_math_Vector3(0,0,0));
+	this.color = haxor_graphics_texture_Texture2D.get_white();
+};
+$hxClasses["haxor.component.ParticleLife"] = haxor_component_ParticleLife;
+haxor_component_ParticleLife.__name__ = ["haxor","component","ParticleLife"];
+haxor_component_ParticleLife.prototype = {
+	__class__: haxor_component_ParticleLife
+};
+var haxor_component_ParticleSheet = function() {
+	this.width = 0.0;
+	this.height = 0.0;
+	this.length = 0;
+	this.fps = 60.0;
+	this.frame = new haxor_component_ParticleAttribute(0.0,0.0);
+	this.wrap = haxor_core_AnimationWrap.Clamp;
+	this.reverse = false;
+};
+$hxClasses["haxor.component.ParticleSheet"] = haxor_component_ParticleSheet;
+haxor_component_ParticleSheet.__name__ = ["haxor","component","ParticleSheet"];
+haxor_component_ParticleSheet.prototype = {
+	__class__: haxor_component_ParticleSheet
+};
+var haxor_component_ParticleSystemState = { __ename__ : true, __constructs__ : ["None","Reset","Update"] };
+haxor_component_ParticleSystemState.None = ["None",0];
+haxor_component_ParticleSystemState.None.__enum__ = haxor_component_ParticleSystemState;
+haxor_component_ParticleSystemState.Reset = ["Reset",1];
+haxor_component_ParticleSystemState.Reset.__enum__ = haxor_component_ParticleSystemState;
+haxor_component_ParticleSystemState.Update = ["Update",2];
+haxor_component_ParticleSystemState.Update.__enum__ = haxor_component_ParticleSystemState;
+var haxor_component_ParticleEmitter = function() {
+	this.m_data = [0,0,0,0,0,0,0];
+	this.set_surface(false);
+	this.set_random(false);
+	this.ranges = [-1000,1000,-1000,1000,-1000,1000];
+};
+$hxClasses["haxor.component.ParticleEmitter"] = haxor_component_ParticleEmitter;
+haxor_component_ParticleEmitter.__name__ = ["haxor","component","ParticleEmitter"];
+haxor_component_ParticleEmitter.prototype = {
+	get_surface: function() {
+		return this.m_data[1] > 0.0;
+	}
+	,set_surface: function(v) {
+		if(v) this.m_data[1] = 1.0; else this.m_data[1] = 0.0;
+		return v;
+	}
+	,get_random: function() {
+		return this.m_data[2] > 0.0;
+	}
+	,set_random: function(v) {
+		if(v) this.m_data[2] = 1.0; else this.m_data[2] = 0.0;
+		return v;
+	}
+	,__class__: haxor_component_ParticleEmitter
+	,__properties__: {set_random:"set_random",get_random:"get_random",set_surface:"set_surface",get_surface:"get_surface"}
+};
+var haxor_component_SphereEmitter = function(p_radius) {
+	if(p_radius == null) p_radius = 1.0;
+	haxor_component_ParticleEmitter.call(this);
+	this.m_data[0] = 0.0;
+	this.set_radius(p_radius);
+};
+$hxClasses["haxor.component.SphereEmitter"] = haxor_component_SphereEmitter;
+haxor_component_SphereEmitter.__name__ = ["haxor","component","SphereEmitter"];
+haxor_component_SphereEmitter.__super__ = haxor_component_ParticleEmitter;
+haxor_component_SphereEmitter.prototype = $extend(haxor_component_ParticleEmitter.prototype,{
+	get_radius: function() {
+		return this.m_data[3];
+	}
+	,set_radius: function(v) {
+		this.m_data[3] = v;
+		return v;
+	}
+	,__class__: haxor_component_SphereEmitter
+	,__properties__: $extend(haxor_component_ParticleEmitter.prototype.__properties__,{set_radius:"set_radius",get_radius:"get_radius"})
+});
+var haxor_component_BoxEmitter = function(p_width,p_height,p_depth) {
+	if(p_depth == null) p_depth = 1.0;
+	if(p_height == null) p_height = 1.0;
+	if(p_width == null) p_width = 1.0;
+	haxor_component_ParticleEmitter.call(this);
+	this.m_data[0] = 1.0;
+	this.set_width(p_width);
+	this.set_height(p_height);
+	this.set_depth(p_depth);
+};
+$hxClasses["haxor.component.BoxEmitter"] = haxor_component_BoxEmitter;
+haxor_component_BoxEmitter.__name__ = ["haxor","component","BoxEmitter"];
+haxor_component_BoxEmitter.__super__ = haxor_component_ParticleEmitter;
+haxor_component_BoxEmitter.prototype = $extend(haxor_component_ParticleEmitter.prototype,{
+	get_width: function() {
+		return this.m_data[3];
+	}
+	,set_width: function(v) {
+		this.m_data[3] = v;
+		return v;
+	}
+	,get_height: function() {
+		return this.m_data[4];
+	}
+	,set_height: function(v) {
+		this.m_data[4] = v;
+		return v;
+	}
+	,get_depth: function() {
+		return this.m_data[5];
+	}
+	,set_depth: function(v) {
+		this.m_data[5] = v;
+		return v;
+	}
+	,__class__: haxor_component_BoxEmitter
+	,__properties__: $extend(haxor_component_ParticleEmitter.prototype.__properties__,{set_depth:"set_depth",get_depth:"get_depth",set_height:"set_height",get_height:"get_height",set_width:"set_width",get_width:"get_width"})
+});
+var haxor_component_ConeEmitter = function(p_angle,p_height) {
+	if(p_height == null) p_height = 1.0;
+	if(p_angle == null) p_angle = 45.0;
+	haxor_component_ParticleEmitter.call(this);
+	this.m_data[0] = 2.0;
+	this.set_angle(p_angle);
+	this.set_height(p_height);
+};
+$hxClasses["haxor.component.ConeEmitter"] = haxor_component_ConeEmitter;
+haxor_component_ConeEmitter.__name__ = ["haxor","component","ConeEmitter"];
+haxor_component_ConeEmitter.__super__ = haxor_component_ParticleEmitter;
+haxor_component_ConeEmitter.prototype = $extend(haxor_component_ParticleEmitter.prototype,{
+	get_angle: function() {
+		return this.m_data[3];
+	}
+	,set_angle: function(v) {
+		this.m_data[3] = v;
+		return v;
+	}
+	,get_height: function() {
+		return this.m_data[4];
+	}
+	,set_height: function(v) {
+		this.m_data[4] = v;
+		return v;
+	}
+	,__class__: haxor_component_ConeEmitter
+	,__properties__: $extend(haxor_component_ParticleEmitter.prototype.__properties__,{set_height:"set_height",get_height:"get_height",set_angle:"set_angle",get_angle:"get_angle"})
+});
+var haxor_component_CylinderEmitter = function(p_radius,p_height) {
+	if(p_height == null) p_height = 1.0;
+	if(p_radius == null) p_radius = 1.0;
+	haxor_component_ParticleEmitter.call(this);
+	this.m_data[0] = 3.0;
+	this.set_radius(p_radius);
+	this.set_height(p_height);
+};
+$hxClasses["haxor.component.CylinderEmitter"] = haxor_component_CylinderEmitter;
+haxor_component_CylinderEmitter.__name__ = ["haxor","component","CylinderEmitter"];
+haxor_component_CylinderEmitter.__super__ = haxor_component_ParticleEmitter;
+haxor_component_CylinderEmitter.prototype = $extend(haxor_component_ParticleEmitter.prototype,{
+	get_radius: function() {
+		return this.m_data[3];
+	}
+	,set_radius: function(v) {
+		this.m_data[3] = v;
+		return v;
+	}
+	,get_height: function() {
+		return this.m_data[4];
+	}
+	,set_height: function(v) {
+		this.m_data[4] = v;
+		return v;
+	}
+	,__class__: haxor_component_CylinderEmitter
+	,__properties__: $extend(haxor_component_ParticleEmitter.prototype.__properties__,{set_height:"set_height",get_height:"get_height",set_radius:"set_radius",get_radius:"get_radius"})
+});
 var haxor_component_SkinnedMeshRenderer = function(p_name) {
 	haxor_component_MeshRenderer.call(this,p_name);
 };
@@ -2563,6 +3049,7 @@ haxor_component_SkinnedMeshRenderer.prototype = $extend(haxor_component_MeshRend
 	,OnBuild: function() {
 		haxor_component_MeshRenderer.prototype.OnBuild.call(this);
 		this.m_joints = [];
+		this.m_bmloaded = false;
 		this.m_buffer = [];
 		var _g = 0;
 		while(_g < 8192) {
@@ -2589,10 +3076,11 @@ haxor_component_SkinnedMeshRenderer.prototype = $extend(haxor_component_MeshRend
 				while(_g2 < 12) {
 					var j = _g2++;
 					f32.Set(k,jm.GetIndex(j));
-					f32.Set(k + 4096,bm.GetIndex(j));
+					if(!this.m_bmloaded) f32.Set(k + 4096,bm.GetIndex(j));
 					k++;
 				}
 			}
+			this.m_bmloaded = true;
 			this.m_data.Invalidate();
 			this.m_material.SetTexture("Skinning",this.m_data);
 		}
@@ -2666,6 +3154,7 @@ haxor_component_Transform.prototype = $extend(haxor_component_Component.prototyp
 		if(this.m_parent != null) HxOverrides.remove(this.m_parent.m_hierarchy,this);
 		if(v == null) this.m_parent = haxor_component_Transform.m_root; else this.m_parent = v;
 		this.m_parent.m_hierarchy.push(this);
+		this.Invalidate();
 		return this.m_parent;
 	}
 	,get_childCount: function() {
@@ -4988,6 +5477,7 @@ haxor_context_EngineContext.Initialize = function() {
 	haxor_context_EngineContext.camera = new haxor_context_CameraContext();
 	haxor_context_EngineContext.transform = new haxor_context_TransformContext();
 	haxor_context_EngineContext.physics = new haxor_context_PhysicsContext();
+	haxor_context_EngineContext.kernel = new haxor_context_KernelContext();
 };
 haxor_context_EngineContext.Build = function() {
 	haxor_context_EngineContext.mesh.Initialize();
@@ -4997,6 +5487,7 @@ haxor_context_EngineContext.Build = function() {
 	haxor_context_EngineContext.transform.Initialize();
 	haxor_context_EngineContext.renderer.Initialize();
 	haxor_context_EngineContext.physics.Initialize();
+	haxor_context_EngineContext.kernel.Initialize();
 };
 haxor_context_EngineContext.Enable = function(p_resource) {
 	if(js_Boot.__instanceof(p_resource,haxor_core_IUpdateable)) haxor_context_EngineContext.update.Add(p_resource);
@@ -5076,7 +5567,6 @@ haxor_context_GizmoContext.prototype = {
 		mat.SetColor("Tint",new haxor_math_Color(1.0,1.0,1.0,1.0));
 		mat.cull = 0;
 		mat.ztest = false;
-		this.CreateAxis();
 		this.CreateGrid(100.0);
 		this.CreateTextureQuad();
 		this.wire_sphere_renderer = new haxor_context_WireSphereGizmo();
@@ -5091,60 +5581,6 @@ haxor_context_GizmoContext.prototype = {
 		var vl;
 		vl = haxor_io_FloatArray.Alloc([0,0,0,0,-1,0,1,-1,0,0,0,0,1,-1,0,1,0,0]);
 		m.Set("vertex",vl,3);
-		m.set_bounds(m.GenerateAttribBounds("vertex",haxor_context_EngineContext.data.get_aabb3()));
-	}
-	,CreateAxis: function() {
-		var m = this.axis = new haxor_graphics_mesh_Mesh("$GridAxis");
-		m.primitive = 1;
-		var vl = new haxor_io_FloatArray(18);
-		var cl = new haxor_io_FloatArray(24);
-		var k;
-		k = 0;
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,1.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,1.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,0.0);
-		vl.Set(k++,1.0);
-		k = 0;
-		cl.Set(k++,1.0);
-		cl.Set(k++,0.0);
-		cl.Set(k++,0.0);
-		cl.Set(k++,1.0);
-		cl.Set(k++,1.0);
-		cl.Set(k++,0.3);
-		cl.Set(k++,0.3);
-		cl.Set(k++,1.0);
-		cl.Set(k++,0.0);
-		cl.Set(k++,1.0);
-		cl.Set(k++,0.0);
-		cl.Set(k++,1.0);
-		cl.Set(k++,0.3);
-		cl.Set(k++,1.0);
-		cl.Set(k++,0.3);
-		cl.Set(k++,1.0);
-		cl.Set(k++,0.0);
-		cl.Set(k++,0.0);
-		cl.Set(k++,1.0);
-		cl.Set(k++,1.0);
-		cl.Set(k++,0.3);
-		cl.Set(k++,0.3);
-		cl.Set(k++,1.0);
-		cl.Set(k++,1.0);
-		m.Set("vertex",vl,3);
-		m.Set("color",cl,4);
 		m.set_bounds(m.GenerateAttribBounds("vertex",haxor_context_EngineContext.data.get_aabb3()));
 	}
 	,CreateGrid: function(p_step) {
@@ -5202,7 +5638,7 @@ haxor_context_GizmoContext.prototype = {
 		this.line_renderer.Push(p_color,haxor_context_EngineContext.data.get_v4().Set3(p_from),haxor_context_EngineContext.data.get_v4().Set3(p_to),p_transform);
 	}
 	,DrawPoint: function(p_position,p_size,p_color,p_smooth,p_transform) {
-		this.point_renderer.Push(p_color,haxor_context_EngineContext.data.get_v4().Set(p_size,p_smooth?1.0:0.0,0.0,0.0),haxor_context_EngineContext.data.get_v4().Set3(p_position),p_transform);
+		this.point_renderer.Push(p_color,haxor_context_EngineContext.data.get_v4().Set(p_size,p_smooth?1.0:0.0,0.0,0.0),haxor_context_EngineContext.data.get_v4().Set(1,1,1,1).Set3(p_position),p_transform);
 	}
 	,Render: function() {
 		var gr;
@@ -6392,7 +6828,7 @@ haxor_context_LineGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
 	,__class__: haxor_context_LineGizmo
 });
 var haxor_context_PointGizmo = function() {
-	haxor_context_Gizmo.call(this,haxor_context_Gizmo.POINT,haxor_context_Gizmo.MAX_GIZMOS * 5);
+	haxor_context_Gizmo.call(this,haxor_context_Gizmo.POINT,10);
 };
 $hxClasses["haxor.context.PointGizmo"] = haxor_context_PointGizmo;
 haxor_context_PointGizmo.__name__ = ["haxor","context","PointGizmo"];
@@ -6500,6 +6936,30 @@ haxor_context_CanvasGizmo.prototype = $extend(haxor_context_Gizmo.prototype,{
 	}
 	,__class__: haxor_context_CanvasGizmo
 });
+var haxor_context_KernelContext = function() {
+};
+$hxClasses["haxor.context.KernelContext"] = haxor_context_KernelContext;
+haxor_context_KernelContext.__name__ = ["haxor","context","KernelContext"];
+haxor_context_KernelContext.prototype = {
+	Initialize: function() {
+		this.list = [];
+	}
+	,Execute: function() {
+		var _g1 = 0;
+		var _g = this.list.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			this.list[i].Execute();
+		}
+	}
+	,OnCreate: function(k) {
+		this.list.push(k);
+	}
+	,OnDestroy: function(k) {
+		HxOverrides.remove(this.list,k);
+	}
+	,__class__: haxor_context_KernelContext
+};
 var haxor_context_MaterialContext = function() {
 	this.uniform_globals = ["ViewMatrix","ProjectionMatrix","WorldMatrix","WorldMatrixInverse","WorldMatrixIT","Time","RandomSeed","RandomTexture","ScreenTexture","ScreenDepth","Ambient","CameraPosition","ProjectionMatrixInverse","ViewMatrixInverse","Lights","Fog","CameraProjection"];
 	this.mid = new haxor_context_UID();
@@ -6519,6 +6979,7 @@ var haxor_context_MaterialContext = function() {
 	this.locations = [];
 	this.uniforms = [];
 	this.programs = [];
+	this.is_linked = [];
 	this.vertex_shaders = [];
 	this.fragment_shaders = [];
 	this.globals = [];
@@ -6548,6 +7009,7 @@ var haxor_context_MaterialContext = function() {
 		this.locations.push(l);
 		this.uniforms.push(ul);
 		this.programs.push(haxor_graphics_GL.INVALID);
+		this.is_linked.push(false);
 		this.vertex_shaders.push(haxor_graphics_GL.INVALID);
 		this.fragment_shaders.push(haxor_graphics_GL.INVALID);
 		this.viewmatrix.push(false);
@@ -6627,10 +7089,12 @@ haxor_context_MaterialContext.prototype = {
 		}
 	}
 	,CreateUniform: function(m,u) {
+		u.__d = true;
+		u.exists = true;
+		if(!this.is_linked[m.__cid]) return;
 		var p = this.programs[m.__cid];
 		var loc = haxor_graphics_GL.m_gl.GetUniformLocation(p,u.name);
 		this.uniforms[m.__cid][u.__cid] = loc;
-		u.__d = true;
 		u.exists = loc != haxor_graphics_GL.INVALID;
 	}
 	,DestroyUniform: function(m,u) {
@@ -6654,6 +7118,7 @@ haxor_context_MaterialContext.prototype = {
 		var p = this.programs[m.__cid];
 		var vs_id;
 		var fs_id;
+		this.is_linked[m.__cid] = false;
 		if(s0 != null) {
 			vs_id = this.vertex_shaders[s0.__cid];
 			fs_id = this.fragment_shaders[s0.__cid];
@@ -6673,7 +7138,11 @@ haxor_context_MaterialContext.prototype = {
 				haxor_graphics_GL.m_gl.BindAttribLocation(p,i,al[i]);
 			}
 			haxor_graphics_GL.m_gl.LinkProgram(p);
-			if(haxor_graphics_GL.m_gl.GetProgramParameter(p,35714) == 0) haxor_core_Console.LogError("Material> [" + m.get_name() + "] Link Error @ [" + s1.get_name() + "]");
+			this.is_linked[m.__cid] = true;
+			if(haxor_graphics_GL.m_gl.GetProgramParameter(p,35714) == 0) {
+				haxor_core_Console.LogError("Material> [" + m.get_name() + "] Link Error @ [" + s1.get_name() + "]");
+				this.is_linked[m.__cid] = false;
+			}
 			var ul = m.m_uniforms;
 			var _g11 = 0;
 			var _g2 = ul.length;
@@ -6711,6 +7180,9 @@ haxor_context_MaterialContext.prototype = {
 					break;
 				case "RandomSeed":
 					m.SetFloat(un,0.0);
+					break;
+				case "RandomTexture":
+					m.SetTexture(un,haxor_graphics_texture_Texture2D.get_random());
 					break;
 				case "WorldMatrix":
 					m.SetMatrix4(un,m4);
@@ -6761,6 +7233,16 @@ haxor_context_MaterialContext.prototype = {
 		var material_change = m != this.current;
 		this.UseMaterial(m);
 		this.UpdateMaterialUniforms(t,c,msh,material_change);
+	}
+	,Unbind: function() {
+		if(this.current == null) return;
+		var ul = this.current.m_uniforms;
+		var _g1 = 0;
+		var _g = ul.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			if(ul[i].texture != null) ul[i].texture.__slot = -1;
+		}
 	}
 	,UseMaterial: function(m) {
 		if(m != this.current) {
@@ -6886,6 +7368,9 @@ haxor_context_MaterialContext.prototype = {
 		case "RandomSeed":
 			u.SetFloat(Math.random());
 			break;
+		case "RandomTexture":
+			u.SetTexture(haxor_graphics_texture_Texture2D.get_random());
+			break;
 		case "WorldMatrix":
 			if(ut) u.SetMatrix4(t.get_WorldMatrix());
 			break;
@@ -6950,7 +7435,8 @@ haxor_context_MaterialContext.prototype = {
 			if(js_Boot.__instanceof(l,haxor_component_light_PointLight)) {
 				var pl = l;
 				var limit = hs + 0.5 * pl.radius;
-				l.m_entity.m_transform.get_WorldMatrix().Transform3x4(p.Set());
+				var wm = l.m_entity.m_transform.get_WorldMatrix();
+				p.Set(wm.m03,wm.m13,wm.m23);
 				if(haxor_math_Vector3.Distance(c,p) > limit) continue;
 				if(haxor_core_Debug.light) {
 					var cl = new haxor_math_Color(1,1,1,0.1);
@@ -6965,16 +7451,6 @@ haxor_context_MaterialContext.prototype = {
 		while(k < haxor_component_light_Light.max) {
 			haxor_component_light_Light.SetLightData(k,-1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 			k++;
-		}
-	}
-	,Unbind: function() {
-		if(this.current == null) return;
-		var ul = this.current.m_uniforms;
-		var _g1 = 0;
-		var _g = ul.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(ul[i].texture != null) ul[i].texture.__slot = -1;
 		}
 	}
 	,DestroyMaterial: function(m) {
@@ -7686,6 +8162,23 @@ haxor_context_TextureContext.prototype = {
 	,Unbind: function() {
 		haxor_graphics_GL.BindTexture(3553,haxor_graphics_GL.NULL);
 	}
+	,BindTarget: function(rt) {
+		if(rt == null) {
+			if(this.target != rt) {
+				haxor_graphics_GL.BindFramebuffer(36160,haxor_graphics_GL.NULL);
+				haxor_graphics_GL.BindRenderbuffer(36161,haxor_graphics_GL.NULL);
+				this.target = null;
+			}
+		} else if(this.target != rt) {
+			var fb_id = this.framebuffers[rt.__cid];
+			haxor_graphics_GL.m_gl.BindFramebuffer(36160,fb_id);
+			if(rt.m_depth == null) {
+				var rb_id = this.renderbuffers[rt.__cid];
+				haxor_graphics_GL.m_gl.BindRenderbuffer(36161,rb_id);
+			}
+			this.target = rt;
+		}
+	}
 	,UpdateParameters: function(p_texture) {
 		var target;
 		if(p_texture.get_type() == haxor_core_TextureType.Texture2D) target = 3553; else if(p_texture.get_type() == haxor_core_TextureType.RenderTexture) target = 3553; else if(p_texture.get_type() == haxor_core_TextureType.TextureCube) target = 34067; else target = 3553;
@@ -7695,8 +8188,22 @@ haxor_context_TextureContext.prototype = {
 		if(haxor_graphics_GL.TEXTURE_ANISOTROPY_ENABLED) haxor_graphics_GL.TexParameterf(target,haxor_graphics_GL.TEXTURE_ANISOTROPY,Math.max(1,p_texture.m_aniso));
 		var minf = p_texture.m_minFilter;
 		var magf = p_texture.m_magFilter;
-		if(p_texture.m_format == haxor_core_PixelFormat.Half) {
+		var is_half = false;
+		if(p_texture.m_format == haxor_core_PixelFormat.Half) is_half = true;
+		if(p_texture.m_format == haxor_core_PixelFormat.Half3) is_half = true;
+		if(p_texture.m_format == haxor_core_PixelFormat.Half4) is_half = true;
+		var is_float = false;
+		if(p_texture.m_format == haxor_core_PixelFormat.Float) is_float = true;
+		if(p_texture.m_format == haxor_core_PixelFormat.Float3) is_float = true;
+		if(p_texture.m_format == haxor_core_PixelFormat.Float4) is_float = true;
+		if(is_half) {
 			if(!haxor_graphics_GL.TEXTURE_HALF_LINEAR) {
+				minf = haxor_core_TextureFilter.Nearest;
+				magf = haxor_core_TextureFilter.Nearest;
+			}
+		}
+		if(is_float) {
+			if(!haxor_graphics_GL.TEXTURE_FLOAT_LINEAR) {
 				minf = haxor_core_TextureFilter.Nearest;
 				magf = haxor_core_TextureFilter.Nearest;
 			}
@@ -7814,23 +8321,6 @@ haxor_context_TextureContext.prototype = {
 				var id = this.ids[rt.__cid];
 				haxor_graphics_GL.m_gl.FramebufferTexture2D(36160,36064,p_target,id,0);
 			}
-		}
-	}
-	,BindTarget: function(rt) {
-		if(rt == null) {
-			if(this.target != rt) {
-				haxor_graphics_GL.BindFramebuffer(36160,haxor_graphics_GL.NULL);
-				haxor_graphics_GL.BindRenderbuffer(36161,haxor_graphics_GL.NULL);
-				this.target = null;
-			}
-		} else if(this.target != rt) {
-			var fb_id = this.framebuffers[rt.__cid];
-			haxor_graphics_GL.m_gl.BindFramebuffer(36160,fb_id);
-			if(rt.m_depth == null) {
-				var rb_id = this.renderbuffers[rt.__cid];
-				haxor_graphics_GL.m_gl.BindRenderbuffer(36161,rb_id);
-			}
-			this.target = rt;
 		}
 	}
 	,UpdateMipmaps: function(p_texture) {
@@ -8652,6 +9142,7 @@ haxor_core_RenderEngine.RenderFinish = function() {
 		cl[i].m_proj_uniform_dirty = false;
 	}
 	haxor_context_EngineContext.renderer.sap_dirty = false;
+	haxor_context_EngineContext.kernel.Execute();
 };
 haxor_core_RenderEngine.Resize = function() {
 	haxor_context_EngineContext.camera.Resize();
@@ -11021,6 +11512,9 @@ haxor_graphics_Graphics.DrawTexture = function(p_texture,p_x,p_y,p_width,p_heigh
 	mat.SetFloat4("Tint",c.r,c.g,c.b,c.a);
 	haxor_graphics_Graphics.Render(haxor_context_EngineContext.gizmo.texture,mat);
 };
+haxor_graphics_Graphics.ReadPixels = function(p_x,p_y,p_width,p_height,p_buffer) {
+	haxor_graphics_GL.m_gl.ReadPixels(p_x,p_y,p_width,p_height,6408,5121,p_buffer);
+};
 var haxor_graphics_Screen = function() { };
 $hxClasses["haxor.graphics.Screen"] = haxor_graphics_Screen;
 haxor_graphics_Screen.__name__ = ["haxor","graphics","Screen"];
@@ -11153,6 +11647,7 @@ haxor_graphics_material_Material.prototype = $extend(haxor_core_Resource.prototy
 			return;
 		}
 		var u = this.FetchUniform(p_name,false,1,1,true);
+		if(u.texture != null) u.texture.__slot = -1;
 		if(u.exists) u.SetTexture(p_texture);
 	}
 	,SetMatrix4: function(p_name,p_matrix4,p_transpose) {
@@ -11272,6 +11767,7 @@ haxor_graphics_material_Material.prototype = $extend(haxor_core_Resource.prototy
 			if(u.name == p_name) break;
 		}
 		if(u != null) {
+			if(u.texture != null) u.texture.__slot = -1;
 			haxor_context_EngineContext.material.DestroyUniform(this,u);
 			HxOverrides.remove(this.m_uniforms,u);
 		}
@@ -11564,6 +12060,7 @@ haxor_graphics_material_MaterialUniform.prototype = {
 	}
 	,SetTexture: function(p_texture) {
 		if(!this.exists) return;
+		if(p_texture == this.texture) return;
 		this.__d = true;
 		var b = this.data;
 		b.Set(0,p_texture.__slot);
@@ -11652,7 +12149,7 @@ var haxor_graphics_material_Shader = function(p_source) {
 };
 $hxClasses["haxor.graphics.material.Shader"] = haxor_graphics_material_Shader;
 haxor_graphics_material_Shader.__name__ = ["haxor","graphics","material","Shader"];
-haxor_graphics_material_Shader.__properties__ = {get_FlatTextureSkin:"get_FlatTextureSkin",get_FlatTexture:"get_FlatTexture",get_Flat:"get_Flat"}
+haxor_graphics_material_Shader.__properties__ = {get_FlatParticle:"get_FlatParticle",get_FlatTextureSkin:"get_FlatTextureSkin",get_FlatTexture:"get_FlatTexture",get_Flat:"get_Flat"}
 haxor_graphics_material_Shader.get_Flat = function() {
 	if(haxor_graphics_material_Shader.m_flat_shader == null) return haxor_graphics_material_Shader.m_flat_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_source); else return haxor_graphics_material_Shader.m_flat_shader;
 };
@@ -11661,6 +12158,9 @@ haxor_graphics_material_Shader.get_FlatTexture = function() {
 };
 haxor_graphics_material_Shader.get_FlatTextureSkin = function() {
 	if(haxor_graphics_material_Shader.m_flat_texture_skin_shader == null) return haxor_graphics_material_Shader.m_flat_texture_skin_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_texture_skin_source); else return haxor_graphics_material_Shader.m_flat_texture_skin_shader;
+};
+haxor_graphics_material_Shader.get_FlatParticle = function() {
+	if(haxor_graphics_material_Shader.m_flat_particle_shader == null) return haxor_graphics_material_Shader.m_flat_particle_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_particle_source); else return haxor_graphics_material_Shader.m_flat_particle_shader;
 };
 haxor_graphics_material_Shader.__super__ = haxor_core_Resource;
 haxor_graphics_material_Shader.prototype = $extend(haxor_core_Resource.prototype,{
@@ -12172,6 +12672,7 @@ var haxor_graphics_texture_Bitmap = function(p_width,p_height,p_format) {
 	this.m_height = p_height;
 	this.m_format = p_format;
 	this.m_float = false;
+	this.m_half = false;
 	this.m_channels = 1;
 	switch(p_format[1]) {
 	case 1:
@@ -12196,7 +12697,7 @@ var haxor_graphics_texture_Bitmap = function(p_width,p_height,p_format) {
 		break;
 	case 4:
 		this.m_channels = 1;
-		this.m_float = true;
+		this.m_half = this.m_float = true;
 		break;
 	case 8:
 		this.m_channels = 3;
@@ -12204,7 +12705,7 @@ var haxor_graphics_texture_Bitmap = function(p_width,p_height,p_format) {
 		break;
 	case 5:
 		this.m_channels = 3;
-		this.m_float = true;
+		this.m_half = this.m_float = true;
 		break;
 	case 9:
 		this.m_channels = 4;
@@ -12212,7 +12713,7 @@ var haxor_graphics_texture_Bitmap = function(p_width,p_height,p_format) {
 		break;
 	case 6:
 		this.m_channels = 4;
-		this.m_float = true;
+		this.m_half = this.m_float = true;
 		break;
 	}
 	var len = this.m_width * this.m_height * this.m_channels;
@@ -12227,6 +12728,9 @@ haxor_graphics_texture_Bitmap.prototype = $extend(haxor_core_Resource.prototype,
 	}
 	,get_float: function() {
 		return this.m_float;
+	}
+	,get_half: function() {
+		return this.m_half;
 	}
 	,get_width: function() {
 		return this.m_width;
@@ -12311,6 +12815,30 @@ haxor_graphics_texture_Bitmap.prototype = $extend(haxor_core_Resource.prototype,
 		if(cc >= 3) b1.SetByte(pos + 2,p_color.b * 255.0);
 		if(cc >= 4) b1.SetByte(pos + 3,p_color.a * 255.0);
 	}
+	,SetPixels: function(p_colors,p_x,p_y,p_width,p_height) {
+		if(p_height == null) p_height = -1;
+		if(p_width == null) p_width = -1;
+		if(p_y == null) p_y = 0;
+		if(p_x == null) p_x = 0;
+		var rw;
+		if(p_width < 0) rw = this.m_width; else rw = p_width;
+		var rh;
+		if(p_height < 0) rh = this.m_height; else rh = p_height;
+		var k = 0;
+		var _g1 = p_x;
+		var _g = p_x + rw;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var _g3 = p_y;
+			var _g2 = p_y + rh;
+			while(_g3 < _g2) {
+				var j = _g3++;
+				this.SetPixel(i,j,p_colors[k++]);
+				if(k >= p_colors.length) break;
+			}
+			if(k >= p_colors.length) break;
+		}
+	}
 	,Fill: function(p_color) {
 		var _g1 = 0;
 		var _g = this.m_width;
@@ -12346,12 +12874,14 @@ haxor_graphics_texture_Bitmap.prototype = $extend(haxor_core_Resource.prototype,
 		if(cc >= 3) b1.SetByte(pos + 2,p_v2 * 255.0);
 		if(cc >= 4) b1.SetByte(pos + 3,p_v3 * 255.0);
 	}
-	,SetRange: function(p_x,p_y,p_width,p_height,p_values,p_length) {
-		if(p_length == null) p_length = -1;
+	,SetRange: function(p_values,p_x,p_y,p_width,p_height) {
+		if(p_height == null) p_height = -1;
+		if(p_width == null) p_width = -1;
+		if(p_y == null) p_y = 0;
+		if(p_x == null) p_x = 0;
 		p_y = this.m_height - 1 - p_y;
 		var cc = this.m_channels;
-		var len;
-		if(p_length < 0) len = p_values.length; else len = p_length;
+		var len = p_values.length;
 		var k = 0;
 		var px = p_x;
 		var py = p_y;
@@ -12359,14 +12889,19 @@ haxor_graphics_texture_Bitmap.prototype = $extend(haxor_core_Resource.prototype,
 		var v1 = 0.0;
 		var v2 = 0.0;
 		var v3 = 0.0;
+		var rw;
+		if(p_width < 0) rw = this.m_width; else rw = p_width;
+		var rh;
+		if(p_height < 0) rh = this.m_height; else rh = p_height;
 		var _g = 0;
 		while(_g < len) {
 			var i = _g++;
 			var pos = (px + py * this.m_width) * cc;
 			px++;
-			if(px >= p_width) {
+			if(px >= p_x + rw) {
 				px = p_x;
 				py++;
+				if(py >= p_y + rh) break;
 			}
 			v0 = p_values[k++];
 			if(cc >= 2) v1 = p_values[k++];
@@ -12388,7 +12923,7 @@ haxor_graphics_texture_Bitmap.prototype = $extend(haxor_core_Resource.prototype,
 		}
 	}
 	,__class__: haxor_graphics_texture_Bitmap
-	,__properties__: $extend(haxor_core_Resource.prototype.__properties__,{get_format:"get_format",get_channels:"get_channels",get_height:"get_height",get_width:"get_width",get_float:"get_float",get_buffer:"get_buffer"})
+	,__properties__: $extend(haxor_core_Resource.prototype.__properties__,{get_format:"get_format",get_channels:"get_channels",get_height:"get_height",get_width:"get_width",get_half:"get_half",get_float:"get_float",get_buffer:"get_buffer"})
 });
 var haxor_graphics_texture_Texture = function() {
 	haxor_core_Resource.call(this);
@@ -12484,7 +13019,21 @@ var haxor_graphics_texture_Texture2D = function(p_width,p_height,p_format) {
 };
 $hxClasses["haxor.graphics.texture.Texture2D"] = haxor_graphics_texture_Texture2D;
 haxor_graphics_texture_Texture2D.__name__ = ["haxor","graphics","texture","Texture2D"];
-haxor_graphics_texture_Texture2D.__properties__ = {get_random:"get_random",get_green:"get_green",get_red:"get_red",get_black:"get_black",get_white:"get_white"}
+haxor_graphics_texture_Texture2D.__properties__ = {get_green:"get_green",get_red:"get_red",get_black:"get_black",get_white:"get_white",get_random:"get_random"}
+haxor_graphics_texture_Texture2D.get_random = function() {
+	if(haxor_graphics_texture_Texture2D.m_random != null) return haxor_graphics_texture_Texture2D.m_random;
+	haxor_graphics_texture_Texture2D.m_random = new haxor_graphics_texture_Texture2D(128,128,haxor_core_PixelFormat.Float4);
+	haxor_graphics_texture_Texture2D.m_random.set_name("Random");
+	var f32 = haxor_graphics_texture_Texture2D.m_random.m_data.get_buffer();
+	var _g1 = 0;
+	var _g = f32.m_length;
+	while(_g1 < _g) {
+		var i = _g1++;
+		f32.Set(i,Math.random());
+	}
+	haxor_graphics_texture_Texture2D.m_random.Upload(10);
+	return haxor_graphics_texture_Texture2D.m_random;
+};
 haxor_graphics_texture_Texture2D.get_white = function() {
 	if(haxor_graphics_texture_Texture2D.m_white != null) return haxor_graphics_texture_Texture2D.m_white;
 	haxor_graphics_texture_Texture2D.m_white = new haxor_graphics_texture_Texture2D(1,1,haxor_core_PixelFormat.RGB8);
@@ -12516,24 +13065,6 @@ haxor_graphics_texture_Texture2D.get_green = function() {
 	haxor_graphics_texture_Texture2D.m_green.m_data.Fill(new haxor_math_Color(0,1,0,1));
 	haxor_graphics_texture_Texture2D.m_green.Apply();
 	return haxor_graphics_texture_Texture2D.m_green;
-};
-haxor_graphics_texture_Texture2D.get_random = function() {
-	if(haxor_graphics_texture_Texture2D.m_random != null) return haxor_graphics_texture_Texture2D.m_random;
-	haxor_graphics_texture_Texture2D.m_random = new haxor_graphics_texture_Texture2D(512,512,haxor_core_PixelFormat.Float4);
-	haxor_graphics_texture_Texture2D.m_random.set_wrap(haxor_core_TextureWrap.RepeatX | haxor_core_TextureWrap.RepeatY);
-	var _g1 = 0;
-	var _g = haxor_graphics_texture_Texture2D.m_random.m_width;
-	while(_g1 < _g) {
-		var i = _g1++;
-		var _g3 = 0;
-		var _g2 = haxor_graphics_texture_Texture2D.m_random.m_height;
-		while(_g3 < _g2) {
-			var j = _g3++;
-			haxor_graphics_texture_Texture2D.m_random.m_data.Set(j,i,Math.random(),Math.random(),Math.random(),Math.random());
-		}
-	}
-	haxor_graphics_texture_Texture2D.m_random.Upload(10);
-	return haxor_graphics_texture_Texture2D.m_random;
 };
 haxor_graphics_texture_Texture2D.FromBitmap = function(p_bitmap,p_apply) {
 	if(p_apply == null) p_apply = true;
@@ -12592,7 +13123,7 @@ haxor_graphics_texture_ComputeTexture.prototype = $extend(haxor_graphics_texture
 		if(p_width < 0) w = this.m_width; else w = p_width;
 		var h;
 		if(p_height < 0) h = this.m_height; else h = p_height;
-		this.m_data.SetRange(p_x,p_y,w,h,p_values);
+		this.m_data.SetRange(p_values,p_x,p_y,w,h);
 		this.Invalidate();
 		this.m_dirty = true;
 	}
@@ -13118,10 +13649,20 @@ var haxor_input_Touch = function() {
 $hxClasses["haxor.input.Touch"] = haxor_input_Touch;
 haxor_input_Touch.__name__ = ["haxor","input","Touch"];
 haxor_input_Touch.prototype = {
-	ToString: function() {
+	get_down: function() {
+		return this.state == haxor_core_InputState.Down;
+	}
+	,get_pressed: function() {
+		return this.get_down() || this.state == haxor_core_InputState.Hold;
+	}
+	,get_hit: function() {
+		return this.state == haxor_core_InputState.Up;
+	}
+	,ToString: function() {
 		return "id[" + this.id + "] pos" + this.position.ToString(2) + "[" + Std.string(this.state) + "]";
 	}
 	,__class__: haxor_input_Touch
+	,__properties__: {get_hit:"get_hit",get_pressed:"get_pressed",get_down:"get_down"}
 };
 var haxor_io_Buffer = function(p_length) {
 	this.Resize(p_length);
@@ -16772,8 +17313,6 @@ haxor_platform_html_Entry.OnWindowLoad = function(p_event) {
 };
 haxor_platform_html_Entry.Run = function() {
 	haxor_platform_html_Entry.CancelInterval();
-	if(haxor_platform_html_Entry.m_has_pc) haxor_platform_html_Entry.m_itv_offset_clock = window.performance.now(); else haxor_platform_html_Entry.m_itv_offset_clock = haxe_Timer.stamp() * 1000;
-	haxor_platform_html_Entry.m_interval_id = window.setInterval(haxor_platform_html_Entry.IntervalLoop,16);
 	if(haxor_platform_html_Entry.m_raf_enabled) {
 		haxor_platform_html_Entry.CancelRAF();
 		if(haxor_platform_html_Entry.m_has_pc) haxor_platform_html_Entry.m_raf_offset_clock = window.performance.now(); else haxor_platform_html_Entry.m_raf_offset_clock = 0.0;
@@ -16901,6 +17440,9 @@ haxor_platform_html_graphics_WebGL.prototype = $extend(haxor_graphics_GraphicCon
 				break;
 			case "OES_texture_float":
 				haxor_graphics_GL.TEXTURE_FLOAT = true;
+				break;
+			case "OES_texture_float_linear":
+				haxor_graphics_GL.TEXTURE_FLOAT_LINEAR = true;
 				break;
 			case "OES_depth_texture":
 				haxor_graphics_GL.TEXTURE_DEPTH_ENABLED = true;
@@ -17343,6 +17885,268 @@ haxor_platform_html_input_HTMLInputHandler.prototype = $extend(haxor_input_Input
 	}
 	,__class__: haxor_platform_html_input_HTMLInputHandler
 });
+var haxor_thread_Kernel = function(p_width,p_height,p_readable,p_format) {
+	if(p_readable == null) p_readable = true;
+	haxor_graphics_material_Material.call(this);
+	this.enabled = true;
+	this.m_plane = new haxor_graphics_mesh_Mesh3();
+	this.m_plane.set_vertex([new haxor_math_Vector3(-1,1,1),new haxor_math_Vector3(-1,-1,1),new haxor_math_Vector3(1,-1,1),new haxor_math_Vector3(-1,1,1),new haxor_math_Vector3(1,-1,1),new haxor_math_Vector3(1,1,1)]);
+	this.m_output = new haxor_graphics_texture_RenderTexture(p_width,p_height,p_format == null?haxor_core_PixelFormat.RGBA8:p_format);
+	this.m_output.set_minFilter(this.m_output.set_magFilter(haxor_core_TextureFilter.Nearest));
+	this.m_output.set_name("Kernel" + this.get_uid() + "Output");
+	var len = p_width * p_height;
+	switch(p_format[1]) {
+	case 0:
+		this.m_result = new haxor_io_Buffer(len);
+		break;
+	case 2:
+		this.m_result = new haxor_io_Buffer(len * 3);
+		break;
+	case 3:
+		this.m_result = new haxor_io_Buffer(len * 4);
+		break;
+	case 7:
+		this.m_result = new haxor_io_FloatArray(len);
+		break;
+	case 8:
+		this.m_result = new haxor_io_FloatArray(len * 3);
+		break;
+	case 9:
+		this.m_result = new haxor_io_FloatArray(len * 4);
+		break;
+	case 1:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	case 10:
+		break;
+	}
+	this.SetFloat("width",p_width);
+	this.SetFloat("height",p_height);
+	haxor_context_EngineContext.kernel.OnCreate(this);
+};
+$hxClasses["haxor.thread.Kernel"] = haxor_thread_Kernel;
+haxor_thread_Kernel.__name__ = ["haxor","thread","Kernel"];
+haxor_thread_Kernel.__super__ = haxor_graphics_material_Material;
+haxor_thread_Kernel.prototype = $extend(haxor_graphics_material_Material.prototype,{
+	get_result: function() {
+		return this.m_result;
+	}
+	,get_output: function() {
+		return this.m_output;
+	}
+	,Resize: function(p_width,p_height) {
+		if(p_height == null) p_height = -1;
+		if(p_width == null) p_width = -1;
+		var ow = this.m_output.m_width;
+		var oh = this.m_output.m_height;
+		var w;
+		if(p_width < 0) w = ow; else w = p_width;
+		var h;
+		if(p_height < 0) h = oh; else h = p_height;
+		w = -1 + 2 * (w / ow);
+		h = -1 + 2 * (h / oh);
+		this.m_plane.set_vertex([new haxor_math_Vector3(-1,h,1),new haxor_math_Vector3(-1,-1,1),new haxor_math_Vector3(w,-1,1),new haxor_math_Vector3(-1,h,1),new haxor_math_Vector3(w,-1,1),new haxor_math_Vector3(w,h,1)]);
+	}
+	,Execute: function() {
+		if(!this.enabled) return;
+		if(this.m_shader == null) return;
+		haxor_context_EngineContext.texture.BindTarget(this.m_output);
+		haxor_graphics_Graphics.Viewport(haxor_context_EngineContext.data.get_aabb2().SetXYWH(0,0,this.m_output.m_width,this.m_output.m_height));
+		haxor_graphics_Graphics.Render(this.m_plane,this,null,null);
+		haxor_context_EngineContext.texture.BindTarget(null);
+	}
+	,Update: function(p_x,p_y,p_width,p_height) {
+		if(p_height == null) p_height = -1;
+		if(p_width == null) p_width = -1;
+		if(p_y == null) p_y = 0;
+		if(p_x == null) p_x = 0;
+		if(!this.enabled) return;
+		if(this.m_shader == null) return;
+		if(this.m_result == null) return;
+		var w;
+		if(p_width <= 0) w = this.m_output.m_width; else w = p_width;
+		var h;
+		if(p_height <= 0) h = this.m_output.m_height; else h = p_height;
+		haxor_context_EngineContext.texture.BindTarget(this.m_output);
+		haxor_graphics_Graphics.ReadPixels(p_x,p_y,w,h,this.m_result.m_buffer);
+		haxor_context_EngineContext.texture.BindTarget(null);
+	}
+	,OnDestroy: function() {
+		haxor_graphics_material_Material.prototype.OnDestroy.call(this);
+		haxor_core_Resource.Destroy(this.m_output);
+		haxor_core_Resource.Destroy(this.m_plane);
+		haxor_context_EngineContext.kernel.OnDestroy(this);
+	}
+	,__class__: haxor_thread_Kernel
+	,__properties__: $extend(haxor_graphics_material_Material.prototype.__properties__,{get_output:"get_output",get_result:"get_result"})
+});
+var haxor_thread_ParticleKernel = function(p_renderer) {
+	haxor_thread_Kernel.call(this,haxor_thread_ParticleKernel.DATA_SIZE,haxor_thread_ParticleKernel.DATA_SIZE,false,haxor_core_PixelFormat.Float4);
+	this.set_name("ParticleKernel" + p_renderer.get_uid());
+	if(haxor_thread_ParticleKernel.particle_kernel_shader == null) haxor_thread_ParticleKernel.particle_kernel_shader = new haxor_graphics_material_Shader(haxor_thread_ParticleKernel.particle_kernel_source);
+	this.m_back = new haxor_graphics_texture_RenderTexture(haxor_thread_ParticleKernel.DATA_SIZE,haxor_thread_ParticleKernel.DATA_SIZE,haxor_core_PixelFormat.Float4);
+	this.m_back.set_minFilter(haxor_core_TextureFilter.Nearest);
+	this.m_back.set_magFilter(haxor_core_TextureFilter.Nearest);
+	this.m_back.set_name("ParticleKernelData0");
+	this.m_output.set_name("ParticleKernelData1");
+	this.m_renderer = p_renderer;
+	this.m_time = haxor_core_Time.m_elapsed;
+	this.m_dt = 0.0;
+	this.m_resize = false;
+	this.set_shader(haxor_thread_ParticleKernel.particle_kernel_shader);
+	this.m_system = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+	this.SetTexture("Data",this.m_back);
+	this.SetFloat4Array("System",this.m_system);
+};
+$hxClasses["haxor.thread.ParticleKernel"] = haxor_thread_ParticleKernel;
+haxor_thread_ParticleKernel.__name__ = ["haxor","thread","ParticleKernel"];
+haxor_thread_ParticleKernel.__super__ = haxor_thread_Kernel;
+haxor_thread_ParticleKernel.prototype = $extend(haxor_thread_Kernel.prototype,{
+	Execute: function() {
+		if(this.m_resize) this.m_resize = false;
+		var s = this.m_system;
+		var r = this.m_renderer;
+		var af;
+		var af3;
+		var k = 0;
+		s[k++] = r.emitter.m_data[0];
+		s[k++] = r.emitter.m_data[3];
+		s[k++] = r.emitter.m_data[4];
+		s[k++] = r.emitter.m_data[5];
+		s[k++] = r.emitter.m_data[1];
+		s[k++] = r.emitter.m_data[2];
+		if(r.local) s[k++] = 1.0; else s[k++] = 0.0;
+		if(r.loop) s[k++] = 1.0; else s[k++] = 0.0;
+		if(r.m_state == haxor_component_ParticleSystemState.None) s[k++] = 0.0; else if(r.m_state == haxor_component_ParticleSystemState.Reset) s[k++] = 1.0; else if(r.m_state == haxor_component_ParticleSystemState.Update) s[k++] = 2.0; else s[k++] = 0.0;
+		s[k++] = haxor_math_Mathf.Clamp01(r.duration <= 0.0?0.0:r.elapsed / r.duration);
+		s[k++] = 0.0;
+		s[k++] = haxor_core_Time.m_delta;
+		af = r.start.speed;
+		s[k++] = af.start;
+		s[k++] = af.end;
+		s[k++] = af.curve;
+		if(af.random) s[k++] = 1.0; else s[k++] = 0.0;
+		af3 = r.start.size;
+		s[k++] = af3.start.x;
+		s[k++] = af3.start.y;
+		s[k++] = af3.start.z;
+		s[k++] = af3.curve;
+		s[k++] = af3.end.x;
+		s[k++] = af3.end.y;
+		s[k++] = af3.end.z;
+		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
+		af = r.start.life;
+		s[k++] = af.start;
+		s[k++] = af.end;
+		s[k++] = af.curve;
+		if(af.random) s[k++] = 1.0; else s[k++] = 0.0;
+		af3 = r.start.rotation;
+		s[k++] = af3.start.x;
+		s[k++] = af3.start.y;
+		s[k++] = af3.start.z;
+		s[k++] = af3.curve;
+		s[k++] = af3.end.x;
+		s[k++] = af3.end.y;
+		s[k++] = af3.end.z;
+		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
+		af = r.life.speed;
+		s[k++] = af.start;
+		s[k++] = af.end;
+		s[k++] = af.curve;
+		if(af.random) s[k++] = 1.0; else s[k++] = 0.0;
+		af3 = r.life.motion;
+		s[k++] = af3.start.x;
+		s[k++] = af3.start.y;
+		s[k++] = af3.start.z;
+		s[k++] = af3.curve;
+		s[k++] = af3.end.x;
+		s[k++] = af3.end.y;
+		s[k++] = af3.end.z;
+		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
+		af3 = r.life.size;
+		s[k++] = af3.start.x;
+		s[k++] = af3.start.y;
+		s[k++] = af3.start.z;
+		s[k++] = af3.curve;
+		s[k++] = af3.end.x;
+		s[k++] = af3.end.y;
+		s[k++] = af3.end.z;
+		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
+		af3 = r.life.rotation;
+		s[k++] = af3.start.x;
+		s[k++] = af3.start.y;
+		s[k++] = af3.start.z;
+		s[k++] = af3.curve;
+		s[k++] = af3.end.x;
+		s[k++] = af3.end.y;
+		s[k++] = af3.end.z;
+		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
+		s[k++] = r.force.x;
+		s[k++] = r.force.y;
+		s[k++] = r.force.z;
+		s[k++] = 0.0;
+		var wm = this.m_renderer.m_entity.m_transform.get_WorldMatrix();
+		s[k++] = wm.m00;
+		s[k++] = wm.m01;
+		s[k++] = wm.m02;
+		s[k++] = wm.m03;
+		s[k++] = wm.m10;
+		s[k++] = wm.m11;
+		s[k++] = wm.m12;
+		s[k++] = wm.m13;
+		s[k++] = wm.m20;
+		s[k++] = wm.m21;
+		s[k++] = wm.m22;
+		s[k++] = wm.m23;
+		af = r.sheet.frame;
+		s[k++] = af.start;
+		s[k++] = af.end;
+		s[k++] = af.curve;
+		if(af.random) s[k++] = 1.0; else s[k++] = 0.0;
+		s[k++] = r.sheet.width;
+		s[k++] = r.sheet.height;
+		if(r.sheet.reverse) s[k++] = -this.m_renderer.sheet.fps; else s[k++] = this.m_renderer.sheet.fps;
+		if(r.sheet.wrap == haxor_core_AnimationWrap.Clamp) s[k++] = 0.0; else if(this.m_renderer.sheet.wrap == haxor_core_AnimationWrap.Loop) s[k++] = 1.0; else s[k++] = 2.0;
+		s[k++] = r.sheet.length;
+		s[k++] = r.emitter.ranges[0];
+		s[k++] = r.emitter.ranges[1];
+		s[k++] = 0.0;
+		s[k++] = r.emitter.ranges[2];
+		s[k++] = r.emitter.ranges[3];
+		s[k++] = r.emitter.ranges[4];
+		s[k++] = r.emitter.ranges[5];
+		s[k++] = r.m_emitted_start;
+		s[k++] = r.m_emitted_count;
+		s[k++] = 0.0;
+		s[k++] = 0.0;
+		this.SetFloat4Array("System",this.m_system);
+		this.SetTexture("StartColor",r.start.color == null?haxor_graphics_texture_Texture2D.get_white():r.start.color);
+		this.SetTexture("Color",r.life.color == null?haxor_graphics_texture_Texture2D.get_white():r.life.color);
+		if(r.m_material != null) {
+			r.m_material.SetFloat4Array("System",this.m_system);
+			r.m_material.SetTexture("Data",this.m_back);
+			r.m_material.SetFloat("DataWidth",this.m_back.m_width);
+			r.m_material.SetFloat("DataHeight",this.m_back.m_height);
+			var tex;
+			if(r.m_material.HasUniform("Texture")) tex = r.m_material.GetUniform("Texture").texture; else tex = null;
+			if(tex != null) {
+				r.m_material.SetFloat("TextureWidth",tex.m_width);
+				r.m_material.SetFloat("TextureHeight",tex.m_height);
+			}
+		}
+		haxor_thread_Kernel.prototype.Execute.call(this);
+		var tmp = this.m_back;
+		this.m_back = this.m_output;
+		this.m_output = tmp;
+		this.SetTexture("Data",this.m_back);
+	}
+	,__class__: haxor_thread_ParticleKernel
+});
 var js_Boot = function() { };
 $hxClasses["js.Boot"] = js_Boot;
 js_Boot.__name__ = ["js","Boot"];
@@ -17557,6 +18361,7 @@ haxor_context_ShaderContext.flat_texture_skin_source = "\r\n\t<shader id=\"haxor
 haxor_context_ShaderContext.grid_source = "\r\n\t<shader id=\"haxor/gizmo/Grid\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tuniform float Area;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\tgl_Position = ((vec4(vertex*Area, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\tv_color = color * Tint;\t\t\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_context_ShaderContext.texture_source = "\r\n\t<shader id=\"haxor/gizmo/Texture\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform vec2  Screen;\r\n\t\tuniform vec4  Rect;\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec2 v_uv0;\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tvec4 p = vec4(vertex, 1);\r\n\t\t\tfloat sw = Screen.x * 0.5;\r\n\t\t\tfloat sh = Screen.y * 0.5;\r\n\t\t\tp.x *= Rect.z / sw;\r\n\t\t\tp.y *= Rect.w / sh;\r\n\t\t\tp.x += Rect.x / sw;\r\n\t\t\tp.y -= Rect.y / sh;\t\t\t\r\n\t\t\tp.x -= 1.0;\r\n\t\t\tp.y += 1.0;\t\t\t\r\n\t\t\tp.z = 0.001;\r\n\t\t\tgl_Position = p;\r\n\t\t\tv_color = Tint;\t\t\r\n\t\t\tv_uv0   = vec2(vertex.x,1.0+vertex.y);\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\r\n\t\t\tvarying vec2 v_uv0;\r\n\t\t\tuniform sampler2D Texture;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = texture2D(Texture, v_uv0) * v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_context_ShaderContext.gizmo_source = "\r\n\t<shader id=\"haxor/gizmo/Gizmo\">\t\r\n\t\t<vertex>\t\r\n\t\t\r\n\t\t#define GIZMO_POINT       0\r\n\t\t#define GIZMO_LINE        1\r\n\t\t#define GIZMO_AXIS        2\r\n\t\t#define GIZMO_WIRE_CUBE   3\r\n\t\t#define GIZMO_WIRE_SPHERE 4\r\n\t\t#define GIZMO_CANVAS\t  10\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\t\tmat4         WorldMatrix;\r\n\t\tuniform mat4  \t\t ViewMatrix;\r\n\t\tuniform mat4  \t\t ProjectionMatrix;\t\t\t\t\r\n\t\tuniform int   \t\t Count;\r\n\t\tuniform int   \t\t Type;\t\t\r\n\t\tuniform sampler2D \t Data;\r\n\t\tuniform int  \t\t DataSize;\t\t\r\n\t\t\t    vec4\t\t DataColor;\r\n\t\t\t\tvec4\t\t DataA;\r\n\t\t\t\tvec4\t\t DataB;\r\n\t\t\r\n\t\tattribute float id;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\r\n\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\t\r\n\t\tvec4 GetPixel(float p_pix,float p_ds,float p_ids)\r\n\t\t{\t\t\t\r\n\t\t\tfloat px = mod(p_pix, p_ds) * p_ids;\r\n\t\t\tfloat py = (p_pix * p_ids) * p_ids;\r\n\t\t\treturn texture2D(Data, vec2(px,py));\r\n\t\t}\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\t\t\r\n\t\t\tif (id >= float(Count)) \r\n\t\t\t{\r\n\t\t\t\tgl_Position = vec4( -2.0, 0.0, 0.0, 0.0);\r\n\t\t\t\treturn; \r\n\t\t\t}\t\t\t\r\n\t\t\tfloat p  \t= id * 6.0;\r\n\t\t\tfloat ds\t= float(DataSize);\r\n\t\t\tfloat ids\t= 1.0 / ds;\t\t\t\r\n\t\t\tDataColor \t= GetPixel(p,ds,ids);\r\n\t\t\tDataA \t\t= GetPixel(p + 1.0,ds,ids);\r\n\t\t\tDataB \t\t= GetPixel(p + 2.0,ds,ids);\t\t\t\r\n\t\t\tvec4 l0 \t= GetPixel(p + 3.0,ds,ids);\r\n\t\t\tvec4 l1 \t= GetPixel(p + 4.0,ds,ids);\r\n\t\t\tvec4 l2 \t= GetPixel(p + 5.0,ds,ids);\t\r\n\t\t\tvec4 v\t\t= vec4(vertex, 1.0);\r\n\t\t\tWorldMatrix = mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);\r\n\t\t\t\r\n\t\t\tif (Type == GIZMO_POINT)\r\n\t\t\t{\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tfloat pf = (ncp.z / ncp.w);\r\n\t\t\t\tgl_PointSize = pf <= 0.0 ? DataA.x : (DataA.x * pf);\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_LINE)\r\n\t\t\t{\r\n\t\t\t\tfloat r = v.x;\r\n\t\t\t\tv.xyz = DataA.xyz + (DataB.xyz - DataA.xyz) * r;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_AXIS)\r\n\t\t\t{\t\t\r\n\t\t\t\tfloat sx   = length(vec3(WorldMatrix[0][0],WorldMatrix[1][0],WorldMatrix[2][0]));\r\n\t\t\t\tfloat sy   = length(vec3(WorldMatrix[0][1],WorldMatrix[1][1],WorldMatrix[2][1]));\r\n\t\t\t\tfloat sz   = length(vec3(WorldMatrix[0][2],WorldMatrix[1][2],WorldMatrix[2][2]));\t\t\t\t\r\n\t\t\t\tvec3 scale = vec3(sx, sy, sz);\t\t\t\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz *= (DataA.xyz / scale.xyz) * ncp.w * 0.025;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position  = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_CUBE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.xyz;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_SPHERE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.x;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_CANVAS)\r\n\t\t\t{\t\t\t\t\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t\t\t\t\t\r\n\t\t\tv_color = DataColor * color;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) { gl_FragColor = v_color; }\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
+haxor_context_ShaderContext.flat_particle_source = "\r\n\t<shader id=\"haxor/unlit/Particle\">\t\r\n\r\n\t\t<vertex precision=\"low\">\r\n\t\t\r\n\t\t#define IsLocal\t\t\t\t (System[1].z > 0.0)\r\n\t\t#define SheetFrameWidth\t \t System[21].x\r\n\t\t#define SheetFrameHeight \t System[21].y\r\n\t\t#define SheetLength\t\t \t System[22].x\r\n\t\t#define SystemEmissionStart\t System[24].x\r\n\t\t#define SystemEmissionCount\t System[24].y\r\n\t\t\r\n\t\t#define PARTICLE_LENGTH\t\t 7.0\r\n\t\t\r\n\t\t#define PARTICLE_STATUS\t\t 0.0\r\n\t\t#define PARTICLE_POSITION\t 1.0\r\n\t\t#define PARTICLE_ROTATION\t 2.0\r\n\t\t#define PARTICLE_SIZE\t\t 3.0\r\n\t\t#define PARTICLE_VELOCITY\t 4.0\r\n\t\t#define PARTICLE_COLOR\t\t 5.0\r\n\t\t#define PARTICLE_START\t\t 6.0\r\n\t\t\r\n\t\t#define PARTICLE_DISABLED\t 0\r\n\t\t#define PARTICLE_INIT\t\t 1\r\n\t\t#define PARTICLE_ENABLED\t 2\r\n\t\t#define PARTICLE_DEAD\t\t 3\r\n\t\t\r\n\t\tattribute vec3 vertex;\r\n\t\t\t\t\r\n\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ViewMatrixInverse;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\t\r\n\t\tuniform float Time;\r\n\t\t\r\n\t\tuniform sampler2D Data;\r\n\t\t\r\n\t\tuniform float DataWidth;\r\n\t\tuniform float DataHeight;\r\n\t\t\r\n\t\t\r\n\t\tuniform float TextureWidth;\r\n\t\tuniform float TextureHeight;\r\n\t\t\r\n\t\tuniform vec4  System[25];\r\n\t\t\t\t\r\n\t\t\r\n\t\tvarying vec2 v_uv0;\r\n\t\tvarying vec4 v_color;\r\n\t\t\r\n\t\t\r\n\t\tuniform float RandomSeed;\t\t\r\n\t\tuniform sampler2D RandomTexture;\r\n\t\t\r\n\t\tvec4 Random()\r\n\t\t\t{\r\n\t\t\t\tfloat tw   = 0.001953125;\r\n\t\t\t\tfloat seed = RandomSeed * 262144.0;\r\n\t\t\t\tfloat idx  = mod(seed,512.0) * tw;\r\n\t\t\t\tfloat idy  = floor(seed * tw)  * tw;\r\n\t\t\t\tseed      += tw;\r\n\t\t\t\treturn texture2D(RandomTexture, vec2(idx,idy));\r\n\t\t\t}\r\n\t\t//*/\r\n\t\tvec4 ParticleData(float p_id,float p_field)\r\n\t\t{\r\n\t\t\tfloat w   = floor(DataWidth);\r\n\t\t\tfloat h   = floor(DataHeight);\r\n\t\t\tfloat pid = mod(floor(SystemEmissionStart)+p_id,floor(w*h)/PARTICLE_LENGTH);\r\n\t\t\tfloat pix = floor(pid) * PARTICLE_LENGTH;\t\t\t\r\n\t\t\tfloat px  = mod(pix+p_field,w) / (w-1.0);\r\n\t\t\tfloat py  = floor((pix+p_field)/w) / (h-1.0);\r\n\t\t\treturn texture2D(Data,vec2(px,py));\r\n\t\t}\r\n\t\t\r\n\t\tvec4 ParticleStatus()   { return ParticleData(vertex.z,PARTICLE_STATUS); \t}\r\n\t\tvec4 ParticlePosition() { return ParticleData(vertex.z,PARTICLE_POSITION); \t}\r\n\t\tvec4 ParticleRotation() { return ParticleData(vertex.z,PARTICLE_ROTATION); \t}\r\n\t\tvec4 ParticleSize() \t{ return ParticleData(vertex.z,PARTICLE_SIZE); \t\t}\r\n\t\tvec4 ParticleColor() \t{ return ParticleData(vertex.z,PARTICLE_COLOR); \t\t}\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\t\r\n\t\t\tvec4  status   = ParticleStatus();\r\n\t\t\t\r\n\t\t\tfloat enabled  = int(status.x) == PARTICLE_DEAD ? 0.0 : 1.0;\r\n\t\t\t\r\n\t\t\tvec4  v   = vec4(vertex.xy,0.0,1.0);\r\n\t\t\tv.xyz\t *= enabled;\r\n\t\t\t\r\n\t\t\tif(enabled <= 0.0) { gl_Position = vec4(0,0,0,-1.0); return; }\r\n\t\t\t\r\n\t\t\tvec3 size\t   = ParticleSize().xyz;\t\t\t\r\n\t\t\tvec3 center    = vec3(0,0,0);\r\n\t\t\tvec3 position  = ParticlePosition().xyz;\r\n\t\t\t\t\t\t\r\n\t\t\tv.xyz  *= size;\r\n\t\t\tv.xyz   = v.xyz * mat3(ViewMatrixInverse); //billboard\r\n\t\t\t\r\n\t\t\tv.xyz  += center + position;\r\n\t\t\t\r\n\t\t\tmat4 wm     = IsLocal ? WorldMatrix : mat4(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1); \r\n\t\t\t\r\n\t\t\tgl_Position = ((v * wm) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t\r\n\t\t\tfloat frame   = floor(status.w);\t\t\r\n\t\t\t\r\n\t\t\tv_uv0 = (vertex.xy+0.5);\r\n\t\t\t\r\n\t\t\tif(SheetLength > 0.0)\r\n\t\t\t{\t\t\t\r\n\t\t\t\tfloat sw\t  = (SheetFrameWidth);\r\n\t\t\t\tfloat sh\t  = (SheetFrameHeight);\t\t\t\r\n\t\t\t\tfloat tw\t  = floor(TextureWidth);\r\n\t\t\t\tfloat th\t  = floor(TextureHeight);\r\n\t\t\t\tfloat sheet_uvw = sw/tw;\r\n\t\t\t\tfloat sheet_uvh = sh/th;\r\n\t\t\t\tv_uv0   \t*= vec2(sheet_uvw,sheet_uvh);\t\t\t\t\t\r\n\t\t\t\tfloat cx     = floor(TextureWidth/SheetFrameWidth);\r\n\t\t\t\tv_uv0.x\t\t += (mod(frame,cx) * (sheet_uvw));\r\n\t\t\t\tv_uv0.y\t\t += 1.0 - (sheet_uvh) - (floor(frame/cx) * (sheet_uvh));\r\n\t\t\t}\t\t\t\r\n\t\t\t\r\n\t\t\tv_color = ParticleColor();\r\n\t\t}\t\t\r\n\t\t</vertex>\r\n\t\t\r\n\t\t<fragment precision=\"low\">\r\n\t\t\t\r\n\t\t\t\r\n\t\t\tvarying vec2 v_uv0;\r\n\t\t\tvarying vec4 v_color;\r\n\t\t\t\r\n\t\t\tuniform sampler2D Color;\r\n\t\t\t\r\n\t\t\tuniform sampler2D Texture;\r\n\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex\t\t = texture2D(Texture, v_uv0.xy);\r\n\t\t\t\tgl_FragColor.xyz = tex.xyz * v_color.xyz;\r\n\t\t\t\tgl_FragColor.a \t = tex.a * v_color.a;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_core_Asset.m_database = new haxe_ds_StringMap();
 haxor_core_Asset.m_load_progress = new haxe_ds_StringMap();
 haxor_core_Console.m_style = "";
@@ -18182,5 +18987,7 @@ haxor_math_Mathf.Float2Byte = 255.0;
 haxor_math_Mathf.Float2Short = 65536.0;
 haxor_math_Mathf.Float2Long = 4294967296.0;
 haxor_net_Web.root = "";
-examples_dungeon_DungeonApp.main();
+haxor_thread_ParticleKernel.DATA_SIZE = 16;
+haxor_thread_ParticleKernel.particle_kernel_source = "\r\n\t<shader id=\"haxor/kernel/ParticleKernel\">\t\r\n\t\t<vertex precision=\"high\">\r\n\t\tattribute vec3 vertex;\t\t\t\r\n\t\tvarying vec2 iterator;\t\t\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tgl_Position = vec4(vertex,1.0);\r\n\t\t\titerator.x = (vertex.x+1.0)*0.5;\r\n\t\t\titerator.y = (vertex.y+1.0)*0.5;\r\n\t\t}\t\t\r\n\t\t</vertex>\r\n\t\t\r\n\t\t<fragment precision=\"high\">\r\n\t\t\r\n\t\t\t#define EmmiterType\t\t\t int(System[0].x)\r\n\t\t\t#define EmitterSize\t\t\t System[0].yzw\r\n\t\t\t\r\n\t\t\t#define IsSurfaceEmission\t (System[1].x > 0.0)\r\n\t\t\t#define IsRandomDirection\t (System[1].y > 0.0)\t\t\t\r\n\t\t\t#define IsLocal\t\t\t\t (System[1].z > 0.0)\r\n\t\t\t#define IsLoop\t\t\t\t (System[1].w > 0.0)\r\n\t\t\t\r\n\t\t\t#define SystemState\t\t\t int(System[2].x)\r\n\t\t\t#define SystemProgress\t\t System[2].y\t\t\t\r\n\t\t\t#define DeltaTime\t\t \t System[2].w\r\n\t\t\t\r\n\t\t\t#define StartSpeed\t\t\t System[3]\r\n\t\t\t#define StartSize0\t\t\t System[4]\r\n\t\t\t#define StartSize1\t\t\t System[5]\r\n\t\t\t#define StartLife\t\t\t System[6]\r\n\t\t\t#define StartRotation0\t\t System[7]\r\n\t\t\t#define StartRotation1\t\t System[8]\r\n\t\t\t\r\n\t\t\t#define LifeSpeed\t\t\t System[9]\r\n\t\t\t#define LifeMotion0\t\t\t System[10]\r\n\t\t\t#define LifeMotion1\t\t\t System[11]\r\n\t\t\t#define LifeSize0\t\t\t System[12]\r\n\t\t\t#define LifeSize1\t\t\t System[13]\r\n\t\t\t#define LifeRotation0\t\t System[14]\r\n\t\t\t#define LifeRotation1\t\t System[15]\r\n\t\t\t\r\n\t\t\t#define SystemForce\t\t\t System[16].xyz\r\n\t\t\t\r\n\t\t\t#define WorldMatrix\t\t\t mat4(System[17].xyzw, System[18].xyzw, System[19].xyzw, vec4(0,0,0,1))\r\n\t\t\t\r\n\t\t\t#define StartFrame\t\t\t System[20]\r\n\t\t\t#define SheetFrameWidth\t \t System[21].x\r\n\t\t\t#define SheetFrameHeight \t System[21].y\r\n\t\t\t#define SheetFPS\t\t \t System[21].z\r\n\t\t\t#define SheetWrap\t\t \t System[21].w\r\n\t\t\t#define SheetLength\t\t \t System[22].x\r\n\t\t\t#define EmitterRangeX\t \t System[22].yz\r\n\t\t\t#define EmitterRangeY\t \t System[23].xy\r\n\t\t\t#define EmitterRangeZ\t \t System[23].zw\r\n\t\t\t#define SystemEmissionStart\t System[24].x\r\n\t\t\t#define SystemEmissionCount\t System[24].y\r\n\t\t\t\t\t\t\r\n\t\t\t#define PARTICLE_LENGTH\t\t 7.0\r\n\t\t\t\r\n\t\t\t#define EMITTER_SPHERE\t\t 0\r\n\t\t\t#define EMITTER_BOX\t\t\t 1\r\n\t\t\t#define EMITTER_CONE\t\t 2\r\n\t\t\t#define EMITTER_CYLINDER\t 3\r\n\t\t\t\r\n\t\t\t#define PARTICLE_STATUS\t\t 0\r\n\t\t\t#define PARTICLE_POSITION\t 1\r\n\t\t\t#define PARTICLE_ROTATION\t 2\r\n\t\t\t#define PARTICLE_SIZE\t\t 3\r\n\t\t\t#define PARTICLE_VELOCITY\t 4\r\n\t\t\t#define PARTICLE_COLOR\t\t 5\r\n\t\t\t#define PARTICLE_START\t\t 6\r\n\t\t\t\r\n\t\t\t#define STATE_NONE\t\t 0\r\n\t\t\t#define STATE_RESET\t\t 1\r\n\t\t\t#define STATE_UPDATE\t 2\r\n\t\t\t\r\n\t\t\t#define PARTICLE_DISABLED\t 0\r\n\t\t\t#define PARTICLE_INIT\t\t 1\r\n\t\t\t#define PARTICLE_ENABLED\t 2\r\n\t\t\t#define PARTICLE_DEAD\t\t 3\r\n\t\t\t\r\n\t\t\tfloat particle_id;\t\t\t\r\n\t\t\tfloat particle_field;\r\n\t\t\tfloat fragment_id;\r\n\t\t\t\r\n\t\t\tvarying vec2 \t\titerator;\t\t\t\r\n\t\t\tuniform sampler2D \tData;\t\t\t\r\n\t\t\tuniform sampler2D \tStartColor;\t\t\t\r\n\t\t\tuniform sampler2D \tColor;\t\t\t\r\n\t\t\tuniform float \t\twidth;\t\t\t\r\n\t\t\tuniform float \t\theight;\t\t\t\r\n\t\t\tuniform vec4  \t\tSystem[25];\t\t\t\r\n\t\t\tuniform float \t\tRandomSeed;\t\t\r\n\t\t\tuniform sampler2D \tRandomTexture;\r\n\t\t\t\r\n\t\t\t\r\n\t\t\tvec4 Random()\r\n\t\t\t{\r\n\t\t\t\tfloat tw   = 0.001953125;\r\n\t\t\t\tfloat seed = RandomSeed * 262144.0;\r\n\t\t\t\tfloat idx  = mod(seed+fragment_id,512.0) * tw;\r\n\t\t\t\tfloat idy  = floor((seed+fragment_id) * tw)  * tw;\r\n\t\t\t\tvec2  ruv  = vec2(idx,idy);\r\n\t\t\t\tseed      += tw * fract(sin(dot(ruv ,vec2(12.9898,78.233))) * 43758.5453);\r\n\t\t\t\treturn texture2D(RandomTexture, ruv);\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec3 RandomVector() { return (Random().xyz - 0.5)*2.0; }\r\n\t\t\t\r\n\t\t\tfloat Lerp(float a, float b,float r) { return a + ((b-a)*r); }\r\n\t\t\tvec2  Lerp(vec2  a, vec2  b,float r) { return a + ((b-a)*r); }\r\n\t\t\tvec3  Lerp(vec3  a, vec3  b,float r) { return a + ((b-a)*r); }\r\n\t\t\tvec4  Lerp(vec4  a, vec4  b,float r) { return a + ((b-a)*r); }\r\n\t\t\t\r\n\t\t\tvec3 GetSphereRandomPosition(bool p_surface,float p_radius)\t\r\n\t\t\t{\t\r\n\t\t\t\tfloat r   = (p_radius*0.5);\r\n\t\t\t\tvec3 v    = RandomVector();\t\t\t\t\t\t\t\t\r\n\t\t\t\treturn p_surface ? (normalize(v) * r) : (v * r); \r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec3 GetBoxRandomPosition(bool p_surface,vec3 p_size)\r\n\t\t\t{\t\t\t\t\r\n\t\t\t\tvec3 hs  = p_size*0.5;\r\n\t\t\t\tif(p_surface)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec3 p = GetSphereRandomPosition(true,length(p_size));\r\n\t\t\t\t\tp.x = clamp(p.x,-hs.x,hs.x);\r\n\t\t\t\t\tp.y = clamp(p.y,-hs.y,hs.y);\r\n\t\t\t\t\tp.z = clamp(p.z,-hs.z,hs.z);\r\n\t\t\t\t\treturn p;\r\n\t\t\t\t}\t\t\t\r\n\t\t\t\tvec3 rnd = Random().xyz;\r\n\t\t\t\treturn vec3( Lerp(-hs.x,hs.x,rnd.x), Lerp(-hs.y,hs.y,rnd.y), Lerp(-hs.z,hs.z,rnd.z));\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec3 GetEmitterRandomPosition()\r\n\t\t\t{\r\n\t\t\t\tint id \t\t\t= EmmiterType;\r\n\t\t\t\tbool is_surface = IsSurfaceEmission;\r\n\t\t\t\t\r\n\t\t\t\tif(id == EMITTER_SPHERE) return GetSphereRandomPosition(is_surface,EmitterSize.x);\r\n\t\t\t\tif(id == EMITTER_BOX) \t return GetBoxRandomPosition(is_surface,EmitterSize);\r\n\t\t\t\treturn GetSphereRandomPosition(is_surface,EmitterSize.x);\r\n\t\t\t}\r\n\t\t\t\t\t\t\r\n\t\t\tvec3 SampleParticleAttribVec3(vec4 p_start,vec4 p_end,float p_random)\r\n\t\t\t{\r\n\t\t\t\tfloat c  = p_start.w;\r\n\t\t\t\tfloat rf = p_end.w;\t\t\t\t\r\n\t\t\t\tvec3 a   = p_start.xyz;\r\n\t\t\t\tvec3 b   = p_end.xyz;\r\n\t\t\t\treturn (rf > 0.0) ? Lerp(a,b,p_random) : Lerp(a,b,pow(SystemProgress,c));\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tfloat SampleParticleAttribFloat(vec4 p_attribute,float p_random)\r\n\t\t\t{\r\n\t\t\t\tvec4 a   = p_attribute;\t\t\t\t\r\n\t\t\t\treturn (a.w > 0.0) ? Lerp(a.x,a.y,p_random) : Lerp(a.x,a.y,pow(SystemProgress,a.z));\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 ParticleData(float p_id,int p_field)\r\n\t\t\t{\r\n\t\t\t\tfloat pix = floor(p_id) * PARTICLE_LENGTH;\r\n\t\t\t\tfloat f   = float(p_field);\r\n\t\t\t\tfloat w   = floor(width);\r\n\t\t\t\tfloat h   = floor(height);\r\n\t\t\t\tfloat px  = mod(pix+f,w) / (w-1.0);\r\n\t\t\t\tfloat py  = floor((pix+f)/w) / (h-1.0);\r\n\t\t\t\treturn texture2D(Data,vec2(px,py));\r\n\t\t\t}\r\n\t\t\r\n\t\t\tvec4 ParticleStatus()   \t{ return ParticleData(particle_id,PARTICLE_STATUS); \t}\r\n\t\t\tvec4 ParticlePosition() \t{ return ParticleData(particle_id,PARTICLE_POSITION); \t}\r\n\t\t\tvec4 ParticleRotation() \t{ return ParticleData(particle_id,PARTICLE_ROTATION); \t}\r\n\t\t\tvec4 ParticleSize() \t\t{ return ParticleData(particle_id,PARTICLE_SIZE); \t\t}\r\n\t\t\tvec4 ParticleVelocity()\t\t{ return ParticleData(particle_id,PARTICLE_VELOCITY);\t}\r\n\t\t\tvec4 ParticleColor() \t\t{ return ParticleData(particle_id,PARTICLE_COLOR); \t\t}\r\n\t\t\tvec4 ParticleStart() \t\t{ return ParticleData(particle_id,PARTICLE_START); \t\t}\r\n\t\t\r\n\t\t\t\r\n\t\t\tvec4 UpdateStatus(int p_state,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\t//[state][life][duration][frame]\r\n\t\t\t\tvec4 p   = p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 rnd = Random();\r\n\t\t\t\t\tp.x = 1.0;\r\n\t\t\t\t\tp.y = 0.0;\r\n\t\t\t\t\tp.z = SampleParticleAttribFloat(StartLife,rnd.x);\r\n\t\t\t\t\tp.w = SampleParticleAttribFloat(StartFrame,rnd.y);\r\n\t\t\t\t\treturn p;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_INIT)\r\n\t\t\t\t{\r\n\t\t\t\t\tp.x = 2.0;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\t\t\t\t\t\t\r\n\t\t\t\t\tif(p.y >= p.z)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tp.y = p.z;\r\n\t\t\t\t\t\tp.x = 3.0;\r\n\t\t\t\t\t\treturn p;\r\n\t\t\t\t\t}\r\n\t\t\t\t\tp.y += DeltaTime;\t\t\t\t\t\r\n\t\t\t\t\tp.w += SheetFPS * DeltaTime;\r\n\t\t\t\t\tif(p.w >= SheetLength)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tp.w = SheetLength;\t\t\t\t\t\t\r\n\t\t\t\t\t\tif(int(SheetWrap)==1) p.w=0.0;\t\t\t\t\t\t\r\n\t\t\t\t\t}\r\n\t\t\t\t\treturn p;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn p;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 UpdatePosition(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   = p_status;\r\n\t\t\t\tvec4 c   = p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tc.xyz = GetEmitterRandomPosition();\r\n\t\t\t\t\tif(!IsLocal) { c.w=1.0; c = c * WorldMatrix; }\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tvec3  v = ParticleVelocity().xyz * Lerp(LifeMotion0.xyz,LifeMotion1.xyz,r);\t\t\t\t\t\r\n\t\t\t\t\tfloat speed =  Lerp(StartSpeed.x,StartSpeed.y,ParticleStart().x) * Lerp(LifeSpeed.x,LifeSpeed.y,r);\t\t\t\t\t\r\n\t\t\t\t\tc.xyz += v * speed * DeltaTime;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t\r\n\t\t\tvec4 UpdateVelocity(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   \t\t= p_status;\t\t\t\t\r\n\t\t\t\tvec4 c   \t\t= p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_INIT)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 rnd;\r\n\t\t\t\t\tc.xyz  = IsRandomDirection ? normalize((Random().xyz-0.5)*2.0) : normalize(ParticlePosition().xyz);\t\t\t\t\t\r\n\t\t\t\t\tc.x = clamp(c.x,EmitterRangeX.x,EmitterRangeX.y);\r\n\t\t\t\t\tc.y = clamp(c.y,EmitterRangeY.x,EmitterRangeY.y);\r\n\t\t\t\t\tc.z = clamp(c.z,EmitterRangeZ.x,EmitterRangeZ.y);\r\n\t\t\t\t\tc = normalize(c);\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tc.xyz += SystemForce * DeltaTime;\t\t\t\t\t\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 UpdateRotation(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   = p_status;\r\n\t\t\t\tvec4 c   = p_current;\r\n\t\t\t\tc = vec4(0,0,0,0);\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 UpdateSize(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   = p_status;\r\n\t\t\t\tvec4 c   = p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tc.xyz = Lerp(StartSize0.xyz,StartSize1.xyz,ParticleStart().y) * Lerp(LifeSize0.xyz,LifeSize1.xyz,r);\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tc.xyz = Lerp(StartSize0.xyz,StartSize1.xyz,ParticleStart().y) * Lerp(LifeSize0.xyz,LifeSize1.xyz,r);\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t\r\n\t\t\tvec4 UpdateColor(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   = p_status;\r\n\t\t\t\tvec4 c   = p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 c0 = texture2D(StartColor,vec2(ParticleStart().z,0.0));\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tvec4 c1 = texture2D(Color,vec2(r,0.0));\r\n\t\t\t\t\tc = c0 * c1;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 c0 = texture2D(StartColor,vec2(ParticleStart().z,0.0));\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tvec4 c1 = texture2D(Color,vec2(r,0.0));\r\n\t\t\t\t\tc = c0 * c1;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 UpdateStart(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   \t\t= p_status;\t\t\t\t\r\n\t\t\t\tvec4 c   \t\t= p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 rnd = Random();\r\n\t\t\t\t\tc.x = StartSpeed.w > 0.0 ? rnd.x : SystemProgress;\r\n\t\t\t\t\tc.y = StartSize1.w > 0.0 ? rnd.y : SystemProgress;\r\n\t\t\t\t\tc.z = SystemProgress;\r\n\t\t\t\t\tc.w = StartRotation1.w > 0.0 ? rnd.w : SystemProgress;\r\n\t\t\t\t}\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tuniform float Time;\r\n\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\t\r\n\t\t\t\tfloat count\t\t = floor(SystemEmissionCount);\r\n\t\t\t\tif(count <= 0.0) { gl_FragColor = vec4(0,0,0,1); return; }\r\n\t\t\t\tfloat ix\t     = iterator.x;\r\n\t\t\t\tfloat iy\t     = iterator.y;\t\t\r\n\t\t\t\tfloat iw         = 1.0 / width;\t\t\t\t\r\n\t\t\t\tfloat ih         = 1.0 / height;\t\t\t\t\r\n\t\t\t\t//float hiw        = iw*0.5;\t\t\t\t\r\n\t\t\t\t//float hih        = ih*0.5;\t\t\t\t\r\n\t\t\t\t//ix = (ix - hiw) / (1.0 - iw);\r\n\t\t\t\t//iy = (iy - hih) / (1.0 - ih);\r\n\t\t\t\t\r\n\t\t\t\tfloat size       = width * height;\r\n\t\t\t\tfloat max_count  = floor((width * height)/PARTICLE_LENGTH);\r\n\t\t\t\tfloat px         = floor(ix * (width));\r\n\t\t\t\tfloat py         = floor(iy*(height));\r\n\t\t\t\tfloat pix\t     = (px + (py * width));\r\n\t\t\t\t\r\n\t\t\t\tif (pix >= (size - PARTICLE_LENGTH)) { gl_FragColor = vec4(0, 0, 0, 1); return; }\r\n\t\t\t\t\r\n\t\t\t\tfloat id\t\t = ((pix / (PARTICLE_LENGTH)));\r\n\t\t\t\tfloat field\t\t = mod(pix,PARTICLE_LENGTH);\r\n\t\t\t\t\r\n\t\t\t\tparticle_id = id;\r\n\t\t\t\tfragment_id = pix;\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\tfloat emin \t\t = floor(mod(SystemEmissionStart,max_count));\r\n\t\t\t\tfloat emax \t\t = floor(mod(SystemEmissionStart+count-1.0,max_count));\r\n\t\t\t\t\r\n\t\t\t\t/*\r\n\t\t\t\tfloat ck = floor(mod(pix, 2.0)) <= 0.0 ? 0.8 : 1.0;\t\t\t\t\r\n\t\t\t\tck = field/PARTICLE_LENGTH;\r\n\t\t\t\tvec4 mc = vec4(ck, ck, ck, 1.0);\t\t\t\t\t\r\n\t\t\t\tgl_FragColor = mc;\r\n\t\t\t\treturn;\r\n\t\t\t\t//*/\r\n\t\t\t\t\r\n\t\t\t\t/*\r\n\t\t\t\tfloat dv = 1.0 / 7.0;\t\t\t\t\t\t\t\t\r\n\t\t\t\tvec4 c0 = vec4(1.0, 0.0, 0.0, 1.0)*mc;\r\n\t\t\t\tvec4 c1 = vec4(1.0, 1.0, 0.0, 1.0)*mc;\r\n\t\t\t\tvec4 c2 = vec4(0.0, 1.0, 0.0, 1.0)*mc;\r\n\t\t\t\tvec4 c3 = vec4(0.0, 1.0, 1.0, 1.0)*mc;\r\n\t\t\t\tvec4 c4 = vec4(0.0, 0.0, 1.0, 1.0)*mc;\r\n\t\t\t\tvec4 c5 = vec4(1.0, 0.0, 1.0, 1.0)*mc;\r\n\t\t\t\tvec4 c6 = vec4(1.0, 1.0, 1.0, 1.0)*mc;\r\n\t\t\t\tvec4 c7 = vec4(0.8, 0.8, 0.8, 1.0)*mc;\r\n\t\t\t\tvec4 c8 = vec4(0.6, 0.6, 0.6, 1.0)*mc;\r\n\t\t\t\tvec4 c9 = vec4(0.4, 0.4, 0.4, 1.0)*mc;\r\n\t\t\t\t//*/\r\n\t\t\t\t/*\r\n\t\t\t\tif(int(id)==0) { gl_FragColor = c0; return; }\r\n\t\t\t\tif(int(id)==1) { gl_FragColor = c1; return; }\r\n\t\t\t\tif(int(id)==2) { gl_FragColor = c2; return; }\r\n\t\t\t\tif(int(id)==3) { gl_FragColor = c3; return; }\r\n\t\t\t\tif(int(id)==4) { gl_FragColor = c4; return; }\r\n\t\t\t\tif(int(id)==5) { gl_FragColor = c5; return; }\r\n\t\t\t\tif(int(id)==6) { gl_FragColor = c6; return; }\r\n\t\t\t\tif(int(id)==7) { gl_FragColor = c7; return; }\r\n\t\t\t\tif(int(id)==8) { gl_FragColor = c8; return; }\r\n\t\t\t\tif(int(id)==9) { gl_FragColor = c9; return; }\r\n\t\t\t\t\r\n\t\t\t\tgl_FragColor = vec4(0.0, 1.0, 1.0, 1.0);\r\n\t\t\t\treturn;\r\n\t\t\t\t//*/\r\n\t\t\t\t\r\n\t\t\t\t/*\r\n\t\t\t\tfloat b = (field / PARTICLE_LENGTH) + 0.2;\r\n\t\t\t\tc0.xyz *= b;\r\n\t\t\t\tc1.xyz *= b;\r\n\t\t\t\tc2.xyz *= b;\r\n\t\t\t\tc3.xyz *= b;\r\n\t\t\t\tc4.xyz *= b;\r\n\t\t\t\tc5.xyz *= b;\r\n\t\t\t\tc6.xyz *= b;\r\n\t\t\t\t\r\n\t\t\t\tfield = id;\r\n\t\t\t\t\r\n\t\t\t\t//*/\r\n\t\t\t\t/*\r\n\t\t\t\tvec4 c0 = vec4(1.0,0.0,0.0, 1.0);        \r\n\t\t\t\tvec4 c1 = vec4(dv*1.0, 1.0, dv*1.0, 1.0);\r\n\t\t\t\tvec4 c2 = vec4(dv*2.0, 0.0, dv*2.0, 1.0);\r\n\t\t\t\tvec4 c3 = vec4(dv*3.0, 0.0, dv*3.0, 1.0);\r\n\t\t\t\tvec4 c4 = vec4(dv*4.0, 0.0, dv*4.0, 1.0);\r\n\t\t\t\tvec4 c5 = vec4(dv*5.0, 0.0, dv*5.0, 1.0);\r\n\t\t\t\tvec4 c6 = vec4(1.0, 0.0, 1.0, 1.0);      \r\n\t\t\t\t//*/\r\n\t\t\t\t/*\r\n\t\t\t\tif(int(field)==0) { gl_FragColor = c0; return; }\r\n\t\t\t\tif(int(field)==1) { gl_FragColor = c1; return; }\r\n\t\t\t\tif(int(field)==2) { gl_FragColor = c2; return; }\r\n\t\t\t\tif(int(field)==3) { gl_FragColor = c3; return; }\r\n\t\t\t\tif(int(field)==4) { gl_FragColor = c4; return; }\r\n\t\t\t\tif(int(field)==5) { gl_FragColor = c5; return; }\r\n\t\t\t\tif(int(field)==6) { gl_FragColor = c6; return; }\r\n\t\t\t\t\r\n\t\t\t\tgl_FragColor = vec4(0.0, 1.0, 1.0, 1.0);\r\n\t\t\t\treturn;\r\n\t\t\t\t//*/\r\n\t\t\t\t\r\n\t\t\t\tif(emin > emax)\r\n\t\t\t\t{\r\n\t\t\t\t\tif(id < emin) \r\n\t\t\t\t\tif(id > emax) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }\r\n\t\t\t\t}\r\n\t\t\t\telse\r\n\t\t\t\t{\t\t\t\t\r\n\t\t\t\t\tif(id < emin) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }\r\n\t\t\t\t\tif(id > emax) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }\r\n\t\t\t\t}\r\n\t\t\t\t//*/\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t//gl_FragColor = vec4(1.0,1.0,0.0,1.0);\t\t\t\treturn;\r\n\t\t\t\t//if(id >= SystemEmission) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }\r\n\t\t\t\t\r\n\t\t\t\tint   state\t\t = SystemState;\r\n\t\t\t\t\r\n\t\t\t\tvec4  status\t = ParticleStatus();\r\n\t\t\t\tvec4  data\t\t = texture2D(Data,iterator);\r\n\t\t\t\t\r\n\t\t\t\tgl_FragColor \t = data;\r\n\t\t\t\t\r\n\t\t\t\tif(state == STATE_NONE) return;\r\n\t\t\t\t\r\n\t\t\t\tint field_id        = int(field);\r\n\t\t\t\t\r\n\t\t\t\tif(field_id == PARTICLE_STATUS) \t{ gl_FragColor = UpdateStatus(state,data);\t\t\t   \treturn; }\r\n\t\t\t\tif(field_id == PARTICLE_POSITION) \t{ gl_FragColor = UpdatePosition(state,status,data); \treturn; }\t\t\t\t\r\n\t\t\t\tif(field_id == PARTICLE_ROTATION) \t{ gl_FragColor = UpdateRotation(state,status,data); \treturn; }\t\t\t\t\r\n\t\t\t\tif(field_id == PARTICLE_SIZE)\t \t{ gl_FragColor = UpdateSize(state,status,data); \t \treturn; }\t\t\t\t\r\n\t\t\t\tif(field_id == PARTICLE_VELOCITY)\t{ gl_FragColor = UpdateVelocity(state,status,data); \treturn; }\r\n\t\t\t\tif(field_id == PARTICLE_COLOR)\t\t{ gl_FragColor = UpdateColor(state,status,data); \t \treturn; }\r\n\t\t\t\tif(field_id == PARTICLE_START)\t\t{ gl_FragColor = UpdateStart(state,status,data); \t \treturn; }\r\n\t\t\t\t\r\n\t\t\t}\r\n\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
+examples_dungeon_Main.main();
 })();

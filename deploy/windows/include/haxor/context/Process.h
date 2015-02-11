@@ -42,7 +42,7 @@ class HXCPP_CLASS_ATTRIBUTES  Process_obj : public ::haxor::context::BaseProcess
 		int m_length;
 		virtual Void Add( ::haxor::core::Resource p_item);
 
-		virtual ::haxor::core::Resource Remove( ::haxor::core::Resource p_item);
+		virtual Void Remove( ::haxor::core::Resource p_item);
 
 		virtual Void Swap( Dynamic p_a,Dynamic p_b,hx::Null< bool >  p_index_only);
 		Dynamic Swap_dyn();

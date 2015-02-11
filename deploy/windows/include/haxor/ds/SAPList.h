@@ -43,20 +43,23 @@ class HXCPP_CLASS_ATTRIBUTES  SAPList_obj : public hx::Object{
 		virtual Void Update( int p_id,Dynamic p_data,Float p_min,Float p_max);
 		Dynamic Update_dyn();
 
-		virtual Void Add( ::haxor::ds::SAPInterval p_item);
-		Dynamic Add_dyn();
+		virtual Void AddInterval( ::haxor::ds::SAPInterval p_item);
+		Dynamic AddInterval_dyn();
 
-		virtual Void Insert( ::haxor::ds::SAPInterval p_item,::haxor::ds::SAPInterval p_at);
-		Dynamic Insert_dyn();
+		virtual Void InsertInterval( ::haxor::ds::SAPInterval p_item,::haxor::ds::SAPInterval p_at);
+		Dynamic InsertInterval_dyn();
 
-		virtual Void Relocate( ::haxor::ds::SAPInterval p_item);
-		Dynamic Relocate_dyn();
+		virtual Void RelocateInterval( ::haxor::ds::SAPInterval p_item);
+		Dynamic RelocateInterval_dyn();
 
-		virtual Void RemoveById( int p_id);
-		Dynamic RemoveById_dyn();
-
-		virtual Void Remove( ::haxor::ds::SAPInterval p_item);
+		virtual Void Remove( int p_id);
 		Dynamic Remove_dyn();
+
+		virtual Void RemoveInterval( ::haxor::ds::SAPInterval p_item);
+		Dynamic RemoveInterval_dyn();
+
+		virtual Void Iterate( Dynamic p_callback);
+		Dynamic Iterate_dyn();
 
 		virtual ::String ToString( hx::Null< int >  p_places);
 		Dynamic ToString_dyn();

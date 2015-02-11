@@ -18,9 +18,6 @@
 #ifndef INCLUDED_haxor_core_TextureType
 #include <haxor/core/TextureType.h>
 #endif
-#ifndef INCLUDED_haxor_core_TextureWrap
-#include <haxor/core/TextureWrap.h>
-#endif
 #ifndef INCLUDED_haxor_graphics_texture_Bitmap
 #include <haxor/graphics/texture/Bitmap.h>
 #endif
@@ -29,6 +26,12 @@
 #endif
 #ifndef INCLUDED_haxor_graphics_texture_Texture2D
 #include <haxor/graphics/texture/Texture2D.h>
+#endif
+#ifndef INCLUDED_haxor_io_Buffer
+#include <haxor/io/Buffer.h>
+#endif
+#ifndef INCLUDED_haxor_io_FloatArray
+#include <haxor/io/FloatArray.h>
 #endif
 #ifndef INCLUDED_haxor_math_Color
 #include <haxor/math/Color.h>
@@ -42,35 +45,35 @@ namespace texture{
 
 Void Texture2D_obj::__construct(int p_width,int p_height,::haxor::core::PixelFormat p_format)
 {
-HX_STACK_FRAME("haxor.graphics.texture.Texture2D","new",0x8f6670b5,"haxor.graphics.texture.Texture2D.new","haxor/graphics/texture/Texture2D.hx",131,0x654901bc)
+HX_STACK_FRAME("haxor.graphics.texture.Texture2D","new",0x8f6670b5,"haxor.graphics.texture.Texture2D.new","haxor/graphics/texture/Texture2D.hx",129,0x654901bc)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_width,"p_width")
 HX_STACK_ARG(p_height,"p_height")
 HX_STACK_ARG(p_format,"p_format")
 {
-	HX_STACK_LINE(132)
+	HX_STACK_LINE(130)
 	super::__construct();
-	HX_STACK_LINE(133)
+	HX_STACK_LINE(131)
 	this->m_format = p_format;
-	HX_STACK_LINE(134)
+	HX_STACK_LINE(132)
 	this->m_width = p_width;
-	HX_STACK_LINE(135)
+	HX_STACK_LINE(133)
 	this->m_height = p_height;
-	HX_STACK_LINE(136)
+	HX_STACK_LINE(134)
 	if (((p_width <= (int)0))){
-		HX_STACK_LINE(136)
+		HX_STACK_LINE(134)
 		return null();
 	}
-	HX_STACK_LINE(137)
+	HX_STACK_LINE(135)
 	if (((p_height <= (int)0))){
-		HX_STACK_LINE(137)
+		HX_STACK_LINE(135)
 		return null();
 	}
-	HX_STACK_LINE(138)
+	HX_STACK_LINE(136)
 	::haxor::graphics::texture::Bitmap _g = ::haxor::graphics::texture::Bitmap_obj::__new(p_width,p_height,p_format);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(138)
+	HX_STACK_LINE(136)
 	this->m_data = _g;
-	HX_STACK_LINE(139)
+	HX_STACK_LINE(137)
 	::haxor::context::EngineContext_obj::texture->Create(hx::ObjectPtr<OBJ_>(this));
 }
 ;
@@ -91,9 +94,9 @@ Dynamic Texture2D_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::graphics::texture::Bitmap Texture2D_obj::get_data( ){
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_data",0x67dd1d3e,"haxor.graphics.texture.Texture2D.get_data","haxor/graphics/texture/Texture2D.hx",115,0x654901bc)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_data",0x67dd1d3e,"haxor.graphics.texture.Texture2D.get_data","haxor/graphics/texture/Texture2D.hx",113,0x654901bc)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(115)
+	HX_STACK_LINE(113)
 	return this->m_data;
 }
 
@@ -101,21 +104,21 @@ Dynamic Texture2D_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_data,return )
 
 ::haxor::core::TextureType Texture2D_obj::get_type( ){
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_type",0x7282b9ce,"haxor.graphics.texture.Texture2D.get_type","haxor/graphics/texture/Texture2D.hx",122,0x654901bc)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_type",0x7282b9ce,"haxor.graphics.texture.Texture2D.get_type","haxor/graphics/texture/Texture2D.hx",120,0x654901bc)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(122)
+	HX_STACK_LINE(120)
 	return ::haxor::core::TextureType_obj::Texture2D;
 }
 
 
 Void Texture2D_obj::Upload( hx::Null< int >  __o_p_steps,Dynamic p_on_complete){
 int p_steps = __o_p_steps.Default(200);
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","Upload",0x636ec0ec,"haxor.graphics.texture.Texture2D.Upload","haxor/graphics/texture/Texture2D.hx",149,0x654901bc)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","Upload",0x636ec0ec,"haxor.graphics.texture.Texture2D.Upload","haxor/graphics/texture/Texture2D.hx",147,0x654901bc)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_steps,"p_steps")
 	HX_STACK_ARG(p_on_complete,"p_on_complete")
 {
-		HX_STACK_LINE(149)
+		HX_STACK_LINE(147)
 		::haxor::context::EngineContext_obj::texture->UploadTexture(hx::ObjectPtr<OBJ_>(this),(int)0,(int)0,this->m_width,this->m_height,p_steps,p_on_complete);
 	}
 return null();
@@ -124,26 +127,73 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC2(Texture2D_obj,Upload,(void))
 
+::haxor::graphics::texture::Texture2D Texture2D_obj::get_random( ){
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_random",0x8457d617,"haxor.graphics.texture.Texture2D.get_random","haxor/graphics/texture/Texture2D.hx",21,0x654901bc)
+	HX_STACK_LINE(22)
+	if (((::haxor::graphics::texture::Texture2D_obj::m_random != null()))){
+		HX_STACK_LINE(22)
+		return ::haxor::graphics::texture::Texture2D_obj::m_random;
+	}
+	HX_STACK_LINE(23)
+	::haxor::graphics::texture::Texture2D _g = ::haxor::graphics::texture::Texture2D_obj::__new((int)512,(int)512,::haxor::core::PixelFormat_obj::Float4);		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(23)
+	::haxor::graphics::texture::Texture2D_obj::m_random = _g;
+	HX_STACK_LINE(24)
+	::haxor::graphics::texture::Texture2D_obj::m_random->set_name(HX_CSTRING("Random"));
+	HX_STACK_LINE(25)
+	::haxor::io::FloatArray f32 = ::haxor::graphics::texture::Texture2D_obj::m_random->m_data->get_buffer();		HX_STACK_VAR(f32,"f32");
+	HX_STACK_LINE(26)
+	{
+		HX_STACK_LINE(26)
+		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+		HX_STACK_LINE(26)
+		int _g2 = f32->m_length;		HX_STACK_VAR(_g2,"_g2");
+		HX_STACK_LINE(26)
+		while((true)){
+			HX_STACK_LINE(26)
+			if ((!(((_g1 < _g2))))){
+				HX_STACK_LINE(26)
+				break;
+			}
+			HX_STACK_LINE(26)
+			int i = (_g1)++;		HX_STACK_VAR(i,"i");
+			HX_STACK_LINE(26)
+			Float _g11 = ::Math_obj::random();		HX_STACK_VAR(_g11,"_g11");
+			HX_STACK_LINE(26)
+			f32->Set(i,_g11);
+		}
+	}
+	HX_STACK_LINE(27)
+	::haxor::graphics::texture::Texture2D_obj::m_random->Upload((int)10,null());
+	HX_STACK_LINE(28)
+	return ::haxor::graphics::texture::Texture2D_obj::m_random;
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_random,return )
+
+::haxor::graphics::texture::Texture2D Texture2D_obj::m_random;
+
 ::haxor::graphics::texture::Texture2D Texture2D_obj::get_white( ){
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_white",0x6ed1b515,"haxor.graphics.texture.Texture2D.get_white","haxor/graphics/texture/Texture2D.hx",20,0x654901bc)
-	HX_STACK_LINE(21)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_white",0x6ed1b515,"haxor.graphics.texture.Texture2D.get_white","haxor/graphics/texture/Texture2D.hx",37,0x654901bc)
+	HX_STACK_LINE(38)
 	if (((::haxor::graphics::texture::Texture2D_obj::m_white != null()))){
-		HX_STACK_LINE(21)
+		HX_STACK_LINE(38)
 		return ::haxor::graphics::texture::Texture2D_obj::m_white;
 	}
-	HX_STACK_LINE(22)
+	HX_STACK_LINE(39)
 	::haxor::graphics::texture::Texture2D _g = ::haxor::graphics::texture::Texture2D_obj::__new((int)1,(int)1,::haxor::core::PixelFormat_obj::RGB8);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(22)
+	HX_STACK_LINE(39)
 	::haxor::graphics::texture::Texture2D_obj::m_white = _g;
-	HX_STACK_LINE(23)
+	HX_STACK_LINE(40)
 	::haxor::graphics::texture::Texture2D_obj::m_white->set_name(HX_CSTRING("White"));
-	HX_STACK_LINE(24)
+	HX_STACK_LINE(41)
 	::haxor::math::Color _g1 = ::haxor::math::Color_obj::__new((int)1,(int)1,(int)1,(int)1);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(24)
+	HX_STACK_LINE(41)
 	::haxor::graphics::texture::Texture2D_obj::m_white->m_data->Fill(_g1);
-	HX_STACK_LINE(25)
+	HX_STACK_LINE(42)
 	::haxor::graphics::texture::Texture2D_obj::m_white->Apply();
-	HX_STACK_LINE(26)
+	HX_STACK_LINE(43)
 	return ::haxor::graphics::texture::Texture2D_obj::m_white;
 }
 
@@ -153,25 +203,25 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_white,return )
 ::haxor::graphics::texture::Texture2D Texture2D_obj::m_white;
 
 ::haxor::graphics::texture::Texture2D Texture2D_obj::get_black( ){
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_black",0x5a06402b,"haxor.graphics.texture.Texture2D.get_black","haxor/graphics/texture/Texture2D.hx",35,0x654901bc)
-	HX_STACK_LINE(36)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_black",0x5a06402b,"haxor.graphics.texture.Texture2D.get_black","haxor/graphics/texture/Texture2D.hx",52,0x654901bc)
+	HX_STACK_LINE(53)
 	if (((::haxor::graphics::texture::Texture2D_obj::m_black != null()))){
-		HX_STACK_LINE(36)
+		HX_STACK_LINE(53)
 		return ::haxor::graphics::texture::Texture2D_obj::m_black;
 	}
-	HX_STACK_LINE(37)
+	HX_STACK_LINE(54)
 	::haxor::graphics::texture::Texture2D _g = ::haxor::graphics::texture::Texture2D_obj::__new((int)1,(int)1,::haxor::core::PixelFormat_obj::RGB8);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(37)
+	HX_STACK_LINE(54)
 	::haxor::graphics::texture::Texture2D_obj::m_black = _g;
-	HX_STACK_LINE(38)
+	HX_STACK_LINE(55)
 	::haxor::graphics::texture::Texture2D_obj::m_black->set_name(HX_CSTRING("Black"));
-	HX_STACK_LINE(39)
+	HX_STACK_LINE(56)
 	::haxor::math::Color _g1 = ::haxor::math::Color_obj::__new((int)0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(39)
+	HX_STACK_LINE(56)
 	::haxor::graphics::texture::Texture2D_obj::m_black->m_data->Fill(_g1);
-	HX_STACK_LINE(40)
+	HX_STACK_LINE(57)
 	::haxor::graphics::texture::Texture2D_obj::m_black->Apply();
-	HX_STACK_LINE(41)
+	HX_STACK_LINE(58)
 	return ::haxor::graphics::texture::Texture2D_obj::m_black;
 }
 
@@ -181,25 +231,25 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_black,return )
 ::haxor::graphics::texture::Texture2D Texture2D_obj::m_black;
 
 ::haxor::graphics::texture::Texture2D Texture2D_obj::get_red( ){
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_red",0xb4bd90bd,"haxor.graphics.texture.Texture2D.get_red","haxor/graphics/texture/Texture2D.hx",50,0x654901bc)
-	HX_STACK_LINE(51)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_red",0xb4bd90bd,"haxor.graphics.texture.Texture2D.get_red","haxor/graphics/texture/Texture2D.hx",67,0x654901bc)
+	HX_STACK_LINE(68)
 	if (((::haxor::graphics::texture::Texture2D_obj::m_red != null()))){
-		HX_STACK_LINE(51)
+		HX_STACK_LINE(68)
 		return ::haxor::graphics::texture::Texture2D_obj::m_red;
 	}
-	HX_STACK_LINE(52)
+	HX_STACK_LINE(69)
 	::haxor::graphics::texture::Texture2D _g = ::haxor::graphics::texture::Texture2D_obj::__new((int)1,(int)1,::haxor::core::PixelFormat_obj::RGB8);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(52)
+	HX_STACK_LINE(69)
 	::haxor::graphics::texture::Texture2D_obj::m_red = _g;
-	HX_STACK_LINE(53)
+	HX_STACK_LINE(70)
 	::haxor::graphics::texture::Texture2D_obj::m_red->set_name(HX_CSTRING("Red"));
-	HX_STACK_LINE(54)
+	HX_STACK_LINE(71)
 	::haxor::math::Color _g1 = ::haxor::math::Color_obj::__new(1.0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(54)
+	HX_STACK_LINE(71)
 	::haxor::graphics::texture::Texture2D_obj::m_red->m_data->Fill(_g1);
-	HX_STACK_LINE(55)
+	HX_STACK_LINE(72)
 	::haxor::graphics::texture::Texture2D_obj::m_red->Apply();
-	HX_STACK_LINE(56)
+	HX_STACK_LINE(73)
 	return ::haxor::graphics::texture::Texture2D_obj::m_red;
 }
 
@@ -209,25 +259,25 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_red,return )
 ::haxor::graphics::texture::Texture2D Texture2D_obj::m_red;
 
 ::haxor::graphics::texture::Texture2D Texture2D_obj::get_green( ){
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_green",0x3f01792f,"haxor.graphics.texture.Texture2D.get_green","haxor/graphics/texture/Texture2D.hx",65,0x654901bc)
-	HX_STACK_LINE(66)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_green",0x3f01792f,"haxor.graphics.texture.Texture2D.get_green","haxor/graphics/texture/Texture2D.hx",82,0x654901bc)
+	HX_STACK_LINE(83)
 	if (((::haxor::graphics::texture::Texture2D_obj::m_green != null()))){
-		HX_STACK_LINE(66)
+		HX_STACK_LINE(83)
 		return ::haxor::graphics::texture::Texture2D_obj::m_green;
 	}
-	HX_STACK_LINE(67)
+	HX_STACK_LINE(84)
 	::haxor::graphics::texture::Texture2D _g = ::haxor::graphics::texture::Texture2D_obj::__new((int)1,(int)1,::haxor::core::PixelFormat_obj::RGB8);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(67)
+	HX_STACK_LINE(84)
 	::haxor::graphics::texture::Texture2D_obj::m_green = _g;
-	HX_STACK_LINE(68)
+	HX_STACK_LINE(85)
 	::haxor::graphics::texture::Texture2D_obj::m_green->set_name(HX_CSTRING("Green"));
-	HX_STACK_LINE(69)
+	HX_STACK_LINE(86)
 	::haxor::math::Color _g1 = ::haxor::math::Color_obj::__new((int)0,(int)1,(int)0,(int)1);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(69)
+	HX_STACK_LINE(86)
 	::haxor::graphics::texture::Texture2D_obj::m_green->m_data->Fill(_g1);
-	HX_STACK_LINE(70)
+	HX_STACK_LINE(87)
 	::haxor::graphics::texture::Texture2D_obj::m_green->Apply();
-	HX_STACK_LINE(71)
+	HX_STACK_LINE(88)
 	return ::haxor::graphics::texture::Texture2D_obj::m_green;
 }
 
@@ -236,90 +286,25 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_green,return )
 
 ::haxor::graphics::texture::Texture2D Texture2D_obj::m_green;
 
-::haxor::graphics::texture::Texture2D Texture2D_obj::get_random( ){
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","get_random",0x8457d617,"haxor.graphics.texture.Texture2D.get_random","haxor/graphics/texture/Texture2D.hx",80,0x654901bc)
-	HX_STACK_LINE(81)
-	if (((::haxor::graphics::texture::Texture2D_obj::m_random != null()))){
-		HX_STACK_LINE(81)
-		return ::haxor::graphics::texture::Texture2D_obj::m_random;
-	}
-	HX_STACK_LINE(82)
-	::haxor::graphics::texture::Texture2D _g = ::haxor::graphics::texture::Texture2D_obj::__new((int)512,(int)512,::haxor::core::PixelFormat_obj::Float4);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(82)
-	::haxor::graphics::texture::Texture2D_obj::m_random = _g;
-	HX_STACK_LINE(83)
-	::haxor::graphics::texture::Texture2D_obj::m_random->set_wrap((int(::haxor::core::TextureWrap_obj::RepeatX) | int(::haxor::core::TextureWrap_obj::RepeatY)));
-	HX_STACK_LINE(84)
-	{
-		HX_STACK_LINE(84)
-		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(84)
-		int _g2 = ::haxor::graphics::texture::Texture2D_obj::m_random->m_width;		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(84)
-		while((true)){
-			HX_STACK_LINE(84)
-			if ((!(((_g1 < _g2))))){
-				HX_STACK_LINE(84)
-				break;
-			}
-			HX_STACK_LINE(84)
-			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(85)
-			int _g3 = (int)0;		HX_STACK_VAR(_g3,"_g3");
-			HX_STACK_LINE(85)
-			int _g21 = ::haxor::graphics::texture::Texture2D_obj::m_random->m_height;		HX_STACK_VAR(_g21,"_g21");
-			HX_STACK_LINE(85)
-			while((true)){
-				HX_STACK_LINE(85)
-				if ((!(((_g3 < _g21))))){
-					HX_STACK_LINE(85)
-					break;
-				}
-				HX_STACK_LINE(85)
-				int j = (_g3)++;		HX_STACK_VAR(j,"j");
-				HX_STACK_LINE(87)
-				Float _g11 = ::Math_obj::random();		HX_STACK_VAR(_g11,"_g11");
-				HX_STACK_LINE(87)
-				Float _g22 = ::Math_obj::random();		HX_STACK_VAR(_g22,"_g22");
-				HX_STACK_LINE(87)
-				Float _g31 = ::Math_obj::random();		HX_STACK_VAR(_g31,"_g31");
-				HX_STACK_LINE(87)
-				Float _g4 = ::Math_obj::random();		HX_STACK_VAR(_g4,"_g4");
-				HX_STACK_LINE(87)
-				::haxor::graphics::texture::Texture2D_obj::m_random->m_data->Set(j,i,_g11,_g22,_g31,_g4);
-			}
-		}
-	}
-	HX_STACK_LINE(89)
-	::haxor::graphics::texture::Texture2D_obj::m_random->Upload((int)10,null());
-	HX_STACK_LINE(90)
-	return ::haxor::graphics::texture::Texture2D_obj::m_random;
-}
-
-
-STATIC_HX_DEFINE_DYNAMIC_FUNC0(Texture2D_obj,get_random,return )
-
-::haxor::graphics::texture::Texture2D Texture2D_obj::m_random;
-
 ::haxor::graphics::texture::Texture2D Texture2D_obj::FromBitmap( ::haxor::graphics::texture::Bitmap p_bitmap,hx::Null< bool >  __o_p_apply){
 bool p_apply = __o_p_apply.Default(true);
-	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","FromBitmap",0x07425d64,"haxor.graphics.texture.Texture2D.FromBitmap","haxor/graphics/texture/Texture2D.hx",101,0x654901bc)
+	HX_STACK_FRAME("haxor.graphics.texture.Texture2D","FromBitmap",0x07425d64,"haxor.graphics.texture.Texture2D.FromBitmap","haxor/graphics/texture/Texture2D.hx",99,0x654901bc)
 	HX_STACK_ARG(p_bitmap,"p_bitmap")
 	HX_STACK_ARG(p_apply,"p_apply")
 {
-		HX_STACK_LINE(102)
+		HX_STACK_LINE(100)
 		::haxor::graphics::texture::Texture2D t = ::haxor::graphics::texture::Texture2D_obj::__new((int)0,(int)0,p_bitmap->m_format);		HX_STACK_VAR(t,"t");
-		HX_STACK_LINE(103)
+		HX_STACK_LINE(101)
 		t->m_data = p_bitmap;
-		HX_STACK_LINE(104)
+		HX_STACK_LINE(102)
 		t->m_width = p_bitmap->m_width;
-		HX_STACK_LINE(105)
+		HX_STACK_LINE(103)
 		t->m_height = p_bitmap->m_height;
-		HX_STACK_LINE(106)
+		HX_STACK_LINE(104)
 		::haxor::context::EngineContext_obj::texture->Create(t);
-		HX_STACK_LINE(107)
+		HX_STACK_LINE(105)
 		t->Apply();
-		HX_STACK_LINE(108)
+		HX_STACK_LINE(106)
 		return t;
 	}
 }
@@ -422,6 +407,8 @@ void Texture2D_obj::__GetFields(Array< ::String> &outFields)
 };
 
 static ::String sStaticFields[] = {
+	HX_CSTRING("get_random"),
+	HX_CSTRING("m_random"),
 	HX_CSTRING("get_white"),
 	HX_CSTRING("m_white"),
 	HX_CSTRING("get_black"),
@@ -430,8 +417,6 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("m_red"),
 	HX_CSTRING("get_green"),
 	HX_CSTRING("m_green"),
-	HX_CSTRING("get_random"),
-	HX_CSTRING("m_random"),
 	HX_CSTRING("FromBitmap"),
 	String(null()) };
 
@@ -453,21 +438,21 @@ static ::String sMemberFields[] = {
 
 static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Texture2D_obj::__mClass,"__mClass");
+	HX_MARK_MEMBER_NAME(Texture2D_obj::m_random,"m_random");
 	HX_MARK_MEMBER_NAME(Texture2D_obj::m_white,"m_white");
 	HX_MARK_MEMBER_NAME(Texture2D_obj::m_black,"m_black");
 	HX_MARK_MEMBER_NAME(Texture2D_obj::m_red,"m_red");
 	HX_MARK_MEMBER_NAME(Texture2D_obj::m_green,"m_green");
-	HX_MARK_MEMBER_NAME(Texture2D_obj::m_random,"m_random");
 };
 
 #ifdef HXCPP_VISIT_ALLOCS
 static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Texture2D_obj::__mClass,"__mClass");
+	HX_VISIT_MEMBER_NAME(Texture2D_obj::m_random,"m_random");
 	HX_VISIT_MEMBER_NAME(Texture2D_obj::m_white,"m_white");
 	HX_VISIT_MEMBER_NAME(Texture2D_obj::m_black,"m_black");
 	HX_VISIT_MEMBER_NAME(Texture2D_obj::m_red,"m_red");
 	HX_VISIT_MEMBER_NAME(Texture2D_obj::m_green,"m_green");
-	HX_VISIT_MEMBER_NAME(Texture2D_obj::m_random,"m_random");
 };
 
 #endif

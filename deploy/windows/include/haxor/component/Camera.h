@@ -6,15 +6,19 @@
 #endif
 
 #include <haxor/component/Behaviour.h>
+#include <haxor/core/IResizeable.h>
 HX_DECLARE_CLASS2(haxor,component,Behaviour)
 HX_DECLARE_CLASS2(haxor,component,Camera)
 HX_DECLARE_CLASS2(haxor,component,Component)
+HX_DECLARE_CLASS2(haxor,core,CameraMode)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,IResizeable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,texture,RenderTexture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
 HX_DECLARE_CLASS3(haxor,graphics,texture,TextureCube)
 HX_DECLARE_CLASS2(haxor,math,AABB2)
+HX_DECLARE_CLASS2(haxor,math,AABB3)
 HX_DECLARE_CLASS2(haxor,math,Color)
 HX_DECLARE_CLASS2(haxor,math,Matrix4)
 HX_DECLARE_CLASS2(haxor,math,Vector3)
@@ -43,6 +47,9 @@ class HXCPP_CLASS_ATTRIBUTES  Camera_obj : public ::haxor::component::Behaviour_
 		static void __register();
 		void __Mark(HX_MARK_PARAMS);
 		void __Visit(HX_VISIT_PARAMS);
+		inline operator ::haxor::core::IResizeable_obj *()
+			{ return new ::haxor::core::IResizeable_delegate_< Camera_obj >(this); }
+		hx::Object *__ToInterface(const hx::type_info &inType);
 		::String __ToString() const { return HX_CSTRING("Camera"); }
 
 		int __fcid;
@@ -150,9 +157,24 @@ class HXCPP_CLASS_ATTRIBUTES  Camera_obj : public ::haxor::component::Behaviour_
 		Dynamic get_frustum_dyn();
 
 		Array< ::Dynamic > m_frustum;
+		virtual ::haxor::core::CameraMode get_mode( );
+		Dynamic get_mode_dyn();
+
+		virtual ::haxor::core::CameraMode set_mode( ::haxor::core::CameraMode v);
+		Dynamic set_mode_dyn();
+
+		::haxor::core::CameraMode m_mode;
+		virtual ::haxor::math::AABB2 get_screen( );
+		Dynamic get_screen_dyn();
+
+		virtual ::haxor::math::AABB2 set_screen( ::haxor::math::AABB2 v);
+		Dynamic set_screen_dyn();
+
+		::haxor::math::AABB2 m_screen;
 		bool m_projection_dirty;
 		bool m_view_uniform_dirty;
 		bool m_proj_uniform_dirty;
+		::haxor::math::AABB3 m_aabb;
 		virtual Void OnBuild( );
 
 		virtual ::haxor::math::Vector4 WorldToProjection( ::haxor::math::Vector3 p_world_point,::haxor::math::Vector4 p_result);
@@ -170,10 +192,14 @@ class HXCPP_CLASS_ATTRIBUTES  Camera_obj : public ::haxor::component::Behaviour_
 		virtual Void UpdateProjection( );
 		Dynamic UpdateProjection_dyn();
 
-		virtual Void OnTransformUpdate( );
+		virtual Void OnTransformUpdate( bool p_hierarchy);
 
 		virtual Void OnDestroy( );
 
+		virtual Void OnResize( Float p_w,Float p_h);
+		Dynamic OnResize_dyn();
+
+		static bool SAPCulling;
 		static Array< ::Dynamic > get_list( );
 		static Dynamic get_list_dyn();
 

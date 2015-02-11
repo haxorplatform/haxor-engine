@@ -17,6 +17,7 @@ import haxor.graphics.material.Shader;
 import haxor.graphics.material.UberShader;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.mesh.Mesh.MeshAttrib;
+import haxor.graphics.texture.Texture2D;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.graphics.GL;
@@ -79,6 +80,11 @@ class MaterialContext
 	 * List of shader programs for Material classes.
 	 */
 	private var programs : Array<ProgramId>;
+	
+	/**
+	 * List of flags that indicates if a given program was linked.
+	 */
+	private var is_linked : Array<Bool>;
 	
 	/**
 	 * List of camera reference cache. To check if material needs to update camera uniforms.
@@ -201,6 +207,7 @@ class MaterialContext
 		locations			= [];
 		uniforms			= [];
 		programs			= [];
+		is_linked			= [];
 		vertex_shaders 	 	= [];
 		fragment_shaders 	= [];
 		globals				= [];
@@ -222,6 +229,7 @@ class MaterialContext
 			locations.push(l);
 			uniforms.push(ul);
 			programs.push(GL.INVALID);
+			is_linked.push(false);
 			vertex_shaders.push(GL.INVALID);
 			fragment_shaders.push(GL.INVALID);
 			
@@ -349,12 +357,16 @@ class MaterialContext
 	 */
 	private function CreateUniform(m:Material, u:MaterialUniform):Void
 	{
-		var p 	: ProgramId 		= programs[m.__cid];				
+		u.__d = true;
+		u.exists = true;
+		
+		if (!is_linked[m.__cid]) return;
+		
+		var p 	: ProgramId 		= programs[m.__cid];
 		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
 		//Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");		
-		uniforms[m.__cid][u.__cid] 	= loc;
-		u.__d = true;
-		u.exists = (loc != GL.INVALID) ;
+		uniforms[m.__cid][u.__cid] 	= loc;				
+		u.exists = (loc != GL.INVALID);
 	}
 	
 	/**
@@ -402,6 +414,7 @@ class MaterialContext
 		var vs_id : ShaderId;
 		var fs_id : ShaderId;
 		
+		is_linked[m.__cid] = false;
 		if (s0 != null)
 		{
 			vs_id = vertex_shaders[s0.__cid];
@@ -422,10 +435,13 @@ class MaterialContext
 			var al : Array<String> = EngineContext.mesh.attribs;
 			for (i in 0...al.length) GL.BindAttribLocation(p, i, al[i]);
 			GL.LinkProgram(p);
-				
+			
+			is_linked[m.__cid] = true;
+			
 			if (GL.GetProgramParameter(p, GL.LINK_STATUS)==0)
 			{				
-				Console.LogError("Material> ["+m.name+"] Link Error @ [" + s1.name + "]");				
+				Console.LogError("Material> [" + m.name+"] Link Error @ [" + s1.name + "]");				
+				is_linked[m.__cid] = false;
 			}
 			
 			var ul : Array<MaterialUniform> = m.m_uniforms;
@@ -452,7 +468,7 @@ class MaterialContext
 					case "Ambient":					m.SetColor(un, Color.temp.Set(1,1,1,1));					
 					case "Time":					m.SetFloat(un, 0.0);					
 					case "RandomSeed":				m.SetFloat(un, 0.0);
-					//case "RandomTexture":			current.SetTexture(un, Asset.Get("haxor/texture/random"));
+					case "RandomTexture":			m.SetTexture(un, Texture2D.random);
 					//case "ScreenTexture":			if (current.grab) current.SetTexture("ScreenTexture", current.screen);						
 					//case "ScreenDepth":			current.SetTexture("ScreenDepth",   p_camera.m_grab.depth);						
 					case "WorldMatrix":				m.SetMatrix4(un,m4);
@@ -508,6 +524,24 @@ class MaterialContext
 		var material_change : Bool = (m != current);		
 		UseMaterial(m);		
 		UpdateMaterialUniforms(t,c,msh,material_change);
+	}
+	
+	/**
+	 * Disables the bound Material
+	 */
+	private function Unbind():Void
+	{	
+		//Disable something
+		if (current == null) return;
+		var ul : Array<MaterialUniform> = current.m_uniforms;
+		for (i in 0...ul.length)
+		{
+			if (ul[i].texture != null)
+			{
+				ul[i].texture.__slot = -1;
+			}
+		}
+		
 	}
 	
 	/**
@@ -603,7 +637,7 @@ class MaterialContext
 	private function UploadUniform(m:Material,u:MaterialUniform):Void
 	{
 		var loc:UniformLocation;		
-		loc = uniforms[m.__cid][u.__cid];
+		loc = uniforms[m.__cid][u.__cid];		
 		if (loc == GL.INVALID)
 		{			
 			return;		
@@ -611,19 +645,15 @@ class MaterialContext
 		
 		var is_texture : Bool = u.texture != null;
 		var changed : Bool = u.__d;
-		var texture_slot : Int = -1;
-		
+		var texture_slot : Int = -1;				
 		if (is_texture) 
-		{ 				
+		{ 	
 			if (u.texture.__slot < 0) { u.texture.__slot = texture_slot = slot++; }
 			var b : Int32Array = cast u.data;
-			if (u.texture.__slot != b.Get(0)) { changed = true; b.Set(0, u.texture.__slot); }
-			
-			EngineContext.texture.Bind(u.texture, u.texture.__slot);
-			
+			if (u.texture.__slot != b.Get(0)) { changed = true; b.Set(0, u.texture.__slot); }			
+			EngineContext.texture.Bind(u.texture, u.texture.__slot);			
 		} 					
-		if (!changed) return;		
-		
+		if (!changed) return;				
 		ApplyUniform(loc, u,texture_slot);
 	}
 	
@@ -654,7 +684,7 @@ class MaterialContext
 		}
 		else
 		{						
-			var b : Int32Array = cast u.data;			
+			var b : Int32Array = cast u.data;				
 			switch(off)
 			{
 				case 1:  if(is_array) GL.Uniform1iv(loc, b); else GL.Uniform1i(loc, b.Get(0));				
@@ -683,7 +713,7 @@ class MaterialContext
 			case "Ambient":					u.SetColor(Light.ambient);					
 			case "Time":					u.SetFloat(Time.elapsed);					
 			case "RandomSeed":				u.SetFloat(Random.value);
-			//case "RandomTexture":			u.SetTexture(un, Asset.Get("haxor/texture/random"));
+			case "RandomTexture":			u.SetTexture(Texture2D.random);
 			//case "ScreenTexture":			if (current.grab) u.SetTexture("ScreenTexture", current.screen);						
 			//case "ScreenDepth":			current.SetTexture("ScreenDepth",   c.m_grab.depth);						
 			case "WorldMatrix":				if(ut) 	u.SetMatrix4(t.WorldMatrix);
@@ -741,8 +771,8 @@ class MaterialContext
 				//trace(l.name);				
 				var pl : PointLight = cast l;								
 				var limit : Float = hs + (0.5 * pl.radius);
-				l.transform.WorldMatrix.Transform3x4(p.Set());
-				
+				var wm : Matrix4  = l.transform.WorldMatrix;				
+				p.Set(wm.m03, wm.m13, wm.m23);				
 				if (Vector3.Distance(c, p) > limit) continue;				
 				
 				if (Debug.light)
@@ -784,16 +814,7 @@ class MaterialContext
 		
 	}
 	
-	/**
-	 * Disables the bound Material
-	 */
-	private function Unbind():Void
-	{	
-		//Disable something
-		if (current == null) return;
-		var ul : Array<MaterialUniform> = current.m_uniforms;
-		for (i in 0...ul.length) if (ul[i].texture != null) ul[i].texture.__slot = -1;
-	}
+	
 	
 	/**
 	 * Destroys the API structure of the material.

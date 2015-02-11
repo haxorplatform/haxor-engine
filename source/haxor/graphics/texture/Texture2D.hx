@@ -3,6 +3,7 @@ import haxor.context.EngineContext;
 import haxor.core.Enums.PixelFormat;
 import haxor.core.Enums.TextureType;
 import haxor.core.Enums.TextureWrap;
+import haxor.io.FloatArray;
 import haxor.math.Color;
 import haxor.math.Random;
 
@@ -12,6 +13,22 @@ import haxor.math.Random;
  */
 class Texture2D extends Texture
 {	
+	/**
+	 * Texture with random numbers.
+	 */
+	static public var random(get_random, never):Texture2D;
+	static private function get_random():Texture2D
+	{
+		if (m_random != null) return m_random;		
+		m_random = new Texture2D(128, 128, PixelFormat.Float4);
+		m_random.name = "Random";		
+		var f32 : FloatArray = cast m_random.data.buffer;
+		for (i in 0...f32.length) f32.Set(i, Math.random());
+		m_random.Upload(10);
+		return m_random;
+	}
+	static private var m_random : Texture2D;
+	
 	/**
 	 * Template texture with a single white pixel.
 	 */
@@ -71,25 +88,6 @@ class Texture2D extends Texture
 		return m_green;
 	}
 	static private var m_green : Texture2D;
-	
-	/**
-	 * Random Texture with 512x512 pixels.
-	 */
-	static public var random(get_random, never):Texture2D;
-	static private function get_random():Texture2D
-	{
-		if (m_random != null) return m_random;
-		m_random = new Texture2D(512, 512, PixelFormat.Float4);		
-		m_random.wrap = TextureWrap.RepeatX | TextureWrap.RepeatY;
-		for (i in 0...m_random.width)
-		for (j in 0...m_random.height)
-		{
-			m_random.data.Set(j, i, Random.value, Random.value, Random.value, Random.value);
-		}
-		m_random.Upload(10);
-		return m_random;
-	}
-	static private var m_random : Texture2D;
 	
 	/**
 	 * Creates a new Texture2D from a bitmap reference.

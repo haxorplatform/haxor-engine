@@ -27,12 +27,6 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
-#ifndef INCLUDED_haxor_graphics_Graphics
-#include <haxor/graphics/Graphics.h>
-#endif
-#ifndef INCLUDED_haxor_graphics_Screen
-#include <haxor/graphics/Screen.h>
-#endif
 #ifndef INCLUDED_haxor_graphics_material_Material
 #include <haxor/graphics/material/Material.h>
 #endif
@@ -65,9 +59,6 @@
 #endif
 #ifndef INCLUDED_haxor_io_FloatArray
 #include <haxor/io/FloatArray.h>
-#endif
-#ifndef INCLUDED_haxor_math_Color
-#include <haxor/math/Color.h>
 #endif
 #ifndef INCLUDED_haxor_math_Matrix4
 #include <haxor/math/Matrix4.h>
@@ -176,85 +167,79 @@ return null();
 
 Void SkinnedMeshRenderer_obj::OnRender( ){
 {
-		HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","OnRender",0xc0567ae0,"haxor.component.SkinnedMeshRenderer.OnRender","haxor/component/SkinnedMeshRenderer.hx",47,0x9853527d)
+		HX_STACK_FRAME("haxor.component.SkinnedMeshRenderer","OnRender",0xc0567ae0,"haxor.component.SkinnedMeshRenderer.OnRender","haxor/component/SkinnedMeshRenderer.hx",50,0x9853527d)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(49)
+		HX_STACK_LINE(52)
 		if (((this->m_material != null()))){
-			HX_STACK_LINE(51)
-			::haxor::graphics::mesh::SkinnedMesh3 skm = this->m_mesh;		HX_STACK_VAR(skm,"skm");
-			HX_STACK_LINE(52)
-			int k = (int)0;		HX_STACK_VAR(k,"k");
-			HX_STACK_LINE(53)
-			::haxor::math::Matrix4 jm;		HX_STACK_VAR(jm,"jm");
 			HX_STACK_LINE(54)
-			::haxor::math::Matrix4 bm;		HX_STACK_VAR(bm,"bm");
+			::haxor::graphics::mesh::SkinnedMesh3 skm = this->m_mesh;		HX_STACK_VAR(skm,"skm");
 			HX_STACK_LINE(55)
+			int k = (int)0;		HX_STACK_VAR(k,"k");
+			HX_STACK_LINE(56)
+			::haxor::math::Matrix4 jm;		HX_STACK_VAR(jm,"jm");
+			HX_STACK_LINE(57)
+			::haxor::math::Matrix4 bm;		HX_STACK_VAR(bm,"bm");
+			HX_STACK_LINE(58)
 			::haxor::io::FloatArray f32 = this->m_data->m_data->get_buffer();		HX_STACK_VAR(f32,"f32");
-			HX_STACK_LINE(59)
+			HX_STACK_LINE(62)
 			{
-				HX_STACK_LINE(59)
+				HX_STACK_LINE(62)
 				int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(59)
+				HX_STACK_LINE(62)
 				int _g = this->m_joints->length;		HX_STACK_VAR(_g,"_g");
-				HX_STACK_LINE(59)
+				HX_STACK_LINE(62)
 				while((true)){
-					HX_STACK_LINE(59)
+					HX_STACK_LINE(62)
 					if ((!(((_g1 < _g))))){
-						HX_STACK_LINE(59)
+						HX_STACK_LINE(62)
 						break;
 					}
-					HX_STACK_LINE(59)
+					HX_STACK_LINE(62)
 					int i = (_g1)++;		HX_STACK_VAR(i,"i");
-					HX_STACK_LINE(61)
+					HX_STACK_LINE(64)
 					::haxor::math::Matrix4 _g2 = this->m_joints->__get(i).StaticCast< ::haxor::component::Transform >()->get_WorldMatrix();		HX_STACK_VAR(_g2,"_g2");
-					HX_STACK_LINE(61)
+					HX_STACK_LINE(64)
 					jm = _g2;
-					HX_STACK_LINE(62)
+					HX_STACK_LINE(65)
 					Array< ::Dynamic > _g11 = skm->get_binds();		HX_STACK_VAR(_g11,"_g11");
-					HX_STACK_LINE(62)
+					HX_STACK_LINE(65)
 					::haxor::math::Matrix4 _g21 = _g11->__get(i).StaticCast< ::haxor::math::Matrix4 >();		HX_STACK_VAR(_g21,"_g21");
-					HX_STACK_LINE(62)
+					HX_STACK_LINE(65)
 					bm = _g21;
-					HX_STACK_LINE(63)
+					HX_STACK_LINE(66)
 					{
-						HX_STACK_LINE(63)
+						HX_STACK_LINE(66)
 						int _g22 = (int)0;		HX_STACK_VAR(_g22,"_g22");
-						HX_STACK_LINE(63)
+						HX_STACK_LINE(66)
 						while((true)){
-							HX_STACK_LINE(63)
+							HX_STACK_LINE(66)
 							if ((!(((_g22 < (int)12))))){
-								HX_STACK_LINE(63)
+								HX_STACK_LINE(66)
 								break;
 							}
-							HX_STACK_LINE(63)
+							HX_STACK_LINE(66)
 							int j = (_g22)++;		HX_STACK_VAR(j,"j");
-							HX_STACK_LINE(65)
+							HX_STACK_LINE(68)
 							Float _g3 = jm->GetIndex(j);		HX_STACK_VAR(_g3,"_g3");
-							HX_STACK_LINE(65)
+							HX_STACK_LINE(68)
 							f32->Set(k,_g3);
-							HX_STACK_LINE(66)
+							HX_STACK_LINE(69)
 							Float _g4 = bm->GetIndex(j);		HX_STACK_VAR(_g4,"_g4");
-							HX_STACK_LINE(66)
+							HX_STACK_LINE(69)
 							f32->Set((k + (int)4096),_g4);
-							HX_STACK_LINE(67)
+							HX_STACK_LINE(70)
 							(k)++;
 						}
 					}
 				}
 			}
-			HX_STACK_LINE(72)
+			HX_STACK_LINE(75)
 			this->m_data->Invalidate();
-			HX_STACK_LINE(74)
+			HX_STACK_LINE(77)
 			this->m_material->SetTexture(HX_CSTRING("Skinning"),this->m_data);
 		}
-		HX_STACK_LINE(79)
-		this->super::OnRender();
 		HX_STACK_LINE(82)
-		Float sh = ::haxor::graphics::Screen_obj::m_height;		HX_STACK_VAR(sh,"sh");
-		HX_STACK_LINE(83)
-		Float th = 2048.0;		HX_STACK_VAR(th,"th");
-		HX_STACK_LINE(84)
-		::haxor::graphics::Graphics_obj::DrawTexture(this->m_data,(int)0,(th + (int)105),(int)256,-(th),null());
+		this->super::OnRender();
 	}
 return null();
 }

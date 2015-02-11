@@ -35,11 +35,11 @@ namespace context{
 
 Void PointGizmo_obj::__construct()
 {
-HX_STACK_FRAME("haxor.context.PointGizmo","new",0xdc90fd67,"haxor.context.PointGizmo.new","haxor/context/GizmoContext.hx",647,0xa99c50bc)
+HX_STACK_FRAME("haxor.context.PointGizmo","new",0xdc90fd67,"haxor.context.PointGizmo.new","haxor/context/GizmoContext.hx",676,0xa99c50bc)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(647)
-	super::__construct(::haxor::context::Gizmo_obj::POINT,(::haxor::context::Gizmo_obj::MAX_GIZMOS * (int)5));
+	HX_STACK_LINE(676)
+	super::__construct(::haxor::context::Gizmo_obj::POINT,(int)10);
 }
 ;
 	return null();
@@ -60,64 +60,64 @@ Dynamic PointGizmo_obj::__Create(hx::DynamicArray inArgs)
 
 Void PointGizmo_obj::OnBuild( ){
 {
-		HX_STACK_FRAME("haxor.context.PointGizmo","OnBuild",0x6d1f5df6,"haxor.context.PointGizmo.OnBuild","haxor/context/GizmoContext.hx",653,0xa99c50bc)
+		HX_STACK_FRAME("haxor.context.PointGizmo","OnBuild",0x6d1f5df6,"haxor.context.PointGizmo.OnBuild","haxor/context/GizmoContext.hx",682,0xa99c50bc)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(654)
+		HX_STACK_LINE(683)
 		::haxor::graphics::mesh::Mesh3 m = ::haxor::graphics::mesh::Mesh3_obj::__new(null());		HX_STACK_VAR(m,"m");
-		HX_STACK_LINE(655)
+		HX_STACK_LINE(684)
 		m->set_name(HX_CSTRING("$GizmoPointMesh"));
-		HX_STACK_LINE(656)
+		HX_STACK_LINE(685)
 		m->primitive = (int)0;
-		HX_STACK_LINE(657)
+		HX_STACK_LINE(686)
 		Float id = 0.0;		HX_STACK_VAR(id,"id");
-		HX_STACK_LINE(658)
+		HX_STACK_LINE(687)
 		::haxor::io::FloatArray ia = ::haxor::io::FloatArray_obj::__new(this->m_gizmo_count);		HX_STACK_VAR(ia,"ia");
-		HX_STACK_LINE(659)
+		HX_STACK_LINE(688)
 		::haxor::io::FloatArray va = ::haxor::io::FloatArray_obj::__new((this->m_gizmo_count * (int)3));		HX_STACK_VAR(va,"va");
-		HX_STACK_LINE(660)
+		HX_STACK_LINE(689)
 		int va_k = (int)0;		HX_STACK_VAR(va_k,"va_k");
-		HX_STACK_LINE(661)
+		HX_STACK_LINE(690)
 		int ia_k = (int)0;		HX_STACK_VAR(ia_k,"ia_k");
-		HX_STACK_LINE(662)
+		HX_STACK_LINE(691)
 		{
-			HX_STACK_LINE(662)
+			HX_STACK_LINE(691)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(662)
+			HX_STACK_LINE(691)
 			int _g = this->m_gizmo_count;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(662)
+			HX_STACK_LINE(691)
 			while((true)){
-				HX_STACK_LINE(662)
+				HX_STACK_LINE(691)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(662)
+					HX_STACK_LINE(691)
 					break;
 				}
-				HX_STACK_LINE(662)
+				HX_STACK_LINE(691)
 				int k = (_g1)++;		HX_STACK_VAR(k,"k");
-				HX_STACK_LINE(664)
+				HX_STACK_LINE(693)
 				int _g2 = (va_k)++;		HX_STACK_VAR(_g2,"_g2");
-				HX_STACK_LINE(664)
+				HX_STACK_LINE(693)
 				va->Set(_g2,0.0);
-				HX_STACK_LINE(664)
+				HX_STACK_LINE(693)
 				int _g11 = (va_k)++;		HX_STACK_VAR(_g11,"_g11");
-				HX_STACK_LINE(664)
+				HX_STACK_LINE(693)
 				va->Set(_g11,0.0);
-				HX_STACK_LINE(664)
+				HX_STACK_LINE(693)
 				int _g21 = (va_k)++;		HX_STACK_VAR(_g21,"_g21");
-				HX_STACK_LINE(664)
+				HX_STACK_LINE(693)
 				va->Set(_g21,0.0);
-				HX_STACK_LINE(664)
+				HX_STACK_LINE(693)
 				int _g3 = (ia_k)++;		HX_STACK_VAR(_g3,"_g3");
-				HX_STACK_LINE(664)
+				HX_STACK_LINE(693)
 				ia->Set(_g3,id);
-				HX_STACK_LINE(665)
+				HX_STACK_LINE(694)
 				hx::AddEq(id,1.0);
 			}
 		}
-		HX_STACK_LINE(667)
+		HX_STACK_LINE(696)
 		m->Set(HX_CSTRING("id"),ia,(int)1);
-		HX_STACK_LINE(668)
+		HX_STACK_LINE(697)
 		m->Set(HX_CSTRING("vertex"),va,(int)3);
-		HX_STACK_LINE(669)
+		HX_STACK_LINE(698)
 		this->mesh = m;
 	}
 return null();

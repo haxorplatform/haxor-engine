@@ -144,6 +144,14 @@ class HXCPP_CLASS_ATTRIBUTES  Material_obj : public ::haxor::core::Resource_obj{
 		virtual ::haxor::graphics::material::MaterialUniform FetchUniform( ::String p_name,bool p_is_float,int p_length,int p_offset,bool p_create);
 		Dynamic FetchUniform_dyn();
 
+		virtual Dynamic Clone( );
+
+		virtual Void SetUniformFloat( ::haxor::graphics::material::MaterialUniform u);
+		Dynamic SetUniformFloat_dyn();
+
+		virtual Void SetUniformInt( ::haxor::graphics::material::MaterialUniform u);
+		Dynamic SetUniformInt_dyn();
+
 		virtual Void OnDestroy( );
 
 		static ::haxor::graphics::material::Material Opaque( ::haxor::graphics::texture::Texture p_texture,hx::Null< bool >  p_ztest,hx::Null< bool >  p_zwrite);

@@ -6,6 +6,7 @@
 #endif
 
 HX_DECLARE_CLASS2(haxor,context,DataContext)
+HX_DECLARE_CLASS2(haxor,ds,IUSetItem)
 HX_DECLARE_CLASS2(haxor,math,AABB2)
 HX_DECLARE_CLASS2(haxor,math,AABB3)
 HX_DECLARE_CLASS2(haxor,math,Color)
@@ -14,6 +15,7 @@ HX_DECLARE_CLASS2(haxor,math,Quaternion)
 HX_DECLARE_CLASS2(haxor,math,Vector2)
 HX_DECLARE_CLASS2(haxor,math,Vector3)
 HX_DECLARE_CLASS2(haxor,math,Vector4)
+HX_DECLARE_CLASS2(haxor,physics,Collision)
 namespace haxor{
 namespace context{
 
@@ -84,6 +86,12 @@ class HXCPP_CLASS_ATTRIBUTES  DataContext_obj : public hx::Object{
 
 		Array< ::Dynamic > m_aabb2;
 		int m_naabb2;
+		::haxor::physics::Collision collision;
+		virtual ::haxor::physics::Collision get_collision( );
+		Dynamic get_collision_dyn();
+
+		Array< ::Dynamic > m_collision;
+		int m_ncollision;
 		::haxor::math::Matrix4 m4;
 		virtual ::haxor::math::Matrix4 get_m4( );
 		Dynamic get_m4_dyn();

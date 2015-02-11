@@ -5,13 +5,17 @@
 #include <hxcpp.h>
 #endif
 
+HX_DECLARE_CLASS2(haxor,component,Behaviour)
+HX_DECLARE_CLASS2(haxor,component,Component)
 HX_DECLARE_CLASS2(haxor,context,BaseProcess)
 HX_DECLARE_CLASS2(haxor,context,CameraContext)
 HX_DECLARE_CLASS2(haxor,context,DataContext)
 HX_DECLARE_CLASS2(haxor,context,EngineContext)
 HX_DECLARE_CLASS2(haxor,context,GizmoContext)
+HX_DECLARE_CLASS2(haxor,context,KernelContext)
 HX_DECLARE_CLASS2(haxor,context,MaterialContext)
 HX_DECLARE_CLASS2(haxor,context,MeshContext)
+HX_DECLARE_CLASS2(haxor,context,PhysicsContext)
 HX_DECLARE_CLASS2(haxor,context,Process)
 HX_DECLARE_CLASS2(haxor,context,RendererContext)
 HX_DECLARE_CLASS2(haxor,context,TextureContext)
@@ -47,6 +51,9 @@ class HXCPP_CLASS_ATTRIBUTES  EngineContext_obj : public hx::Object{
 		static int maxNodes;
 		static int collectRate;
 		static ::haxor::context::Process update;
+		static ::haxor::context::Process fixed_update;
+		static Array< ::Dynamic > awake;
+		static Array< ::Dynamic > start;
 		static ::haxor::context::Process resize;
 		static ::haxor::context::Process render;
 		static ::haxor::context::Process resources;
@@ -60,6 +67,8 @@ class HXCPP_CLASS_ATTRIBUTES  EngineContext_obj : public hx::Object{
 		static ::haxor::context::GizmoContext gizmo;
 		static ::haxor::context::DataContext data;
 		static ::haxor::context::TransformContext transform;
+		static ::haxor::context::PhysicsContext physics;
+		static ::haxor::context::KernelContext kernel;
 		static Void Initialize( );
 		static Dynamic Initialize_dyn();
 

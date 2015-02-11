@@ -87,7 +87,7 @@ Void TransformContext_obj::OnChange( ::haxor::component::Transform t){
 				HX_STACK_LINE(43)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
 				HX_STACK_LINE(43)
-				cl->__get(i).StaticCast< ::haxor::component::Component >()->OnTransformUpdate();
+				cl->__get(i).StaticCast< ::haxor::component::Component >()->OnTransformUpdate(false);
 			}
 		}
 	}
@@ -96,6 +96,39 @@ return null();
 
 
 HX_DEFINE_DYNAMIC_FUNC1(TransformContext_obj,OnChange,(void))
+
+Void TransformContext_obj::OnHierarchyChange( ::haxor::component::Transform t){
+{
+		HX_STACK_FRAME("haxor.context.TransformContext","OnHierarchyChange",0x89163ce6,"haxor.context.TransformContext.OnHierarchyChange","haxor/context/TransformContext.hx",51,0x797e3cae)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(t,"t")
+		HX_STACK_LINE(52)
+		Array< ::Dynamic > cl = t->m_entity->m_components;		HX_STACK_VAR(cl,"cl");
+		HX_STACK_LINE(53)
+		{
+			HX_STACK_LINE(53)
+			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(53)
+			int _g = cl->length;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(53)
+			while((true)){
+				HX_STACK_LINE(53)
+				if ((!(((_g1 < _g))))){
+					HX_STACK_LINE(53)
+					break;
+				}
+				HX_STACK_LINE(53)
+				int i = (_g1)++;		HX_STACK_VAR(i,"i");
+				HX_STACK_LINE(53)
+				cl->__get(i).StaticCast< ::haxor::component::Component >()->OnTransformUpdate(true);
+			}
+		}
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC1(TransformContext_obj,OnHierarchyChange,(void))
 
 
 TransformContext_obj::TransformContext_obj()
@@ -125,6 +158,9 @@ Dynamic TransformContext_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 10:
 		if (HX_FIELD_EQ(inName,"Initialize") ) { return Initialize_dyn(); }
+		break;
+	case 17:
+		if (HX_FIELD_EQ(inName,"OnHierarchyChange") ) { return OnHierarchyChange_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -158,6 +194,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("tid"),
 	HX_CSTRING("Initialize"),
 	HX_CSTRING("OnChange"),
+	HX_CSTRING("OnHierarchyChange"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

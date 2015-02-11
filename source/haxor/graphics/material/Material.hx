@@ -224,8 +224,9 @@ class Material extends Resource
 	public function SetTexture(p_name:String, p_texture:Texture):Void
 	{
 		if (p_texture == null) { RemoveUniform(p_name); return; } 
-		var u : MaterialUniform = FetchUniform(p_name, false, 1, 1, true);		
-		if (u.exists) u.SetTexture(p_texture);		
+		var u : MaterialUniform = FetchUniform(p_name, false, 1, 1, true);
+		if (u.texture != null) u.texture.__slot = -1;
+		if (u.exists) u.SetTexture(p_texture);
 	}
 	
 	/**
@@ -437,6 +438,7 @@ class Material extends Resource
 		}			
 		if (u != null)
 		{
+			if (u.texture != null) u.texture.__slot = -1;
 			EngineContext.material.DestroyUniform(this, u);
 			m_uniforms.remove(u);
 		}
@@ -616,7 +618,7 @@ class MaterialUniform
 	/**
 	 * Reference to the texture if any.
 	 */
-	private var texture : Texture;
+	public var texture : Texture;
 	
 	/**
 	 * Flag that indicates if the data is made of floats otherwise is int.
@@ -674,6 +676,7 @@ class MaterialUniform
 	public function SetTexture(p_texture:Texture):Void 
 	{ 
 		if (!exists) return; 
+		if (p_texture == texture) return;
 		__d = true; 
 		var b : Int32Array = cast data; 
 		b.Set(0, p_texture.__slot); 

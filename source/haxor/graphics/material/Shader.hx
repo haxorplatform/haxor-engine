@@ -32,6 +32,13 @@ class Shader extends Resource
 	static private var m_flat_texture_skin_shader : Shader;
 	
 	/**
+	 * Returns a reference to the Flat particle shader with 1 diffuse texture.
+	 */
+	static public var FlatParticle(get_FlatParticle, null):Shader;
+	static private inline function get_FlatParticle():Shader { return (m_flat_particle_shader == null ? (m_flat_particle_shader = new Shader(ShaderContext.flat_particle_source)) : m_flat_particle_shader);	}
+	static private var m_flat_particle_shader : Shader;
+	
+	/**
 	 * String containing the VertexShader source.
 	 */
 	private var m_vss:String;
@@ -101,6 +108,7 @@ class Shader extends Resource
 		if (n == null) return "";
 		var src:String = n.firstChild().nodeValue.toString();
 		var prec:String = (n.get("precision") == null ? "low" : n.get("precision")).toLowerCase();
+		//prec = "high";
 		switch(prec)
 		{
 			case "low":    prec = "precision lowp float;";

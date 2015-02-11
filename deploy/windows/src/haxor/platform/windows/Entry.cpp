@@ -123,7 +123,7 @@ Void Entry_obj::Initialize( ){
 				HX_STACK_LINE(53)
 				::String _g11 = args->__get(i).toLowerCase();		HX_STACK_VAR(_g11,"_g11");
 				HX_STACK_LINE(53)
-				if (((_g11 == HX_CSTRING("-hx")))){
+				if (((_g11 == HX_CSTRING("-main")))){
 					HX_STACK_LINE(55)
 					int p = (i + (int)1);		HX_STACK_VAR(p,"p");
 					HX_STACK_LINE(56)

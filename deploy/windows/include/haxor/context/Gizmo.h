@@ -66,6 +66,7 @@ class HXCPP_CLASS_ATTRIBUTES  Gizmo_obj : public hx::Object{
 		static int AXIS;
 		static int WIRE_CUBE;
 		static int WIRE_SPHERE;
+		static int CANVAS;
 		static int DATA_OFFSET;
 		static int MAX_GIZMOS;
 		static ::haxor::math::Matrix4 IDM;

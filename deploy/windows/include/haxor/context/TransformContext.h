@@ -44,6 +44,9 @@ class HXCPP_CLASS_ATTRIBUTES  TransformContext_obj : public hx::Object{
 		virtual Void OnChange( ::haxor::component::Transform t);
 		Dynamic OnChange_dyn();
 
+		virtual Void OnHierarchyChange( ::haxor::component::Transform t);
+		Dynamic OnHierarchyChange_dyn();
+
 };
 
 } // end namespace haxor

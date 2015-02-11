@@ -12,10 +12,12 @@ HX_DECLARE_CLASS2(haxor,component,Transform)
 HX_DECLARE_CLASS2(haxor,context,MaterialContext)
 HX_DECLARE_CLASS2(haxor,context,UID)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,IResizeable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
 HX_DECLARE_CLASS3(haxor,graphics,material,MaterialUniform)
 HX_DECLARE_CLASS3(haxor,graphics,material,Shader)
+HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,MeshAttrib)
 namespace haxor{
 namespace context{
@@ -52,6 +54,7 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 		Array< int > fragment_shaders;
 		::haxor::graphics::material::Shader error_shader;
 		Array< int > programs;
+		Array< bool > is_linked;
 		Array< ::Dynamic > camera;
 		Array< ::Dynamic > transform;
 		Array< bool > viewmatrix;
@@ -103,13 +106,16 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 		virtual int GetAttribLocation( ::haxor::graphics::mesh::MeshAttrib a);
 		Dynamic GetAttribLocation_dyn();
 
-		virtual Void Bind( ::haxor::graphics::material::Material m,::haxor::component::Transform t,::haxor::component::Camera c);
+		virtual Void Bind( ::haxor::graphics::material::Material m,::haxor::component::Transform t,::haxor::component::Camera c,::haxor::graphics::mesh::Mesh msh);
 		Dynamic Bind_dyn();
+
+		virtual Void Unbind( );
+		Dynamic Unbind_dyn();
 
 		virtual Void UseMaterial( ::haxor::graphics::material::Material m);
 		Dynamic UseMaterial_dyn();
 
-		virtual Void UpdateMaterialUniforms( ::haxor::component::Transform t,::haxor::component::Camera c,bool p_changed);
+		virtual Void UpdateMaterialUniforms( ::haxor::component::Transform t,::haxor::component::Camera c,::haxor::graphics::mesh::Mesh msh,bool p_changed);
 		Dynamic UpdateMaterialUniforms_dyn();
 
 		virtual Void UploadUniforms( bool ut,bool ucv,bool ucp,::haxor::component::Transform t,::haxor::component::Camera c);
@@ -118,14 +124,14 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialContext_obj : public hx::Object{
 		virtual Void UploadUniform( ::haxor::graphics::material::Material m,::haxor::graphics::material::MaterialUniform u);
 		Dynamic UploadUniform_dyn();
 
-		virtual Void ApplyUniform( int loc,::haxor::graphics::material::MaterialUniform u);
+		virtual Void ApplyUniform( int loc,::haxor::graphics::material::MaterialUniform u,int ts);
 		Dynamic ApplyUniform_dyn();
 
 		virtual Void UploadGlobalUniform( ::haxor::graphics::material::MaterialUniform u,bool ut,bool ucv,bool ucp,::haxor::component::Transform t,::haxor::component::Camera c);
 		Dynamic UploadGlobalUniform_dyn();
 
-		virtual Void Unbind( );
-		Dynamic Unbind_dyn();
+		virtual Void SetLights( ::haxor::component::Transform t,::haxor::graphics::material::Material m,::haxor::graphics::mesh::Mesh msh);
+		Dynamic SetLights_dyn();
 
 		virtual Void DestroyMaterial( ::haxor::graphics::material::Material m);
 		Dynamic DestroyMaterial_dyn();

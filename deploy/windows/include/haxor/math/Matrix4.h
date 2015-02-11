@@ -147,6 +147,9 @@ class HXCPP_CLASS_ATTRIBUTES  Matrix4_obj : public hx::Object{
 		virtual ::haxor::math::Matrix4 SetTRS( ::haxor::math::Vector3 p_position,::haxor::math::Quaternion p_rotation,::haxor::math::Vector3 p_scale);
 		Dynamic SetTRS_dyn();
 
+		virtual ::haxor::math::Matrix4 ToInverseTransform( );
+		Dynamic ToInverseTransform_dyn();
+
 		virtual ::haxor::math::Matrix4 MultiplyTransform( ::haxor::math::Matrix4 p_matrix);
 		Dynamic MultiplyTransform_dyn();
 
@@ -182,6 +185,9 @@ class HXCPP_CLASS_ATTRIBUTES  Matrix4_obj : public hx::Object{
 
 		virtual ::haxor::math::Matrix4 SetOrtho( Float p_left,Float p_right,Float p_top,Float p_bottom,Float p_near,Float p_far);
 		Dynamic SetOrtho_dyn();
+
+		virtual ::haxor::math::Matrix4 SetOrthoInverse( Float p_left,Float p_right,Float p_top,Float p_bottom,Float p_near,Float p_far);
+		Dynamic SetOrthoInverse_dyn();
 
 		virtual ::haxor::math::Matrix4 SetPerspective( Float p_fov,Float p_aspect,Float p_near,Float p_far);
 		Dynamic SetPerspective_dyn();
@@ -232,6 +238,9 @@ class HXCPP_CLASS_ATTRIBUTES  Matrix4_obj : public hx::Object{
 
 		static ::haxor::math::Matrix4 GetRotation( ::haxor::math::Matrix4 p_matrix4,::haxor::math::Matrix4 p_result);
 		static Dynamic GetRotation_dyn();
+
+		static ::haxor::math::Matrix4 GetScale( ::haxor::math::Matrix4 p_matrix4,::haxor::math::Matrix4 p_result);
+		static Dynamic GetScale_dyn();
 
 		static ::haxor::math::Matrix4 GetInverseTransform( ::haxor::math::Matrix4 p_matrix,::haxor::math::Matrix4 p_result);
 		static Dynamic GetInverseTransform_dyn();

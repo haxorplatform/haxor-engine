@@ -31,6 +31,67 @@
    <depend name="include/cpp/Lib.h"/>
    <depend name="include/sys/net/Host.h"/>
   </file>
+  <file name="src/haxor/thread/ParticleKernel.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/MeshRenderer.h"/>
+   <depend name="include/haxor/component/ParticleAttribute.h"/>
+   <depend name="include/haxor/component/ParticleEmitter.h"/>
+   <depend name="include/haxor/component/ParticleLife.h"/>
+   <depend name="include/haxor/component/ParticleRenderer.h"/>
+   <depend name="include/haxor/component/ParticleSheet.h"/>
+   <depend name="include/haxor/component/ParticleStart.h"/>
+   <depend name="include/haxor/component/ParticleSystemState.h"/>
+   <depend name="include/haxor/component/Renderer.h"/>
+   <depend name="include/haxor/component/Transform.h"/>
+   <depend name="include/haxor/core/AnimationWrap.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/PixelFormat.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/TextureFilter.h"/>
+   <depend name="include/haxor/core/Time.h"/>
+   <depend name="include/haxor/graphics/material/Material.h"/>
+   <depend name="include/haxor/graphics/material/MaterialUniform.h"/>
+   <depend name="include/haxor/graphics/material/Shader.h"/>
+   <depend name="include/haxor/graphics/texture/RenderTexture.h"/>
+   <depend name="include/haxor/graphics/texture/Texture.h"/>
+   <depend name="include/haxor/graphics/texture/Texture2D.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/thread/Kernel.h"/>
+   <depend name="include/haxor/thread/ParticleKernel.h"/>
+  </file>
+  <file name="src/haxor/thread/Kernel.cpp">
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Camera.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/Transform.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/KernelContext.h"/>
+   <depend name="include/haxor/context/TextureContext.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
+   <depend name="include/haxor/core/PixelFormat.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/TextureFilter.h"/>
+   <depend name="include/haxor/graphics/Graphics.h"/>
+   <depend name="include/haxor/graphics/material/Material.h"/>
+   <depend name="include/haxor/graphics/material/Shader.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh3.h"/>
+   <depend name="include/haxor/graphics/mesh/MeshLayout.h"/>
+   <depend name="include/haxor/graphics/texture/RenderTexture.h"/>
+   <depend name="include/haxor/graphics/texture/Texture.h"/>
+   <depend name="include/haxor/io/Buffer.h"/>
+   <depend name="include/haxor/io/FloatArray.h"/>
+   <depend name="include/haxor/math/AABB2.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/thread/Kernel.h"/>
+  </file>
   <file name="src/haxor/platform/windows/input/WinInputHandler.cpp">
    <depend name="include/haxor/input/Input.h"/>
    <depend name="include/haxor/input/InputHandler.h"/>
@@ -110,6 +171,87 @@
   <file name="src/haxor/platform/OSWindow.cpp">
    <depend name="include/haxor/platform/OSWindow.h"/>
   </file>
+  <file name="src/haxor/physics/broadphase/SAPBroadPhase.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/ds/SAP.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/physics/broadphase/BroadPhase.h"/>
+   <depend name="include/haxor/physics/broadphase/SAPBroadPhase.h"/>
+  </file>
+  <file name="src/haxor/physics/broadphase/BroadPhase.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/component/physics/RigidBody.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/PhysicsContext.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/ds/IUSetItem.h"/>
+   <depend name="include/haxor/ds/PairTable.h"/>
+   <depend name="include/haxor/ds/USet.h"/>
+   <depend name="include/haxor/physics/Collision.h"/>
+   <depend name="include/haxor/physics/Physics.h"/>
+   <depend name="include/haxor/physics/broadphase/BroadPhase.h"/>
+  </file>
+  <file name="src/haxor/physics/PhysicsMaterial.cpp">
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/physics/PhysicsMaterial.h"/>
+  </file>
+  <file name="src/haxor/physics/Physics.cpp">
+   <depend name="include/IMap.h"/>
+   <depend name="include/haxe/ds/IntMap.h"/>
+   <depend name="include/haxor/core/Console.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/physics/CollisionSolver.h"/>
+   <depend name="include/haxor/physics/Physics.h"/>
+   <depend name="include/haxor/physics/broadphase/BroadPhase.h"/>
+   <depend name="include/haxor/physics/broadphase/SAPBroadPhase.h"/>
+  </file>
+  <file name="src/haxor/physics/CollisionSolver.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/Transform.h"/>
+   <depend name="include/haxor/component/physics/BoxCollider.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/component/physics/RigidBody.h"/>
+   <depend name="include/haxor/component/physics/SphereCollider.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/PhysicsContext.h"/>
+   <depend name="include/haxor/core/ColliderType.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/Time.h"/>
+   <depend name="include/haxor/ds/IUSetItem.h"/>
+   <depend name="include/haxor/ds/USet.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/physics/Collision.h"/>
+   <depend name="include/haxor/physics/CollisionSolver.h"/>
+   <depend name="include/haxor/physics/PhysicsMaterial.h"/>
+   <depend name="include/haxor/physics/broadphase/BroadPhase.h"/>
+  </file>
+  <file name="src/haxor/physics/Collision.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/ds/IUSetItem.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/physics/Collision.h"/>
+  </file>
   <file name="src/haxor/net/Web.cpp">
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/IRenderable.h"/>
@@ -122,6 +264,7 @@
    <depend name="include/haxor/io/file/AssetFile.h"/>
    <depend name="include/haxor/io/file/AssetXML.h"/>
    <depend name="include/haxor/io/file/ColladaFile.h"/>
+   <depend name="include/haxor/io/file/MaterialFile.h"/>
    <depend name="include/haxor/net/HTTPRequestTask.h"/>
    <depend name="include/haxor/net/Texture2DLoader.h"/>
    <depend name="include/haxor/net/Web.h"/>
@@ -268,12 +411,14 @@
    <depend name="include/Xml.h"/>
    <depend name="include/haxor/context/DataContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/ShaderContext.h"/>
+   <depend name="include/haxor/core/Asset.h"/>
+   <depend name="include/haxor/core/Console.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/graphics/material/Material.h"/>
    <depend name="include/haxor/graphics/material/Shader.h"/>
    <depend name="include/haxor/graphics/texture/Texture.h"/>
-   <depend name="include/haxor/io/file/Asset.h"/>
    <depend name="include/haxor/io/file/AssetFile.h"/>
    <depend name="include/haxor/io/file/AssetXML.h"/>
    <depend name="include/haxor/io/file/MaterialFile.h"/>
@@ -379,6 +524,8 @@
    <depend name="include/haxor/component/light/PointLight.h"/>
    <depend name="include/haxor/context/DataContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/ShaderContext.h"/>
+   <depend name="include/haxor/core/Asset.h"/>
    <depend name="include/haxor/core/Console.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
@@ -389,7 +536,6 @@
    <depend name="include/haxor/graphics/mesh/Mesh3.h"/>
    <depend name="include/haxor/graphics/mesh/MeshLayout.h"/>
    <depend name="include/haxor/graphics/mesh/SkinnedMesh3.h"/>
-   <depend name="include/haxor/io/file/Asset.h"/>
    <depend name="include/haxor/io/file/AssetFile.h"/>
    <depend name="include/haxor/io/file/AssetXML.h"/>
    <depend name="include/haxor/io/file/ColladaAnimation.h"/>
@@ -428,14 +574,6 @@
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/io/file/AssetFile.h"/>
-  </file>
-  <file name="src/haxor/io/file/Asset.cpp">
-   <depend name="include/IMap.h"/>
-   <depend name="include/Std.h"/>
-   <depend name="include/haxe/ds/StringMap.h"/>
-   <depend name="include/haxor/core/IDisposable.h"/>
-   <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/io/file/Asset.h"/>
   </file>
   <file name="src/haxor/io/UInt16Array.cpp">
    <depend name="include/Std.h"/>
@@ -553,10 +691,11 @@
    <depend name="include/haxor/core/PixelFormat.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/core/TextureType.h"/>
-   <depend name="include/haxor/core/TextureWrap.h"/>
    <depend name="include/haxor/graphics/texture/Bitmap.h"/>
    <depend name="include/haxor/graphics/texture/Texture.h"/>
    <depend name="include/haxor/graphics/texture/Texture2D.h"/>
+   <depend name="include/haxor/io/Buffer.h"/>
+   <depend name="include/haxor/io/FloatArray.h"/>
    <depend name="include/haxor/math/Color.h"/>
   </file>
   <file name="src/haxor/graphics/texture/Texture.cpp">
@@ -644,7 +783,6 @@
   </file>
   <file name="src/haxor/graphics/mesh/MeshLayout.cpp">
    <depend name="include/Std.h"/>
-   <depend name="include/haxe/Log.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/graphics/mesh/Mesh.h"/>
@@ -715,6 +853,7 @@
    <depend name="include/haxor/math/Vector4.h"/>
   </file>
   <file name="src/haxor/graphics/material/Material.cpp">
+   <depend name="include/haxor/context/DataContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/MaterialContext.h"/>
    <depend name="include/haxor/context/ShaderContext.h"/>
@@ -726,6 +865,8 @@
    <depend name="include/haxor/graphics/material/Shader.h"/>
    <depend name="include/haxor/graphics/texture/Texture.h"/>
    <depend name="include/haxor/io/Buffer.h"/>
+   <depend name="include/haxor/io/FloatArray.h"/>
+   <depend name="include/haxor/io/Int32Array.h"/>
    <depend name="include/haxor/math/Color.h"/>
    <depend name="include/haxor/math/Matrix4.h"/>
    <depend name="include/haxor/math/Vector2.h"/>
@@ -756,6 +897,7 @@
    <depend name="include/haxor/context/MeshContext.h"/>
    <depend name="include/haxor/core/ClearFlag.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/graphics/GL.h"/>
    <depend name="include/haxor/graphics/GraphicContext.h"/>
@@ -764,6 +906,7 @@
    <depend name="include/haxor/graphics/material/Material.h"/>
    <depend name="include/haxor/graphics/mesh/Mesh.h"/>
    <depend name="include/haxor/graphics/texture/Texture.h"/>
+   <depend name="include/haxor/io/Buffer.h"/>
    <depend name="include/haxor/math/AABB2.h"/>
    <depend name="include/haxor/math/Color.h"/>
    <depend name="include/haxor/platform/graphics/OpenGL.h"/>
@@ -794,7 +937,9 @@
    <depend name="include/haxor/graphics/GraphicAPI.h"/>
   </file>
   <file name="src/haxor/graphics/Gizmo.cpp">
+   <depend name="include/haxor/context/CanvasGizmo.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/Gizmo.h"/>
    <depend name="include/haxor/context/GizmoContext.h"/>
    <depend name="include/haxor/graphics/Gizmo.h"/>
    <depend name="include/haxor/math/Color.h"/>
@@ -816,6 +961,16 @@
    <depend name="include/haxor/platform/graphics/OpenGL.h"/>
    <depend name="include/haxor/platform/windows/graphics/WinGL.h"/>
   </file>
+  <file name="src/haxor/graphics/Fog.cpp">
+   <depend name="include/haxor/graphics/Fog.h"/>
+   <depend name="include/haxor/math/Color.h"/>
+  </file>
+  <file name="src/haxor/ds/USet.cpp">
+   <depend name="include/haxor/ds/USet.h"/>
+  </file>
+  <file name="src/haxor/ds/IUSetItem.cpp">
+   <depend name="include/haxor/ds/IUSetItem.h"/>
+  </file>
   <file name="src/haxor/ds/SAPInterval.cpp">
    <depend name="include/Std.h"/>
    <depend name="include/haxor/ds/SAPInterval.h"/>
@@ -829,6 +984,13 @@
    <depend name="include/haxor/ds/SAPInterval.h"/>
    <depend name="include/haxor/ds/SAPList.h"/>
    <depend name="include/haxor/math/Vector3.h"/>
+  </file>
+  <file name="src/haxor/ds/Pool.cpp">
+   <depend name="include/Type.h"/>
+   <depend name="include/haxor/ds/Pool.h"/>
+  </file>
+  <file name="src/haxor/ds/PairTable.cpp">
+   <depend name="include/haxor/ds/PairTable.h"/>
   </file>
   <file name="src/haxor/core/Time.cpp">
    <depend name="include/haxe/Timer.h"/>
@@ -856,18 +1018,27 @@
    <depend name="include/haxor/context/CameraContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/GizmoContext.h"/>
+   <depend name="include/haxor/context/KernelContext.h"/>
    <depend name="include/haxor/context/Process.h"/>
    <depend name="include/haxor/context/RendererContext.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/RenderEngine.h"/>
    <depend name="include/haxor/core/RenderStats.h"/>
    <depend name="include/haxor/core/Resource.h"/>
   </file>
-  <file name="src/haxor/core/IResizeable.cpp">
-   <depend name="include/haxor/core/IResizeable.h"/>
-  </file>
   <file name="src/haxor/core/ILateUpdateable.cpp">
    <depend name="include/haxor/core/ILateUpdateable.h"/>
+  </file>
+  <file name="src/haxor/core/IFixedUpdateable.cpp">
+   <depend name="include/haxor/core/IFixedUpdateable.h"/>
+  </file>
+  <file name="src/haxor/core/ForceMode.cpp">
+   <depend name="include/haxor/core/ForceMode.h"/>
+  </file>
+  <file name="src/haxor/core/ColliderType.cpp">
+   <depend name="include/haxor/core/ColliderType.h"/>
   </file>
   <file name="src/haxor/core/AnimationWrap.cpp">
    <depend name="include/haxor/core/AnimationWrap.h"/>
@@ -889,6 +1060,9 @@
   </file>
   <file name="src/haxor/core/PixelFormat.cpp">
    <depend name="include/haxor/core/PixelFormat.h"/>
+  </file>
+  <file name="src/haxor/core/CameraMode.cpp">
+   <depend name="include/haxor/core/CameraMode.h"/>
   </file>
   <file name="src/haxor/core/DepthTest.cpp">
    <depend name="include/haxor/core/DepthTest.h"/>
@@ -912,12 +1086,17 @@
    <depend name="include/Std.h"/>
    <depend name="include/Type.h"/>
    <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Camera.h"/>
    <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/DataComponent.h"/>
+   <depend name="include/haxor/component/Renderer.h"/>
    <depend name="include/haxor/component/Transform.h"/>
    <depend name="include/haxor/component/animation/Animation.h"/>
+   <depend name="include/haxor/component/physics/RigidBody.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
   </file>
   <file name="src/haxor/core/Engine.cpp">
@@ -926,6 +1105,7 @@
    <depend name="include/haxor/component/animation/Animation.h"/>
    <depend name="include/haxor/context/BaseProcess.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/PhysicsContext.h"/>
    <depend name="include/haxor/context/Process.h"/>
    <depend name="include/haxor/core/Console.h"/>
    <depend name="include/haxor/core/Engine.h"/>
@@ -941,6 +1121,36 @@
   <file name="src/haxor/core/EngineState.cpp">
    <depend name="include/haxor/core/EngineState.h"/>
   </file>
+  <file name="src/haxor/core/Debug.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Camera.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/MeshRenderer.h"/>
+   <depend name="include/haxor/component/Renderer.h"/>
+   <depend name="include/haxor/component/Transform.h"/>
+   <depend name="include/haxor/component/light/Light.h"/>
+   <depend name="include/haxor/component/light/PointLight.h"/>
+   <depend name="include/haxor/component/physics/BoxCollider.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/component/physics/SphereCollider.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/GizmoContext.h"/>
+   <depend name="include/haxor/core/ColliderType.h"/>
+   <depend name="include/haxor/core/Debug.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/graphics/Gizmo.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
+   <depend name="include/haxor/math/Color.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
+  </file>
   <file name="src/haxor/core/Console.cpp">
    <depend name="include/IMap.h"/>
    <depend name="include/cpp/Lib.h"/>
@@ -953,6 +1163,25 @@
   </file>
   <file name="src/haxor/core/Platform.cpp">
    <depend name="include/haxor/core/Platform.h"/>
+  </file>
+  <file name="src/haxor/core/Asset.cpp">
+   <depend name="include/IMap.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/haxe/ds/StringMap.h"/>
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/core/Asset.h"/>
+   <depend name="include/haxor/core/BaseApplication.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/graphics/material/Shader.h"/>
+   <depend name="include/haxor/graphics/texture/Texture.h"/>
+   <depend name="include/haxor/graphics/texture/Texture2D.h"/>
+   <depend name="include/haxor/io/file/AssetFile.h"/>
+   <depend name="include/haxor/io/file/AssetXML.h"/>
+   <depend name="include/haxor/io/file/ColladaFile.h"/>
+   <depend name="include/haxor/io/file/MaterialFile.h"/>
+   <depend name="include/haxor/net/Web.h"/>
   </file>
   <file name="src/haxor/context/UID.cpp">
    <depend name="include/haxor/context/UID.h"/>
@@ -1009,6 +1238,7 @@
    <depend name="include/haxor/context/UID.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/PixelFormat.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/ds/SAP.h"/>
@@ -1017,6 +1247,7 @@
    <depend name="include/haxor/graphics/texture/ComputeTexture.h"/>
    <depend name="include/haxor/graphics/texture/Texture.h"/>
    <depend name="include/haxor/graphics/texture/Texture2D.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
    <depend name="include/haxor/math/Matrix4.h"/>
    <depend name="include/haxor/math/Vector3.h"/>
    <depend name="include/haxor/math/Vector4.h"/>
@@ -1024,6 +1255,7 @@
   <file name="src/haxor/context/Process.cpp">
    <depend name="include/haxor/context/BaseProcess.h"/>
    <depend name="include/haxor/context/Process.h"/>
+   <depend name="include/haxor/core/Console.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
   </file>
@@ -1032,6 +1264,25 @@
    <depend name="include/haxor/core/Console.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
+  </file>
+  <file name="src/haxor/context/PhysicsContext.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/component/physics/RigidBody.h"/>
+   <depend name="include/haxor/context/BaseProcess.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/PhysicsContext.h"/>
+   <depend name="include/haxor/context/Process.h"/>
+   <depend name="include/haxor/context/UID.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IFixedUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/Time.h"/>
+   <depend name="include/haxor/physics/CollisionSolver.h"/>
+   <depend name="include/haxor/physics/Physics.h"/>
+   <depend name="include/haxor/physics/broadphase/BroadPhase.h"/>
   </file>
   <file name="src/haxor/context/MeshContext.cpp">
    <depend name="include/Std.h"/>
@@ -1058,34 +1309,72 @@
    <depend name="include/haxor/component/Component.h"/>
    <depend name="include/haxor/component/Transform.h"/>
    <depend name="include/haxor/component/light/Light.h"/>
+   <depend name="include/haxor/component/light/PointLight.h"/>
    <depend name="include/haxor/context/DataContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/GizmoContext.h"/>
    <depend name="include/haxor/context/MaterialContext.h"/>
    <depend name="include/haxor/context/MeshContext.h"/>
    <depend name="include/haxor/context/TextureContext.h"/>
    <depend name="include/haxor/context/UID.h"/>
    <depend name="include/haxor/core/Console.h"/>
+   <depend name="include/haxor/core/Debug.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/core/TextureType.h"/>
    <depend name="include/haxor/core/Time.h"/>
+   <depend name="include/haxor/graphics/Fog.h"/>
    <depend name="include/haxor/graphics/GL.h"/>
+   <depend name="include/haxor/graphics/Gizmo.h"/>
    <depend name="include/haxor/graphics/GraphicContext.h"/>
    <depend name="include/haxor/graphics/material/Material.h"/>
    <depend name="include/haxor/graphics/material/MaterialUniform.h"/>
    <depend name="include/haxor/graphics/material/Shader.h"/>
    <depend name="include/haxor/graphics/material/UberShader.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh.h"/>
    <depend name="include/haxor/graphics/mesh/MeshAttrib.h"/>
    <depend name="include/haxor/graphics/texture/Texture.h"/>
+   <depend name="include/haxor/graphics/texture/Texture2D.h"/>
    <depend name="include/haxor/io/Buffer.h"/>
    <depend name="include/haxor/io/FloatArray.h"/>
    <depend name="include/haxor/io/Int32Array.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
    <depend name="include/haxor/math/Color.h"/>
    <depend name="include/haxor/math/Matrix4.h"/>
    <depend name="include/haxor/math/Vector3.h"/>
    <depend name="include/haxor/platform/graphics/OpenGL.h"/>
    <depend name="include/haxor/platform/windows/graphics/WinGL.h"/>
+  </file>
+  <file name="src/haxor/context/KernelContext.cpp">
+   <depend name="include/haxor/context/KernelContext.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/graphics/material/Material.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh3.h"/>
+   <depend name="include/haxor/graphics/mesh/MeshLayout.h"/>
+   <depend name="include/haxor/thread/Kernel.h"/>
+  </file>
+  <file name="src/haxor/context/CanvasGizmo.cpp">
+   <depend name="include/haxor/context/CanvasGizmo.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/Gizmo.h"/>
+   <depend name="include/haxor/context/GizmoContext.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/graphics/material/Material.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh3.h"/>
+   <depend name="include/haxor/graphics/mesh/MeshAttrib.h"/>
+   <depend name="include/haxor/graphics/mesh/MeshLayout.h"/>
+   <depend name="include/haxor/io/Buffer.h"/>
+   <depend name="include/haxor/io/FloatArray.h"/>
+   <depend name="include/haxor/math/Color.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
   </file>
   <file name="src/haxor/context/PointGizmo.cpp">
    <depend name="include/haxor/context/Gizmo.h"/>
@@ -1155,13 +1444,24 @@
    <depend name="include/haxor/component/Behaviour.h"/>
    <depend name="include/haxor/component/Camera.h"/>
    <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/MeshRenderer.h"/>
+   <depend name="include/haxor/component/Renderer.h"/>
    <depend name="include/haxor/component/Transform.h"/>
+   <depend name="include/haxor/component/light/Light.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/context/BaseProcess.h"/>
    <depend name="include/haxor/context/DataContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/Gizmo.h"/>
+   <depend name="include/haxor/context/PhysicsContext.h"/>
+   <depend name="include/haxor/context/Process.h"/>
+   <depend name="include/haxor/context/RendererContext.h"/>
    <depend name="include/haxor/context/ShaderContext.h"/>
    <depend name="include/haxor/core/Console.h"/>
+   <depend name="include/haxor/core/Debug.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/PixelFormat.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/graphics/Graphics.h"/>
@@ -1174,6 +1474,7 @@
    <depend name="include/haxor/graphics/texture/Texture2D.h"/>
    <depend name="include/haxor/io/Buffer.h"/>
    <depend name="include/haxor/io/FloatArray.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
    <depend name="include/haxor/math/Color.h"/>
    <depend name="include/haxor/math/Matrix4.h"/>
    <depend name="include/haxor/math/Vector4.h"/>
@@ -1195,6 +1496,7 @@
    <depend name="include/haxor/component/Component.h"/>
    <depend name="include/haxor/component/Transform.h"/>
    <depend name="include/haxor/context/AxisGizmo.h"/>
+   <depend name="include/haxor/context/CanvasGizmo.h"/>
    <depend name="include/haxor/context/DataContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/Gizmo.h"/>
@@ -1205,6 +1507,7 @@
    <depend name="include/haxor/context/WireCubeGizmo.h"/>
    <depend name="include/haxor/context/WireSphereGizmo.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/graphics/Graphics.h"/>
    <depend name="include/haxor/graphics/Screen.h"/>
@@ -1232,22 +1535,28 @@
    <depend name="include/haxor/context/DataContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/GizmoContext.h"/>
+   <depend name="include/haxor/context/KernelContext.h"/>
    <depend name="include/haxor/context/MaterialContext.h"/>
    <depend name="include/haxor/context/MeshContext.h"/>
+   <depend name="include/haxor/context/PhysicsContext.h"/>
    <depend name="include/haxor/context/Process.h"/>
    <depend name="include/haxor/context/RendererContext.h"/>
    <depend name="include/haxor/context/TextureContext.h"/>
    <depend name="include/haxor/context/TransformContext.h"/>
    <depend name="include/haxor/core/Console.h"/>
+   <depend name="include/haxor/core/Debug.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IFixedUpdateable.h"/>
    <depend name="include/haxor/core/IRenderable.h"/>
    <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/IUpdateable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/physics/Physics.h"/>
   </file>
   <file name="src/haxor/context/DataContext.cpp">
    <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/ds/IUSetItem.h"/>
    <depend name="include/haxor/math/AABB2.h"/>
    <depend name="include/haxor/math/AABB3.h"/>
    <depend name="include/haxor/math/Color.h"/>
@@ -1256,6 +1565,7 @@
    <depend name="include/haxor/math/Vector2.h"/>
    <depend name="include/haxor/math/Vector3.h"/>
    <depend name="include/haxor/math/Vector4.h"/>
+   <depend name="include/haxor/physics/Collision.h"/>
   </file>
   <file name="src/haxor/context/CameraContext.cpp">
    <depend name="include/Std.h"/>
@@ -1269,6 +1579,7 @@
    <depend name="include/haxor/context/UID.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/PixelFormat.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/graphics/Graphics.h"/>
@@ -1276,6 +1587,70 @@
    <depend name="include/haxor/graphics/texture/RenderTexture.h"/>
    <depend name="include/haxor/graphics/texture/Texture.h"/>
    <depend name="include/haxor/math/AABB2.h"/>
+  </file>
+  <file name="src/haxor/component/physics/SphereCollider.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/Transform.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/component/physics/SphereCollider.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/core/ColliderType.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
+  </file>
+  <file name="src/haxor/component/physics/RigidBody.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/Transform.h"/>
+   <depend name="include/haxor/component/physics/RigidBody.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/PhysicsContext.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
+   <depend name="include/haxor/core/ForceMode.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/Time.h"/>
+   <depend name="include/haxor/math/Quaternion.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/physics/Physics.h"/>
+  </file>
+  <file name="src/haxor/component/physics/BoxCollider.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/Transform.h"/>
+   <depend name="include/haxor/component/physics/BoxCollider.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/context/DataContext.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/core/ColliderType.h"/>
+   <depend name="include/haxor/core/Entity.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
+   <depend name="include/haxor/math/Matrix4.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
+  </file>
+  <file name="src/haxor/component/physics/Collider.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/physics/Collider.h"/>
+   <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/context/PhysicsContext.h"/>
+   <depend name="include/haxor/core/ColliderType.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
+   <depend name="include/haxor/math/Vector4.h"/>
+   <depend name="include/haxor/physics/PhysicsMaterial.h"/>
   </file>
   <file name="src/haxor/component/light/PointLight.cpp">
    <depend name="include/haxor/component/Behaviour.h"/>
@@ -1293,8 +1668,6 @@
    <depend name="include/haxor/component/light/Light.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/io/Buffer.h"/>
-   <depend name="include/haxor/io/FloatArray.h"/>
    <depend name="include/haxor/math/Color.h"/>
   </file>
   <file name="src/haxor/math/Color.cpp">
@@ -1404,8 +1777,6 @@
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/PixelFormat.h"/>
    <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/graphics/Graphics.h"/>
-   <depend name="include/haxor/graphics/Screen.h"/>
    <depend name="include/haxor/graphics/material/Material.h"/>
    <depend name="include/haxor/graphics/mesh/Mesh.h"/>
    <depend name="include/haxor/graphics/mesh/Mesh3.h"/>
@@ -1417,8 +1788,81 @@
    <depend name="include/haxor/graphics/texture/Texture2D.h"/>
    <depend name="include/haxor/io/Buffer.h"/>
    <depend name="include/haxor/io/FloatArray.h"/>
-   <depend name="include/haxor/math/Color.h"/>
    <depend name="include/haxor/math/Matrix4.h"/>
+  </file>
+  <file name="src/haxor/component/CylinderEmitter.cpp">
+   <depend name="include/haxor/component/CylinderEmitter.h"/>
+   <depend name="include/haxor/component/ParticleEmitter.h"/>
+  </file>
+  <file name="src/haxor/component/ConeEmitter.cpp">
+   <depend name="include/haxor/component/ConeEmitter.h"/>
+   <depend name="include/haxor/component/ParticleEmitter.h"/>
+  </file>
+  <file name="src/haxor/component/BoxEmitter.cpp">
+   <depend name="include/haxor/component/BoxEmitter.h"/>
+   <depend name="include/haxor/component/ParticleEmitter.h"/>
+  </file>
+  <file name="src/haxor/component/SphereEmitter.cpp">
+   <depend name="include/haxor/component/ParticleEmitter.h"/>
+   <depend name="include/haxor/component/SphereEmitter.h"/>
+  </file>
+  <file name="src/haxor/component/ParticleEmitter.cpp">
+   <depend name="include/haxor/component/ParticleEmitter.h"/>
+  </file>
+  <file name="src/haxor/component/ParticleRenderer.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/MeshRenderer.h"/>
+   <depend name="include/haxor/component/ParticleAttribute.h"/>
+   <depend name="include/haxor/component/ParticleEmitter.h"/>
+   <depend name="include/haxor/component/ParticleLife.h"/>
+   <depend name="include/haxor/component/ParticleRenderer.h"/>
+   <depend name="include/haxor/component/ParticleSheet.h"/>
+   <depend name="include/haxor/component/ParticleStart.h"/>
+   <depend name="include/haxor/component/ParticleSystemState.h"/>
+   <depend name="include/haxor/component/Renderer.h"/>
+   <depend name="include/haxor/component/SphereEmitter.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/core/Time.h"/>
+   <depend name="include/haxor/graphics/material/Material.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh.h"/>
+   <depend name="include/haxor/graphics/mesh/Mesh3.h"/>
+   <depend name="include/haxor/graphics/mesh/MeshLayout.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+   <depend name="include/haxor/thread/Kernel.h"/>
+   <depend name="include/haxor/thread/ParticleKernel.h"/>
+  </file>
+  <file name="src/haxor/component/ParticleSystemState.cpp">
+   <depend name="include/haxor/component/ParticleSystemState.h"/>
+  </file>
+  <file name="src/haxor/component/ParticleSheet.cpp">
+   <depend name="include/haxor/component/ParticleAttribute.h"/>
+   <depend name="include/haxor/component/ParticleSheet.h"/>
+   <depend name="include/haxor/core/AnimationWrap.h"/>
+  </file>
+  <file name="src/haxor/component/ParticleLife.cpp">
+   <depend name="include/haxor/component/ParticleAttribute.h"/>
+   <depend name="include/haxor/component/ParticleLife.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/graphics/texture/Texture.h"/>
+   <depend name="include/haxor/graphics/texture/Texture2D.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+  </file>
+  <file name="src/haxor/component/ParticleStart.cpp">
+   <depend name="include/haxor/component/ParticleAttribute.h"/>
+   <depend name="include/haxor/component/ParticleStart.h"/>
+   <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/graphics/texture/Texture.h"/>
+   <depend name="include/haxor/graphics/texture/Texture2D.h"/>
+   <depend name="include/haxor/math/Vector3.h"/>
+  </file>
+  <file name="src/haxor/component/ParticleAttribute.cpp">
+   <depend name="include/haxor/component/ParticleAttribute.h"/>
   </file>
   <file name="src/haxor/component/MeshRenderer.cpp">
    <depend name="include/haxor/component/Behaviour.h"/>
@@ -1432,6 +1876,7 @@
    <depend name="include/haxor/context/RendererContext.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/graphics/Graphics.h"/>
    <depend name="include/haxor/graphics/material/Material.h"/>
@@ -1483,6 +1928,7 @@
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/IUpdateable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/core/Time.h"/>
@@ -1498,18 +1944,25 @@
    <depend name="include/haxor/component/Transform.h"/>
    <depend name="include/haxor/context/CameraContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
+   <depend name="include/haxor/core/CameraMode.h"/>
    <depend name="include/haxor/core/ClearFlag.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
+   <depend name="include/haxor/graphics/Screen.h"/>
    <depend name="include/haxor/graphics/texture/RenderTexture.h"/>
    <depend name="include/haxor/graphics/texture/Texture.h"/>
    <depend name="include/haxor/graphics/texture/TextureCube.h"/>
    <depend name="include/haxor/math/AABB2.h"/>
+   <depend name="include/haxor/math/AABB3.h"/>
    <depend name="include/haxor/math/Color.h"/>
    <depend name="include/haxor/math/Matrix4.h"/>
    <depend name="include/haxor/math/Vector3.h"/>
    <depend name="include/haxor/math/Vector4.h"/>
+  </file>
+  <file name="src/haxor/core/IResizeable.cpp">
+   <depend name="include/haxor/core/IResizeable.h"/>
   </file>
   <file name="src/haxe/io/Input.cpp">
    <depend name="include/haxe/io/Bytes.h"/>
@@ -1597,93 +2050,65 @@
    <depend name="include/sys/net/Host.h"/>
    <depend name="include/sys/net/Socket.h"/>
   </file>
-  <file name="src/cpp/vm/Thread.cpp">
-   <depend name="include/cpp/vm/Thread.h"/>
-  </file>
-  <file name="src/Xml.cpp">
-   <depend name="include/Reflect.h"/>
-   <depend name="include/StringBuf.h"/>
-   <depend name="include/StringTools.h"/>
-   <depend name="include/Type.h"/>
-   <depend name="include/Xml.h"/>
-   <depend name="include/XmlType.h"/>
-   <depend name="include/cpp/Lib.h"/>
-  </file>
-  <file name="src/XmlType.cpp">
-   <depend name="include/XmlType.h"/>
-  </file>
-  <file name="src/Type.cpp">
-   <depend name="include/Reflect.h"/>
-   <depend name="include/Type.h"/>
-  </file>
-  <file name="src/Sys.cpp">
-   <depend name="include/Sys.h"/>
-   <depend name="include/cpp/Lib.h"/>
-  </file>
-  <file name="src/StringTools.cpp">
-   <depend name="include/StringTools.h"/>
-  </file>
-  <file name="src/StringBuf.cpp">
+  <file name="src/examples/particles/Main.cpp">
    <depend name="include/Std.h"/>
-   <depend name="include/StringBuf.h"/>
-  </file>
-  <file name="src/Std.cpp">
-   <depend name="include/Std.h"/>
-  </file>
-  <file name="src/Reflect.cpp">
-   <depend name="include/Reflect.h"/>
-  </file>
-  <file name="src/IMap.cpp">
-   <depend name="include/IMap.h"/>
-  </file>
-  <file name="src/Main.cpp">
-   <depend name="include/Main.h"/>
    <depend name="include/StringTools.h"/>
+   <depend name="include/examples/particles/Main.h"/>
+   <depend name="include/haxe/Log.h"/>
    <depend name="include/haxor/component/Behaviour.h"/>
    <depend name="include/haxor/component/Camera.h"/>
    <depend name="include/haxor/component/CameraOrbit.h"/>
    <depend name="include/haxor/component/CameraOrbitInput.h"/>
    <depend name="include/haxor/component/Component.h"/>
    <depend name="include/haxor/component/MeshRenderer.h"/>
+   <depend name="include/haxor/component/ParticleAttribute.h"/>
+   <depend name="include/haxor/component/ParticleEmitter.h"/>
+   <depend name="include/haxor/component/ParticleLife.h"/>
+   <depend name="include/haxor/component/ParticleRenderer.h"/>
+   <depend name="include/haxor/component/ParticleStart.h"/>
    <depend name="include/haxor/component/Renderer.h"/>
+   <depend name="include/haxor/component/SphereEmitter.h"/>
    <depend name="include/haxor/component/Transform.h"/>
-   <depend name="include/haxor/component/animation/Animation.h"/>
-   <depend name="include/haxor/component/animation/AnimationClip.h"/>
    <depend name="include/haxor/context/DataContext.h"/>
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/GizmoContext.h"/>
    <depend name="include/haxor/context/ShaderContext.h"/>
-   <depend name="include/haxor/core/AnimationWrap.h"/>
    <depend name="include/haxor/core/Application.h"/>
+   <depend name="include/haxor/core/ApplicationProtocol.h"/>
+   <depend name="include/haxor/core/Asset.h"/>
    <depend name="include/haxor/core/BaseApplication.h"/>
    <depend name="include/haxor/core/Console.h"/>
+   <depend name="include/haxor/core/Debug.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/IRenderable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/IUpdateable.h"/>
+   <depend name="include/haxor/core/PixelFormat.h"/>
    <depend name="include/haxor/core/RenderStats.h"/>
    <depend name="include/haxor/core/Resource.h"/>
    <depend name="include/haxor/core/Time.h"/>
-   <depend name="include/haxor/graphics/Gizmo.h"/>
+   <depend name="include/haxor/graphics/Graphics.h"/>
+   <depend name="include/haxor/graphics/Screen.h"/>
    <depend name="include/haxor/graphics/material/Material.h"/>
    <depend name="include/haxor/graphics/material/Shader.h"/>
+   <depend name="include/haxor/graphics/texture/Bitmap.h"/>
+   <depend name="include/haxor/graphics/texture/RenderTexture.h"/>
    <depend name="include/haxor/graphics/texture/Texture.h"/>
    <depend name="include/haxor/graphics/texture/Texture2D.h"/>
-   <depend name="include/haxor/io/file/Asset.h"/>
-   <depend name="include/haxor/io/file/AssetFile.h"/>
-   <depend name="include/haxor/io/file/AssetXML.h"/>
-   <depend name="include/haxor/io/file/ColladaFile.h"/>
+   <depend name="include/haxor/input/Input.h"/>
+   <depend name="include/haxor/input/KeyCode.h"/>
+   <depend name="include/haxor/input/Touch.h"/>
    <depend name="include/haxor/math/Color.h"/>
    <depend name="include/haxor/math/Matrix4.h"/>
-   <depend name="include/haxor/math/Quaternion.h"/>
-   <depend name="include/haxor/math/Random.h"/>
    <depend name="include/haxor/math/Vector3.h"/>
-   <depend name="include/haxor/math/Vector4.h"/>
    <depend name="include/haxor/net/Web.h"/>
    <depend name="include/haxor/platform/OSWindow.h"/>
    <depend name="include/haxor/platform/windows/Entry.h"/>
    <depend name="include/haxor/platform/windows/WinApplication.h"/>
    <depend name="include/haxor/platform/windows/Window.h"/>
+   <depend name="include/haxor/thread/Kernel.h"/>
+   <depend name="include/haxor/thread/ParticleKernel.h"/>
   </file>
   <file name="src/haxor/core/IUpdateable.cpp">
    <depend name="include/haxor/core/IUpdateable.h"/>
@@ -1739,10 +2164,15 @@
    <depend name="include/haxor/core/Resource.h"/>
   </file>
   <file name="src/haxor/component/Component.cpp">
+   <depend name="include/haxor/component/Behaviour.h"/>
+   <depend name="include/haxor/component/Camera.h"/>
    <depend name="include/haxor/component/Component.h"/>
+   <depend name="include/haxor/component/Renderer.h"/>
    <depend name="include/haxor/component/Transform.h"/>
+   <depend name="include/haxor/component/physics/RigidBody.h"/>
    <depend name="include/haxor/core/Entity.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
+   <depend name="include/haxor/core/IResizeable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
   </file>
   <file name="src/haxor/core/Resource.cpp">
@@ -1755,14 +2185,53 @@
    <depend name="include/haxor/context/EngineContext.h"/>
    <depend name="include/haxor/context/Process.h"/>
    <depend name="include/haxor/core/Application.h"/>
+   <depend name="include/haxor/core/Asset.h"/>
    <depend name="include/haxor/core/BaseApplication.h"/>
    <depend name="include/haxor/core/IDisposable.h"/>
    <depend name="include/haxor/core/Resource.h"/>
-   <depend name="include/haxor/io/file/Asset.h"/>
    <depend name="include/haxor/platform/windows/WinApplication.h"/>
   </file>
   <file name="src/haxor/core/IDisposable.cpp">
    <depend name="include/haxor/core/IDisposable.h"/>
+  </file>
+  <file name="src/cpp/vm/Thread.cpp">
+   <depend name="include/cpp/vm/Thread.h"/>
+  </file>
+  <file name="src/Xml.cpp">
+   <depend name="include/Reflect.h"/>
+   <depend name="include/StringBuf.h"/>
+   <depend name="include/StringTools.h"/>
+   <depend name="include/Type.h"/>
+   <depend name="include/Xml.h"/>
+   <depend name="include/XmlType.h"/>
+   <depend name="include/cpp/Lib.h"/>
+  </file>
+  <file name="src/XmlType.cpp">
+   <depend name="include/XmlType.h"/>
+  </file>
+  <file name="src/Type.cpp">
+   <depend name="include/Reflect.h"/>
+   <depend name="include/Type.h"/>
+  </file>
+  <file name="src/Sys.cpp">
+   <depend name="include/Sys.h"/>
+   <depend name="include/cpp/Lib.h"/>
+  </file>
+  <file name="src/StringTools.cpp">
+   <depend name="include/StringTools.h"/>
+  </file>
+  <file name="src/StringBuf.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/StringBuf.h"/>
+  </file>
+  <file name="src/Std.cpp">
+   <depend name="include/Std.h"/>
+  </file>
+  <file name="src/Reflect.cpp">
+   <depend name="include/Reflect.h"/>
+  </file>
+  <file name="src/IMap.cpp">
+   <depend name="include/IMap.h"/>
   </file>
   <file name="src/List.cpp">
    <depend name="include/List.h"/>
@@ -1787,7 +2256,7 @@
 <files id="__lib__">
 <compilerflag value="-Iinclude"/>
   <file name="src/__lib__.cpp">
-   <depend name="include/Main.h"/>
+   <depend name="include/examples/particles/Main.h"/>
    <depend name="include/haxor/component/Behaviour.h"/>
    <depend name="include/haxor/component/Component.h"/>
    <depend name="include/haxor/core/Application.h"/>
@@ -1802,7 +2271,7 @@
 <files id="__main__">
 <compilerflag value="-Iinclude"/>
   <file name="src/__main__.cpp">
-   <depend name="include/Main.h"/>
+   <depend name="include/examples/particles/Main.h"/>
    <depend name="include/haxor/component/Behaviour.h"/>
    <depend name="include/haxor/component/Component.h"/>
    <depend name="include/haxor/core/Application.h"/>

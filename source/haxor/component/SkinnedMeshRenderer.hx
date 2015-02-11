@@ -28,6 +28,8 @@ class SkinnedMeshRenderer extends MeshRenderer
 	
 	private var m_data : ComputeTexture;
 	
+	private var m_bmloaded : Bool;
+	
 	/**
 	 * Method called after component creation.
 	 */
@@ -37,10 +39,14 @@ class SkinnedMeshRenderer extends MeshRenderer
 		m_joints = [];		
 		//MAX_JOINTS = 50
 		//MAX_BINDS  = 50
+		m_bmloaded = false;
 		m_buffer  	= [];// new FloatArray(8192);// 12 * (50 + 50));
 		for (i in 0...8192) m_buffer.push(0);
 		m_data 		= new ComputeTexture(1, 2048, PixelFormat.Float4);
 		m_data.name = "SkinningTexture" + uid;
+		
+		
+		
 	}
 	
 	override public function OnRender():Void 
@@ -63,12 +69,12 @@ class SkinnedMeshRenderer extends MeshRenderer
 				for (j in 0...12)
 				{					
 					f32.Set(k, jm.GetIndex(j));
-					f32.Set(k + 4096, bm.GetIndex(j));
+					if(!m_bmloaded)f32.Set(k + 4096, bm.GetIndex(j));
 					k++;
 				}
 				//*/
 			}
-			
+			m_bmloaded = true;
 			m_data.Invalidate();
 			
 			material.SetTexture("Skinning", m_data);

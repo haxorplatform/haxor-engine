@@ -7,11 +7,16 @@
 
 #include <haxor/core/Resource.h>
 HX_DECLARE_CLASS2(haxor,component,Behaviour)
+HX_DECLARE_CLASS2(haxor,component,Camera)
 HX_DECLARE_CLASS2(haxor,component,Component)
+HX_DECLARE_CLASS2(haxor,component,DataComponent)
+HX_DECLARE_CLASS2(haxor,component,Renderer)
 HX_DECLARE_CLASS2(haxor,component,Transform)
 HX_DECLARE_CLASS3(haxor,component,animation,Animation)
+HX_DECLARE_CLASS3(haxor,component,physics,RigidBody)
 HX_DECLARE_CLASS2(haxor,core,Entity)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,IResizeable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 namespace haxor{
 namespace core{
@@ -51,11 +56,21 @@ class HXCPP_CLASS_ATTRIBUTES  Entity_obj : public ::haxor::core::Resource_obj{
 		Dynamic get_transform_dyn();
 
 		::haxor::component::Transform m_transform;
-		::haxor::component::animation::Animation animation;
+		virtual ::haxor::component::Camera get_camera( );
+		Dynamic get_camera_dyn();
+
+		virtual ::haxor::component::DataComponent get_data( );
+		Dynamic get_data_dyn();
+
 		virtual ::haxor::component::animation::Animation get_animation( );
 		Dynamic get_animation_dyn();
 
-		::haxor::component::animation::Animation m_animation;
+		virtual ::haxor::component::Renderer get_renderer( );
+		Dynamic get_renderer_dyn();
+
+		virtual ::haxor::component::physics::RigidBody get_rigidbody( );
+		Dynamic get_rigidbody_dyn();
+
 		virtual int get_layer( );
 		Dynamic get_layer_dyn();
 

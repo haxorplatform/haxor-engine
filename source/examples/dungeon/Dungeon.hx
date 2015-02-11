@@ -1,4 +1,5 @@
 package examples.dungeon;
+import examples.dungeon.ParticleTorch;
 import haxor.component.Behaviour;
 import haxor.component.Component;
 import haxor.component.MeshRenderer;
@@ -26,12 +27,12 @@ class Dungeon extends Behaviour
 	
 	public var asset : Entity;
 	
-	
+	public var app : Main;
 
 	override public function OnStart():Void 
 	{
 		
-		
+		app = cast application;
 		var f : ColladaFile = Asset.Get("dungeon");		
 		asset = f.asset;		
 		asset.transform.parent = transform;
@@ -159,7 +160,7 @@ class Dungeon extends Behaviour
 		
 		asset.transform.Traverse(TraverseLevel);
 		
-		var app : DungeonApp = cast application;
+		var app : Main = cast application;
 		app.game.OnDungeonLoaded();
 		
 	}
@@ -171,15 +172,23 @@ class Dungeon extends Behaviour
 		
 		var t : Transform = p_target;
 		
+		
+		
 		if (t.name.indexOf("Torch") >= 0)
 		{
-			/*
-			if (t.GetComponentsInChildren(ParticleTorch).length <= 0)
+			if (t.name.indexOf("Point") < 0)
 			{
-				var tp : ParticleTorch = (new Entity()).AddComponent(ParticleTorch);
-				tp.entity.name = "Torch";
-				tp.entity.transform.parent = t;
-				tp.entity.transform.position = new Vector3(10, 0, 0);
+				if (t.GetComponentsInChildren(ParticleTorch).length <= 0)
+				{
+					
+					if (app.os.toLowerCase().indexOf("arm") < 0)
+					{
+						var tp : ParticleTorch = (new Entity()).AddComponent(ParticleTorch);
+						tp.entity.name 						= "Torch";
+						tp.entity.transform.parent 			= t;
+						tp.entity.transform.localPosition 	= new Vector3(0, 0, 0);
+					}
+				}
 			}
 			//*/
 		}

@@ -95,8 +95,7 @@ class GizmoContext
 		mat.SetColor("Tint", new Color(1.0, 1.0, 1.0, 1.0));
 		mat.cull = CullMode.None;
 		mat.ztest = false;
-				
-		CreateAxis();
+		
 		CreateGrid(100.0);
 		CreateTextureQuad();
 		
@@ -107,6 +106,7 @@ class GizmoContext
 		canvas_renderer       = new CanvasGizmo();
 		line_renderer		  = new LineGizmo();
 		point_renderer		  = new PointGizmo();		
+		
 	}
 	
 	/**
@@ -128,51 +128,6 @@ class GizmoContext
 		m.bounds = m.GenerateAttribBounds("vertex", AABB3.temp);
 	}
 	
-	/**
-	 * Creates lines to show the world space axis.
-	 */
-	private function CreateAxis():Void
-	{
-		var m : Mesh = axis = new Mesh("$GridAxis");
-		m.primitive = MeshPrimitive.Lines;
-		var vl : FloatArray = new FloatArray(18);
-		var cl : FloatArray = new FloatArray(24);
-		var k : Int;
-		
-		//Positions
-		k = 0;		
-		//X
-		vl.Set(k++, 0.0); vl.Set(k++, 0.0); vl.Set(k++, 0.0);
-		vl.Set(k++, 1.0); vl.Set(k++, 0.0); vl.Set(k++, 0.0);
-		
-		//Y
-		vl.Set(k++, 0.0); vl.Set(k++, 0.0); vl.Set(k++, 0.0);
-		vl.Set(k++, 0.0); vl.Set(k++, 1.0); vl.Set(k++, 0.0);
-		
-		//Z
-		vl.Set(k++, 0.0); vl.Set(k++, 0.0); vl.Set(k++, 0.0);
-		vl.Set(k++, 0.0); vl.Set(k++, 0.0); vl.Set(k++, 1.0);
-		
-		//Color
-		k = 0;
-		//X
-		cl.Set(k++, 1.0); cl.Set(k++, 0.0); cl.Set(k++, 0.0); cl.Set(k++, 1.0);
-		cl.Set(k++, 1.0); cl.Set(k++, 0.3); cl.Set(k++, 0.3); cl.Set(k++, 1.0);
-		
-		//Y
-		cl.Set(k++, 0.0); cl.Set(k++, 1.0); cl.Set(k++, 0.0); cl.Set(k++, 1.0);
-		cl.Set(k++, 0.3); cl.Set(k++, 1.0); cl.Set(k++, 0.3); cl.Set(k++, 1.0);
-		
-		//Z
-		cl.Set(k++, 0.0); cl.Set(k++, 0.0); cl.Set(k++, 1.0); cl.Set(k++, 1.0);
-		cl.Set(k++, 0.3); cl.Set(k++, 0.3); cl.Set(k++, 1.0); cl.Set(k++, 1.0);
-		
-		
-		m.Set("vertex", vl, 3);
-		m.Set("color",  cl, 4);
-		
-		m.bounds = m.GenerateAttribBounds("vertex", AABB3.temp);		
-	}
 	
 	/**
 	 * Creates a Gizmo for grid.
@@ -218,7 +173,7 @@ class GizmoContext
 	private function DrawGrid(p_area:Float32,p_color:Color=null):Void
 	{
 		gizmo_material.SetFloat("Area", p_area);
-		if (p_color != null) gizmo_material.SetColor("Tint", p_color);					
+		if (p_color != null) gizmo_material.SetColor("Tint", p_color);							
 		Graphics.Render(grid, gizmo_material,null,Camera.main);
 	}
 		
@@ -279,7 +234,7 @@ class GizmoContext
 	 */
 	private function DrawPoint(p_position:Vector3,p_size : Float,p_color : Color,p_smooth:Bool, p_transform : Matrix4):Void
 	{
-		point_renderer.Push(p_color, Vector4.temp.Set(p_size, p_smooth ? 1.0 : 0.0, 0.0, 0.0), Vector4.temp.Set3(p_position), p_transform);
+		point_renderer.Push(p_color, Vector4.temp.Set(p_size, p_smooth ? 1.0 : 0.0, 0.0, 0.0), Vector4.temp.Set(1,1,1,1).Set3(p_position), p_transform);
 	}
 	
 	/**
@@ -287,7 +242,7 @@ class GizmoContext
 	 */
 	private function Render():Void
 	{
-		var gr : Gizmo;		
+		var gr : Gizmo;			
 		gr = wire_sphere_renderer; gr.Render(); gr.Clear();
 		gr = wire_cube_renderer; gr.Render(); gr.Clear();
 		gr = axis_renderer; gr.Render(); gr.Clear();
@@ -717,7 +672,7 @@ class PointGizmo extends Gizmo
 	/**
 	 * Creates the gizmo.
 	 */
-	public function new() { super(Gizmo.POINT, Gizmo.MAX_GIZMOS * 5); }
+	public function new() { super(Gizmo.POINT,10/*Gizmo.MAX_GIZMOS * 5*/); }
 	
 	/**
 	 * Builds the gizmo data.

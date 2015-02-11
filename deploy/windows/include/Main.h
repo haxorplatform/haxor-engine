@@ -12,16 +12,20 @@ HX_DECLARE_CLASS0(Main)
 HX_DECLARE_CLASS2(haxor,component,Behaviour)
 HX_DECLARE_CLASS2(haxor,component,Camera)
 HX_DECLARE_CLASS2(haxor,component,CameraOrbit)
+HX_DECLARE_CLASS2(haxor,component,CameraOrbitInput)
 HX_DECLARE_CLASS2(haxor,component,Component)
+HX_DECLARE_CLASS2(haxor,component,MeshRenderer)
+HX_DECLARE_CLASS2(haxor,component,Renderer)
 HX_DECLARE_CLASS2(haxor,component,Transform)
 HX_DECLARE_CLASS2(haxor,core,Application)
 HX_DECLARE_CLASS2(haxor,core,BaseApplication)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,IRenderable)
+HX_DECLARE_CLASS2(haxor,core,IResizeable)
 HX_DECLARE_CLASS2(haxor,core,IUpdateable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
-HX_DECLARE_CLASS2(haxor,math,Vector4)
+HX_DECLARE_CLASS2(haxor,math,Vector3)
 HX_DECLARE_CLASS3(haxor,platform,windows,WinApplication)
 
 
@@ -58,14 +62,19 @@ class HXCPP_CLASS_ATTRIBUTES  Main_obj : public ::haxor::core::Application_obj{
 		::haxor::graphics::material::Material mat;
 		::haxor::component::Transform player;
 		int queue;
+		::haxor::component::Camera fc;
+		::haxor::component::Transform cp;
+		::haxor::component::CameraOrbitInput ci0;
+		::haxor::component::CameraOrbitInput ci1;
 		virtual bool Load( );
 
 		virtual Void Initialize( );
 
+		Array< ::Dynamic > obj;
+		Array< ::Dynamic > tp;
 		virtual Void OnUpdate( );
 		Dynamic OnUpdate_dyn();
 
-		Array< ::Dynamic > pl;
 		virtual Void OnRender( );
 		Dynamic OnRender_dyn();
 

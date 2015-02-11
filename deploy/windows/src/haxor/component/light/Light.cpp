@@ -15,12 +15,6 @@
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
-#ifndef INCLUDED_haxor_io_Buffer
-#include <haxor/io/Buffer.h>
-#endif
-#ifndef INCLUDED_haxor_io_FloatArray
-#include <haxor/io/FloatArray.h>
-#endif
 #ifndef INCLUDED_haxor_math_Color
 #include <haxor/math/Color.h>
 #endif
@@ -30,31 +24,37 @@ namespace light{
 
 Void Light_obj::__construct()
 {
-HX_STACK_FRAME("haxor.component.light.Light","new",0x7af46433,"haxor.component.light.Light.new","haxor/component/light/Light.hx",59,0xc79aa660)
+HX_STACK_FRAME("haxor.component.light.Light","new",0x7af46433,"haxor.component.light.Light.new","haxor/component/light/Light.hx",56,0xc79aa660)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(60)
+	HX_STACK_LINE(57)
 	if (((::haxor::component::light::Light_obj::m_list == null()))){
-		HX_STACK_LINE(60)
+		HX_STACK_LINE(57)
 		::haxor::component::light::Light_obj::m_list = Array_obj< ::Dynamic >::__new();
 	}
-	HX_STACK_LINE(61)
-	if (((::haxor::component::light::Light_obj::m_buffer == null()))){
-		HX_STACK_LINE(61)
-		::haxor::io::FloatArray _g = ::haxor::io::FloatArray_obj::__new(((int)12 * ::haxor::component::light::Light_obj::max));		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(61)
-		::haxor::component::light::Light_obj::m_buffer = _g;
+	HX_STACK_LINE(58)
+	if (((::haxor::component::light::Light_obj::m_buffer->length <= (int)0))){
+		HX_STACK_LINE(58)
+		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+		HX_STACK_LINE(58)
+		int _g = ((int)12 * ::haxor::component::light::Light_obj::max);		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(58)
+		while((true)){
+			HX_STACK_LINE(58)
+			if ((!(((_g1 < _g))))){
+				HX_STACK_LINE(58)
+				break;
+			}
+			HX_STACK_LINE(58)
+			int i = (_g1)++;		HX_STACK_VAR(i,"i");
+			HX_STACK_LINE(58)
+			::haxor::component::light::Light_obj::m_buffer->push(0.0);
+		}
 	}
-	HX_STACK_LINE(62)
+	HX_STACK_LINE(59)
 	::haxor::component::light::Light_obj::m_list->push(hx::ObjectPtr<OBJ_>(this));
-	HX_STACK_LINE(63)
+	HX_STACK_LINE(60)
 	super::__construct(null());
-	HX_STACK_LINE(64)
-	::haxor::math::Color _g1 = ::haxor::math::Color_obj::__new((int)1,(int)1,(int)1,(int)1);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(64)
-	this->color = _g1;
-	HX_STACK_LINE(65)
-	this->intensity = 1.0;
 }
 ;
 	return null();
@@ -73,13 +73,30 @@ Dynamic Light_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct();
 	return result;}
 
+Void Light_obj::OnBuild( ){
+{
+		HX_STACK_FRAME("haxor.component.light.Light","OnBuild",0xcdec1ac2,"haxor.component.light.Light.OnBuild","haxor/component/light/Light.hx",64,0xc79aa660)
+		HX_STACK_THIS(this)
+		HX_STACK_LINE(65)
+		this->super::OnBuild();
+		HX_STACK_LINE(66)
+		::haxor::math::Color _g = ::haxor::math::Color_obj::__new((int)1,(int)1,(int)1,(int)1);		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(66)
+		this->color = _g;
+		HX_STACK_LINE(67)
+		this->intensity = 1.0;
+	}
+return null();
+}
+
+
 Void Light_obj::OnDestroy( ){
 {
-		HX_STACK_FRAME("haxor.component.light.Light","OnDestroy",0xea05798e,"haxor.component.light.Light.OnDestroy","haxor/component/light/Light.hx",72,0xc79aa660)
+		HX_STACK_FRAME("haxor.component.light.Light","OnDestroy",0xea05798e,"haxor.component.light.Light.OnDestroy","haxor/component/light/Light.hx",74,0xc79aa660)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(73)
+		HX_STACK_LINE(75)
 		this->super::OnDestroy();
-		HX_STACK_LINE(74)
+		HX_STACK_LINE(76)
 		::haxor::component::light::Light_obj::m_list->remove(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();
@@ -90,37 +107,16 @@ return null();
 
 int Light_obj::max;
 
-::haxor::io::FloatArray Light_obj::m_buffer;
+Array< Float > Light_obj::m_buffer;
 
 Array< ::Dynamic > Light_obj::list;
 
 Array< ::Dynamic > Light_obj::m_list;
 
 Array< ::Dynamic > Light_obj::get_list( ){
-	HX_STACK_FRAME("haxor.component.light.Light","get_list",0x9c258734,"haxor.component.light.Light.get_list","haxor/component/light/Light.hx",37,0xc79aa660)
-	HX_STACK_LINE(38)
-	Array< ::Dynamic > l = Array_obj< ::Dynamic >::__new();		HX_STACK_VAR(l,"l");
+	HX_STACK_FRAME("haxor.component.light.Light","get_list",0x9c258734,"haxor.component.light.Light.get_list","haxor/component/light/Light.hx",39,0xc79aa660)
 	HX_STACK_LINE(39)
-	if (((::haxor::component::light::Light_obj::m_list == null()))){
-		HX_STACK_LINE(39)
-		return l;
-	}
-	HX_STACK_LINE(40)
-	int i = (int)0;		HX_STACK_VAR(i,"i");
-	HX_STACK_LINE(41)
-	while((true)){
-		HX_STACK_LINE(41)
-		if ((!(((i < ::haxor::component::light::Light_obj::m_list->length))))){
-			HX_STACK_LINE(41)
-			break;
-		}
-		HX_STACK_LINE(41)
-		l->push(::haxor::component::light::Light_obj::m_list->__get(i).StaticCast< ::haxor::component::light::Light >());
-		HX_STACK_LINE(41)
-		(i)++;
-	}
-	HX_STACK_LINE(42)
-	return l;
+	return ::haxor::component::light::Light_obj::m_list->copy();
 }
 
 
@@ -128,7 +124,7 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Light_obj,get_list,return )
 
 Void Light_obj::SetLightData( int p_id,Float p_type,Float p_intensity,Float p_radius,Float p_atten,Float p_x,Float p_y,Float p_z,Float p_r,Float p_g,Float p_b,Float p_a){
 {
-		HX_STACK_FRAME("haxor.component.light.Light","SetLightData",0x19791c0b,"haxor.component.light.Light.SetLightData","haxor/component/light/Light.hx",93,0xc79aa660)
+		HX_STACK_FRAME("haxor.component.light.Light","SetLightData",0x19791c0b,"haxor.component.light.Light.SetLightData","haxor/component/light/Light.hx",95,0xc79aa660)
 		HX_STACK_ARG(p_id,"p_id")
 		HX_STACK_ARG(p_type,"p_type")
 		HX_STACK_ARG(p_intensity,"p_intensity")
@@ -141,30 +137,30 @@ Void Light_obj::SetLightData( int p_id,Float p_type,Float p_intensity,Float p_ra
 		HX_STACK_ARG(p_g,"p_g")
 		HX_STACK_ARG(p_b,"p_b")
 		HX_STACK_ARG(p_a,"p_a")
-		HX_STACK_LINE(94)
-		int pos = (p_id * (int)12);		HX_STACK_VAR(pos,"pos");
-		HX_STACK_LINE(95)
-		::haxor::component::light::Light_obj::m_buffer->Set(pos,p_type);
 		HX_STACK_LINE(96)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)1),p_intensity);
+		int pos = (p_id * (int)12);		HX_STACK_VAR(pos,"pos");
 		HX_STACK_LINE(97)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)2),p_radius);
+		::haxor::component::light::Light_obj::m_buffer[pos] = p_type;
 		HX_STACK_LINE(98)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)3),p_atten);
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)1)] = p_intensity;
 		HX_STACK_LINE(99)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)4),p_x);
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)2)] = p_radius;
 		HX_STACK_LINE(100)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)5),p_y);
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)3)] = p_atten;
 		HX_STACK_LINE(101)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)6),p_z);
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)4)] = p_x;
 		HX_STACK_LINE(102)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)8),p_r);
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)5)] = p_y;
 		HX_STACK_LINE(103)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)9),p_g);
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)6)] = p_z;
 		HX_STACK_LINE(104)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)10),p_b);
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)8)] = p_r;
 		HX_STACK_LINE(105)
-		::haxor::component::light::Light_obj::m_buffer->Set((pos + (int)11),p_a);
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)9)] = p_g;
+		HX_STACK_LINE(106)
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)10)] = p_b;
+		HX_STACK_LINE(107)
+		::haxor::component::light::Light_obj::m_buffer[(pos + (int)11)] = p_a;
 	}
 return null();
 }
@@ -210,6 +206,7 @@ Dynamic Light_obj::__Field(const ::String &inName,bool inCallProp)
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"ambient") ) { return ambient; }
+		if (HX_FIELD_EQ(inName,"OnBuild") ) { return OnBuild_dyn(); }
 		break;
 	case 8:
 		if (HX_FIELD_EQ(inName,"m_buffer") ) { return m_buffer; }
@@ -244,7 +241,7 @@ Dynamic Light_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool
 		if (HX_FIELD_EQ(inName,"ambient") ) { ambient=inValue.Cast< ::haxor::math::Color >(); return inValue; }
 		break;
 	case 8:
-		if (HX_FIELD_EQ(inName,"m_buffer") ) { m_buffer=inValue.Cast< ::haxor::io::FloatArray >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"m_buffer") ) { m_buffer=inValue.Cast< Array< Float > >(); return inValue; }
 		break;
 	case 9:
 		if (HX_FIELD_EQ(inName,"intensity") ) { intensity=inValue.Cast< Float >(); return inValue; }
@@ -280,6 +277,7 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 static ::String sMemberFields[] = {
 	HX_CSTRING("color"),
 	HX_CSTRING("intensity"),
+	HX_CSTRING("OnBuild"),
 	HX_CSTRING("OnDestroy"),
 	String(null()) };
 
@@ -324,6 +322,7 @@ void Light_obj::__boot()
 {
 	ambient= ::haxor::math::Color_obj::__new(0.0,0.0,0.0,1.0);
 	max= (int)8;
+	m_buffer= Array_obj< Float >::__new();
 	m_list= Array_obj< ::Dynamic >::__new();
 }
 

@@ -51,6 +51,15 @@ class HXCPP_CLASS_ATTRIBUTES  Gizmo_obj : public hx::Object{
 		static Void WireCube( ::haxor::math::Vector3 p_position,::haxor::math::Vector3 p_size,::haxor::math::Color p_color,::haxor::math::Matrix4 p_transform);
 		static Dynamic WireCube_dyn();
 
+		static Void BeginPath( ::haxor::math::Color p_fill,::haxor::math::Color p_line,::haxor::math::Matrix4 p_transform);
+		static Dynamic BeginPath_dyn();
+
+		static Void LinePath( ::haxor::math::Vector3 p_position);
+		static Dynamic LinePath_dyn();
+
+		static Void EndPath( );
+		static Dynamic EndPath_dyn();
+
 };
 
 } // end namespace haxor

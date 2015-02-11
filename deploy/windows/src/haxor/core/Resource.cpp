@@ -27,6 +27,9 @@
 #ifndef INCLUDED_haxor_core_Application
 #include <haxor/core/Application.h>
 #endif
+#ifndef INCLUDED_haxor_core_Asset
+#include <haxor/core/Asset.h>
+#endif
 #ifndef INCLUDED_haxor_core_BaseApplication
 #include <haxor/core/BaseApplication.h>
 #endif
@@ -35,9 +38,6 @@
 #endif
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
-#endif
-#ifndef INCLUDED_haxor_io_file_Asset
-#include <haxor/io/file/Asset.h>
 #endif
 #ifndef INCLUDED_haxor_platform_windows_WinApplication
 #include <haxor/platform/windows/WinApplication.h>
@@ -267,6 +267,16 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,OnDestroy,(void))
 
+Dynamic Resource_obj::Clone( ){
+	HX_STACK_FRAME("haxor.core.Resource","Clone",0xa33bedc0,"haxor.core.Resource.Clone","haxor/core/Resource.hx",159,0x735dd04d)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(159)
+	return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Resource_obj,Clone,return )
+
 Void Resource_obj::Destroy( ::haxor::core::Resource p_target){
 {
 		HX_STACK_FRAME("haxor.core.Resource","Destroy",0x8b14a61d,"haxor.core.Resource.Destroy","haxor/core/Resource.hx",21,0x735dd04d)
@@ -274,7 +284,7 @@ Void Resource_obj::Destroy( ::haxor::core::Resource p_target){
 		HX_STACK_LINE(22)
 		if (((p_target->__db != HX_CSTRING("")))){
 			HX_STACK_LINE(22)
-			::haxor::io::file::Asset_obj::Remove(p_target->__db);
+			::haxor::core::Asset_obj::Remove(p_target->__db);
 		}
 		HX_STACK_LINE(23)
 		::haxor::context::EngineContext_obj::Destroy(p_target);
@@ -345,6 +355,7 @@ Dynamic Resource_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"m_uid") ) { return m_uid; }
 		if (HX_FIELD_EQ(inName,"__cid") ) { return __cid; }
 		if (HX_FIELD_EQ(inName,"__pid") ) { return __pid; }
+		if (HX_FIELD_EQ(inName,"Clone") ) { return Clone_dyn(); }
 		break;
 	case 6:
 		if (HX_FIELD_EQ(inName,"m_guid") ) { return m_guid; }
@@ -501,6 +512,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("GetTypeName"),
 	HX_CSTRING("GetTypeFullName"),
 	HX_CSTRING("OnDestroy"),
+	HX_CSTRING("Clone"),
 	String(null()) };
 
 static void sMarkStatics(HX_MARK_PARAMS) {

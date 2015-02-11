@@ -98,7 +98,15 @@ Void Behaviour_obj::OnBuild( ){
 		HX_STACK_LINE(47)
 		this->m_is_behaviour = true;
 		HX_STACK_LINE(48)
+		this->m_is_awake = false;
+		HX_STACK_LINE(49)
+		this->m_is_start = false;
+		HX_STACK_LINE(50)
 		::haxor::context::EngineContext_obj::Enable(hx::ObjectPtr<OBJ_>(this));
+		HX_STACK_LINE(51)
+		::haxor::context::EngineContext_obj::awake->push(hx::ObjectPtr<OBJ_>(this));
+		HX_STACK_LINE(52)
+		::haxor::context::EngineContext_obj::start->push(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();
 }
@@ -106,7 +114,7 @@ return null();
 
 Void Behaviour_obj::OnAwake( ){
 {
-		HX_STACK_FRAME("haxor.component.Behaviour","OnAwake",0x3bfadbd8,"haxor.component.Behaviour.OnAwake","haxor/component/Behaviour.hx",54,0x6f707600)
+		HX_STACK_FRAME("haxor.component.Behaviour","OnAwake",0x3bfadbd8,"haxor.component.Behaviour.OnAwake","haxor/component/Behaviour.hx",58,0x6f707600)
 		HX_STACK_THIS(this)
 	}
 return null();
@@ -117,7 +125,7 @@ HX_DEFINE_DYNAMIC_FUNC0(Behaviour_obj,OnAwake,(void))
 
 Void Behaviour_obj::OnStart( ){
 {
-		HX_STACK_FRAME("haxor.component.Behaviour","OnStart",0x9735af35,"haxor.component.Behaviour.OnStart","haxor/component/Behaviour.hx",59,0x6f707600)
+		HX_STACK_FRAME("haxor.component.Behaviour","OnStart",0x9735af35,"haxor.component.Behaviour.OnStart","haxor/component/Behaviour.hx",63,0x6f707600)
 		HX_STACK_THIS(this)
 	}
 return null();

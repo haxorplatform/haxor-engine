@@ -83,6 +83,9 @@ class HXCPP_CLASS_ATTRIBUTES  Vector4_obj : public hx::Object{
 		virtual ::haxor::math::Vector4 Set3( ::haxor::math::Vector3 v);
 		Dynamic Set3_dyn();
 
+		virtual ::haxor::math::Vector4 Set4( ::haxor::math::Vector4 v);
+		Dynamic Set4_dyn();
+
 		virtual ::haxor::math::Vector4 SetColor( ::haxor::math::Color v);
 		Dynamic SetColor_dyn();
 

@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 
-#ifndef INCLUDED_Main
-#include <Main.h>
+#ifndef INCLUDED_examples_particles_Main
+#include <examples/particles/Main.h>
 #endif
 #ifndef INCLUDED_haxor_component_Behaviour
 #include <haxor/component/Behaviour.h>
@@ -36,6 +36,6 @@
 
 HX_BEGIN_MAIN
 
-::Main_obj::main();
+::examples::particles::Main_obj::main();
 HX_END_MAIN
 

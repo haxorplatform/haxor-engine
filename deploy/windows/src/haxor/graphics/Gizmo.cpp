@@ -1,7 +1,13 @@
 #include <hxcpp.h>
 
+#ifndef INCLUDED_haxor_context_CanvasGizmo
+#include <haxor/context/CanvasGizmo.h>
+#endif
 #ifndef INCLUDED_haxor_context_EngineContext
 #include <haxor/context/EngineContext.h>
+#endif
+#ifndef INCLUDED_haxor_context_Gizmo
+#include <haxor/context/Gizmo.h>
 #endif
 #ifndef INCLUDED_haxor_context_GizmoContext
 #include <haxor/context/GizmoContext.h>
@@ -137,6 +143,46 @@ return null();
 
 STATIC_HX_DEFINE_DYNAMIC_FUNC4(Gizmo_obj,WireCube,(void))
 
+Void Gizmo_obj::BeginPath( ::haxor::math::Color p_fill,::haxor::math::Color p_line,::haxor::math::Matrix4 p_transform){
+{
+		HX_STACK_FRAME("haxor.graphics.Gizmo","BeginPath",0xaaf43643,"haxor.graphics.Gizmo.BeginPath","haxor/graphics/Gizmo.hx",92,0x45aff45b)
+		HX_STACK_ARG(p_fill,"p_fill")
+		HX_STACK_ARG(p_line,"p_line")
+		HX_STACK_ARG(p_transform,"p_transform")
+		HX_STACK_LINE(92)
+		::haxor::context::EngineContext_obj::gizmo->canvas_renderer->Begin(p_fill,p_line,p_transform);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC3(Gizmo_obj,BeginPath,(void))
+
+Void Gizmo_obj::LinePath( ::haxor::math::Vector3 p_position){
+{
+		HX_STACK_FRAME("haxor.graphics.Gizmo","LinePath",0xd5a69384,"haxor.graphics.Gizmo.LinePath","haxor/graphics/Gizmo.hx",101,0x45aff45b)
+		HX_STACK_ARG(p_position,"p_position")
+		HX_STACK_LINE(101)
+		::haxor::context::EngineContext_obj::gizmo->canvas_renderer->Line(p_position);
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC1(Gizmo_obj,LinePath,(void))
+
+Void Gizmo_obj::EndPath( ){
+{
+		HX_STACK_FRAME("haxor.graphics.Gizmo","EndPath",0x0dd181b5,"haxor.graphics.Gizmo.EndPath","haxor/graphics/Gizmo.hx",109,0x45aff45b)
+		HX_STACK_LINE(109)
+		::haxor::context::EngineContext_obj::gizmo->canvas_renderer->End();
+	}
+return null();
+}
+
+
+STATIC_HX_DEFINE_DYNAMIC_FUNC0(Gizmo_obj,EndPath,(void))
+
 
 Gizmo_obj::Gizmo_obj()
 {
@@ -153,8 +199,15 @@ Dynamic Gizmo_obj::__Field(const ::String &inName,bool inCallProp)
 	case 5:
 		if (HX_FIELD_EQ(inName,"Point") ) { return Point_dyn(); }
 		break;
+	case 7:
+		if (HX_FIELD_EQ(inName,"EndPath") ) { return EndPath_dyn(); }
+		break;
 	case 8:
 		if (HX_FIELD_EQ(inName,"WireCube") ) { return WireCube_dyn(); }
+		if (HX_FIELD_EQ(inName,"LinePath") ) { return LinePath_dyn(); }
+		break;
+	case 9:
+		if (HX_FIELD_EQ(inName,"BeginPath") ) { return BeginPath_dyn(); }
 		break;
 	case 10:
 		if (HX_FIELD_EQ(inName,"WireSphere") ) { return WireSphere_dyn(); }
@@ -179,6 +232,9 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("Point"),
 	HX_CSTRING("WireSphere"),
 	HX_CSTRING("WireCube"),
+	HX_CSTRING("BeginPath"),
+	HX_CSTRING("LinePath"),
+	HX_CSTRING("EndPath"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE

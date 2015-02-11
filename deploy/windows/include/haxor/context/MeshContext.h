@@ -44,6 +44,7 @@ class HXCPP_CLASS_ATTRIBUTES  MeshContext_obj : public hx::Object{
 		Array< bool > activated;
 		int active_max;
 		::haxor::graphics::mesh::Mesh current;
+		bool m_auto_white;
 		virtual Void Initialize( );
 		Dynamic Initialize_dyn();
 

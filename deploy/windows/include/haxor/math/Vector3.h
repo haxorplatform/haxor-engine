@@ -190,6 +190,9 @@ class HXCPP_CLASS_ATTRIBUTES  Vector3_obj : public hx::Object{
 		static ::haxor::math::Vector3 Cross( ::haxor::math::Vector3 p_a,::haxor::math::Vector3 p_b,::haxor::math::Vector3 p_result);
 		static Dynamic Cross_dyn();
 
+		static ::haxor::math::Vector3 Project( ::haxor::math::Vector3 p_point,::haxor::math::Vector3 p_origin,::haxor::math::Vector3 p_dir,::haxor::math::Vector3 p_result);
+		static Dynamic Project_dyn();
+
 		static ::haxor::math::Vector3 Lerp( ::haxor::math::Vector3 p_a,::haxor::math::Vector3 p_b,Float p_r,::haxor::math::Vector3 p_result);
 		static Dynamic Lerp_dyn();
 

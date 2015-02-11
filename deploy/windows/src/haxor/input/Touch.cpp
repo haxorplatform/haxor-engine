@@ -17,36 +17,36 @@ namespace input{
 
 Void Touch_obj::__construct()
 {
-HX_STACK_FRAME("haxor.input.Touch","new",0x4c236081,"haxor.input.Touch.new","haxor/input/Touch.hx",64,0x27faf2d1)
+HX_STACK_FRAME("haxor.input.Touch","new",0x4c236081,"haxor.input.Touch.new","haxor/input/Touch.hx",82,0x27faf2d1)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(65)
+	HX_STACK_LINE(83)
 	this->state = ::haxor::core::InputState_obj::None;
-	HX_STACK_LINE(66)
+	HX_STACK_LINE(84)
 	this->id = (int)-1;
-	HX_STACK_LINE(67)
+	HX_STACK_LINE(85)
 	::haxor::math::Vector2 _g = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(67)
+	HX_STACK_LINE(85)
 	this->position = _g;
-	HX_STACK_LINE(68)
+	HX_STACK_LINE(86)
 	::haxor::math::Vector2 _g1 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(68)
+	HX_STACK_LINE(86)
 	this->delta = _g1;
-	HX_STACK_LINE(69)
+	HX_STACK_LINE(87)
 	::haxor::math::Vector2 _g2 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(69)
+	HX_STACK_LINE(87)
 	this->relativePosition = _g2;
-	HX_STACK_LINE(70)
+	HX_STACK_LINE(88)
 	this->pressure = (int)0;
-	HX_STACK_LINE(71)
+	HX_STACK_LINE(89)
 	this->hold = (int)0;
-	HX_STACK_LINE(72)
+	HX_STACK_LINE(90)
 	this->angle = (int)0;
-	HX_STACK_LINE(73)
+	HX_STACK_LINE(91)
 	::haxor::math::Vector2 _g3 = ::haxor::math::Vector2_obj::__new(null(),null());		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(73)
+	HX_STACK_LINE(91)
 	this->radius = _g3;
-	HX_STACK_LINE(74)
+	HX_STACK_LINE(92)
 	this->m_down = false;
 }
 ;
@@ -66,20 +66,59 @@ Dynamic Touch_obj::__Create(hx::DynamicArray inArgs)
 	result->__construct();
 	return result;}
 
-::String Touch_obj::ToString( ){
-	HX_STACK_FRAME("haxor.input.Touch","ToString",0x2dade50b,"haxor.input.Touch.ToString","haxor/input/Touch.hx",82,0x27faf2d1)
+bool Touch_obj::get_down( ){
+	HX_STACK_FRAME("haxor.input.Touch","get_down",0xddb60c2a,"haxor.input.Touch.get_down","haxor/input/Touch.hx",22,0x27faf2d1)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(22)
+	return (this->state == ::haxor::core::InputState_obj::Down);
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Touch_obj,get_down,return )
+
+bool Touch_obj::get_pressed( ){
+	HX_STACK_FRAME("haxor.input.Touch","get_pressed",0xeedf4bda,"haxor.input.Touch.get_pressed","haxor/input/Touch.hx",28,0x27faf2d1)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(28)
+	if ((!(this->get_down()))){
+		HX_STACK_LINE(28)
+		return (this->state == ::haxor::core::InputState_obj::Hold);
+	}
+	else{
+		HX_STACK_LINE(28)
+		return true;
+	}
+	HX_STACK_LINE(28)
+	return false;
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Touch_obj,get_pressed,return )
+
+bool Touch_obj::get_hit( ){
+	HX_STACK_FRAME("haxor.input.Touch","get_hit",0xb9d4c38b,"haxor.input.Touch.get_hit","haxor/input/Touch.hx",34,0x27faf2d1)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(34)
+	return (this->state == ::haxor::core::InputState_obj::Up);
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Touch_obj,get_hit,return )
+
+::String Touch_obj::ToString( ){
+	HX_STACK_FRAME("haxor.input.Touch","ToString",0x2dade50b,"haxor.input.Touch.ToString","haxor/input/Touch.hx",100,0x27faf2d1)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(101)
 	::String _g = this->position->ToString((int)2);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(101)
 	::String _g1 = (((HX_CSTRING("id[") + this->id) + HX_CSTRING("] pos")) + _g);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(101)
 	::String _g2 = (_g1 + HX_CSTRING("["));		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(101)
 	::String _g3 = ::Std_obj::string(this->state);		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(101)
 	::String _g4 = (_g2 + _g3);		HX_STACK_VAR(_g4,"_g4");
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(101)
 	return (_g4 + HX_CSTRING("]"));
 }
 
@@ -127,7 +166,11 @@ Dynamic Touch_obj::__Field(const ::String &inName,bool inCallProp)
 	case 2:
 		if (HX_FIELD_EQ(inName,"id") ) { return id; }
 		break;
+	case 3:
+		if (HX_FIELD_EQ(inName,"hit") ) { return get_hit(); }
+		break;
 	case 4:
+		if (HX_FIELD_EQ(inName,"down") ) { return get_down(); }
 		if (HX_FIELD_EQ(inName,"hold") ) { return hold; }
 		break;
 	case 5:
@@ -139,10 +182,18 @@ Dynamic Touch_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"radius") ) { return radius; }
 		if (HX_FIELD_EQ(inName,"m_down") ) { return m_down; }
 		break;
+	case 7:
+		if (HX_FIELD_EQ(inName,"pressed") ) { return get_pressed(); }
+		if (HX_FIELD_EQ(inName,"get_hit") ) { return get_hit_dyn(); }
+		break;
 	case 8:
+		if (HX_FIELD_EQ(inName,"get_down") ) { return get_down_dyn(); }
 		if (HX_FIELD_EQ(inName,"position") ) { return position; }
 		if (HX_FIELD_EQ(inName,"pressure") ) { return pressure; }
 		if (HX_FIELD_EQ(inName,"ToString") ) { return ToString_dyn(); }
+		break;
+	case 11:
+		if (HX_FIELD_EQ(inName,"get_pressed") ) { return get_pressed_dyn(); }
 		break;
 	case 16:
 		if (HX_FIELD_EQ(inName,"relativePosition") ) { return relativePosition; }
@@ -181,6 +232,9 @@ Dynamic Touch_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool
 void Touch_obj::__GetFields(Array< ::String> &outFields)
 {
 	outFields->push(HX_CSTRING("state"));
+	outFields->push(HX_CSTRING("down"));
+	outFields->push(HX_CSTRING("pressed"));
+	outFields->push(HX_CSTRING("hit"));
 	outFields->push(HX_CSTRING("id"));
 	outFields->push(HX_CSTRING("position"));
 	outFields->push(HX_CSTRING("radius"));
@@ -214,6 +268,9 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 
 static ::String sMemberFields[] = {
 	HX_CSTRING("state"),
+	HX_CSTRING("get_down"),
+	HX_CSTRING("get_pressed"),
+	HX_CSTRING("get_hit"),
 	HX_CSTRING("id"),
 	HX_CSTRING("position"),
 	HX_CSTRING("radius"),

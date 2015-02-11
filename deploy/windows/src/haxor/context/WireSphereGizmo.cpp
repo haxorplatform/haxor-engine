@@ -41,10 +41,10 @@ namespace context{
 
 Void WireSphereGizmo_obj::__construct()
 {
-HX_STACK_FRAME("haxor.context.WireSphereGizmo","new",0x9f2ccf8f,"haxor.context.WireSphereGizmo.new","haxor/context/GizmoContext.hx",442,0xa99c50bc)
+HX_STACK_FRAME("haxor.context.WireSphereGizmo","new",0x9f2ccf8f,"haxor.context.WireSphereGizmo.new","haxor/context/GizmoContext.hx",471,0xa99c50bc)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(442)
+	HX_STACK_LINE(471)
 	super::__construct(::haxor::context::Gizmo_obj::WIRE_SPHERE,::haxor::context::Gizmo_obj::MAX_GIZMOS);
 }
 ;
@@ -66,197 +66,197 @@ Dynamic WireSphereGizmo_obj::__Create(hx::DynamicArray inArgs)
 
 Void WireSphereGizmo_obj::OnBuild( ){
 {
-		HX_STACK_FRAME("haxor.context.WireSphereGizmo","OnBuild",0x4713641e,"haxor.context.WireSphereGizmo.OnBuild","haxor/context/GizmoContext.hx",448,0xa99c50bc)
+		HX_STACK_FRAME("haxor.context.WireSphereGizmo","OnBuild",0x4713641e,"haxor.context.WireSphereGizmo.OnBuild","haxor/context/GizmoContext.hx",477,0xa99c50bc)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(449)
+		HX_STACK_LINE(478)
 		::haxor::graphics::mesh::Mesh3 m = ::haxor::graphics::mesh::Mesh3_obj::__new(null());		HX_STACK_VAR(m,"m");
-		HX_STACK_LINE(450)
+		HX_STACK_LINE(479)
 		m->set_name(HX_CSTRING("$GizmoWireSphereMesh"));
-		HX_STACK_LINE(451)
+		HX_STACK_LINE(480)
 		m->primitive = (int)1;
-		HX_STACK_LINE(452)
+		HX_STACK_LINE(481)
 		Float r = 1.0;		HX_STACK_VAR(r,"r");
-		HX_STACK_LINE(453)
+		HX_STACK_LINE(482)
 		::haxor::math::Vector3 v;		HX_STACK_VAR(v,"v");
-		HX_STACK_LINE(454)
+		HX_STACK_LINE(483)
 		int steps = (int)720;		HX_STACK_VAR(steps,"steps");
-		HX_STACK_LINE(455)
+		HX_STACK_LINE(484)
 		::haxor::io::FloatArray ia = ::haxor::io::FloatArray_obj::__new(((steps * (int)6) * this->m_gizmo_count));		HX_STACK_VAR(ia,"ia");
-		HX_STACK_LINE(456)
+		HX_STACK_LINE(485)
 		::haxor::io::FloatArray va = ::haxor::io::FloatArray_obj::__new(((steps * (int)18) * this->m_gizmo_count));		HX_STACK_VAR(va,"va");
-		HX_STACK_LINE(457)
+		HX_STACK_LINE(486)
 		int va_k = (int)0;		HX_STACK_VAR(va_k,"va_k");
-		HX_STACK_LINE(458)
+		HX_STACK_LINE(487)
 		int ia_k = (int)0;		HX_STACK_VAR(ia_k,"ia_k");
-		HX_STACK_LINE(459)
+		HX_STACK_LINE(488)
 		Float id = 0.0;		HX_STACK_VAR(id,"id");
-		HX_STACK_LINE(460)
+		HX_STACK_LINE(489)
 		{
-			HX_STACK_LINE(460)
+			HX_STACK_LINE(489)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(460)
+			HX_STACK_LINE(489)
 			int _g = this->m_gizmo_count;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(460)
+			HX_STACK_LINE(489)
 			while((true)){
-				HX_STACK_LINE(460)
+				HX_STACK_LINE(489)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(460)
+					HX_STACK_LINE(489)
 					break;
 				}
-				HX_STACK_LINE(460)
+				HX_STACK_LINE(489)
 				int k = (_g1)++;		HX_STACK_VAR(k,"k");
-				HX_STACK_LINE(462)
+				HX_STACK_LINE(491)
 				{
-					HX_STACK_LINE(462)
+					HX_STACK_LINE(491)
 					int _g2 = (int)0;		HX_STACK_VAR(_g2,"_g2");
-					HX_STACK_LINE(462)
+					HX_STACK_LINE(491)
 					while((true)){
-						HX_STACK_LINE(462)
+						HX_STACK_LINE(491)
 						if ((!(((_g2 < steps))))){
-							HX_STACK_LINE(462)
+							HX_STACK_LINE(491)
 							break;
 						}
-						HX_STACK_LINE(462)
+						HX_STACK_LINE(491)
 						int i = (_g2)++;		HX_STACK_VAR(i,"i");
-						HX_STACK_LINE(464)
+						HX_STACK_LINE(493)
 						Float astp = (Float(1.0) / Float(((steps - (int)1))));		HX_STACK_VAR(astp,"astp");
-						HX_STACK_LINE(465)
+						HX_STACK_LINE(494)
 						Float a;		HX_STACK_VAR(a,"a");
-						HX_STACK_LINE(466)
+						HX_STACK_LINE(495)
 						a = (((int)360 * i) * astp);
-						HX_STACK_LINE(467)
+						HX_STACK_LINE(496)
 						Float _g3 = ::Math_obj::sin((a * 0.01745329251994329576923690768489));		HX_STACK_VAR(_g3,"_g3");
-						HX_STACK_LINE(467)
+						HX_STACK_LINE(496)
 						Float _g11 = (_g3 * r);		HX_STACK_VAR(_g11,"_g11");
-						HX_STACK_LINE(467)
+						HX_STACK_LINE(496)
 						Float sv0 = (_g11 * 0.5);		HX_STACK_VAR(sv0,"sv0");
-						HX_STACK_LINE(468)
+						HX_STACK_LINE(497)
 						Float _g21 = ::Math_obj::cos((a * 0.01745329251994329576923690768489));		HX_STACK_VAR(_g21,"_g21");
-						HX_STACK_LINE(468)
+						HX_STACK_LINE(497)
 						Float _g31 = (_g21 * r);		HX_STACK_VAR(_g31,"_g31");
-						HX_STACK_LINE(468)
+						HX_STACK_LINE(497)
 						Float cv0 = (_g31 * 0.5);		HX_STACK_VAR(cv0,"cv0");
-						HX_STACK_LINE(469)
+						HX_STACK_LINE(498)
 						a = (((int)360 * ((i + (int)1))) * astp);
-						HX_STACK_LINE(470)
+						HX_STACK_LINE(499)
 						Float _g4 = ::Math_obj::sin((a * 0.01745329251994329576923690768489));		HX_STACK_VAR(_g4,"_g4");
-						HX_STACK_LINE(470)
+						HX_STACK_LINE(499)
 						Float _g5 = (_g4 * r);		HX_STACK_VAR(_g5,"_g5");
-						HX_STACK_LINE(470)
+						HX_STACK_LINE(499)
 						Float sv1 = (_g5 * 0.5);		HX_STACK_VAR(sv1,"sv1");
-						HX_STACK_LINE(471)
+						HX_STACK_LINE(500)
 						Float _g6 = ::Math_obj::cos((a * 0.01745329251994329576923690768489));		HX_STACK_VAR(_g6,"_g6");
-						HX_STACK_LINE(471)
+						HX_STACK_LINE(500)
 						Float _g7 = (_g6 * r);		HX_STACK_VAR(_g7,"_g7");
-						HX_STACK_LINE(471)
+						HX_STACK_LINE(500)
 						Float cv1 = (_g7 * 0.5);		HX_STACK_VAR(cv1,"cv1");
-						HX_STACK_LINE(472)
+						HX_STACK_LINE(501)
 						int _g8 = (va_k)++;		HX_STACK_VAR(_g8,"_g8");
-						HX_STACK_LINE(472)
+						HX_STACK_LINE(501)
 						va->Set(_g8,cv0);
-						HX_STACK_LINE(472)
+						HX_STACK_LINE(501)
 						int _g9 = (va_k)++;		HX_STACK_VAR(_g9,"_g9");
-						HX_STACK_LINE(472)
+						HX_STACK_LINE(501)
 						va->Set(_g9,0.0);
-						HX_STACK_LINE(472)
+						HX_STACK_LINE(501)
 						int _g10 = (va_k)++;		HX_STACK_VAR(_g10,"_g10");
-						HX_STACK_LINE(472)
+						HX_STACK_LINE(501)
 						va->Set(_g10,sv0);
-						HX_STACK_LINE(472)
+						HX_STACK_LINE(501)
 						int _g111 = (ia_k)++;		HX_STACK_VAR(_g111,"_g111");
-						HX_STACK_LINE(472)
+						HX_STACK_LINE(501)
 						ia->Set(_g111,id);
-						HX_STACK_LINE(473)
+						HX_STACK_LINE(502)
 						int _g12 = (va_k)++;		HX_STACK_VAR(_g12,"_g12");
-						HX_STACK_LINE(473)
+						HX_STACK_LINE(502)
 						va->Set(_g12,cv1);
-						HX_STACK_LINE(473)
+						HX_STACK_LINE(502)
 						int _g13 = (va_k)++;		HX_STACK_VAR(_g13,"_g13");
-						HX_STACK_LINE(473)
+						HX_STACK_LINE(502)
 						va->Set(_g13,0.0);
-						HX_STACK_LINE(473)
+						HX_STACK_LINE(502)
 						int _g14 = (va_k)++;		HX_STACK_VAR(_g14,"_g14");
-						HX_STACK_LINE(473)
+						HX_STACK_LINE(502)
 						va->Set(_g14,sv1);
-						HX_STACK_LINE(473)
+						HX_STACK_LINE(502)
 						int _g15 = (ia_k)++;		HX_STACK_VAR(_g15,"_g15");
-						HX_STACK_LINE(473)
+						HX_STACK_LINE(502)
 						ia->Set(_g15,id);
-						HX_STACK_LINE(474)
+						HX_STACK_LINE(503)
 						int _g16 = (va_k)++;		HX_STACK_VAR(_g16,"_g16");
-						HX_STACK_LINE(474)
+						HX_STACK_LINE(503)
 						va->Set(_g16,0.0);
-						HX_STACK_LINE(474)
+						HX_STACK_LINE(503)
 						int _g17 = (va_k)++;		HX_STACK_VAR(_g17,"_g17");
-						HX_STACK_LINE(474)
+						HX_STACK_LINE(503)
 						va->Set(_g17,cv0);
-						HX_STACK_LINE(474)
+						HX_STACK_LINE(503)
 						int _g18 = (va_k)++;		HX_STACK_VAR(_g18,"_g18");
-						HX_STACK_LINE(474)
+						HX_STACK_LINE(503)
 						va->Set(_g18,sv0);
-						HX_STACK_LINE(474)
+						HX_STACK_LINE(503)
 						int _g19 = (ia_k)++;		HX_STACK_VAR(_g19,"_g19");
-						HX_STACK_LINE(474)
+						HX_STACK_LINE(503)
 						ia->Set(_g19,id);
-						HX_STACK_LINE(475)
+						HX_STACK_LINE(504)
 						int _g20 = (va_k)++;		HX_STACK_VAR(_g20,"_g20");
-						HX_STACK_LINE(475)
+						HX_STACK_LINE(504)
 						va->Set(_g20,0.0);
-						HX_STACK_LINE(475)
+						HX_STACK_LINE(504)
 						int _g211 = (va_k)++;		HX_STACK_VAR(_g211,"_g211");
-						HX_STACK_LINE(475)
+						HX_STACK_LINE(504)
 						va->Set(_g211,cv1);
-						HX_STACK_LINE(475)
+						HX_STACK_LINE(504)
 						int _g22 = (va_k)++;		HX_STACK_VAR(_g22,"_g22");
-						HX_STACK_LINE(475)
+						HX_STACK_LINE(504)
 						va->Set(_g22,sv1);
-						HX_STACK_LINE(475)
+						HX_STACK_LINE(504)
 						int _g23 = (ia_k)++;		HX_STACK_VAR(_g23,"_g23");
-						HX_STACK_LINE(475)
+						HX_STACK_LINE(504)
 						ia->Set(_g23,id);
-						HX_STACK_LINE(476)
+						HX_STACK_LINE(505)
 						int _g24 = (va_k)++;		HX_STACK_VAR(_g24,"_g24");
-						HX_STACK_LINE(476)
+						HX_STACK_LINE(505)
 						va->Set(_g24,cv0);
-						HX_STACK_LINE(476)
+						HX_STACK_LINE(505)
 						int _g25 = (va_k)++;		HX_STACK_VAR(_g25,"_g25");
-						HX_STACK_LINE(476)
+						HX_STACK_LINE(505)
 						va->Set(_g25,sv0);
-						HX_STACK_LINE(476)
+						HX_STACK_LINE(505)
 						int _g26 = (va_k)++;		HX_STACK_VAR(_g26,"_g26");
-						HX_STACK_LINE(476)
+						HX_STACK_LINE(505)
 						va->Set(_g26,0.0);
-						HX_STACK_LINE(476)
+						HX_STACK_LINE(505)
 						int _g27 = (ia_k)++;		HX_STACK_VAR(_g27,"_g27");
-						HX_STACK_LINE(476)
+						HX_STACK_LINE(505)
 						ia->Set(_g27,id);
-						HX_STACK_LINE(477)
+						HX_STACK_LINE(506)
 						int _g28 = (va_k)++;		HX_STACK_VAR(_g28,"_g28");
-						HX_STACK_LINE(477)
+						HX_STACK_LINE(506)
 						va->Set(_g28,cv1);
-						HX_STACK_LINE(477)
+						HX_STACK_LINE(506)
 						int _g29 = (va_k)++;		HX_STACK_VAR(_g29,"_g29");
-						HX_STACK_LINE(477)
+						HX_STACK_LINE(506)
 						va->Set(_g29,sv1);
-						HX_STACK_LINE(477)
+						HX_STACK_LINE(506)
 						int _g30 = (va_k)++;		HX_STACK_VAR(_g30,"_g30");
-						HX_STACK_LINE(477)
+						HX_STACK_LINE(506)
 						va->Set(_g30,0.0);
-						HX_STACK_LINE(477)
+						HX_STACK_LINE(506)
 						int _g311 = (ia_k)++;		HX_STACK_VAR(_g311,"_g311");
-						HX_STACK_LINE(477)
+						HX_STACK_LINE(506)
 						ia->Set(_g311,id);
 					}
 				}
-				HX_STACK_LINE(479)
+				HX_STACK_LINE(508)
 				hx::AddEq(id,1.0);
 			}
 		}
-		HX_STACK_LINE(481)
+		HX_STACK_LINE(510)
 		m->Set(HX_CSTRING("id"),ia,(int)1);
-		HX_STACK_LINE(482)
+		HX_STACK_LINE(511)
 		m->Set(HX_CSTRING("vertex"),va,(int)3);
-		HX_STACK_LINE(483)
+		HX_STACK_LINE(512)
 		this->mesh = m;
 	}
 return null();

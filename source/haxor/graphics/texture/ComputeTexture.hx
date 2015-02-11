@@ -70,7 +70,7 @@ class ComputeTexture extends Texture2D
 	{
 		var w : Int = p_width < 0 ? m_width : p_width;
 		var h : Int = p_height < 0 ? m_height : p_height;
-		data.SetRange(p_x, p_y, w, h, p_values);		
+		data.SetRange(p_values,p_x, p_y, w, h);		
 		Invalidate();
 		m_dirty = true;
 	}

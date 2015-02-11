@@ -42,6 +42,9 @@
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
+#ifndef INCLUDED_haxor_core_IResizeable
+#include <haxor/core/IResizeable.h>
+#endif
 #ifndef INCLUDED_haxor_core_PixelFormat
 #include <haxor/core/PixelFormat.h>
 #endif
@@ -65,6 +68,9 @@
 #endif
 #ifndef INCLUDED_haxor_graphics_texture_Texture2D
 #include <haxor/graphics/texture/Texture2D.h>
+#endif
+#ifndef INCLUDED_haxor_math_AABB3
+#include <haxor/math/AABB3.h>
 #endif
 #ifndef INCLUDED_haxor_math_Matrix4
 #include <haxor/math/Matrix4.h>
@@ -1077,6 +1083,8 @@ Void RendererContext_obj::UpdateCameraSAP( ::haxor::component::Camera c){
 		HX_STACK_LINE(295)
 		pmax->z = _g21;
 		HX_STACK_LINE(297)
+		c->m_aabb->Set3(pmin,pmax);
+		HX_STACK_LINE(299)
 		this->UpdateSAP(c->__fcid,c,pmin,pmax);
 	}
 return null();
@@ -1087,15 +1095,15 @@ HX_DEFINE_DYNAMIC_FUNC1(RendererContext_obj,UpdateCameraSAP,(void))
 
 Void RendererContext_obj::UpdateSAP( int p_id,Dynamic p_d,::haxor::math::Vector3 p_min,::haxor::math::Vector3 p_max){
 {
-		HX_STACK_FRAME("haxor.context.RendererContext","UpdateSAP",0x6c890eec,"haxor.context.RendererContext.UpdateSAP","haxor/context/RendererContext.hx",308,0xd2e9a6bf)
+		HX_STACK_FRAME("haxor.context.RendererContext","UpdateSAP",0x6c890eec,"haxor.context.RendererContext.UpdateSAP","haxor/context/RendererContext.hx",310,0xd2e9a6bf)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_id,"p_id")
 		HX_STACK_ARG(p_d,"p_d")
 		HX_STACK_ARG(p_min,"p_min")
 		HX_STACK_ARG(p_max,"p_max")
-		HX_STACK_LINE(309)
+		HX_STACK_LINE(311)
 		this->sap_dirty = true;
-		HX_STACK_LINE(310)
+		HX_STACK_LINE(312)
 		this->sap->Update(p_id,p_d,p_min,p_max);
 	}
 return null();
@@ -1105,19 +1113,24 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC4(RendererContext_obj,UpdateSAP,(void))
 
 bool RendererContext_obj::IsSAPCulled( ::haxor::component::Renderer r,::haxor::component::Camera c){
-	HX_STACK_FRAME("haxor.context.RendererContext","IsSAPCulled",0xb9324b1c,"haxor.context.RendererContext.IsSAPCulled","haxor/context/RendererContext.hx",320,0xd2e9a6bf)
+	HX_STACK_FRAME("haxor.context.RendererContext","IsSAPCulled",0xb9324b1c,"haxor.context.RendererContext.IsSAPCulled","haxor/context/RendererContext.hx",322,0xd2e9a6bf)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(r,"r")
 	HX_STACK_ARG(c,"c")
-	HX_STACK_LINE(321)
+	HX_STACK_LINE(323)
 	if ((!(r->m_has_mesh))){
-		HX_STACK_LINE(321)
+		HX_STACK_LINE(323)
 		return false;
 	}
-	HX_STACK_LINE(322)
+	HX_STACK_LINE(324)
 	::haxor::component::MeshRenderer mr = r;		HX_STACK_VAR(mr,"mr");
-	HX_STACK_LINE(323)
-	return this->sap->Overlap(mr->__fcid,c->__fcid);
+	HX_STACK_LINE(325)
+	if ((mr->m_culling_dirty)){
+		HX_STACK_LINE(325)
+		return false;
+	}
+	HX_STACK_LINE(326)
+	return !(this->sap->Overlap(mr->__fcid,c->__fcid));
 }
 
 
@@ -1125,36 +1138,36 @@ HX_DEFINE_DYNAMIC_FUNC2(RendererContext_obj,IsSAPCulled,return )
 
 Void RendererContext_obj::Destroy( ::haxor::component::Renderer r){
 {
-		HX_STACK_FRAME("haxor.context.RendererContext","Destroy",0xf33cd78d,"haxor.context.RendererContext.Destroy","haxor/context/RendererContext.hx",331,0xd2e9a6bf)
+		HX_STACK_FRAME("haxor.context.RendererContext","Destroy",0xf33cd78d,"haxor.context.RendererContext.Destroy","haxor/context/RendererContext.hx",334,0xd2e9a6bf)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(r,"r")
-		HX_STACK_LINE(332)
+		HX_STACK_LINE(335)
 		this->display->__get(r->m_entity->m_layer).StaticCast< ::haxor::context::Process >()->Remove(r);
-		HX_STACK_LINE(333)
+		HX_STACK_LINE(336)
 		this->sort[r->m_entity->m_layer] = true;
-		HX_STACK_LINE(334)
+		HX_STACK_LINE(337)
 		{
-			HX_STACK_LINE(334)
+			HX_STACK_LINE(337)
 			int v = r->__cid;		HX_STACK_VAR(v,"v");
-			HX_STACK_LINE(334)
+			HX_STACK_LINE(337)
 			this->rid->m_cache->push(v);
-			HX_STACK_LINE(334)
+			HX_STACK_LINE(337)
 			v;
 		}
-		HX_STACK_LINE(337)
+		HX_STACK_LINE(340)
 		if ((r->m_has_mesh)){
-			HX_STACK_LINE(339)
+			HX_STACK_LINE(342)
 			::haxor::component::MeshRenderer mr = r;		HX_STACK_VAR(mr,"mr");
-			HX_STACK_LINE(340)
+			HX_STACK_LINE(343)
 			{
-				HX_STACK_LINE(340)
+				HX_STACK_LINE(343)
 				int v = mr->__fcid;		HX_STACK_VAR(v,"v");
-				HX_STACK_LINE(340)
+				HX_STACK_LINE(343)
 				this->fcid->m_cache->push(v);
-				HX_STACK_LINE(340)
+				HX_STACK_LINE(343)
 				v;
 			}
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(344)
 			this->sap->Remove(mr->__fcid);
 		}
 	}
@@ -1165,143 +1178,143 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC1(RendererContext_obj,Destroy,(void))
 
 int RendererContext_obj::DisplayListSort( ::haxor::component::Renderer a,::haxor::component::Renderer b){
-	HX_STACK_FRAME("haxor.context.RendererContext","DisplayListSort",0xfdcfe4d1,"haxor.context.RendererContext.DisplayListSort","haxor/context/RendererContext.hx",363,0xd2e9a6bf)
+	HX_STACK_FRAME("haxor.context.RendererContext","DisplayListSort",0xfdcfe4d1,"haxor.context.RendererContext.DisplayListSort","haxor/context/RendererContext.hx",366,0xd2e9a6bf)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(a,"a")
 	HX_STACK_ARG(b,"b")
-	HX_STACK_LINE(365)
+	HX_STACK_LINE(368)
 	if (((a == null()))){
-		HX_STACK_LINE(365)
+		HX_STACK_LINE(368)
 		if (((b == null()))){
-			HX_STACK_LINE(365)
+			HX_STACK_LINE(368)
 			return (int)0;
 		}
 	}
-	HX_STACK_LINE(366)
+	HX_STACK_LINE(369)
 	if (((a == null()))){
-		HX_STACK_LINE(366)
+		HX_STACK_LINE(369)
 		return (int)1;
 	}
-	HX_STACK_LINE(367)
-	if (((b == null()))){
-		HX_STACK_LINE(367)
-		return (int)-1;
-	}
 	HX_STACK_LINE(370)
-	if (((a->m_material == null()))){
+	if (((b == null()))){
 		HX_STACK_LINE(370)
-		if (((b->m_material == null()))){
-			HX_STACK_LINE(370)
-			return (int)0;
-		}
+		return (int)-1;
 	}
 	HX_STACK_LINE(373)
 	if (((a->m_material == null()))){
 		HX_STACK_LINE(373)
-		return (int)1;
-	}
-	HX_STACK_LINE(374)
-	if (((b->m_material == null()))){
-		HX_STACK_LINE(374)
-		return (int)-1;
+		if (((b->m_material == null()))){
+			HX_STACK_LINE(373)
+			return (int)0;
+		}
 	}
 	HX_STACK_LINE(376)
-	::haxor::graphics::material::Material ma = a->m_material;		HX_STACK_VAR(ma,"ma");
+	if (((a->m_material == null()))){
+		HX_STACK_LINE(376)
+		return (int)1;
+	}
 	HX_STACK_LINE(377)
-	::haxor::graphics::material::Material mb = b->m_material;		HX_STACK_VAR(mb,"mb");
-	HX_STACK_LINE(378)
-	int ia = ma->queue;		HX_STACK_VAR(ia,"ia");
+	if (((b->m_material == null()))){
+		HX_STACK_LINE(377)
+		return (int)-1;
+	}
 	HX_STACK_LINE(379)
-	int ib = mb->queue;		HX_STACK_VAR(ib,"ib");
+	::haxor::graphics::material::Material ma = a->m_material;		HX_STACK_VAR(ma,"ma");
+	HX_STACK_LINE(380)
+	::haxor::graphics::material::Material mb = b->m_material;		HX_STACK_VAR(mb,"mb");
+	HX_STACK_LINE(381)
+	int ia = ma->queue;		HX_STACK_VAR(ia,"ia");
 	HX_STACK_LINE(382)
+	int ib = mb->queue;		HX_STACK_VAR(ib,"ib");
+	HX_STACK_LINE(385)
 	if (((ia != ib))){
-		HX_STACK_LINE(382)
+		HX_STACK_LINE(385)
 		if (((ia < ib))){
-			HX_STACK_LINE(382)
+			HX_STACK_LINE(385)
 			return (int)-1;
 		}
 		else{
-			HX_STACK_LINE(382)
-			return (int)1;
-		}
-	}
-	HX_STACK_LINE(385)
-	if ((!(a->m_has_mesh))){
-		HX_STACK_LINE(385)
-		if ((!(b->m_has_mesh))){
 			HX_STACK_LINE(385)
-			return (int)0;
+			return (int)1;
 		}
 	}
 	HX_STACK_LINE(388)
 	if ((!(a->m_has_mesh))){
 		HX_STACK_LINE(388)
-		return (int)1;
-	}
-	HX_STACK_LINE(389)
-	if ((!(b->m_has_mesh))){
-		HX_STACK_LINE(389)
-		return (int)-1;
-	}
-	HX_STACK_LINE(391)
-	::haxor::component::MeshRenderer mra = a;		HX_STACK_VAR(mra,"mra");
-	HX_STACK_LINE(392)
-	::haxor::component::MeshRenderer mrb = b;		HX_STACK_VAR(mrb,"mrb");
-	HX_STACK_LINE(395)
-	int _g = mra->m_material->get_uid();		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(395)
-	int _g1 = mrb->m_material->get_uid();		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(395)
-	if (((_g < _g1))){
-		HX_STACK_LINE(395)
-		return (int)-1;
-	}
-	HX_STACK_LINE(396)
-	int _g2 = mra->m_material->get_uid();		HX_STACK_VAR(_g2,"_g2");
-	HX_STACK_LINE(396)
-	int _g3 = mrb->m_material->get_uid();		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(396)
-	if (((_g2 > _g3))){
-		HX_STACK_LINE(396)
-		return (int)1;
-	}
-	HX_STACK_LINE(399)
-	if (((mra->m_mesh == null()))){
-		HX_STACK_LINE(399)
-		if (((mrb->m_mesh == null()))){
-			HX_STACK_LINE(399)
+		if ((!(b->m_has_mesh))){
+			HX_STACK_LINE(388)
 			return (int)0;
 		}
 	}
-	HX_STACK_LINE(400)
-	if (((mra->m_mesh == null()))){
-		HX_STACK_LINE(400)
+	HX_STACK_LINE(391)
+	if ((!(a->m_has_mesh))){
+		HX_STACK_LINE(391)
 		return (int)1;
 	}
-	HX_STACK_LINE(401)
-	if (((mrb->m_mesh == null()))){
-		HX_STACK_LINE(401)
+	HX_STACK_LINE(392)
+	if ((!(b->m_has_mesh))){
+		HX_STACK_LINE(392)
 		return (int)-1;
 	}
+	HX_STACK_LINE(394)
+	::haxor::component::MeshRenderer mra = a;		HX_STACK_VAR(mra,"mra");
+	HX_STACK_LINE(395)
+	::haxor::component::MeshRenderer mrb = b;		HX_STACK_VAR(mrb,"mrb");
+	HX_STACK_LINE(398)
+	int _g = mra->m_material->get_uid();		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(398)
+	int _g1 = mrb->m_material->get_uid();		HX_STACK_VAR(_g1,"_g1");
+	HX_STACK_LINE(398)
+	if (((_g < _g1))){
+		HX_STACK_LINE(398)
+		return (int)-1;
+	}
+	HX_STACK_LINE(399)
+	int _g2 = mra->m_material->get_uid();		HX_STACK_VAR(_g2,"_g2");
+	HX_STACK_LINE(399)
+	int _g3 = mrb->m_material->get_uid();		HX_STACK_VAR(_g3,"_g3");
+	HX_STACK_LINE(399)
+	if (((_g2 > _g3))){
+		HX_STACK_LINE(399)
+		return (int)1;
+	}
+	HX_STACK_LINE(402)
+	if (((mra->m_mesh == null()))){
+		HX_STACK_LINE(402)
+		if (((mrb->m_mesh == null()))){
+			HX_STACK_LINE(402)
+			return (int)0;
+		}
+	}
+	HX_STACK_LINE(403)
+	if (((mra->m_mesh == null()))){
+		HX_STACK_LINE(403)
+		return (int)1;
+	}
 	HX_STACK_LINE(404)
-	int _g4 = mra->m_mesh->get_uid();		HX_STACK_VAR(_g4,"_g4");
-	HX_STACK_LINE(404)
-	int _g5 = mrb->m_mesh->get_uid();		HX_STACK_VAR(_g5,"_g5");
-	HX_STACK_LINE(404)
-	if (((_g4 < _g5))){
+	if (((mrb->m_mesh == null()))){
 		HX_STACK_LINE(404)
 		return (int)-1;
 	}
-	HX_STACK_LINE(405)
+	HX_STACK_LINE(407)
+	int _g4 = mra->m_mesh->get_uid();		HX_STACK_VAR(_g4,"_g4");
+	HX_STACK_LINE(407)
+	int _g5 = mrb->m_mesh->get_uid();		HX_STACK_VAR(_g5,"_g5");
+	HX_STACK_LINE(407)
+	if (((_g4 < _g5))){
+		HX_STACK_LINE(407)
+		return (int)-1;
+	}
+	HX_STACK_LINE(408)
 	int _g6 = mra->m_mesh->get_uid();		HX_STACK_VAR(_g6,"_g6");
-	HX_STACK_LINE(405)
+	HX_STACK_LINE(408)
 	int _g7 = mrb->m_mesh->get_uid();		HX_STACK_VAR(_g7,"_g7");
-	HX_STACK_LINE(405)
+	HX_STACK_LINE(408)
 	if (((_g6 > _g7))){
-		HX_STACK_LINE(405)
+		HX_STACK_LINE(408)
 		return (int)1;
 	}
-	HX_STACK_LINE(407)
+	HX_STACK_LINE(410)
 	return (int)0;
 }
 

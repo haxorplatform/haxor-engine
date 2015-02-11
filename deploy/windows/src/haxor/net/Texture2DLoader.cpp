@@ -47,17 +47,17 @@ namespace net{
 
 Void Texture2DLoader_obj::__construct(::String p_url,bool p_apply,Dynamic p_callback)
 {
-HX_STACK_FRAME("haxor.net.Texture2DLoader","new",0xbec50975,"haxor.net.Texture2DLoader.new","haxor/net/Texture2DLoader.hx",38,0x3127789d)
+HX_STACK_FRAME("haxor.net.Texture2DLoader","new",0xbec50975,"haxor.net.Texture2DLoader.new","haxor/net/Texture2DLoader.hx",44,0x3127789d)
 HX_STACK_THIS(this)
 HX_STACK_ARG(p_url,"p_url")
 HX_STACK_ARG(p_apply,"p_apply")
 HX_STACK_ARG(p_callback,"p_callback")
 {
-	HX_STACK_LINE(39)
+	HX_STACK_LINE(45)
 	super::__construct(p_url,this->OnBitmapCallback_dyn());
-	HX_STACK_LINE(40)
+	HX_STACK_LINE(46)
 	this->m_t2d_callback = p_callback;
-	HX_STACK_LINE(41)
+	HX_STACK_LINE(47)
 	this->m_apply = p_apply;
 }
 ;
@@ -79,43 +79,43 @@ Dynamic Texture2DLoader_obj::__Create(hx::DynamicArray inArgs)
 
 Void Texture2DLoader_obj::OnBitmapCallback( ::haxor::graphics::texture::Bitmap p_data,Float p_progress){
 {
-		HX_STACK_FRAME("haxor.net.Texture2DLoader","OnBitmapCallback",0x4f54543e,"haxor.net.Texture2DLoader.OnBitmapCallback","haxor/net/Texture2DLoader.hx",44,0x3127789d)
+		HX_STACK_FRAME("haxor.net.Texture2DLoader","OnBitmapCallback",0x4f54543e,"haxor.net.Texture2DLoader.OnBitmapCallback","haxor/net/Texture2DLoader.hx",55,0x3127789d)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_data,"p_data")
 		HX_STACK_ARG(p_progress,"p_progress")
-		HX_STACK_LINE(44)
+		HX_STACK_LINE(55)
 		Array< ::Dynamic > p_data1 = Array_obj< ::Dynamic >::__new().Add(p_data);		HX_STACK_VAR(p_data1,"p_data1");
-		HX_STACK_LINE(44)
+		HX_STACK_LINE(55)
 		Array< ::Dynamic > _g = Array_obj< ::Dynamic >::__new().Add(hx::ObjectPtr<OBJ_>(this));		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(46)
+		HX_STACK_LINE(57)
 		if (((this->m_progress < 1.0))){
-			HX_STACK_LINE(48)
+			HX_STACK_LINE(59)
 			if (((this->m_t2d_callback_dyn() != null()))){
-				HX_STACK_LINE(48)
+				HX_STACK_LINE(59)
 				this->m_t2d_callback(null(),this->m_progress);
 			}
 		}
 		else{
-			HX_STACK_LINE(52)
+			HX_STACK_LINE(63)
 			if (((p_data1->__get((int)0).StaticCast< ::haxor::graphics::texture::Bitmap >() == null()))){
-				HX_STACK_LINE(52)
+				HX_STACK_LINE(63)
 				return null();
 			}
 
 			HX_BEGIN_LOCAL_FUNC_S2(hx::LocalFunc,_Function_2_1,Array< ::Dynamic >,p_data1,Array< ::Dynamic >,_g)
 			Void run(){
-				HX_STACK_FRAME("*","_Function_2_1",0x5201af78,"*._Function_2_1","haxor/net/Texture2DLoader.hx",55,0x3127789d)
+				HX_STACK_FRAME("*","_Function_2_1",0x5201af78,"*._Function_2_1","haxor/net/Texture2DLoader.hx",66,0x3127789d)
 				{
-					HX_STACK_LINE(56)
+					HX_STACK_LINE(67)
 					::haxor::graphics::texture::Texture2D t = ::haxor::graphics::texture::Texture2D_obj::FromBitmap(p_data1->__get((int)0).StaticCast< ::haxor::graphics::texture::Bitmap >(),_g->__get((int)0).StaticCast< ::haxor::net::Texture2DLoader >()->m_apply);		HX_STACK_VAR(t,"t");
-					HX_STACK_LINE(57)
+					HX_STACK_LINE(68)
 					_g->__get((int)0).StaticCast< ::haxor::net::Texture2DLoader >()->m_t2d_callback(t,1.0);
 				}
 				return null();
 			}
 			HX_END_LOCAL_FUNC0((void))
 
-			HX_STACK_LINE(54)
+			HX_STACK_LINE(65)
 			::haxor::thread::Activity_obj::RunOnce( Dynamic(new _Function_2_1(p_data1,_g)),false,true);
 		}
 	}
@@ -127,13 +127,13 @@ HX_DEFINE_DYNAMIC_FUNC2(Texture2DLoader_obj,OnBitmapCallback,(void))
 
 Void Texture2DLoader_obj::OnError( ){
 {
-		HX_STACK_FRAME("haxor.net.Texture2DLoader","OnError",0x1024799e,"haxor.net.Texture2DLoader.OnError","haxor/net/Texture2DLoader.hx",63,0x3127789d)
+		HX_STACK_FRAME("haxor.net.Texture2DLoader","OnError",0x1024799e,"haxor.net.Texture2DLoader.OnError","haxor/net/Texture2DLoader.hx",74,0x3127789d)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(63)
+		HX_STACK_LINE(74)
 		this->super::OnError();
-		HX_STACK_LINE(63)
+		HX_STACK_LINE(74)
 		if (((this->m_t2d_callback_dyn() != null()))){
-			HX_STACK_LINE(63)
+			HX_STACK_LINE(74)
 			this->m_bitmap_callback(null(),1.0);
 		}
 	}

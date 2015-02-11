@@ -3,6 +3,9 @@
 #ifndef INCLUDED_haxor_context_DataContext
 #include <haxor/context/DataContext.h>
 #endif
+#ifndef INCLUDED_haxor_ds_IUSetItem
+#include <haxor/ds/IUSetItem.h>
+#endif
 #ifndef INCLUDED_haxor_math_AABB2
 #include <haxor/math/AABB2.h>
 #endif
@@ -27,103 +30,114 @@
 #ifndef INCLUDED_haxor_math_Vector4
 #include <haxor/math/Vector4.h>
 #endif
+#ifndef INCLUDED_haxor_physics_Collision
+#include <haxor/physics/Collision.h>
+#endif
 namespace haxor{
 namespace context{
 
 Void DataContext_obj::__construct()
 {
-HX_STACK_FRAME("haxor.context.DataContext","new",0xc27c598c,"haxor.context.DataContext.new","haxor/context/DataContext.hx",103,0xbece83e6)
+HX_STACK_FRAME("haxor.context.DataContext","new",0xc27c598c,"haxor.context.DataContext.new","haxor/context/DataContext.hx",112,0xbece83e6)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(104)
-	this->i = Array_obj< int >::__new();
-	HX_STACK_LINE(105)
-	this->v = Array_obj< Float >::__new();
-	HX_STACK_LINE(106)
-	this->m_v2 = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(107)
-	this->m_v3 = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(108)
-	this->m_v4 = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(109)
-	this->m_c = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(110)
-	this->m_q = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(111)
-	this->m_m4 = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(112)
-	this->m_aabb3 = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(113)
-	this->m_aabb2 = Array_obj< ::Dynamic >::__new();
+	this->i = Array_obj< int >::__new();
+	HX_STACK_LINE(114)
+	this->v = Array_obj< Float >::__new();
 	HX_STACK_LINE(115)
-	this->m_nv2 = (int)0;
+	this->m_v2 = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(116)
-	this->m_nv3 = (int)0;
+	this->m_v3 = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(117)
-	this->m_nv4 = (int)0;
+	this->m_v4 = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(118)
-	this->m_nc = (int)0;
+	this->m_c = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(119)
-	this->m_nq = (int)0;
+	this->m_q = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(120)
-	this->m_nm4 = (int)0;
+	this->m_m4 = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(121)
-	this->m_naabb3 = (int)0;
+	this->m_aabb3 = Array_obj< ::Dynamic >::__new();
 	HX_STACK_LINE(122)
-	this->m_naabb2 = (int)0;
-	HX_STACK_LINE(124)
-	this->m4l = Array_obj< Float >::__new().Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0);
+	this->m_aabb2 = Array_obj< ::Dynamic >::__new();
+	HX_STACK_LINE(123)
+	this->m_collision = Array_obj< ::Dynamic >::__new();
+	HX_STACK_LINE(125)
+	this->m_nv2 = (int)0;
 	HX_STACK_LINE(126)
+	this->m_nv3 = (int)0;
+	HX_STACK_LINE(127)
+	this->m_nv4 = (int)0;
+	HX_STACK_LINE(128)
+	this->m_nc = (int)0;
+	HX_STACK_LINE(129)
+	this->m_nq = (int)0;
+	HX_STACK_LINE(130)
+	this->m_nm4 = (int)0;
+	HX_STACK_LINE(131)
+	this->m_naabb3 = (int)0;
+	HX_STACK_LINE(132)
+	this->m_naabb2 = (int)0;
+	HX_STACK_LINE(133)
+	this->m_ncollision = (int)0;
+	HX_STACK_LINE(135)
+	this->m4l = Array_obj< Float >::__new().Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0).Add((int)0);
+	HX_STACK_LINE(137)
 	{
-		HX_STACK_LINE(126)
+		HX_STACK_LINE(137)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(126)
+		HX_STACK_LINE(137)
 		int _g = ::haxor::context::DataContext_obj::MAX_TEMP;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(126)
+		HX_STACK_LINE(137)
 		while((true)){
-			HX_STACK_LINE(126)
+			HX_STACK_LINE(137)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(126)
+				HX_STACK_LINE(137)
 				break;
 			}
-			HX_STACK_LINE(126)
+			HX_STACK_LINE(137)
 			int k = (_g1)++;		HX_STACK_VAR(k,"k");
-			HX_STACK_LINE(128)
+			HX_STACK_LINE(139)
 			this->i->push((int)0);
-			HX_STACK_LINE(129)
+			HX_STACK_LINE(140)
 			this->v->push(0.0);
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(141)
 			::haxor::math::Vector2 _g2 = ::haxor::math::Vector2_obj::__new((int)0,(int)0);		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(141)
 			this->m_v2->push(_g2);
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(142)
 			::haxor::math::Vector3 _g11 = ::haxor::math::Vector3_obj::__new((int)0,(int)0,(int)0);		HX_STACK_VAR(_g11,"_g11");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(142)
 			this->m_v3->push(_g11);
-			HX_STACK_LINE(132)
+			HX_STACK_LINE(143)
 			::haxor::math::Vector4 _g21 = ::haxor::math::Vector4_obj::__new((int)0,(int)0,(int)0,(int)0);		HX_STACK_VAR(_g21,"_g21");
-			HX_STACK_LINE(132)
+			HX_STACK_LINE(143)
 			this->m_v4->push(_g21);
-			HX_STACK_LINE(133)
+			HX_STACK_LINE(144)
 			::haxor::math::Color _g3 = ::haxor::math::Color_obj::__new((int)0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g3,"_g3");
-			HX_STACK_LINE(133)
+			HX_STACK_LINE(144)
 			this->m_c->push(_g3);
-			HX_STACK_LINE(134)
+			HX_STACK_LINE(145)
 			::haxor::math::Quaternion _g4 = ::haxor::math::Quaternion_obj::__new((int)0,(int)0,(int)0,1.0);		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(134)
+			HX_STACK_LINE(145)
 			this->m_q->push(_g4);
-			HX_STACK_LINE(135)
+			HX_STACK_LINE(146)
 			::haxor::math::Matrix4 _g5 = ::haxor::math::Matrix4_obj::__new((int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1,(int)0,(int)0,(int)0,(int)0,(int)1);		HX_STACK_VAR(_g5,"_g5");
-			HX_STACK_LINE(135)
+			HX_STACK_LINE(146)
 			this->m_m4->push(_g5);
-			HX_STACK_LINE(136)
+			HX_STACK_LINE(147)
 			::haxor::math::AABB3 _g6 = ::haxor::math::AABB3_obj::get_empty();		HX_STACK_VAR(_g6,"_g6");
-			HX_STACK_LINE(136)
+			HX_STACK_LINE(147)
 			this->m_aabb3->push(_g6);
-			HX_STACK_LINE(137)
+			HX_STACK_LINE(148)
 			::haxor::math::AABB2 _g7 = ::haxor::math::AABB2_obj::get_empty();		HX_STACK_VAR(_g7,"_g7");
-			HX_STACK_LINE(137)
+			HX_STACK_LINE(148)
 			this->m_aabb2->push(_g7);
+			HX_STACK_LINE(149)
+			::haxor::physics::Collision _g8 = ::haxor::physics::Collision_obj::__new();		HX_STACK_VAR(_g8,"_g8");
+			HX_STACK_LINE(149)
+			this->m_collision->push(_g8);
 		}
 	}
 }
@@ -145,11 +159,11 @@ Dynamic DataContext_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::math::Vector2 DataContext_obj::get_v2( ){
-	HX_STACK_FRAME("haxor.context.DataContext","get_v2",0x55587899,"haxor.context.DataContext.get_v2","haxor/context/DataContext.hx",40,0xbece83e6)
+	HX_STACK_FRAME("haxor.context.DataContext","get_v2",0x55587899,"haxor.context.DataContext.get_v2","haxor/context/DataContext.hx",41,0xbece83e6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(40)
+	HX_STACK_LINE(41)
 	int _g = this->m_nv2 = hx::Mod(((this->m_nv2 + (int)1)),this->m_v2->length);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(40)
+	HX_STACK_LINE(41)
 	return this->m_v2->__get(_g).StaticCast< ::haxor::math::Vector2 >();
 }
 
@@ -157,11 +171,11 @@ Dynamic DataContext_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_v2,return )
 
 ::haxor::math::Vector3 DataContext_obj::get_v3( ){
-	HX_STACK_FRAME("haxor.context.DataContext","get_v3",0x5558789a,"haxor.context.DataContext.get_v3","haxor/context/DataContext.hx",48,0xbece83e6)
+	HX_STACK_FRAME("haxor.context.DataContext","get_v3",0x5558789a,"haxor.context.DataContext.get_v3","haxor/context/DataContext.hx",49,0xbece83e6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(48)
+	HX_STACK_LINE(49)
 	int _g = this->m_nv3 = hx::Mod(((this->m_nv3 + (int)1)),this->m_v3->length);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(48)
+	HX_STACK_LINE(49)
 	return this->m_v3->__get(_g).StaticCast< ::haxor::math::Vector3 >();
 }
 
@@ -169,11 +183,11 @@ HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_v2,return )
 HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_v3,return )
 
 ::haxor::math::Vector4 DataContext_obj::get_v4( ){
-	HX_STACK_FRAME("haxor.context.DataContext","get_v4",0x5558789b,"haxor.context.DataContext.get_v4","haxor/context/DataContext.hx",56,0xbece83e6)
+	HX_STACK_FRAME("haxor.context.DataContext","get_v4",0x5558789b,"haxor.context.DataContext.get_v4","haxor/context/DataContext.hx",57,0xbece83e6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(56)
+	HX_STACK_LINE(57)
 	int _g = this->m_nv4 = hx::Mod(((this->m_nv4 + (int)1)),this->m_v4->length);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(56)
+	HX_STACK_LINE(57)
 	return this->m_v4->__get(_g).StaticCast< ::haxor::math::Vector4 >();
 }
 
@@ -181,11 +195,11 @@ HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_v3,return )
 HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_v4,return )
 
 ::haxor::math::Color DataContext_obj::get_c( ){
-	HX_STACK_FRAME("haxor.context.DataContext","get_c",0x959ed166,"haxor.context.DataContext.get_c","haxor/context/DataContext.hx",64,0xbece83e6)
+	HX_STACK_FRAME("haxor.context.DataContext","get_c",0x959ed166,"haxor.context.DataContext.get_c","haxor/context/DataContext.hx",65,0xbece83e6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(64)
+	HX_STACK_LINE(65)
 	int _g = this->m_nc = hx::Mod(((this->m_nc + (int)1)),this->m_c->length);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(64)
+	HX_STACK_LINE(65)
 	return this->m_c->__get(_g).StaticCast< ::haxor::math::Color >();
 }
 
@@ -193,11 +207,11 @@ HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_v4,return )
 HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_c,return )
 
 ::haxor::math::Quaternion DataContext_obj::get_q( ){
-	HX_STACK_FRAME("haxor.context.DataContext","get_q",0x959ed174,"haxor.context.DataContext.get_q","haxor/context/DataContext.hx",72,0xbece83e6)
+	HX_STACK_FRAME("haxor.context.DataContext","get_q",0x959ed174,"haxor.context.DataContext.get_q","haxor/context/DataContext.hx",73,0xbece83e6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(72)
+	HX_STACK_LINE(73)
 	int _g = this->m_nq = hx::Mod(((this->m_nq + (int)1)),this->m_q->length);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(72)
+	HX_STACK_LINE(73)
 	return this->m_q->__get(_g).StaticCast< ::haxor::math::Quaternion >();
 }
 
@@ -205,11 +219,11 @@ HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_c,return )
 HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_q,return )
 
 ::haxor::math::AABB3 DataContext_obj::get_aabb3( ){
-	HX_STACK_FRAME("haxor.context.DataContext","get_aabb3",0x5055b816,"haxor.context.DataContext.get_aabb3","haxor/context/DataContext.hx",80,0xbece83e6)
+	HX_STACK_FRAME("haxor.context.DataContext","get_aabb3",0x5055b816,"haxor.context.DataContext.get_aabb3","haxor/context/DataContext.hx",81,0xbece83e6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(80)
+	HX_STACK_LINE(81)
 	int _g = this->m_naabb3 = hx::Mod(((this->m_naabb3 + (int)1)),this->m_aabb3->length);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(80)
+	HX_STACK_LINE(81)
 	return this->m_aabb3->__get(_g).StaticCast< ::haxor::math::AABB3 >();
 }
 
@@ -217,23 +231,35 @@ HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_q,return )
 HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_aabb3,return )
 
 ::haxor::math::AABB2 DataContext_obj::get_aabb2( ){
-	HX_STACK_FRAME("haxor.context.DataContext","get_aabb2",0x5055b815,"haxor.context.DataContext.get_aabb2","haxor/context/DataContext.hx",88,0xbece83e6)
+	HX_STACK_FRAME("haxor.context.DataContext","get_aabb2",0x5055b815,"haxor.context.DataContext.get_aabb2","haxor/context/DataContext.hx",89,0xbece83e6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(88)
+	HX_STACK_LINE(89)
 	int _g = this->m_naabb2 = hx::Mod(((this->m_naabb2 + (int)1)),this->m_aabb2->length);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(88)
+	HX_STACK_LINE(89)
 	return this->m_aabb2->__get(_g).StaticCast< ::haxor::math::AABB2 >();
 }
 
 
 HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_aabb2,return )
 
-::haxor::math::Matrix4 DataContext_obj::get_m4( ){
-	HX_STACK_FRAME("haxor.context.DataContext","get_m4",0x555870c4,"haxor.context.DataContext.get_m4","haxor/context/DataContext.hx",96,0xbece83e6)
+::haxor::physics::Collision DataContext_obj::get_collision( ){
+	HX_STACK_FRAME("haxor.context.DataContext","get_collision",0xce66b475,"haxor.context.DataContext.get_collision","haxor/context/DataContext.hx",97,0xbece83e6)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(96)
+	HX_STACK_LINE(97)
+	int _g = this->m_ncollision = hx::Mod(((this->m_ncollision + (int)1)),this->m_collision->length);		HX_STACK_VAR(_g,"_g");
+	HX_STACK_LINE(97)
+	return this->m_collision->__get(_g).StaticCast< ::haxor::physics::Collision >();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(DataContext_obj,get_collision,return )
+
+::haxor::math::Matrix4 DataContext_obj::get_m4( ){
+	HX_STACK_FRAME("haxor.context.DataContext","get_m4",0x555870c4,"haxor.context.DataContext.get_m4","haxor/context/DataContext.hx",105,0xbece83e6)
+	HX_STACK_THIS(this)
+	HX_STACK_LINE(105)
 	int _g = this->m_nq = hx::Mod(((this->m_nm4 + (int)1)),this->m_m4->length);		HX_STACK_VAR(_g,"_g");
-	HX_STACK_LINE(96)
+	HX_STACK_LINE(105)
 	return this->m_m4->__get(_g).StaticCast< ::haxor::math::Matrix4 >();
 }
 
@@ -273,6 +299,9 @@ void DataContext_obj::__Mark(HX_MARK_PARAMS)
 	HX_MARK_MEMBER_NAME(aabb2,"aabb2");
 	HX_MARK_MEMBER_NAME(m_aabb2,"m_aabb2");
 	HX_MARK_MEMBER_NAME(m_naabb2,"m_naabb2");
+	HX_MARK_MEMBER_NAME(collision,"collision");
+	HX_MARK_MEMBER_NAME(m_collision,"m_collision");
+	HX_MARK_MEMBER_NAME(m_ncollision,"m_ncollision");
 	HX_MARK_MEMBER_NAME(m4,"m4");
 	HX_MARK_MEMBER_NAME(m_m4,"m_m4");
 	HX_MARK_MEMBER_NAME(m_nm4,"m_nm4");
@@ -305,6 +334,9 @@ void DataContext_obj::__Visit(HX_VISIT_PARAMS)
 	HX_VISIT_MEMBER_NAME(aabb2,"aabb2");
 	HX_VISIT_MEMBER_NAME(m_aabb2,"m_aabb2");
 	HX_VISIT_MEMBER_NAME(m_naabb2,"m_naabb2");
+	HX_VISIT_MEMBER_NAME(collision,"collision");
+	HX_VISIT_MEMBER_NAME(m_collision,"m_collision");
+	HX_VISIT_MEMBER_NAME(m_ncollision,"m_ncollision");
 	HX_VISIT_MEMBER_NAME(m4,"m4");
 	HX_VISIT_MEMBER_NAME(m_m4,"m_m4");
 	HX_VISIT_MEMBER_NAME(m_nm4,"m_nm4");
@@ -367,6 +399,16 @@ Dynamic DataContext_obj::__Field(const ::String &inName,bool inCallProp)
 	case 9:
 		if (HX_FIELD_EQ(inName,"get_aabb3") ) { return get_aabb3_dyn(); }
 		if (HX_FIELD_EQ(inName,"get_aabb2") ) { return get_aabb2_dyn(); }
+		if (HX_FIELD_EQ(inName,"collision") ) { return inCallProp ? get_collision() : collision; }
+		break;
+	case 11:
+		if (HX_FIELD_EQ(inName,"m_collision") ) { return m_collision; }
+		break;
+	case 12:
+		if (HX_FIELD_EQ(inName,"m_ncollision") ) { return m_ncollision; }
+		break;
+	case 13:
+		if (HX_FIELD_EQ(inName,"get_collision") ) { return get_collision_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -415,6 +457,15 @@ Dynamic DataContext_obj::__SetField(const ::String &inName,const Dynamic &inValu
 		if (HX_FIELD_EQ(inName,"MAX_TEMP") ) { MAX_TEMP=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_naabb3") ) { m_naabb3=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_naabb2") ) { m_naabb2=inValue.Cast< int >(); return inValue; }
+		break;
+	case 9:
+		if (HX_FIELD_EQ(inName,"collision") ) { collision=inValue.Cast< ::haxor::physics::Collision >(); return inValue; }
+		break;
+	case 11:
+		if (HX_FIELD_EQ(inName,"m_collision") ) { m_collision=inValue.Cast< Array< ::Dynamic > >(); return inValue; }
+		break;
+	case 12:
+		if (HX_FIELD_EQ(inName,"m_ncollision") ) { m_ncollision=inValue.Cast< int >(); return inValue; }
 	}
 	return super::__SetField(inName,inValue,inCallProp);
 }
@@ -444,6 +495,9 @@ void DataContext_obj::__GetFields(Array< ::String> &outFields)
 	outFields->push(HX_CSTRING("aabb2"));
 	outFields->push(HX_CSTRING("m_aabb2"));
 	outFields->push(HX_CSTRING("m_naabb2"));
+	outFields->push(HX_CSTRING("collision"));
+	outFields->push(HX_CSTRING("m_collision"));
+	outFields->push(HX_CSTRING("m_ncollision"));
 	outFields->push(HX_CSTRING("m4"));
 	outFields->push(HX_CSTRING("m_m4"));
 	outFields->push(HX_CSTRING("m_nm4"));
@@ -480,6 +534,9 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 	{hx::fsObject /*::haxor::math::AABB2*/ ,(int)offsetof(DataContext_obj,aabb2),HX_CSTRING("aabb2")},
 	{hx::fsObject /*Array< ::Dynamic >*/ ,(int)offsetof(DataContext_obj,m_aabb2),HX_CSTRING("m_aabb2")},
 	{hx::fsInt,(int)offsetof(DataContext_obj,m_naabb2),HX_CSTRING("m_naabb2")},
+	{hx::fsObject /*::haxor::physics::Collision*/ ,(int)offsetof(DataContext_obj,collision),HX_CSTRING("collision")},
+	{hx::fsObject /*Array< ::Dynamic >*/ ,(int)offsetof(DataContext_obj,m_collision),HX_CSTRING("m_collision")},
+	{hx::fsInt,(int)offsetof(DataContext_obj,m_ncollision),HX_CSTRING("m_ncollision")},
 	{hx::fsObject /*::haxor::math::Matrix4*/ ,(int)offsetof(DataContext_obj,m4),HX_CSTRING("m4")},
 	{hx::fsObject /*Array< ::Dynamic >*/ ,(int)offsetof(DataContext_obj,m_m4),HX_CSTRING("m_m4")},
 	{hx::fsInt,(int)offsetof(DataContext_obj,m_nm4),HX_CSTRING("m_nm4")},
@@ -519,6 +576,10 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("get_aabb2"),
 	HX_CSTRING("m_aabb2"),
 	HX_CSTRING("m_naabb2"),
+	HX_CSTRING("collision"),
+	HX_CSTRING("get_collision"),
+	HX_CSTRING("m_collision"),
+	HX_CSTRING("m_ncollision"),
 	HX_CSTRING("m4"),
 	HX_CSTRING("get_m4"),
 	HX_CSTRING("m_m4"),

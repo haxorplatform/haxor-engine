@@ -31,18 +31,18 @@ class Knight extends Player
 		
 		var c:AnimationClip;
 		
-		/*
-		var snd : Sound;		
-		snd = Asset.Get("sound/run_step");			
-		if (snd != null)
-		{
-			snd.volume = 0.05;
-			c = GetClip("run");
-			c.AddEvent(9,  function(e : AnimationEvent):Void { Asset.Get("sound/run_step").Play(); m_dust_particle.Emit(2.0); } );
-			c.AddEvent(17, function(e : AnimationEvent):Void { Asset.Get("sound/run_step").Play(); m_dust_particle.Emit(2.0); } );
-		}		
-		snd = Asset.Get("player/sound/swing"); 
 		
+		//var snd : Sound;		
+		//snd = Asset.Get("sound/run_step");			
+		//if (snd != null)
+		{
+			//snd.volume = 0.05;
+			c = GetClip("run");
+			if(m_dust_particle!=null)c.AddEvent(9,  function(e : AnimationEvent):Void { /*Asset.Get("sound/run_step").Play();*/ m_dust_particle.Emit(2.0);  } );
+			if(m_dust_particle!=null)c.AddEvent(17, function(e : AnimationEvent):Void { /*Asset.Get("sound/run_step").Play();*/ m_dust_particle.Emit(2.0); } );
+		}		
+		/*
+		snd = Asset.Get("player/sound/swing"); 		
 		if (snd != null)
 		{
 			snd.volume = 0.1;

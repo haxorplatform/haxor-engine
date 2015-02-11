@@ -43,7 +43,7 @@ class HXCPP_CLASS_ATTRIBUTES  BaseProcess_obj : public hx::Object{
 		virtual Void Add( ::haxor::core::Resource p_item);
 		Dynamic Add_dyn();
 
-		virtual ::haxor::core::Resource Remove( ::haxor::core::Resource p_item);
+		virtual Void Remove( ::haxor::core::Resource p_item);
 		Dynamic Remove_dyn();
 
 		virtual Void Clear( );

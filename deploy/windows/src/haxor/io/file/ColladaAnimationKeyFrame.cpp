@@ -9,12 +9,12 @@ namespace file{
 
 Void ColladaAnimationKeyFrame_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaAnimationKeyFrame","new",0x78a134c8,"haxor.io.file.ColladaAnimationKeyFrame.new","haxor/io/file/ColladaFile.hx",1527,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaAnimationKeyFrame","new",0x78a134c8,"haxor.io.file.ColladaAnimationKeyFrame.new","haxor/io/file/ColladaFile.hx",1535,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1528)
+	HX_STACK_LINE(1536)
 	this->time = 0.0;
-	HX_STACK_LINE(1529)
+	HX_STACK_LINE(1537)
 	this->values = Array_obj< Float >::__new();
 }
 ;

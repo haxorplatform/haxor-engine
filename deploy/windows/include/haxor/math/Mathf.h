@@ -128,6 +128,9 @@ class HXCPP_CLASS_ATTRIBUTES  Mathf_obj : public hx::Object{
 		static Float Ceil( Float p_v);
 		static Dynamic Ceil_dyn();
 
+		static Float Inverse( Float p_v);
+		static Dynamic Inverse_dyn();
+
 		static Float Round( Float p_v);
 		static Dynamic Round_dyn();
 

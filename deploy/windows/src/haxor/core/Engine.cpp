@@ -15,6 +15,9 @@
 #ifndef INCLUDED_haxor_context_EngineContext
 #include <haxor/context/EngineContext.h>
 #endif
+#ifndef INCLUDED_haxor_context_PhysicsContext
+#include <haxor/context/PhysicsContext.h>
+#endif
 #ifndef INCLUDED_haxor_context_Process
 #include <haxor/context/Process.h>
 #endif
@@ -73,12 +76,12 @@ Dynamic Engine_obj::__Create(hx::DynamicArray inArgs)
 
 Void Engine_obj::Initialize( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Initialize",0x7c7ff859,"haxor.core.Engine.Initialize","haxor/core/Engine.hx",36,0xa988a499)
-		HX_STACK_LINE(37)
-		::haxor::core::Console_obj::Log(HX_CSTRING("Haxor> Engine Initialize."),(int)3);
+		HX_STACK_FRAME("haxor.core.Engine","Initialize",0x7c7ff859,"haxor.core.Engine.Initialize","haxor/core/Engine.hx",37,0xa988a499)
 		HX_STACK_LINE(38)
-		::haxor::context::EngineContext_obj::Initialize();
+		::haxor::core::Console_obj::Log(HX_CSTRING("Haxor> Engine Initialize."),(int)3);
 		HX_STACK_LINE(39)
+		::haxor::context::EngineContext_obj::Initialize();
+		HX_STACK_LINE(40)
 		::haxor::core::Engine_obj::state = ::haxor::core::EngineState_obj::Play;
 	}
 return null();
@@ -89,34 +92,34 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,Initialize,(void))
 
 Void Engine_obj::Collect( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Collect",0x5d050f01,"haxor.core.Engine.Collect","haxor/core/Engine.hx",46,0xa988a499)
-		HX_STACK_LINE(47)
-		::haxor::context::Process dp = ::haxor::context::EngineContext_obj::disposables;		HX_STACK_VAR(dp,"dp");
+		HX_STACK_FRAME("haxor.core.Engine","Collect",0x5d050f01,"haxor.core.Engine.Collect","haxor/core/Engine.hx",47,0xa988a499)
 		HX_STACK_LINE(48)
+		::haxor::context::Process dp = ::haxor::context::EngineContext_obj::disposables;		HX_STACK_VAR(dp,"dp");
+		HX_STACK_LINE(49)
 		{
-			HX_STACK_LINE(48)
+			HX_STACK_LINE(49)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(48)
+			HX_STACK_LINE(49)
 			int _g = ::haxor::context::EngineContext_obj::collectRate;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(48)
+			HX_STACK_LINE(49)
 			while((true)){
-				HX_STACK_LINE(48)
+				HX_STACK_LINE(49)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(48)
+					HX_STACK_LINE(49)
 					break;
 				}
-				HX_STACK_LINE(48)
+				HX_STACK_LINE(49)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(50)
+				HX_STACK_LINE(51)
 				if (((dp->m_length <= (int)0))){
-					HX_STACK_LINE(50)
+					HX_STACK_LINE(51)
 					break;
 				}
-				HX_STACK_LINE(51)
-				::haxor::core::IDisposable o = dp->list->__GetItem((int)0);		HX_STACK_VAR(o,"o");
 				HX_STACK_LINE(52)
-				o->OnDestroy();
+				::haxor::core::IDisposable o = dp->list->__GetItem((int)0);		HX_STACK_VAR(o,"o");
 				HX_STACK_LINE(53)
+				o->OnDestroy();
+				HX_STACK_LINE(54)
 				dp->Remove(o);
 			}
 		}
@@ -129,61 +132,127 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,Collect,(void))
 
 Void Engine_obj::Update( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Update",0x23a5d492,"haxor.core.Engine.Update","haxor/core/Engine.hx",61,0xa988a499)
-		HX_STACK_LINE(63)
+		HX_STACK_FRAME("haxor.core.Engine","Update",0x23a5d492,"haxor.core.Engine.Update","haxor/core/Engine.hx",62,0xa988a499)
+		HX_STACK_LINE(64)
 		if (((::haxor::core::Engine_obj::state == ::haxor::core::EngineState_obj::Editor))){
-			HX_STACK_LINE(63)
+			HX_STACK_LINE(64)
 			return null();
 		}
 		HX_STACK_LINE(66)
-		::haxor::component::animation::Animation_obj::Update();
+		Array< ::Dynamic > bl;		HX_STACK_VAR(bl,"bl");
+		HX_STACK_LINE(67)
+		int k;		HX_STACK_VAR(k,"k");
 		HX_STACK_LINE(69)
-		::haxor::context::Process up = ::haxor::context::EngineContext_obj::update;		HX_STACK_VAR(up,"up");
-		HX_STACK_LINE(71)
+		bl = ::haxor::context::EngineContext_obj::awake;
+		HX_STACK_LINE(70)
 		{
-			HX_STACK_LINE(71)
+			HX_STACK_LINE(70)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(71)
-			int _g = up->m_length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(71)
+			HX_STACK_LINE(70)
+			int _g = bl->length;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(70)
 			while((true)){
-				HX_STACK_LINE(71)
+				HX_STACK_LINE(70)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(71)
+					HX_STACK_LINE(70)
 					break;
 				}
-				HX_STACK_LINE(71)
+				HX_STACK_LINE(70)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
+				HX_STACK_LINE(72)
+				::haxor::component::Behaviour b = bl->shift().StaticCast< ::haxor::component::Behaviour >();		HX_STACK_VAR(b,"b");
 				HX_STACK_LINE(73)
-				::haxor::core::Resource r = up->list->__GetItem(i);		HX_STACK_VAR(r,"r");
+				b->OnAwake();
 				HX_STACK_LINE(74)
-				if ((r->m_destroyed)){
-					HX_STACK_LINE(74)
+				b->m_is_awake = true;
+			}
+		}
+		HX_STACK_LINE(78)
+		bl = ::haxor::context::EngineContext_obj::start;
+		HX_STACK_LINE(78)
+		k = (int)0;
+		HX_STACK_LINE(79)
+		while((true)){
+			HX_STACK_LINE(79)
+			if ((!(((k < bl->length))))){
+				HX_STACK_LINE(79)
+				break;
+			}
+			HX_STACK_LINE(81)
+			int _g = (k)++;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(81)
+			::haxor::component::Behaviour b = bl->__get(_g).StaticCast< ::haxor::component::Behaviour >();		HX_STACK_VAR(b,"b");
+			HX_STACK_LINE(82)
+			if ((!(b->get_enabled()))){
+				HX_STACK_LINE(82)
+				continue;
+			}
+			HX_STACK_LINE(83)
+			if ((!(b->m_is_awake))){
+				HX_STACK_LINE(83)
+				continue;
+			}
+			HX_STACK_LINE(84)
+			b->OnStart();
+			HX_STACK_LINE(85)
+			b->m_is_start = true;
+			HX_STACK_LINE(86)
+			bl->remove(b);
+			HX_STACK_LINE(87)
+			(k)--;
+		}
+		HX_STACK_LINE(90)
+		::haxor::context::Process up = ::haxor::context::EngineContext_obj::update;		HX_STACK_VAR(up,"up");
+		HX_STACK_LINE(92)
+		{
+			HX_STACK_LINE(92)
+			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(92)
+			int _g = up->m_length;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(92)
+			while((true)){
+				HX_STACK_LINE(92)
+				if ((!(((_g1 < _g))))){
+					HX_STACK_LINE(92)
+					break;
+				}
+				HX_STACK_LINE(92)
+				int i = (_g1)++;		HX_STACK_VAR(i,"i");
+				HX_STACK_LINE(94)
+				::haxor::core::Resource r = up->list->__GetItem(i);		HX_STACK_VAR(r,"r");
+				HX_STACK_LINE(95)
+				if (((r == null()))){
+					HX_STACK_LINE(95)
 					continue;
 				}
-				HX_STACK_LINE(75)
+				HX_STACK_LINE(96)
+				if ((r->m_destroyed)){
+					HX_STACK_LINE(96)
+					continue;
+				}
+				HX_STACK_LINE(97)
 				if ((r->m_is_behaviour)){
-					HX_STACK_LINE(77)
+					HX_STACK_LINE(99)
 					::haxor::component::Behaviour b = r;		HX_STACK_VAR(b,"b");
-					HX_STACK_LINE(78)
+					HX_STACK_LINE(100)
 					if ((!(b->m_is_awake))){
-						HX_STACK_LINE(78)
-						b->OnAwake();
-						HX_STACK_LINE(78)
-						b->m_is_awake = true;
+						HX_STACK_LINE(100)
+						continue;
 					}
-					HX_STACK_LINE(79)
+					HX_STACK_LINE(101)
 					if ((!(b->m_is_start))){
-						HX_STACK_LINE(79)
-						b->OnStart();
-						HX_STACK_LINE(79)
-						b->m_is_start = true;
+						HX_STACK_LINE(101)
+						continue;
 					}
 				}
-				HX_STACK_LINE(81)
+				HX_STACK_LINE(103)
 				up->list->__GetItem(i)->__Field(HX_CSTRING("OnUpdate"),true)();
 			}
 		}
+		HX_STACK_LINE(107)
+		::haxor::component::animation::Animation_obj::Update();
+		HX_STACK_LINE(108)
+		::haxor::context::EngineContext_obj::physics->Step();
 	}
 return null();
 }
@@ -193,12 +262,12 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,Update,(void))
 
 Void Engine_obj::Render( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Render",0xa1c9b9df,"haxor.core.Engine.Render","haxor/core/Engine.hx",89,0xa988a499)
-		HX_STACK_LINE(91)
+		HX_STACK_FRAME("haxor.core.Engine","Render",0xa1c9b9df,"haxor.core.Engine.Render","haxor/core/Engine.hx",117,0xa988a499)
+		HX_STACK_LINE(119)
 		::haxor::core::RenderEngine_obj::Render();
-		HX_STACK_LINE(94)
+		HX_STACK_LINE(122)
 		::haxor::core::Engine_obj::RenderIRenderers();
-		HX_STACK_LINE(97)
+		HX_STACK_LINE(125)
 		::haxor::core::RenderEngine_obj::RenderFinish();
 	}
 return null();
@@ -209,32 +278,32 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,Render,(void))
 
 Void Engine_obj::RenderIRenderers( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","RenderIRenderers",0x58ca4ae6,"haxor.core.Engine.RenderIRenderers","haxor/core/Engine.hx",106,0xa988a499)
-		HX_STACK_LINE(107)
+		HX_STACK_FRAME("haxor.core.Engine","RenderIRenderers",0x58ca4ae6,"haxor.core.Engine.RenderIRenderers","haxor/core/Engine.hx",134,0xa988a499)
+		HX_STACK_LINE(135)
 		::haxor::context::Process rp = ::haxor::context::EngineContext_obj::render;		HX_STACK_VAR(rp,"rp");
-		HX_STACK_LINE(109)
+		HX_STACK_LINE(137)
 		{
-			HX_STACK_LINE(109)
+			HX_STACK_LINE(137)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(109)
+			HX_STACK_LINE(137)
 			int _g = rp->m_length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(109)
+			HX_STACK_LINE(137)
 			while((true)){
-				HX_STACK_LINE(109)
+				HX_STACK_LINE(137)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(109)
+					HX_STACK_LINE(137)
 					break;
 				}
-				HX_STACK_LINE(109)
+				HX_STACK_LINE(137)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(111)
+				HX_STACK_LINE(139)
 				::haxor::core::Resource r = rp->list->__GetItem(i);		HX_STACK_VAR(r,"r");
-				HX_STACK_LINE(112)
+				HX_STACK_LINE(140)
 				if ((r->m_destroyed)){
-					HX_STACK_LINE(112)
+					HX_STACK_LINE(140)
 					continue;
 				}
-				HX_STACK_LINE(113)
+				HX_STACK_LINE(141)
 				rp->list->__GetItem(i)->__Field(HX_CSTRING("OnRender"),true)();
 			}
 		}
@@ -247,39 +316,39 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC0(Engine_obj,RenderIRenderers,(void))
 
 Void Engine_obj::Resize( ){
 {
-		HX_STACK_FRAME("haxor.core.Engine","Resize",0xa51ba87d,"haxor.core.Engine.Resize","haxor/core/Engine.hx",121,0xa988a499)
-		HX_STACK_LINE(123)
+		HX_STACK_FRAME("haxor.core.Engine","Resize",0xa51ba87d,"haxor.core.Engine.Resize","haxor/core/Engine.hx",149,0xa988a499)
+		HX_STACK_LINE(151)
 		::haxor::core::RenderEngine_obj::Resize();
-		HX_STACK_LINE(126)
+		HX_STACK_LINE(154)
 		if (((::haxor::core::Engine_obj::state == ::haxor::core::EngineState_obj::Editor))){
-			HX_STACK_LINE(126)
+			HX_STACK_LINE(154)
 			return null();
 		}
-		HX_STACK_LINE(128)
+		HX_STACK_LINE(156)
 		::haxor::context::Process rp = ::haxor::context::EngineContext_obj::resize;		HX_STACK_VAR(rp,"rp");
-		HX_STACK_LINE(129)
+		HX_STACK_LINE(157)
 		{
-			HX_STACK_LINE(129)
+			HX_STACK_LINE(157)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(129)
+			HX_STACK_LINE(157)
 			int _g = rp->m_length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(129)
+			HX_STACK_LINE(157)
 			while((true)){
-				HX_STACK_LINE(129)
+				HX_STACK_LINE(157)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(129)
+					HX_STACK_LINE(157)
 					break;
 				}
-				HX_STACK_LINE(129)
+				HX_STACK_LINE(157)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(131)
+				HX_STACK_LINE(159)
 				::haxor::core::Resource r = rp->list->__GetItem(i);		HX_STACK_VAR(r,"r");
-				HX_STACK_LINE(132)
+				HX_STACK_LINE(160)
 				if ((r->m_destroyed)){
-					HX_STACK_LINE(132)
+					HX_STACK_LINE(160)
 					continue;
 				}
-				HX_STACK_LINE(133)
+				HX_STACK_LINE(161)
 				rp->list->__GetItem(i)->__Field(HX_CSTRING("OnResize"),true)(::haxor::graphics::Screen_obj::m_width,::haxor::graphics::Screen_obj::m_height);
 			}
 		}

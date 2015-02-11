@@ -57,11 +57,14 @@ class HXCPP_CLASS_ATTRIBUTES  TextureContext_obj : public hx::Object{
 		virtual Void Create( ::haxor::graphics::texture::Texture p_texture);
 		Dynamic Create_dyn();
 
-		virtual Void Bind( ::haxor::graphics::texture::Texture p_texture);
+		virtual Void Bind( ::haxor::graphics::texture::Texture p_texture,hx::Null< int >  p_slot);
 		Dynamic Bind_dyn();
 
 		virtual Void Unbind( );
 		Dynamic Unbind_dyn();
+
+		virtual Void BindTarget( ::haxor::graphics::texture::RenderTexture rt);
+		Dynamic BindTarget_dyn();
 
 		virtual Void UpdateParameters( ::haxor::graphics::texture::Texture p_texture);
 		Dynamic UpdateParameters_dyn();
@@ -74,9 +77,6 @@ class HXCPP_CLASS_ATTRIBUTES  TextureContext_obj : public hx::Object{
 
 		virtual Void WriteTexture( int p_target,::haxor::graphics::texture::Texture p_texture);
 		Dynamic WriteTexture_dyn();
-
-		virtual Void BindTarget( ::haxor::graphics::texture::RenderTexture rt);
-		Dynamic BindTarget_dyn();
 
 		virtual Void UpdateMipmaps( ::haxor::graphics::texture::Texture p_texture);
 		Dynamic UpdateMipmaps_dyn();

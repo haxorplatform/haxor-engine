@@ -47,6 +47,7 @@ class HXCPP_CLASS_ATTRIBUTES  MaterialUniform_obj : public hx::Object{
 		::String name;
 		::haxor::io::Buffer data;
 		int offset;
+		bool transposed;
 		::haxor::graphics::texture::Texture texture;
 		bool isFloat;
 		bool exists;

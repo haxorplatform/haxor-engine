@@ -6,6 +6,7 @@
 #endif
 
 HX_DECLARE_CLASS2(haxor,context,AxisGizmo)
+HX_DECLARE_CLASS2(haxor,context,CanvasGizmo)
 HX_DECLARE_CLASS2(haxor,context,Gizmo)
 HX_DECLARE_CLASS2(haxor,context,GizmoContext)
 HX_DECLARE_CLASS2(haxor,context,LineGizmo)
@@ -55,15 +56,12 @@ class HXCPP_CLASS_ATTRIBUTES  GizmoContext_obj : public hx::Object{
 		::haxor::context::AxisGizmo axis_renderer;
 		::haxor::context::LineGizmo line_renderer;
 		::haxor::context::PointGizmo point_renderer;
-		::haxor::context::PointGizmo point_smooth_renderer;
+		::haxor::context::CanvasGizmo canvas_renderer;
 		virtual Void Initialize( );
 		Dynamic Initialize_dyn();
 
 		virtual Void CreateTextureQuad( );
 		Dynamic CreateTextureQuad_dyn();
-
-		virtual Void CreateAxis( );
-		Dynamic CreateAxis_dyn();
 
 		virtual Void CreateGrid( Float p_step);
 		Dynamic CreateGrid_dyn();

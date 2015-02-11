@@ -53,6 +53,7 @@ class HXCPP_CLASS_ATTRIBUTES  CameraOrbit_obj : public ::haxor::component::Behav
 		::haxor::math::Vector2 angle;
 		Float smooth;
 		::haxor::component::Transform target;
+		bool follow;
 		::haxor::math::Vector2 m_angle;
 		Float m_distance;
 		::haxor::math::Quaternion m_rotation;

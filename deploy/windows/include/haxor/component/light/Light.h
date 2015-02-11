@@ -11,8 +11,6 @@ HX_DECLARE_CLASS2(haxor,component,Component)
 HX_DECLARE_CLASS3(haxor,component,light,Light)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
-HX_DECLARE_CLASS2(haxor,io,Buffer)
-HX_DECLARE_CLASS2(haxor,io,FloatArray)
 HX_DECLARE_CLASS2(haxor,math,Color)
 namespace haxor{
 namespace component{
@@ -43,11 +41,13 @@ class HXCPP_CLASS_ATTRIBUTES  Light_obj : public ::haxor::component::Behaviour_o
 
 		::haxor::math::Color color;
 		Float intensity;
+		virtual Void OnBuild( );
+
 		virtual Void OnDestroy( );
 
 		static ::haxor::math::Color ambient;
 		static int max;
-		static ::haxor::io::FloatArray m_buffer;
+		static Array< Float > m_buffer;
 		static Array< ::Dynamic > list;
 		static Array< ::Dynamic > m_list;
 		static Array< ::Dynamic > get_list( );

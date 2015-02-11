@@ -34,10 +34,6 @@ class HXCPP_CLASS_ATTRIBUTES  SAP_obj : public hx::Object{
 		void __Visit(HX_VISIT_PARAMS);
 		::String __ToString() const { return HX_CSTRING("SAP"); }
 
-		Array< int > inside;
-		Array< int > outside;
-		int countIn;
-		int countOut;
 		::haxor::ds::SAPList x;
 		::haxor::ds::SAPList y;
 		::haxor::ds::SAPList z;
@@ -54,7 +50,7 @@ class HXCPP_CLASS_ATTRIBUTES  SAP_obj : public hx::Object{
 		virtual bool Overlap( int p_a,int p_b);
 		Dynamic Overlap_dyn();
 
-		virtual Void Query( int p_id,hx::Null< bool >  p_outside);
+		virtual Void Query( int p_id,Dynamic p_on_fetch);
 		Dynamic Query_dyn();
 
 };

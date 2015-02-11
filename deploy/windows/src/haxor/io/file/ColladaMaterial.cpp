@@ -9,12 +9,12 @@ namespace file{
 
 Void ColladaMaterial_obj::__construct()
 {
-HX_STACK_FRAME("haxor.io.file.ColladaMaterial","new",0xfc037bf5,"haxor.io.file.ColladaMaterial.new","haxor/io/file/ColladaFile.hx",1478,0xa1888587)
+HX_STACK_FRAME("haxor.io.file.ColladaMaterial","new",0xfc037bf5,"haxor.io.file.ColladaMaterial.new","haxor/io/file/ColladaFile.hx",1486,0xa1888587)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(1482)
+	HX_STACK_LINE(1490)
 	this->name = HX_CSTRING("");
-	HX_STACK_LINE(1480)
+	HX_STACK_LINE(1488)
 	this->id = HX_CSTRING("");
 }
 ;

@@ -35,6 +35,15 @@ class HXCPP_CLASS_ATTRIBUTES  Touch_obj : public hx::Object{
 		::String __ToString() const { return HX_CSTRING("Touch"); }
 
 		::haxor::core::InputState state;
+		virtual bool get_down( );
+		Dynamic get_down_dyn();
+
+		virtual bool get_pressed( );
+		Dynamic get_pressed_dyn();
+
+		virtual bool get_hit( );
+		Dynamic get_hit_dyn();
+
 		int id;
 		::haxor::math::Vector2 position;
 		::haxor::math::Vector2 radius;

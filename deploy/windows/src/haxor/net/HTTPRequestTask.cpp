@@ -68,7 +68,7 @@ HX_STACK_ARG(p_data,"p_data")
 	HX_STACK_LINE(71)
 	this->error = HX_CSTRING("");
 	HX_STACK_LINE(72)
-	::haxor::core::Console_obj::Log((HX_CSTRING("HTTPRequest> ") + this->url),(int)4);
+	::haxor::core::Console_obj::Log((HX_CSTRING("HTTPRequest> ") + this->url),(int)6);
 }
 ;
 	return null();

@@ -3,9 +3,6 @@
 #ifndef INCLUDED_Std
 #include <Std.h>
 #endif
-#ifndef INCLUDED_haxe_Log
-#include <haxe/Log.h>
-#endif
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
@@ -322,24 +319,6 @@ bool p_is_color = __o_p_is_color.Default(false);
 		::haxor::io::FloatArray _g2 = ::haxor::io::FloatArray_obj::__new((p_list->__Field(HX_CSTRING("length"),true) * off));		HX_STACK_VAR(_g2,"_g2");
 		HX_STACK_LINE(116)
 		::haxor::io::FloatArray f = a->data = _g2;		HX_STACK_VAR(f,"f");
-		HX_STACK_LINE(117)
-		::String _g3 = this->get_name();		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(117)
-		::String _g4 = (_g3 + HX_CSTRING(" a["));		HX_STACK_VAR(_g4,"_g4");
-		HX_STACK_LINE(117)
-		::String _g5 = (_g4 + p_name);		HX_STACK_VAR(_g5,"_g5");
-		HX_STACK_LINE(117)
-		::String _g6 = (_g5 + HX_CSTRING("] off["));		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(117)
-		::String _g7 = (_g6 + off);		HX_STACK_VAR(_g7,"_g7");
-		HX_STACK_LINE(117)
-		::String _g8 = (_g7 + HX_CSTRING("] len["));		HX_STACK_VAR(_g8,"_g8");
-		HX_STACK_LINE(117)
-		::String _g9 = (_g8 + f->m_length);		HX_STACK_VAR(_g9,"_g9");
-		HX_STACK_LINE(117)
-		::String _g10 = (_g9 + HX_CSTRING("]"));		HX_STACK_VAR(_g10,"_g10");
-		HX_STACK_LINE(117)
-		::haxe::Log_obj::trace(_g10,hx::SourceInfo(HX_CSTRING("MeshLayout.hx"),117,HX_CSTRING("haxor.graphics.mesh.MeshLayout"),HX_CSTRING("UpdateAttribute")));
 		HX_STACK_LINE(118)
 		{
 			HX_STACK_LINE(118)
@@ -363,39 +342,39 @@ bool p_is_color = __o_p_is_color.Default(false);
 						HX_STACK_LINE(123)
 						Float v = it;		HX_STACK_VAR(v,"v");
 						HX_STACK_LINE(123)
-						int _g11 = (p)++;		HX_STACK_VAR(_g11,"_g11");
+						int _g3 = (p)++;		HX_STACK_VAR(_g3,"_g3");
 						HX_STACK_LINE(123)
-						f->Set(_g11,v);
+						f->Set(_g3,v);
 					}
 					;break;
 					case (int)2: {
 						HX_STACK_LINE(124)
 						::haxor::math::Vector2 v2 = it;		HX_STACK_VAR(v2,"v2");
 						HX_STACK_LINE(124)
-						int _g12 = (p)++;		HX_STACK_VAR(_g12,"_g12");
+						int _g4 = (p)++;		HX_STACK_VAR(_g4,"_g4");
 						HX_STACK_LINE(124)
-						f->Set(_g12,v2->x);
+						f->Set(_g4,v2->x);
 						HX_STACK_LINE(124)
-						int _g13 = (p)++;		HX_STACK_VAR(_g13,"_g13");
+						int _g5 = (p)++;		HX_STACK_VAR(_g5,"_g5");
 						HX_STACK_LINE(124)
-						f->Set(_g13,v2->y);
+						f->Set(_g5,v2->y);
 					}
 					;break;
 					case (int)3: {
 						HX_STACK_LINE(125)
 						::haxor::math::Vector3 v3 = it;		HX_STACK_VAR(v3,"v3");
 						HX_STACK_LINE(125)
-						int _g14 = (p)++;		HX_STACK_VAR(_g14,"_g14");
+						int _g6 = (p)++;		HX_STACK_VAR(_g6,"_g6");
 						HX_STACK_LINE(125)
-						f->Set(_g14,v3->x);
+						f->Set(_g6,v3->x);
 						HX_STACK_LINE(125)
-						int _g15 = (p)++;		HX_STACK_VAR(_g15,"_g15");
+						int _g7 = (p)++;		HX_STACK_VAR(_g7,"_g7");
 						HX_STACK_LINE(125)
-						f->Set(_g15,v3->y);
+						f->Set(_g7,v3->y);
 						HX_STACK_LINE(125)
-						int _g16 = (p)++;		HX_STACK_VAR(_g16,"_g16");
+						int _g8 = (p)++;		HX_STACK_VAR(_g8,"_g8");
 						HX_STACK_LINE(125)
-						f->Set(_g16,v3->z);
+						f->Set(_g8,v3->z);
 					}
 					;break;
 					case (int)4: {
@@ -404,41 +383,41 @@ bool p_is_color = __o_p_is_color.Default(false);
 							HX_STACK_LINE(128)
 							::haxor::math::Color c = it;		HX_STACK_VAR(c,"c");
 							HX_STACK_LINE(128)
-							int _g17 = (p)++;		HX_STACK_VAR(_g17,"_g17");
+							int _g9 = (p)++;		HX_STACK_VAR(_g9,"_g9");
 							HX_STACK_LINE(128)
-							f->Set(_g17,c->r);
+							f->Set(_g9,c->r);
 							HX_STACK_LINE(128)
-							int _g18 = (p)++;		HX_STACK_VAR(_g18,"_g18");
+							int _g10 = (p)++;		HX_STACK_VAR(_g10,"_g10");
 							HX_STACK_LINE(128)
-							f->Set(_g18,c->g);
+							f->Set(_g10,c->g);
 							HX_STACK_LINE(128)
-							int _g19 = (p)++;		HX_STACK_VAR(_g19,"_g19");
+							int _g11 = (p)++;		HX_STACK_VAR(_g11,"_g11");
 							HX_STACK_LINE(128)
-							f->Set(_g19,c->b);
+							f->Set(_g11,c->b);
 							HX_STACK_LINE(128)
-							int _g20 = (p)++;		HX_STACK_VAR(_g20,"_g20");
+							int _g12 = (p)++;		HX_STACK_VAR(_g12,"_g12");
 							HX_STACK_LINE(128)
-							f->Set(_g20,c->a);
+							f->Set(_g12,c->a);
 						}
 						else{
 							HX_STACK_LINE(130)
 							::haxor::math::Vector4 v4 = it;		HX_STACK_VAR(v4,"v4");
 							HX_STACK_LINE(130)
-							int _g21 = (p)++;		HX_STACK_VAR(_g21,"_g21");
+							int _g13 = (p)++;		HX_STACK_VAR(_g13,"_g13");
 							HX_STACK_LINE(130)
-							f->Set(_g21,v4->x);
+							f->Set(_g13,v4->x);
 							HX_STACK_LINE(130)
-							int _g22 = (p)++;		HX_STACK_VAR(_g22,"_g22");
+							int _g14 = (p)++;		HX_STACK_VAR(_g14,"_g14");
 							HX_STACK_LINE(130)
-							f->Set(_g22,v4->y);
+							f->Set(_g14,v4->y);
 							HX_STACK_LINE(130)
-							int _g23 = (p)++;		HX_STACK_VAR(_g23,"_g23");
+							int _g15 = (p)++;		HX_STACK_VAR(_g15,"_g15");
 							HX_STACK_LINE(130)
-							f->Set(_g23,v4->z);
+							f->Set(_g15,v4->z);
 							HX_STACK_LINE(130)
-							int _g24 = (p)++;		HX_STACK_VAR(_g24,"_g24");
+							int _g16 = (p)++;		HX_STACK_VAR(_g16,"_g16");
 							HX_STACK_LINE(130)
-							f->Set(_g24,v4->w);
+							f->Set(_g16,v4->w);
 						}
 					}
 					;break;

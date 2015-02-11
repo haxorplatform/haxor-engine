@@ -145,8 +145,11 @@ class HXCPP_CLASS_ATTRIBUTES  AABB3_obj : public hx::Object{
 		virtual ::haxor::math::AABB3 Add( ::haxor::math::AABB3 p_v);
 		Dynamic Add_dyn();
 
-		virtual ::haxor::math::AABB3 Set( Float p_xmin,Float p_xmax,Float p_ymin,Float p_ymax,Float p_zmin,Float p_zmax);
+		virtual ::haxor::math::AABB3 Set( hx::Null< Float >  p_xmin,hx::Null< Float >  p_xmax,hx::Null< Float >  p_ymin,hx::Null< Float >  p_ymax,hx::Null< Float >  p_zmin,hx::Null< Float >  p_zmax);
 		Dynamic Set_dyn();
+
+		virtual ::haxor::math::AABB3 Set3( ::haxor::math::Vector3 p_min,::haxor::math::Vector3 p_max);
+		Dynamic Set3_dyn();
 
 		virtual ::haxor::math::AABB3 SetAABB3( ::haxor::math::AABB3 p_v);
 		Dynamic SetAABB3_dyn();

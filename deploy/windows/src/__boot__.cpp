@@ -4,12 +4,20 @@
 #include <sys/net/_Socket/SocketOutput.h>
 #include <sys/net/_Socket/SocketInput.h>
 #include <sys/net/Host.h>
+#include <haxor/thread/ParticleKernel.h>
+#include <haxor/thread/Kernel.h>
 #include <haxor/platform/windows/input/WinInputHandler.h>
 #include <haxor/platform/windows/Window.h>
 #include <haxor/platform/windows/Entry.h>
 #include <haxor/platform/graphics/OpenGL.h>
 #include <haxor/platform/windows/graphics/WinGL.h>
 #include <haxor/platform/OSWindow.h>
+#include <haxor/physics/broadphase/SAPBroadPhase.h>
+#include <haxor/physics/broadphase/BroadPhase.h>
+#include <haxor/physics/PhysicsMaterial.h>
+#include <haxor/physics/Physics.h>
+#include <haxor/physics/CollisionSolver.h>
+#include <haxor/physics/Collision.h>
 #include <haxor/net/Web.h>
 #include <haxor/net/Texture2DLoader.h>
 #include <haxor/platform/windows/net/BitmapLoader.h>
@@ -43,7 +51,6 @@
 #include <haxor/io/file/ColladaFile.h>
 #include <haxor/io/file/AssetXML.h>
 #include <haxor/io/file/AssetFile.h>
-#include <haxor/io/file/Asset.h>
 #include <haxor/io/UInt16Array.h>
 #include <haxor/io/Int32Array.h>
 #include <haxor/io/FloatArray.h>
@@ -81,15 +88,22 @@
 #include <haxor/graphics/GraphicAPI.h>
 #include <haxor/graphics/Gizmo.h>
 #include <haxor/graphics/GL.h>
+#include <haxor/graphics/Fog.h>
+#include <haxor/ds/USet.h>
+#include <haxor/ds/IUSetItem.h>
 #include <haxor/ds/SAPInterval.h>
 #include <haxor/ds/SAPList.h>
 #include <haxor/ds/SAP.h>
+#include <haxor/ds/Pool.h>
+#include <haxor/ds/PairTable.h>
 #include <haxor/core/Time.h>
 #include <haxor/core/Scene.h>
 #include <haxor/core/RenderStats.h>
 #include <haxor/core/RenderEngine.h>
-#include <haxor/core/IResizeable.h>
 #include <haxor/core/ILateUpdateable.h>
+#include <haxor/core/IFixedUpdateable.h>
+#include <haxor/core/ForceMode.h>
+#include <haxor/core/ColliderType.h>
 #include <haxor/core/AnimationWrap.h>
 #include <haxor/core/InputState.h>
 #include <haxor/core/ClearFlag.h>
@@ -97,6 +111,7 @@
 #include <haxor/core/TextureWrap.h>
 #include <haxor/core/TextureFilter.h>
 #include <haxor/core/PixelFormat.h>
+#include <haxor/core/CameraMode.h>
 #include <haxor/core/DepthTest.h>
 #include <haxor/core/CullMode.h>
 #include <haxor/core/MeshPrimitive.h>
@@ -106,9 +121,11 @@
 #include <haxor/core/Entity.h>
 #include <haxor/core/Engine.h>
 #include <haxor/core/EngineState.h>
+#include <haxor/core/Debug.h>
 #include <haxor/core/Console.h>
 #include <haxor/core/ApplicationProtocol.h>
 #include <haxor/core/Platform.h>
+#include <haxor/core/Asset.h>
 #include <haxor/context/UID.h>
 #include <haxor/context/TransformContext.h>
 #include <haxor/context/TextureContext.h>
@@ -116,8 +133,11 @@
 #include <haxor/context/RendererContext.h>
 #include <haxor/context/Process.h>
 #include <haxor/context/BaseProcess.h>
+#include <haxor/context/PhysicsContext.h>
 #include <haxor/context/MeshContext.h>
 #include <haxor/context/MaterialContext.h>
+#include <haxor/context/KernelContext.h>
+#include <haxor/context/CanvasGizmo.h>
 #include <haxor/context/PointGizmo.h>
 #include <haxor/context/LineGizmo.h>
 #include <haxor/context/AxisGizmo.h>
@@ -129,6 +149,10 @@
 #include <haxor/context/EngineContext.h>
 #include <haxor/context/DataContext.h>
 #include <haxor/context/CameraContext.h>
+#include <haxor/component/physics/SphereCollider.h>
+#include <haxor/component/physics/RigidBody.h>
+#include <haxor/component/physics/BoxCollider.h>
+#include <haxor/component/physics/Collider.h>
 #include <haxor/component/light/PointLight.h>
 #include <haxor/component/light/Light.h>
 #include <haxor/math/Color.h>
@@ -144,12 +168,24 @@
 #include <haxor/component/animation/Animation.h>
 #include <haxor/component/Transform.h>
 #include <haxor/component/SkinnedMeshRenderer.h>
+#include <haxor/component/CylinderEmitter.h>
+#include <haxor/component/ConeEmitter.h>
+#include <haxor/component/BoxEmitter.h>
+#include <haxor/component/SphereEmitter.h>
+#include <haxor/component/ParticleEmitter.h>
+#include <haxor/component/ParticleRenderer.h>
+#include <haxor/component/ParticleSystemState.h>
+#include <haxor/component/ParticleSheet.h>
+#include <haxor/component/ParticleLife.h>
+#include <haxor/component/ParticleStart.h>
+#include <haxor/component/ParticleAttribute.h>
 #include <haxor/component/MeshRenderer.h>
 #include <haxor/component/Renderer.h>
 #include <haxor/component/DataComponent.h>
 #include <haxor/component/CameraOrbitInput.h>
 #include <haxor/component/CameraOrbit.h>
 #include <haxor/component/Camera.h>
+#include <haxor/core/IResizeable.h>
 #include <haxe/io/Input.h>
 #include <haxe/io/Error.h>
 #include <haxe/io/Eof.h>
@@ -166,6 +202,16 @@
 #include <haxe/Timer.h>
 #include <haxe/Log.h>
 #include <haxe/Http.h>
+#include <examples/particles/Main.h>
+#include <haxor/core/IUpdateable.h>
+#include <haxor/core/IRenderable.h>
+#include <haxor/core/Application.h>
+#include <haxor/platform/windows/WinApplication.h>
+#include <haxor/core/BaseApplication.h>
+#include <haxor/component/Behaviour.h>
+#include <haxor/component/Component.h>
+#include <haxor/core/Resource.h>
+#include <haxor/core/IDisposable.h>
 #include <cpp/vm/Thread.h>
 #include <Xml.h>
 #include <XmlType.h>
@@ -176,16 +222,6 @@
 #include <Std.h>
 #include <Reflect.h>
 #include <IMap.h>
-#include <Main.h>
-#include <haxor/core/IUpdateable.h>
-#include <haxor/core/IRenderable.h>
-#include <haxor/core/Application.h>
-#include <haxor/platform/windows/WinApplication.h>
-#include <haxor/core/BaseApplication.h>
-#include <haxor/component/Behaviour.h>
-#include <haxor/component/Component.h>
-#include <haxor/core/Resource.h>
-#include <haxor/core/IDisposable.h>
 #include <List.h>
 #include <Lambda.h>
 #include <EReg.h>
@@ -201,12 +237,20 @@ hx::RegisterResources( hx::GetResources() );
 ::sys::net::_Socket::SocketOutput_obj::__register();
 ::sys::net::_Socket::SocketInput_obj::__register();
 ::sys::net::Host_obj::__register();
+::haxor::thread::ParticleKernel_obj::__register();
+::haxor::thread::Kernel_obj::__register();
 ::haxor::platform::windows::input::WinInputHandler_obj::__register();
 ::haxor::platform::windows::Window_obj::__register();
 ::haxor::platform::windows::Entry_obj::__register();
 ::haxor::platform::graphics::OpenGL_obj::__register();
 ::haxor::platform::windows::graphics::WinGL_obj::__register();
 ::haxor::platform::OSWindow_obj::__register();
+::haxor::physics::broadphase::SAPBroadPhase_obj::__register();
+::haxor::physics::broadphase::BroadPhase_obj::__register();
+::haxor::physics::PhysicsMaterial_obj::__register();
+::haxor::physics::Physics_obj::__register();
+::haxor::physics::CollisionSolver_obj::__register();
+::haxor::physics::Collision_obj::__register();
 ::haxor::net::Web_obj::__register();
 ::haxor::net::Texture2DLoader_obj::__register();
 ::haxor::platform::windows::net::BitmapLoader_obj::__register();
@@ -240,7 +284,6 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::io::file::ColladaFile_obj::__register();
 ::haxor::io::file::AssetXML_obj::__register();
 ::haxor::io::file::AssetFile_obj::__register();
-::haxor::io::file::Asset_obj::__register();
 ::haxor::io::UInt16Array_obj::__register();
 ::haxor::io::Int32Array_obj::__register();
 ::haxor::io::FloatArray_obj::__register();
@@ -278,15 +321,22 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::graphics::GraphicAPI_obj::__register();
 ::haxor::graphics::Gizmo_obj::__register();
 ::haxor::graphics::GL_obj::__register();
+::haxor::graphics::Fog_obj::__register();
+::haxor::ds::USet_obj::__register();
+::haxor::ds::IUSetItem_obj::__register();
 ::haxor::ds::SAPInterval_obj::__register();
 ::haxor::ds::SAPList_obj::__register();
 ::haxor::ds::SAP_obj::__register();
+::haxor::ds::Pool_obj::__register();
+::haxor::ds::PairTable_obj::__register();
 ::haxor::core::Time_obj::__register();
 ::haxor::core::Scene_obj::__register();
 ::haxor::core::RenderStats_obj::__register();
 ::haxor::core::RenderEngine_obj::__register();
-::haxor::core::IResizeable_obj::__register();
 ::haxor::core::ILateUpdateable_obj::__register();
+::haxor::core::IFixedUpdateable_obj::__register();
+::haxor::core::ForceMode_obj::__register();
+::haxor::core::ColliderType_obj::__register();
 ::haxor::core::AnimationWrap_obj::__register();
 ::haxor::core::InputState_obj::__register();
 ::haxor::core::ClearFlag_obj::__register();
@@ -294,6 +344,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::TextureWrap_obj::__register();
 ::haxor::core::TextureFilter_obj::__register();
 ::haxor::core::PixelFormat_obj::__register();
+::haxor::core::CameraMode_obj::__register();
 ::haxor::core::DepthTest_obj::__register();
 ::haxor::core::CullMode_obj::__register();
 ::haxor::core::MeshPrimitive_obj::__register();
@@ -303,9 +354,11 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::Entity_obj::__register();
 ::haxor::core::Engine_obj::__register();
 ::haxor::core::EngineState_obj::__register();
+::haxor::core::Debug_obj::__register();
 ::haxor::core::Console_obj::__register();
 ::haxor::core::ApplicationProtocol_obj::__register();
 ::haxor::core::Platform_obj::__register();
+::haxor::core::Asset_obj::__register();
 ::haxor::context::UID_obj::__register();
 ::haxor::context::TransformContext_obj::__register();
 ::haxor::context::TextureContext_obj::__register();
@@ -313,8 +366,11 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::context::RendererContext_obj::__register();
 ::haxor::context::Process_obj::__register();
 ::haxor::context::BaseProcess_obj::__register();
+::haxor::context::PhysicsContext_obj::__register();
 ::haxor::context::MeshContext_obj::__register();
 ::haxor::context::MaterialContext_obj::__register();
+::haxor::context::KernelContext_obj::__register();
+::haxor::context::CanvasGizmo_obj::__register();
 ::haxor::context::PointGizmo_obj::__register();
 ::haxor::context::LineGizmo_obj::__register();
 ::haxor::context::AxisGizmo_obj::__register();
@@ -326,6 +382,10 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::context::EngineContext_obj::__register();
 ::haxor::context::DataContext_obj::__register();
 ::haxor::context::CameraContext_obj::__register();
+::haxor::component::physics::SphereCollider_obj::__register();
+::haxor::component::physics::RigidBody_obj::__register();
+::haxor::component::physics::BoxCollider_obj::__register();
+::haxor::component::physics::Collider_obj::__register();
 ::haxor::component::light::PointLight_obj::__register();
 ::haxor::component::light::Light_obj::__register();
 ::haxor::math::Color_obj::__register();
@@ -341,12 +401,24 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::component::animation::Animation_obj::__register();
 ::haxor::component::Transform_obj::__register();
 ::haxor::component::SkinnedMeshRenderer_obj::__register();
+::haxor::component::CylinderEmitter_obj::__register();
+::haxor::component::ConeEmitter_obj::__register();
+::haxor::component::BoxEmitter_obj::__register();
+::haxor::component::SphereEmitter_obj::__register();
+::haxor::component::ParticleEmitter_obj::__register();
+::haxor::component::ParticleRenderer_obj::__register();
+::haxor::component::ParticleSystemState_obj::__register();
+::haxor::component::ParticleSheet_obj::__register();
+::haxor::component::ParticleLife_obj::__register();
+::haxor::component::ParticleStart_obj::__register();
+::haxor::component::ParticleAttribute_obj::__register();
 ::haxor::component::MeshRenderer_obj::__register();
 ::haxor::component::Renderer_obj::__register();
 ::haxor::component::DataComponent_obj::__register();
 ::haxor::component::CameraOrbitInput_obj::__register();
 ::haxor::component::CameraOrbit_obj::__register();
 ::haxor::component::Camera_obj::__register();
+::haxor::core::IResizeable_obj::__register();
 ::haxe::io::Input_obj::__register();
 ::haxe::io::Error_obj::__register();
 ::haxe::io::Eof_obj::__register();
@@ -363,6 +435,16 @@ hx::RegisterResources( hx::GetResources() );
 ::haxe::Timer_obj::__register();
 ::haxe::Log_obj::__register();
 ::haxe::Http_obj::__register();
+::examples::particles::Main_obj::__register();
+::haxor::core::IUpdateable_obj::__register();
+::haxor::core::IRenderable_obj::__register();
+::haxor::core::Application_obj::__register();
+::haxor::platform::windows::WinApplication_obj::__register();
+::haxor::core::BaseApplication_obj::__register();
+::haxor::component::Behaviour_obj::__register();
+::haxor::component::Component_obj::__register();
+::haxor::core::Resource_obj::__register();
+::haxor::core::IDisposable_obj::__register();
 ::cpp::vm::Thread_obj::__register();
 ::Xml_obj::__register();
 ::XmlType_obj::__register();
@@ -373,16 +455,6 @@ hx::RegisterResources( hx::GetResources() );
 ::Std_obj::__register();
 ::Reflect_obj::__register();
 ::IMap_obj::__register();
-::Main_obj::__register();
-::haxor::core::IUpdateable_obj::__register();
-::haxor::core::IRenderable_obj::__register();
-::haxor::core::Application_obj::__register();
-::haxor::platform::windows::WinApplication_obj::__register();
-::haxor::core::BaseApplication_obj::__register();
-::haxor::component::Behaviour_obj::__register();
-::haxor::component::Component_obj::__register();
-::haxor::core::Resource_obj::__register();
-::haxor::core::IDisposable_obj::__register();
 ::List_obj::__register();
 ::Lambda_obj::__register();
 ::EReg_obj::__register();
@@ -396,6 +468,14 @@ hx::RegisterResources( hx::GetResources() );
 ::haxe::Log_obj::__boot();
 ::Lambda_obj::__boot();
 ::List_obj::__boot();
+::IMap_obj::__boot();
+::Reflect_obj::__boot();
+::Std_obj::__boot();
+::StringBuf_obj::__boot();
+::StringTools_obj::__boot();
+::Sys_obj::__boot();
+::Type_obj::__boot();
+::XmlType_obj::__boot();
 ::haxor::core::IDisposable_obj::__boot();
 ::haxor::core::Resource_obj::__boot();
 ::haxor::component::Component_obj::__boot();
@@ -405,15 +485,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::Application_obj::__boot();
 ::haxor::core::IRenderable_obj::__boot();
 ::haxor::core::IUpdateable_obj::__boot();
-::Main_obj::__boot();
-::IMap_obj::__boot();
-::Reflect_obj::__boot();
-::Std_obj::__boot();
-::StringBuf_obj::__boot();
-::StringTools_obj::__boot();
-::Sys_obj::__boot();
-::Type_obj::__boot();
-::XmlType_obj::__boot();
+::examples::particles::Main_obj::__boot();
 ::haxe::Http_obj::__boot();
 ::haxe::Timer_obj::__boot();
 ::haxe::io::Bytes_obj::__boot();
@@ -429,12 +501,24 @@ hx::RegisterResources( hx::GetResources() );
 ::haxe::io::Eof_obj::__boot();
 ::haxe::io::Error_obj::__boot();
 ::haxe::io::Input_obj::__boot();
+::haxor::core::IResizeable_obj::__boot();
 ::haxor::component::Camera_obj::__boot();
 ::haxor::component::CameraOrbit_obj::__boot();
 ::haxor::component::CameraOrbitInput_obj::__boot();
 ::haxor::component::DataComponent_obj::__boot();
 ::haxor::component::Renderer_obj::__boot();
 ::haxor::component::MeshRenderer_obj::__boot();
+::haxor::component::ParticleAttribute_obj::__boot();
+::haxor::component::ParticleStart_obj::__boot();
+::haxor::component::ParticleLife_obj::__boot();
+::haxor::component::ParticleSheet_obj::__boot();
+::haxor::component::ParticleSystemState_obj::__boot();
+::haxor::component::ParticleRenderer_obj::__boot();
+::haxor::component::ParticleEmitter_obj::__boot();
+::haxor::component::SphereEmitter_obj::__boot();
+::haxor::component::BoxEmitter_obj::__boot();
+::haxor::component::ConeEmitter_obj::__boot();
+::haxor::component::CylinderEmitter_obj::__boot();
 ::haxor::component::SkinnedMeshRenderer_obj::__boot();
 ::haxor::component::Transform_obj::__boot();
 ::haxor::component::animation::Animation_obj::__boot();
@@ -450,6 +534,10 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::math::Color_obj::__boot();
 ::haxor::component::light::Light_obj::__boot();
 ::haxor::component::light::PointLight_obj::__boot();
+::haxor::component::physics::Collider_obj::__boot();
+::haxor::component::physics::BoxCollider_obj::__boot();
+::haxor::component::physics::RigidBody_obj::__boot();
+::haxor::component::physics::SphereCollider_obj::__boot();
 ::haxor::context::CameraContext_obj::__boot();
 ::haxor::context::DataContext_obj::__boot();
 ::haxor::context::EngineContext_obj::__boot();
@@ -461,8 +549,11 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::context::AxisGizmo_obj::__boot();
 ::haxor::context::LineGizmo_obj::__boot();
 ::haxor::context::PointGizmo_obj::__boot();
+::haxor::context::CanvasGizmo_obj::__boot();
+::haxor::context::KernelContext_obj::__boot();
 ::haxor::context::MaterialContext_obj::__boot();
 ::haxor::context::MeshContext_obj::__boot();
+::haxor::context::PhysicsContext_obj::__boot();
 ::haxor::context::BaseProcess_obj::__boot();
 ::haxor::context::Process_obj::__boot();
 ::haxor::context::RendererContext_obj::__boot();
@@ -470,9 +561,11 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::context::TextureContext_obj::__boot();
 ::haxor::context::TransformContext_obj::__boot();
 ::haxor::context::UID_obj::__boot();
+::haxor::core::Asset_obj::__boot();
 ::haxor::core::Platform_obj::__boot();
 ::haxor::core::ApplicationProtocol_obj::__boot();
 ::haxor::core::Console_obj::__boot();
+::haxor::core::Debug_obj::__boot();
 ::haxor::core::EngineState_obj::__boot();
 ::haxor::core::Engine_obj::__boot();
 ::haxor::core::Entity_obj::__boot();
@@ -482,6 +575,7 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::MeshPrimitive_obj::__boot();
 ::haxor::core::CullMode_obj::__boot();
 ::haxor::core::DepthTest_obj::__boot();
+::haxor::core::CameraMode_obj::__boot();
 ::haxor::core::PixelFormat_obj::__boot();
 ::haxor::core::TextureFilter_obj::__boot();
 ::haxor::core::TextureWrap_obj::__boot();
@@ -489,15 +583,22 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::core::ClearFlag_obj::__boot();
 ::haxor::core::InputState_obj::__boot();
 ::haxor::core::AnimationWrap_obj::__boot();
+::haxor::core::ColliderType_obj::__boot();
+::haxor::core::ForceMode_obj::__boot();
+::haxor::core::IFixedUpdateable_obj::__boot();
 ::haxor::core::ILateUpdateable_obj::__boot();
-::haxor::core::IResizeable_obj::__boot();
 ::haxor::core::RenderEngine_obj::__boot();
 ::haxor::core::RenderStats_obj::__boot();
 ::haxor::core::Scene_obj::__boot();
 ::haxor::core::Time_obj::__boot();
+::haxor::ds::PairTable_obj::__boot();
+::haxor::ds::Pool_obj::__boot();
 ::haxor::ds::SAP_obj::__boot();
 ::haxor::ds::SAPList_obj::__boot();
 ::haxor::ds::SAPInterval_obj::__boot();
+::haxor::ds::IUSetItem_obj::__boot();
+::haxor::ds::USet_obj::__boot();
+::haxor::graphics::Fog_obj::__boot();
 ::haxor::graphics::GL_obj::__boot();
 ::haxor::graphics::Gizmo_obj::__boot();
 ::haxor::graphics::GraphicAPI_obj::__boot();
@@ -535,7 +636,6 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::io::FloatArray_obj::__boot();
 ::haxor::io::Int32Array_obj::__boot();
 ::haxor::io::UInt16Array_obj::__boot();
-::haxor::io::file::Asset_obj::__boot();
 ::haxor::io::file::AssetFile_obj::__boot();
 ::haxor::io::file::AssetXML_obj::__boot();
 ::haxor::io::file::ColladaFile_obj::__boot();
@@ -569,12 +669,20 @@ hx::RegisterResources( hx::GetResources() );
 ::haxor::platform::windows::net::BitmapLoader_obj::__boot();
 ::haxor::net::Texture2DLoader_obj::__boot();
 ::haxor::net::Web_obj::__boot();
+::haxor::physics::Collision_obj::__boot();
+::haxor::physics::CollisionSolver_obj::__boot();
+::haxor::physics::Physics_obj::__boot();
+::haxor::physics::PhysicsMaterial_obj::__boot();
+::haxor::physics::broadphase::BroadPhase_obj::__boot();
+::haxor::physics::broadphase::SAPBroadPhase_obj::__boot();
 ::haxor::platform::OSWindow_obj::__boot();
 ::haxor::platform::windows::graphics::WinGL_obj::__boot();
 ::haxor::platform::graphics::OpenGL_obj::__boot();
 ::haxor::platform::windows::Entry_obj::__boot();
 ::haxor::platform::windows::Window_obj::__boot();
 ::haxor::platform::windows::input::WinInputHandler_obj::__boot();
+::haxor::thread::Kernel_obj::__boot();
+::haxor::thread::ParticleKernel_obj::__boot();
 ::sys::net::Host_obj::__boot();
 ::sys::net::_Socket::SocketInput_obj::__boot();
 ::sys::net::_Socket::SocketOutput_obj::__boot();

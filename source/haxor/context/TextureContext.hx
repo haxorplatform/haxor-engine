@@ -219,6 +219,40 @@ class TextureContext
 	
 	
 	/**
+	 * Binds the RenderTexture as rendering target.
+	 * @param	rt
+	 */
+	private function BindTarget(rt : RenderTexture):Void 
+	{		
+		
+		if (rt == null)
+		{			
+			if (target != rt) 
+			{ 
+				GL.BindFramebuffer(GL.FRAMEBUFFER, GL.NULL); 
+				GL.BindRenderbuffer(GL.RENDERBUFFER, GL.NULL);
+				target = null; 
+			}			
+		}
+		else
+		{
+			if (target != rt) 
+			{ 
+				var fb_id : FrameBufferId = framebuffers[rt.__cid];
+				GL.BindFramebuffer(GL.FRAMEBUFFER, fb_id); 				
+				if (rt.depth == null)
+				{
+					var rb_id : RenderBufferId = renderbuffers[rt.__cid];
+					GL.BindRenderbuffer(GL.RENDERBUFFER, rb_id);
+				}
+				target = rt; 
+			}
+		}
+	}
+	
+	
+	
+	/**
 	 * Updates parameters such as wrapping, filtering and others.
 	 * @param	p_texture
 	 */
@@ -237,8 +271,27 @@ class TextureContext
 		var minf : TextureFilter = p_texture.minFilter;
 		var magf : TextureFilter = p_texture.magFilter;
 		
-		if (p_texture.format == PixelFormat.Half)		
+		var is_half :Bool = false;
+		if (p_texture.format == PixelFormat.Half)  is_half = true;
+		if (p_texture.format == PixelFormat.Half3) is_half = true;
+		if (p_texture.format == PixelFormat.Half4) is_half = true;
+		
+		var is_float :Bool = false;
+		if (p_texture.format == PixelFormat.Float)  is_float = true;
+		if (p_texture.format == PixelFormat.Float3) is_float = true;
+		if (p_texture.format == PixelFormat.Float4) is_float = true;
+		
+		
+		
+		if (is_half)		
 		if (!GL.TEXTURE_HALF_LINEAR)
+		{
+			minf = TextureFilter.Nearest;
+			magf = TextureFilter.Nearest;
+		}
+		
+		if (is_float)
+		if (!GL.TEXTURE_FLOAT_LINEAR)
 		{
 			minf = TextureFilter.Nearest;
 			magf = TextureFilter.Nearest;
@@ -362,37 +415,6 @@ class TextureContext
 		}	
 	}
 	
-	/**
-	 * Binds the RenderTexture as rendering target.
-	 * @param	rt
-	 */
-	private function BindTarget(rt : RenderTexture):Void 
-	{		
-		
-		if (rt == null)
-		{			
-			if (target != rt) 
-			{ 
-				GL.BindFramebuffer(GL.FRAMEBUFFER, GL.NULL); 
-				GL.BindRenderbuffer(GL.RENDERBUFFER, GL.NULL);
-				target = null; 
-			}			
-		}
-		else
-		{
-			if (target != rt) 
-			{ 
-				var fb_id : FrameBufferId = framebuffers[rt.__cid];
-				GL.BindFramebuffer(GL.FRAMEBUFFER, fb_id); 				
-				if (rt.depth == null)
-				{
-					var rb_id : RenderBufferId = renderbuffers[rt.__cid];
-					GL.BindRenderbuffer(GL.RENDERBUFFER, rb_id);
-				}
-				target = rt; 
-			}
-		}
-	}
 	
 	/**
 	 * Updates the mipmap data for this texture.

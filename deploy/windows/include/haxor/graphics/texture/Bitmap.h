@@ -49,6 +49,11 @@ class HXCPP_CLASS_ATTRIBUTES  Bitmap_obj : public ::haxor::core::Resource_obj{
 		Dynamic get_float_dyn();
 
 		bool m_float;
+		bool half;
+		virtual bool get_half( );
+		Dynamic get_half_dyn();
+
+		bool m_half;
 		int width;
 		virtual int get_width( );
 		Dynamic get_width_dyn();
@@ -75,13 +80,16 @@ class HXCPP_CLASS_ATTRIBUTES  Bitmap_obj : public ::haxor::core::Resource_obj{
 		virtual Void SetPixel( int p_x,int p_y,::haxor::math::Color p_color);
 		Dynamic SetPixel_dyn();
 
+		virtual Void SetPixels( Array< ::Dynamic > p_colors,hx::Null< int >  p_x,hx::Null< int >  p_y,hx::Null< int >  p_width,hx::Null< int >  p_height);
+		Dynamic SetPixels_dyn();
+
 		virtual Void Fill( ::haxor::math::Color p_color);
 		Dynamic Fill_dyn();
 
 		virtual Void Set( int p_x,int p_y,hx::Null< Float >  p_v0,hx::Null< Float >  p_v1,hx::Null< Float >  p_v2,hx::Null< Float >  p_v3);
 		Dynamic Set_dyn();
 
-		virtual Void SetRange( int p_x,int p_y,int p_width,int p_height,Array< Float > p_values,hx::Null< int >  p_length);
+		virtual Void SetRange( Array< Float > p_values,hx::Null< int >  p_x,hx::Null< int >  p_y,hx::Null< int >  p_width,hx::Null< int >  p_height);
 		Dynamic SetRange_dyn();
 
 };

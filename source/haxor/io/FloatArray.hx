@@ -75,7 +75,7 @@ class FloatArray extends Buffer
 	 * @param	p_index
 	 * @return
 	 */
-	public function Get(p_index : Int):Float
+	public function Get(p_index : Int):Float32
 	{
 		#if html
 		var f32 : js.html.Float32Array = cast aux;

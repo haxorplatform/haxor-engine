@@ -6,10 +6,15 @@
 #endif
 
 #include <haxor/core/Resource.h>
+HX_DECLARE_CLASS2(haxor,component,Behaviour)
+HX_DECLARE_CLASS2(haxor,component,Camera)
 HX_DECLARE_CLASS2(haxor,component,Component)
+HX_DECLARE_CLASS2(haxor,component,Renderer)
 HX_DECLARE_CLASS2(haxor,component,Transform)
+HX_DECLARE_CLASS3(haxor,component,physics,RigidBody)
 HX_DECLARE_CLASS2(haxor,core,Entity)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,IResizeable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 namespace haxor{
 namespace component{
@@ -46,9 +51,24 @@ class HXCPP_CLASS_ATTRIBUTES  Component_obj : public ::haxor::core::Resource_obj
 		Dynamic get_entity_dyn();
 
 		::haxor::core::Entity m_entity;
+		virtual int get_layer( );
+		Dynamic get_layer_dyn();
+
+		virtual int set_layer( int v);
+		Dynamic set_layer_dyn();
+
 		::haxor::component::Transform transform;
 		virtual ::haxor::component::Transform get_transform( );
 		Dynamic get_transform_dyn();
+
+		virtual ::haxor::component::Camera get_camera( );
+		Dynamic get_camera_dyn();
+
+		virtual ::haxor::component::Renderer get_renderer( );
+		Dynamic get_renderer_dyn();
+
+		virtual ::haxor::component::physics::RigidBody get_rigidbody( );
+		Dynamic get_rigidbody_dyn();
 
 		virtual Dynamic AddComponent( ::Class p_type);
 		Dynamic AddComponent_dyn();
@@ -68,7 +88,7 @@ class HXCPP_CLASS_ATTRIBUTES  Component_obj : public ::haxor::core::Resource_obj
 		virtual Void OnBuild( );
 		Dynamic OnBuild_dyn();
 
-		virtual Void OnTransformUpdate( );
+		virtual Void OnTransformUpdate( bool p_hierarchy);
 		Dynamic OnTransformUpdate_dyn();
 
 		virtual Void OnVisibilityChange( bool p_visible);

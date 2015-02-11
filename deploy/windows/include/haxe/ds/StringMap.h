@@ -50,6 +50,9 @@ class HXCPP_CLASS_ATTRIBUTES  StringMap_obj : public hx::Object{
 		virtual bool remove( ::String key);
 		Dynamic remove_dyn();
 
+		virtual Dynamic keys( );
+		Dynamic keys_dyn();
+
 };
 
 } // end namespace haxe

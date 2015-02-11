@@ -133,6 +133,12 @@ class EngineContext
 	static private var physics : PhysicsContext;
 	
 	/**
+	 * Reference to the Kernel context.
+	 */
+	static private var kernel : KernelContext;
+	
+	
+	/**
 	 * Initializes the Haxor context.
 	 */
 	static private function Initialize():Void
@@ -167,6 +173,7 @@ class EngineContext
 		camera		= new CameraContext();		
 		transform   = new TransformContext();
 		physics     = new PhysicsContext();
+		kernel		= new KernelContext();
 		#end
 		
 	}
@@ -184,6 +191,7 @@ class EngineContext
 		transform.Initialize();
 		renderer.Initialize();
 		physics.Initialize();
+		kernel.Initialize();
 		#end
 	}
 	

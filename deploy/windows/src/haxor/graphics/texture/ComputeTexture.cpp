@@ -163,7 +163,7 @@ int p_height = __o_p_height.Default(-1);
 			h = p_height;
 		}
 		HX_STACK_LINE(73)
-		this->m_data->SetRange(p_x,p_y,w,h,p_values,null());
+		this->m_data->SetRange(p_values,p_x,p_y,w,h);
 		HX_STACK_LINE(74)
 		this->Invalidate();
 		HX_STACK_LINE(75)

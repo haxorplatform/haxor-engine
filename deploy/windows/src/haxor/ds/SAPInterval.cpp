@@ -14,14 +14,14 @@ namespace ds{
 
 Void SAPInterval_obj::__construct()
 {
-HX_STACK_FRAME("haxor.ds.SAPInterval","new",0x243f83a6,"haxor.ds.SAPInterval.new","haxor/ds/SAP.hx",461,0xbaeeb06f)
+HX_STACK_FRAME("haxor.ds.SAPInterval","new",0x243f83a6,"haxor.ds.SAPInterval.new","haxor/ds/SAP.hx",425,0xbaeeb06f)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(462)
+	HX_STACK_LINE(426)
 	this->min = 0.0;
-	HX_STACK_LINE(463)
+	HX_STACK_LINE(427)
 	this->max = 0.0;
-	HX_STACK_LINE(464)
+	HX_STACK_LINE(428)
 	this->id = (int)0;
 }
 ;
@@ -43,13 +43,13 @@ Dynamic SAPInterval_obj::__Create(hx::DynamicArray inArgs)
 
 Void SAPInterval_obj::Set( Float p_min,Float p_max){
 {
-		HX_STACK_FRAME("haxor.ds.SAPInterval","Set",0x242b06c8,"haxor.ds.SAPInterval.Set","haxor/ds/SAP.hx",472,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPInterval","Set",0x242b06c8,"haxor.ds.SAPInterval.Set","haxor/ds/SAP.hx",436,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_min,"p_min")
 		HX_STACK_ARG(p_max,"p_max")
-		HX_STACK_LINE(472)
+		HX_STACK_LINE(436)
 		this->min = p_min;
-		HX_STACK_LINE(472)
+		HX_STACK_LINE(436)
 		this->max = p_max;
 	}
 return null();
@@ -59,15 +59,15 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC2(SAPInterval_obj,Set,(void))
 
 bool SAPInterval_obj::Overlap( ::haxor::ds::SAPInterval p_interval){
-	HX_STACK_FRAME("haxor.ds.SAPInterval","Overlap",0x73af39ad,"haxor.ds.SAPInterval.Overlap","haxor/ds/SAP.hx",479,0xbaeeb06f)
+	HX_STACK_FRAME("haxor.ds.SAPInterval","Overlap",0x73af39ad,"haxor.ds.SAPInterval.Overlap","haxor/ds/SAP.hx",443,0xbaeeb06f)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_interval,"p_interval")
-	HX_STACK_LINE(479)
+	HX_STACK_LINE(443)
 	if (((p_interval->min > this->min))){
-		HX_STACK_LINE(479)
+		HX_STACK_LINE(443)
 		return (p_interval->min <= this->max);
 	}
-	HX_STACK_LINE(479)
+	HX_STACK_LINE(443)
 	return (p_interval->max >= this->min);
 }
 
@@ -76,53 +76,53 @@ HX_DEFINE_DYNAMIC_FUNC1(SAPInterval_obj,Overlap,return )
 
 ::String SAPInterval_obj::ToString( hx::Null< int >  __o_p_places){
 int p_places = __o_p_places.Default(2);
-	HX_STACK_FRAME("haxor.ds.SAPInterval","ToString",0xb8e73bc6,"haxor.ds.SAPInterval.ToString","haxor/ds/SAP.hx",485,0xbaeeb06f)
+	HX_STACK_FRAME("haxor.ds.SAPInterval","ToString",0xb8e73bc6,"haxor.ds.SAPInterval.ToString","haxor/ds/SAP.hx",449,0xbaeeb06f)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_places,"p_places")
 {
-		HX_STACK_LINE(485)
+		HX_STACK_LINE(449)
 		Float _g1;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(485)
+		HX_STACK_LINE(449)
 		{
-			HX_STACK_LINE(485)
+			HX_STACK_LINE(449)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(485)
+			HX_STACK_LINE(449)
 			Float _g;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(485)
+			HX_STACK_LINE(449)
 			{
-				HX_STACK_LINE(485)
+				HX_STACK_LINE(449)
 				Float p_v = (this->min * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(485)
+				HX_STACK_LINE(449)
 				_g = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(485)
+			HX_STACK_LINE(449)
 			_g1 = (Float(_g) / Float(d));
 		}
-		HX_STACK_LINE(485)
+		HX_STACK_LINE(449)
 		::String _g2 = (HX_CSTRING("[") + _g1);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(485)
+		HX_STACK_LINE(449)
 		::String _g3 = (_g2 + HX_CSTRING(","));		HX_STACK_VAR(_g3,"_g3");
-		HX_STACK_LINE(485)
+		HX_STACK_LINE(449)
 		Float _g5;		HX_STACK_VAR(_g5,"_g5");
-		HX_STACK_LINE(485)
+		HX_STACK_LINE(449)
 		{
-			HX_STACK_LINE(485)
+			HX_STACK_LINE(449)
 			Float d = ::Math_obj::pow((int)10,p_places);		HX_STACK_VAR(d,"d");
-			HX_STACK_LINE(485)
+			HX_STACK_LINE(449)
 			Float _g4;		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(485)
+			HX_STACK_LINE(449)
 			{
-				HX_STACK_LINE(485)
+				HX_STACK_LINE(449)
 				Float p_v = (this->max * d);		HX_STACK_VAR(p_v,"p_v");
-				HX_STACK_LINE(485)
+				HX_STACK_LINE(449)
 				_g4 = ::Std_obj::_int((p_v + ((  (((p_v < (int)0))) ? Float(-0.5) : Float(0.5) ))));
 			}
-			HX_STACK_LINE(485)
+			HX_STACK_LINE(449)
 			_g5 = (Float(_g4) / Float(d));
 		}
-		HX_STACK_LINE(485)
+		HX_STACK_LINE(449)
 		::String _g6 = (_g3 + _g5);		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(485)
+		HX_STACK_LINE(449)
 		return (_g6 + HX_CSTRING("]"));
 	}
 }

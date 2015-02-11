@@ -19,7 +19,7 @@ import haxor.physics.Physics;
  */
 class GameController extends Behaviour
 {
-	public var app : DungeonApp;
+	public var app : Main;
 	
 	public var orbit : CameraOrbit;
 	

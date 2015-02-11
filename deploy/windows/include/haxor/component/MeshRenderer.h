@@ -12,8 +12,10 @@ HX_DECLARE_CLASS2(haxor,component,Component)
 HX_DECLARE_CLASS2(haxor,component,MeshRenderer)
 HX_DECLARE_CLASS2(haxor,component,Renderer)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,IResizeable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
+HX_DECLARE_CLASS2(haxor,math,AABB3)
 HX_DECLARE_CLASS2(haxor,math,Vector3)
 namespace haxor{
 namespace component{
@@ -51,6 +53,7 @@ class HXCPP_CLASS_ATTRIBUTES  MeshRenderer_obj : public ::haxor::component::Rend
 		::haxor::graphics::mesh::Mesh m_mesh;
 		::haxor::math::Vector3 m_ws_center;
 		::haxor::math::Vector3 m_ws_radius;
+		::haxor::math::AABB3 m_aabb;
 		bool m_culling_dirty;
 		virtual Void OnBuild( );
 
@@ -59,13 +62,14 @@ class HXCPP_CLASS_ATTRIBUTES  MeshRenderer_obj : public ::haxor::component::Rend
 
 		virtual bool CheckCulling( );
 
-		virtual Void OnTransformUpdate( );
+		virtual Void OnTransformUpdate( bool p_hierarchy);
 
 		virtual Void UpdateWorldBounds( );
 		Dynamic UpdateWorldBounds_dyn();
 
 		virtual Void OnRender( );
 
+		static ::haxor::component::MeshRenderer current;
 };
 
 } // end namespace haxor

@@ -61,6 +61,13 @@ class HXCPP_CLASS_ATTRIBUTES  BaseApplication_obj : public ::haxor::component::B
 		Dynamic get_platform_dyn();
 
 		::haxor::core::Platform m_platform;
+		virtual bool get_runOnBackground( );
+		Dynamic get_runOnBackground_dyn();
+
+		virtual bool set_runOnBackground( bool v);
+		Dynamic set_runOnBackground_dyn();
+
+		bool m_run_on_background;
 		Array< ::Dynamic > m_scenes;
 		bool m_init_allowed;
 		virtual Void OnBuild( );
@@ -79,6 +86,12 @@ class HXCPP_CLASS_ATTRIBUTES  BaseApplication_obj : public ::haxor::component::B
 
 		virtual Void LoadComplete( );
 		Dynamic LoadComplete_dyn();
+
+		virtual Void OnLoadProgress( ::String p_id,Float p_progress);
+		Dynamic OnLoadProgress_dyn();
+
+		virtual Void OnLoadComplete( ::String p_id,Dynamic p_asset);
+		Dynamic OnLoadComplete_dyn();
 
 		virtual Void Update( );
 		Dynamic Update_dyn();

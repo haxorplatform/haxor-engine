@@ -36,6 +36,7 @@ class HXCPP_CLASS_ATTRIBUTES  ShaderContext_obj : public hx::Object{
 		static ::String grid_source;
 		static ::String texture_source;
 		static ::String gizmo_source;
+		static ::String flat_particle_source;
 };
 
 } // end namespace haxor

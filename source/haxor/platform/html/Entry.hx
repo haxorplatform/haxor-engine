@@ -253,8 +253,8 @@ class Entry
 	{
 		
 		CancelInterval();		
-		m_itv_offset_clock = m_has_pc ? Browser.window.performance.now() : (Timer.stamp() * 1000);
-		m_interval_id = Browser.window.setInterval(IntervalLoop, 16);
+		//m_itv_offset_clock = m_has_pc ? Browser.window.performance.now() : (Timer.stamp() * 1000);
+		//m_interval_id = Browser.window.setInterval(IntervalLoop, 16);
 		
 		if (m_raf_enabled)
 		{

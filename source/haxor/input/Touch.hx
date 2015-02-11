@@ -16,6 +16,24 @@ class Touch
 	public var state 	: InputState;
 	
 	/**
+	 * Returns if the touch in the current frame was down.
+	 */
+	public var down(get_down, never):Bool;
+	private function get_down():Bool { return state == InputState.Down; }
+	
+	/**
+	 * Returns if the touch in the current frame was down.
+	 */
+	public var pressed(get_pressed, never):Bool;
+	private function get_pressed():Bool { return down || (state == InputState.Hold); }
+	
+	/**
+	 * Returns if the touch was down then released.
+	 */
+	public var hit(get_hit, never):Bool;
+	private function get_hit():Bool { return (state == InputState.Up); }
+	
+	/**
 	 * Id of this touch.
 	 */
 	public var id 		: Int;

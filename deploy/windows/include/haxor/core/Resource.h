@@ -87,6 +87,9 @@ class HXCPP_CLASS_ATTRIBUTES  Resource_obj : public hx::Object{
 		virtual Void OnDestroy( );
 		Dynamic OnDestroy_dyn();
 
+		virtual Dynamic Clone( );
+		Dynamic Clone_dyn();
+
 		static Void Destroy( ::haxor::core::Resource p_target);
 		static Dynamic Destroy_dyn();
 

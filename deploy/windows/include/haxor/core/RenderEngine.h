@@ -10,6 +10,7 @@ HX_DECLARE_CLASS2(haxor,component,Camera)
 HX_DECLARE_CLASS2(haxor,component,Component)
 HX_DECLARE_CLASS2(haxor,component,Renderer)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,IResizeable)
 HX_DECLARE_CLASS2(haxor,core,RenderEngine)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 namespace haxor{

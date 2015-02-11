@@ -7,6 +7,7 @@ import haxor.graphics.material.Material;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.GL;
 import haxor.graphics.texture.Texture;
+import haxor.io.Buffer;
 import haxor.math.AABB2;
 import haxor.math.Color;
 import haxor.math.Mathf;
@@ -105,6 +106,19 @@ class Graphics
 		var c : Color = p_color == null ? Color.temp.Set(1, 1, 1, 1) : p_color;
 		mat.SetColor("Tint", c);		
 		Render(EngineContext.gizmo.texture, mat);
+	}
+	
+	/**
+	 * Reads a region of the screen and fills the buffer with pixel data.
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_width
+	 * @param	p_height
+	 * @param	p_buffer
+	 */
+	static public function ReadPixels(p_x:Int, p_y:Int,p_width:Int,p_height:Int,p_buffer:Buffer):Void
+	{		
+		GL.ReadPixels(p_x, p_y, p_width, p_height, GL.RGBA, GL.UNSIGNED_BYTE, p_buffer);		
 	}
 	
 }

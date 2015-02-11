@@ -27,6 +27,9 @@
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
+#ifndef INCLUDED_haxor_core_IResizeable
+#include <haxor/core/IResizeable.h>
+#endif
 #ifndef INCLUDED_haxor_core_IUpdateable
 #include <haxor/core/IUpdateable.h>
 #endif
@@ -116,16 +119,18 @@ HX_DEFINE_DYNAMIC_FUNC0(CameraOrbit_obj,get_pivot,return )
 
 Void CameraOrbit_obj::OnBuild( ){
 {
-		HX_STACK_FRAME("haxor.component.CameraOrbit","OnBuild",0x2359e529,"haxor.component.CameraOrbit.OnBuild","haxor/component/CameraOrbit.hx",68,0xdbbd8c58)
+		HX_STACK_FRAME("haxor.component.CameraOrbit","OnBuild",0x2359e529,"haxor.component.CameraOrbit.OnBuild","haxor/component/CameraOrbit.hx",70,0xdbbd8c58)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(69)
+		HX_STACK_LINE(71)
 		this->super::OnBuild();
-		HX_STACK_LINE(70)
+		HX_STACK_LINE(72)
 		this->distance = 0.0;
-		HX_STACK_LINE(71)
+		HX_STACK_LINE(73)
 		::haxor::component::Transform _g = this->get_pivot();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(71)
+		HX_STACK_LINE(73)
 		this->m_pivot = _g;
+		HX_STACK_LINE(74)
+		this->follow = false;
 	}
 return null();
 }
@@ -133,43 +138,43 @@ return null();
 
 Void CameraOrbit_obj::OnStart( ){
 {
-		HX_STACK_FRAME("haxor.component.CameraOrbit","OnStart",0xec7a7e5d,"haxor.component.CameraOrbit.OnStart","haxor/component/CameraOrbit.hx",76,0xdbbd8c58)
+		HX_STACK_FRAME("haxor.component.CameraOrbit","OnStart",0xec7a7e5d,"haxor.component.CameraOrbit.OnStart","haxor/component/CameraOrbit.hx",79,0xdbbd8c58)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(77)
+		HX_STACK_LINE(80)
 		this->m_distance = this->distance;
-		HX_STACK_LINE(78)
+		HX_STACK_LINE(81)
 		::haxor::math::Vector2 _g;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(78)
+		HX_STACK_LINE(81)
 		if (((this->angle == null()))){
-			HX_STACK_LINE(78)
+			HX_STACK_LINE(81)
 			_g = ::haxor::math::Vector2_obj::__new((int)0,(int)0);
 		}
 		else{
-			HX_STACK_LINE(78)
+			HX_STACK_LINE(81)
 			::haxor::math::Vector2 _this = this->angle;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(78)
+			HX_STACK_LINE(81)
 			_g = ::haxor::math::Vector2_obj::__new(_this->x,_this->y);
 		}
-		HX_STACK_LINE(78)
+		HX_STACK_LINE(81)
 		this->m_angle = _g;
-		HX_STACK_LINE(79)
+		HX_STACK_LINE(82)
 		::haxor::math::Quaternion _g1 = ::haxor::math::Quaternion_obj::__new((int)0,(int)0,(int)0,1.0);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(79)
+		HX_STACK_LINE(82)
 		this->m_rotation = _g1;
-		HX_STACK_LINE(81)
+		HX_STACK_LINE(84)
 		::haxor::math::Vector3 p;		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(81)
+		HX_STACK_LINE(84)
 		{
-			HX_STACK_LINE(81)
+			HX_STACK_LINE(84)
 			::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(81)
+			HX_STACK_LINE(84)
 			int _g2 = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(81)
+			HX_STACK_LINE(84)
 			p = _this->m_v3->__get(_g2).StaticCast< ::haxor::math::Vector3 >();
 		}
-		HX_STACK_LINE(82)
+		HX_STACK_LINE(85)
 		p->Set((int)0,(int)0,this->m_distance);
-		HX_STACK_LINE(83)
+		HX_STACK_LINE(86)
 		this->m_entity->m_transform->set_localPosition(p);
 	}
 return null();
@@ -178,104 +183,107 @@ return null();
 
 Void CameraOrbit_obj::OnUpdate( ){
 {
-		HX_STACK_FRAME("haxor.component.CameraOrbit","OnUpdate",0x7fbf37ae,"haxor.component.CameraOrbit.OnUpdate","haxor/component/CameraOrbit.hx",88,0xdbbd8c58)
+		HX_STACK_FRAME("haxor.component.CameraOrbit","OnUpdate",0x7fbf37ae,"haxor.component.CameraOrbit.OnUpdate","haxor/component/CameraOrbit.hx",91,0xdbbd8c58)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(89)
+		HX_STACK_LINE(92)
 		Float blend;		HX_STACK_VAR(blend,"blend");
-		HX_STACK_LINE(89)
+		HX_STACK_LINE(92)
 		if (((this->smooth <= (int)0))){
-			HX_STACK_LINE(89)
+			HX_STACK_LINE(92)
 			blend = 1.0;
 		}
 		else{
-			HX_STACK_LINE(89)
+			HX_STACK_LINE(92)
 			blend = (::haxor::core::Time_obj::m_delta * this->smooth);
 		}
-		HX_STACK_LINE(90)
+		HX_STACK_LINE(93)
 		{
-			HX_STACK_LINE(90)
+			HX_STACK_LINE(93)
 			Float p_a = this->m_angle->x;		HX_STACK_VAR(p_a,"p_a");
-			HX_STACK_LINE(90)
+			HX_STACK_LINE(93)
 			this->m_angle->x = (p_a + (((this->angle->x - p_a)) * blend));
 		}
-		HX_STACK_LINE(91)
+		HX_STACK_LINE(94)
 		{
-			HX_STACK_LINE(91)
+			HX_STACK_LINE(94)
 			Float p_a = this->m_angle->y;		HX_STACK_VAR(p_a,"p_a");
-			HX_STACK_LINE(91)
+			HX_STACK_LINE(94)
 			this->m_angle->y = (p_a + (((this->angle->y - p_a)) * blend));
 		}
-		HX_STACK_LINE(92)
+		HX_STACK_LINE(95)
 		{
-			HX_STACK_LINE(92)
+			HX_STACK_LINE(95)
 			Float p_a = this->m_distance;		HX_STACK_VAR(p_a,"p_a");
-			HX_STACK_LINE(92)
+			HX_STACK_LINE(95)
 			this->m_distance = (p_a + (((this->distance - p_a)) * blend));
 		}
-		HX_STACK_LINE(94)
+		HX_STACK_LINE(97)
 		::haxor::math::Quaternion q;		HX_STACK_VAR(q,"q");
-		HX_STACK_LINE(94)
+		HX_STACK_LINE(97)
 		{
-			HX_STACK_LINE(94)
+			HX_STACK_LINE(97)
 			::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(94)
+			HX_STACK_LINE(97)
 			int _g = _this->m_nq = hx::Mod(((_this->m_nq + (int)1)),_this->m_q->length);		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(94)
+			HX_STACK_LINE(97)
 			q = _this->m_q->__get(_g).StaticCast< ::haxor::math::Quaternion >();
 		}
-		HX_STACK_LINE(95)
+		HX_STACK_LINE(98)
 		::haxor::math::Vector3 _g1 = ::haxor::math::Vector3_obj::__new((int)0,(int)1,(int)0);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(95)
+		HX_STACK_LINE(98)
 		q->SetAxisAngle(_g1,this->m_angle->x);
-		HX_STACK_LINE(96)
+		HX_STACK_LINE(99)
 		::haxor::math::Vector3 _g3 = ::haxor::math::Vector3_obj::__new((int)1,(int)0,(int)0);		HX_STACK_VAR(_g3,"_g3");
 		struct _Function_1_1{
 			inline static ::haxor::math::Quaternion Block( ){
-				HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/CameraOrbit.hx",96,0xdbbd8c58)
+				HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/CameraOrbit.hx",99,0xdbbd8c58)
 				{
-					HX_STACK_LINE(96)
+					HX_STACK_LINE(99)
 					::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-					HX_STACK_LINE(96)
+					HX_STACK_LINE(99)
 					int _g2 = _this->m_nq = hx::Mod(((_this->m_nq + (int)1)),_this->m_q->length);		HX_STACK_VAR(_g2,"_g2");
-					HX_STACK_LINE(96)
+					HX_STACK_LINE(99)
 					return _this->m_q->__get(_g2).StaticCast< ::haxor::math::Quaternion >();
 				}
 				return null();
 			}
 		};
-		HX_STACK_LINE(96)
+		HX_STACK_LINE(99)
 		::haxor::math::Quaternion _g4 = (_Function_1_1::Block())->SetAxisAngle(_g3,-(this->m_angle->y));		HX_STACK_VAR(_g4,"_g4");
-		HX_STACK_LINE(96)
+		HX_STACK_LINE(99)
 		q->Multiply(_g4,null());
-		HX_STACK_LINE(97)
+		HX_STACK_LINE(100)
 		this->get_pivot()->set_localRotation(q);
-		HX_STACK_LINE(99)
+		HX_STACK_LINE(102)
 		::haxor::math::Vector3 p;		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(99)
+		HX_STACK_LINE(102)
 		{
-			HX_STACK_LINE(99)
+			HX_STACK_LINE(102)
 			::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-			HX_STACK_LINE(99)
+			HX_STACK_LINE(102)
 			int _g5 = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g5,"_g5");
-			HX_STACK_LINE(99)
+			HX_STACK_LINE(102)
 			p = _this->m_v3->__get(_g5).StaticCast< ::haxor::math::Vector3 >();
 		}
-		HX_STACK_LINE(100)
-		p->Set((int)0,(int)0,this->m_distance);
-		HX_STACK_LINE(101)
-		this->m_entity->m_transform->set_localPosition(p);
 		HX_STACK_LINE(103)
+		p->Set((int)0,(int)0,this->m_distance);
+		HX_STACK_LINE(104)
+		this->m_entity->m_transform->set_localPosition(p);
+		HX_STACK_LINE(106)
 		if (((this->target != null()))){
-			HX_STACK_LINE(105)
-			::haxor::math::Vector3 p1 = this->get_pivot()->get_localPosition();		HX_STACK_VAR(p1,"p1");
-			HX_STACK_LINE(106)
-			::haxor::math::Vector3 _g6 = this->target->get_localPosition();		HX_STACK_VAR(_g6,"_g6");
-			HX_STACK_LINE(106)
-			::haxor::math::Vector3 _g7 = ::haxor::math::Vector3_obj::Lerp(p1,_g6,(::haxor::core::Time_obj::m_delta * this->smooth),null());		HX_STACK_VAR(_g7,"_g7");
-			HX_STACK_LINE(106)
-			p1 = _g7;
-			HX_STACK_LINE(107)
-			this->get_pivot()->set_localPosition(p1);
+			HX_STACK_LINE(108)
+			if ((this->follow)){
+				HX_STACK_LINE(110)
+				::haxor::math::Vector3 p1 = this->get_pivot()->get_localPosition();		HX_STACK_VAR(p1,"p1");
+				HX_STACK_LINE(111)
+				::haxor::math::Vector3 _g6 = this->target->get_localPosition();		HX_STACK_VAR(_g6,"_g6");
+				HX_STACK_LINE(111)
+				::haxor::math::Vector3 _g7 = ::haxor::math::Vector3_obj::Lerp(p1,_g6,(::haxor::core::Time_obj::m_delta * this->smooth),null());		HX_STACK_VAR(_g7,"_g7");
+				HX_STACK_LINE(111)
+				p1 = _g7;
+				HX_STACK_LINE(112)
+				this->get_pivot()->set_localPosition(p1);
+			}
 		}
 	}
 return null();
@@ -334,6 +342,7 @@ void CameraOrbit_obj::__Mark(HX_MARK_PARAMS)
 	HX_MARK_MEMBER_NAME(angle,"angle");
 	HX_MARK_MEMBER_NAME(smooth,"smooth");
 	HX_MARK_MEMBER_NAME(target,"target");
+	HX_MARK_MEMBER_NAME(follow,"follow");
 	HX_MARK_MEMBER_NAME(m_angle,"m_angle");
 	HX_MARK_MEMBER_NAME(m_distance,"m_distance");
 	HX_MARK_MEMBER_NAME(m_rotation,"m_rotation");
@@ -348,6 +357,7 @@ void CameraOrbit_obj::__Visit(HX_VISIT_PARAMS)
 	HX_VISIT_MEMBER_NAME(angle,"angle");
 	HX_VISIT_MEMBER_NAME(smooth,"smooth");
 	HX_VISIT_MEMBER_NAME(target,"target");
+	HX_VISIT_MEMBER_NAME(follow,"follow");
 	HX_VISIT_MEMBER_NAME(m_angle,"m_angle");
 	HX_VISIT_MEMBER_NAME(m_distance,"m_distance");
 	HX_VISIT_MEMBER_NAME(m_rotation,"m_rotation");
@@ -365,6 +375,7 @@ Dynamic CameraOrbit_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"Create") ) { return Create_dyn(); }
 		if (HX_FIELD_EQ(inName,"smooth") ) { return smooth; }
 		if (HX_FIELD_EQ(inName,"target") ) { return target; }
+		if (HX_FIELD_EQ(inName,"follow") ) { return follow; }
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"m_pivot") ) { return m_pivot; }
@@ -395,6 +406,7 @@ Dynamic CameraOrbit_obj::__SetField(const ::String &inName,const Dynamic &inValu
 	case 6:
 		if (HX_FIELD_EQ(inName,"smooth") ) { smooth=inValue.Cast< Float >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"target") ) { target=inValue.Cast< ::haxor::component::Transform >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"follow") ) { follow=inValue.Cast< bool >(); return inValue; }
 		break;
 	case 7:
 		if (HX_FIELD_EQ(inName,"m_pivot") ) { m_pivot=inValue.Cast< ::haxor::component::Transform >(); return inValue; }
@@ -418,6 +430,7 @@ void CameraOrbit_obj::__GetFields(Array< ::String> &outFields)
 	outFields->push(HX_CSTRING("angle"));
 	outFields->push(HX_CSTRING("smooth"));
 	outFields->push(HX_CSTRING("target"));
+	outFields->push(HX_CSTRING("follow"));
 	outFields->push(HX_CSTRING("m_angle"));
 	outFields->push(HX_CSTRING("m_distance"));
 	outFields->push(HX_CSTRING("m_rotation"));
@@ -435,6 +448,7 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 	{hx::fsObject /*::haxor::math::Vector2*/ ,(int)offsetof(CameraOrbit_obj,angle),HX_CSTRING("angle")},
 	{hx::fsFloat,(int)offsetof(CameraOrbit_obj,smooth),HX_CSTRING("smooth")},
 	{hx::fsObject /*::haxor::component::Transform*/ ,(int)offsetof(CameraOrbit_obj,target),HX_CSTRING("target")},
+	{hx::fsBool,(int)offsetof(CameraOrbit_obj,follow),HX_CSTRING("follow")},
 	{hx::fsObject /*::haxor::math::Vector2*/ ,(int)offsetof(CameraOrbit_obj,m_angle),HX_CSTRING("m_angle")},
 	{hx::fsFloat,(int)offsetof(CameraOrbit_obj,m_distance),HX_CSTRING("m_distance")},
 	{hx::fsObject /*::haxor::math::Quaternion*/ ,(int)offsetof(CameraOrbit_obj,m_rotation),HX_CSTRING("m_rotation")},
@@ -449,6 +463,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("angle"),
 	HX_CSTRING("smooth"),
 	HX_CSTRING("target"),
+	HX_CSTRING("follow"),
 	HX_CSTRING("m_angle"),
 	HX_CSTRING("m_distance"),
 	HX_CSTRING("m_rotation"),

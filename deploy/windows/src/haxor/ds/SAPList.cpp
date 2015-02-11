@@ -11,35 +11,35 @@ namespace ds{
 
 Void SAPList_obj::__construct(hx::Null< Float >  __o_p_bias,hx::Null< bool >  __o_p_has_query)
 {
-HX_STACK_FRAME("haxor.ds.SAPList","new",0x07a243bf,"haxor.ds.SAPList.new","haxor/ds/SAP.hx",255,0xbaeeb06f)
+HX_STACK_FRAME("haxor.ds.SAPList","new",0x07a243bf,"haxor.ds.SAPList.new","haxor/ds/SAP.hx",204,0xbaeeb06f)
 HX_STACK_THIS(this)
 HX_STACK_ARG(__o_p_bias,"p_bias")
 HX_STACK_ARG(__o_p_has_query,"p_has_query")
 Float p_bias = __o_p_bias.Default(0.0);
 bool p_has_query = __o_p_has_query.Default(true);
 {
-	HX_STACK_LINE(256)
+	HX_STACK_LINE(205)
 	this->list = Array_obj< ::Dynamic >::__new();
-	HX_STACK_LINE(257)
+	HX_STACK_LINE(206)
 	{
-		HX_STACK_LINE(257)
+		HX_STACK_LINE(206)
 		int _g = (int)0;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(257)
+		HX_STACK_LINE(206)
 		while((true)){
-			HX_STACK_LINE(257)
-			if ((!(((_g < (int)5000))))){
-				HX_STACK_LINE(257)
+			HX_STACK_LINE(206)
+			if ((!(((_g < (int)1000))))){
+				HX_STACK_LINE(206)
 				break;
 			}
-			HX_STACK_LINE(257)
+			HX_STACK_LINE(206)
 			int i = (_g)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(257)
+			HX_STACK_LINE(206)
 			this->list->push(null());
 		}
 	}
-	HX_STACK_LINE(258)
+	HX_STACK_LINE(207)
 	this->m_has_query = p_has_query;
-	HX_STACK_LINE(259)
+	HX_STACK_LINE(208)
 	this->m_bias = p_bias;
 }
 ;
@@ -61,22 +61,22 @@ Dynamic SAPList_obj::__Create(hx::DynamicArray inArgs)
 
 Void SAPList_obj::Create( int p_id){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Create",0xf06a8d1d,"haxor.ds.SAPList.Create","haxor/ds/SAP.hx",267,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","Create",0xf06a8d1d,"haxor.ds.SAPList.Create","haxor/ds/SAP.hx",216,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_id,"p_id")
-		HX_STACK_LINE(268)
+		HX_STACK_LINE(217)
 		while((true)){
-			HX_STACK_LINE(268)
+			HX_STACK_LINE(217)
 			if ((!(((this->list->length <= p_id))))){
-				HX_STACK_LINE(268)
+				HX_STACK_LINE(217)
 				break;
 			}
-			HX_STACK_LINE(268)
+			HX_STACK_LINE(217)
 			this->list->push(null());
 		}
-		HX_STACK_LINE(269)
+		HX_STACK_LINE(218)
 		if (((this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >() == null()))){
-			HX_STACK_LINE(269)
+			HX_STACK_LINE(218)
 			this->list[p_id] = ::haxor::ds::SAPInterval_obj::__new();
 		}
 	}
@@ -88,24 +88,24 @@ HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,Create,(void))
 
 Void SAPList_obj::Update( int p_id,Dynamic p_data,Float p_min,Float p_max){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Update",0xfb60ac2a,"haxor.ds.SAPList.Update","haxor/ds/SAP.hx",279,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","Update",0xfb60ac2a,"haxor.ds.SAPList.Update","haxor/ds/SAP.hx",228,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_id,"p_id")
 		HX_STACK_ARG(p_data,"p_data")
 		HX_STACK_ARG(p_min,"p_min")
 		HX_STACK_ARG(p_max,"p_max")
-		HX_STACK_LINE(280)
+		HX_STACK_LINE(229)
 		this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >()->id = p_id;
-		HX_STACK_LINE(281)
+		HX_STACK_LINE(230)
 		this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >()->data = p_data;
-		HX_STACK_LINE(282)
+		HX_STACK_LINE(231)
 		Float d = ((((p_max - p_min)) * this->m_bias) * 0.5);		HX_STACK_VAR(d,"d");
-		HX_STACK_LINE(283)
+		HX_STACK_LINE(232)
 		this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >()->Set((p_min - d),(p_max + d));
-		HX_STACK_LINE(284)
+		HX_STACK_LINE(233)
 		if ((this->m_has_query)){
-			HX_STACK_LINE(284)
-			this->Relocate(this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >());
+			HX_STACK_LINE(233)
+			this->RelocateInterval(this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >());
 		}
 	}
 return null();
@@ -114,51 +114,51 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC4(SAPList_obj,Update,(void))
 
-Void SAPList_obj::Add( ::haxor::ds::SAPInterval p_item){
+Void SAPList_obj::AddInterval( ::haxor::ds::SAPInterval p_item){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Add",0x07801d60,"haxor.ds.SAPList.Add","haxor/ds/SAP.hx",292,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","AddInterval",0xfd1ab2c5,"haxor.ds.SAPList.AddInterval","haxor/ds/SAP.hx",241,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
-		HX_STACK_LINE(293)
+		HX_STACK_LINE(242)
 		if (((this->start == null()))){
-			HX_STACK_LINE(293)
+			HX_STACK_LINE(242)
 			this->start = p_item;
-			HX_STACK_LINE(293)
+			HX_STACK_LINE(242)
 			::haxor::ds::SAPInterval _g = p_item->prev = null();		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(293)
+			HX_STACK_LINE(242)
 			p_item->next = _g;
-			HX_STACK_LINE(293)
+			HX_STACK_LINE(242)
 			return null();
 		}
-		HX_STACK_LINE(294)
+		HX_STACK_LINE(243)
 		if (((p_item == this->start))){
-			HX_STACK_LINE(294)
+			HX_STACK_LINE(243)
 			return null();
 		}
-		HX_STACK_LINE(295)
+		HX_STACK_LINE(244)
 		::haxor::ds::SAPInterval it = this->start;		HX_STACK_VAR(it,"it");
-		HX_STACK_LINE(296)
+		HX_STACK_LINE(245)
 		while((true)){
-			HX_STACK_LINE(296)
+			HX_STACK_LINE(245)
 			if ((!(((it != null()))))){
-				HX_STACK_LINE(296)
+				HX_STACK_LINE(245)
 				break;
 			}
-			HX_STACK_LINE(298)
+			HX_STACK_LINE(247)
 			if (((p_item->min < it->min))){
-				HX_STACK_LINE(298)
-				this->Insert(p_item,it);
-				HX_STACK_LINE(298)
+				HX_STACK_LINE(247)
+				this->InsertInterval(p_item,it);
+				HX_STACK_LINE(247)
 				return null();
 			}
-			HX_STACK_LINE(299)
+			HX_STACK_LINE(248)
 			if (((it->next == null()))){
-				HX_STACK_LINE(299)
-				this->Insert(p_item,it);
-				HX_STACK_LINE(299)
+				HX_STACK_LINE(248)
+				this->InsertInterval(p_item,it);
+				HX_STACK_LINE(248)
 				return null();
 			}
-			HX_STACK_LINE(300)
+			HX_STACK_LINE(249)
 			it = it->next;
 		}
 	}
@@ -166,48 +166,48 @@ return null();
 }
 
 
-HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,Add,(void))
+HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,AddInterval,(void))
 
-Void SAPList_obj::Insert( ::haxor::ds::SAPInterval p_item,::haxor::ds::SAPInterval p_at){
+Void SAPList_obj::InsertInterval( ::haxor::ds::SAPInterval p_item,::haxor::ds::SAPInterval p_at){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Insert",0x1238695a,"haxor.ds.SAPList.Insert","haxor/ds/SAP.hx",310,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","InsertInterval",0x395688bf,"haxor.ds.SAPList.InsertInterval","haxor/ds/SAP.hx",259,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
 		HX_STACK_ARG(p_at,"p_at")
-		HX_STACK_LINE(311)
+		HX_STACK_LINE(260)
 		if (((p_item == p_at))){
-			HX_STACK_LINE(311)
+			HX_STACK_LINE(260)
 			return null();
 		}
-		HX_STACK_LINE(314)
+		HX_STACK_LINE(263)
 		if (((p_item->min > p_at->min))){
-			HX_STACK_LINE(316)
+			HX_STACK_LINE(265)
 			p_item->next = p_at->next;
-			HX_STACK_LINE(317)
+			HX_STACK_LINE(266)
 			p_item->prev = p_at;
-			HX_STACK_LINE(318)
+			HX_STACK_LINE(267)
 			p_at->next = p_item;
-			HX_STACK_LINE(319)
+			HX_STACK_LINE(268)
 			if (((p_item->next != null()))){
-				HX_STACK_LINE(319)
+				HX_STACK_LINE(268)
 				p_item->next->prev = p_item;
 			}
 		}
 		else{
-			HX_STACK_LINE(323)
+			HX_STACK_LINE(272)
 			p_item->next = p_at;
-			HX_STACK_LINE(324)
+			HX_STACK_LINE(273)
 			p_item->prev = p_at->prev;
-			HX_STACK_LINE(325)
+			HX_STACK_LINE(274)
 			p_at->prev = p_item;
-			HX_STACK_LINE(326)
+			HX_STACK_LINE(275)
 			if (((p_item->prev != null()))){
-				HX_STACK_LINE(326)
+				HX_STACK_LINE(275)
 				p_item->prev->next = p_item;
 			}
-			HX_STACK_LINE(328)
+			HX_STACK_LINE(277)
 			if (((p_at == this->start))){
-				HX_STACK_LINE(328)
+				HX_STACK_LINE(277)
 				this->start = p_item;
 			}
 		}
@@ -216,146 +216,106 @@ return null();
 }
 
 
-HX_DEFINE_DYNAMIC_FUNC2(SAPList_obj,Insert,(void))
+HX_DEFINE_DYNAMIC_FUNC2(SAPList_obj,InsertInterval,(void))
 
-Void SAPList_obj::Relocate( ::haxor::ds::SAPInterval p_item){
+Void SAPList_obj::RelocateInterval( ::haxor::ds::SAPInterval p_item){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","Relocate",0xd837d7e6,"haxor.ds.SAPList.Relocate","haxor/ds/SAP.hx",338,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","RelocateInterval",0xad79634b,"haxor.ds.SAPList.RelocateInterval","haxor/ds/SAP.hx",287,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_item,"p_item")
-		HX_STACK_LINE(340)
+		HX_STACK_LINE(289)
 		if (((p_item->prev == null()))){
-			HX_STACK_LINE(341)
+			HX_STACK_LINE(290)
 			if (((p_item->next == null()))){
-				HX_STACK_LINE(343)
-				this->Add(p_item);
-				HX_STACK_LINE(344)
+				HX_STACK_LINE(292)
+				this->AddInterval(p_item);
+				HX_STACK_LINE(293)
 				return null();
 			}
 		}
-		HX_STACK_LINE(347)
+		HX_STACK_LINE(296)
 		::haxor::ds::SAPInterval it = p_item;		HX_STACK_VAR(it,"it");
-		HX_STACK_LINE(348)
+		HX_STACK_LINE(297)
 		int nav = (int)0;		HX_STACK_VAR(nav,"nav");
-		HX_STACK_LINE(349)
+		HX_STACK_LINE(298)
 		::haxor::ds::SAPInterval location = null();		HX_STACK_VAR(location,"location");
-		HX_STACK_LINE(352)
+		HX_STACK_LINE(301)
 		while((true)){
-			HX_STACK_LINE(352)
+			HX_STACK_LINE(301)
 			if ((!(((it != null()))))){
-				HX_STACK_LINE(352)
+				HX_STACK_LINE(301)
 				break;
 			}
-			HX_STACK_LINE(354)
+			HX_STACK_LINE(303)
 			::haxor::ds::SAPInterval n = it->next;		HX_STACK_VAR(n,"n");
-			HX_STACK_LINE(355)
+			HX_STACK_LINE(304)
 			::haxor::ds::SAPInterval p = it->prev;		HX_STACK_VAR(p,"p");
-			HX_STACK_LINE(356)
+			HX_STACK_LINE(305)
 			if (((n == null()))){
-				HX_STACK_LINE(356)
+				HX_STACK_LINE(305)
 				if (((p == null()))){
-					HX_STACK_LINE(356)
+					HX_STACK_LINE(305)
 					break;
 				}
 			}
-			HX_STACK_LINE(357)
+			HX_STACK_LINE(306)
 			if (((p != null()))){
-				HX_STACK_LINE(357)
+				HX_STACK_LINE(306)
 				if (((p_item->min < p->min))){
-					HX_STACK_LINE(357)
+					HX_STACK_LINE(306)
 					nav = (int)-1;
-					HX_STACK_LINE(357)
+					HX_STACK_LINE(306)
 					location = p;
 				}
 			}
-			HX_STACK_LINE(358)
+			HX_STACK_LINE(307)
 			if (((n != null()))){
-				HX_STACK_LINE(358)
+				HX_STACK_LINE(307)
 				if (((p_item->min > n->min))){
-					HX_STACK_LINE(358)
+					HX_STACK_LINE(307)
 					nav = (int)1;
-					HX_STACK_LINE(358)
+					HX_STACK_LINE(307)
 					location = n;
 				}
 			}
-			HX_STACK_LINE(359)
+			HX_STACK_LINE(308)
 			if (((nav == (int)0))){
-				HX_STACK_LINE(359)
+				HX_STACK_LINE(308)
 				break;
 			}
-			HX_STACK_LINE(360)
+			HX_STACK_LINE(309)
 			if (((nav < (int)0))){
-				HX_STACK_LINE(360)
+				HX_STACK_LINE(309)
 				it = p;
 			}
 			else{
-				HX_STACK_LINE(360)
+				HX_STACK_LINE(309)
 				it = n;
 			}
-			HX_STACK_LINE(361)
+			HX_STACK_LINE(310)
 			nav = (int)0;
 		}
-		HX_STACK_LINE(364)
+		HX_STACK_LINE(313)
 		if (((location != null()))){
-			HX_STACK_LINE(367)
-			this->Remove(p_item);
-			HX_STACK_LINE(369)
-			this->Insert(p_item,location);
+			HX_STACK_LINE(316)
+			this->RemoveInterval(p_item);
+			HX_STACK_LINE(318)
+			this->InsertInterval(p_item,location);
 		}
 	}
 return null();
 }
 
 
-HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,Relocate,(void))
+HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,RelocateInterval,(void))
 
-Void SAPList_obj::RemoveById( int p_id){
+Void SAPList_obj::Remove( int p_id){
 {
-		HX_STACK_FRAME("haxor.ds.SAPList","RemoveById",0x36617e97,"haxor.ds.SAPList.RemoveById","haxor/ds/SAP.hx",379,0xbaeeb06f)
+		HX_STACK_FRAME("haxor.ds.SAPList","Remove",0x78e3c265,"haxor.ds.SAPList.Remove","haxor/ds/SAP.hx",328,0xbaeeb06f)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_id,"p_id")
-		HX_STACK_LINE(379)
-		this->Remove(this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >());
-	}
-return null();
-}
-
-
-HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,RemoveById,(void))
-
-Void SAPList_obj::Remove( ::haxor::ds::SAPInterval p_item){
-{
-		HX_STACK_FRAME("haxor.ds.SAPList","Remove",0x78e3c265,"haxor.ds.SAPList.Remove","haxor/ds/SAP.hx",387,0xbaeeb06f)
-		HX_STACK_THIS(this)
-		HX_STACK_ARG(p_item,"p_item")
-		HX_STACK_LINE(388)
-		if ((!(this->m_has_query))){
-			HX_STACK_LINE(388)
-			return null();
-		}
-		HX_STACK_LINE(389)
-		::haxor::ds::SAPInterval p = p_item->prev;		HX_STACK_VAR(p,"p");
-		HX_STACK_LINE(390)
-		::haxor::ds::SAPInterval n = p_item->next;		HX_STACK_VAR(n,"n");
-		HX_STACK_LINE(391)
-		if (((p != null()))){
-			HX_STACK_LINE(391)
-			p->next = n;
-		}
-		HX_STACK_LINE(392)
-		if (((n != null()))){
-			HX_STACK_LINE(392)
-			n->prev = p;
-		}
-		HX_STACK_LINE(393)
-		::haxor::ds::SAPInterval _g = p_item->prev = null();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(393)
-		p_item->next = _g;
-		HX_STACK_LINE(395)
-		if (((p_item == this->start))){
-			HX_STACK_LINE(395)
-			this->start = n;
-		}
+		HX_STACK_LINE(328)
+		this->RemoveInterval(this->list->__get(p_id).StaticCast< ::haxor::ds::SAPInterval >());
 	}
 return null();
 }
@@ -363,54 +323,120 @@ return null();
 
 HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,Remove,(void))
 
+Void SAPList_obj::RemoveInterval( ::haxor::ds::SAPInterval p_item){
+{
+		HX_STACK_FRAME("haxor.ds.SAPList","RemoveInterval",0xc0e264ca,"haxor.ds.SAPList.RemoveInterval","haxor/ds/SAP.hx",336,0xbaeeb06f)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(p_item,"p_item")
+		HX_STACK_LINE(337)
+		if ((!(this->m_has_query))){
+			HX_STACK_LINE(337)
+			return null();
+		}
+		HX_STACK_LINE(338)
+		::haxor::ds::SAPInterval p = p_item->prev;		HX_STACK_VAR(p,"p");
+		HX_STACK_LINE(339)
+		::haxor::ds::SAPInterval n = p_item->next;		HX_STACK_VAR(n,"n");
+		HX_STACK_LINE(340)
+		if (((p != null()))){
+			HX_STACK_LINE(340)
+			p->next = n;
+		}
+		HX_STACK_LINE(341)
+		if (((n != null()))){
+			HX_STACK_LINE(341)
+			n->prev = p;
+		}
+		HX_STACK_LINE(342)
+		::haxor::ds::SAPInterval _g = p_item->prev = null();		HX_STACK_VAR(_g,"_g");
+		HX_STACK_LINE(342)
+		p_item->next = _g;
+		HX_STACK_LINE(344)
+		if (((p_item == this->start))){
+			HX_STACK_LINE(344)
+			this->start = n;
+		}
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,RemoveInterval,(void))
+
+Void SAPList_obj::Iterate( Dynamic p_callback){
+{
+		HX_STACK_FRAME("haxor.ds.SAPList","Iterate",0x3e36b0b9,"haxor.ds.SAPList.Iterate","haxor/ds/SAP.hx",352,0xbaeeb06f)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(p_callback,"p_callback")
+		HX_STACK_LINE(353)
+		::haxor::ds::SAPInterval it = this->start;		HX_STACK_VAR(it,"it");
+		HX_STACK_LINE(354)
+		while((true)){
+			HX_STACK_LINE(354)
+			if ((!(((it != null()))))){
+				HX_STACK_LINE(354)
+				break;
+			}
+			HX_STACK_LINE(356)
+			p_callback(it).Cast< Void >();
+			HX_STACK_LINE(357)
+			it = it->next;
+		}
+	}
+return null();
+}
+
+
+HX_DEFINE_DYNAMIC_FUNC1(SAPList_obj,Iterate,(void))
+
 ::String SAPList_obj::ToString( hx::Null< int >  __o_p_places){
 int p_places = __o_p_places.Default(2);
-	HX_STACK_FRAME("haxor.ds.SAPList","ToString",0xd678810d,"haxor.ds.SAPList.ToString","haxor/ds/SAP.hx",403,0xbaeeb06f)
+	HX_STACK_FRAME("haxor.ds.SAPList","ToString",0xd678810d,"haxor.ds.SAPList.ToString","haxor/ds/SAP.hx",367,0xbaeeb06f)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_places,"p_places")
 {
-		HX_STACK_LINE(404)
+		HX_STACK_LINE(368)
 		::String s = HX_CSTRING("");		HX_STACK_VAR(s,"s");
-		HX_STACK_LINE(405)
+		HX_STACK_LINE(369)
 		if ((this->m_has_query)){
-			HX_STACK_LINE(407)
+			HX_STACK_LINE(371)
 			::haxor::ds::SAPInterval it = this->start;		HX_STACK_VAR(it,"it");
-			HX_STACK_LINE(408)
+			HX_STACK_LINE(372)
 			while((true)){
-				HX_STACK_LINE(408)
+				HX_STACK_LINE(372)
 				if ((!(((it != null()))))){
-					HX_STACK_LINE(408)
+					HX_STACK_LINE(372)
 					break;
 				}
-				HX_STACK_LINE(410)
+				HX_STACK_LINE(374)
 				::String _g = it->ToString(p_places);		HX_STACK_VAR(_g,"_g");
-				HX_STACK_LINE(410)
+				HX_STACK_LINE(374)
 				hx::AddEq(s,_g);
-				HX_STACK_LINE(411)
+				HX_STACK_LINE(375)
 				it = it->next;
 			}
 		}
 		else{
-			HX_STACK_LINE(416)
+			HX_STACK_LINE(380)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(416)
+			HX_STACK_LINE(380)
 			int _g = this->list->length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(416)
+			HX_STACK_LINE(380)
 			while((true)){
-				HX_STACK_LINE(416)
+				HX_STACK_LINE(380)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(416)
+					HX_STACK_LINE(380)
 					break;
 				}
-				HX_STACK_LINE(416)
+				HX_STACK_LINE(380)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(416)
+				HX_STACK_LINE(380)
 				::String _g11 = this->list->__get(i).StaticCast< ::haxor::ds::SAPInterval >()->ToString(p_places);		HX_STACK_VAR(_g11,"_g11");
-				HX_STACK_LINE(416)
+				HX_STACK_LINE(380)
 				hx::AddEq(s,_g11);
 			}
 		}
-		HX_STACK_LINE(418)
+		HX_STACK_LINE(382)
 		return s;
 	}
 }
@@ -444,9 +470,6 @@ void SAPList_obj::__Visit(HX_VISIT_PARAMS)
 Dynamic SAPList_obj::__Field(const ::String &inName,bool inCallProp)
 {
 	switch(inName.length) {
-	case 3:
-		if (HX_FIELD_EQ(inName,"Add") ) { return Add_dyn(); }
-		break;
 	case 4:
 		if (HX_FIELD_EQ(inName,"list") ) { return list; }
 		break;
@@ -457,18 +480,24 @@ Dynamic SAPList_obj::__Field(const ::String &inName,bool inCallProp)
 		if (HX_FIELD_EQ(inName,"m_bias") ) { return m_bias; }
 		if (HX_FIELD_EQ(inName,"Create") ) { return Create_dyn(); }
 		if (HX_FIELD_EQ(inName,"Update") ) { return Update_dyn(); }
-		if (HX_FIELD_EQ(inName,"Insert") ) { return Insert_dyn(); }
 		if (HX_FIELD_EQ(inName,"Remove") ) { return Remove_dyn(); }
 		break;
-	case 8:
-		if (HX_FIELD_EQ(inName,"Relocate") ) { return Relocate_dyn(); }
-		if (HX_FIELD_EQ(inName,"ToString") ) { return ToString_dyn(); }
+	case 7:
+		if (HX_FIELD_EQ(inName,"Iterate") ) { return Iterate_dyn(); }
 		break;
-	case 10:
-		if (HX_FIELD_EQ(inName,"RemoveById") ) { return RemoveById_dyn(); }
+	case 8:
+		if (HX_FIELD_EQ(inName,"ToString") ) { return ToString_dyn(); }
 		break;
 	case 11:
 		if (HX_FIELD_EQ(inName,"m_has_query") ) { return m_has_query; }
+		if (HX_FIELD_EQ(inName,"AddInterval") ) { return AddInterval_dyn(); }
+		break;
+	case 14:
+		if (HX_FIELD_EQ(inName,"InsertInterval") ) { return InsertInterval_dyn(); }
+		if (HX_FIELD_EQ(inName,"RemoveInterval") ) { return RemoveInterval_dyn(); }
+		break;
+	case 16:
+		if (HX_FIELD_EQ(inName,"RelocateInterval") ) { return RelocateInterval_dyn(); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -520,11 +549,12 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("m_bias"),
 	HX_CSTRING("Create"),
 	HX_CSTRING("Update"),
-	HX_CSTRING("Add"),
-	HX_CSTRING("Insert"),
-	HX_CSTRING("Relocate"),
-	HX_CSTRING("RemoveById"),
+	HX_CSTRING("AddInterval"),
+	HX_CSTRING("InsertInterval"),
+	HX_CSTRING("RelocateInterval"),
 	HX_CSTRING("Remove"),
+	HX_CSTRING("RemoveInterval"),
+	HX_CSTRING("Iterate"),
 	HX_CSTRING("ToString"),
 	String(null()) };
 

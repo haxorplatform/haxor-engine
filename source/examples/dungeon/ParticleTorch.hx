@@ -1,15 +1,14 @@
 package examples.dungeon;
-import haxor.component.AnimationClip.AnimationWrap;
 import haxor.component.ParticleRenderer;
 import haxor.core.Asset;
 import haxor.core.Resource;
-import haxor.graphics.Material;
+import haxor.graphics.material.Material;
+import haxor.graphics.texture.Texture;
 import haxor.math.AABB3;
-import haxor.math.Color;
 import haxor.math.Mathf;
 import haxor.math.Vector3;
-import haxor.texture.Texture;
-import haxor.texture.Texture2D;
+import haxor.platform.Types.Float32;
+import haxor.core.Enums.AnimationWrap;
 
 /**
  * ...
@@ -18,19 +17,21 @@ import haxor.texture.Texture2D;
 class ParticleTorch extends ParticleRenderer
 {
 
-	public var strength(get_strength, set_strength):Float;
-	private function get_strength():Float { return m_strength; }
-	private function set_strength(v:Float):Float 
+	public var strength(get_strength, set_strength):Float32;
+	private function get_strength():Float32 { return m_strength; }
+	private function set_strength(v:Float32):Float32 
 	{ 
 		m_strength = Mathf.Clamp01(v); 
 		start.life.start = Mathf.Lerp(2.0, 3.0, m_strength);
 		start.life.end   = Mathf.Lerp(3.0, 5.0, m_strength);
 		return m_strength;
 	}
-	private var m_strength : Float;
+	private var m_strength : Float32;
 	
 	override public function OnBuild():Void 
 	{
+		super.OnBuild();
+		
 		name = "ParticleTorch";
 		var mat_id : String = "ParticleTorchMaterial";
 		var mat : Material = Asset.Get(mat_id);
@@ -41,9 +42,10 @@ class ParticleTorch extends ParticleRenderer
 		
 		//if (mat == null)
 		{			
-			mat = Resource.Instantiate(Asset.Get("haxor/material/transparent/unlit/ParticleAdditive"));
+			
+			mat = Asset.Instantiate(Asset.Get("haxor/material/transparent/unlit/ParticleAdditive"));
 			mat.name = mat_id;			
-			mat.SetUniform("Texture", tex);
+			mat.SetTexture("Texture", tex);
 			mat.zwrite = false;
 			//Asset.Add(mat_id, mat);
 		}
@@ -53,7 +55,7 @@ class ParticleTorch extends ParticleRenderer
 		var emt : SphereEmitter = cast  emitter = new SphereEmitter(10.0);
 		//emt.ranges = [0, 0, 0, 1000, 0, 0];
 		
-		count = 200;
+		count = 34;
 		
 		//duration = 10.0;
 		
@@ -62,40 +64,43 @@ class ParticleTorch extends ParticleRenderer
 		local = false;
 		
 		rate.start = 
-		rate.end   = 20.0;
+		rate.end   = 4.0;
 		
-		sheet.length = 
-		4;
+		sheet.length = 4;
 		//0;
-		sheet.fps    = 4;
+		sheet.fps    = 8;
 		sheet.width  = tex.width / 2.0;
 		sheet.height = tex.height / 2.0;
 		sheet.wrap   = AnimationWrap.Loop;
-		start.life.random=true;
+				
+		start.life.start = 3;
+		start.life.end   = 5;
+		start.life.random = true;				
 		
 		start.speed.start  = 1.0;
 		start.speed.end    = 1.0;
 		start.speed.random = true;
+				
 		
-		life.speed.start = 1.0;
-		life.speed.end   = 3.0;
-		life.speed.curve = 1.0;
+		life.speed.start = 4.0;
+		life.speed.end   = 4.0;
+		life.speed.random = true;
 		
-		force = new Vector3(0, 3, 0);
+		force = new Vector3(0, 2, 0);
 		
 		life.color = Asset.Get("FireColor");
 		
-		var ps : Float = 20.0;
+		var ps : Float = 22.0;
 		
 		start.size.start = Vector3.one.Scale(ps);
 		start.size.end   = Vector3.one.Scale(ps*2.0);
 		
-		life.size.start = Vector3.one.Scale(1.0);
+		life.size.start = Vector3.one.Scale(2.0);
 		life.size.end   = Vector3.one.Scale(0.0);
 		
 		mesh.bounds = AABB3.FromCenter(0, 0, 0, 30, 30, 30);
 		
-		strength = 0.5;
+		strength = 1.0;
 		
 		Play();
 		

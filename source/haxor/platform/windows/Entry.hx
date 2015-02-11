@@ -50,7 +50,7 @@ class Entry
 				Console.verbose = vl;
 			}
 						
-			if (args[i].toLowerCase() == "-hx")
+			if (args[i].toLowerCase() == "-main")
 			{
 				var p : Int = i + 1;
 				app_class_type = (p >= args.length) ? "" : args[p];				

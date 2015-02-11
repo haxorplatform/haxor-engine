@@ -10,11 +10,13 @@ HX_DECLARE_CLASS2(haxor,component,Camera)
 HX_DECLARE_CLASS2(haxor,component,Component)
 HX_DECLARE_CLASS2(haxor,component,Transform)
 HX_DECLARE_CLASS2(haxor,core,IDisposable)
+HX_DECLARE_CLASS2(haxor,core,IResizeable)
 HX_DECLARE_CLASS2(haxor,core,Resource)
 HX_DECLARE_CLASS2(haxor,graphics,Graphics)
 HX_DECLARE_CLASS3(haxor,graphics,material,Material)
 HX_DECLARE_CLASS3(haxor,graphics,mesh,Mesh)
 HX_DECLARE_CLASS3(haxor,graphics,texture,Texture)
+HX_DECLARE_CLASS2(haxor,io,Buffer)
 HX_DECLARE_CLASS2(haxor,math,AABB2)
 HX_DECLARE_CLASS2(haxor,math,Color)
 namespace haxor{
@@ -53,6 +55,9 @@ class HXCPP_CLASS_ATTRIBUTES  Graphics_obj : public hx::Object{
 
 		static Void DrawTexture( ::haxor::graphics::texture::Texture p_texture,hx::Null< Float >  p_x,hx::Null< Float >  p_y,hx::Null< Float >  p_width,hx::Null< Float >  p_height,::haxor::math::Color p_color);
 		static Dynamic DrawTexture_dyn();
+
+		static Void ReadPixels( int p_x,int p_y,int p_width,int p_height,::haxor::io::Buffer p_buffer);
+		static Dynamic ReadPixels_dyn();
 
 };
 

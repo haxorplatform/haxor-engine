@@ -102,7 +102,7 @@ HX_DEFINE_DYNAMIC_FUNC0(ClipTrack_obj,get_length,return )
 			HX_STACK_LINE(62)
 			nk->time = p_time;
 			HX_STACK_LINE(62)
-			nk->value = p_value;
+			nk->value->Set3(p_value);
 		}
 		else{
 			HX_STACK_LINE(63)
@@ -114,7 +114,7 @@ HX_DEFINE_DYNAMIC_FUNC0(ClipTrack_obj,get_length,return )
 				HX_STACK_LINE(63)
 				nk->time = p_time;
 				HX_STACK_LINE(63)
-				nk->value = p_value;
+				nk->value->SetQuaternion(p_value);
 			}
 		}
 	}

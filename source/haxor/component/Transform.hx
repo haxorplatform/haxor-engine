@@ -100,6 +100,7 @@ class Transform extends Component
 		//position = wp;
 		//rotation = wr;
 		//scale 	 = ws;
+		Invalidate();
 		
 		return m_parent;
 	}

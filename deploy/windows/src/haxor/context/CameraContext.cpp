@@ -33,6 +33,9 @@
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
+#ifndef INCLUDED_haxor_core_IResizeable
+#include <haxor/core/IResizeable.h>
+#endif
 #ifndef INCLUDED_haxor_core_PixelFormat
 #include <haxor/core/PixelFormat.h>
 #endif

@@ -181,9 +181,9 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC0(Renderer_obj,UpdateCulling,(void))
 
 bool Renderer_obj::CheckCulling( ){
-	HX_STACK_FRAME("haxor.component.Renderer","CheckCulling",0xfb54f9f6,"haxor.component.Renderer.CheckCulling","haxor/component/Renderer.hx",96,0x7c4f98dc)
+	HX_STACK_FRAME("haxor.component.Renderer","CheckCulling",0xfb54f9f6,"haxor.component.Renderer.CheckCulling","haxor/component/Renderer.hx",97,0x7c4f98dc)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(96)
+	HX_STACK_LINE(97)
 	return false;
 }
 
@@ -192,9 +192,9 @@ HX_DEFINE_DYNAMIC_FUNC0(Renderer_obj,CheckCulling,return )
 
 Void Renderer_obj::OnDestroy( ){
 {
-		HX_STACK_FRAME("haxor.component.Renderer","OnDestroy",0x9dc4b56d,"haxor.component.Renderer.OnDestroy","haxor/component/Renderer.hx",103,0x7c4f98dc)
+		HX_STACK_FRAME("haxor.component.Renderer","OnDestroy",0x9dc4b56d,"haxor.component.Renderer.OnDestroy","haxor/component/Renderer.hx",104,0x7c4f98dc)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(103)
+		HX_STACK_LINE(104)
 		::haxor::context::EngineContext_obj::renderer->Destroy(hx::ObjectPtr<OBJ_>(this));
 	}
 return null();

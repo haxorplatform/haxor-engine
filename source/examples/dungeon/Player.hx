@@ -60,7 +60,7 @@ class Player extends Behaviour implements IUpdateable
 	
 	private var m_path_current : Int = 0;
 	
-	//private var m_dust_particle : ParticleRunning;
+	private var m_dust_particle : ParticleRunning;
 	
 	public var state(get_state, set_state):String;
 	private function get_state():String { return m_state; }
@@ -169,11 +169,16 @@ class Player extends Behaviour implements IUpdateable
 		m_shadow.localPosition = new Vector3(0, 5, 0);
 		m_shadow.entity.AddComponent(BlobShadow);
 		
-		/*
-		m_dust_particle = (new Entity()).AddComponent(ParticleRunning);
-		m_dust_particle.transform.parent = transform;
-		m_dust_particle.transform.position = new Vector3(0, 10, 0);
-		//*/
+		var app : Main = cast application;
+		
+		if (app.os.toLowerCase().indexOf("arm") < 0)
+		{
+			m_dust_particle = (new Entity()).AddComponent(ParticleRunning);
+			m_dust_particle.transform.parent = transform;
+			m_dust_particle.transform.localPosition = new Vector3(0, 10, 0);
+		}
+		
+		Activity.Delay(2.0, function():Void { path_enabled = true; } );
 		
 	}
 	
@@ -310,7 +315,7 @@ class Player extends Behaviour implements IUpdateable
 	{
 		if (Input.Pressed(KeyCode.ControlKey)) return;
 		
-		var app : DungeonApp = cast application;
+		var app : Main = cast application;
 		var c 	: CameraOrbit = app.game.orbit;
 		var dir : Vector3 = Vector3.zero;
 		var fv  : Vector3 = c.pivot.transform.forward;
@@ -424,31 +429,26 @@ class Player extends Behaviour implements IUpdateable
 		UpdateKeyboardInput();
 		
 		
-		var app : DungeonApp = cast application;
+		var app : Main = cast application;
 		
-		var pt : Vector3 = app.path[m_path_current];
+		if (path_enabled)
+		{
+			var pt : Vector3 = app.path[m_path_current];		
+			var dir : Vector3 = Vector3.temp.Set3(pt).Sub(transform.localPosition);
+			dir.y = 0;
+			dir.Normalize();
+			lerp_dir.Set3(Vector3.Lerp(lerp_dir, dir, Time.delta * 3.0, Vector3.temp));
+			Move(lerp_dir);
+			var d : Float32 = Vector3.Distance(pt, transform.localPosition);		
+			if (d < 50.0)
+			{
+				m_path_current = (m_path_current + 1) % app.path.length;
+			}
+		}
 		
-		var dir : Vector3 = pt.clone.Sub(transform.localPosition);
-		
-		
-		
-		dir.y = 0;
-		dir.Normalize();
-		
-		lerp_dir = Vector3.Lerp(lerp_dir, dir, Time.delta * 3.0);
-		
-		if(path_enabled) Move(lerp_dir);
+		if (Input.touches.length>=2) if(Input.touches[0].down || Input.touches[1].down) path_enabled = !path_enabled;
 		
 		if (Input.Down(KeyCode.Enter)) path_enabled = !path_enabled;
-		
-		var d : Float32 = Vector3.Distance(pt, transform.localPosition);
-		
-		
-		
-		if (d < 50.0)
-		{
-			m_path_current = (m_path_current + 1) % app.path.length;
-		}
 		
 		state = OnFSM();
 		

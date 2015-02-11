@@ -150,6 +150,9 @@ class WebGL extends GraphicContext
 				
 				case "OES_texture_float":
 					GL.TEXTURE_FLOAT = true;	
+					
+				case "OES_texture_float_linear":
+					GL.TEXTURE_FLOAT_LINEAR = true;
 				
 				case "OES_depth_texture":
 					GL.TEXTURE_DEPTH_ENABLED = true;

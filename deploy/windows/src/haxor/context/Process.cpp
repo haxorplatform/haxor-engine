@@ -6,6 +6,9 @@
 #ifndef INCLUDED_haxor_context_Process
 #include <haxor/context/Process.h>
 #endif
+#ifndef INCLUDED_haxor_core_Console
+#include <haxor/core/Console.h>
+#endif
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
@@ -80,92 +83,118 @@ Void Process_obj::Add( ::haxor::core::Resource p_item){
 		HX_STACK_ARG(p_item,"p_item")
 		HX_STACK_LINE(50)
 		int iid = p_item->__pid->__get(this->__cid);		HX_STACK_VAR(iid,"iid");
-		HX_STACK_LINE(51)
+		HX_STACK_LINE(52)
 		if (((iid >= (int)0))){
-			HX_STACK_LINE(51)
+			HX_STACK_LINE(54)
+			::String _g = p_item->get_name();		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(54)
+			::String _g1 = (((HX_CSTRING("Process ") + this->name) + HX_CSTRING("> Failed to Add [")) + _g);		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(54)
+			::String _g2 = (_g1 + HX_CSTRING("@"));		HX_STACK_VAR(_g2,"_g2");
+			HX_STACK_LINE(54)
+			::String _g3 = (_g2 + p_item->m_type_name);		HX_STACK_VAR(_g3,"_g3");
+			HX_STACK_LINE(54)
+			::String _g4 = (_g3 + HX_CSTRING("]"));		HX_STACK_VAR(_g4,"_g4");
+			HX_STACK_LINE(54)
+			::haxor::core::Console_obj::Log(_g4,(int)7);
+			HX_STACK_LINE(55)
 			return null();
 		}
-		HX_STACK_LINE(52)
+		HX_STACK_LINE(57)
 		if (((this->m_length >= this->list->__Field(HX_CSTRING("length"),true)))){
-			HX_STACK_LINE(52)
+			HX_STACK_LINE(57)
 			this->list->__Field(HX_CSTRING("push"),true)(null());
 		}
-		HX_STACK_LINE(53)
+		HX_STACK_LINE(58)
 		hx::IndexRef((this->list).mPtr,this->m_length) = p_item;
-		HX_STACK_LINE(54)
-		p_item->__pid[this->__cid] = (this->m_length)++;
+		HX_STACK_LINE(59)
+		p_item->__pid[this->__cid] = this->m_length;
+		HX_STACK_LINE(60)
+		(this->m_length)++;
 	}
 return null();
 }
 
 
-::haxor::core::Resource Process_obj::Remove( ::haxor::core::Resource p_item){
-	HX_STACK_FRAME("haxor.context.Process","Remove",0x2b7b5cee,"haxor.context.Process.Remove","haxor/context/Process.hx",62,0x5f329a1c)
-	HX_STACK_THIS(this)
-	HX_STACK_ARG(p_item,"p_item")
-	HX_STACK_LINE(63)
-	int iid = p_item->__pid->__get(this->__cid);		HX_STACK_VAR(iid,"iid");
-	HX_STACK_LINE(64)
-	if (((iid < (int)0))){
-		HX_STACK_LINE(64)
-		return p_item;
+Void Process_obj::Remove( ::haxor::core::Resource p_item){
+{
+		HX_STACK_FRAME("haxor.context.Process","Remove",0x2b7b5cee,"haxor.context.Process.Remove","haxor/context/Process.hx",69,0x5f329a1c)
+		HX_STACK_THIS(this)
+		HX_STACK_ARG(p_item,"p_item")
+		HX_STACK_LINE(70)
+		int iid = p_item->__pid->__get(this->__cid);		HX_STACK_VAR(iid,"iid");
+		HX_STACK_LINE(71)
+		if (((iid < (int)0))){
+			HX_STACK_LINE(73)
+			::String _g = p_item->get_name();		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(73)
+			::String _g1 = (((HX_CSTRING("Process ") + this->name) + HX_CSTRING("> Failed to Remove [")) + _g);		HX_STACK_VAR(_g1,"_g1");
+			HX_STACK_LINE(73)
+			::String _g2 = (_g1 + HX_CSTRING("@"));		HX_STACK_VAR(_g2,"_g2");
+			HX_STACK_LINE(73)
+			::String _g3 = (_g2 + p_item->m_type_name);		HX_STACK_VAR(_g3,"_g3");
+			HX_STACK_LINE(73)
+			::String _g4 = (_g3 + HX_CSTRING("]"));		HX_STACK_VAR(_g4,"_g4");
+			HX_STACK_LINE(73)
+			::haxor::core::Console_obj::Log(_g4,(int)7);
+			HX_STACK_LINE(74)
+			return null();
+		}
+		HX_STACK_LINE(76)
+		::haxor::core::Resource old_item = p_item;		HX_STACK_VAR(old_item,"old_item");
+		HX_STACK_LINE(77)
+		::haxor::core::Resource new_item = this->list->__GetItem((this->m_length - (int)1));		HX_STACK_VAR(new_item,"new_item");
+		HX_STACK_LINE(78)
+		new_item->__pid[this->__cid] = old_item->__pid->__get(this->__cid);
+		HX_STACK_LINE(79)
+		old_item->__pid[this->__cid] = (int)-1;
+		HX_STACK_LINE(80)
+		hx::IndexRef((this->list).mPtr,iid) = new_item;
+		HX_STACK_LINE(81)
+		hx::IndexRef((this->list).mPtr,(this->m_length - (int)1)) = old_item;
+		HX_STACK_LINE(82)
+		(this->m_length)--;
 	}
-	HX_STACK_LINE(65)
-	p_item->__pid[this->__cid] = (int)-1;
-	HX_STACK_LINE(66)
-	(this->m_length)--;
-	HX_STACK_LINE(67)
-	if (((this->m_length <= (int)0))){
-		HX_STACK_LINE(67)
-		return p_item;
-	}
-	HX_STACK_LINE(68)
-	hx::IndexRef((this->list).mPtr,iid) = this->list->__GetItem(this->m_length);
-	HX_STACK_LINE(69)
-	p_item = this->list->__GetItem(iid);
-	HX_STACK_LINE(70)
-	p_item->__pid[this->__cid] = iid;
-	HX_STACK_LINE(71)
-	return p_item;
+return null();
 }
 
 
 Void Process_obj::Swap( Dynamic p_a,Dynamic p_b,hx::Null< bool >  __o_p_index_only){
 bool p_index_only = __o_p_index_only.Default(false);
-	HX_STACK_FRAME("haxor.context.Process","Swap",0xff548cbd,"haxor.context.Process.Swap","haxor/context/Process.hx",80,0x5f329a1c)
+	HX_STACK_FRAME("haxor.context.Process","Swap",0xff548cbd,"haxor.context.Process.Swap","haxor/context/Process.hx",92,0x5f329a1c)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_a,"p_a")
 	HX_STACK_ARG(p_b,"p_b")
 	HX_STACK_ARG(p_index_only,"p_index_only")
 {
-		HX_STACK_LINE(81)
+		HX_STACK_LINE(93)
 		::haxor::core::Resource ra = p_a;		HX_STACK_VAR(ra,"ra");
-		HX_STACK_LINE(82)
+		HX_STACK_LINE(94)
 		::haxor::core::Resource rb = p_b;		HX_STACK_VAR(rb,"rb");
-		HX_STACK_LINE(83)
+		HX_STACK_LINE(95)
 		int ia = ra->__pid->__get(this->__cid);		HX_STACK_VAR(ia,"ia");
-		HX_STACK_LINE(84)
+		HX_STACK_LINE(96)
 		if (((ia < (int)0))){
-			HX_STACK_LINE(84)
+			HX_STACK_LINE(96)
 			return null();
 		}
-		HX_STACK_LINE(85)
+		HX_STACK_LINE(97)
 		int ib = rb->__pid->__get(this->__cid);		HX_STACK_VAR(ib,"ib");
-		HX_STACK_LINE(86)
+		HX_STACK_LINE(98)
 		if (((ib < (int)0))){
-			HX_STACK_LINE(86)
+			HX_STACK_LINE(98)
 			return null();
 		}
-		HX_STACK_LINE(88)
+		HX_STACK_LINE(100)
 		if ((!(p_index_only))){
-			HX_STACK_LINE(90)
+			HX_STACK_LINE(102)
 			hx::IndexRef((this->list).mPtr,ia) = p_b;
-			HX_STACK_LINE(91)
+			HX_STACK_LINE(103)
 			hx::IndexRef((this->list).mPtr,ib) = p_a;
 		}
-		HX_STACK_LINE(94)
+		HX_STACK_LINE(106)
 		rb->__pid[this->__cid] = ia;
-		HX_STACK_LINE(95)
+		HX_STACK_LINE(107)
 		ra->__pid[this->__cid] = ib;
 	}
 return null();
@@ -176,11 +205,11 @@ HX_DEFINE_DYNAMIC_FUNC3(Process_obj,Swap,(void))
 
 Void Process_obj::Clear( ){
 {
-		HX_STACK_FRAME("haxor.context.Process","Clear",0x2cfaf423,"haxor.context.Process.Clear","haxor/context/Process.hx",102,0x5f329a1c)
+		HX_STACK_FRAME("haxor.context.Process","Clear",0x2cfaf423,"haxor.context.Process.Clear","haxor/context/Process.hx",114,0x5f329a1c)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(103)
+		HX_STACK_LINE(115)
 		this->m_length = (int)0;
-		HX_STACK_LINE(104)
+		HX_STACK_LINE(116)
 		this->list = Dynamic( Array_obj<Dynamic>::__new());
 	}
 return null();
@@ -189,31 +218,31 @@ return null();
 
 Void Process_obj::Sort( Dynamic p_method){
 {
-		HX_STACK_FRAME("haxor.context.Process","Sort",0xff4e8988,"haxor.context.Process.Sort","haxor/context/Process.hx",112,0x5f329a1c)
+		HX_STACK_FRAME("haxor.context.Process","Sort",0xff4e8988,"haxor.context.Process.Sort","haxor/context/Process.hx",124,0x5f329a1c)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(p_method,"p_method")
-		HX_STACK_LINE(113)
+		HX_STACK_LINE(125)
 		this->list->__Field(HX_CSTRING("sort"),true)(p_method);
-		HX_STACK_LINE(114)
+		HX_STACK_LINE(126)
 		{
-			HX_STACK_LINE(114)
+			HX_STACK_LINE(126)
 			int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-			HX_STACK_LINE(114)
+			HX_STACK_LINE(126)
 			int _g = this->m_length;		HX_STACK_VAR(_g,"_g");
-			HX_STACK_LINE(114)
+			HX_STACK_LINE(126)
 			while((true)){
-				HX_STACK_LINE(114)
+				HX_STACK_LINE(126)
 				if ((!(((_g1 < _g))))){
-					HX_STACK_LINE(114)
+					HX_STACK_LINE(126)
 					break;
 				}
-				HX_STACK_LINE(114)
+				HX_STACK_LINE(126)
 				int i = (_g1)++;		HX_STACK_VAR(i,"i");
-				HX_STACK_LINE(116)
+				HX_STACK_LINE(128)
 				::haxor::core::Resource it = this->list->__GetItem(i);		HX_STACK_VAR(it,"it");
-				HX_STACK_LINE(117)
+				HX_STACK_LINE(129)
 				if (((it != null()))){
-					HX_STACK_LINE(117)
+					HX_STACK_LINE(129)
 					it->__pid[this->__cid] = i;
 				}
 			}
@@ -226,42 +255,42 @@ return null();
 HX_DEFINE_DYNAMIC_FUNC1(Process_obj,Sort,(void))
 
 ::String Process_obj::ToString( ){
-	HX_STACK_FRAME("haxor.context.Process","ToString",0x12128fd6,"haxor.context.Process.ToString","haxor/context/Process.hx",126,0x5f329a1c)
+	HX_STACK_FRAME("haxor.context.Process","ToString",0x12128fd6,"haxor.context.Process.ToString","haxor/context/Process.hx",138,0x5f329a1c)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(127)
+	HX_STACK_LINE(139)
 	::String log = HX_CSTRING("");		HX_STACK_VAR(log,"log");
-	HX_STACK_LINE(128)
+	HX_STACK_LINE(140)
 	{
-		HX_STACK_LINE(128)
+		HX_STACK_LINE(140)
 		int _g1 = (int)0;		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(128)
+		HX_STACK_LINE(140)
 		int _g = this->m_length;		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(128)
+		HX_STACK_LINE(140)
 		while((true)){
-			HX_STACK_LINE(128)
+			HX_STACK_LINE(140)
 			if ((!(((_g1 < _g))))){
-				HX_STACK_LINE(128)
+				HX_STACK_LINE(140)
 				break;
 			}
-			HX_STACK_LINE(128)
+			HX_STACK_LINE(140)
 			int i = (_g1)++;		HX_STACK_VAR(i,"i");
-			HX_STACK_LINE(130)
+			HX_STACK_LINE(142)
 			::haxor::core::Resource it = this->list->__GetItem(i);		HX_STACK_VAR(it,"it");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(143)
 			::String _g2 = it->get_name();		HX_STACK_VAR(_g2,"_g2");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(143)
 			::String _g11 = (HX_CSTRING("[") + _g2);		HX_STACK_VAR(_g11,"_g11");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(143)
 			::String _g21 = (_g11 + HX_CSTRING(","));		HX_STACK_VAR(_g21,"_g21");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(143)
 			::String _g3 = (_g21 + it->__pid->__get(this->__cid));		HX_STACK_VAR(_g3,"_g3");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(143)
 			::String _g4 = (_g3 + HX_CSTRING("]"));		HX_STACK_VAR(_g4,"_g4");
-			HX_STACK_LINE(131)
+			HX_STACK_LINE(143)
 			hx::AddEq(log,_g4);
 		}
 	}
-	HX_STACK_LINE(133)
+	HX_STACK_LINE(145)
 	return log;
 }
 

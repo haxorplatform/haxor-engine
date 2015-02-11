@@ -33,6 +33,9 @@
 #ifndef INCLUDED_haxor_core_IDisposable
 #include <haxor/core/IDisposable.h>
 #endif
+#ifndef INCLUDED_haxor_core_IResizeable
+#include <haxor/core/IResizeable.h>
+#endif
 #ifndef INCLUDED_haxor_core_Resource
 #include <haxor/core/Resource.h>
 #endif
@@ -91,9 +94,9 @@ Dynamic MeshRenderer_obj::__Create(hx::DynamicArray inArgs)
 	return result;}
 
 ::haxor::graphics::mesh::Mesh MeshRenderer_obj::get_mesh( ){
-	HX_STACK_FRAME("haxor.component.MeshRenderer","get_mesh",0x8a77f297,"haxor.component.MeshRenderer.get_mesh","haxor/component/MeshRenderer.hx",35,0x9df8586f)
+	HX_STACK_FRAME("haxor.component.MeshRenderer","get_mesh",0x8a77f297,"haxor.component.MeshRenderer.get_mesh","haxor/component/MeshRenderer.hx",37,0x9df8586f)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(35)
+	HX_STACK_LINE(37)
 	return this->m_mesh;
 }
 
@@ -101,19 +104,19 @@ Dynamic MeshRenderer_obj::__Create(hx::DynamicArray inArgs)
 HX_DEFINE_DYNAMIC_FUNC0(MeshRenderer_obj,get_mesh,return )
 
 ::haxor::graphics::mesh::Mesh MeshRenderer_obj::set_mesh( ::haxor::graphics::mesh::Mesh v){
-	HX_STACK_FRAME("haxor.component.MeshRenderer","set_mesh",0x38d54c0b,"haxor.component.MeshRenderer.set_mesh","haxor/component/MeshRenderer.hx",36,0x9df8586f)
+	HX_STACK_FRAME("haxor.component.MeshRenderer","set_mesh",0x38d54c0b,"haxor.component.MeshRenderer.set_mesh","haxor/component/MeshRenderer.hx",38,0x9df8586f)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(v,"v")
-	HX_STACK_LINE(36)
+	HX_STACK_LINE(38)
 	if (((this->m_mesh == v))){
-		HX_STACK_LINE(36)
+		HX_STACK_LINE(38)
 		return v;
 	}
-	HX_STACK_LINE(36)
+	HX_STACK_LINE(38)
 	this->m_mesh = v;
-	HX_STACK_LINE(36)
+	HX_STACK_LINE(38)
 	this->UpdateWorldBounds();
-	HX_STACK_LINE(36)
+	HX_STACK_LINE(38)
 	return v;
 }
 
@@ -122,94 +125,98 @@ HX_DEFINE_DYNAMIC_FUNC1(MeshRenderer_obj,set_mesh,return )
 
 Void MeshRenderer_obj::OnBuild( ){
 {
-		HX_STACK_FRAME("haxor.component.MeshRenderer","OnBuild",0xf16d736e,"haxor.component.MeshRenderer.OnBuild","haxor/component/MeshRenderer.hx",58,0x9df8586f)
+		HX_STACK_FRAME("haxor.component.MeshRenderer","OnBuild",0xf16d736e,"haxor.component.MeshRenderer.OnBuild","haxor/component/MeshRenderer.hx",65,0x9df8586f)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(59)
+		HX_STACK_LINE(66)
 		this->m_has_mesh = true;
-		HX_STACK_LINE(60)
+		HX_STACK_LINE(67)
 		this->super::OnBuild();
-		HX_STACK_LINE(61)
+		HX_STACK_LINE(68)
 		::haxor::math::Vector3 _g = ::haxor::math::Vector3_obj::__new((int)0,(int)0,(int)0);		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(61)
+		HX_STACK_LINE(68)
 		this->m_ws_center = _g;
-		HX_STACK_LINE(62)
+		HX_STACK_LINE(69)
 		::haxor::math::Vector3 _g1 = ::haxor::math::Vector3_obj::__new((int)0,(int)0,(int)0);		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(62)
+		HX_STACK_LINE(69)
 		this->m_ws_radius = _g1;
-		HX_STACK_LINE(63)
+		HX_STACK_LINE(70)
 		this->m_culling_dirty = false;
+		HX_STACK_LINE(71)
+		::haxor::math::AABB3 _g2 = ::haxor::math::AABB3_obj::get_empty();		HX_STACK_VAR(_g2,"_g2");
+		HX_STACK_LINE(71)
+		this->m_aabb = _g2;
 	}
 return null();
 }
 
 
 bool MeshRenderer_obj::IsVisible( ::haxor::component::Camera p_camera){
-	HX_STACK_FRAME("haxor.component.MeshRenderer","IsVisible",0x9e016547,"haxor.component.MeshRenderer.IsVisible","haxor/component/MeshRenderer.hx",72,0x9df8586f)
+	HX_STACK_FRAME("haxor.component.MeshRenderer","IsVisible",0x9e016547,"haxor.component.MeshRenderer.IsVisible","haxor/component/MeshRenderer.hx",80,0x9df8586f)
 	HX_STACK_THIS(this)
 	HX_STACK_ARG(p_camera,"p_camera")
-	HX_STACK_LINE(73)
+	HX_STACK_LINE(81)
 	::haxor::component::Camera c = p_camera;		HX_STACK_VAR(c,"c");
-	HX_STACK_LINE(74)
+	HX_STACK_LINE(82)
 	if (((c == null()))){
-		HX_STACK_LINE(74)
+		HX_STACK_LINE(82)
 		return false;
 	}
-	HX_STACK_LINE(75)
+	HX_STACK_LINE(83)
 	if (((this->m_mesh == null()))){
-		HX_STACK_LINE(75)
+		HX_STACK_LINE(83)
 		return false;
 	}
 	struct _Function_1_1{
 		inline static ::haxor::math::Vector3 Block( ){
-			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",76,0x9df8586f)
+			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",85,0x9df8586f)
 			{
-				HX_STACK_LINE(76)
+				HX_STACK_LINE(85)
 				::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(76)
+				HX_STACK_LINE(85)
 				int _g = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g,"_g");
-				HX_STACK_LINE(76)
+				HX_STACK_LINE(85)
 				return _this->m_v3->__get(_g).StaticCast< ::haxor::math::Vector3 >();
 			}
 			return null();
 		}
 	};
-	HX_STACK_LINE(76)
+	HX_STACK_LINE(85)
 	::haxor::math::Vector3 _g1 = (_Function_1_1::Block())->Set3(this->m_ws_center);		HX_STACK_VAR(_g1,"_g1");
-	HX_STACK_LINE(76)
+	HX_STACK_LINE(85)
 	::haxor::math::Vector4 _g3;		HX_STACK_VAR(_g3,"_g3");
-	HX_STACK_LINE(76)
+	HX_STACK_LINE(85)
 	{
-		HX_STACK_LINE(76)
+		HX_STACK_LINE(85)
 		::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-		HX_STACK_LINE(76)
+		HX_STACK_LINE(85)
 		int _g2 = _this->m_nv4 = hx::Mod(((_this->m_nv4 + (int)1)),_this->m_v4->length);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(76)
+		HX_STACK_LINE(85)
 		_g3 = _this->m_v4->__get(_g2).StaticCast< ::haxor::math::Vector4 >();
 	}
-	HX_STACK_LINE(76)
+	HX_STACK_LINE(85)
 	::haxor::math::Vector4 ps_center = c->WorldToProjection(_g1,_g3);		HX_STACK_VAR(ps_center,"ps_center");
-	HX_STACK_LINE(77)
+	HX_STACK_LINE(86)
 	Float w = ps_center->w;		HX_STACK_VAR(w,"w");
-	HX_STACK_LINE(78)
+	HX_STACK_LINE(87)
 	::haxor::math::Vector4 p = ps_center;		HX_STACK_VAR(p,"p");
-	HX_STACK_LINE(80)
+	HX_STACK_LINE(89)
 	if (((w <= 0.0))){
-		HX_STACK_LINE(80)
+		HX_STACK_LINE(89)
 		return false;
 	}
-	HX_STACK_LINE(83)
+	HX_STACK_LINE(92)
 	if (((p->x >= -(w)))){
-		HX_STACK_LINE(84)
+		HX_STACK_LINE(93)
 		if (((p->x <= w))){
-			HX_STACK_LINE(85)
+			HX_STACK_LINE(94)
 			if (((p->y >= -(w)))){
-				HX_STACK_LINE(86)
+				HX_STACK_LINE(95)
 				if (((p->y <= w))){
-					HX_STACK_LINE(87)
+					HX_STACK_LINE(96)
 					if (((p->z >= -(w)))){
-						HX_STACK_LINE(88)
+						HX_STACK_LINE(97)
 						if (((p->z <= w))){
-							HX_STACK_LINE(88)
+							HX_STACK_LINE(97)
 							return true;
 						}
 					}
@@ -219,48 +226,48 @@ bool MeshRenderer_obj::IsVisible( ::haxor::component::Camera p_camera){
 	}
 	struct _Function_1_2{
 		inline static ::haxor::math::Vector3 Block( ){
-			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",90,0x9df8586f)
+			HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",99,0x9df8586f)
 			{
-				HX_STACK_LINE(90)
+				HX_STACK_LINE(99)
 				::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(90)
+				HX_STACK_LINE(99)
 				int _g4 = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g4,"_g4");
-				HX_STACK_LINE(90)
+				HX_STACK_LINE(99)
 				return _this->m_v3->__get(_g4).StaticCast< ::haxor::math::Vector3 >();
 			}
 			return null();
 		}
 	};
-	HX_STACK_LINE(90)
+	HX_STACK_LINE(99)
 	::haxor::math::Vector3 _g5 = (_Function_1_2::Block())->Set3(this->m_ws_radius);		HX_STACK_VAR(_g5,"_g5");
-	HX_STACK_LINE(90)
+	HX_STACK_LINE(99)
 	::haxor::math::Vector4 _g7;		HX_STACK_VAR(_g7,"_g7");
-	HX_STACK_LINE(90)
+	HX_STACK_LINE(99)
 	{
-		HX_STACK_LINE(90)
+		HX_STACK_LINE(99)
 		::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-		HX_STACK_LINE(90)
+		HX_STACK_LINE(99)
 		int _g6 = _this->m_nv4 = hx::Mod(((_this->m_nv4 + (int)1)),_this->m_v4->length);		HX_STACK_VAR(_g6,"_g6");
-		HX_STACK_LINE(90)
+		HX_STACK_LINE(99)
 		_g7 = _this->m_v4->__get(_g6).StaticCast< ::haxor::math::Vector4 >();
 	}
-	HX_STACK_LINE(90)
+	HX_STACK_LINE(99)
 	::haxor::math::Vector4 v = c->WorldToProjection(_g5,_g7);		HX_STACK_VAR(v,"v");
-	HX_STACK_LINE(91)
+	HX_STACK_LINE(100)
 	Float r = ::Math_obj::sqrt(((((v->x * v->x) + (v->y * v->y)) + (v->z * v->z)) + (v->w * v->w)));		HX_STACK_VAR(r,"r");
-	HX_STACK_LINE(93)
+	HX_STACK_LINE(102)
 	if ((((p->x + r) >= -(w)))){
-		HX_STACK_LINE(94)
+		HX_STACK_LINE(103)
 		if ((((p->x - r) <= w))){
-			HX_STACK_LINE(95)
+			HX_STACK_LINE(104)
 			if ((((p->y + r) >= -(w)))){
-				HX_STACK_LINE(96)
+				HX_STACK_LINE(105)
 				if ((((p->y - r) <= w))){
-					HX_STACK_LINE(97)
+					HX_STACK_LINE(106)
 					if ((((p->z + r) >= -(w)))){
-						HX_STACK_LINE(98)
+						HX_STACK_LINE(107)
 						if ((((p->z - r) <= w))){
-							HX_STACK_LINE(98)
+							HX_STACK_LINE(107)
 							return true;
 						}
 					}
@@ -268,7 +275,7 @@ bool MeshRenderer_obj::IsVisible( ::haxor::component::Camera p_camera){
 			}
 		}
 	}
-	HX_STACK_LINE(100)
+	HX_STACK_LINE(109)
 	return false;
 }
 
@@ -276,38 +283,39 @@ bool MeshRenderer_obj::IsVisible( ::haxor::component::Camera p_camera){
 HX_DEFINE_DYNAMIC_FUNC1(MeshRenderer_obj,IsVisible,return )
 
 bool MeshRenderer_obj::CheckCulling( ){
-	HX_STACK_FRAME("haxor.component.MeshRenderer","CheckCulling",0x30b87849,"haxor.component.MeshRenderer.CheckCulling","haxor/component/MeshRenderer.hx",108,0x9df8586f)
+	HX_STACK_FRAME("haxor.component.MeshRenderer","CheckCulling",0x30b87849,"haxor.component.MeshRenderer.CheckCulling","haxor/component/MeshRenderer.hx",117,0x9df8586f)
 	HX_STACK_THIS(this)
-	HX_STACK_LINE(109)
+	HX_STACK_LINE(118)
 	::haxor::component::Camera c = ::haxor::component::Camera_obj::m_current;		HX_STACK_VAR(c,"c");
-	HX_STACK_LINE(110)
+	HX_STACK_LINE(119)
 	if (((c == null()))){
-		HX_STACK_LINE(110)
+		HX_STACK_LINE(119)
 		return this->m_culled;
 	}
-	HX_STACK_LINE(112)
+	HX_STACK_LINE(121)
 	if ((!(c->m_view_uniform_dirty))){
-		HX_STACK_LINE(113)
+		HX_STACK_LINE(122)
 		if ((!(c->m_proj_uniform_dirty))){
-			HX_STACK_LINE(114)
+			HX_STACK_LINE(123)
 			if ((!(this->m_culling_dirty))){
-				HX_STACK_LINE(114)
+				HX_STACK_LINE(123)
 				return this->m_culled;
 			}
 		}
 	}
-	HX_STACK_LINE(115)
+	HX_STACK_LINE(124)
 	this->UpdateWorldBounds();
-	HX_STACK_LINE(116)
+	HX_STACK_LINE(125)
 	return !(this->IsVisible(c));
 }
 
 
-Void MeshRenderer_obj::OnTransformUpdate( ){
+Void MeshRenderer_obj::OnTransformUpdate( bool p_hierarchy){
 {
-		HX_STACK_FRAME("haxor.component.MeshRenderer","OnTransformUpdate",0x36a668d5,"haxor.component.MeshRenderer.OnTransformUpdate","haxor/component/MeshRenderer.hx",124,0x9df8586f)
+		HX_STACK_FRAME("haxor.component.MeshRenderer","OnTransformUpdate",0x36a668d5,"haxor.component.MeshRenderer.OnTransformUpdate","haxor/component/MeshRenderer.hx",133,0x9df8586f)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(124)
+		HX_STACK_ARG(p_hierarchy,"p_hierarchy")
+		HX_STACK_LINE(133)
 		this->m_culling_dirty = true;
 	}
 return null();
@@ -316,52 +324,52 @@ return null();
 
 Void MeshRenderer_obj::UpdateWorldBounds( ){
 {
-		HX_STACK_FRAME("haxor.component.MeshRenderer","UpdateWorldBounds",0x4b4a6d7d,"haxor.component.MeshRenderer.UpdateWorldBounds","haxor/component/MeshRenderer.hx",133,0x9df8586f)
+		HX_STACK_FRAME("haxor.component.MeshRenderer","UpdateWorldBounds",0x4b4a6d7d,"haxor.component.MeshRenderer.UpdateWorldBounds","haxor/component/MeshRenderer.hx",142,0x9df8586f)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(133)
+		HX_STACK_LINE(142)
 		if (((this->m_mesh != null()))){
-			HX_STACK_LINE(136)
+			HX_STACK_LINE(146)
 			::haxor::math::AABB3_obj::Center(this->m_mesh->m_bounds,this->m_ws_center);
-			HX_STACK_LINE(137)
+			HX_STACK_LINE(148)
 			{
-				HX_STACK_LINE(137)
+				HX_STACK_LINE(148)
 				::haxor::math::Matrix4 _this = this->m_entity->m_transform->get_WorldMatrix();		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(137)
+				HX_STACK_LINE(148)
 				::haxor::math::Vector3 p_point = this->m_ws_center;		HX_STACK_VAR(p_point,"p_point");
-				HX_STACK_LINE(137)
+				HX_STACK_LINE(148)
 				Float vx = ((((_this->m00 * p_point->x) + (_this->m01 * p_point->y)) + (_this->m02 * p_point->z)) + _this->m03);		HX_STACK_VAR(vx,"vx");
-				HX_STACK_LINE(137)
+				HX_STACK_LINE(148)
 				Float vy = ((((_this->m10 * p_point->x) + (_this->m11 * p_point->y)) + (_this->m12 * p_point->z)) + _this->m13);		HX_STACK_VAR(vy,"vy");
-				HX_STACK_LINE(137)
+				HX_STACK_LINE(148)
 				Float vz = ((((_this->m20 * p_point->x) + (_this->m21 * p_point->y)) + (_this->m22 * p_point->z)) + _this->m23);		HX_STACK_VAR(vz,"vz");
-				HX_STACK_LINE(137)
+				HX_STACK_LINE(148)
 				p_point->x = vx;
-				HX_STACK_LINE(137)
+				HX_STACK_LINE(148)
 				p_point->y = vy;
-				HX_STACK_LINE(137)
+				HX_STACK_LINE(148)
 				p_point->z = vz;
-				HX_STACK_LINE(137)
+				HX_STACK_LINE(148)
 				p_point;
 			}
 			struct _Function_2_1{
 				inline static Float Block( hx::ObjectPtr< ::haxor::component::MeshRenderer_obj > __this){
-					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",140,0x9df8586f)
+					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",151,0x9df8586f)
 					{
-						HX_STACK_LINE(140)
+						HX_STACK_LINE(151)
 						::haxor::math::AABB3 _this = __this->m_mesh->m_bounds;		HX_STACK_VAR(_this,"_this");
 						struct _Function_3_1{
 							inline static Float Block( ::haxor::math::AABB3 _this){
-								HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",140,0x9df8586f)
+								HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",151,0x9df8586f)
 								{
-									HX_STACK_LINE(140)
+									HX_STACK_LINE(151)
 									Float p_a = (_this->m_xMax - _this->m_xMin);		HX_STACK_VAR(p_a,"p_a");
-									HX_STACK_LINE(140)
+									HX_STACK_LINE(151)
 									return (  (((p_a < (int)0))) ? Float(-(p_a)) : Float(p_a) );
 								}
 								return null();
 							}
 						};
-						HX_STACK_LINE(140)
+						HX_STACK_LINE(151)
 						return _Function_3_1::Block(_this);
 					}
 					return null();
@@ -369,23 +377,23 @@ Void MeshRenderer_obj::UpdateWorldBounds( ){
 			};
 			struct _Function_2_2{
 				inline static Float Block( hx::ObjectPtr< ::haxor::component::MeshRenderer_obj > __this){
-					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",140,0x9df8586f)
+					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",151,0x9df8586f)
 					{
-						HX_STACK_LINE(140)
+						HX_STACK_LINE(151)
 						::haxor::math::AABB3 _this = __this->m_mesh->m_bounds;		HX_STACK_VAR(_this,"_this");
 						struct _Function_3_1{
 							inline static Float Block( ::haxor::math::AABB3 _this){
-								HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",140,0x9df8586f)
+								HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",151,0x9df8586f)
 								{
-									HX_STACK_LINE(140)
+									HX_STACK_LINE(151)
 									Float p_a = (_this->m_yMax - _this->m_yMin);		HX_STACK_VAR(p_a,"p_a");
-									HX_STACK_LINE(140)
+									HX_STACK_LINE(151)
 									return (  (((p_a < (int)0))) ? Float(-(p_a)) : Float(p_a) );
 								}
 								return null();
 							}
 						};
-						HX_STACK_LINE(140)
+						HX_STACK_LINE(151)
 						return _Function_3_1::Block(_this);
 					}
 					return null();
@@ -393,89 +401,93 @@ Void MeshRenderer_obj::UpdateWorldBounds( ){
 			};
 			struct _Function_2_3{
 				inline static Float Block( hx::ObjectPtr< ::haxor::component::MeshRenderer_obj > __this){
-					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",140,0x9df8586f)
+					HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",151,0x9df8586f)
 					{
-						HX_STACK_LINE(140)
+						HX_STACK_LINE(151)
 						::haxor::math::AABB3 _this = __this->m_mesh->m_bounds;		HX_STACK_VAR(_this,"_this");
 						struct _Function_3_1{
 							inline static Float Block( ::haxor::math::AABB3 _this){
-								HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",140,0x9df8586f)
+								HX_STACK_FRAME("*","closure",0x5bdab937,"*.closure","haxor/component/MeshRenderer.hx",151,0x9df8586f)
 								{
-									HX_STACK_LINE(140)
+									HX_STACK_LINE(151)
 									Float p_a = (_this->m_zMax - _this->m_zMin);		HX_STACK_VAR(p_a,"p_a");
-									HX_STACK_LINE(140)
+									HX_STACK_LINE(151)
 									return (  (((p_a < (int)0))) ? Float(-(p_a)) : Float(p_a) );
 								}
 								return null();
 							}
 						};
-						HX_STACK_LINE(140)
+						HX_STACK_LINE(151)
 						return _Function_3_1::Block(_this);
 					}
 					return null();
 				}
 			};
-			HX_STACK_LINE(140)
+			HX_STACK_LINE(151)
 			this->m_ws_radius->Set(_Function_2_1::Block(this),_Function_2_2::Block(this),_Function_2_3::Block(this));
-			HX_STACK_LINE(141)
+			HX_STACK_LINE(152)
 			{
-				HX_STACK_LINE(141)
+				HX_STACK_LINE(152)
 				::haxor::math::Matrix4 _this = this->m_entity->m_transform->get_WorldMatrix();		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(141)
+				HX_STACK_LINE(152)
 				::haxor::math::Vector3 p_point = this->m_ws_radius;		HX_STACK_VAR(p_point,"p_point");
-				HX_STACK_LINE(141)
+				HX_STACK_LINE(152)
 				Float vx = (((_this->m00 * p_point->x) + (_this->m01 * p_point->y)) + (_this->m02 * p_point->z));		HX_STACK_VAR(vx,"vx");
-				HX_STACK_LINE(141)
+				HX_STACK_LINE(152)
 				Float vy = (((_this->m10 * p_point->x) + (_this->m11 * p_point->y)) + (_this->m12 * p_point->z));		HX_STACK_VAR(vy,"vy");
-				HX_STACK_LINE(141)
+				HX_STACK_LINE(152)
 				Float vz = (((_this->m20 * p_point->x) + (_this->m21 * p_point->y)) + (_this->m22 * p_point->z));		HX_STACK_VAR(vz,"vz");
-				HX_STACK_LINE(141)
+				HX_STACK_LINE(152)
 				p_point->x = vx;
-				HX_STACK_LINE(141)
+				HX_STACK_LINE(152)
 				p_point->y = vy;
-				HX_STACK_LINE(141)
+				HX_STACK_LINE(152)
 				p_point->z = vz;
-				HX_STACK_LINE(141)
+				HX_STACK_LINE(152)
 				p_point;
 			}
-			HX_STACK_LINE(143)
-			Float r;		HX_STACK_VAR(r,"r");
-			HX_STACK_LINE(143)
+			HX_STACK_LINE(154)
+			Float _g;		HX_STACK_VAR(_g,"_g");
+			HX_STACK_LINE(154)
 			{
-				HX_STACK_LINE(143)
+				HX_STACK_LINE(154)
 				::haxor::math::Vector3 _this = this->m_ws_radius;		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(143)
-				r = ::Math_obj::sqrt((((_this->x * _this->x) + (_this->y * _this->y)) + (_this->z * _this->z)));
+				HX_STACK_LINE(154)
+				_g = ::Math_obj::sqrt((((_this->x * _this->x) + (_this->y * _this->y)) + (_this->z * _this->z)));
 			}
-			HX_STACK_LINE(144)
+			HX_STACK_LINE(154)
+			Float r = (_g * 0.5);		HX_STACK_VAR(r,"r");
+			HX_STACK_LINE(155)
 			::haxor::math::Vector3 pmin;		HX_STACK_VAR(pmin,"pmin");
-			HX_STACK_LINE(144)
+			HX_STACK_LINE(155)
 			{
-				HX_STACK_LINE(144)
+				HX_STACK_LINE(155)
 				::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(144)
-				int _g = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g,"_g");
-				HX_STACK_LINE(144)
-				pmin = _this->m_v3->__get(_g).StaticCast< ::haxor::math::Vector3 >();
-			}
-			HX_STACK_LINE(145)
-			::haxor::math::Vector3 pmax;		HX_STACK_VAR(pmax,"pmax");
-			HX_STACK_LINE(145)
-			{
-				HX_STACK_LINE(145)
-				::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
-				HX_STACK_LINE(145)
+				HX_STACK_LINE(155)
 				int _g1 = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g1,"_g1");
-				HX_STACK_LINE(145)
-				pmax = _this->m_v3->__get(_g1).StaticCast< ::haxor::math::Vector3 >();
+				HX_STACK_LINE(155)
+				pmin = _this->m_v3->__get(_g1).StaticCast< ::haxor::math::Vector3 >();
 			}
-			HX_STACK_LINE(146)
+			HX_STACK_LINE(156)
+			::haxor::math::Vector3 pmax;		HX_STACK_VAR(pmax,"pmax");
+			HX_STACK_LINE(156)
+			{
+				HX_STACK_LINE(156)
+				::haxor::context::DataContext _this = ::haxor::context::EngineContext_obj::data;		HX_STACK_VAR(_this,"_this");
+				HX_STACK_LINE(156)
+				int _g2 = _this->m_nv3 = hx::Mod(((_this->m_nv3 + (int)1)),_this->m_v3->length);		HX_STACK_VAR(_g2,"_g2");
+				HX_STACK_LINE(156)
+				pmax = _this->m_v3->__get(_g2).StaticCast< ::haxor::math::Vector3 >();
+			}
+			HX_STACK_LINE(157)
 			pmin->Set((this->m_ws_center->x - r),(this->m_ws_center->y - r),(this->m_ws_center->z - r));
-			HX_STACK_LINE(147)
+			HX_STACK_LINE(158)
 			pmax->Set((this->m_ws_center->x + r),(this->m_ws_center->y + r),(this->m_ws_center->z + r));
-			HX_STACK_LINE(148)
+			HX_STACK_LINE(159)
+			this->m_aabb->Set3(pmin,pmax);
+			HX_STACK_LINE(160)
 			::haxor::context::EngineContext_obj::renderer->UpdateSAP(this->__fcid,hx::ObjectPtr<OBJ_>(this),pmin,pmax);
-			HX_STACK_LINE(149)
+			HX_STACK_LINE(162)
 			this->m_culling_dirty = false;
 		}
 	}
@@ -487,21 +499,25 @@ HX_DEFINE_DYNAMIC_FUNC0(MeshRenderer_obj,UpdateWorldBounds,(void))
 
 Void MeshRenderer_obj::OnRender( ){
 {
-		HX_STACK_FRAME("haxor.component.MeshRenderer","OnRender",0x80ec0b16,"haxor.component.MeshRenderer.OnRender","haxor/component/MeshRenderer.hx",157,0x9df8586f)
+		HX_STACK_FRAME("haxor.component.MeshRenderer","OnRender",0x80ec0b16,"haxor.component.MeshRenderer.OnRender","haxor/component/MeshRenderer.hx",170,0x9df8586f)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(158)
+		HX_STACK_LINE(171)
 		this->super::OnRender();
-		HX_STACK_LINE(159)
+		HX_STACK_LINE(172)
 		if (((this->m_mesh == null()))){
-			HX_STACK_LINE(159)
+			HX_STACK_LINE(172)
 			return null();
 		}
-		HX_STACK_LINE(162)
+		HX_STACK_LINE(174)
+		::haxor::component::MeshRenderer_obj::current = hx::ObjectPtr<OBJ_>(this);
+		HX_STACK_LINE(176)
 		::haxor::graphics::Graphics_obj::Render(this->m_mesh,this->m_material,this->m_entity->m_transform,::haxor::component::Camera_obj::m_current);
 	}
 return null();
 }
 
+
+::haxor::component::MeshRenderer MeshRenderer_obj::current;
 
 
 MeshRenderer_obj::MeshRenderer_obj()
@@ -515,6 +531,7 @@ void MeshRenderer_obj::__Mark(HX_MARK_PARAMS)
 	HX_MARK_MEMBER_NAME(m_mesh,"m_mesh");
 	HX_MARK_MEMBER_NAME(m_ws_center,"m_ws_center");
 	HX_MARK_MEMBER_NAME(m_ws_radius,"m_ws_radius");
+	HX_MARK_MEMBER_NAME(m_aabb,"m_aabb");
 	HX_MARK_MEMBER_NAME(m_culling_dirty,"m_culling_dirty");
 	::haxor::component::Renderer_obj::__Mark(HX_MARK_ARG);
 	HX_MARK_END_CLASS();
@@ -526,6 +543,7 @@ void MeshRenderer_obj::__Visit(HX_VISIT_PARAMS)
 	HX_VISIT_MEMBER_NAME(m_mesh,"m_mesh");
 	HX_VISIT_MEMBER_NAME(m_ws_center,"m_ws_center");
 	HX_VISIT_MEMBER_NAME(m_ws_radius,"m_ws_radius");
+	HX_VISIT_MEMBER_NAME(m_aabb,"m_aabb");
 	HX_VISIT_MEMBER_NAME(m_culling_dirty,"m_culling_dirty");
 	::haxor::component::Renderer_obj::__Visit(HX_VISIT_ARG);
 }
@@ -539,8 +557,10 @@ Dynamic MeshRenderer_obj::__Field(const ::String &inName,bool inCallProp)
 	case 6:
 		if (HX_FIELD_EQ(inName,"__fcid") ) { return __fcid; }
 		if (HX_FIELD_EQ(inName,"m_mesh") ) { return m_mesh; }
+		if (HX_FIELD_EQ(inName,"m_aabb") ) { return m_aabb; }
 		break;
 	case 7:
+		if (HX_FIELD_EQ(inName,"current") ) { return current; }
 		if (HX_FIELD_EQ(inName,"OnBuild") ) { return OnBuild_dyn(); }
 		break;
 	case 8:
@@ -577,6 +597,10 @@ Dynamic MeshRenderer_obj::__SetField(const ::String &inName,const Dynamic &inVal
 	case 6:
 		if (HX_FIELD_EQ(inName,"__fcid") ) { __fcid=inValue.Cast< int >(); return inValue; }
 		if (HX_FIELD_EQ(inName,"m_mesh") ) { m_mesh=inValue.Cast< ::haxor::graphics::mesh::Mesh >(); return inValue; }
+		if (HX_FIELD_EQ(inName,"m_aabb") ) { m_aabb=inValue.Cast< ::haxor::math::AABB3 >(); return inValue; }
+		break;
+	case 7:
+		if (HX_FIELD_EQ(inName,"current") ) { current=inValue.Cast< ::haxor::component::MeshRenderer >(); return inValue; }
 		break;
 	case 11:
 		if (HX_FIELD_EQ(inName,"m_ws_center") ) { m_ws_center=inValue.Cast< ::haxor::math::Vector3 >(); return inValue; }
@@ -595,11 +619,13 @@ void MeshRenderer_obj::__GetFields(Array< ::String> &outFields)
 	outFields->push(HX_CSTRING("m_mesh"));
 	outFields->push(HX_CSTRING("m_ws_center"));
 	outFields->push(HX_CSTRING("m_ws_radius"));
+	outFields->push(HX_CSTRING("m_aabb"));
 	outFields->push(HX_CSTRING("m_culling_dirty"));
 	super::__GetFields(outFields);
 };
 
 static ::String sStaticFields[] = {
+	HX_CSTRING("current"),
 	String(null()) };
 
 #if HXCPP_SCRIPTABLE
@@ -608,6 +634,7 @@ static hx::StorageInfo sMemberStorageInfo[] = {
 	{hx::fsObject /*::haxor::graphics::mesh::Mesh*/ ,(int)offsetof(MeshRenderer_obj,m_mesh),HX_CSTRING("m_mesh")},
 	{hx::fsObject /*::haxor::math::Vector3*/ ,(int)offsetof(MeshRenderer_obj,m_ws_center),HX_CSTRING("m_ws_center")},
 	{hx::fsObject /*::haxor::math::Vector3*/ ,(int)offsetof(MeshRenderer_obj,m_ws_radius),HX_CSTRING("m_ws_radius")},
+	{hx::fsObject /*::haxor::math::AABB3*/ ,(int)offsetof(MeshRenderer_obj,m_aabb),HX_CSTRING("m_aabb")},
 	{hx::fsBool,(int)offsetof(MeshRenderer_obj,m_culling_dirty),HX_CSTRING("m_culling_dirty")},
 	{ hx::fsUnknown, 0, null()}
 };
@@ -620,6 +647,7 @@ static ::String sMemberFields[] = {
 	HX_CSTRING("m_mesh"),
 	HX_CSTRING("m_ws_center"),
 	HX_CSTRING("m_ws_radius"),
+	HX_CSTRING("m_aabb"),
 	HX_CSTRING("m_culling_dirty"),
 	HX_CSTRING("OnBuild"),
 	HX_CSTRING("IsVisible"),
@@ -631,11 +659,13 @@ static ::String sMemberFields[] = {
 
 static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(MeshRenderer_obj::__mClass,"__mClass");
+	HX_MARK_MEMBER_NAME(MeshRenderer_obj::current,"current");
 };
 
 #ifdef HXCPP_VISIT_ALLOCS
 static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(MeshRenderer_obj::__mClass,"__mClass");
+	HX_VISIT_MEMBER_NAME(MeshRenderer_obj::current,"current");
 };
 
 #endif

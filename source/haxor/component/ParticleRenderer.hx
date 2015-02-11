@@ -1,12 +1,18 @@
 package haxor.component;
+import haxor.core.Entity;
 import haxor.core.Enums.AnimationWrap;
 import haxor.core.IUpdateable;
+import haxor.core.Resource;
+import haxor.core.Time;
 import haxor.graphics.mesh.MeshLayout.Mesh3;
 import haxor.graphics.texture.Texture;
 import haxor.graphics.texture.Texture2D;
 import haxor.math.AABB3;
+import haxor.math.Color;
+import haxor.math.Mathf;
 import haxor.math.Vector3;
 import haxor.platform.Types.Float32;
+import haxor.thread.ParticleKernel;
 
 
 class ParticleAttribute<T>
@@ -192,12 +198,11 @@ class ParticleRenderer extends MeshRenderer implements IUpdateable
 	private var m_state 	: ParticleSystemState;	
 	private var m_kernel 	: ParticleKernel;
 	
-	function new(p_entity : Entity) 
+	override function OnBuild():Void 
 	{
-		m_particles		 = new Mesh3();
-		m_particles.name = "ParticleMesh" + id;
-		m_mesh 			 = m_particles;
-		m_mesh.bounds	 = AABB3.FromCenter(0, 0, 0, 1, 1, 1);
+		super.OnBuild();
+		
+		
 		
 		m_state 		 = ParticleSystemState.Reset;
 		m_kernel 		 = new ParticleKernel(this);
@@ -224,32 +229,41 @@ class ParticleRenderer extends MeshRenderer implements IUpdateable
 		rate			 = new ParticleAttribute<Float>(1.0, 1.0);
 		
 		force			 = new Vector3();
-		
-		super(p_entity);	
-		
 	}
 	
-	
-	public function Emit(p_emit_count : Float=1.0):Void
+	/**
+	 * 
+	 * @param	p_emit_count
+	 */
+	public function Emit(p_emit_count : Float32=1.0):Void
 	{
-		var remain  : Float = count - emitted;
-		var c 		: Float = Mathf.Min([p_emit_count, remain]);
-		var d		: Float = p_emit_count - c;				
+		var remain  : Float32 = count - emitted;
+		var c 		: Float32 = Mathf.Min(p_emit_count, remain);
+		var d		: Float32 = p_emit_count - c;				
 		if (loop) m_emitted_start += d;			
 		m_emitted_count += c;				
 		m_playing = true;
 	}
 	
+	/**
+	 * 
+	 */
 	public function Play():Void
 	{	
 		m_playing = true;
 	}
 	
+	/**
+	 * 
+	 */
 	public function Pause():Void
 	{		
 		m_playing = false;
 	}
 	
+	/**
+	 * 
+	 */
 	public function Reset():Void
 	{		
 		//m_state   = ParticleSystemState.Reset;
@@ -277,25 +291,25 @@ class ParticleRenderer extends MeshRenderer implements IUpdateable
 			
 				
 			case ParticleSystemState.Reset:
-				m_kernel.Execute();
+				//m_kernel.Execute();
 				m_state = m_playing ? ParticleSystemState.Update : ParticleSystemState.None;
 						
 			case ParticleSystemState.Update:
 				
 				if (!m_playing) { m_state = ParticleSystemState.None; return; }
 				
-				m_kernel.Execute();
+				//m_kernel.Execute();
 				
-				var max_life : Float = Mathf.Max([start.life.start, start.life.end]);
+				var max_life : Float32 = Mathf.Max(start.life.start, start.life.end);
 				if (elapsed >= (duration+max_life)) if(!loop) return;
-				var dt : Float = Time.deltaTime;
-				var r  : Float = Mathf.Clamp01(elapsed / duration);
+				var dt : Float32 = Time.delta;
+				var r  : Float32 = Mathf.Clamp01(duration<=0.0 ? 0.0 : (elapsed / duration));
 				
 				
 				elapsed += dt;
 				if (elapsed >= (duration+max_life)) elapsed = (duration+max_life);
 				
-				var er : Float = dt * Mathf.Lerp(rate.start,rate.end,rate.random ? Math.random() : Mathf.Pow(r,rate.curve));		
+				var er : Float32 = dt * Mathf.Lerp(rate.start,rate.end,rate.random ? Math.random() : Mathf.Pow(r,rate.curve));		
 				Emit(er);
 				
 				//if((Time.frame % 30)==0) trace(m_emitted_start + " " + m_emitted_count);
@@ -322,36 +336,31 @@ class ParticleRenderer extends MeshRenderer implements IUpdateable
 		//*/
 	}
 	
-	/**
-	 * 
-	 */
-	override public function OnRender() : Void 
-	{			
-		
-		//trace(">> "+name);
-		//Graphics.RenderTexture(m_kernel.m_back, 0, Screen.height-512-10, 512, 512);
-		
-		//if(m_playing)m_kernel.Execute();
-		
-		super.OnRender();		
-		
-	}
-	
 	private function UpdateMesh():Void
 	{
-		m_particles.Clear();
+		if (m_particles != null) Resource.Destroy(m_particles);
+		m_particles		   = new Mesh3();
+		m_particles.name   = "ParticleMesh" + uid;
+		m_particles.bounds = AABB3.FromCenter(0, 0, 0, 1, 1, 1);
+		
+		mesh = m_particles;
+		
 		var vl : Array<Vector3> = [];						
-		var cl : Array<Color>   = [];
+		
+		var s : Float32 = 0.5;
 		var plane : Array<Vector3> = 
 		[
-			new Vector3(-0.5,  0.5, 0),
-			new Vector3(-0.5, -0.5, 0),						
-			new Vector3( 0.5, -0.5, 0),			
-			new Vector3(-0.5,  0.5, 0),
-			new Vector3( 0.5, -0.5, 0),			
-			new Vector3( 0.5,  0.5, 0)			
-		];		
-		var wc:Color = Color.white;
+			new Vector3(-s,  s, 0),
+			new Vector3(-s, -s, 0),						
+			new Vector3( s, -s, 0),			
+			new Vector3(-s,  s, 0),
+			new Vector3( s, -s, 0),			
+			new Vector3( s,  s, 0)			
+		];	
+		
+		//var cl : Array<Color>   = [];
+		//var wc:Color = Color.white;
+		
 		for (i in 0...count)
 		{
 			for (j in 0...plane.length)
@@ -359,11 +368,12 @@ class ParticleRenderer extends MeshRenderer implements IUpdateable
 				var v : Vector3 = plane[j].clone; 
 				v.z = i;
 				vl.push(v);
-				cl.push(wc);
+				//cl.push(wc);
 			}
 		}
+		//*/
 		m_particles.vertex = vl;
-		m_particles.color  = cl;
+		//m_particles.color  = cl;
 		
 	}
 	
@@ -381,13 +391,13 @@ class ParticleEmitter
 	private function get_random():Bool { return m_data[2] > 0.0; }
 	private function set_random(v:Bool):Bool { m_data[2] = v ? 1.0 : 0.0; return v; }
 	
-	public var ranges : Array<Float>;
+	public var ranges : Array<Float32>;
 	
-	private var m_data : Float32Array;
+	private var m_data : Array<Float32>;
 	
 	public function new()
 	{
-		m_data = new Float32Array(7);
+		m_data = [0, 0, 0, 0, 0, 0, 0];
 		surface = false;
 		random  = false;
 		ranges  = [ -1000, 1000, -1000, 1000, -1000, 1000];

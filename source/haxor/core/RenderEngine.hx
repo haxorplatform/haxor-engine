@@ -36,6 +36,8 @@ class RenderEngine
 			var c : Camera = Camera.m_current = cl[i];			
 			RenderCamera(c);
 		}
+		
+		
 	}
 	
 	/**
@@ -53,8 +55,7 @@ class RenderEngine
 			RenderCameraLayer(l, c);
 		}		
 		
-		//Filters			
-		
+		//Filters
 		if (c == Camera.main)
 		{
 			EngineContext.gizmo.Render();
@@ -127,9 +128,11 @@ class RenderEngine
 		{
 			cl[i].m_view_uniform_dirty = false;
 			cl[i].m_proj_uniform_dirty = false;
-		}
-		
+		}		
 		EngineContext.renderer.sap_dirty = false;
+		
+		EngineContext.kernel.Execute();
+		
 	}
 	
 	/**

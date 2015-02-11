@@ -63,6 +63,11 @@ class HXCPP_CLASS_ATTRIBUTES  Shader_obj : public ::haxor::core::Resource_obj{
 		static Dynamic get_FlatTextureSkin_dyn();
 
 		static ::haxor::graphics::material::Shader m_flat_texture_skin_shader;
+		static ::haxor::graphics::material::Shader FlatParticle;
+		static ::haxor::graphics::material::Shader get_FlatParticle( );
+		static Dynamic get_FlatParticle_dyn();
+
+		static ::haxor::graphics::material::Shader m_flat_particle_shader;
 };
 
 } // end namespace haxor
