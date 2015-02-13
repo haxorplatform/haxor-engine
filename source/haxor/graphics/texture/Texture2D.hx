@@ -22,6 +22,7 @@ class Texture2D extends Texture
 		if (m_random != null) return m_random;		
 		m_random = new Texture2D(128, 128, PixelFormat.Float4);
 		m_random.name = "Random";		
+		m_random.wrap = TextureWrap.RepeatX | TextureWrap.RepeatY | TextureWrap.RepeatZ;
 		var f32 : FloatArray = cast m_random.data.buffer;
 		for (i in 0...f32.length) f32.Set(i, Math.random());
 		m_random.Upload(10);
@@ -133,7 +134,7 @@ class Texture2D extends Texture
 		m_height = p_height;
 		if (p_width <= 0)  return;
 		if (p_height <= 0) return;
-		m_data 	 = new Bitmap(p_width, p_height, p_format);
+		m_data 	 = new Bitmap(p_width, p_height, p_format);		
 		EngineContext.texture.Create(this);
 	}
 	

@@ -78,6 +78,8 @@ class ShaderContext
 		
 		#define SKINNING_TEXTURE_SIZE 2048.0
 		#define BINDS_OFFSET		  1024.0
+		#define MAX_BONES			  64
+		#define BONE_TEXTURE		  true
 		
 		uniform mat4  WorldMatrix;
 		uniform mat4  WorldMatrixIT;
@@ -85,7 +87,9 @@ class ShaderContext
 		uniform mat4  ProjectionMatrix;
 		uniform vec3  WSCameraPosition;		
 		
-		//uniform vec4  Skinning[MAX_BONES];
+		uniform vec4  Joints[MAX_BONES];
+		uniform vec4  Binds[MAX_BONES];
+		
 		
 		uniform sampler2D Skinning;
 		
@@ -111,15 +115,20 @@ class ShaderContext
 		{
 			vec4 l0, l1, l2;						
 			l0 = SkinningRead(b+o); l1 = SkinningRead(b+1.0+o); l2 = SkinningRead(b+2.0+o);
-			return mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);			
+			return mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);						
 		}
+		
+		mat4 GetJointMatrix(const float b0,const float b1,const float b2) { return mat4(Joints[int(b0)],Joints[int(b1)],Joints[int(b2)],vec4(0,0,0,1)); }
+		mat4 GetBindMatrix(const float b0,const float b1,const float b2) { return mat4(Binds[int(b0)],Binds[int(b1)],Binds[int(b2)],vec4(0,0,0,1)); }
+		
 		
 		mat4 SkinWorldMatrix()
 		{
 			vec4 b = bone * 3.0;
 			vec4 w = weight;
 			float ivs = 1.0 / (weight.x + weight.y + weight.z + weight.w);
-			w *= ivs;
+			w *= ivs;	
+			#ifdef BONE_TEXTURE
 			mat4 j0 = GetSkinMatrix(b[0],0.0);
 			mat4 b0 = GetSkinMatrix(b[0],BINDS_OFFSET);
 			mat4 j1 = GetSkinMatrix(b[1],0.0);
@@ -127,7 +136,19 @@ class ShaderContext
 			mat4 j2 = GetSkinMatrix(b[2],0.0);
 			mat4 b2 = GetSkinMatrix(b[2],BINDS_OFFSET);
 			mat4 j3 = GetSkinMatrix(b[3],0.0);
-			mat4 b3 = GetSkinMatrix(b[3],BINDS_OFFSET);
+			mat4 b3 = GetSkinMatrix(b[3], BINDS_OFFSET);
+			#else			
+			mat4 j0 = GetJointMatrix(b[0],b[0]+1.0,b[0]+2.0);
+			mat4 j1 = GetJointMatrix(b[1],b[1]+1.0,b[1]+2.0);
+			mat4 j2 = GetJointMatrix(b[2],b[2]+1.0,b[2]+2.0);
+			mat4 j3 = GetJointMatrix(b[3],b[3]+1.0,b[3]+2.0);
+			
+			mat4 b0 = GetBindMatrix(b[0],b[0]+1.0,b[0]+2.0);
+			mat4 b1 = GetBindMatrix(b[1],b[1]+1.0,b[1]+2.0);
+			mat4 b2 = GetBindMatrix(b[2],b[2]+1.0,b[2]+2.0);
+			mat4 b3 = GetBindMatrix(b[3],b[3]+1.0,b[3]+2.0);
+			
+			#endif
 			
 			return    ((b0 * j0) * w[0])+
 			          ((b1 * j1) * w[1])+
@@ -385,7 +406,7 @@ class ShaderContext
 		#define SystemEmissionStart	 System[24].x
 		#define SystemEmissionCount	 System[24].y
 		
-		#define PARTICLE_LENGTH		 7.0
+		#define PARTICLE_LENGTH		 8.0
 		
 		#define PARTICLE_STATUS		 0.0
 		#define PARTICLE_POSITION	 1.0
@@ -394,6 +415,7 @@ class ShaderContext
 		#define PARTICLE_VELOCITY	 4.0
 		#define PARTICLE_COLOR		 5.0
 		#define PARTICLE_START		 6.0
+		#define PARTICLE_NULL		 7.0
 		
 		#define PARTICLE_DISABLED	 0
 		#define PARTICLE_INIT		 1

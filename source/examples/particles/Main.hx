@@ -1,4 +1,5 @@
 package examples.particles;
+import examples.utils.LoaderHTML;
 import haxe.Timer;
 import haxor.component.animation.Animation;
 import haxor.component.Behaviour;
@@ -104,6 +105,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 	var field : js.html.DivElement;	
 	#end
 	
+	var loader : LoaderHTML;	
 	
 	public var debug : Bool;
 	
@@ -118,7 +120,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 	 */
 	private function LoadDebug():Void
 	{
-		#if html
+		#if html		
 		field = cast js.Browser.document.getElementById("field");
 		ui = new js.Stats();
 		ui.domElement.style.position = "absolute";
@@ -144,6 +146,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	override public function OnStart():Void
 	{
+		loader = new LoaderHTML();
+		
 		entity.enabled = false;
 		
 		orbit = CameraOrbit.Create(10, 45, 45);
@@ -179,7 +183,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		sphere_emitter.ranges = [ -1000, 1000, -1000,  1000, -1000, 1000];
 		
 		//Tells the max number of particles
-		particle.count = 80;
+		particle.count = 40;
 		
 		//Particles emitted per second
 		particle.rate.start = particle.rate.end = 20;
@@ -200,8 +204,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 		particle.billboard = true;
 		
 		//Particle will start with lifetime between 'start' and 'end' seconds		
-		particle.start.life.start    = 0.5;
-		particle.start.life.end      = 2.0;
+		particle.start.life.start    = 1.0;
+		particle.start.life.end      = 1.0;
 		particle.start.life.random   = true;
 		
 		//Particle will start with speed multiplier between 'start' and 'end'
@@ -289,11 +293,20 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		if (debug)
 		{
-			if (Input.Pressed(KeyCode.W)) p.Add(vz.Scale(Time.delta * 500.0));
-			if (Input.Pressed(KeyCode.S)) p.Sub(vz.Scale(Time.delta * 500.0));			
-			if (Input.Pressed(KeyCode.A)) p.Sub(vx.Scale(Time.delta * 500.0));
-			if (Input.Pressed(KeyCode.D)) p.Add(vx.Scale(Time.delta * 500.0));
+			if (Input.Pressed(KeyCode.W)) p.Add(vz.Scale(Time.delta));
+			if (Input.Pressed(KeyCode.S)) p.Sub(vz.Scale(Time.delta));			
+			if (Input.Pressed(KeyCode.A)) p.Sub(vx.Scale(Time.delta));
+			if (Input.Pressed(KeyCode.D)) p.Add(vx.Scale(Time.delta));
 			orbit.pivot.localPosition = p;			
+			
+			p = particle.transform.localPosition;
+			
+			if (Input.Pressed(KeyCode.Up)) p.Add(vz.Scale(Time.delta*5.0));
+			if (Input.Pressed(KeyCode.Down)) p.Sub(vz.Scale(Time.delta*5.0));			
+			if (Input.Pressed(KeyCode.Left)) p.Sub(vx.Scale(Time.delta*5.0));
+			if (Input.Pressed(KeyCode.Right)) p.Add(vx.Scale(Time.delta*5.0));
+			
+			particle.transform.localPosition = p;
 		}
 		
 		#if windows		
@@ -317,7 +330,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		if (flag_emit)
 		{
 			trace("EMIT");
-			particle.Emit(10.0);
+			particle.Emit(1.0);
 		}
 		
 		
@@ -335,7 +348,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		var th : Float = 2048.0;// sh * 0.9;
 		var tex : Texture= particle.m_kernel.m_back;
 		
-		if(tex!=null)Graphics.DrawTexture(tex,0,100,128,128);		
+		if(tex!=null)Graphics.DrawTexture(tex,0,100,300,300);		
 		
 		
 	}
@@ -409,8 +422,9 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{
 		#if html
 		var f = cast js.Browser.document.getElementById("field");
-		f.innerText = "Loading [" + p_id + "] " + Mathf.Ceil(Asset.progress * 100) + "%";		
+		//f.innerText = "Loading [" + p_id + "] " + Mathf.Ceil(Asset.progress * 100) + "%";		
 		#end
+		loader.SetProgress(Asset.progress);
 	}
 	
 	override public function OnLoadComplete(p_id:String, p_asset:Dynamic):Void 
@@ -419,8 +433,9 @@ class Main extends Application implements IUpdateable implements IRenderable
 		#if html		
 		var f = cast js.Browser.document.getElementById("field");
 		//f.innerText = "Loading " + Mathf.Ceil(Asset.progress * 100)+"%";
-		if (Asset.progress >= 1.0) f.innerText = "";
+		//if (Asset.progress >= 1.0) f.innerText = "";		
 		#end
+		if(Asset.progress >= 1.0) loader.Complete();
 	}
 	
 }

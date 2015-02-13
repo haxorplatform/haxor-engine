@@ -16,12 +16,14 @@ import haxor.core.Console;
 import haxor.core.Entity;
 import haxor.graphics.Fog;
 import haxor.graphics.material.Material;
+import haxor.graphics.material.Shader;
+import haxor.graphics.texture.Texture2D;
 import haxor.io.file.ColladaFile;
 import haxor.math.Color;
 import haxor.math.Quaternion;
 import haxor.math.Vector3;
 import haxor.physics.Physics;
-import haxor.core.Enums;
+import haxor.core.Enums.AnimationWrap;
 
 /**
  * ...
@@ -64,7 +66,7 @@ class GameController extends Behaviour
 			{
 				case "EthanBody":
 					mat = Material.Opaque(Asset.Get("player/diffuse"));
-					mat.shader = Asset.Get("haxor/diffuse/ToonSkinFalloff");
+					mat.shader = Shader.FlatTextureSkin;// Asset.Get("haxor/diffuse/ToonSkinFalloff");					
 					mat.SetFloat("Falloff", 1.5);
 					mat.SetFloat("FalloffIntensity", 1.0);					
 					mat.SetTexture("RampTexture", Asset.Get("player/ramp"));
@@ -72,7 +74,7 @@ class GameController extends Behaviour
 					
 				case "EthanGlasses":
 					mat = Material.Opaque(Asset.Get("player/diffuse"));
-					mat.shader = Asset.Get("haxor/diffuse/ToonSkinFalloff");
+					mat.shader = Shader.FlatTextureSkin;//Asset.Get("haxor/diffuse/ToonSkinFalloff");					
 					mat.SetFloat("Falloff", 1.5);
 					mat.SetFloat("FalloffIntensity", 1.0);					
 					mat.SetColor("Tint", Color.red);
@@ -83,13 +85,10 @@ class GameController extends Behaviour
 			
 		}
 		
-		trace(player.transform.OutputHierarchy());
-		
-		player.transform.Search("EthanSpine", false).transform.localRotation = Quaternion.FromAxisAngle(Vector3.up, 45);
-		
 		LoadClip("player/animation/idle",	"idle");
 		LoadClip("player/animation/run",	"run");
-		//PlayClip("idle");
+		PlayClip("run");
+		
 		
 		var sc : SphereCollider = player.AddComponent(SphereCollider);
 		sc.radius = 1;
@@ -131,8 +130,7 @@ class GameController extends Behaviour
 		var e : Entity = player;
 		cf.AddAnimations(e); 
 		var cid:Int = e.animation.clips.length - 1;
-		var c : AnimationClip = e.animation.clips[cid];		
-		trace(c);
+		var c : AnimationClip = e.animation.clips[cid];			
 		c.name = p_name;		
 		c.wrap  = p_loop ? AnimationWrap.Loop : AnimationWrap.Clamp;
 		c.speed = p_speed;				

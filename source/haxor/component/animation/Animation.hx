@@ -159,7 +159,11 @@ class Animation extends Behaviour
 	 */
 	public function Play(p_clip : AnimationClip,p_time : Float32=0.0) : Void
 	{
-		if (!Contains(p_clip)) return;
+		if (!Contains(p_clip))
+		{
+			
+			return;
+		}
 		m_time = p_time;
 		p_clip.Sample(p_time);
 		p_clip.playing = true;
@@ -190,11 +194,13 @@ class Animation extends Behaviour
 		
 		//if ((Time.frame % 20) == 0) trace(w);
 		var spd : Float32 = 1.0;
+		
 		for (i in 0...clips.length) 
 		{
 			var c : AnimationClip = clips[i];
 			if (c.playing)
 			{ 	
+				
 				c.Sample(time, w);
 				spd = c.speed;
 				is_playing = true; 				

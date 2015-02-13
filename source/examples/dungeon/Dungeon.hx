@@ -183,10 +183,12 @@ class Dungeon extends Behaviour
 					
 					if (app.os.toLowerCase().indexOf("arm") < 0)
 					{
+						
 						var tp : ParticleTorch = (new Entity()).AddComponent(ParticleTorch);
 						tp.entity.name 						= "Torch";
 						tp.entity.transform.parent 			= t;
 						tp.entity.transform.localPosition 	= new Vector3(0, 0, 0);
+						//*/
 					}
 				}
 			}

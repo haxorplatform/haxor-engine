@@ -2,6 +2,7 @@ package examples.dungeon;
 import haxor.component.ParticleRenderer;
 import haxor.core.Asset;
 import haxor.graphics.material.Material;
+import haxor.graphics.material.Shader;
 import haxor.graphics.texture.Texture;
 import haxor.graphics.texture.Texture2D;
 import haxor.core.Enums.PixelFormat;
@@ -33,6 +34,7 @@ class ParticleRunning extends ParticleRenderer
 			var tex : Texture =
 			//Asset.Get("haxor/texture/particle");
 			Asset.Get("Dust");
+			mat.shader = Shader.FlatParticle;
 			mat.SetTexture("Texture", tex);
 			mat.zwrite = false;
 			Asset.Add("ParticleRunningMaterial", mat);
@@ -58,7 +60,7 @@ class ParticleRunning extends ParticleRenderer
 		local = false;
 		
 		rate.start = 
-		rate.end   = 5.0;
+		rate.end   = 0.0;
 		
 		sheet.frame.start = 0;
 		sheet.frame.end   = 0;

@@ -1,4 +1,5 @@
 package examples.dungeon;
+import examples.utils.LoaderHTML;
 import haxe.Timer;
 import haxor.component.animation.Animation;
 import haxor.component.Camera;
@@ -9,6 +10,7 @@ import haxor.component.physics.BoxCollider;
 import haxor.component.physics.Collider;
 import haxor.component.physics.RigidBody;
 import haxor.component.physics.SphereCollider;
+import haxor.component.SkinnedMeshRenderer;
 import haxor.component.Transform;
 import haxor.context.Process;
 import haxor.context.UID;
@@ -114,9 +116,10 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	#if html
 	var ui : js.Stats;
-	var field : js.html.DivElement;
+	var field : js.html.DivElement;	
 	#end
 	
+	var loader : LoaderHTML;	
 	
 	public var cursor : Vector3 = Vector3.zero;
 	
@@ -126,6 +129,14 @@ class Main extends Application implements IUpdateable implements IRenderable
 	 * 
 	 */
 	public var os : String;
+	
+	/**
+	 * 
+	 */
+	override function OnStart():Void 
+	{
+		loader = new LoaderHTML();
+	}
 	
 	/**
 	 * 
@@ -143,10 +154,13 @@ class Main extends Application implements IUpdateable implements IRenderable
 		Console.Log("Initialize ["+os+"]");	
 		
 		#if html
+		loader = new LoaderHTML();
 		field = cast js.Browser.document.getElementById("field");
 		ui = new js.Stats();
 		ui.domElement.style.position = "absolute";
         ui.domElement.style.top = '0px';		
+		ui.domElement.style.display = "none";
+		
         js.Browser.document.body.appendChild(ui.domElement);
 		
 		Activity.Run(function(t:Float32):Bool
@@ -161,6 +175,24 @@ class Main extends Application implements IUpdateable implements IRenderable
 		game = (new Entity("game")).AddComponent(GameController);
 		game.Initialize();
 		
+		/*
+		var cf : ColladaFile;		
+		cf = Asset.Get("skeleton");
+		var e : Entity = cf.asset;
+		e.name = "skeleton";
+		e.transform.localScale = new Vector3(0.5, 0.5, 0.5);
+		var mr : Array<SkinnedMeshRenderer> = cast e.GetComponentsInChildren(SkinnedMeshRenderer);
+		mr[0].name = "skeleton";
+		mr[0].material = Material.Opaque(Asset.Get("skeleton/diffuse"));
+		mr[0].material.shader = Shader.FlatTextureSkin;
+		mr[1].material = Material.Transparent(Asset.Get("skeleton/diffuse"));
+		mr[1].material.shader = Shader.FlatTextureSkin;
+		
+		cf = Asset.Get("skeleton/idle");
+		cf.AddAnimations(e);
+		e.animation.clips[0].wrap = AnimationWrap.Loop;
+		e.animation.Play(e.animation.clips[0]);
+		//*/
 	}
 	
 	
@@ -178,17 +210,14 @@ class Main extends Application implements IUpdateable implements IRenderable
 		log += "\nRenderers: " + RenderStats.renderers;
 		log += "\nTris: " + RenderStats.triangles;
 		
-		if (Input.Down(KeyCode.Q))  Camera.SAPCulling   = !Camera.SAPCulling;
-		if (Input.Down(KeyCode.D2)) Debug.transform 	= !Debug.transform;		
-		if (Input.Down(KeyCode.D3)) Debug.collider 		= !Debug.collider;		
-		if (Input.Down(KeyCode.D4)) Debug.light 		= !Debug.light;		
-		if (Input.Down(KeyCode.D5)) Debug.renderer 		= !Debug.renderer;		
-		//if (Input.Down(KeyCode.D6)) Debug.particles 	= !Debug.particles;
-		
-		
-		
-		
 		#if html
+		
+		var coi : CameraOrbitInput = game.orbit.GetComponent(CameraOrbitInput);
+		
+		if (Input.Down(KeyCode.P))
+		{			
+			coi.enabled = !coi.enabled;
+		}
 		
 		if (Input.Down(KeyCode.D1))
 		{
@@ -201,19 +230,34 @@ class Main extends Application implements IUpdateable implements IRenderable
 			ui.domElement.style.display = debug ? "block" : "none";
 		}
 		
+		var dbg : Bool = coi.enabled && debug;
 		var p : Vector3 = game.orbit.pivot.localPosition;
 		var vz : Vector3 = game.orbit.pivot.forward;
 		var vx : Vector3 = game.orbit.pivot.right;
 		vz.y = 0; vz.Normalize();
 		vx.y = 0; vx.Normalize();
 		
-		if (debug)
+		if (dbg)
 		{
+			if (Input.Down(KeyCode.Q))  Camera.SAPCulling   = !Camera.SAPCulling;
+			if (Input.Down(KeyCode.D2)) Debug.transform 	= !Debug.transform;		
+			if (Input.Down(KeyCode.D3)) Debug.collider 		= !Debug.collider;		
+			if (Input.Down(KeyCode.D4)) Debug.light 		= !Debug.light;		
+			if (Input.Down(KeyCode.D5)) Debug.renderer 		= !Debug.renderer;		
+			//if (Input.Down(KeyCode.D6)) Debug.particles 	= !Debug.particles;
+			
+			
+			
 			if (Input.Pressed(KeyCode.W)) p.Add(vz.Scale(Time.delta * 500.0));
 			if (Input.Pressed(KeyCode.S)) p.Sub(vz.Scale(Time.delta * 500.0));			
 			if (Input.Pressed(KeyCode.A)) p.Sub(vx.Scale(Time.delta * 500.0));
 			if (Input.Pressed(KeyCode.D)) p.Add(vx.Scale(Time.delta * 500.0));
 			game.orbit.pivot.localPosition = p;			
+			
+			
+			if (Input.touches.length>=2) if(Input.touches[0].down || Input.touches[1].down) game.player.path_enabled = !game.player.path_enabled;		
+			if (Input.Down(KeyCode.Enter)) game.player.path_enabled = !game.player.path_enabled;
+			
 		}
 		
 		if (path == null)
@@ -238,6 +282,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 			new Vector3(427.59, 0, 53.27)];
 		}
 		
+		/*
 		if (Input.Pressed(KeyCode.W)) cursor.Add(vz.Scale(Time.delta * 500.0));
 		if (Input.Pressed(KeyCode.S)) cursor.Sub(vz.Scale(Time.delta * 500.0));		
 		if (Input.Pressed(KeyCode.A)) cursor.Sub(vx.Scale(Time.delta * 500.0));
@@ -247,8 +292,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 			path.push(cursor.clone);
 			for (i in 0...path.length) trace(path[i].ToString());
 		}		
-		
-		if (debug)
+		//*/
+		if (dbg)
 		{
 			//Gizmo.Point(cursor, 10.0, Color.magenta);
 			
@@ -264,7 +309,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 			}
 		}
 		
-		if(debug) if(field!=null) field.innerText = log;		
+		if(dbg) if(field!=null) field.innerText = log;		
 		#end
 		
 		#if windows		
@@ -303,6 +348,12 @@ class Main extends Application implements IUpdateable implements IRenderable
 		Asset.LoadTexture2D("player/ramp", 	  "./texture/misc/ramp00.jpg");		
 		Asset.LoadCollada("knight", 		  "./character/medieval/knight/asset.dae");
 		Asset.LoadTexture2D("knight/diffuse", "./character/medieval/knight/DiffuseTexture.png");
+		
+		Asset.LoadCollada("skeleton", "./character/skeleton/grunt/model.DAE");
+		Asset.LoadCollada("skeleton/idle","./character/skeleton/grunt/animation_idle01.DAE");
+		Asset.LoadTexture2D("skeleton/diffuse", "./character/skeleton/grunt/DiffuseTexture.png");
+		
+		
 		
 		/*
 		Asset.LoadCollada("wizard", 			 "./character/medieval/wizard/asset.dae");
@@ -416,8 +467,9 @@ class Main extends Application implements IUpdateable implements IRenderable
 	override public function OnLoadProgress(p_id:String, p_progress:Float32):Void 
 	{
 		#if html
-		var f = cast js.Browser.document.getElementById("field");
-		f.innerText = "Loading [" + p_id + "] " + Mathf.Ceil(Asset.progress * 100) + "%";		
+		//var f = cast js.Browser.document.getElementById("field");
+		//f.innerText = "Loading [" + p_id + "] " + Mathf.Ceil(Asset.progress * 100) + "%";				
+		loader.SetProgress(Asset.progress);
 		#end
 	}
 	
@@ -425,9 +477,10 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{
 		//trace("DungeonApp> [" + p_id + "] created!");
 		#if html		
-		var f = cast js.Browser.document.getElementById("field");
+		//var f = cast js.Browser.document.getElementById("field");
 		//f.innerText = "Loading " + Mathf.Ceil(Asset.progress * 100)+"%";
-		if (Asset.progress >= 1.0) f.innerText = "";
+		//if (Asset.progress >= 1.0) f.innerText = "";
+		if(Asset.progress >= 1.0) loader.Complete();
 		#end
 	}
 	

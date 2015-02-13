@@ -115,7 +115,9 @@ class Player extends Behaviour implements IUpdateable
 				m_falloff_mat = mat = Asset.Instantiate(mat);				
 				mat.name = new_mat_id;					
 				
-				mat.shader = Asset.Get("haxor/diffuse/ToonSkinFalloff");
+				mat.shader = 
+				//Shader.FlatTextureSkin;
+				Asset.Get("haxor/diffuse/ToonSkinFalloff");
 				
 				mat.SetTexture("DiffuseTexture", tex);
 				mat.SetFloat("Falloff", 1.5);
@@ -173,12 +175,14 @@ class Player extends Behaviour implements IUpdateable
 		
 		if (app.os.toLowerCase().indexOf("arm") < 0)
 		{
+			
 			m_dust_particle = (new Entity()).AddComponent(ParticleRunning);
 			m_dust_particle.transform.parent = transform;
 			m_dust_particle.transform.localPosition = new Vector3(0, 10, 0);
+			//*/
 		}
 		
-		Activity.Delay(2.0, function():Void { path_enabled = true; } );
+		//Activity.Delay(2.0, function():Void { path_enabled = true; } );
 		
 	}
 	
@@ -422,7 +426,7 @@ class Player extends Behaviour implements IUpdateable
 	
 	var lerp_dir : Vector3 = Vector3.zero;
 	
-	var path_enabled : Bool = false;
+	public var path_enabled : Bool = false;
 	
 	public function OnUpdate():Void
 	{
@@ -445,10 +449,6 @@ class Player extends Behaviour implements IUpdateable
 				m_path_current = (m_path_current + 1) % app.path.length;
 			}
 		}
-		
-		if (Input.touches.length>=2) if(Input.touches[0].down || Input.touches[1].down) path_enabled = !path_enabled;
-		
-		if (Input.Down(KeyCode.Enter)) path_enabled = !path_enabled;
 		
 		state = OnFSM();
 		

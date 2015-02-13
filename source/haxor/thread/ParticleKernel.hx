@@ -20,7 +20,8 @@ import haxor.core.Enums.TextureFilter;
 @:allow(haxor)
 class ParticleKernel extends Kernel
 {
-	static var DATA_SIZE : Int = 16;
+	
+	static var DATA_SIZE : Int = 64;
 	
 	public var m_back : RenderTexture;
 		
@@ -323,7 +324,7 @@ class ParticleKernel extends Kernel
 			#define SystemEmissionStart	 System[24].x
 			#define SystemEmissionCount	 System[24].y
 						
-			#define PARTICLE_LENGTH		 7.0
+			#define PARTICLE_LENGTH		 8.0
 			
 			#define EMITTER_SPHERE		 0
 			#define EMITTER_BOX			 1
@@ -337,6 +338,7 @@ class ParticleKernel extends Kernel
 			#define PARTICLE_VELOCITY	 4
 			#define PARTICLE_COLOR		 5
 			#define PARTICLE_START		 6
+			#define PARTICLE_NULL		 7
 			
 			#define STATE_NONE		 0
 			#define STATE_RESET		 1
@@ -364,9 +366,9 @@ class ParticleKernel extends Kernel
 			
 			vec4 Random()
 			{
-				float tw   = 0.001953125;
+				float tw   = 1.0/128.0;
 				float seed = RandomSeed * 262144.0;
-				float idx  = mod(seed+fragment_id,512.0) * tw;
+				float idx  = mod(seed+fragment_id,128.0) * tw;
 				float idy  = floor((seed+fragment_id) * tw)  * tw;
 				vec2  ruv  = vec2(idx,idy);
 				seed      += tw * fract(sin(dot(ruv ,vec2(12.9898,78.233))) * 43758.5453);
@@ -608,7 +610,7 @@ class ParticleKernel extends Kernel
 			
 			void main(void) 
 			{		
-				float count		 = floor(SystemEmissionCount);
+				float count		 = floor(SystemEmissionCount);				
 				if(count <= 0.0) { gl_FragColor = vec4(0,0,0,1); return; }
 				float ix	     = iterator.x;
 				float iy	     = iterator.y;		
@@ -621,11 +623,11 @@ class ParticleKernel extends Kernel
 				
 				float size       = width * height;
 				float max_count  = floor((width * height)/PARTICLE_LENGTH);
-				float px         = floor(ix * (width));
-				float py         = floor(iy*(height));
+				float px         = floor(ix * width);
+				float py         = floor(iy * height);
 				float pix	     = (px + (py * width));
 				
-				if (pix >= (size - PARTICLE_LENGTH)) { gl_FragColor = vec4(0, 0, 0, 1); return; }
+				//if (pix >= (size - PARTICLE_LENGTH)) { gl_FragColor = vec4(0, 0, 0, 1); return; }
 				
 				float id		 = ((pix / (PARTICLE_LENGTH)));
 				float field		 = mod(pix,PARTICLE_LENGTH);
@@ -635,18 +637,30 @@ class ParticleKernel extends Kernel
 				
 				
 				float emin 		 = floor(mod(SystemEmissionStart,max_count));
-				float emax 		 = floor(mod(SystemEmissionStart+count-1.0,max_count));
+				float emax 		 = floor(mod(SystemEmissionStart+count,max_count));
 				
-				/*
-				float ck = floor(mod(pix, 2.0)) <= 0.0 ? 0.8 : 1.0;				
-				ck = field/PARTICLE_LENGTH;
-				vec4 mc = vec4(ck, ck, ck, 1.0);					
-				gl_FragColor = mc;
-				return;
+				if(emin > emax)
+				{
+					if(id < emin) 
+					if(id >= emax) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }
+				}
+				else
+				{				
+					if(id < emin)  { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }
+					if(id >= emax) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }
+				}
 				//*/
 				
 				/*
-				float dv = 1.0 / 7.0;								
+				float ck = floor(mod(pix, 2.0)) <= 0.0 ? 0.8 : 1.0;				
+				ck = field / PARTICLE_LENGTH;				
+				vec4 mc = vec4(ck, ck, ck, 1.0);					
+				//gl_FragColor = mc;
+				//return;
+				//*/
+				
+				
+				/*
 				vec4 c0 = vec4(1.0, 0.0, 0.0, 1.0)*mc;
 				vec4 c1 = vec4(1.0, 1.0, 0.0, 1.0)*mc;
 				vec4 c2 = vec4(0.0, 1.0, 0.0, 1.0)*mc;
@@ -658,6 +672,7 @@ class ParticleKernel extends Kernel
 				vec4 c8 = vec4(0.6, 0.6, 0.6, 1.0)*mc;
 				vec4 c9 = vec4(0.4, 0.4, 0.4, 1.0)*mc;
 				//*/
+				
 				/*
 				if(int(id)==0) { gl_FragColor = c0; return; }
 				if(int(id)==1) { gl_FragColor = c1; return; }
@@ -709,17 +724,7 @@ class ParticleKernel extends Kernel
 				return;
 				//*/
 				
-				if(emin > emax)
-				{
-					if(id < emin) 
-					if(id > emax) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }
-				}
-				else
-				{				
-					if(id < emin) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }
-					if(id > emax) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }
-				}
-				//*/
+				
 				
 				
 				
@@ -743,7 +748,8 @@ class ParticleKernel extends Kernel
 				if(field_id == PARTICLE_SIZE)	 	{ gl_FragColor = UpdateSize(state,status,data); 	 	return; }				
 				if(field_id == PARTICLE_VELOCITY)	{ gl_FragColor = UpdateVelocity(state,status,data); 	return; }
 				if(field_id == PARTICLE_COLOR)		{ gl_FragColor = UpdateColor(state,status,data); 	 	return; }
-				if(field_id == PARTICLE_START)		{ gl_FragColor = UpdateStart(state,status,data); 	 	return; }
+				if(field_id == PARTICLE_START)		{ gl_FragColor = UpdateStart(state, status, data); 	 	return; }
+				if(field_id == PARTICLE_NULL)		{ gl_FragColor = vec4(1,0,1,1);					 	 	return; }
 				
 			}
 			

@@ -141,7 +141,7 @@ class AnimationClip extends Resource
 			case AnimationWrap.Oscilate: t = Mathf.Oscilate(t, 0, length);
 		}
 		
-		var frame : Int = -1;
+		var frame : Int = -1;		
 		for (i in 0...tracks.length)
 		{
 			frame = tracks[i].Sample(t,p_weight);

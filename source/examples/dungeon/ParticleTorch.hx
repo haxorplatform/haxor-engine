@@ -2,7 +2,9 @@ package examples.dungeon;
 import haxor.component.ParticleRenderer;
 import haxor.core.Asset;
 import haxor.core.Resource;
+import haxor.core.Time;
 import haxor.graphics.material.Material;
+import haxor.graphics.material.Shader;
 import haxor.graphics.texture.Texture;
 import haxor.math.AABB3;
 import haxor.math.Mathf;
@@ -28,6 +30,10 @@ class ParticleTorch extends ParticleRenderer
 	}
 	private var m_strength : Float32;
 	
+	public var wind : Float32;
+	
+	
+	
 	override public function OnBuild():Void 
 	{
 		super.OnBuild();
@@ -44,6 +50,7 @@ class ParticleTorch extends ParticleRenderer
 		{			
 			
 			mat = Asset.Instantiate(Asset.Get("haxor/material/transparent/unlit/ParticleAdditive"));
+			mat.shader = Shader.FlatParticle;
 			mat.name = mat_id;			
 			mat.SetTexture("Texture", tex);
 			mat.zwrite = false;
@@ -53,9 +60,10 @@ class ParticleTorch extends ParticleRenderer
 		material = mat;
 		
 		var emt : SphereEmitter = cast  emitter = new SphereEmitter(10.0);
+		
 		//emt.ranges = [0, 0, 0, 1000, 0, 0];
 		
-		count = 34;
+		count = 64;
 		
 		//duration = 10.0;
 		
@@ -64,7 +72,7 @@ class ParticleTorch extends ParticleRenderer
 		local = false;
 		
 		rate.start = 
-		rate.end   = 4.0;
+		rate.end   = 20.0;
 		
 		sheet.length = 4;
 		//0;
@@ -73,34 +81,37 @@ class ParticleTorch extends ParticleRenderer
 		sheet.height = tex.height / 2.0;
 		sheet.wrap   = AnimationWrap.Loop;
 				
-		start.life.start = 3;
-		start.life.end   = 5;
+		start.life.start = 2;
+		start.life.end   = 10;
 		start.life.random = true;				
 		
 		start.speed.start  = 1.0;
-		start.speed.end    = 1.0;
+		start.speed.end    = 2.0;
 		start.speed.random = true;
-				
 		
-		life.speed.start = 4.0;
-		life.speed.end   = 4.0;
-		life.speed.random = true;
-		
-		force = new Vector3(0, 2, 0);
-		
-		life.color = Asset.Get("FireColor");
-		
-		var ps : Float = 22.0;
+		var ps : Float = 10.0;
 		
 		start.size.start = Vector3.one.Scale(ps);
 		start.size.end   = Vector3.one.Scale(ps*2.0);
 		
+		
+		force = new Vector3(0, 1, 0);
+		
+		life.color = Asset.Get("FireColor");
+		
+		
+		wind = 0.0;
+		
 		life.size.start = Vector3.one.Scale(2.0);
 		life.size.end   = Vector3.one.Scale(0.0);
+		life.speed.start  = 3.0;
+		life.speed.end    = 8.0;
+		life.speed.random = true;
+		
 		
 		mesh.bounds = AABB3.FromCenter(0, 0, 0, 30, 30, 30);
 		
-		strength = 1.0;
+		//strength = 1.0;
 		
 		Play();
 		
@@ -109,6 +120,15 @@ class ParticleTorch extends ParticleRenderer
 		//Play();
 	}
 	
-	
+	override public function OnUpdate():Void 
+	{
+		super.OnUpdate();
+		
+		var s : Float32 = Mathf.Sin(Time.elapsed * 0.1);
+		var c : Float32 = Mathf.Cos((Time.elapsed+0.5) * 0.2);
+		
+		force.Set(s * c * 1.0, force.y, 0.0);
+		
+	}
 	
 }

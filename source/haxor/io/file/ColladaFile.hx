@@ -385,7 +385,7 @@ class ColladaFile extends AssetXML
 	 * @param	p_entity
 	 * @param	p_exact
 	 */
-	public function AddAnimations(p_entity : Entity,p_exact : Bool=true):Void
+	public function AddAnimations(p_entity : Entity,p_exact : Bool=false):Void
 	{
 		
 		if (animations.length <= 0) return;
