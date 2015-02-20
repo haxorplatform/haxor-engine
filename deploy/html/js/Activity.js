@@ -59,8 +59,7 @@ haxor.Activity =
 		var a = haxor.Activity;
 		if (!Date.now) { Date.now = function now() { return new Date().getTime(); } }; 
 		a.hasReqAnimFrame = window.requestAnimationFrame != null;		
-		a.hasPerfTime     = window.performance != null;				
-		a.Start();				
+		a.hasPerfTime     = window.performance != null;
 	},
 	
 	/**
@@ -69,10 +68,14 @@ haxor.Activity =
 	Start: function() 
 	{  
 		var a = haxor.Activity;
-		a.Stop();		
+		a.Stop();				
+		
+		a.m_step_clock = -1.0;		
+		
 		a.m_itv_offset_clock = a.hasPerfTime ? window.performance.now() : Date.now();
-		a.m_raf_offset_clock = a.hasPerfTime ? window.performance.now() : 0.0;		
 		a.ItvId = window.setInterval(a.ItvLoop, 16);		
+		
+		a.m_raf_offset_clock = a.hasPerfTime ? window.performance.now() : 0.0;				
 		if (a.hasReqAnimFrame) a.RAFId = window.requestAnimationFrame(a.RAFLoop);		
 	},
 	
@@ -94,7 +97,9 @@ haxor.Activity =
 		var a = haxor.Activity;
 		if(a.m_list.indexOf(p_node)>=0) return;
 		p_node.runOnBackground = p_run_on_background != null ? p_run_on_background : true;
-		a.m_list.push(p_node);		
+		a.m_list.push(p_node);
+		//Starts when first element is inserted
+		if(a.m_list.length == 1) a.Start();
 	},
 	
 	/**
@@ -103,7 +108,7 @@ haxor.Activity =
 	Remove: function(p_node)
 	{
 		var a = haxor.Activity;
-		var idx = a.m_list.indexOf(p_node);
+		var idx = a.m_list.indexOf(p_node);		
 		if(idx < 0) return null;
 		var n = a.m_list.splice(idx,1);		
 		return n;
@@ -177,9 +182,12 @@ haxor.Activity =
 	Step: function(p_time,p_visible)
 	{			
 		var a = haxor.Activity;
+		
+		console.log("running "+a.m_list.length);
+		
 		if (a.m_step_clock < 0) a.m_step_clock = p_time;		
 		var t    		 = p_time;		
-		var dt   		 = Math.max(1.0,t - a.m_step_clock);
+		var dt   		 = Math.max(1.0,t - a.m_step_clock); //in ms
 		a.m_step_clock 	 = t;				
 		var steps        = p_visible ? 1 : Math.min(62,Math.max(1,Math.floor(dt / 16)));		
 		for (var i=0; i<steps;i++)
@@ -194,7 +202,10 @@ haxor.Activity =
 			}
 			//*/
 			if(!a.hasPerfTime) t += 1000.0/60.0;
-		}		
+		}
+		
+		//Stops when execution list is empty.
+		if(a.m_list.length <= 0) a.Stop();
 	},
 	
 	
@@ -203,10 +214,10 @@ haxor.Activity =
 	//*/
 	RAFLoop: function(p_time)
 	{	
-		var a = haxor.Activity;
-		var t  = a.hasPerfTime ? window.performance.now() : p_time;						
-		a.Step(t - a.m_raf_offset_clock,true);
 		a.RAFId = window.requestAnimationFrame(a.RAFLoop);
+		var a = haxor.Activity;
+		var t  = a.hasPerfTime ? window.performance.now() : p_time;								
+		a.Step(t - a.m_raf_offset_clock,true);		
 		return true;
 	},
 	
@@ -225,12 +236,12 @@ haxor.Activity =
 	/**
 	Cancels the RequestAnimationFrame loop.
 	//*/
-	CancelRAF: function() { var a = haxor.Activity; if (a.RAFId > 0) window.cancelAnimationFrame(a.RAFId); a.RAFId = -1; },
+	CancelRAF: function() { var a = haxor.Activity; if (a.RAFId >= 0) window.cancelAnimationFrame(a.RAFId); a.RAFId = -1; },
 	
 	/**
 	Cancels the setIntervalLoop.
 	//*/
-	CancelItv: function() { var a = haxor.Activity; if (a.ItvId > 0) window.clearInterval(a.ItvId); a.ItvId = -1; },
+	CancelItv: function() { var a = haxor.Activity; if (a.ItvId >= 0) window.clearInterval(a.ItvId); a.ItvId = -1; },
 };
 
 //Initialize the Activity class.
