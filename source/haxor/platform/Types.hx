@@ -11,6 +11,7 @@ typedef ArrayBuffer		= js.html.Uint8Array;
 #end
 
 typedef MeshBufferId    = js.html.webgl.Buffer;
+typedef VAOId    		= Dynamic;
 typedef TextureId    	= js.html.webgl.Texture;
 typedef FrameBufferId  	= js.html.webgl.Framebuffer;
 typedef RenderBufferId  = js.html.webgl.Renderbuffer;
@@ -33,6 +34,7 @@ typedef GLES = android.opengl.GLES20;
 
 typedef ArrayBuffer		= java.nio.ByteBuffer;
 typedef MeshBufferId    = Int;
+typedef VAOId    		= Int;
 typedef TextureId    	= Int;
 typedef FrameBufferId  	= Int;
 typedef RenderBufferId  = Int;
@@ -53,6 +55,7 @@ typedef Float64			= Float;
 
 typedef ArrayBuffer		= haxe.io.Bytes;
 typedef MeshBufferId    = Int;
+typedef VAOId    		= Int;
 typedef TextureId    	= Int;
 typedef FrameBufferId  	= Int;
 typedef RenderBufferId  = Int;

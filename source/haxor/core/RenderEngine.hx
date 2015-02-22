@@ -19,7 +19,10 @@ class RenderEngine
 		#if profile
 		RenderStats.BeginRender();		
 		#end
+		
 		//Shadow Collect Pass		
+		
+		//Render all cameras
 		RenderCameras();	
 		
 	}
@@ -129,8 +132,7 @@ class RenderEngine
 			cl[i].m_view_uniform_dirty = false;
 			cl[i].m_proj_uniform_dirty = false;
 		}		
-		EngineContext.renderer.sap_dirty = false;
-		
+		EngineContext.renderer.sap_dirty = false;		
 		EngineContext.kernel.Execute();
 		
 	}

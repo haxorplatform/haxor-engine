@@ -41,13 +41,13 @@ class Mesh extends Resource
 		{ 
 			m_topology_attrib.data = null;
 			m_indexed = false; 
-			EngineContext.mesh.RemoveAttrib(m_topology_attrib);			
+			EngineContext.mesh.RemoveAttrib(m_topology_attrib,this);			
 		}
 		else
 		{			
 			m_topology_attrib.data   = v;
 			m_indexed = true;
-			EngineContext.mesh.UpdateAttrib(m_topology_attrib,m_mode,true);
+			EngineContext.mesh.UpdateAttrib(m_topology_attrib,m_mode,true,this);
 		}		
 		return v;
 	}	
@@ -70,8 +70,8 @@ class Mesh extends Resource
 	{		
 		if (m_mode == v) return v;
 		m_mode = v;	
-		if(m_indexed) EngineContext.mesh.UpdateAttrib(m_topology_attrib,m_mode,true);
-		for (i in 0...m_attribs.length) EngineContext.mesh.UpdateAttrib(m_attribs[i],m_mode,false);
+		if(m_indexed) EngineContext.mesh.UpdateAttrib(m_topology_attrib,m_mode,true,this);
+		for (i in 0...m_attribs.length) EngineContext.mesh.UpdateAttrib(m_attribs[i],m_mode,false,this);
 		return v;
 	}
 	private var m_mode : Int;
@@ -108,8 +108,7 @@ class Mesh extends Resource
 	 */
 	public function new(p_name:String=""):Void
 	{
-		super(p_name);
-		__cid 		= EngineContext.mesh.mid.id;
+		super(p_name);		
 		m_attribs 	= [];
 		m_indexed	= false;
 		m_vcount    = 0;
@@ -119,7 +118,7 @@ class Mesh extends Resource
 		m_topology_attrib 		 = new MeshAttrib();
 		m_topology_attrib.m_name = "$topology";
 		m_topology_attrib.offset = 1;
-		
+		EngineContext.mesh.Create(this);
 	}
 	
 	/**
@@ -134,7 +133,7 @@ class Mesh extends Resource
 		{
 			m_attribs[i].data   = null;			
 			m_attribs[i].m_name = "";
-			if (p_from_gpu) EngineContext.mesh.RemoveAttrib(m_attribs[i]);
+			if (p_from_gpu) EngineContext.mesh.RemoveAttrib(m_attribs[i],this);
 		}		
 		//m_attribs = [];
 		m_vcount  = 0;
@@ -188,7 +187,7 @@ class Mesh extends Resource
 		var a : MeshAttrib = GetAttribute(p_name);
 		if (a == null) return;
 		m_attribs.remove(a);
-		EngineContext.mesh.RemoveAttrib(a);
+		EngineContext.mesh.RemoveAttrib(a,this);
 	}
 	
 	/**
@@ -218,7 +217,7 @@ class Mesh extends Resource
 			m_vcount = m_vcount < c ? m_vcount : c;			
 		}	
 		//Console.Log("Mesh> Set attrib[" + a.name+"] offset["+a.offset+"]",5);
-		EngineContext.mesh.UpdateAttrib(a, m_mode, false);
+		EngineContext.mesh.UpdateAttrib(a, m_mode, false,this);
 		return a;
 	}
 	
@@ -255,9 +254,8 @@ class Mesh extends Resource
 	 * Callback called when the mesh is destroyed.
 	 */
 	override public function OnDestroy():Void 
-	{
-		Clear();
-		EngineContext.mesh.mid.id = __cid;
+	{		
+		EngineContext.mesh.Destroy(this);
 	}
 	
 	

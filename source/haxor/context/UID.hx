@@ -17,6 +17,12 @@ class UID
 	private var m_cache : Array<Int>;
 	
 	/**
+	 * Returns the number of stored ids.
+	 */
+	public var stored(get_stored, never):Int;
+	private function get_stored():Int { return m_cache.length; }
+	
+	/**
 	 * Returns the next id without updating it.
 	 */
 	public var next(get_next, never):Int;

@@ -170,7 +170,7 @@ class Material extends Resource
 	private inline function get_shader():Shader { return m_shader; }	
 	private function set_shader(v:Shader):Shader 
 	{		
-		if (m_shader == v) return v;		
+		//if (m_shader == v) return v;		
 		EngineContext.material.UpdateShader(this, m_shader, v);
 		m_shader = v;
 		return v; 
@@ -223,9 +223,8 @@ class Material extends Resource
 	 */
 	public function SetTexture(p_name:String, p_texture:Texture):Void
 	{
-		if (p_texture == null) { RemoveUniform(p_name); return; } 
-		var u : MaterialUniform = FetchUniform(p_name, false, 1, 1, true);
-		if (u.texture != null) u.texture.__slot = -1;
+		if (p_texture == null) { RemoveUniform(p_name); return; }
+		var u : MaterialUniform = FetchUniform(p_name, false, 1, 1, true);		
 		if (u.exists) u.SetTexture(p_texture);
 	}
 	
@@ -400,7 +399,7 @@ class Material extends Resource
 	 * @return
 	 */
 	public function GetUniform(p_name:String):MaterialUniform
-	{
+	{		
 		for (i in 0...m_uniforms.length) if (m_uniforms[i].name == p_name) return m_uniforms[i];
 		return null;
 	}
@@ -673,14 +672,19 @@ class MaterialUniform
 	public function SetInt3Array  (p_list : Array<Int>):Void 				{ if (!exists) return; __d = true; var b : Int32Array = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
 	public function SetInt4Array  (p_list : Array<Int>):Void 				{ if (!exists) return; __d = true; var b : Int32Array = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
 	
+	public function Refresh():Void { if (!exists) return; __d = true; }
+	
 	public function SetTexture(p_texture:Texture):Void 
 	{ 
 		if (!exists) return; 
 		if (p_texture == texture) return;
-		__d = true; 
-		var b : Int32Array = cast data; 
-		b.Set(0, p_texture.__slot); 
+		if (texture == null) __d = true;
+		var b : Int32Array = cast data;
+		var ts:Int = texture == null ? -1 : texture.__slot;
+		if (texture != null) texture.__slot = -1;
 		texture = p_texture; 
+		if (texture != null) texture.__slot = ts;
+		b.Set(0,ts);		
 	}	
 	
 	public function SetMatrix4(m:Matrix4,t:Bool=false):Void 

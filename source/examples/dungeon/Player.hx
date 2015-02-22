@@ -116,8 +116,8 @@ class Player extends Behaviour implements IUpdateable
 				mat.name = new_mat_id;					
 				
 				mat.shader = 
-				//Shader.FlatTextureSkin;
-				Asset.Get("haxor/diffuse/ToonSkinFalloff");
+				Shader.FlatTextureSkin;
+				//Asset.Get("haxor/diffuse/ToonSkinFalloff");
 				
 				mat.SetTexture("DiffuseTexture", tex);
 				mat.SetFloat("Falloff", 1.5);
@@ -175,7 +175,7 @@ class Player extends Behaviour implements IUpdateable
 		
 		if (app.os.toLowerCase().indexOf("arm") < 0)
 		{
-			
+			/*
 			m_dust_particle = (new Entity()).AddComponent(ParticleRunning);
 			m_dust_particle.transform.parent = transform;
 			m_dust_particle.transform.localPosition = new Vector3(0, 10, 0);

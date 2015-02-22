@@ -1,6 +1,7 @@
 #if html
 
 package haxor.platform.html.input;
+import js.html.Event;
 import haxor.input.InputHandler;
 import haxor.thread.Activity;
 import js.html.Node;
@@ -94,10 +95,13 @@ class HTMLInputHandler extends InputHandler
 		
 		if (Input.multitouch)
 		{
-			m_target.ontouchstart   		= OnTouchEvent;
-			Browser.document.ontouchmove    = OnTouchEvent;
-			Browser.document.ontouchcancel  = OnTouchEvent;
-			Browser.document.ontouchend  	= OnTouchEvent;
+			//Helps with page slide in iOS
+			Browser.document.addEventListener("touchmove", function(e:Event) { e.preventDefault(); }, false);
+			
+			m_target.ontouchstart   	  = OnTouchEvent;			
+			Browser.window.ontouchmove    = OnTouchEvent;
+			Browser.window.ontouchcancel  = OnTouchEvent;
+			Browser.window.ontouchend  	  = OnTouchEvent;
 		}
 		
 		

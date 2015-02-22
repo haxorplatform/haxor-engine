@@ -86,6 +86,9 @@ class Kernel extends Material
 			case PixelFormat.Half3:
 			case PixelFormat.Half4:
 			case PixelFormat.Depth:
+			case PixelFormat.sRGB: 	
+			case PixelFormat.sRGBA: 
+			case PixelFormat.sRGBA8:
 		}	
 		
 		SetFloat("width",  p_width);

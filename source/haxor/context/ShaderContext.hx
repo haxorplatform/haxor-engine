@@ -76,22 +76,23 @@ class ShaderContext
 	<shader id="haxor/unlit/FlatTextureSkin">	
 		<vertex precision="low">
 		
-		#define SKINNING_TEXTURE_SIZE 2048.0
-		#define BINDS_OFFSET		  1024.0
-		#define MAX_BONES			  64
-		#define BONE_TEXTURE		  true
-		
 		uniform mat4  WorldMatrix;
 		uniform mat4  WorldMatrixIT;
 		uniform mat4  ViewMatrix;
 		uniform mat4  ProjectionMatrix;
 		uniform vec3  WSCameraPosition;		
 		
-		uniform vec4  Joints[MAX_BONES];
-		uniform vec4  Binds[MAX_BONES];
+		#ifdef BONE_TEXTURE
+		uniform sampler2D Joints;
+		uniform sampler2D Binds;
+		uniform int		  SkinId;
+		uniform vec4      SkinTexSize;
+		#else		
+		uniform vec4  Joints[MAX_BONES*3];		
+		uniform vec4   Binds[MAX_BONES*3];
+		#endif
 		
-		
-		uniform sampler2D Skinning;
+		uniform int SkinQuality;
 		
 		attribute vec3 vertex;					
 		attribute vec4 color;
@@ -106,56 +107,77 @@ class ShaderContext
 		varying vec4 v_wsVertex;
 		varying vec3 v_wsView;	
 		
-		vec4 SkinningRead(float id)
-		{
-			return texture2D(Skinning, vec2(0.0,(id/(SKINNING_TEXTURE_SIZE-1.0))));
+		
+		
+		mat4 GetJointMatrix(const int b0, const int b1, const int b2) 
+		{ 
+			#ifdef BONE_TEXTURE			
+			float itw = SkinTexSize.z;
+			float ith = SkinTexSize.w;
+			float fb0x = mod(float(b0), SkinTexSize.x);
+			float fb1x = mod(float(b1), SkinTexSize.x);
+			float fb2x = mod(float(b2), SkinTexSize.x);
+			float fb0y = floor(float(b0) * itw);
+			float fb1y = floor(float(b1) * itw);
+			float fb2y = floor(float(b2) * itw);			
+			vec4 l0 = texture2D(Joints, vec2(fb0x*itw,fb0y*ith));
+			vec4 l1 = texture2D(Joints, vec2(fb1x*itw,fb1y*ith));
+			vec4 l2 = texture2D(Joints, vec2(fb2x*itw,fb2y*ith));
+			return mat4(l0,l1,l2,vec4(0,0,0,1));
+			#else
+			return mat4(Joints[b0], Joints[b1], Joints[b2], vec4(0, 0, 0, 1)); 
+			#endif
 		}
 		
-		mat4 GetSkinMatrix(float b,float o)
-		{
-			vec4 l0, l1, l2;						
-			l0 = SkinningRead(b+o); l1 = SkinningRead(b+1.0+o); l2 = SkinningRead(b+2.0+o);
-			return mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);						
+		mat4 GetBindMatrix (const int b0, const int b1, const int b2) 
+		{ 
+			#ifdef BONE_TEXTURE			
+			float itw = SkinTexSize.z;
+			float ith = SkinTexSize.w;					
+			float fb0x = mod(float(b0), SkinTexSize.x);
+			float fb1x = mod(float(b1), SkinTexSize.x);
+			float fb2x = mod(float(b2), SkinTexSize.x);
+			float fb0y = floor(float(b0) * itw);
+			float fb1y = floor(float(b1) * itw);
+			float fb2y = floor(float(b2) * itw);			
+			vec4 l0 = texture2D(Binds, vec2(fb0x*itw,fb0y*ith));
+			vec4 l1 = texture2D(Binds, vec2(fb1x*itw,fb1y*ith));
+			vec4 l2 = texture2D(Binds, vec2(fb2x*itw,fb2y*ith));
+			return mat4(l0,l1,l2,vec4(0,0,0,1));
+			#else
+			return mat4(Binds[b0] , Binds[b1] , Binds[b2] , vec4(0, 0, 0, 1)); 
+			#endif
 		}
-		
-		mat4 GetJointMatrix(const float b0,const float b1,const float b2) { return mat4(Joints[int(b0)],Joints[int(b1)],Joints[int(b2)],vec4(0,0,0,1)); }
-		mat4 GetBindMatrix(const float b0,const float b1,const float b2) { return mat4(Binds[int(b0)],Binds[int(b1)],Binds[int(b2)],vec4(0,0,0,1)); }
-		
 		
 		mat4 SkinWorldMatrix()
 		{
 			vec4 b = bone * 3.0;
+			
 			vec4 w = weight;
-			float ivs = 1.0 / (weight.x + weight.y + weight.z + weight.w);
-			w *= ivs;	
-			#ifdef BONE_TEXTURE
-			mat4 j0 = GetSkinMatrix(b[0],0.0);
-			mat4 b0 = GetSkinMatrix(b[0],BINDS_OFFSET);
-			mat4 j1 = GetSkinMatrix(b[1],0.0);
-			mat4 b1 = GetSkinMatrix(b[1],BINDS_OFFSET);
-			mat4 j2 = GetSkinMatrix(b[2],0.0);
-			mat4 b2 = GetSkinMatrix(b[2],BINDS_OFFSET);
-			mat4 j3 = GetSkinMatrix(b[3],0.0);
-			mat4 b3 = GetSkinMatrix(b[3], BINDS_OFFSET);
-			#else			
-			mat4 j0 = GetJointMatrix(b[0],b[0]+1.0,b[0]+2.0);
-			mat4 j1 = GetJointMatrix(b[1],b[1]+1.0,b[1]+2.0);
-			mat4 j2 = GetJointMatrix(b[2],b[2]+1.0,b[2]+2.0);
-			mat4 j3 = GetJointMatrix(b[3],b[3]+1.0,b[3]+2.0);
 			
-			mat4 b0 = GetBindMatrix(b[0],b[0]+1.0,b[0]+2.0);
-			mat4 b1 = GetBindMatrix(b[1],b[1]+1.0,b[1]+2.0);
-			mat4 b2 = GetBindMatrix(b[2],b[2]+1.0,b[2]+2.0);
-			mat4 b3 = GetBindMatrix(b[3],b[3]+1.0,b[3]+2.0);
+			float ivs = 0.0;			
 			
-			#endif
+			if (SkinQuality >= 0) ivs += weight.x;
+			if (SkinQuality >= 2) ivs += weight.y;
+			if (SkinQuality >= 3) ivs += weight.z;
+			if (SkinQuality >= 4) ivs += weight.w;
 			
-			return    ((b0 * j0) * w[0])+
-			          ((b1 * j1) * w[1])+
-			          ((b2 * j2) * w[2])+
-			          ((b3 * j3) * w[3]);
+			w *= 1.0 / ivs;
 			
+			ivec4 bi0 = ivec4(b.x, b.y, b.z, b.w);			
+			ivec4 bi1 = ivec4(b.x + 1.0, b.y + 1.0, b.z + 1.0, b.w + 1.0);			
+			ivec4 bi2 = ivec4(b.x + 2.0, b.y + 2.0, b.z + 2.0, b.w + 2.0);
 			
+			mat4 res = mat4(0.0);
+			mat4 jm; 
+			mat4 bm; 
+			
+			if (SkinQuality >= 0) { jm = GetJointMatrix(bi0.x, bi1.x, bi2.x); bm = GetBindMatrix(bi0.x, bi1.x, bi2.x); res += ((bm * jm) * w.x); }
+			if (SkinQuality >= 2) { jm = GetJointMatrix(bi0.y, bi1.y, bi2.y); bm = GetBindMatrix(bi0.y, bi1.y, bi2.y); res += ((bm * jm) * w.y); }
+			if (SkinQuality >= 3) { jm = GetJointMatrix(bi0.z, bi1.z, bi2.z); bm = GetBindMatrix(bi0.z, bi1.z, bi2.z); res += ((bm * jm) * w.z); }
+			if (SkinQuality >= 4) { jm = GetJointMatrix(bi0.w, bi1.w, bi2.w); bm = GetBindMatrix(bi0.w, bi1.w, bi2.w); res += ((bm * jm) * w.w); }
+			
+			return res;
 		}
 						
 		void main(void) 
@@ -174,12 +196,9 @@ class ShaderContext
 		}		
 		</vertex>
 		
-		<fragment precision="low">
+		<fragment precision="medium">
 					
-			uniform sampler2D DiffuseTexture;			
-			
-			uniform sampler2D Skinning;
-			
+			uniform sampler2D DiffuseTexture;						
 			varying vec3 v_uv0;
 			varying vec4 v_color;
 			varying vec3 v_normal;

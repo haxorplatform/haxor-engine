@@ -5,6 +5,7 @@ import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.graphics.GraphicContext.GraphicAPI;
+import haxor.math.Mathf;
 import haxor.platform.Types.ArrayBuffer;
 import haxor.platform.Types.Float32;
 import haxor.platform.Types.FrameBufferId;
@@ -14,6 +15,7 @@ import haxor.platform.Types.RenderBufferId;
 import haxor.platform.Types.ShaderId;
 import haxor.platform.Types.TextureId;
 import haxor.platform.Types.UniformLocation;
+import haxor.platform.Types.VAOId;
 
 #if html
 typedef PlatformGL  = haxor.platform.html.graphics.WebGL;
@@ -336,7 +338,18 @@ class GL
 	/**
 	 * Flag that indicates that the platform supports VAOs.
 	 */
-	static public var VERTEX_ARRAY_OBJECT : Bool = false;
+	static public var VAO_ENABLED : Bool = false;
+	
+	/**
+	 * sRGB Format (if available)
+	 */
+	static public var TEXTURE_SRGB : Bool                   		 = false;
+	static public var SRGB : Int                   					 = 0x8C40;
+	static public var SRGB_ALPHA : Int                               = 0x8C42;	
+	static public var SRGB8_ALPHA8 : Int                             = 0x8C43;	
+	static public var FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING : Int    = 0x8210;
+	
+	
 	
 	/**
 	 * Half Float Extension (if available)
@@ -389,6 +402,47 @@ class GL
 	static public var MAX_ACTIVE_TEXTURE : Int = 8;
 	
 	/**
+	 * Max number of combined textures units.
+	 */
+	static public var MAX_COMBINED_TEXTURE : Int = 8;
+	
+	/**
+	 * Max vec4 array length in fragment shaders.
+	 */
+	static public var MAX_FRAGMENT_UNIFORM_LENGTH : Int = 128;
+	
+	/**
+	 * Max vec4 array length in vertex shaders.
+	 */
+	static public var MAX_VERTEX_UNIFORM_LENGTH   : Int = 128;
+	
+	/**
+	 * Max sampler2D allowed in vertex shaders.
+	 */
+	static public var MAX_VERTEX_TEXTURES : Int = 0;
+	
+	/**
+	 * Aproximation of Skinning Bones limit using uniforms.
+	 */
+	static public var MAX_UNIFORM_BONES(get_MAX_UNIFORM_BONES, never) : Int;
+	static private function get_MAX_UNIFORM_BONES():Int { return cast Mathf.Floor((MAX_VERTEX_UNIFORM_LENGTH-32) / 6); }
+	
+	/**
+	 * Flag that indicates if the use of bone textures is possible.
+	 */
+	static public var BONE_TEXTURE : Bool = false;
+	
+	/**
+	 * Shaders high-precision qualifier.
+	 */
+	static public var VS_FLOAT_HIGHP   : Bool = true;
+	static public var VS_INT_HIGHP     : Bool = true;
+	static public var FS_FLOAT_HIGHP   : Bool = true;
+	static public var FS_INT_HIGHP     : Bool = true;
+	
+	
+	
+	/**
 	 * Invalid Id per platform.
 	 */
 	#if html
@@ -432,7 +486,14 @@ class GL
 	 * @param	p_target
 	 * @param	p_id
 	 */
-	static public inline function BindBuffer(p_target : Int,p_id : MeshBufferId):Void { m_gl.BindBuffer(p_target, p_id); }
+	static public inline function BindBuffer(p_target : Int, p_id : MeshBufferId):Void { m_gl.BindBuffer(p_target, p_id); }
+	
+	/**
+	 * Activates a Vertex Array Object Buffer.
+	 * @param	p_target
+	 * @param	p_id
+	 */
+	static public inline function BindVAO(p_id : VAOId):Void { m_gl.BindVAO(p_id); }
 	
 	/**
 	 * Uploads the data from a Buffer to the GPU.
@@ -458,6 +519,12 @@ class GL
 	static public inline function CreateBuffer():MeshBufferId { return m_gl.CreateBuffer(); }
 	
 	/**
+	 * Creates a Vertex Array Object identifier.
+	 * @return
+	 */
+	static public inline function CreateVAO():VAOId { return m_gl.CreateVAO(); }
+	
+	/**
 	 * Draws non-indexed primitives of the bound bufffer.
 	 * @param	p_primitive
 	 * @param	p_start
@@ -481,6 +548,12 @@ class GL
 	static public inline function DeleteBuffer(p_id : MeshBufferId):Void { m_gl.DeleteBuffer(p_id); }
 	
 	/**
+	 * Removes a vertex array object from GPU memory.
+	 * @param	p_id
+	 */
+	static public inline function DeleteVAO(p_id : VAOId):Void { m_gl.DeleteVAO(p_id); }
+	
+	/**
 	 * Enables the use of a vertex attribute at a given location.
 	 * @param	p_location
 	 */
@@ -491,6 +564,24 @@ class GL
 	 * @param	p_location
 	 */
 	static public inline function EnableVertexAttrib(p_location : Int):Void { m_gl.EnableVertexAttrib(p_location); }
+	
+	/**
+	 * Describes a buffer attribute in a given location as a single 1-float vector.
+	 * @param	p_location
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_z
+	 */
+	static public inline function VertexAttrib1f(p_location : Int, p_x : Float32):Void { m_gl.VertexAttrib1f(p_location, p_x); }
+	
+	/**
+	 * Describes a buffer attribute in a given location as a single 2-float vector.
+	 * @param	p_location
+	 * @param	p_x
+	 * @param	p_y
+	 * @param	p_z
+	 */
+	static public inline function VertexAttrib2f(p_location : Int, p_x : Float32, p_y:Float32):Void { m_gl.VertexAttrib2f(p_location, p_x, p_y); }
 	
 	/**
 	 * Describes a buffer attribute in a given location as a single 3-float vector.

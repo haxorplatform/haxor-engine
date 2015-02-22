@@ -77,7 +77,7 @@ class GameController extends Behaviour
 		var orbit_input : CameraOrbitInput = orbit.entity.AddComponent(CameraOrbitInput);
 		//orbit_input.zoomSpeed = 15;
 		orbit_input.zoomSpeed = 35;
-		orbit_input.enabled = false;
+		//orbit_input.enabled = false;
 		//*/
 	
 		Fog.color = Color.FromBytes(10, 0, 40);

@@ -8,6 +8,7 @@ import haxor.io.FloatArray;
 import haxor.graphics.GL;
 import haxor.math.Mathf;
 import haxor.platform.Types.MeshBufferId;
+import haxor.platform.Types.VAOId;
 
 /**
  * Class that handles Mesh related internal structures and behaviours.
@@ -38,6 +39,16 @@ class MeshContext
 	private var buffers : Array<MeshBufferId>;
 	
 	/**
+	 * Currently bound element buffer.
+	 */
+	private var bound_element : MeshBufferId;
+	
+	/**
+	 * List of vertex array objects per mesh.
+	 */
+	private var vao : Array<VAOId>;
+	
+	/**
 	 * List of activated attributes.
 	 */
 	private var activated : Array<Bool>;
@@ -66,6 +77,7 @@ class MeshContext
 		mid = new UID();
 		buffers 	= [];		
 		activated 	= [];
+		vao			= [];
 		
 		m_auto_white = false;
 		
@@ -78,6 +90,8 @@ class MeshContext
 		{			
 			buffers.push(GL.INVALID);		
 		}
+		
+		bound_element = GL.INVALID;
 	}
 	
 	/**
@@ -89,6 +103,28 @@ class MeshContext
 	}
 	
 	/**
+	 * Creates the mesh and its internal data.
+	 * @param	p_mesh
+	 */
+	private function Create(p_mesh : Mesh):Void
+	{
+		if(GL.VAO_ENABLED) if(mid.stored <= 0) vao.push(GL.INVALID);
+		p_mesh.__cid = mid.id;		
+		if (GL.VAO_ENABLED) vao[p_mesh.__cid] = GL.INVALID;
+	}
+	
+	/**
+	 * Destroys the mesh and its internal data.
+	 * @param	p_mesh
+	 */
+	private function Destroy(p_mesh : Mesh):Void
+	{
+		p_mesh.Clear();
+		if (GL.VAO_ENABLED) if (vao[p_mesh.__cid] != GL.INVALID) GL.DeleteVAO(vao[p_mesh.__cid]);
+		mid.id = p_mesh.__cid;
+	}
+	
+	/**
 	 * Enables a mesh. Ignores if the the mesh is the same.
 	 * @param	p_mesh
 	 */
@@ -96,7 +132,7 @@ class MeshContext
 	{
 		if (p_mesh != current) 
 		{ 
-			Unbind(); 
+			Unbind(p_mesh); 
 			current = p_mesh; 
 			
 			if (current != null)
@@ -115,7 +151,21 @@ class MeshContext
 	 */
 	private function ActivateAttributes():Void
 	{
-		var a : MeshAttrib;
+		var has_vao : Bool = false;
+		if (GL.VAO_ENABLED)
+		{
+			has_vao = true;
+			var vao_id : VAOId = vao[current.__cid];
+			
+			if (vao_id == GL.INVALID)
+			{
+				vao[current.__cid] = vao_id = GL.CreateVAO();				
+				has_vao = false;
+			}
+			GL.BindVAO(vao_id);
+		}
+		
+		var a 		: MeshAttrib;
 		var al 		: Array<MeshAttrib> = current.m_attribs;
 		var id 		: MeshBufferId;
 		var type 	: Int;
@@ -124,59 +174,106 @@ class MeshContext
 		for (i in 0...al.length)
 		{					
 			a = al[i];
-			var loc : Int = a._loc_; //Default attribs can be cached! wooray!				
+			var loc : Int = a._loc_; //Default attribs can be cached! wooray!
 			if (loc == 5) { has_color = true; m_auto_white = false; }
 			if (loc < 0) 
 			{ 
 				//User defined attribs needs to be searched though.
 				//But they will be cached later! wooray!
 				loc = EngineContext.material.GetAttribLocation(a); 
-				if (loc < 0) continue; 
-			}
-			type = GL.FLOAT; //TODO: Include GL.FIXED	
+				if (loc < 0) continue;				
+			}			
 			
+			type = GL.FLOAT; //TODO: Include GL.FIXED	
+			/*
 			if (!activated[loc])
 			{
 				activated[loc] = true;						
-				active_max = cast Math.max(active_max, loc);						
+				active_max = cast Math.max(active_max, loc);
 				GL.EnableVertexAttrib(loc);
+			}									
+			//*/
+			
+			if(!has_vao)
+			if (a.count > 0)
+			{
+				GL.BindBuffer(GL.ARRAY_BUFFER, buffers[a.__cid]);
+				GL.VertexAttribPointer(loc, a.offset, type, false, 0, 0);
 			}
-			GL.BindBuffer(GL.ARRAY_BUFFER, buffers[a.__cid]);					
-			GL.VertexAttribPointer(loc, a.offset, type, false, 0, 0);
 		}
 		
-		//Forces color attrib to white if none is found
+		//Forces color attrib to white if none is found		
+		
 		if (!has_color)
 		{					
 			if (activated[5]) { GL.DisableVertexAttrib(5); activated[5] = false; }
-			if (!m_auto_white) { GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0); m_auto_white = true; }
+			if(!has_vao) if (!m_auto_white) { GL.VertexAttrib4f(5, 1.0, 1.0, 1.0, 1.0); m_auto_white = true; }
 		}
-		
+		//*/
+		if(!has_vao)
 		if (current.indexed)
 		{	
-			a = current.m_topology_attrib;					
-			GL.BindBuffer(GL.ELEMENT_ARRAY_BUFFER,buffers[a.__cid]);
+			a = current.m_topology_attrib;								
+			if (bound_element != buffers[a.__cid])
+			{	
+				bound_element = buffers[a.__cid];
+				GL.BindBuffer(GL.ELEMENT_ARRAY_BUFFER,bound_element);
+			}
 		}
 	}
 	
 	/**
 	 * Disables the bound Mesh
 	 */
-	private function Unbind():Void
+	private function Unbind(p_next : Mesh):Void
 	{	
-		//DisableAttribArray
-		
-		//We can expect that future meshes will overwrite things.
-		//So we can keep they activated.
-		
-		/*
-		for (i in 0...10)
-		{
-			if (activated[i]) GL.DisableVertexAttrib(i);
-			activated[i] = false;
+		//DisableAttribArray of the last mesh.				
+		if (current != null)
+		{			
+			var al0 : Array<MeshAttrib> = current.m_attribs;
+			
+			if (p_next == null)
+			{
+				for (i in 0...al0.length)
+				{
+					var l0 : Int = al0[i]._loc_;
+					if (l0 >= 0) { if(activated[l0]) { GL.DisableVertexAttrib(l0); activated[l0] = false; } }
+				}
+			}			
+			else
+			{
+				var al1 : Array<MeshAttrib> = p_next.m_attribs;
+				//Checks if the new mesh have matching attrib locations and skip disabling them.
+				for (i in 0...al0.length)
+				{
+					var found : Bool = false;
+					var l0 : Int = al0[i]._loc_;
+					if (l0 < 0) continue;
+					for (j in 0...al1.length)
+					{
+						var l1 : Int = al1[j]._loc_;
+						if (l1 < 0) continue;
+						if (l0 == l1) { found = true; break; }
+					}
+					if (found)
+					{
+						if (l0 >= 0)
+						{
+							if (!activated[l0]) { GL.EnableVertexAttrib(l0); activated[l0] = true; }
+						}						
+					}
+					else
+					{
+						if (l0 >= 0) 
+						{ 
+							if (activated[l0]) { GL.DisableVertexAttrib(l0); activated[l0] = false; }
+						}
+					}
+				}
+				
+			}
+			
 		}
-		active_max = 0;
-		//*/
 	}
 	
 	/**
@@ -220,21 +317,26 @@ class MeshContext
 	 * Removes the attrib from the GPU.
 	 * @param	p_attrib
 	 */
-	private function RemoveAttrib(p_attrib : MeshAttrib):Void
+	private function RemoveAttrib(p_attrib : MeshAttrib,p_mesh : Mesh):Void
 	{		
 		var id : MeshBufferId = buffers[p_attrib.__cid];
 		if (id == GL.INVALID) return;		
 		GL.DeleteBuffer(id);
 		buffers[p_attrib.__cid] = GL.INVALID;
 		aid.id = p_attrib.__cid;
+		
+		if (GL.VAO_ENABLED) if (vao[p_mesh.__cid] != GL.INVALID) { GL.DeleteVAO(vao[p_mesh.__cid]); vao[p_mesh.__cid] = GL.INVALID; }
 	}
 	
 	/**
 	 * Updates the Attribute for a given Mesh.
 	 * @param	p_attrib
 	 */
-	private function UpdateAttrib(a : MeshAttrib,p_mode : Int,p_is_index : Bool):Void
+	private function UpdateAttrib(a : MeshAttrib,p_mode : Int,p_is_index : Bool,p_mesh : Mesh):Void
 	{
+		
+		if (GL.VAO_ENABLED) if (vao[p_mesh.__cid] != GL.INVALID) { GL.DeleteVAO(vao[p_mesh.__cid]); vao[p_mesh.__cid] = GL.INVALID; }
+		
 		var id : MeshBufferId = buffers[a.__cid];
 		var target_flag : Int = p_is_index ? GL.ELEMENT_ARRAY_BUFFER : GL.ARRAY_BUFFER;
 		

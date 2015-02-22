@@ -308,6 +308,9 @@ class Gizmo
 		m_render_count  = 0;				
 		m_gizmo_count 	= p_count;		
 		
+		if (!GL.TEXTURE_FLOAT) return;
+		if (GL.MAX_VERTEX_TEXTURES <= 0) return;
+		
 		if (SHADER == null) SHADER = new Shader(ShaderContext.gizmo_source);
 		
 		material = new Material("Gizmo" + p_type+"Material");
@@ -348,6 +351,9 @@ class Gizmo
 	 */
 	public function Push(p_color : Color, p_a : Vector4, p_b : Vector4, p_transform : Matrix4):Void
 	{		
+		if (!GL.TEXTURE_FLOAT) return;
+		if (GL.MAX_VERTEX_TEXTURES <= 0) return;
+		
 		if (m_render_count >= m_gizmo_count)
 		{			
 			return;
@@ -391,7 +397,10 @@ class Gizmo
 	 * Render all gizmos in the queue.
 	 */
 	public function Render():Void 
-	{	
+	{
+		if (!GL.TEXTURE_FLOAT) return;
+		if (GL.MAX_VERTEX_TEXTURES <= 0) return;
+		
 		var gizmo_collider : Bool = Debug.collider || Debug.colliderAABB || Debug.colliderSB;
 		
 		if (gizmo_collider)
@@ -753,7 +762,7 @@ class CanvasGizmo extends Gizmo
 		count = 0;
 		active = false;
 		
-		material.cull = CullMode.None;
+		if(material != null) material.cull = CullMode.None;
 	}
 	
 	/**

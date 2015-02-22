@@ -57,6 +57,11 @@ class TextureContext
 	 * Bound texture for a given slot.
 	 */
 	private var bind : Array<Texture>;
+	
+	/**
+	 * Currently bound texture.
+	 */
+	private var bound : Texture;
 		
 	/**
 	 * Currently active slot
@@ -116,8 +121,10 @@ class TextureContext
 		var chn_bit  : Int 	= FormatToChannelBits(p_texture.m_format);
 		var chn_type : Int  = FormatToChannelType(p_texture.m_format);
 		var tex_type : Int  = TextureToTarget(p_texture);
+		
 		Bind(p_texture);		
 		GL.TexImage2DAlloc(tex_type, 0, chn_fmt, w, h, 0, chn_bit, chn_type);
+		
 	}
 	
 	/**
@@ -130,7 +137,6 @@ class TextureContext
 		//next_slot++;
 		
 		var id : TextureId = GL.CreateTexture();
-		
 		
 		ids[p_texture.__cid] = id;
 		
@@ -182,8 +188,21 @@ class TextureContext
 	 */
 	private function Bind(p_texture : Texture,p_slot:Int=-1):Void
 	{
-		var slot : Int = p_slot;
-		
+		if (p_slot < 0)
+		{
+			ApplyBind(p_texture,false);
+		}
+		else
+		{
+			if (bind[p_slot] != p_texture)
+			{
+				bind[p_slot] = p_texture;				
+				if(active != p_slot) { GL.ActiveTexture(GL.TEXTURE0 + p_slot); active = p_slot; }
+				ApplyBind(p_texture,true);
+			}
+		}		
+		/*
+		var will_bind : Bool = false;
 		//if (active != slot)
 		{
 			if (slot >= 0)
@@ -193,14 +212,26 @@ class TextureContext
 			}
 		}
 		//var need_bind : Bool = p_slot < 0 ? true : (bind[slot] != p_texture);
-		//if (bind[slot] != p_texture)
+		if (bind[slot] != p_texture)
 		{
-			
-			var id 		: TextureId = ids[p_texture.__cid];		
-			var target 	: Int 		= TextureToTarget(p_texture);		
-			//if (need_bind) 
-			GL.BindTexture(target, id);
+			ApplyBind(p_texture);
 			//if (slot >= 0) bind[slot] = p_texture;
+		}
+		//*/
+	}
+	
+	/**
+	 * Effectively binds the texture.
+	 * @param	p_texture
+	 */
+	private function ApplyBind(p_texture : Texture,p_force:Bool):Void
+	{
+		if ((bound != p_texture) || p_force) 
+		{ 
+			var id 		: TextureId = ids[p_texture.__cid];		
+			var target 	: Int 		= TextureToTarget(p_texture);			
+			GL.BindTexture(target, id); 
+			bound = p_texture; 
 		}
 	}
 	
@@ -214,6 +245,7 @@ class TextureContext
 		//if(bind[active] == null) return;
 		//var target 	: Int 		= TextureToTarget(bind[active]);	
 		//bind[active] = null;
+		bound = null;
 		GL.BindTexture(GL.TEXTURE_2D, GL.NULL);
 	}
 	
@@ -281,8 +313,6 @@ class TextureContext
 		if (p_texture.format == PixelFormat.Float3) is_float = true;
 		if (p_texture.format == PixelFormat.Float4) is_float = true;
 		
-		
-		
 		if (is_half)		
 		if (!GL.TEXTURE_HALF_LINEAR)
 		{
@@ -319,7 +349,9 @@ class TextureContext
 			case TextureFilter.LinearMipmapLinear:	 GL.TexParameteri(target, GL.TEXTURE_MAG_FILTER, GL.LINEAR); 
 			case TextureFilter.Trilinear:	 		 GL.TexParameteri(target, GL.TEXTURE_MAG_FILTER, GL.LINEAR); 			
 			case TextureFilter.LinearMipmapNearest:	 GL.TexParameteri(target, GL.TEXTURE_MAG_FILTER, GL.LINEAR);  
-		}		
+		}	
+		
+		
 	}
 	
 	/**
@@ -329,6 +361,7 @@ class TextureContext
 	private function Update(p_texture:Texture):Void
 	{
 		var target:Int = TextureToTarget(p_texture);		
+		
 		Bind(p_texture);
 		if (target == GL.TEXTURE_CUBE_MAP)
 		{
@@ -475,6 +508,9 @@ class TextureContext
 			case PixelFormat.Float4, PixelFormat.Half4:			return GL.RGBA;			
 			case PixelFormat.Luminance: 	return GL.LUMINANCE;
 			case PixelFormat.Depth:			return GL.DEPTH_COMPONENT;
+			case PixelFormat.sRGB: 		return GL.TEXTURE_SRGB ? GL.SRGB : GL.RGB;
+			case PixelFormat.sRGBA:     return GL.TEXTURE_SRGB ? GL.SRGB_ALPHA : GL.RGBA;
+			case PixelFormat.sRGBA8:    return GL.TEXTURE_SRGB ? GL.SRGB8_ALPHA8 : GL.RGBA;
 		}
 		return GL.RGBA;
 	}
@@ -492,6 +528,9 @@ class TextureContext
 			case PixelFormat.Float, PixelFormat.Float3, PixelFormat.Float4 : return GL.FLOAT;
 			case PixelFormat.Depth: return GL.UNSIGNED_SHORT;
 			case PixelFormat.RGBA8, PixelFormat.RGB8, PixelFormat.Luminance, PixelFormat.Alpha8: return GL.UNSIGNED_BYTE;
+			case PixelFormat.sRGB: 		return GL.UNSIGNED_BYTE;
+			case PixelFormat.sRGBA:     return GL.UNSIGNED_BYTE;
+			case PixelFormat.sRGBA8:    return GL.UNSIGNED_BYTE;
 		}		
 		return GL.UNSIGNED_BYTE;
 	}
@@ -503,6 +542,8 @@ class TextureContext
 	 */
 	static private function FormatToChannelLayout(p_format : PixelFormat):Int
 	{
+		
+		
 		switch (p_format)
 		{
 			case PixelFormat.Alpha8:  						return GL.ALPHA;
@@ -512,6 +553,11 @@ class TextureContext
 			case PixelFormat.Float3, PixelFormat.Half3:		return GL.RGB;
 			case PixelFormat.Float4, PixelFormat.Half4:		return GL.RGBA;
 			case PixelFormat.Depth:							return GL.DEPTH_COMPONENT;
+			
+			case PixelFormat.sRGB: 		return GL.TEXTURE_SRGB ? GL.SRGB : GL.RGB;
+			case PixelFormat.sRGBA:     return GL.TEXTURE_SRGB ? GL.SRGB_ALPHA : GL.RGBA;
+			case PixelFormat.sRGBA8:    return GL.TEXTURE_SRGB ? GL.SRGB8_ALPHA8 : GL.RGBA;
+			
 		}		
 		return GL.RGBA;
 	}

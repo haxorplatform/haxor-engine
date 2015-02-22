@@ -40,7 +40,7 @@ import haxor.platform.Types.UniformLocation;
 @:allow(haxor)
 class MaterialContext
 {
-	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix","WorldMatrixInverse","WorldMatrixIT", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse","Lights","Fog","CameraProjection"];
+	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix","WorldMatrixInverse","WorldMatrixIT", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse","Lights","Fog","CameraProjection","Joints","Binds"];
 	/**
 	 * List of global uniforms.
 	 */
@@ -329,7 +329,7 @@ class MaterialContext
 	 * Creates the API instance of a shader class.
 	 * @param	s
 	 */
-	private function InitializeShader(s:Shader):Void
+	private function CompileShader(s:Shader):Void
 	{
 		//UberShader will be a Shader container.
 		if (Std.is(s, UberShader)) { return; }		
@@ -338,50 +338,21 @@ class MaterialContext
 		vs_err = CreateCompileShader(s, GL.VERTEX_SHADER,   vertex_shaders);
 		fs_err = CreateCompileShader(s, GL.FRAGMENT_SHADER, fragment_shaders);		
 		if (s.m_hasError)
-		{
-			Console.LogError("Shader> Compile Error @ [" + s.name + "]");
-			//if (vs_err != "") 
-			Console.Log("[vertex]\n" + vs_err);
-			//if (fs_err != "") 
-			Console.Log("[fragment]\n" + fs_err);
+		{	
+			//trace(vs_err);
+			//trace(" ");
+			//trace(fs_err);
+			s.error = "";
+			s.error += FormatShaderError("[vs]", vs_err);
+			s.error += FormatShaderError("[fs]", fs_err);
+			Console.LogError("Shader> Compile Error @ [" + s.name + "]");			
+			Console.Log(s.error);
 		}
 		#if gldebug
 		GL.Assert("Shader> Init");
 		#end
 	}
-	
-	/**
-	 * Assigns a location for this uniform if any.
-	 * @param	m
-	 * @param	u
-	 */
-	private function CreateUniform(m:Material, u:MaterialUniform):Void
-	{
-		u.__d = true;
-		u.exists = true;
 		
-		if (!is_linked[m.__cid]) return;
-		
-		var p 	: ProgramId 		= programs[m.__cid];
-		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
-		//Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");		
-		uniforms[m.__cid][u.__cid] 	= loc;				
-		u.exists = (loc != GL.INVALID);
-	}
-	
-	/**
-	 * Removes the reference for the uniform location.
-	 * @param	m
-	 * @param	u
-	 */
-	private function DestroyUniform(m:Material, u:MaterialUniform)
-	{
-		//var p 	: ProgramId 		= programs[m.__cid];		
-		//var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
-		if(m!=null) uniforms[m.__cid][u.__cid] 	= GL.INVALID;
-		EngineContext.material.uid.id = u.__cid;
-	}
-	
 	/**
 	 * Create and Compiles a Vertex or Fragment shader, then collects the error if any.
 	 * @param	s
@@ -391,8 +362,8 @@ class MaterialContext
 	 */
 	private function CreateCompileShader(s:Shader,t:Int,c : Array<ShaderId>):String
 	{
-		var id : ShaderId = GL.CreateShader(t);
-		var ss:String = t == GL.VERTEX_SHADER ? s.m_vss : s.m_fss;
+		var id : ShaderId = c[s.__cid] == GL.INVALID ? GL.CreateShader(t) : c[s.__cid];
+		var ss:String = t == GL.VERTEX_SHADER ? s.vs : s.fs;
 		c[s.__cid] = id;		
 		GL.ShaderSource(id, ss);		
 		GL.CompileShader(id);			
@@ -402,6 +373,45 @@ class MaterialContext
 			return GL.GetShaderInfoLog(id);
 		}
 		return "";
+	}
+	
+	
+	/**
+	 * Formats the error
+	 * @param	err
+	 * @return
+	 */
+	private function FormatShaderError(shd:String,err : String):String
+	{
+		var lines : Array<String> = err.split("\n");		
+		var res : String = "";
+		for (i in 0...lines.length)
+		{
+			var e : String = lines[i];
+			if (e.indexOf("ERROR") < 0) continue;
+			var tk : Array<String> = e.split(":");
+			if (tk.length == 5)
+			{				
+				res += shd + " " + tk[2] + ":" + tk[3] + " : " + tk[4] + "\n";
+			}
+			else if (tk.length == 4)
+			{
+				res += shd + " " + tk[2] + ":" + tk[3]+"\n";
+			}
+			else if (tk.length == 3)
+			{
+				res += shd + " " + tk[0] + ":" + tk[2]+"\n";
+			}
+			else if (tk.length == 2)
+			{
+				res += shd + " " + tk[0] + ":" + tk[1]+"\n";
+			}
+			else
+			{
+				res += shd + " " + tk[1] + "\n";					
+			}
+		}
+		return res;
 	}
 	
 	/**
@@ -457,7 +467,8 @@ class MaterialContext
 			var m4 : Matrix4		= Matrix4.temp.SetIdentity();
 			while(k < gl.length)
 			{
-				var un : String = gl[k];
+				var un : String = gl[k];				
+				if (!is_linked[m.__cid]) break;
 				if (GL.GetUniformLocation(p, un) == GL.INVALID) { gl.remove(un); continue; }
 				//Initializes these uniforms so they don't need to be searched later.
 				
@@ -469,6 +480,8 @@ class MaterialContext
 					case "Time":					m.SetFloat(un, 0.0);					
 					case "RandomSeed":				m.SetFloat(un, 0.0);
 					case "RandomTexture":			m.SetTexture(un, Texture2D.random);
+					//case "Joints":				m.SetTexture(un, EngineContext.renderer.skm_joints);
+					//case "Binds":					m.SetTexture(un, EngineContext.renderer.skm_binds);
 					//case "ScreenTexture":			if (current.grab) current.SetTexture("ScreenTexture", current.screen);						
 					//case "ScreenDepth":			current.SetTexture("ScreenDepth",   p_camera.m_grab.depth);						
 					case "WorldMatrix":				m.SetMatrix4(un,m4);
@@ -498,13 +511,46 @@ class MaterialContext
 	}
 	
 	/**
+	 * Assigns a location for this uniform if any.
+	 * @param	m
+	 * @param	u
+	 */
+	private function CreateUniform(m:Material, u:MaterialUniform):Void
+	{
+		u.__d = true;
+		u.exists = true;
+		
+		if (!is_linked[m.__cid]) return;
+		
+		var p 	: ProgramId 		= programs[m.__cid];
+		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
+		//Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");		
+		uniforms[m.__cid][u.__cid] 	= loc;				
+		u.exists = (loc != GL.INVALID);
+	}
+	
+	/**
+	 * Removes the reference for the uniform location.
+	 * @param	m
+	 * @param	u
+	 */
+	private function DestroyUniform(m:Material, u:MaterialUniform)
+	{
+		//var p 	: ProgramId 		= programs[m.__cid];		
+		//var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
+		if(m!=null) uniforms[m.__cid][u.__cid] 	= GL.INVALID;
+		EngineContext.material.uid.id = u.__cid;
+	}
+	
+	/**
 	 * Returns the cached location of a given attrib for the the current program.
 	 * @param	p_name
 	 * @return
 	 */
 	private function GetAttribLocation(a : MeshAttrib):Int
 	{
-		if (current == null) return -1;		
+		if (current == null) return -1;
+		if (!is_linked[current.__cid]) return -1;
 		var p : ProgramId 	= programs[current.__cid];
 		var loc : Int 		= locations[current.__cid][a.__cid];
 		if (loc == -1)
@@ -560,8 +606,8 @@ class MaterialContext
 				viewmatrix[m.__cid] = false;
 				projmatrix[m.__cid] = false;				
 				var p : ProgramId = programs[m.__cid];
-				UpdateFlags(m);				
-				GL.UseProgram(p);
+				UpdateFlags(m);
+				if (is_linked[m.__cid]) GL.UseProgram(p);
 			}			
 		}		
 	}
@@ -579,6 +625,8 @@ class MaterialContext
 		
 		if (current != null)
 		{	
+			
+			
 			//if (p_changed)
 			{
 				viewmatrix[current.__cid] = (c == null) ? false : c.m_view_uniform_dirty;
@@ -601,9 +649,9 @@ class MaterialContext
 			var ucp : Bool = projmatrix[current.__cid] || uc;
 			if(c!=null) camera[current.__cid] = c;
 			
-			SetLights(t, current, msh);
+			if (is_linked[current.__cid]) SetLights(t, current, msh);
 			
-			UploadUniforms(ut,ucv,ucp,t,c);
+			if (is_linked[current.__cid]) UploadUniforms(ut,ucv,ucp,t,c);
 			
 			viewmatrix[current.__cid] = false;
 			projmatrix[current.__cid] = false;
@@ -647,8 +695,8 @@ class MaterialContext
 		var changed : Bool = u.__d;
 		var texture_slot : Int = -1;				
 		if (is_texture) 
-		{ 	
-			if (u.texture.__slot < 0) { u.texture.__slot = texture_slot = slot++; }
+		{ 				
+			if (u.texture.__slot < 0) { u.texture.__slot = texture_slot = slot++; }			
 			var b : Int32Array = cast u.data;
 			if (u.texture.__slot != b.Get(0)) { changed = true; b.Set(0, u.texture.__slot); }			
 			EngineContext.texture.Bind(u.texture, u.texture.__slot);			
@@ -714,6 +762,8 @@ class MaterialContext
 			case "Time":					u.SetFloat(Time.elapsed);					
 			case "RandomSeed":				u.SetFloat(Random.value);
 			case "RandomTexture":			u.SetTexture(Texture2D.random);
+			//case "Joints":					u.SetTexture(EngineContext.renderer.skm_joints);
+			//case "Binds":					u.SetTexture(EngineContext.renderer.skm_binds);
 			//case "ScreenTexture":			if (current.grab) u.SetTexture("ScreenTexture", current.screen);						
 			//case "ScreenDepth":			current.SetTexture("ScreenDepth",   c.m_grab.depth);						
 			case "WorldMatrix":				if(ut) 	u.SetMatrix4(t.WorldMatrix);

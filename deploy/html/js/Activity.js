@@ -181,10 +181,7 @@ haxor.Activity =
 	//*/
 	Step: function(p_time,p_visible)
 	{			
-		var a = haxor.Activity;
-		
-		console.log("running "+a.m_list.length);
-		
+		var a = haxor.Activity;		
 		if (a.m_step_clock < 0) a.m_step_clock = p_time;		
 		var t    		 = p_time;		
 		var dt   		 = Math.max(1.0,t - a.m_step_clock); //in ms
@@ -214,8 +211,8 @@ haxor.Activity =
 	//*/
 	RAFLoop: function(p_time)
 	{	
-		a.RAFId = window.requestAnimationFrame(a.RAFLoop);
 		var a = haxor.Activity;
+		a.RAFId = window.requestAnimationFrame(a.RAFLoop);		
 		var t  = a.hasPerfTime ? window.performance.now() : p_time;								
 		a.Step(t - a.m_raf_offset_clock,true);		
 		return true;

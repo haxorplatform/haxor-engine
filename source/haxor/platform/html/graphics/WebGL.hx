@@ -1,5 +1,7 @@
 #if html
 package haxor.platform.html.graphics;
+import haxor.platform.Types.VAOId;
+import js.html.webgl.ShaderPrecisionFormat;
 import js.html.HTMLCollection;
 import js.html.NodeList;
 import js.html.Node;
@@ -45,7 +47,9 @@ class WebGL extends GraphicContext
 	private var m_canvas : CanvasElement;
 	
 	private var m_container : Element;
-		
+	
+	private var vao : Dynamic;
+	
 	/**
 	 * Creates a new WebGL context.
 	 * @param	p_application
@@ -131,9 +135,13 @@ class WebGL extends GraphicContext
 			var ext : Dynamic = c.getExtension(extensions[i]);
 			Console.Log("\t" + extensions[i],1);			
 			switch(extensions[i])
-			{
+			{				
+				case "EXT_sRGB":
+					GL.TEXTURE_SRGB = true;
+				
 				case "OES_vertex_array_object":
-					GL.VERTEX_ARRAY_OBJECT = true;
+					GL.VAO_ENABLED = false; //temporaly off for better usage
+					vao = ext;
 					
 				case "OES_texture_half_float":
 					GL.HALF_FLOAT = 0x8D61;
@@ -159,8 +167,31 @@ class WebGL extends GraphicContext
 			}
 		}
 		
-		GL.MAX_ACTIVE_TEXTURE = cast c.getParameter(GL.MAX_TEXTURE_IMAGE_UNITS);
-		Console.Log("\tMax Active Textures: " + GL.MAX_ACTIVE_TEXTURE,1);
+		Console.Log("Graphics> API Limits.",1);
+		GL.MAX_ACTIVE_TEXTURE 			= cast c.getParameter(GL.MAX_TEXTURE_IMAGE_UNITS);
+		GL.MAX_COMBINED_TEXTURE 		= cast c.getParameter(GL.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
+		GL.MAX_FRAGMENT_UNIFORM_LENGTH  = cast c.getParameter(GL.MAX_FRAGMENT_UNIFORM_VECTORS);
+		GL.MAX_VERTEX_UNIFORM_LENGTH  	= cast c.getParameter(GL.MAX_VERTEX_UNIFORM_VECTORS);		
+		GL.MAX_VERTEX_TEXTURES			= cast c.getParameter(GL.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
+		GL.BONE_TEXTURE 				= (GL.MAX_VERTEX_TEXTURES > 0) && GL.TEXTURE_FLOAT && (GL.MAX_UNIFORM_BONES >= 10);
+		
+		if (Browser.navigator.platform.toLowerCase().indexOf("mac") >= 0) GL.BONE_TEXTURE = false;
+		
+		var pf : ShaderPrecisionFormat;		
+		pf = c.getShaderPrecisionFormat(GL.VERTEX_SHADER,   GL.HIGH_FLOAT); GL.VS_FLOAT_HIGHP = pf.precision != 0;
+		pf = c.getShaderPrecisionFormat(GL.FRAGMENT_SHADER, GL.HIGH_FLOAT); GL.FS_FLOAT_HIGHP = pf.precision != 0;
+		pf = c.getShaderPrecisionFormat(GL.VERTEX_SHADER,   GL.HIGH_INT);   GL.VS_INT_HIGHP   = pf.precision != 0;
+		pf = c.getShaderPrecisionFormat(GL.FRAGMENT_SHADER, GL.HIGH_INT);   GL.FS_INT_HIGHP   = pf.precision != 0;
+		
+		Console.Log("\tMax Active Textures: " + GL.MAX_ACTIVE_TEXTURE, 1);
+		Console.Log("\tMax Combined Textures: " + GL.MAX_COMBINED_TEXTURE, 1);
+		Console.Log("\tMax Fragment Uniform Length: " + GL.MAX_FRAGMENT_UNIFORM_LENGTH, 1);
+		Console.Log("\tMax Vertex Uniform Length: " + GL.MAX_VERTEX_UNIFORM_LENGTH, 1);
+		Console.Log("\tMax Vertex Textures: " + GL.MAX_VERTEX_TEXTURES, 1);
+		Console.Log("\tMax Uniform Bones: " + GL.MAX_UNIFORM_BONES, 1);
+		Console.Log("\tBone Texture: " + GL.BONE_TEXTURE, 1);
+		Console.Log("\tVertex Shader Float Highp: " + GL.VS_FLOAT_HIGHP, 1);
+		Console.Log("\tFragment Shader Float Highp: " + GL.FS_FLOAT_HIGHP,1);
 		
 	}
 	
@@ -174,15 +205,20 @@ class WebGL extends GraphicContext
 	}
 	
 	//Attribs
-	override public /*inline*/ function CreateBuffer():MeshBufferId 													{ return c.createBuffer(); }	
+	override public /*inline*/ function CreateBuffer():MeshBufferId 													{ return c.createBuffer(); }
+	override public /*inline*/ function CreateVAO():VAOId			 													{ return vao.createVertexArrayOES(); }
 	override public /*inline*/ function BindBuffer(p_target:Int, p_id:MeshBufferId):Void 								{ c.bindBuffer(p_target, p_id); }	
+	override public /*inline*/ function BindVAO(p_id:VAOId):Void						 								{ vao.bindVertexArrayOES(p_id); }	
 	override public /*inline*/ function BufferData(p_target:Int, p_data:Buffer, p_mode:Int):Void 						{ c.bufferData(p_target, p_data.buffer, p_mode); }	
 	override public /*inline*/ function BufferSubData(p_target:Int, p_offset:Int, p_data:Buffer):Void 					{ c.bufferSubData(p_target, p_offset, p_data.buffer); }	
 	override public /*inline*/ function DeleteBuffer(p_id:MeshBufferId):Void 											{ c.deleteBuffer(p_id); }	
+	override public /*inline*/ function DeleteVAO(p_id:VAOId):Void			 											{ vao.deleteVertexArrayOES(p_id); }
 	override public /*inline*/ function DrawArrays(p_primitive:Int, p_start:Int, p_count:Int):Void 						{ c.drawArrays(p_primitive, p_start, p_count); }	
 	override public /*inline*/ function DrawElements(p_primitive:Int, p_count:Int, p_type:Int, p_offset:Int):Void  		{ c.drawElements(p_primitive, p_count, p_type, p_offset); }	
 	override public /*inline*/ function DisableVertexAttrib(p_location:Int):Void 										{ c.disableVertexAttribArray(p_location); }	
 	override public /*inline*/ function EnableVertexAttrib(p_location:Int):Void  										{ c.enableVertexAttribArray(p_location); }	
+	override public /*inline*/ function VertexAttrib1f(p_location:Int, p_x:Float32):Void 									{ c.vertexAttrib1f(p_location, p_x); }
+	override public /*inline*/ function VertexAttrib2f(p_location:Int, p_x:Float32, p_y:Float32):Void 						{ c.vertexAttrib2f(p_location, p_x, p_y); }
 	override public /*inline*/ function VertexAttrib3f(p_location:Int, p_x:Float32, p_y:Float32, p_z:Float32):Void 			{ c.vertexAttrib3f(p_location, p_x, p_y, p_z); }
 	override public /*inline*/ function VertexAttrib4f(p_location:Int, p_x:Float32, p_y:Float32, p_z:Float32, p_w:Float32):Void { c.vertexAttrib4f(p_location, p_x, p_y, p_z, p_w);	}
 	override public /*inline*/ function VertexAttribPointer(p_location:Int, p_components_size:Int, p_type:Int, p_normalized:Bool, p_stride:Int, p_offset:Int):Void { c.vertexAttribPointer(p_location, p_components_size, p_type, p_normalized, p_stride, p_offset); }

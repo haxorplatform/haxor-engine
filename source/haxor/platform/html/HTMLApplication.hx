@@ -45,7 +45,7 @@ class HTMLApplication extends BaseApplication
 	private function new() 
 	{
 		super();				
-		m_platform 			= Platform.HTML;				
+		m_platform 			= Platform.HTML;		
 	}
 	
 	/**

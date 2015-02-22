@@ -803,10 +803,6 @@ examples_dungeon_Dungeon.prototype = $extend(haxor_component_Behaviour.prototype
 			if(t.get_name().indexOf("Point") < 0) {
 				if(t.m_entity.GetComponentsInChildren(examples_dungeon_ParticleTorch).length <= 0) {
 					if(this.app.os.toLowerCase().indexOf("arm") < 0) {
-						var tp = new haxor_core_Entity().AddComponent(examples_dungeon_ParticleTorch);
-						tp.m_entity.set_name("Torch");
-						tp.m_entity.m_transform.set_parent(t);
-						tp.m_entity.m_transform.set_localPosition(new haxor_math_Vector3(0,0,0));
 					}
 				}
 			}
@@ -913,7 +909,6 @@ examples_dungeon_GameController.prototype = $extend(haxor_component_Behaviour.pr
 		this.orbit.follow = true;
 		var orbit_input = this.orbit.m_entity.AddComponent(haxor_component_CameraOrbitInput);
 		orbit_input.zoomSpeed = 35;
-		orbit_input.set_enabled(false);
 		haxor_graphics_Fog.color = haxor_math_Color.FromBytes(10,0,40);
 		haxor_graphics_Fog.exp = 1.5;
 		haxor_graphics_Fog.end = 0.6;
@@ -1001,7 +996,7 @@ examples_dungeon_Player.prototype = $extend(haxor_component_Behaviour.prototype,
 			if(haxor_core_Asset.Get(new_mat_id) != null) mat = haxor_core_Asset.Get(new_mat_id); else {
 				this.m_falloff_mat = mat = haxor_core_Asset.Instantiate(mat);
 				mat.set_name(new_mat_id);
-				mat.set_shader(haxor_core_Asset.Get("haxor/diffuse/ToonSkinFalloff"));
+				mat.set_shader(haxor_graphics_material_Shader.get_FlatTextureSkin());
 				mat.SetTexture("DiffuseTexture",tex);
 				mat.SetFloat("Falloff",1.5);
 				mat.SetFloat("FalloffIntensity",1.0);
@@ -1042,9 +1037,6 @@ examples_dungeon_Player.prototype = $extend(haxor_component_Behaviour.prototype,
 		this.m_shadow.m_entity.AddComponent(examples_dungeon_BlobShadow);
 		var app = this.get_application();
 		if(app.os.toLowerCase().indexOf("arm") < 0) {
-			this.m_dust_particle = new haxor_core_Entity().AddComponent(examples_dungeon_ParticleRunning);
-			this.m_dust_particle.m_entity.m_transform.set_parent(this.m_entity.m_transform);
-			this.m_dust_particle.m_entity.m_transform.set_localPosition(new haxor_math_Vector3(0,10,0));
 		}
 	}
 	,SplitClip: function(p_name,p_start,p_end,p_lib,p_loop,p_speed) {
@@ -1437,6 +1429,7 @@ haxor_core_IRenderable.prototype = {
 	__class__: haxor_core_IRenderable
 };
 var examples_dungeon_Main = function() {
+	this.charcount = 0;
 	this.cursor = new haxor_math_Vector3(0,0,0);
 	this.queue = 3;
 	this.load_big_dungeon = true;
@@ -1450,7 +1443,10 @@ examples_dungeon_Main.main = function() {
 };
 examples_dungeon_Main.__super__ = haxor_core_Application;
 examples_dungeon_Main.prototype = $extend(haxor_core_Application.prototype,{
-	OnStart: function() {
+	OnBuild: function() {
+		haxor_core_Application.prototype.OnBuild.call(this);
+	}
+	,OnStart: function() {
 		this.loader = new examples_utils_LoaderHTML();
 	}
 	,Initialize: function() {
@@ -1463,15 +1459,48 @@ examples_dungeon_Main.prototype = $extend(haxor_core_Application.prototype,{
 		this.ui = new Stats();
 		this.ui.domElement.style.position = "absolute";
 		this.ui.domElement.style.top = "0px";
-		this.ui.domElement.style.display = "none";
 		window.document.body.appendChild(this.ui.domElement);
 		haxor_thread_Activity.Run(function(t) {
 			_g.ui.update();
 			return true;
 		});
-		this.debug = false;
+		this.debug = true;
 		this.game = new haxor_core_Entity("game").AddComponent(examples_dungeon_GameController);
 		this.game.Initialize();
+		this.skm0 = haxor_graphics_material_Material.Transparent(haxor_core_Asset.Get("human/diffuse"),null,null,null);
+		this.skm0.set_shader(haxor_graphics_material_Shader.get_FlatTextureSkin());
+		var _g1 = 0;
+		while(_g1 < 0) {
+			var i = _g1++;
+			this.Add();
+		}
+		var e = new haxor_core_Entity("sphere");
+		e.m_transform.set_localScale(new haxor_math_Vector3(100,100,100));
+		var mr = e.AddComponent(haxor_component_MeshRenderer);
+		mr.set_mesh(haxor_graphics_mesh_Model.get_sphere());
+		mr.set_material(haxor_graphics_material_Material.Opaque(null,null,null));
+		mr.m_material.set_shader(new haxor_graphics_material_shader_FlatShader("000",true,false,false));
+		mr.m_material.SetTexture("DiffuseTexture",haxor_graphics_texture_Texture2D.get_random());
+	}
+	,Add: function() {
+		console.log("Added");
+		var cf;
+		cf = haxor_core_Asset.Get("human");
+		var e = cf.get_asset();
+		e.set_name("human");
+		e.m_transform.set_localScale(new haxor_math_Vector3(100.0,100.0,100.0));
+		e.m_transform.set_localPosition(new haxor_math_Vector3(haxor_math_Random.Range(-500,500),0.0,haxor_math_Random.Range(-500,500)));
+		var mr = e.GetComponentsInChildren(haxor_component_SkinnedMeshRenderer);
+		if(this.charcount == 0) {
+			var sm = mr[0].m_mesh;
+			sm.set_uv0(sm.get_uv1());
+			sm.set_uv1([]);
+		}
+		mr[0].set_name("human");
+		mr[0].set_material(this.skm0);
+		e.get_animation().clips[0].wrap = haxor_core_AnimationWrap.Loop;
+		e.get_animation().Play(e.get_animation().clips[0]);
+		this.charcount++;
 	}
 	,OnUpdate: function() {
 		if(this.game == null) return;
@@ -1483,13 +1512,17 @@ examples_dungeon_Main.prototype = $extend(haxor_core_Application.prototype,{
 		log += "\nActive: " + haxor_core_RenderStats.get_total();
 		log += "\nRenderers: " + haxor_core_RenderStats.renderers;
 		log += "\nTris: " + haxor_core_RenderStats.triangles;
+		log += "\nCharacters: " + this.charcount;
 		var coi = this.game.orbit.m_entity.GetComponent(haxor_component_CameraOrbitInput);
 		if(haxor_input_Input.Down(haxor_input_KeyCode.P)) coi.set_enabled(!coi.get_enabled());
 		if(haxor_input_Input.Down(haxor_input_KeyCode.D1)) {
 			this.debug = !this.debug;
 			if(!this.debug) this.field.innerText = "";
-			this.game.orbit.follow = !this.debug;
 			if(this.debug) this.ui.domElement.style.display = "block"; else this.ui.domElement.style.display = "none";
+		}
+		if(haxor_input_Input.Down(haxor_input_KeyCode.O)) this.Add();
+		if(haxor_input_Input.get_touches().length >= 3) {
+			if(haxor_input_Input.get_touches()[2].get_down()) this.Add();
 		}
 		var dbg = coi.get_enabled() && this.debug;
 		var p = this.game.orbit.get_pivot().get_localPosition();
@@ -1517,19 +1550,6 @@ examples_dungeon_Main.prototype = $extend(haxor_core_Application.prototype,{
 		}
 		if(this.path == null) this.path = [new haxor_math_Vector3(323.8,0,72.74),new haxor_math_Vector3(299.72,0,-224.01),new haxor_math_Vector3(198,0,-433.37),new haxor_math_Vector3(7.04,0,-560.07),new haxor_math_Vector3(-316.19,0,-311.91),new haxor_math_Vector3(-419.82,0,-158.65),new haxor_math_Vector3(-135.42,0,-62.95),new haxor_math_Vector3(531.08,0,-302.58),new haxor_math_Vector3(602.21,0,-209.92),new haxor_math_Vector3(462.61,0,126.38),new haxor_math_Vector3(255.05,0,222.19),new haxor_math_Vector3(-27.75,0,481.21),new haxor_math_Vector3(273.31,0,601.23),new haxor_math_Vector3(492.09,0,581.36),new haxor_math_Vector3(608.63,0,474.62),new haxor_math_Vector3(597.1,0,66.89),new haxor_math_Vector3(427.59,0,53.27)];
 		if(dbg) {
-			if(this.path.length > 0) {
-				var k = 0;
-				while(k < this.path.length) {
-					haxor_graphics_Gizmo.Point(this.path[k],5.0,new haxor_math_Color(0,1,0,1));
-					if(this.path.length >= 2) {
-						if(k >= 1) haxor_graphics_Gizmo.Line(this.path[k - 1],this.path[k],new haxor_math_Color(0,1,0,1),null);
-					}
-					k++;
-				}
-			}
-		}
-		if(dbg) {
-			if(this.field != null) this.field.innerText = log;
 		}
 	}
 	,OnRender: function() {
@@ -1547,6 +1567,8 @@ examples_dungeon_Main.prototype = $extend(haxor_core_Application.prototype,{
 		haxor_core_Asset.LoadCollada("skeleton","./character/skeleton/grunt/model.DAE");
 		haxor_core_Asset.LoadCollada("skeleton/idle","./character/skeleton/grunt/animation_idle01.DAE");
 		haxor_core_Asset.LoadTexture2D("skeleton/diffuse","./character/skeleton/grunt/DiffuseTexture.png");
+		haxor_core_Asset.LoadCollada("human","assets/human/asset.dae");
+		haxor_core_Asset.LoadTexture2D("human/diffuse","assets/human/DiffuseTexture.jpg");
 		haxor_core_Asset.LoadCollada("player/animation/all/idle01","./character/medieval/animations/all_idle01.DAE");
 		haxor_core_Asset.LoadCollada("player/animation/all/run","./character/medieval/animations/all_run.DAE");
 		haxor_core_Asset.LoadCollada("player/animation/all/walk","./character/medieval/animations/all_walk.DAE");
@@ -2178,6 +2200,14 @@ haxe_ds_StringMap.prototype = {
 		if(this.h.hasOwnProperty(key)) a.push(key.substr(1));
 		}
 		return HxOverrides.iter(a);
+	}
+	,iterator: function() {
+		return { ref : this.h, it : this.keys(), hasNext : function() {
+			return this.it.hasNext();
+		}, next : function() {
+			var i = this.it.next();
+			return this.ref["$" + i];
+		}};
 	}
 	,__class__: haxe_ds_StringMap
 };
@@ -3064,7 +3094,7 @@ haxor_component_SkinnedMeshRenderer.__super__ = haxor_component_MeshRenderer;
 haxor_component_SkinnedMeshRenderer.prototype = $extend(haxor_component_MeshRenderer.prototype,{
 	set_joints: function(v) {
 		if(v == null) this.m_joints = []; else this.m_joints = v;
-		this.m_joints_mat4 = [];
+		this.m_jf32 = [];
 		var _g1 = 0;
 		var _g = this.m_joints.length;
 		while(_g1 < _g) {
@@ -3072,8 +3102,12 @@ haxor_component_SkinnedMeshRenderer.prototype = $extend(haxor_component_MeshRend
 			var _g2 = 0;
 			while(_g2 < 12) {
 				var j = _g2++;
-				this.m_joints_mat4.push(this.m_joints[i].get_WorldMatrix().GetIndex(j));
+				this.m_jf32.push(this.m_joints[i].get_WorldMatrix().GetIndex(j));
 			}
+		}
+		this.UpdateSkinTexture(this.m_joints.length);
+		if(!haxor_graphics_GL.BONE_TEXTURE) {
+			if(this.m_joints.length > haxor_graphics_GL.get_MAX_UNIFORM_BONES()) haxor_core_Console.LogWarning("SkinnedMeshRenderer> [" + this.get_name() + "] max bone count exceeded!");
 		}
 		return this.m_joints;
 	}
@@ -3082,8 +3116,9 @@ haxor_component_SkinnedMeshRenderer.prototype = $extend(haxor_component_MeshRend
 	}
 	,set_mesh: function(v) {
 		var skm = v;
-		this.m_bm_mat4 = [];
+		this.m_bmf32 = [];
 		if(skm != null) {
+			this.UpdateSkinTexture(skm.get_binds().length);
 			var _g1 = 0;
 			var _g = skm.get_binds().length;
 			while(_g1 < _g) {
@@ -3091,54 +3126,94 @@ haxor_component_SkinnedMeshRenderer.prototype = $extend(haxor_component_MeshRend
 				var _g2 = 0;
 				while(_g2 < 12) {
 					var j = _g2++;
-					this.m_bm_mat4.push(skm.get_binds()[i].GetIndex(j));
+					this.m_bmf32.push(skm.get_binds()[i].GetIndex(j));
 				}
 			}
 		}
+		if(haxor_graphics_GL.BONE_TEXTURE) haxor_context_EngineContext.renderer.UpdateSkinning(this,false);
 		return haxor_component_MeshRenderer.prototype.set_mesh.call(this,v);
 	}
+	,get_quality: function() {
+		return this.m_quality;
+	}
+	,set_quality: function(v) {
+		this.m_quality = v;
+		return v;
+	}
 	,OnBuild: function() {
+		this.__smid = -1;
 		haxor_component_MeshRenderer.prototype.OnBuild.call(this);
 		this.m_joints = [];
-		this.m_bmloaded = false;
-		this.m_buffer = [];
-		var _g = 0;
-		while(_g < 8192) {
-			var i = _g++;
-			this.m_buffer.push(0);
-		}
-		this.m_data = new haxor_graphics_texture_ComputeTexture(1,2048,haxor_core_PixelFormat.Float4);
-		this.m_data.set_name("SkinningTexture" + this.get_uid());
+		this.m_bmf32 = [];
+		this.m_jf32 = [];
+		this.m_quality = haxor_core_BoneQuality.Bone2;
 	}
 	,OnRender: function() {
 		if(this.m_material != null) {
-			var skm = this.m_mesh;
 			var k = 0;
-			var jm;
-			var bm;
-			var f32 = this.m_data.m_data.get_buffer();
 			var _g1 = 0;
 			var _g = this.m_joints.length;
 			while(_g1 < _g) {
 				var i = _g1++;
-				jm = this.m_joints[i].get_WorldMatrix();
-				bm = skm.get_binds()[i];
 				var _g2 = 0;
 				while(_g2 < 12) {
 					var j = _g2++;
-					f32.Set(k,jm.GetIndex(j));
-					if(!this.m_bmloaded) f32.Set(k + 4096,bm.GetIndex(j));
-					k++;
+					this.m_jf32[k++] = this.m_joints[i].get_WorldMatrix().GetIndex(j);
 				}
 			}
-			this.m_bmloaded = true;
-			this.m_data.Invalidate();
-			this.m_material.SetTexture("Skinning",this.m_data);
+			if(haxor_graphics_GL.BONE_TEXTURE) haxor_context_EngineContext.renderer.UpdateSkinning(this,true); else {
+				this.m_material.SetFloat4Array("Joints",this.m_jf32);
+				this.m_material.SetFloat4Array("Binds",this.m_bmf32);
+			}
+			var bq = 2;
+			var _g3 = this.m_quality;
+			switch(_g3[1]) {
+			case 0:
+				bq = 2;
+				break;
+			case 1:
+				bq = 1;
+				break;
+			case 2:
+				bq = 2;
+				break;
+			case 3:
+				bq = 3;
+				break;
+			case 4:
+				bq = 4;
+				break;
+			}
+			this.m_material.SetInt("SkinQuality",bq);
 		}
 		haxor_component_MeshRenderer.prototype.OnRender.call(this);
 	}
+	,UpdateSkinTexture: function(p_joint_count) {
+		if(!haxor_graphics_GL.BONE_TEXTURE) return;
+		if(p_joint_count <= 0) return;
+		if(this.m_jt != null) haxor_core_Resource.Destroy(this.m_jt);
+		if(this.m_bmt != null) haxor_core_Resource.Destroy(this.m_bmt);
+		var ts = this.GetSkinTexSize(p_joint_count);
+		this.m_jt = new haxor_graphics_texture_ComputeTexture(ts.x,ts.y,haxor_core_PixelFormat.Float4);
+		this.m_bmt = new haxor_graphics_texture_ComputeTexture(ts.x,ts.y,haxor_core_PixelFormat.Float4);
+	}
+	,GetSkinTexSize: function(p_joint_count) {
+		var w = 1;
+		var h = 1;
+		var t = p_joint_count * 3;
+		while(w * h < t) {
+			w = w << 1;
+			if(w * h >= t) break;
+			h = h << 1;
+			if(w * h >= t) break;
+			if(w >= 512) {
+				if(h >= 512) break;
+			}
+		}
+		return haxor_context_EngineContext.data.get_v2().Set(w,h);
+	}
 	,__class__: haxor_component_SkinnedMeshRenderer
-	,__properties__: $extend(haxor_component_MeshRenderer.prototype.__properties__,{set_joints:"set_joints",get_joints:"get_joints"})
+	,__properties__: $extend(haxor_component_MeshRenderer.prototype.__properties__,{set_quality:"set_quality",get_quality:"get_quality",set_joints:"set_joints",get_joints:"get_joints"})
 });
 var haxor_component_Transform = function(p_name) {
 	haxor_component_Component.call(this,p_name);
@@ -3332,6 +3407,7 @@ haxor_component_Transform.prototype = $extend(haxor_component_Component.prototyp
 		this.m_inverse_dirty = false;
 		this.m_wsp_dirty = false;
 		this.m_wsrs_dirty = false;
+		this.m_locked = false;
 		this.m_uniform_dirty = true;
 		this.m_right = new haxor_math_Vector3(1,0,0);
 		this.m_up = new haxor_math_Vector3(0,1,0);
@@ -3413,6 +3489,7 @@ haxor_component_Transform.prototype = $extend(haxor_component_Component.prototyp
 		}
 	}
 	,Invalidate: function() {
+		if(this.m_locked) return;
 		if(this.m_dirty) return;
 		this.m_uniform_dirty = true;
 		this.m_dirty = true;
@@ -3443,6 +3520,26 @@ haxor_component_Transform.prototype = $extend(haxor_component_Component.prototyp
 			if(this.m_hierarchy[i].get_name() == p_name) return this.m_hierarchy[i];
 		}
 		return null;
+	}
+	,Lock: function() {
+		this.m_locked = true;
+		var _g1 = 0;
+		var _g = this.m_hierarchy.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			this.m_hierarchy[i].Lock();
+		}
+	}
+	,Unlock: function(p_invalidate) {
+		if(p_invalidate == null) p_invalidate = true;
+		this.m_locked = false;
+		var _g1 = 0;
+		var _g = this.m_hierarchy.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			this.m_hierarchy[i].Unlock(p_invalidate);
+		}
+		if(p_invalidate) this.Invalidate();
 	}
 	,Navigate: function(p_path) {
 		var tk = p_path.split(".");
@@ -3640,6 +3737,7 @@ haxor_component_animation_Animation.prototype = $extend(haxor_component_Behaviou
 		if(this.m_fade_elapsed >= this.m_fade_duration) this.m_fade_elapsed = this.m_fade_duration;
 		var w;
 		if(this.m_fade_duration <= 0.0) w = 1.0; else w = this.m_fade_elapsed / this.m_fade_duration;
+		this.m_entity.m_transform.Lock();
 		var spd = 1.0;
 		var _g1 = 0;
 		var _g = this.clips.length;
@@ -3662,6 +3760,7 @@ haxor_component_animation_Animation.prototype = $extend(haxor_component_Behaviou
 			this.m_time += (this.reverse?-dt:dt) * spd;
 			this.m_fade_elapsed += dt;
 		}
+		this.m_entity.m_transform.Unlock();
 	}
 	,__class__: haxor_component_animation_Animation
 	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{get_playing:"get_playing",set_time:"set_time",get_time:"get_time"})
@@ -6523,6 +6622,8 @@ var haxor_context_Gizmo = function(p_type,p_count) {
 	this.type = p_type;
 	this.m_render_count = 0;
 	this.m_gizmo_count = p_count;
+	if(!haxor_graphics_GL.TEXTURE_FLOAT) return;
+	if(haxor_graphics_GL.MAX_VERTEX_TEXTURES <= 0) return;
 	if(haxor_context_Gizmo.SHADER == null) haxor_context_Gizmo.SHADER = new haxor_graphics_material_Shader(haxor_context_ShaderContext.gizmo_source);
 	this.material = new haxor_graphics_material_Material("Gizmo" + p_type + "Material");
 	this.material.set_shader(haxor_context_Gizmo.SHADER);
@@ -6556,6 +6657,8 @@ haxor_context_Gizmo.prototype = {
 	OnBuild: function() {
 	}
 	,Push: function(p_color,p_a,p_b,p_transform) {
+		if(!haxor_graphics_GL.TEXTURE_FLOAT) return;
+		if(haxor_graphics_GL.MAX_VERTEX_TEXTURES <= 0) return;
 		if(this.m_render_count >= this.m_gizmo_count) return;
 		var id = this.m_render_count;
 		var f32 = this.data.m_data.get_buffer();
@@ -6588,6 +6691,8 @@ haxor_context_Gizmo.prototype = {
 		this.m_render_count = 0;
 	}
 	,Render: function() {
+		if(!haxor_graphics_GL.TEXTURE_FLOAT) return;
+		if(haxor_graphics_GL.MAX_VERTEX_TEXTURES <= 0) return;
 		var gizmo_collider = haxor_core_Debug.collider || haxor_core_Debug.colliderAABB || haxor_core_Debug.colliderSB;
 		if(gizmo_collider) {
 			var cl = haxor_context_EngineContext.physics.colliders;
@@ -6919,7 +7024,7 @@ var haxor_context_CanvasGizmo = function() {
 	this.start = new haxor_math_Vector3(0,0,0);
 	this.count = 0;
 	this.active = false;
-	this.material.cull = 0;
+	if(this.material != null) this.material.cull = 0;
 };
 $hxClasses["haxor.context.CanvasGizmo"] = haxor_context_CanvasGizmo;
 haxor_context_CanvasGizmo.__name__ = ["haxor","context","CanvasGizmo"];
@@ -7012,7 +7117,7 @@ haxor_context_KernelContext.prototype = {
 	,__class__: haxor_context_KernelContext
 };
 var haxor_context_MaterialContext = function() {
-	this.uniform_globals = ["ViewMatrix","ProjectionMatrix","WorldMatrix","WorldMatrixInverse","WorldMatrixIT","Time","RandomSeed","RandomTexture","ScreenTexture","ScreenDepth","Ambient","CameraPosition","ProjectionMatrixInverse","ViewMatrixInverse","Lights","Fog","CameraProjection"];
+	this.uniform_globals = ["ViewMatrix","ProjectionMatrix","WorldMatrix","WorldMatrixInverse","WorldMatrixIT","Time","RandomSeed","RandomTexture","ScreenTexture","ScreenDepth","Ambient","CameraPosition","ProjectionMatrixInverse","ViewMatrixInverse","Lights","Fog","CameraProjection","Joints","Binds"];
 	this.mid = new haxor_context_UID();
 	this.sid = new haxor_context_UID();
 	this.uid = new haxor_context_UID();
@@ -7127,35 +7232,25 @@ haxor_context_MaterialContext.prototype = {
 	,InitializeMaterial: function(m) {
 		this.programs[m.__cid] = haxor_graphics_GL.m_gl.CreateProgram();
 	}
-	,InitializeShader: function(s) {
+	,CompileShader: function(s) {
 		if(js_Boot.__instanceof(s,haxor_graphics_material_UberShader)) return;
 		var vs_err = "";
 		var fs_err = "";
 		vs_err = this.CreateCompileShader(s,35633,this.vertex_shaders);
 		fs_err = this.CreateCompileShader(s,35632,this.fragment_shaders);
 		if(s.m_hasError) {
+			s.error = "";
+			s.error += this.FormatShaderError("[vs]",vs_err);
+			s.error += this.FormatShaderError("[fs]",fs_err);
 			haxor_core_Console.LogError("Shader> Compile Error @ [" + s.get_name() + "]");
-			haxor_core_Console.Log("[vertex]\n" + vs_err);
-			haxor_core_Console.Log("[fragment]\n" + fs_err);
+			haxor_core_Console.Log(s.error);
 		}
 	}
-	,CreateUniform: function(m,u) {
-		u.__d = true;
-		u.exists = true;
-		if(!this.is_linked[m.__cid]) return;
-		var p = this.programs[m.__cid];
-		var loc = haxor_graphics_GL.m_gl.GetUniformLocation(p,u.name);
-		this.uniforms[m.__cid][u.__cid] = loc;
-		u.exists = loc != haxor_graphics_GL.INVALID;
-	}
-	,DestroyUniform: function(m,u) {
-		if(m != null) this.uniforms[m.__cid][u.__cid] = haxor_graphics_GL.INVALID;
-		haxor_context_EngineContext.material.uid.set_id(u.__cid);
-	}
 	,CreateCompileShader: function(s,t,c) {
-		var id = haxor_graphics_GL.m_gl.CreateShader(t);
+		var id;
+		if(c[s.__cid] == haxor_graphics_GL.INVALID) id = haxor_graphics_GL.m_gl.CreateShader(t); else id = c[s.__cid];
 		var ss;
-		if(t == 35633) ss = s.m_vss; else ss = s.m_fss;
+		if(t == 35633) ss = s.get_vs(); else ss = s.get_fs();
 		c[s.__cid] = id;
 		haxor_graphics_GL.m_gl.ShaderSource(id,ss);
 		haxor_graphics_GL.m_gl.CompileShader(id);
@@ -7164,6 +7259,20 @@ haxor_context_MaterialContext.prototype = {
 			return haxor_graphics_GL.m_gl.GetShaderInfoLog(id);
 		}
 		return "";
+	}
+	,FormatShaderError: function(shd,err) {
+		var lines = err.split("\n");
+		var res = "";
+		var _g1 = 0;
+		var _g = lines.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			var e = lines[i];
+			if(e.indexOf("ERROR") < 0) continue;
+			var tk = e.split(":");
+			if(tk.length == 5) res += shd + " " + tk[2] + ":" + tk[3] + " : " + tk[4] + "\n"; else if(tk.length == 4) res += shd + " " + tk[2] + ":" + tk[3] + "\n"; else if(tk.length == 3) res += shd + " " + tk[0] + ":" + tk[2] + "\n"; else if(tk.length == 2) res += shd + " " + tk[0] + ":" + tk[1] + "\n"; else res += shd + " " + tk[1] + "\n";
+		}
+		return res;
 	}
 	,UpdateShader: function(m,s0,s1) {
 		var p = this.programs[m.__cid];
@@ -7212,6 +7321,7 @@ haxor_context_MaterialContext.prototype = {
 			var m4 = haxor_context_EngineContext.data.get_m4().SetIdentity();
 			while(k < gl.length) {
 				var un = gl[k];
+				if(!this.is_linked[m.__cid]) break;
 				if(haxor_graphics_GL.m_gl.GetUniformLocation(p,un) == haxor_graphics_GL.INVALID) {
 					HxOverrides.remove(gl,un);
 					continue;
@@ -7270,8 +7380,22 @@ haxor_context_MaterialContext.prototype = {
 	}
 	,UpdateMaterial: function(m) {
 	}
+	,CreateUniform: function(m,u) {
+		u.__d = true;
+		u.exists = true;
+		if(!this.is_linked[m.__cid]) return;
+		var p = this.programs[m.__cid];
+		var loc = haxor_graphics_GL.m_gl.GetUniformLocation(p,u.name);
+		this.uniforms[m.__cid][u.__cid] = loc;
+		u.exists = loc != haxor_graphics_GL.INVALID;
+	}
+	,DestroyUniform: function(m,u) {
+		if(m != null) this.uniforms[m.__cid][u.__cid] = haxor_graphics_GL.INVALID;
+		haxor_context_EngineContext.material.uid.set_id(u.__cid);
+	}
 	,GetAttribLocation: function(a) {
 		if(this.current == null) return -1;
+		if(!this.is_linked[this.current.__cid]) return -1;
 		var p = this.programs[this.current.__cid];
 		var loc = this.locations[this.current.__cid][a.__cid];
 		if(loc == -1) {
@@ -7305,7 +7429,7 @@ haxor_context_MaterialContext.prototype = {
 				this.projmatrix[m.__cid] = false;
 				var p = this.programs[m.__cid];
 				this.UpdateFlags(m);
-				haxor_graphics_GL.m_gl.UseProgram(p);
+				if(this.is_linked[m.__cid]) haxor_graphics_GL.m_gl.UseProgram(p);
 			}
 		}
 	}
@@ -7324,8 +7448,8 @@ haxor_context_MaterialContext.prototype = {
 			var ucv = this.viewmatrix[this.current.__cid] || uc;
 			var ucp = this.projmatrix[this.current.__cid] || uc;
 			if(c != null) this.camera[this.current.__cid] = c;
-			this.SetLights(t,this.current,msh);
-			this.UploadUniforms(ut,ucv,ucp,t,c);
+			if(this.is_linked[this.current.__cid]) this.SetLights(t,this.current,msh);
+			if(this.is_linked[this.current.__cid]) this.UploadUniforms(ut,ucv,ucp,t,c);
 			this.viewmatrix[this.current.__cid] = false;
 			this.projmatrix[this.current.__cid] = false;
 		}
@@ -7532,6 +7656,7 @@ var haxor_context_MeshContext = function() {
 	this.mid = new haxor_context_UID();
 	this.buffers = [];
 	this.activated = [];
+	this.vao = [];
 	this.m_auto_white = false;
 	var _g = 0;
 	while(_g < 32) {
@@ -7544,6 +7669,7 @@ var haxor_context_MeshContext = function() {
 		var i1 = _g1++;
 		this.buffers.push(haxor_graphics_GL.INVALID);
 	}
+	this.bound_element = haxor_graphics_GL.INVALID;
 };
 $hxClasses["haxor.context.MeshContext"] = haxor_context_MeshContext;
 haxor_context_MeshContext.__name__ = ["haxor","context","MeshContext"];
@@ -7551,14 +7677,38 @@ haxor_context_MeshContext.prototype = {
 	Initialize: function() {
 		haxor_core_Console.Log("MeshContext> Initialize.",3);
 	}
+	,Create: function(p_mesh) {
+		if(haxor_graphics_GL.VAO_ENABLED) {
+			if(this.mid.get_stored() <= 0) this.vao.push(haxor_graphics_GL.INVALID);
+		}
+		p_mesh.__cid = this.mid.get_id();
+		if(haxor_graphics_GL.VAO_ENABLED) this.vao[p_mesh.__cid] = haxor_graphics_GL.INVALID;
+	}
+	,Destroy: function(p_mesh) {
+		p_mesh.Clear();
+		if(haxor_graphics_GL.VAO_ENABLED) {
+			if(this.vao[p_mesh.__cid] != haxor_graphics_GL.INVALID) haxor_graphics_GL.DeleteVAO(this.vao[p_mesh.__cid]);
+		}
+		this.mid.set_id(p_mesh.__cid);
+	}
 	,Bind: function(p_mesh) {
 		if(p_mesh != this.current) {
-			this.Unbind();
+			this.Unbind(p_mesh);
 			this.current = p_mesh;
 			if(this.current != null) this.ActivateAttributes();
 		}
 	}
 	,ActivateAttributes: function() {
+		var has_vao = false;
+		if(haxor_graphics_GL.VAO_ENABLED) {
+			has_vao = true;
+			var vao_id = this.vao[this.current.__cid];
+			if(vao_id == haxor_graphics_GL.INVALID) {
+				this.vao[this.current.__cid] = vao_id = haxor_graphics_GL.m_gl.CreateVAO();
+				has_vao = false;
+			}
+			haxor_graphics_GL.BindVAO(vao_id);
+		}
 		var a;
 		var al = this.current.m_attribs;
 		var id;
@@ -7579,30 +7729,87 @@ haxor_context_MeshContext.prototype = {
 				if(loc < 0) continue;
 			}
 			type = 5126;
-			if(!this.activated[loc]) {
-				this.activated[loc] = true;
-				this.active_max = Math.max(this.active_max,loc);
-				haxor_graphics_GL.m_gl.EnableVertexAttrib(loc);
+			if(!has_vao) {
+				if(a.get_count() > 0) {
+					haxor_graphics_GL.m_gl.BindBuffer(34962,this.buffers[a.__cid]);
+					haxor_graphics_GL.m_gl.VertexAttribPointer(loc,a.offset,type,false,0,0);
+				}
 			}
-			haxor_graphics_GL.m_gl.BindBuffer(34962,this.buffers[a.__cid]);
-			haxor_graphics_GL.m_gl.VertexAttribPointer(loc,a.offset,type,false,0,0);
 		}
 		if(!has_color) {
 			if(this.activated[5]) {
 				haxor_graphics_GL.m_gl.DisableVertexAttrib(5);
 				this.activated[5] = false;
 			}
-			if(!this.m_auto_white) {
-				haxor_graphics_GL.m_gl.VertexAttrib4f(5,1.0,1.0,1.0,1.0);
-				this.m_auto_white = true;
+			if(!has_vao) {
+				if(!this.m_auto_white) {
+					haxor_graphics_GL.m_gl.VertexAttrib4f(5,1.0,1.0,1.0,1.0);
+					this.m_auto_white = true;
+				}
 			}
 		}
-		if(this.current.m_indexed) {
-			a = this.current.m_topology_attrib;
-			haxor_graphics_GL.m_gl.BindBuffer(34963,this.buffers[a.__cid]);
+		if(!has_vao) {
+			if(this.current.m_indexed) {
+				a = this.current.m_topology_attrib;
+				if(this.bound_element != this.buffers[a.__cid]) {
+					this.bound_element = this.buffers[a.__cid];
+					haxor_graphics_GL.m_gl.BindBuffer(34963,this.bound_element);
+				}
+			}
 		}
 	}
-	,Unbind: function() {
+	,Unbind: function(p_next) {
+		if(this.current != null) {
+			var al0 = this.current.m_attribs;
+			if(p_next == null) {
+				var _g1 = 0;
+				var _g = al0.length;
+				while(_g1 < _g) {
+					var i = _g1++;
+					var l0 = al0[i]._loc_;
+					if(l0 >= 0) {
+						if(this.activated[l0]) {
+							haxor_graphics_GL.m_gl.DisableVertexAttrib(l0);
+							this.activated[l0] = false;
+						}
+					}
+				}
+			} else {
+				var al1 = p_next.m_attribs;
+				var _g11 = 0;
+				var _g2 = al0.length;
+				while(_g11 < _g2) {
+					var i1 = _g11++;
+					var found = false;
+					var l01 = al0[i1]._loc_;
+					if(l01 < 0) continue;
+					var _g3 = 0;
+					var _g21 = al1.length;
+					while(_g3 < _g21) {
+						var j = _g3++;
+						var l1 = al1[j]._loc_;
+						if(l1 < 0) continue;
+						if(l01 == l1) {
+							found = true;
+							break;
+						}
+					}
+					if(found) {
+						if(l01 >= 0) {
+							if(!this.activated[l01]) {
+								haxor_graphics_GL.m_gl.EnableVertexAttrib(l01);
+								this.activated[l01] = true;
+							}
+						}
+					} else if(l01 >= 0) {
+						if(this.activated[l01]) {
+							haxor_graphics_GL.m_gl.DisableVertexAttrib(l01);
+							this.activated[l01] = false;
+						}
+					}
+				}
+			}
+		}
 	}
 	,Draw: function(m) {
 		if(m.m_indexed) {
@@ -7616,14 +7823,26 @@ haxor_context_MeshContext.prototype = {
 			haxor_core_RenderStats.triangles += m.m_vcount / off | 0;
 		}
 	}
-	,RemoveAttrib: function(p_attrib) {
+	,RemoveAttrib: function(p_attrib,p_mesh) {
 		var id = this.buffers[p_attrib.__cid];
 		if(id == haxor_graphics_GL.INVALID) return;
 		haxor_graphics_GL.m_gl.DeleteBuffer(id);
 		this.buffers[p_attrib.__cid] = haxor_graphics_GL.INVALID;
 		this.aid.set_id(p_attrib.__cid);
+		if(haxor_graphics_GL.VAO_ENABLED) {
+			if(this.vao[p_mesh.__cid] != haxor_graphics_GL.INVALID) {
+				haxor_graphics_GL.DeleteVAO(this.vao[p_mesh.__cid]);
+				this.vao[p_mesh.__cid] = haxor_graphics_GL.INVALID;
+			}
+		}
 	}
-	,UpdateAttrib: function(a,p_mode,p_is_index) {
+	,UpdateAttrib: function(a,p_mode,p_is_index,p_mesh) {
+		if(haxor_graphics_GL.VAO_ENABLED) {
+			if(this.vao[p_mesh.__cid] != haxor_graphics_GL.INVALID) {
+				haxor_graphics_GL.DeleteVAO(this.vao[p_mesh.__cid]);
+				this.vao[p_mesh.__cid] = haxor_graphics_GL.INVALID;
+			}
+		}
 		var id = this.buffers[a.__cid];
 		var target_flag;
 		if(p_is_index) target_flag = 34963; else target_flag = 34962;
@@ -7898,7 +8117,6 @@ $hxClasses["haxor.context.RendererContext"] = haxor_context_RendererContext;
 haxor_context_RendererContext.__name__ = ["haxor","context","RendererContext"];
 haxor_context_RendererContext.prototype = {
 	Initialize: function() {
-		this.skinning = new haxor_graphics_texture_ComputeTexture(512,512,haxor_core_PixelFormat.Float4);
 	}
 	,Create: function(r) {
 		r.__cid = this.rid.get_id();
@@ -7906,6 +8124,32 @@ haxor_context_RendererContext.prototype = {
 			var mr = r;
 			mr.__fcid = this.fcid.get_id();
 			this.sap.Create(mr.__fcid);
+		}
+	}
+	,UpdateSkinning: function(smr,jf) {
+		var t;
+		if(jf) t = smr.m_jt; else t = smr.m_bmt;
+		if(t == null) return;
+		var f32 = t.m_data.get_buffer();
+		var vl;
+		if(jf) vl = smr.m_jf32; else vl = smr.m_bmf32;
+		var _g1 = 0;
+		var _g = vl.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			f32.Set(i,vl[i]);
+		}
+		t.Apply();
+		if(jf) {
+			var tw = t.m_width;
+			var th = t.m_height;
+			var itw;
+			if(tw <= 0) itw = 0.0; else itw = 1.0 / tw;
+			var ith;
+			if(th <= 0) ith = 0.0; else ith = 1.0 / th;
+			smr.m_material.SetTexture("Joints",smr.m_jt);
+			smr.m_material.SetTexture("Binds",smr.m_bmt);
+			smr.m_material.SetFloat4("SkinTexSize",tw,th,itw,ith);
 		}
 	}
 	,AddCamera: function(c) {
@@ -8109,6 +8353,15 @@ haxor_context_TextureContext.FormatToChannelBits = function(p_format) {
 		return 6409;
 	case 10:
 		return 6402;
+	case 11:
+		if(haxor_graphics_GL.TEXTURE_SRGB) return haxor_graphics_GL.SRGB; else return 6407;
+		break;
+	case 12:
+		if(haxor_graphics_GL.TEXTURE_SRGB) return haxor_graphics_GL.SRGB_ALPHA; else return 6408;
+		break;
+	case 13:
+		if(haxor_graphics_GL.TEXTURE_SRGB) return haxor_graphics_GL.SRGB8_ALPHA8; else return 6408;
+		break;
 	}
 	return 6408;
 };
@@ -8121,6 +8374,12 @@ haxor_context_TextureContext.FormatToChannelType = function(p_format) {
 	case 10:
 		return 5123;
 	case 3:case 2:case 1:case 0:
+		return 5121;
+	case 11:
+		return 5121;
+	case 12:
+		return 5121;
+	case 13:
 		return 5121;
 	}
 	return 5121;
@@ -8141,6 +8400,15 @@ haxor_context_TextureContext.FormatToChannelLayout = function(p_format) {
 		return 6408;
 	case 10:
 		return 6402;
+	case 11:
+		if(haxor_graphics_GL.TEXTURE_SRGB) return haxor_graphics_GL.SRGB; else return 6407;
+		break;
+	case 12:
+		if(haxor_graphics_GL.TEXTURE_SRGB) return haxor_graphics_GL.SRGB_ALPHA; else return 6408;
+		break;
+	case 13:
+		if(haxor_graphics_GL.TEXTURE_SRGB) return haxor_graphics_GL.SRGB8_ALPHA8; else return 6408;
+		break;
 	}
 	return 6408;
 };
@@ -8200,17 +8468,26 @@ haxor_context_TextureContext.prototype = {
 	}
 	,Bind: function(p_texture,p_slot) {
 		if(p_slot == null) p_slot = -1;
-		var slot = p_slot;
-		if(slot >= 0) {
-			haxor_graphics_GL.m_gl.ActiveTexture(33984 + slot);
-			this.active = slot;
+		if(p_slot < 0) this.ApplyBind(p_texture,false); else if(this.bind[p_slot] != p_texture) {
+			this.bind[p_slot] = p_texture;
+			if(this.active != p_slot) {
+				haxor_graphics_GL.m_gl.ActiveTexture(33984 + p_slot);
+				this.active = p_slot;
+			}
+			this.ApplyBind(p_texture,true);
 		}
-		var id = this.ids[p_texture.__cid];
-		var target;
-		if(p_texture.get_type() == haxor_core_TextureType.Texture2D) target = 3553; else if(p_texture.get_type() == haxor_core_TextureType.RenderTexture) target = 3553; else if(p_texture.get_type() == haxor_core_TextureType.TextureCube) target = 34067; else target = 3553;
-		haxor_graphics_GL.m_gl.BindTexture(target,id);
+	}
+	,ApplyBind: function(p_texture,p_force) {
+		if(this.bound != p_texture || p_force) {
+			var id = this.ids[p_texture.__cid];
+			var target;
+			if(p_texture.get_type() == haxor_core_TextureType.Texture2D) target = 3553; else if(p_texture.get_type() == haxor_core_TextureType.RenderTexture) target = 3553; else if(p_texture.get_type() == haxor_core_TextureType.TextureCube) target = 34067; else target = 3553;
+			haxor_graphics_GL.m_gl.BindTexture(target,id);
+			this.bound = p_texture;
+		}
 	}
 	,Unbind: function() {
+		this.bound = null;
 		haxor_graphics_GL.BindTexture(3553,haxor_graphics_GL.NULL);
 	}
 	,BindTarget: function(rt) {
@@ -8436,11 +8713,14 @@ haxor_context_UID.prototype = {
 		this.m_cache.push(v);
 		return v;
 	}
+	,get_stored: function() {
+		return this.m_cache.length;
+	}
 	,get_next: function() {
 		return this.m_id;
 	}
 	,__class__: haxor_context_UID
-	,__properties__: {get_next:"get_next",set_id:"set_id",get_id:"get_id"}
+	,__properties__: {get_next:"get_next",get_stored:"get_stored",set_id:"set_id",get_id:"get_id"}
 };
 var haxor_core_Asset = function() { };
 $hxClasses["haxor.core.Asset"] = haxor_core_Asset;
@@ -9027,7 +9307,7 @@ haxor_core_CameraMode.Ortho = ["Ortho",2];
 haxor_core_CameraMode.Ortho.__enum__ = haxor_core_CameraMode;
 haxor_core_CameraMode.UI = ["UI",3];
 haxor_core_CameraMode.UI.__enum__ = haxor_core_CameraMode;
-var haxor_core_PixelFormat = { __ename__ : true, __constructs__ : ["Alpha8","Luminance","RGB8","RGBA8","Half","Half3","Half4","Float","Float3","Float4","Depth"] };
+var haxor_core_PixelFormat = { __ename__ : true, __constructs__ : ["Alpha8","Luminance","RGB8","RGBA8","Half","Half3","Half4","Float","Float3","Float4","Depth","sRGB","sRGBA","sRGBA8"] };
 haxor_core_PixelFormat.Alpha8 = ["Alpha8",0];
 haxor_core_PixelFormat.Alpha8.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Luminance = ["Luminance",1];
@@ -9050,6 +9330,12 @@ haxor_core_PixelFormat.Float4 = ["Float4",9];
 haxor_core_PixelFormat.Float4.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Depth = ["Depth",10];
 haxor_core_PixelFormat.Depth.__enum__ = haxor_core_PixelFormat;
+haxor_core_PixelFormat.sRGB = ["sRGB",11];
+haxor_core_PixelFormat.sRGB.__enum__ = haxor_core_PixelFormat;
+haxor_core_PixelFormat.sRGBA = ["sRGBA",12];
+haxor_core_PixelFormat.sRGBA.__enum__ = haxor_core_PixelFormat;
+haxor_core_PixelFormat.sRGBA8 = ["sRGBA8",13];
+haxor_core_PixelFormat.sRGBA8.__enum__ = haxor_core_PixelFormat;
 var haxor_core_TextureFilter = { __ename__ : true, __constructs__ : ["Nearest","Linear","NearestMipmapNearest","NearestMipmapLinear","LinearMipmapNearest","LinearMipmapLinear","Trilinear"] };
 haxor_core_TextureFilter.Nearest = ["Nearest",0];
 haxor_core_TextureFilter.Nearest.__enum__ = haxor_core_TextureFilter;
@@ -9120,6 +9406,17 @@ haxor_core_ForceMode.Impulse = ["Impulse",2];
 haxor_core_ForceMode.Impulse.__enum__ = haxor_core_ForceMode;
 haxor_core_ForceMode.Velocity = ["Velocity",3];
 haxor_core_ForceMode.Velocity.__enum__ = haxor_core_ForceMode;
+var haxor_core_BoneQuality = { __ename__ : true, __constructs__ : ["Auto","Bone1","Bone2","Bone3","Bone4"] };
+haxor_core_BoneQuality.Auto = ["Auto",0];
+haxor_core_BoneQuality.Auto.__enum__ = haxor_core_BoneQuality;
+haxor_core_BoneQuality.Bone1 = ["Bone1",1];
+haxor_core_BoneQuality.Bone1.__enum__ = haxor_core_BoneQuality;
+haxor_core_BoneQuality.Bone2 = ["Bone2",2];
+haxor_core_BoneQuality.Bone2.__enum__ = haxor_core_BoneQuality;
+haxor_core_BoneQuality.Bone3 = ["Bone3",3];
+haxor_core_BoneQuality.Bone3.__enum__ = haxor_core_BoneQuality;
+haxor_core_BoneQuality.Bone4 = ["Bone4",4];
+haxor_core_BoneQuality.Bone4.__enum__ = haxor_core_BoneQuality;
 var haxor_core_IFixedUpdateable = function() { };
 $hxClasses["haxor.core.IFixedUpdateable"] = haxor_core_IFixedUpdateable;
 haxor_core_IFixedUpdateable.__name__ = ["haxor","core","IFixedUpdateable"];
@@ -10787,7 +11084,10 @@ haxor_graphics_Fog.__name__ = ["haxor","graphics","Fog"];
 var haxor_graphics_GL = function() { };
 $hxClasses["haxor.graphics.GL"] = haxor_graphics_GL;
 haxor_graphics_GL.__name__ = ["haxor","graphics","GL"];
-haxor_graphics_GL.__properties__ = {get_api:"get_api"}
+haxor_graphics_GL.__properties__ = {get_api:"get_api",get_MAX_UNIFORM_BONES:"get_MAX_UNIFORM_BONES"}
+haxor_graphics_GL.get_MAX_UNIFORM_BONES = function() {
+	return (haxor_graphics_GL.MAX_VERTEX_UNIFORM_LENGTH - 32) / 6 | 0;
+};
 haxor_graphics_GL.get_api = function() {
 	return haxor_graphics_GL.m_gl.get_api();
 };
@@ -10800,6 +11100,9 @@ haxor_graphics_GL.Resize = function() {
 haxor_graphics_GL.BindBuffer = function(p_target,p_id) {
 	haxor_graphics_GL.m_gl.BindBuffer(p_target,p_id);
 };
+haxor_graphics_GL.BindVAO = function(p_id) {
+	haxor_graphics_GL.m_gl.BindVAO(p_id);
+};
 haxor_graphics_GL.BufferData = function(p_target,p_data,p_mode) {
 	haxor_graphics_GL.m_gl.BufferData(p_target,p_data,p_mode);
 };
@@ -10808,6 +11111,9 @@ haxor_graphics_GL.BufferSubData = function(p_target,p_offset,p_data) {
 };
 haxor_graphics_GL.CreateBuffer = function() {
 	return haxor_graphics_GL.m_gl.CreateBuffer();
+};
+haxor_graphics_GL.CreateVAO = function() {
+	return haxor_graphics_GL.m_gl.CreateVAO();
 };
 haxor_graphics_GL.DrawArrays = function(p_primitive,p_start,p_count) {
 	haxor_graphics_GL.m_gl.DrawArrays(p_primitive,p_start,p_count);
@@ -10818,11 +11124,20 @@ haxor_graphics_GL.DrawElements = function(p_primitive,p_count,p_type,p_offset) {
 haxor_graphics_GL.DeleteBuffer = function(p_id) {
 	haxor_graphics_GL.m_gl.DeleteBuffer(p_id);
 };
+haxor_graphics_GL.DeleteVAO = function(p_id) {
+	haxor_graphics_GL.m_gl.DeleteVAO(p_id);
+};
 haxor_graphics_GL.DisableVertexAttrib = function(p_location) {
 	haxor_graphics_GL.m_gl.DisableVertexAttrib(p_location);
 };
 haxor_graphics_GL.EnableVertexAttrib = function(p_location) {
 	haxor_graphics_GL.m_gl.EnableVertexAttrib(p_location);
+};
+haxor_graphics_GL.VertexAttrib1f = function(p_location,p_x) {
+	haxor_graphics_GL.m_gl.VertexAttrib1f(p_location,p_x);
+};
+haxor_graphics_GL.VertexAttrib2f = function(p_location,p_x,p_y) {
+	haxor_graphics_GL.m_gl.VertexAttrib2f(p_location,p_x,p_y);
 };
 haxor_graphics_GL.VertexAttrib3f = function(p_location,p_x,p_y,p_z) {
 	haxor_graphics_GL.m_gl.VertexAttrib3f(p_location,p_x,p_y,p_z);
@@ -11127,6 +11442,8 @@ haxor_graphics_GraphicContext.prototype = {
 	}
 	,BindBuffer: function(p_target,p_id) {
 	}
+	,BindVAO: function(p_id) {
+	}
 	,BufferData: function(p_target,p_data,p_mode) {
 	}
 	,BufferSubData: function(p_target,p_offset,p_data) {
@@ -11134,7 +11451,12 @@ haxor_graphics_GraphicContext.prototype = {
 	,CreateBuffer: function() {
 		return haxor_graphics_GL.INVALID;
 	}
+	,CreateVAO: function() {
+		return haxor_graphics_GL.INVALID;
+	}
 	,DeleteBuffer: function(p_id) {
+	}
+	,DeleteVAO: function(p_id) {
 	}
 	,DrawArrays: function(p_primitive,p_start,p_count) {
 	}
@@ -11143,6 +11465,10 @@ haxor_graphics_GraphicContext.prototype = {
 	,EnableVertexAttrib: function(p_location) {
 	}
 	,DisableVertexAttrib: function(p_location) {
+	}
+	,VertexAttrib1f: function(p_location,p_x) {
+	}
+	,VertexAttrib2f: function(p_location,p_x,p_y) {
 	}
 	,VertexAttrib3f: function(p_location,p_x,p_y,p_z) {
 	}
@@ -11698,7 +12024,6 @@ haxor_graphics_material_Material.prototype = $extend(haxor_core_Resource.prototy
 			return;
 		}
 		var u = this.FetchUniform(p_name,false,1,1,true);
-		if(u.texture != null) u.texture.__slot = -1;
 		if(u.exists) u.SetTexture(p_texture);
 	}
 	,SetMatrix4: function(p_name,p_matrix4,p_transpose) {
@@ -12109,13 +12434,21 @@ haxor_graphics_material_MaterialUniform.prototype = {
 			b.Set(i,p_list[i]);
 		}
 	}
+	,Refresh: function() {
+		if(!this.exists) return;
+		this.__d = true;
+	}
 	,SetTexture: function(p_texture) {
 		if(!this.exists) return;
 		if(p_texture == this.texture) return;
-		this.__d = true;
+		if(this.texture == null) this.__d = true;
 		var b = this.data;
-		b.Set(0,p_texture.__slot);
+		var ts;
+		if(this.texture == null) ts = -1; else ts = this.texture.__slot;
+		if(this.texture != null) this.texture.__slot = -1;
 		this.texture = p_texture;
+		if(this.texture != null) this.texture.__slot = ts;
+		b.Set(0,ts);
 	}
 	,SetMatrix4: function(m,t) {
 		if(t == null) t = false;
@@ -12173,30 +12506,12 @@ haxor_graphics_material_MaterialUniform.prototype = {
 	}
 	,__class__: haxor_graphics_material_MaterialUniform
 };
-var haxor_graphics_material_Shader = function(p_source) {
+var haxor_graphics_material_Shader = function(p_source,p_compile) {
+	if(p_compile == null) p_compile = true;
 	haxor_core_Resource.call(this);
 	this.__cid = haxor_context_EngineContext.material.sid.get_id();
-	var vt0 = p_source.indexOf("<vertex");
-	var vt1 = p_source.indexOf(">",vt0 + 1);
-	var vt = p_source.substring(vt0,vt1 + 1);
-	var ft0 = p_source.indexOf("<fragment");
-	var ft1 = p_source.indexOf(">",ft0 + 1);
-	var ft = p_source.substring(ft0,ft1 + 1);
-	p_source = StringTools.replace(p_source,vt,vt + "<![CDATA[");
-	p_source = StringTools.replace(p_source,"</vertex>","]]></vertex>");
-	p_source = StringTools.replace(p_source,ft,ft + "<![CDATA[");
-	p_source = StringTools.replace(p_source,"</fragment>","]]></fragment>");
-	var x;
-	x = Xml.parse(p_source);
-	x = x.firstElement();
-	this.set_name(x.get("id"));
-	if(this.get_name() == null || this.get_name() == "") this.set_name("Shader" + this.__cid);
-	var vs = x.elementsNamed("vertex").next();
-	var fs = x.elementsNamed("fragment").next();
-	this.m_vss = this.GetShaderSource(vs);
-	this.m_fss = this.GetShaderSource(fs);
-	this.m_hasError = false;
-	haxor_context_EngineContext.material.InitializeShader(this);
+	this.m_pp = new haxe_ds_StringMap();
+	this.Load(p_source,p_compile);
 };
 $hxClasses["haxor.graphics.material.Shader"] = haxor_graphics_material_Shader;
 haxor_graphics_material_Shader.__name__ = ["haxor","graphics","material","Shader"];
@@ -12208,38 +12523,95 @@ haxor_graphics_material_Shader.get_FlatTexture = function() {
 	if(haxor_graphics_material_Shader.m_flat_texture_shader == null) return haxor_graphics_material_Shader.m_flat_texture_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_texture_source); else return haxor_graphics_material_Shader.m_flat_texture_shader;
 };
 haxor_graphics_material_Shader.get_FlatTextureSkin = function() {
-	if(haxor_graphics_material_Shader.m_flat_texture_skin_shader == null) return haxor_graphics_material_Shader.m_flat_texture_skin_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_texture_skin_source); else return haxor_graphics_material_Shader.m_flat_texture_skin_shader;
+	if(haxor_graphics_material_Shader.m_flat_texture_skin_shader != null) return haxor_graphics_material_Shader.m_flat_texture_skin_shader;
+	var shd = haxor_graphics_material_Shader.m_flat_texture_skin_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_texture_skin_source,false);
+	shd.AddPreprocessor("#define","MAX_BONES",haxor_graphics_GL.get_MAX_UNIFORM_BONES() + "");
+	if(haxor_graphics_GL.BONE_TEXTURE) shd.AddPreprocessor("#define","BONE_TEXTURE");
+	shd.Compile();
+	return shd;
 };
 haxor_graphics_material_Shader.get_FlatParticle = function() {
 	if(haxor_graphics_material_Shader.m_flat_particle_shader == null) return haxor_graphics_material_Shader.m_flat_particle_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_particle_source); else return haxor_graphics_material_Shader.m_flat_particle_shader;
 };
 haxor_graphics_material_Shader.__super__ = haxor_core_Resource;
 haxor_graphics_material_Shader.prototype = $extend(haxor_core_Resource.prototype,{
-	get_hasError: function() {
+	get_vs: function() {
+		return this.GetPreprocessorString() + this.m_vss;
+	}
+	,get_fs: function() {
+		return this.GetPreprocessorString() + this.m_fss;
+	}
+	,get_hasError: function() {
 		return this.m_hasError;
 	}
-	,GetShaderSource: function(n) {
+	,Load: function(p_source,p_compile) {
+		if(p_compile == null) p_compile = true;
+		var vt0 = p_source.indexOf("<vertex");
+		var vt1 = p_source.indexOf(">",vt0 + 1);
+		var vt = p_source.substring(vt0,vt1 + 1);
+		var ft0 = p_source.indexOf("<fragment");
+		var ft1 = p_source.indexOf(">",ft0 + 1);
+		var ft = p_source.substring(ft0,ft1 + 1);
+		p_source = StringTools.replace(p_source,vt,vt + "<![CDATA[");
+		p_source = StringTools.replace(p_source,"</vertex>","]]></vertex>");
+		p_source = StringTools.replace(p_source,ft,ft + "<![CDATA[");
+		p_source = StringTools.replace(p_source,"</fragment>","]]></fragment>");
+		var x;
+		x = Xml.parse(p_source);
+		x = x.firstElement();
+		this.set_name(x.get("id"));
+		if(this.get_name() == null || this.get_name() == "") this.set_name("Shader" + this.__cid);
+		var vs = x.elementsNamed("vertex").next();
+		var fs = x.elementsNamed("fragment").next();
+		this.m_vss = this.GetShaderSource(vs,haxor_graphics_GL.VS_FLOAT_HIGHP);
+		this.m_fss = this.GetShaderSource(fs,haxor_graphics_GL.FS_FLOAT_HIGHP);
+		this.m_hasError = false;
+		this.error = "";
+		if(p_compile) this.Compile();
+	}
+	,Compile: function() {
+		haxor_context_EngineContext.material.CompileShader(this);
+	}
+	,AddPreprocessor: function(p_type,p_name,p_value) {
+		if(p_value == null) p_value = "";
+		this.m_pp.set(p_name,p_type + " " + p_name + " " + p_value);
+	}
+	,RemovePreprocessor: function(p_name) {
+		this.m_pp.remove(p_name);
+	}
+	,HasPreprocessor: function(p_name) {
+		return this.m_pp.exists(p_name);
+	}
+	,GetPreprocessorString: function() {
+		var it = this.m_pp.iterator();
+		var s = "";
+		while(it.hasNext()) s += it.next() + "\n";
+		s += "\n";
+		return s;
+	}
+	,GetShaderSource: function(n,hp) {
 		if(n == null) return "";
 		var src = n.firstChild().get_nodeValue().toString();
 		var prec = (n.get("precision") == null?"low":n.get("precision")).toLowerCase();
 		switch(prec) {
 		case "low":
-			prec = "precision lowp float;";
+			prec = "lowp";
 			break;
 		case "medium":
-			prec = "precision mediump float;";
+			prec = "mediump";
 			break;
 		case "high":
-			prec = "precision highp float;";
+			if(hp) prec = "highp"; else prec = "mediump";
 			break;
 		}
+		prec = "precision " + prec + " float;";
 		return prec + src;
 	}
 	,OnDestroy: function() {
 		haxor_context_EngineContext.material.DestroyShader(this);
 	}
 	,__class__: haxor_graphics_material_Shader
-	,__properties__: $extend(haxor_core_Resource.prototype.__properties__,{get_hasError:"get_hasError"})
+	,__properties__: $extend(haxor_core_Resource.prototype.__properties__,{get_hasError:"get_hasError",get_fs:"get_fs",get_vs:"get_vs"})
 });
 var haxor_graphics_material_UberShader = function(p_source) {
 	haxor_graphics_material_Shader.call(this,p_source);
@@ -12250,10 +12622,94 @@ haxor_graphics_material_UberShader.__super__ = haxor_graphics_material_Shader;
 haxor_graphics_material_UberShader.prototype = $extend(haxor_graphics_material_Shader.prototype,{
 	__class__: haxor_graphics_material_UberShader
 });
+var haxor_graphics_material_shader_TemplateShader = function(p_id,p_compile,p_vsp,p_fsp) {
+	if(p_fsp == null) p_fsp = "low";
+	if(p_vsp == null) p_vsp = "low";
+	if(p_compile == null) p_compile = true;
+	this.set_name(p_id);
+	this.m_vsp = p_vsp;
+	this.m_fsp = p_fsp;
+	haxor_core_Asset.Add(p_id,this);
+	haxor_graphics_material_Shader.call(this,this.Generate(p_vsp,p_fsp),p_compile);
+};
+$hxClasses["haxor.graphics.material.shader.TemplateShader"] = haxor_graphics_material_shader_TemplateShader;
+haxor_graphics_material_shader_TemplateShader.__name__ = ["haxor","graphics","material","shader","TemplateShader"];
+haxor_graphics_material_shader_TemplateShader.__super__ = haxor_graphics_material_Shader;
+haxor_graphics_material_shader_TemplateShader.prototype = $extend(haxor_graphics_material_Shader.prototype,{
+	Compile: function() {
+		var src = this.Generate();
+		this.Load(src,false);
+		haxor_graphics_material_Shader.prototype.Compile.call(this);
+	}
+	,Generate: function(p_vsp,p_fsp) {
+		if(p_fsp == null) p_fsp = "";
+		if(p_vsp == null) p_vsp = "";
+		if(p_vsp == "") this.m_vsp = this.m_vsp; else this.m_vsp = p_vsp;
+		if(p_fsp == "") this.m_fsp = this.m_fsp; else this.m_fsp = p_fsp;
+		var src = haxor_graphics_material_shader_TemplateShader.template;
+		src = StringTools.replace(src,"@ID",this.get_name());
+		src = StringTools.replace(src,"@VSP",this.m_vsp);
+		src = StringTools.replace(src,"@FSP",this.m_fsp);
+		src = StringTools.replace(src,"@VS",this.GetVS());
+		src = StringTools.replace(src,"@FS",this.GetFS());
+		return src;
+	}
+	,GetVS: function() {
+		return "";
+	}
+	,GetFS: function() {
+		return "";
+	}
+	,__class__: haxor_graphics_material_shader_TemplateShader
+});
+var haxor_graphics_material_shader_FlatShader = function(p_id,p_texture,p_tint,p_vertex_color,p_compile) {
+	if(p_compile == null) p_compile = true;
+	if(p_vertex_color == null) p_vertex_color = true;
+	if(p_tint == null) p_tint = true;
+	if(p_texture == null) p_texture = false;
+	haxor_graphics_material_shader_TemplateShader.call(this,p_id,false);
+	this.set_texture(p_texture);
+	this.set_tint(p_tint);
+	this.set_color(p_vertex_color);
+	if(p_compile) this.Compile();
+};
+$hxClasses["haxor.graphics.material.shader.FlatShader"] = haxor_graphics_material_shader_FlatShader;
+haxor_graphics_material_shader_FlatShader.__name__ = ["haxor","graphics","material","shader","FlatShader"];
+haxor_graphics_material_shader_FlatShader.__super__ = haxor_graphics_material_shader_TemplateShader;
+haxor_graphics_material_shader_FlatShader.prototype = $extend(haxor_graphics_material_shader_TemplateShader.prototype,{
+	get_texture: function() {
+		return this.HasPreprocessor("TEXTURE");
+	}
+	,set_texture: function(v) {
+		if(v) this.AddPreprocessor("#define","TEXTURE"); else this.RemovePreprocessor("TEXTURE");
+		return v;
+	}
+	,get_tint: function() {
+		return this.HasPreprocessor("TINT");
+	}
+	,set_tint: function(v) {
+		if(v) this.AddPreprocessor("#define","TINT"); else this.RemovePreprocessor("TINT");
+		return v;
+	}
+	,get_color: function() {
+		return this.HasPreprocessor("VERTEX_COLOR");
+	}
+	,set_color: function(v) {
+		if(v) this.AddPreprocessor("#define","VERTEX_COLOR"); else this.RemovePreprocessor("VERTEX_COLOR");
+		return v;
+	}
+	,GetVS: function() {
+		return "\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\t\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\t\r\n\t\t#ifdef TINT\r\n\t\tuniform vec4  Tint;\r\n\t\t#endif\t\t\t\t\r\n\t\t#ifdef VERTEX_COLOR\r\n\t\tattribute vec4 color;\t\t\t\t\r\n\t\t#endif\r\n\t\t#ifdef TEXTURE\r\n\t\tattribute vec3 uv0;\r\n\t\tvarying vec3 v_uv0;\t\t\r\n\t\t#endif\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\t\t\r\n\t\t\tv_color = vec4(1, 1, 1, 1);\t\t\t\r\n\t\t\t#ifdef VERTEX_COLOR\r\n\t\t\tv_color *= color;\r\n\t\t\t#endif\t\t\t\r\n\t\t\t#ifdef TINT\r\n\t\t\tv_color *= Tint;\r\n\t\t\t#endif\r\n\t\t\t#ifdef TEXTURE\r\n\t\t\tv_uv0 = uv0;\r\n\t\t\t#endif\r\n\t\t}\t\t\r\n\t\t";
+	}
+	,GetFS: function() {
+		return "\r\n\t\t#ifdef TEXTURE\r\n\t\tvarying vec3 v_uv0;\r\n\t\tuniform sampler2D DiffuseTexture;\r\n\t\t#endif\r\n\t\t\r\n\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tgl_FragColor = v_color;\r\n\t\t\t#ifdef TEXTURE\r\n\t\t\tgl_FragColor *= texture2D(DiffuseTexture, v_uv0.xy);\r\n\t\t\t#endif\t\t\t\r\n\t\t}\r\n\t\t";
+	}
+	,__class__: haxor_graphics_material_shader_FlatShader
+	,__properties__: $extend(haxor_graphics_material_shader_TemplateShader.prototype.__properties__,{set_color:"set_color",get_color:"get_color",set_tint:"set_tint",get_tint:"get_tint",set_texture:"set_texture",get_texture:"get_texture"})
+});
 var haxor_graphics_mesh_Mesh = function(p_name) {
 	if(p_name == null) p_name = "";
 	haxor_core_Resource.call(this,p_name);
-	this.__cid = haxor_context_EngineContext.mesh.mid.get_id();
 	this.m_attribs = [];
 	this.m_indexed = false;
 	this.m_vcount = 0;
@@ -12263,6 +12719,7 @@ var haxor_graphics_mesh_Mesh = function(p_name) {
 	this.m_topology_attrib = new haxor_graphics_mesh_MeshAttrib();
 	this.m_topology_attrib.m_name = "$topology";
 	this.m_topology_attrib.offset = 1;
+	haxor_context_EngineContext.mesh.Create(this);
 };
 $hxClasses["haxor.graphics.mesh.Mesh"] = haxor_graphics_mesh_Mesh;
 haxor_graphics_mesh_Mesh.__name__ = ["haxor","graphics","mesh","Mesh"];
@@ -12276,11 +12733,11 @@ haxor_graphics_mesh_Mesh.prototype = $extend(haxor_core_Resource.prototype,{
 		if(v == null) {
 			this.m_topology_attrib.data = null;
 			this.m_indexed = false;
-			haxor_context_EngineContext.mesh.RemoveAttrib(this.m_topology_attrib);
+			haxor_context_EngineContext.mesh.RemoveAttrib(this.m_topology_attrib,this);
 		} else {
 			this.m_topology_attrib.data = v;
 			this.m_indexed = true;
-			haxor_context_EngineContext.mesh.UpdateAttrib(this.m_topology_attrib,this.m_mode,true);
+			haxor_context_EngineContext.mesh.UpdateAttrib(this.m_topology_attrib,this.m_mode,true,this);
 		}
 		return v;
 	}
@@ -12293,12 +12750,12 @@ haxor_graphics_mesh_Mesh.prototype = $extend(haxor_core_Resource.prototype,{
 	,set_mode: function(v) {
 		if(this.m_mode == v) return v;
 		this.m_mode = v;
-		if(this.m_indexed) haxor_context_EngineContext.mesh.UpdateAttrib(this.m_topology_attrib,this.m_mode,true);
+		if(this.m_indexed) haxor_context_EngineContext.mesh.UpdateAttrib(this.m_topology_attrib,this.m_mode,true,this);
 		var _g1 = 0;
 		var _g = this.m_attribs.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			haxor_context_EngineContext.mesh.UpdateAttrib(this.m_attribs[i],this.m_mode,false);
+			haxor_context_EngineContext.mesh.UpdateAttrib(this.m_attribs[i],this.m_mode,false,this);
 		}
 		return v;
 	}
@@ -12329,7 +12786,7 @@ haxor_graphics_mesh_Mesh.prototype = $extend(haxor_core_Resource.prototype,{
 			var i = _g1++;
 			this.m_attribs[i].data = null;
 			this.m_attribs[i].m_name = "";
-			if(p_from_gpu) haxor_context_EngineContext.mesh.RemoveAttrib(this.m_attribs[i]);
+			if(p_from_gpu) haxor_context_EngineContext.mesh.RemoveAttrib(this.m_attribs[i],this);
 		}
 		this.m_vcount = 0;
 		if(p_from_gpu) this.set_topology(null); else this.m_topology_attrib.data = null;
@@ -12354,7 +12811,7 @@ haxor_graphics_mesh_Mesh.prototype = $extend(haxor_core_Resource.prototype,{
 		var a = this.GetAttribute(p_name);
 		if(a == null) return;
 		HxOverrides.remove(this.m_attribs,a);
-		haxor_context_EngineContext.mesh.RemoveAttrib(a);
+		haxor_context_EngineContext.mesh.RemoveAttrib(a,this);
 	}
 	,Set: function(p_name,p_data,p_offset) {
 		if(p_offset == null) p_offset = 0;
@@ -12378,7 +12835,7 @@ haxor_graphics_mesh_Mesh.prototype = $extend(haxor_core_Resource.prototype,{
 			var c = this.m_attribs[i].get_count();
 			if(this.m_vcount < c) this.m_vcount = this.m_vcount; else this.m_vcount = c;
 		}
-		haxor_context_EngineContext.mesh.UpdateAttrib(a,this.m_mode,false);
+		haxor_context_EngineContext.mesh.UpdateAttrib(a,this.m_mode,false,this);
 		return a;
 	}
 	,GenerateAttribBounds: function(p_attrib,p_result) {
@@ -12407,8 +12864,7 @@ haxor_graphics_mesh_Mesh.prototype = $extend(haxor_core_Resource.prototype,{
 		return b;
 	}
 	,OnDestroy: function() {
-		this.Clear();
-		haxor_context_EngineContext.mesh.mid.set_id(this.__cid);
+		haxor_context_EngineContext.mesh.Destroy(this);
 	}
 	,__class__: haxor_graphics_mesh_Mesh
 	,__properties__: $extend(haxor_core_Resource.prototype.__properties__,{set_bounds:"set_bounds",get_bounds:"get_bounds",get_vcount:"get_vcount",get_attribs:"get_attribs",set_mode:"set_mode",get_mode:"get_mode",get_indexed:"get_indexed",set_topology:"set_topology",get_topology:"get_topology"})
@@ -12765,6 +13221,15 @@ var haxor_graphics_texture_Bitmap = function(p_width,p_height,p_format) {
 	case 6:
 		this.m_channels = 4;
 		this.m_half = this.m_float = true;
+		break;
+	case 11:
+		this.m_channels = 3;
+		break;
+	case 12:
+		this.m_channels = 4;
+		break;
+	case 13:
+		this.m_channels = 4;
 		break;
 	}
 	var len = this.m_width * this.m_height * this.m_channels;
@@ -17474,8 +17939,12 @@ haxor_platform_html_graphics_WebGL.prototype = $extend(haxor_graphics_GraphicCon
 			haxor_core_Console.Log("\t" + extensions[i],1);
 			var _g2 = extensions[i];
 			switch(_g2) {
+			case "EXT_sRGB":
+				haxor_graphics_GL.TEXTURE_SRGB = true;
+				break;
 			case "OES_vertex_array_object":
-				haxor_graphics_GL.VERTEX_ARRAY_OBJECT = true;
+				haxor_graphics_GL.VAO_ENABLED = false;
+				this.vao = ext;
 				break;
 			case "OES_texture_half_float":
 				haxor_graphics_GL.HALF_FLOAT = 36193;
@@ -17501,8 +17970,32 @@ haxor_platform_html_graphics_WebGL.prototype = $extend(haxor_graphics_GraphicCon
 				break;
 			}
 		}
+		haxor_core_Console.Log("Graphics> API Limits.",1);
 		haxor_graphics_GL.MAX_ACTIVE_TEXTURE = this.c.getParameter(34930);
+		haxor_graphics_GL.MAX_COMBINED_TEXTURE = this.c.getParameter(35661);
+		haxor_graphics_GL.MAX_FRAGMENT_UNIFORM_LENGTH = this.c.getParameter(36349);
+		haxor_graphics_GL.MAX_VERTEX_UNIFORM_LENGTH = this.c.getParameter(36347);
+		haxor_graphics_GL.MAX_VERTEX_TEXTURES = this.c.getParameter(35660);
+		haxor_graphics_GL.BONE_TEXTURE = haxor_graphics_GL.MAX_VERTEX_TEXTURES > 0 && haxor_graphics_GL.TEXTURE_FLOAT && haxor_graphics_GL.get_MAX_UNIFORM_BONES() >= 10;
+		if(window.navigator.platform.toLowerCase().indexOf("mac") >= 0) haxor_graphics_GL.BONE_TEXTURE = false;
+		var pf;
+		pf = this.c.getShaderPrecisionFormat(35633,36338);
+		haxor_graphics_GL.VS_FLOAT_HIGHP = pf.precision != 0;
+		pf = this.c.getShaderPrecisionFormat(35632,36338);
+		haxor_graphics_GL.FS_FLOAT_HIGHP = pf.precision != 0;
+		pf = this.c.getShaderPrecisionFormat(35633,36341);
+		haxor_graphics_GL.VS_INT_HIGHP = pf.precision != 0;
+		pf = this.c.getShaderPrecisionFormat(35632,36341);
+		haxor_graphics_GL.FS_INT_HIGHP = pf.precision != 0;
 		haxor_core_Console.Log("\tMax Active Textures: " + haxor_graphics_GL.MAX_ACTIVE_TEXTURE,1);
+		haxor_core_Console.Log("\tMax Combined Textures: " + haxor_graphics_GL.MAX_COMBINED_TEXTURE,1);
+		haxor_core_Console.Log("\tMax Fragment Uniform Length: " + haxor_graphics_GL.MAX_FRAGMENT_UNIFORM_LENGTH,1);
+		haxor_core_Console.Log("\tMax Vertex Uniform Length: " + haxor_graphics_GL.MAX_VERTEX_UNIFORM_LENGTH,1);
+		haxor_core_Console.Log("\tMax Vertex Textures: " + haxor_graphics_GL.MAX_VERTEX_TEXTURES,1);
+		haxor_core_Console.Log("\tMax Uniform Bones: " + haxor_graphics_GL.get_MAX_UNIFORM_BONES(),1);
+		haxor_core_Console.Log("\tBone Texture: " + Std.string(haxor_graphics_GL.BONE_TEXTURE),1);
+		haxor_core_Console.Log("\tVertex Shader Float Highp: " + Std.string(haxor_graphics_GL.VS_FLOAT_HIGHP),1);
+		haxor_core_Console.Log("\tFragment Shader Float Highp: " + Std.string(haxor_graphics_GL.FS_FLOAT_HIGHP),1);
 	}
 	,Resize: function() {
 		this.m_canvas.width = this.m_container.clientWidth;
@@ -17511,8 +18004,14 @@ haxor_platform_html_graphics_WebGL.prototype = $extend(haxor_graphics_GraphicCon
 	,CreateBuffer: function() {
 		return this.c.createBuffer();
 	}
+	,CreateVAO: function() {
+		return this.vao.createVertexArrayOES();
+	}
 	,BindBuffer: function(p_target,p_id) {
 		this.c.bindBuffer(p_target,p_id);
+	}
+	,BindVAO: function(p_id) {
+		this.vao.bindVertexArrayOES(p_id);
 	}
 	,BufferData: function(p_target,p_data,p_mode) {
 		this.c.bufferData(p_target,p_data.m_buffer,p_mode);
@@ -17522,6 +18021,9 @@ haxor_platform_html_graphics_WebGL.prototype = $extend(haxor_graphics_GraphicCon
 	}
 	,DeleteBuffer: function(p_id) {
 		this.c.deleteBuffer(p_id);
+	}
+	,DeleteVAO: function(p_id) {
+		this.vao.deleteVertexArrayOES(p_id);
 	}
 	,DrawArrays: function(p_primitive,p_start,p_count) {
 		this.c.drawArrays(p_primitive,p_start,p_count);
@@ -17534,6 +18036,12 @@ haxor_platform_html_graphics_WebGL.prototype = $extend(haxor_graphics_GraphicCon
 	}
 	,EnableVertexAttrib: function(p_location) {
 		this.c.enableVertexAttribArray(p_location);
+	}
+	,VertexAttrib1f: function(p_location,p_x) {
+		this.c.vertexAttrib1f(p_location,p_x);
+	}
+	,VertexAttrib2f: function(p_location,p_x,p_y) {
+		this.c.vertexAttrib2f(p_location,p_x,p_y);
 	}
 	,VertexAttrib3f: function(p_location,p_x,p_y,p_z) {
 		this.c.vertexAttrib3f(p_location,p_x,p_y,p_z);
@@ -17785,10 +18293,13 @@ var haxor_platform_html_input_HTMLInputHandler = function(p_target_id) {
 		haxor_input_Input.m_multitouch = false;
 	}
 	if(haxor_input_Input.get_multitouch()) {
+		window.document.addEventListener("touchmove",function(e) {
+			e.preventDefault();
+		},false);
 		this.m_target.ontouchstart = $bind(this,this.OnTouchEvent);
-		window.document.ontouchmove = $bind(this,this.OnTouchEvent);
-		window.document.ontouchcancel = $bind(this,this.OnTouchEvent);
-		window.document.ontouchend = $bind(this,this.OnTouchEvent);
+		window.ontouchmove = $bind(this,this.OnTouchEvent);
+		window.ontouchcancel = $bind(this,this.OnTouchEvent);
+		window.ontouchend = $bind(this,this.OnTouchEvent);
 	}
 	var t = this.m_target;
 	var nav = this.m_navigator;
@@ -17975,6 +18486,12 @@ var haxor_thread_Kernel = function(p_width,p_height,p_readable,p_format) {
 	case 6:
 		break;
 	case 10:
+		break;
+	case 11:
+		break;
+	case 12:
+		break;
+	case 13:
 		break;
 	}
 	this.SetFloat("width",p_width);
@@ -18409,7 +18926,7 @@ haxor_context_Gizmo.IDM = new haxor_math_Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
 haxor_context_BaseProcess.m_cid = 0;
 haxor_context_ShaderContext.flat_source = "\r\n\t<shader id=\"haxor/unlit/Flat\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\t\t\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\tv_color = color * Tint;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) { gl_FragColor = v_color; }\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_context_ShaderContext.flat_texture_source = "\r\n\t<shader id=\"haxor/unlit/FlatTexture\">\t\r\n\t\t<vertex>\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\t\r\n\t\tattribute vec4 color;\r\n\t\tattribute vec3 uv0;\t\t\r\n\t\tvarying vec3 v_uv0;\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\tv_uv0   = uv0;\r\n\t\t\tv_color = color;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\r\n\t\t\tvarying vec3 v_uv0;\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tuniform sampler2D DiffuseTexture;\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);\t\r\n\t\t\t\tgl_FragColor.xyz = (tex_diffuse.xyz * v_color.xyz);\r\n\t\t\t\tgl_FragColor.a \t = tex_diffuse.a * v_color.a;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
-haxor_context_ShaderContext.flat_texture_skin_source = "\r\n\t<shader id=\"haxor/unlit/FlatTextureSkin\">\t\r\n\t\t<vertex precision=\"low\">\r\n\t\t\r\n\t\t#define SKINNING_TEXTURE_SIZE 2048.0\r\n\t\t#define BINDS_OFFSET\t\t  1024.0\r\n\t\t#define MAX_BONES\t\t\t  64\r\n\t\t#define BONE_TEXTURE\t\t  true\r\n\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  WorldMatrixIT;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\r\n\t\tuniform vec3  WSCameraPosition;\t\t\r\n\t\t\r\n\t\tuniform vec4  Joints[MAX_BONES];\r\n\t\tuniform vec4  Binds[MAX_BONES];\r\n\t\t\r\n\t\t\r\n\t\tuniform sampler2D Skinning;\r\n\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\t\r\n\t\tattribute vec4 color;\r\n\t\tattribute vec3 normal;\r\n\t\tattribute vec3 uv0;\r\n\t\tattribute vec4 bone;\r\n\t\tattribute vec4 weight;\r\n\t\t\r\n\t\tvarying vec3 v_uv0;\r\n\t\tvarying vec3 v_normal;\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec4 v_wsVertex;\r\n\t\tvarying vec3 v_wsView;\t\r\n\t\t\r\n\t\tvec4 SkinningRead(float id)\r\n\t\t{\r\n\t\t\treturn texture2D(Skinning, vec2(0.0,(id/(SKINNING_TEXTURE_SIZE-1.0))));\r\n\t\t}\r\n\t\t\r\n\t\tmat4 GetSkinMatrix(float b,float o)\r\n\t\t{\r\n\t\t\tvec4 l0, l1, l2;\t\t\t\t\t\t\r\n\t\t\tl0 = SkinningRead(b+o); l1 = SkinningRead(b+1.0+o); l2 = SkinningRead(b+2.0+o);\r\n\t\t\treturn mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);\t\t\t\t\t\t\r\n\t\t}\r\n\t\t\r\n\t\tmat4 GetJointMatrix(const float b0,const float b1,const float b2) { return mat4(Joints[int(b0)],Joints[int(b1)],Joints[int(b2)],vec4(0,0,0,1)); }\r\n\t\tmat4 GetBindMatrix(const float b0,const float b1,const float b2) { return mat4(Binds[int(b0)],Binds[int(b1)],Binds[int(b2)],vec4(0,0,0,1)); }\r\n\t\t\r\n\t\t\r\n\t\tmat4 SkinWorldMatrix()\r\n\t\t{\r\n\t\t\tvec4 b = bone * 3.0;\r\n\t\t\tvec4 w = weight;\r\n\t\t\tfloat ivs = 1.0 / (weight.x + weight.y + weight.z + weight.w);\r\n\t\t\tw *= ivs;\t\r\n\t\t\t#ifdef BONE_TEXTURE\r\n\t\t\tmat4 j0 = GetSkinMatrix(b[0],0.0);\r\n\t\t\tmat4 b0 = GetSkinMatrix(b[0],BINDS_OFFSET);\r\n\t\t\tmat4 j1 = GetSkinMatrix(b[1],0.0);\r\n\t\t\tmat4 b1 = GetSkinMatrix(b[1],BINDS_OFFSET);\r\n\t\t\tmat4 j2 = GetSkinMatrix(b[2],0.0);\r\n\t\t\tmat4 b2 = GetSkinMatrix(b[2],BINDS_OFFSET);\r\n\t\t\tmat4 j3 = GetSkinMatrix(b[3],0.0);\r\n\t\t\tmat4 b3 = GetSkinMatrix(b[3], BINDS_OFFSET);\r\n\t\t\t#else\t\t\t\r\n\t\t\tmat4 j0 = GetJointMatrix(b[0],b[0]+1.0,b[0]+2.0);\r\n\t\t\tmat4 j1 = GetJointMatrix(b[1],b[1]+1.0,b[1]+2.0);\r\n\t\t\tmat4 j2 = GetJointMatrix(b[2],b[2]+1.0,b[2]+2.0);\r\n\t\t\tmat4 j3 = GetJointMatrix(b[3],b[3]+1.0,b[3]+2.0);\r\n\t\t\t\r\n\t\t\tmat4 b0 = GetBindMatrix(b[0],b[0]+1.0,b[0]+2.0);\r\n\t\t\tmat4 b1 = GetBindMatrix(b[1],b[1]+1.0,b[1]+2.0);\r\n\t\t\tmat4 b2 = GetBindMatrix(b[2],b[2]+1.0,b[2]+2.0);\r\n\t\t\tmat4 b3 = GetBindMatrix(b[3],b[3]+1.0,b[3]+2.0);\r\n\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\treturn    ((b0 * j0) * w[0])+\r\n\t\t\t          ((b1 * j1) * w[1])+\r\n\t\t\t          ((b2 * j2) * w[2])+\r\n\t\t\t          ((b3 * j3) * w[3]);\r\n\t\t\t\r\n\t\t\t\r\n\t\t}\r\n\t\t\t\t\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tvec4 lv = vec4(vertex,1.0);\r\n\t\t\tvec3 ln = vec3(normal);\r\n\t\t\tmat4 swm = SkinWorldMatrix();\r\n\t\t\tmat4 wm;\t\t\t\t\t\r\n\t\t\twm = swm;\r\n\t\t\t//wm = WorldMatrix;\r\n\t\t\t\r\n\t\t\tv_uv0   = uv0;\r\n\t\t\tv_color = color;\t\t\t\r\n\t\t\tv_normal = ln * mat3(WorldMatrixIT);\t\t\t\r\n\t\t\tgl_Position = ((lv * wm) * ViewMatrix) * ProjectionMatrix;\r\n\t\t}\t\t\r\n\t\t</vertex>\r\n\t\t\r\n\t\t<fragment precision=\"low\">\r\n\t\t\t\t\t\r\n\t\t\tuniform sampler2D DiffuseTexture;\t\t\t\r\n\t\t\t\r\n\t\t\tuniform sampler2D Skinning;\r\n\t\t\t\r\n\t\t\tvarying vec3 v_uv0;\r\n\t\t\tvarying vec4 v_color;\r\n\t\t\tvarying vec3 v_normal;\r\n\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);\r\n\t\t\t\tgl_FragColor.xyz = tex_diffuse.xyz * v_color.xyz;\r\n\t\t\t\tgl_FragColor.a \t = tex_diffuse.a * v_color.a;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
+haxor_context_ShaderContext.flat_texture_skin_source = "\r\n\t<shader id=\"haxor/unlit/FlatTextureSkin\">\t\r\n\t\t<vertex precision=\"low\">\r\n\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  WorldMatrixIT;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\r\n\t\tuniform vec3  WSCameraPosition;\t\t\r\n\t\t\r\n\t\t#ifdef BONE_TEXTURE\r\n\t\tuniform sampler2D Joints;\r\n\t\tuniform sampler2D Binds;\r\n\t\tuniform int\t\t  SkinId;\r\n\t\tuniform vec4      SkinTexSize;\r\n\t\t#else\t\t\r\n\t\tuniform vec4  Joints[MAX_BONES*3];\t\t\r\n\t\tuniform vec4   Binds[MAX_BONES*3];\r\n\t\t#endif\r\n\t\t\r\n\t\tuniform int SkinQuality;\r\n\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\t\r\n\t\tattribute vec4 color;\r\n\t\tattribute vec3 normal;\r\n\t\tattribute vec3 uv0;\r\n\t\tattribute vec4 bone;\r\n\t\tattribute vec4 weight;\r\n\t\t\r\n\t\tvarying vec3 v_uv0;\r\n\t\tvarying vec3 v_normal;\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec4 v_wsVertex;\r\n\t\tvarying vec3 v_wsView;\t\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\tmat4 GetJointMatrix(const int b0, const int b1, const int b2) \r\n\t\t{ \r\n\t\t\t#ifdef BONE_TEXTURE\t\t\t\r\n\t\t\tfloat itw = SkinTexSize.z;\r\n\t\t\tfloat ith = SkinTexSize.w;\r\n\t\t\tfloat fb0x = mod(float(b0), SkinTexSize.x);\r\n\t\t\tfloat fb1x = mod(float(b1), SkinTexSize.x);\r\n\t\t\tfloat fb2x = mod(float(b2), SkinTexSize.x);\r\n\t\t\tfloat fb0y = floor(float(b0) * itw);\r\n\t\t\tfloat fb1y = floor(float(b1) * itw);\r\n\t\t\tfloat fb2y = floor(float(b2) * itw);\t\t\t\r\n\t\t\tvec4 l0 = texture2D(Joints, vec2(fb0x*itw,fb0y*ith));\r\n\t\t\tvec4 l1 = texture2D(Joints, vec2(fb1x*itw,fb1y*ith));\r\n\t\t\tvec4 l2 = texture2D(Joints, vec2(fb2x*itw,fb2y*ith));\r\n\t\t\treturn mat4(l0,l1,l2,vec4(0,0,0,1));\r\n\t\t\t#else\r\n\t\t\treturn mat4(Joints[b0], Joints[b1], Joints[b2], vec4(0, 0, 0, 1)); \r\n\t\t\t#endif\r\n\t\t}\r\n\t\t\r\n\t\tmat4 GetBindMatrix (const int b0, const int b1, const int b2) \r\n\t\t{ \r\n\t\t\t#ifdef BONE_TEXTURE\t\t\t\r\n\t\t\tfloat itw = SkinTexSize.z;\r\n\t\t\tfloat ith = SkinTexSize.w;\t\t\t\t\t\r\n\t\t\tfloat fb0x = mod(float(b0), SkinTexSize.x);\r\n\t\t\tfloat fb1x = mod(float(b1), SkinTexSize.x);\r\n\t\t\tfloat fb2x = mod(float(b2), SkinTexSize.x);\r\n\t\t\tfloat fb0y = floor(float(b0) * itw);\r\n\t\t\tfloat fb1y = floor(float(b1) * itw);\r\n\t\t\tfloat fb2y = floor(float(b2) * itw);\t\t\t\r\n\t\t\tvec4 l0 = texture2D(Binds, vec2(fb0x*itw,fb0y*ith));\r\n\t\t\tvec4 l1 = texture2D(Binds, vec2(fb1x*itw,fb1y*ith));\r\n\t\t\tvec4 l2 = texture2D(Binds, vec2(fb2x*itw,fb2y*ith));\r\n\t\t\treturn mat4(l0,l1,l2,vec4(0,0,0,1));\r\n\t\t\t#else\r\n\t\t\treturn mat4(Binds[b0] , Binds[b1] , Binds[b2] , vec4(0, 0, 0, 1)); \r\n\t\t\t#endif\r\n\t\t}\r\n\t\t\r\n\t\tmat4 SkinWorldMatrix()\r\n\t\t{\r\n\t\t\tvec4 b = bone * 3.0;\r\n\t\t\t\r\n\t\t\tvec4 w = weight;\r\n\t\t\t\r\n\t\t\tfloat ivs = 0.0;\t\t\t\r\n\t\t\t\r\n\t\t\tif (SkinQuality >= 0) ivs += weight.x;\r\n\t\t\tif (SkinQuality >= 2) ivs += weight.y;\r\n\t\t\tif (SkinQuality >= 3) ivs += weight.z;\r\n\t\t\tif (SkinQuality >= 4) ivs += weight.w;\r\n\t\t\t\r\n\t\t\tw *= 1.0 / ivs;\r\n\t\t\t\r\n\t\t\tivec4 bi0 = ivec4(b.x, b.y, b.z, b.w);\t\t\t\r\n\t\t\tivec4 bi1 = ivec4(b.x + 1.0, b.y + 1.0, b.z + 1.0, b.w + 1.0);\t\t\t\r\n\t\t\tivec4 bi2 = ivec4(b.x + 2.0, b.y + 2.0, b.z + 2.0, b.w + 2.0);\r\n\t\t\t\r\n\t\t\tmat4 res = mat4(0.0);\r\n\t\t\tmat4 jm; \r\n\t\t\tmat4 bm; \r\n\t\t\t\r\n\t\t\tif (SkinQuality >= 0) { jm = GetJointMatrix(bi0.x, bi1.x, bi2.x); bm = GetBindMatrix(bi0.x, bi1.x, bi2.x); res += ((bm * jm) * w.x); }\r\n\t\t\tif (SkinQuality >= 2) { jm = GetJointMatrix(bi0.y, bi1.y, bi2.y); bm = GetBindMatrix(bi0.y, bi1.y, bi2.y); res += ((bm * jm) * w.y); }\r\n\t\t\tif (SkinQuality >= 3) { jm = GetJointMatrix(bi0.z, bi1.z, bi2.z); bm = GetBindMatrix(bi0.z, bi1.z, bi2.z); res += ((bm * jm) * w.z); }\r\n\t\t\tif (SkinQuality >= 4) { jm = GetJointMatrix(bi0.w, bi1.w, bi2.w); bm = GetBindMatrix(bi0.w, bi1.w, bi2.w); res += ((bm * jm) * w.w); }\r\n\t\t\t\r\n\t\t\treturn res;\r\n\t\t}\r\n\t\t\t\t\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tvec4 lv = vec4(vertex,1.0);\r\n\t\t\tvec3 ln = vec3(normal);\r\n\t\t\tmat4 swm = SkinWorldMatrix();\r\n\t\t\tmat4 wm;\t\t\t\t\t\r\n\t\t\twm = swm;\r\n\t\t\t//wm = WorldMatrix;\r\n\t\t\t\r\n\t\t\tv_uv0   = uv0;\r\n\t\t\tv_color = color;\t\t\t\r\n\t\t\tv_normal = ln * mat3(WorldMatrixIT);\t\t\t\r\n\t\t\tgl_Position = ((lv * wm) * ViewMatrix) * ProjectionMatrix;\r\n\t\t}\t\t\r\n\t\t</vertex>\r\n\t\t\r\n\t\t<fragment precision=\"medium\">\r\n\t\t\t\t\t\r\n\t\t\tuniform sampler2D DiffuseTexture;\t\t\t\t\t\t\r\n\t\t\tvarying vec3 v_uv0;\r\n\t\t\tvarying vec4 v_color;\r\n\t\t\tvarying vec3 v_normal;\r\n\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\r\n\t\t\t\tvec4 tex_diffuse = texture2D(DiffuseTexture, v_uv0.xy);\r\n\t\t\t\tgl_FragColor.xyz = tex_diffuse.xyz * v_color.xyz;\r\n\t\t\t\tgl_FragColor.a \t = tex_diffuse.a * v_color.a;\r\n\t\t\t}\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
 haxor_context_ShaderContext.grid_source = "\r\n\t<shader id=\"haxor/gizmo/Grid\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform mat4  WorldMatrix;\r\n\t\tuniform mat4  ViewMatrix;\r\n\t\tuniform mat4  ProjectionMatrix;\t\t\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tuniform float Area;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\t\t\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\tgl_Position = ((vec4(vertex*Area, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\tv_color = color * Tint;\t\t\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_context_ShaderContext.texture_source = "\r\n\t<shader id=\"haxor/gizmo/Texture\">\t\r\n\t\t<vertex>\t\t\r\n\t\tuniform vec2  Screen;\r\n\t\tuniform vec4  Rect;\r\n\t\tuniform vec4  Tint;\t\t\r\n\t\tattribute vec3 vertex;\t\t\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\tvarying vec2 v_uv0;\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tvec4 p = vec4(vertex, 1);\r\n\t\t\tfloat sw = Screen.x * 0.5;\r\n\t\t\tfloat sh = Screen.y * 0.5;\r\n\t\t\tp.x *= Rect.z / sw;\r\n\t\t\tp.y *= Rect.w / sh;\r\n\t\t\tp.x += Rect.x / sw;\r\n\t\t\tp.y -= Rect.y / sh;\t\t\t\r\n\t\t\tp.x -= 1.0;\r\n\t\t\tp.y += 1.0;\t\t\t\r\n\t\t\tp.z = 0.001;\r\n\t\t\tgl_Position = p;\r\n\t\t\tv_color = Tint;\t\t\r\n\t\t\tv_uv0   = vec2(vertex.x,1.0+vertex.y);\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\r\n\t\t\tvarying vec2 v_uv0;\r\n\t\t\tuniform sampler2D Texture;\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\r\n\t\t\t\tgl_FragColor = texture2D(Texture, v_uv0) * v_color;\r\n\t\t\t}\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_context_ShaderContext.gizmo_source = "\r\n\t<shader id=\"haxor/gizmo/Gizmo\">\t\r\n\t\t<vertex>\t\r\n\t\t\r\n\t\t#define GIZMO_POINT       0\r\n\t\t#define GIZMO_LINE        1\r\n\t\t#define GIZMO_AXIS        2\r\n\t\t#define GIZMO_WIRE_CUBE   3\r\n\t\t#define GIZMO_WIRE_SPHERE 4\r\n\t\t#define GIZMO_CANVAS\t  10\r\n\t\t\r\n\t\t\r\n\t\t\r\n\t\t\t\tmat4         WorldMatrix;\r\n\t\tuniform mat4  \t\t ViewMatrix;\r\n\t\tuniform mat4  \t\t ProjectionMatrix;\t\t\t\t\r\n\t\tuniform int   \t\t Count;\r\n\t\tuniform int   \t\t Type;\t\t\r\n\t\tuniform sampler2D \t Data;\r\n\t\tuniform int  \t\t DataSize;\t\t\r\n\t\t\t    vec4\t\t DataColor;\r\n\t\t\t\tvec4\t\t DataA;\r\n\t\t\t\tvec4\t\t DataB;\r\n\t\t\r\n\t\tattribute float id;\r\n\t\tattribute vec3 vertex;\t\t\r\n\t\tattribute vec4 color;\r\n\t\t\r\n\t\tvarying vec4 v_color;\r\n\t\t\r\n\t\tvec4 GetPixel(float p_pix,float p_ds,float p_ids)\r\n\t\t{\t\t\t\r\n\t\t\tfloat px = mod(p_pix, p_ds) * p_ids;\r\n\t\t\tfloat py = (p_pix * p_ids) * p_ids;\r\n\t\t\treturn texture2D(Data, vec2(px,py));\r\n\t\t}\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\t\t\r\n\t\t\tif (id >= float(Count)) \r\n\t\t\t{\r\n\t\t\t\tgl_Position = vec4( -2.0, 0.0, 0.0, 0.0);\r\n\t\t\t\treturn; \r\n\t\t\t}\t\t\t\r\n\t\t\tfloat p  \t= id * 6.0;\r\n\t\t\tfloat ds\t= float(DataSize);\r\n\t\t\tfloat ids\t= 1.0 / ds;\t\t\t\r\n\t\t\tDataColor \t= GetPixel(p,ds,ids);\r\n\t\t\tDataA \t\t= GetPixel(p + 1.0,ds,ids);\r\n\t\t\tDataB \t\t= GetPixel(p + 2.0,ds,ids);\t\t\t\r\n\t\t\tvec4 l0 \t= GetPixel(p + 3.0,ds,ids);\r\n\t\t\tvec4 l1 \t= GetPixel(p + 4.0,ds,ids);\r\n\t\t\tvec4 l2 \t= GetPixel(p + 5.0,ds,ids);\t\r\n\t\t\tvec4 v\t\t= vec4(vertex, 1.0);\r\n\t\t\tWorldMatrix = mat4(l0.x, l0.y, l0.z, l0.w, l1.x, l1.y, l1.z, l1.w, l2.x, l2.y, l2.z, l2.w, 0, 0, 0, 1);\r\n\t\t\t\r\n\t\t\tif (Type == GIZMO_POINT)\r\n\t\t\t{\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tfloat pf = (ncp.z / ncp.w);\r\n\t\t\t\tgl_PointSize = pf <= 0.0 ? DataA.x : (DataA.x * pf);\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_LINE)\r\n\t\t\t{\r\n\t\t\t\tfloat r = v.x;\r\n\t\t\t\tv.xyz = DataA.xyz + (DataB.xyz - DataA.xyz) * r;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_AXIS)\r\n\t\t\t{\t\t\r\n\t\t\t\tfloat sx   = length(vec3(WorldMatrix[0][0],WorldMatrix[1][0],WorldMatrix[2][0]));\r\n\t\t\t\tfloat sy   = length(vec3(WorldMatrix[0][1],WorldMatrix[1][1],WorldMatrix[2][1]));\r\n\t\t\t\tfloat sz   = length(vec3(WorldMatrix[0][2],WorldMatrix[1][2],WorldMatrix[2][2]));\t\t\t\t\r\n\t\t\t\tvec3 scale = vec3(sx, sy, sz);\t\t\t\t\r\n\t\t\t\tvec4 ncp = ((vec4(DataB.xyz, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t\tv.xyz *= (DataA.xyz / scale.xyz) * ncp.w * 0.025;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position  = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_CUBE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.xyz;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_WIRE_SPHERE)\r\n\t\t\t{\r\n\t\t\t\tv.xyz *= DataA.x;\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\tif (Type == GIZMO_CANVAS)\r\n\t\t\t{\t\t\t\t\r\n\t\t\t\tv.xyz += DataB.xyz;\r\n\t\t\t\tgl_Position = ((v * WorldMatrix) * ViewMatrix) * ProjectionMatrix;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t\t\t\t\t\r\n\t\t\tv_color = DataColor * color;\r\n\t\t}\t\t\r\n\t\t</vertex>\t\t\r\n\t\t<fragment>\t\t\t\r\n\t\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\tvoid main(void) { gl_FragColor = v_color; }\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
@@ -18782,7 +19299,12 @@ haxor_graphics_GL.VERTEX_ATTRIB_ARRAY_TYPE = 34341;
 haxor_graphics_GL.VERTEX_SHADER = 35633;
 haxor_graphics_GL.VIEWPORT = 2978;
 haxor_graphics_GL.ZERO = 0;
-haxor_graphics_GL.VERTEX_ARRAY_OBJECT = false;
+haxor_graphics_GL.VAO_ENABLED = false;
+haxor_graphics_GL.TEXTURE_SRGB = false;
+haxor_graphics_GL.SRGB = 35904;
+haxor_graphics_GL.SRGB_ALPHA = 35906;
+haxor_graphics_GL.SRGB8_ALPHA8 = 35907;
+haxor_graphics_GL.FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING = 33296;
 haxor_graphics_GL.HALF_FLOAT = 5126;
 haxor_graphics_GL.TEXTURE_HALF = false;
 haxor_graphics_GL.TEXTURE_HALF_LINEAR = false;
@@ -18793,7 +19315,17 @@ haxor_graphics_GL.TEXTURE_FLOAT = false;
 haxor_graphics_GL.TEXTURE_FLOAT_LINEAR = false;
 haxor_graphics_GL.TEXTURE_DEPTH_ENABLED = false;
 haxor_graphics_GL.MAX_ACTIVE_TEXTURE = 8;
+haxor_graphics_GL.MAX_COMBINED_TEXTURE = 8;
+haxor_graphics_GL.MAX_FRAGMENT_UNIFORM_LENGTH = 128;
+haxor_graphics_GL.MAX_VERTEX_UNIFORM_LENGTH = 128;
+haxor_graphics_GL.MAX_VERTEX_TEXTURES = 0;
+haxor_graphics_GL.BONE_TEXTURE = false;
+haxor_graphics_GL.VS_FLOAT_HIGHP = true;
+haxor_graphics_GL.VS_INT_HIGHP = true;
+haxor_graphics_GL.FS_FLOAT_HIGHP = true;
+haxor_graphics_GL.FS_INT_HIGHP = true;
 haxor_graphics_Graphics.m_last_viewport = haxor_math_AABB2.get_empty();
+haxor_graphics_material_shader_TemplateShader.template = "\r\n\t<shader id=\"@ID\">\t\r\n\t\t<vertex precision=\"@VSP\">\t\t\r\n\t\t\t@VS\r\n\t\t</vertex>\t\t\r\n\t\t<fragment precision=\"@FSP\">\t\t\t\r\n\t\t\t@FS\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
 haxor_input_Input.scroll = false;
 haxor_input_Input.menu = false;
 haxor_input_Input.emulateTouch = false;

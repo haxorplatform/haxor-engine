@@ -1,8 +1,10 @@
 package haxor.context;
+import haxe.Timer;
 import haxor.component.Camera;
 import haxor.component.Component;
 import haxor.component.MeshRenderer;
 import haxor.component.Renderer;
+import haxor.component.SkinnedMeshRenderer;
 import haxor.core.Resource;
 import haxor.core.Enums.PixelFormat;
 import haxor.core.Time;
@@ -13,8 +15,11 @@ import haxor.graphics.material.Material;
 import haxor.graphics.Screen;
 import haxor.graphics.texture.ComputeTexture;
 import haxor.graphics.texture.RenderTexture;
+import haxor.io.FloatArray;
 import haxor.math.Mathf;
+import haxor.math.Matrix4;
 import haxor.math.Vector3;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that handles the all Renderers structures and functionalities.
@@ -52,12 +57,7 @@ class RendererContext
 	 * Flag that indicates if the display list needs sorting.
 	 */
 	private var sort : Array<Bool>;
-	
-	/**
-	 * Float Texture that will contains skinning data.
-	 */
-	private var skinning : ComputeTexture;
-	
+		
 	/**
 	 * index to check not-visibility in an async way.
 	 */
@@ -73,7 +73,7 @@ class RendererContext
 	 */
 	private function new() 
 	{
-		rid   = new UID();
+		rid   = new UID();		
 		
 		fcid  = new UID();
 		sap   = new SAP(0.01,false);
@@ -98,8 +98,7 @@ class RendererContext
 	 */
 	private function Initialize():Void
 	{
-		//430 skinned mesh renderers with 50 joints and 50 binds.
-		skinning = new ComputeTexture(512, 512, PixelFormat.Float4); 
+		
 	}
 	
 	/**
@@ -113,8 +112,32 @@ class RendererContext
 		{
 			var mr : MeshRenderer = cast r;
 			mr.__fcid = fcid.id;
-			sap.Create(mr.__fcid);
+			sap.Create(mr.__fcid);			
 		}
+	}
+	
+	/**
+	 * Updates the joints texture sector of the renderer.
+	 * @param	smr
+	 */
+	private function UpdateSkinning(smr : SkinnedMeshRenderer,jf:Bool):Void
+	{
+		var t   : ComputeTexture = jf ? smr.m_jt : smr.m_bmt;		
+		if (t == null) return;		
+		var f32 : FloatArray = cast t.data.buffer;
+		var vl  : Array<Float32> = jf ? smr.m_jf32 : smr.m_bmf32;		
+		for (i in 0...vl.length) f32.Set(i, vl[i]);		
+		t.Apply();				
+		if (jf)
+		{
+			var tw : Float32  = cast t.width;
+			var th : Float32  = cast t.height;
+			var itw : Float32 = tw <= 0 ? 0.0 : (1.0 / tw);
+			var ith : Float32 = th <= 0 ? 0.0 : (1.0 / th);
+			smr.material.SetTexture("Joints", smr.m_jt);
+			smr.material.SetTexture("Binds", smr.m_bmt);
+			smr.material.SetFloat4("SkinTexSize", tw, th, itw, ith);			
+		}		
 	}
 	
 	/**

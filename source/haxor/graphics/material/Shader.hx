@@ -28,7 +28,15 @@ class Shader extends Resource
 	 * Returns a reference to the Flat shader with a single diffuse texture and vertex skinning.
 	 */
 	static public var FlatTextureSkin(get_FlatTextureSkin, null):Shader;
-	static private inline function get_FlatTextureSkin():Shader { return (m_flat_texture_skin_shader == null ? (m_flat_texture_skin_shader = new Shader(ShaderContext.flat_texture_skin_source)) : m_flat_texture_skin_shader);	}
+	static private inline function get_FlatTextureSkin():Shader 
+	{ 
+		if (m_flat_texture_skin_shader != null) return m_flat_texture_skin_shader;		
+		var shd : Shader = m_flat_texture_skin_shader = new Shader(ShaderContext.flat_texture_skin_source, false);
+		shd.AddPreprocessor("#define", "MAX_BONES", GL.MAX_UNIFORM_BONES + "");
+		if (GL.BONE_TEXTURE) shd.AddPreprocessor("#define", "BONE_TEXTURE");
+		shd.Compile();
+		return shd;
+	}
 	static private var m_flat_texture_skin_shader : Shader;
 	
 	/**
@@ -39,13 +47,17 @@ class Shader extends Resource
 	static private var m_flat_particle_shader : Shader;
 	
 	/**
-	 * String containing the VertexShader source.
+	 * Returns the resulting vertex shader.
 	 */
+	public var vs(get_vs, never):String;
+	private function get_vs():String { return GetPreprocessorString() + m_vss; }		
 	private var m_vss:String;
 	
 	/**
-	 * String containing the FragmentShader source.
+	 * Returns the resulting vertex shader.
 	 */
+	public var fs(get_fs, never):String;
+	private function get_fs():String { return GetPreprocessorString() + m_fss; }
 	private var m_fss:String;
 	
 	/**
@@ -56,14 +68,35 @@ class Shader extends Resource
 	private var m_hasError : Bool;
 	
 	/**
+	 * Error string if any.
+	 */
+	public var error : String;
+	
+	/**
+	 * Preprocessor directives.
+	 */
+	private var m_pp : Map<String,String>;
+	
+	
+	
+	/**
 	 * Creates a new shader from a XML '.shader' file source.
 	 * @param	p_source
 	 */
-	public function new(p_source:String) 
+	public function new(p_source:String,p_compile:Bool=true) 
 	{
 		super();
 		__cid 		= EngineContext.material.sid.id;
-		
+		m_pp 		= new Map<String,String>();	
+		Load(p_source,p_compile);		
+	}
+	
+	/**
+	 * Loads the shader XML and store its data.
+	 * @param	p_source
+	 */
+	public function Load(p_source:String,p_compile:Bool=true):Void
+	{
 		//Adjustments to correct malformed <vertex>/<fragment> tags
 		//Must use RegExp :)
 		var vt0 : Int 	 = p_source.indexOf("<vertex");
@@ -79,23 +112,67 @@ class Shader extends Resource
 		p_source = StringTools.replace(p_source, ft, ft+"<![CDATA[");
 		p_source = StringTools.replace(p_source, "</fragment>", "]]></fragment>");
 		
-		var x:Xml;
-		
+		var x:Xml;		
 		x = Xml.parse(p_source);
-		x = x.firstElement();
-		
-		name = x.get("id");
-		
-		if ((name == null) || (name == "")) name = "Shader"+__cid;
-		
+		x = x.firstElement();		
+		name = x.get("id");		
+		if ((name == null) || (name == "")) name = "Shader"+__cid;		
 		var vs : Xml = x.elementsNamed("vertex").next();
-		var fs : Xml = x.elementsNamed("fragment").next();
+		var fs : Xml = x.elementsNamed("fragment").next();		
+		m_vss = GetShaderSource(vs,GL.VS_FLOAT_HIGHP);		
+		m_fss = GetShaderSource(fs,GL.FS_FLOAT_HIGHP);
+		m_hasError = false;
+		error = "";
 		
-		m_vss = GetShaderSource(vs);
-		m_fss = GetShaderSource(fs);		
-		m_hasError = false;		
-		
-		EngineContext.material.InitializeShader(this);
+		if (p_compile) Compile();
+	}
+	
+	/**
+	 * Applies the shader source and compiles it.
+	 */
+	public function Compile():Void
+	{
+		EngineContext.material.CompileShader(this);
+	}
+	
+	/**
+	 * Adds a preprocessor directive.
+	 * @param	p_type
+	 * @param	p_name
+	 * @param	p_value
+	 */
+	public function AddPreprocessor(p_type:String, p_name:String, p_value : String = ""):Void
+	{
+		m_pp.set(p_name, p_type+" " + p_name+" " + p_value);
+	}
+	
+	/**
+	 * Removes a preprocessor from the shader sources.
+	 * @param	p_name
+	 */
+	public function RemovePreprocessor(p_name:String):Void
+	{
+		m_pp.remove(p_name);
+	}
+	
+	/**
+	 * Tells if the given shader has preprocessor directive.
+	 * @param	p_name
+	 * @return
+	 */
+	public function HasPreprocessor(p_name:String):Bool { return m_pp.exists(p_name); }
+	
+	/**
+	 * Returns the concatenated string of preprocessor directives.
+	 * @return
+	 */
+	private function GetPreprocessorString():String
+	{
+		var it :Iterator<String> = m_pp.iterator();
+		var s : String = "";
+		while (it.hasNext()) s += it.next() + "\n";
+		s += "\n";		
+		return s;
 	}
 	
 	/**
@@ -103,18 +180,19 @@ class Shader extends Resource
 	 * @param	n
 	 * @return
 	 */
-	private function GetShaderSource(n : Xml):String
+	private function GetShaderSource(n : Xml,hp :Bool):String
 	{
 		if (n == null) return "";
-		var src:String = n.firstChild().nodeValue.toString();
-		var prec:String = (n.get("precision") == null ? "low" : n.get("precision")).toLowerCase();
-		//prec = "high";
+		var src : String = n.firstChild().nodeValue.toString();
+		var prec: String = (n.get("precision") == null ? "low" : n.get("precision")).toLowerCase();		
+		
 		switch(prec)
 		{
-			case "low":    prec = "precision lowp float;";
-			case "medium": prec = "precision mediump float;";
-			case "high":   prec = "precision highp float;";
+			case "low":    prec = "lowp";
+			case "medium": prec = "mediump";
+			case "high":   prec = hp ? "highp" : "mediump";
 		}
+		prec = "precision " + prec + " float;";
 		return prec + src;
 	}
 	

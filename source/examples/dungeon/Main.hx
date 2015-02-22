@@ -12,6 +12,7 @@ import haxor.component.physics.RigidBody;
 import haxor.component.physics.SphereCollider;
 import haxor.component.SkinnedMeshRenderer;
 import haxor.component.Transform;
+import haxor.context.EngineContext;
 import haxor.context.Process;
 import haxor.context.UID;
 import haxor.core.Application;
@@ -43,11 +44,13 @@ import haxor.graphics.Gizmo;
 import haxor.graphics.Graphics;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
+import haxor.graphics.material.shader.FlatShader;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.mesh.MeshLayout;
 import haxor.graphics.mesh.Model;
 import haxor.graphics.Screen;
 import haxor.graphics.texture.Bitmap;
+import haxor.graphics.texture.ComputeTexture;
 import haxor.graphics.texture.RenderTexture;
 import haxor.graphics.texture.Texture;
 import haxor.graphics.texture.Texture2D;
@@ -130,6 +133,14 @@ class Main extends Application implements IUpdateable implements IRenderable
 	 */
 	public var os : String;
 	
+	
+	override function OnBuild():Void
+	{
+		super.OnBuild();
+		
+	}
+	
+	
 	/**
 	 * 
 	 */
@@ -148,8 +159,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		#if html
 		os = Browser.navigator.platform;
 		#end
-		
-		
+				
 		
 		Console.Log("Initialize ["+os+"]");	
 		
@@ -159,7 +169,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		ui = new js.Stats();
 		ui.domElement.style.position = "absolute";
         ui.domElement.style.top = '0px';		
-		ui.domElement.style.display = "none";
+		//ui.domElement.style.display = "none";
 		
         js.Browser.document.body.appendChild(ui.domElement);
 		
@@ -170,32 +180,50 @@ class Main extends Application implements IUpdateable implements IRenderable
 		});
 		#end
 		
-		debug = false;
+		debug = true;
 		
 		game = (new Entity("game")).AddComponent(GameController);
 		game.Initialize();
 		
-		/*
-		var cf : ColladaFile;		
-		cf = Asset.Get("skeleton");
-		var e : Entity = cf.asset;
-		e.name = "skeleton";
-		e.transform.localScale = new Vector3(0.5, 0.5, 0.5);
-		var mr : Array<SkinnedMeshRenderer> = cast e.GetComponentsInChildren(SkinnedMeshRenderer);
-		mr[0].name = "skeleton";
-		mr[0].material = Material.Opaque(Asset.Get("skeleton/diffuse"));
-		mr[0].material.shader = Shader.FlatTextureSkin;
-		mr[1].material = Material.Transparent(Asset.Get("skeleton/diffuse"));
-		mr[1].material.shader = Shader.FlatTextureSkin;
+		skm0 = Material.Transparent(Asset.Get("human/diffuse"));
+		skm0.shader = Shader.FlatTextureSkin;
+		for (i in 0...0)
+		{
+			Add();
+		}		
 		
-		cf = Asset.Get("skeleton/idle");
-		cf.AddAnimations(e);
-		e.animation.clips[0].wrap = AnimationWrap.Loop;
-		e.animation.Play(e.animation.clips[0]);
-		//*/
+		
 	}
 	
+	var skm0 : Material;
 	
+	var charcount : Int = 0;
+	
+	private function Add():Void
+	{
+		trace("Added");
+		var cf : ColladaFile;		
+		cf = Asset.Get("human");
+		var e : Entity = cf.asset;
+		e.name = "human";
+		e.transform.localScale = new Vector3(100.0, 100.0, 100.0);
+		e.transform.localPosition = new Vector3(Random.Range(-500,500),0.0,Random.Range(-500,500));
+		var mr : Array<SkinnedMeshRenderer> = cast e.GetComponentsInChildren(SkinnedMeshRenderer);
+		if (charcount == 0)
+		{
+			var sm : SkinnedMesh3 = cast mr[0].mesh;
+			sm.uv0 = sm.uv1;
+			sm.uv1 = [];
+		}
+		mr[0].name = "human";
+		mr[0].material = skm0; 			
+		//mr[1].material = skm0;			
+		//cf = Asset.Get("skeleton/idle");
+		//cf.AddAnimations(e);
+		e.animation.clips[0].wrap = AnimationWrap.Loop;
+		e.animation.Play(e.animation.clips[0]);
+		charcount++;
+	}
 	
 	public function OnUpdate():Void
 	{	
@@ -209,6 +237,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		log += "\nActive: " + RenderStats.total;
 		log += "\nRenderers: " + RenderStats.renderers;
 		log += "\nTris: " + RenderStats.triangles;
+		log += "\nCharacters: " + charcount;
 		
 		#if html
 		
@@ -226,8 +255,21 @@ class Main extends Application implements IUpdateable implements IRenderable
 			{
 				field.innerText = "";				
 			}
-			game.orbit.follow = !debug;
+			//game.orbit.follow = !debug;
 			ui.domElement.style.display = debug ? "block" : "none";
+		}
+		
+		if (Input.Down(KeyCode.O))
+		{			
+			Add();
+		}
+		
+		if (Input.touches.length >= 3)
+		{
+			if (Input.touches[2].down)
+			{
+				Add();
+			}
 		}
 		
 		var dbg : Bool = coi.enabled && debug;
@@ -296,7 +338,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		if (dbg)
 		{
 			//Gizmo.Point(cursor, 10.0, Color.magenta);
-			
+			/*
 			if (path.length > 0)
 			{
 				var k : Int = 0;
@@ -307,9 +349,10 @@ class Main extends Application implements IUpdateable implements IRenderable
 					k++;
 				}
 			}
+			//*/
 		}
 		
-		if(dbg) if(field!=null) field.innerText = log;		
+		//if(dbg) if(field!=null) field.innerText = log;
 		#end
 		
 		#if windows		
@@ -329,7 +372,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		{
 			Gizmo.Grid(8000.0, new Color(1, 1, 1, 0.1));
 			Gizmo.Axis(Vector3.temp.Set(), Vector3.temp.Set(2, 2, 2));
-		}
+		}				
 	}
 	
 	/**
@@ -353,7 +396,8 @@ class Main extends Application implements IUpdateable implements IRenderable
 		Asset.LoadCollada("skeleton/idle","./character/skeleton/grunt/animation_idle01.DAE");
 		Asset.LoadTexture2D("skeleton/diffuse", "./character/skeleton/grunt/DiffuseTexture.png");
 		
-		
+		Asset.LoadCollada("human", "assets/human/asset.dae");		
+		Asset.LoadTexture2D("human/diffuse", "assets/human/DiffuseTexture.jpg");
 		
 		/*
 		Asset.LoadCollada("wizard", 			 "./character/medieval/wizard/asset.dae");

@@ -15,6 +15,7 @@ import haxor.platform.Types.RenderBufferId;
 import haxor.platform.Types.ShaderId;
 import haxor.platform.Types.TextureId;
 import haxor.platform.Types.UniformLocation;
+import haxor.platform.Types.VAOId;
 
 
 
@@ -70,15 +71,20 @@ class GraphicContext
 	public function Resize():Void { }	
 	
 	//Attribs
-	public function BindBuffer(p_target : Int,p_id : MeshBufferId):Void {  }	
+	public function BindBuffer(p_target : Int, p_id : MeshBufferId):Void {  }
+	public function BindVAO(p_id : VAOId):Void {  }
 	public function BufferData(p_target:Int,p_data:Buffer,p_mode:Int):Void {  }	
 	public function BufferSubData(p_target : Int, p_offset:Int, p_data : Buffer):Void {  }	
 	public function CreateBuffer():MeshBufferId { return GL.INVALID; }	
+	public function CreateVAO():VAOId { return GL.INVALID;  }
 	public function DeleteBuffer(p_id : MeshBufferId):Void {  }	
+	public function DeleteVAO(p_id : VAOId):Void {  }		
 	public function DrawArrays(p_primitive : Int,p_start : Int, p_count : Int):Void { }		
 	public function DrawElements(p_primitive : Int, p_count : Int,p_type : Int,p_offset : Int) : Void { }	
 	public function EnableVertexAttrib(p_location:Int):Void { }		
 	public function DisableVertexAttrib(p_location:Int):Void { }
+	public function VertexAttrib1f(p_location : Int,p_x : Float32):Void { }	
+	public function VertexAttrib2f(p_location : Int,p_x : Float32,p_y:Float32):Void { }	
 	public function VertexAttrib3f(p_location : Int,p_x : Float32,p_y:Float32,p_z : Float32):Void { }	
 	public function VertexAttrib4f(p_location : Int, p_x : Float32, p_y:Float32, p_z : Float32, p_w : Float32):Void { }	
 	public function VertexAttribPointer(p_location : Int,p_components_size : Int,p_type : Int,p_normalized : Bool,p_stride : Int, p_offset : Int):Void { }

@@ -275,6 +275,9 @@ enum PixelFormat
 	Float3;
 	Float4;
 	Depth;
+	sRGB;
+	sRGBA;
+	sRGBA8;
 	//RGBA16;
 	//RGBA == L
 	//Alpha16;
@@ -507,4 +510,31 @@ enum ForceMode
 	 * 
 	 */
 	Velocity;
+}
+
+/**
+ * Quality of skinning.
+ */
+enum BoneQuality
+{
+	/**
+	 * Use global settings.
+	 */
+	Auto;
+	/**
+	 * 1 Bone skinning
+	 */
+	Bone1;
+	/**
+	 * 2 Bone skinning
+	 */
+	Bone2;
+	/**
+	 * 3 Bone skinning
+	 */
+	Bone3;
+	/**
+	 * 4 Bone skinning
+	 */
+	Bone4;
 }

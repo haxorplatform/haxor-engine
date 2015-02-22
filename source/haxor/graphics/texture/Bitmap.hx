@@ -91,7 +91,10 @@ class Bitmap extends Resource
 			case PixelFormat.Float3:{ m_channels = 3; m_float = true; }
 			case PixelFormat.Half3:	{ m_channels = 3; m_half = m_float = true; }
 			case PixelFormat.Float4:{ m_channels = 4; m_float = true; }
-			case PixelFormat.Half4:	{ m_channels = 4; m_half = m_float = true; }			
+			case PixelFormat.Half4:	{ m_channels = 4; m_half = m_float = true; }
+			case PixelFormat.sRGB:  { m_channels = 3; }
+			case PixelFormat.sRGBA: { m_channels = 4; }
+			case PixelFormat.sRGBA8:{ m_channels = 4; }
 			
 		}				
 		var len : Int = m_width * m_height * m_channels;		

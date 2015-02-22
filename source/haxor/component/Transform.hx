@@ -257,6 +257,11 @@ class Transform extends Component
 	private var m_wsrs_dirty : Bool;
 	
 	/**
+	 * Flag that indicates invalidation is locked.
+	 */
+	private var m_locked : Bool;
+	
+	/**
 	 * List of children.
 	 */
 	private var m_hierarchy : Array<Transform>;	
@@ -285,6 +290,7 @@ class Transform extends Component
 		m_wsp_dirty		 = false;
 		m_wsrs_dirty	 = false;
 		
+		m_locked = false;
 		
 		m_uniform_dirty = true;
 		
@@ -393,9 +399,8 @@ class Transform extends Component
 	 */
 	private function Invalidate():Void
 	{
+		if (m_locked) return;
 		if (m_dirty) return;
-		
-		
 		
 		m_uniform_dirty = true;
 		m_dirty 		= true;
@@ -442,6 +447,26 @@ class Transform extends Component
 	{
 		for (i in 0...m_hierarchy.length) if (m_hierarchy[i].name == p_name) return m_hierarchy[i];
 		return null;		
+	}
+	
+	/**
+	 * Blocks invalidation and matrix concat until it is unlocked.
+	 */
+	public function Lock():Void
+	{
+		m_locked = true;
+		for (i in 0...m_hierarchy.length) m_hierarchy[i].Lock();
+	}
+	
+	/**
+	 * Unlocks invalidation and updates all hierarchy.
+	 * @param	p_invalidate
+	 */
+	public function Unlock(p_invalidate:Bool=true):Void
+	{
+		m_locked = false;
+		for (i in 0...m_hierarchy.length) m_hierarchy[i].Unlock(p_invalidate);
+		if (p_invalidate) Invalidate();
 	}
 	
 	/**

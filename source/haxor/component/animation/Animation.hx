@@ -192,6 +192,8 @@ class Animation extends Behaviour
 		//trace(m_fade_elapsed + " " + m_fade_duration);
 		var w : Float32 = m_fade_duration <= 0.0 ? 1.0 : (m_fade_elapsed / m_fade_duration);
 		
+		transform.Lock();
+		
 		//if ((Time.frame % 20) == 0) trace(w);
 		var spd : Float32 = 1.0;
 		
@@ -223,5 +225,7 @@ class Animation extends Behaviour
 			m_time += (reverse ? -dt : dt)*spd;
 			m_fade_elapsed += dt;
 		}
+		
+		transform.Unlock();
 	}
 }
