@@ -343,6 +343,7 @@ class ParticleKernel extends Kernel
 			#define STATE_NONE		 0
 			#define STATE_RESET		 1
 			#define STATE_UPDATE	 2
+			#define STATE_LOAD   	 3
 			
 			#define PARTICLE_DISABLED	 0
 			#define PARTICLE_INIT		 1

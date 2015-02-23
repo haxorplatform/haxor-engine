@@ -27,6 +27,7 @@ import haxor.core.Enums.CameraMode;
 import haxor.core.Enums.ClearFlag;
 import haxor.core.Enums.ForceMode;
 import haxor.core.Enums.InputState;
+import haxor.core.Enums.ShaderFeature;
 import haxor.core.IFixedUpdateable;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
@@ -44,7 +45,7 @@ import haxor.graphics.Gizmo;
 import haxor.graphics.Graphics;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
-import haxor.graphics.material.shader.FlatShader;
+import haxor.graphics.material.shader.FlexShader;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.mesh.MeshLayout;
 import haxor.graphics.mesh.Model;
@@ -192,7 +193,15 @@ class Main extends Application implements IUpdateable implements IRenderable
 			Add();
 		}		
 		
-		
+		var e : Entity = new Entity("sphere");
+		e.transform.localScale = new Vector3(100, 100, 100);
+		var mr : MeshRenderer = e.AddComponent(MeshRenderer);
+		mr.mesh = Model.sphere;
+		mr.material = Material.Opaque();
+		mr.material.shader = new FlexShader("000", ShaderFeature.Tint | ShaderFeature.Texture);
+		mr.material.SetColor("Tint", Color.white);
+		mr.material.SetTexture("DiffuseTexture", Texture2D.white);
+		//*/
 	}
 	
 	var skm0 : Material;

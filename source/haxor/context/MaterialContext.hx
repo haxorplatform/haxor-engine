@@ -520,8 +520,7 @@ class MaterialContext
 		u.__d = true;
 		u.exists = true;
 		
-		if (!is_linked[m.__cid]) return;
-		
+		if (!is_linked[m.__cid]) return;		
 		var p 	: ProgramId 		= programs[m.__cid];
 		var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
 		//Console.Log("Material> ["+m.name+"] @ ["+p+"] uniform["+u.name+"] loc["+loc+"]");		

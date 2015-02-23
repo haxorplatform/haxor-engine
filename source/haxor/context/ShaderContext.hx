@@ -151,27 +151,18 @@ class ShaderContext
 		
 		mat4 SkinWorldMatrix()
 		{
-			vec4 b = bone * 3.0;
-			
-			vec4 w = weight;
-			
-			float ivs = 0.0;			
-			
+			vec4 b = bone * 3.0;			
+			vec4 w = weight;			
+			float ivs = 0.0;
 			if (SkinQuality >= 0) ivs += weight.x;
 			if (SkinQuality >= 2) ivs += weight.y;
 			if (SkinQuality >= 3) ivs += weight.z;
-			if (SkinQuality >= 4) ivs += weight.w;
-			
-			w *= 1.0 / ivs;
-			
+			if (SkinQuality >= 4) ivs += weight.w;			
+			w *= 1.0 / ivs;			
 			ivec4 bi0 = ivec4(b.x, b.y, b.z, b.w);			
 			ivec4 bi1 = ivec4(b.x + 1.0, b.y + 1.0, b.z + 1.0, b.w + 1.0);			
-			ivec4 bi2 = ivec4(b.x + 2.0, b.y + 2.0, b.z + 2.0, b.w + 2.0);
-			
-			mat4 res = mat4(0.0);
-			mat4 jm; 
-			mat4 bm; 
-			
+			ivec4 bi2 = ivec4(b.x + 2.0, b.y + 2.0, b.z + 2.0, b.w + 2.0);			
+			mat4 res = mat4(0.0),jm,bm;			
 			if (SkinQuality >= 0) { jm = GetJointMatrix(bi0.x, bi1.x, bi2.x); bm = GetBindMatrix(bi0.x, bi1.x, bi2.x); res += ((bm * jm) * w.x); }
 			if (SkinQuality >= 2) { jm = GetJointMatrix(bi0.y, bi1.y, bi2.y); bm = GetBindMatrix(bi0.y, bi1.y, bi2.y); res += ((bm * jm) * w.y); }
 			if (SkinQuality >= 3) { jm = GetJointMatrix(bi0.z, bi1.z, bi2.z); bm = GetBindMatrix(bi0.z, bi1.z, bi2.z); res += ((bm * jm) * w.z); }

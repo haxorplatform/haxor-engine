@@ -156,6 +156,15 @@ class Shader extends Resource
 	}
 	
 	/**
+	 * Removes all preprocessor directives.
+	 */
+	public function ClearPreprocessor():Void
+	{
+		var it : Iterator<String> = m_pp.keys();
+		while (it.hasNext()) m_pp.remove(it.next());
+	}
+	
+	/**
 	 * Tells if the given shader has preprocessor directive.
 	 * @param	p_name
 	 * @return

@@ -538,3 +538,114 @@ enum BoneQuality
 	 */
 	Bone4;
 }
+
+/**
+ * Enumeration that defines the features a FlexShader will implement.
+ */
+class ShaderFeature
+{
+	/**
+	 * No feature.
+	 */
+	inline static public var Empty : Int   		= 0;
+	/**
+	 * Will have 1 diffuse texture slot.
+	 */
+	inline static public var Texture : Int 		= 1;
+	/**
+	 * Will use a Tint color uniform and apply it in the diffuse factor.
+	 */
+	inline static public var Tint : Int    		= 2;
+	/**
+	 * Will use the vertex color in the diffuse factor.
+	 */
+	inline static public var VertexColor : Int 	= 4;
+	/**
+	 * Will use skinning on the vertex.
+	 */
+	inline static public var Skinning : Int		= 8;
+	/**
+	 * Will apply reflection.
+	 */
+	inline static public var Reflection : Int	= 16;
+	/**
+	 * Will add a falloff effect.
+	 */
+	inline static public var Falloff : Int		= 32;
+	/**
+	 * Will a bum texture as normals.
+	 */
+	inline static public var Bump : Int			= 64;
+	/**
+	 * Will use lighting per vertex.
+	 */
+	inline static public var LightingVertex : Int  = 128;
+	/**
+	 * Will use lighting per pixel.
+	 */
+	inline static public var LightingPixel : Int	= 256;
+	/**
+	 * Will use deferred lighting.
+	 */
+	//inline static public var LightingDeferred  : Int = 512;
+	/**
+	 * Will have specular component.
+	 */
+	inline static public var Specular : Int	= 1024;	
+	/**
+	 * Will use a lightmap texture combined with the diffuse elements.
+	 */
+	inline static public var Lightmap : Int	= 2048;
+	/**
+	 * Will apply fog per vertex.
+	 */
+	inline static public var FogVertex	 : Int	= 4096;
+	/**
+	 * Will apply fog per pixel.
+	 */
+	inline static public var FogPixel : Int	= 8192;
+	/**
+	 * Will use a toon ramp in the diffuse and specular factors.
+	 */
+	inline static public var Toon : Int		= 16384;
+	/**
+	 * Will apply an alpha cutoff in the pixel shader.
+	 */
+	inline static public var Cutoff : Int		= 32768;
+	
+	/**
+	 * Will have a particle oriented workflow.
+	 */
+	inline static public var Particle : Int	= 65536;
+}
+
+/**
+ * Enumeration that defines the 
+ */
+class ShaderPrecision
+{
+	/**
+	 * Low precision vertex shader.
+	 */
+	inline static public var VertexLow : Int		= 1;
+	/**
+	 * Medium precision vertex shader.
+	 */
+	inline static public var VertexMed : Int		= 2;
+	/**
+	 * High precision vertex shader.
+	 */
+	inline static public var VertexHigh	 : Int	= 4;
+	/**
+	 * Low precision fragment shader.
+	 */
+	inline static public var FragmentLow : Int		= 8;
+	/**
+	 * Medium precision fragment shader.
+	 */
+	inline static public var FragmentMed : Int		= 16;
+	/**
+	 * High precision fragment shader.
+	 */
+	inline static public var FragmentHigh : Int	= 32;	
+}
