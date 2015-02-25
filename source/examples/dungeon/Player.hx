@@ -114,7 +114,7 @@ class Player extends Behaviour implements IUpdateable
 			{
 				m_falloff_mat = mat = Asset.Instantiate(mat);				
 				mat.name = new_mat_id;					
-				
+				mat.lighting = false;
 				mat.shader = 
 				Shader.FlatTextureSkin;
 				//Asset.Get("haxor/diffuse/ToonSkinFalloff");

@@ -409,9 +409,9 @@ class Gizmo
 			for (i in 0...cl.length)
 			{
 				var c : Collider = cl[i];				
-				if (Debug.collider) Debug.Collider(c);
+				if (Debug.collider) 		Debug.Collider(c);
 				if (Debug.colliderAABB)     Debug.BoundingAABB(c.aabb);
-				if (Debug.colliderSB)   Debug.BoundingSphere(c.sphere);				
+				if (Debug.colliderSB)   	Debug.BoundingSphere(c.sphere);				
 			}
 		}
 		

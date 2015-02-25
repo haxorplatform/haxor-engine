@@ -451,6 +451,7 @@ class Material extends Resource
 	 */
 	private function FetchUniform(p_name:String,p_is_float:Bool,p_length:Int,p_offset:Int,p_create:Bool):MaterialUniform
 	{
+		
 		var u : MaterialUniform = null;
 		for (i in 0...m_uniforms.length)
 		{
@@ -472,11 +473,11 @@ class Material extends Resource
 			}
 		}
 		if (p_create)
-		{			
+		{
 			u = new MaterialUniform(p_name, p_is_float, p_length,p_offset); 
 			EngineContext.material.CreateUniform(this, u);
-			m_uniforms.push(u);
-		}
+			m_uniforms.push(u);			
+		}		
 		return u;
 	}
 		
@@ -661,7 +662,7 @@ class MaterialUniform
 	public function SetFloatArray (p_list : Array<Float32>):Void 						{ if (!exists) return; __d = true; 	var b : FloatArray = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
 	public function SetFloat2Array(p_list : Array<Float32>):Void 						{ if (!exists) return; __d = true;	var b : FloatArray = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
 	public function SetFloat3Array(p_list : Array<Float32>):Void 						{ if (!exists) return; __d = true;	var b : FloatArray = cast data; for (i in 0...p_list.length) b.Set(i, p_list[i]); }
-	public function SetFloat4Array(p_list : Array<Float32>):Void 						{ if (!exists) return; __d = true; 	var b : FloatArray = cast data; for (i in 0...p_list.length) { b.Set(i, p_list[i]);  } }
+	public function SetFloat4Array(p_list : Array<Float32>):Void 						{ if (!exists) return; __d = true;	var b : FloatArray = cast data;	for (i in 0...p_list.length) b.Set(i, p_list[i]); }
 	
 	public function SetInt		  (p_v : Int):Void  						{ if (!exists) return; __d = true; var b : Int32Array = cast data; b.Set(0, p_v); }
 	public function SetInt2		  (p_x:Int, p_y:Int):Void					{ if (!exists) return; __d = true; var b : Int32Array = cast data; b.Set(0, p_x); b.Set(1, p_y); }

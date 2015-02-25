@@ -194,13 +194,18 @@ class Main extends Application implements IUpdateable implements IRenderable
 		}		
 		
 		var e : Entity = new Entity("sphere");
-		e.transform.localScale = new Vector3(100, 100, 100);
+		e.transform.parent = game.player.transform;
+		e.transform.localScale = new Vector3(50, 50, 50);		
 		var mr : MeshRenderer = e.AddComponent(MeshRenderer);
 		mr.mesh = Model.sphere;
 		mr.material = Material.Opaque();
-		mr.material.shader = new FlexShader("000", ShaderFeature.Tint | ShaderFeature.Texture);
-		mr.material.SetColor("Tint", Color.white);
-		mr.material.SetTexture("DiffuseTexture", Texture2D.white);
+		mr.material.lighting = true;
+		mr.material.shader = new FlexShader("000",ShaderFeature.Texture | ShaderFeature.LightingPixel | ShaderFeature.Specular | ShaderFeature.FogVertex | ShaderFeature.UVScroll);
+		trace(mr.material.shader);		
+		mr.material.SetTexture("RampTexture", Asset.Get("player/ramp"));
+		mr.material.SetFloat("Shininess", 10.0);
+		mr.material.SetFloat3("UVSpeed",0.05,0.02,0.0);
+		mr.material.SetTexture("DiffuseTexture", Texture2D.random);
 		//*/
 	}
 	

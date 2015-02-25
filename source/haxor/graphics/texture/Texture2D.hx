@@ -61,6 +61,38 @@ class Texture2D extends Texture
 	static private var m_black : Texture2D;
 	
 	/**
+	 * Template texture with a single black pixel.
+	 */
+	static public var gray50(get_gray50, never):Texture2D;
+	static private function get_gray50():Texture2D
+	{
+		if (m_gray50 != null) return m_gray50;
+		m_gray50 = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_gray50.name = "Gray50";
+		m_gray50.data.Fill(Color.gray50);
+		m_gray50.Apply();
+		return m_gray50;
+	}
+	static private var m_gray50 : Texture2D;
+	
+	/**
+	 * Template texture with a single black pixel.
+	 */
+	static public var gray25(get_gray25, never):Texture2D;
+	static private function get_gray25():Texture2D
+	{
+		if (m_gray25 != null) return m_gray25;
+		m_gray25 = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_gray25.name = "Gray25";
+		m_gray25.data.Fill(Color.gray25);
+		m_gray25.Apply();
+		return m_gray25;
+	}
+	static private var m_gray25 : Texture2D;
+	
+	
+	
+	/**
 	 * Template texture with a single red pixel.
 	 */
 	static public var red(get_red, never):Texture2D;

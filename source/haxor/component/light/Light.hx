@@ -27,7 +27,17 @@ class Light extends Behaviour
 	/**
 	 * Float array that will contain the raw light information for shaders.
 	 */
-	static private var m_buffer : Array<Float32> = [];
+	static private var m_buffer : Array<Float32> = 
+	[ 
+	-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	];
 	
 	/**
 	 * List of all lights in the scene.
@@ -98,14 +108,17 @@ class Light extends Behaviour
 		m_buffer[pos + 1] = p_intensity; // attrib.y
 		m_buffer[pos + 2] = p_radius;    // attrib.z
 		m_buffer[pos + 3] = p_atten;     // attrib.w		
+		
 		m_buffer[pos + 4] = p_x;
 		m_buffer[pos + 5] = p_y;
 		m_buffer[pos + 6] = p_z;		
+		//m_buffer[pos + 7] = 0.0;		
+		
 		m_buffer[pos + 8] = p_r;
 		m_buffer[pos + 9] = p_g;
 		m_buffer[pos +10] = p_b;
 		m_buffer[pos +11] = p_a;
-		//m_buffer[pos + 7] = 0.0;		
+		
 	}
 	
 }

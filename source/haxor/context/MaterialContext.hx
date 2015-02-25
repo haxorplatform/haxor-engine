@@ -474,14 +474,12 @@ class MaterialContext
 				
 				switch(un)
 				{
-					case "Fog":						m.SetFloat4Array(un, [Fog.color.r, Fog.color.g, Fog.color.b, Fog.color.a, Fog.density, Fog.exp, Fog.start, Fog.end]);
+					case "Fog":						m.SetFloat4Array(un, [Fog.color.r, Fog.color.g, Fog.color.b, Fog.color.a, Fog.density, Fog.exp, Fog.start, Fog.end]);					
 					case "Lights":					m.SetFloat4Array(un, Light.m_buffer);
 					case "Ambient":					m.SetColor(un, Color.temp.Set(1,1,1,1));					
 					case "Time":					m.SetFloat(un, 0.0);					
 					case "RandomSeed":				m.SetFloat(un, 0.0);
 					case "RandomTexture":			m.SetTexture(un, Texture2D.random);
-					//case "Joints":				m.SetTexture(un, EngineContext.renderer.skm_joints);
-					//case "Binds":					m.SetTexture(un, EngineContext.renderer.skm_binds);
 					//case "ScreenTexture":			if (current.grab) current.SetTexture("ScreenTexture", current.screen);						
 					//case "ScreenDepth":			current.SetTexture("ScreenDepth",   p_camera.m_grab.depth);						
 					case "WorldMatrix":				m.SetMatrix4(un,m4);
@@ -685,6 +683,7 @@ class MaterialContext
 	{
 		var loc:UniformLocation;		
 		loc = uniforms[m.__cid][u.__cid];		
+		
 		if (loc == GL.INVALID)
 		{			
 			return;		
@@ -761,8 +760,6 @@ class MaterialContext
 			case "Time":					u.SetFloat(Time.elapsed);					
 			case "RandomSeed":				u.SetFloat(Random.value);
 			case "RandomTexture":			u.SetTexture(Texture2D.random);
-			//case "Joints":					u.SetTexture(EngineContext.renderer.skm_joints);
-			//case "Binds":					u.SetTexture(EngineContext.renderer.skm_binds);
 			//case "ScreenTexture":			if (current.grab) u.SetTexture("ScreenTexture", current.screen);						
 			//case "ScreenDepth":			current.SetTexture("ScreenDepth",   c.m_grab.depth);						
 			case "WorldMatrix":				if(ut) 	u.SetMatrix4(t.WorldMatrix);
@@ -812,12 +809,11 @@ class MaterialContext
 		
 		for (i in 0...ll.length)
 		{
-			//if (k >= Light.max) break;
+			if (k >= Light.max) break;
 			var l : Light = ll[i];
 			if (!l.enabled) continue;
 			if (Std.is(l, PointLight))
-			{
-				//trace(l.name);				
+			{	
 				var pl : PointLight = cast l;								
 				var limit : Float = hs + (0.5 * pl.radius);
 				var wm : Matrix4  = l.transform.WorldMatrix;				
@@ -832,7 +828,7 @@ class MaterialContext
 					Gizmo.Point(p, 3.0,cl);
 				}
 				
-				//trace(l.name+" "+l.intensity+" "+l.color.ToString()+" "+l.intensity);
+				//trace(k+" "+l.name+" "+l.intensity+" "+l.color.ToString()+" "+l.intensity);
 				Light.SetLightData(k, 
 				0.0, pl.intensity, pl.radius, pl.atten,  
 				p.x, p.y, p.z,   
@@ -852,8 +848,11 @@ class MaterialContext
 			}
 			//*/
 		}
-		//*/		
+		//*/	
 		
+		Light.SetLightData(k, -1.0, 0.0, 0.0,0.0,  0.0,0.0,0.0,   0.0, 0.0,0.0,0.0);
+		
+		/*
 		while(k < Light.max)
 		{
 			Light.SetLightData(k, -1.0, 0.0, 0.0,0.0,  0.0,0.0,0.0,   0.0, 0.0,0.0,0.0);

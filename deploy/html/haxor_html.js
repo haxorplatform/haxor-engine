@@ -996,6 +996,7 @@ examples_dungeon_Player.prototype = $extend(haxor_component_Behaviour.prototype,
 			if(haxor_core_Asset.Get(new_mat_id) != null) mat = haxor_core_Asset.Get(new_mat_id); else {
 				this.m_falloff_mat = mat = haxor_core_Asset.Instantiate(mat);
 				mat.set_name(new_mat_id);
+				mat.lighting = false;
 				mat.set_shader(haxor_graphics_material_Shader.get_FlatTextureSkin());
 				mat.SetTexture("DiffuseTexture",tex);
 				mat.SetFloat("Falloff",1.5);
@@ -1475,13 +1476,18 @@ examples_dungeon_Main.prototype = $extend(haxor_core_Application.prototype,{
 			this.Add();
 		}
 		var e = new haxor_core_Entity("sphere");
-		e.m_transform.set_localScale(new haxor_math_Vector3(100,100,100));
+		e.m_transform.set_parent(this.game.player.m_entity.m_transform);
+		e.m_transform.set_localScale(new haxor_math_Vector3(50,50,50));
 		var mr = e.AddComponent(haxor_component_MeshRenderer);
 		mr.set_mesh(haxor_graphics_mesh_Model.get_sphere());
 		mr.set_material(haxor_graphics_material_Material.Opaque(null,null,null));
-		mr.m_material.set_shader(new haxor_graphics_material_shader_FlexShader("000",3));
-		mr.m_material.SetColor("Tint",new haxor_math_Color(1,1,1,1));
-		mr.m_material.SetTexture("DiffuseTexture",haxor_graphics_texture_Texture2D.get_white());
+		mr.m_material.lighting = true;
+		mr.m_material.set_shader(new haxor_graphics_material_shader_FlexShader("000",1086465));
+		console.log(mr.m_material.m_shader);
+		mr.m_material.SetTexture("RampTexture",haxor_core_Asset.Get("player/ramp"));
+		mr.m_material.SetFloat("Shininess",10.0);
+		mr.m_material.SetFloat3("UVSpeed",0.05,0.02,0.0);
+		mr.m_material.SetTexture("DiffuseTexture",haxor_graphics_texture_Texture2D.get_random());
 	}
 	,Add: function() {
 		console.log("Added");
@@ -7606,6 +7612,7 @@ haxor_context_MaterialContext.prototype = {
 		var _g = ll.length;
 		while(_g1 < _g) {
 			var i = _g1++;
+			if(k >= haxor_component_light_Light.max) break;
 			var l = ll[i];
 			if(!l.get_enabled()) continue;
 			if(js_Boot.__instanceof(l,haxor_component_light_PointLight)) {
@@ -7624,10 +7631,7 @@ haxor_context_MaterialContext.prototype = {
 				k++;
 			}
 		}
-		while(k < haxor_component_light_Light.max) {
-			haxor_component_light_Light.SetLightData(k,-1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
-			k++;
-		}
+		haxor_component_light_Light.SetLightData(k,-1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 	}
 	,DestroyMaterial: function(m) {
 		var p = this.programs[m.__cid];
@@ -12684,9 +12688,9 @@ haxor_graphics_material_shader_TemplateShader.prototype = $extend(haxor_graphics
 var haxor_graphics_material_shader_FlexShader = function(p_id,p_features,p_precision,p_compile) {
 	if(p_compile == null) p_compile = true;
 	if(p_precision == null) p_precision = 9;
+	haxor_graphics_material_shader_TemplateShader.call(this,p_id,p_precision,false);
 	this.set_features(p_features);
-	console.log(this.Generate());
-	haxor_graphics_material_shader_TemplateShader.call(this,p_id,p_precision,p_compile);
+	if(p_compile) this.Compile();
 };
 $hxClasses["haxor.graphics.material.shader.FlexShader"] = haxor_graphics_material_shader_FlexShader;
 haxor_graphics_material_shader_FlexShader.__name__ = ["haxor","graphics","material","shader","FlexShader"];
@@ -12707,25 +12711,48 @@ haxor_graphics_material_shader_FlexShader.prototype = $extend(haxor_graphics_mat
 			if(haxor_graphics_GL.BONE_TEXTURE) this.AddPreprocessor("#define","BONE_TEXTURE");
 		}
 		if((v & 16) != 0) this.AddPreprocessor("#define","REFLECTION");
-		if((v & 32) != 0) this.AddPreprocessor("#define","FALLOFF");
-		if((v & 64) != 0) this.AddPreprocessor("#define","BUMP");
-		if((v & 128) != 0) this.AddPreprocessor("#define","LIGHTING_VERTEX");
-		if((v & 256) != 0) this.AddPreprocessor("#define","LIGHTING_PIXEL");
-		if((v & 1024) != 0) this.AddPreprocessor("#define","SPECULAR");
-		if((v & 2048) != 0) this.AddPreprocessor("#define","LIGHTMAP");
-		if((v & 4096) != 0) this.AddPreprocessor("#define","FOG_VERTEX");
-		if((v & 8192) != 0) this.AddPreprocessor("#define","FOG_PIXEL");
-		if((v & 16384) != 0) this.AddPreprocessor("#define","TOON");
-		if((v & 32768) != 0) this.AddPreprocessor("#define","CUTOFF");
-		if((v & 65536) != 0) this.AddPreprocessor("#define","PARTICLE");
-		if((v & 384) != 0) this.AddPreprocessor("#define","MAX_LIGHT",haxor_component_light_Light.max + "");
+		if((v & 32) != 0) this.AddPreprocessor("#define","REFLECTION_TEXTURE");
+		if((v & 64) != 0) {
+			this.AddPreprocessor("#define","FALLOFF_VERTEX");
+			this.AddPreprocessor("#define","FALLOFF");
+		}
+		if((v & 128) != 0) {
+			this.AddPreprocessor("#define","FALLOFF_PIXEL");
+			this.AddPreprocessor("#define","FALLOFF");
+		}
+		if((v & 256) != 0) this.AddPreprocessor("#define","BUMP");
+		if((v & 512) != 0) {
+			this.AddPreprocessor("#define","LIGHTING_VERTEX");
+			this.AddPreprocessor("#define","LIGHTING");
+		}
+		if((v & 1024) != 0) {
+			this.AddPreprocessor("#define","LIGHTING_PIXEL");
+			this.AddPreprocessor("#define","LIGHTING");
+		}
+		if((v & 4096) != 0) this.AddPreprocessor("#define","SPECULAR");
+		if((v & 8192) != 0) this.AddPreprocessor("#define","SPECULAR_TEXTURE");
+		if((v & 16384) != 0) this.AddPreprocessor("#define","LIGHTMAP");
+		if((v & 32768) != 0) {
+			this.AddPreprocessor("#define","FOG_VERTEX");
+			this.AddPreprocessor("#define","FOG");
+		}
+		if((v & 65536) != 0) {
+			this.AddPreprocessor("#define","FOG_PIXEL");
+			this.AddPreprocessor("#define","FOG");
+		}
+		if((v & 131072) != 0) this.AddPreprocessor("#define","TOON");
+		if((v & 262144) != 0) this.AddPreprocessor("#define","CUTOFF");
+		if((v & 524288) != 0) this.AddPreprocessor("#define","PARTICLE");
+		if((v & 1048576) != 0) this.AddPreprocessor("#define","UV_SCROLL");
+		if((v & 2097152) != 0) this.AddPreprocessor("#define","RANDOM");
+		if((v & 1536) != 0) this.AddPreprocessor("#define","MAX_LIGHTS",haxor_component_light_Light.max + "");
 		return v;
 	}
 	,GetVS: function() {
-		return "\r\n\t\t" + haxor_graphics_material_shader_FlexShader._uniforms + "\r\n\t\t\r\n\t\tattribute vec3 vertex;\r\n\t\tvarying vec4 v_color;\t\t\r\n\t\t\r\n\t\t#ifdef SKINNING\t\r\n\t\tuniform int SkinQuality;\r\n\t\tattribute vec4 bone;\r\n\t\tattribute vec4 weight;\t\t\r\n\t\t#ifdef BONE_TEXTURE\r\n\t\tuniform sampler2D Joints;\r\n\t\tuniform sampler2D Binds;\r\n\t\tuniform int\t\t  SkinId;\r\n\t\tuniform vec4      SkinTexSize;\t\t\r\n\t\t#else\t\t\r\n\t\tuniform vec4  Joints[MAX_BONES*3];\r\n\t\tuniform vec4   Binds[MAX_BONES*3];\r\n\t\t#endif\t\t\r\n\t\t\r\n\t\t\r\n\t\t#endif\r\n\t\t\r\n\t\t#ifdef TINT && TINTED\r\n\t\tuniform vec4  Tint;\r\n\t\t#endif\t\t\t\t\r\n\t\t#ifdef VERTEX_COLOR\r\n\t\tattribute vec4 color;\t\t\t\t\r\n\t\t#endif\r\n\t\t#ifdef TEXTURE\r\n\t\tattribute vec3 uv0;\r\n\t\tvarying vec3 v_uv0;\t\t\r\n\t\t#endif\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tmat4 wm = WorldMatrix;\r\n\t\t\tgl_Position = ((vec4(vertex, 1.0) * wm) * ViewMatrix) * ProjectionMatrix;\t\t\t\t\t\t\r\n\t\t\tv_color = vec4(1, 1, 1, 1);\t\t\t\r\n\t\t\t#ifdef VERTEX_COLOR\r\n\t\t\tv_color *= color;\r\n\t\t\t#endif\t\t\t\r\n\t\t\t#ifdef TINT\r\n\t\t\tv_color *= Tint;\r\n\t\t\t#endif\r\n\t\t\t#ifdef TEXTURE\r\n\t\t\tv_uv0 = uv0;\r\n\t\t\t#endif\r\n\t\t}\t\t\r\n\t\t";
+		return "\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_preprocessors + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_uniforms + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.vs_uniforms + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.vs_attribs + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_varyings + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_functions + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.vs_functions + "\r\n\t\t\r\n\t\tvec4 LPos;\r\n\t\tvec4 WPos;\r\n\t\tvec4 VPos;\r\n\t\tvec4 HPos;\r\n\t\t\r\n\t\tvec3 FalloffComponent;\r\n\t\t\r\n\t\tvec3 WorldViewDir;\r\n\t\tvec3 Normal;\r\n\t\t\r\n\t\tvec3 DiffuseComponent;\r\n\t\tvec3 SpecularComponent;\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tmat4 wm;\r\n\t\t\t\r\n\t\t\tLPos = vec4(vertex, 1.0);\r\n\t\t\t\r\n\t\t\t#ifdef SKINNING\r\n\t\t\twm = SkinWorldMatrix();\r\n\t\t\t#else\r\n\t\t\twm = WorldMatrix;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tWPos = LPos * wm;\r\n\t\t\tVPos = WPos * ViewMatrix;\r\n\t\t\tHPos = VPos * ProjectionMatrix;\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING\r\n\t\t\tv_wpos = WPos.xyz;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tWorldViewDir = vec3(0.0);\r\n\t\t\t\r\n\t\t\t#ifdef USE_VIEW_DIR\r\n\t\t\tWorldViewDir = v_wview = -normalize(WPos.xyz - CameraPosition);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tNormal = vec3(0.0);\r\n\t\t\t\r\n\t\t\t#ifdef USE_NORMAL\r\n\t\t\tNormal = v_normal = normal;\r\n\t\t\t#ifdef SKINNING\r\n\t\t\tNormal = v_normal = v_normal * mat3(wm);\r\n\t\t\t#else\r\n\t\t\tNormal = v_normal = v_normal * mat3(wm);\r\n\t\t\t#endif\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tv_color = vec4(1, 1, 1, 1);\t\t\t\r\n\t\t\t\r\n\t\t\t#ifdef VERTEX_COLOR\r\n\t\t\tv_color *= color;\r\n\t\t\t#endif\t\t\t\r\n\t\t\t\r\n\t\t\t#ifdef TINT\r\n\t\t\tv_color *= Tint;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef TEXTURE\r\n\t\t\tv_uv0 = uv0;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef UV_SCROLL\r\n\t\t\tv_uv0 = (v_uv0 + (UVSpeed * Time)) + UVOffset;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef USE_UV1\r\n\t\t\tv_uv1 = uv1;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING_VERTEX\t\t\t\r\n\t\t\tProcessLights(Normal, WorldViewDir, Shininess, DiffuseComponent, SpecularComponent);\t\t\t\t\t\t\r\n\t\t\tv_diffuse_component = DiffuseComponent;\t\t\t\r\n\t\t\t#ifdef SPECULAR\r\n\t\t\tv_specular_component = SpecularComponent;\r\n\t\t\t#endif\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FALLOFF_VERTEX\r\n\t\t\tFalloffComponent = v_falloff_component = Falloff(WorldViewDir, Normal, FalloffExp) * FalloffIntensity * FalloffColor.xyz;\t\t\t\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG\r\n\t\t\tv_linear_depth = LinearNF(HPos.z/HPos.w,CameraNear,CameraFar);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG_VERTEX\r\n\t\t\tv_fog_factor = FogFactor(v_linear_depth, FogExp, FogDensity, FogStart, FogEnd);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tgl_Position = HPos;\r\n\t\t}\t\t\r\n\t\t";
 	}
 	,GetFS: function() {
-		return "\r\n\t\t#ifdef TEXTURE\r\n\t\tvarying vec3 v_uv0;\r\n\t\tuniform sampler2D DiffuseTexture;\r\n\t\t#endif\r\n\t\t\r\n\t\tvarying vec4 v_color;\t\t\t\r\n\t\t\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tgl_FragColor = v_color;\r\n\t\t\t#ifdef TEXTURE\r\n\t\t\tgl_FragColor *= texture2D(DiffuseTexture, v_uv0.xy);\r\n\t\t\t#endif\t\t\t\r\n\t\t}\r\n\t\t";
+		return "\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_preprocessors + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_uniforms + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.fs_uniforms + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_varyings + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_functions + "\r\n\t\t\r\n\t\tvec3 FalloffComponent;\r\n\t\t\r\n\t\tvec3 Normal;\t\t\r\n\t\tvec4 Fragment;\r\n\t\t\r\n\t\tvec3 DiffuseComponent;\r\n\t\tvec3 SpecularComponent;\r\n\t\t\r\n\t\tvec3 WorldViewDir;\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\t\r\n\t\t\t#ifdef USE_VIEW_DIR\r\n\t\t\tWorldViewDir = v_wview;\r\n\t\t\t#else\r\n\t\t\tWorldViewDir = vec3(0, 0, 0);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tFragment = v_color;\r\n\t\t\t\r\n\t\t\t#ifdef USE_NORMAL\r\n\t\t\tNormal = v_normal;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef BUMP\r\n\t\t\tvec4 tex_bump = (texture2D(NormalTexture, v_uv1) * 2.0) - 1.0;\r\n\t\t\tNormal += tex_bump.xyz;\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef USE_NORMAL\r\n\t\t\tNormal = normalize(Normal);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef TEXTURE\r\n\t\t\tFragment *= texture2D(DiffuseTexture, v_uv0.xy);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef CUTOFF\r\n\t\t\tif (Fragment.w <= Cutoff) discard;\r\n\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t#ifdef LIGHTMAP\r\n\t\t\tvec4 tex_lightmap  = texture2D(Lightmap, v_uv1.xy);\r\n\t\t\tFragment.xyz\t  += Fragment.xyz * (tex_lightmap.w * LightmapFactor) * tex_lightmap.xyz;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING\r\n\t\t\tFragment.xyz += Fragment.xyz * Ambient.xyz;\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING_VERTEX\r\n\t\t\tDiffuseComponent  = v_diffuse_component;\t\t\t\r\n\t\t\t#ifdef SPECULAR\r\n\t\t\tSpecularComponent = v_specular_component;\r\n\t\t\t#endif\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING_PIXEL\t\t\t\r\n\t\t\tProcessLights(Normal,WorldViewDir,Shininess,DiffuseComponent,SpecularComponent);\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING\r\n\t\t\tFragment.xyz += Fragment.xyz * DiffuseComponent;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef SPECULAR\r\n\t\t\tFragment.xyz += SpecularComponent;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FALLOFF_VERTEX\r\n\t\t\tFalloffComponent = v_falloff_component;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FALLOFF_PIXEL\r\n\t\t\tFalloffComponent = Falloff(WorldViewDir, Normal, FalloffExp) * FalloffIntensity * FalloffColor.xyz;\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FALLOFF\t\t\t\r\n\t\t\tFragment.xyz += FalloffComponent;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG_VERTEX\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tfloat FogComponent = 0.0;\r\n\t\t\t\r\n\t\t\t#ifdef FOG_VERTEX\r\n\t\t\tFogComponent = v_fog_factor;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG_PIXEL\r\n\t\t\tFogComponent = FogFactor(v_linear_depth, FogExp, FogDensity, FogStart, FogEnd);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG\r\n\t\t\tFragment = mix(Fragment, FogColor,FogComponent);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tgl_FragColor = Fragment;\r\n\t\t}\r\n\t\t";
 	}
 	,__class__: haxor_graphics_material_shader_FlexShader
 	,__properties__: $extend(haxor_graphics_material_shader_TemplateShader.prototype.__properties__,{set_features:"set_features",get_features:"get_features"})
@@ -13558,7 +13585,7 @@ var haxor_graphics_texture_Texture2D = function(p_width,p_height,p_format) {
 };
 $hxClasses["haxor.graphics.texture.Texture2D"] = haxor_graphics_texture_Texture2D;
 haxor_graphics_texture_Texture2D.__name__ = ["haxor","graphics","texture","Texture2D"];
-haxor_graphics_texture_Texture2D.__properties__ = {get_green:"get_green",get_red:"get_red",get_black:"get_black",get_white:"get_white",get_random:"get_random"}
+haxor_graphics_texture_Texture2D.__properties__ = {get_green:"get_green",get_red:"get_red",get_gray25:"get_gray25",get_gray50:"get_gray50",get_black:"get_black",get_white:"get_white",get_random:"get_random"}
 haxor_graphics_texture_Texture2D.get_random = function() {
 	if(haxor_graphics_texture_Texture2D.m_random != null) return haxor_graphics_texture_Texture2D.m_random;
 	haxor_graphics_texture_Texture2D.m_random = new haxor_graphics_texture_Texture2D(128,128,haxor_core_PixelFormat.Float4);
@@ -13589,6 +13616,22 @@ haxor_graphics_texture_Texture2D.get_black = function() {
 	haxor_graphics_texture_Texture2D.m_black.m_data.Fill(new haxor_math_Color(0,0,0,1));
 	haxor_graphics_texture_Texture2D.m_black.Apply();
 	return haxor_graphics_texture_Texture2D.m_black;
+};
+haxor_graphics_texture_Texture2D.get_gray50 = function() {
+	if(haxor_graphics_texture_Texture2D.m_gray50 != null) return haxor_graphics_texture_Texture2D.m_gray50;
+	haxor_graphics_texture_Texture2D.m_gray50 = new haxor_graphics_texture_Texture2D(1,1,haxor_core_PixelFormat.RGB8);
+	haxor_graphics_texture_Texture2D.m_gray50.set_name("Gray50");
+	haxor_graphics_texture_Texture2D.m_gray50.m_data.Fill(new haxor_math_Color(0.5,0.5,0.5,1));
+	haxor_graphics_texture_Texture2D.m_gray50.Apply();
+	return haxor_graphics_texture_Texture2D.m_gray50;
+};
+haxor_graphics_texture_Texture2D.get_gray25 = function() {
+	if(haxor_graphics_texture_Texture2D.m_gray25 != null) return haxor_graphics_texture_Texture2D.m_gray25;
+	haxor_graphics_texture_Texture2D.m_gray25 = new haxor_graphics_texture_Texture2D(1,1,haxor_core_PixelFormat.RGB8);
+	haxor_graphics_texture_Texture2D.m_gray25.set_name("Gray25");
+	haxor_graphics_texture_Texture2D.m_gray25.m_data.Fill(new haxor_math_Color(0.25,0.25,0.25,1));
+	haxor_graphics_texture_Texture2D.m_gray25.Apply();
+	return haxor_graphics_texture_Texture2D.m_gray25;
 };
 haxor_graphics_texture_Texture2D.get_red = function() {
 	if(haxor_graphics_texture_Texture2D.m_red != null) return haxor_graphics_texture_Texture2D.m_red;
@@ -18931,7 +18974,7 @@ haxor_component_animation_Vector3KeyFrame.m_temp = new haxor_component_animation
 haxor_component_animation_QuaternionKeyFrame.m_temp = new haxor_component_animation_QuaternionKeyFrame();
 haxor_component_light_Light.ambient = new haxor_math_Color(0.0,0.0,0.0,1.0);
 haxor_component_light_Light.max = 8;
-haxor_component_light_Light.m_buffer = [];
+haxor_component_light_Light.m_buffer = [-1,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0];
 haxor_component_light_Light.m_list = [];
 haxor_context_DataContext.MAX_TEMP = 128;
 haxor_context_EngineContext.uid = 0;
@@ -19019,17 +19062,22 @@ haxor_core_ShaderFeature.Tint = 2;
 haxor_core_ShaderFeature.VertexColor = 4;
 haxor_core_ShaderFeature.Skinning = 8;
 haxor_core_ShaderFeature.Reflection = 16;
-haxor_core_ShaderFeature.Falloff = 32;
-haxor_core_ShaderFeature.Bump = 64;
-haxor_core_ShaderFeature.LightingVertex = 128;
-haxor_core_ShaderFeature.LightingPixel = 256;
-haxor_core_ShaderFeature.Specular = 1024;
-haxor_core_ShaderFeature.Lightmap = 2048;
-haxor_core_ShaderFeature.FogVertex = 4096;
-haxor_core_ShaderFeature.FogPixel = 8192;
-haxor_core_ShaderFeature.Toon = 16384;
-haxor_core_ShaderFeature.Cutoff = 32768;
-haxor_core_ShaderFeature.Particle = 65536;
+haxor_core_ShaderFeature.ReflectionTexture = 32;
+haxor_core_ShaderFeature.FalloffVertex = 64;
+haxor_core_ShaderFeature.FalloffPixel = 128;
+haxor_core_ShaderFeature.Bump = 256;
+haxor_core_ShaderFeature.LightingVertex = 512;
+haxor_core_ShaderFeature.LightingPixel = 1024;
+haxor_core_ShaderFeature.Specular = 4096;
+haxor_core_ShaderFeature.SpecularTexture = 8192;
+haxor_core_ShaderFeature.Lightmap = 16384;
+haxor_core_ShaderFeature.FogVertex = 32768;
+haxor_core_ShaderFeature.FogPixel = 65536;
+haxor_core_ShaderFeature.Toon = 131072;
+haxor_core_ShaderFeature.Cutoff = 262144;
+haxor_core_ShaderFeature.Particle = 524288;
+haxor_core_ShaderFeature.UVScroll = 1048576;
+haxor_core_ShaderFeature.Random = 2097152;
 haxor_core_ShaderPrecision.VertexLow = 1;
 haxor_core_ShaderPrecision.VertexMed = 2;
 haxor_core_ShaderPrecision.VertexHigh = 4;
@@ -19372,7 +19420,14 @@ haxor_graphics_GL.FS_FLOAT_HIGHP = true;
 haxor_graphics_GL.FS_INT_HIGHP = true;
 haxor_graphics_Graphics.m_last_viewport = haxor_math_AABB2.get_empty();
 haxor_graphics_material_shader_TemplateShader.template = "\r\n\t<shader id=\"@ID\">\t\r\n\t\t<vertex precision=\"@VSP\">\t\t\r\n\t\t\t@VS\r\n\t\t</vertex>\t\t\r\n\t\t<fragment precision=\"@FSP\">\t\t\t\r\n\t\t\t@FS\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
-haxor_graphics_material_shader_FlexShader._uniforms = "\r\n\tuniform mat4  WorldMatrix;\r\n\tuniform mat4  ViewMatrix;\r\n\tuniform mat4  ProjectionMatrix;\t\r\n\t";
+haxor_graphics_material_shader_FlexShader.vs_uniforms = "\r\n\tuniform mat4  WorldMatrix;\r\n\tuniform mat4  WorldMatrixIT;\r\n\tuniform mat4  WorldMatrixInverse;\r\n\tuniform mat4  ViewMatrix;\r\n\tuniform mat4  ViewMatrixInverse;\r\n\tuniform mat4  ProjectionMatrix;\r\n\tuniform mat4  ProjectionMatrixInverse;\r\n\t\r\n\t\r\n\t#ifdef SKINNING\t\r\n\tuniform int SkinQuality;\t\r\n\t\r\n\t#ifdef BONE_TEXTURE\r\n\tuniform sampler2D Joints;\r\n\tuniform sampler2D Binds;\t\r\n\tuniform vec4      SkinTexSize;\r\n\t#else\t\t\r\n\tuniform vec4  Joints[MAX_BONES*3];\r\n\tuniform vec4   Binds[MAX_BONES*3];\r\n\t#endif\r\n\t\r\n\t#endif\r\n\t\r\n\t#ifdef UV_SCROLL\r\n\tuniform vec3 UVOffset;\r\n\tuniform vec3 UVSpeed;\t\r\n\t#endif\r\n\t\r\n\t#ifdef UV_SCROLL\r\n\tuniform float Time;\r\n\t#endif\t\r\n\t\r\n\t#ifdef FOG\r\n\t#define CameraNear CameraProjection.x\r\n\t#define CameraFar  CameraProjection.y\r\n\tuniform vec3 CameraProjection;\t\r\n\t#endif\t\r\n\t";
+haxor_graphics_material_shader_FlexShader.vs_attribs = "\r\n\tattribute vec3 vertex;\r\n\t\r\n\t#ifdef VERTEX_COLOR\r\n\tattribute vec4 color;\r\n\t#endif\r\n\t\r\n\t#ifdef USE_NORMAL\r\n\tattribute vec3 normal;\r\n\t#endif\r\n\t\r\n\t#ifdef SKINNING\r\n\tattribute vec4 bone;\r\n\tattribute vec4 weight;\t\t\r\n\t#endif\r\n\t\r\n\t#ifdef TEXTURE\r\n\tattribute vec3 uv0;\r\n\t#endif\r\n\t\r\n\t#ifdef USE_UV1\r\n\tattribute vec3 uv1;\r\n\t#endif\t\r\n\t";
+haxor_graphics_material_shader_FlexShader.vs_functions = "\r\n\t#ifdef SKINNING\t\r\n\tmat4 GetJointMatrix(const int b0, const int b1, const int b2) \r\n\t{ \r\n\t\t#ifdef BONE_TEXTURE\t\t\r\n\t\t/*\r\n\t\tfloat itw = SkinTexSize.z;\r\n\t\tfloat ith = SkinTexSize.w;\r\n\t\tfloat fb0x = mod(float(b0), SkinTexSize.x);\r\n\t\tfloat fb1x = mod(float(b1), SkinTexSize.x);\r\n\t\tfloat fb2x = mod(float(b2), SkinTexSize.x);\r\n\t\tfloat fb0y = floor(float(b0) * itw);\r\n\t\tfloat fb1y = floor(float(b1) * itw);\r\n\t\tfloat fb2y = floor(float(b2) * itw);\t\t\t\r\n\t\tvec4 l0 = texture2D(Joints, vec2(fb0x*itw,fb0y*ith));\r\n\t\tvec4 l1 = texture2D(Joints, vec2(fb1x*itw,fb1y*ith));\r\n\t\tvec4 l2 = texture2D(Joints, vec2(fb2x*itw,fb2y*ith));\r\n\t\t//*/\r\n\t\tvec2 fb0 = vec2(mod(float(b0), SkinTexSize.x)*SkinTexSize.z, floor(float(b0) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec2 fb1 = vec2(mod(float(b1), SkinTexSize.x)*SkinTexSize.z, floor(float(b1) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec2 fb2 = vec2(mod(float(b2), SkinTexSize.x)*SkinTexSize.z, floor(float(b2) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec4 l0 = texture2D(Joints, fb0);\r\n\t\tvec4 l1 = texture2D(Joints, fb1);\r\n\t\tvec4 l2 = texture2D(Joints, fb2);\r\n\t\treturn mat4(l0,l1,l2,vec4(0,0,0,1));\r\n\t\t#else\r\n\t\treturn mat4(Joints[b0], Joints[b1], Joints[b2], vec4(0, 0, 0, 1)); \r\n\t\t#endif\r\n\t}\r\n\t\r\n\tmat4 GetBindMatrix (const int b0, const int b1, const int b2) \r\n\t{ \r\n\t\t#ifdef BONE_TEXTURE\t\t\t\r\n\t\t//float itw = SkinTexSize.z;\r\n\t\t//float ith = SkinTexSize.w;\r\n\t\tvec2 fb0 = vec2(mod(float(b0), SkinTexSize.x)*SkinTexSize.z, floor(float(b0) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec2 fb1 = vec2(mod(float(b1), SkinTexSize.x)*SkinTexSize.z, floor(float(b1) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec2 fb2 = vec2(mod(float(b2), SkinTexSize.x)*SkinTexSize.z, floor(float(b2) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec4 l0 = texture2D(Binds, fb0);\r\n\t\tvec4 l1 = texture2D(Binds, fb1);\r\n\t\tvec4 l2 = texture2D(Binds, fb2);\r\n\t\t/*\r\n\t\tfloat fb0x = mod(float(b0), SkinTexSize.x);\r\n\t\tfloat fb1x = mod(float(b1), SkinTexSize.x);\r\n\t\tfloat fb2x = mod(float(b2), SkinTexSize.x);\r\n\t\tfloat fb0y = floor(float(b0) * itw);\r\n\t\tfloat fb1y = floor(float(b1) * itw);\r\n\t\tfloat fb2y = floor(float(b2) * itw);\t\t\t\r\n\t\tvec4 l0 = texture2D(Binds, vec2(fb0x*itw,fb0y*ith));\r\n\t\tvec4 l1 = texture2D(Binds, vec2(fb1x*itw,fb1y*ith));\r\n\t\tvec4 l2 = texture2D(Binds, vec2(fb2x*itw,fb2y*ith));\r\n\t\t//*/\r\n\t\treturn mat4(l0,l1,l2,vec4(0,0,0,1));\r\n\t\t#else\r\n\t\treturn mat4(Binds[b0] , Binds[b1] , Binds[b2] , vec4(0, 0, 0, 1)); \r\n\t\t#endif\r\n\t}\r\n\t\r\n\tmat4 SkinWorldMatrix()\r\n\t{\r\n\t\tvec4 b = bone * 3.0;\t\t\t\r\n\t\tvec4 w = weight;\t\t\t\r\n\t\tfloat ivs = 0.0;\r\n\t\tif (SkinQuality >= 0) ivs += weight.x;\r\n\t\tif (SkinQuality >= 2) ivs += weight.y;\r\n\t\tif (SkinQuality >= 3) ivs += weight.z;\r\n\t\tif (SkinQuality >= 4) ivs += weight.w;\t\t\t\r\n\t\tw *= 1.0 / ivs;\t\t\t\r\n\t\tivec4 bi0 = ivec4(b.x, b.y, b.z, b.w);\t\t\t\r\n\t\tivec4 bi1 = ivec4(b.x + 1.0, b.y + 1.0, b.z + 1.0, b.w + 1.0);\t\t\t\r\n\t\tivec4 bi2 = ivec4(b.x + 2.0, b.y + 2.0, b.z + 2.0, b.w + 2.0);\t\t\t\r\n\t\tmat4 res = mat4(0.0),jm,bm;\t\t\t\r\n\t\tif (SkinQuality >= 0) { jm = GetJointMatrix(bi0.x, bi1.x, bi2.x); bm = GetBindMatrix(bi0.x, bi1.x, bi2.x); res += ((bm * jm) * w.x); }\r\n\t\tif (SkinQuality >= 2) { jm = GetJointMatrix(bi0.y, bi1.y, bi2.y); bm = GetBindMatrix(bi0.y, bi1.y, bi2.y); res += ((bm * jm) * w.y); }\r\n\t\tif (SkinQuality >= 3) { jm = GetJointMatrix(bi0.z, bi1.z, bi2.z); bm = GetBindMatrix(bi0.z, bi1.z, bi2.z); res += ((bm * jm) * w.z); }\r\n\t\tif (SkinQuality >= 4) { jm = GetJointMatrix(bi0.w, bi1.w, bi2.w); bm = GetBindMatrix(bi0.w, bi1.w, bi2.w); res += ((bm * jm) * w.w); }\t\t\r\n\t\treturn res;\r\n\t}\t\r\n\t#endif\r\n\t";
+haxor_graphics_material_shader_FlexShader.fs_uniforms = "\r\n\t#ifdef TEXTURE\t\r\n\tuniform sampler2D DiffuseTexture;\r\n\t#endif\t\r\n\t\r\n\t#ifdef BUMP\r\n\tuniform sampler2D NormalTexture;\r\n\t#endif\r\n\t\r\n\t#ifdef LIGHTMAP\r\n\tuniform sampler2D Lightmap;\r\n\tuniform float LightmapFactor;\r\n\t#endif\r\n\t\r\n\t#ifdef CUTOFF\r\n\tuniform float Cutoff;\r\n\t#endif\t\r\n\t\r\n\t";
+haxor_graphics_material_shader_FlexShader.g_varyings = "\r\n\tvarying vec4 v_color;\r\n\t\r\n\t#ifdef USE_NORMAL\r\n\tvarying vec3 v_normal;\r\n\t#endif\r\n\t\r\n\t#ifdef LIGHTING\r\n\tvarying vec3 v_wpos;\r\n\t#endif\r\n\t\r\n\t#ifdef LIGHTING_VERTEX\r\n\tvarying vec3 v_diffuse_component;\t\r\n\t#ifdef SPECULAR\r\n\tvarying vec3 v_specular_component;\r\n\t#endif\t\t\r\n\t#endif\r\n\t\r\n\t\r\n\t#ifdef USE_VIEW_DIR\r\n\tvarying vec3 v_wview;\r\n\t#endif\r\n\t\r\n\t#ifdef FALLOFF\r\n\tvarying vec3 v_falloff_component;\r\n\t#endif\r\n\t\r\n\t#ifdef TEXTURE\t\r\n\tvarying vec3 v_uv0;\t\t\r\n\t#endif\t\r\n\t\r\n\t#ifdef USE_UV1\r\n\tvarying vec3 v_uv1;\t\r\n\t#endif\r\n\t\r\n\t#ifdef FOG\r\n\tvarying float v_linear_depth;\r\n\t#endif\r\n\t\r\n\t#ifdef FOG_VERTEX\r\n\tvarying float v_fog_factor;\r\n\t#endif\r\n\t\r\n\t";
+haxor_graphics_material_shader_FlexShader.g_uniforms = "\r\n\t\r\n\tuniform vec3 CameraPosition;\r\n\t\r\n\t#ifdef RANDOM\t\r\n\tuniform float RandomSeed;\t\t\r\n\tuniform sampler2D RandomTexture;\r\n\t#endif\t\r\n\t\r\n\t#ifdef TINT\r\n\tuniform vec4  Tint;\r\n\t#endif\t\r\n\t\r\n\t#ifdef FOG\r\n\t#define FogColor    Fog[0]\r\n\t#define FogDensity  Fog[1].x\r\n\t#define FogExp      Fog[1].y\r\n\t#define FogStart    Fog[1].z\r\n\t#define FogEnd      Fog[1].w\r\n\tuniform vec4 Fog[2];\r\n\t#endif\t\r\n\t\r\n\t#ifdef LIGHTING\t\r\n\tuniform vec4  Ambient;\r\n\tuniform vec4 Lights[MAX_LIGHTS * 3];\t\r\n\tuniform float Shininess;\r\n\t#endif\r\n\t\r\n\t#ifdef FALLOFF\r\n\tuniform float FalloffExp;\t\t\t\r\n\tuniform float FalloffIntensity;\r\n\tuniform vec4  FalloffColor;\r\n\t#endif\r\n\t\r\n\t#ifdef USE_RAMP_TEXTURE\r\n\tuniform sampler2D RampTexture;\r\n\t#endif\r\n\t\r\n\t";
+haxor_graphics_material_shader_FlexShader.g_functions = "\r\n\t#ifdef RANDOM\t\r\n\tfloat NextSeed = 0.0;\r\n\tvec4 Random()\r\n\t{\r\n\t\tfloat itw  = 0.00390625;\r\n\t\tfloat p    = NextSeed + (RandomSeed * 65536.0);\r\n\t\tfloat idx  = mod(p,256.0)   * itw;\r\n\t\tfloat idy  = floor(p * itw) * itw;\r\n\t\tNextSeed  += 1.0;\r\n\t\treturn texture2D(RandomTexture, vec2(idx,idy));\r\n\t}\r\n\t#endif\r\n\t\r\n\t#ifdef FOG\r\n\tfloat FogFactor(float p_linear_depth,float p_exp,float p_density,float p_start,float p_end) { return pow(clamp((p_linear_depth - p_start) / (p_end - p_start),0.0,1.0),p_exp) * p_density; }\r\n\t#endif\r\n\t\r\n\tvec4 texture2DOffset(sampler2D p_texture, float p_offset, float p_iw, float p_ih) { return texture2D(p_texture, vec2(mod(p_offset,1.0/p_iw)*p_iw,floor(p_offset * p_iw)*p_iw)); }\r\n\t\r\n\tfloat LinearNF(float p_hz, float p_near, float p_far) { return p_near * (p_hz + 1.0) / (p_far + p_near - p_hz * (p_far - p_near)); }\t\r\n\tfloat LinearEye(float p_hz, float p_near, float p_far) { return (2.0 * p_near) / (p_far + p_near - p_hz * (p_far - p_near)); }\t\r\n\tfloat Depth2Eye(float p_hz, float p_near, float p_far) { return (2.0 * p_near * p_far) / (p_far + p_near - p_hz * (p_far - p_near)); }\r\n\t\r\n\t#ifdef LIGHTING\r\n\t\r\n\tvec4 LightAttrib(const int p_id)   \r\n\t{ \r\n\t\tif(p_id==0) return Lights[0];\r\n\t\tif(p_id==1) return Lights[3];\r\n\t\tif(p_id==2) return Lights[6];\r\n\t\tif(p_id==3) return Lights[9];\r\n\t\tif(p_id==4) return Lights[12];\r\n\t\tif(p_id==5) return Lights[15];\r\n\t\tif(p_id==6) return Lights[18];\r\n\t\tif(p_id==7) return Lights[21];\r\n\t\treturn vec4(-1,0,0,0);\t\t\r\n\t}\r\n\t\r\n\tvec3 LightPosition(int p_id)   \r\n\t{ \r\n\t\tif(p_id==0) return Lights[1].xyz;\r\n\t\tif(p_id==1) return Lights[4].xyz;\r\n\t\tif(p_id==2) return Lights[7].xyz;\r\n\t\tif(p_id==3) return Lights[10].xyz;\r\n\t\tif(p_id==4) return Lights[13].xyz;\r\n\t\tif(p_id==5) return Lights[16].xyz;\r\n\t\tif(p_id==6) return Lights[19].xyz;\r\n\t\tif(p_id==7) return Lights[22].xyz;\r\n\t\treturn vec3(0,0,0);\r\n\t}\r\n\t\r\n\tvec4 LightColor(int p_id)   \r\n\t{ \r\n\t\tif(p_id==0) return Lights[2];\r\n\t\tif(p_id==1) return Lights[5];\r\n\t\tif(p_id==2) return Lights[8];\r\n\t\tif(p_id==3) return Lights[11];\r\n\t\tif(p_id==4) return Lights[14];\r\n\t\tif(p_id==5) return Lights[17];\r\n\t\tif(p_id==6) return Lights[20];\r\n\t\tif(p_id==7) return Lights[23];\r\n\t\treturn vec4(0,0,0,1);\r\n\t}\r\n\t\r\n\tfloat DiffuseFactor(vec3 p_normal, vec3 p_light_dir) { return clamp(dot(p_normal,p_light_dir),0.0,1.0); }\t\r\n\tfloat SpecularFactor(float p_shininess, vec3 p_normal, vec3 p_light_dir, vec3 p_view_dir) \r\n\t{ \r\n\t\tvec3 hv  = normalize(p_light_dir + p_view_dir);\r\n\t\tfloat dv = clamp(dot(hv, p_normal), 0.0, 1.0);\r\n\t\treturn pow(dv, p_shininess);\r\n\t}\r\n\t\r\n\tvec3 LightingLambert(float p_intensity,vec3 p_light_color,vec3 p_light_dir,vec3 p_normal)\r\n\t{\t\t\t\t\r\n\t\tfloat df = DiffuseFactor(p_normal, p_light_dir);\r\n\t\treturn p_light_color * df * p_intensity;\r\n\t}\r\n\t\r\n\tvec3 LightingPhong(float p_intensity,vec3 p_light_color,vec3 p_light_dir,vec3 p_normal,vec3 p_view_dir,float p_shininess)\r\n\t{\r\n\t\tfloat sf = SpecularFactor(p_shininess, p_normal, p_light_dir, p_view_dir);\t\t\r\n\t\treturn p_light_color * sf * p_intensity;\r\n\t}\r\n\t\r\n\t#ifdef TOON\r\n\tvec3 LightingLambertToon(float p_intensity, vec3 p_light_color, vec3 p_light_dir, vec3 p_normal)\r\n\t{\r\n\t\tfloat df = DiffuseFactor(p_normal, p_light_dir);\t\t\r\n\t\treturn p_light_color * texture2D(RampTexture,vec2(df,0)).xyz * p_intensity;\r\n\t}\r\n\t\r\n\tvec3 LightingPhongToon(float p_intensity,vec3 p_light_color,vec3 p_light_dir,vec3 p_normal,vec3 p_view_dir,float p_shininess)\r\n\t{\r\n\t\tfloat sf = SpecularFactor(p_shininess, p_normal, p_light_dir, p_view_dir);\r\n\t\treturn p_light_color * texture2D(RampTexture,vec2(sf,0)).xyz * p_intensity;\r\n\t}\r\n\t#endif\r\n\t\r\n\tvoid ProcessLights(vec3 p_normal, vec3 p_view_dir,float p_shininess, out vec3 p_diffuse_component, out vec3 p_specular_component)\r\n\t{\r\n\t\tp_diffuse_component  = vec3(0.0);\r\n\t\tp_specular_component = vec3(0.0);\r\n\t\t\r\n\t\tfor(int i=0;i<MAX_LIGHTS;i++)\r\n\t\t{\r\n\t\t\tvec4  l_attrib \t  = LightAttrib(i);\r\n\t\t\tvec3  l_position  = LightPosition(i);\r\n\t\t\tvec3  l_color \t  = LightColor(i).xyz;\r\n\t\t\tint   l_type   \t  = int(l_attrib.x);\r\n\t\t\tfloat l_intensity = l_attrib.y;\r\n\t\t\tfloat l_atten \t  = l_attrib.w;\r\n\t\t\t\r\n\t\t\tvec3  l_dir\t\t  = vec3(0.0);\r\n\t\t\t\r\n\t\t\t//Invalid Light can stop here\r\n\t\t\tif (l_type == -1) break;\r\n\t\t\t\r\n\t\t\t//Point Light\r\n\t\t\tif(l_type == 0)\r\n\t\t\t{\r\n\t\t\t\tfloat l_radius  = l_attrib.z * 0.5;\t\r\n\t\t\t\tl_dir = -(v_wpos - l_position);\r\n\t\t\t\tl_intensity   = (1.0 - clamp(length(l_dir) / l_radius, 0.0, 1.0)) * l_intensity;\t\t\t\t\t\r\n\t\t\t\tl_dir = normalize(l_dir);\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t//Directional Light\r\n\t\t\tif(l_type == 1)\r\n\t\t\t{\r\n\t\t\t\tl_dir = l_position;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec3 d_component = vec3(0);\r\n\t\t\t\r\n\t\t\t#ifdef TOON\r\n\t\t\td_component = LightingLambertToon(l_intensity, l_color, l_dir, p_normal);\r\n\t\t\t#else\r\n\t\t\td_component = LightingLambert(l_intensity, l_color, l_dir, p_normal);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tp_diffuse_component += d_component;\r\n\t\t\t\r\n\t\t\t#ifdef SPECULAR\r\n\t\t\tvec3 s_component = vec3(0);\r\n\t\t\t\r\n\t\t\t#ifdef TOON\r\n\t\t\ts_component = LightingPhongToon(l_intensity,l_color,l_dir,p_normal,p_view_dir,p_shininess);\r\n\t\t\t#else\r\n\t\t\ts_component = LightingPhong(l_intensity,l_color,l_dir,p_normal,p_view_dir,p_shininess);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tp_specular_component += s_component;\r\n\t\t\t#endif\t\t\t\t\t\r\n\t\t\t\r\n\t\t}\r\n\t\t\r\n\t}\r\n\t\r\n\t#endif\r\n\t\r\n\t#ifdef FALLOFF\r\n\tfloat Falloff(vec3 p_view_dir, vec3 p_normal, float p_exp) { return pow(1.0 - clamp(dot(p_view_dir, p_normal), 0.0, 1.0), p_exp); }\r\n\t#endif\r\n\t\r\n\t";
+haxor_graphics_material_shader_FlexShader.g_preprocessors = "\t\r\n\t#if defined(LIGHTING) || defined(FALLOFF) || defined(REFLECTION) || defined(BUMP)\r\n\t#define USE_NORMAL\r\n\t#endif\r\n\t\r\n\t#if defined(FALLOFF) || defined(SPECULAR)\r\n\t#define USE_VIEW_DIR\r\n\t#endif\r\n\t\r\n\t#if defined(LIGHTMAP) || defined(BUMP)\r\n\t#define USE_UV1\r\n\t#endif\r\n\t\r\n\t#if defined(TOON)\r\n\t#define USE_RAMP_TEXTURE\r\n\t#endif\r\n\t\r\n\t";
 haxor_input_Input.scroll = false;
 haxor_input_Input.menu = false;
 haxor_input_Input.emulateTouch = false;
