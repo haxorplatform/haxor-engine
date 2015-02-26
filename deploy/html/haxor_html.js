@@ -1,5 +1,5 @@
 (function () { "use strict";
-var $hxClasses = {};
+var $hxClasses = {},$estr = function() { return js_Boot.__string_rec(this,''); };
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -537,720 +537,6 @@ haxor_component_Behaviour.prototype = $extend(haxor_component_Component.prototyp
 	,__class__: haxor_component_Behaviour
 	,__properties__: $extend(haxor_component_Component.prototype.__properties__,{set_enabled:"set_enabled",get_enabled:"get_enabled"})
 });
-var haxor_component_Renderer = function(p_name) {
-	this.m_has_mesh = false;
-	haxor_component_Behaviour.call(this,p_name);
-};
-$hxClasses["haxor.component.Renderer"] = haxor_component_Renderer;
-haxor_component_Renderer.__name__ = ["haxor","component","Renderer"];
-haxor_component_Renderer.__super__ = haxor_component_Behaviour;
-haxor_component_Renderer.prototype = $extend(haxor_component_Behaviour.prototype,{
-	get_material: function() {
-		return this.m_material;
-	}
-	,set_material: function(v) {
-		if(this.m_material == v) return v;
-		this.m_material = v;
-		if(v == null) this.m_last_queue = -1; else this.m_last_queue = v.queue;
-		haxor_context_EngineContext.renderer.OnMaterialChange(this);
-		return v;
-	}
-	,get_visible: function() {
-		return this.m_visible && !this.m_culled;
-	}
-	,set_visible: function(v) {
-		this.m_visible = v;
-		return v;
-	}
-	,OnBuild: function() {
-		haxor_component_Behaviour.prototype.OnBuild.call(this);
-		this.m_last_queue = -1;
-		this.m_visible = true;
-		this.m_culled = false;
-		haxor_context_EngineContext.renderer.Create(this);
-	}
-	,OnRender: function() {
-		if(this.m_material != null) {
-			if(this.m_last_queue != this.m_material.queue) {
-				this.m_last_queue = this.m_material.queue;
-				haxor_context_EngineContext.renderer.OnMaterialChange(this);
-			}
-		}
-	}
-	,UpdateCulling: function() {
-		var v0 = this.m_culled;
-		var v1 = this.CheckCulling();
-		this.m_culled = v1;
-		if(v0 != v1) haxor_context_EngineContext.renderer.OnVisibilityChange(this,!v1);
-	}
-	,CheckCulling: function() {
-		return false;
-	}
-	,OnDestroy: function() {
-		haxor_context_EngineContext.renderer.Destroy(this);
-	}
-	,__class__: haxor_component_Renderer
-	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{get_visible:"get_visible",set_material:"set_material",get_material:"get_material"})
-});
-var haxor_component_MeshRenderer = function(p_name) {
-	haxor_component_Renderer.call(this,p_name);
-};
-$hxClasses["haxor.component.MeshRenderer"] = haxor_component_MeshRenderer;
-haxor_component_MeshRenderer.__name__ = ["haxor","component","MeshRenderer"];
-haxor_component_MeshRenderer.__super__ = haxor_component_Renderer;
-haxor_component_MeshRenderer.prototype = $extend(haxor_component_Renderer.prototype,{
-	get_mesh: function() {
-		return this.m_mesh;
-	}
-	,set_mesh: function(v) {
-		if(this.m_mesh == v) return v;
-		this.m_mesh = v;
-		this.UpdateWorldBounds();
-		return v;
-	}
-	,OnBuild: function() {
-		this.m_has_mesh = true;
-		haxor_component_Renderer.prototype.OnBuild.call(this);
-		this.m_ws_center = new haxor_math_Vector3(0,0,0);
-		this.m_ws_radius = new haxor_math_Vector3(0,0,0);
-		this.m_culling_dirty = false;
-		this.m_aabb = haxor_math_AABB3.get_empty();
-	}
-	,IsVisible: function(p_camera) {
-		var c = p_camera;
-		if(c == null) return false;
-		if(this.m_mesh == null) return false;
-		var ps_center = c.WorldToProjection(haxor_context_EngineContext.data.get_v3().Set3(this.m_ws_center),haxor_context_EngineContext.data.get_v4());
-		var w = ps_center.w;
-		var p = ps_center;
-		if(w <= 0.0) return false;
-		if(p.x >= -w) {
-			if(p.x <= w) {
-				if(p.y >= -w) {
-					if(p.y <= w) {
-						if(p.z >= -w) {
-							if(p.z <= w) return true;
-						}
-					}
-				}
-			}
-		}
-		var v = c.WorldToProjection(haxor_context_EngineContext.data.get_v3().Set3(this.m_ws_radius),haxor_context_EngineContext.data.get_v4());
-		var r = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
-		if(p.x + r >= -w) {
-			if(p.x - r <= w) {
-				if(p.y + r >= -w) {
-					if(p.y - r <= w) {
-						if(p.z + r >= -w) {
-							if(p.z - r <= w) return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
-	,CheckCulling: function() {
-		var c = haxor_component_Camera.m_current;
-		if(c == null) return this.m_culled;
-		if(!c.m_view_uniform_dirty) {
-			if(!c.m_proj_uniform_dirty) {
-				if(!this.m_culling_dirty) return this.m_culled;
-			}
-		}
-		this.UpdateWorldBounds();
-		return !this.IsVisible(c);
-	}
-	,OnTransformUpdate: function(p_hierarchy) {
-		this.m_culling_dirty = true;
-	}
-	,UpdateWorldBounds: function() {
-		if(this.m_mesh != null) {
-			haxor_math_AABB3.Center(this.m_mesh.m_bounds,this.m_ws_center);
-			this.m_entity.m_transform.get_WorldMatrix().Transform3x4(this.m_ws_center);
-			this.m_ws_radius.Set(this.m_mesh.m_bounds.get_width(),this.m_mesh.m_bounds.get_height(),this.m_mesh.m_bounds.get_depth());
-			this.m_entity.m_transform.get_WorldMatrix().Transform3x3(this.m_ws_radius);
-			var r = this.m_ws_radius.get_length() * 0.5;
-			var pmin = haxor_context_EngineContext.data.get_v3();
-			var pmax = haxor_context_EngineContext.data.get_v3();
-			pmin.Set(this.m_ws_center.x - r,this.m_ws_center.y - r,this.m_ws_center.z - r);
-			pmax.Set(this.m_ws_center.x + r,this.m_ws_center.y + r,this.m_ws_center.z + r);
-			this.m_aabb.Set3(pmin,pmax);
-			haxor_context_EngineContext.renderer.UpdateSAP(this.__fcid,this,pmin,pmax);
-			this.m_culling_dirty = false;
-		}
-	}
-	,OnRender: function() {
-		haxor_component_Renderer.prototype.OnRender.call(this);
-		if(this.m_mesh == null) return;
-		haxor_component_MeshRenderer.current = this;
-		haxor_graphics_Graphics.Render(this.m_mesh,this.m_material,this.m_entity.m_transform,haxor_component_Camera.m_current);
-	}
-	,__class__: haxor_component_MeshRenderer
-	,__properties__: $extend(haxor_component_Renderer.prototype.__properties__,{set_mesh:"set_mesh",get_mesh:"get_mesh"})
-});
-var examples_dungeon_BlobShadow = function(p_name) {
-	haxor_component_MeshRenderer.call(this,p_name);
-};
-$hxClasses["examples.dungeon.BlobShadow"] = examples_dungeon_BlobShadow;
-examples_dungeon_BlobShadow.__name__ = ["examples","dungeon","BlobShadow"];
-examples_dungeon_BlobShadow.__super__ = haxor_component_MeshRenderer;
-examples_dungeon_BlobShadow.prototype = $extend(haxor_component_MeshRenderer.prototype,{
-	OnBuild: function() {
-		haxor_component_MeshRenderer.prototype.OnBuild.call(this);
-		var m = new haxor_graphics_mesh_Mesh3();
-		m.set_name("BlobShadowMesh");
-		var s = 0.5;
-		m.set_vertex([new haxor_math_Vector3(-s,0,s),new haxor_math_Vector3(s,0,s),new haxor_math_Vector3(-s,0,-s),new haxor_math_Vector3(s,0,-s)]);
-		m.set_uv0([new haxor_math_Vector3(0,1,0),new haxor_math_Vector3(1,1,0),new haxor_math_Vector3(0,0,0),new haxor_math_Vector3(1,0,0)]);
-		m.set_topology(haxor_io_UInt16Array.Alloc([0,1,2,1,3,2]));
-		m.GenerateBounds();
-		this.set_mesh(m);
-		var tex = haxor_core_Asset.Get("BlobShadow");
-		this.set_material(haxor_graphics_material_Material.Transparent(tex,true,false,null));
-		this.m_material.SetBlending(0,768);
-	}
-	,__class__: examples_dungeon_BlobShadow
-});
-var examples_dungeon_Dungeon = function(p_name) {
-	haxor_component_Behaviour.call(this,p_name);
-};
-$hxClasses["examples.dungeon.Dungeon"] = examples_dungeon_Dungeon;
-examples_dungeon_Dungeon.__name__ = ["examples","dungeon","Dungeon"];
-examples_dungeon_Dungeon.__super__ = haxor_component_Behaviour;
-examples_dungeon_Dungeon.prototype = $extend(haxor_component_Behaviour.prototype,{
-	OnStart: function() {
-		this.app = this.get_application();
-		var f = haxor_core_Asset.Get("dungeon");
-		this.asset = f.get_asset();
-		this.asset.m_transform.set_parent(this.m_entity.m_transform);
-		var rl = this.asset.GetComponentsInChildren(haxor_component_MeshRenderer);
-		console.log("Dungeon> Found [" + rl.length + "] MeshRenderers");
-		var _g1 = 0;
-		var _g = rl.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var mr = rl[i];
-			if(mr.m_material == null) {
-				console.log(mr.get_name() + " material is null");
-				continue;
-			}
-			var mp = mr.m_material.get_name().split("///");
-			var mat_id = mp[0];
-			if(mp.length <= 1) mp = [""]; else mp = mp[1].split("//");
-			var tex_id = mp[0];
-			var lm_id;
-			if(mp.length >= 2) lm_id = mp[1]; else lm_id = "";
-			var mat = haxor_core_Asset.Get(mat_id);
-			if(mat == null) {
-				console.log(mr.get_name() + " material [" + mat_id + "] is null");
-				continue;
-			}
-			var tex = haxor_core_Asset.Get(tex_id);
-			if(tex == null) {
-				console.log(tex_id + " is null.");
-				tex = haxor_graphics_texture_Texture2D.get_white();
-			}
-			if(tex_id.indexOf("Tile") >= 0) tex.set_wrap(haxor_core_TextureWrap.RepeatX | haxor_core_TextureWrap.RepeatY);
-			var lm;
-			if(lm_id == "") lm = null; else lm = haxor_core_Asset.Get(lm_id);
-			var new_mat_id = mat_id + "@" + tex_id + lm_id + "Material";
-			if(haxor_core_Asset.Get(new_mat_id) != null) mat = haxor_core_Asset.Get(new_mat_id); else {
-				console.log(mr.get_name() + " " + mat.m_shader.get_name());
-				mat = haxor_core_Asset.Instantiate(mat);
-				if(!mat.blend) mat.queue = 900;
-				mat.set_name(new_mat_id);
-				mat.SetTexture("DiffuseTexture",tex);
-				if(lm != null) mat.SetTexture("Lightmap",lm);
-				haxor_core_Asset.Add(new_mat_id,mat);
-			}
-			mr.set_material(mat);
-		}
-		var colliders = this.asset.m_transform.Search("Colliders");
-		if(colliders != null) {
-			var _g11 = 0;
-			var _g2 = colliders.m_hierarchy.length;
-			while(_g11 < _g2) {
-				var i1 = _g11++;
-				var t = colliders.GetChild(i1);
-				var c = t.m_entity.AddComponent(haxor_component_physics_BoxCollider);
-				c.set_size(new haxor_math_Vector3(50,50,50));
-			}
-		}
-		var triggers = this.asset.m_transform.Search("Triggers");
-		if(triggers != null) {
-			var _g12 = 0;
-			var _g3 = triggers.m_hierarchy.length;
-			while(_g12 < _g3) {
-				var i2 = _g12++;
-				var t1 = triggers.GetChild(i2);
-				var c1 = t1.m_entity.AddComponent(haxor_component_physics_BoxCollider);
-				if(c1.get_name().indexOf("Camera") >= 0) t1.m_entity.set_layer(examples_dungeon_GameLayer.CameraArea);
-				if(c1.get_name().indexOf("Hole") >= 0) t1.m_entity.set_layer(examples_dungeon_GameLayer.Hole);
-				c1.trigger = true;
-				c1.set_size(new haxor_math_Vector3(50,50,50));
-			}
-		}
-		this.asset.m_transform.Traverse($bind(this,this.TraverseLevel));
-		var app = this.get_application();
-		app.game.OnDungeonLoaded();
-	}
-	,TraverseLevel: function(p_target,p_depth) {
-		if(p_target.get_name() == "Colliders") return false;
-		if(p_target.get_name() == "Triggers") return false;
-		var t = p_target;
-		if(t.get_name().indexOf("Torch") >= 0) {
-			if(t.get_name().indexOf("Point") < 0) {
-				if(t.m_entity.GetComponentsInChildren(examples_dungeon_ParticleTorch).length <= 0) {
-					if(this.app.os.toLowerCase().indexOf("arm") < 0) {
-					}
-				}
-			}
-		}
-		if(t.get_name().indexOf("Collider_") >= 0) {
-			var c = t.m_entity.AddComponent(haxor_component_physics_BoxCollider);
-			c.set_size(new haxor_math_Vector3(50,50,50));
-		}
-		if(t.get_name().indexOf("Trigger_") >= 0) {
-			var c1 = t.m_entity.AddComponent(haxor_component_physics_BoxCollider);
-			if(c1.get_name().indexOf("Camera") >= 0) t.m_entity.set_layer(examples_dungeon_GameLayer.CameraArea);
-			if(c1.get_name().indexOf("Hole") >= 0) t.m_entity.set_layer(examples_dungeon_GameLayer.Hole);
-			if(c1.get_name().indexOf("Door") >= 0) t.m_entity.set_layer(examples_dungeon_GameLayer.Door);
-			c1.trigger = true;
-			c1.set_size(new haxor_math_Vector3(50,50,50));
-		}
-		if(t.get_name().indexOf("Door") == 0) {
-			if(t.get_name().indexOf("Frame") >= 0) return true;
-			if(t.get_name().indexOf("Right") >= 0) return true;
-			if(t.get_name().indexOf("Left") >= 0) return true;
-			t.m_entity.AddComponent(examples_dungeon_DungeonDoor);
-		}
-		return true;
-	}
-	,GetSpawnPosition: function(p_path) {
-		var res = this.asset.m_transform.Navigate("Spawns." + p_path);
-		console.log("Dungeon> Finding Spawn [" + p_path + "][" + Std.string(res != null) + "]");
-		if(res == null) return new haxor_math_Vector3(0,0,0);
-		var p = new haxor_math_Vector3(0,0,0);
-		p = res.get_WorldMatrix().Transform3x4(p);
-		return p;
-	}
-	,__class__: examples_dungeon_Dungeon
-});
-var examples_dungeon_DungeonDoor = function(p_name) {
-	haxor_component_Behaviour.call(this,p_name);
-};
-$hxClasses["examples.dungeon.DungeonDoor"] = examples_dungeon_DungeonDoor;
-examples_dungeon_DungeonDoor.__name__ = ["examples","dungeon","DungeonDoor"];
-examples_dungeon_DungeonDoor.__super__ = haxor_component_Behaviour;
-examples_dungeon_DungeonDoor.prototype = $extend(haxor_component_Behaviour.prototype,{
-	OnBuild: function() {
-		haxor_component_Behaviour.prototype.OnBuild.call(this);
-		this.locked = false;
-		this.open = false;
-	}
-	,OnStart: function() {
-		var _g = this;
-		this.m_entity.m_transform.Traverse(function(it,d) {
-			var n = it.get_name().toLowerCase();
-			if(n.indexOf("left") >= 0) {
-				if(_g.m_left == null) _g.m_left = it;
-			}
-			if(n.indexOf("right") >= 0) {
-				if(_g.m_right == null) _g.m_right = it;
-			}
-			return true;
-		});
-		haxor_thread_Activity.Delay(haxor_math_Random.Range(2,4),$bind(this,this.Open));
-	}
-	,Open: function() {
-		if(this.locked) return;
-		this.open = true;
-		console.log("DungeonDoor> " + this.get_name() + " Open");
-		haxor_core_Tween.Add(this.m_left,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),80),1.5,0.0,haxor_math_Cubic.OutBack);
-		haxor_core_Tween.Add(this.m_right,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),-80),1.5,0.0,haxor_math_Cubic.OutBack);
-	}
-	,Close: function() {
-		console.log("DungeonDoor> " + this.get_name() + " Close");
-		this.open = false;
-		haxor_core_Tween.Add(this.m_left,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),0),1.5,0.0,haxor_math_Cubic.Out);
-		haxor_core_Tween.Add(this.m_right,"localRotation",haxor_math_Quaternion.FromAxisAngle(new haxor_math_Vector3(0,1,0),0),1.5,0.0,haxor_math_Cubic.Out);
-	}
-	,__class__: examples_dungeon_DungeonDoor
-});
-var examples_dungeon_GameController = function(p_name) {
-	haxor_component_Behaviour.call(this,p_name);
-};
-$hxClasses["examples.dungeon.GameController"] = examples_dungeon_GameController;
-examples_dungeon_GameController.__name__ = ["examples","dungeon","GameController"];
-examples_dungeon_GameController.__super__ = haxor_component_Behaviour;
-examples_dungeon_GameController.prototype = $extend(haxor_component_Behaviour.prototype,{
-	Initialize: function() {
-		haxor_core_Console.Log("GameController> Initialize");
-		this.app = this.get_application();
-		haxor_physics_Physics.gravity = new haxor_math_Vector3(0,-980,0);
-		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Default,examples_dungeon_GameLayer.Default,true);
-		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Default,examples_dungeon_GameLayer.Player,true);
-		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Player,examples_dungeon_GameLayer.CameraArea,true);
-		haxor_physics_Physics.SetInteraction(examples_dungeon_GameLayer.Player,examples_dungeon_GameLayer.Door,true);
-		haxor_component_light_Light.ambient = haxor_math_Color.FromBytes(130,140,160);
-		this.dungeon = new haxor_core_Entity().AddComponent(examples_dungeon_Dungeon);
-		this.dungeon.set_name("dungeon");
-		this.player = new haxor_core_Entity().AddComponent(examples_dungeon_Knight);
-		this.player.set_name("player");
-		this.orbit = haxor_component_CameraOrbit.Create(700,-135,45);
-		this.orbit.m_entity.m_transform.set_localPosition(new haxor_math_Vector3(0,9,26));
-		this.orbit.smooth = 5;
-		this.orbit.get_camera().background = haxor_math_Color.FromBytes(10,0,40);
-		this.orbit.get_camera().set_near(100.0);
-		this.orbit.get_camera().set_far(2000);
-		this.orbit.get_camera().set_fov(40);
-		this.orbit.target = this.player.m_entity.m_transform;
-		this.orbit.follow = true;
-		var orbit_input = this.orbit.m_entity.AddComponent(haxor_component_CameraOrbitInput);
-		orbit_input.zoomSpeed = 35;
-		haxor_graphics_Fog.color = haxor_math_Color.FromBytes(10,0,40);
-		haxor_graphics_Fog.exp = 1.5;
-		haxor_graphics_Fog.end = 0.6;
-	}
-	,OnDungeonLoaded: function() {
-		console.log("GameController> Dungeon Loaded");
-		var p = this.dungeon.GetSpawnPosition("Player_Start_001");
-		p.y += 10.0;
-		console.log("\tSpawn Point [" + p.ToString() + "]");
-		if(this.player != null) this.player.m_entity.m_transform.set_localPosition(p);
-		this.orbit.get_pivot().set_localPosition(p);
-	}
-	,OnTriggerEnter: function(p_entity,p_collider) {
-		console.log("GameController> TriggerEnter [" + p_entity.get_name() + "][" + p_collider.get_name() + "]");
-		var _g = p_entity.m_layer;
-		switch(_g) {
-		case examples_dungeon_GameLayer.Door:
-			if(p_collider.get_layer() == examples_dungeon_GameLayer.Player) console.log("GameController> Door Trigger Enter");
-			break;
-		case examples_dungeon_GameLayer.Player:
-			break;
-		default:
-		}
-	}
-	,OnTriggerExit: function(p_entity,p_collider) {
-		console.log("GameController> TriggerExit [" + p_entity.get_name() + "][" + p_collider.get_name() + "]");
-		var _g = p_entity.m_layer;
-		switch(_g) {
-		case examples_dungeon_GameLayer.Door:
-			if(p_collider.get_layer() == examples_dungeon_GameLayer.Player) console.log("GameController> Door Trigger Exit");
-			break;
-		default:
-		}
-	}
-	,__class__: examples_dungeon_GameController
-});
-var examples_dungeon_GameLayer = function() { };
-$hxClasses["examples.dungeon.GameLayer"] = examples_dungeon_GameLayer;
-examples_dungeon_GameLayer.__name__ = ["examples","dungeon","GameLayer"];
-var haxor_core_IUpdateable = function() { };
-$hxClasses["haxor.core.IUpdateable"] = haxor_core_IUpdateable;
-haxor_core_IUpdateable.__name__ = ["haxor","core","IUpdateable"];
-haxor_core_IUpdateable.prototype = {
-	__class__: haxor_core_IUpdateable
-};
-var examples_dungeon_Player = function(p_name) {
-	this.path_enabled = false;
-	this.lerp_dir = new haxor_math_Vector3(0,0,0);
-	this.m_path_current = 0;
-	haxor_component_Behaviour.call(this,p_name);
-};
-$hxClasses["examples.dungeon.Player"] = examples_dungeon_Player;
-examples_dungeon_Player.__name__ = ["examples","dungeon","Player"];
-examples_dungeon_Player.__interfaces__ = [haxor_core_IUpdateable];
-examples_dungeon_Player.__super__ = haxor_component_Behaviour;
-examples_dungeon_Player.prototype = $extend(haxor_component_Behaviour.prototype,{
-	get_state: function() {
-		return this.m_state;
-	}
-	,set_state: function(v) {
-		if(this.m_state != v) this.OnStateChange(this.m_state,v);
-		this.m_state = v;
-		return v;
-	}
-	,OnStart: function() {
-		var f = haxor_core_Asset.Get(this.character);
-		this.asset = f.get_asset();
-		this.asset.m_transform.set_localScale(new haxor_math_Vector3(400,400,400));
-		this.asset.m_transform.set_parent(this.m_entity.m_transform);
-		this.speed = examples_dungeon_Player.TOP_SPEED;
-		this.m_velocity = new haxor_math_Vector3(0,0,0);
-		this.m_is_attack = false;
-		var rl = this.asset.GetComponentsInChildren(haxor_component_MeshRenderer);
-		var _g1 = 0;
-		var _g = rl.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			var mr = rl[i];
-			var mat_id = mr.m_material.get_name();
-			mat_id = StringTools.replace(mat_id,"DiffuseSkin","ToonSkin");
-			var mat = haxor_core_Asset.Get(mat_id);
-			if(mat == null) console.log("Player> Material [" + mat_id + "] is null!");
-			var tex = haxor_core_Asset.Get(this.character + "/diffuse");
-			var new_mat_id = mat_id + "_" + this.character;
-			if(haxor_core_Asset.Get(new_mat_id) != null) mat = haxor_core_Asset.Get(new_mat_id); else {
-				this.m_falloff_mat = mat = haxor_core_Asset.Instantiate(mat);
-				mat.set_name(new_mat_id);
-				mat.lighting = false;
-				mat.set_shader(haxor_graphics_material_Shader.get_FlatTextureSkin());
-				mat.SetTexture("DiffuseTexture",tex);
-				mat.SetFloat("Falloff",1.5);
-				mat.SetFloat("FalloffIntensity",1.0);
-				tex = haxor_core_Asset.Get("player/ramp");
-				mat.SetTexture("RampTexture",tex);
-				haxor_core_Asset.Add(new_mat_id,mat);
-			}
-			mr.set_material(mat);
-			mat = haxor_core_Asset.Get("PlayerHilight");
-			if(mat == null) {
-				mat = new haxor_graphics_material_Material();
-				mat.set_shader(haxor_core_Asset.Get("haxor/unlit/FlatSkin"));
-				mat.set_name("PlayerHilight");
-				mat.queue = 995;
-				mat.ztest = false;
-				mat.zwrite = false;
-				mat.SetColor("Tint",haxor_math_Color.FromBytes(45,90,125));
-				haxor_core_Asset.Add("PlayerHilight",mat);
-			}
-			var skr = mr;
-			var nskr = mr.m_entity.AddComponent(haxor_component_SkinnedMeshRenderer);
-			nskr.set_mesh(skr.m_mesh);
-			nskr.set_joints(skr.m_joints);
-			nskr.set_material(mat);
-		}
-		var sc = this.m_entity.AddComponent(haxor_component_physics_SphereCollider);
-		sc.set_radius(80);
-		sc.set_center(new haxor_math_Vector3(0,40,0));
-		this.m_entity.AddComponent(haxor_component_physics_RigidBody);
-		this.m_entity.set_layer(examples_dungeon_GameLayer.Player);
-		this.m_clips = new haxe_ds_StringMap();
-		this.m_state = "";
-		this.m_shadow = new haxor_core_Entity().get_transform();
-		this.m_shadow.set_name("shadow");
-		this.m_shadow.set_parent(this.m_entity.m_transform);
-		this.m_shadow.set_localScale(new haxor_math_Vector3(110,0,110));
-		this.m_shadow.set_localPosition(new haxor_math_Vector3(0,5,0));
-		this.m_shadow.m_entity.AddComponent(examples_dungeon_BlobShadow);
-		var app = this.get_application();
-		if(app.os.toLowerCase().indexOf("arm") < 0) {
-		}
-	}
-	,SplitClip: function(p_name,p_start,p_end,p_lib,p_loop,p_speed) {
-		if(p_speed == null) p_speed = 1.0;
-		if(p_loop == null) p_loop = true;
-		var c = p_lib.Split(p_start,p_end);
-		if(p_loop) c.wrap = haxor_core_AnimationWrap.Loop; else c.wrap = haxor_core_AnimationWrap.Clamp;
-		c.speed = p_speed;
-		this.m_clips.set(p_name,c);
-		this.asset.get_animation().Add(c);
-	}
-	,LoadClip: function(p_id,p_name,p_loop,p_speed) {
-		if(p_speed == null) p_speed = 1.0;
-		if(p_loop == null) p_loop = true;
-		var cf;
-		cf = haxor_core_Asset.Get(p_id);
-		cf.AddAnimations(this.asset);
-		var cid = this.asset.get_animation().clips.length - 1;
-		var c = this.asset.get_animation().clips[cid];
-		c.set_name(p_name);
-		if(p_loop) c.wrap = haxor_core_AnimationWrap.Loop; else c.wrap = haxor_core_AnimationWrap.Clamp;
-		c.speed = p_speed;
-		this.m_clips.set(p_name,c);
-		return c;
-	}
-	,PlayClip: function(p_name,p_fade) {
-		if(p_fade == null) p_fade = 0.0;
-		var c = this.m_clips.get(p_name);
-		if(c == null) return;
-		this.asset.get_animation().Stop();
-		this.asset.get_animation().Fade(c,0.0,p_fade);
-	}
-	,GetClip: function(p_name) {
-		return this.m_clips.get(p_name);
-	}
-	,Stop: function() {
-		this.m_velocity.Set();
-	}
-	,Move: function(p_direction) {
-		this.m_velocity.Set(p_direction.x,p_direction.y,p_direction.z);
-	}
-	,OnStateChange: function(p_from,p_to) {
-		switch(p_to) {
-		case "idle_attack":
-			this.PlayClip("idle_attack");
-			break;
-		case "idle":
-			haxor_thread_Activity.Delay(1.5,function() {
-			});
-			this.PlayClip("idle",2);
-			break;
-		case "attack01":
-			this.get_rigidbody().set_velocity(new haxor_math_Vector3(0,0,0));
-			this.PlayClip("attack01",2);
-			break;
-		case "attack02":
-			this.get_rigidbody().set_velocity(new haxor_math_Vector3(0,0,0));
-			this.PlayClip("attack02");
-			break;
-		case "run":
-			this.PlayClip("run",0.5);
-			break;
-		}
-	}
-	,OnFSM: function() {
-		var s = this.m_state;
-		switch(s) {
-		case "idle_attack":
-			if(this.m_velocity.get_length() > 0) s = "run";
-			break;
-		case "idle":
-			if(this.m_velocity.get_length() > 0) s = "run";
-			break;
-		case "attack01":
-			if(!this.m_is_attack) s = "idle";
-			break;
-		case "attack02":
-			break;
-		case "run":
-			var nv = this.m_velocity.get_clone();
-			nv.y = 0.0;
-			var spd = this.speed;
-			nv.Scale(spd);
-			var v = this.get_rigidbody().get_velocity();
-			var vy = v.y;
-			v = haxor_math_Vector3.Lerp(v,nv,haxor_core_Time.m_delta * 20);
-			v.y = vy;
-			this.get_rigidbody().set_velocity(v);
-			if(Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z) < 0.1) {
-				this.get_rigidbody().set_velocity(new haxor_math_Vector3(0,0,0));
-				s = "idle";
-			}
-			v.y = 0.0;
-			this.m_entity.m_transform.set_localRotation(haxor_math_Quaternion.LookRotation(v.Invert(),new haxor_math_Vector3(0,1,0)));
-			break;
-		default:
-			s = "idle";
-		}
-		return s;
-	}
-	,UpdateKeyboardInput: function() {
-		if(haxor_input_Input.Pressed(haxor_input_KeyCode.ControlKey)) return;
-		var app = this.get_application();
-		var c = app.game.orbit;
-		var dir = new haxor_math_Vector3(0,0,0);
-		var fv = c.get_pivot().get_transform().get_forward();
-		var rv = c.get_pivot().get_transform().get_right();
-		this.m_is_attack = false;
-		var is_joystick = false;
-		if(haxor_input_Joystick.available) {
-			if(haxor_input_Input.get_joystick().length > 0) {
-				var js = haxor_input_Input.get_joystick()[0];
-				this.m_animation_speed = haxor_math_Mathf.Clamp01(js.analogLeft.get_length() * 1.1);
-				this.m_animation_speed = 0.3 + 0.89999999999999991 * this.m_animation_speed;
-				this.GetClip("run").speed = this.m_animation_speed;
-				this.speed = examples_dungeon_Player.TOP_SPEED * this.m_animation_speed;
-				dir.Add(fv.Scale(js.analogLeft.y));
-				dir.Add(rv.Scale(js.analogLeft.x));
-				dir.y = 0;
-				if(js.Pressed(haxor_input_KeyCode.Face1)) {
-					this.Stop();
-					this.set_state("attack01");
-					this.m_is_attack = true;
-					is_joystick = true;
-				}
-				if(Math.sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z) > 0) is_joystick = true;
-			}
-		}
-		if(!is_joystick) {
-			if(Math.sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z) <= 2) {
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Down)) {
-					dir.Add(fv.Invert());
-					this.m_animation_speed = 1.0;
-				}
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Up)) {
-					dir.Add(fv);
-					this.m_animation_speed = 1.0;
-				}
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Right)) {
-					dir.Add(rv);
-					this.m_animation_speed = 1.0;
-				}
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Left)) {
-					dir.Add(rv.Invert());
-					this.m_animation_speed = 1.0;
-				}
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.C)) {
-					this.Stop();
-					this.set_state("attack01");
-					this.m_is_attack = true;
-				}
-				dir.y = 0;
-				dir.Normalize();
-				if(haxor_input_Input.Pressed(haxor_input_KeyCode.Z)) {
-					this.GetClip("run").speed = 1.3;
-					this.speed = examples_dungeon_Player.TOP_SPEED * 1.3;
-				} else if(this.speed > 150) {
-					this.GetClip("run").speed = 1;
-					this.speed = examples_dungeon_Player.TOP_SPEED;
-				}
-			}
-		}
-		if(Math.sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z) <= 0.5) this.Stop(); else this.Move(dir);
-	}
-	,OnUpdate: function() {
-		this.UpdateKeyboardInput();
-		var app = this.get_application();
-		if(this.path_enabled) {
-			var pt = app.path[this.m_path_current];
-			var dir = haxor_context_EngineContext.data.get_v3().Set3(pt).Sub(this.m_entity.m_transform.get_localPosition());
-			dir.y = 0;
-			dir.Normalize();
-			this.lerp_dir.Set3(haxor_math_Vector3.Lerp(this.lerp_dir,dir,haxor_core_Time.m_delta * 3.0,haxor_context_EngineContext.data.get_v3()));
-			this.Move(this.lerp_dir);
-			var d = haxor_math_Vector3.Distance(pt,this.m_entity.m_transform.get_localPosition());
-			if(d < 50.0) this.m_path_current = (this.m_path_current + 1) % app.path.length;
-		}
-		this.set_state(this.OnFSM());
-	}
-	,__class__: examples_dungeon_Player
-	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{set_state:"set_state",get_state:"get_state"})
-});
-var examples_dungeon_Knight = function(p_name) {
-	examples_dungeon_Player.call(this,p_name);
-};
-$hxClasses["examples.dungeon.Knight"] = examples_dungeon_Knight;
-examples_dungeon_Knight.__name__ = ["examples","dungeon","Knight"];
-examples_dungeon_Knight.__super__ = examples_dungeon_Player;
-examples_dungeon_Knight.prototype = $extend(examples_dungeon_Player.prototype,{
-	OnStart: function() {
-		var _g = this;
-		this.character = "knight";
-		examples_dungeon_Player.prototype.OnStart.call(this);
-		this.LoadClip("player/animation/all/idle01","idle");
-		this.LoadClip("player/animation/all/walk","walk");
-		this.LoadClip("player/animation/all/run","run");
-		this.LoadClip("player/animation/kp/attack01","attack01");
-		this.LoadClip("player/animation/kp/attack02","attack02");
-		this.LoadClip("player/animation/kp/idle01","idle_attack");
-		this.LoadClip("player/animation/kp/die01","die");
-		this.LoadClip("player/animation/kp/hit01","hit");
-		this.PlayClip("idle");
-		var c;
-		c = this.GetClip("run");
-		if(this.m_dust_particle != null) c.AddEvent(9,function(e) {
-			_g.m_dust_particle.Emit(2.0);
-		});
-		if(this.m_dust_particle != null) c.AddEvent(17,function(e1) {
-			_g.m_dust_particle.Emit(2.0);
-		});
-	}
-	,__class__: examples_dungeon_Knight
-});
 var haxor_core_BaseApplication = function(p_name) {
 	haxor_component_Behaviour.call(this,p_name);
 };
@@ -1429,21 +715,23 @@ haxor_core_IRenderable.__name__ = ["haxor","core","IRenderable"];
 haxor_core_IRenderable.prototype = {
 	__class__: haxor_core_IRenderable
 };
-var examples_dungeon_Main = function() {
-	this.charcount = 0;
-	this.cursor = new haxor_math_Vector3(0,0,0);
-	this.queue = 3;
-	this.load_big_dungeon = true;
+var haxor_core_IUpdateable = function() { };
+$hxClasses["haxor.core.IUpdateable"] = haxor_core_IUpdateable;
+haxor_core_IUpdateable.__name__ = ["haxor","core","IUpdateable"];
+haxor_core_IUpdateable.prototype = {
+	__class__: haxor_core_IUpdateable
+};
+var examples_ubershader_Main = function() {
 	haxor_core_Application.call(this);
 };
-$hxClasses["examples.dungeon.Main"] = examples_dungeon_Main;
-examples_dungeon_Main.__name__ = ["examples","dungeon","Main"];
-examples_dungeon_Main.__interfaces__ = [haxor_core_IRenderable,haxor_core_IUpdateable];
-examples_dungeon_Main.main = function() {
+$hxClasses["examples.ubershader.Main"] = examples_ubershader_Main;
+examples_ubershader_Main.__name__ = ["examples","ubershader","Main"];
+examples_ubershader_Main.__interfaces__ = [haxor_core_IRenderable,haxor_core_IUpdateable];
+examples_ubershader_Main.main = function() {
 	haxor_platform_html_Entry.Initialize();
 };
-examples_dungeon_Main.__super__ = haxor_core_Application;
-examples_dungeon_Main.prototype = $extend(haxor_core_Application.prototype,{
+examples_ubershader_Main.__super__ = haxor_core_Application;
+examples_ubershader_Main.prototype = $extend(haxor_core_Application.prototype,{
 	OnBuild: function() {
 		haxor_core_Application.prototype.OnBuild.call(this);
 	}
@@ -1452,458 +740,35 @@ examples_dungeon_Main.prototype = $extend(haxor_core_Application.prototype,{
 	}
 	,Initialize: function() {
 		var _g = this;
-		this.os = "";
-		this.os = window.navigator.platform;
-		haxor_core_Console.Log("Initialize [" + this.os + "]");
-		this.loader = new examples_utils_LoaderHTML();
-		this.field = window.document.getElementById("field");
-		this.ui = new Stats();
-		this.ui.domElement.style.position = "absolute";
-		this.ui.domElement.style.top = "0px";
-		window.document.body.appendChild(this.ui.domElement);
+		haxor_core_Console.Log("Initialize");
+		this.loader.SetProgress(1.0);
+		this.loader.Complete();
+		this.stats = new Stats();
+		this.stats.domElement.style.position = "absolute";
+		this.stats.domElement.style.top = "0px";
+		window.document.body.appendChild(this.stats.domElement);
 		haxor_thread_Activity.Run(function(t) {
-			_g.ui.update();
+			_g.stats.update();
 			return true;
 		});
-		this.debug = true;
-		this.game = new haxor_core_Entity("game").AddComponent(examples_dungeon_GameController);
-		this.game.Initialize();
-		this.skm0 = haxor_graphics_material_Material.Transparent(haxor_core_Asset.Get("human/diffuse"),null,null,null);
-		this.skm0.set_shader(haxor_graphics_material_Shader.get_FlatTextureSkin());
-		var _g1 = 0;
-		while(_g1 < 0) {
-			var i = _g1++;
-			this.Add();
-		}
-		var e = new haxor_core_Entity("sphere");
-		e.m_transform.set_parent(this.game.player.m_entity.m_transform);
-		e.m_transform.set_localScale(new haxor_math_Vector3(50,50,50));
-		var mr = e.AddComponent(haxor_component_MeshRenderer);
-		mr.set_mesh(haxor_graphics_mesh_Model.get_sphere());
-		mr.set_material(haxor_graphics_material_Material.Opaque(null,null,null));
-		mr.m_material.lighting = true;
-		mr.m_material.set_shader(new haxor_graphics_material_shader_FlexShader("000",1086465));
-		console.log(mr.m_material.m_shader);
-		mr.m_material.SetTexture("RampTexture",haxor_core_Asset.Get("player/ramp"));
-		mr.m_material.SetFloat("Shininess",10.0);
-		mr.m_material.SetFloat3("UVSpeed",0.05,0.02,0.0);
-		mr.m_material.SetTexture("DiffuseTexture",haxor_graphics_texture_Texture2D.get_random());
-	}
-	,Add: function() {
-		console.log("Added");
-		var cf;
-		cf = haxor_core_Asset.Get("human");
-		var e = cf.get_asset();
-		e.set_name("human");
-		e.m_transform.set_localScale(new haxor_math_Vector3(100.0,100.0,100.0));
-		e.m_transform.set_localPosition(new haxor_math_Vector3(haxor_math_Random.Range(-500,500),0.0,haxor_math_Random.Range(-500,500)));
-		var mr = e.GetComponentsInChildren(haxor_component_SkinnedMeshRenderer);
-		if(this.charcount == 0) {
-			var sm = mr[0].m_mesh;
-			sm.set_uv0(sm.get_uv1());
-			sm.set_uv1([]);
-		}
-		mr[0].set_name("human");
-		mr[0].set_material(this.skm0);
-		e.get_animation().clips[0].wrap = haxor_core_AnimationWrap.Loop;
-		e.get_animation().Play(e.get_animation().clips[0]);
-		this.charcount++;
+		var tc = new haxor_graphics_texture_TextureCube();
+		tc.LoadCrossTexture(haxor_core_Asset.Get("skybox/nvlobby"));
 	}
 	,OnUpdate: function() {
-		if(this.game == null) return;
-		var log = "";
-		log += "Stats";
-		log += "\nSAP: " + Std.string(haxor_component_Camera.SAPCulling);
-		log += "\nVisible: " + haxor_core_RenderStats.visible;
-		log += "\nCulled: " + haxor_core_RenderStats.culled;
-		log += "\nActive: " + haxor_core_RenderStats.get_total();
-		log += "\nRenderers: " + haxor_core_RenderStats.renderers;
-		log += "\nTris: " + haxor_core_RenderStats.triangles;
-		log += "\nCharacters: " + this.charcount;
-		var coi = this.game.orbit.m_entity.GetComponent(haxor_component_CameraOrbitInput);
-		if(haxor_input_Input.Down(haxor_input_KeyCode.P)) coi.set_enabled(!coi.get_enabled());
-		if(haxor_input_Input.Down(haxor_input_KeyCode.D1)) {
-			this.debug = !this.debug;
-			if(!this.debug) this.field.innerText = "";
-			if(this.debug) this.ui.domElement.style.display = "block"; else this.ui.domElement.style.display = "none";
-		}
-		if(haxor_input_Input.Down(haxor_input_KeyCode.O)) this.Add();
-		if(haxor_input_Input.get_touches().length >= 3) {
-			if(haxor_input_Input.get_touches()[2].get_down()) this.Add();
-		}
-		var dbg = coi.get_enabled() && this.debug;
-		var p = this.game.orbit.get_pivot().get_localPosition();
-		var vz = this.game.orbit.get_pivot().get_forward();
-		var vx = this.game.orbit.get_pivot().get_right();
-		vz.y = 0;
-		vz.Normalize();
-		vx.y = 0;
-		vx.Normalize();
-		if(dbg) {
-			if(haxor_input_Input.Down(haxor_input_KeyCode.Q)) haxor_component_Camera.SAPCulling = !haxor_component_Camera.SAPCulling;
-			if(haxor_input_Input.Down(haxor_input_KeyCode.D2)) haxor_core_Debug.transform = !haxor_core_Debug.transform;
-			if(haxor_input_Input.Down(haxor_input_KeyCode.D3)) haxor_core_Debug.collider = !haxor_core_Debug.collider;
-			if(haxor_input_Input.Down(haxor_input_KeyCode.D4)) haxor_core_Debug.light = !haxor_core_Debug.light;
-			if(haxor_input_Input.Down(haxor_input_KeyCode.D5)) haxor_core_Debug.renderer = !haxor_core_Debug.renderer;
-			if(haxor_input_Input.Pressed(haxor_input_KeyCode.W)) p.Add(vz.Scale(haxor_core_Time.m_delta * 500.0));
-			if(haxor_input_Input.Pressed(haxor_input_KeyCode.S)) p.Sub(vz.Scale(haxor_core_Time.m_delta * 500.0));
-			if(haxor_input_Input.Pressed(haxor_input_KeyCode.A)) p.Sub(vx.Scale(haxor_core_Time.m_delta * 500.0));
-			if(haxor_input_Input.Pressed(haxor_input_KeyCode.D)) p.Add(vx.Scale(haxor_core_Time.m_delta * 500.0));
-			this.game.orbit.get_pivot().set_localPosition(p);
-			if(haxor_input_Input.get_touches().length >= 2) {
-				if(haxor_input_Input.get_touches()[0].get_down() || haxor_input_Input.get_touches()[1].get_down()) this.game.player.path_enabled = !this.game.player.path_enabled;
-			}
-			if(haxor_input_Input.Down(haxor_input_KeyCode.Enter)) this.game.player.path_enabled = !this.game.player.path_enabled;
-		}
-		if(this.path == null) this.path = [new haxor_math_Vector3(323.8,0,72.74),new haxor_math_Vector3(299.72,0,-224.01),new haxor_math_Vector3(198,0,-433.37),new haxor_math_Vector3(7.04,0,-560.07),new haxor_math_Vector3(-316.19,0,-311.91),new haxor_math_Vector3(-419.82,0,-158.65),new haxor_math_Vector3(-135.42,0,-62.95),new haxor_math_Vector3(531.08,0,-302.58),new haxor_math_Vector3(602.21,0,-209.92),new haxor_math_Vector3(462.61,0,126.38),new haxor_math_Vector3(255.05,0,222.19),new haxor_math_Vector3(-27.75,0,481.21),new haxor_math_Vector3(273.31,0,601.23),new haxor_math_Vector3(492.09,0,581.36),new haxor_math_Vector3(608.63,0,474.62),new haxor_math_Vector3(597.1,0,66.89),new haxor_math_Vector3(427.59,0,53.27)];
-		if(dbg) {
-		}
 	}
 	,OnRender: function() {
-		if(haxor_core_Debug.transform) {
-			haxor_graphics_Gizmo.Grid(8000.0,new haxor_math_Color(1,1,1,0.1));
-			haxor_graphics_Gizmo.Axis(haxor_context_EngineContext.data.get_v3().Set(),haxor_context_EngineContext.data.get_v3().Set(2,2,2),null,null);
-		}
 	}
 	,Load: function() {
 		haxor_net_Web.root = "http://www.haxor.xyz/resources/";
-		this.load_big_dungeon = window.location.hash.toLowerCase().indexOf("big") >= 0;
-		haxor_core_Asset.LoadTexture2D("player/ramp","./texture/misc/ramp00.jpg");
-		haxor_core_Asset.LoadCollada("knight","./character/medieval/knight/asset.dae");
-		haxor_core_Asset.LoadTexture2D("knight/diffuse","./character/medieval/knight/DiffuseTexture.png");
-		haxor_core_Asset.LoadCollada("skeleton","./character/skeleton/grunt/model.DAE");
-		haxor_core_Asset.LoadCollada("skeleton/idle","./character/skeleton/grunt/animation_idle01.DAE");
-		haxor_core_Asset.LoadTexture2D("skeleton/diffuse","./character/skeleton/grunt/DiffuseTexture.png");
-		haxor_core_Asset.LoadCollada("human","assets/human/asset.dae");
-		haxor_core_Asset.LoadTexture2D("human/diffuse","assets/human/DiffuseTexture.jpg");
-		haxor_core_Asset.LoadCollada("player/animation/all/idle01","./character/medieval/animations/all_idle01.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/all/run","./character/medieval/animations/all_run.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/all/walk","./character/medieval/animations/all_walk.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/kp/idle01","./character/medieval/animations/kp_idle01.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/kp/die01","./character/medieval/animations/kp_die01.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/kp/hit01","./character/medieval/animations/kp_hit01.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/kp/attack01","./character/medieval/animations/kp_attack01.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/kp/attack02","./character/medieval/animations/kp_attack02.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/m/idle01","./character/medieval/animations/m_idle01.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/m/attack01","./character/medieval/animations/m_attack01.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/m/attack02","./character/medieval/animations/m_attack02.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/m/die01","./character/medieval/animations/m_die01.DAE");
-		haxor_core_Asset.LoadCollada("player/animation/m/hit01","./character/medieval/animations/m_hit01.DAE");
-		haxor_core_Asset.LoadTexture2D("BlobShadow","./texture/misc/shadow_blob.jpg");
-		haxor_core_Asset.LoadTexture2D("ParticleColor","./texture/particle/particle_ramp_color.jpg");
-		haxor_core_Asset.LoadTexture2D("Dust","./texture/particle/sheet/dust_alpha.png");
-		haxor_core_Asset.LoadTexture2D("DustColor","./texture/particle/sheet/dust_ramp_color.png");
-		haxor_core_Asset.LoadTexture2D("Fire","./texture/particle/sheet/cartoon_fire_alpha.png");
-		haxor_core_Asset.LoadTexture2D("FireColor","./texture/particle/sheet/cartoon_fire_ramp_color.png");
-		if(!this.load_big_dungeon) {
-			var dt = "small1";
-			haxor_core_Asset.LoadCollada("dungeon","./projects/dungeon/" + dt + "/asset.dae");
-			haxor_core_Asset.LoadTexture2D("DungeonTile01","./projects/dungeon/" + dt + "/DungeonTile01.jpg");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas01","./projects/dungeon/" + dt + "/DungeonAtlas01.jpg");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas02","./projects/dungeon/" + dt + "/DungeonAtlas02.jpg");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas03","./projects/dungeon/" + dt + "/DungeonAtlas03.jpg");
-			haxor_core_Asset.LoadTexture2D("Lightmap01","./projects/dungeon/" + dt + "/Lightmap01.png");
-			haxor_core_Asset.LoadTexture2D("Lightmap02","./projects/dungeon/" + dt + "/Lightmap02.png");
-			haxor_core_Asset.LoadTexture2D("Lightmap03","./projects/dungeon/" + dt + "/Lightmap03.png");
-		}
-		if(this.load_big_dungeon) {
-			if(this.get_protocol() == haxor_core_ApplicationProtocol.File) haxor_core_Asset.LoadCollada("dungeon","big.dae"); else haxor_core_Asset.LoadCollada("dungeon","./projects/dungeon/big/asset.dae");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas01","./projects/dungeon/big/DungeonAtlas01.jpg");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas02","./projects/dungeon/big/DungeonAtlas02.png");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas03","./projects/dungeon/big/DungeonAtlas03.png");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas04","./projects/dungeon/big/DungeonAtlas04.jpg");
-			haxor_core_Asset.LoadTexture2D("DungeonAtlas05","./projects/dungeon/big/DungeonAtlas05.jpg");
-			haxor_core_Asset.LoadTexture2D("DungeonTile01","./projects/dungeon/big/DungeonTile01.jpg");
-			haxor_core_Asset.LoadTexture2D("DungeonTile02","./projects/dungeon/big/DungeonTile02.jpg");
-		}
-		haxor_core_Asset.LoadShader("haxor/unlit/FlatTexture","./shader/unlit/FlatTexture.shader");
-		haxor_core_Asset.LoadShader("haxor/unlit/FlatTextureSkin","./shader/unlit/FlatTextureSkin.shader");
-		haxor_core_Asset.LoadShader("haxor/unlit/FlatSkin","./shader/unlit/FlatSkin.shader");
-		haxor_core_Asset.LoadShader("haxor/unlit/Flat","./shader/unlit/Flat.shader");
-		haxor_core_Asset.LoadShader("haxor/lightmap/FlatTexture","./shader/lightmap/FlatTexture.shader");
-		haxor_core_Asset.LoadShader("haxor/unlit/Particle","./shader/unlit/Particle.shader");
-		haxor_core_Asset.LoadShader("haxor/diffuse/Flat","./shader/diffuse/Flat.shader");
-		haxor_core_Asset.LoadShader("haxor/diffuse/Diffuse","./shader/diffuse/Diffuse.shader");
-		haxor_core_Asset.LoadShader("haxor/diffuse/DiffuseSkin","./shader/diffuse/DiffuseSkin.shader");
-		haxor_core_Asset.LoadShader("haxor/diffuse/ToonSkin","./shader/diffuse/ToonSkin.shader");
-		haxor_core_Asset.LoadShader("haxor/diffuse/ToonSkinFalloff","./shader/diffuse/ToonSkinFalloff.shader");
-		haxor_core_Asset.LoadShader("haxor/screen/Displacement","./shader/screen/Displacement.shader");
-		haxor_core_Asset.LoadShader("haxor/kernel/ParticleKernel","./shader/kernel/ParticleKernel.shader");
-		haxor_core_Asset.LoadMaterial("haxor/material/opaque/unlit/Flat","./material/opaque/unlit/Flat.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/opaque/unlit/FlatTexture","./material/opaque/unlit/FlatTexture.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/opaque/unlit/FlatTextureSkin","./material/opaque/unlit/FlatTextureSkin.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/opaque/lightmap/FlatTexture","./material/opaque/lightmap/FlatTexture.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/opaque/diffuse/DiffuseSkin","./material/opaque/diffuse/DiffuseSkin.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/opaque/diffuse/ToonSkin","./material/opaque/diffuse/ToonSkin.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/transparent/unlit/Flat","./material/transparent/unlit/Flat.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/transparent/unlit/FlatTexture","./material/transparent/unlit/FlatTexture.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/transparent/unlit/FlatTextureSkin","./material/transparent/unlit/FlatTextureSkin.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/transparent/unlit/ParticleAdditive","./material/transparent/unlit/ParticleAdditive.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/transparent/unlit/ParticleAlpha","./material/transparent/unlit/ParticleAlpha.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/opaque/diffuse/Diffuse","./material/opaque/diffuse/Diffuse.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/opaque/diffuse/Flat","./material/opaque/diffuse/Flat.mat");
-		haxor_core_Asset.LoadMaterial("haxor/material/screen/Displacement","./material/screen/Displacement.mat");
+		haxor_core_Asset.LoadTexture2D("skybox/nvlobby","./texture/skybox/cross/nvlobby.jpg");
 		return false;
 	}
 	,OnLoadProgress: function(p_id,p_progress) {
 		this.loader.SetProgress(haxor_core_Asset.get_progress());
 	}
 	,OnLoadComplete: function(p_id,p_asset) {
-		if(haxor_core_Asset.get_progress() >= 1.0) this.loader.Complete();
 	}
-	,__class__: examples_dungeon_Main
-});
-var haxor_component_ParticleRenderer = function(p_name) {
-	haxor_component_MeshRenderer.call(this,p_name);
-};
-$hxClasses["haxor.component.ParticleRenderer"] = haxor_component_ParticleRenderer;
-haxor_component_ParticleRenderer.__name__ = ["haxor","component","ParticleRenderer"];
-haxor_component_ParticleRenderer.__interfaces__ = [haxor_core_IUpdateable];
-haxor_component_ParticleRenderer.__super__ = haxor_component_MeshRenderer;
-haxor_component_ParticleRenderer.prototype = $extend(haxor_component_MeshRenderer.prototype,{
-	get_emitted: function() {
-		return this.m_emitted_count;
-	}
-	,get_playing: function() {
-		return this.m_playing;
-	}
-	,get_bounds: function() {
-		return this.m_mesh.get_bounds();
-	}
-	,set_bounds: function(v) {
-		this.m_mesh.set_bounds(v);
-		return v;
-	}
-	,get_count: function() {
-		return this.m_count;
-	}
-	,set_count: function(v) {
-		this.m_count = v;
-		this.Reset();
-		this.UpdateMesh();
-		return v;
-	}
-	,OnBuild: function() {
-		haxor_component_MeshRenderer.prototype.OnBuild.call(this);
-		this.m_state = haxor_component_ParticleSystemState.Reset;
-		this.m_kernel = new haxor_thread_ParticleKernel(this);
-		this.elapsed = 0.0;
-		this.m_playing = false;
-		this.m_emitted_count = 0.0;
-		this.m_emitted_start = 0.0;
-		this.set_count(10);
-		this.duration = 1.0;
-		this.emitter = new haxor_component_SphereEmitter(1.0);
-		this.sheet = new haxor_component_ParticleSheet();
-		this.local = true;
-		this.loop = true;
-		this.billboard = true;
-		this.start = new haxor_component_ParticleStart();
-		this.life = new haxor_component_ParticleLife();
-		this.rate = new haxor_component_ParticleAttribute(1.0,1.0);
-		this.force = new haxor_math_Vector3();
-	}
-	,Emit: function(p_emit_count) {
-		if(p_emit_count == null) p_emit_count = 1.0;
-		var remain = this.get_count() - this.get_emitted();
-		var c = Math.min(p_emit_count,remain);
-		var d = p_emit_count - c;
-		if(this.loop) this.m_emitted_start += d;
-		this.m_emitted_count += c;
-		this.m_playing = true;
-	}
-	,Play: function() {
-		this.m_playing = true;
-	}
-	,Pause: function() {
-		this.m_playing = false;
-	}
-	,Reset: function() {
-		this.elapsed = 0.0;
-		this.m_emitted_count = 0.0;
-		this.m_emitted_start = 0.0;
-	}
-	,Stop: function() {
-		this.elapsed = 0.0;
-		this.m_emitted_count = 0.0;
-		this.m_emitted_start = 0.0;
-		this.m_state = haxor_component_ParticleSystemState.Reset;
-		this.m_playing = false;
-	}
-	,Simulate: function() {
-		var _g = this.m_state;
-		switch(_g[1]) {
-		case 0:
-			if(this.m_playing) this.m_state = haxor_component_ParticleSystemState.Update;
-			break;
-		case 1:
-			if(this.m_playing) this.m_state = haxor_component_ParticleSystemState.Update; else this.m_state = haxor_component_ParticleSystemState.None;
-			break;
-		case 2:
-			if(!this.m_playing) {
-				this.m_state = haxor_component_ParticleSystemState.None;
-				return;
-			}
-			var max_life = Math.max(this.start.life.start,this.start.life.end);
-			if(this.elapsed >= this.duration + max_life) {
-				if(!this.loop) return;
-			}
-			var dt = haxor_core_Time.m_delta;
-			var r = haxor_math_Mathf.Clamp01(this.duration <= 0.0?0.0:this.elapsed / this.duration);
-			this.elapsed += dt;
-			if(this.elapsed >= this.duration + max_life) this.elapsed = this.duration + max_life;
-			var er = dt * haxor_math_Mathf.Lerp(this.rate.start,this.rate.end,this.rate.random?Math.random():Math.pow(r,this.rate.curve));
-			this.Emit(er);
-			break;
-		}
-	}
-	,OnUpdate: function() {
-		this.Simulate();
-	}
-	,UpdateMesh: function() {
-		if(this.m_particles != null) haxor_core_Resource.Destroy(this.m_particles);
-		this.m_particles = new haxor_graphics_mesh_Mesh3();
-		this.m_particles.set_name("ParticleMesh" + this.get_uid());
-		this.m_particles.set_bounds(haxor_math_AABB3.FromCenter(0,0,0,1,1,1));
-		this.set_mesh(this.m_particles);
-		var vl = [];
-		var s = 0.5;
-		var plane = [new haxor_math_Vector3(-s,s,0),new haxor_math_Vector3(-s,-s,0),new haxor_math_Vector3(s,-s,0),new haxor_math_Vector3(-s,s,0),new haxor_math_Vector3(s,-s,0),new haxor_math_Vector3(s,s,0)];
-		var _g1 = 0;
-		var _g = this.get_count();
-		while(_g1 < _g) {
-			var i = _g1++;
-			var _g3 = 0;
-			var _g2 = plane.length;
-			while(_g3 < _g2) {
-				var j = _g3++;
-				var v = plane[j].get_clone();
-				v.z = i;
-				vl.push(v);
-			}
-		}
-		this.m_particles.set_vertex(vl);
-	}
-	,__class__: haxor_component_ParticleRenderer
-	,__properties__: $extend(haxor_component_MeshRenderer.prototype.__properties__,{set_count:"set_count",get_count:"get_count",set_bounds:"set_bounds",get_bounds:"get_bounds",get_playing:"get_playing",get_emitted:"get_emitted"})
-});
-var examples_dungeon_ParticleRunning = function(p_name) {
-	haxor_component_ParticleRenderer.call(this,p_name);
-};
-$hxClasses["examples.dungeon.ParticleRunning"] = examples_dungeon_ParticleRunning;
-examples_dungeon_ParticleRunning.__name__ = ["examples","dungeon","ParticleRunning"];
-examples_dungeon_ParticleRunning.__super__ = haxor_component_ParticleRenderer;
-examples_dungeon_ParticleRunning.prototype = $extend(haxor_component_ParticleRenderer.prototype,{
-	OnBuild: function() {
-		haxor_component_ParticleRenderer.prototype.OnBuild.call(this);
-		this.set_name("ParticleRunning");
-		var mat = haxor_core_Asset.Get("ParticleRunningMaterial");
-		if(mat == null) {
-			mat = haxor_core_Asset.Instantiate(haxor_core_Asset.Get("haxor/material/transparent/unlit/ParticleAlpha"));
-			mat.set_name("ParticleRunningMaterial");
-			var tex = haxor_core_Asset.Get("Dust");
-			mat.set_shader(haxor_graphics_material_Shader.m_flat_particle_shader == null?haxor_graphics_material_Shader.m_flat_particle_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_particle_source):haxor_graphics_material_Shader.m_flat_particle_shader);
-			mat.SetTexture("Texture",tex);
-			mat.zwrite = false;
-			haxor_core_Asset.Add("ParticleRunningMaterial",mat);
-		}
-		this.set_material(mat);
-		var tint_color = this.life.color = new haxor_graphics_texture_Texture2D(1,1,haxor_core_PixelFormat.RGBA8);
-		var pix = haxor_math_Color.FromBytes(70,100,145);
-		tint_color.m_data.SetPixel(0,0,pix);
-		tint_color.Apply();
-		var emt = this.emitter = new haxor_component_BoxEmitter(45.0,1.0,30.0);
-		emt.ranges = [0,0,0,1000,0,0];
-		this.set_count(30);
-		this.loop = true;
-		this.local = false;
-		this.rate.start = this.rate.end = 0.0;
-		this.sheet.frame.start = 0;
-		this.sheet.frame.end = 0;
-		this.sheet.frame.random = true;
-		this.sheet.length = 10;
-		this.sheet.fps = 15;
-		this.sheet.width = 51.2;
-		this.sheet.height = 64.0;
-		this.start.life.start = 1.0;
-		this.start.life.end = 1.0;
-		this.start.life.random = true;
-		this.start.speed.start = 3.0;
-		this.start.speed.end = 8.0;
-		this.start.speed.random = true;
-		var ps = 40.0;
-		this.life.size.start = new haxor_math_Vector3(1,1,1).Scale(ps);
-		this.life.size.end = new haxor_math_Vector3(1,1,1).Scale(ps);
-		this.m_mesh.set_bounds(haxor_math_AABB3.FromCenter(0,0,0,30,30,30));
-	}
-	,__class__: examples_dungeon_ParticleRunning
-});
-var examples_dungeon_ParticleTorch = function(p_name) {
-	haxor_component_ParticleRenderer.call(this,p_name);
-};
-$hxClasses["examples.dungeon.ParticleTorch"] = examples_dungeon_ParticleTorch;
-examples_dungeon_ParticleTorch.__name__ = ["examples","dungeon","ParticleTorch"];
-examples_dungeon_ParticleTorch.__super__ = haxor_component_ParticleRenderer;
-examples_dungeon_ParticleTorch.prototype = $extend(haxor_component_ParticleRenderer.prototype,{
-	get_strength: function() {
-		return this.m_strength;
-	}
-	,set_strength: function(v) {
-		if(v <= 0.0) this.m_strength = 0.0; else if(v >= 1.0) this.m_strength = 1.0; else this.m_strength = v;
-		this.start.life.start = 2.0 + this.m_strength;
-		this.start.life.end = 3.0 + 2. * this.m_strength;
-		return this.m_strength;
-	}
-	,OnBuild: function() {
-		haxor_component_ParticleRenderer.prototype.OnBuild.call(this);
-		this.set_name("ParticleTorch");
-		var mat_id = "ParticleTorchMaterial";
-		var mat = haxor_core_Asset.Get(mat_id);
-		var tex = haxor_core_Asset.Get("Fire");
-		mat = haxor_core_Asset.Instantiate(haxor_core_Asset.Get("haxor/material/transparent/unlit/ParticleAdditive"));
-		mat.set_shader(haxor_graphics_material_Shader.m_flat_particle_shader == null?haxor_graphics_material_Shader.m_flat_particle_shader = new haxor_graphics_material_Shader(haxor_context_ShaderContext.flat_particle_source):haxor_graphics_material_Shader.m_flat_particle_shader);
-		mat.set_name(mat_id);
-		mat.SetTexture("Texture",tex);
-		mat.zwrite = false;
-		this.set_material(mat);
-		var emt = this.emitter = new haxor_component_SphereEmitter(10.0);
-		this.set_count(64);
-		this.loop = true;
-		this.local = false;
-		this.rate.start = this.rate.end = 20.0;
-		this.sheet.length = 4;
-		this.sheet.fps = 8;
-		this.sheet.width = tex.m_width / 2.0;
-		this.sheet.height = tex.m_height / 2.0;
-		this.sheet.wrap = haxor_core_AnimationWrap.Loop;
-		this.start.life.start = 2;
-		this.start.life.end = 10;
-		this.start.life.random = true;
-		this.start.speed.start = 1.0;
-		this.start.speed.end = 2.0;
-		this.start.speed.random = true;
-		var ps = 10.0;
-		this.start.size.start = new haxor_math_Vector3(1,1,1).Scale(ps);
-		this.start.size.end = new haxor_math_Vector3(1,1,1).Scale(ps * 2.0);
-		this.force = new haxor_math_Vector3(0,1,0);
-		this.life.color = haxor_core_Asset.Get("FireColor");
-		this.wind = 0.0;
-		this.life.size.start = new haxor_math_Vector3(1,1,1).Scale(2.0);
-		this.life.size.end = new haxor_math_Vector3(1,1,1).Scale(0.0);
-		this.life.speed.start = 3.0;
-		this.life.speed.end = 8.0;
-		this.life.speed.random = true;
-		this.m_mesh.set_bounds(haxor_math_AABB3.FromCenter(0,0,0,30,30,30));
-		this.Play();
-	}
-	,OnUpdate: function() {
-		haxor_component_ParticleRenderer.prototype.OnUpdate.call(this);
-		var s = Math.sin(haxor_core_Time.m_elapsed * 0.1);
-		var c = Math.cos((haxor_core_Time.m_elapsed + 0.5) * 0.2);
-		this.force.Set(s * c,this.force.y,0.0);
-	}
-	,__class__: examples_dungeon_ParticleTorch
-	,__properties__: $extend(haxor_component_ParticleRenderer.prototype.__properties__,{set_strength:"set_strength",get_strength:"get_strength"})
+	,__class__: examples_ubershader_Main
 });
 var examples_utils_LoaderHTML = function() {
 	this.m_container = window.document.getElementById("loader");
@@ -2156,26 +1021,12 @@ haxe_ds_ObjectMap.prototype = {
 		this.h[id] = value;
 		this.h.__keys__[id] = key;
 	}
-	,get: function(key) {
-		return this.h[key.__id__];
-	}
-	,exists: function(key) {
-		return this.h.__keys__[key.__id__] != null;
-	}
 	,keys: function() {
 		var a = [];
 		for( var key in this.h.__keys__ ) {
 		if(this.h.hasOwnProperty(key)) a.push(this.h.__keys__[key]);
 		}
 		return HxOverrides.iter(a);
-	}
-	,iterator: function() {
-		return { ref : this.h, it : this.keys(), hasNext : function() {
-			return this.it.hasNext();
-		}, next : function() {
-			var i = this.it.next();
-			return this.ref[i.__id__];
-		}};
 	}
 	,__class__: haxe_ds_ObjectMap
 };
@@ -2229,12 +1080,15 @@ haxe_io_Eof.prototype = {
 };
 var haxe_io_Error = { __ename__ : true, __constructs__ : ["Blocked","Overflow","OutsideBounds","Custom"] };
 haxe_io_Error.Blocked = ["Blocked",0];
+haxe_io_Error.Blocked.toString = $estr;
 haxe_io_Error.Blocked.__enum__ = haxe_io_Error;
 haxe_io_Error.Overflow = ["Overflow",1];
+haxe_io_Error.Overflow.toString = $estr;
 haxe_io_Error.Overflow.__enum__ = haxe_io_Error;
 haxe_io_Error.OutsideBounds = ["OutsideBounds",2];
+haxe_io_Error.OutsideBounds.toString = $estr;
 haxe_io_Error.OutsideBounds.__enum__ = haxe_io_Error;
-haxe_io_Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe_io_Error; return $x; };
+haxe_io_Error.Custom = function(e) { var $x = ["Custom",3,e]; $x.__enum__ = haxe_io_Error; $x.toString = $estr; return $x; };
 var haxe_xml_Parser = function() { };
 $hxClasses["haxe.xml.Parser"] = haxe_xml_Parser;
 haxe_xml_Parser.__name__ = ["haxe","xml","Parser"];
@@ -2892,205 +1746,157 @@ haxor_component_DataComponent.__super__ = haxor_component_Component;
 haxor_component_DataComponent.prototype = $extend(haxor_component_Component.prototype,{
 	__class__: haxor_component_DataComponent
 });
-var haxor_component_ParticleAttribute = function(p_start,p_end,p_curve,p_random) {
-	if(p_random == null) p_random = false;
-	if(p_curve == null) p_curve = 1.0;
-	this.start = p_start;
-	this.end = p_end;
-	this.curve = p_curve;
-	this.random = p_random;
+var haxor_component_Renderer = function(p_name) {
+	this.m_has_mesh = false;
+	haxor_component_Behaviour.call(this,p_name);
 };
-$hxClasses["haxor.component.ParticleAttribute"] = haxor_component_ParticleAttribute;
-haxor_component_ParticleAttribute.__name__ = ["haxor","component","ParticleAttribute"];
-haxor_component_ParticleAttribute.prototype = {
-	__class__: haxor_component_ParticleAttribute
-};
-var haxor_component_ParticleStart = function() {
-	this.life = new haxor_component_ParticleAttribute(1.0,1.0);
-	this.speed = new haxor_component_ParticleAttribute(1.0,1.0);
-	this.size = new haxor_component_ParticleAttribute(new haxor_math_Vector3(1,1,1),new haxor_math_Vector3(1,1,1));
-	this.rotation = new haxor_component_ParticleAttribute(new haxor_math_Vector3(0,0,0),new haxor_math_Vector3(0,0,0));
-	this.color = haxor_graphics_texture_Texture2D.get_white();
-};
-$hxClasses["haxor.component.ParticleStart"] = haxor_component_ParticleStart;
-haxor_component_ParticleStart.__name__ = ["haxor","component","ParticleStart"];
-haxor_component_ParticleStart.prototype = {
-	__class__: haxor_component_ParticleStart
-};
-var haxor_component_ParticleLife = function() {
-	this.speed = new haxor_component_ParticleAttribute(1.0,1.0);
-	this.motion = new haxor_component_ParticleAttribute(new haxor_math_Vector3(1,1,1),new haxor_math_Vector3(1,1,1));
-	this.size = new haxor_component_ParticleAttribute(new haxor_math_Vector3(1,1,1),new haxor_math_Vector3(1,1,1));
-	this.rotation = new haxor_component_ParticleAttribute(new haxor_math_Vector3(0,0,0),new haxor_math_Vector3(0,0,0));
-	this.color = haxor_graphics_texture_Texture2D.get_white();
-};
-$hxClasses["haxor.component.ParticleLife"] = haxor_component_ParticleLife;
-haxor_component_ParticleLife.__name__ = ["haxor","component","ParticleLife"];
-haxor_component_ParticleLife.prototype = {
-	__class__: haxor_component_ParticleLife
-};
-var haxor_component_ParticleSheet = function() {
-	this.width = 0.0;
-	this.height = 0.0;
-	this.length = 0;
-	this.fps = 60.0;
-	this.frame = new haxor_component_ParticleAttribute(0.0,0.0);
-	this.wrap = haxor_core_AnimationWrap.Clamp;
-	this.reverse = false;
-};
-$hxClasses["haxor.component.ParticleSheet"] = haxor_component_ParticleSheet;
-haxor_component_ParticleSheet.__name__ = ["haxor","component","ParticleSheet"];
-haxor_component_ParticleSheet.prototype = {
-	__class__: haxor_component_ParticleSheet
-};
-var haxor_component_ParticleSystemState = { __ename__ : true, __constructs__ : ["None","Reset","Update"] };
-haxor_component_ParticleSystemState.None = ["None",0];
-haxor_component_ParticleSystemState.None.__enum__ = haxor_component_ParticleSystemState;
-haxor_component_ParticleSystemState.Reset = ["Reset",1];
-haxor_component_ParticleSystemState.Reset.__enum__ = haxor_component_ParticleSystemState;
-haxor_component_ParticleSystemState.Update = ["Update",2];
-haxor_component_ParticleSystemState.Update.__enum__ = haxor_component_ParticleSystemState;
-var haxor_component_ParticleEmitter = function() {
-	this.m_data = [0,0,0,0,0,0,0];
-	this.set_surface(false);
-	this.set_random(false);
-	this.ranges = [-1000,1000,-1000,1000,-1000,1000];
-};
-$hxClasses["haxor.component.ParticleEmitter"] = haxor_component_ParticleEmitter;
-haxor_component_ParticleEmitter.__name__ = ["haxor","component","ParticleEmitter"];
-haxor_component_ParticleEmitter.prototype = {
-	get_surface: function() {
-		return this.m_data[1] > 0.0;
+$hxClasses["haxor.component.Renderer"] = haxor_component_Renderer;
+haxor_component_Renderer.__name__ = ["haxor","component","Renderer"];
+haxor_component_Renderer.__super__ = haxor_component_Behaviour;
+haxor_component_Renderer.prototype = $extend(haxor_component_Behaviour.prototype,{
+	get_material: function() {
+		return this.m_material;
 	}
-	,set_surface: function(v) {
-		if(v) this.m_data[1] = 1.0; else this.m_data[1] = 0.0;
+	,set_material: function(v) {
+		if(this.m_material == v) return v;
+		this.m_material = v;
+		if(v == null) this.m_last_queue = -1; else this.m_last_queue = v.queue;
+		haxor_context_EngineContext.renderer.OnMaterialChange(this);
 		return v;
 	}
-	,get_random: function() {
-		return this.m_data[2] > 0.0;
+	,get_visible: function() {
+		return this.m_visible && !this.m_culled;
 	}
-	,set_random: function(v) {
-		if(v) this.m_data[2] = 1.0; else this.m_data[2] = 0.0;
+	,set_visible: function(v) {
+		this.m_visible = v;
 		return v;
 	}
-	,__class__: haxor_component_ParticleEmitter
-	,__properties__: {set_random:"set_random",get_random:"get_random",set_surface:"set_surface",get_surface:"get_surface"}
-};
-var haxor_component_SphereEmitter = function(p_radius) {
-	if(p_radius == null) p_radius = 1.0;
-	haxor_component_ParticleEmitter.call(this);
-	this.m_data[0] = 0.0;
-	this.set_radius(p_radius);
-};
-$hxClasses["haxor.component.SphereEmitter"] = haxor_component_SphereEmitter;
-haxor_component_SphereEmitter.__name__ = ["haxor","component","SphereEmitter"];
-haxor_component_SphereEmitter.__super__ = haxor_component_ParticleEmitter;
-haxor_component_SphereEmitter.prototype = $extend(haxor_component_ParticleEmitter.prototype,{
-	get_radius: function() {
-		return this.m_data[3];
+	,OnBuild: function() {
+		haxor_component_Behaviour.prototype.OnBuild.call(this);
+		this.m_last_queue = -1;
+		this.m_visible = true;
+		this.m_culled = false;
+		haxor_context_EngineContext.renderer.Create(this);
 	}
-	,set_radius: function(v) {
-		this.m_data[3] = v;
-		return v;
+	,OnRender: function() {
+		if(this.m_material != null) {
+			if(this.m_last_queue != this.m_material.queue) {
+				this.m_last_queue = this.m_material.queue;
+				haxor_context_EngineContext.renderer.OnMaterialChange(this);
+			}
+		}
 	}
-	,__class__: haxor_component_SphereEmitter
-	,__properties__: $extend(haxor_component_ParticleEmitter.prototype.__properties__,{set_radius:"set_radius",get_radius:"get_radius"})
+	,UpdateCulling: function() {
+		var v0 = this.m_culled;
+		var v1 = this.CheckCulling();
+		this.m_culled = v1;
+		if(v0 != v1) haxor_context_EngineContext.renderer.OnVisibilityChange(this,!v1);
+	}
+	,CheckCulling: function() {
+		return false;
+	}
+	,OnDestroy: function() {
+		haxor_context_EngineContext.renderer.Destroy(this);
+	}
+	,__class__: haxor_component_Renderer
+	,__properties__: $extend(haxor_component_Behaviour.prototype.__properties__,{get_visible:"get_visible",set_material:"set_material",get_material:"get_material"})
 });
-var haxor_component_BoxEmitter = function(p_width,p_height,p_depth) {
-	if(p_depth == null) p_depth = 1.0;
-	if(p_height == null) p_height = 1.0;
-	if(p_width == null) p_width = 1.0;
-	haxor_component_ParticleEmitter.call(this);
-	this.m_data[0] = 1.0;
-	this.set_width(p_width);
-	this.set_height(p_height);
-	this.set_depth(p_depth);
+var haxor_component_MeshRenderer = function(p_name) {
+	haxor_component_Renderer.call(this,p_name);
 };
-$hxClasses["haxor.component.BoxEmitter"] = haxor_component_BoxEmitter;
-haxor_component_BoxEmitter.__name__ = ["haxor","component","BoxEmitter"];
-haxor_component_BoxEmitter.__super__ = haxor_component_ParticleEmitter;
-haxor_component_BoxEmitter.prototype = $extend(haxor_component_ParticleEmitter.prototype,{
-	get_width: function() {
-		return this.m_data[3];
+$hxClasses["haxor.component.MeshRenderer"] = haxor_component_MeshRenderer;
+haxor_component_MeshRenderer.__name__ = ["haxor","component","MeshRenderer"];
+haxor_component_MeshRenderer.__super__ = haxor_component_Renderer;
+haxor_component_MeshRenderer.prototype = $extend(haxor_component_Renderer.prototype,{
+	get_mesh: function() {
+		return this.m_mesh;
 	}
-	,set_width: function(v) {
-		this.m_data[3] = v;
+	,set_mesh: function(v) {
+		if(this.m_mesh == v) return v;
+		this.m_mesh = v;
+		this.UpdateWorldBounds();
 		return v;
 	}
-	,get_height: function() {
-		return this.m_data[4];
+	,OnBuild: function() {
+		this.m_has_mesh = true;
+		haxor_component_Renderer.prototype.OnBuild.call(this);
+		this.m_ws_center = new haxor_math_Vector3(0,0,0);
+		this.m_ws_radius = new haxor_math_Vector3(0,0,0);
+		this.m_culling_dirty = false;
+		this.m_aabb = haxor_math_AABB3.get_empty();
 	}
-	,set_height: function(v) {
-		this.m_data[4] = v;
-		return v;
+	,IsVisible: function(p_camera) {
+		var c = p_camera;
+		if(c == null) return false;
+		if(this.m_mesh == null) return false;
+		var ps_center = c.WorldToProjection(haxor_context_EngineContext.data.get_v3().Set3(this.m_ws_center),haxor_context_EngineContext.data.get_v4());
+		var w = ps_center.w;
+		var p = ps_center;
+		if(w <= 0.0) return false;
+		if(p.x >= -w) {
+			if(p.x <= w) {
+				if(p.y >= -w) {
+					if(p.y <= w) {
+						if(p.z >= -w) {
+							if(p.z <= w) return true;
+						}
+					}
+				}
+			}
+		}
+		var v = c.WorldToProjection(haxor_context_EngineContext.data.get_v3().Set3(this.m_ws_radius),haxor_context_EngineContext.data.get_v4());
+		var r = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
+		if(p.x + r >= -w) {
+			if(p.x - r <= w) {
+				if(p.y + r >= -w) {
+					if(p.y - r <= w) {
+						if(p.z + r >= -w) {
+							if(p.z - r <= w) return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
-	,get_depth: function() {
-		return this.m_data[5];
+	,CheckCulling: function() {
+		var c = haxor_component_Camera.m_current;
+		if(c == null) return this.m_culled;
+		if(!c.m_view_uniform_dirty) {
+			if(!c.m_proj_uniform_dirty) {
+				if(!this.m_culling_dirty) return this.m_culled;
+			}
+		}
+		this.UpdateWorldBounds();
+		return !this.IsVisible(c);
 	}
-	,set_depth: function(v) {
-		this.m_data[5] = v;
-		return v;
+	,OnTransformUpdate: function(p_hierarchy) {
+		this.m_culling_dirty = true;
 	}
-	,__class__: haxor_component_BoxEmitter
-	,__properties__: $extend(haxor_component_ParticleEmitter.prototype.__properties__,{set_depth:"set_depth",get_depth:"get_depth",set_height:"set_height",get_height:"get_height",set_width:"set_width",get_width:"get_width"})
-});
-var haxor_component_ConeEmitter = function(p_angle,p_height) {
-	if(p_height == null) p_height = 1.0;
-	if(p_angle == null) p_angle = 45.0;
-	haxor_component_ParticleEmitter.call(this);
-	this.m_data[0] = 2.0;
-	this.set_angle(p_angle);
-	this.set_height(p_height);
-};
-$hxClasses["haxor.component.ConeEmitter"] = haxor_component_ConeEmitter;
-haxor_component_ConeEmitter.__name__ = ["haxor","component","ConeEmitter"];
-haxor_component_ConeEmitter.__super__ = haxor_component_ParticleEmitter;
-haxor_component_ConeEmitter.prototype = $extend(haxor_component_ParticleEmitter.prototype,{
-	get_angle: function() {
-		return this.m_data[3];
+	,UpdateWorldBounds: function() {
+		if(this.m_mesh != null) {
+			haxor_math_AABB3.Center(this.m_mesh.m_bounds,this.m_ws_center);
+			this.m_entity.m_transform.get_WorldMatrix().Transform3x4(this.m_ws_center);
+			this.m_ws_radius.Set(this.m_mesh.m_bounds.get_width(),this.m_mesh.m_bounds.get_height(),this.m_mesh.m_bounds.get_depth());
+			this.m_entity.m_transform.get_WorldMatrix().Transform3x3(this.m_ws_radius);
+			var r = this.m_ws_radius.get_length() * 0.5;
+			var pmin = haxor_context_EngineContext.data.get_v3();
+			var pmax = haxor_context_EngineContext.data.get_v3();
+			pmin.Set(this.m_ws_center.x - r,this.m_ws_center.y - r,this.m_ws_center.z - r);
+			pmax.Set(this.m_ws_center.x + r,this.m_ws_center.y + r,this.m_ws_center.z + r);
+			this.m_aabb.Set3(pmin,pmax);
+			haxor_context_EngineContext.renderer.UpdateSAP(this.__fcid,this,pmin,pmax);
+			this.m_culling_dirty = false;
+		}
 	}
-	,set_angle: function(v) {
-		this.m_data[3] = v;
-		return v;
+	,OnRender: function() {
+		haxor_component_Renderer.prototype.OnRender.call(this);
+		if(this.m_mesh == null) return;
+		haxor_component_MeshRenderer.current = this;
+		haxor_graphics_Graphics.Render(this.m_mesh,this.m_material,this.m_entity.m_transform,haxor_component_Camera.m_current);
 	}
-	,get_height: function() {
-		return this.m_data[4];
-	}
-	,set_height: function(v) {
-		this.m_data[4] = v;
-		return v;
-	}
-	,__class__: haxor_component_ConeEmitter
-	,__properties__: $extend(haxor_component_ParticleEmitter.prototype.__properties__,{set_height:"set_height",get_height:"get_height",set_angle:"set_angle",get_angle:"get_angle"})
-});
-var haxor_component_CylinderEmitter = function(p_radius,p_height) {
-	if(p_height == null) p_height = 1.0;
-	if(p_radius == null) p_radius = 1.0;
-	haxor_component_ParticleEmitter.call(this);
-	this.m_data[0] = 3.0;
-	this.set_radius(p_radius);
-	this.set_height(p_height);
-};
-$hxClasses["haxor.component.CylinderEmitter"] = haxor_component_CylinderEmitter;
-haxor_component_CylinderEmitter.__name__ = ["haxor","component","CylinderEmitter"];
-haxor_component_CylinderEmitter.__super__ = haxor_component_ParticleEmitter;
-haxor_component_CylinderEmitter.prototype = $extend(haxor_component_ParticleEmitter.prototype,{
-	get_radius: function() {
-		return this.m_data[3];
-	}
-	,set_radius: function(v) {
-		this.m_data[3] = v;
-		return v;
-	}
-	,get_height: function() {
-		return this.m_data[4];
-	}
-	,set_height: function(v) {
-		this.m_data[4] = v;
-		return v;
-	}
-	,__class__: haxor_component_CylinderEmitter
-	,__properties__: $extend(haxor_component_ParticleEmitter.prototype.__properties__,{set_height:"set_height",get_height:"get_height",set_radius:"set_radius",get_radius:"get_radius"})
+	,__class__: haxor_component_MeshRenderer
+	,__properties__: $extend(haxor_component_Renderer.prototype.__properties__,{set_mesh:"set_mesh",get_mesh:"get_mesh"})
 });
 var haxor_component_SkinnedMeshRenderer = function(p_name) {
 	haxor_component_MeshRenderer.call(this,p_name);
@@ -8487,13 +7293,16 @@ haxor_context_TextureContext.prototype = {
 			var id = this.ids[p_texture.__cid];
 			var target;
 			if(p_texture.get_type() == haxor_core_TextureType.Texture2D) target = 3553; else if(p_texture.get_type() == haxor_core_TextureType.RenderTexture) target = 3553; else if(p_texture.get_type() == haxor_core_TextureType.TextureCube) target = 34067; else target = 3553;
+			console.log(target + " " + 34067);
 			haxor_graphics_GL.m_gl.BindTexture(target,id);
 			this.bound = p_texture;
 		}
 	}
 	,Unbind: function() {
-		this.bound = null;
-		haxor_graphics_GL.BindTexture(3553,haxor_graphics_GL.NULL);
+		if(this.bound != null) {
+			this.bound = null;
+			haxor_graphics_GL.BindTexture(3553,haxor_graphics_GL.NULL);
+		}
 	}
 	,BindTarget: function(rt) {
 		if(rt == null) {
@@ -8656,6 +7465,43 @@ haxor_context_TextureContext.prototype = {
 			}
 		}
 	}
+	,CrossToCubemap: function(tc,cross) {
+		var _g = this;
+		var target;
+		if(tc.get_type() == haxor_core_TextureType.Texture2D) target = 3553; else if(tc.get_type() == haxor_core_TextureType.RenderTexture) target = 3553; else if(tc.get_type() == haxor_core_TextureType.TextureCube) target = 34067; else target = 3553;
+		var chn_fmt = haxor_context_TextureContext.FormatToChannelLayout(tc.m_format);
+		var chn_bit = haxor_context_TextureContext.FormatToChannelBits(tc.m_format);
+		var chn_type = haxor_context_TextureContext.FormatToChannelType(tc.m_format);
+		var cells = [1,4,5,6,7,9];
+		var sides = [34071,34070,34073,34069,34074,34072];
+		var cw = cross.m_width / 4;
+		var ch = cross.m_height / 3;
+		var bpp = cross.m_data.m_channels * cross.m_data.get_buffer().get_bytesPerElement();
+		var line_bytes = cw * bpp;
+		var line_offset = cross.m_width * bpp;
+		haxor_thread_Activity.RunOnce(function() {
+			_g.Bind(tc);
+			var _g2 = 0;
+			var _g1 = cells.length;
+			while(_g2 < _g1) {
+				var i = _g2++;
+				var cid = cells[i];
+				var sid = sides[i];
+				var px = cid % 4 * cw;
+				var py = (cid / 4 | 0) * ch;
+				var pos = px + py * cross.m_width;
+				haxor_graphics_GL.m_gl.TexImage2DAlloc(sid,0,chn_fmt,cw,ch,0,chn_bit,chn_type);
+				var _g3 = 0;
+				while(_g3 < ch) {
+					var j = _g3++;
+					cross.m_data.get_buffer().SetViewSlice(pos * bpp,line_bytes);
+					haxor_graphics_GL.TexSubImage2D(sid,0,0,ch - 1 - j,cw,1,chn_fmt,chn_type,cross.m_data.get_buffer());
+					cross.m_data.get_buffer().ResetSlice();
+					pos += cross.m_width;
+				}
+			}
+		},false,true);
+	}
 	,UpdateMipmaps: function(p_texture) {
 		this.Bind(p_texture);
 		var target;
@@ -8802,29 +7648,41 @@ haxor_core_Asset.UpdateProgress = function(p_id,p_progress,p_asset) {
 };
 var haxor_core_Platform = { __ename__ : true, __constructs__ : ["Unknown","Windows","Linux","Android","MacOS","iOS","HTML","NodeJS"] };
 haxor_core_Platform.Unknown = ["Unknown",0];
+haxor_core_Platform.Unknown.toString = $estr;
 haxor_core_Platform.Unknown.__enum__ = haxor_core_Platform;
 haxor_core_Platform.Windows = ["Windows",1];
+haxor_core_Platform.Windows.toString = $estr;
 haxor_core_Platform.Windows.__enum__ = haxor_core_Platform;
 haxor_core_Platform.Linux = ["Linux",2];
+haxor_core_Platform.Linux.toString = $estr;
 haxor_core_Platform.Linux.__enum__ = haxor_core_Platform;
 haxor_core_Platform.Android = ["Android",3];
+haxor_core_Platform.Android.toString = $estr;
 haxor_core_Platform.Android.__enum__ = haxor_core_Platform;
 haxor_core_Platform.MacOS = ["MacOS",4];
+haxor_core_Platform.MacOS.toString = $estr;
 haxor_core_Platform.MacOS.__enum__ = haxor_core_Platform;
 haxor_core_Platform.iOS = ["iOS",5];
+haxor_core_Platform.iOS.toString = $estr;
 haxor_core_Platform.iOS.__enum__ = haxor_core_Platform;
 haxor_core_Platform.HTML = ["HTML",6];
+haxor_core_Platform.HTML.toString = $estr;
 haxor_core_Platform.HTML.__enum__ = haxor_core_Platform;
 haxor_core_Platform.NodeJS = ["NodeJS",7];
+haxor_core_Platform.NodeJS.toString = $estr;
 haxor_core_Platform.NodeJS.__enum__ = haxor_core_Platform;
 var haxor_core_ApplicationProtocol = { __ename__ : true, __constructs__ : ["None","File","HTTP","HTTPS"] };
 haxor_core_ApplicationProtocol.None = ["None",0];
+haxor_core_ApplicationProtocol.None.toString = $estr;
 haxor_core_ApplicationProtocol.None.__enum__ = haxor_core_ApplicationProtocol;
 haxor_core_ApplicationProtocol.File = ["File",1];
+haxor_core_ApplicationProtocol.File.toString = $estr;
 haxor_core_ApplicationProtocol.File.__enum__ = haxor_core_ApplicationProtocol;
 haxor_core_ApplicationProtocol.HTTP = ["HTTP",2];
+haxor_core_ApplicationProtocol.HTTP.toString = $estr;
 haxor_core_ApplicationProtocol.HTTP.__enum__ = haxor_core_ApplicationProtocol;
 haxor_core_ApplicationProtocol.HTTPS = ["HTTPS",3];
+haxor_core_ApplicationProtocol.HTTPS.toString = $estr;
 haxor_core_ApplicationProtocol.HTTPS.__enum__ = haxor_core_ApplicationProtocol;
 var haxor_core_Console = function() { };
 $hxClasses["haxor.core.Console"] = haxor_core_Console;
@@ -9055,8 +7913,10 @@ haxor_core_Debug.Light = function(l) {
 };
 var haxor_core_EngineState = { __ename__ : true, __constructs__ : ["Play","Editor"] };
 haxor_core_EngineState.Play = ["Play",0];
+haxor_core_EngineState.Play.toString = $estr;
 haxor_core_EngineState.Play.__enum__ = haxor_core_EngineState;
 haxor_core_EngineState.Editor = ["Editor",1];
+haxor_core_EngineState.Editor.toString = $estr;
 haxor_core_EngineState.Editor.__enum__ = haxor_core_EngineState;
 var haxor_core_Engine = function() { };
 $hxClasses["haxor.core.Engine"] = haxor_core_Engine;
@@ -9305,122 +8165,174 @@ $hxClasses["haxor.core.DepthTest"] = haxor_core_DepthTest;
 haxor_core_DepthTest.__name__ = ["haxor","core","DepthTest"];
 var haxor_core_CameraMode = { __ename__ : true, __constructs__ : ["Custom","Perspective","Ortho","UI"] };
 haxor_core_CameraMode.Custom = ["Custom",0];
+haxor_core_CameraMode.Custom.toString = $estr;
 haxor_core_CameraMode.Custom.__enum__ = haxor_core_CameraMode;
 haxor_core_CameraMode.Perspective = ["Perspective",1];
+haxor_core_CameraMode.Perspective.toString = $estr;
 haxor_core_CameraMode.Perspective.__enum__ = haxor_core_CameraMode;
 haxor_core_CameraMode.Ortho = ["Ortho",2];
+haxor_core_CameraMode.Ortho.toString = $estr;
 haxor_core_CameraMode.Ortho.__enum__ = haxor_core_CameraMode;
 haxor_core_CameraMode.UI = ["UI",3];
+haxor_core_CameraMode.UI.toString = $estr;
 haxor_core_CameraMode.UI.__enum__ = haxor_core_CameraMode;
 var haxor_core_PixelFormat = { __ename__ : true, __constructs__ : ["Alpha8","Luminance","RGB8","RGBA8","Half","Half3","Half4","Float","Float3","Float4","Depth","sRGB","sRGBA","sRGBA8"] };
 haxor_core_PixelFormat.Alpha8 = ["Alpha8",0];
+haxor_core_PixelFormat.Alpha8.toString = $estr;
 haxor_core_PixelFormat.Alpha8.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Luminance = ["Luminance",1];
+haxor_core_PixelFormat.Luminance.toString = $estr;
 haxor_core_PixelFormat.Luminance.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.RGB8 = ["RGB8",2];
+haxor_core_PixelFormat.RGB8.toString = $estr;
 haxor_core_PixelFormat.RGB8.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.RGBA8 = ["RGBA8",3];
+haxor_core_PixelFormat.RGBA8.toString = $estr;
 haxor_core_PixelFormat.RGBA8.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Half = ["Half",4];
+haxor_core_PixelFormat.Half.toString = $estr;
 haxor_core_PixelFormat.Half.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Half3 = ["Half3",5];
+haxor_core_PixelFormat.Half3.toString = $estr;
 haxor_core_PixelFormat.Half3.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Half4 = ["Half4",6];
+haxor_core_PixelFormat.Half4.toString = $estr;
 haxor_core_PixelFormat.Half4.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Float = ["Float",7];
+haxor_core_PixelFormat.Float.toString = $estr;
 haxor_core_PixelFormat.Float.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Float3 = ["Float3",8];
+haxor_core_PixelFormat.Float3.toString = $estr;
 haxor_core_PixelFormat.Float3.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Float4 = ["Float4",9];
+haxor_core_PixelFormat.Float4.toString = $estr;
 haxor_core_PixelFormat.Float4.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.Depth = ["Depth",10];
+haxor_core_PixelFormat.Depth.toString = $estr;
 haxor_core_PixelFormat.Depth.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.sRGB = ["sRGB",11];
+haxor_core_PixelFormat.sRGB.toString = $estr;
 haxor_core_PixelFormat.sRGB.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.sRGBA = ["sRGBA",12];
+haxor_core_PixelFormat.sRGBA.toString = $estr;
 haxor_core_PixelFormat.sRGBA.__enum__ = haxor_core_PixelFormat;
 haxor_core_PixelFormat.sRGBA8 = ["sRGBA8",13];
+haxor_core_PixelFormat.sRGBA8.toString = $estr;
 haxor_core_PixelFormat.sRGBA8.__enum__ = haxor_core_PixelFormat;
 var haxor_core_TextureFilter = { __ename__ : true, __constructs__ : ["Nearest","Linear","NearestMipmapNearest","NearestMipmapLinear","LinearMipmapNearest","LinearMipmapLinear","Trilinear"] };
 haxor_core_TextureFilter.Nearest = ["Nearest",0];
+haxor_core_TextureFilter.Nearest.toString = $estr;
 haxor_core_TextureFilter.Nearest.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.Linear = ["Linear",1];
+haxor_core_TextureFilter.Linear.toString = $estr;
 haxor_core_TextureFilter.Linear.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.NearestMipmapNearest = ["NearestMipmapNearest",2];
+haxor_core_TextureFilter.NearestMipmapNearest.toString = $estr;
 haxor_core_TextureFilter.NearestMipmapNearest.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.NearestMipmapLinear = ["NearestMipmapLinear",3];
+haxor_core_TextureFilter.NearestMipmapLinear.toString = $estr;
 haxor_core_TextureFilter.NearestMipmapLinear.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.LinearMipmapNearest = ["LinearMipmapNearest",4];
+haxor_core_TextureFilter.LinearMipmapNearest.toString = $estr;
 haxor_core_TextureFilter.LinearMipmapNearest.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.LinearMipmapLinear = ["LinearMipmapLinear",5];
+haxor_core_TextureFilter.LinearMipmapLinear.toString = $estr;
 haxor_core_TextureFilter.LinearMipmapLinear.__enum__ = haxor_core_TextureFilter;
 haxor_core_TextureFilter.Trilinear = ["Trilinear",6];
+haxor_core_TextureFilter.Trilinear.toString = $estr;
 haxor_core_TextureFilter.Trilinear.__enum__ = haxor_core_TextureFilter;
 var haxor_core_TextureWrap = function() { };
 $hxClasses["haxor.core.TextureWrap"] = haxor_core_TextureWrap;
 haxor_core_TextureWrap.__name__ = ["haxor","core","TextureWrap"];
 var haxor_core_TextureType = { __ename__ : true, __constructs__ : ["None","Texture2D","TextureCube","RenderTexture","Compute"] };
 haxor_core_TextureType.None = ["None",0];
+haxor_core_TextureType.None.toString = $estr;
 haxor_core_TextureType.None.__enum__ = haxor_core_TextureType;
 haxor_core_TextureType.Texture2D = ["Texture2D",1];
+haxor_core_TextureType.Texture2D.toString = $estr;
 haxor_core_TextureType.Texture2D.__enum__ = haxor_core_TextureType;
 haxor_core_TextureType.TextureCube = ["TextureCube",2];
+haxor_core_TextureType.TextureCube.toString = $estr;
 haxor_core_TextureType.TextureCube.__enum__ = haxor_core_TextureType;
 haxor_core_TextureType.RenderTexture = ["RenderTexture",3];
+haxor_core_TextureType.RenderTexture.toString = $estr;
 haxor_core_TextureType.RenderTexture.__enum__ = haxor_core_TextureType;
 haxor_core_TextureType.Compute = ["Compute",4];
+haxor_core_TextureType.Compute.toString = $estr;
 haxor_core_TextureType.Compute.__enum__ = haxor_core_TextureType;
 var haxor_core_ClearFlag = function() { };
 $hxClasses["haxor.core.ClearFlag"] = haxor_core_ClearFlag;
 haxor_core_ClearFlag.__name__ = ["haxor","core","ClearFlag"];
 var haxor_core_InputState = { __ename__ : true, __constructs__ : ["None","Down","Up","Hold"] };
 haxor_core_InputState.None = ["None",0];
+haxor_core_InputState.None.toString = $estr;
 haxor_core_InputState.None.__enum__ = haxor_core_InputState;
 haxor_core_InputState.Down = ["Down",1];
+haxor_core_InputState.Down.toString = $estr;
 haxor_core_InputState.Down.__enum__ = haxor_core_InputState;
 haxor_core_InputState.Up = ["Up",2];
+haxor_core_InputState.Up.toString = $estr;
 haxor_core_InputState.Up.__enum__ = haxor_core_InputState;
 haxor_core_InputState.Hold = ["Hold",3];
+haxor_core_InputState.Hold.toString = $estr;
 haxor_core_InputState.Hold.__enum__ = haxor_core_InputState;
 var haxor_core_AnimationWrap = { __ename__ : true, __constructs__ : ["Clamp","Loop","Oscilate"] };
 haxor_core_AnimationWrap.Clamp = ["Clamp",0];
+haxor_core_AnimationWrap.Clamp.toString = $estr;
 haxor_core_AnimationWrap.Clamp.__enum__ = haxor_core_AnimationWrap;
 haxor_core_AnimationWrap.Loop = ["Loop",1];
+haxor_core_AnimationWrap.Loop.toString = $estr;
 haxor_core_AnimationWrap.Loop.__enum__ = haxor_core_AnimationWrap;
 haxor_core_AnimationWrap.Oscilate = ["Oscilate",2];
+haxor_core_AnimationWrap.Oscilate.toString = $estr;
 haxor_core_AnimationWrap.Oscilate.__enum__ = haxor_core_AnimationWrap;
 var haxor_core_ColliderType = { __ename__ : true, __constructs__ : ["Point","Plane","Box","Sphere","Capsule","Mesh"] };
 haxor_core_ColliderType.Point = ["Point",0];
+haxor_core_ColliderType.Point.toString = $estr;
 haxor_core_ColliderType.Point.__enum__ = haxor_core_ColliderType;
 haxor_core_ColliderType.Plane = ["Plane",1];
+haxor_core_ColliderType.Plane.toString = $estr;
 haxor_core_ColliderType.Plane.__enum__ = haxor_core_ColliderType;
 haxor_core_ColliderType.Box = ["Box",2];
+haxor_core_ColliderType.Box.toString = $estr;
 haxor_core_ColliderType.Box.__enum__ = haxor_core_ColliderType;
 haxor_core_ColliderType.Sphere = ["Sphere",3];
+haxor_core_ColliderType.Sphere.toString = $estr;
 haxor_core_ColliderType.Sphere.__enum__ = haxor_core_ColliderType;
 haxor_core_ColliderType.Capsule = ["Capsule",4];
+haxor_core_ColliderType.Capsule.toString = $estr;
 haxor_core_ColliderType.Capsule.__enum__ = haxor_core_ColliderType;
 haxor_core_ColliderType.Mesh = ["Mesh",5];
+haxor_core_ColliderType.Mesh.toString = $estr;
 haxor_core_ColliderType.Mesh.__enum__ = haxor_core_ColliderType;
 var haxor_core_ForceMode = { __ename__ : true, __constructs__ : ["Acceleration","Force","Impulse","Velocity"] };
 haxor_core_ForceMode.Acceleration = ["Acceleration",0];
+haxor_core_ForceMode.Acceleration.toString = $estr;
 haxor_core_ForceMode.Acceleration.__enum__ = haxor_core_ForceMode;
 haxor_core_ForceMode.Force = ["Force",1];
+haxor_core_ForceMode.Force.toString = $estr;
 haxor_core_ForceMode.Force.__enum__ = haxor_core_ForceMode;
 haxor_core_ForceMode.Impulse = ["Impulse",2];
+haxor_core_ForceMode.Impulse.toString = $estr;
 haxor_core_ForceMode.Impulse.__enum__ = haxor_core_ForceMode;
 haxor_core_ForceMode.Velocity = ["Velocity",3];
+haxor_core_ForceMode.Velocity.toString = $estr;
 haxor_core_ForceMode.Velocity.__enum__ = haxor_core_ForceMode;
 var haxor_core_BoneQuality = { __ename__ : true, __constructs__ : ["Auto","Bone1","Bone2","Bone3","Bone4"] };
 haxor_core_BoneQuality.Auto = ["Auto",0];
+haxor_core_BoneQuality.Auto.toString = $estr;
 haxor_core_BoneQuality.Auto.__enum__ = haxor_core_BoneQuality;
 haxor_core_BoneQuality.Bone1 = ["Bone1",1];
+haxor_core_BoneQuality.Bone1.toString = $estr;
 haxor_core_BoneQuality.Bone1.__enum__ = haxor_core_BoneQuality;
 haxor_core_BoneQuality.Bone2 = ["Bone2",2];
+haxor_core_BoneQuality.Bone2.toString = $estr;
 haxor_core_BoneQuality.Bone2.__enum__ = haxor_core_BoneQuality;
 haxor_core_BoneQuality.Bone3 = ["Bone3",3];
+haxor_core_BoneQuality.Bone3.toString = $estr;
 haxor_core_BoneQuality.Bone3.__enum__ = haxor_core_BoneQuality;
 haxor_core_BoneQuality.Bone4 = ["Bone4",4];
+haxor_core_BoneQuality.Bone4.toString = $estr;
 haxor_core_BoneQuality.Bone4.__enum__ = haxor_core_BoneQuality;
 var haxor_core_ShaderFeature = function() { };
 $hxClasses["haxor.core.ShaderFeature"] = haxor_core_ShaderFeature;
@@ -9614,143 +8526,6 @@ haxor_core_Time.Render = function() {
 	if(haxor_core_Time.m_frame_delta > 0.1) haxor_core_Time.m_frame_delta = 0.1; else if(haxor_core_Time.m_frame_delta <= 0.0) haxor_core_Time.m_frame_delta = 0.01; else haxor_core_Time.m_frame_delta = haxor_core_Time.m_frame_delta;
 	if(haxor_core_Time.m_clock > haxor_core_Time.m_last_frame_clock) haxor_core_Time.m_last_frame_clock = haxor_core_Time.m_clock;
 };
-var haxor_core_Tween = function(p_target,p_property,p_value,p_duration,p_delay,p_easing) {
-	if(p_delay == null) p_delay = 0;
-	if(p_duration == null) p_duration = 0.3;
-	haxor_core_Resource.call(this);
-	if(haxor_core_Tween.m_table == null) haxor_core_Tween.m_table = new haxe_ds_ObjectMap();
-	this.m_target = p_target;
-	this.m_property = p_property;
-	this.m_value = p_value;
-	this.m_delay = p_delay;
-	if(this.m_delay > 0) this.m_elapsed = -this.m_delay; else this.m_elapsed = 0;
-	this.m_duration = p_duration;
-	this.m_active = false;
-	this.m_added = false;
-	if(p_easing == null) this.m_easing = function(v) {
-		return v;
-	}; else this.m_easing = p_easing;
-	if(!haxor_core_Tween.m_table.exists(this.m_target)) haxor_core_Tween.m_table.set(this.m_target,[]);
-};
-$hxClasses["haxor.core.Tween"] = haxor_core_Tween;
-haxor_core_Tween.__name__ = ["haxor","core","Tween"];
-haxor_core_Tween.__interfaces__ = [haxor_core_IUpdateable];
-haxor_core_Tween.Add = function(p_target,p_property,p_value,p_duration,p_delay,p_easing) {
-	if(p_delay == null) p_delay = 0;
-	if(p_duration == null) p_duration = 0.3;
-	var t = new haxor_core_Tween(p_target,p_property,p_value,p_duration,p_delay,p_easing);
-	t.Run();
-	return t;
-};
-haxor_core_Tween.Cancel = function(p_target,p_property) {
-	if(p_property == null) p_property = "";
-	if(!haxor_core_Tween.m_table.exists(p_target)) return;
-	var il = haxor_core_Tween.m_table.get(p_target);
-	var _g1 = 0;
-	var _g = il.length;
-	while(_g1 < _g) {
-		var i = _g1++;
-		var t = il[i];
-		if(p_property != "") {
-			if(t.m_property != p_property) continue;
-		}
-		t.Remove();
-	}
-};
-haxor_core_Tween.GetTweens = function(p_target,p_property,p_active_only) {
-	if(p_active_only == null) p_active_only = false;
-	if(p_property == null) p_property = "";
-	var l = [];
-	if(p_target == null) {
-		var it = haxor_core_Tween.m_table.iterator();
-		while(it.hasNext()) {
-			var il = it.next();
-			var _g1 = 0;
-			var _g = il.length;
-			while(_g1 < _g) {
-				var i = _g1++;
-				l.push(il[i]);
-			}
-		}
-	} else {
-		if(!haxor_core_Tween.m_table.exists(p_target)) return [];
-		var il1 = haxor_core_Tween.m_table.get(p_target);
-		var _g11 = 0;
-		var _g2 = il1.length;
-		while(_g11 < _g2) {
-			var i1 = _g11++;
-			var t = il1[i1];
-			if(p_target != null) {
-				if(t.m_target != p_target) continue;
-			}
-			if(p_property != "") {
-				if(t.m_property != p_property) continue;
-			}
-			if(p_active_only) {
-				if(t.m_elapsed < 0) continue;
-			}
-			l.push(t);
-		}
-	}
-	return l;
-};
-haxor_core_Tween.__super__ = haxor_core_Resource;
-haxor_core_Tween.prototype = $extend(haxor_core_Resource.prototype,{
-	Run: function() {
-		this.m_active = true;
-		if(!this.m_added) {
-			haxor_context_EngineContext.update.Add(this);
-			this.m_added = true;
-			haxor_core_Tween.m_table.get(this.m_target).push(this);
-		}
-	}
-	,Pause: function() {
-		this.m_active = false;
-	}
-	,Stop: function() {
-		this.m_elapsed = -this.m_delay;
-		this.m_active = false;
-	}
-	,Remove: function() {
-		if(this.m_added) {
-			haxor_context_EngineContext.update.Remove(this);
-			this.m_added = false;
-		}
-		this.m_active = false;
-		var l = haxor_core_Tween.m_table.get(this.m_target);
-		HxOverrides.remove(l,this);
-	}
-	,OnUpdate: function() {
-		if(!this.m_active) return;
-		if(this.m_elapsed <= 0) {
-			this.m_elapsed += haxor_core_Time.m_delta;
-			if(this.m_elapsed >= 0) {
-				var l = haxor_core_Tween.GetTweens(this.m_target,this.m_property,true);
-				var _g1 = 0;
-				var _g = l.length;
-				while(_g1 < _g) {
-					var i = _g1++;
-					if(l[i] != this) l[i].Remove();
-				}
-				this.m_start = Reflect.getProperty(this.m_target,this.m_property);
-			}
-			return;
-		}
-		var r = haxor_math_Mathf.Clamp01(this.m_duration <= 0?1.0:this.m_elapsed / this.m_duration);
-		this.Sample(r);
-		this.m_elapsed += haxor_core_Time.m_delta;
-		if(this.m_elapsed >= this.m_duration) {
-			this.Sample(1.0);
-			if(this.oncomplete != null) this.oncomplete();
-			this.Remove();
-		}
-	}
-	,Sample: function(p_r) {
-		p_r = this.m_easing(p_r);
-		if(typeof(this.m_value) == "number") Reflect.setProperty(this.m_target,this.m_property,haxor_math_Mathf.Lerp(this.m_start,this.m_value,p_r)); else if(js_Boot.__instanceof(this.m_value,haxor_math_Color)) Reflect.setProperty(this.m_target,this.m_property,haxor_math_Color.Lerp(this.m_start,this.m_value,p_r)); else if(js_Boot.__instanceof(this.m_value,haxor_math_Quaternion)) Reflect.setProperty(this.m_target,this.m_property,haxor_math_Quaternion.Lerp(this.m_start,this.m_value,p_r)); else if(js_Boot.__instanceof(this.m_value,Int)) Reflect.setProperty(this.m_target,this.m_property,haxor_math_Mathf.LerpInt(this.m_start,this.m_value,p_r)); else if(js_Boot.__instanceof(this.m_value,haxor_math_Vector2)) Reflect.setProperty(this.m_target,this.m_property,haxor_math_Vector2.Lerp(this.m_start,this.m_value,p_r)); else if(js_Boot.__instanceof(this.m_value,haxor_math_Vector3)) Reflect.setProperty(this.m_target,this.m_property,haxor_math_Vector3.Lerp(this.m_start,this.m_value,p_r)); else if(js_Boot.__instanceof(this.m_value,haxor_math_Vector4)) Reflect.setProperty(this.m_target,this.m_property,haxor_math_Vector4.Lerp(this.m_start,this.m_value,p_r));
-	}
-	,__class__: haxor_core_Tween
-});
 var haxor_dom_DOMEntity = function(p_element,p_name) {
 	if(p_name == null) p_name = "";
 	haxor_core_Resource.call(this,p_name);
@@ -11424,12 +10199,16 @@ haxor_graphics_Gizmo.EndPath = function() {
 };
 var haxor_graphics_GraphicAPI = { __ename__ : true, __constructs__ : ["None","OpenGL","OpenGLES","WebGL"] };
 haxor_graphics_GraphicAPI.None = ["None",0];
+haxor_graphics_GraphicAPI.None.toString = $estr;
 haxor_graphics_GraphicAPI.None.__enum__ = haxor_graphics_GraphicAPI;
 haxor_graphics_GraphicAPI.OpenGL = ["OpenGL",1];
+haxor_graphics_GraphicAPI.OpenGL.toString = $estr;
 haxor_graphics_GraphicAPI.OpenGL.__enum__ = haxor_graphics_GraphicAPI;
 haxor_graphics_GraphicAPI.OpenGLES = ["OpenGLES",2];
+haxor_graphics_GraphicAPI.OpenGLES.toString = $estr;
 haxor_graphics_GraphicAPI.OpenGLES.__enum__ = haxor_graphics_GraphicAPI;
 haxor_graphics_GraphicAPI.WebGL = ["WebGL",3];
+haxor_graphics_GraphicAPI.WebGL.toString = $estr;
 haxor_graphics_GraphicAPI.WebGL.__enum__ = haxor_graphics_GraphicAPI;
 var haxor_graphics_GraphicContext = function(p_application) {
 	this.m_api = haxor_graphics_GraphicAPI.None;
@@ -11944,10 +10723,13 @@ haxor_graphics_Screen.Initialize = function(p_application) {
 };
 var haxor_graphics_CursorMode = { __ename__ : true, __constructs__ : ["Show","Hide","Lock"] };
 haxor_graphics_CursorMode.Show = ["Show",0];
+haxor_graphics_CursorMode.Show.toString = $estr;
 haxor_graphics_CursorMode.Show.__enum__ = haxor_graphics_CursorMode;
 haxor_graphics_CursorMode.Hide = ["Hide",1];
+haxor_graphics_CursorMode.Hide.toString = $estr;
 haxor_graphics_CursorMode.Hide.__enum__ = haxor_graphics_CursorMode;
 haxor_graphics_CursorMode.Lock = ["Lock",2];
+haxor_graphics_CursorMode.Lock.toString = $estr;
 haxor_graphics_CursorMode.Lock.__enum__ = haxor_graphics_CursorMode;
 var haxor_graphics_material_Material = function(p_name) {
 	if(p_name == null) p_name = "";
@@ -12639,124 +11421,6 @@ haxor_graphics_material_UberShader.__super__ = haxor_graphics_material_Shader;
 haxor_graphics_material_UberShader.prototype = $extend(haxor_graphics_material_Shader.prototype,{
 	__class__: haxor_graphics_material_UberShader
 });
-var haxor_graphics_material_shader_TemplateShader = function(p_id,p_precision,p_compile) {
-	if(p_compile == null) p_compile = true;
-	if(p_precision == null) p_precision = 9;
-	this.m_precision = p_precision;
-	this.set_name(p_id);
-	haxor_core_Asset.Add(p_id,this);
-	haxor_graphics_material_Shader.call(this,this.Generate(),p_compile);
-};
-$hxClasses["haxor.graphics.material.shader.TemplateShader"] = haxor_graphics_material_shader_TemplateShader;
-haxor_graphics_material_shader_TemplateShader.__name__ = ["haxor","graphics","material","shader","TemplateShader"];
-haxor_graphics_material_shader_TemplateShader.__super__ = haxor_graphics_material_Shader;
-haxor_graphics_material_shader_TemplateShader.prototype = $extend(haxor_graphics_material_Shader.prototype,{
-	get_precision: function() {
-		return this.m_precision;
-	}
-	,set_precision: function(v) {
-		this.m_precision = v;
-		return v;
-	}
-	,Compile: function() {
-		var src = this.Generate();
-		this.Load(src,false);
-		haxor_graphics_material_Shader.prototype.Compile.call(this);
-	}
-	,Generate: function() {
-		var vsp = "low";
-		var fsp = "low";
-		if((this.m_precision & 2) != 0) vsp = "medium"; else if((this.m_precision & 4) != 0) vsp = "high";
-		if((this.m_precision & 16) != 0) fsp = "medium"; else if((this.m_precision & 32) != 0) fsp = "high";
-		var src = haxor_graphics_material_shader_TemplateShader.template;
-		src = StringTools.replace(src,"@ID",this.get_name());
-		src = StringTools.replace(src,"@VSP",vsp);
-		src = StringTools.replace(src,"@FSP",fsp);
-		src = StringTools.replace(src,"@VS",this.GetVS());
-		src = StringTools.replace(src,"@FS",this.GetFS());
-		return src;
-	}
-	,GetVS: function() {
-		return "";
-	}
-	,GetFS: function() {
-		return "";
-	}
-	,__class__: haxor_graphics_material_shader_TemplateShader
-	,__properties__: $extend(haxor_graphics_material_Shader.prototype.__properties__,{set_precision:"set_precision",get_precision:"get_precision"})
-});
-var haxor_graphics_material_shader_FlexShader = function(p_id,p_features,p_precision,p_compile) {
-	if(p_compile == null) p_compile = true;
-	if(p_precision == null) p_precision = 9;
-	haxor_graphics_material_shader_TemplateShader.call(this,p_id,p_precision,false);
-	this.set_features(p_features);
-	if(p_compile) this.Compile();
-};
-$hxClasses["haxor.graphics.material.shader.FlexShader"] = haxor_graphics_material_shader_FlexShader;
-haxor_graphics_material_shader_FlexShader.__name__ = ["haxor","graphics","material","shader","FlexShader"];
-haxor_graphics_material_shader_FlexShader.__super__ = haxor_graphics_material_shader_TemplateShader;
-haxor_graphics_material_shader_FlexShader.prototype = $extend(haxor_graphics_material_shader_TemplateShader.prototype,{
-	get_features: function() {
-		return this.m_features;
-	}
-	,set_features: function(v) {
-		this.m_features = v;
-		this.ClearPreprocessor();
-		if((v & 1) != 0) this.AddPreprocessor("#define","TEXTURE");
-		if((v & 2) != 0) this.AddPreprocessor("#define","TINT");
-		if((v & 4) != 0) this.AddPreprocessor("#define","VERTEX_COLOR");
-		if((v & 8) != 0) {
-			this.AddPreprocessor("#define","SKINNING");
-			this.AddPreprocessor("#define","MAX_BONES",haxor_graphics_GL.get_MAX_UNIFORM_BONES() + "");
-			if(haxor_graphics_GL.BONE_TEXTURE) this.AddPreprocessor("#define","BONE_TEXTURE");
-		}
-		if((v & 16) != 0) this.AddPreprocessor("#define","REFLECTION");
-		if((v & 32) != 0) this.AddPreprocessor("#define","REFLECTION_TEXTURE");
-		if((v & 64) != 0) {
-			this.AddPreprocessor("#define","FALLOFF_VERTEX");
-			this.AddPreprocessor("#define","FALLOFF");
-		}
-		if((v & 128) != 0) {
-			this.AddPreprocessor("#define","FALLOFF_PIXEL");
-			this.AddPreprocessor("#define","FALLOFF");
-		}
-		if((v & 256) != 0) this.AddPreprocessor("#define","BUMP");
-		if((v & 512) != 0) {
-			this.AddPreprocessor("#define","LIGHTING_VERTEX");
-			this.AddPreprocessor("#define","LIGHTING");
-		}
-		if((v & 1024) != 0) {
-			this.AddPreprocessor("#define","LIGHTING_PIXEL");
-			this.AddPreprocessor("#define","LIGHTING");
-		}
-		if((v & 4096) != 0) this.AddPreprocessor("#define","SPECULAR");
-		if((v & 8192) != 0) this.AddPreprocessor("#define","SPECULAR_TEXTURE");
-		if((v & 16384) != 0) this.AddPreprocessor("#define","LIGHTMAP");
-		if((v & 32768) != 0) {
-			this.AddPreprocessor("#define","FOG_VERTEX");
-			this.AddPreprocessor("#define","FOG");
-		}
-		if((v & 65536) != 0) {
-			this.AddPreprocessor("#define","FOG_PIXEL");
-			this.AddPreprocessor("#define","FOG");
-		}
-		if((v & 131072) != 0) this.AddPreprocessor("#define","TOON");
-		if((v & 262144) != 0) this.AddPreprocessor("#define","CUTOFF");
-		if((v & 524288) != 0) this.AddPreprocessor("#define","PARTICLE");
-		if((v & 1048576) != 0) this.AddPreprocessor("#define","UV_SCROLL");
-		if((v & 2097152) != 0) this.AddPreprocessor("#define","RANDOM");
-		if((v & 1536) != 0) this.AddPreprocessor("#define","MAX_LIGHTS",haxor_component_light_Light.max + "");
-		return v;
-	}
-	,GetVS: function() {
-		return "\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_preprocessors + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_uniforms + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.vs_uniforms + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.vs_attribs + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_varyings + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_functions + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.vs_functions + "\r\n\t\t\r\n\t\tvec4 LPos;\r\n\t\tvec4 WPos;\r\n\t\tvec4 VPos;\r\n\t\tvec4 HPos;\r\n\t\t\r\n\t\tvec3 FalloffComponent;\r\n\t\t\r\n\t\tvec3 WorldViewDir;\r\n\t\tvec3 Normal;\r\n\t\t\r\n\t\tvec3 DiffuseComponent;\r\n\t\tvec3 SpecularComponent;\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\t\r\n\t\t\tmat4 wm;\r\n\t\t\t\r\n\t\t\tLPos = vec4(vertex, 1.0);\r\n\t\t\t\r\n\t\t\t#ifdef SKINNING\r\n\t\t\twm = SkinWorldMatrix();\r\n\t\t\t#else\r\n\t\t\twm = WorldMatrix;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tWPos = LPos * wm;\r\n\t\t\tVPos = WPos * ViewMatrix;\r\n\t\t\tHPos = VPos * ProjectionMatrix;\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING\r\n\t\t\tv_wpos = WPos.xyz;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tWorldViewDir = vec3(0.0);\r\n\t\t\t\r\n\t\t\t#ifdef USE_VIEW_DIR\r\n\t\t\tWorldViewDir = v_wview = -normalize(WPos.xyz - CameraPosition);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tNormal = vec3(0.0);\r\n\t\t\t\r\n\t\t\t#ifdef USE_NORMAL\r\n\t\t\tNormal = v_normal = normal;\r\n\t\t\t#ifdef SKINNING\r\n\t\t\tNormal = v_normal = v_normal * mat3(wm);\r\n\t\t\t#else\r\n\t\t\tNormal = v_normal = v_normal * mat3(wm);\r\n\t\t\t#endif\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tv_color = vec4(1, 1, 1, 1);\t\t\t\r\n\t\t\t\r\n\t\t\t#ifdef VERTEX_COLOR\r\n\t\t\tv_color *= color;\r\n\t\t\t#endif\t\t\t\r\n\t\t\t\r\n\t\t\t#ifdef TINT\r\n\t\t\tv_color *= Tint;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef TEXTURE\r\n\t\t\tv_uv0 = uv0;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef UV_SCROLL\r\n\t\t\tv_uv0 = (v_uv0 + (UVSpeed * Time)) + UVOffset;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef USE_UV1\r\n\t\t\tv_uv1 = uv1;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING_VERTEX\t\t\t\r\n\t\t\tProcessLights(Normal, WorldViewDir, Shininess, DiffuseComponent, SpecularComponent);\t\t\t\t\t\t\r\n\t\t\tv_diffuse_component = DiffuseComponent;\t\t\t\r\n\t\t\t#ifdef SPECULAR\r\n\t\t\tv_specular_component = SpecularComponent;\r\n\t\t\t#endif\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FALLOFF_VERTEX\r\n\t\t\tFalloffComponent = v_falloff_component = Falloff(WorldViewDir, Normal, FalloffExp) * FalloffIntensity * FalloffColor.xyz;\t\t\t\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG\r\n\t\t\tv_linear_depth = LinearNF(HPos.z/HPos.w,CameraNear,CameraFar);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG_VERTEX\r\n\t\t\tv_fog_factor = FogFactor(v_linear_depth, FogExp, FogDensity, FogStart, FogEnd);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tgl_Position = HPos;\r\n\t\t}\t\t\r\n\t\t";
-	}
-	,GetFS: function() {
-		return "\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_preprocessors + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_uniforms + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.fs_uniforms + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_varyings + "\r\n\t\t\r\n\t\t" + haxor_graphics_material_shader_FlexShader.g_functions + "\r\n\t\t\r\n\t\tvec3 FalloffComponent;\r\n\t\t\r\n\t\tvec3 Normal;\t\t\r\n\t\tvec4 Fragment;\r\n\t\t\r\n\t\tvec3 DiffuseComponent;\r\n\t\tvec3 SpecularComponent;\r\n\t\t\r\n\t\tvec3 WorldViewDir;\r\n\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\t\r\n\t\t\t#ifdef USE_VIEW_DIR\r\n\t\t\tWorldViewDir = v_wview;\r\n\t\t\t#else\r\n\t\t\tWorldViewDir = vec3(0, 0, 0);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tFragment = v_color;\r\n\t\t\t\r\n\t\t\t#ifdef USE_NORMAL\r\n\t\t\tNormal = v_normal;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef BUMP\r\n\t\t\tvec4 tex_bump = (texture2D(NormalTexture, v_uv1) * 2.0) - 1.0;\r\n\t\t\tNormal += tex_bump.xyz;\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef USE_NORMAL\r\n\t\t\tNormal = normalize(Normal);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef TEXTURE\r\n\t\t\tFragment *= texture2D(DiffuseTexture, v_uv0.xy);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef CUTOFF\r\n\t\t\tif (Fragment.w <= Cutoff) discard;\r\n\t\t\t#endif\r\n\t\t\t\t\t\t\r\n\t\t\t#ifdef LIGHTMAP\r\n\t\t\tvec4 tex_lightmap  = texture2D(Lightmap, v_uv1.xy);\r\n\t\t\tFragment.xyz\t  += Fragment.xyz * (tex_lightmap.w * LightmapFactor) * tex_lightmap.xyz;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING\r\n\t\t\tFragment.xyz += Fragment.xyz * Ambient.xyz;\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING_VERTEX\r\n\t\t\tDiffuseComponent  = v_diffuse_component;\t\t\t\r\n\t\t\t#ifdef SPECULAR\r\n\t\t\tSpecularComponent = v_specular_component;\r\n\t\t\t#endif\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING_PIXEL\t\t\t\r\n\t\t\tProcessLights(Normal,WorldViewDir,Shininess,DiffuseComponent,SpecularComponent);\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef LIGHTING\r\n\t\t\tFragment.xyz += Fragment.xyz * DiffuseComponent;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef SPECULAR\r\n\t\t\tFragment.xyz += SpecularComponent;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FALLOFF_VERTEX\r\n\t\t\tFalloffComponent = v_falloff_component;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FALLOFF_PIXEL\r\n\t\t\tFalloffComponent = Falloff(WorldViewDir, Normal, FalloffExp) * FalloffIntensity * FalloffColor.xyz;\t\t\t\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FALLOFF\t\t\t\r\n\t\t\tFragment.xyz += FalloffComponent;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG_VERTEX\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tfloat FogComponent = 0.0;\r\n\t\t\t\r\n\t\t\t#ifdef FOG_VERTEX\r\n\t\t\tFogComponent = v_fog_factor;\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG_PIXEL\r\n\t\t\tFogComponent = FogFactor(v_linear_depth, FogExp, FogDensity, FogStart, FogEnd);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\t#ifdef FOG\r\n\t\t\tFragment = mix(Fragment, FogColor,FogComponent);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tgl_FragColor = Fragment;\r\n\t\t}\r\n\t\t";
-	}
-	,__class__: haxor_graphics_material_shader_FlexShader
-	,__properties__: $extend(haxor_graphics_material_shader_TemplateShader.prototype.__properties__,{set_features:"set_features",get_features:"get_features"})
-});
 var haxor_graphics_mesh_Mesh = function(p_name) {
 	if(p_name == null) p_name = "";
 	haxor_core_Resource.call(this,p_name);
@@ -13135,94 +11799,6 @@ haxor_graphics_mesh_Mesh4.__super__ = haxor_graphics_mesh_MeshLayout;
 haxor_graphics_mesh_Mesh4.prototype = $extend(haxor_graphics_mesh_MeshLayout.prototype,{
 	__class__: haxor_graphics_mesh_Mesh4
 });
-var haxor_graphics_mesh_Model = function() { };
-$hxClasses["haxor.graphics.mesh.Model"] = haxor_graphics_mesh_Model;
-haxor_graphics_mesh_Model.__name__ = ["haxor","graphics","mesh","Model"];
-haxor_graphics_mesh_Model.__properties__ = {get_sphere:"get_sphere",get_tetrahedron:"get_tetrahedron",get_cube:"get_cube",get_planeYZ:"get_planeYZ",get_planeXZ:"get_planeXZ",get_planeXY:"get_planeXY",get_screen:"get_screen"}
-haxor_graphics_mesh_Model.get_screen = function() {
-	if(haxor_graphics_mesh_Model.m_screen != null) return haxor_graphics_mesh_Model.m_screen;
-	var m = new haxor_graphics_mesh_Mesh("$ModelScreen");
-	var s = 1.0;
-	var v = haxor_io_FloatArray.Alloc([-s,-s,0.5,s,-s,0.5,s,s,0.5,-s,s,0.5]);
-	var uv = haxor_io_FloatArray.Alloc([0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0]);
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor_context_EngineContext.data.get_aabb3()));
-	m.set_topology(haxor_io_UInt16Array.Alloc([0,1,2,0,2,3]));
-	return haxor_graphics_mesh_Model.m_screen = m;
-};
-haxor_graphics_mesh_Model.get_planeXY = function() {
-	if(haxor_graphics_mesh_Model.m_planeXY != null) return haxor_graphics_mesh_Model.m_planeXY;
-	var m = new haxor_graphics_mesh_Mesh("$ModelPlaneXY");
-	var s = 0.5;
-	var v = haxor_io_FloatArray.Alloc([-s,-s,0.0,s,-s,0.0,s,s,0.0,-s,s,0.0]);
-	var uv = haxor_io_FloatArray.Alloc([0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0]);
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor_context_EngineContext.data.get_aabb3()));
-	m.set_topology(haxor_io_UInt16Array.Alloc([0,1,2,0,2,3]));
-	return haxor_graphics_mesh_Model.m_planeXY = m;
-};
-haxor_graphics_mesh_Model.get_planeXZ = function() {
-	if(haxor_graphics_mesh_Model.m_planeXZ != null) return haxor_graphics_mesh_Model.m_planeXZ;
-	var m = new haxor_graphics_mesh_Mesh("$ModelPlaneXZ");
-	var s = 0.5;
-	var v = haxor_io_FloatArray.Alloc([-s,0.0,-s,s,0.0,-s,s,0.0,s,-s,0.0,s]);
-	var uv = haxor_io_FloatArray.Alloc([0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0]);
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor_context_EngineContext.data.get_aabb3()));
-	m.set_topology(haxor_io_UInt16Array.Alloc([0,1,2,0,2,3]));
-	return haxor_graphics_mesh_Model.m_planeXZ = m;
-};
-haxor_graphics_mesh_Model.get_planeYZ = function() {
-	if(haxor_graphics_mesh_Model.m_planeYZ != null) return haxor_graphics_mesh_Model.m_planeYZ;
-	var m = new haxor_graphics_mesh_Mesh("$ModelPlaneYZ");
-	var s = 0.5;
-	var v = haxor_io_FloatArray.Alloc([0.0,-s,-s,0.0,s,-s,0.0,s,s,0.0,-s,s]);
-	var uv = haxor_io_FloatArray.Alloc([0.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0]);
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor_context_EngineContext.data.get_aabb3()));
-	m.set_topology(haxor_io_UInt16Array.Alloc([0,1,2,0,2,3]));
-	return haxor_graphics_mesh_Model.m_planeYZ = m;
-};
-haxor_graphics_mesh_Model.get_cube = function() {
-	if(haxor_graphics_mesh_Model.m_cube != null) return haxor_graphics_mesh_Model.m_cube;
-	var m = new haxor_graphics_mesh_Mesh("$ModelCube");
-	var v = haxor_io_FloatArray.FromBase64("AAAAvwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/");
-	var uv = haxor_io_FloatArray.FromBase64("AACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAAAA");
-	var n = haxor_io_FloatArray.FromBase64("AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAAAAAAAAgL8AAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAAAAAAAAgD8AAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAAAACAvwAAAAAAAAAA");
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.Set("normal",n,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor_context_EngineContext.data.get_aabb3()));
-	return haxor_graphics_mesh_Model.m_cube = m;
-};
-haxor_graphics_mesh_Model.get_tetrahedron = function() {
-	if(haxor_graphics_mesh_Model.m_tetrahedron != null) return haxor_graphics_mesh_Model.m_tetrahedron;
-	var m = new haxor_graphics_mesh_Mesh("$ModelTetrahedron");
-	var v = haxor_io_FloatArray.FromBase64("AAAAAAAAAAAAAAAAsb+cvpm/Bz8AAAAAsb8cPwAAAAAAAAAAAAAAAAAAAAAAAAAArr+cvpu/B78AAAAAsb+cvpm/Bz8AAAAAAAAAAAAAAAAAAAAAsb8cPwAAAAAAAAAArr+cvpu/B78AAAAAsb8cPwAAAAAAAAAAAAAAAAAAAACX/1A/AAAAAAAAAACX/1A/sb8cPwAAAAAAAAAAsb+cvpm/Bz8AAAAAAAAAAAAAAACX/1A/sb+cvpm/Bz8AAAAAAAAAAAAAAACX/1A/AAAAAAAAAACX/1A/sb+cvpm/Bz8AAAAArr+cvpu/B78AAAAAAAAAAAAAAACX/1A/rr+cvpu/B78AAAAAAAAAAAAAAACX/1A/AAAAAAAAAACX/1A/rr+cvpu/B78AAAAAsb8cPwAAAAAAAAAAAAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/AAAAAAAAAACX/1A/");
-	var uv = haxor_io_FloatArray.FromBase64("AAAAPwAAAAAAAAAAraqqPQAAAAAAAIA/AACAvgAAAAAAAIA/AAAAPwAAAAAAAAAAVlXVPgAAAAD+/38/raqqPQAAAAAAAIA/AAAAPwAAAAAAAAAAAABAPwAAAAAAAIA/VlXVPgAAAAD+/38/AABAPwAAAAAAAIA/AAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAACAvgAAAAAAAIA/raqqPQAAAAAAAIA/AAAAPwAAgD8AAAAAraqqPQAAAAAAAIA/AAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAraqqPQAAAAAAAIA/VlXVPgAAAAD+/38/AAAAPwAAgD8AAAAAVlXVPgAAAAD+/38/AAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAVlXVPgAAAAD+/38/AABAPwAAAAAAAIA/AAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAAAAAAPwAAgD8AAAAA");
-	var n = haxor_io_FloatArray.FromBase64("AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AAAAAAAAAAAAAIC/AACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAQrPvPiWWTz9yxrM+QrPvPiWWTz9yxrM+QrPvPiWWTz9yxrM+AACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAARbNvv4aDqbNyxrM+RbNvv4aDqbN2xrM+RLNvv4aDqbNyxrM+AACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAARbPvPiWWT792xrM+SbPvPiWWT792xrM+RbPvPiWWT792xrM+AACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAA");
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.Set("normal",n,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor_context_EngineContext.data.get_aabb3()));
-	return haxor_graphics_mesh_Model.m_tetrahedron = m;
-};
-haxor_graphics_mesh_Model.get_sphere = function() {
-	if(haxor_graphics_mesh_Model.m_sphere != null) return haxor_graphics_mesh_Model.m_sphere;
-	var m = new haxor_graphics_mesh_Mesh("$ModelSphere");
-	var v = haxor_io_FloatArray.FromBase64("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");
-	var uv = haxor_io_FloatArray.FromBase64("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");
-	var n = haxor_io_FloatArray.FromBase64("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");
-	m.Set("vertex",v,3);
-	m.Set("uv0",uv,3);
-	m.Set("normal",n,3);
-	m.set_bounds(m.GenerateAttribBounds("vertex",haxor_context_EngineContext.data.get_aabb3()));
-	return haxor_graphics_mesh_Model.m_sphere = m;
-};
 var haxor_graphics_texture_Bitmap = function(p_width,p_height,p_format) {
 	haxor_core_Resource.call(this);
 	this.m_width = p_width;
@@ -13745,22 +12321,17 @@ haxor_graphics_texture_RenderTexture.prototype = $extend(haxor_graphics_texture_
 });
 var haxor_graphics_texture_TextureCube = function() {
 	this.m_faces = [null,null,null,null,null,null];
-	this.m_is_cross = false;
 	haxor_graphics_texture_Texture.call(this);
 	haxor_context_EngineContext.texture.Create(this);
 };
 $hxClasses["haxor.graphics.texture.TextureCube"] = haxor_graphics_texture_TextureCube;
 haxor_graphics_texture_TextureCube.__name__ = ["haxor","graphics","texture","TextureCube"];
-haxor_graphics_texture_TextureCube.FromCrossTexture = function(p_texture) {
-	return null;
-};
 haxor_graphics_texture_TextureCube.__super__ = haxor_graphics_texture_Texture;
 haxor_graphics_texture_TextureCube.prototype = $extend(haxor_graphics_texture_Texture.prototype,{
 	get_px: function() {
 		return this.m_faces[0];
 	}
 	,set_px: function(v) {
-		this.InvalidateCross();
 		this.m_faces[0] = v;
 		return v;
 	}
@@ -13768,7 +12339,6 @@ haxor_graphics_texture_TextureCube.prototype = $extend(haxor_graphics_texture_Te
 		return this.m_faces[1];
 	}
 	,set_nx: function(v) {
-		this.InvalidateCross();
 		this.m_faces[1] = v;
 		return v;
 	}
@@ -13776,7 +12346,6 @@ haxor_graphics_texture_TextureCube.prototype = $extend(haxor_graphics_texture_Te
 		return this.m_faces[2];
 	}
 	,set_py: function(v) {
-		this.InvalidateCross();
 		this.m_faces[2] = v;
 		return v;
 	}
@@ -13784,7 +12353,6 @@ haxor_graphics_texture_TextureCube.prototype = $extend(haxor_graphics_texture_Te
 		return this.m_faces[3];
 	}
 	,set_ny: function(v) {
-		this.InvalidateCross();
 		this.m_faces[3] = v;
 		return v;
 	}
@@ -13792,7 +12360,6 @@ haxor_graphics_texture_TextureCube.prototype = $extend(haxor_graphics_texture_Te
 		return this.m_faces[4];
 	}
 	,set_pz: function(v) {
-		this.InvalidateCross();
 		this.m_faces[4] = v;
 		return v;
 	}
@@ -13800,21 +12367,17 @@ haxor_graphics_texture_TextureCube.prototype = $extend(haxor_graphics_texture_Te
 		return this.m_faces[5];
 	}
 	,set_nz: function(v) {
-		this.InvalidateCross();
 		this.m_faces[5] = v;
 		return v;
 	}
+	,get_type: function() {
+		return haxor_core_TextureType.TextureCube;
+	}
+	,LoadCrossTexture: function(p_texture) {
+		haxor_context_EngineContext.texture.CrossToCubemap(this,p_texture);
+	}
 	,OnDestroy: function() {
 		haxor_graphics_texture_Texture.prototype.OnDestroy.call(this);
-		var _g1 = 0;
-		var _g = this.m_faces.length;
-		while(_g1 < _g) {
-			var i = _g1++;
-			if(this.m_faces[i] != null) haxor_core_Resource.Destroy(this.m_faces[i]);
-		}
-	}
-	,InvalidateCross: function() {
-		if(!this.m_is_cross) return;
 		var _g1 = 0;
 		var _g = this.m_faces.length;
 		while(_g1 < _g) {
@@ -16515,60 +15078,6 @@ haxor_math_AABB3.prototype = {
 	,__class__: haxor_math_AABB3
 	,__properties__: {set_size:"set_size",get_size:"get_size",set_depth:"set_depth",get_depth:"get_depth",set_height:"set_height",get_height:"get_height",set_width:"set_width",get_width:"get_width",set_z:"set_z",get_z:"get_z",set_y:"set_y",get_y:"get_y",set_x:"set_x",get_x:"get_x",set_center:"set_center",get_center:"get_center",set_zMax:"set_zMax",get_zMax:"get_zMax",set_yMax:"set_yMax",get_yMax:"get_yMax",set_xMax:"set_xMax",get_xMax:"get_xMax",set_zMin:"set_zMin",get_zMin:"get_zMin",set_yMin:"set_yMin",get_yMin:"get_yMin",set_xMin:"set_xMin",get_xMin:"get_xMin",set_max:"set_max",get_max:"get_max",set_min:"set_min",get_min:"get_min",get_clone:"get_clone"}
 };
-var haxor_math_Easing = function() { };
-$hxClasses["haxor.math.Easing"] = haxor_math_Easing;
-haxor_math_Easing.__name__ = ["haxor","math","Easing"];
-var haxor_math_Trig = function() { };
-$hxClasses["haxor.math.Trig"] = haxor_math_Trig;
-haxor_math_Trig.__name__ = ["haxor","math","Trig"];
-haxor_math_Trig.Acos = function(v) {
-	return Math.acos(-2 * v + 1.0) * 0.31830988618379067153776752674503;
-};
-haxor_math_Trig.AcosQuad = function(v) {
-	return haxor_math_Mathf.Pow(haxor_math_Trig.Acos(v),2.0);
-};
-haxor_math_Trig.AcosRad = function(v) {
-	return haxor_math_Mathf.Pow(haxor_math_Trig.Acos(v),0.5);
-};
-haxor_math_Trig.Cos = function(v) {
-	return (-Math.cos(v * 3.1415926535897932384626433832795028841971693993751058) + 1.0) * 0.5;
-};
-var haxor_math_Cubic = function() { };
-$hxClasses["haxor.math.Cubic"] = haxor_math_Cubic;
-haxor_math_Cubic.__name__ = ["haxor","math","Cubic"];
-haxor_math_Cubic.In = function(p_r) {
-	return p_r * p_r * p_r;
-};
-haxor_math_Cubic.Out = function(p_r) {
-	return p_r * (p_r * (p_r - 3) + 3);
-};
-haxor_math_Cubic.InOut = function(p_r) {
-	return -2 * p_r * (p_r * (p_r - 1.5));
-};
-haxor_math_Cubic.OutIn = function(p_r) {
-	return p_r * (p_r * (4 * p_r - 6) + 3);
-};
-haxor_math_Cubic.BackIn = function(p_r) {
-	return p_r * (p_r * (4 * p_r - 3));
-};
-haxor_math_Cubic.OutBack = function(p_r) {
-	return p_r * (p_r * (4 * p_r - 9) + 6);
-};
-var haxor_math_Elastic = function() { };
-$hxClasses["haxor.math.Elastic"] = haxor_math_Elastic;
-haxor_math_Elastic.__name__ = ["haxor","math","Elastic"];
-haxor_math_Elastic.OutBig = function(p_r) {
-	return p_r * (p_r * (p_r * (p_r * (56 * p_r + -175) + 200) + -100) + 20);
-};
-haxor_math_Elastic.OutSmall = function(p_r) {
-	return p_r * (p_r * (p_r * (p_r * (33 * p_r + -106) + 126) + -67) + 15);
-};
-haxor_math_Elastic.InBig = function(p_r) {
-	return p_r * (p_r * (p_r * (p_r * (33 * p_r + -59) + 32) + -5));
-};
-haxor_math_Elastic.InSmall = function(p_r) {
-	return p_r * (p_r * (p_r * (p_r * (56 * p_r + -105) + 60) + -10));
-};
 var haxor_math_Mathf = function() { };
 $hxClasses["haxor.math.Mathf"] = haxor_math_Mathf;
 haxor_math_Mathf.__name__ = ["haxor","math","Mathf"];
@@ -18620,168 +17129,6 @@ haxor_thread_Kernel.prototype = $extend(haxor_graphics_material_Material.prototy
 	,__class__: haxor_thread_Kernel
 	,__properties__: $extend(haxor_graphics_material_Material.prototype.__properties__,{get_output:"get_output",get_result:"get_result"})
 });
-var haxor_thread_ParticleKernel = function(p_renderer) {
-	haxor_thread_Kernel.call(this,haxor_thread_ParticleKernel.DATA_SIZE,haxor_thread_ParticleKernel.DATA_SIZE,false,haxor_core_PixelFormat.Float4);
-	this.set_name("ParticleKernel" + p_renderer.get_uid());
-	if(haxor_thread_ParticleKernel.particle_kernel_shader == null) haxor_thread_ParticleKernel.particle_kernel_shader = new haxor_graphics_material_Shader(haxor_thread_ParticleKernel.particle_kernel_source);
-	this.m_back = new haxor_graphics_texture_RenderTexture(haxor_thread_ParticleKernel.DATA_SIZE,haxor_thread_ParticleKernel.DATA_SIZE,haxor_core_PixelFormat.Float4);
-	this.m_back.set_minFilter(haxor_core_TextureFilter.Nearest);
-	this.m_back.set_magFilter(haxor_core_TextureFilter.Nearest);
-	this.m_back.set_name("ParticleKernelData0");
-	this.m_output.set_name("ParticleKernelData1");
-	this.m_renderer = p_renderer;
-	this.m_time = haxor_core_Time.m_elapsed;
-	this.m_dt = 0.0;
-	this.m_resize = false;
-	this.set_shader(haxor_thread_ParticleKernel.particle_kernel_shader);
-	this.m_system = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-	this.SetTexture("Data",this.m_back);
-	this.SetFloat4Array("System",this.m_system);
-};
-$hxClasses["haxor.thread.ParticleKernel"] = haxor_thread_ParticleKernel;
-haxor_thread_ParticleKernel.__name__ = ["haxor","thread","ParticleKernel"];
-haxor_thread_ParticleKernel.__super__ = haxor_thread_Kernel;
-haxor_thread_ParticleKernel.prototype = $extend(haxor_thread_Kernel.prototype,{
-	Execute: function() {
-		if(this.m_resize) this.m_resize = false;
-		var s = this.m_system;
-		var r = this.m_renderer;
-		var af;
-		var af3;
-		var k = 0;
-		s[k++] = r.emitter.m_data[0];
-		s[k++] = r.emitter.m_data[3];
-		s[k++] = r.emitter.m_data[4];
-		s[k++] = r.emitter.m_data[5];
-		s[k++] = r.emitter.m_data[1];
-		s[k++] = r.emitter.m_data[2];
-		if(r.local) s[k++] = 1.0; else s[k++] = 0.0;
-		if(r.loop) s[k++] = 1.0; else s[k++] = 0.0;
-		if(r.m_state == haxor_component_ParticleSystemState.None) s[k++] = 0.0; else if(r.m_state == haxor_component_ParticleSystemState.Reset) s[k++] = 1.0; else if(r.m_state == haxor_component_ParticleSystemState.Update) s[k++] = 2.0; else s[k++] = 0.0;
-		s[k++] = haxor_math_Mathf.Clamp01(r.duration <= 0.0?0.0:r.elapsed / r.duration);
-		s[k++] = 0.0;
-		s[k++] = haxor_core_Time.m_delta;
-		af = r.start.speed;
-		s[k++] = af.start;
-		s[k++] = af.end;
-		s[k++] = af.curve;
-		if(af.random) s[k++] = 1.0; else s[k++] = 0.0;
-		af3 = r.start.size;
-		s[k++] = af3.start.x;
-		s[k++] = af3.start.y;
-		s[k++] = af3.start.z;
-		s[k++] = af3.curve;
-		s[k++] = af3.end.x;
-		s[k++] = af3.end.y;
-		s[k++] = af3.end.z;
-		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
-		af = r.start.life;
-		s[k++] = af.start;
-		s[k++] = af.end;
-		s[k++] = af.curve;
-		if(af.random) s[k++] = 1.0; else s[k++] = 0.0;
-		af3 = r.start.rotation;
-		s[k++] = af3.start.x;
-		s[k++] = af3.start.y;
-		s[k++] = af3.start.z;
-		s[k++] = af3.curve;
-		s[k++] = af3.end.x;
-		s[k++] = af3.end.y;
-		s[k++] = af3.end.z;
-		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
-		af = r.life.speed;
-		s[k++] = af.start;
-		s[k++] = af.end;
-		s[k++] = af.curve;
-		if(af.random) s[k++] = 1.0; else s[k++] = 0.0;
-		af3 = r.life.motion;
-		s[k++] = af3.start.x;
-		s[k++] = af3.start.y;
-		s[k++] = af3.start.z;
-		s[k++] = af3.curve;
-		s[k++] = af3.end.x;
-		s[k++] = af3.end.y;
-		s[k++] = af3.end.z;
-		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
-		af3 = r.life.size;
-		s[k++] = af3.start.x;
-		s[k++] = af3.start.y;
-		s[k++] = af3.start.z;
-		s[k++] = af3.curve;
-		s[k++] = af3.end.x;
-		s[k++] = af3.end.y;
-		s[k++] = af3.end.z;
-		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
-		af3 = r.life.rotation;
-		s[k++] = af3.start.x;
-		s[k++] = af3.start.y;
-		s[k++] = af3.start.z;
-		s[k++] = af3.curve;
-		s[k++] = af3.end.x;
-		s[k++] = af3.end.y;
-		s[k++] = af3.end.z;
-		if(af3.random) s[k++] = 1.0; else s[k++] = 0.0;
-		s[k++] = r.force.x;
-		s[k++] = r.force.y;
-		s[k++] = r.force.z;
-		s[k++] = 0.0;
-		var wm = this.m_renderer.m_entity.m_transform.get_WorldMatrix();
-		s[k++] = wm.m00;
-		s[k++] = wm.m01;
-		s[k++] = wm.m02;
-		s[k++] = wm.m03;
-		s[k++] = wm.m10;
-		s[k++] = wm.m11;
-		s[k++] = wm.m12;
-		s[k++] = wm.m13;
-		s[k++] = wm.m20;
-		s[k++] = wm.m21;
-		s[k++] = wm.m22;
-		s[k++] = wm.m23;
-		af = r.sheet.frame;
-		s[k++] = af.start;
-		s[k++] = af.end;
-		s[k++] = af.curve;
-		if(af.random) s[k++] = 1.0; else s[k++] = 0.0;
-		s[k++] = r.sheet.width;
-		s[k++] = r.sheet.height;
-		if(r.sheet.reverse) s[k++] = -this.m_renderer.sheet.fps; else s[k++] = this.m_renderer.sheet.fps;
-		if(r.sheet.wrap == haxor_core_AnimationWrap.Clamp) s[k++] = 0.0; else if(this.m_renderer.sheet.wrap == haxor_core_AnimationWrap.Loop) s[k++] = 1.0; else s[k++] = 2.0;
-		s[k++] = r.sheet.length;
-		s[k++] = r.emitter.ranges[0];
-		s[k++] = r.emitter.ranges[1];
-		s[k++] = 0.0;
-		s[k++] = r.emitter.ranges[2];
-		s[k++] = r.emitter.ranges[3];
-		s[k++] = r.emitter.ranges[4];
-		s[k++] = r.emitter.ranges[5];
-		s[k++] = r.m_emitted_start;
-		s[k++] = r.m_emitted_count;
-		s[k++] = 0.0;
-		s[k++] = 0.0;
-		this.SetFloat4Array("System",this.m_system);
-		this.SetTexture("StartColor",r.start.color == null?haxor_graphics_texture_Texture2D.get_white():r.start.color);
-		this.SetTexture("Color",r.life.color == null?haxor_graphics_texture_Texture2D.get_white():r.life.color);
-		if(r.m_material != null) {
-			r.m_material.SetFloat4Array("System",this.m_system);
-			r.m_material.SetTexture("Data",this.m_back);
-			r.m_material.SetFloat("DataWidth",this.m_back.m_width);
-			r.m_material.SetFloat("DataHeight",this.m_back.m_height);
-			var tex;
-			if(r.m_material.HasUniform("Texture")) tex = r.m_material.GetUniform("Texture").texture; else tex = null;
-			if(tex != null) {
-				r.m_material.SetFloat("TextureWidth",tex.m_width);
-				r.m_material.SetFloat("TextureHeight",tex.m_height);
-			}
-		}
-		haxor_thread_Kernel.prototype.Execute.call(this);
-		var tmp = this.m_back;
-		this.m_back = this.m_output;
-		this.m_output = tmp;
-		this.SetTexture("Data",this.m_back);
-	}
-	,__class__: haxor_thread_ParticleKernel
-});
 var js_Boot = function() { };
 $hxClasses["js.Boot"] = js_Boot;
 js_Boot.__name__ = ["js","Boot"];
@@ -18947,12 +17294,6 @@ Xml.Comment = "comment";
 Xml.DocType = "doctype";
 Xml.ProcessingInstruction = "processingInstruction";
 Xml.Document = "document";
-examples_dungeon_GameLayer.Default = 1;
-examples_dungeon_GameLayer.Player = 2;
-examples_dungeon_GameLayer.CameraArea = 4;
-examples_dungeon_GameLayer.Hole = 8;
-examples_dungeon_GameLayer.Door = 16;
-examples_dungeon_Player.TOP_SPEED = 150;
 haxe_crypto_Base64.CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 haxe_crypto_Base64.BYTES = haxe_io_Bytes.ofString(haxe_crypto_Base64.CHARS);
 haxe_ds_ObjectMap.count = 0;
@@ -19070,14 +17411,16 @@ haxor_core_ShaderFeature.LightingVertex = 512;
 haxor_core_ShaderFeature.LightingPixel = 1024;
 haxor_core_ShaderFeature.Specular = 4096;
 haxor_core_ShaderFeature.SpecularTexture = 8192;
-haxor_core_ShaderFeature.Lightmap = 16384;
-haxor_core_ShaderFeature.FogVertex = 32768;
-haxor_core_ShaderFeature.FogPixel = 65536;
-haxor_core_ShaderFeature.Toon = 131072;
-haxor_core_ShaderFeature.Cutoff = 262144;
-haxor_core_ShaderFeature.Particle = 524288;
-haxor_core_ShaderFeature.UVScroll = 1048576;
-haxor_core_ShaderFeature.Random = 2097152;
+haxor_core_ShaderFeature.SpecularAlpha = 16384;
+haxor_core_ShaderFeature.Lightmap = 32768;
+haxor_core_ShaderFeature.FogVertex = 65536;
+haxor_core_ShaderFeature.FogPixel = 131072;
+haxor_core_ShaderFeature.Toon = 262144;
+haxor_core_ShaderFeature.Cutoff = 524288;
+haxor_core_ShaderFeature.Particle = 1048576;
+haxor_core_ShaderFeature.UVScroll = 2097152;
+haxor_core_ShaderFeature.Random = 4194304;
+haxor_core_ShaderFeature.AlphaTexture = 8388608;
 haxor_core_ShaderPrecision.VertexLow = 1;
 haxor_core_ShaderPrecision.VertexMed = 2;
 haxor_core_ShaderPrecision.VertexHigh = 4;
@@ -19419,15 +17762,6 @@ haxor_graphics_GL.VS_INT_HIGHP = true;
 haxor_graphics_GL.FS_FLOAT_HIGHP = true;
 haxor_graphics_GL.FS_INT_HIGHP = true;
 haxor_graphics_Graphics.m_last_viewport = haxor_math_AABB2.get_empty();
-haxor_graphics_material_shader_TemplateShader.template = "\r\n\t<shader id=\"@ID\">\t\r\n\t\t<vertex precision=\"@VSP\">\t\t\r\n\t\t\t@VS\r\n\t\t</vertex>\t\t\r\n\t\t<fragment precision=\"@FSP\">\t\t\t\r\n\t\t\t@FS\r\n\t\t</fragment>\t\r\n\t</shader>\t\r\n\t";
-haxor_graphics_material_shader_FlexShader.vs_uniforms = "\r\n\tuniform mat4  WorldMatrix;\r\n\tuniform mat4  WorldMatrixIT;\r\n\tuniform mat4  WorldMatrixInverse;\r\n\tuniform mat4  ViewMatrix;\r\n\tuniform mat4  ViewMatrixInverse;\r\n\tuniform mat4  ProjectionMatrix;\r\n\tuniform mat4  ProjectionMatrixInverse;\r\n\t\r\n\t\r\n\t#ifdef SKINNING\t\r\n\tuniform int SkinQuality;\t\r\n\t\r\n\t#ifdef BONE_TEXTURE\r\n\tuniform sampler2D Joints;\r\n\tuniform sampler2D Binds;\t\r\n\tuniform vec4      SkinTexSize;\r\n\t#else\t\t\r\n\tuniform vec4  Joints[MAX_BONES*3];\r\n\tuniform vec4   Binds[MAX_BONES*3];\r\n\t#endif\r\n\t\r\n\t#endif\r\n\t\r\n\t#ifdef UV_SCROLL\r\n\tuniform vec3 UVOffset;\r\n\tuniform vec3 UVSpeed;\t\r\n\t#endif\r\n\t\r\n\t#ifdef UV_SCROLL\r\n\tuniform float Time;\r\n\t#endif\t\r\n\t\r\n\t#ifdef FOG\r\n\t#define CameraNear CameraProjection.x\r\n\t#define CameraFar  CameraProjection.y\r\n\tuniform vec3 CameraProjection;\t\r\n\t#endif\t\r\n\t";
-haxor_graphics_material_shader_FlexShader.vs_attribs = "\r\n\tattribute vec3 vertex;\r\n\t\r\n\t#ifdef VERTEX_COLOR\r\n\tattribute vec4 color;\r\n\t#endif\r\n\t\r\n\t#ifdef USE_NORMAL\r\n\tattribute vec3 normal;\r\n\t#endif\r\n\t\r\n\t#ifdef SKINNING\r\n\tattribute vec4 bone;\r\n\tattribute vec4 weight;\t\t\r\n\t#endif\r\n\t\r\n\t#ifdef TEXTURE\r\n\tattribute vec3 uv0;\r\n\t#endif\r\n\t\r\n\t#ifdef USE_UV1\r\n\tattribute vec3 uv1;\r\n\t#endif\t\r\n\t";
-haxor_graphics_material_shader_FlexShader.vs_functions = "\r\n\t#ifdef SKINNING\t\r\n\tmat4 GetJointMatrix(const int b0, const int b1, const int b2) \r\n\t{ \r\n\t\t#ifdef BONE_TEXTURE\t\t\r\n\t\t/*\r\n\t\tfloat itw = SkinTexSize.z;\r\n\t\tfloat ith = SkinTexSize.w;\r\n\t\tfloat fb0x = mod(float(b0), SkinTexSize.x);\r\n\t\tfloat fb1x = mod(float(b1), SkinTexSize.x);\r\n\t\tfloat fb2x = mod(float(b2), SkinTexSize.x);\r\n\t\tfloat fb0y = floor(float(b0) * itw);\r\n\t\tfloat fb1y = floor(float(b1) * itw);\r\n\t\tfloat fb2y = floor(float(b2) * itw);\t\t\t\r\n\t\tvec4 l0 = texture2D(Joints, vec2(fb0x*itw,fb0y*ith));\r\n\t\tvec4 l1 = texture2D(Joints, vec2(fb1x*itw,fb1y*ith));\r\n\t\tvec4 l2 = texture2D(Joints, vec2(fb2x*itw,fb2y*ith));\r\n\t\t//*/\r\n\t\tvec2 fb0 = vec2(mod(float(b0), SkinTexSize.x)*SkinTexSize.z, floor(float(b0) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec2 fb1 = vec2(mod(float(b1), SkinTexSize.x)*SkinTexSize.z, floor(float(b1) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec2 fb2 = vec2(mod(float(b2), SkinTexSize.x)*SkinTexSize.z, floor(float(b2) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec4 l0 = texture2D(Joints, fb0);\r\n\t\tvec4 l1 = texture2D(Joints, fb1);\r\n\t\tvec4 l2 = texture2D(Joints, fb2);\r\n\t\treturn mat4(l0,l1,l2,vec4(0,0,0,1));\r\n\t\t#else\r\n\t\treturn mat4(Joints[b0], Joints[b1], Joints[b2], vec4(0, 0, 0, 1)); \r\n\t\t#endif\r\n\t}\r\n\t\r\n\tmat4 GetBindMatrix (const int b0, const int b1, const int b2) \r\n\t{ \r\n\t\t#ifdef BONE_TEXTURE\t\t\t\r\n\t\t//float itw = SkinTexSize.z;\r\n\t\t//float ith = SkinTexSize.w;\r\n\t\tvec2 fb0 = vec2(mod(float(b0), SkinTexSize.x)*SkinTexSize.z, floor(float(b0) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec2 fb1 = vec2(mod(float(b1), SkinTexSize.x)*SkinTexSize.z, floor(float(b1) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec2 fb2 = vec2(mod(float(b2), SkinTexSize.x)*SkinTexSize.z, floor(float(b2) * SkinTexSize.z)*SkinTexSize.w);\r\n\t\tvec4 l0 = texture2D(Binds, fb0);\r\n\t\tvec4 l1 = texture2D(Binds, fb1);\r\n\t\tvec4 l2 = texture2D(Binds, fb2);\r\n\t\t/*\r\n\t\tfloat fb0x = mod(float(b0), SkinTexSize.x);\r\n\t\tfloat fb1x = mod(float(b1), SkinTexSize.x);\r\n\t\tfloat fb2x = mod(float(b2), SkinTexSize.x);\r\n\t\tfloat fb0y = floor(float(b0) * itw);\r\n\t\tfloat fb1y = floor(float(b1) * itw);\r\n\t\tfloat fb2y = floor(float(b2) * itw);\t\t\t\r\n\t\tvec4 l0 = texture2D(Binds, vec2(fb0x*itw,fb0y*ith));\r\n\t\tvec4 l1 = texture2D(Binds, vec2(fb1x*itw,fb1y*ith));\r\n\t\tvec4 l2 = texture2D(Binds, vec2(fb2x*itw,fb2y*ith));\r\n\t\t//*/\r\n\t\treturn mat4(l0,l1,l2,vec4(0,0,0,1));\r\n\t\t#else\r\n\t\treturn mat4(Binds[b0] , Binds[b1] , Binds[b2] , vec4(0, 0, 0, 1)); \r\n\t\t#endif\r\n\t}\r\n\t\r\n\tmat4 SkinWorldMatrix()\r\n\t{\r\n\t\tvec4 b = bone * 3.0;\t\t\t\r\n\t\tvec4 w = weight;\t\t\t\r\n\t\tfloat ivs = 0.0;\r\n\t\tif (SkinQuality >= 0) ivs += weight.x;\r\n\t\tif (SkinQuality >= 2) ivs += weight.y;\r\n\t\tif (SkinQuality >= 3) ivs += weight.z;\r\n\t\tif (SkinQuality >= 4) ivs += weight.w;\t\t\t\r\n\t\tw *= 1.0 / ivs;\t\t\t\r\n\t\tivec4 bi0 = ivec4(b.x, b.y, b.z, b.w);\t\t\t\r\n\t\tivec4 bi1 = ivec4(b.x + 1.0, b.y + 1.0, b.z + 1.0, b.w + 1.0);\t\t\t\r\n\t\tivec4 bi2 = ivec4(b.x + 2.0, b.y + 2.0, b.z + 2.0, b.w + 2.0);\t\t\t\r\n\t\tmat4 res = mat4(0.0),jm,bm;\t\t\t\r\n\t\tif (SkinQuality >= 0) { jm = GetJointMatrix(bi0.x, bi1.x, bi2.x); bm = GetBindMatrix(bi0.x, bi1.x, bi2.x); res += ((bm * jm) * w.x); }\r\n\t\tif (SkinQuality >= 2) { jm = GetJointMatrix(bi0.y, bi1.y, bi2.y); bm = GetBindMatrix(bi0.y, bi1.y, bi2.y); res += ((bm * jm) * w.y); }\r\n\t\tif (SkinQuality >= 3) { jm = GetJointMatrix(bi0.z, bi1.z, bi2.z); bm = GetBindMatrix(bi0.z, bi1.z, bi2.z); res += ((bm * jm) * w.z); }\r\n\t\tif (SkinQuality >= 4) { jm = GetJointMatrix(bi0.w, bi1.w, bi2.w); bm = GetBindMatrix(bi0.w, bi1.w, bi2.w); res += ((bm * jm) * w.w); }\t\t\r\n\t\treturn res;\r\n\t}\t\r\n\t#endif\r\n\t";
-haxor_graphics_material_shader_FlexShader.fs_uniforms = "\r\n\t#ifdef TEXTURE\t\r\n\tuniform sampler2D DiffuseTexture;\r\n\t#endif\t\r\n\t\r\n\t#ifdef BUMP\r\n\tuniform sampler2D NormalTexture;\r\n\t#endif\r\n\t\r\n\t#ifdef LIGHTMAP\r\n\tuniform sampler2D Lightmap;\r\n\tuniform float LightmapFactor;\r\n\t#endif\r\n\t\r\n\t#ifdef CUTOFF\r\n\tuniform float Cutoff;\r\n\t#endif\t\r\n\t\r\n\t";
-haxor_graphics_material_shader_FlexShader.g_varyings = "\r\n\tvarying vec4 v_color;\r\n\t\r\n\t#ifdef USE_NORMAL\r\n\tvarying vec3 v_normal;\r\n\t#endif\r\n\t\r\n\t#ifdef LIGHTING\r\n\tvarying vec3 v_wpos;\r\n\t#endif\r\n\t\r\n\t#ifdef LIGHTING_VERTEX\r\n\tvarying vec3 v_diffuse_component;\t\r\n\t#ifdef SPECULAR\r\n\tvarying vec3 v_specular_component;\r\n\t#endif\t\t\r\n\t#endif\r\n\t\r\n\t\r\n\t#ifdef USE_VIEW_DIR\r\n\tvarying vec3 v_wview;\r\n\t#endif\r\n\t\r\n\t#ifdef FALLOFF\r\n\tvarying vec3 v_falloff_component;\r\n\t#endif\r\n\t\r\n\t#ifdef TEXTURE\t\r\n\tvarying vec3 v_uv0;\t\t\r\n\t#endif\t\r\n\t\r\n\t#ifdef USE_UV1\r\n\tvarying vec3 v_uv1;\t\r\n\t#endif\r\n\t\r\n\t#ifdef FOG\r\n\tvarying float v_linear_depth;\r\n\t#endif\r\n\t\r\n\t#ifdef FOG_VERTEX\r\n\tvarying float v_fog_factor;\r\n\t#endif\r\n\t\r\n\t";
-haxor_graphics_material_shader_FlexShader.g_uniforms = "\r\n\t\r\n\tuniform vec3 CameraPosition;\r\n\t\r\n\t#ifdef RANDOM\t\r\n\tuniform float RandomSeed;\t\t\r\n\tuniform sampler2D RandomTexture;\r\n\t#endif\t\r\n\t\r\n\t#ifdef TINT\r\n\tuniform vec4  Tint;\r\n\t#endif\t\r\n\t\r\n\t#ifdef FOG\r\n\t#define FogColor    Fog[0]\r\n\t#define FogDensity  Fog[1].x\r\n\t#define FogExp      Fog[1].y\r\n\t#define FogStart    Fog[1].z\r\n\t#define FogEnd      Fog[1].w\r\n\tuniform vec4 Fog[2];\r\n\t#endif\t\r\n\t\r\n\t#ifdef LIGHTING\t\r\n\tuniform vec4  Ambient;\r\n\tuniform vec4 Lights[MAX_LIGHTS * 3];\t\r\n\tuniform float Shininess;\r\n\t#endif\r\n\t\r\n\t#ifdef FALLOFF\r\n\tuniform float FalloffExp;\t\t\t\r\n\tuniform float FalloffIntensity;\r\n\tuniform vec4  FalloffColor;\r\n\t#endif\r\n\t\r\n\t#ifdef USE_RAMP_TEXTURE\r\n\tuniform sampler2D RampTexture;\r\n\t#endif\r\n\t\r\n\t";
-haxor_graphics_material_shader_FlexShader.g_functions = "\r\n\t#ifdef RANDOM\t\r\n\tfloat NextSeed = 0.0;\r\n\tvec4 Random()\r\n\t{\r\n\t\tfloat itw  = 0.00390625;\r\n\t\tfloat p    = NextSeed + (RandomSeed * 65536.0);\r\n\t\tfloat idx  = mod(p,256.0)   * itw;\r\n\t\tfloat idy  = floor(p * itw) * itw;\r\n\t\tNextSeed  += 1.0;\r\n\t\treturn texture2D(RandomTexture, vec2(idx,idy));\r\n\t}\r\n\t#endif\r\n\t\r\n\t#ifdef FOG\r\n\tfloat FogFactor(float p_linear_depth,float p_exp,float p_density,float p_start,float p_end) { return pow(clamp((p_linear_depth - p_start) / (p_end - p_start),0.0,1.0),p_exp) * p_density; }\r\n\t#endif\r\n\t\r\n\tvec4 texture2DOffset(sampler2D p_texture, float p_offset, float p_iw, float p_ih) { return texture2D(p_texture, vec2(mod(p_offset,1.0/p_iw)*p_iw,floor(p_offset * p_iw)*p_iw)); }\r\n\t\r\n\tfloat LinearNF(float p_hz, float p_near, float p_far) { return p_near * (p_hz + 1.0) / (p_far + p_near - p_hz * (p_far - p_near)); }\t\r\n\tfloat LinearEye(float p_hz, float p_near, float p_far) { return (2.0 * p_near) / (p_far + p_near - p_hz * (p_far - p_near)); }\t\r\n\tfloat Depth2Eye(float p_hz, float p_near, float p_far) { return (2.0 * p_near * p_far) / (p_far + p_near - p_hz * (p_far - p_near)); }\r\n\t\r\n\t#ifdef LIGHTING\r\n\t\r\n\tvec4 LightAttrib(const int p_id)   \r\n\t{ \r\n\t\tif(p_id==0) return Lights[0];\r\n\t\tif(p_id==1) return Lights[3];\r\n\t\tif(p_id==2) return Lights[6];\r\n\t\tif(p_id==3) return Lights[9];\r\n\t\tif(p_id==4) return Lights[12];\r\n\t\tif(p_id==5) return Lights[15];\r\n\t\tif(p_id==6) return Lights[18];\r\n\t\tif(p_id==7) return Lights[21];\r\n\t\treturn vec4(-1,0,0,0);\t\t\r\n\t}\r\n\t\r\n\tvec3 LightPosition(int p_id)   \r\n\t{ \r\n\t\tif(p_id==0) return Lights[1].xyz;\r\n\t\tif(p_id==1) return Lights[4].xyz;\r\n\t\tif(p_id==2) return Lights[7].xyz;\r\n\t\tif(p_id==3) return Lights[10].xyz;\r\n\t\tif(p_id==4) return Lights[13].xyz;\r\n\t\tif(p_id==5) return Lights[16].xyz;\r\n\t\tif(p_id==6) return Lights[19].xyz;\r\n\t\tif(p_id==7) return Lights[22].xyz;\r\n\t\treturn vec3(0,0,0);\r\n\t}\r\n\t\r\n\tvec4 LightColor(int p_id)   \r\n\t{ \r\n\t\tif(p_id==0) return Lights[2];\r\n\t\tif(p_id==1) return Lights[5];\r\n\t\tif(p_id==2) return Lights[8];\r\n\t\tif(p_id==3) return Lights[11];\r\n\t\tif(p_id==4) return Lights[14];\r\n\t\tif(p_id==5) return Lights[17];\r\n\t\tif(p_id==6) return Lights[20];\r\n\t\tif(p_id==7) return Lights[23];\r\n\t\treturn vec4(0,0,0,1);\r\n\t}\r\n\t\r\n\tfloat DiffuseFactor(vec3 p_normal, vec3 p_light_dir) { return clamp(dot(p_normal,p_light_dir),0.0,1.0); }\t\r\n\tfloat SpecularFactor(float p_shininess, vec3 p_normal, vec3 p_light_dir, vec3 p_view_dir) \r\n\t{ \r\n\t\tvec3 hv  = normalize(p_light_dir + p_view_dir);\r\n\t\tfloat dv = clamp(dot(hv, p_normal), 0.0, 1.0);\r\n\t\treturn pow(dv, p_shininess);\r\n\t}\r\n\t\r\n\tvec3 LightingLambert(float p_intensity,vec3 p_light_color,vec3 p_light_dir,vec3 p_normal)\r\n\t{\t\t\t\t\r\n\t\tfloat df = DiffuseFactor(p_normal, p_light_dir);\r\n\t\treturn p_light_color * df * p_intensity;\r\n\t}\r\n\t\r\n\tvec3 LightingPhong(float p_intensity,vec3 p_light_color,vec3 p_light_dir,vec3 p_normal,vec3 p_view_dir,float p_shininess)\r\n\t{\r\n\t\tfloat sf = SpecularFactor(p_shininess, p_normal, p_light_dir, p_view_dir);\t\t\r\n\t\treturn p_light_color * sf * p_intensity;\r\n\t}\r\n\t\r\n\t#ifdef TOON\r\n\tvec3 LightingLambertToon(float p_intensity, vec3 p_light_color, vec3 p_light_dir, vec3 p_normal)\r\n\t{\r\n\t\tfloat df = DiffuseFactor(p_normal, p_light_dir);\t\t\r\n\t\treturn p_light_color * texture2D(RampTexture,vec2(df,0)).xyz * p_intensity;\r\n\t}\r\n\t\r\n\tvec3 LightingPhongToon(float p_intensity,vec3 p_light_color,vec3 p_light_dir,vec3 p_normal,vec3 p_view_dir,float p_shininess)\r\n\t{\r\n\t\tfloat sf = SpecularFactor(p_shininess, p_normal, p_light_dir, p_view_dir);\r\n\t\treturn p_light_color * texture2D(RampTexture,vec2(sf,0)).xyz * p_intensity;\r\n\t}\r\n\t#endif\r\n\t\r\n\tvoid ProcessLights(vec3 p_normal, vec3 p_view_dir,float p_shininess, out vec3 p_diffuse_component, out vec3 p_specular_component)\r\n\t{\r\n\t\tp_diffuse_component  = vec3(0.0);\r\n\t\tp_specular_component = vec3(0.0);\r\n\t\t\r\n\t\tfor(int i=0;i<MAX_LIGHTS;i++)\r\n\t\t{\r\n\t\t\tvec4  l_attrib \t  = LightAttrib(i);\r\n\t\t\tvec3  l_position  = LightPosition(i);\r\n\t\t\tvec3  l_color \t  = LightColor(i).xyz;\r\n\t\t\tint   l_type   \t  = int(l_attrib.x);\r\n\t\t\tfloat l_intensity = l_attrib.y;\r\n\t\t\tfloat l_atten \t  = l_attrib.w;\r\n\t\t\t\r\n\t\t\tvec3  l_dir\t\t  = vec3(0.0);\r\n\t\t\t\r\n\t\t\t//Invalid Light can stop here\r\n\t\t\tif (l_type == -1) break;\r\n\t\t\t\r\n\t\t\t//Point Light\r\n\t\t\tif(l_type == 0)\r\n\t\t\t{\r\n\t\t\t\tfloat l_radius  = l_attrib.z * 0.5;\t\r\n\t\t\t\tl_dir = -(v_wpos - l_position);\r\n\t\t\t\tl_intensity   = (1.0 - clamp(length(l_dir) / l_radius, 0.0, 1.0)) * l_intensity;\t\t\t\t\t\r\n\t\t\t\tl_dir = normalize(l_dir);\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t//Directional Light\r\n\t\t\tif(l_type == 1)\r\n\t\t\t{\r\n\t\t\t\tl_dir = l_position;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec3 d_component = vec3(0);\r\n\t\t\t\r\n\t\t\t#ifdef TOON\r\n\t\t\td_component = LightingLambertToon(l_intensity, l_color, l_dir, p_normal);\r\n\t\t\t#else\r\n\t\t\td_component = LightingLambert(l_intensity, l_color, l_dir, p_normal);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tp_diffuse_component += d_component;\r\n\t\t\t\r\n\t\t\t#ifdef SPECULAR\r\n\t\t\tvec3 s_component = vec3(0);\r\n\t\t\t\r\n\t\t\t#ifdef TOON\r\n\t\t\ts_component = LightingPhongToon(l_intensity,l_color,l_dir,p_normal,p_view_dir,p_shininess);\r\n\t\t\t#else\r\n\t\t\ts_component = LightingPhong(l_intensity,l_color,l_dir,p_normal,p_view_dir,p_shininess);\r\n\t\t\t#endif\r\n\t\t\t\r\n\t\t\tp_specular_component += s_component;\r\n\t\t\t#endif\t\t\t\t\t\r\n\t\t\t\r\n\t\t}\r\n\t\t\r\n\t}\r\n\t\r\n\t#endif\r\n\t\r\n\t#ifdef FALLOFF\r\n\tfloat Falloff(vec3 p_view_dir, vec3 p_normal, float p_exp) { return pow(1.0 - clamp(dot(p_view_dir, p_normal), 0.0, 1.0), p_exp); }\r\n\t#endif\r\n\t\r\n\t";
-haxor_graphics_material_shader_FlexShader.g_preprocessors = "\t\r\n\t#if defined(LIGHTING) || defined(FALLOFF) || defined(REFLECTION) || defined(BUMP)\r\n\t#define USE_NORMAL\r\n\t#endif\r\n\t\r\n\t#if defined(FALLOFF) || defined(SPECULAR)\r\n\t#define USE_VIEW_DIR\r\n\t#endif\r\n\t\r\n\t#if defined(LIGHTMAP) || defined(BUMP)\r\n\t#define USE_UV1\r\n\t#endif\r\n\t\r\n\t#if defined(TOON)\r\n\t#define USE_RAMP_TEXTURE\r\n\t#endif\r\n\t\r\n\t";
 haxor_input_Input.scroll = false;
 haxor_input_Input.menu = false;
 haxor_input_Input.emulateTouch = false;
@@ -19673,7 +18007,5 @@ haxor_math_Mathf.Float2Byte = 255.0;
 haxor_math_Mathf.Float2Short = 65536.0;
 haxor_math_Mathf.Float2Long = 4294967296.0;
 haxor_net_Web.root = "";
-haxor_thread_ParticleKernel.DATA_SIZE = 64;
-haxor_thread_ParticleKernel.particle_kernel_source = "\r\n\t<shader id=\"haxor/kernel/ParticleKernel\">\t\r\n\t\t<vertex precision=\"high\">\r\n\t\tattribute vec3 vertex;\t\t\t\r\n\t\tvarying vec2 iterator;\t\t\t\t\r\n\t\tvoid main(void) \r\n\t\t{\t\r\n\t\t\tgl_Position = vec4(vertex,1.0);\r\n\t\t\titerator.x = (vertex.x+1.0)*0.5;\r\n\t\t\titerator.y = (vertex.y+1.0)*0.5;\r\n\t\t}\t\t\r\n\t\t</vertex>\r\n\t\t\r\n\t\t<fragment precision=\"high\">\r\n\t\t\r\n\t\t\t#define EmmiterType\t\t\t int(System[0].x)\r\n\t\t\t#define EmitterSize\t\t\t System[0].yzw\r\n\t\t\t\r\n\t\t\t#define IsSurfaceEmission\t (System[1].x > 0.0)\r\n\t\t\t#define IsRandomDirection\t (System[1].y > 0.0)\t\t\t\r\n\t\t\t#define IsLocal\t\t\t\t (System[1].z > 0.0)\r\n\t\t\t#define IsLoop\t\t\t\t (System[1].w > 0.0)\r\n\t\t\t\r\n\t\t\t#define SystemState\t\t\t int(System[2].x)\r\n\t\t\t#define SystemProgress\t\t System[2].y\t\t\t\r\n\t\t\t#define DeltaTime\t\t \t System[2].w\r\n\t\t\t\r\n\t\t\t#define StartSpeed\t\t\t System[3]\r\n\t\t\t#define StartSize0\t\t\t System[4]\r\n\t\t\t#define StartSize1\t\t\t System[5]\r\n\t\t\t#define StartLife\t\t\t System[6]\r\n\t\t\t#define StartRotation0\t\t System[7]\r\n\t\t\t#define StartRotation1\t\t System[8]\r\n\t\t\t\r\n\t\t\t#define LifeSpeed\t\t\t System[9]\r\n\t\t\t#define LifeMotion0\t\t\t System[10]\r\n\t\t\t#define LifeMotion1\t\t\t System[11]\r\n\t\t\t#define LifeSize0\t\t\t System[12]\r\n\t\t\t#define LifeSize1\t\t\t System[13]\r\n\t\t\t#define LifeRotation0\t\t System[14]\r\n\t\t\t#define LifeRotation1\t\t System[15]\r\n\t\t\t\r\n\t\t\t#define SystemForce\t\t\t System[16].xyz\r\n\t\t\t\r\n\t\t\t#define WorldMatrix\t\t\t mat4(System[17].xyzw, System[18].xyzw, System[19].xyzw, vec4(0,0,0,1))\r\n\t\t\t\r\n\t\t\t#define StartFrame\t\t\t System[20]\r\n\t\t\t#define SheetFrameWidth\t \t System[21].x\r\n\t\t\t#define SheetFrameHeight \t System[21].y\r\n\t\t\t#define SheetFPS\t\t \t System[21].z\r\n\t\t\t#define SheetWrap\t\t \t System[21].w\r\n\t\t\t#define SheetLength\t\t \t System[22].x\r\n\t\t\t#define EmitterRangeX\t \t System[22].yz\r\n\t\t\t#define EmitterRangeY\t \t System[23].xy\r\n\t\t\t#define EmitterRangeZ\t \t System[23].zw\r\n\t\t\t#define SystemEmissionStart\t System[24].x\r\n\t\t\t#define SystemEmissionCount\t System[24].y\r\n\t\t\t\t\t\t\r\n\t\t\t#define PARTICLE_LENGTH\t\t 8.0\r\n\t\t\t\r\n\t\t\t#define EMITTER_SPHERE\t\t 0\r\n\t\t\t#define EMITTER_BOX\t\t\t 1\r\n\t\t\t#define EMITTER_CONE\t\t 2\r\n\t\t\t#define EMITTER_CYLINDER\t 3\r\n\t\t\t\r\n\t\t\t#define PARTICLE_STATUS\t\t 0\r\n\t\t\t#define PARTICLE_POSITION\t 1\r\n\t\t\t#define PARTICLE_ROTATION\t 2\r\n\t\t\t#define PARTICLE_SIZE\t\t 3\r\n\t\t\t#define PARTICLE_VELOCITY\t 4\r\n\t\t\t#define PARTICLE_COLOR\t\t 5\r\n\t\t\t#define PARTICLE_START\t\t 6\r\n\t\t\t#define PARTICLE_NULL\t\t 7\r\n\t\t\t\r\n\t\t\t#define STATE_NONE\t\t 0\r\n\t\t\t#define STATE_RESET\t\t 1\r\n\t\t\t#define STATE_UPDATE\t 2\r\n\t\t\t#define STATE_LOAD   \t 3\r\n\t\t\t\r\n\t\t\t#define PARTICLE_DISABLED\t 0\r\n\t\t\t#define PARTICLE_INIT\t\t 1\r\n\t\t\t#define PARTICLE_ENABLED\t 2\r\n\t\t\t#define PARTICLE_DEAD\t\t 3\r\n\t\t\t\r\n\t\t\tfloat particle_id;\t\t\t\r\n\t\t\tfloat particle_field;\r\n\t\t\tfloat fragment_id;\r\n\t\t\t\r\n\t\t\tvarying vec2 \t\titerator;\t\t\t\r\n\t\t\tuniform sampler2D \tData;\t\t\t\r\n\t\t\tuniform sampler2D \tStartColor;\t\t\t\r\n\t\t\tuniform sampler2D \tColor;\t\t\t\r\n\t\t\tuniform float \t\twidth;\t\t\t\r\n\t\t\tuniform float \t\theight;\t\t\t\r\n\t\t\tuniform vec4  \t\tSystem[25];\t\t\t\r\n\t\t\tuniform float \t\tRandomSeed;\t\t\r\n\t\t\tuniform sampler2D \tRandomTexture;\r\n\t\t\t\r\n\t\t\t\r\n\t\t\tvec4 Random()\r\n\t\t\t{\r\n\t\t\t\tfloat tw   = 1.0/128.0;\r\n\t\t\t\tfloat seed = RandomSeed * 262144.0;\r\n\t\t\t\tfloat idx  = mod(seed+fragment_id,128.0) * tw;\r\n\t\t\t\tfloat idy  = floor((seed+fragment_id) * tw)  * tw;\r\n\t\t\t\tvec2  ruv  = vec2(idx,idy);\r\n\t\t\t\tseed      += tw * fract(sin(dot(ruv ,vec2(12.9898,78.233))) * 43758.5453);\r\n\t\t\t\treturn texture2D(RandomTexture, ruv);\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec3 RandomVector() { return (Random().xyz - 0.5)*2.0; }\r\n\t\t\t\r\n\t\t\tfloat Lerp(float a, float b,float r) { return a + ((b-a)*r); }\r\n\t\t\tvec2  Lerp(vec2  a, vec2  b,float r) { return a + ((b-a)*r); }\r\n\t\t\tvec3  Lerp(vec3  a, vec3  b,float r) { return a + ((b-a)*r); }\r\n\t\t\tvec4  Lerp(vec4  a, vec4  b,float r) { return a + ((b-a)*r); }\r\n\t\t\t\r\n\t\t\tvec3 GetSphereRandomPosition(bool p_surface,float p_radius)\t\r\n\t\t\t{\t\r\n\t\t\t\tfloat r   = (p_radius*0.5);\r\n\t\t\t\tvec3 v    = RandomVector();\t\t\t\t\t\t\t\t\r\n\t\t\t\treturn p_surface ? (normalize(v) * r) : (v * r); \r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec3 GetBoxRandomPosition(bool p_surface,vec3 p_size)\r\n\t\t\t{\t\t\t\t\r\n\t\t\t\tvec3 hs  = p_size*0.5;\r\n\t\t\t\tif(p_surface)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec3 p = GetSphereRandomPosition(true,length(p_size));\r\n\t\t\t\t\tp.x = clamp(p.x,-hs.x,hs.x);\r\n\t\t\t\t\tp.y = clamp(p.y,-hs.y,hs.y);\r\n\t\t\t\t\tp.z = clamp(p.z,-hs.z,hs.z);\r\n\t\t\t\t\treturn p;\r\n\t\t\t\t}\t\t\t\r\n\t\t\t\tvec3 rnd = Random().xyz;\r\n\t\t\t\treturn vec3( Lerp(-hs.x,hs.x,rnd.x), Lerp(-hs.y,hs.y,rnd.y), Lerp(-hs.z,hs.z,rnd.z));\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec3 GetEmitterRandomPosition()\r\n\t\t\t{\r\n\t\t\t\tint id \t\t\t= EmmiterType;\r\n\t\t\t\tbool is_surface = IsSurfaceEmission;\r\n\t\t\t\t\r\n\t\t\t\tif(id == EMITTER_SPHERE) return GetSphereRandomPosition(is_surface,EmitterSize.x);\r\n\t\t\t\tif(id == EMITTER_BOX) \t return GetBoxRandomPosition(is_surface,EmitterSize);\r\n\t\t\t\treturn GetSphereRandomPosition(is_surface,EmitterSize.x);\r\n\t\t\t}\r\n\t\t\t\t\t\t\r\n\t\t\tvec3 SampleParticleAttribVec3(vec4 p_start,vec4 p_end,float p_random)\r\n\t\t\t{\r\n\t\t\t\tfloat c  = p_start.w;\r\n\t\t\t\tfloat rf = p_end.w;\t\t\t\t\r\n\t\t\t\tvec3 a   = p_start.xyz;\r\n\t\t\t\tvec3 b   = p_end.xyz;\r\n\t\t\t\treturn (rf > 0.0) ? Lerp(a,b,p_random) : Lerp(a,b,pow(SystemProgress,c));\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tfloat SampleParticleAttribFloat(vec4 p_attribute,float p_random)\r\n\t\t\t{\r\n\t\t\t\tvec4 a   = p_attribute;\t\t\t\t\r\n\t\t\t\treturn (a.w > 0.0) ? Lerp(a.x,a.y,p_random) : Lerp(a.x,a.y,pow(SystemProgress,a.z));\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 ParticleData(float p_id,int p_field)\r\n\t\t\t{\r\n\t\t\t\tfloat pix = floor(p_id) * PARTICLE_LENGTH;\r\n\t\t\t\tfloat f   = float(p_field);\r\n\t\t\t\tfloat w   = floor(width);\r\n\t\t\t\tfloat h   = floor(height);\r\n\t\t\t\tfloat px  = mod(pix+f,w) / (w-1.0);\r\n\t\t\t\tfloat py  = floor((pix+f)/w) / (h-1.0);\r\n\t\t\t\treturn texture2D(Data,vec2(px,py));\r\n\t\t\t}\r\n\t\t\r\n\t\t\tvec4 ParticleStatus()   \t{ return ParticleData(particle_id,PARTICLE_STATUS); \t}\r\n\t\t\tvec4 ParticlePosition() \t{ return ParticleData(particle_id,PARTICLE_POSITION); \t}\r\n\t\t\tvec4 ParticleRotation() \t{ return ParticleData(particle_id,PARTICLE_ROTATION); \t}\r\n\t\t\tvec4 ParticleSize() \t\t{ return ParticleData(particle_id,PARTICLE_SIZE); \t\t}\r\n\t\t\tvec4 ParticleVelocity()\t\t{ return ParticleData(particle_id,PARTICLE_VELOCITY);\t}\r\n\t\t\tvec4 ParticleColor() \t\t{ return ParticleData(particle_id,PARTICLE_COLOR); \t\t}\r\n\t\t\tvec4 ParticleStart() \t\t{ return ParticleData(particle_id,PARTICLE_START); \t\t}\r\n\t\t\r\n\t\t\t\r\n\t\t\tvec4 UpdateStatus(int p_state,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\t//[state][life][duration][frame]\r\n\t\t\t\tvec4 p   = p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 rnd = Random();\r\n\t\t\t\t\tp.x = 1.0;\r\n\t\t\t\t\tp.y = 0.0;\r\n\t\t\t\t\tp.z = SampleParticleAttribFloat(StartLife,rnd.x);\r\n\t\t\t\t\tp.w = SampleParticleAttribFloat(StartFrame,rnd.y);\r\n\t\t\t\t\treturn p;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_INIT)\r\n\t\t\t\t{\r\n\t\t\t\t\tp.x = 2.0;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\t\t\t\t\t\t\r\n\t\t\t\t\tif(p.y >= p.z)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tp.y = p.z;\r\n\t\t\t\t\t\tp.x = 3.0;\r\n\t\t\t\t\t\treturn p;\r\n\t\t\t\t\t}\r\n\t\t\t\t\tp.y += DeltaTime;\t\t\t\t\t\r\n\t\t\t\t\tp.w += SheetFPS * DeltaTime;\r\n\t\t\t\t\tif(p.w >= SheetLength)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tp.w = SheetLength;\t\t\t\t\t\t\r\n\t\t\t\t\t\tif(int(SheetWrap)==1) p.w=0.0;\t\t\t\t\t\t\r\n\t\t\t\t\t}\r\n\t\t\t\t\treturn p;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn p;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 UpdatePosition(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   = p_status;\r\n\t\t\t\tvec4 c   = p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tc.xyz = GetEmitterRandomPosition();\r\n\t\t\t\t\tif(!IsLocal) { c.w=1.0; c = c * WorldMatrix; }\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tvec3  v = ParticleVelocity().xyz * Lerp(LifeMotion0.xyz,LifeMotion1.xyz,r);\t\t\t\t\t\r\n\t\t\t\t\tfloat speed =  Lerp(StartSpeed.x,StartSpeed.y,ParticleStart().x) * Lerp(LifeSpeed.x,LifeSpeed.y,r);\t\t\t\t\t\r\n\t\t\t\t\tc.xyz += v * speed * DeltaTime;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t\r\n\t\t\tvec4 UpdateVelocity(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   \t\t= p_status;\t\t\t\t\r\n\t\t\t\tvec4 c   \t\t= p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_INIT)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 rnd;\r\n\t\t\t\t\tc.xyz  = IsRandomDirection ? normalize((Random().xyz-0.5)*2.0) : normalize(ParticlePosition().xyz);\t\t\t\t\t\r\n\t\t\t\t\tc.x = clamp(c.x,EmitterRangeX.x,EmitterRangeX.y);\r\n\t\t\t\t\tc.y = clamp(c.y,EmitterRangeY.x,EmitterRangeY.y);\r\n\t\t\t\t\tc.z = clamp(c.z,EmitterRangeZ.x,EmitterRangeZ.y);\r\n\t\t\t\t\tc = normalize(c);\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tc.xyz += SystemForce * DeltaTime;\t\t\t\t\t\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 UpdateRotation(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   = p_status;\r\n\t\t\t\tvec4 c   = p_current;\r\n\t\t\t\tc = vec4(0,0,0,0);\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 UpdateSize(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   = p_status;\r\n\t\t\t\tvec4 c   = p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tc.xyz = Lerp(StartSize0.xyz,StartSize1.xyz,ParticleStart().y) * Lerp(LifeSize0.xyz,LifeSize1.xyz,r);\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tc.xyz = Lerp(StartSize0.xyz,StartSize1.xyz,ParticleStart().y) * Lerp(LifeSize0.xyz,LifeSize1.xyz,r);\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t\r\n\t\t\tvec4 UpdateColor(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   = p_status;\r\n\t\t\t\tvec4 c   = p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 c0 = texture2D(StartColor,vec2(ParticleStart().z,0.0));\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tvec4 c1 = texture2D(Color,vec2(r,0.0));\r\n\t\t\t\t\tc = c0 * c1;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_ENABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 c0 = texture2D(StartColor,vec2(ParticleStart().z,0.0));\r\n\t\t\t\t\tfloat r = p.z <= 0.0 ? 0.0 : (p.y/p.z);\r\n\t\t\t\t\tvec4 c1 = texture2D(Color,vec2(r,0.0));\r\n\t\t\t\t\tc = c0 * c1;\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tvec4 UpdateStart(int p_state,vec4 p_status,vec4 p_current)\r\n\t\t\t{\r\n\t\t\t\tvec4 p   \t\t= p_status;\t\t\t\t\r\n\t\t\t\tvec4 c   \t\t= p_current;\r\n\t\t\t\t\r\n\t\t\t\tif(int(p.x) == PARTICLE_DISABLED)\r\n\t\t\t\t{\r\n\t\t\t\t\tvec4 rnd = Random();\r\n\t\t\t\t\tc.x = StartSpeed.w > 0.0 ? rnd.x : SystemProgress;\r\n\t\t\t\t\tc.y = StartSize1.w > 0.0 ? rnd.y : SystemProgress;\r\n\t\t\t\t\tc.z = SystemProgress;\r\n\t\t\t\t\tc.w = StartRotation1.w > 0.0 ? rnd.w : SystemProgress;\r\n\t\t\t\t}\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\treturn c;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tuniform float Time;\r\n\t\t\t\r\n\t\t\tvoid main(void) \r\n\t\t\t{\t\t\r\n\t\t\t\tfloat count\t\t = floor(SystemEmissionCount);\t\t\t\t\r\n\t\t\t\tif(count <= 0.0) { gl_FragColor = vec4(0,0,0,1); return; }\r\n\t\t\t\tfloat ix\t     = iterator.x;\r\n\t\t\t\tfloat iy\t     = iterator.y;\t\t\r\n\t\t\t\tfloat iw         = 1.0 / width;\t\t\t\t\r\n\t\t\t\tfloat ih         = 1.0 / height;\t\t\t\t\r\n\t\t\t\t//float hiw        = iw*0.5;\t\t\t\t\r\n\t\t\t\t//float hih        = ih*0.5;\t\t\t\t\r\n\t\t\t\t//ix = (ix - hiw) / (1.0 - iw);\r\n\t\t\t\t//iy = (iy - hih) / (1.0 - ih);\r\n\t\t\t\t\r\n\t\t\t\tfloat size       = width * height;\r\n\t\t\t\tfloat max_count  = floor((width * height)/PARTICLE_LENGTH);\r\n\t\t\t\tfloat px         = floor(ix * width);\r\n\t\t\t\tfloat py         = floor(iy * height);\r\n\t\t\t\tfloat pix\t     = (px + (py * width));\r\n\t\t\t\t\r\n\t\t\t\t//if (pix >= (size - PARTICLE_LENGTH)) { gl_FragColor = vec4(0, 0, 0, 1); return; }\r\n\t\t\t\t\r\n\t\t\t\tfloat id\t\t = ((pix / (PARTICLE_LENGTH)));\r\n\t\t\t\tfloat field\t\t = mod(pix,PARTICLE_LENGTH);\r\n\t\t\t\t\r\n\t\t\t\tparticle_id = id;\r\n\t\t\t\tfragment_id = pix;\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\tfloat emin \t\t = floor(mod(SystemEmissionStart,max_count));\r\n\t\t\t\tfloat emax \t\t = floor(mod(SystemEmissionStart+count,max_count));\r\n\t\t\t\t\r\n\t\t\t\tif(emin > emax)\r\n\t\t\t\t{\r\n\t\t\t\t\tif(id < emin) \r\n\t\t\t\t\tif(id >= emax) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }\r\n\t\t\t\t}\r\n\t\t\t\telse\r\n\t\t\t\t{\t\t\t\t\r\n\t\t\t\t\tif(id < emin)  { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }\r\n\t\t\t\t\tif(id >= emax) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }\r\n\t\t\t\t}\r\n\t\t\t\t//*/\r\n\t\t\t\t\r\n\t\t\t\t/*\r\n\t\t\t\tfloat ck = floor(mod(pix, 2.0)) <= 0.0 ? 0.8 : 1.0;\t\t\t\t\r\n\t\t\t\tck = field / PARTICLE_LENGTH;\t\t\t\t\r\n\t\t\t\tvec4 mc = vec4(ck, ck, ck, 1.0);\t\t\t\t\t\r\n\t\t\t\t//gl_FragColor = mc;\r\n\t\t\t\t//return;\r\n\t\t\t\t//*/\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t/*\r\n\t\t\t\tvec4 c0 = vec4(1.0, 0.0, 0.0, 1.0)*mc;\r\n\t\t\t\tvec4 c1 = vec4(1.0, 1.0, 0.0, 1.0)*mc;\r\n\t\t\t\tvec4 c2 = vec4(0.0, 1.0, 0.0, 1.0)*mc;\r\n\t\t\t\tvec4 c3 = vec4(0.0, 1.0, 1.0, 1.0)*mc;\r\n\t\t\t\tvec4 c4 = vec4(0.0, 0.0, 1.0, 1.0)*mc;\r\n\t\t\t\tvec4 c5 = vec4(1.0, 0.0, 1.0, 1.0)*mc;\r\n\t\t\t\tvec4 c6 = vec4(1.0, 1.0, 1.0, 1.0)*mc;\r\n\t\t\t\tvec4 c7 = vec4(0.8, 0.8, 0.8, 1.0)*mc;\r\n\t\t\t\tvec4 c8 = vec4(0.6, 0.6, 0.6, 1.0)*mc;\r\n\t\t\t\tvec4 c9 = vec4(0.4, 0.4, 0.4, 1.0)*mc;\r\n\t\t\t\t//*/\r\n\t\t\t\t\r\n\t\t\t\t/*\r\n\t\t\t\tif(int(id)==0) { gl_FragColor = c0; return; }\r\n\t\t\t\tif(int(id)==1) { gl_FragColor = c1; return; }\r\n\t\t\t\tif(int(id)==2) { gl_FragColor = c2; return; }\r\n\t\t\t\tif(int(id)==3) { gl_FragColor = c3; return; }\r\n\t\t\t\tif(int(id)==4) { gl_FragColor = c4; return; }\r\n\t\t\t\tif(int(id)==5) { gl_FragColor = c5; return; }\r\n\t\t\t\tif(int(id)==6) { gl_FragColor = c6; return; }\r\n\t\t\t\tif(int(id)==7) { gl_FragColor = c7; return; }\r\n\t\t\t\tif(int(id)==8) { gl_FragColor = c8; return; }\r\n\t\t\t\tif(int(id)==9) { gl_FragColor = c9; return; }\r\n\t\t\t\t\r\n\t\t\t\tgl_FragColor = vec4(0.0, 1.0, 1.0, 1.0);\r\n\t\t\t\treturn;\r\n\t\t\t\t//*/\r\n\t\t\t\t\r\n\t\t\t\t/*\r\n\t\t\t\tfloat b = (field / PARTICLE_LENGTH) + 0.2;\r\n\t\t\t\tc0.xyz *= b;\r\n\t\t\t\tc1.xyz *= b;\r\n\t\t\t\tc2.xyz *= b;\r\n\t\t\t\tc3.xyz *= b;\r\n\t\t\t\tc4.xyz *= b;\r\n\t\t\t\tc5.xyz *= b;\r\n\t\t\t\tc6.xyz *= b;\r\n\t\t\t\t\r\n\t\t\t\tfield = id;\r\n\t\t\t\t\r\n\t\t\t\t//*/\r\n\t\t\t\t/*\r\n\t\t\t\tvec4 c0 = vec4(1.0,0.0,0.0, 1.0);        \r\n\t\t\t\tvec4 c1 = vec4(dv*1.0, 1.0, dv*1.0, 1.0);\r\n\t\t\t\tvec4 c2 = vec4(dv*2.0, 0.0, dv*2.0, 1.0);\r\n\t\t\t\tvec4 c3 = vec4(dv*3.0, 0.0, dv*3.0, 1.0);\r\n\t\t\t\tvec4 c4 = vec4(dv*4.0, 0.0, dv*4.0, 1.0);\r\n\t\t\t\tvec4 c5 = vec4(dv*5.0, 0.0, dv*5.0, 1.0);\r\n\t\t\t\tvec4 c6 = vec4(1.0, 0.0, 1.0, 1.0);      \r\n\t\t\t\t//*/\r\n\t\t\t\t/*\r\n\t\t\t\tif(int(field)==0) { gl_FragColor = c0; return; }\r\n\t\t\t\tif(int(field)==1) { gl_FragColor = c1; return; }\r\n\t\t\t\tif(int(field)==2) { gl_FragColor = c2; return; }\r\n\t\t\t\tif(int(field)==3) { gl_FragColor = c3; return; }\r\n\t\t\t\tif(int(field)==4) { gl_FragColor = c4; return; }\r\n\t\t\t\tif(int(field)==5) { gl_FragColor = c5; return; }\r\n\t\t\t\tif(int(field)==6) { gl_FragColor = c6; return; }\r\n\t\t\t\t\r\n\t\t\t\tgl_FragColor = vec4(0.0, 1.0, 1.0, 1.0);\r\n\t\t\t\treturn;\r\n\t\t\t\t//*/\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t//gl_FragColor = vec4(1.0,1.0,0.0,1.0);\t\t\t\treturn;\r\n\t\t\t\t//if(id >= SystemEmission) { gl_FragColor = vec4(0.0,0.0,0.0,1.0); return; }\r\n\t\t\t\t\r\n\t\t\t\tint   state\t\t = SystemState;\r\n\t\t\t\t\r\n\t\t\t\tvec4  status\t = ParticleStatus();\r\n\t\t\t\tvec4  data\t\t = texture2D(Data,iterator);\r\n\t\t\t\t\r\n\t\t\t\tgl_FragColor \t = data;\r\n\t\t\t\t\r\n\t\t\t\tif(state == STATE_NONE) return;\r\n\t\t\t\t\r\n\t\t\t\tint field_id        = int(field);\r\n\t\t\t\t\r\n\t\t\t\tif(field_id == PARTICLE_STATUS) \t{ gl_FragColor = UpdateStatus(state,data);\t\t\t   \treturn; }\r\n\t\t\t\tif(field_id == PARTICLE_POSITION) \t{ gl_FragColor = UpdatePosition(state,status,data); \treturn; }\t\t\t\t\r\n\t\t\t\tif(field_id == PARTICLE_ROTATION) \t{ gl_FragColor = UpdateRotation(state,status,data); \treturn; }\t\t\t\t\r\n\t\t\t\tif(field_id == PARTICLE_SIZE)\t \t{ gl_FragColor = UpdateSize(state,status,data); \t \treturn; }\t\t\t\t\r\n\t\t\t\tif(field_id == PARTICLE_VELOCITY)\t{ gl_FragColor = UpdateVelocity(state,status,data); \treturn; }\r\n\t\t\t\tif(field_id == PARTICLE_COLOR)\t\t{ gl_FragColor = UpdateColor(state,status,data); \t \treturn; }\r\n\t\t\t\tif(field_id == PARTICLE_START)\t\t{ gl_FragColor = UpdateStart(state, status, data); \t \treturn; }\r\n\t\t\t\tif(field_id == PARTICLE_NULL)\t\t{ gl_FragColor = vec4(1,0,1,1);\t\t\t\t\t \t \treturn; }\r\n\t\t\t\t\r\n\t\t\t}\r\n\t\t\t\r\n\t\t</fragment>\t\r\n\t</shader>\r\n\t";
-examples_dungeon_Main.main();
+examples_ubershader_Main.main();
 })();

@@ -30,7 +30,8 @@ class FlexShader extends TemplateShader
 		if ((v & ShaderFeature.LightingVertex)!=0) 	{ AddPreprocessor("#define", "LIGHTING_VERTEX"); AddPreprocessor("#define", "LIGHTING"); }
 		if ((v & ShaderFeature.LightingPixel)!=0)  	{ AddPreprocessor("#define", "LIGHTING_PIXEL");  AddPreprocessor("#define", "LIGHTING"); }
 		if ((v & ShaderFeature.Specular) != 0)  		AddPreprocessor("#define", "SPECULAR");
-		if ((v & ShaderFeature.SpecularTexture) != 0)	AddPreprocessor("#define", "SPECULAR_TEXTURE");		
+		if ((v & ShaderFeature.SpecularTexture) != 0)	AddPreprocessor("#define", "SPECULAR_TEXTURE");
+		if ((v & ShaderFeature.SpecularAlpha) != 0)	AddPreprocessor("#define", "SPECULAR_ALPHA");
 		if ((v & ShaderFeature.Lightmap)!=0)  		AddPreprocessor("#define", "LIGHTMAP");
 		if ((v & ShaderFeature.FogVertex)!=0) 		{ AddPreprocessor("#define", "FOG_VERTEX"); AddPreprocessor("#define", "FOG"); }
 		if ((v & ShaderFeature.FogPixel)!=0) 		{ AddPreprocessor("#define", "FOG_PIXEL"); AddPreprocessor("#define", "FOG"); }
@@ -39,6 +40,7 @@ class FlexShader extends TemplateShader
 		if ((v & ShaderFeature.Particle) != 0) 		AddPreprocessor("#define", "PARTICLE");
 		if ((v & ShaderFeature.UVScroll) != 0) 		AddPreprocessor("#define", "UV_SCROLL");
 		if ((v & ShaderFeature.Random) != 0) 		AddPreprocessor("#define", "RANDOM");		
+		if ((v & ShaderFeature.AlphaTexture) != 0) 		AddPreprocessor("#define", "ALPHA_TEXTURE");		
 		if ((v & (ShaderFeature.LightingVertex | ShaderFeature.LightingPixel)) != 0) AddPreprocessor("#define", "MAX_LIGHTS", Light.max + "");
 		return v; 
 	}
@@ -52,7 +54,7 @@ class FlexShader extends TemplateShader
 	 * @param	p_tint
 	 * @param	p_compile
 	 */
-	public function new(p_id:String,p_features : Int, p_precision : Int = ShaderPrecision.VertexLow | ShaderPrecision.FragmentLow, p_compile:Bool = true) 
+	public function new(p_id:String,p_features : Int = ShaderFeature.Empty, p_precision : Int = ShaderPrecision.VertexLow | ShaderPrecision.FragmentLow, p_compile:Bool = true) 
 	{	
 		super(p_id, p_precision, false);		
 		features = p_features;			
@@ -245,11 +247,10 @@ class FlexShader extends TemplateShader
 		vec4 VPos;
 		vec4 HPos;
 		
-		vec3 FalloffComponent;
-		
 		vec3 WorldViewDir;
 		vec3 Normal;
 		
+		vec3 FalloffComponent;
 		vec3 DiffuseComponent;
 		vec3 SpecularComponent;
 		
@@ -329,7 +330,7 @@ class FlexShader extends TemplateShader
 			#endif
 			
 			#ifdef FOG_VERTEX
-			v_fog_factor = FogFactor(v_linear_depth, FogExp, FogDensity, FogStart, FogEnd);
+			v_fog_component = FogFactor(v_linear_depth, FogExp, FogDensity, FogStart, FogEnd);
 			#endif
 			
 			gl_Position = HPos;
@@ -346,6 +347,14 @@ class FlexShader extends TemplateShader
 	#ifdef TEXTURE	
 	uniform sampler2D DiffuseTexture;
 	#endif	
+	
+	#ifdef SPECULAR_TEXTURE
+	uniform sampler2D SpecularTexture;
+	#endif
+	
+	#ifdef ALPHA_TEXTURE
+	uniform sampler2D AlphaTexture;
+	#endif
 	
 	#ifdef BUMP
 	uniform sampler2D NormalTexture;
@@ -407,16 +416,26 @@ class FlexShader extends TemplateShader
 			#endif
 			
 			#ifdef BUMP
-			vec4 tex_bump = (texture2D(NormalTexture, v_uv1) * 2.0) - 1.0;
-			Normal += tex_bump.xyz;			
+			vec3 tex_bump = (texture2D(NormalTexture, v_uv1).xyz * 2.0) - 1.0;
+			Normal = tex_bump;
 			#endif
 			
 			#ifdef USE_NORMAL
 			Normal = normalize(Normal);
 			#endif
 			
-			#ifdef TEXTURE
-			Fragment *= texture2D(DiffuseTexture, v_uv0.xy);
+			vec4 tex_diffuse = vec4(1, 1, 1, 1);
+			
+			#ifdef TEXTURE			
+			tex_diffuse *= texture2D(DiffuseTexture, v_uv0.xy);
+			#endif
+						
+			#ifdef ALPHA_TEXTURE			
+			tex_diffuse.a *= texture2D(AlphaTexture, v_uv0.xy).r;
+			#endif
+			
+			#ifdef USE_DIFFUSE_TEXTURE
+			Fragment *= tex_diffuse;
 			#endif
 			
 			#ifdef CUTOFF
@@ -447,7 +466,18 @@ class FlexShader extends TemplateShader
 			Fragment.xyz += Fragment.xyz * DiffuseComponent;
 			#endif
 			
-			#ifdef SPECULAR
+			#ifdef SPECULAR			
+			
+			#ifdef SPECULAR_ALPHA
+			SpecularComponent *= tex_diffuse.a;
+			#endif
+			
+			#ifdef SPECULAR_TEXTURE
+			
+			vec4 tex_specular = texture2D(SpecularTexture, v_uv0.xy);
+			SpecularComponent *= tex_specular.xyz;
+			#endif
+			
 			Fragment.xyz += SpecularComponent;
 			#endif
 			
@@ -463,13 +493,10 @@ class FlexShader extends TemplateShader
 			Fragment.xyz += FalloffComponent;
 			#endif
 			
-			#ifdef FOG_VERTEX
-			#endif
-			
 			float FogComponent = 0.0;
 			
 			#ifdef FOG_VERTEX
-			FogComponent = v_fog_factor;
+			FogComponent = v_fog_component;
 			#endif
 			
 			#ifdef FOG_PIXEL
@@ -529,7 +556,7 @@ class FlexShader extends TemplateShader
 	#endif
 	
 	#ifdef FOG_VERTEX
-	varying float v_fog_factor;
+	varying float v_fog_component;
 	#endif
 	
 	';
@@ -763,9 +790,15 @@ class FlexShader extends TemplateShader
 	#define USE_UV1
 	#endif
 	
+	#if defined(TEXTURE) || defined(ALPHA_TEXTURE)
+	#define USE_DIFFUSE_TEXTURE
+	#endif
+	
 	#if defined(TOON)
 	#define USE_RAMP_TEXTURE
 	#endif
+	
+	
 	
 	';
 	

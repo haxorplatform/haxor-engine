@@ -13,6 +13,7 @@ import haxor.graphics.texture.Texture2D;
 import haxor.graphics.texture.TextureCube;
 import haxor.graphics.GL;
 import haxor.io.Buffer;
+import haxor.math.Mathf;
 import haxor.platform.Types.Float32;
 import haxor.platform.Types.FrameBufferId;
 import haxor.platform.Types.RenderBufferId;
@@ -200,24 +201,7 @@ class TextureContext
 				if(active != p_slot) { GL.ActiveTexture(GL.TEXTURE0 + p_slot); active = p_slot; }
 				ApplyBind(p_texture,true);
 			}
-		}		
-		/*
-		var will_bind : Bool = false;
-		//if (active != slot)
-		{
-			if (slot >= 0)
-			{
-				GL.ActiveTexture(GL.TEXTURE0 + slot);
-				active = slot;
-			}
-		}
-		//var need_bind : Bool = p_slot < 0 ? true : (bind[slot] != p_texture);
-		if (bind[slot] != p_texture)
-		{
-			ApplyBind(p_texture);
-			//if (slot >= 0) bind[slot] = p_texture;
-		}
-		//*/
+		}				
 	}
 	
 	/**
@@ -230,6 +214,7 @@ class TextureContext
 		{ 
 			var id 		: TextureId = ids[p_texture.__cid];		
 			var target 	: Int 		= TextureToTarget(p_texture);			
+			trace(target + " " + GL.TEXTURE_CUBE_MAP);
 			GL.BindTexture(target, id); 
 			bound = p_texture; 
 		}
@@ -240,13 +225,11 @@ class TextureContext
 	 */
 	private function Unbind():Void
 	{	
-		
-		//if (active < 0) return;
-		//if(bind[active] == null) return;
-		//var target 	: Int 		= TextureToTarget(bind[active]);	
-		//bind[active] = null;
-		bound = null;
-		GL.BindTexture(GL.TEXTURE_2D, GL.NULL);
+		if (bound != null)
+		{
+			bound = null;
+			GL.BindTexture(GL.TEXTURE_2D, GL.NULL);
+		}
 	}
 	
 	
@@ -255,15 +238,14 @@ class TextureContext
 	 * @param	rt
 	 */
 	private function BindTarget(rt : RenderTexture):Void 
-	{		
-		
+	{	
 		if (rt == null)
 		{			
 			if (target != rt) 
 			{ 
 				GL.BindFramebuffer(GL.FRAMEBUFFER, GL.NULL); 
 				GL.BindRenderbuffer(GL.RENDERBUFFER, GL.NULL);
-				target = null; 
+				target = null;
 			}			
 		}
 		else
@@ -271,7 +253,7 @@ class TextureContext
 			if (target != rt) 
 			{ 
 				var fb_id : FrameBufferId = framebuffers[rt.__cid];
-				GL.BindFramebuffer(GL.FRAMEBUFFER, fb_id); 				
+				GL.BindFramebuffer(GL.FRAMEBUFFER, fb_id);
 				if (rt.depth == null)
 				{
 					var rb_id : RenderBufferId = renderbuffers[rt.__cid];
@@ -366,7 +348,7 @@ class TextureContext
 		if (target == GL.TEXTURE_CUBE_MAP)
 		{
 			var tc : TextureCube = cast p_texture;
-			if (tc.px != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X	  , tc.px);			
+			if (tc.px != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X	  , tc.px);
 			if (tc.nx != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 1, tc.nx);			
 			if (tc.py != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 2, tc.py);
 			if (tc.ny != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 3, tc.ny);
@@ -384,7 +366,7 @@ class TextureContext
 	 * Upload all pixels of the Texture2D async.
 	 * @param	p_texture
 	 */
-	private function UploadTexture(p_texture:Texture2D,p_x:Int,p_y:Int,p_width:Int,p_height:Int,p_steps:Int,p_on_complete:Void->Void):Void
+	private function UploadTexture(p_texture:Texture2D,p_x:Int,p_y:Int,p_width:Int,p_height:Int,p_steps:Int,p_on_complete:Void->Void=null):Void
 	{	
 		var b : Bitmap = p_texture.data;
 		var py : Int 		= p_y;
@@ -434,8 +416,7 @@ class TextureContext
 			var is_ti2d : Bool = (p_texture.type == TextureType.Compute) || (p_texture.type == TextureType.Texture2D);			
 			if (is_ti2d)
 			{
-				var t2d : Texture2D = cast p_texture;
-				//trace(p_texture.name);
+				var t2d : Texture2D = cast p_texture;				
 				GL.TexImage2D(p_target, 0, chn_fmt, w, h, 0, chn_bit, chn_type, t2d.data.buffer);
 			}
 			else
@@ -446,6 +427,58 @@ class TextureContext
 				GL.FramebufferTexture2D(GL.FRAMEBUFFER, GL.COLOR_ATTACHMENT0,p_target,id,0);
 			}
 		}	
+	}
+	
+	/**
+	 * Extracts the cubemap faces from a cross texture.
+	 * @param	ct
+	 * @param	t
+	 */
+	private function CrossToCubemap(tc : TextureCube, cross : Texture2D):Void
+	{		
+		var target:Int = TextureToTarget(tc);		
+		var chn_fmt  : Int 	= FormatToChannelLayout(tc.m_format);
+		var chn_bit  : Int 	= FormatToChannelBits(tc.m_format);
+		var chn_type : Int  = FormatToChannelType(tc.m_format);	
+		var cells : Array<Int> = [1, 4, 5, 6, 7, 9];
+		var sides : Array<Int> = 
+		[
+			GL.TEXTURE_CUBE_MAP_NEGATIVE_Y,			
+			GL.TEXTURE_CUBE_MAP_NEGATIVE_X,
+			GL.TEXTURE_CUBE_MAP_POSITIVE_Z,
+			GL.TEXTURE_CUBE_MAP_POSITIVE_X,
+			GL.TEXTURE_CUBE_MAP_NEGATIVE_Z,
+			GL.TEXTURE_CUBE_MAP_POSITIVE_Y			
+		];
+		var cw  : Int  = cast (cross.width / 4);
+		var ch  : Int  = cast (cross.height / 3);
+		var bpp : Int  = cross.data.channels * cross.data.buffer.bytesPerElement;
+		var line_bytes :Int  = cw * bpp;
+		var line_offset : Int = cross.width * bpp;		
+		Activity.RunOnce(
+		function():Void		
+		{
+			Bind(tc);
+			for (i in 0...cells.length)
+			{
+				var cid : Int = cells[i];
+				var sid : Int = sides[i];
+				var px  : Int = (cid % 4) * cw;
+				var py  : Int = cast Mathf.Floor(cid / 4) * ch;
+				var pos : Int = (px + (py * cross.width));
+				GL.TexImage2DAlloc(sid, 0,chn_fmt,cw,ch,0, chn_bit, chn_type);
+				for (j in 0...ch)
+				{						
+					cross.data.buffer.SetViewSlice(pos * bpp, line_bytes);
+					GL.TexSubImage2D(sid, 0, 0, (ch-1) - j, cw, 1, chn_fmt, chn_type, cross.data.buffer);
+					cross.data.buffer.ResetSlice();
+					pos += cross.width;
+				}					
+			}			
+		}
+		,false,true);
+			
+		
 	}
 	
 	

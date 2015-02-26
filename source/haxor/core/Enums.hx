@@ -607,37 +607,45 @@ class ShaderFeature
 	 */
 	inline static public var SpecularTexture : Int	= (1 << 13);
 	/**
+	 * Will use the alpha channel of the DiffuseTexture as Specular mask.
+	 */
+	inline static public var SpecularAlpha : Int	= (1 << 14);
+	/**
 	 * Will use a lightmap texture combined with the diffuse elements.
 	 */
-	inline static public var Lightmap : Int	= (1 << 14);
+	inline static public var Lightmap : Int	= (1 << 15);
 	/**
 	 * Will apply fog per vertex.
 	 */
-	inline static public var FogVertex	 : Int	= (1 << 15);
+	inline static public var FogVertex	 : Int	= (1 << 16);
 	/**
 	 * Will apply fog per pixel.
 	 */
-	inline static public var FogPixel : Int	= (1 << 16);
+	inline static public var FogPixel : Int	= (1 << 17);
 	/**
 	 * Will use a toon ramp in the diffuse and specular factors.
 	 */
-	inline static public var Toon : Int		= (1 << 17);
+	inline static public var Toon : Int		= (1 << 18);
 	/**
 	 * Will apply an alpha cutoff in the pixel shader.
 	 */
-	inline static public var Cutoff : Int		= (1 << 18);	
+	inline static public var Cutoff : Int		= (1 << 19);	
 	/**
 	 * Will have a particle oriented workflow.
 	 */
-	inline static public var Particle : Int	= (1 << 19);
+	inline static public var Particle : Int	= (1 << 20);
 	/**
 	 * Will scroll the uv0 along Time.
 	 */
-	inline static public var UVScroll : Int	= (1 << 20);
+	inline static public var UVScroll : Int	= (1 << 21);
 	/**
 	 * Will offer Random features using the internal RandomTexture.
 	 */
-	inline static public var Random : Int	= (1 << 21);
+	inline static public var Random : Int	= (1 << 22);
+	/**
+	 * Will offer use a separated Texture as alpha source.
+	 */
+	inline static public var AlphaTexture : Int	= (1 << 23);
 }
 
 /**

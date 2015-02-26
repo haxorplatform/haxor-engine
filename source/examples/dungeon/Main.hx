@@ -200,10 +200,11 @@ class Main extends Application implements IUpdateable implements IRenderable
 		mr.mesh = Model.sphere;
 		mr.material = Material.Opaque();
 		mr.material.lighting = true;
-		mr.material.shader = new FlexShader("000",ShaderFeature.Texture | ShaderFeature.LightingPixel | ShaderFeature.Specular | ShaderFeature.FogVertex | ShaderFeature.UVScroll);
+		mr.material.shader = new FlexShader("000");
 		trace(mr.material.shader);		
 		mr.material.SetTexture("RampTexture", Asset.Get("player/ramp"));
 		mr.material.SetFloat("Shininess", 10.0);
+		mr.material.SetFloat("Cutoff", 0.5);
 		mr.material.SetFloat3("UVSpeed",0.05,0.02,0.0);
 		mr.material.SetTexture("DiffuseTexture", Texture2D.random);
 		//*/

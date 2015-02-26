@@ -64,7 +64,7 @@ class Texture2DLoader extends BitmapLoader
 			//Needs to finish the texture creation in a Graphics context.
 			Activity.RunOnce(function():Void
 			{	
-				var t : Texture2D = Texture2D.FromBitmap(p_data, m_apply);			
+				var t : Texture2D = Texture2D.FromBitmap(p_data, m_apply);							
 				m_t2d_callback(t, 1.0);
 			},false, true);
 			//*/
