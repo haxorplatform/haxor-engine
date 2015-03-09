@@ -6,6 +6,7 @@ import haxor.core.Enums.RenderQueue;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.mesh.MeshLayout.Mesh3;
+import haxor.graphics.mesh.Model;
 import haxor.graphics.texture.Texture;
 import haxor.io.UInt16Array;
 import haxor.math.Color;
@@ -22,8 +23,9 @@ class BlobShadow extends MeshRenderer
 	override function OnBuild():Void 
 	{
 		super.OnBuild();
+		/*
 		var m : Mesh3 = new Mesh3();
-		m.name = "BlobShadowMesh";
+		m.name = "BlobShadowMesh";		
 		var s : Float = 0.5;
 		m.vertex = 
 		[
@@ -44,21 +46,14 @@ class BlobShadow extends MeshRenderer
 		]);
 		
 		m.GenerateBounds();
-		mesh = m;
+		//*/
+		mesh = Model.planeXZ;
 		
 		var tex : Texture = Asset.Get("BlobShadow");
 		
-		/*
-		material = new Material();
-		material.name = "BlobShadowMaterial";		
-		material.zwrite = false;
-		material.queue = RenderQueue.Opaque;
+		material = Material.Transparent(tex, true,false,true);		
 		material.SetBlending(BlendMode.Zero, BlendMode.SrcColor);
-		material.shader = Shader.FlatTexture;
-		
-		//*/
-		material = Material.Transparent(tex, true, false);		
-		material.SetBlending(BlendMode.Zero, BlendMode.SrcColor);
+		material.SetColor("Tint", Color.white);
 		
 		
 	}

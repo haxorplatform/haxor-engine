@@ -574,7 +574,7 @@ class MaterialContext
 	 */
 	private function Unbind():Void
 	{	
-		//Disable something
+		//Disable something		
 		if (current == null) return;
 		var ul : Array<MaterialUniform> = current.m_uniforms;
 		for (i in 0...ul.length)
@@ -584,7 +584,7 @@ class MaterialContext
 				ul[i].texture.__slot = -1;
 			}
 		}
-		
+		current = null;
 	}
 	
 	/**
@@ -693,13 +693,15 @@ class MaterialContext
 		var changed : Bool = u.__d;
 		var texture_slot : Int = -1;				
 		if (is_texture) 
-		{ 				
+		{ 	
+			
 			if (u.texture.__slot < 0) { u.texture.__slot = texture_slot = slot++; }			
 			var b : Int32Array = cast u.data;
 			if (u.texture.__slot != b.Get(0)) { changed = true; b.Set(0, u.texture.__slot); }			
 			EngineContext.texture.Bind(u.texture, u.texture.__slot);			
 		} 					
 		if (!changed) return;				
+		
 		ApplyUniform(loc, u,texture_slot);
 	}
 	

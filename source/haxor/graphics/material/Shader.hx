@@ -1,7 +1,9 @@
 package haxor.graphics.material;
 import haxor.context.EngineContext;
 import haxor.context.ShaderContext;
+import haxor.core.Enums.ShaderFeature;
 import haxor.core.Resource;
+import haxor.graphics.material.shader.FlexShader;
 
 /**
  * Class that holds the sources for Vertex and Fragment shaders.

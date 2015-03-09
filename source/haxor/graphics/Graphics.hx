@@ -3,9 +3,11 @@ import haxor.component.Camera;
 import haxor.component.Transform;
 import haxor.context.EngineContext;
 import haxor.core.Enums.ClearFlag;
+import haxor.core.Time;
 import haxor.graphics.material.Material;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.GL;
+import haxor.graphics.mesh.Model;
 import haxor.graphics.texture.Texture;
 import haxor.io.Buffer;
 import haxor.math.AABB2;
@@ -60,17 +62,19 @@ class Graphics
             if ((c.clear & ClearFlag.Depth) != 0)  flag |= GL.DEPTH_BUFFER_BIT;
 			GL.ClearColor(c.background.r, c.background.g, c.background.b, c.background.a);
 			GL.ClearDepth(1.0);
-            GL.Clear(flag);			
-			/*
+            GL.Clear(flag);						
 			if ((c.clear & ClearFlag.Skybox) != 0)
 			{
-				if (p_camera.skybox != null)
-				{					
-					Material.skybox.SetUniform("SkyboxTexture", p_camera.skybox);
-					Material.skybox.SetUniform("SkyboxProjectionMatrixInverse",p_camera.m_skyboxProjectionInverse);
-					Render(p_camera, null, BufferAPI.skybox, Material.skybox);
+				if (c.skybox != null)
+				{	
+					var sbm : Material = EngineContext.camera.skybox_material;
+					sbm.SetTexture("SkyboxTexture", c.skybox);
+					sbm.SetMatrix4("SkyboxProjectionMatrixInverse", c.m_skyboxProjectionInverse);
+					Graphics.Render(Model.screen, sbm, null, c);
+					
 				}
-			}
+			}	
+			
 			//*/
 		}	
 	}
@@ -81,9 +85,9 @@ class Graphics
 	 * @param	p_material
 	 */
 	static public function Render(p_mesh : Mesh, p_material : Material,p_transform:Transform=null,p_camera : Camera=null):Void
-	{		
+	{	
 		EngineContext.material.Bind(p_material,p_transform,p_camera,p_mesh);
-		EngineContext.mesh.Bind(p_mesh);
+		EngineContext.mesh.Bind(p_mesh);		
 		EngineContext.mesh.Draw(p_mesh);
 	}
 	

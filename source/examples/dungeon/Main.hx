@@ -129,16 +129,12 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	public var path : Array<Vector3>;
 	
-	/**
-	 * 
-	 */
-	public var os : String;
 	
 	
 	override function OnBuild():Void
 	{
 		super.OnBuild();
-		
+				
 	}
 	
 	
@@ -155,14 +151,9 @@ class Main extends Application implements IUpdateable implements IRenderable
 	 */
 	override public function Initialize():Void 
 	{
-		os = "";
 		
-		#if html
-		os = Browser.navigator.platform;
-		#end
-				
 		
-		Console.Log("Initialize ["+os+"]");	
+		Console.Log("Initialize ["+browser.name+"] Mobile["+mobile+"] Platform["+platform+"]");	
 		
 		#if html
 		loader = new LoaderHTML();
@@ -192,7 +183,7 @@ class Main extends Application implements IUpdateable implements IRenderable
 		{
 			Add();
 		}		
-		
+		/*
 		var e : Entity = new Entity("sphere");
 		e.transform.parent = game.player.transform;
 		e.transform.localScale = new Vector3(50, 50, 50);		
@@ -311,11 +302,10 @@ class Main extends Application implements IUpdateable implements IRenderable
 			if (Input.Pressed(KeyCode.D)) p.Add(vx.Scale(Time.delta * 500.0));
 			game.orbit.pivot.localPosition = p;			
 			
-			
-			if (Input.touches.length>=2) if(Input.touches[0].down || Input.touches[1].down) game.player.path_enabled = !game.player.path_enabled;		
-			if (Input.Down(KeyCode.Enter)) game.player.path_enabled = !game.player.path_enabled;
-			
 		}
+		
+		if (Input.touches.length>=2) if(Input.touches[0].down || Input.touches[1].down) game.player.path_enabled = !game.player.path_enabled;		
+		if (Input.Down(KeyCode.Enter)) game.player.path_enabled = !game.player.path_enabled;
 		
 		if (path == null)
 		{
@@ -398,13 +388,16 @@ class Main extends Application implements IUpdateable implements IRenderable
 	{	
 		Web.root = "http://www.haxor.xyz/resources/";
 		
+		var is_fast : Bool = false;
+		
 		#if html
+		is_fast = js.Browser.window.location.hash.toLowerCase().indexOf("fast") >= 0;
 		load_big_dungeon = js.Browser.window.location.hash.toLowerCase().indexOf("big") >= 0;
 		#end
 		
 		//Falloff Ramp
 		Asset.LoadTexture2D("player/ramp", 	  "./texture/misc/ramp00.jpg");		
-		Asset.LoadCollada("knight", 		  "./character/medieval/knight/asset.dae");
+		Asset.LoadCollada("knight", 		  "./character/medieval/knight/asset-opt.dae");
 		Asset.LoadTexture2D("knight/diffuse", "./character/medieval/knight/DiffuseTexture.png");
 		
 		Asset.LoadCollada("skeleton", "./character/skeleton/grunt/model.DAE");
@@ -454,16 +447,19 @@ class Main extends Application implements IUpdateable implements IRenderable
 		 * SMALL DUNGEON
 		 */
 		if (!load_big_dungeon)
-		{
-			var dt : String = "small1";
+		{			
+			var dt : String = "small-opt";
+			var mt : String = mobile ? "-mobile" : "";
+			var ft : String = mt;
+			if (is_fast) if (mobile) ft += "-fast";
 			Asset.LoadCollada("dungeon", 			"./projects/dungeon/"+dt+"/asset.dae");			
-			Asset.LoadTexture2D("DungeonTile01", 	"./projects/dungeon/"+dt+"/DungeonTile01.jpg");
-			Asset.LoadTexture2D("DungeonAtlas01", 	"./projects/dungeon/"+dt+"/DungeonAtlas01.jpg");
-			Asset.LoadTexture2D("DungeonAtlas02", 	"./projects/dungeon/"+dt+"/DungeonAtlas02.jpg");
-			Asset.LoadTexture2D("DungeonAtlas03", 	"./projects/dungeon/"+dt+"/DungeonAtlas03.jpg");
-			Asset.LoadTexture2D("Lightmap01", 		"./projects/dungeon/"+dt+"/Lightmap01.png");
-			Asset.LoadTexture2D("Lightmap02", 		"./projects/dungeon/"+dt+"/Lightmap02.png");
-			Asset.LoadTexture2D("Lightmap03", 		"./projects/dungeon/"+dt+"/Lightmap03.png");
+			Asset.LoadTexture2D("DungeonTile01", 	"./projects/dungeon/small1/DungeonTile01.jpg");
+			Asset.LoadTexture2D("DungeonAtlas01", 	"./projects/dungeon/"+dt+"/DungeonAtlas01"+ft+".jpg");
+			Asset.LoadTexture2D("DungeonAtlas02", 	"./projects/dungeon/"+dt+"/DungeonAtlas02"+ft+".jpg");
+			Asset.LoadTexture2D("DungeonAtlas03", 	"./projects/dungeon/"+dt+"/DungeonAtlas03"+ft+".jpg");
+			Asset.LoadTexture2D("Lightmap01", 		"./projects/dungeon/"+dt+"/Lightmap01"+mt+".png");
+			Asset.LoadTexture2D("Lightmap02", 		"./projects/dungeon/"+dt+"/Lightmap02"+mt+".png");
+			Asset.LoadTexture2D("Lightmap03", 		"./projects/dungeon/"+dt+"/Lightmap03"+mt+".png");
 		}
 		
 		/**

@@ -3,6 +3,7 @@ import haxor.component.animation.Animation;
 import haxor.component.Behaviour;
 import haxor.component.Component;
 import haxor.component.MeshRenderer;
+import haxor.component.Transform;
 import haxor.context.Process.BaseProcess;
 import haxor.core.Console;
 import haxor.core.Debug;
@@ -113,6 +114,11 @@ class EngineContext
 	static private var renderer : RendererContext;
 	
 	/**
+	 * Reference to the Particle context.
+	 */
+	static private var particle : ParticleContext;
+	
+	/**
 	 * Reference to the Gizmo context.
 	 */
 	static private var gizmo : GizmoContext;
@@ -166,6 +172,7 @@ class EngineContext
 		Debug.Initialize();
 		
 		renderer	= new RendererContext();
+		particle    = new ParticleContext();
 		mesh 		= new MeshContext();		
 		material	= new MaterialContext();
 		texture		= new TextureContext();		
@@ -190,6 +197,7 @@ class EngineContext
 		gizmo.Initialize();	
 		transform.Initialize();
 		renderer.Initialize();
+		particle.Initialize();
 		physics.Initialize();
 		kernel.Initialize();
 		#end
@@ -273,6 +281,14 @@ class EngineContext
 		p_resource.m_destroyed = true;		
 		for (i in 0...list.length) list[i].Remove(p_resource);		
 		EngineContext.disposables.Add(p_resource);		
+		if (Std.is(p_resource, Entity))
+		{
+			var e : Entity = cast p_resource;
+			var t : Transform = e.transform;
+			t.parent = null;
+			for (i in 0...t.childCount) Destroy(t.GetChild(i).entity);			
+			for (i in 0...e.m_components.length) Destroy(e.m_components[i]);
+		}
 	}
 	
 }

@@ -1,5 +1,10 @@
 #if !ie8
 package haxor.core;
+import haxor.graphics.Graphics;
+import haxor.graphics.mesh.Model;
+import haxor.graphics.material.Material;
+import haxor.core.Enums.ClearFlag;
+import haxor.core.Enums.RenderQueue;
 import haxor.component.Camera;
 import haxor.component.Renderer;
 import haxor.component.Transform;
@@ -14,6 +19,7 @@ import haxor.context.Process;
 class RenderEngine
 {
 
+	
 	static private function Render():Void
 	{
 		#if profile
@@ -36,7 +42,7 @@ class RenderEngine
 		var cl  : Array<Camera> = EngineContext.camera.list;
 		for (i in 0...cl.length)
 		{
-			var c : Camera = Camera.m_current = cl[i];			
+			var c : Camera = Camera.m_current = cl[i];
 			RenderCamera(c);
 		}
 		
@@ -50,7 +56,10 @@ class RenderEngine
 	static private function RenderCamera(c:Camera):Void
 	{
 		if (!c.enabled) return;
-		EngineContext.camera.Bind(c);			
+		
+		EngineContext.camera.Bind(c);
+		
+		
 		var layers : Array<Int> = c.m_layers;						
 		for (i in 0...layers.length)
 		{	
@@ -134,7 +143,8 @@ class RenderEngine
 		}		
 		EngineContext.renderer.sap_dirty = false;		
 		EngineContext.kernel.Execute();
-		
+		EngineContext.material.Unbind();
+		EngineContext.mesh.Unbind();
 	}
 	
 	/**

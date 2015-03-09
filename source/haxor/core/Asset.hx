@@ -5,6 +5,7 @@ import haxor.core.Resource;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.texture.Texture2D;
+import haxor.graphics.texture.TextureCube;
 import haxor.io.file.ColladaFile;
 import haxor.io.file.MaterialFile;
 import haxor.net.Web;
@@ -79,6 +80,17 @@ class Asset
 	{
 		m_load_progress.set(p_id, 0.0);
 		Web.LoadTexture2D(p_url, true, function(d : Texture2D, p : Float32):Void { UpdateProgress(p_id, p, d);   } ); 
+	}
+	
+	/**
+	 * Loads a texture from the web and converts it to a Cubemap then adds it to the global database.
+	 * @param	p_id
+	 * @param	p_url
+	 */
+	static public function LoadTextureCubeCross(p_id : String, p_url : String) : Void 
+	{
+		m_load_progress.set(p_id, 0.0);
+		Web.LoadTextureCubeCross(p_url, true, function(d : TextureCube, p : Float32):Void { UpdateProgress(p_id, p, d);   } ); 
 	}
 	
 	/**

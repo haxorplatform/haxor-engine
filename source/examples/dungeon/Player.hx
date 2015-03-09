@@ -79,8 +79,8 @@ class Player extends Behaviour implements IUpdateable
 	{
 		var f : ColladaFile = Asset.Get(character);		
 		asset = f.asset;
-		asset.transform.localScale = new Vector3(400, 400, 400);
-		
+		asset.transform.localScale = new Vector3(4, 4, 4);
+		asset.transform.localPosition = new Vector3(0, 10, 0);
 		asset.transform.parent = transform;
 		
 		speed = TOP_SPEED;
@@ -115,7 +115,7 @@ class Player extends Behaviour implements IUpdateable
 				m_falloff_mat = mat = Asset.Instantiate(mat);				
 				mat.name = new_mat_id;					
 				mat.lighting = false;
-				mat.shader = 
+				mat.shader = 				
 				Shader.FlatTextureSkin;
 				//Asset.Get("haxor/diffuse/ToonSkinFalloff");
 				
@@ -143,7 +143,7 @@ class Player extends Behaviour implements IUpdateable
 				mat.SetColor("Tint", Color.FromBytes(45, 90, 125));
 				Asset.Add("PlayerHilight", mat);
 			}
-			
+			/*
 			var  skr : SkinnedMeshRenderer = cast mr;
 			var nskr : SkinnedMeshRenderer = mr.entity.AddComponent(SkinnedMeshRenderer);
 			nskr.mesh   	= skr.mesh;
@@ -168,19 +168,18 @@ class Player extends Behaviour implements IUpdateable
 		m_shadow.name = "shadow";		
 		m_shadow.parent = entity.transform;		
 		m_shadow.localScale = new Vector3(110, 0, 110);
-		m_shadow.localPosition = new Vector3(0, 5, 0);
+		m_shadow.localPosition = new Vector3(0, 2.5, 0);
 		m_shadow.entity.AddComponent(BlobShadow);
 		
 		var app : Main = cast application;
 		
-		if (app.os.toLowerCase().indexOf("arm") < 0)
+		if (!app.mobile)
 		{
-			/*
 			m_dust_particle = (new Entity()).AddComponent(ParticleRunning);
 			m_dust_particle.transform.parent = transform;
 			m_dust_particle.transform.localPosition = new Vector3(0, 10, 0);
-			//*/
-		}
+		}			
+		
 		
 		//Activity.Delay(2.0, function():Void { path_enabled = true; } );
 		

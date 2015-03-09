@@ -6,6 +6,7 @@ import haxor.component.Component;
 import haxor.graphics.Screen;
 import haxor.graphics.GL;
 import haxor.input.Input;
+import haxor.platform.html.BrowserAgent;
 import haxor.platform.Types.Float32;
 
 
@@ -142,8 +143,39 @@ class BaseApplication extends Behaviour
 	 * Platform this application is currently running.
 	 */
 	public var platform(get_platform, null):Platform;
-	private inline function get_platform():Platform { return m_platform; }
-	private var m_platform : Platform;
+	private function get_platform():Platform { return Platform.Unknown; }
+	
+	
+	/**
+	 * Flag that indicates if the platform running the application is mobile.
+	 */
+	public var mobile(get_mobile, null):Bool;
+	private function get_mobile():Bool
+	{
+		switch(platform)
+		{
+			case Platform.iOS:
+			case Platform.Android: return true;
+			
+			case Platform.Unknown:
+			case Platform.NodeJS:
+			case Platform.Windows:
+			case Platform.Linux:
+			case Platform.MacOS: return false;
+			
+			case Platform.HTML:
+			return browser.mobile;
+			
+		}
+		return false;
+	}
+	
+	/**
+	 * Reference to the browser agent being used (HTML-only).
+	 */
+	public var browser(get_browser, never):BrowserAgent;
+	private function get_browser():BrowserAgent	{ return m_browser;	}
+	private var m_browser : BrowserAgent;
 	
 	/**
 	 * Flag that indicates if the application must run on the window's focus state changes.
@@ -170,12 +202,12 @@ class BaseApplication extends Behaviour
 	{
 		super.OnBuild();		
 		m_instance 		= this;
+		m_browser		= new BrowserAgent();
 		m_scenes   		= [];
 		fps 			= 60;
 		m_frame_ms	    = 0.0;		
 		m_init_allowed  = false;
-		m_run_on_background = false;
-		m_platform 		= Platform.Unknown;		
+		m_run_on_background = false;		
 		Time.Initialize();		
 		Screen.Initialize(this);
 		Input.Initialize();

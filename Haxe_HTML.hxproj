@@ -22,7 +22,7 @@
     <option directives="html&#xA;profile&#xA;js-es5&#xA;js-flatten&#xA;dce" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="examples.ubershader.Main" />
+    <option mainClass="examples.dungeon.Main" />
     <option enabledebug="False" />
     <option additional="" />
   </build>
@@ -36,7 +36,7 @@
     <compile path="src\MainHTML.hx" />
     <compile path="source\Dungeon00.hx" />
     <compile path="source\examples\dungeon\DungeonApp.hx" />
-    <compile path="source\examples\ubershader\Main.hx" />
+    <compile path="source\examples\dungeon\Main.hx" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

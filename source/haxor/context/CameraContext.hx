@@ -1,12 +1,16 @@
 package haxor.context;
 import haxor.component.Camera;
 import haxor.component.MeshRenderer;
+import haxor.core.Enums.BlendMode;
+import haxor.core.Enums.CullMode;
 import haxor.core.Resource;
 import haxor.core.Enums.PixelFormat;
 import haxor.ds.SAP;
 import haxor.graphics.GL;
 import haxor.graphics.Graphics;
+import haxor.graphics.material.Material;
 import haxor.graphics.material.Material.MaterialUniform;
+import haxor.graphics.material.Shader;
 import haxor.graphics.Screen;
 import haxor.graphics.texture.RenderTexture;
 import haxor.math.Mathf;
@@ -42,6 +46,10 @@ class CameraContext
 	 */
 	private var back  : Array<RenderTexture>;
 	
+	/**
+	 * Material used for clearing with the skybox.
+	 */
+	private var skybox_material : Material;
 	
 	/**
 	 * Creates the context.
@@ -66,6 +74,12 @@ class CameraContext
 	 */
 	private function Create(c:Camera):Void
 	{
+		skybox_material = new Material("internal/Skybox");		
+		skybox_material.ztest 	  = true;
+		skybox_material.cull 	  = CullMode.None;
+		skybox_material.zwrite	  = false;
+		skybox_material.shader = new Shader(ShaderContext.clear_skybox_source);
+		
 		list.push(c);		
 		SortCameraList();	
 		EngineContext.renderer.AddCamera(c);
@@ -99,7 +113,8 @@ class CameraContext
 		EngineContext.renderer.UpdateCameraSAP(c);		
 		EngineContext.texture.BindTarget(target);
 		EngineContext.renderer.UpdateDisplayList(c);		
-		Graphics.Clear(c);			
+		Graphics.Clear(c);
+		
 	}
 	
 	/**

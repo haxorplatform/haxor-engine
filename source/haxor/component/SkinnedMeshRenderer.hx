@@ -71,6 +71,7 @@ class SkinnedMeshRenderer extends MeshRenderer
 	private var m_quality : BoneQuality;
 	
 	
+	
 	/**
 	 * Bind Matrix values
 	 */

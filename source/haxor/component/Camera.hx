@@ -69,6 +69,11 @@ class Camera extends Behaviour implements IResizeable
 	 * Skybox Texture
 	 */
 	public var skybox: TextureCube;
+	/*
+	private function get_skybox():TextureCube { return m_skybox; }
+	private function set_skybox(v:TextureCube):TextureCube { if (m_skybox != null) m_skybox.__slot = -1; m_skybox = v; if (m_skybox != null) m_skybox.__slot = -1; return v; }
+	private var m_skybox : TextureCube;
+	//*/
 	
 	/**
 	 * Clear flag bits.

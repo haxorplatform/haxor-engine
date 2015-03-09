@@ -1,4 +1,7 @@
+
+
 package haxor.graphics.mesh;
+import haxor.core.Enums.MeshPrimitive;
 import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.math.AABB3;
@@ -22,15 +25,39 @@ class Model
 		if (m_screen != null) return m_screen;
 		var m : Mesh = new Mesh("$ModelScreen");
 		var s : Float32 = 1.0;		
-		var v : FloatArray =  FloatArray.Alloc([-s, -s, 0.5,  s, -s, 0.5,  s,  s, 0.5, -s,  s, 0.5]);
-		var uv : FloatArray  =  FloatArray.Alloc([ 0.0, 0.0, 0.0, 	1.0, 0.0, 0.0, 	1.0, 1.0, 0.0,	0.0, 1.0, 0.0]);		 
+		var v : FloatArray =  FloatArray.Alloc([		
+		-s,  s,  0.0,		
+		-s, -s,  0.0,
+		 s, -s,  0.0,
+		 s,  s,  0.0
+		]);
+		var uv : FloatArray  =  FloatArray.Alloc([ 0.0, 0.0, 0.0, 	1.0, 0.0, 0.0, 	1.0, 1.0, 0.0,	0.0, 1.0, 0.0]);		
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
 		m.bounds = m.GenerateAttribBounds("vertex",AABB3.temp);
-		m.topology =  UInt16Array.Alloc([0, 1, 2,0,2,3]);
+		m.topology =  UInt16Array.Alloc([0, 1, 2, 0, 2, 3]);		
 		return m_screen = m;
 	}
 	static private var m_screen : Mesh;
+	
+	/**
+	 * Mesh that describes a quad in the XY plane centered around [0,0,0].
+	 */
+	static public var point(get_point, null):Mesh;
+	static private function get_point():Mesh
+	{
+		if (m_point != null) return m_point;
+		var m : Mesh = new Mesh("$ModelPoint");		
+		var s : Float32 = 0.0;		
+		var v : FloatArray   =  FloatArray.Alloc([0.0, 0.0, 0.0]);		
+		var n  : FloatArray  =  FloatArray.Alloc([0.0, 0.0, 1.0]);
+		m.Set("vertex", v, 3);		
+		m.Set("normal", n, 3);
+		m.primitive = MeshPrimitive.Points;		
+		m.bounds = m.GenerateAttribBounds("vertex",AABB3.temp);		
+		return m_point = m;
+	}
+	static private var m_point : Mesh;
 	
 	/**
 	 * Mesh that describes a quad in the XY plane centered around [0,0,0].
@@ -41,12 +68,13 @@ class Model
 		if (m_planeXY != null) return m_planeXY;
 		var m : Mesh = new Mesh("$ModelPlaneXY");
 		var s : Float32 = 0.5;		
-		var v : FloatArray =  FloatArray.Alloc([-s, -s, 0.0,  s, -s, 0.0,  s,  s, 0.0, -s,  s, 0.0]);
-		var uv : FloatArray  =  FloatArray.Alloc([ 0.0, 0.0, 0.0, 	1.0, 0.0, 0.0, 	1.0, 1.0, 0.0,	0.0, 1.0, 0.0]);		 
+		var v  : FloatArray   =  FloatArray.Alloc([  -s,  s,0.0,    -s, -s,0.0,    s, -s,0.0,   -s,  s,0.0,    s, -s,0.0,    s,  s,0.0]);
+		var uv : FloatArray   =  FloatArray.Alloc([ 0.0,1.0,0.0,   0.0,0.0,0.0,  1.0,0.0,0.0,  0.0,1.0,0.0,  1.0,0.0,0.0,  1.0,1.0,0.0]);
+		var n  : FloatArray   =  FloatArray.Alloc([ 0.0,0.0,1.0,   0.0,0.0,1.0,  0.0,0.0,1.0,  0.0,0.0,1.0,  0.0,0.0,1.0,  0.0,0.0,1.0]);
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
-		m.bounds = m.GenerateAttribBounds("vertex",AABB3.temp);
-		m.topology =  UInt16Array.Alloc([0,1,2,0,2,3]);
+		m.Set("normal", n, 3);
+		m.bounds = m.GenerateAttribBounds("vertex",AABB3.temp);		
 		return m_planeXY = m;
 	}
 	static private var m_planeXY : Mesh;
@@ -60,12 +88,13 @@ class Model
 		if (m_planeXZ != null) return m_planeXZ;
 		var m : Mesh = new Mesh("$ModelPlaneXZ");
 		var s : Float32 = 0.5;		
-		var v : FloatArray =  FloatArray.Alloc([-s, 0.0, -s,  s, 0.0, -s,  s,  0.0, s, -s,  0.0, s]);
-		var uv : FloatArray  =  FloatArray.Alloc([ 0.0, 0.0, 0.0, 	1.0, 0.0, 0.0, 	1.0, 1.0, 0.0,	0.0, 1.0, 0.0]);		 
+		var v  : FloatArray   =  FloatArray.Alloc([  -s,0.0,  s,    -s,0.0, -s,    s,0.0, -s,   -s,0.0,  s,    s,0.0, -s,    s,0.0,  s]);
+		var uv : FloatArray   =  FloatArray.Alloc([ 0.0,1.0,0.0,   0.0,0.0,0.0,  1.0,0.0,0.0,  0.0,1.0,0.0,  1.0,0.0,0.0,  1.0,1.0,0.0]);
+		var n  : FloatArray   =  FloatArray.Alloc([ 0.0,1.0,0.0,   0.0,1.0,0.0,  0.0,1.0,0.0,  0.0,1.0,0.0,  0.0,1.0,0.0,  0.0,1.0,0.0]);
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
-		m.bounds = m.GenerateAttribBounds("vertex",AABB3.temp);
-		m.topology =  UInt16Array.Alloc([0,1,2,0,2,3]);
+		m.Set("normal", n, 3);
+		m.bounds = m.GenerateAttribBounds("vertex",AABB3.temp);		
 		return m_planeXZ = m;
 	}
 	static private var m_planeXZ : Mesh;
@@ -79,12 +108,13 @@ class Model
 		if (m_planeYZ != null) return m_planeYZ;
 		var m : Mesh = new Mesh("$ModelPlaneYZ");
 		var s : Float32 = 0.5;		
-		var v : FloatArray =  FloatArray.Alloc([0.0,-s,-s,  0.0,s,-s,  0.0,s,s, 0.0,-s, s]);
-		var uv : FloatArray  =  FloatArray.Alloc([ 0.0, 0.0, 0.0, 	1.0, 0.0, 0.0, 	1.0, 1.0, 0.0,	0.0, 1.0, 0.0]);		 
+		var v  : FloatArray   =  FloatArray.Alloc([ 0.0, -s, s,    0.0, -s, -s,  0.0,  s, -s,  0.0, -s,  s,  0.0,  s, -s,  0.0,  s,  s]);
+		var uv : FloatArray   =  FloatArray.Alloc([ 0.0,1.0,0.0,   0.0,0.0,0.0,  1.0,0.0,0.0,  0.0,1.0,0.0,  1.0,0.0,0.0,  1.0,1.0,0.0]);
+		var n  : FloatArray   =  FloatArray.Alloc([ 1.0,0.0,0.0,   1.0,0.0,0.0,  1.0,0.0,0.0,  1.0,0.0,0.0,  1.0,0.0,0.0,  1.0,0.0,0.0]);
 		m.Set("vertex", v, 3);
 		m.Set("uv0", uv, 3);
-		m.bounds = m.GenerateAttribBounds("vertex",AABB3.temp);
-		m.topology =  UInt16Array.Alloc([0,1,2,0,2,3]);
+		m.Set("normal", n, 3);
+		m.bounds = m.GenerateAttribBounds("vertex",AABB3.temp);		
 		return m_planeYZ = m;
 	}
 	static private var m_planeYZ : Mesh;
@@ -127,6 +157,8 @@ class Model
 	}
 	static private var m_tetrahedron : Mesh;
 	
+	#if ModelPackage
+	
 	/**
 	 * Mesh that describes a sphere with radius 1.0 centered in the origin.
 	 */
@@ -146,4 +178,7 @@ class Model
 	}
 	static private var m_sphere : Mesh;
 	
+	#end
+	
 }
+

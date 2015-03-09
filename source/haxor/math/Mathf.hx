@@ -340,7 +340,34 @@ class Mathf
 	 * @param	p_ratio
 	 * @return
 	 */
-	static public inline function Lerp(p_a:Float32, p_b:Float32, p_ratio : Float32):Float32{ return (p_a + (p_b - p_a) * p_ratio); }		
+	static public inline function Lerp(p_a:Float32, p_b:Float32, p_ratio : Float32):Float32 { return (p_a + (p_b - p_a) * p_ratio); }
+	
+	/**
+	 * SmoothStep interpolates 2 values.
+	 * Ref: http://en.wikipedia.org/wiki/Smoothstep
+	 * @param	p_a
+	 * @param	p_b
+	 * @param	p_ratio
+	 * @return
+	 */
+	static public inline function SmoothStep(p_a:Float32, p_b:Float32, p_ratio : Float32):Float32 
+	{ 
+		return (p_a + (p_b - p_a) * (p_ratio * p_ratio * (3.0 - 2.0 * p_ratio)));
+	}
+	
+	/**
+	 * Smoothstep 2 values with better continuity.
+	 * Ref: http://en.wikipedia.org/wiki/Smoothstep
+	 * @param	p_a
+	 * @param	p_b
+	 * @param	p_ratio
+	 * @return
+	 */
+	static public inline function PerlinStep(p_a:Float32, p_b:Float32, p_ratio : Float32):Float32
+	{
+		return (p_a + (p_b - p_a) * (p_ratio * p_ratio * p_ratio * (p_ratio * (p_ratio * 6 - 15) + 10)));
+	}
+	
 	
 	/**
 	 * Linear interpolates the informed numbers and returns their integer form.
@@ -349,7 +376,25 @@ class Mathf
 	 * @param	p_ratio
 	 * @return
 	 */
-	static inline public function LerpInt(p_a:Int, p_b:Int, p_ratio : Float32):Int { return Std.int(Lerp(cast p_a,cast p_b, p_ratio)); }
+	static inline public function LerpInt(p_a:Int, p_b:Int, p_ratio : Float32):Int { return Std.int(Lerp(cast p_a, cast p_b, p_ratio)); }
+	
+	/**
+	 * Smoothstep interpolates the informed numbers and returns their integer form.
+	 * @param	p_a
+	 * @param	p_b
+	 * @param	p_ratio
+	 * @return
+	 */
+	static inline public function SmoothStepInt(p_a:Int, p_b:Int, p_ratio : Float32):Int { return Std.int(SmoothStep(cast p_a, cast p_b, p_ratio)); }
+	
+	/**
+	 * Smoothstep interpolates the informed numbers and returns their integer form.
+	 * @param	p_a
+	 * @param	p_b
+	 * @param	p_ratio
+	 * @return
+	 */
+	static inline public function PerlinStepInt(p_a:Int, p_b:Int, p_ratio : Float32):Int { return Std.int(PerlinStep(cast p_a,cast p_b, p_ratio)); }
 	
 	/**
 	 * Returns only the decimal places of the informed number.

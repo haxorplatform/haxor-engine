@@ -555,4 +555,36 @@ class ShaderContext
 	</shader>	
 	';
 	
+	/**
+	 * Shader responsible by the camera clear function with cubemaps.
+	 */
+	static private var clear_skybox_source : String =
+	'
+	<shader id="haxor/clear/Skybox">
+		<vertex precision="low">		
+			uniform mat4 ViewMatrixInverse;
+			uniform mat4 SkyboxProjectionMatrixInverse;
+			uniform vec3 CameraPosition;			
+			varying vec3 v_view_dir;
+			attribute vec3 vertex;			
+			void main()
+			{
+				vec4 wpos = vec4(vertex,1.0) * SkyboxProjectionMatrixInverse;
+				wpos /= wpos.w;
+				wpos = wpos * ViewMatrixInverse;
+				v_view_dir = wpos.xyz - CameraPosition;      		
+				gl_Position = vec4(vertex,1.0);
+			}
+		</vertex>
+		<fragment precision="low">			
+			uniform samplerCube  SkyboxTexture;
+			varying vec3 v_view_dir;
+			void main() 
+			{ 
+			gl_FragColor = textureCube(SkyboxTexture, normalize(v_view_dir));
+			}
+		</fragment>
+	</shader>
+	';
+	
 }

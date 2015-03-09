@@ -32,6 +32,12 @@ class HTMLApplication extends BaseApplication
 	public var stage(get_stage, never):DOMStage;
 	private function get_stage():DOMStage { return DOMStage.m_instance; }
 	
+	/**
+	 * Overrides and returns HTML
+	 * @return
+	 */
+	override function get_platform():Platform { return Platform.HTML; }
+		
 	
 	/**
 	 * Reference to the Element container in the HTML
@@ -44,8 +50,7 @@ class HTMLApplication extends BaseApplication
 	 */
 	private function new() 
 	{
-		super();				
-		m_platform 			= Platform.HTML;		
+		super();						
 	}
 	
 	/**

@@ -22,7 +22,8 @@ class FlexShader extends TemplateShader
 		if ((v & ShaderFeature.Tint)!=0)    		AddPreprocessor("#define", "TINT");
 		if ((v & ShaderFeature.VertexColor)!=0)    	AddPreprocessor("#define", "VERTEX_COLOR");
 		if ((v & ShaderFeature.Skinning)!=0)       	{ AddPreprocessor("#define", "SKINNING"); AddPreprocessor("#define", "MAX_BONES", GL.MAX_UNIFORM_BONES+"");  if (GL.BONE_TEXTURE) AddPreprocessor("#define", "BONE_TEXTURE"); }
-		if ((v & ShaderFeature.Reflection)!=0)     		AddPreprocessor("#define", "REFLECTION");
+		if ((v & ShaderFeature.ReflectionVertex) != 0) { AddPreprocessor("#define", "REFLECTION_VERTEX"); AddPreprocessor("#define", "REFLECTION"); }
+		if ((v & ShaderFeature.ReflectionPixel) != 0) { AddPreprocessor("#define", "REFLECTION_PIXEL"); AddPreprocessor("#define", "REFLECTION"); }		
 		if ((v & ShaderFeature.ReflectionTexture) != 0)	AddPreprocessor("#define", "REFLECTION_TEXTURE");		
 		if ((v & ShaderFeature.FalloffVertex) != 0)	{ AddPreprocessor("#define", "FALLOFF_VERTEX"); AddPreprocessor("#define", "FALLOFF"); }
 		if ((v & ShaderFeature.FalloffPixel)!=0)	{ AddPreprocessor("#define", "FALLOFF_PIXEL");  AddPreprocessor("#define", "FALLOFF"); }
@@ -41,6 +42,8 @@ class FlexShader extends TemplateShader
 		if ((v & ShaderFeature.UVScroll) != 0) 		AddPreprocessor("#define", "UV_SCROLL");
 		if ((v & ShaderFeature.Random) != 0) 		AddPreprocessor("#define", "RANDOM");		
 		if ((v & ShaderFeature.AlphaTexture) != 0) 		AddPreprocessor("#define", "ALPHA_TEXTURE");		
+		if ((v & ShaderFeature.Emissive) != 0)			AddPreprocessor("#define", "EMISSIVE");		
+		if ((v & ShaderFeature.EmissiveTexture) != 0)	AddPreprocessor("#define", "EMISSIVE_TEXTURE");		
 		if ((v & (ShaderFeature.LightingVertex | ShaderFeature.LightingPixel)) != 0) AddPreprocessor("#define", "MAX_LIGHTS", Light.max + "");
 		return v; 
 	}
@@ -325,6 +328,10 @@ class FlexShader extends TemplateShader
 			FalloffComponent = v_falloff_component = Falloff(WorldViewDir, Normal, FalloffExp) * FalloffIntensity * FalloffColor.xyz;						
 			#endif
 			
+			#ifdef REFLECTION_VERTEX
+			v_wreflection = reflect(-WorldViewDir, Normal);
+			#endif
+			
 			#ifdef FOG
 			v_linear_depth = LinearNF(HPos.z/HPos.w,CameraNear,CameraFar);
 			#endif
@@ -424,7 +431,7 @@ class FlexShader extends TemplateShader
 			Normal = normalize(Normal);
 			#endif
 			
-			vec4 tex_diffuse = vec4(1, 1, 1, 1);
+			vec4 tex_diffuse = vec4(0, 0, 0, 1);
 			
 			#ifdef TEXTURE			
 			tex_diffuse *= texture2D(DiffuseTexture, v_uv0.xy);
@@ -441,7 +448,22 @@ class FlexShader extends TemplateShader
 			#ifdef CUTOFF
 			if (Fragment.w <= Cutoff) discard;
 			#endif
-						
+			
+			vec3 reflect_dir = vec3(0.0);
+			
+			#ifdef REFLECTION_VERTEX
+			reflect_dir = v_wreflection;
+			#endif
+			
+			#ifdef REFLECTION_PIXEL
+			reflect_dir = reflect(-v_wview,Normal);
+			#endif
+			
+			#ifdef REFLECTION
+			vec3 tex_reflection = textureCube(ReflectionTexture, reflect_dir).xyz;
+			Fragment.xyz += tex_reflection.xyz * ReflectionIntensity * ReflectionColor.xyz;
+			#endif
+			
 			#ifdef LIGHTMAP
 			vec4 tex_lightmap  = texture2D(Lightmap, v_uv1.xy);
 			Fragment.xyz	  += Fragment.xyz * (tex_lightmap.w * LightmapFactor) * tex_lightmap.xyz;
@@ -493,6 +515,10 @@ class FlexShader extends TemplateShader
 			Fragment.xyz += FalloffComponent;
 			#endif
 			
+			#ifdef EMISSIVE
+			Fragment.xyz += EmissiveColor.xyz;
+			#endif
+			
 			float FogComponent = 0.0;
 			
 			#ifdef FOG_VERTEX
@@ -534,9 +560,12 @@ class FlexShader extends TemplateShader
 	#endif		
 	#endif
 	
-	
 	#ifdef USE_VIEW_DIR
 	varying vec3 v_wview;
+	#endif
+	
+	#ifdef REFLECTION_VERTEX
+	varying vec3 v_wreflection;
 	#endif
 	
 	#ifdef FALLOFF
@@ -601,6 +630,16 @@ class FlexShader extends TemplateShader
 	
 	#ifdef USE_RAMP_TEXTURE
 	uniform sampler2D RampTexture;
+	#endif
+	
+	#ifdef REFLECTION
+	uniform float ReflectionIntensity;
+	uniform vec4  ReflectionColor;
+	uniform samplerCube  ReflectionTexture;
+	#endif
+	
+	#ifdef EMISSIVE	
+	uniform vec4  EmissiveColor;
 	#endif
 	
 	';
@@ -778,11 +817,11 @@ class FlexShader extends TemplateShader
 	
 	static private var g_preprocessors : String =
 	'	
-	#if defined(LIGHTING) || defined(FALLOFF) || defined(REFLECTION) || defined(BUMP)
+	#if defined(LIGHTING) || defined(FALLOFF) || defined(REFLECTION) || defined(BUMP) || defined(REFLECTION)
 	#define USE_NORMAL
 	#endif
 	
-	#if defined(FALLOFF) || defined(SPECULAR)
+	#if defined(FALLOFF) || defined(SPECULAR)  || defined(REFLECTION)
 	#define USE_VIEW_DIR
 	#endif
 	

@@ -190,15 +190,18 @@ class TextureContext
 	private function Bind(p_texture : Texture,p_slot:Int=-1):Void
 	{
 		if (p_slot < 0)
-		{
+		{			
 			ApplyBind(p_texture,false);
 		}
 		else
 		{
 			if (bind[p_slot] != p_texture)
 			{
-				bind[p_slot] = p_texture;				
-				if(active != p_slot) { GL.ActiveTexture(GL.TEXTURE0 + p_slot); active = p_slot; }
+				if (active != p_slot) 
+				{ 
+					GL.ActiveTexture(GL.TEXTURE0 + p_slot); 
+					active = p_slot; 
+				}
 				ApplyBind(p_texture,true);
 			}
 		}				
@@ -212,9 +215,9 @@ class TextureContext
 	{
 		if ((bound != p_texture) || p_force) 
 		{ 
+			bind[active] = p_texture;
 			var id 		: TextureId = ids[p_texture.__cid];		
-			var target 	: Int 		= TextureToTarget(p_texture);			
-			trace(target + " " + GL.TEXTURE_CUBE_MAP);
+			var target 	: Int 		= TextureToTarget(p_texture);						
 			GL.BindTexture(target, id); 
 			bound = p_texture; 
 		}

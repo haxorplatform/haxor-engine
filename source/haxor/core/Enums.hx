@@ -565,87 +565,99 @@ class ShaderFeature
 	 */
 	inline static public var Skinning : Int		= (1 << 3);
 	/**
-	 * Will apply reflection.
+	 * Will apply reflection per vertex.
 	 */
-	inline static public var Reflection : Int	= (1 << 4);
+	inline static public var ReflectionVertex : Int	= (1 << 5);
+	/**
+	 * Will apply reflection per pixel.
+	 */
+	inline static public var ReflectionPixel : Int	= (1 << 6);
 	/**
 	 * Will use a reflection texture to tint and mask reflection.
 	 */
-	inline static public var ReflectionTexture : Int	= (1 << 5);
+	inline static public var ReflectionTexture : Int	= (1 << 7);
 	/**
 	 * Will add a falloff effect per vertex.
 	 */
-	inline static public var FalloffVertex : Int = (1 << 6);
+	inline static public var FalloffVertex : Int = (1 << 8);
 	
 	/**
 	 * Will add a falloff effect per pixel.
 	 */
-	inline static public var FalloffPixel : Int = (1 << 7);
+	inline static public var FalloffPixel : Int = (1 << 9);
 	
 	/**
 	 * Will a bum texture as normals.
 	 */
-	inline static public var Bump : Int			= (1 << 8);
+	inline static public var Bump : Int			= (1 << 10);
 	/**
 	 * Will use lighting per vertex.
 	 */
-	inline static public var LightingVertex : Int  = (1 << 9);
+	inline static public var LightingVertex : Int  = (1 << 11);
 	/**
 	 * Will use lighting per pixel.
 	 */
-	inline static public var LightingPixel : Int	= (1 << 10);
+	inline static public var LightingPixel : Int	= (1 << 12);
 	/**
 	 * Will use deferred lighting.
 	 */
-	//inline static public var LightingDeferred  : Int = (1 << 11);
+	//inline static public var LightingDeferred  : Int = (1 << 13);
 	/**
 	 * Will have specular component.
 	 */
-	inline static public var Specular : Int	= (1 << 12);
+	inline static public var Specular : Int	= (1 << 14);
 	/**
 	 * Will use a Specular texture to tint and mask the specular component.
 	 */
-	inline static public var SpecularTexture : Int	= (1 << 13);
+	inline static public var SpecularTexture : Int	= (1 << 15);
 	/**
 	 * Will use the alpha channel of the DiffuseTexture as Specular mask.
 	 */
-	inline static public var SpecularAlpha : Int	= (1 << 14);
+	inline static public var SpecularAlpha : Int	= (1 << 16);
 	/**
 	 * Will use a lightmap texture combined with the diffuse elements.
 	 */
-	inline static public var Lightmap : Int	= (1 << 15);
+	inline static public var Lightmap : Int	= (1 << 17);
 	/**
 	 * Will apply fog per vertex.
 	 */
-	inline static public var FogVertex	 : Int	= (1 << 16);
+	inline static public var FogVertex	 : Int	= (1 << 18);
 	/**
 	 * Will apply fog per pixel.
 	 */
-	inline static public var FogPixel : Int	= (1 << 17);
+	inline static public var FogPixel : Int	= (1 << 18);
 	/**
 	 * Will use a toon ramp in the diffuse and specular factors.
 	 */
-	inline static public var Toon : Int		= (1 << 18);
+	inline static public var Toon : Int		= (1 << 19);
 	/**
 	 * Will apply an alpha cutoff in the pixel shader.
 	 */
-	inline static public var Cutoff : Int		= (1 << 19);	
+	inline static public var Cutoff : Int		= (1 << 20);	
 	/**
 	 * Will have a particle oriented workflow.
 	 */
-	inline static public var Particle : Int	= (1 << 20);
+	inline static public var Particle : Int	= (1 << 21);
 	/**
 	 * Will scroll the uv0 along Time.
 	 */
-	inline static public var UVScroll : Int	= (1 << 21);
+	inline static public var UVScroll : Int	= (1 << 22);
 	/**
 	 * Will offer Random features using the internal RandomTexture.
 	 */
-	inline static public var Random : Int	= (1 << 22);
+	inline static public var Random : Int	= (1 << 23);
 	/**
-	 * Will offer use a separated Texture as alpha source.
+	 * Will offer a separated Texture as alpha source.
 	 */
-	inline static public var AlphaTexture : Int	= (1 << 23);
+	inline static public var AlphaTexture : Int	= (1 << 24);
+	/**
+	 * Will offer a color to act as emissive component for the shader.
+	 */
+	inline static public var Emissive : Int	= (1 << 25);
+	/**
+	 * Will offer a texture to act as emissive component for the shader.
+	 */
+	inline static public var EmissiveTexture : Int	= (1 << 26);
 }
 
 /**

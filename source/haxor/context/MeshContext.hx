@@ -185,14 +185,12 @@ class MeshContext
 			}			
 			
 			type = GL.FLOAT; //TODO: Include GL.FIXED	
-			/*
+			
 			if (!activated[loc])
 			{
-				activated[loc] = true;						
-				active_max = cast Math.max(active_max, loc);
+				activated[loc] = true;										
 				GL.EnableVertexAttrib(loc);
 			}									
-			//*/
 			
 			if(!has_vao)
 			if (a.count > 0)
@@ -225,55 +223,66 @@ class MeshContext
 	/**
 	 * Disables the bound Mesh
 	 */
-	private function Unbind(p_next : Mesh):Void
+	private function Unbind(p_next : Mesh=null):Void
 	{	
-		//DisableAttribArray of the last mesh.				
 		if (current != null)
-		{			
+		{
 			var al0 : Array<MeshAttrib> = current.m_attribs;
-			
-			if (p_next == null)
+			for (i in 0...al0.length)
 			{
-				for (i in 0...al0.length)
-				{
-					var l0 : Int = al0[i]._loc_;
-					if (l0 >= 0) { if(activated[l0]) { GL.DisableVertexAttrib(l0); activated[l0] = false; } }
-				}
-			}			
-			else
-			{
-				var al1 : Array<MeshAttrib> = p_next.m_attribs;
-				//Checks if the new mesh have matching attrib locations and skip disabling them.
-				for (i in 0...al0.length)
-				{
-					var found : Bool = false;
-					var l0 : Int = al0[i]._loc_;
-					if (l0 < 0) continue;
-					for (j in 0...al1.length)
-					{
-						var l1 : Int = al1[j]._loc_;
-						if (l1 < 0) continue;
-						if (l0 == l1) { found = true; break; }
-					}
-					if (found)
-					{
-						if (l0 >= 0)
-						{
-							if (!activated[l0]) { GL.EnableVertexAttrib(l0); activated[l0] = true; }
-						}						
-					}
-					else
-					{
-						if (l0 >= 0) 
-						{ 
-							if (activated[l0]) { GL.DisableVertexAttrib(l0); activated[l0] = false; }
-						}
-					}
-				}
-				
+				var l0 : Int = al0[i]._loc_;
+				if (l0 >= 0) { if(activated[l0]) { GL.DisableVertexAttrib(l0); activated[l0] = false; } }
 			}
-			
 		}
+		//DisableAttribArray of the last mesh.		
+		/*
+		var al0 : Array<MeshAttrib> = current.m_attribs;
+		if (p_next == null)
+		{
+			if(current != null)
+			for (i in 0...al0.length)
+			{
+				var l0 : Int = al0[i]._loc_;
+				if (l0 >= 0) { if(activated[l0]) { GL.DisableVertexAttrib(l0); activated[l0] = false; } }
+			}
+			current = null;
+			bound_element = GL.INVALID;
+			return;
+		}
+		
+		
+		if (current != null)
+		{							
+			var al1 : Array<MeshAttrib> = p_next.m_attribs;
+			//Checks if the new mesh have matching attrib locations and skip disabling them.
+			for (i in 0...al0.length)
+			{
+				var found : Bool = false;
+				var l0 : Int = al0[i]._loc_;
+				if (l0 < 0) continue;
+				for (j in 0...al1.length)
+				{
+					var l1 : Int = al1[j]._loc_;
+					if (l1 < 0) continue;
+					if (l0 == l1) { found = true; break; }
+				}
+				if (found)
+				{
+					if (l0 >= 0)
+					{
+						if (!activated[l0]) { GL.EnableVertexAttrib(l0); activated[l0] = true; }
+					}						
+				}
+				else
+				{
+					if (l0 >= 0) 
+					{ 
+						if (activated[l0]) { GL.DisableVertexAttrib(l0); activated[l0] = false; }
+					}
+				}
+			}
+		}
+		//*/
 	}
 	
 	/**

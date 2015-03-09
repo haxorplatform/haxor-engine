@@ -1,5 +1,6 @@
 #if windows
 package haxor.platform.windows;
+import haxor.core.Application;
 import haxor.platform.Types.Float32;
 import haxor.core.Console;
 import haxor.graphics.GL;
@@ -23,6 +24,11 @@ class WinApplication extends BaseApplication
 	private function get_window():Window { return m_window; }
 	private var m_window : Window;
 	
+	/**
+	 * Overrides and return Windows.
+	 * @return
+	 */
+	override function get_platform():Platform { return Platform.Windows; }
 	
 	/**
 	 * Creates a new ApplicationWindows.
@@ -30,8 +36,6 @@ class WinApplication extends BaseApplication
 	public function new() 
 	{
 		super();
-		m_platform = Platform.Windows;
-		
 	}
 	
 	override private function GetContainerWidth():Float32{ return cast window.width;  }

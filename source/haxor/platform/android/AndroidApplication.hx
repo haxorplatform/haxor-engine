@@ -15,6 +15,12 @@ import haxor.core.BaseApplication;
 @:allow(haxor)
 class AndroidApplication extends BaseApplication
 {
+	
+	/**
+	 * Overrides and return Android.
+	 * @return
+	 */
+	override function get_platform():Platform { return Platform.Android; }
 
 	/**
 	 * Reference to the Entry point.
@@ -33,7 +39,6 @@ class AndroidApplication extends BaseApplication
 	
 	override function OnBuild():Void 
 	{
-		m_platform = Platform.Android;
 		m_screen_width = 0.0;
 		m_screen_height = 0.0;
 		super.OnBuild();		
