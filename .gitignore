@@ -5,3 +5,6 @@
 /tools/
 *.exe
 *.hxproj
+*.ini
+*.bat
+Main.hx
