@@ -368,6 +368,25 @@ class Mathf
 		return (p_a + (p_b - p_a) * (p_ratio * p_ratio * p_ratio * (p_ratio * (p_ratio * 6 - 15) + 10)));
 	}
 	
+	/**
+	 * Hermite interpolation with a tangent per point.
+	 * @param	p_a
+	 * @param	p_b
+	 * @param	p_ma
+	 * @param	p_mb
+	 * @param	p_ratio
+	 * @return
+	 */
+	static public inline function Hermite(p_a:Float32, p_b:Float32, p_ma:Float32, p_mb:Float32, p_ratio : Float32):Float32	
+	{
+		var r  : Float32  = p_ratio;
+		var r2 : Float32  = r * r;
+		var r3 : Float32  = r2 * r;
+		var r32: Float32  = 2.0 * r3;
+		var r23: Float32  = 3.0 * r2;
+		return ((r32 - r23 + 1.0) * p_a) + ((r3 - (2.0 * r2) + r) * p_ma) + (( -r32 + r23) * p_b) + ((r3 - r2) * p_mb);
+	}
+	
 	
 	/**
 	 * Linear interpolates the informed numbers and returns their integer form.
@@ -401,7 +420,7 @@ class Mathf
 	 * @param	p_v
 	 * @return
 	 */
-	static inline public function Frac(p_v:Float32):Float32{ return (p_v - Math.ffloor(p_v)); }
+	static inline public function Frac(p_v:Float32,p_signed:Bool=false):Float32 { var f : Float32 = (Mathf.Abs(p_v) - Math.ffloor(Mathf.Abs(p_v))); return p_signed ? (p_v < 0.0 ? -f : f) : f; }
 	
 	/**
 	 * Maps the informed number to inside the interval.
@@ -417,7 +436,7 @@ class Mathf
 		var dv : Float32 = (vv1 - vv0);
 		if (dv <= 0) return vv0;
 		var n : Float32  = (p_v - p_v0) / dv;			
-		var r : Float32  = p_v < 0 ? 1.0 - Mathf.Frac(Mathf.Abs(n)) : Mathf.Frac(n);			
+		var r : Float32  = p_v < p_v0 ? (1.0 - Mathf.Frac(n)) : Mathf.Frac(n);
 		return Mathf.Lerp(p_v0, p_v1, r); 
 	}
         
@@ -436,8 +455,13 @@ class Mathf
 	 */
 	static public inline function Oscilate(p_v:Float32, p_v0:Float32, p_v1:Float32)
 	{	
-		var w:Float32= -Mathf.Abs(Loop(p_v - 1.0, -1.0, 1.0)) + 1.0;
-		return Mathf.Lerp(w, p_v0, p_v1);
+		var vv0 : Float32 = Math.min(p_v0, p_v1);
+		var vv1 : Float32 = Math.max(p_v0, p_v1);
+		var dv : Float32 = (vv1 - vv0);
+		if (dv <= 0) return vv0;
+		var n : Float32  = (p_v - p_v0) / dv;
+		var r:Float32= -Mathf.Abs(Loop(n - 1.0, -1.0, 1.0)) + 1.0;
+		return Mathf.Lerp(p_v0, p_v1,r);
 	}
 
 	/**
@@ -447,11 +471,8 @@ class Mathf
 	 */
 	static public function WrapAngle(p_angle:Float32):Float32
 	{
-		if (p_angle < -360.0) return 360 + p_angle;
-		if (p_angle >  360.0) return p_angle - 360;
-		return p_angle;
-		//if (p_angle < 360.0) if (p_angle > -360.0) return p_angle;
-		//return Mathf.Frac(Mathf.Abs(p_angle) / 360.0) * 360.0;
+		var a : Float32 = Mathf.Frac(p_angle / 360.0,true) * 360.0;	
+		return a;		
 	}
 		
 		

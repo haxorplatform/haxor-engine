@@ -1,3 +1,0 @@
-# view AndroidManifest.xml #generated:7
--keep class haxor.api.Main { <init>(...); }
-

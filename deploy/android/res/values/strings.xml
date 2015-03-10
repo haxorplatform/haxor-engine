@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">HaxorAndroid</string>
-	<string name="app_type">Main</string>
-	<string name="verbose">5</string>
-</resources>

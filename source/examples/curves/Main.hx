@@ -9,7 +9,9 @@ import haxor.core.Asset;
 import haxor.core.BaseApplication.EntryPoint;
 import haxor.core.Console;
 import haxor.core.Entity;
+import haxor.core.Enums.AnimationWrap;
 import haxor.core.Enums.ClearFlag;
+import haxor.core.Enums.InputState;
 import haxor.core.Enums.ShaderFeature;
 import haxor.core.IRenderable;
 import haxor.core.IUpdateable;
@@ -18,9 +20,11 @@ import haxor.graphics.Gizmo;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.shader.FlexShader;
 import haxor.graphics.mesh.Model;
+import haxor.graphics.Screen;
 import haxor.graphics.texture.TextureCube;
 import haxor.input.Input;
 import haxor.input.KeyCode;
+import haxor.math.AABB2;
 import haxor.math.Color;
 import haxor.math.Curve;
 import haxor.math.Mathf;
@@ -52,7 +56,7 @@ class ControlPoint
 	
 	public var x(get_x, set_x):Float32;
 	private function get_x():Float32 { return m_x; }
-	private function set_x(v:Float32):Float32 { m_x = v; element.style.left = Mathf.Floor(v) + "px"; return v; }
+	private function set_x(v:Float32):Float32 { m_x = v;  return v; }
 	private var m_x:Float32;
 	
 	public var y(get_y, set_y):Float32;
@@ -67,6 +71,11 @@ class ControlPoint
 		y = 0;
 	}
 	
+	public function Update(p_pan:Vector2):Void
+	{
+		element.style.left = Mathf.Floor(m_x + p_pan.x) + "px";
+		element.style.top = Mathf.Floor(m_y + p_pan.y) + "px";	
+	}
 }
 
 /**
@@ -101,10 +110,13 @@ class Main extends Application implements IUpdateable implements IRenderable
 	public var panel : DivElement;	
 	public var controls  : DivElement;	
 	public var target : Element;
+	public var drag : ControlPoint;
 	
 	public var dot_template : DivElement;
 	
 	public var pan : Vector2;
+	
+	public var points : Array<Array<ControlPoint>>;
 	
 	public var block : Bool;
 	
@@ -158,9 +170,9 @@ class Main extends Application implements IUpdateable implements IRenderable
 			var orbit_input : CameraOrbitInput = orbit.entity.AddComponent(CameraOrbitInput);		
 			orbit_input.zoomSpeed = 1;
 			
-			curve = new Curve();
-			
 		});
+		
+		curve = new Curve(3);
 		
 		panel 		= cast Browser.document.getElementById("panel");
 		controls        = cast Browser.document.getElementById("controls");
@@ -170,15 +182,25 @@ class Main extends Application implements IUpdateable implements IRenderable
 		
 		block = false;
 		
-		panel.onmouseover = OnContainerMouse;
+		points = [[],[],[]];
+		
+		panel.addEventListener("mousedown", OnContainerMouse);
+		Browser.window.onmouseup = OnContainerMouse;
 		
 		g = canvas.getContext2d();
+		
 		pan = new Vector2();
+		pan.x = panel.clientWidth * 0.5;
+		pan.y = panel.clientHeight * 0.5;
+		
 	}
 	
 	public function OnUpdate():Void
-	{			
+	{		
+		if (g == null) return;
 		var mp : Vector2 = Input.mouse.clone;
+		mp.x -= pan.x;
+		mp.y -= pan.y;
 		block = false;
 		
 		if (target != null)
@@ -186,12 +208,31 @@ class Main extends Application implements IUpdateable implements IRenderable
 			switch(target.id)
 			{
 				case "pan":
+				
+				if(Input.Pressed(KeyCode.ShiftKey))
+				{	
+					if (Input.Hit(KeyCode.Mouse0)) AddDot(mp.x, mp.y, 0);					
+					if (Input.Hit(KeyCode.Mouse2)) AddDot(mp.x, mp.y, 1);
+					if (Input.Hit(KeyCode.Mouse1)) AddDot(mp.x, mp.y, 2);
+					
+					
+				}
+				else
 				if (Input.Pressed(KeyCode.Mouse0))
 				{
 					block = true;
 					pan.x += Input.deltaMouse.x;
 					pan.y += Input.deltaMouse.y;
 				}
+				
+				case "control-point":
+					if (drag != null)
+					{
+						drag.x = mp.x;
+						drag.y = mp.y;
+					}
+				
+				
 			}
 		}
 		
@@ -199,60 +240,168 @@ class Main extends Application implements IUpdateable implements IRenderable
 	
 	public function OnRender():Void
 	{
-		var w : Float32 = cast canvas.clientWidth;
-		var h : Float32 = cast canvas.clientHeight;
+		if (curve == null) return;
+		var w : Float32 = cast panel.clientWidth;
+		var h : Float32 = cast panel.clientHeight;
+		var hw : Float32 = w * 0.5;
+		var hh : Float32 = h * 0.5;
 		
 		var tx : Float32 = 0.0;
 		var ty : Float32 = 0.0;
-		var gs : Float32 = 10.0;
+		var gs : Float32 = 50.0;
 		
 		canvas.width  = cast w;
 		canvas.height = cast h;
 		
-		g.transform(1, 0, 0, 1, 0.0, 0.0);
+		g.transform(1, 0, 0, -1, 0, 0);
+		g.translate(0.5, 0.5);
 		
-		g.setFillColor(0.3, 0.2, 0.3, 1.0);
-		g.fillRect(0, 0, w, h);
+		g.setFillColor(0.2, 0.2, 0.2, 1.0);
+		g.fillRect(0, 0, w, -h);
 		
-		g.beginPath();		
+		var g_offx : Int = cast (Mathf.Frac(pan.x / gs) * gs);
+		var g_offy : Int = cast (Mathf.Frac(pan.y / gs) * gs);
 		
+		g.setLineWidth(0.05);
+		g.setStrokeColor(0.4, 0.4, 0.4, 1.0);		
+		g.beginPath();				
 		for (i in  0...(cast (w/gs)))
 		for (j in  0...(cast (h/gs)))
 		{
 			var px : Float32 = i * gs;
-			px = px + Mathf.Frac(pan.x / gs) * gs;
-			var py : Float32 = j * gs;
-			py = py + Mathf.Frac(pan.y / gs) * gs;			
-			g.moveTo(0.0, py);
-			g.lineTo(w  , py);
-			g.moveTo(px,0.0);
-			g.lineTo(px,  h);
+			var py : Float32 = j * gs;			
+			px = Mathf.Floor(px + g_offx);			
+			py = Mathf.Floor(py + g_offy);			
+			var ipx : Int = cast px;
+			var ipy : Int = cast py;
+			
+			if (ipx > w) continue;
+			if (ipy > h) continue;
+			
+			g.moveTo(0.0, -ipy);
+			g.lineTo(w  , -ipy);
+			g.moveTo(ipx,0.0);
+			g.lineTo(ipx, -h);
 		}
-		g.closePath();
-		g.setLineWidth(1.0);
-		g.setStrokeColor(1.0, 1.0, 1.0, 0.1);
+		g.closePath();		
 		g.stroke();
 		
-		g.transform(1, 0, 0, 1, pan.x, pan.y);
+		g.setLineWidth(2.0);
+		g.setStrokeColor(1.0, 1.0, 1.0, 0.5);		
+		g.beginPath();		
+		g.moveTo(-w, -pan.y);
+		g.lineTo( w, -pan.y);
+		g.moveTo(pan.x, h);
+		g.lineTo(pan.x,-h);		
+		g.closePath();		
+		g.stroke();
+		
+		tx += pan.x;
+		ty += pan.y;
+		
+		tx = Mathf.Floor(tx);
+		ty = Mathf.Floor(ty);
+		g.transform(1, 0, 0, -1, tx, -ty);
+		
+		for (i in 0...points.length)
+		{
+			for (j in 0...points[i].length)
+			{
+				var cp :ControlPoint = points[i][j];
+				cp.Update(pan);
+				curve.Update(j, cp.x, cp.y, i);
+			}
+		}
+		curve.Refresh();
+		
+		curve.SetWrap(AnimationWrap.Loop, AnimationWrap.Clamp, 1);
+		curve.SetWrap(AnimationWrap.Oscilate, AnimationWrap.Oscilate, 2);
+		
+		PlotCurve(g, curve, 0, Color.red30);
+		PlotCurve(g, curve, 1, Color.green30);
+		PlotCurve(g, curve, 2, Color.blue30);
+		
 	}
 	
 	private function OnContainerMouse(p_event : MouseEvent):Void
-	{
+	{		
 		var t : Element = cast p_event.target;
-		if (block) return;
-		target = t;		
+		if (t == null) return;
+		
+		switch(p_event.type)
+		{
+			case "mousedown":
+				if (block) return;				
+				target = t;				
+				if (t.id == "control-point")
+				{
+					for (i in 0...points.length)
+					for (j in 0...points[i].length) if (points[i][j].element == t) drag = points[i][j];
+				}
+			case "mouseup":
+				drag = null;
+		}
+		
 	}
 	
-	public function AddDot(p_x:Float32, p_y:Float32):Void
+	public function AddDot(p_x:Float32, p_y:Float32,p_attrib:Int):Void
 	{
 		var d : DivElement = cast dot_template.cloneNode(true);
 		d.id = "control-point";
+		d.style.display = "block";
+		
 		controls.appendChild(d);
 		
 		var cp : ControlPoint = new ControlPoint(d);
 		cp.x = cast p_x;
 		cp.y = cast p_y;
+		points[p_attrib].push(cp);
+		cp.Update(pan);		
+		curve.Add(cp.x, cp.y,p_attrib);		
 	}
+	
+	private function PlotCurve(ctx:CanvasRenderingContext2D,c:Curve, a:Int, cl:Color):Void
+	{
+		if (c == null) return;
+		if (c.keys[a].length <= 1) return;
+		var x0 : Float32 = c.keys[a][0].key;
+		var x1 : Float32 = c.keys[a][c.keys[a].length-1].key;
+		var d0 : Float32 = x0 - Screen.width*0.5;
+		var d1 : Float32 = x1 + Screen.width*0.5;
+		var bb : AABB2 = c.GetBounds(a);
+		ctx.setLineWidth(2.0);		
+		var q : Int = 500;
+		for (i in 1...q)
+		{
+			var r0 : Float32 = (i - 1) / (q-1);
+			var r1 : Float32 = (i) / (q-1);
+			var k0 : Float32 = Mathf.Lerp(d0, d1, r0);
+			var k1 : Float32 = Mathf.Lerp(d0, d1, r1);
+		
+			ctx.setStrokeColor(cl.r, cl.g, cl.b, 0.8);			
+			if (k0 < x0) ctx.setStrokeColor(cl.r, cl.g, cl.b, 0.4);
+			if (k1 > x1) ctx.setStrokeColor(cl.r, cl.g, cl.b, 0.4);
+			
+			if(k0 <= x1) if(k1 >= x1) continue;
+			if(k0 <= x0) if(k1 >= x0) continue;
+
+			
+			ctx.beginPath();
+			
+			
+			
+			var v0 : Float32 = c.Sample(k0,a);
+			var v1 : Float32 = c.Sample(k1,a);
+			ctx.moveTo(k0,v0);
+			ctx.lineTo(k1, v1);
+			
+			ctx.closePath();
+			ctx.stroke();
+		}		
+		
+		
+	}
+	
 	
 	/**
 	 * 

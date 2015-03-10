@@ -2,8 +2,33 @@ package haxor.input;
 import haxor.core.Console;
 import haxor.core.Enums.InputState;
 import haxor.core.Time;
+import haxor.math.Mathf;
 import haxor.math.Vector2;
 import haxor.platform.Types.Float32;
+
+/**
+ * Class that describes an Input log.
+ */
+class InputLog
+{
+	/**
+	 * KeyCode logged upon hit.
+	 */
+	public var key : Int;
+	
+	/**
+	 * Time in seconds of the log.
+	 */
+	public var time : Float32;
+	
+	/**
+	 * Creates a new log.
+	 * @param	k
+	 * @param	t
+	 */
+	public function new(k:Int, t:Float32) { key = k; time = t; }
+	
+}
 
 /**
  * Class that holds Input information for the application. It includes keyboard, mouse, touch and gamepad realtime data.
@@ -66,6 +91,21 @@ class Input
 	static var m_multitouch : Bool;
 	
 	/**
+	 * Log of inputs.
+	 */
+	static public var log : Array<InputLog>;
+	
+	/**
+	 * Log clear timeout.
+	 */
+	static public var timeout : Float32;
+	
+	/**
+	 * Log clear timeout control.
+	 */
+	static private var m_timeout_elapsed : Float32;
+	
+	/**
 	 * Mouse position.
 	 */
 	static public var mouse : Vector2;
@@ -99,6 +139,9 @@ class Input
 	 * Flag that indicates if touches will be emulated using Mouse012.
 	 */
 	static public var emulateTouch : Bool = false;
+	
+	
+	
 	
 	/**
 	 * Returns the input state for a given mouse or keyboard input "key" (check KeyCode).
@@ -151,18 +194,58 @@ class Input
 	static public function GetHoldTime(p_code : Int) : Float32 { return m_hold.get(p_code); }
 	
 	/**
+	 * Returns a filter showing all logs of a given keycode.
+	 * @param	p_code
+	 * @return
+	 */
+	static public function Filter(p_code : Int):Array<InputLog>
+	{
+		var res : Array<InputLog> = [];
+		for (i in 0...log.length) if (log[i].key == p_code) res.push(log[i]);
+		return res;
+	}
+	
+	/**
+	 * Returns a flag indicating a given Key was hit a certain number of times in the specified timeout window.
+	 * @param	p_code
+	 * @param	p_timeout
+	 * @return
+	 */
+	static public function MultiHit(p_code : Int, p_count:Int = 2, p_timeout : Float32 = -1.0,p_clear : Bool=true) : Bool
+	{
+		var l : Array<InputLog> = Filter(p_code);		
+		if (l.length < p_count) return false;
+		var tmo : Float32 = p_timeout < 0.0 ? timeout : p_timeout;
+		var t_min : Float32 =  99999.0;
+		var t_max : Float32 = -99990.0;
+		for (i in 0...l.length)
+		{
+			t_min = Mathf.Min(l[i].time,t_min);
+			t_max = Mathf.Max(l[i].time, t_max);			
+			if (p_clear) log.remove(l[i]);
+		}
+		if (Mathf.Abs(t_max - t_min) > tmo) return false;
+		return (l.length == p_count);
+	}
+	
+	
+	/**
 	 * Initializes the Input class.
 	 * @param	p_target
 	 */
 	static function Initialize():Void
 	{
 		m_state 			= new Map<Int,InputState>();
-		m_hold  			= new Map<Int,Float>();
+		m_hold  			= new Map<Int,Float32>();
 		m_active 			= new Array<Int>();
 		m_down 				= new Array <Bool>();		
-		
+				
 		m_touches 			= [];
 		m_api_touches		= [];
+		
+		log     = [];
+		timeout = 2.0;
+		m_timeout_elapsed = 0.0;
 		
 		for (i in 0...10)
 		{
@@ -201,7 +284,16 @@ class Input
 	/**
 	 * Updates all active input keycodes.
 	 */
-	static private function UpdateInput():Void { for (i in 0...m_active.length) UpdateInputState(m_active[i], m_down[m_active[i]]); }
+	static private function UpdateInput():Void 
+	{ 
+		if (Mathf.Abs(Time.elapsed - m_timeout_elapsed) > timeout) 
+		{ 
+			if (log.length > 0) log = [];
+			m_timeout_elapsed = Time.elapsed;
+		}
+		
+		for (i in 0...m_active.length) UpdateInputState(m_active[i], m_down[m_active[i]]); 	
+	}
 	
 	/**
 	 * Updates the Touch FSM machine.
@@ -214,7 +306,7 @@ class Input
 		var d 		: Bool 			= t.m_down;		
 		if (current == InputState.Up) 	m_touches.remove(t);		
 		if (current == InputState.Hold)	t.hold += Time.delta;
-		t.state = InputStateFSM(current, d);		
+		t.state = InputStateFSM(current, d);
 	}
 	
 	/**
@@ -237,6 +329,8 @@ class Input
 		{
 			if (current == InputState.Up)
 			{
+				log.push(new InputLog(p_code, Time.elapsed));
+				if (log.length == 1) m_timeout_elapsed = Time.elapsed;
 				m_hold.set(p_code, 0);
 				m_active.remove(p_code);
 			}

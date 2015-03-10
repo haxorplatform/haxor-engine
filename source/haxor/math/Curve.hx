@@ -1,4 +1,5 @@
 package haxor.math;
+import haxor.core.Enums.AnimationWrap;
 import haxor.math.Curve.CurveKey;
 import haxor.platform.Types.Float32;
 
@@ -56,8 +57,8 @@ class Curve
 	 */
 	public var keys : Array<Array<CurveKey>>;
 	
-	
-	private var m_block_validation : Bool;
+	private var m_wrap_left  : Array<AnimationWrap>;
+	private var m_wrap_right : Array<AnimationWrap>;
 	
 	/**
 	 * Creates a new Curve with 
@@ -65,8 +66,14 @@ class Curve
 	 */
 	public function new(p_offset:Int=1) 
 	{
-		m_offset = Mathf.MaxInt(1, p_offset);
-		m_block_validation = false;
+		m_offset = Mathf.MaxInt(1, p_offset);		
+		m_wrap_left  = [];
+		m_wrap_right = [];
+		for (i in 0...m_offset) 
+		{
+			m_wrap_left[i]  = AnimationWrap.Clamp;
+			m_wrap_right[i] = AnimationWrap.Clamp;
+		}
 		Clear();
 	}
 	
@@ -82,8 +89,7 @@ class Curve
 		var ck : CurveKey 		 = new CurveKey(p_key, p_value);
 		var kl : Array<CurveKey> = keys[p_attrib];		
 		kl.push(ck);
-		kl.sort(CurveKeySort);
-		Validate(kl);
+		kl.sort(CurveKeySort);		
 		return ck;
 	}
 	
@@ -157,11 +163,8 @@ class Curve
 	 */
 	public function AddRange(p_keys:Array<Float32>, p_values:Array<Float32>, p_attrib:Int = 0):Array<CurveKey>
 	{
-		var res : Array<CurveKey> = [];
-		m_block_validation = true;
-		for (i in 0...p_keys.length) res.push(Add(p_keys[i], p_values[i], p_attrib));
-		m_block_validation = false;
-		Validate(keys[p_attrib]);
+		var res : Array<CurveKey> = [];		
+		for (i in 0...p_keys.length) res.push(Add(p_keys[i], p_values[i], p_attrib));				
 		return res;
 	}
 	
@@ -175,8 +178,7 @@ class Curve
 	{
 		var kl : Array<CurveKey> = keys[p_attrib];
 		var ck : CurveKey		 = kl[p_id];
-		kl.remove(ck);		
-		Validate(kl);
+		kl.remove(ck);
 		return ck;
 	}
 	
@@ -192,8 +194,7 @@ class Curve
 		var kl : Array<CurveKey> = keys[p_attrib];
 		var ck : CurveKey		 = kl[p_id];
 		ck.key   = p_key;
-		ck.value = p_value;
-		Validate(kl);
+		ck.value = p_value;		
 		return ck;
 	}
 	
@@ -206,11 +207,29 @@ class Curve
 	public function Sample(p_key : Float32, p_attrib:Int = 0):Float32
 	{
 		var kl : Array<CurveKey> = keys[p_attrib];
-		if (kl.length==0)   return 0.0;
-		if (kl.length == 1) return kl[0].value;
-		var ck0:CurveKey=null;
-		var ck1:CurveKey=null;
-		var k : Float32 = p_key;
+		if (kl.length==0)  return 0.0;
+		if (kl.length==1)  return kl[0].value;
+		var ck0:CurveKey = null;
+		var ck1:CurveKey = null;
+		var kmin : Float32 = kl[0].key;
+		var kmax : Float32 = kl[kl.length-1].key;				
+		var k    : Float32 = p_key;
+		var wrap : AnimationWrap = AnimationWrap.Clamp;		
+		var will_wrap : Bool = false;
+		
+		if (k < kmin) { wrap = m_wrap_left[p_attrib]; will_wrap = true;  }
+		if (k > kmax) { wrap = m_wrap_right[p_attrib]; will_wrap = true; }		
+		
+		if (will_wrap)
+		{
+			switch(wrap)
+			{
+				case AnimationWrap.Clamp:    k = Mathf.Clamp(k, kmin, kmax);
+				case AnimationWrap.Loop:     k = Mathf.Loop(k, kmin, kmax);
+				case AnimationWrap.Oscilate: k = Mathf.Oscilate(k, kmin, kmax);
+			}
+		}
+		
 		for (i in 0...(kl.length-1))
 		{
 			ck0 = kl[i];
@@ -218,10 +237,12 @@ class Curve
 			if (i==0)if (k<=ck0.key) break; 	  //if behind first key
 			if (k>=ck0.key)if(k<=ck1.key) break;  //if between keys
 		}
-		var idk : Float32 = Mathf.Max(0.0, ck1.key - ck0.key);
+		var dk : Float32;
+		var idk : Float32 = dk = Mathf.Max(0.0, ck1.key - ck0.key);
 		idk = idk <= 0.0 ? 0.0 : (1.0 / idk);
 		var r  : Float32 = (k - ck0.key) * idk;
-		return Mathf.PerlinStep(ck0.value, ck1.value, r);
+		return Mathf.Hermite(ck0.value, ck1.value,0.0*dk,0.0*dk,r);
+		
 	}
 	
 	/**
@@ -285,6 +306,8 @@ class Curve
 		return c;
 	}
 	
+	
+	
 	/**
 	 * Returns the curve bounds.
 	 * @param	p_result
@@ -296,14 +319,38 @@ class Curve
 		var r : AABB2 = p_result == null ? new AABB2() : p_result;		
 		var kl : Array<CurveKey> = keys[p_attrib];
 		if (kl.length <= 0) return r;
-		r.xMax = r.xMin = kl[0].key;
+		r.xMin = kl[0].key;
+		r.xMax = kl[kl.length - 1].key;
 		r.yMax = r.yMin = kl[0].value;		
 		for (i in 1...kl.length)
 		{
-			r.xMin = Mathf.Min(kl[i].key,r.xMin); r.xMax = Mathf.Max(kl[i].key,r.xMax);
+			//r.xMin = Mathf.Min(kl[i].key,r.xMin); r.xMax = Mathf.Max(kl[i].key,r.xMax);
 			r.yMin = Mathf.Min(kl[i].value,r.yMin); r.yMax = Mathf.Max(kl[i].value,r.yMax);
 		}		
 		return r;
+	}
+	
+	/**
+	 * Sets the sampling wrap mode.
+	 * @param	p_left
+	 * @param	p_right
+	 * @param	p_attrib
+	 */
+	public function SetWrap(p_left : AnimationWrap, p_right:AnimationWrap, p_attrib:Int = -1):Void
+	{
+		if (p_attrib < 0)
+		{
+			for (i in 0...m_offset) 
+			{
+				m_wrap_left[i] = p_left;
+				m_wrap_right[i] = p_right;
+			}
+		}
+		else
+		{
+			m_wrap_left[p_attrib]  = p_left;
+			m_wrap_right[p_attrib] = p_right;
+		}
 	}
 	
 	/**
@@ -328,11 +375,15 @@ class Curve
 	 * Sort and adjust all ids.
 	 * @param	kl
 	 */
-	private function Validate(kl:Array<CurveKey>,p_sort:Bool=true):Void
+	public function Refresh(p_attrib:Int=-1):Void
 	{
-		if (m_block_validation) return;
-		if(p_sort)kl.sort(CurveKeySort);
-		for (i in 0...kl.length) kl[i].id = i;
+		for (i in 0...keys.length)
+		{
+			if (p_attrib >= 0) if (i != p_attrib) continue;
+			var kl : Array<CurveKey> = keys[i];
+			kl.sort(CurveKeySort);
+			for (j in 0...kl.length) kl[j].id = i;
+		}
 	}
 	
 	/**

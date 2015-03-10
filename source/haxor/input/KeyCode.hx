@@ -816,5 +816,14 @@ class KeyCode
 	static public var RightAnalogueHor		: Int = 2;
 	static public var RightAnalogueVert		: Int = 3;
 	
+	//WIP
+	static public var Touch0				: Int = 0;
+	static public var Touch1				: Int = 1;
+	static public var Touch2				: Int = 2;
+	static public var Touch3				: Int = 3;
+	static public var Touch4				: Int = 4;
+	static public var Touch5				: Int = 5;
+	
+	
 }
 
