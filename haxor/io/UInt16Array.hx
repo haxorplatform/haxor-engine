@@ -23,7 +23,7 @@ class UInt16Array extends Buffer
 		return b;
 	}
 	
-	#if html
+	#if (html||nodejs)
 	//private var aux : js.html.Uint16Array;
 	#end
 	
@@ -44,7 +44,7 @@ class UInt16Array extends Buffer
 	override public function Resize(p_length:Int):Void 
 	{
 		super.Resize(p_length);
-		#if html
+		#if (html||nodejs)
 		aux = new js.html.Uint16Array(m_buffer.buffer);
 		#end
 		
@@ -60,7 +60,7 @@ class UInt16Array extends Buffer
 	 */
 	public function Get(p_index : Int):Int
 	{
-		#if html
+		#if (html||nodejs)
 		var i16 : js.html.Uint16Array=cast aux;
 		return i16[p_index];		
 		#end
@@ -90,7 +90,7 @@ class UInt16Array extends Buffer
 	 */
 	public function Set(p_index : Int, p_value : Int):Void
 	{
-		#if html
+		#if (html||nodejs)
 		var i16 : js.html.Uint16Array=cast aux;
 		i16[p_index] = p_value;
 		#end
@@ -129,7 +129,7 @@ class UInt16Array extends Buffer
 	override function SetViewSlice(p_start:Int, p_length:Int):Void 
 	{
 		super.SetViewSlice(p_start, p_length);		
-		#if html
+		#if (html||nodejs)
 		var i0 : Int = p_start;
 		var i1 : Int = i0 + p_length;
 		var i16 : js.html.Uint16Array = cast aux;		

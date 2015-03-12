@@ -1,8 +1,8 @@
-#if html
+#if (html || nodejs)
 
 package haxor.platform.html.net;
+import js.html.Event;
 import js.html.ErrorEvent;
-import js.html.XMLHttpRequestProgressEvent;
 import haxor.net.HTTPRequestTask;
 import js.html.XMLHttpRequest;
 
@@ -23,7 +23,7 @@ class HTTPRequest extends HTTPRequestTask<XMLHttpRequest,Dynamic>
 		#if ie8
 		var req : Dynamic=null;
 		untyped __js__('		
-		if (window.XDomainRequest) req = new XDomainRequest(); else req = new XMLHttpRequest();
+		if(window)if (window.XDomainRequest) req = new XDomainRequest(); else req = new XMLHttpRequest();
 		');
 		request = req;
 		#else
@@ -31,13 +31,13 @@ class HTTPRequest extends HTTPRequestTask<XMLHttpRequest,Dynamic>
 		#end
 		if (request.withCredentials){ request.withCredentials = false; }		
 		if (request.overrideMimeType != null) {  request.overrideMimeType(p_binary ? "application/octet-stream" : "text/plain");  }				
-		request.onprogress 	= function(e : XMLHttpRequestProgressEvent)
+		request.onprogress 	= function(e : Dynamic)
 		{
 			bytesLoaded = e.loaded;
 			bytesTotal  = e.total;
 			progress = (e.total<=0 ? 0 : (e.loaded / (e.total+5))) * 0.999;			
 		};		
-		request.onload 		= function(e : XMLHttpRequestProgressEvent) { progress = 1.0; };		
+		request.onload 		= function(e : Event) { progress = 1.0; };		
 		request.onerror 	= function(e:ErrorEvent) {	request = null; progress = 1.0; error = e.message; OnError(); };			
 		request.open(method, url, true);
 	}

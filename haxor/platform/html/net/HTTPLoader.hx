@@ -1,4 +1,4 @@
-#if html
+#if (html || nodejs)
 
 package haxor.platform.html.net;
 import haxor.platform.Types.Float32;

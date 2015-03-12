@@ -2,7 +2,7 @@ package haxor.platform;
 
 
 
-#if html
+#if (html||nodejs)
 
 #if ie8
 typedef ArrayBuffer		= Dynamic;

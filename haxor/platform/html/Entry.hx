@@ -1,5 +1,7 @@
 #if html
 package haxor.platform.html;
+import js.html.VisibilityState;
+import js.html.HTMLCollection;
 import js.html.CanvasElement;
 import js.html.CanvasRenderingContext2D;
 import haxor.platform.html.graphics.WebGL;
@@ -29,7 +31,7 @@ import haxor.graphics.GL;
 
 /**
  * Entry point class that controls the initialization of JS/HTML projects.
- * When it runs the __init__ method, it searches for [hx] tags in the HTML's [body] and creates one application for each one.
+ * When it runs the __init__ method, it searches the div specified in the 'container' attrib in the <script> running this app.
  * It uses as class reference the 'type' attribute.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
@@ -89,7 +91,7 @@ class Entry
 	 * Startup the application entry point.
 	 */
 	static public function Initialize():Void 
-	{ 		
+	{ 	
 		Browser.window.onload = OnWindowLoad; 
 	}
 	
@@ -102,7 +104,7 @@ class Entry
 	{	
 		Console.Initialize();
 		
-		var script_list : NodeList = Browser.document.getElementsByTagName("SCRIPT");
+		var script_list : HTMLCollection = Browser.document.getElementsByTagName("SCRIPT");
 		
 		var attrib : String = "";
 		
@@ -142,7 +144,7 @@ class Entry
 		
 		Console.Log("Haxor> HTML Platform Init verbose[" + Console.verbose+"] application[" + app_class_type+"] container["+app_container_id+"]", 1);
 		
-		var tag_strings : NodeList = Browser.document.getElementsByTagName("strings");
+		var tag_strings : HTMLCollection = Browser.document.getElementsByTagName("strings");
 		
 		if (tag_strings != null)
 		{
@@ -212,15 +214,15 @@ class Entry
 		var cd : String = m_application.m_container.style.display;
 		m_application.m_container.style.display = "none";
 		
-		#if !ie8
+		#if (!ie8 || !nodejs)
 		GL.Initialize(m_application);
 		GL.m_gl.Initialize(app_container_id);
 		GL.m_gl.CheckExtensions();
 		#end
 		
-		Console.Log("Haxor> Creating Stage with ["+app_container_id+"]",1);
-		var stage : DOMStage = new DOMStage(m_application.m_container);
-		stage.Parse(m_application.m_container);
+		//Console.Log("Haxor> Creating Stage with ["+app_container_id+"]",1);
+		//var stage : DOMStage = new DOMStage(m_application.m_container);
+		//stage.Parse(m_application.m_container);
 		
 		Timer.delay(function():Void {  m_application.m_container.style.display = cd; }, 100);
 		
@@ -251,7 +253,6 @@ class Entry
 	 */
 	static private function Run():Void
 	{
-		
 		CancelInterval();		
 		//m_itv_offset_clock = m_has_pc ? Browser.window.performance.now() : (Timer.stamp() * 1000);
 		//m_interval_id = Browser.window.setInterval(IntervalLoop, 16);
@@ -302,7 +303,7 @@ class Entry
 	 */
 	static private function IntervalLoop():Void
 	{			
-		var v : Bool = Browser.document.visibilityState != "hidden";
+		var v : Bool = Browser.document.visibilityState != VisibilityState.HIDDEN;
 		if (v) return;
 		if (!m_application.runOnBackground) return;
 		var t : Float    = m_has_pc ? Browser.window.performance.now() : (Timer.stamp() * 1000.0);

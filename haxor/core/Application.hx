@@ -1,6 +1,7 @@
 package haxor.core;
 import haxor.core.BaseApplication.EntryPoint;
 
+
 #if html
 import js.Browser;
 import haxor.platform.html.HTMLApplication.ApplicationProtocol;
@@ -19,6 +20,10 @@ class Application extends
 
 #if html
 haxor.platform.html.HTMLApplication
+#end
+
+#if nodejs
+haxor.platform.nodejs.NodeApplication
 #end
 
 #if android

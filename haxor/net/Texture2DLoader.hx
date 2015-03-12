@@ -1,5 +1,3 @@
-
-
 package haxor.net;
 
 import haxor.graphics.texture.Bitmap;
@@ -15,7 +13,7 @@ import haxor.platform.android.net.BitmapLoader;
 import haxor.platform.windows.net.BitmapLoader;
 #end
 
-#if html
+#if (html||nodejs)
 import haxor.platform.html.net.BitmapLoader;
 #end
 

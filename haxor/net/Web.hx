@@ -10,7 +10,7 @@ import haxor.io.file.MaterialFile;
 import haxor.net.Texture2DLoader;
 import haxor.platform.Types.Float32;
 
-#if html
+#if (html || nodejs)
 import haxor.platform.html.net.HTTPLoader;
 import haxor.platform.html.net.BitmapLoader;
 #end

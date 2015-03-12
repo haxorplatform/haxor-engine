@@ -20,7 +20,7 @@ class Time
 	static public var system(get_system, null):Float32;
 	static private inline function get_system():Float32
 	{ 	
-		#if html
+		#if (html||nodejs)
 		return m_system - m_clock_0; 
 		#end
 		

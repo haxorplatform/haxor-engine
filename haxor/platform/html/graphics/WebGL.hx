@@ -1,4 +1,4 @@
-#if html
+#if (html||nodejs)
 package haxor.platform.html.graphics;
 import haxor.platform.Types.VAOId;
 import js.html.webgl.ShaderPrecisionFormat;
@@ -18,7 +18,6 @@ import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.io.UInt16Array;
-import haxor.platform.html.HTMLApplication;
 import haxor.platform.Types.ArrayBuffer;
 import haxor.platform.Types.FrameBufferId;
 import haxor.platform.Types.MeshBufferId;
@@ -67,6 +66,7 @@ class WebGL extends GraphicContext
 	 */
 	public function Initialize(p_container_id : String):Bool
 	{
+		#if html
 		
 		var app : HTMLApplication = cast m_application;
 		app.m_container = m_container = Browser.document.getElementById(p_container_id);
@@ -115,6 +115,8 @@ class WebGL extends GraphicContext
 			Console.Log("Graphics> Could not create RenderingContext3D."); 
 			return false;
 		}
+		
+		#end
 		
 		return true;
 	}

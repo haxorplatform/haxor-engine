@@ -5,7 +5,7 @@ import haxor.platform.Types.ArrayBuffer;
 import haxe.io.Bytes;
 
 
-#if html
+#if (html||nodejs)
 import js.html.Uint8ClampedArray;
 import js.html.Uint8Array;
 #end
@@ -61,7 +61,7 @@ class Buffer
 	private inline function get_length():Int { return m_length; }
 	private var m_length : Int;
 	
-	#if html
+	#if (html||nodejs)
 	private var aux : js.html.ArrayBufferView;	
 	private var orig : js.html.ArrayBufferView;
 	#end
@@ -86,7 +86,7 @@ class Buffer
 		var len : Int = m_length * bytesPerElement;
 		m_offset = 0;
 		
-		#if html		
+		#if (html||nodejs)		
 		m_buffer = new Uint8Array(len);
 		aux = m_buffer;
 		#end
@@ -107,7 +107,7 @@ class Buffer
 	 */
 	public function GetByte(p_index : Int) : Int
 	{
-		#if html
+		#if (html||nodejs)
 		return m_buffer[p_index];
 		#end
 		
@@ -129,7 +129,7 @@ class Buffer
 	 */
 	public function SetByte(p_index : Int, p_value : Int):Void
 	{
-		#if html
+		#if (html||nodejs)
 		m_buffer[p_index] = p_value;		
 		#end
 		
@@ -224,7 +224,7 @@ class Buffer
 	{
 		var i0 : Int = p_start * bytesPerElement;
 		var i1 : Int = i0 + p_length * bytesPerElement;
-		#if html				
+		#if (html||nodejs)				
 		orig = aux;
 		if (bytesPerElement == 1)
 		{
@@ -251,7 +251,7 @@ class Buffer
 	 */
 	private function ResetSlice():Void
 	{
-		#if html		
+		#if (html||nodejs)		
 		aux = orig;
 		#end
 		

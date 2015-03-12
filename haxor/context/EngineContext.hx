@@ -164,7 +164,7 @@ class EngineContext
 		
 		data		= new DataContext();
 		
-		#if !ie8
+		#if (!ie8 && !nodejs)
 		
 		//Temp
 		Animation.Initialize();
@@ -190,7 +190,7 @@ class EngineContext
 	 */
 	static private function Build():Void
 	{
-		#if !ie8
+		#if (!ie8 && !nodejs)
 		mesh.Initialize();
 		material.Initialize();
 		texture.Initialize();
@@ -265,7 +265,7 @@ class EngineContext
 		for (i in 0...e.m_components.length)
 		{
 			var c : Component = e.m_components[i];
-			#if !ie8
+			#if (!ie8 && !nodejs)
 			if (Std.is(c, Renderer)) EngineContext.renderer.OnLayerChange(cast c, p_from, p_to);
 			#end
 		}

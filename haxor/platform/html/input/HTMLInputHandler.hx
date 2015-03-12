@@ -20,7 +20,6 @@ import haxor.core.Enums.InputState;
 import haxor.core.Time;
 import haxor.math.Mathf;
 import js.html.Gamepad;
-import js.html.GamepadList;
 import haxor.input.Input;
 import haxor.input.Joystick;
 import js.Browser;
@@ -29,6 +28,8 @@ import js.html.Navigator;
 
 import js.html.TouchList;
 import js.html.Element;
+
+import haxor.platform.Types;
 
 /**
  * Platform class that handles the input detection and update of the static 'Input' class.
@@ -78,7 +79,8 @@ class HTMLInputHandler extends InputHandler
 		//Events that must be handled in the target.		 
 		m_target.onmousedown  			= OnInputEvent;
 		m_target.onmouseover  			= OnInputEvent;
-		m_target.onmousewheel 			= OnInputEvent;
+		//m_target.onmousewheel 			= OnInputEvent;
+		m_target.onwheel	 			= OnInputEvent;
 		m_target.oncontextmenu			= OnInputEvent;
 		
 		//Events that must be handled globally.
@@ -98,10 +100,11 @@ class HTMLInputHandler extends InputHandler
 			//Helps with page slide in iOS
 			Browser.document.addEventListener("touchmove", function(e:Event) { e.preventDefault(); }, false);
 			
-			m_target.ontouchstart   	  = OnTouchEvent;			
-			Browser.window.ontouchmove    = OnTouchEvent;
-			Browser.window.ontouchcancel  = OnTouchEvent;
-			Browser.window.ontouchend  	  = OnTouchEvent;
+			m_target.addEventListener("touchstart", OnTouchEvent);
+			Browser.window.addEventListener("touchmove",OnTouchEvent);
+			Browser.window.addEventListener("touchcancel", OnTouchEvent);
+			Browser.window.addEventListener("touchend", OnTouchEvent);
+			
 		}
 		
 		
@@ -127,7 +130,8 @@ class HTMLInputHandler extends InputHandler
 	 */	
 	private function OnInputEvent(p_event : UIEvent):Void
 	{	
-		var e : UIEvent = p_event==null ? (cast Browser.window.event) : p_event;
+		var e : UIEvent = p_event;
+		if (e == null) e = untyped window.event;
 		var c : UIEvent;
 		
 		#if ie8
@@ -171,8 +175,8 @@ class HTMLInputHandler extends InputHandler
 		{
 			case "wheel","mousewheel", "DOMMouseScroll":				
 				var we : WheelEvent = cast p_event;
-				var dw : Int = (we.wheelDeltaY == null) ? (we.detail*40) : we.wheelDeltaY;				
-				OnMouseWheel(dw / 100.0);
+				var dw : Float32 = (we.deltaY == null) ? (we.detail*40) : we.deltaY;
+				OnMouseWheel(-dw / 100.0);
 			case "mousemove":			
 				
 				var px : Int = me.pageX;
@@ -222,7 +226,7 @@ class HTMLInputHandler extends InputHandler
 	{
 		if (!m_check_joystick) return;
 		var nav : Dynamic 		= m_navigator;
-		var l 	: GamepadList 	= null;
+		var l 	: Array<Gamepad> 	= null;
 		
 		//Fetches the list of gamepads.
 		if (nav.getGamepads != null)  l = nav.getGamepads();
@@ -234,7 +238,7 @@ class HTMLInputHandler extends InputHandler
 		//Checks the API joystick list.
 		for (i in 0...l.length)
 		{
-			var gp : js.html.Gamepad  = l.item(i);			
+			var gp : js.html.Gamepad  = l[i];
 			if (gp == null) continue;			
 			OnJoystickStart(gp.index, gp.id);			
 			for (i in 0...gp.buttons.length)
@@ -262,9 +266,9 @@ class HTMLInputHandler extends InputHandler
 		var e: Element = p_element;				
 		do
 		{
-			px += e.offsetLeft;
-			py += e.offsetTop;				
-			e = e.offsetParent;
+			px += e.clientLeft;
+			py += e.clientTop;				
+			e = e.parentElement;
 		}while (e != null);
 		px = p_x - px;
 		py = p_y - py;

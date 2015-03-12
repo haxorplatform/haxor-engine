@@ -46,7 +46,7 @@ class FloatArray extends Buffer
 	 */
 	override inline function get_bytesPerElement():Int { return 4; }
 	
-	#if html
+	#if (html||nodejs)
 	//private var aux : js.html.Float32Array;
 	#end
 	
@@ -61,7 +61,7 @@ class FloatArray extends Buffer
 	override public function Resize(p_length:Int):Void 
 	{
 		super.Resize(p_length);
-		#if html
+		#if (html||nodejs)
 		aux = new js.html.Float32Array(m_buffer.buffer);
 		#end
 		
@@ -77,7 +77,7 @@ class FloatArray extends Buffer
 	 */
 	public function Get(p_index : Int):Float32
 	{
-		#if html
+		#if (html||nodejs)
 		var f32 : js.html.Float32Array = cast aux;
 		return f32[p_index];		
 		#end
@@ -109,7 +109,7 @@ class FloatArray extends Buffer
 	 */
 	public function Set(p_index : Int, p_value : Float32):Void
 	{
-		#if html
+		#if (html||nodejs)
 		var f32 : js.html.Float32Array = cast aux;
 		f32[p_index] = p_value;
 		#end
@@ -150,7 +150,7 @@ class FloatArray extends Buffer
 	override function SetViewSlice(p_start:Int, p_length:Int):Void 
 	{
 		super.SetViewSlice(p_start, p_length);		
-		#if html
+		#if (html||nodejs)
 		var i0 : Int = p_start;
 		var i1 : Int = i0 + p_length;
 		var f32 : js.html.Float32Array = cast aux;		

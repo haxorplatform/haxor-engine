@@ -17,7 +17,7 @@ import haxor.platform.Types.TextureId;
 import haxor.platform.Types.UniformLocation;
 import haxor.platform.Types.VAOId;
 
-#if html
+#if (html || nodejs)
 typedef PlatformGL  = haxor.platform.html.graphics.WebGL;
 #end
 
@@ -445,7 +445,7 @@ class GL
 	/**
 	 * Invalid Id per platform.
 	 */
-	#if html
+	#if (html||nodejs)
 	static public var NULL : Dynamic = null;
 	static public var INVALID 	: Dynamic = null;
 	#else		

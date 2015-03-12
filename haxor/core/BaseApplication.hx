@@ -10,6 +10,10 @@ import haxor.platform.html.BrowserAgent;
 import haxor.platform.Types.Float32;
 
 
+#if nodejs
+typedef EntryPoint  = haxor.platform.nodejs.Entry;
+#end
+
 #if html
 typedef EntryPoint  = haxor.platform.html.Entry;
 #end
