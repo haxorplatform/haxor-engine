@@ -12,15 +12,15 @@
 
 ## Build HTML
 
-###TBD
+TBD
 
 ## Build Android
 
-### TBD
+TBD
 
 ## Build Windows
 
-### TBD
+TBD
 
 ### Flags
  * `-subsystem: console` enables cmdline.
