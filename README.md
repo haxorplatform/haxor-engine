@@ -11,17 +11,17 @@
  * ![](https://dl.dropboxusercontent.com/u/20655747/haxor/img/usage-flashdevelop-dialog.jpg)
  * `haxe -lib haxor ...`
 
-# Information
+# Build
 
-## Build HTML
-
-TBD
-
-## Build Android
+## HTML
 
 TBD
 
-## Build Windows
+## Android
+
+TBD
+
+## Windows
 
 TBD
 
@@ -30,8 +30,8 @@ TBD
  * `-D HXCPP_FLOAT32` uses `float` instead of `double`
 
 ### Dependencies
- * hxcpp
+ * `hxcpp`
  * `ndll/Windows/` folder in hxssl
- * glew32.lib
- * glew32.dll
+ * `glew32.lib`
+ * `glew32.dll`
  * `bin` folder in hxcpp
