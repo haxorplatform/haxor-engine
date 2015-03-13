@@ -8,8 +8,9 @@
 * Git install using `haxelib` command.
  * `haxelib git haxor https://github.com/haxorplatform/haxor-engine.git 1.0`
 * Link the `haxor` library in `Flashdevelop` or command line `haxe` compiler.
+ * `haxe -lib haxor ...` 
  * ![](https://dl.dropboxusercontent.com/u/20655747/haxor/img/usage-flashdevelop-dialog.jpg)
- * `haxe -lib haxor ...`
+ 
 
 # Build
 
