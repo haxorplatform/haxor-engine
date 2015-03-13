@@ -103,7 +103,7 @@ class Engine
 			up.list[i].OnUpdate();
 		}
 		
-		#if !ie8
+		#if (!ie8 && !nodejs)
 		Animation.Update();
 		EngineContext.physics.Step();
 		#end
@@ -115,13 +115,13 @@ class Engine
 	 */
 	static private function Render():Void
 	{	
-		#if !ie8
+		#if (!ie8 && !nodejs)
 		RenderEngine.Render();
 		#end
 		
 		RenderIRenderers();
 		
-		#if !ie8
+		#if (!ie8 && !nodejs)
 		RenderEngine.RenderFinish();
 		#end
 	}
@@ -147,7 +147,7 @@ class Engine
 	 */
 	static private function Resize():Void
 	{
-		#if !ie8
+		#if (!ie8 && !nodejs)
 		RenderEngine.Resize();
 		#end
 		

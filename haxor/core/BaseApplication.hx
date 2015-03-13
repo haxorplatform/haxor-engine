@@ -278,11 +278,18 @@ class BaseApplication extends Behaviour
 	private function Update():Void 
 	{			
 		Time.Update();
+		
+		#if !nodejs		
 		Input.m_handler.Update();
 		CheckResize();		
+		#end
+		
 		Engine.Update();
 		Engine.Collect();
+		
+		#if !nodejs		
 		Input.m_handler.Clear();
+		#end
 	}
 	
 	/**

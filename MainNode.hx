@@ -87,5 +87,6 @@ class MainNode extends Application
 	override public function Initialize():Void 
 	{
 		Console.Log(platform + "> Application Initialize");
+		
 	}
 }

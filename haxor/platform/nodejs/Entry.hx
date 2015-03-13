@@ -1,6 +1,7 @@
 #if nodejs
 
 package haxor.platform.nodejs;
+import js.Node;
 import haxor.core.Time;
 import haxor.math.Mathf;
 import haxor.core.Engine;
@@ -46,6 +47,8 @@ class Entry
 		Console.Initialize();
 		
 		var app_class_type   	: String = "Main";		
+		
+		app_class_type = Node.process.argv.length > 2 ? Node.process.argv[2] : app_class_type;
 		
 		Console.Log("Haxor> NodeJS Platform Init verbose[" + Console.verbose+"] application[" + app_class_type+"]", 1);
 				

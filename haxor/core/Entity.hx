@@ -111,7 +111,7 @@ class Entity extends Resource
 		m_components = [];
 		m_layer		 = 1;	
 		
-		#if !ie8
+		#if (!ie8 && !nodejs)
 		m_transform = cast AddComponent(Transform);		
 		#end
 		
@@ -134,8 +134,6 @@ class Entity extends Resource
 		c = Type.createInstance(p_type, [""]);		
 		if (c == null) return null;
 		c.m_entity 		= this;		
-		
-		
 		
 		if (c.m_is_behaviour)
 		{ 
