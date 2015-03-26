@@ -1,6 +1,7 @@
 #if html
 
 package haxor.platform.html.input;
+import js.html.DOMElement;
 import js.html.Event;
 import haxor.input.InputHandler;
 import haxor.thread.Activity;
@@ -42,7 +43,7 @@ class HTMLInputHandler extends InputHandler
 	/**
 	 * Target DOM element to handle inputs.
 	 */
-	private var m_target : Element;
+	private var m_target : DOMElement;
 	
 	/**
 	 * Browser navigator instance.
@@ -259,11 +260,11 @@ class HTMLInputHandler extends InputHandler
 	 * @param	p_y
 	 * @return
 	 */
-	private function GetAbsolutePosition(p_element : Element,p_x:Int,p_y:Int):Vector2
+	private function GetAbsolutePosition(p_element : DOMElement,p_x:Int,p_y:Int):Vector2
 	{
 		var px:Int = 0;
 		var py:Int = 0;
-		var e: Element = p_element;				
+		var e: DOMElement = p_element;				
 		do
 		{
 			px += e.clientLeft;

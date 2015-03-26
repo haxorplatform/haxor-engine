@@ -1,6 +1,7 @@
 #if html
 
 package haxor.dom;
+import js.html.DOMElement;
 import haxor.platform.Types.Float32;
 import haxor.core.BaseApplication;
 import haxor.platform.html.HTMLApplication;
@@ -180,7 +181,7 @@ class DOMEntity extends Resource
 		if (stage != this)
 		if (e != null)
 		{
-			var pe : Element = e.parentElement;				
+			var pe : DOMElement = e.parentElement;				
 			pe.replaceChild(v, e);
 			e.remove();			
 		}

@@ -1,6 +1,7 @@
 #if html
 
 package haxor.dom;
+import js.html.DOMElement;
 import js.html.Node;
 import js.html.HTMLCollection;
 import js.html.NodeList;
@@ -20,7 +21,7 @@ class Container extends DOMEntity
 	static public function DOMPath(p_element : Element):String
 	{
 		var p : Array<String> = [];
-		var it : Element = p_element;
+		var it : DOMElement = p_element;
 		while (it != null)
 		{
 			if (it.hasAttribute("script"))

@@ -1,5 +1,6 @@
 #if html
 package haxor.platform.html;
+import js.html.DOMElement;
 import haxor.dom.DOMStage;
 import haxor.platform.Types.Float32;
 import js.html.DivElement;
@@ -42,7 +43,7 @@ class HTMLApplication extends BaseApplication
 	/**
 	 * Reference to the Element container in the HTML
 	 */
-	private var m_container : Element;
+	private var m_container : DOMElement;
 		
 	/**
 	 * Constructor called on page load for each [application] tag found in the page.

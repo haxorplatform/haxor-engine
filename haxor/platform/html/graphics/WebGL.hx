@@ -1,5 +1,6 @@
 #if (html||nodejs)
 package haxor.platform.html.graphics;
+import js.html.DOMElement;
 import haxor.platform.Types.VAOId;
 import js.html.webgl.ShaderPrecisionFormat;
 import js.html.HTMLCollection;
@@ -45,7 +46,7 @@ class WebGL extends GraphicContext
 	
 	private var m_canvas : CanvasElement;
 	
-	private var m_container : Element;
+	private var m_container : DOMElement;
 	
 	private var vao : Dynamic;
 	
@@ -89,7 +90,7 @@ class WebGL extends GraphicContext
 		m_canvas.height 		= m_container.clientHeight;
 		m_canvas.id 			= "haxor-canvas";
 		
-		var fc : Element = m_container.firstElementChild;		
+		var fc : DOMElement = m_container.firstElementChild;		
 		m_container.appendChild(m_canvas);				
 		if (fc != null) m_container.insertBefore(m_canvas, fc);
 		
