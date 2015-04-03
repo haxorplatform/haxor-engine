@@ -2,9 +2,7 @@
 
 # Usage  
 
-* Install Haxe `3.2.0` (latest build).
- * `Byte` classes are needed for ArrayBuffer features.
- * Better HTML compatibility.
+* Install Haxe `3.2.0` http://haxe.org/download/version/3.2.0-rc.2/.
 * Git install using `haxelib` command.
  * `haxelib git haxor https://github.com/haxorplatform/haxor-engine.git 1.0`
 * Link the `haxor` library in `Flashdevelop` or command line `haxe` compiler.
@@ -26,11 +24,11 @@ TBD
 
 TBD
 
-### Flags
+#### Flags
  * `-subsystem: console` enables cmdline.
  * `-D HXCPP_FLOAT32` uses `float` instead of `double`
 
-### Dependencies
+#### Dependencies
  * `hxcpp`
  * `ndll/Windows/` folder in hxssl
  * `glew32.lib`
