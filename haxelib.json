@@ -5,7 +5,7 @@
   "tags": ["webgl","canvas","engine","game","input","touch","gamepad","websocket","webrtc","multiplayer","audio"],
   "description": "Haxor Game Engine",
   "version": "1.0.0",
-  "releasenote": "1.0 - Release Candidate",
+  "releasenote": "1.0-rc1",
   "contributors": ["eduardo_costa"],
   "dependencies": 
   {

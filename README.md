@@ -2,8 +2,7 @@
 
 # Usage  
 
-* Install Haxe `3.2.0` (latest build).
- * `Byte` classes are needed for ArrayBuffer features.
+* Install Haxe `3.2.0` http://haxe.org/download/version/3.2.0-rc.2/.
  * Better HTML compatibility.
 * Git install using `haxelib` command.
  * `haxelib git haxor https://github.com/haxorplatform/haxor-engine.git 1.0`
