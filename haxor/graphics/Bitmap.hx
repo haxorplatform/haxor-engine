@@ -1,4 +1,4 @@
-package haxor.graphics.texture;
+package haxor.graphics;
 import haxor.core.Resource;
 import haxor.core.Enums.PixelFormat;
 import haxor.io.Buffer;
@@ -73,6 +73,17 @@ class Bitmap extends Resource
 	public function new(p_width:Int,p_height:Int,p_format : PixelFormat) 
 	{
 		super();
+		Resize(p_width, p_height, p_format);		
+	}
+	
+	/**
+	 * Resizes this bitmap and erases all previous data.
+	 * @param	p_width
+	 * @param	p_height
+	 * @param	p_format
+	 */
+	public function Resize(p_width:Int, p_height:Int, p_format:PixelFormat):Void
+	{
 		m_width  	= p_width;
 		m_height 	= p_height;				
 		m_format 	= p_format;
@@ -98,7 +109,7 @@ class Bitmap extends Resource
 			
 		}				
 		var len : Int = m_width * m_height * m_channels;		
-		m_buffer = m_float ? (new FloatArray(len)) : (new Buffer(len));		
+		m_buffer = m_float ? (new FloatArray(len)) : (new Buffer(len));
 	}
 	
 	/**

@@ -1,4 +1,5 @@
 package haxor.io;
+import haxe.crypto.Base64;
 import haxor.platform.Types.Float32;
 
 
@@ -33,7 +34,7 @@ class FloatArray extends Buffer
 	 * @return
 	 */
 	static public function FromBase64(p_data : String):FloatArray
-	{
+	{		
 		var b : FloatArray = new FloatArray(Std.int(p_data.length/4));
 		b.SetString(p_data);
 		b.DecodeBase64();

@@ -41,6 +41,7 @@ class Buffer
 	private var m_buffer : ArrayBuffer;		
 	private var m_original : ArrayBuffer;		
 	private var m_offset : Int;
+	
 	/**
 	 * Returns the size of the buffer in bytes.
 	 */
@@ -62,7 +63,7 @@ class Buffer
 	private var m_length : Int;
 	
 	#if (html||nodejs)
-	private var aux : js.html.ArrayBufferView;	
+	private var aux  : js.html.ArrayBufferView;	
 	private var orig : js.html.ArrayBufferView;
 	#end
 	

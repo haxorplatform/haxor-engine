@@ -6,7 +6,7 @@ import haxor.core.Enums.PixelFormat;
 import haxor.core.Enums.TextureFilter;
 import haxor.core.Enums.TextureType;
 import haxor.core.Enums.TextureWrap;
-import haxor.graphics.texture.Bitmap;
+import haxor.graphics.Bitmap;
 import haxor.graphics.texture.RenderTexture;
 import haxor.graphics.texture.Texture;
 import haxor.graphics.texture.Texture2D;

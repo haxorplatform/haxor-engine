@@ -115,7 +115,8 @@ class Engine
 	 */
 	static private function Render():Void
 	{	
-		#if (!ie8 && !nodejs)
+		
+		#if (!ie8 && !nodejs)		
 		RenderEngine.Render();
 		#end
 		

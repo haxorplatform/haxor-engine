@@ -8,7 +8,7 @@ import js.Browser;
 import haxor.core.Enums.PixelFormat;
 import js.html.Event;
 import js.html.Image;
-import haxor.graphics.texture.Bitmap;
+import haxor.graphics.Bitmap;
 import js.html.Uint8Array;
 import js.html.CanvasRenderingContext2D;
 import js.html.DOMURL;

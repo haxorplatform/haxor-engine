@@ -106,10 +106,7 @@ LRESULT CALLBACK haxor::platform::windows::Window_obj::WndProc(HWND p_hwnd, UINT
 		case WM_MOUSEMOVE:
 			{
 				POINT mp;
-				GetCursorPos( & mp);
-				
-				
-				//SetCursorPos(300, 300);		
+				GetCursorPos( & mp);				
 			}
 			break;
 			

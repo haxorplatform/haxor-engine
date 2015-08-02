@@ -1,5 +1,6 @@
 #if !ie8
 package haxor.core;
+import haxor.graphics.GL;
 import haxor.graphics.Graphics;
 import haxor.graphics.mesh.Model;
 import haxor.graphics.material.Material;
@@ -27,6 +28,7 @@ class RenderEngine
 		#end
 		
 		//Shadow Collect Pass		
+		//foreach active light { foreach mesh-renderer caster { render(shadow-tex[mrid]) } }
 		
 		//Render all cameras
 		RenderCameras();	
@@ -123,8 +125,7 @@ class RenderEngine
 		RenderStats.visible++;
 		#end
 		
-		//Grab Texture if requested. Check index of start then capture up to it, then stop for optimization.
-			
+		//Grab Texture if requested. Check index of start then capture up to it, then stop for optimization.		
 		r.OnRender();
 			
 		//Shadow Cast if receiver.

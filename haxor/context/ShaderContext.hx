@@ -20,7 +20,7 @@ class ShaderContext
 		uniform vec4  Tint;				
 		attribute vec3 vertex;		
 		attribute vec4 color;		
-		varying vec4 v_color;		
+		varying vec4 v_color;			
 		void main(void) 
 		{		
 			gl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;				
@@ -48,12 +48,14 @@ class ShaderContext
 		attribute vec4 color;
 		attribute vec3 uv0;		
 		varying vec3 v_uv0;
-		varying vec4 v_color;		
+		varying vec4 v_color;	
+		uniform vec4  Tint;			
+		
 		void main(void) 
 		{		
 			gl_Position = ((vec4(vertex, 1.0) * WorldMatrix) * ViewMatrix) * ProjectionMatrix;
 			v_uv0   = uv0;
-			v_color = color;
+			v_color = color*Tint;
 		}		
 		</vertex>		
 		<fragment>

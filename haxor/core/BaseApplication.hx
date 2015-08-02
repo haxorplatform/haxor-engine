@@ -304,10 +304,11 @@ class BaseApplication extends Behaviour
 			m_init_allowed = false;
 		}		
 		
-		m_frame_ms += Time.delta;
+		m_frame_ms += Time.delta*1000.0;
 		
 		if (m_frame_ms >= m_mspf)
 		{	
+			
 			m_frame_ms = 0.0;
 			
 			Time.Render();

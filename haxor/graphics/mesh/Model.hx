@@ -157,7 +157,7 @@ class Model
 	}
 	static private var m_tetrahedron : Mesh;
 	
-	#if ModelPackage
+	#if model_pack
 	
 	/**
 	 * Mesh that describes a sphere with radius 1.0 centered in the origin.

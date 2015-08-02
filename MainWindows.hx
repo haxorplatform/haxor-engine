@@ -1,14 +1,8 @@
-#if html
+#if windows
 
 package ;
-import js.html.EventTarget;
-import haxor.platform.html.input.DragDrop;
-import haxe.io.UInt8Array;
-import js.html.Uint8Array;
-import js.html.ArrayBuffer;
-import js.html.FileReader;
-import js.html.File;
-import js.html.Event;
+import haxe.io.Bytes;
+import haxe.io.BytesData;
 import haxe.Timer;
 import haxor.component.animation.Animation;
 import haxor.component.Camera;
@@ -84,59 +78,54 @@ import haxor.physics.broadphase.SAPBroadPhase;
 import haxor.physics.Collision;
 import haxor.physics.Physics;
 import haxor.physics.PhysicsMaterial;
-import haxor.platform.html.graphics.ImageReader;
 import haxor.platform.Types.Float32;
 import haxor.platform.Types.MeshBufferId;
 import haxor.thread.Activity;
-import js.Browser;
 
-class MainHTML extends Application implements IRenderable
+
+class MainWindows extends Application implements IRenderable
 {	
 	static public function main():Void {  EntryPoint.Initialize(); }
 	
 	override public function Initialize():Void 
 	{
 		Console.Log(platform + "> Application Initialize");
-		
-		var sphere : MeshRenderer = (new Entity("sphere")).AddComponent(MeshRenderer);
-		sphere.mesh = Model.sphere;
-		sphere.material = Material.Transparent(Texture2D.green);
-		sphere.material.SetColor("Tint", Color.white);
-		
-		var o : CameraOrbit = CameraOrbit.Create(4.0, 45, 45);				
-		o.camera.background = new Color(0.3, 0.3, 0.3);			
-		var ci : CameraOrbitInput = o.AddComponent(CameraOrbitInput);
-		
-		
-		DragDrop.Add(Browser.window);
-		
-		DragDrop.AddListener(function(t : EventTarget, evt : String, ev:Event):Void
-		{
-			trace(t,evt);			
-			if (evt == "drop")
-			{
 				
-				var data : Dynamic = ev;
-				data = data.dataTransfer;
-				var files : Array<File> = data == null ? [] : data.files;							
-				var reader = new FileReader();
-				reader.onerror = function(ev:Dynamic):Void { trace(ev); }				
-				reader.onloadend = function(ev : Dynamic):Void
-				{	
-					
-					var ab : Uint8Array = new Uint8Array(ev.target.result);
-					var b : Buffer = new Buffer(ab.byteLength);
-					b.buffer.set(ab);						
-					ImageReader.ReadAsync(b, function(img:Bitmap):Void
-					{
-						var tex : Texture2D = Texture2D.FromBitmap(img);
-						sphere.material.SetTexture("DiffuseTexture", tex);
-					});				
-					//*/
-				};							
-				reader.readAsArrayBuffer(files[0]);				
-			}
-		});
+		
+		var o : CameraOrbit = CameraOrbit.Create(4.0, 45, 45);
+				
+		o.camera.background = new Color(0.5, 0.5, 0.5);	
+		
+		var ci : CameraOrbitInput = o.AddComponent(CameraOrbitInput);
+				
+		
+		var tex : Texture2D = new Texture2D(2, 2, PixelFormat.RGBA8);
+		tex.minFilter = tex.magFilter = TextureFilter.Nearest;
+		tex.data.SetPixel(0, 0, Color.red);
+		tex.data.SetPixel(1, 0, Color.green);
+		tex.data.SetPixel(0, 1, Color.blue);
+		tex.data.SetPixel(1, 1, Color.yellow);
+		tex.Apply();
+		//*/
+		
+		var tex : Texture2D = new Texture2D(2, 2, PixelFormat.Float4);
+		tex.minFilter = tex.magFilter = TextureFilter.Nearest;
+		tex.data.SetPixel(0, 0, Color.red);
+		tex.data.SetPixel(1, 0, Color.green);
+		tex.data.SetPixel(0, 1, Color.blue);
+		tex.data.SetPixel(1, 1, Color.yellow);
+		tex.Apply();
+		//*/
+		
+		
+		var mr : MeshRenderer = (new Entity("MODEL")).AddComponent(MeshRenderer);
+		mr.material = Material.Transparent(tex);		
+		mr.mesh          = Model.cube;
+		mr.material.SetColor("Tint", new Color(1.0, 1.0, 1.0, 0.2));
+		
+		mr.transform.localPosition   = new Vector3(0.0,0.0,0.0);
+		mr.transform.localScale = new Vector3(1, 1, 1);			
+		//*/
 		
 	}
 	

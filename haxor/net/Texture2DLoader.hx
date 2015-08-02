@@ -1,6 +1,6 @@
 package haxor.net;
 
-import haxor.graphics.texture.Bitmap;
+import haxor.graphics.Bitmap;
 import haxor.platform.Types.Float32;
 import haxor.thread.Activity;
 import haxor.graphics.texture.Texture2D;

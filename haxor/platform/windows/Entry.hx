@@ -1,5 +1,9 @@
 #if windows
 package haxor.platform.windows;
+import haxor.math.Vector3;
+import haxor.graphics.mesh.Model;
+import haxor.graphics.material.Material;
+import haxor.component.MeshRenderer;
 import haxor.graphics.GL;
 import haxor.core.Engine;
 import haxor.core.Application;
@@ -99,6 +103,12 @@ class Entry
 		GL.m_gl.CheckExtensions();
 		
 		EngineContext.Build();
+		
+		//need to remove this!!
+		var dummy : MeshRenderer = (new Entity("__dummy__")).AddComponent(MeshRenderer);
+		dummy.material = Material.Opaque();
+		dummy.mesh = Model.planeXY;
+		dummy.transform.localScale = new Vector3();
 		
 		if (app.Load()) app.LoadComplete();
 		

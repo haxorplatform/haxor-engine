@@ -49,7 +49,7 @@ class Color
 	/**
 	 * Transparent pixel.
 	 */
-	static public var empty  (get_empty  , null):Color;	static private inline function get_empty  ():Color { return new Color(0, 0, 0, 0); }
+	static public var transparent  (get  , null):Color;	static private inline function get_transparent  ():Color { return new Color(0, 0, 0, 0); }
 	/**
 	 * 10% Gray pixel
 	 */

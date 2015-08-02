@@ -17,7 +17,7 @@ import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.mesh.MeshLayout.Mesh3;
 import haxor.graphics.mesh.MeshLayout.SkinnedMesh3;
-import haxor.graphics.texture.Bitmap;
+import haxor.graphics.Bitmap;
 import haxor.math.Color;
 import haxor.math.Matrix4;
 import haxor.math.Quaternion;

@@ -27,6 +27,7 @@ import haxor.platform.Types.UniformLocation;
 
 /**
  * Wrapper for OpenGL API commands and context management.
+ * This class can fit in all native/desktop targets so it was placed at the root of the 'platform' package.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 class OpenGL extends
@@ -110,7 +111,7 @@ haxor.platform.windows.graphics.WinGL
 	override public function BufferData(p_target:Int, p_data:Buffer, p_mode:Int):Void 			
 	{ 	
 		var bl : Int = p_data.byteLength;
-		var ba : Bytes = p_data.buffer;
+		var ba : Bytes = p_data.buffer;		
 		untyped __cpp__('glBufferData(p_target, bl, (void*)&ba->b[0], p_mode);'); 		
 	}	
 	override public function BufferSubData(p_target:Int, p_offset:Int, p_data:Buffer):Void 	
@@ -138,7 +139,7 @@ haxor.platform.windows.graphics.WinGL
 	override public function GetShaderInfoLog(p_shader : ShaderId) : String 													{ untyped __cpp__('char s[1024]; glGetShaderInfoLog(p_shader,1024,0,s); return s;'); return ""; }	
 	override public function GetShaderParameter(p_shader : ShaderId,p_parameter:Int):Int 										{ untyped __cpp__('int d[1]; glGetShaderiv(p_shader, p_parameter, d); return d[0];'); return -1; }
 	override public function ShaderSource(p_shader : ShaderId, p_source : String):Void 											
-	{ 
+	{ 		
 		var len : Int = p_source.length; 
 		untyped __cpp__('
 		const char ** str = (const char ** ) &p_source.__s;		
@@ -201,10 +202,10 @@ haxor.platform.windows.graphics.WinGL
 	override public function Uniform2i(p_location:UniformLocation,p_x:Int,p_y:Int):Void 								{ untyped __cpp__('glUniform2i(p_location, p_x, p_y);'); }			
 	override public function Uniform3i(p_location:UniformLocation,p_x:Int,p_y:Int,p_z:Int):Void 						{ untyped __cpp__('glUniform3i(p_location, p_x, p_y, p_z);'); }			
 	override public function Uniform4i(p_location:UniformLocation,p_x:Int,p_y:Int,p_z:Int,p_w:Int):Void 				{ untyped __cpp__('glUniform4i(p_location, p_x, p_y, p_z, p_w);'); }	
-	override public function Uniform1fv(p_location:UniformLocation, p_v:FloatArray):Void 								{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniform1fv(p_location,len,(float*)&ba->b[0]);'); }
-	override public function Uniform2fv(p_location:UniformLocation,p_v:FloatArray):Void									{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniform2fv(p_location,len/2,(float*)&ba->b[0]);'); }
-	override public function Uniform3fv(p_location:UniformLocation,p_v:FloatArray):Void 								{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniform3fv(p_location,len/3,(float*)&ba->b[0]);'); }
-	override public function Uniform4fv(p_location:UniformLocation,p_v:FloatArray):Void 								{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniform4fv(p_location,len/4,(float*)&ba->b[0]);'); }
+	override public function Uniform1fv(p_location:UniformLocation, p_v:FloatArray):Void 								{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniform1fv(p_location,len,(float*)(&ba->b[0]));'); }
+	override public function Uniform2fv(p_location:UniformLocation,p_v:FloatArray):Void									{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniform2fv(p_location,len/2,(float*)(&ba->b[0]));'); }
+	override public function Uniform3fv(p_location:UniformLocation,p_v:FloatArray):Void 								{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniform3fv(p_location,len/3,(float*)(&ba->b[0]));'); }
+	override public function Uniform4fv(p_location:UniformLocation,p_v:FloatArray):Void 								{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniform4fv(p_location,len/4,(float*)(&ba->b[0]));'); }
 	override public function Uniform1iv(p_location:UniformLocation, p_v:Int32Array):Void 								
 	{ 	var ba : Bytes  = p_v.buffer; var len :Int = p_v.length; untyped __cpp__('int * il = new int[len]; long * b = (long*)(&ba->b[0]); for (int i = 0; i < len; i++) il[i] = (int) b; glUniform1iv(p_location, len, il); delete[] il;'); }
 	override public function Uniform2iv(p_location:UniformLocation, p_v:Int32Array):Void
@@ -218,7 +219,7 @@ haxor.platform.windows.graphics.WinGL
 	override public function UniformMatrix3fv(p_location:UniformLocation,p_transpose:Bool,p_v:FloatArray):Void 			{ var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniformMatrix3fv(p_location,len/9,  p_transpose, (float*)&ba->b[0]);'); }
 	override public function UniformMatrix4fv(p_location:UniformLocation, p_transpose:Bool, p_v:FloatArray):Void 			
 	{ 
-		var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniformMatrix4fv(p_location,len/16, p_transpose, (float*)&ba->b[0]);'); 
+		var ba : Bytes = p_v.buffer; var len:Int = p_v.length; untyped __cpp__('glUniformMatrix4fv(p_location,len/16, p_transpose, (float*)(&ba->b[0]));'); 
 	}
 	
 	//Flags

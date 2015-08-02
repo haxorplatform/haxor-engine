@@ -8,7 +8,7 @@ import haxor.platform.Types.Float32;
 import haxe.Http;
 import haxor.core.Console;
 import haxor.core.Enums.PixelFormat;
-import haxor.graphics.texture.Bitmap;
+import haxor.graphics.Bitmap;
 import haxor.io.Buffer;
 import haxor.net.Web;
 import haxor.platform.Types.ArrayBuffer;

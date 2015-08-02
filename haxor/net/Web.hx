@@ -2,7 +2,7 @@ package haxor.net;
 import haxor.core.Resource;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
-import haxor.graphics.texture.Bitmap;
+import haxor.graphics.Bitmap;
 import haxor.graphics.texture.Texture2D;
 import haxor.graphics.texture.TextureCube;
 import haxor.io.file.ColladaFile;

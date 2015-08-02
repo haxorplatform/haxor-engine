@@ -193,6 +193,6 @@ class GraphicContext
 		var err : Int = GetErrorCode(); 
 		if (err != 0) throw "GraphicContext> " + GetErrorString(err) + " - " + p_log; 		
 	}	
-	public function LogError():Void { Console.Log(GetError()); }
+	public inline function LogError():Void { trace(GetError()); }
 	
 }
