@@ -1,4 +1,5 @@
 package haxor.core;
+import haxe.Timer;
 import haxor.component.Behaviour;
 import haxor.context.EngineContext;
 
@@ -24,6 +25,31 @@ class Resource implements IDisposable
 	}
 	
 	/**
+	 * MongoDB like GUID:
+	 * a 4-byte value representing the seconds since the Unix epoch,
+	 * a 3-byte machine identifier,
+	 * a 2-byte process id, and
+	 * a 3-byte counter, starting with a random value.
+	 */
+	static public function GenerateGUID():String
+	{
+		var d  : Int = untyped Math.floor((Date.now() - Date.fromTime(0)) / 1000);
+		var r0 : Int = Math.floor(Math.random()*0xfffffff);
+		var r1 : Int = Math.floor(Math.random()*0xfffffff);
+		var r2 : Int = Math.floor(Math.random()*0xfffffff);		
+		var t  : Int = Math.floor(Timer.stamp());
+		var b0 : String = StringTools.hex(r0 + t,6);	//Counter starting at random
+		var b1 : String = StringTools.hex(r1,4);		//Process Id
+		var b2 : String = StringTools.hex(r2,6);		//Machine Identifier
+		var b3 : String = StringTools.hex(d, 8); 		//Unix Time				
+		b0 = b0.substr(b0.length - 6, 6);
+		b1 = b1.substr(b1.length - 4, 4);
+		b2 = b2.substr(b2.length - 6, 6);
+		b3 = b3.substr(b3.length - 8, 8);					
+		return (b0 + b1 + b2 + b3).toLowerCase();
+	}
+	
+	/**
 	 * Returns the reference to the application currently running.
 	 */
 	public var application(get_application, null):Application;
@@ -33,8 +59,9 @@ class Resource implements IDisposable
 	 * Returns the global unique id of this resource generated when the asset is created the first time.
 	 * Assets that comes from the editor like meshes and textures probably will come with its own guid after loading.
 	 */
-	public var guid(get_guid, null):String;
+	public var guid(get, set):String;
 	private inline function get_guid():String { return m_guid; }
+	private inline function set_guid(v:String):String { return m_guid=v; }
 	private var m_guid : String;
 	
 	
@@ -120,11 +147,7 @@ class Resource implements IDisposable
 		
 		m_name 				 = p_name == "" ? (m_type_name+m_uid) : p_name;
 		
-		m_guid		 = "";		
-		m_guid 		+= StringTools.hex(Math.floor(0xfffffff * Math.random()));
-		m_guid 		+= StringTools.hex(Math.floor(0xfffffff * Math.random()));
-		m_guid 		+= StringTools.hex(Math.floor(0xfffffff * Math.random()));
-		m_guid 		+= StringTools.hex(Math.floor(0xfffffff * Math.random()));
+		m_guid 				 = GenerateGUID();
 		
 		EngineContext.resources.Add(this);		
 	}

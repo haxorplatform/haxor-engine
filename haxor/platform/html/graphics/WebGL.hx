@@ -91,7 +91,7 @@ class WebGL extends GraphicContext
 		m_canvas.id 			= "haxor-canvas";
 		
 		var fc : DOMElement = m_container.firstElementChild;		
-		m_container.appendChild(m_canvas);				
+		m_container.appendChild(m_canvas);
 		if (fc != null) m_container.insertBefore(m_canvas, fc);
 		
 		var ctx_attrib 			: Dynamic 		 = { };		
