@@ -40,6 +40,7 @@ class TransformContext
 	{
 		t.m_uniform_dirty = true;
 		var cl : Array<Component>   = t.m_entity.m_components;
+		if (cl == null) return;
 		for (i in 0...cl.length) cl[i].OnTransformUpdate(false);
 	}
 	
@@ -50,6 +51,7 @@ class TransformContext
 	private function OnHierarchyChange(t:Transform):Void
 	{
 		var cl : Array<Component>   = t.m_entity.m_components;
+		if (cl == null) return;
 		for (i in 0...cl.length) cl[i].OnTransformUpdate(true);
 	}
 	

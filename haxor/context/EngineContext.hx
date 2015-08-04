@@ -277,18 +277,37 @@ class EngineContext
 	 */
 	static private function Destroy(p_resource:Resource):Void
 	{
+		if (p_resource.m_destroyed) return;		
+		ScheduleDestroy(p_resource);
+		if (Std.is(p_resource, Entity))
+		{			
+			var el  : Array<Entity> = [];
+			var res : Entity = cast p_resource;
+			var t   : Transform = res.transform;			
+			t.Traverse(function(n:Transform, d:Int):Bool
+			{
+				el.push(n.entity);
+				return true;
+			});			
+			for (e in el)
+			{
+				for (c in e.m_components) ScheduleDestroy(c);
+				ScheduleDestroy(e);
+			}
+			t.parent.m_hierarchy.remove(t);						
+		}
+	}
+	
+	/**
+	 * Schedules a destroy operation and removes it from the global list.
+	 * @param	p_resource
+	 */
+	static private function ScheduleDestroy(p_resource:Resource):Void
+	{
 		if (p_resource.m_destroyed) return;
 		p_resource.m_destroyed = true;		
 		for (i in 0...list.length) list[i].Remove(p_resource);		
 		EngineContext.disposables.Add(p_resource);		
-		if (Std.is(p_resource, Entity))
-		{
-			var e : Entity = cast p_resource;
-			var t : Transform = e.transform;
-			t.parent.m_hierarchy.remove(t);
-			for (i in 0...e.m_components.length) Destroy(e.m_components[i]);
-			for (i in 0...t.childCount) Destroy(t.GetChild(i).entity);
-		}
 	}
 	
 }
