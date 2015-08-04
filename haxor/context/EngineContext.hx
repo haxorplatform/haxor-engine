@@ -285,9 +285,9 @@ class EngineContext
 		{
 			var e : Entity = cast p_resource;
 			var t : Transform = e.transform;
-			t.parent = null;
-			for (i in 0...t.childCount) Destroy(t.GetChild(i).entity);			
+			t.parent.m_hierarchy.remove(t);
 			for (i in 0...e.m_components.length) Destroy(e.m_components[i]);
+			for (i in 0...t.childCount) Destroy(t.GetChild(i).entity);
 		}
 	}
 	
