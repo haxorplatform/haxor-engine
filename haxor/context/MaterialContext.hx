@@ -682,7 +682,7 @@ class MaterialContext
 	private function UploadUniform(m:Material,u:MaterialUniform):Void
 	{
 		var loc:UniformLocation;		
-		loc = uniforms[m.__cid][u.__cid];		
+		loc = uniforms[m.__cid][u.__cid];
 		
 		if (loc == GL.INVALID)
 		{			
@@ -753,6 +753,8 @@ class MaterialContext
 	{
 		
 		//var mr : MeshRenderer = MeshRenderer.current;
+		
+		ucp = c != null;
 		
 		switch(u.name)
 		{

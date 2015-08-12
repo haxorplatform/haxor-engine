@@ -35,7 +35,7 @@ class Material extends Resource
 	 * @param	p_zwrite
 	 * @return
 	 */
-	static public inline function Opaque(p_texture:Texture = null, p_ztest:Bool = true, p_zwrite:Bool = true):Material
+	static public function Opaque(p_texture:Texture = null, p_ztest:Bool = true, p_zwrite:Bool = true):Material
 	{
 		var m : Material = new Material("Opaque");
 		m.shader	= p_texture == null ? Shader.Flat : Shader.FlatTexture;
@@ -54,7 +54,7 @@ class Material extends Resource
 	 * @param	p_double_sided
 	 * @return
 	 */
-	static public inline function Transparent(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
+	static public function Transparent(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
 		var m : Material = new Material("Transparent");
 		if (p_double_sided) m.cull = CullMode.None;
@@ -75,7 +75,7 @@ class Material extends Resource
 	 * @param	p_double_sided
 	 * @return
 	 */
-	static public inline function AdditiveAlpha(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
+	static public function AdditiveAlpha(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
 		var m : Material = Transparent(p_ztest, p_zwrite, p_double_sided);
 		m.name = "AdditiveAlpha";
@@ -90,7 +90,7 @@ class Material extends Resource
 	 * @param	p_double_sided
 	 * @return
 	 */
-	static public inline function Additive(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
+	static public function Additive(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
 		var m : Material = Transparent(p_ztest, p_zwrite, p_double_sided);
 		m.name = "Additive";
@@ -180,6 +180,8 @@ class Material extends Resource
 	/**
 	 * List of uniforms of this material.
 	 */
+	public var uniforms(get, never):Array<MaterialUniform>;
+	private function get_uniforms():Array<MaterialUniform> { return m_uniforms; }
 	private var m_uniforms : Array<MaterialUniform>;
 	
 	/**
@@ -199,7 +201,7 @@ class Material extends Resource
 		blendSrc        = BlendMode.One;
 		blendDst        = BlendMode.Zero;
 		invert		    = false;
-		cull            = CullMode.Back; 			
+		cull            = CullMode.Back;
 		lighting		= false;
 		grab			= false;			
 		EngineContext.material.InitializeMaterial(this);
