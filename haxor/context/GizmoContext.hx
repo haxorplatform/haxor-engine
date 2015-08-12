@@ -457,7 +457,7 @@ class Gizmo
 			material.SetInt("Count", m_render_count);
 			var np : Float32 = Camera.main.near;
 			var fp : Float32 = Camera.main.far;
-			Camera.main.near = 1.0;
+			Camera.main.near = 0.0001;
 			Camera.main.far  = 50000;
 			Graphics.Render(mesh, material, null, Camera.main);			
 			Camera.main.near = np;
