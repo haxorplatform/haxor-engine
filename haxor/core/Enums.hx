@@ -238,46 +238,46 @@ class DepthTest
 /**
  * Enumeration that describes the camera projection matrix mode.
  */
-enum CameraMode
+class CameraMode
 {
 	/**
 	 * Camera expects the user to set the perspective matrix.
 	 */
-	Custom;
+	static public var Custom: Int  = 0;
 	/**
 	 * Perspective matrix mode.
 	 */
-	Perspective;
+	static public var Perspective: Int =1;
 	/**
 	 * Orthographic projection mode.
 	 */	
-	Ortho;
+	static public var Ortho: Int =2;
 	/**
 	 * Orthographic screen mode.
 	 */
-	UI;	
+	static public var UI: Int =3;	
 }
 
 
 /**
  * Enumeration that describes the channel format of the Bitmap/Texture.
  */
-enum PixelFormat
+class PixelFormat
 {
-	Alpha8;
-	Luminance;	
-	RGB8;
-	RGBA8;	
-	Half;
-	Half3;
-	Half4;
-	Float;
-	Float3;
-	Float4;
-	Depth;
-	sRGB;
-	sRGBA;
-	sRGBA8;
+	static public var Alpha8	: Int = 0;
+	static public var Luminance	: Int = 1;	
+	static public var RGB8		: Int = 2;
+	static public var RGBA8		: Int = 3;	
+	static public var Half		: Int = 4;
+	static public var Half3		: Int = 5;
+	static public var Half4		: Int = 6;
+	static public var Float		: Int = 7;
+	static public var Float3	: Int = 8;
+	static public var Float4	: Int = 9;
+	static public var Depth		: Int = 10;
+	static public var sRGB		: Int = 11;
+	static public var sRGBA		: Int = 12;
+	static public var sRGBA8	: Int = 13;
 	//RGBA16;
 	//RGBA == L
 	//Alpha16;
@@ -287,36 +287,36 @@ enum PixelFormat
 /**
  * Texture Filtering enumeration.
  */
-enum TextureFilter
+class TextureFilter
 {            
 	/**
 	 * Nearest pixel.
 	 */
-	Nearest; 		
+	static public inline var Nearest: Int 					= 0; 		
 	/**
 	 * Bilinear interpolation.
 	 */
-	Linear; 				 
+	static public inline var Linear: Int 					= 1; 				 
 	/**
 	 * Nearest downsample with nearest upsample in the mipmap.
 	 */
-	NearestMipmapNearest;
+	static public inline var NearestMipmapNearest: Int 		= 2;
 	/**
 	 * Nearest downsample with linear upsample in the mipmap.
 	 */
-	NearestMipmapLinear;             
+	static public inline var NearestMipmapLinear: Int 		= 3;             
 	/**
 	 * Linear downsample with nearest upsample in the mipmap.
 	 */
-	LinearMipmapNearest;             
+	static public inline var LinearMipmapNearest: Int 		= 4;             
 	/**
 	 * Linear downsample with linear upsample in the mipmap.
 	 */
-	LinearMipmapLinear;               
+	static public inline var LinearMipmapLinear: Int 		= 5;               
 	/**
 	 * Linear downsample with linear upsample in the mipmap.
 	 */
-	Trilinear; 			 	
+	static public inline var Trilinear: Int 				= 6; 			 	
 }
 
 /**
@@ -328,27 +328,27 @@ class TextureWrap
 	/**
 	 * Clamp U coordinate.
 	 */
-	static public var ClampX  = 1;
+	static public inline var ClampX : Int   = 1;
 	/**
 	 * Repeat U coordinate.
 	 */
-	static public var RepeatX = 2;            
+	static public inline var RepeatX : Int  = 2;            
 	/**
 	 * Clamp V coordinate.
 	 */
-	static public var ClampY  = 4;           
+	static public inline var ClampY: Int    = 4;           
 	/**
 	 * Repeat V coordinate.
 	 */
-	static public var RepeatY = 8;
+	static public inline var RepeatY: Int   = 8;
 	/**
 	 * Clamp W coordinate. (TBD)
 	 */
-	static public var ClampZ  = 16;          
+	static public inline var ClampZ: Int    = 16;          
 	/**
 	 * Repeat W coordinate. (TBD)
 	 */
-	static public var RepeatZ = 32;
+	static public inline var RepeatZ: Int   = 32;
 }
 
 /**
@@ -387,27 +387,27 @@ class ClearFlag
 	/**
 	 * Don't Clear.
 	 */
-	static public var None:Int			= 0;
+	static public inline var None:Int			= 0;
 	/**
 	 * Clear only the Color buffer.
 	 */
-	static public var Color:Int			= 1;	
+	static public inline var Color:Int			= 1;	
 	/**
 	 * Clear only the DepthBuffer.
 	 */
-	static public var Depth:Int			= 2;
+	static public inline var Depth:Int			= 2;
 	/**
 	 * Clear the background using only a skybox texture.
 	 */
-	static public var Skybox:Int		= 4; 
+	static public inline var Skybox:Int			= 4; 
 	/**
 	 * Clear the Depth and Color buffer.
 	 */
-	static public var ColorDepth:Int 	= 3;
+	static public inline var ColorDepth:Int 	= 3;
 	/**
 	 * Clear the Depth and render the skybox.
 	 */
-	static public var SkyboxDepth:Int 	= 6;
+	static public inline var SkyboxDepth:Int 	= 6;
 }
 
 /**
@@ -439,22 +439,22 @@ enum InputState
 /**
  * Animation Wrapping.
  */
-enum AnimationWrap
+class AnimationWrap
 {            
 	/**
 	 * Stops at the last frame.
 	 */
-	Clamp; 			   
+	static public inline var Clamp:Int 		= 0; 			   
 	
 	/**
 	 * Returns to the first frame.
 	 */
-	Loop; 				 	      
+	static public inline var Loop:Int 		= 1;
     
 	/**
 	 * Cycle backwards after last frame.
 	 */
-	Oscilate;	
+	static public inline var Oscilate : Int = 2;	
 }
 
 
@@ -492,51 +492,51 @@ enum ColliderType
 /**
  * Enumeration that describes how Force must be applied on a RigidBody
  */
-enum ForceMode
+class ForceMode
 {
 	/**
 	 * 
 	 */
-	Acceleration;
+	static public var Acceleration:Int=0;
 	/**
 	 * 
 	 */
-	Force;
+	static public var Force:Int=1;
 	/**
 	 * 
 	 */
-	Impulse;
+	static public var Impulse:Int=2;
 	/**
 	 * 
 	 */
-	Velocity;
+	static public var Velocity:Int=3;
 }
 
 /**
  * Quality of skinning.
  */
-enum BoneQuality
+class BoneQuality
 {
 	/**
 	 * Use global settings.
 	 */
-	Auto;
+	static public var Auto : Int = 0;
 	/**
 	 * 1 Bone skinning
 	 */
-	Bone1;
+	static public var Bone1 : Int = 1;
 	/**
 	 * 2 Bone skinning
 	 */
-	Bone2;
+	static public var Bone2 : Int = 2;
 	/**
 	 * 3 Bone skinning
 	 */
-	Bone3;
+	static public var Bone3 : Int = 3;
 	/**
 	 * 4 Bone skinning
 	 */
-	Bone4;
+	static public var Bone4 : Int = 4;
 }
 
 /**

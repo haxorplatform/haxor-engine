@@ -20,6 +20,7 @@ import haxor.context.Process;
 class RenderEngine
 {
 
+	static public var onfinish : Void->Void;
 	
 	static private function Render():Void
 	{
@@ -62,16 +63,20 @@ class RenderEngine
 		EngineContext.camera.Bind(c);
 		
 		
-		var layers : Array<Int> = c.m_layers;						
+		var layers : Array<Int> = c.m_layers;	
+		
 		for (i in 0...layers.length)
 		{	
 			var l : Int = layers[i];
 			RenderCameraLayer(l, c);
 		}		
 		
+		
+		
 		//Filters
 		if (c == Camera.main)
 		{
+			if (onfinish != null) onfinish();
 			EngineContext.gizmo.Render();
 		}
 		
@@ -94,11 +99,12 @@ class RenderEngine
 		for (j in 0...renderers.length)
 		{
 			var r : Renderer = renderers.list[j];			
+			
 			if ((r.entity.layer & l) == 0) continue;
 						
 			if(Camera.SAPCulling) if (EngineContext.renderer.IsSAPCulled(r, c)) continue;
 			//If the current Renderer's Entity is different reset the uniform flag of the last transform.
-			//if (r.transform != lt) { if(lt!=null) lt.m_uniform_dirty = false; lt = r.transform; }
+			//if (r.transform != lt) { if(lt!=null) lt.m_uniform_dirty = false; lt = r.transform; }			
 			RenderRenderer(r);
 		}
 	}
@@ -125,7 +131,7 @@ class RenderEngine
 		RenderStats.visible++;
 		#end
 		
-		//Grab Texture if requested. Check index of start then capture up to it, then stop for optimization.		
+		//Grab Texture if requested. Check index of start then capture up to it, then stop for optimization.				
 		r.OnRender();
 			
 		//Shadow Cast if receiver.
@@ -145,7 +151,7 @@ class RenderEngine
 		EngineContext.renderer.sap_dirty = false;		
 		EngineContext.kernel.Execute();
 		EngineContext.material.Unbind();
-		EngineContext.mesh.Unbind();
+		EngineContext.mesh.Unbind();		
 	}
 	
 	/**

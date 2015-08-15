@@ -33,7 +33,7 @@ class ComputeTexture extends Texture2D
 	 * @param	p_height
 	 * @param	p_format
 	 */
-	public function new(p_width:Int,p_height:Int,p_format : PixelFormat) 
+	public function new(p_width:Int,p_height:Int,p_format : Int) 
 	{
 		super(p_width, p_height, p_format);				
 		minFilter = TextureFilter.Nearest;

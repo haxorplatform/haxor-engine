@@ -53,7 +53,7 @@ class Kernel extends Material
 	 * @param	p_readable
 	 * @param	p_format
 	 */ 
-	public function new(p_width : Int, p_height : Int,p_readable : Bool=true,p_format : PixelFormat = null) 
+	public function new(p_width : Int, p_height : Int,p_readable : Bool=true,p_format : Int = -1) 
 	{		
 		super();
 		enabled = true;			
@@ -68,7 +68,7 @@ class Kernel extends Material
 			new Vector3( 1, 1, 1)			
         ];	
 		
-		m_output = new RenderTexture(p_width, p_height,p_format == null ? PixelFormat.RGBA8 : p_format);
+		m_output = new RenderTexture(p_width, p_height,p_format < 0 ? PixelFormat.RGBA8 : p_format);
 		m_output.minFilter =  m_output.magFilter = TextureFilter.Nearest;
 		m_output.name = "Kernel" + uid + "Output";		
 		

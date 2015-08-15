@@ -158,7 +158,7 @@ class Texture2D extends Texture
 	 * @param	p_height
 	 * @param	p_format
 	 */
-	public function new(p_width:Int,p_height:Int,p_format : PixelFormat)
+	public function new(p_width:Int,p_height:Int,p_format : Int)
 	{
 		super();
 		m_format = p_format;

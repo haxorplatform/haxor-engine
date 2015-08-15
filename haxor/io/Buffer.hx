@@ -217,6 +217,17 @@ class Buffer
 	}
 	
 	/**
+	 * Converts the byte contents to array.
+	 * @return
+	 */
+	public function ToArray():Array<Int>
+	{
+		var res : Array<Int> = [];
+		for (i in 0...byteLength) res.push(GetByte(i));
+		return res;
+	}
+	
+	/**
 	 * Sets the interval of data to be used in API methods like TexSubImage and BufferSubData
 	 * @param	p_start
 	 * @return
@@ -264,6 +275,24 @@ class Buffer
 		#if android
 		m_buffer = m_original;
 		#end
+	}
+	
+	/**
+	 * Parses a string with the required delimiter into a new instance.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function Parse(p_data : String,p_delimiter:String=" ",p_is_byte:Bool=false):Buffer
+	{
+		var tk : Array<String> = p_data.split(p_delimiter);
+		var len : Int = tk.length;		 
+		var res : Buffer = new Buffer(len);		
+		for (i in 0...len)
+		{
+			var v : Int = Std.parseInt(StringTools.trim(tk[i]));
+			res.SetByte(i,v);
+		}
+		return res;
 	}
 	
 }

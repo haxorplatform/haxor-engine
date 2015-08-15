@@ -65,10 +65,10 @@ class SkinnedMeshRenderer extends MeshRenderer
 	/**
 	 * Defines the quality of bone blending for this renderer.
 	 */
-	public var quality(get_quality, set_quality):BoneQuality;
-	private function get_quality():BoneQuality { return m_quality; }
-	private function set_quality(v:BoneQuality):BoneQuality { m_quality = v; return v; }
-	private var m_quality : BoneQuality;
+	public var quality(get_quality, set_quality):Int;
+	private function get_quality():Int { return m_quality; }
+	private function set_quality(v:Int):Int { m_quality = v; return v; }
+	private var m_quality : Int;
 	
 	
 	

@@ -7,6 +7,7 @@ import haxor.math.Matrix4;
 import haxor.math.Quaternion;
 import haxor.math.Vector3;
 import haxor.platform.Types.Float32;
+import js.Error;
 
 
 
@@ -83,6 +84,7 @@ class Transform extends Component
 	/**
 	 * Parent Transform of this instance. If set to null the parent will be the  root transform.
 	 */
+	@serialize
 	public var parent(get_parent, set_parent):Transform;	
 	private inline function get_parent():Transform { return m_parent; }
 	private function set_parent(v:Transform):Transform
@@ -92,9 +94,20 @@ class Transform extends Component
 		var wr : Quaternion = rotation;
 		var ws : Vector3 	= scale;
 		
+		var p0 : String = m_parent == null ? "[]" : "[" + m_parent.name + "]";
+		
 		if (m_parent != null) m_parent.m_hierarchy.remove(this);
 		m_parent = v == null ? m_root : v;		
 		m_parent.m_hierarchy.push(this);
+		
+		var p1 : String = m_parent == null ? "[]" : "[" + m_parent.name + "]";
+		
+		if (name == "FDP")
+		{
+			trace("parent> e[" + entity.guid + "] - from" + p0 + " to" + p1 + "");
+			var err:Error = new Error();
+			trace(err.stack);
+		}
 		
 		//Use world coords in new hierarchy.
 		//position = wp;
@@ -115,6 +128,7 @@ class Transform extends Component
 	/**
 	 * Get/set the local position of this transform.
 	 */
+	@serialize
 	public var localPosition(get_localPosition, set_localPosition):Vector3;		
 	private function get_localPosition():Vector3 {  return m_localPosition.clone; }
 	private function set_localPosition(v:Vector3):Vector3 
@@ -145,6 +159,7 @@ class Transform extends Component
 	/**
 	 * Get/set this transform quaternion local rotation in euler form.
 	 */
+	@serialize
 	public var localEuler(get_localEuler, set_localEuler):Vector3;		
 	private function get_localEuler():Vector3 { return m_localRotation.euler; }
 	private function set_localEuler(v:Vector3):Vector3 { localRotation = Quaternion.FromEuler(v,Quaternion.temp); return v; }
@@ -153,6 +168,7 @@ class Transform extends Component
 	/**
 	 * Sets the Transform euler angles in its parent local space.
 	 */
+	@serialize
 	public var localScale(get_localScale, set_localScale):Vector3;		
 	private function get_localScale():Vector3 { return m_localScale.clone; }
 	private function set_localScale(v:Vector3):Vector3 
@@ -204,7 +220,7 @@ class Transform extends Component
 	
 	/**
 	 * World space transform matrix.
-	 */
+	 */	
 	public var WorldMatrix(get_WorldMatrix, never) : Matrix4;			
 	private function get_WorldMatrix() : Matrix4 { UpdateWorldMatrix(); return m_worldMatrix; }	
 	private var m_worldMatrix : Matrix4;

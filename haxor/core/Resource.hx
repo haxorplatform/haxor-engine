@@ -1,7 +1,9 @@
 package haxor.core;
 import haxe.Timer;
 import haxor.component.Behaviour;
+import haxor.component.Component;
 import haxor.context.EngineContext;
+import haxor.io.serialization.HaxorFormatter;
 
 
 
@@ -12,17 +14,60 @@ import haxor.context.EngineContext;
 @:allow(haxor)
 @:keepSub
 class Resource implements IDisposable
-{
+{	
+	/**
+	 * Creates a copy of the informed resource.
+	 * @param	p_resource
+	 * @return
+	 */
+	static public function Instantiate(p_resource:Resource):Dynamic
+	{
+		if (p_resource.m_destroyed) { Console.LogWarning("Resource> Trying to instantiate a destroyed asset!"); return null; }
+		var fmt : HaxorFormatter = new HaxorFormatter();
+		if (Std.is(p_resource, Component))
+		{
+			var c : Component = cast p_resource;
+			var e : Entity = InstantiateStep(null,c.entity,fmt);		
+			return e.GetComponent(Type.getClass(c));
+		}		
+		if (Std.is(p_resource, Entity)) return InstantiateStep(null, cast p_resource,fmt);		
+		var res : Resource = fmt.Deserialize(fmt.Serialize(p_resource));
+		res.name = res.name+"-clone";
+		res.guid = "";
+		return res;
+	}
+	
+	/**
+	 * Recursive step for Entity instantiation.
+	 * @param	p
+	 * @param	e
+	 * @return
+	 */
+	static private function InstantiateStep(p:Entity, e:Entity,f:HaxorFormatter):Entity
+	{		
+		var ne : Entity = f.Deserialize(f.Serialize(e));
+		ne.guid = "";
+		for (i in 0...ne.m_components.length) ne.m_components[i].guid = "";		
+		ne.transform.parent =  (p == null) ? e.transform.parent : p.transform;
+		for (i in 0...e.transform.childCount)
+		{
+			InstantiateStep(ne, e.transform.GetChild(i).entity,f);
+		}		
+		return e;
+	}
 	
 	/**
 	 * Schedule this resource to be destroyed.
 	 * @param	p_target
 	 */
-	static public function Destroy(p_target : Resource):Void
-	{
-		if (p_target.__db != "") Asset.Remove(p_target.__db);
-		EngineContext.Destroy(p_target);
-	}
+	static public function Destroy(p_target : Resource):Void { if (p_target.__db != "") Asset.Remove(p_target.__db); EngineContext.Destroy(p_target); }
+	
+	/**
+	 * Searches all scope for a given resource with the specified guid.
+	 * @param	p_guid
+	 * @return
+	 */
+	static public function FindByGUID(p_guid:String):Resource { return EngineContext.FindByGUID(p_guid); }
 	
 	/**
 	 * MongoDB like GUID:
@@ -59,9 +104,10 @@ class Resource implements IDisposable
 	 * Returns the global unique id of this resource generated when the asset is created the first time.
 	 * Assets that comes from the editor like meshes and textures probably will come with its own guid after loading.
 	 */
+	@serialize
 	public var guid(get, set):String;
 	private inline function get_guid():String { return m_guid; }
-	private inline function set_guid(v:String):String { return m_guid=v; }
+	private inline function set_guid(v:String):String { return m_guid = v=="" ? GenerateGUID() : v; }
 	private var m_guid : String;
 	
 	
@@ -75,6 +121,7 @@ class Resource implements IDisposable
 	/**
 	 * Resource name.
 	 */
+	@serialize
 	public var name(get_name, set_name):String;
 	private function get_name():String { return m_name; }
 	private function set_name(v:String):String { m_name = v; return v; }
@@ -130,6 +177,7 @@ class Resource implements IDisposable
 	 */
 	public function new(p_name:String = ""):Void
 	{	
+		m_guid      = GenerateGUID();
 		m_uid  		= EngineContext.uid++;
 		m_destroyed = false;
 		__cid  		= 0;
@@ -145,9 +193,7 @@ class Resource implements IDisposable
 		var nt:Array<String> = m_type_full_name.split("."); nt.reverse();		
 		m_type_name       	 = nt[0];	
 		
-		m_name 				 = p_name == "" ? (m_type_name+m_uid) : p_name;
-		
-		m_guid 				 = GenerateGUID();
+		m_name 				 = p_name == "" ? (m_type_name+m_uid) : p_name;		
 		
 		EngineContext.resources.Add(this);		
 	}
@@ -175,10 +221,5 @@ class Resource implements IDisposable
 	 */
 	public function OnDestroy():Void { }
 	
-	/**
-	 * Method that must be overriden in order to make a Resource instantiatable.
-	 * @return
-	 */
-	private function Clone():Dynamic { return null; }
 	
 }

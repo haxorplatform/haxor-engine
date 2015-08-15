@@ -285,8 +285,8 @@ class TextureContext
 		
 		if(GL.TEXTURE_ANISOTROPY_ENABLED) GL.TexParameterf(target, GL.TEXTURE_ANISOTROPY,cast Math.max(1, p_texture.aniso));
 		
-		var minf : TextureFilter = p_texture.minFilter;
-		var magf : TextureFilter = p_texture.magFilter;
+		var minf : Int = p_texture.minFilter;
+		var magf : Int = p_texture.magFilter;
 		
 		var is_half :Bool = false;
 		if (p_texture.format == PixelFormat.Half)  is_half = true;
@@ -532,7 +532,7 @@ class TextureContext
 	 * @param	p_format
 	 * @return
 	 */
-	static private function FormatToChannelBits(p_format : PixelFormat):Int
+	static private function FormatToChannelBits(p_format : Int):Int
 	{		
 		switch (p_format)
 		{
@@ -556,7 +556,7 @@ class TextureContext
 	 * @param	p_format
 	 * @return
 	 */
-	static private function FormatToChannelType(p_format : PixelFormat) : Int
+	static private function FormatToChannelType(p_format : Int) : Int
 	{
 		switch(p_format)
 		{
@@ -576,7 +576,7 @@ class TextureContext
 	 * @param	p_format
 	 * @return
 	 */
-	static private function FormatToChannelLayout(p_format : PixelFormat):Int
+	static private function FormatToChannelLayout(p_format : Int):Int
 	{
 		
 		

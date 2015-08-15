@@ -320,4 +320,21 @@ class AABB3
 		return "[" + s0 + "," + s1 + "|" + s2 + "," + s3 + "|" +s4+","+s5+"]";
 	}
 	
+	/**
+	 * Parses a string with the required delimiter into a new instance.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function Parse(p_data : String,p_delimiter:String=" "):AABB3
+	{
+		var tk : Array<String> = p_data.split(p_delimiter);		
+		return AABB3.FromMinMax(
+		Std.parseFloat(StringTools.trim(tk[0])),
+		Std.parseFloat(StringTools.trim(tk[1])),
+		Std.parseFloat(StringTools.trim(tk[2])),
+		Std.parseFloat(StringTools.trim(tk[3])),
+		Std.parseFloat(StringTools.trim(tk[4])),
+		Std.parseFloat(StringTools.trim(tk[5])));				
+	}
+	
 }

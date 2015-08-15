@@ -164,11 +164,25 @@ class FloatArray extends Buffer
 	 * @param	p_data
 	 * @return
 	 */
-	static public function Parse(p_data : String,p_delimiter:String=" "):FloatArray
+	static public function Parse(p_data : String,p_delimiter:String=" ",p_is_byte:Bool=false):FloatArray
 	{
 		var tk : Array<String> = p_data.split(p_delimiter);
-		var res : FloatArray = new FloatArray(tk.length);
-		for (i in 0...tk.length) res.Set(i,Std.parseFloat(StringTools.trim(tk[i])));
+		var len : Int = tk.length;
+		if (p_is_byte) len = Std.int(len/4); 
+		var res : FloatArray = new FloatArray(len);		
+		for (i in 0...len)
+		{
+			if (p_is_byte)
+			{
+				var v : Int = Std.parseInt(StringTools.trim(tk[i]));
+				res.SetByte(i,v);
+			}
+			else
+			{
+				var v : Float32 = Std.parseFloat(StringTools.trim(tk[i]));
+				res.Set(i,v);
+			}
+		}
 		return res;
 	}
 	

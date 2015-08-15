@@ -148,11 +148,25 @@ class Int32Array extends Buffer
 	 * @param	p_data
 	 * @return
 	 */
-	static public function Parse(p_data : String,p_delimiter:String=" "):Int32Array
+	static public function Parse(p_data : String,p_delimiter:String=" ",p_is_byte:Bool=false):Int32Array
 	{
 		var tk : Array<String> = p_data.split(p_delimiter);
-		var res : Int32Array = new Int32Array(tk.length);
-		for (i in 0...tk.length) res.Set(i,Std.parseInt(StringTools.trim(tk[i])));
+		var len : Int = tk.length;
+		if (p_is_byte) len = Std.int(len/4); 
+		var res : Int32Array = new Int32Array(len);		
+		for (i in 0...len)
+		{
+			if (p_is_byte)
+			{
+				var v : Int = Std.parseInt(StringTools.trim(tk[i]));
+				res.SetByte(i,v);
+			}
+			else
+			{
+				var v : Int = Std.parseInt(StringTools.trim(tk[i]));
+				res.Set(i,v);
+			}
+		}
 		return res;
 	}
 	

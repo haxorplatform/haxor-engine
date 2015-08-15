@@ -56,7 +56,7 @@ class BitmapLoader extends HTTPLoader<Uint8Array>
 				var data : ImageData = null;
 				var w    : Int = 1;
 				var h    : Int = 1;
-				var fmt : PixelFormat = PixelFormat.RGBA8;
+				var fmt : Int = PixelFormat.RGBA8;
 				
 				if (Browser.document != null)
 				{

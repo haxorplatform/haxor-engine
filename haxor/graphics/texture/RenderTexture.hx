@@ -32,7 +32,7 @@ class RenderTexture extends Texture
 	 * @param	p_format
 	 * @param	p_store_depth
 	 */
-	public function new(p_width : Int,p_height : Int,p_format : PixelFormat,p_store_depth : Bool=false)
+	public function new(p_width : Int,p_height : Int,p_format : Int,p_store_depth : Bool=false)
 	{
 		super();
 		m_format = p_format;

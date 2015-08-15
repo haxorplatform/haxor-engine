@@ -1,6 +1,9 @@
 #if html
 
 package ;
+import haxor.io.serialization.HaxorFormatter;
+import haxe.Json;
+import haxor.io.serialization.Formatter;
 import js.html.EventTarget;
 import haxor.platform.html.input.DragDrop;
 import haxe.io.UInt8Array;
@@ -100,43 +103,29 @@ class MainHTML extends Application implements IRenderable
 		
 		var sphere : MeshRenderer = (new Entity("sphere")).AddComponent(MeshRenderer);
 		sphere.mesh = Model.sphere;
-		sphere.material = Material.Transparent(Texture2D.green);
+		sphere.material = Material.Opaque();
 		sphere.material.SetColor("Tint", Color.white);
 		
 		var o : CameraOrbit = CameraOrbit.Create(4.0, 45, 45);				
-		o.camera.background = new Color(0.3, 0.3, 0.3);			
+		o.camera.background = new Color(0.8, 0.3, 0.3);			
 		var ci : CameraOrbitInput = o.AddComponent(CameraOrbitInput);
 		
+		var fmt : HaxorFormatter = new HaxorFormatter();
 		
-		DragDrop.Add(Browser.window);
+		var mat : Material = new Material("Custom");
+		mat.SetColor("_Color", Color.green50);
+		mat.SetMatrix4("_M1", Matrix4.identity, true);
+		mat.SetMatrix4("_M2", Matrix4.identity, false);
 		
-		DragDrop.AddListener(function(t : EventTarget, evt : String, ev:Event):Void
-		{
-			trace(t,evt);			
-			if (evt == "drop")
-			{
-				
-				var data : Dynamic = ev;
-				data = data.dataTransfer;
-				var files : Array<File> = data == null ? [] : data.files;							
-				var reader = new FileReader();
-				reader.onerror = function(ev:Dynamic):Void { trace(ev); }				
-				reader.onloadend = function(ev : Dynamic):Void
-				{	
-					
-					var ab : Uint8Array = new Uint8Array(ev.target.result);
-					var b : Buffer = new Buffer(ab.byteLength);
-					b.buffer.set(ab);						
-					ImageReader.ReadAsync(b, function(img:Bitmap):Void
-					{
-						var tex : Texture2D = Texture2D.FromBitmap(img);
-						sphere.material.SetTexture("DiffuseTexture", tex);
-					});				
-					//*/
-				};							
-				reader.readAsArrayBuffer(files[0]);				
-			}
-		});
+		mat.queue = 1234;
+		mat.blend = true;
+		
+		var s : String = "";
+		
+		s += fmt.Serialize(mat) + "\n";
+		
+		trace(s);
+		
 		
 	}
 	

@@ -31,9 +31,9 @@ class Texture extends Resource
 	/**
 	 * Format of the pixels of this texture.
 	 */
-	public var format(get_format, never):PixelFormat;	
-	private inline function get_format():PixelFormat { return m_format; }
-	private var m_format:PixelFormat;
+	public var format(get_format, never):Int;	
+	private inline function get_format():Int { return m_format; }
+	private var m_format:Int;
 	
 	/**
 	 * Wrapping mode of this texture.
@@ -55,18 +55,18 @@ class Texture extends Resource
 	/**
 	 * Minification filter.
 	 */
-	public var minFilter(get_minFilter, set_minFilter):TextureFilter;	
-	private inline function get_minFilter():TextureFilter { return m_minFilter; }
-	private function set_minFilter(v:TextureFilter) : TextureFilter { if (m_minFilter == v) return v; m_minFilter = v; EngineContext.texture.UpdateParameters(this); return v; }
-	private var m_minFilter:TextureFilter;
+	public var minFilter(get_minFilter, set_minFilter):Int;	
+	private inline function get_minFilter():Int { return m_minFilter; }
+	private function set_minFilter(v:Int) : Int { if (m_minFilter == v) return v; m_minFilter = v; EngineContext.texture.UpdateParameters(this); return v; }
+	private var m_minFilter:Int;
 	
 	/**
 	 * Magnification filter.
 	 */
-	public var magFilter(get_magFilter, set_magFilter):TextureFilter;	
-	private inline function get_magFilter():TextureFilter { return m_magFilter; }
-	private function set_magFilter(v:TextureFilter) : TextureFilter { if (m_magFilter == v) return v; m_magFilter = v; EngineContext.texture.UpdateParameters(this); return v; }
-	private var m_magFilter:TextureFilter;	
+	public var magFilter(get_magFilter, set_magFilter):Int;	
+	private inline function get_magFilter():Int { return m_magFilter; }
+	private function set_magFilter(v:Int) : Int { if (m_magFilter == v) return v; m_magFilter = v; EngineContext.texture.UpdateParameters(this); return v; }
+	private var m_magFilter:Int;	
 	
 	/**
 	 * Flag that indicates if this texture has generated mipmaps.

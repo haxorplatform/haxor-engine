@@ -1,4 +1,5 @@
 package haxor.core;
+import haxe.Timer;
 import haxor.component.animation.Animation;
 import haxor.component.Behaviour;
 import haxor.component.Camera;
@@ -14,12 +15,14 @@ import haxor.context.EngineContext;
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
 @:allow(haxor)
+@:final
 class Entity extends Resource
 {
 	
 	/**
 	 * Flag that indicates if the entity and its components are enabled.
 	 */
+	@serialize
 	public var enabled(get_enabled, set_enabled):Bool;
 	private inline function get_enabled():Bool { return m_enabled && (!m_destroyed); }
 	private function set_enabled(v:Bool):Bool 
@@ -81,6 +84,7 @@ class Entity extends Resource
 	/**
 	 * Layer mask of this entity. Layer masks will tell which camera, raycast, and other components/operations will target this entity.
 	 */
+	@serialize
 	public var layer(get_layer, set_layer) : Int;
 	private inline function get_layer():Int { return m_layer; }
 	private function set_layer(v:Int):Int 
@@ -97,7 +101,9 @@ class Entity extends Resource
 	/**
 	 * Component list of this entity.
 	 */
+	@serialize
 	private var m_components : Array<Component>;
+	
 	
 	/**
 	 * Creates a new entity with the given name.
@@ -109,8 +115,7 @@ class Entity extends Resource
 		super(p_name);		
 		m_enabled    = true;
 		m_components = [];
-		m_layer		 = 1;	
-		
+		m_layer		 = 1;			
 		#if (!ie8 && !nodejs)
 		m_transform = cast AddComponent(Transform);		
 		#end
@@ -125,22 +130,18 @@ class Entity extends Resource
 	 */
 	public function AddComponent(p_type : Class<Component>):Dynamic
 	{
-		if (m_destroyed) return null;
-		
+		if (m_destroyed) return null;		
 		if (m_transform != null) if (p_type == Transform) return m_transform;
-		
-		
 		var c:Component = null;		
 		c = Type.createInstance(p_type, [""]);		
 		if (c == null) return null;
 		c.m_entity 		= this;		
-		
+		c.OnBuild();
 		if (c.m_is_behaviour)
 		{ 
 			var b : Behaviour = cast c; 
 			b.enabled = enabled; 
-		}			
-		c.OnBuild();
+		}	
 		m_components.push(c);
 		return c;
 	}

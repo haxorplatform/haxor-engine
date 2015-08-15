@@ -59,9 +59,9 @@ class Bitmap extends Resource
 	/**
 	 * Pixel format of this bitmap.
 	 */
-	public var format(get_format, null):PixelFormat;
-	private inline function get_format():PixelFormat { return m_format; }
-	private var m_format : PixelFormat;
+	public var format(get_format, null):Int;
+	private inline function get_format():Int { return m_format; }
+	private var m_format : Int;
 	
 	/**
 	 * * Creates a new Bitmap with the informed width and height.
@@ -70,7 +70,7 @@ class Bitmap extends Resource
 	 * @param	p_height
 	 * @param	p_format
 	 */
-	public function new(p_width:Int,p_height:Int,p_format : PixelFormat) 
+	public function new(p_width:Int,p_height:Int,p_format : Int) 
 	{
 		super();
 		Resize(p_width, p_height, p_format);		
@@ -82,7 +82,7 @@ class Bitmap extends Resource
 	 * @param	p_height
 	 * @param	p_format
 	 */
-	public function Resize(p_width:Int, p_height:Int, p_format:PixelFormat):Void
+	public function Resize(p_width:Int, p_height:Int, p_format:Int):Void
 	{
 		m_width  	= p_width;
 		m_height 	= p_height;				

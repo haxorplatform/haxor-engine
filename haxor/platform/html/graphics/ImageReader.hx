@@ -46,7 +46,7 @@ class ImageReader
 			var w : Int = data.width;
 			var h : Int = data.height;			
 			var cc:Int = Std.int(data.data.byteLength / (w * h));			
-			var fmt : PixelFormat = PixelFormat.RGBA8;
+			var fmt : Int = PixelFormat.RGBA8;
 			switch(cc)
 			{
 				case 1: fmt = PixelFormat.Alpha8;

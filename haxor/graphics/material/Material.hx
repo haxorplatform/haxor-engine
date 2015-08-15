@@ -98,59 +98,70 @@ class Material extends Resource
 		return m;
 	}
 	
+	
 	/**
 	 * Flag that indicates if this material will use Z-Testing.
-	 */	
+	 */
+	@serialize
 	public var ztest:Bool;
 	
 	/**
 	 * Flag that indicates which criteria will be used for the Z-Test.
 	 * Check 'DepthTest' enumeration.
 	 */
+	@serialize
 	public var zfunc : Int;
 
 	/**
 	 * Flag that indicates that the renderer will write its Z-Depth in the ZBuffer.
 	 */
+	@serialize
 	public var zwrite:Bool;
 	
 	/**
 	 * Flag that indicates if blending is enabled for this material.
 	 */
+	@serialize
 	public var blend:Bool;
 		
 	/**
 	 * Rendering order of this material.
 	 * Check the 'RenderQueue' enumeration.
 	 */
+	@serialize
 	public var queue : Int;
 
 	/**
 	 * Source equation for this material. Only works if the 'blend' flag is true.
 	 * Check the 'BlendMode' enumeration.
 	 */
+	@serialize
 	public var blendSrc : Int;
 	
 	/**
 	 * Destination equation for this material. Only works if the 'blend' flag is true.
 	 * Check the 'BlendMode' enumeration.
 	 */
+	@serialize
 	public var blendDst : Int;
 
 	/**
 	 * Flag that indicates if the Back triangles will be rendered instead of the Front ones.
 	 */
+	@serialize
 	public var invert : Bool;
 
 	/**
 	 * Flag that indicates the type of triangle culling.
 	 * Check 'CullMode' enumeration.
 	 */
+	@serialize
 	public var cull : Int;
 	
 	/**
 	 * Flag that indicates that the shader of this material will use Lighting information such Light Position or Type.
 	 */
+	@serialize
 	public var lighting : Bool;
 
 	/**
@@ -161,11 +172,13 @@ class Material extends Resource
 	/**
 	 * Flag that indicates this material will grab the screen texture before rendering.
 	 */
+	@serialize
 	public var grab : Bool = false;
 	
 	/**
 	 * Reference to this material shader.
 	 */
+	@serialize
 	public var shader(get_shader,set_shader) : Shader;	
 	private inline function get_shader():Shader { return m_shader; }	
 	private function set_shader(v:Shader):Shader 
@@ -180,6 +193,7 @@ class Material extends Resource
 	/**
 	 * List of uniforms of this material.
 	 */
+	@serialize
 	public var uniforms(get, never):Array<MaterialUniform>;
 	private function get_uniforms():Array<MaterialUniform> { return m_uniforms; }
 	private var m_uniforms : Array<MaterialUniform>;
@@ -482,37 +496,6 @@ class Material extends Resource
 		}		
 		return u;
 	}
-		
-	
-	/**
-	 * 
-	 * @return
-	 */
-	override private function Clone():Dynamic 
-	{		
-		var m : Material = new Material();
-		m.name 			= name + "Copy";
-		m.shader 		= shader;
-		m.queue         = queue;
-		m.zfunc         = zfunc;
-		m.ztest		    = ztest;
-		m.zwrite		= zwrite;
-		m.blend		    = blend;
-		m.blendSrc      = blendSrc;
-		m.blendDst      = blendDst;
-		m.invert		= invert;
-		m.cull          = cull; 	
-		m.lighting		= lighting;
-		m.grab			= grab;
-		var ul : Array<MaterialUniform> = m_uniforms;
-		for(i in 0...ul.length)
-		{
-			var u : MaterialUniform = ul[i];
-			if (u.isFloat) SetUniformFloat(u); else SetUniformInt(u);
-		}
-		return m;		
-	}
-	//*/
 	
 	private function SetUniformFloat(u : MaterialUniform):Void
 	{		
@@ -600,32 +583,38 @@ class MaterialUniform
 	/**
 	 * Uniform name.
 	 */
-	private var name : String;
-	
-	/**
-	 * Uniform data. Can be Int Float or Buffer
-	 */
-	private var data : Buffer;
+	@serialize
+	public var name : String;
 	
 	/**
 	 * Tuple offset.
 	 */
-	private var offset : Int;
+	@serialize
+	public var offset : Int;
+	
+	/**
+	 * Uniform data. Can be Int Float or Buffer
+	 */
+	@serialize
+	public var data : Buffer;
 	
 	/**
 	 * If matrix4 uniform, is transposed?
 	 */
-	private var transposed : Bool;
+	@serialize
+	public var transposed : Bool;
 	
 	/**
 	 * Reference to the texture if any.
 	 */
+	@serialize
 	public var texture : Texture;
 	
 	/**
 	 * Flag that indicates if the data is made of floats otherwise is int.
 	 */
-	private var isFloat : Bool;
+	@serialize
+	public var isFloat : Bool;
 	
 	/**
 	 * Flag that indicates if this uniforms exists within the material.
@@ -643,7 +632,7 @@ class MaterialUniform
 		__cid   = EngineContext.material.uid.id;
 		__d		= true;
 		name  	= p_name;
-		isFloat = p_is_float;
+		isFloat   = p_is_float;
 		offset	= p_offset;
 		exists	= false;
 		transposed = false;
@@ -694,7 +683,7 @@ class MaterialUniform
 	{ 
 		if (!exists) return; __d = true; 
 		transposed = t;
-		var b : FloatArray = cast data; 
+		var b : FloatArray = cast data; 		
 		//var l : Array<Float32> = EngineContext.data.Matrix4ToArray(p_matrix4); 		for (i in 0...16) b.Set(i, l[i]); 		
 		if (!t)
 		{

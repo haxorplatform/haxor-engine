@@ -218,7 +218,7 @@ class CameraContext
 			if (need_buffer)
 			{
 				
-				var tf : PixelFormat = c.m_target == null ? PixelFormat.RGB8 : c.m_target.format;
+				var tf : Int = c.m_target == null ? PixelFormat.RGB8 : c.m_target.format;
 				front[c.__cid] = new RenderTexture(cast aw, cast ah, tf,c.m_captureDepth);
 				back[c.__cid]  = c.filters.length <= 0 ? front[c.__cid] : new RenderTexture(cast aw, cast ah, tf,c.m_captureDepth);
 				front[c.__cid].name = 

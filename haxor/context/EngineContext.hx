@@ -272,6 +272,47 @@ class EngineContext
 	}
 	
 	/**
+	 * Callback called when a resource has changed its guid.
+	 * @param	p_resource
+	 */
+	static private function OnGUIDChange(p_resource:Resource):Void
+	{
+		//resources.Sort(function(a:Resource, b:Resource):Int { return a.guid < b.guid ? -1 : 1; });
+	}
+	
+	/**
+	 * Searches the resource list using a guid as query.
+	 * @param	p_guid
+	 * @return
+	 */
+	static private function FindByGUID(p_guid:String):Resource
+	{
+		var l : Array<Resource> = resources.list;
+		var len : Int = resources.length;
+		/*
+		if (len <= 0) return 0;
+		if (len <= 1) return l[0].guid==p_guid ? l[0] : null;
+		var mid : Int = len / 2;
+		var step : Int = len / 2;
+		while (true)
+		{
+			var r : Resource = l[mid];
+			if (r.guid == p_guid) return r;
+			if (step <= 0) break;
+			if (r.guid > p_guid) mid -= step;
+			if (r.guid < p_guid) mid += step;			
+			if (mid < 0)    break;
+			if (mid >= len) break;
+			step /= 2;
+		}
+		return null;
+		//*/
+		
+		for (i in 0...len) if (l[i] != null) if (l[i].guid == p_guid) return l[i];
+		return null;
+	}
+	
+	/**
 	 * Handles the destruction of resources of the engine.
 	 * @param	p_resource
 	 */

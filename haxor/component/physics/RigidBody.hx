@@ -164,9 +164,9 @@ class RigidBody extends Behaviour
 	 * @param	p_torque
 	 * @param	p_mode
 	 */
-	public function AddTorque(p_torque : Vector3,p_mode : ForceMode = null):Void
+	public function AddTorque(p_torque : Vector3,p_mode : Int = -1):Void
 	{
-		var m : ForceMode = p_mode == null ? ForceMode.Force : p_mode;
+		var m : Int = p_mode < 0 ? ForceMode.Force : p_mode;
 		var mdt : Float32   = 1.0;
 		var dt  : Float32   = 1.0;// Time.fixedDeltaTime; 
 		var v   : Vector3 = p_mode == ForceMode.Velocity ? angularVelocity : m_torque;
@@ -188,9 +188,9 @@ class RigidBody extends Behaviour
 	 * @param	p_force
 	 * @param	p_mode
 	 */
-	public function AddForce(p_force : Vector3,p_mode : ForceMode = null):Void
+	public function AddForce(p_force : Vector3,p_mode : Int = -1):Void
 	{
-		var m : ForceMode = p_mode == null ? ForceMode.Force : p_mode;
+		var m : Int = p_mode < 0 ? ForceMode.Force : p_mode;
 		var mdt : Float32   = 1.0;
 		var dt  : Float32  = Time.fixedDelta; 
 		var v   : Vector3 = p_mode == ForceMode.Velocity ? velocity : m_accel;

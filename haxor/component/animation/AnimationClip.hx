@@ -29,7 +29,7 @@ class AnimationClip extends Resource
 	/**
 	 * Frame wrapping of this clip.
 	 */
-	public var wrap : AnimationWrap;
+	public var wrap : Int;
 	
 	/**
 	 * Length in seconds of this clip.

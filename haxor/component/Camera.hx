@@ -63,11 +63,13 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Background clear color.
 	 */
+	@serialize
 	public var background:Color;
 	
 	/**
 	 * Skybox Texture
 	 */
+	@serialize
 	public var skybox: TextureCube;
 	/*
 	private function get_skybox():TextureCube { return m_skybox; }
@@ -78,11 +80,13 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Clear flag bits.
 	 */
+	@serialize
 	public var clear:Int;
 	
 	/**
 	 * Layer bits that will be rendered by this camera.
 	 */
+	@serialize
 	public var mask(get_mask,set_mask):Int;
 	private inline function get_mask():Int { return m_mask; }
 	private function set_mask(v:Int):Int
@@ -105,6 +109,7 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Field of View.
 	 */
+	@serialize
 	public var fov(get_fov, set_fov):Float32;	
 	private inline function get_fov():Float32{ return m_fov; }
 	private inline function set_fov(v:Float32):Float32{ m_fov = v; m_projection_dirty=true; return v; }
@@ -113,6 +118,7 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Near plane.
 	 */
+	@serialize
 	public var near(get_near, set_near):Float32;		
 	private inline function get_near():Float32{ return m_near; }
 	private inline function set_near(v:Float32):Float32{ m_near = v; m_projection_dirty = true; m_proj_uniform_dirty = true; return v; }
@@ -121,6 +127,7 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Far plane.
 	 */
+	@serialize
 	public var far(get_far, set_far):Float32;	
 	private inline function get_far():Float32{ return m_far; }
 	private inline function set_far(v:Float32):Float32{ m_far = v; m_projection_dirty=true; m_proj_uniform_dirty = true;return v; }
@@ -129,6 +136,7 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Render order of this camera versus all cameras in the scene.
 	 */
+	@serialize
 	public var order(get_order, set_order):Int;
 	private var m_order:Int;	
 	private function get_order():Int { return m_order; }
@@ -145,6 +153,7 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Viewport in normalized screen units.
 	 */
+	@serialize
 	public var viewport(get_viewport, set_viewport):AABB2;	
 	private inline function get_viewport():AABB2 { return m_viewport.clone; }
 	private inline function set_viewport(v:AABB2):AABB2 { m_viewport.SetAABB2(v); EngineContext.camera.UpdateViewport(this); return v; }
@@ -184,6 +193,7 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Render Target. If null will render to screen.
 	 */
+	@serialize
 	public var target : RenderTexture;			
 	private inline function get_target():RenderTexture { return m_target; }
 	private inline function set_target(v:RenderTexture):RenderTexture { m_target = v; EngineContext.camera.UpdateViewport(this); return v; }
@@ -192,6 +202,7 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Quality of this camera rendering. If 1.0 the camera will render the full size of the screen, less than 1.0 it will render a fraction of the full resolution, thus generating less fragments.
 	 */
+	@serialize
 	public var quality(get_quality, set_quality) : Float32;
 	private function get_quality():Float32{ return m_quality; }
 	private function set_quality(v:Float32):Float32{ m_quality = Mathf.Clamp01(v); EngineContext.camera.UpdateViewport(this); return v; }
@@ -200,6 +211,7 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Flag that indicates if this Camera needs to capture the Depth buffer.
 	 */
+	@serialize
 	public var captureDepth(get_captureDepth, set_captureDepth) : Bool;
 	private function get_captureDepth():Bool { return m_captureDepth; }
 	private function set_captureDepth(v:Bool):Bool { m_captureDepth = v; EngineContext.camera.ClearTargets(this); EngineContext.camera.UpdateViewport(this); return v; }
@@ -225,7 +237,7 @@ class Camera extends Behaviour implements IResizeable
 	 * |  5-------6  |
 	 * 1-´---------`-2
 	 */
-	public var frustum(get_frustum, never):Array<Vector4>;
+	public var frustum(get, never):Array<Vector4>;
 	private function get_frustum():Array<Vector4> { UpdateProjection(); return m_frustum; }
 	private var m_frustum : Array<Vector4>;
 	
@@ -233,10 +245,11 @@ class Camera extends Behaviour implements IResizeable
 	/**
 	 * Flag that indicates the type of behaviour of the camera.
 	 */
-	public var mode(get_mode, set_mode):CameraMode;
-	private function get_mode():CameraMode { return m_mode; }
-	private function set_mode(v:CameraMode):CameraMode { if (m_mode == v) return v; m_mode = v; UpdateProjection(); return v; }
-	private var m_mode : CameraMode;
+	@serialize
+	public var mode(get_mode, set_mode):Int;
+	private function get_mode():Int { return m_mode; }
+	private function set_mode(v:Int):Int { if (m_mode == v) return v; m_mode = v; UpdateProjection(); return v; }
+	private var m_mode : Int;
 	
 	/**
 	 * Visible region of the orthographic frustum. Ignored when not using orthographic mode.
@@ -372,6 +385,7 @@ class Camera extends Behaviour implements IResizeable
 								
 				
 			case CameraMode.Perspective:
+				
 				m_projectionMatrix.SetPerspective(m_fov, m_aspect, m_near, m_far);
 				m_projectionMatrixInverse.SetPerspectiveInverse(m_fov, m_aspect, m_near, m_far);		
 				m_skyboxProjection.SetPerspective(m_fov, m_aspect, 0.1,100000.0);

@@ -113,14 +113,7 @@ class Asset
 	 * @param	p_url
 	 */
 	static public function LoadMaterial(p_id : String, p_url : String) : Void { Web.LoadMaterial(p_url, function(d : MaterialFile, p : Float32):Void { UpdateProgress(p_id, p, d); } ); }
-	
-	/**
-	 * Duplicates the Resource (only available for Materials for now)
-	 * @param	p_target
-	 * @return
-	 */
-	static public function Instantiate(p_target : Resource):Dynamic { return p_target.Clone(); }
-	
+		
 	/**
 	 * 
 	 * @param	p_id

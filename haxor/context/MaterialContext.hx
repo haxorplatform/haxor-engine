@@ -492,6 +492,7 @@ class MaterialContext
 					case "ProjectionMatrix":  		m.SetMatrix4(un,m4);					
 					case "ProjectionMatrixInverse": m.SetMatrix4(un,m4);				
 				}	
+				//*/
 				k++;
 			}		
 			globals[m.__cid] = gl;			
@@ -768,9 +769,9 @@ class MaterialContext
 			//case "ScreenDepth":			current.SetTexture("ScreenDepth",   c.m_grab.depth);						
 			case "WorldMatrix":				if(ut) 	u.SetMatrix4(t.WorldMatrix);
 			case "WorldMatrixInverse":		if(ut)	u.SetMatrix4(t.WorldMatrixInverse);
-			case "WorldMatrixIT":			if (ut)	{ u.SetMatrix4(t.WorldMatrixInverse, true); }
-			case "CameraPosition": 			if (ucv) u.SetVector3(c.transform.position);
-			case "CameraProjection":		if (ucv) u.SetVector3(Vector3.temp.Set(c.near, c.far, 0));
+			case "WorldMatrixIT":			if(ut)	{ u.SetMatrix4(t.WorldMatrixInverse, true); }
+			case "CameraPosition": 			if(ucv) u.SetVector3(c.transform.position);
+			case "CameraProjection":		if(ucv) u.SetVector3(Vector3.temp.Set(c.near, c.far, 0));
 			case "ViewMatrix":				if(ucv) u.SetMatrix4(c.transform.WorldMatrixInverse);
 			case "ViewMatrixInverse":		if(ucv) u.SetMatrix4(c.transform.WorldMatrix);					
 			case "ProjectionMatrix":  		if(ucp)	u.SetMatrix4(c.ProjectionMatrix);					

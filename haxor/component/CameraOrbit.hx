@@ -50,14 +50,19 @@ class CameraOrbit extends Behaviour implements IUpdateable
 	}
 	var m_pivot : Transform;
 	
+	@serialize
 	public var distance : Float32;
 	
+	@serialize
 	public var angle : Vector2;
 	
+	@serialize
 	public var smooth : Float32;
 	
+	@serialize
 	public var target : Transform;
 	
+	@serialize
 	public var follow : Bool;
 	
 	var m_angle:Vector2;
@@ -66,17 +71,23 @@ class CameraOrbit extends Behaviour implements IUpdateable
 	
 	var m_rotation : Quaternion;
 	
+	/**
+	 * CTOR.
+	 */
 	override function OnBuild():Void 
-	{
-		super.OnBuild();
-		distance = 0.0;		
-		m_pivot	= pivot;
+	{		
+		if (angle == null) angle = Vector2.zero;
+		distance = 0.0;				
 		follow = false;
+		super.OnBuild();		
 	}
 	
-	
+	/**
+	 * Init.
+	 */
 	override public function OnStart():Void 
 	{
+		m_pivot	= pivot;
 		m_distance 	= distance;
 		m_angle 	= angle == null ? Vector2.zero : angle.clone;
         m_rotation 	= Quaternion.identity;
@@ -119,11 +130,19 @@ class CameraOrbit extends Behaviour implements IUpdateable
 
 class CameraOrbitInput extends Behaviour implements IUpdateable
 {
+	@serialize
 	public var rotate 		: Bool = true;	
+	
+	@serialize
 	public var zoom 		: Bool = true;		
+	
+	@serialize
 	public var zoomSpeed 	: Float32 = 0.5;	
+	
+	@serialize
 	public var rotateSpeed 	: Float32 = 0.5;
 	
+	@serialize
 	private var m_orbit : CameraOrbit;
 	
 	override public function OnStart():Void 
