@@ -1,12 +1,12 @@
 #if html
 
 package ;
-import haxor.io.serialization.HaxorFormatter;
+import haxor.context.ShaderContext;
+import haxor.io.serialization.haxor.HaxorFormatter;
 import haxe.Json;
 import haxor.io.serialization.Formatter;
 import js.html.EventTarget;
 import haxor.platform.html.input.DragDrop;
-import haxe.io.UInt8Array;
 import js.html.Uint8Array;
 import js.html.ArrayBuffer;
 import js.html.FileReader;
@@ -67,7 +67,6 @@ import haxor.input.Joystick;
 import haxor.input.KeyCode;
 import haxor.io.Buffer;
 import haxor.io.file.ColladaFile;
-import haxor.io.file.MaterialFile;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.io.UInt16Array;
@@ -101,31 +100,25 @@ class MainHTML extends Application implements IRenderable
 	{
 		Console.Log(platform + "> Application Initialize");
 		
+		var s0 : Shader = Shader.FlatTexture;
+		
+		trace(HaxorFormatter.ToString(s0));
+		
+		var mat : Material = new Material("Flat");
+		mat.shader = s0;
+		mat.SetTexture("DiffuseTexture", Texture2D.random);
+		mat.SetColor("Tint", Color.red50);
+		
 		var sphere : MeshRenderer = (new Entity("sphere")).AddComponent(MeshRenderer);
 		sphere.mesh = Model.sphere;
-		sphere.material = Material.Opaque();
-		sphere.material.SetColor("Tint", Color.white);
+		sphere.material = Resource.Instantiate(mat);
+		
+		trace(sphere.material.name);
 		
 		var o : CameraOrbit = CameraOrbit.Create(4.0, 45, 45);				
-		o.camera.background = new Color(0.8, 0.3, 0.3);			
+		o.camera.background = new Color(0.2, 0.2, 0.2);
 		var ci : CameraOrbitInput = o.AddComponent(CameraOrbitInput);
-		
-		var fmt : HaxorFormatter = new HaxorFormatter();
-		
-		var mat : Material = new Material("Custom");
-		mat.SetColor("_Color", Color.green50);
-		mat.SetMatrix4("_M1", Matrix4.identity, true);
-		mat.SetMatrix4("_M2", Matrix4.identity, false);
-		
-		mat.queue = 1234;
-		mat.blend = true;
-		
-		var s : String = "";
-		
-		s += fmt.Serialize(mat) + "\n";
-		
-		trace(s);
-		
+	
 		
 	}
 	

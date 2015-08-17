@@ -128,6 +128,17 @@ class Int32Array extends Buffer
 	}
 	
 	/**
+	 * Returns a dynamic array with this buffer contents.
+	 * @return
+	 */
+	public function ToArray():Array<Int>
+	{
+		var res : Array<Int> = [];
+		for (i in 0...length) res.push(Get(i));
+		return res;
+	}
+	
+	/**
 	 * Adjust the slice selection for int32
 	 * @param	p_start
 	 * @param	p_length
@@ -152,8 +163,7 @@ class Int32Array extends Buffer
 	{
 		var tk : Array<String> = p_data.split(p_delimiter);
 		var len : Int = tk.length;
-		if (p_is_byte) len = Std.int(len/4); 
-		var res : Int32Array = new Int32Array(len);		
+		var res : Int32Array = new Int32Array(p_is_byte ? Std.int(len/4) : len);		
 		for (i in 0...len)
 		{
 			if (p_is_byte)

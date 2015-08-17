@@ -7,7 +7,6 @@ import haxor.graphics.material.Shader;
 import haxor.graphics.texture.Texture2D;
 import haxor.graphics.texture.TextureCube;
 import haxor.io.file.ColladaFile;
-import haxor.io.file.MaterialFile;
 import haxor.net.Web;
 import haxor.platform.Types.Float32;
 
@@ -112,7 +111,7 @@ class Asset
 	 * @param	p_id
 	 * @param	p_url
 	 */
-	static public function LoadMaterial(p_id : String, p_url : String) : Void { Web.LoadMaterial(p_url, function(d : MaterialFile, p : Float32):Void { UpdateProgress(p_id, p, d); } ); }
+	//static public function LoadMaterial(p_id : String, p_url : String) : Void { Web.LoadMaterial(p_url, function(d : MaterialFile, p : Float32):Void { UpdateProgress(p_id, p, d); } ); } //SHADER TODO
 		
 	/**
 	 * 
@@ -132,14 +131,7 @@ class Asset
 			Asset.Add(p_id, p_asset);
 			app.OnLoadComplete(p_id, p_asset);
 			if (progress >= 1.0)
-			{
-				var kl : Iterator<String> = m_database.keys();
-				while (kl.hasNext())
-				{
-					var aik : String = kl.next();
-					var mf : MaterialFile = cast m_database.get(aik);
-					if (Std.is(mf, MaterialFile)) Asset.Add(aik, mf.asset);
-				}
+			{				
 				BaseApplication.m_instance.LoadComplete();
 			}
 		}

@@ -666,6 +666,10 @@ class ShaderFeature
 class ShaderPrecision
 {
 	/**
+	 * Ignore global precision and use the assigned one of shaders.
+	 */
+	inline static public var None : Int				= 0;	
+	/**
 	 * Low precision vertex shader.
 	 */
 	inline static public var VertexLow : Int		= 1;
@@ -676,7 +680,7 @@ class ShaderPrecision
 	/**
 	 * High precision vertex shader.
 	 */
-	inline static public var VertexHigh	 : Int	= 4;
+	inline static public var VertexHigh	 : Int		= 4;
 	/**
 	 * Low precision fragment shader.
 	 */
@@ -688,5 +692,5 @@ class ShaderPrecision
 	/**
 	 * High precision fragment shader.
 	 */
-	inline static public var FragmentHigh : Int	= 32;	
+	inline static public var FragmentHigh : Int		= 32;	
 }

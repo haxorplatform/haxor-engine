@@ -7,16 +7,4 @@ package haxor.graphics.material;
 class UberShader extends Shader
 {
 
-	
-	/**
-	 * Creates a new UberShader from a '.shader' source file.
-	 * @param	p_source
-	 */
-	public function new(p_source : String) 
-	{
-		super(p_source);		
-		//use m_vss and m_fss to combine it with predefined shader script to make it easier to the final user.
-		
-	}
-	
 }

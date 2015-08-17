@@ -16,7 +16,7 @@ interface ISerializable
 	 * @param	p_fields
 	 * @return
 	 */
-	public function OnSerializeField(p_field : FormatterField):String;
+	public function OnSerializeField(p_field : SerializedField,p_fmt : Formatter):String;
 		
 	/**
 	 * Callback called when the deserialization is processing the input data and finds a field and its value.
@@ -25,6 +25,6 @@ interface ISerializable
 	 * @param	p_fields
 	 * @return
 	 */
-	public function OnDeserializeField(p_field:String,p_value:String):Bool;
+	public function OnDeserializeField(p_field : SerializedField,p_fmt : Formatter):Bool;
 	
 }

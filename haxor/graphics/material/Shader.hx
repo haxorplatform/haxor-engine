@@ -2,8 +2,11 @@ package haxor.graphics.material;
 import haxor.context.EngineContext;
 import haxor.context.ShaderContext;
 import haxor.core.Enums.ShaderFeature;
+import haxor.core.Enums.ShaderPrecision;
 import haxor.core.Resource;
 import haxor.graphics.material.shader.FlexShader;
+import haxor.graphics.material.Shader.ShaderCompilation;
+import haxor.graphics.material.Shader.ShaderCompileResult;
 
 /**
  * Class that holds the sources for Vertex and Fragment shaders.
@@ -13,205 +16,181 @@ import haxor.graphics.material.shader.FlexShader;
 class Shader extends Resource
 {
 	/**
-	 * Returns a reference to the Flat shader (only vertex color and Tint).
+	 * List of all shaders.
+	 */
+	static public var list : Array<Shader> = [];
+	
+	/**
+	 * Global shader precision (will override all shaders).
+	 */
+	static public var globalPrecision(get, set) : Int;
+	static private function get_globalPrecision():Int {  return m_global_precision; }
+	static private function set_globalPrecision(v:Int):Int {  m_global_precision = v; for (s in list) s.Compile(); return v; }
+	static private var m_global_precision : Int = ShaderPrecision.None;
+	
+	/**
+	 * Global preprocessor (will be added before individual preprocessors).
+	 */
+	static public var globalPreprocessor(get, set) : String;
+	static private function get_globalPreprocessor():String {  return m_global_preprocessor; }
+	static private function set_globalPreprocessor(v:String):String {  m_global_preprocessor = v; for (s in list) s.Compile(); return v; }
+	static private var m_global_preprocessor : String = "";
+	
+	/**
+	 * Generates a new Flat shader.
 	 */
 	static public var Flat(get_Flat, null):Shader;
-	static private inline function get_Flat():Shader { return (m_flat_shader == null ? (m_flat_shader = new Shader(ShaderContext.flat_source)) : m_flat_shader);	}
+	static private inline function get_Flat():Shader { return (m_flat_shader == null ? (m_flat_shader = new Shader(ShaderContext.vs_flat,ShaderContext.fs_flat)) : m_flat_shader);	}
 	static private var m_flat_shader : Shader;
 	
 	/**
-	 * Returns a reference to the Flat shader with a single diffuse texture.
+	 * Generates a new Flat shader with a DiffuseTexture.
 	 */
 	static public var FlatTexture(get_FlatTexture, null):Shader;
-	static private inline function get_FlatTexture():Shader { return (m_flat_texture_shader == null ? (m_flat_texture_shader = new Shader(ShaderContext.flat_texture_source)) : m_flat_texture_shader);	}
+	static private inline function get_FlatTexture():Shader { return (m_flat_texture_shader == null ? (m_flat_texture_shader = new Shader(ShaderContext.vs_flat_texture,ShaderContext.fs_flat_texture)) : m_flat_texture_shader);	}
 	static private var m_flat_texture_shader : Shader;
 	
 	/**
-	 * Returns a reference to the Flat shader with a single diffuse texture and vertex skinning.
+	 * Generates a new Skinned Flat shader with a DiffuseTexture.
 	 */
 	static public var FlatTextureSkin(get_FlatTextureSkin, null):Shader;
 	static private inline function get_FlatTextureSkin():Shader 
 	{ 
 		if (m_flat_texture_skin_shader != null) return m_flat_texture_skin_shader;		
-		var shd : Shader = m_flat_texture_skin_shader = new Shader(ShaderContext.flat_texture_skin_source, false);
-		shd.AddPreprocessor("#define", "MAX_BONES", GL.MAX_UNIFORM_BONES + "");
-		if (GL.BONE_TEXTURE) shd.AddPreprocessor("#define", "BONE_TEXTURE");
+		var shd : Shader = m_flat_texture_skin_shader = new Shader(ShaderContext.vs_flat_skin_texture,ShaderContext.fs_flat_skin_texture);
+		shd.preprocessor += "#define MAX_BONES " + GL.MAX_UNIFORM_BONES + "\n";
+		if (GL.BONE_TEXTURE) shd.preprocessor += "#define BONE_TEXTURE\n";		
 		shd.Compile();
 		return shd;
 	}
 	static private var m_flat_texture_skin_shader : Shader;
 	
 	/**
-	 * Returns a reference to the Flat particle shader with 1 diffuse texture.
+	 * Generates a new Flat shader for particles.	 
 	 */
 	static public var FlatParticle(get_FlatParticle, null):Shader;
-	static private inline function get_FlatParticle():Shader { return (m_flat_particle_shader == null ? (m_flat_particle_shader = new Shader(ShaderContext.flat_particle_source)) : m_flat_particle_shader);	}
+	static private inline function get_FlatParticle():Shader { return (m_flat_particle_shader == null ? (m_flat_particle_shader = new Shader(ShaderContext.vs_flat_particle,ShaderContext.fs_flat_particle)) : m_flat_particle_shader);	}
 	static private var m_flat_particle_shader : Shader;
 	
-	/**
-	 * Returns the resulting vertex shader.
-	 */
-	public var vs(get_vs, never):String;
-	private function get_vs():String { return GetPreprocessorString() + m_vss; }		
-	private var m_vss:String;
 	
 	/**
-	 * Returns the resulting vertex shader.
+	 * Vertex shader source.
 	 */
-	public var fs(get_fs, never):String;
-	private function get_fs():String { return GetPreprocessorString() + m_fss; }
-	private var m_fss:String;
+	@serialize
+	public var vertex:String;
+	
+	/**
+	 * Fragment shader source.
+	 */
+	@serialize
+	public var fragment:String;
+	
+	/**
+	 * Preprocessor directives. 
+	 */
+	@serialize
+	public var preprocessor : String;
+	
+	/**
+	 * Bit flag that tells the precision level of the shaders.
+	 */
+	@serialize
+	public var precision:Int;
 	
 	/**
 	 * Flag that indicates that this shader couldn't be compiled and has errors in it.
 	 */
-	public var hasError(get_hasError, never) : Bool;	
-	private inline function get_hasError():Bool { return m_hasError; }
-	private var m_hasError : Bool;
+	public var hasError(get, never) : Bool;	
+	private function get_hasError():Bool { if (compilation == null) return false; return !compilation.success; }
 	
 	/**
 	 * Error string if any.
 	 */
-	public var error : String;
-	
-	/**
-	 * Preprocessor directives.
-	 */
-	private var m_pp : Map<String,String>;
-	
-	
+	public var compilation : ShaderCompileResult;
 	
 	/**
 	 * Creates a new shader from a XML '.shader' file source.
 	 * @param	p_source
 	 */
-	public function new(p_source:String,p_compile:Bool=true) 
+	public function new(p_vs:String="",p_fs:String="") 
 	{
 		super();
-		__cid 		= EngineContext.material.sid.id;
-		m_pp 		= new Map<String,String>();	
-		Load(p_source,p_compile);		
+		__cid 		 = EngineContext.material.sid.id;
+		vertex		 = p_vs;
+		fragment	 = p_fs;
+		preprocessor = "";
+		compilation  = new ShaderCompileResult();
+		precision    = ShaderPrecision.FragmentMed | ShaderPrecision.VertexMed;				
+		list.push(this);
+		if (p_vs != "") if (p_fs != "") Compile();
 	}
-	
-	/**
-	 * Loads the shader XML and store its data.
-	 * @param	p_source
-	 */
-	public function Load(p_source:String,p_compile:Bool=true):Void
-	{
-		//Adjustments to correct malformed <vertex>/<fragment> tags
-		//Must use RegExp :)
-		var vt0 : Int 	 = p_source.indexOf("<vertex");
-		var vt1 : Int 	 = p_source.indexOf(">", vt0 + 1);
-		var vt  : String = p_source.substring(vt0, vt1+1);
-		var ft0 : Int 	 = p_source.indexOf("<fragment");
-		var ft1 : Int 	 = p_source.indexOf(">", ft0 + 1);
-		var ft  : String = p_source.substring(ft0, ft1 + 1);
 		
-		//Adjustment in the text source to make it XML-valid.
-		p_source = StringTools.replace(p_source, vt, vt+"<![CDATA[");
-		p_source = StringTools.replace(p_source, "</vertex>", "]]></vertex>");
-		p_source = StringTools.replace(p_source, ft, ft+"<![CDATA[");
-		p_source = StringTools.replace(p_source, "</fragment>", "]]></fragment>");
-		
-		var x:Xml;		
-		x = Xml.parse(p_source);
-		x = x.firstElement();		
-		name = x.get("id");		
-		if ((name == null) || (name == "")) name = "Shader"+__cid;		
-		var vs : Xml = x.elementsNamed("vertex").next();
-		var fs : Xml = x.elementsNamed("fragment").next();		
-		m_vss = GetShaderSource(vs,GL.VS_FLOAT_HIGHP);		
-		m_fss = GetShaderSource(fs,GL.FS_FLOAT_HIGHP);
-		m_hasError = false;
-		error = "";
-		
-		if (p_compile) Compile();
-	}
-	
 	/**
 	 * Applies the shader source and compiles it.
 	 */
-	public function Compile():Void
+	public function Compile():ShaderCompileResult
 	{
-		EngineContext.material.CompileShader(this);
+		return compilation = EngineContext.material.CompileShader(this);
 	}
-	
-	/**
-	 * Adds a preprocessor directive.
-	 * @param	p_type
-	 * @param	p_name
-	 * @param	p_value
-	 */
-	public function AddPreprocessor(p_type:String, p_name:String, p_value : String = ""):Void
-	{
-		m_pp.set(p_name, p_type+" " + p_name+" " + p_value);
-	}
-	
-	/**
-	 * Removes a preprocessor from the shader sources.
-	 * @param	p_name
-	 */
-	public function RemovePreprocessor(p_name:String):Void
-	{
-		m_pp.remove(p_name);
-	}
-	
-	/**
-	 * Removes all preprocessor directives.
-	 */
-	public function ClearPreprocessor():Void
-	{
-		var it : Iterator<String> = m_pp.keys();
-		while (it.hasNext()) m_pp.remove(it.next());
-	}
-	
-	/**
-	 * Tells if the given shader has preprocessor directive.
-	 * @param	p_name
-	 * @return
-	 */
-	public function HasPreprocessor(p_name:String):Bool { return m_pp.exists(p_name); }
-	
-	/**
-	 * Returns the concatenated string of preprocessor directives.
-	 * @return
-	 */
-	private function GetPreprocessorString():String
-	{
-		var it :Iterator<String> = m_pp.iterator();
-		var s : String = "";
-		while (it.hasNext()) s += it.next() + "\n";
-		s += "\n";		
-		return s;
-	}
-	
-	/**
-	 * Gets the Vertex or Fragment shader source from the XML node.
-	 * @param	n
-	 * @return
-	 */
-	private function GetShaderSource(n : Xml,hp :Bool):String
-	{
-		if (n == null) return "";
-		var src : String = n.firstChild().nodeValue.toString();
-		var prec: String = (n.get("precision") == null ? "low" : n.get("precision")).toLowerCase();		
 		
-		switch(prec)
-		{
-			case "low":    prec = "lowp";
-			case "medium": prec = "mediump";
-			case "high":   prec = hp ? "highp" : "mediump";
-		}
-		prec = "precision " + prec + " float;";
-		return prec + src;
-	}
-	
 	/**
 	 * Destroys the Shader data and GPU reference.
 	 */
 	override public function OnDestroy():Void 
 	{
+		list.remove(this);
 		EngineContext.material.DestroyShader(this);		
+	}
+}
+
+/**
+ * Class that describes a shader compilation error.
+ */
+class ShaderError
+{
+	public var message: String;
+	public var line : Int;
+	public var text : String;
+	public function new() { message = ""; line = 0; text = ""; }	
+}
+
+/**
+ * Class that describes the result of compilation of a shader.
+ */
+class ShaderCompilation
+{
+	public var source : String;
+	public var offset : Int;
+	public var errors : Array<ShaderError>;
+	public var success(get, never):Bool;
+	private function get_success():Bool { return errors.length <= 0; }
+	public function new() { source = ""; offset = 0; errors = []; }
+	
+	public function ErrorString():String
+	{
+		var s : String = "";
+		for (e in errors) s += e.message+"\n";
+		return s;
+	}
+	
+}
+
+/**
+ * Class that describes the compilation of a Shader class.
+ */
+class ShaderCompileResult
+{
+	public var vertex   : ShaderCompilation;
+	public var fragment : ShaderCompilation;
+	public var success(get, never):Bool;
+	private function get_success():Bool { return vertex.success&&fragment.success; }
+	public function new() { vertex = new ShaderCompilation(); fragment = new ShaderCompilation(); }
+	public function ErrorString():String
+	{
+		var s : String = "";
+		var e : String;
+		e = vertex.ErrorString();   if (e != "") s += "=== [vertex shader] ===\n" + e;
+		e = fragment.ErrorString(); if (e != "") s += "=== [fragment shader] ===\n" + e;		
+		return s;
 	}
 }

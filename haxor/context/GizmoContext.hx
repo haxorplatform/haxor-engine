@@ -79,7 +79,7 @@ class GizmoContext
 	{
 		var mat : Material;
 		mat = gizmo_material	= new Material("$GizmoMaterial");
-		mat.shader 	= new Shader(ShaderContext.grid_source);
+		mat.shader 	= new Shader(ShaderContext.vs_gizmo_grid,ShaderContext.fs_flat);
 		mat.blend = true;
 		mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);		
 		mat.SetFloat("Area", 1000.0);
@@ -87,7 +87,7 @@ class GizmoContext
 		mat.ztest = false;
 		
 		mat = texture_material	= new Material("$TextureMaterial");
-		mat.shader 	= new Shader(ShaderContext.texture_source);
+		mat.shader 	= new Shader(ShaderContext.vs_gizmo_screen_texture,ShaderContext.fs_flat_texture);
 		mat.blend = true;
 		mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);		
 		mat.SetFloat2("Screen", Screen.width, Screen.height);
@@ -311,7 +311,7 @@ class Gizmo
 		if (!GL.TEXTURE_FLOAT) return;
 		if (GL.MAX_VERTEX_TEXTURES <= 0) return;
 		
-		if (SHADER == null) SHADER = new Shader(ShaderContext.gizmo_source);
+		if (SHADER == null) SHADER = new Shader(ShaderContext.vs_gizmo,ShaderContext.fs_flat);
 		
 		material = new Material("Gizmo" + p_type+"Material");
 		material.shader = SHADER;

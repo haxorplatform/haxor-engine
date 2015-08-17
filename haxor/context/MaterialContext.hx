@@ -6,6 +6,7 @@ import haxor.component.MeshRenderer;
 import haxor.component.Transform;
 import haxor.core.Console;
 import haxor.core.Debug;
+import haxor.core.Enums.ShaderPrecision;
 import haxor.core.Time;
 import haxor.core.Enums.BlendMode;
 import haxor.core.Enums.CullMode;
@@ -329,28 +330,22 @@ class MaterialContext
 	 * Creates the API instance of a shader class.
 	 * @param	s
 	 */
-	private function CompileShader(s:Shader):Void
-	{
-		//UberShader will be a Shader container.
-		if (Std.is(s, UberShader)) { return; }		
-		var vs_err : String = "";
-		var fs_err : String = "";		
-		vs_err = CreateCompileShader(s, GL.VERTEX_SHADER,   vertex_shaders);
-		fs_err = CreateCompileShader(s, GL.FRAGMENT_SHADER, fragment_shaders);		
-		if (s.m_hasError)
+	private function CompileShader(s:Shader):ShaderCompileResult
+	{		
+		var res : ShaderCompileResult = new ShaderCompileResult();
+		
+		res.vertex   = CreateCompileShader(s, GL.VERTEX_SHADER,   vertex_shaders);
+		res.fragment = CreateCompileShader(s, GL.FRAGMENT_SHADER, fragment_shaders);		
+		
+		if (!(res.vertex.success && res.fragment.success))
 		{	
-			//trace(vs_err);
-			//trace(" ");
-			//trace(fs_err);
-			s.error = "";
-			s.error += FormatShaderError("[vs]", vs_err);
-			s.error += FormatShaderError("[fs]", fs_err);
 			Console.LogError("Shader> Compile Error @ [" + s.name + "]");			
-			Console.Log(s.error);
+			Console.Log(res.ErrorString());
 		}
 		#if gldebug
 		GL.Assert("Shader> Init");
 		#end
+		return res;
 	}
 		
 	/**
@@ -360,58 +355,90 @@ class MaterialContext
 	 * @param	c
 	 * @return
 	 */
-	private function CreateCompileShader(s:Shader,t:Int,c : Array<ShaderId>):String
+	private function CreateCompileShader(s:Shader,t:Int,c : Array<ShaderId>):ShaderCompilation
 	{
-		var id : ShaderId = c[s.__cid] == GL.INVALID ? GL.CreateShader(t) : c[s.__cid];
-		var ss:String = t == GL.VERTEX_SHADER ? s.vs : s.fs;
+		var res : ShaderCompilation = new ShaderCompilation();
+		
+		var id : ShaderId 	= c[s.__cid] == GL.INVALID ? GL.CreateShader(t) : c[s.__cid];
+		var ss:String 		= "";
+		var is_vs : Bool 	= t == GL.VERTEX_SHADER;
+		var sp		  : Int  = Shader.globalPrecision == 0 ? s.precision : Shader.globalPrecision;
+		var flag_low  : Int  = (is_vs ? ShaderPrecision.VertexLow  : ShaderPrecision.FragmentLow)  & sp;
+		var flag_med  : Int  = (is_vs ? ShaderPrecision.VertexMed  : ShaderPrecision.FragmentMed)  & sp;
+		var flag_high : Int  = (is_vs ? ShaderPrecision.VertexHigh : ShaderPrecision.FragmentHigh) & sp;
+		var error_title:String = is_vs ? "[vert] " : "[frag]";
+		
+		if (flag_low  != 0) ss += "precision lowp float;\n"; else
+		if (flag_med  != 0) ss += "precision mediump float;\n"; else
+		if (flag_high != 0) ss += "precision highp float;\n";
+		
+		if (Shader.globalPreprocessor != "") ss += Shader.globalPreprocessor + "\n";		
+		if(s.preprocessor!="") ss += s.preprocessor + "\n";		
+		
+		for (i in 0...ss.length) if (ss.charAt(i) == "\n") res.offset++;
+		
+		ss += is_vs ? s.vertex : s.fragment;
+		
 		c[s.__cid] = id;		
 		GL.ShaderSource(id, ss);		
 		GL.CompileShader(id);			
+		
+		//
+		
 		if (GL.GetShaderParameter(id, GL.COMPILE_STATUS)==0)
-		{
-			s.m_hasError = true;						
-			return GL.GetShaderInfoLog(id);
+		{			
+			var err : String = GL.GetShaderInfoLog(id);
+			res.errors = FormatShaderError(res.offset,err);
 		}
-		return "";
+		return res;
 	}
-	
 	
 	/**
 	 * Formats the error
 	 * @param	err
 	 * @return
 	 */
-	private function FormatShaderError(shd:String,err : String):String
-	{
-		var lines : Array<String> = err.split("\n");		
+	private function FormatShaderError(off:Int,err : String):Array<ShaderError>
+	{		
+		var el : Array<ShaderError> = [];
+		var lines : Array<String> = err.split("\n");
 		var res : String = "";
 		for (i in 0...lines.length)
 		{
-			var e : String = lines[i];
-			if (e.indexOf("ERROR") < 0) continue;
-			var tk : Array<String> = e.split(":");
-			if (tk.length == 5)
-			{				
-				res += shd + " " + tk[2] + ":" + tk[3] + " : " + tk[4] + "\n";
-			}
-			else if (tk.length == 4)
+			var err : ShaderError = new ShaderError();
+			var e : String = lines[i];			
+			err.text    = e;
+			err.message = e;
+			if (e.indexOf("ERROR") >= 0)
 			{
-				res += shd + " " + tk[2] + ":" + tk[3]+"\n";
-			}
-			else if (tk.length == 3)
-			{
-				res += shd + " " + tk[0] + ":" + tk[2]+"\n";
-			}
-			else if (tk.length == 2)
-			{
-				res += shd + " " + tk[0] + ":" + tk[1]+"\n";
-			}
-			else
-			{
-				res += shd + " " + tk[1] + "\n";					
-			}
+				var tk : Array<String> = e.split(":");
+				var str : String = "";			
+				var l :Int = -1;
+				
+				switch(tk.length)
+				{
+					case 5:  l = Std.parseInt(tk[2]);
+					case 4:  l = Std.parseInt(tk[2]);
+					case 3:  l = Std.parseInt(tk[0]);
+					case 2:  l = Std.parseInt(tk[0]);					
+				}
+				
+				err.line = l < 0 ? 0 : (l - off);
+				
+				var ls : String = err.line <= 0 ? "" : err.line+"";
+				switch(tk.length)
+				{
+					case 5:  str = ls + ":" + tk[3] + " : " + tk[4];
+					case 4:  str = ls + ":" + tk[3];
+					case 3:  str = ls + ":" + tk[2];
+					case 2:  str = ls + ":" + tk[1];
+					default: str = tk[1];
+				}
+				err.message = str;
+			}			
+			el.push(err);
 		}
-		return res;
+		return el;
 	}
 	
 	/**
@@ -450,7 +477,8 @@ class MaterialContext
 			
 			if (GL.GetProgramParameter(p, GL.LINK_STATUS)==0)
 			{				
-				Console.LogError("Material> [" + m.name+"] Link Error @ [" + s1.name + "]");				
+				var link_err:String = GL.GetProgramInfoLog(p);
+				Console.LogError("Material> [" + m.name+"] Link Error @ [" + s1.name + "]\n"+link_err);
 				is_linked[m.__cid] = false;
 			}
 			
@@ -691,6 +719,7 @@ class MaterialContext
 		}
 		
 		var is_texture : Bool = u.texture != null;
+		
 		var changed : Bool = u.__d;
 		var texture_slot : Int = -1;				
 		if (is_texture) 

@@ -7,7 +7,7 @@ import haxor.math.Matrix4;
 import haxor.math.Quaternion;
 import haxor.math.Vector3;
 import haxor.platform.Types.Float32;
-import js.Error;
+
 
 
 
@@ -94,20 +94,9 @@ class Transform extends Component
 		var wr : Quaternion = rotation;
 		var ws : Vector3 	= scale;
 		
-		var p0 : String = m_parent == null ? "[]" : "[" + m_parent.name + "]";
-		
 		if (m_parent != null) m_parent.m_hierarchy.remove(this);
 		m_parent = v == null ? m_root : v;		
 		m_parent.m_hierarchy.push(this);
-		
-		var p1 : String = m_parent == null ? "[]" : "[" + m_parent.name + "]";
-		
-		if (name == "FDP")
-		{
-			trace("parent> e[" + entity.guid + "] - from" + p0 + " to" + p1 + "");
-			var err:Error = new Error();
-			trace(err.stack);
-		}
 		
 		//Use world coords in new hierarchy.
 		//position = wp;

@@ -7,11 +7,9 @@ import haxor.core.Enums.ShaderPrecision;
  * Flexible shader that can be configured with different behaviours.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
-class FlexShader extends TemplateShader
+class FlexShader extends Shader
 {
-	/**
-	 * Bit flags of all features this shader will have.
-	 */
+	/*
 	public var features(get_features, set_features):Int;
 	private function get_features():Int { return m_features; }
 	private function set_features(v:Int):Int 
@@ -50,13 +48,7 @@ class FlexShader extends TemplateShader
 	private var m_features : Int;
 	
 	
-	/**
-	 * Creates a FlatShader with a texture or solid color.
-	 * @param	p_id
-	 * @param	p_texture
-	 * @param	p_tint
-	 * @param	p_compile
-	 */
+	//CTOR
 	public function new(p_id:String,p_features : Int = ShaderFeature.Empty, p_precision : Int = ShaderPrecision.VertexLow | ShaderPrecision.FragmentLow, p_compile:Bool = true) 
 	{	
 		super(p_id, p_precision, false);		
@@ -64,9 +56,7 @@ class FlexShader extends TemplateShader
 		if (p_compile) Compile();
 	}
 	
-	/**
-	 * Vertex Shader Uniforms.
-	 */
+	//Vertex Shader Uniforms.
 	static private var vs_uniforms : String =
 	'
 	uniform mat4  WorldMatrix;
@@ -108,9 +98,7 @@ class FlexShader extends TemplateShader
 	#endif	
 	';
 	
-	/**
-	 * Vertex Shader Attribs
-	 */
+	//Vertex Shader Attribs
 	static private var vs_attribs : String =
 	'
 	attribute vec3 vertex;
@@ -137,28 +125,26 @@ class FlexShader extends TemplateShader
 	#endif	
 	';
 	
-	/**
-	 * Vertex Shader related functions
-	 */
+	//Vertex Shader related functions
 	static private var vs_functions : String =
 	'
 	#ifdef SKINNING	
 	mat4 GetJointMatrix(const int b0, const int b1, const int b2) 
 	{ 
 		#ifdef BONE_TEXTURE		
-		/*
-		float itw = SkinTexSize.z;
-		float ith = SkinTexSize.w;
-		float fb0x = mod(float(b0), SkinTexSize.x);
-		float fb1x = mod(float(b1), SkinTexSize.x);
-		float fb2x = mod(float(b2), SkinTexSize.x);
-		float fb0y = floor(float(b0) * itw);
-		float fb1y = floor(float(b1) * itw);
-		float fb2y = floor(float(b2) * itw);			
-		vec4 l0 = texture2D(Joints, vec2(fb0x*itw,fb0y*ith));
-		vec4 l1 = texture2D(Joints, vec2(fb1x*itw,fb1y*ith));
-		vec4 l2 = texture2D(Joints, vec2(fb2x*itw,fb2y*ith));
-		//*/
+		
+		//float itw = SkinTexSize.z;
+		//float ith = SkinTexSize.w;
+		//float fb0x = mod(float(b0), SkinTexSize.x);
+		//float fb1x = mod(float(b1), SkinTexSize.x);
+		//float fb2x = mod(float(b2), SkinTexSize.x);
+		//float fb0y = floor(float(b0) * itw);
+		//float fb1y = floor(float(b1) * itw);
+		//float fb2y = floor(float(b2) * itw);			
+		//vec4 l0 = texture2D(Joints, vec2(fb0x*itw,fb0y*ith));
+		//vec4 l1 = texture2D(Joints, vec2(fb1x*itw,fb1y*ith));
+		//vec4 l2 = texture2D(Joints, vec2(fb2x*itw,fb2y*ith));
+		
 		vec2 fb0 = vec2(mod(float(b0), SkinTexSize.x)*SkinTexSize.z, floor(float(b0) * SkinTexSize.z)*SkinTexSize.w);
 		vec2 fb1 = vec2(mod(float(b1), SkinTexSize.x)*SkinTexSize.z, floor(float(b1) * SkinTexSize.z)*SkinTexSize.w);
 		vec2 fb2 = vec2(mod(float(b2), SkinTexSize.x)*SkinTexSize.z, floor(float(b2) * SkinTexSize.z)*SkinTexSize.w);
@@ -182,17 +168,17 @@ class FlexShader extends TemplateShader
 		vec4 l0 = texture2D(Binds, fb0);
 		vec4 l1 = texture2D(Binds, fb1);
 		vec4 l2 = texture2D(Binds, fb2);
-		/*
-		float fb0x = mod(float(b0), SkinTexSize.x);
-		float fb1x = mod(float(b1), SkinTexSize.x);
-		float fb2x = mod(float(b2), SkinTexSize.x);
-		float fb0y = floor(float(b0) * itw);
-		float fb1y = floor(float(b1) * itw);
-		float fb2y = floor(float(b2) * itw);			
-		vec4 l0 = texture2D(Binds, vec2(fb0x*itw,fb0y*ith));
-		vec4 l1 = texture2D(Binds, vec2(fb1x*itw,fb1y*ith));
-		vec4 l2 = texture2D(Binds, vec2(fb2x*itw,fb2y*ith));
-		//*/
+		
+		//float fb0x = mod(float(b0), SkinTexSize.x);
+		//float fb1x = mod(float(b1), SkinTexSize.x);
+		//float fb2x = mod(float(b2), SkinTexSize.x);
+		//float fb0y = floor(float(b0) * itw);
+		//float fb1y = floor(float(b1) * itw);
+		//float fb2y = floor(float(b2) * itw);			
+		//vec4 l0 = texture2D(Binds, vec2(fb0x*itw,fb0y*ith));
+		//vec4 l1 = texture2D(Binds, vec2(fb1x*itw,fb1y*ith));
+		//vec4 l2 = texture2D(Binds, vec2(fb2x*itw,fb2y*ith));
+		
 		return mat4(l0,l1,l2,vec4(0,0,0,1));
 		#else
 		return mat4(Binds[b0] , Binds[b1] , Binds[b2] , vec4(0, 0, 0, 1)); 
@@ -222,11 +208,7 @@ class FlexShader extends TemplateShader
 	#endif
 	';
 	
-	
-	/**
-	 * Generates the Vertex Shader using all features.
-	 * @return
-	 */
+	//Generates the Vertex Shader using all features.
 	override function GetVS():String 
 	{
 		return
@@ -345,10 +327,7 @@ class FlexShader extends TemplateShader
 		';
 	}
 	
-	
-	/**
-	 * Fragment Shaders Uniforms
-	 */
+	//Fragment Shaders Uniforms
 	static private var fs_uniforms : String =
 	'
 	#ifdef TEXTURE	
@@ -379,10 +358,7 @@ class FlexShader extends TemplateShader
 	';
 	
 	
-	/**
-	 * Generates the Fragment Shader using all features.
-	 * @return
-	 */
+	//Generates the Fragment Shader using all features.
 	override function GetFS():String 
 	{
 		return
@@ -538,9 +514,7 @@ class FlexShader extends TemplateShader
 		';
 	}
 	
-	/**
-	 * Global Usage Varyings
-	 */
+	//Global Usage Varyings
 	static private var g_varyings : String =
 	'
 	varying vec4 v_color;
@@ -590,9 +564,7 @@ class FlexShader extends TemplateShader
 	
 	';
 	
-	/**
-	 * Global Uniforms.
-	 */
+	//Global Uniforms.
 	static private var g_uniforms : String =
 	'
 	
@@ -644,9 +616,8 @@ class FlexShader extends TemplateShader
 	
 	';
 	
-	/**
-	 * Global Usage Functions
-	 */
+	
+	//Global Usage Functions	
 	static private var g_functions : String =
 	'
 	#ifdef RANDOM	
@@ -840,5 +811,5 @@ class FlexShader extends TemplateShader
 	
 	
 	';
-	
+	//*/
 }

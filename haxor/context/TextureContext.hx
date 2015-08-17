@@ -198,7 +198,7 @@ class TextureContext
 			if (bind[p_slot] != p_texture)
 			{
 				if (active != p_slot) 
-				{ 
+				{ 					
 					GL.ActiveTexture(GL.TEXTURE0 + p_slot); 
 					active = p_slot; 
 				}

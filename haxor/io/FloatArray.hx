@@ -144,6 +144,17 @@ class FloatArray extends Buffer
 	}
 	
 	/**
+	 * Returns a dynamic array with this buffer contents.
+	 * @return
+	 */
+	public function ToArray():Array<Float32>
+	{
+		var res : Array<Float32> = [];
+		for (i in 0...length) res.push(Get(i));
+		return res;
+	}
+	
+	/**
 	 * Adjust the slice selection for floats
 	 * @param	p_start
 	 * @param	p_length
@@ -167,9 +178,8 @@ class FloatArray extends Buffer
 	static public function Parse(p_data : String,p_delimiter:String=" ",p_is_byte:Bool=false):FloatArray
 	{
 		var tk : Array<String> = p_data.split(p_delimiter);
-		var len : Int = tk.length;
-		if (p_is_byte) len = Std.int(len/4); 
-		var res : FloatArray = new FloatArray(len);		
+		var len : Int = tk.length;		
+		var res : FloatArray = new FloatArray(p_is_byte ? Std.int(len/4) : len);		
 		for (i in 0...len)
 		{
 			if (p_is_byte)

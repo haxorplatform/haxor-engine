@@ -11,6 +11,10 @@ import haxor.graphics.texture.Texture;
 import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
+import haxor.io.serialization.Formatter;
+import haxor.io.serialization.ISerializable;
+import haxor.io.serialization.SerializedData;
+import haxor.io.serialization.SerializedField;
 import haxor.io.UInt16Array;
 import haxor.math.Color;
 import haxor.math.Matrix4;
@@ -26,7 +30,7 @@ import haxor.platform.Types.Float32;
  * @author Eduardo Pons
  */
 @:allow(haxor)
-class Material extends Resource
+class Material extends Resource implements ISerializable
 {
 	/**
 	 * Shortcut for an Opaque material.
@@ -37,12 +41,12 @@ class Material extends Resource
 	 */
 	static public function Opaque(p_texture:Texture = null, p_ztest:Bool = true, p_zwrite:Bool = true):Material
 	{
-		var m : Material = new Material("Opaque");
+		var m : Material = new Material("Opaque");				
 		m.shader	= p_texture == null ? Shader.Flat : Shader.FlatTexture;
 		m.queue 	= RenderQueue.Opaque;
 		m.ztest 	= p_ztest;
 		m.zwrite 	= p_zwrite;
-		if(p_texture!=null) m.SetTexture("DiffuseTexture", p_texture);
+		if(p_texture!=null) m.SetTexture("DiffuseTexture", p_texture);		
 		return m;
 	}
 	
@@ -56,7 +60,7 @@ class Material extends Resource
 	 */
 	static public function Transparent(p_texture:Texture=null,p_ztest:Bool=true,p_zwrite:Bool=true,p_double_sided:Bool=false):Material
 	{
-		var m : Material = new Material("Transparent");
+		var m : Material = new Material("Transparent");		
 		if (p_double_sided) m.cull = CullMode.None;
 		m.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
 		m.shader	= p_texture == null ? Shader.Flat : Shader.FlatTexture;
@@ -65,6 +69,7 @@ class Material extends Resource
 		m.zwrite 	= p_zwrite;
 		m.blend		= true;
 		if(p_texture!=null) m.SetTexture("DiffuseTexture", p_texture);
+		//*/
 		return m;
 	}
 	
@@ -241,7 +246,10 @@ class Material extends Resource
 	{
 		if (p_texture == null) { RemoveUniform(p_name); return; }
 		var u : MaterialUniform = FetchUniform(p_name, false, 1, 1, true);		
-		if (u.exists) u.SetTexture(p_texture);
+		if (u.exists)
+		{			
+			u.SetTexture(p_texture);
+		}
 	}
 	
 	/**
@@ -562,6 +570,87 @@ class Material extends Resource
 	{
 		EngineContext.material.DestroyMaterial(this);
 	}
+	
+	/**
+	 * Callback called when a field can be serialized in a different way.
+	 * @param	p_field
+	 * @return
+	 */
+	public function OnSerializeField(p_field:SerializedField,p_fmt:Formatter):String { return null; }
+	
+	/**
+	 * Callback called when a field should be deserialized in a different way.
+	 * @param	p_field
+	 * @return
+	 */
+	public function OnDeserializeField(p_field:SerializedField,p_fmt:Formatter):Bool
+	{
+		var fmt : Formatter = p_fmt;
+		var uf: SerializedField = p_field;
+		var m : Material = this;
+		switch(uf.name)
+		{
+			case "uniforms":
+			{
+				var unl : Array<SerializedData> = cast uf.value;
+				var f : SerializedField;
+				
+				for (i in 0...unl.length)
+				{			
+					var un 			: SerializedData = unl[i];
+					var name 	    : String  = fmt.GetField(un,"name").value;
+					f = fmt.GetField(un,"texture");
+					if (f!=null)
+					{	
+						var texture	: Texture = cast Formatter.FromString(f.value, f.type);
+						if (texture != null)
+						{					
+							m.SetTexture(name, texture);
+						}
+					}			
+					else
+					{				
+						var offset	   : Int 	 = Std.parseInt(fmt.GetField(un,"offset").value);				
+						var data	   : String  = fmt.GetField(un,"data").value;
+						var is_float   : Bool    = fmt.GetField(un,"isFloat").value == "true";
+						var transposed : Bool    = fmt.GetField(un,"transposed").value == "true";
+					
+						if (is_float)
+						{
+							var b 			: FloatArray 		= FloatArray.Parse(data, ",", true);
+							var is_array 	: Bool     			= (b.length > offset);
+							var l 			: Array<Float32>  	= is_array ? b.ToArray() : null;
+							
+							switch(offset)
+							{
+								case 1:  is_array ? m.SetFloatArray(name,l)   : m.SetFloat(name,  b.Get(0));
+								case 2:  is_array ? m.SetFloat2Array(name, l) : m.SetFloat2(name, b.Get(0),b.Get(1));
+								case 3:  is_array ? m.SetFloat3Array(name, l) : m.SetFloat3(name, b.Get(0),b.Get(1),b.Get(2));
+								case 4:  is_array ? m.SetFloat4Array(name, l) : m.SetFloat4(name, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
+								case 16: m.SetMatrix4(name, Matrix4.FromArray(b.ToArray()), transposed);
+							}
+						}
+						else
+						{
+							var b 			: Int32Array 	= Int32Array.Parse(data, ",", true);
+							var is_array 	: Bool 			= (b.length > offset);
+							var l 			: Array<Int>  	= is_array ? b.ToArray() : null;
+							switch(offset)
+							{
+								case 1:  is_array ? m.SetIntArray(name,l)   : m.SetInt(name,  b.Get(0));
+								case 2:  is_array ? m.SetInt2Array(name, l) : m.SetInt2(name, b.Get(0),b.Get(1));
+								case 3:  is_array ? m.SetInt3Array(name, l) : m.SetInt3(name, b.Get(0),b.Get(1),b.Get(2));
+								case 4:  is_array ? m.SetInt4Array(name, l) : m.SetInt4(name, b.Get(0), b.Get(1), b.Get(2), b.Get(3));
+							}
+						}				
+					}
+				}
+				return true;
+			}
+		}		
+		return false;
+	}
+	
 }
 
 /**
@@ -675,7 +764,7 @@ class MaterialUniform
 		var ts:Int = texture == null ? -1 : texture.__slot;
 		if (texture != null) texture.__slot = -1;
 		texture = p_texture; 
-		if (texture != null) texture.__slot = ts;
+		if (texture != null) texture.__slot = ts;		
 		b.Set(0,ts);		
 	}	
 	

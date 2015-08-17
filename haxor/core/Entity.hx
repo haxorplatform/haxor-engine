@@ -9,6 +9,10 @@ import haxor.component.physics.RigidBody;
 import haxor.component.Renderer;
 import haxor.component.Transform;
 import haxor.context.EngineContext;
+import haxor.io.serialization.Formatter;
+import haxor.io.serialization.ISerializable;
+import haxor.io.serialization.SerializedData;
+import haxor.io.serialization.SerializedField;
 
 /**
  * Class that represents all entities in the application scope.
@@ -16,7 +20,7 @@ import haxor.context.EngineContext;
  */
 @:allow(haxor)
 @:final
-class Entity extends Resource
+class Entity extends Resource implements ISerializable
 {
 	
 	/**
@@ -216,4 +220,51 @@ class Entity extends Resource
 		}
 		m_components = null;
 	}
+	
+	/**
+	 * Callback called when the formatter is processing this instance's fields.
+	 * This callback can ovewrite the default behaviour or return an empty string to delegate the serialization to the formatter.
+	 * @param	p_id
+	 * @param	p_fields
+	 * @return
+	 */
+	public function OnSerializeField(p_field : SerializedField, p_fmt : Formatter):String { return null; }
+		
+	/**
+	 * Callback called when the deserialization is processing the input data and finds a field and its value.
+	 * If the class successfully process the contents it will return true, otherwise false is returned and the formatter tries to cope with the situation.
+	 * @param	p_id
+	 * @param	p_fields
+	 * @return
+	 */
+	public function OnDeserializeField(p_field : SerializedField, p_fmt : Formatter):Bool
+	{
+		var mcf : SerializedField = p_field;
+		switch(p_field.name)
+		{
+			case "m_components":
+			{				
+				var cnl : Array<SerializedData> = cast mcf.value;
+				for (i in 0...cnl.length)
+				{
+					var cn : SerializedData 	= cnl[i];			
+					var ct : Class<Component> 	= cast Type.resolveClass(cn.type);					
+					if (ct == null) continue;					
+					var c 	: Component 				 = AddComponent(ct);
+					var cfl : Array<SerializedField> 	 = cast cn.fields;					
+					for (j in 0...cfl.length)
+					{
+						var cf : SerializedField = cfl[j];
+						p_fmt.DeserializeField(cf, c);
+					}
+					
+					if (Std.is(c, Transform)) { var t:Transform = cast c; t.parent = null; }
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 }

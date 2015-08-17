@@ -78,7 +78,7 @@ class BitmapLoader extends HTTPLoader<Buffer>
 			stbi_image_free(img_buffer);
 			');		
 			//*/
-			var fmt : PixelFormat = PixelFormat.RGBA8;
+			var fmt : Int = PixelFormat.RGBA8;
 			switch(cc)
 			{
 				case 1: fmt = PixelFormat.Alpha8;

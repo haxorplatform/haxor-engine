@@ -220,7 +220,7 @@ class Buffer
 	 * Converts the byte contents to array.
 	 * @return
 	 */
-	public function ToArray():Array<Int>
+	public function ToByteArray():Array<Int>
 	{
 		var res : Array<Int> = [];
 		for (i in 0...byteLength) res.push(GetByte(i));

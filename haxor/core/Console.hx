@@ -72,27 +72,19 @@ class Console
 	 * @param	p_msg
 	 * @param	p_level
 	 */
-	static public function Log(p_msg : Dynamic, p_level:Int = 0):Void 
+	static public inline function Log(p_msg : Dynamic, p_level:Int = 0):Void 
 	{ 
-		if (verbose >= p_level)
-		{
-			#if js
-			m_console.log(p_msg);
-			#end
-			
-			#if android
-			//Sys.stdout().writeString(p_msg+"\n");
-			//Sys.stdout().flush();
-			untyped __java__('
-			android.util.Log.v("TRACE", p_msg);			
-			');
-			#end
-			
-			#if cpp
-			cpp.Lib.println(p_msg);
-			#end
-			
-		}
+		#if js
+		if (verbose >= p_level) m_console.log(p_msg);
+		#end
+		
+		#if android
+		if (verbose >= p_level) untyped __java__('android.util.Log.v("TRACE", p_msg);');
+		#end
+		
+		#if cpp
+		if (verbose >= p_level) cpp.Lib.println(p_msg);
+		#end
 	}
 	
 	/**
@@ -115,22 +107,10 @@ class Console
 	 * @param	p_msg
 	 * @param	p_obj
 	 */
-	static public function LogWarning(p_msg : Dynamic, p_obj : Array<Dynamic> = null) : Void
+	static public inline function LogWarning(p_msg : Dynamic, p_obj : Array<Dynamic> = null) : Void
 	{
 		#if html
-		if (m_console == null) { trace("[W] " + p_msg); }
-		if (p_obj == null) p_obj = [];
-		m_console.warn(p_msg);
-		/*
-		switch(p_obj.length)
-		{
-			case 0:  m_console.warn(p_msg);
-			case 1:  m_console.warn(p_msg, p_obj[0]);
-			case 2:  m_console.warn(p_msg,p_obj[0],p_obj[1]);
-			case 3:  m_console.warn(p_msg,p_obj[0],p_obj[1],p_obj[2]);
-			case 4:  m_console.warn(p_msg,p_obj[0],p_obj[1],p_obj[2],p_obj[3]);			
-		}
-		//*/
+		if (m_console == null) trace("[W] " + p_msg); else m_console.warn(p_msg);
 		#else
 		Log("[W] " + p_msg);
 		#end
@@ -140,22 +120,10 @@ class Console
 	 * Logs an error message.
 	 * @param	p_msg
 	 */
-	static public function LogError(p_msg : String, p_obj : Array<Dynamic> = null) : Void
+	static public inline function LogError(p_msg : Dynamic) : Void
 	{
 		#if html
-		if (m_console == null) { trace("[E] " + p_msg); return; }
-		if (p_obj == null) p_obj = [];
-		m_console.error(p_msg);
-		/*
-		switch(p_obj.length)
-		{
-			case 0:  m_console.error(p_msg);
-			case 1:  m_console.error(p_msg, p_obj[0]);
-			case 2:  m_console.error(p_msg,p_obj[0],p_obj[1]);
-			case 3:  m_console.error(p_msg,p_obj[0],p_obj[1],p_obj[2]);
-			case 4:  m_console.error(p_msg,p_obj[0],p_obj[1],p_obj[2],p_obj[3]);			
-		}
-		//*/
+		if (m_console == null) { trace("[E] " + p_msg); } else m_console.error(p_msg);
 		#else
 		Log("[E] " + p_msg);
 		#end

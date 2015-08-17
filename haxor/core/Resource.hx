@@ -3,7 +3,7 @@ import haxe.Timer;
 import haxor.component.Behaviour;
 import haxor.component.Component;
 import haxor.context.EngineContext;
-import haxor.io.serialization.HaxorFormatter;
+import haxor.io.serialization.haxor.HaxorFormatter;
 
 
 
@@ -78,7 +78,11 @@ class Resource implements IDisposable
 	 */
 	static public function GenerateGUID():String
 	{
+		#if html
 		var d  : Int = untyped Math.floor((Date.now() - Date.fromTime(0)) / 1000);
+		#else
+		var d  : Int = Math.floor(Math.random()*0xfffffff);
+		#end
 		var r0 : Int = Math.floor(Math.random()*0xfffffff);
 		var r1 : Int = Math.floor(Math.random()*0xfffffff);
 		var r2 : Int = Math.floor(Math.random()*0xfffffff);		

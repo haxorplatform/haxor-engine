@@ -106,7 +106,7 @@ class Graphics
 		var mat : Material = EngineContext.gizmo.texture_material;
 		mat.SetFloat2("Screen", Screen.width, Screen.height);
 		mat.SetFloat4("Rect", p_x, p_y, p_width, p_height);
-		mat.SetTexture("Texture", p_texture);
+		mat.SetTexture("DiffuseTexture", p_texture);
 		var c : Color = p_color == null ? Color.temp.Set(1, 1, 1, 1) : p_color;
 		mat.SetColor("Tint", c);		
 		Render(EngineContext.gizmo.texture, mat);

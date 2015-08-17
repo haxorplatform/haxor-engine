@@ -78,8 +78,10 @@ class CameraContext
 		skybox_material.ztest 	  = true;
 		skybox_material.cull 	  = CullMode.None;
 		skybox_material.zwrite	  = false;
-		skybox_material.shader = new Shader(ShaderContext.clear_skybox_source);
 		
+		
+		skybox_material.shader = new Shader(ShaderContext.vs_screen_skybox,ShaderContext.fs_screen_skybox);
+		//*/
 		list.push(c);		
 		SortCameraList();	
 		EngineContext.renderer.AddCamera(c);
