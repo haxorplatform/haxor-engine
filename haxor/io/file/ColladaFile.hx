@@ -921,12 +921,14 @@ class ColladaFile extends AssetXML
 		if (n == null) return;		
 		g.mesh 		= new ColladaMesh();		
 		g.mesh.type = n.nodeName == null ? "none" : n.nodeName.toLowerCase();		
+		
 		switch(g.mesh.type)
 		{
 			case "mesh": 		ParseMesh(g.mesh, n);				
 			case "convex_mesh":	//Will not use for now			
 			case "spline":		//Will not use for now
 		}
+		
 	}
 	
 	private function ParseMesh(m : ColladaMesh, n : Xml):Void
@@ -939,19 +941,25 @@ class ColladaFile extends AssetXML
 			if (n.nodeName == "vertices") continue;
 			if (n.nodeName == "source")   continue;
 			var cp : ColladaPrimitive = new ColladaPrimitive();
-			
+		
 			cp.type 	 = n.nodeName;			
 			cp.material  = _a(n, "material", "");			
+			
 			ParsePrimitive(cp, p, n);
 			m.primitives.push(cp);
+		
 		}
 	}
 	
 	private function ParsePrimitive(cp : ColladaPrimitive, p : Xml, n : Xml):Void
 	{
+		
 		cp.inputs = ParseInputList(p, n);		
+		
 		var p_it  : Iterator<Xml> = n.elementsNamed("p");
 		var vc_it : Iterator<Xml> = n.elementsNamed("vcount");		
+		
+		
 		if (vc_it.hasNext()) 	
 		{ 
 			var ncitn : Xml = vc_it.next().firstChild();
@@ -962,7 +970,9 @@ class ColladaFile extends AssetXML
 		{ 			
 			var vn : Xml = p_it.next();
 			var vb  : String = vn.firstChild() != null ? vn.firstChild().toString() : "0";
-			var off : Int 	 = cp.offset;			
+			var off : Int 	 = cp.offset;		
+			off = off <= 0 ? 1 : off;
+			//trace(cp.material + " " + off);
 			var ti : Array< Array<Int> > = _i16ta(vb, off);			
 			cp.indexes.push(ti);
 		}
@@ -982,32 +992,129 @@ class ColladaFile extends AssetXML
 		//*/
 	}
 	
-	private function ParseInputList(p : Xml, n : Xml) : Array<ColladaInput>
+	private function ParseInputList(p : Xml, n : Xml,smart:Bool=false) : Array<ColladaInput>
 	{
 		var l : Array<ColladaInput> = [];		
-		var it : Iterator<Xml> = n.elementsNamed("input");		
+		var it : Iterator<Xml> = n.elementsNamed("input");	
+		
+		if (smart)
+		{
+			var il : Array<Xml> = [];		
+			while (it.hasNext())
+			{
+				var pi : Xml = it.next();
+				
+				var source	 : String = _a(pi, "source", "");
+				var semantic : String = _a(pi, "semantic", "").toLowerCase();
+				if (semantic == "vertex")
+				{				
+					var vi : Iterator<Xml> = p.elementsNamed("vertices");
+					if (vi.hasNext())
+					{
+						vi = vi.next().elementsNamed("input");
+						while (vi.hasNext()) il.push(vi.next());
+					}
+					//source = _p(p, "vertices.input.@source", "");
+				}
+				else
+				{
+					il.push(pi);
+				}
+			}
+			
+			for (i in 0...il.length)
+			{			
+				var pi : Xml = il[i];
+				var ci : ColladaInput = new ColladaInput();
+				var source	 : String = _a(pi, "source", "");
+				ci.semantic	 = _a(pi, "semantic", "").toLowerCase();						
+				ci.offset	 = Std.parseInt(_a(pi, "offset", "-1"));			
+				ci.set 		 = Std.parseInt(_a(pi, "set", "-1"));
+				
+				switch(ci.semantic)
+				{
+					case "joint": l.push(ci); 
+					case "vertex":
+					default:
+						
+					if (source != "")
+					{
+						source = source.substr(1);						
+						var sn : Xml = _f(p, "source", "id", source);						
+						if (sn != null)
+						{
+							var stride_str:String = _p(sn, "technique_common.accessor.@stride", "0");			
+							ci.stride = Std.parseInt(stride_str);			
+							var vs : String = _p(sn, "float_array.$text", "");
+							ci.values = _f32a(vs);									
+							//trace("[smart] semantic["+ci.semantic+"] values["+vs.substr(0,50)+"]");
+							l.push(ci);
+						}
+					}
+				}
+			}
+			
+			return l;
+		}
+		
+		//*/
+		
+		it = n.elementsNamed("input");
+		
 		while (it.hasNext())
 		{
 			var pi : Xml = it.next();
 			var ci : ColladaInput = new ColladaInput();
-			var source	 : String = _a(pi, "source", "");			
-			ci.semantic	 = _a(pi, "semantic", "").toLowerCase();						
-			ci.offset	 = Std.parseInt(_a(pi, "offset", "-1"));			
-			ci.set 		 = Std.parseInt(_a(pi, "set", "-1"));
+			var source	  : Array<String> = [_a(pi, "source", "")];
+			var semantics : Array<String> = [_a(pi, "semantic", "").toLowerCase()];
+			var offset    : Int = Std.parseInt(_a(pi, "offset", "-1"));
+			var set       : Int = Std.parseInt(_a(pi, "set", "-1"));
+			ci.semantic	 = semantics[0];						
+			ci.offset	 = offset;
+			ci.set 		 = set;
 			if (ci.semantic == "joint") { l.push(ci); continue; }
 			if (ci.semantic == "vertex")
-			{				
-				source = _p(p, "vertices.input.@source", "");
+			{		
+				//l.push(ci);
+				
+				source    = [];
+				semantics = [];
+				var vi : Iterator<Xml> = p.elementsNamed("vertices");
+				if (vi.hasNext())
+				{
+					vi = vi.next().elementsNamed("input");
+					while (vi.hasNext())
+					{
+						var ni : Xml = vi.next();
+						source.push(_p(ni, "@source", ""));
+						semantics.push(_p(ni, "@semantic", "").toLowerCase());
+					}
+				}
+				//source = _p(p, "vertices.input.@source", "");
 			}
-			if (source == "") continue;			
-			source = source.substr(1);						
-			var sn : Xml = _f(p, "source", "id", source);						
-			if (sn == null) continue;						
-			var stride_str:String = _p(sn, "technique_common.accessor.@stride", "0");			
-			ci.stride = Std.parseInt(stride_str);			
-			ci.values = _f32a(_p(sn, "float_array.$text", ""));						
-			l.push(ci);
+			for (i in 0...source.length)
+			{
+				ci = new ColladaInput();
+				
+				var src : String = source[i];				
+				if (src == "") continue;			
+				src = src.substr(1);						
+				var sn : Xml = _f(p, "source", "id", src);						
+				if (sn == null) continue;						
+				ci.semantic  = semantics[i];
+				if (ci.semantic == "position") ci.semantic = "vertex";
+				ci.offset	 = offset;
+				ci.set 		 = set;
+				if (ci.semantic == "texcoord") if (set < 0) ci.set = 0;
+				var stride_str:String = _p(sn, "technique_common.accessor.@stride", "0");			
+				ci.stride = Std.parseInt(stride_str);			
+				var vs : String = _p(sn, "float_array.$text", "");
+				ci.values = _f32a(vs);
+				//trace("semantic["+ci.semantic+"] set["+ci.set+"]");
+				l.push(ci);
+			}			
 		}
+		//*/
 		return l;
 	}
 	
@@ -1111,7 +1218,17 @@ class ColladaPrimitive
 	
 	
 	public var offset(get_offset, never):Int;
-	private function get_offset():Int { var mo : Int = 0; for (i in 0...inputs.length) mo = cast Math.max(mo, inputs[i].offset+1); return mo; }
+	private function get_offset():Int 
+	{ 
+		var mo : Int = 0; 
+		for (i in 0...inputs.length)
+		{
+			var ci : ColladaInput = inputs[i];
+			if (ci == null) { trace(material + " ci[" + i + "] is null"); continue; }
+			mo = cast Math.max(mo, ci.offset + 1);
+		}
+		return mo;
+	}
 		
 	public function new() 
 	{
@@ -1138,6 +1255,7 @@ class ColladaPrimitive
 	public function GetTriangulatedVectorArray(p_semantic : String, p_set : Int = -1,p_debug :Bool=false):Dynamic
 	{
 		var ci  : ColladaInput = GetInput(p_semantic, p_set);
+		trace("semantic["+p_semantic+"]["+p_set+"] ok["+(ci!=null)+"]");
 		if (ci == null) return [];
 		
 		var vec : Dynamic = ci.GetVectorArray();
@@ -1262,7 +1380,17 @@ class ColladaController
 	public var bones  	: Array<Vector4>		= null;
 	
 	public var offset(get_offset, never):Int;
-	private function get_offset():Int { var mo : Int = 0; for (i in 0...inputs.length) mo = cast Math.max(mo, inputs[i].offset+1); return mo; }
+	private function get_offset():Int 
+	{ 
+		var mo : Int = 0; 
+		for (i in 0...inputs.length)
+		{
+			var ci : ColladaInput = inputs[i];
+			if (ci == null) { trace("ColladaController> name["+name+"] ci["+i+"] is null"); }
+			mo = cast Math.max(mo, ci.offset + 1);
+		}
+		return mo; 		
+	}
 	
 	public function new() 
 	{
@@ -1303,7 +1431,9 @@ class ColladaController
 	
 	public function GetTriangulatedWeights(cp : ColladaPrimitive):Array<Vector4>
 	{
-		var v_off : Int = cp.GetInput("vertex").offset;
+		var ci : ColladaInput = cp.GetInput("vertex");
+		if (ci == null) return [];
+		var v_off : Int = ci.offset;
 		var res : Array<Vector4> = [];		
 		for (i in 0...cp.triangles.length)
 		{
@@ -1315,7 +1445,9 @@ class ColladaController
 	
 	public function GetTriangulatedBones(cp : ColladaPrimitive):Array<Vector4>
 	{
-		var v_off : Int = cp.GetInput("vertex").offset;
+		var ci : ColladaInput = cp.GetInput("vertex");
+		if (ci == null) return [];
+		var v_off : Int = ci.offset;
 		var res : Array<Vector4> = [];		
 		for (i in 0...cp.triangles.length)
 		{
