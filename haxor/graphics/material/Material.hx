@@ -23,6 +23,13 @@ import haxor.math.Vector3;
 import haxor.math.Vector4;
 import haxor.platform.Types.Float32;
 
+class UniformInfo
+{
+	public var name:String;
+	public var type:String;
+	public var texture:Bool;
+	public function new():Void{}
+}
 
 /**
  * Class that holds rendering information for a Renderer. 
@@ -236,6 +243,16 @@ class Material extends Resource implements ISerializable
 		blendSrc = p_src;
 		blendDst = p_dst;
 	}
+	
+	/**
+	 * Returns the list of uniforms present in the shader/program context.
+	 */
+	public function GetActiveUniforms():Array<UniformInfo>
+	{
+		if (shader == null) return [];
+		return EngineContext.material.GetActiveUniforms(this);		
+	}
+	
 	
 	/**
 	 * Sets a Texture sampler uniform.

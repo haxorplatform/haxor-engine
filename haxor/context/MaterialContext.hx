@@ -33,6 +33,7 @@ import haxor.platform.Types.MeshBufferId;
 import haxor.platform.Types.ProgramId;
 import haxor.platform.Types.ShaderId;
 import haxor.platform.Types.UniformLocation;
+import js.html.webgl.ActiveInfo;
 
 /**
  * Class that handles Material related internal structures and behaviours.
@@ -566,6 +567,47 @@ class MaterialContext
 		//var loc : UniformLocation 	= GL.GetUniformLocation(p, u.name);
 		if(m!=null) uniforms[m.__cid][u.__cid] 	= GL.INVALID;
 		EngineContext.material.uid.id = u.__cid;
+	}
+	
+	/**
+	 * Returns the list of uniforms of this material.
+	 * @param	m
+	 * @return
+	 */
+	private function GetActiveUniforms(m:Material):Array<UniformInfo>
+	{
+		var res : Array<UniformInfo> = [];
+		if (!is_linked[m.__cid]) return res;		
+		var p 	: ProgramId 		= programs[m.__cid];
+		#if html		
+		var count : Int = GL.GetProgramParameter(p, GL.ACTIVE_UNIFORMS);
+		
+		for (i in 0...count)
+		{
+			var ai : ActiveInfo = GL.m_gl.c.getActiveUniform(p, i);
+			
+			var ui : UniformInfo = new UniformInfo();
+			ui.name    = ai.name;
+			
+			ui.type = "none";
+			switch(ai.type)
+			{
+				case GL.FLOAT:			ui.type = "float";
+				case GL.FLOAT_VEC2: 	ui.type = "vec2";
+				case GL.FLOAT_VEC3: 	ui.type = "vec3";
+				case GL.FLOAT_VEC4: 	ui.type = "vec4";
+				case GL.INT:			ui.type = "int";
+				case GL.SAMPLER_2D: 	ui.type = "sampler2D";
+				case GL.SAMPLER_CUBE:   ui.type = "samplerCube";
+				case GL.FLOAT_MAT4:		ui.type = "mat4";
+				
+			}
+			
+			ui.texture = (ui.type == "sampler2D") || (ui.type == "samplerCube");
+			res.push(ui);			
+		}		
+		#end
+		return res;
 	}
 	
 	/**
