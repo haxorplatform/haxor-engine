@@ -58,7 +58,6 @@ import haxor.input.Joystick;
 import haxor.input.KeyCode;
 import haxor.io.Buffer;
 import haxor.io.file.ColladaFile;
-import haxor.io.file.MaterialFile;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
 import haxor.io.UInt16Array;

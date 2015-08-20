@@ -33,7 +33,7 @@ import haxor.platform.Types.MeshBufferId;
 import haxor.platform.Types.ProgramId;
 import haxor.platform.Types.ShaderId;
 import haxor.platform.Types.UniformLocation;
-import js.html.webgl.ActiveInfo;
+
 
 /**
  * Class that handles Material related internal structures and behaviours.
@@ -584,7 +584,7 @@ class MaterialContext
 		
 		for (i in 0...count)
 		{
-			var ai : ActiveInfo = GL.m_gl.c.getActiveUniform(p, i);
+			var ai : js.html.webgl.ActiveInfo = GL.m_gl.c.getActiveUniform(p, i);
 			
 			var ui : UniformInfo = new UniformInfo();
 			ui.name    = ai.name;
