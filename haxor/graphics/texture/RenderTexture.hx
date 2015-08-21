@@ -24,6 +24,13 @@ class RenderTexture extends Texture
 	 */
 	override inline function get_type():TextureType {	return TextureType.RenderTexture;}
 	
+	/**
+	 * Returns a flag indicating this render texture has depth.
+	 */
+	@serialize
+	public var hasDepth(get, never):Bool;
+	private function get_hasDepth():Bool { return m_depth != null; }
+	
 	
 	/**
 	 * Creates a new RenderTexture.

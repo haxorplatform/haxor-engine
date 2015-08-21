@@ -145,6 +145,7 @@ class Debug
 	 */
 	static public function MeshRenderer(r : MeshRenderer):Void
 	{
+		if (r.mesh == null) return;
 		var bb : AABB3 = r.mesh.m_bounds;
 		var c : Color = Color.temp.SetColor(color_renderer);
 		c.a = r.visible ? 1.0 : 0.2;

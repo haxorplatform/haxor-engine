@@ -33,6 +33,7 @@ class MeshRenderer extends Renderer
 	/**
 	 * Reference to this renderer mesh.
 	 */
+	@serialize
 	public var mesh (get_mesh, set_mesh) : Mesh;	
 	private inline function get_mesh():Mesh { return m_mesh; }
 	private function set_mesh(v:Mesh):Mesh { if (m_mesh == v) return v; m_mesh = v; UpdateWorldBounds(); return v; }

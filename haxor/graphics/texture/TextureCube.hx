@@ -14,6 +14,7 @@ class TextureCube extends Texture
 	/**
 	 * Positive X side.
 	 */
+	@serialize
 	public var px(get_px, set_px) : Texture;	
 	private inline function get_px():Texture { return m_faces[0]; }
 	private function set_px(v:Texture):Texture { m_faces[0] = v; return v; }
@@ -22,6 +23,7 @@ class TextureCube extends Texture
 	/**
 	 * Negative X side.
 	 */
+	@serialize
 	public var nx(get_nx, set_nx) : Texture;	
 	private inline function get_nx():Texture { return m_faces[1]; }
 	private function set_nx(v:Texture):Texture {  m_faces[1] = v; return v; }
@@ -30,6 +32,7 @@ class TextureCube extends Texture
 	/**
 	 * Positive Y side.
 	 */
+	@serialize
 	public var py(get_py, set_py) : Texture;	
 	private inline function get_py():Texture { return m_faces[2]; }
 	private function set_py(v:Texture):Texture { m_faces[2] = v; return v; }
@@ -38,6 +41,7 @@ class TextureCube extends Texture
 	/**
 	 * Negative Y side.
 	 */
+	@serialize
 	public var ny(get_ny, set_ny) : Texture;	
 	private inline function get_ny():Texture { return m_faces[3]; }
 	private function set_ny(v:Texture):Texture {  m_faces[3] = v; return v; }
@@ -46,6 +50,7 @@ class TextureCube extends Texture
 	/**
 	 * Positive Z side.
 	 */
+	@serialize
 	public var pz(get_pz, set_pz) : Texture;	
 	private inline function get_pz():Texture { return m_faces[4]; }
 	private function set_pz(v:Texture):Texture { m_faces[4] = v; return v; }
@@ -54,6 +59,7 @@ class TextureCube extends Texture
 	/**
 	 * Negative Z side.
 	 */
+	@serialize
 	public var nz(get_nz, set_nz) : Texture;	
 	private inline function get_nz():Texture { return m_faces[5]; }
 	private function set_nz(v:Texture):Texture { m_faces[5] = v; return v; }

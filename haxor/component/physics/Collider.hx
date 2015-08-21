@@ -36,6 +36,7 @@ class Collider extends Behaviour// implements IUpdateable
 	/**
 	 * Flag that indicates if this collider should behave as a trigger.
 	 */
+	@serialize
 	public var trigger : Bool;
 	
 	/**

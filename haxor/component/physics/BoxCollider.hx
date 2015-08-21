@@ -21,6 +21,7 @@ class BoxCollider extends Collider
 	/**
 	 * Collider center relative to the local coords of the Transform.
 	 */
+	@serialize
 	public var center(get_center, set_center):Vector3;
 	private function get_center():Vector3 { return Vector3.temp.Set(m_center.x, m_center.y, m_center.z); }
 	private function set_center(v:Vector3):Vector3 { m_center.Set(v.x, v.y, v.z); Refresh(); return v; }
@@ -29,6 +30,7 @@ class BoxCollider extends Collider
 	/**
 	 * Collider size.
 	 */
+	@serialize
 	public var size(get_size, set_size):Vector3;
 	private function get_size():Vector3 { return Vector3.temp.Set(m_size.x, m_size.y, m_size.z); }
 	private function set_size(v:Vector3):Vector3 { m_size.Set(v.x, v.y, v.z); Refresh(); return v; }

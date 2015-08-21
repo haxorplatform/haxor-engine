@@ -18,6 +18,7 @@ class Renderer extends Behaviour
 	/**
 	 * Reference to this renderer material.
 	 */
+	@serialize
 	public var material(get_material, set_material) : Material;
 	private inline function get_material():Material { return m_material; }
 	private function set_material(v:Material):Material 

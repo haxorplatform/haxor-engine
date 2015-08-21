@@ -33,6 +33,21 @@ class Vector4
 	static private inline function get_W():Vector4 { return new Vector4(0,0,0,1); }
 	
 	/**
+	 * Measures the distance between 2 points.
+	 * @param	p_a
+	 * @param	p_b
+	 * @return
+	 */
+	static public function Distance(p_a : Vector4, p_b : Vector4) : Float
+	{
+		var dx : Float32 = (p_a.x - p_b.x);
+		var dy : Float32 = (p_a.y - p_b.y);
+		var dz : Float32 = (p_a.z - p_b.z);
+		var dw : Float32 = (p_a.w - p_b.w);
+		return Mathf.Sqrt(dx * dx + dy * dy + dz * dz + dw * dw);
+	}
+	
+	/**
 	 * Linear interpolates the vector.
 	 * @param	p_a
 	 * @param	p_b

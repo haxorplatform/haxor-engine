@@ -60,11 +60,13 @@ class RigidBody extends Behaviour
 	/**
 	 * 
 	 */
+	@serialize
 	public var gravity : Bool;
 	
 	/**
 	 * 
 	 */
+	@serialize
 	public var drag(get_drag, set_drag) : Float32;
 	private function get_drag():Float32 { return m_drag; }
 	private function set_drag(v:Float32):Float32
@@ -78,6 +80,7 @@ class RigidBody extends Behaviour
 	/**
 	 * 
 	 */
+	@serialize
 	public var angularDrag(get_angularDrag, set_angularDrag) : Float32;
 	private function get_angularDrag():Float32 { return m_angularDrag; }
 	private function set_angularDrag(v:Float32):Float32
@@ -91,6 +94,7 @@ class RigidBody extends Behaviour
 	/**
 	 * 
 	 */
+	@serialize
 	public var mass(get_mass, set_mass) : Float32;
 	private function get_mass():Float32 { return m_mass; }
 	private function set_mass(v:Float32):Float32
@@ -105,11 +109,13 @@ class RigidBody extends Behaviour
 	/**
 	 * 
 	 */
+	@serialize
 	public var centerOfMass : Vector3;
 	
 	/**
 	 * 
 	 */
+	@serialize
 	public var kinematic : Bool;
 	
 	private var m_accel : Vector3;

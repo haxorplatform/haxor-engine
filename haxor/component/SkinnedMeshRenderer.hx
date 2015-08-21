@@ -39,6 +39,7 @@ class SkinnedMeshRenderer extends MeshRenderer
 		return m_joints; 
 	}
 	private inline function get_joints():Array<Transform> { return m_joints; }
+	@serialize
 	private var m_joints : Array<Transform>;
 	
 	/**
@@ -65,6 +66,7 @@ class SkinnedMeshRenderer extends MeshRenderer
 	/**
 	 * Defines the quality of bone blending for this renderer.
 	 */
+	@serialize
 	public var quality(get_quality, set_quality):Int;
 	private function get_quality():Int { return m_quality; }
 	private function set_quality(v:Int):Int { m_quality = v; return v; }

@@ -142,8 +142,18 @@ class Texture2D extends Texture
 	/**
 	 * Reference to the bitmap which contains the pixels for this Texture.
 	 */
+	@serialize
 	public var data(get_data, null):Bitmap;
 	private inline function get_data():Bitmap { return m_data; }
+	private inline function set_data(v:Bitmap):Bitmap 
+	{ 
+		m_data   = v;
+		m_width  = v.width;
+		m_height = v.height;
+		EngineContext.texture.UpdateParameters(this); 
+		Apply();
+		return m_data; 		
+	}
 	private var m_data : Bitmap;
 	
 	/**

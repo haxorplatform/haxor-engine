@@ -22,6 +22,7 @@ class SphereCollider extends Collider
 	/**
 	 * Center of the sphere in local coordinates.
 	 */
+	@serialize
 	public var center(get_center, set_center):Vector3;
 	private function get_center():Vector3 { return Vector3.temp.Set(m_center.x, m_center.y, m_center.z); }
 	private function set_center(v:Vector3):Vector3 { m_center.Set(v.x, v.y, v.z); Refresh(); return v; }
@@ -30,6 +31,7 @@ class SphereCollider extends Collider
 	/**
 	 * Radius of the sphere.
 	 */
+	@serialize
 	public var radius(get_radius, set_radius):Float;
 	private function get_radius():Float32 { return m_radius; }
 	private function set_radius(v:Float32):Float { m_radius=v; Refresh(); return v; }

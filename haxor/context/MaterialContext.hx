@@ -346,6 +346,16 @@ class MaterialContext
 		#if gldebug
 		GL.Assert("Shader> Init");
 		#end
+		
+		if (!s.hasError)
+		{
+			//Material need to refresh the shader after it changes.
+			for (i in 0...Material.list.length)
+			{
+				if (Material.list[i].shader == s)  Material.list[i].shader = s;
+			}
+		}
+		
 		return res;
 	}
 		

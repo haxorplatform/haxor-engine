@@ -39,6 +39,19 @@ class Vector2
 	static private inline function get_up():Vector2 { return new Vector2(0, 1); }
 	
 	/**
+	 * Measures the distance between 2 points.
+	 * @param	p_a
+	 * @param	p_b
+	 * @return
+	 */
+	static public function Distance(p_a : Vector2, p_b : Vector2) : Float
+	{
+		var dx : Float32 = (p_a.x - p_b.x);
+		var dy : Float32 = (p_a.y - p_b.y);
+		return Mathf.Sqrt(dx * dx + dy * dy);
+	}
+	
+	/**
 	 * Returns the Dot product of the informed vectors.
 	 * @param	p_a
 	 * @param	p_b

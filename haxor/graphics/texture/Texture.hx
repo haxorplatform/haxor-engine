@@ -38,6 +38,7 @@ class Texture extends Resource
 	/**
 	 * Wrapping mode of this texture.
 	 */
+	@serialize
 	public var wrap(get_wrap, set_wrap):Int;		
 	private inline function get_wrap():Int { return m_wrap; }
 	private function set_wrap(v:Int):Int {  if (m_wrap == v) return v; m_wrap = v;  EngineContext.texture.UpdateParameters(this); return v; }	
@@ -46,6 +47,7 @@ class Texture extends Resource
 	/**
 	 * Aniso level of this texture (if feature is available). 
 	 */
+	@serialize
 	public var aniso(get_aniso, set_aniso):Int;	
 	private inline function get_aniso():Int { return m_aniso; }
 	private function set_aniso(v:Int):Int { if (m_aniso == v) return v; m_aniso = v;  EngineContext.texture.UpdateParameters(this); return v; }
@@ -55,6 +57,7 @@ class Texture extends Resource
 	/**
 	 * Minification filter.
 	 */
+	@serialize
 	public var minFilter(get_minFilter, set_minFilter):Int;	
 	private inline function get_minFilter():Int { return m_minFilter; }
 	private function set_minFilter(v:Int) : Int { if (m_minFilter == v) return v; m_minFilter = v; EngineContext.texture.UpdateParameters(this); return v; }
@@ -63,6 +66,7 @@ class Texture extends Resource
 	/**
 	 * Magnification filter.
 	 */
+	@serialize
 	public var magFilter(get_magFilter, set_magFilter):Int;	
 	private inline function get_magFilter():Int { return m_magFilter; }
 	private function set_magFilter(v:Int) : Int { if (m_magFilter == v) return v; m_magFilter = v; EngineContext.texture.UpdateParameters(this); return v; }
@@ -71,6 +75,7 @@ class Texture extends Resource
 	/**
 	 * Flag that indicates if this texture has generated mipmaps.
 	 */
+	@serialize
 	public var mipmaps(get_mipmaps, null):Bool;
 	private inline function get_mipmaps():Bool { return m_mipmaps; }	
 	private var m_mipmaps:Bool;
@@ -95,7 +100,7 @@ class Texture extends Resource
 		m_format 		= PixelFormat.RGBA8;
 		m_minFilter 	= TextureFilter.Linear;
 		m_magFilter 	= TextureFilter.Linear;
-		m_wrap 			= TextureWrap.ClampX | TextureWrap.ClampY | TextureWrap.ClampZ;
+		m_wrap 			= TextureWrap.RepeatX | TextureWrap.RepeatY | TextureWrap.RepeatZ;
 		m_width 		= 0;
 		m_height 		= 0;		
 		m_aniso 		= 0;		

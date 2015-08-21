@@ -15,6 +15,7 @@ class Behaviour extends Component
 	/**
 	 * Flag that indicates if the component is active.
 	 */
+	@serialize
 	public var enabled(get_enabled, set_enabled):Bool;
 	private function get_enabled() : Bool { return m_enabled && (!m_destroyed); }
 	private function set_enabled(v:Bool) : Bool 

@@ -40,6 +40,11 @@ class UniformInfo
 class Material extends Resource implements ISerializable
 {
 	/**
+	 * List of all materials.
+	 */
+	static public var list : Array<Material> = [];
+	
+	/**
 	 * Shortcut for an Opaque material.
 	 * @param	p_texture
 	 * @param	p_ztest
@@ -231,6 +236,7 @@ class Material extends Resource implements ISerializable
 		lighting		= false;
 		grab			= false;			
 		EngineContext.material.InitializeMaterial(this);
+		list.push(this);
 	}
 	
 	/**
@@ -585,6 +591,7 @@ class Material extends Resource implements ISerializable
 	 */
 	override public function OnDestroy():Void 
 	{
+		list.remove(this);
 		EngineContext.material.DestroyMaterial(this);
 	}
 	
