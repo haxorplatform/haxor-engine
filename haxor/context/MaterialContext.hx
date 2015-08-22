@@ -354,6 +354,7 @@ class MaterialContext
 			{
 				if (Material.list[i].shader == s)  Material.list[i].shader = s;
 			}
+			Console.Log("Shader> [" + s.name+"] compiled successfully!", 1);
 		}
 		
 		return res;

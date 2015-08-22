@@ -248,7 +248,7 @@ class Camera extends Behaviour implements IResizeable
 	@serialize
 	public var mode(get_mode, set_mode):Int;
 	private function get_mode():Int { return m_mode; }
-	private function set_mode(v:Int):Int { if (m_mode == v) return v; m_mode = v; UpdateProjection(); return v; }
+	private function set_mode(v:Int):Int { if (m_mode == v) return v; m_mode = v; m_projection_dirty = true; m_proj_uniform_dirty = true; UpdateProjection(); return v; }
 	private var m_mode : Int;
 	
 	/**
@@ -256,7 +256,7 @@ class Camera extends Behaviour implements IResizeable
 	 */
 	public var screen(get_screen, set_screen) : AABB2;
 	private function get_screen():AABB2{ return m_screen.clone; }
-	private function set_screen(v:AABB2):AABB2 { m_screen.SetAABB2(v); UpdateProjection(); return v; }
+	private function set_screen(v:AABB2):AABB2 { m_screen.SetAABB2(v); m_projection_dirty = true; m_proj_uniform_dirty = true; UpdateProjection(); return v; }
 	private var m_screen : AABB2;
 	
 	/**
