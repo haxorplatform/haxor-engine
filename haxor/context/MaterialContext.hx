@@ -184,6 +184,11 @@ class MaterialContext
 	public var pointSmooth : Bool;
 	
 	/**
+	 * Shaders to update.
+	 */
+	public var shader_list : Array<Shader>;
+	
+	/**
 	 * Creates the Mesh context to handle internal structures.
 	 */
 	private function new() 
@@ -218,6 +223,7 @@ class MaterialContext
 		slot 				= 0;
 		viewmatrix			= [];
 		projmatrix			= [];
+		shader_list			= [];
 		
 		for (i in 0...max_programs)
 		{
@@ -349,12 +355,8 @@ class MaterialContext
 		
 		if (!s.hasError)
 		{
-			//Material need to refresh the shader after it changes.
-			for (i in 0...Material.list.length)
-			{
-				if (Material.list[i].shader == s)  Material.list[i].shader = s;
-			}
-			Console.Log("Shader> [" + s.name+"] compiled successfully!", 1);
+			Console.Log("Shader> Compilation Success [" + s.name+"]");			
+			shader_list.push(s);			
 		}
 		
 		return res;
@@ -538,6 +540,26 @@ class MaterialContext
 			globals[m.__cid] = gl;			
 		}
 		
+	}
+	
+	/**
+	 * Refresh shaders when some were compiled.
+	 */
+	private function RefreshShaders():Void
+	{
+		if (shader_list.length <= 0) return;
+		//Material need to refresh the shader after it changes.
+		for(s in shader_list)
+		for (i in 0...Material.list.length)
+		{
+			var m : Material = Material.list[i];
+			if (m.shader == s)
+			{
+				Console.Log("Match ["+m.name+"]");
+				m.shader = s;
+			}
+		}
+		shader_list = [];
 	}
 	
 	/**

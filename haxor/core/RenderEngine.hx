@@ -1,5 +1,7 @@
 #if !ie8
 package haxor.core;
+import js.html.svg.BoundingBoxOptions;
+import haxor.context.MaterialContext;
 import haxor.graphics.GL;
 import haxor.graphics.Graphics;
 import haxor.graphics.mesh.Model;
@@ -28,11 +30,14 @@ class RenderEngine
 		RenderStats.BeginRender();		
 		#end
 		
+		
+		
 		//Shadow Collect Pass		
 		//foreach active light { foreach mesh-renderer caster { render(shadow-tex[mrid]) } }
 		
 		//Render all cameras
 		RenderCameras();	
+		
 		
 	}
 	
@@ -41,11 +46,16 @@ class RenderEngine
 	 * Render all cameras.
 	 */
 	static private function RenderCameras():Void
-	{		
+	{			
+		var is_dirty:Bool = EngineContext.material.shader_list.length > 0;
+		
+		EngineContext.material.RefreshShaders();
+		
 		var cl  : Array<Camera> = EngineContext.camera.list;
 		for (i in 0...cl.length)
 		{
 			var c : Camera = Camera.m_current = cl[i];
+			if (is_dirty) { c.m_proj_uniform_dirty = c.m_view_uniform_dirty = true; }
 			RenderCamera(c);
 		}
 		
