@@ -1,6 +1,7 @@
 #if html
 
 package haxor.platform.html.graphics.mesh;
+import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.thread.Activity;
 import haxor.core.Enums.MeshMode;
@@ -99,7 +100,7 @@ class MeshReader
 			}
 			else
 			{
-				ab = new Buffer(attrib_length);
+				ab = new FloatArray(attrib_length);
 			}
 			
 			
