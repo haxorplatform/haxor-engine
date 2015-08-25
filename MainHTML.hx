@@ -1,6 +1,8 @@
 #if html
 
 package ;
+import haxor.platform.html.graphics.mesh.MeshReader;
+import haxor.platform.html.graphics.mesh.MeshWriter;
 import haxor.io.serialization.Formatter;
 import haxor.component.Behaviour;
 import haxe.rtti.Meta;
@@ -153,7 +155,7 @@ class MainHTML extends Application implements IRenderable
 		var ds : Dynamic = cast fmt.Deserialize(srl);						
 		trace(ds);
 		
-		
+		var mrd : MeshReader;
 	}
 	
 	public function OnRender():Void

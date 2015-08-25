@@ -110,6 +110,20 @@ class Mathf
 	static public inline var Float2Long			:Float32	= 4294967296.0;	
 	
 	/**
+	 * Returns true if the informed value is NAN.
+	 * @param	p_v
+	 * @return
+	 */
+	static public inline function IsNaN(p_v:Float32):Bool { return Math.isNaN(p_v); }
+	
+	/**
+	 * Returns true if the informed value is Finite.
+	 * @param	p_v
+	 * @return
+	 */
+	static public inline function IsFinite(p_v:Float32):Bool { return Math.isFinite(p_v); }
+	
+	/**
 	 * Returns true if the informed value is Power of Two.
 	 * @param	p_v
 	 * @return

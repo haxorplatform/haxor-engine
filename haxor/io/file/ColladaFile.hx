@@ -13,6 +13,7 @@ import haxor.core.Asset;
 import haxor.core.Console;
 import haxor.core.Entity;
 import haxor.core.Enums.BlendMode;
+import haxor.core.Enums.RenderQueue;
 import haxor.core.Resource;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
@@ -187,16 +188,19 @@ class ColladaFile extends AssetXML
 				if (mn.toLowerCase().indexOf("transparent") >= 0)
 				{
 					mat.blend = true;
+					mat.queue = RenderQueue.Transparent;
 					mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
 				}
 				if (mn.toLowerCase().indexOf("additivealpha") >= 0)
 				{
 					mat.blend = true;
+					mat.queue = RenderQueue.Transparent;
 					mat.SetBlending(BlendMode.SrcAlpha, BlendMode.One);
 				}
 				if (mn.toLowerCase().indexOf("additive") >= 0)
 				{
 					mat.blend = true;
+					mat.queue = RenderQueue.Transparent;
 					mat.SetBlending(BlendMode.One, BlendMode.One);
 				}
 				Asset.Add(mn, mat);

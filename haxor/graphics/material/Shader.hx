@@ -40,7 +40,14 @@ class Shader extends Resource
 	 * Generates a new Flat shader.
 	 */
 	static public var Flat(get_Flat, null):Shader;
-	static private inline function get_Flat():Shader { return (m_flat_shader == null ? (m_flat_shader = new Shader(ShaderContext.vs_flat,ShaderContext.fs_flat)) : m_flat_shader);	}
+	static private inline function get_Flat():Shader 
+	{ 
+		if (m_flat_shader != null) return m_flat_shader;
+		var shd : Shader = m_flat_shader = new Shader(ShaderContext.vs_flat, ShaderContext.fs_flat);
+		shd.name = "Flat";
+		shd.guid = "9a58ee0f9a784909addc215";				   
+		return shd;
+	}
 	static private var m_flat_shader : Shader;
 	
 	/**
@@ -49,7 +56,11 @@ class Shader extends Resource
 	static public var FlatTexture(get_FlatTexture, null):Shader;
 	static private inline function get_FlatTexture():Shader 
 	{ 
-		return (m_flat_texture_shader == null ? (m_flat_texture_shader = new Shader(ShaderContext.vs_flat_texture,ShaderContext.fs_flat_texture)) : m_flat_texture_shader);			
+		if (m_flat_texture_shader != null) return m_flat_texture_shader;
+		var shd : Shader = m_flat_texture_shader = new Shader(ShaderContext.vs_flat_texture, ShaderContext.fs_flat_texture);
+		shd.name = "FlatTexture";
+		shd.guid = "2a501691270e420b8b894f2";				   
+		return shd;
 	}
 	static private var m_flat_texture_shader : Shader;
 	
@@ -60,7 +71,11 @@ class Shader extends Resource
 	static private inline function get_FlatTextureSkin():Shader 
 	{ 
 		if (m_flat_texture_skin_shader != null) return m_flat_texture_skin_shader;		
-		var shd : Shader = m_flat_texture_skin_shader = new Shader(ShaderContext.vs_flat_skin_texture,ShaderContext.fs_flat_skin_texture);
+		var shd : Shader = m_flat_texture_skin_shader = new Shader();
+		shd.name = "FlatTextureSkin";
+		shd.guid = "9ff884fd32ae4e9fa023def";
+		shd.vertex 	 = ShaderContext.vs_flat_skin_texture;
+		shd.fragment = ShaderContext.fs_flat_skin_texture;
 		shd.preprocessor += "#define MAX_BONES " + GL.MAX_UNIFORM_BONES + "\n";
 		if (GL.BONE_TEXTURE) shd.preprocessor += "#define BONE_TEXTURE\n";		
 		shd.Compile();
@@ -72,7 +87,14 @@ class Shader extends Resource
 	 * Generates a new Flat shader for particles.	 
 	 */
 	static public var FlatParticle(get_FlatParticle, null):Shader;
-	static private inline function get_FlatParticle():Shader { return (m_flat_particle_shader == null ? (m_flat_particle_shader = new Shader(ShaderContext.vs_flat_particle,ShaderContext.fs_flat_particle)) : m_flat_particle_shader);	}
+	static private inline function get_FlatParticle():Shader 
+	{ 
+		if (m_flat_particle_shader != null) return m_flat_particle_shader;		
+		var shd : Shader = m_flat_particle_shader = new Shader(ShaderContext.vs_flat_particle, ShaderContext.fs_flat_particle);
+		shd.name = "FlatParticle";
+		shd.guid = "3cdfaa96235342a82a670cd";				   
+		return shd;		
+	}
 	static private var m_flat_particle_shader : Shader;
 	
 	
