@@ -1,6 +1,8 @@
 #if html
 
 package haxor.platform.html.graphics.mesh;
+import haxor.math.Matrix4;
+import haxor.graphics.mesh.MeshLayout.SkinnedMesh3;
 import haxor.thread.Activity;
 import haxor.core.Enums.MeshMode;
 import haxor.math.Mathf;
@@ -17,6 +19,7 @@ import js.html.Image;
 import js.html.Blob;
 import haxor.graphics.Bitmap;
 import haxor.io.Buffer;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that handles the conversion of a Mesh files raw bytes into a Mesh.
@@ -54,10 +57,11 @@ class MeshWriter
 		
 		var p			: Int = 0;
 		
-		header += m.guid 	  + var_sep;
-		header += m.name 	  + var_sep;
-		header += m.mode 	  + var_sep;
-		header += m.primitive + var_sep;
+		header += m.GetTypeFullName() + var_sep;
+		header += m.guid 	  		  + var_sep;
+		header += m.name 	  		  + var_sep;		
+		header += m.mode 	  		  + var_sep;
+		header += m.primitive 		  + var_sep;
 		
 		var al : Array<String> = m.attribs;
 		var bl : Array<Buffer> = [];
@@ -75,6 +79,16 @@ class MeshWriter
 			bl.push(b);
 			attrib_length += len;
 		}
+		
+		if (Std.is(m, SkinnedMesh3))
+		{
+			var skm : SkinnedMesh3   = cast m;
+			var ml  : Array<Matrix4> = skm.binds;
+			var f32 : Array<Float32> = [];
+			for (i in 0...ml.length) for (j in 0...16) f32.push(ml[i].GetIndex(j));
+			header += f32.join(",") + var_sep;
+		}
+		
 		
 		var res : Buffer = new Buffer(header.length + 1 + attrib_length);
 				

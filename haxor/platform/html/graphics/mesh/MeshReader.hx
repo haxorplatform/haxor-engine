@@ -1,6 +1,8 @@
 #if html
 
 package haxor.platform.html.graphics.mesh;
+import haxor.math.Matrix4;
+import haxor.graphics.mesh.MeshLayout.SkinnedMesh3;
 import haxor.io.FloatArray;
 import haxor.io.UInt16Array;
 import haxor.thread.Activity;
@@ -19,6 +21,7 @@ import js.html.Image;
 import js.html.Blob;
 import haxor.graphics.Bitmap;
 import haxor.io.Buffer;
+import haxor.platform.Types.Float32;
 
 /**
  * Class that handles the conversion of a Mesh files raw bytes into a Mesh.
@@ -63,20 +66,44 @@ class MeshReader
 		var attrib_sep : String = String.fromCharCode(5);
 		
 		var tokens 			 : Array<String> = header.split(var_sep);
-		var mesh_guid 		 : String 		 = tokens.length <= 0 ? "" : tokens[0];
-		var mesh_name   	 : String        = tokens.length <= 1 ? "" : tokens[1];
-		var mesh_mode   	 : Int        	 = tokens.length <= 2 ? MeshMode.StaticDraw    : Std.parseInt(tokens[2]);		
-		var mesh_primitive   : Int        	 = tokens.length <= 3 ? MeshPrimitive.Triangles: Std.parseInt(tokens[3]);
+		var mesh_type_name	 : String 		 = tokens.length <= 0 ? "" : tokens[0];
+		var mesh_type		 : Class<Mesh>   = cast Type.resolveClass(mesh_type_name);
+		if (mesh_type == null) return null;
+		var mesh_guid 		 : String 		 = tokens.length <= 1 ? "" : tokens[1];
+		var mesh_name   	 : String        = tokens.length <= 2 ? "" : tokens[2];
+		var mesh_mode   	 : Int        	 = tokens.length <= 3 ? MeshMode.StaticDraw    : Std.parseInt(tokens[3]);		
+		var mesh_primitive   : Int        	 = tokens.length <= 4 ? MeshPrimitive.Triangles: Std.parseInt(tokens[4]);
 		if (Math.isNaN(mesh_mode)) 		mesh_mode 		= MeshMode.StaticDraw;
-		if (Math.isNaN(mesh_primitive)) mesh_primitive  = MeshPrimitive.Triangles;
-		var mesh_attribs	 : String		 = tokens.length <= 4 ? "" : tokens[4];
+		if (Math.isNaN(mesh_primitive)) mesh_primitive  = MeshPrimitive.Triangles;		
+		var mesh_attribs	 : String		 = tokens.length <= 5 ? "" : tokens[5];
+		var mesh_binds		 : String        = tokens.length <= 6 ? "" : tokens[6];
 		
-		tokens = mesh_attribs.split(buff_sep);
 		
-		var mesh : Mesh = new Mesh(mesh_name);
+		var mesh : Mesh = Type.createInstance(mesh_type,[mesh_name]);
 		mesh.mode 		= mesh_mode;
 		mesh.primitive	= mesh_primitive;
 		mesh.guid		= mesh_guid;
+		
+		if (Std.is(mesh, SkinnedMesh3))
+		{
+			var bf32 : FloatArray = FloatArray.Parse(mesh_binds, ",");
+			var mc : Int = Std.int(bf32.length / 16);
+			var mp : Int = 0;
+			var ml : Array<Matrix4> = [];
+			for (i in 0...mc)
+			{
+				var f32:Array<Float32> = [];
+				for (j in 0...16)
+				{
+					f32.push(bf32.Get(p++));
+				}
+				ml.push(Matrix4.FromArray(f32));
+			}
+			var skm : SkinnedMesh3 = cast mesh;
+			skm.binds = ml;
+		}
+		
+		tokens = mesh_attribs.split(buff_sep);
 		
 		var attribs : Array<String> = [];		
 		var offsets : Array<Int>    = [];
