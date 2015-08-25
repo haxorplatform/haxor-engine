@@ -555,7 +555,7 @@ class MaterialContext
 			var m : Material = Material.list[i];
 			if (m.shader == s)
 			{
-				Console.Log("Match ["+m.name+"]");
+				//Console.Log("Match ["+m.name+"]");
 				m.shader = s;
 			}
 		}

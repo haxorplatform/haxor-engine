@@ -307,6 +307,7 @@ class Camera extends Behaviour implements IResizeable
 		m_projection_dirty			= true;	
 		m_view_uniform_dirty		= true;
 		m_proj_uniform_dirty		= true;
+		m_captureDepth				= false;
 		
 		m_mode = CameraMode.Perspective;
 		

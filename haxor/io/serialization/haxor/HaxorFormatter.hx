@@ -18,7 +18,7 @@ import haxor.platform.Types.Float32;
  * Class that implements the serialization of data using the Haxor json format.
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
-class HaxorFormatter extends Formatter
+class HaxorFormatter extends DeprecFormatter
 {
 	
 	/**
@@ -69,7 +69,7 @@ class HaxorFormatter extends Formatter
 		Clean(cast p_root);		
 		return Json.stringify(p_root, function(k:Dynamic, v:Dynamic):Dynamic { return v; },m_has_tabs ? " " : null);		
 	}
-	
+		
 	/**
 	 * Remove unnused fields.
 	 * @param	n

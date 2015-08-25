@@ -8,10 +8,13 @@ import haxor.core.Enums.DepthTest;
 import haxor.core.Enums.RenderQueue;
 import haxor.graphics.material.Material.MaterialUniform;
 import haxor.graphics.texture.Texture;
+import haxor.graphics.texture.Texture2D;
 import haxor.io.Buffer;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
+import haxor.io.serialization.DeprecFormatter;
 import haxor.io.serialization.Formatter;
+import haxor.io.serialization.HaxorFormatter;
 import haxor.io.serialization.ISerializable;
 import haxor.io.serialization.SerializedData;
 import haxor.io.serialization.SerializedField;
@@ -600,48 +603,44 @@ class Material extends Resource implements ISerializable
 	 * @param	p_field
 	 * @return
 	 */
-	public function OnSerializeField(p_field:SerializedField,p_fmt:Formatter):String { return null; }
+	public function OnSerializeField(p_formatter:Formatter,p_field : String,p_value:Dynamic):String { return null; }
 	
 	/**
 	 * Callback called when a field should be deserialized in a different way.
 	 * @param	p_field
 	 * @return
 	 */
-	public function OnDeserializeField(p_field:SerializedField,p_fmt:Formatter):Bool
+	public function OnDeserializeField(p_formatter:Formatter,p_field : String,p_value:Dynamic):Bool
 	{
-		var fmt : Formatter = p_fmt;
-		var uf: SerializedField = p_field;
-		var m : Material = this;
-		switch(uf.name)
+		var fmt : Formatter = p_formatter;		
+		var m 	: Material  = this;
+		switch(p_field)
 		{
 			case "uniforms":
 			{
-				var unl : Array<SerializedData> = cast uf.value;
-				var f : SerializedField;
+				var unl : Array<Dynamic> = cast p_value;
+				
 				
 				for (i in 0...unl.length)
 				{			
-					var un 			: SerializedData = unl[i];
-					var name 	    : String  = fmt.GetField(un,"name").value;
-					f = fmt.GetField(un,"texture");
-					if (f!=null)
-					{	
-						var texture	: Texture = cast Formatter.FromString(f.value, f.type);
-						if (texture != null)
-						{					
-							m.SetTexture(name, texture);
-						}
+					var un 				: Dynamic = unl[i];
+					var name 	    	: String  = fmt.FromEncodedString(un.name);
+					var texture			: Dynamic = fmt.FromEncodedString(un.texture);
+					
+					if (texture!=null)
+					{							
+						m.SetTexture(name, texture);
 					}			
 					else
 					{				
-						var offset	   : Int 	 = Std.parseInt(fmt.GetField(un,"offset").value);				
-						var data	   : String  = fmt.GetField(un,"data").value;
-						var is_float   : Bool    = fmt.GetField(un,"isFloat").value == "true";
-						var transposed : Bool    = fmt.GetField(un,"transposed").value == "true";
+						var offset	   : Int 	 = cast fmt.FromEncodedString(un.offset);
+						var data	   : Buffer  = cast fmt.FromEncodedString(un.data);
+						var is_float   : Bool    = cast fmt.FromEncodedString(un.isFloat);
+						var transposed : Bool    = cast fmt.FromEncodedString(un.transposed);
 					
 						if (is_float)
 						{
-							var b 			: FloatArray 		= FloatArray.Parse(data, ",", true);
+							var b 			: FloatArray 		= cast data;
 							var is_array 	: Bool     			= (b.length > offset);
 							var l 			: Array<Float32>  	= is_array ? b.ToArray() : null;
 							
@@ -656,7 +655,7 @@ class Material extends Resource implements ISerializable
 						}
 						else
 						{
-							var b 			: Int32Array 	= Int32Array.Parse(data, ",", true);
+							var b 			: Int32Array 	= cast data;
 							var is_array 	: Bool 			= (b.length > offset);
 							var l 			: Array<Int>  	= is_array ? b.ToArray() : null;
 							switch(offset)
@@ -669,9 +668,12 @@ class Material extends Resource implements ISerializable
 						}				
 					}
 				}
+				//*/
+				
 				return true;
 			}
 		}		
+		//*/
 		return false;
 	}
 	

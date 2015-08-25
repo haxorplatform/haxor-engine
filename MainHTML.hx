@@ -1,10 +1,13 @@
 #if html
 
 package ;
-import haxor.context.ShaderContext;
-import haxor.io.serialization.haxor.HaxorFormatter;
-import haxe.Json;
 import haxor.io.serialization.Formatter;
+import haxor.component.Behaviour;
+import haxe.rtti.Meta;
+import haxor.context.ShaderContext;
+import haxor.io.serialization.HaxorFormatter;
+import haxe.Json;
+import haxor.io.serialization.DeprecFormatter;
 import js.html.EventTarget;
 import haxor.platform.html.input.DragDrop;
 import js.html.Uint8Array;
@@ -92,6 +95,28 @@ import haxor.platform.Types.MeshBufferId;
 import haxor.thread.Activity;
 import js.Browser;
 
+class DataBehaviour extends Behaviour
+{
+	@serialize
+	public var nodes : Array<Transform>;
+	
+	@serialize
+	public var ids : Array<Int>;
+	
+	override function OnBuild():Void 
+	{
+		nodes = [];
+		ids = [];
+		for (i in 0...10)
+		{
+			var e : Entity = new Entity("C" + i);
+			e.transform.parent = transform;
+			nodes.push(e.transform);
+			ids.push(e.uid);
+		}
+	}
+}
+
 class MainHTML extends Application implements IRenderable
 {	
 	static public function main():Void {  EntryPoint.Initialize(); }
@@ -101,24 +126,33 @@ class MainHTML extends Application implements IRenderable
 		Console.Log(platform + "> Application Initialize");
 		
 		var s0 : Shader = Shader.FlatTexture;
-		
-		trace(HaxorFormatter.ToString(s0));
+		var s1 : Shader = Shader.Flat;
 		
 		var mat : Material = new Material("Flat");
 		mat.shader = s0;
 		mat.SetTexture("DiffuseTexture", Texture2D.random);
 		mat.SetColor("Tint", Color.red50);
 		
+		var db : DataBehaviour = (new Entity("DE")).AddComponent(DataBehaviour);
+		
 		var sphere : MeshRenderer = (new Entity("sphere")).AddComponent(MeshRenderer);
 		sphere.mesh = Model.sphere;
 		sphere.material = Resource.Instantiate(mat);
-		
-		trace(sphere.material.name);
 		
 		var o : CameraOrbit = CameraOrbit.Create(4.0, 45, 45);				
 		o.camera.background = new Color(0.2, 0.2, 0.2);
 		var ci : CameraOrbitInput = o.AddComponent(CameraOrbitInput);
 	
+		var fmt : HaxorFormatter = new HaxorFormatter();
+		
+		var srl : String;
+		var d : Dynamic = db.entity;// [s0, s1, mat];
+		trace(d);
+		trace("====");
+		srl = fmt.Serialize(d);		
+		var ds : Dynamic = cast fmt.Deserialize(srl);						
+		trace(ds);
+		
 		
 	}
 	

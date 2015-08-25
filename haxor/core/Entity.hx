@@ -9,6 +9,7 @@ import haxor.component.physics.RigidBody;
 import haxor.component.Renderer;
 import haxor.component.Transform;
 import haxor.context.EngineContext;
+import haxor.io.serialization.DeprecFormatter;
 import haxor.io.serialization.Formatter;
 import haxor.io.serialization.ISerializable;
 import haxor.io.serialization.SerializedData;
@@ -105,7 +106,7 @@ class Entity extends Resource implements ISerializable
 	/**
 	 * Component list of this entity.
 	 */
-	@serialize
+	@serialize(false)
 	private var m_components : Array<Component>;
 	
 	
@@ -228,7 +229,7 @@ class Entity extends Resource implements ISerializable
 	 * @param	p_fields
 	 * @return
 	 */
-	public function OnSerializeField(p_field : SerializedField, p_fmt : Formatter):String { return null; }
+	public function OnSerializeField(p_formatter:Formatter,p_field : String,p_value:Dynamic):String { return null; }
 		
 	/**
 	 * Callback called when the deserialization is processing the input data and finds a field and its value.
@@ -237,32 +238,45 @@ class Entity extends Resource implements ISerializable
 	 * @param	p_fields
 	 * @return
 	 */
-	public function OnDeserializeField(p_field : SerializedField, p_fmt : Formatter):Bool
+	public function OnDeserializeField(p_formatter:Formatter,p_field:String,p_value:Dynamic):Bool
 	{
-		var mcf : SerializedField = p_field;
-		switch(p_field.name)
+		var fmt : Formatter = p_formatter;
+		
+		switch(p_field)
 		{
 			case "m_components":
 			{				
-				var cnl : Array<SerializedData> = cast mcf.value;
+				
+				var cnl : Array<Dynamic> = cast p_value;
 				for (i in 0...cnl.length)
 				{
-					var cn : SerializedData 	= cnl[i];			
-					var ct : Class<Component> 	= cast Type.resolveClass(cn.type);					
+					var cn : FormatterData 		= cnl[i];			
+					var ct : Class<Component> 	= cast cn.GetType();
 					if (ct == null) continue;					
-					var c 	: Component 				 = AddComponent(ct);
-					var cfl : Array<SerializedField> 	 = cast cn.fields;					
-					for (j in 0...cfl.length)
-					{
-						var cf : SerializedField = cfl[j];
-						p_fmt.DeserializeField(cf, c);
-					}
+					var c 	: Component 		= AddComponent(ct);
 					
-					if (Std.is(c, Transform)) { var t:Transform = cast c; t.parent = null; }
+					var fields : Array<String> = cn.GetFields();
+					for (i in 0...fields.length)
+					{
+						var field_name		: String  = fields[i];
+						if (field_name.charAt(0) == "$") continue;
+						var field_value 	: Dynamic = Reflect.getProperty(cn,field_name);
+						var field_input 	: String  = null;
+						if (Std.is(field_value, String))
+						{
+							field_input = fmt.FromEncodedString(field_value);
+						}
+						else
+						{
+							field_input = fmt.FromObject(field_value);
+						}
+						if(field_name!="guid") Reflect.setProperty(c, field_name, field_input);
+					}					
 				}
 				return true;
 			}
 		}
+		//*/
 		return false;
 	}
 	

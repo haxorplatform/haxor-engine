@@ -1,6 +1,6 @@
 package haxor.io.serialization;
-import haxor.io.serialization.Formatter.FormatterField;
-import haxor.io.serialization.Formatter.FormatterNode;
+import haxor.io.serialization.DeprecFormatter.FormatterField;
+import haxor.io.serialization.DeprecFormatter.FormatterNode;
 
 /**
  * Interface that describes a class capable of handling special cases of serialization of variables.
@@ -16,7 +16,7 @@ interface ISerializable
 	 * @param	p_fields
 	 * @return
 	 */
-	public function OnSerializeField(p_field : SerializedField,p_fmt : Formatter):String;
+	public function OnSerializeField(p_formatter:Formatter,p_field : String,p_value:Dynamic):String;
 		
 	/**
 	 * Callback called when the deserialization is processing the input data and finds a field and its value.
@@ -25,6 +25,6 @@ interface ISerializable
 	 * @param	p_fields
 	 * @return
 	 */
-	public function OnDeserializeField(p_field : SerializedField,p_fmt : Formatter):Bool;
+	public function OnDeserializeField(p_formatter:Formatter,p_field:String,p_value:Dynamic):Bool;
 	
 }

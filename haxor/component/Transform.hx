@@ -445,11 +445,22 @@ class Transform extends Component
 	public function GetChild(p_index : Int) : Transform { return m_hierarchy[p_index]; }
 	
 	/**
-	 * Returns a child with the specified name.
+	 * Returns a child with the specified name. If 'deep' is specified, the whole hierarchy is searched.
 	 * @param	p_index
 	 */
-	public function GetChildByName(p_name : String) : Transform 
+	public function GetChildByName(p_name : String,p_deep:Bool=false) : Transform 
 	{
+		if (p_deep)
+		{
+			var res : Transform = null;
+			transform.Traverse(function(t:Transform, d:Int):Bool
+			{
+				if (res != null) return false;
+				if (t.name == p_name) { res = t; return false; }				
+				return true;
+			});
+			return res;
+		}		
 		for (i in 0...m_hierarchy.length) if (m_hierarchy[i].name == p_name) return m_hierarchy[i];
 		return null;		
 	}

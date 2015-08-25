@@ -21,6 +21,7 @@ class Texture2D extends Texture
 	{
 		if (m_random != null) return m_random;		
 		m_random = new Texture2D(128, 128, PixelFormat.Float4);
+		m_random.guid = "f5b6613296264289886170b6";		
 		m_random.name = "Random";		
 		m_random.wrap = TextureWrap.RepeatX | TextureWrap.RepeatY | TextureWrap.RepeatZ;
 		var f32 : FloatArray = cast m_random.data.buffer;
@@ -38,6 +39,7 @@ class Texture2D extends Texture
 	{
 		if (m_white != null) return m_white;
 		m_white = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_white.guid = "426a40e6e13240aba5bfced6";
 		m_white.name = "White";
 		m_white.data.Fill(Color.white);
 		m_white.Apply();
@@ -53,6 +55,7 @@ class Texture2D extends Texture
 	{
 		if (m_black != null) return m_black;
 		m_black = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_black.guid = "025017810c2e4299ba074cc9";
 		m_black.name = "Black";
 		m_black.data.Fill(Color.black);
 		m_black.Apply();
@@ -68,6 +71,7 @@ class Texture2D extends Texture
 	{
 		if (m_gray50 != null) return m_gray50;
 		m_gray50 = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_gray50.guid = "964313fee53d4e1eab9fb43b";
 		m_gray50.name = "Gray50";
 		m_gray50.data.Fill(Color.gray50);
 		m_gray50.Apply();
@@ -83,6 +87,7 @@ class Texture2D extends Texture
 	{
 		if (m_gray25 != null) return m_gray25;
 		m_gray25 = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_gray25.guid = "5dccf7a1f560400dbe301243";				
 		m_gray25.name = "Gray25";
 		m_gray25.data.Fill(Color.gray25);
 		m_gray25.Apply();
@@ -100,7 +105,8 @@ class Texture2D extends Texture
 	{
 		if (m_red != null) return m_red;
 		m_red = new Texture2D(1, 1, PixelFormat.RGB8);
-		m_red.name = "Red";
+		m_red.guid = "9073897a35f14fc3afeaef7a";
+		m_red.name = "Red";		
 		m_red.data.Fill(Color.red);
 		m_red.Apply();
 		return m_red;
@@ -115,6 +121,7 @@ class Texture2D extends Texture
 	{
 		if (m_green != null) return m_green;
 		m_green = new Texture2D(1, 1, PixelFormat.RGB8);
+		m_green.guid = "9a31dce6b7964314b9673d56";
 		m_green.name = "Green";
 		m_green.data.Fill(Color.green);
 		m_green.Apply();

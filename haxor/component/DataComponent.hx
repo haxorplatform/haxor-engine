@@ -11,7 +11,7 @@ class DataComponent extends Component
 	/**
 	 * Creates a new DataComponent.
 	 */
-	public function new() { super(); data = new Map<String,Dynamic>(); }
+	public function new() { super(); data = {}; }
 	
 	/**
 	 * Reference of container of this instance data.

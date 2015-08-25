@@ -27,20 +27,36 @@ class SkinnedMeshRenderer extends MeshRenderer
 {	
 	/**
 	 * Array of joints that will act as skeleton of this renderer.
-	 */
-	public var joints(get_joints,set_joints)  : Array<Transform>;
+	 */	
+	public var joints(get,set)  : Array<Transform>;
 	private function set_joints(v:Array<Transform>):Array<Transform> 
-	{ 		
-		m_joints = v == null ? [] : v;
+	{ 	
+		m_joints = v == null ? [] : v;		
+		m_joint_names = [];
+		for (i in 0...m_joints.length) m_joint_names.push(m_joints[i].name);		
 		m_jf32   = [];				
 		for (i in 0...m_joints.length) for (j in 0...12) m_jf32.push(m_joints[i].WorldMatrix.GetIndex(j));		
 		UpdateSkinTexture(m_joints.length);
 		if(!GL.BONE_TEXTURE) if (m_joints.length > GL.MAX_UNIFORM_BONES) Console.LogWarning("SkinnedMeshRenderer> ["+name+"] max bone count exceeded!");
 		return m_joints; 
 	}
-	private inline function get_joints():Array<Transform> { return m_joints; }
+	private function get_joints():Array<Transform> 
+	{ 
+		if (m_joints == null)
+		{			
+			if (m_joint_names == null) return [];
+			m_joints = [];
+			for (i in 0...m_joint_names.length) 
+			{
+				var t : Transform = transform.GetChildByName(m_joint_names[i], true);
+				if (t != null) m_joints.push(t);
+			}
+		}
+		return m_joints;
+	}
 	@serialize
-	private var m_joints : Array<Transform>;
+	private var m_joint_names 	: Array<String>;
+	private var m_joints 		: Array<Transform>;
 	
 	/**
 	 * Overrides mesh set to handle binds matrix values.
@@ -100,12 +116,12 @@ class SkinnedMeshRenderer extends MeshRenderer
 	 */
 	override function OnBuild():Void 
 	{
-		__smid   = -1;
+		__smid   		= -1;
 		super.OnBuild();
-		m_joints = [];		
-		m_bmf32  = [];
-		m_jf32   = [];
-		m_quality = BoneQuality.Bone2;
+		m_joint_names 	= [];
+		m_bmf32  		= [];
+		m_jf32   		= [];
+		m_quality 		= BoneQuality.Bone2;
 		//m_jt     = new ComputeTexture(32, 16, PixelFormat.Float4);
 		//m_bmt    = new ComputeTexture(32, 16, PixelFormat.Float4);
 	}
@@ -114,9 +130,10 @@ class SkinnedMeshRenderer extends MeshRenderer
 	{	
 		if (material != null)
 		{	
-			var k 	: Int = 0;			
+			var k 	: Int = 0;
+			var jl  : Array<Transform> = joints;
 			//Transfer the joint matrix data to the array.
-			for (i in 0...m_joints.length) for (j in 0...12)  m_jf32[k++] = m_joints[i].WorldMatrix.GetIndex(j);
+			for (i in 0...jl.length) for (j in 0...12)  m_jf32[k++] = jl[i].WorldMatrix.GetIndex(j);
 				
 			if (GL.BONE_TEXTURE)
 			{				

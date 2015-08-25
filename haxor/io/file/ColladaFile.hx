@@ -335,7 +335,7 @@ class ColladaFile extends AssetXML
 						{
 							for(i in 0...10) mn = StringTools.replace(mn, "_"+i, ""); //Maybe 10 checks will hold?
 							mn = StringTools.replace(mn, "_", "/");
-							var mat : Material = Asset.Get(mn);							
+							var mat : Material = Asset.Get(mn);
 							mr.material = mat;
 						}
 					}					
@@ -356,8 +356,10 @@ class ColladaFile extends AssetXML
 				if (joint_transforms[k].name == cc.joints[j])
 				{
 					//trace(joint_transforms[k].name + " " + j);
-					//skr.jointsm.push(joint_nodes[k].world);
-					skr.joints.push(joint_transforms[k]);				
+					//skr.jointsm.push(joint_nodes[k].world);					
+					//skr.joints.push(joint_transforms[k]);	
+					skr.m_joint_names.push(cc.joints[j]);
+					
 				}
 			}
 			//skr.ApplyBinds();
