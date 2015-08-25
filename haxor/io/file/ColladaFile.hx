@@ -182,26 +182,34 @@ class ColladaFile extends AssetXML
 			
 			if (mat == null)
 			{
-				mat = new Material();
-				mat.name = mn;
-				mat.shader = mn.toLowerCase().indexOf("skin") >=0 ? Shader.FlatTextureSkin : Shader.FlatTexture;
 				if (mn.toLowerCase().indexOf("transparent") >= 0)
 				{
-					mat.blend = true;
-					mat.queue = RenderQueue.Transparent;
+					mat        = Material.Transparent();	
+					mat.guid   = "";
+					mat.blend  = true;
+					mat.queue  = RenderQueue.Transparent;
 					mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
 				}
 				if (mn.toLowerCase().indexOf("additivealpha") >= 0)
 				{
+					mat       = Material.AdditiveAlpha();
+					mat.guid  = "";
 					mat.blend = true;
 					mat.queue = RenderQueue.Transparent;
 					mat.SetBlending(BlendMode.SrcAlpha, BlendMode.One);
 				}
 				if (mn.toLowerCase().indexOf("additive") >= 0)
 				{
+					mat       = Material.Additive();
+					mat.guid  = "";
 					mat.blend = true;
 					mat.queue = RenderQueue.Transparent;
 					mat.SetBlending(BlendMode.One, BlendMode.One);
+				}
+				if (mat != null)
+				{
+					mat.name   = mn;					
+					mat.shader = mn.toLowerCase().indexOf("skin") >=0 ? Shader.FlatTextureSkin : Shader.FlatTexture;
 				}
 				Asset.Add(mn, mat);
 			}			
@@ -228,7 +236,7 @@ class ColladaFile extends AssetXML
 			{				
 				if (joint_root == null)
 				{
-					joint_root = n.parent.name;					
+					joint_root = n.parent==null ? re.name : n.parent.name;
 				}
 				joint_transforms.push(ne.transform);
 				joint_nodes.push(n);	

@@ -45,7 +45,7 @@ class Shader extends Resource
 		if (m_flat_shader != null) return m_flat_shader;
 		var shd : Shader = m_flat_shader = new Shader(ShaderContext.vs_flat, ShaderContext.fs_flat);
 		shd.name = "Flat";
-		shd.guid = "9a58ee0f9a784909addc215";				   
+		shd.guid = "9a58ee0f9a784909addc215a";				   
 		return shd;
 	}
 	static private var m_flat_shader : Shader;
@@ -59,7 +59,7 @@ class Shader extends Resource
 		if (m_flat_texture_shader != null) return m_flat_texture_shader;
 		var shd : Shader = m_flat_texture_shader = new Shader(ShaderContext.vs_flat_texture, ShaderContext.fs_flat_texture);
 		shd.name = "FlatTexture";
-		shd.guid = "2a501691270e420b8b894f2";				   
+		shd.guid = "2a501691270e420b8b894f2a";				   
 		return shd;
 	}
 	static private var m_flat_texture_shader : Shader;
@@ -73,7 +73,7 @@ class Shader extends Resource
 		if (m_flat_texture_skin_shader != null) return m_flat_texture_skin_shader;		
 		var shd : Shader = m_flat_texture_skin_shader = new Shader();
 		shd.name = "FlatTextureSkin";
-		shd.guid = "9ff884fd32ae4e9fa023def";
+		shd.guid = "9ff884fd32ae4e9fa023defa";
 		shd.vertex 	 = ShaderContext.vs_flat_skin_texture;
 		shd.fragment = ShaderContext.fs_flat_skin_texture;
 		shd.preprocessor += "#define MAX_BONES " + GL.MAX_UNIFORM_BONES + "\n";
@@ -92,7 +92,7 @@ class Shader extends Resource
 		if (m_flat_particle_shader != null) return m_flat_particle_shader;		
 		var shd : Shader = m_flat_particle_shader = new Shader(ShaderContext.vs_flat_particle, ShaderContext.fs_flat_particle);
 		shd.name = "FlatParticle";
-		shd.guid = "3cdfaa96235342a82a670cd";				   
+		shd.guid = "3cdfaa96235342a82a670cda";				   
 		return shd;		
 	}
 	static private var m_flat_particle_shader : Shader;

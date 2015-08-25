@@ -75,8 +75,9 @@ class MeshReader
 		var mesh_primitive   : Int        	 = tokens.length <= 4 ? MeshPrimitive.Triangles: Std.parseInt(tokens[4]);
 		if (Math.isNaN(mesh_mode)) 		mesh_mode 		= MeshMode.StaticDraw;
 		if (Math.isNaN(mesh_primitive)) mesh_primitive  = MeshPrimitive.Triangles;		
-		var mesh_attribs	 : String		 = tokens.length <= 5 ? "" : tokens[5];
-		var mesh_binds		 : String        = tokens.length <= 6 ? "" : tokens[6];
+		var mesh_binds		 : String        = tokens.length <= 5 ? "" : tokens[5];
+		var mesh_attribs	 : String		 = tokens.length <= 6 ? "" : tokens[6];
+		
 		
 		
 		var mesh : Mesh = Type.createInstance(mesh_type,[mesh_name]);

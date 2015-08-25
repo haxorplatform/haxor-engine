@@ -259,15 +259,22 @@ class Entity extends Resource implements ISerializable
 						if (field_name.charAt(0) == "$") continue;
 						var field_value 	: Dynamic = Reflect.getProperty(cn,field_name);
 						var field_input 	: String  = null;
+						var field_type_name : String  = "";
 						if (Std.is(field_value, String))
-						{
-							field_input = fmt.FromEncodedString(field_value);
-							if (field_name == "parent") trace(field_value+" " + field_input);
+						{							
+							field_type_name = fmt.CodeToTypeName(field_value);
+							field_input = fmt.FromEncodedString(field_value);							
 						}
 						else
 						{
 							field_input = fmt.FromObject(field_value);
 						}
+						
+						if (field_name == "material")
+						{
+							//trace(c.name+" guid["+field_value+"] res["+field_input+"]");
+						}
+						
 						Reflect.setProperty(c, field_name, field_input);											
 					}					
 				}

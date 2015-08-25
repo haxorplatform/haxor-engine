@@ -207,7 +207,7 @@ class SkinnedMeshRenderer extends MeshRenderer
 		if (m_jt != null)  Resource.Destroy(m_jt);
 		if (m_bmt != null) Resource.Destroy(m_bmt);
 		var ts : Vector2 = GetSkinTexSize(p_joint_count);
-		m_jt = new ComputeTexture(cast ts.x,cast  ts.y, PixelFormat.Float4);
+		m_jt  = new ComputeTexture(cast ts.x,cast  ts.y, PixelFormat.Float4);
 		m_bmt = new ComputeTexture(cast ts.x, cast  ts.y, PixelFormat.Float4);		
 	}
 	

@@ -63,6 +63,18 @@ class MeshWriter
 		header += m.mode 	  		  + var_sep;
 		header += m.primitive 		  + var_sep;
 		
+		if (Std.is(m, SkinnedMesh3))
+		{
+			var skm : SkinnedMesh3   = cast m;
+			var ml  : Array<Matrix4> = skm.binds;
+			trace(ml);
+			var f32 : Array<Float32> = [];
+			for (i in 0...ml.length) for (j in 0...16) f32.push(ml[i].GetIndex(j));
+			header += f32.join(",");
+		}
+		
+		header +=  var_sep;
+		
 		var al : Array<String> = m.attribs;
 		var bl : Array<Buffer> = [];
 		var attrib_length : Int = 0;
@@ -79,16 +91,6 @@ class MeshWriter
 			bl.push(b);
 			attrib_length += len;
 		}
-		
-		if (Std.is(m, SkinnedMesh3))
-		{
-			var skm : SkinnedMesh3   = cast m;
-			var ml  : Array<Matrix4> = skm.binds;
-			var f32 : Array<Float32> = [];
-			for (i in 0...ml.length) for (j in 0...16) f32.push(ml[i].GetIndex(j));
-			header += f32.join(",") + var_sep;
-		}
-		
 		
 		var res : Buffer = new Buffer(header.length + 1 + attrib_length);
 				
