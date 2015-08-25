@@ -135,14 +135,14 @@ class Formatter
 			if (isrl != null) 
 			{ 
 				var has_parsed : Bool = isrl.OnDeserializeField(this,field_name, field_value);				
-				if (has_parsed) {  continue; }
+				if (has_parsed) { continue; }
 			}
 			
 			var field_input : Dynamic = null;
 			
 			if (Std.is(field_value, String))
 			{
-				field_input = FromEncodedString(cast field_value);
+				field_input = FromEncodedString(cast field_value);				
 			}
 			else
 			{

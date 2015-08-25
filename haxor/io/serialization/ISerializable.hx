@@ -1,6 +1,4 @@
 package haxor.io.serialization;
-import haxor.io.serialization.DeprecFormatter.FormatterField;
-import haxor.io.serialization.DeprecFormatter.FormatterNode;
 
 /**
  * Interface that describes a class capable of handling special cases of serialization of variables.

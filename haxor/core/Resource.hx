@@ -3,7 +3,8 @@ import haxe.Timer;
 import haxor.component.Behaviour;
 import haxor.component.Component;
 import haxor.context.EngineContext;
-import haxor.io.serialization.haxor.HaxorFormatter;
+import haxor.io.serialization.HaxorFormatter;
+
 
 
 

@@ -265,12 +265,13 @@ class Entity extends Resource implements ISerializable
 						if (Std.is(field_value, String))
 						{
 							field_input = fmt.FromEncodedString(field_value);
+							if (field_name == "parent") trace(field_value+" " + field_input);
 						}
 						else
 						{
 							field_input = fmt.FromObject(field_value);
 						}
-						if(field_name!="guid") Reflect.setProperty(c, field_name, field_input);
+						Reflect.setProperty(c, field_name, field_input);											
 					}					
 				}
 				return true;
@@ -280,5 +281,13 @@ class Entity extends Resource implements ISerializable
 		return false;
 	}
 	
+	/**
+	 * Resets the guid of this entity and components.
+	 */
+	private function ResetGUID():Void
+	{
+		guid = "";
+		for (i in 0...m_components.length) m_components[i].guid = "";
+	}
 	
 }

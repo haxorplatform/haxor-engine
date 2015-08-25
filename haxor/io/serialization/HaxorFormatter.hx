@@ -1,4 +1,6 @@
 package haxor.io.serialization;
+import haxe.Json;
+import haxor.core.Entity;
 import haxor.core.Resource;
 import haxor.io.Buffer;
 import haxor.io.FloatArray;
@@ -12,6 +14,7 @@ import haxor.math.Quaternion;
 import haxor.math.Vector2;
 import haxor.math.Vector3;
 import haxor.math.Vector4;
+import haxor.io.serialization.Formatter;
 
 /**
  * Class that implements class serialization for Haxor's type and structures.
@@ -39,6 +42,25 @@ class HaxorFormatter extends Formatter
 		RegisterClass(Int32Array);
 		RegisterClass(UInt16Array);
 		RegisterClass(Buffer);		
+	}
+	
+	/**
+	 * PArses the text data and returns a typed instance of the serialized object.
+	 * @param	p_data
+	 * @return
+	 */
+	override public function Deserialize(p_data:String) : Dynamic
+	{
+		var d : Dynamic 	= Json.parse(p_data);				
+		var res : Dynamic   = FromObject(d);
+		if (Std.is(d, Array))
+		{
+			var l : Array<Dynamic> = cast res;
+			for (i in 0...l.length) if (Std.is(l[i], Entity)) { var e : Entity = cast l[i]; e.ResetGUID(); }
+		}
+		else
+		if (Std.is(res, Entity)) { var e : Entity = cast res; e.ResetGUID(); }
+		return res;
 	}
 	
 	/**

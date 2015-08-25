@@ -9,7 +9,6 @@ import haxe.rtti.Meta;
 import haxor.context.ShaderContext;
 import haxor.io.serialization.HaxorFormatter;
 import haxe.Json;
-import haxor.io.serialization.DeprecFormatter;
 import js.html.EventTarget;
 import haxor.platform.html.input.DragDrop;
 import js.html.Uint8Array;
