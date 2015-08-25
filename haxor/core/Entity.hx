@@ -9,11 +9,8 @@ import haxor.component.physics.RigidBody;
 import haxor.component.Renderer;
 import haxor.component.Transform;
 import haxor.context.EngineContext;
-import haxor.io.serialization.DeprecFormatter;
 import haxor.io.serialization.Formatter;
 import haxor.io.serialization.ISerializable;
-import haxor.io.serialization.SerializedData;
-import haxor.io.serialization.SerializedField;
 
 /**
  * Class that represents all entities in the application scope.
