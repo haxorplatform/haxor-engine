@@ -211,6 +211,7 @@ class SkinnedMeshRenderer extends MeshRenderer
 		m_bmt = new ComputeTexture(cast ts.x, cast  ts.y, PixelFormat.Float4);		
 	}
 	
+	
 	/**
 	 * Returns the ideal texture size for given joint count.
 	 * @param	p_joint_count
