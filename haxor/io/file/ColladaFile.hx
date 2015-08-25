@@ -183,7 +183,7 @@ class ColladaFile extends AssetXML
 			{
 				mat = new Material();
 				mat.name = mn;
-				mat.shader = Shader.FlatTexture;
+				mat.shader = mn.toLowerCase().indexOf("skin") >=0 ? Shader.FlatTextureSkin : Shader.FlatTexture;
 				if (mn.toLowerCase().indexOf("transparent") >= 0)
 				{
 					mat.blend = true;
