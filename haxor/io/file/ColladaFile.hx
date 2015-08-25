@@ -12,6 +12,7 @@ import haxor.component.Transform;
 import haxor.core.Asset;
 import haxor.core.Console;
 import haxor.core.Entity;
+import haxor.core.Enums.BlendMode;
 import haxor.core.Resource;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
@@ -175,7 +176,7 @@ class ColladaFile extends AssetXML
 			
 			var mn : String = m.name;
 			for(i in 0...10) mn = StringTools.replace(mn, "_"+i, "");
-			mn = StringTools.replace(mn, "_", "/");			
+			mn = StringTools.replace(mn, "_", "/");
 			var mat : Material = Asset.Get(mn);
 			
 			if (mat == null)
@@ -183,6 +184,21 @@ class ColladaFile extends AssetXML
 				mat = new Material();
 				mat.name = mn;
 				mat.shader = Shader.FlatTexture;
+				if (mn.toLowerCase().indexOf("transparent") >= 0)
+				{
+					mat.blend = true;
+					mat.SetBlending(BlendMode.SrcAlpha, BlendMode.OneMinusSrcAlpha);
+				}
+				if (mn.toLowerCase().indexOf("additivealpha") >= 0)
+				{
+					mat.blend = true;
+					mat.SetBlending(BlendMode.SrcAlpha, BlendMode.One);
+				}
+				if (mn.toLowerCase().indexOf("additive") >= 0)
+				{
+					mat.blend = true;
+					mat.SetBlending(BlendMode.One, BlendMode.One);
+				}
 				Asset.Add(mn, mat);
 			}			
 			mm.set(m, mat);

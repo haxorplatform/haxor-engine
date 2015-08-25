@@ -47,7 +47,10 @@ class Shader extends Resource
 	 * Generates a new Flat shader with a DiffuseTexture.
 	 */
 	static public var FlatTexture(get_FlatTexture, null):Shader;
-	static private inline function get_FlatTexture():Shader { return (m_flat_texture_shader == null ? (m_flat_texture_shader = new Shader(ShaderContext.vs_flat_texture,ShaderContext.fs_flat_texture)) : m_flat_texture_shader);	}
+	static private inline function get_FlatTexture():Shader 
+	{ 
+		return (m_flat_texture_shader == null ? (m_flat_texture_shader = new Shader(ShaderContext.vs_flat_texture,ShaderContext.fs_flat_texture)) : m_flat_texture_shader);			
+	}
 	static private var m_flat_texture_shader : Shader;
 	
 	/**
