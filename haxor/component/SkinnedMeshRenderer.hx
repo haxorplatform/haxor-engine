@@ -18,6 +18,7 @@ import haxor.math.Random;
 import haxor.math.Vector2;
 import haxor.platform.Types.Float32;
 
+
 /**
  * Class that renders a SkinnedMesh.
  * @author ...
@@ -41,22 +42,55 @@ class SkinnedMeshRenderer extends MeshRenderer
 		return m_joints; 
 	}
 	private function get_joints():Array<Transform> 
-	{ 
-		if (m_joints == null)
+	{ 	
+		if (m_joints == null) m_joints = [];
+		
+		if (m_joints.length != m_joint_names.length)
 		{			
 			if (m_joint_names == null) return [];
 			m_joints = [];
+			var rt : Transform = root;
 			for (i in 0...m_joint_names.length) 
 			{
-				var t : Transform = transform.GetChildByName(m_joint_names[i], true);
+				var jn : String = m_joint_names[i];
+				var t : Transform = rt.GetChildByName(jn, true);
 				if (t != null) m_joints.push(t);
-			}
+			}				
 		}
 		return m_joints;
 	}
 	@serialize
 	private var m_joint_names 	: Array<String>;
 	private var m_joints 		: Array<Transform>;
+	
+	/**
+	 * Root of the skeleton.
+	 */
+	public var root(get, set):Transform;
+	private function get_root():Transform
+	{
+		if (m_root == null)
+		{
+			if (m_root_name == "") return null;
+			var it : Transform = transform;
+			while (it != Transform.root)
+			{
+				it = it.parent;
+				m_root = it.GetChildByName(m_root_name, true);
+				if (m_root != null) break;				
+			}
+		}
+		return m_root;
+	}
+	private function set_root(v:Transform):Transform
+	{
+		m_root = v == null ? transform.parent : v;
+		m_root_name = m_root.name;
+		return v;
+	}
+	@serialize
+	private var m_root_name:String;
+	private var m_root : Transform;
 	
 	/**
 	 * Overrides mesh set to handle binds matrix values.

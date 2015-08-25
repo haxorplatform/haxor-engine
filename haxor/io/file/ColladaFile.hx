@@ -167,6 +167,7 @@ class ColladaFile extends AssetXML
 		var joint_transforms  : Array<Transform> 			= [];
 		var joint_nodes  	  : Array<ColladaNode> 			= [];				
 		var skinned_meshes 	  : Array<SkinnedMeshRenderer>  = [];
+		var joint_root		  : String						= null;
 		
 		for (i in 0...materials.length)
 		{
@@ -196,16 +197,22 @@ class ColladaFile extends AssetXML
 			ne.name 			= "node" + ne.uid;	
 			if (n.sid  != "") ne.name = n.sid;  else
 			if (n.id   != "") ne.name = n.id;   else			
-			if (n.name != "") ne.name = n.name;			
-			if (n.type == "joint")
-			{				
-				joint_transforms.push(ne.transform);
-				joint_nodes.push(n);				
-			}			
+			if (n.name != "") ne.name = n.name;						
+			
 			ne.transform.parent = pe.transform;						
 			ne.transform.localPosition	= n.position;
 			ne.transform.localRotation 	= n.rotation;			
 			ne.transform.localScale 	= n.scale;
+			
+			if (n.type == "joint")
+			{				
+				if (joint_root == null)
+				{
+					joint_root = n.parent.name;					
+				}
+				joint_transforms.push(ne.transform);
+				joint_nodes.push(n);	
+			}			
 			
 			if (n.data != "")
 			{
@@ -348,8 +355,9 @@ class ColladaFile extends AssetXML
 			var skr : SkinnedMeshRenderer = skinned_meshes[i];
 			var cc	: ColladaController   = cm.exists(skr.transform) ? cm.get(skr.transform) : null;
 			if (cc == null) continue;				
-			skr.joints  = [];	
-			//skr.jointsm = [];
+			skr.joints  	= [];	
+			skr.m_root_name = joint_root == null ? skr.transform.parent.name : joint_root;			
+			//skr.jointsm = [];			
 			for (j in 0...cc.joints.length)				
 			for (k in 0...joint_transforms.length)
 			{
@@ -358,7 +366,10 @@ class ColladaFile extends AssetXML
 					//trace(joint_transforms[k].name + " " + j);
 					//skr.jointsm.push(joint_nodes[k].world);					
 					//skr.joints.push(joint_transforms[k]);	
-					skr.m_joint_names.push(cc.joints[j]);
+					//skr.m_joint_names.push(cc.joints[j]);
+					var jn : String = joint_nodes[k].name;
+					jn = StringTools.replace(jn, "node-", "");					
+					skr.m_joint_names.push(jn);
 					
 				}
 			}
@@ -1257,7 +1268,7 @@ class ColladaPrimitive
 	public function GetTriangulatedVectorArray(p_semantic : String, p_set : Int = -1,p_debug :Bool=false):Dynamic
 	{
 		var ci  : ColladaInput = GetInput(p_semantic, p_set);
-		trace("semantic["+p_semantic+"]["+p_set+"] ok["+(ci!=null)+"]");
+		//trace("semantic["+p_semantic+"]["+p_set+"] ok["+(ci!=null)+"]");
 		if (ci == null) return [];
 		
 		var vec : Dynamic = ci.GetVectorArray();
