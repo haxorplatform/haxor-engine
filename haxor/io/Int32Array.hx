@@ -25,6 +25,18 @@ class Int32Array extends Buffer
 		return b;
 	}
 	
+	/**
+	 * Allocates a new array using the specified buffer as input.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function AllocBuffer(p_data : Buffer):Int32Array
+	{
+		var b : Int32Array = new Int32Array(Std.int(p_data.byteLength / 4));
+		for (i in 0...p_data.byteLength) b.SetByte(i, p_data.GetByte(i));
+		return b;
+	}
+	
 	#if html
 	//private var aux : js.html.Int32Array;
 	#end

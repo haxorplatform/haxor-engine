@@ -34,6 +34,18 @@ class Buffer
 	}
 	
 	/**
+	 * Allocates a new array using the specified buffer as input.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function AllocBuffer(p_data : Buffer):Buffer
+	{
+		var b : Buffer = new Buffer(Std.int(p_data.byteLength / 4));
+		for (i in 0...p_data.byteLength) b.SetByte(i, p_data.GetByte(i));
+		return b;
+	}
+	
+	/**
 	 * Returns the raw reference of this buffer. Usually the instance is readonly.
 	 */
 	public var buffer(get_buffer, null):ArrayBuffer;

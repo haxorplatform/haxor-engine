@@ -1,6 +1,7 @@
 #if html
 
 package haxor.platform.html.graphics.mesh;
+import haxor.io.UInt16Array;
 import haxor.thread.Activity;
 import haxor.core.Enums.MeshMode;
 import haxor.math.Mathf;
@@ -88,15 +89,36 @@ class MeshReader
 			var attrib_offset : Int    = Std.parseInt(attrib_tokens[1]);
 			if (Mathf.IsNaN(attrib_offset)) continue;
 			var attrib_length : Int    = Std.parseInt(attrib_tokens[2]);
-			if (Mathf.IsNaN(attrib_length)) continue;			
-			var ab : Buffer = new Buffer(attrib_length);
-			for (i in 0...b.length)
+			if (Mathf.IsNaN(attrib_length)) continue;
+			
+			var ab : Buffer;
+			
+			if (attrib_name == "$topology")
+			{
+				ab = new UInt16Array(Std.int(attrib_length / 2));
+			}
+			else
+			{
+				ab = new Buffer(attrib_length);
+			}
+			
+			
+			for (i in 0...attrib_length)
 			{
 				if (p >= b.byteLength) break;
 				ab.SetByte(i, b.GetByte(p++));
 			}
+			
 			if (p >= b.byteLength) break;			
-			mesh.Set(attrib_name, ab, attrib_offset);			
+			
+			if (attrib_name == "$topology")
+			{
+				mesh.topology = cast ab;
+			}
+			else
+			{
+				mesh.Set(attrib_name, ab, attrib_offset);
+			}
 		}
 		mesh.bounds = mesh.GenerateAttribBounds("vertex");
 		return mesh;

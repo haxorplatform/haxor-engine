@@ -23,6 +23,18 @@ class UInt16Array extends Buffer
 		return b;
 	}
 	
+	/**
+	 * Allocates a new array using the specified buffer as input.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function AllocBuffer(p_data : Buffer):UInt16Array
+	{
+		var b : UInt16Array = new UInt16Array(Std.int(p_data.byteLength / 2));
+		for (i in 0...p_data.byteLength) b.SetByte(i, p_data.GetByte(i));
+		return b;
+	}
+	
 	#if (html||nodejs)
 	//private var aux : js.html.Uint16Array;
 	#end

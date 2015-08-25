@@ -29,6 +29,18 @@ class FloatArray extends Buffer
 	}
 	
 	/**
+	 * Allocates a new array using the specified buffer as input.
+	 * @param	p_data
+	 * @return
+	 */
+	static public function AllocBuffer(p_data : Buffer):FloatArray
+	{
+		var b : FloatArray = new FloatArray(Std.int(p_data.byteLength / 4));
+		for (i in 0...p_data.byteLength) b.SetByte(i, p_data.GetByte(i));
+		return b;
+	}
+	
+	/**
 	 * Creates a new FloatArray using the Base64 encoded data.
 	 * @param	p_data
 	 * @return
