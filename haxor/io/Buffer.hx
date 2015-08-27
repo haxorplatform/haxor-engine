@@ -40,7 +40,7 @@ class Buffer
 	 */
 	static public function AllocBuffer(p_data : Buffer):Buffer
 	{
-		var b : Buffer = new Buffer(Std.int(p_data.byteLength / 4));
+		var b : Buffer = new Buffer(Std.int(p_data.byteLength));
 		for (i in 0...p_data.byteLength) b.SetByte(i, p_data.GetByte(i));
 		return b;
 	}
