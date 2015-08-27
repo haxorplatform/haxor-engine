@@ -1,6 +1,7 @@
 #if html
 
 package ;
+import haxor.core.Scene;
 import haxor.platform.html.graphics.mesh.MeshReader;
 import haxor.platform.html.graphics.mesh.MeshWriter;
 import haxor.io.serialization.Formatter;
@@ -108,7 +109,7 @@ class DataBehaviour extends Behaviour
 	{
 		nodes = [];
 		ids = [];
-		for (i in 0...10)
+		for (i in 0...3)
 		{
 			var e : Entity = new Entity("C" + i);
 			e.transform.parent = transform;
@@ -118,43 +119,110 @@ class DataBehaviour extends Behaviour
 	}
 }
 
-class MainHTML extends Application implements IRenderable
+class MainHTML extends Application implements IRenderable implements IUpdateable
 {	
 	static public function main():Void {  EntryPoint.Initialize(); }
+	
+	var scn : Scene;
+	
+	var root : Entity;
+	
+	var scnstr : String;
+	var scene_file:String;
 	
 	override public function Initialize():Void 
 	{
 		Console.Log(platform + "> Application Initialize");
 		
+		root = new Entity("roots");
+		
+		scnstr = "";
+		scene_file = "";
+		
 		var s0 : Shader = Shader.FlatTexture;
 		var s1 : Shader = Shader.Flat;
 		
-		var mat : Material = new Material("Flat");
-		mat.shader = s0;
-		mat.SetTexture("DiffuseTexture", Texture2D.random);
-		mat.SetColor("Tint", Color.red50);
+		var mat0 : Material;
+		var mat1 : Material;
 		
-		var db : DataBehaviour = (new Entity("DE")).AddComponent(DataBehaviour);
+		mat0 = new Material("Mat0");
+		mat0.shader = s0;
+		mat0.SetTexture("DiffuseTexture", Texture2D.random);
+		mat0.SetColor("Tint", Color.red50);
 		
-		var sphere : MeshRenderer = (new Entity("sphere")).AddComponent(MeshRenderer);
-		sphere.mesh = Model.sphere;
-		sphere.material = Resource.Instantiate(mat);
+		mat1 = new Material("Mat1");
+		mat1.shader = s1;		
+		mat1.SetColor("Tint", Color.green50);
+		
+		var db0 : DataBehaviour;
+		var db1 : DataBehaviour;
+		
+		db0 = (new Entity("Data0")).AddComponent(DataBehaviour); db0.transform.parent = root.transform;
+		db0 = (new Entity("Data1")).AddComponent(DataBehaviour); db0.transform.parent = root.transform;
+		db1 = (new Entity("Data2")).AddComponent(DataBehaviour);
+		db1.transform.parent = db0.transform;
+		
+		var sphere : MeshRenderer;
+		
+		for (i in 0...3)
+		{
+			sphere = (new Entity("sphere")).AddComponent(MeshRenderer);
+			sphere.mesh = Model.sphere;
+			sphere.material = (i & 1) == 0 ? mat0 : mat1;
+			sphere.transform.position = new Vector3( -1.5 + (i * 0.8), 0.0, 0.0);
+			sphere.transform.localScale = Vector3.one.Scale(0.25 + (i * 0.1));
+			sphere.transform.parent = root.transform;
+		}
 		
 		var o : CameraOrbit = CameraOrbit.Create(4.0, 45, 45);				
 		o.camera.background = new Color(0.2, 0.2, 0.2);
 		var ci : CameraOrbitInput = o.AddComponent(CameraOrbitInput);
+		
+		o.pivot.parent = root.transform;
 	
-		var fmt : HaxorFormatter = new HaxorFormatter();
+		trace(Transform.root.OutputHierarchy(false, false));
 		
-		var srl : String;
-		var d : Dynamic = db.entity;// [s0, s1, mat];
-		trace(d);
-		trace("====");
-		srl = fmt.Serialize(d);		
-		var ds : Dynamic = cast fmt.Deserialize(srl);						
-		trace(ds);
+		scn = new Scene("root");
 		
-		var mrd : MeshReader;
+		Timer.delay(function() { trace(EngineContext.resources.length); }, 1000 );
+		
+		
+	}
+	
+	public function OnUpdate():Void
+	{
+		if (Input.Down(KeyCode.Delete))
+		{
+			Resource.Destroy(root);
+			Timer.delay(function() { trace(EngineContext.resources.length); }, 1000 );
+		}
+		
+		if (Input.Down(KeyCode.S))
+		{
+			scn.Save(Transform.root);
+			var fmt : HaxorFormatter = new HaxorFormatter();
+			scene_file = fmt.Serialize(scn);			
+			Timer.delay(function() { trace(EngineContext.resources.length); }, 1000 );
+		}
+		
+		if (Input.Down(KeyCode.L))
+		{
+			if (scene_file == "") return;
+			var fmt : HaxorFormatter = new HaxorFormatter();
+			
+			var nscn : Scene = fmt.Deserialize(scene_file);
+			
+			nscn.Load(function(p:Float32)
+			{
+				trace(p);
+				if (p >= 1.0)
+				{
+					var t : Transform = Transform.root.GetChildByName("roots", true);
+					if (t != null) root = t.entity;
+					Timer.delay(function() { trace(EngineContext.resources.length); }, 1000 );
+				}
+			});
+		}
 	}
 	
 	public function OnRender():Void

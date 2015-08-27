@@ -51,7 +51,12 @@ class Camera extends Behaviour implements IResizeable
 	 * Main camera being used in the rendering pipeline. The default value of this variable is the first camera created.
 	 */
 	static public var main(get_main,set_main) : Camera;
-	static private inline function get_main():Camera { return m_main; }
+	static private inline function get_main():Camera 
+	{ 
+		if (m_main == null) { m_main = list[0]; } else
+		if (m_main.destroyed) { m_main = list[0]; }
+		return m_main; 		
+	}
 	static private inline function set_main(v:Camera):Camera { return m_main=v; }
 	static private var m_main : Camera;
 	

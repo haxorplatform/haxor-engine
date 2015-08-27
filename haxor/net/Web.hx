@@ -3,6 +3,7 @@ import haxor.core.Resource;
 import haxor.graphics.material.Material;
 import haxor.graphics.material.Shader;
 import haxor.graphics.Bitmap;
+import haxor.graphics.mesh.Mesh;
 import haxor.graphics.texture.Texture2D;
 import haxor.graphics.texture.TextureCube;
 import haxor.io.file.ColladaFile;
@@ -56,6 +57,13 @@ class Web
 	 * @param	p_callback
 	 */
 	static public function LoadTexture2D(p_url:String, p_apply:Bool, p_callback : Texture2D->Float32->Void):Void { var ld : Texture2DLoader = new Texture2DLoader(p_url, p_apply, p_callback); }
+	
+	/**
+	 * Loads a Mesh from the web and creates the instance.
+	 * @param	p_url
+	 * @param	p_callback
+	 */
+	static public function LoadMesh(p_url:String, p_callback : Mesh->Float32->Void):Void { var ld : MeshLoader = new MeshLoader(p_url, p_callback); }
 	
 	/**
 	 * Loads a Bitmap from the web and creates a cube texture with it.

@@ -466,7 +466,7 @@ class Transform extends Component
 	}
 	
 	/**
-	 * Blocks invalidation and matrix concat until it is unlocked.
+	 * Blocks invalidation and matrix concat until it is unlocked. This is good to make a batch of changes in a hierarchy and deploy the concatenation later.
 	 */
 	public function Lock():Void
 	{
@@ -550,7 +550,7 @@ class Transform extends Component
 	 * Prints the hierarchy of this transform.
 	 * @return
 	 */
-	public function OutputHierarchy(p_show_transform:Bool=true,p_show_world:Bool=false):String
+	public function OutputHierarchy(p_show_transform:Bool=true,p_show_world:Bool=false,p_use_bfs:Bool=false):String
 	{
 		var d0 : Int = 0;// cast m_depth;
 		var hs : String = "";
@@ -565,7 +565,7 @@ class Transform extends Component
 			if (p_show_world) 	  hs += t.WorldMatrix.ToString(true, 3);
 			hs += "\n";
 			return true;
-		});
+		},p_use_bfs);
 		return hs;		
 	}
 	
@@ -574,14 +574,57 @@ class Transform extends Component
 	 * If the method returns false, the search stops.
 	 * @param	p_callback
 	 */
-	public function Traverse(p_callback : Transform->Int-> Bool):Void { TraverseStep(this,0, p_callback); }
+	public function Traverse(p_callback : Transform->Int-> Bool,p_use_bfs:Bool=false):Void 
+	{ 
+		if (p_use_bfs)
+		{
+			var buffer  : Array<Transform> = [this];
+			var proc	: Array<Transform> = [];
+			var d 		: Int 			   = 0;
+			var k 		: Int			   = 0;			
+			while (k < buffer.length)
+			{
+				var t:Transform = buffer[k];
+				var continue_traverse :Bool = p_callback(t, d);
+				if (!continue_traverse) break;
+				proc.push(t);
+				k++;
+				if (k >= buffer.length)
+				{
+					d++;
+					while (proc.length > 0)
+					{
+						var p : Transform = proc.shift();
+						for (i in 0...p.m_hierarchy.length)
+						{
+							buffer.push(p.m_hierarchy[i]);
+						}
+					}
+				}
+			}			
+		}
+		else
+		{
+			TraverseStep(this,0, p_callback);
+		}
+		
+	}
 	
 	/**
 	 * Auxiliar function for the Traverse method.
 	 * @param	p_child
 	 * @param	p_callback
 	 */
-	private function TraverseStep(p_child : Transform,p_depth:Int, p_callback : Transform ->Int-> Bool):Void { if(p_callback(p_child,p_depth)) for (i in 0...p_child.childCount) TraverseStep(p_child.GetChild(i),p_depth+1,p_callback); }
+	private function TraverseStep(p_child : Transform, p_depth:Int, p_callback : Transform ->Int-> Bool):Void 
+	{ 
+		if (p_callback(p_child, p_depth))
+		{
+			for (i in 0...p_child.childCount)
+			{
+				TraverseStep(p_child.GetChild(i),p_depth+1,p_callback); 
+			}			
+		}
+	}
 	
 	/**
 	 * Callback called when this Transform is destroyed.

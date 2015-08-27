@@ -27,43 +27,6 @@ import haxor.platform.Types.Float32;
 class SkinnedMeshRenderer extends MeshRenderer
 {	
 	/**
-	 * Array of joints that will act as skeleton of this renderer.
-	 */	
-	public var joints(get,set)  : Array<Transform>;
-	private function set_joints(v:Array<Transform>):Array<Transform> 
-	{ 	
-		m_joints = v == null ? [] : v;		
-		m_joint_names = [];
-		for (i in 0...m_joints.length) m_joint_names.push(m_joints[i].name);		
-		m_jf32   = [];				
-		for (i in 0...m_joints.length) for (j in 0...12) m_jf32.push(m_joints[i].WorldMatrix.GetIndex(j));		
-		UpdateSkinTexture(m_joints.length);
-		if(!GL.BONE_TEXTURE) if (m_joints.length > GL.MAX_UNIFORM_BONES) Console.LogWarning("SkinnedMeshRenderer> ["+name+"] max bone count exceeded!");
-		return m_joints; 
-	}
-	private function get_joints():Array<Transform> 
-	{ 	
-		if (m_joints == null) m_joints = [];
-		
-		if (m_joints.length != m_joint_names.length)
-		{			
-			if (m_joint_names == null) return [];
-			m_joints = [];
-			var rt : Transform = root;
-			for (i in 0...m_joint_names.length) 
-			{
-				var jn : String = m_joint_names[i];
-				var t : Transform = rt.GetChildByName(jn, true);
-				if (t != null) m_joints.push(t);
-			}				
-		}
-		return m_joints;
-	}
-	@serialize
-	private var m_joint_names 	: Array<String>;
-	private var m_joints 		: Array<Transform>;
-	
-	/**
 	 * Root of the skeleton.
 	 */
 	public var root(get, set):Transform;
@@ -78,8 +41,9 @@ class SkinnedMeshRenderer extends MeshRenderer
 				it = it.parent;
 				m_root = it.GetChildByName(m_root_name, true);
 				if (m_root != null) break;				
-			}
-		}
+			}			
+			trace("name["+name+"] root_name["+m_root_name+"] root["+(m_root!=null)+"]");
+		}		
 		return m_root;
 	}
 	private function set_root(v:Transform):Transform
@@ -91,6 +55,46 @@ class SkinnedMeshRenderer extends MeshRenderer
 	@serialize
 	private var m_root_name:String;
 	private var m_root : Transform;
+	
+	/**
+	 * Get/Set the joints by their names.
+	 */
+	@serialize
+	public var jointNames(get, set):Array<String>;
+	private function get_jointNames():Array<String>  { return m_joint_names; }
+	private function set_jointNames(v:Array<String>):Array<String>
+	{ 
+		m_joint_names = v == null ? [] : v.copy();
+		m_joints_dirty = true;
+		return m_joint_names; 		
+	}
+	private var m_joint_names 	: Array<String>;
+	
+	/**
+	 * Array of joints that will act as skeleton of this renderer.
+	 */	
+	public var joints(get,set)  : Array<Transform>;
+	private function set_joints(v:Array<Transform>):Array<Transform> 
+	{ 	
+		//Console.Breakpoint();
+		m_joints 	  = v == null ? [] : v;		
+		m_joint_names = [];
+		for (i in 0...m_joints.length) m_joint_names.push(m_joints[i].name);		
+		m_joints_dirty = true;		
+		return m_joints; 
+	}
+	private function get_joints():Array<Transform> 
+	{ 	
+		/*
+		var search_joints : Bool = m_joints == null ? true : (m_joint_names.length != m_joints.length);		
+		if (search_joints)
+		{	
+			UpdateJoints();
+		}
+		//*/
+		return m_joints;
+	}	
+	private var m_joints 		: Array<Transform>;
 	
 	/**
 	 * Overrides mesh set to handle binds matrix values.
@@ -125,20 +129,13 @@ class SkinnedMeshRenderer extends MeshRenderer
 	
 	
 	/**
-	 * Bind Matrix values
+	 * Internals
 	 */
-	private var m_bmf32	  : Array<Float32>;
-	
-	/**
-	 * Joints values.
-	 */
-	private var m_jf32	  : Array<Float32>;
-	
-	/**
-	 * Binds/Joints Textures.
-	 */
+	private var m_bmf32	  : Array<Float32>;	
+	private var m_jf32	  : Array<Float32>;	
 	private var m_jt : ComputeTexture;	
 	private var m_bmt : ComputeTexture;
+	private var m_joints_dirty : Bool;
 	
 	/**
 	 * SkinnedMesh id.
@@ -153,8 +150,10 @@ class SkinnedMeshRenderer extends MeshRenderer
 		__smid   		= -1;
 		super.OnBuild();
 		m_joint_names 	= [];
+		m_joints		= [];
 		m_bmf32  		= [];
 		m_jf32   		= [];
+		m_joints_dirty  = false;
 		m_quality 		= BoneQuality.Bone2;
 		//m_jt     = new ComputeTexture(32, 16, PixelFormat.Float4);
 		//m_bmt    = new ComputeTexture(32, 16, PixelFormat.Float4);
@@ -164,6 +163,32 @@ class SkinnedMeshRenderer extends MeshRenderer
 	{	
 		if (material != null)
 		{	
+			if (m_joints_dirty)
+			{				
+				var rt : Transform = root;
+				if (rt != null)
+				{
+					if (m_joint_names.length != m_joints.length)
+					{
+						m_joints  = [];
+						for (i in 0...m_joint_names.length) 
+						{
+							var jn : String   = m_joint_names[i];
+							var t : Transform = rt.GetChildByName(jn, true);
+							if (t != null)
+							{
+								m_joints.push(t);
+							}
+							else
+							{
+								trace("Joint ["+jn+"] not found!");
+							}
+						}
+					}
+				}
+				UpdateJoints();
+				m_joints_dirty = false;
+			}
 			var k 	: Int = 0;
 			var jl  : Array<Transform> = joints;
 			//Transfer the joint matrix data to the array.
@@ -211,6 +236,17 @@ class SkinnedMeshRenderer extends MeshRenderer
 		m_bmt = new ComputeTexture(cast ts.x, cast  ts.y, PixelFormat.Float4);		
 	}
 	
+	/**
+	 * Updates the joints data.
+	 */
+	private function UpdateJoints():Void
+	{
+		trace("name["+name+"] update joints["+m_joints.length+"]");
+		m_jf32   = [];				
+		for (i in 0...m_joints.length) for (j in 0...12) m_jf32.push(m_joints[i].WorldMatrix.GetIndex(j));		
+		UpdateSkinTexture(m_joints.length);
+		if(!GL.BONE_TEXTURE) if (m_joints.length > GL.MAX_UNIFORM_BONES) Console.LogWarning("SkinnedMeshRenderer> ["+name+"] max bone count exceeded!");
+	}
 	
 	/**
 	 * Returns the ideal texture size for given joint count.

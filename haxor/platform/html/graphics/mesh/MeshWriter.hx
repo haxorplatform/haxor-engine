@@ -66,8 +66,7 @@ class MeshWriter
 		if (Std.is(m, SkinnedMesh3))
 		{
 			var skm : SkinnedMesh3   = cast m;
-			var ml  : Array<Matrix4> = skm.binds;
-			trace(ml);
+			var ml  : Array<Matrix4> = skm.binds;			
 			var f32 : Array<Float32> = [];
 			for (i in 0...ml.length) for (j in 0...16) f32.push(ml[i].GetIndex(j));
 			header += f32.join(",");
@@ -86,7 +85,7 @@ class MeshWriter
 			var len : Int    = b.byteLength;
 			header += a.name   	+ attrib_sep;
 			header += a.offset 	+ attrib_sep;
-			header += len 		+ attrib_sep;
+			header += len;// 		+ attrib_sep;
 			if (i < (al.length - 1)) header += buff_sep;
 			bl.push(b);
 			attrib_length += len;

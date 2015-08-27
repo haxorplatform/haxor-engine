@@ -35,6 +35,7 @@ extern class FormatterData
  * TODO: Allow encoding of primitive types e.g. .Encode(Vector3.one)
  * @author Eduardo Pons - eduardo@thelaborat.org
  */
+@:allow(haxor)
 class Formatter
 {	
 	static private var NULL    : String = String.fromCharCode(5);
@@ -42,7 +43,41 @@ class Formatter
 
 	private var m_class_types      : Array<Dynamic>;	
 	private var m_class_names      : Array<String>;
-		
+
+	
+	static public function IterateFields(p_data : Dynamic,p_callback : String->Dynamic->Array<Dynamic>->Void):Void
+	{
+		var t 			: Dynamic 				= p_data;
+		var class_list  : Array<Class<Dynamic>> = GetVarClassPath(t);		
+		if (class_list.length <= 0) class_list.push(null);		
+		for (i in 0...class_list.length)
+		{
+			var c 			: Class<Dynamic>    = class_list[i];
+			var type_metas  : MetaTable 		= c==null ? null : Meta.getFields(c);			
+			var type_fields : Array<String>     = type_metas==null ? Reflect.fields(t) : Reflect.fields(type_metas);			
+			for (j in 0...type_fields.length)
+			{
+				var field_name : String  = type_fields[j];
+				var var_metas  : Dynamic = type_metas==null ? null : Reflect.getProperty(type_metas, field_name);
+				if(var_metas != null)
+				if (!Reflect.hasField(var_metas, "serialize")) continue;				
+				var metas_args 		: Array<Dynamic> = var_metas==null ? [true] : (var_metas.serialize == null ? [true] : var_metas.serialize);
+				var field_value 	: Dynamic 		 = Reflect.getProperty(t, field_name);
+				p_callback(field_name, field_value, metas_args);
+			}			
+		}
+	}
+	
+	/**
+	 * Callback called when a field is visitted for encoding.
+	 */
+	public var OnEncodeFieldCallback : Dynamic->String->Dynamic->Int->Void;
+	
+	/**
+	 * Callback called when a field is visitted for decoding.
+	 */
+	public var OnDecodeFieldCallback : Dynamic->String->Dynamic->Dynamic->Int->Void;
+	
 	/**
 	 * CTOR
 	 */
@@ -129,7 +164,7 @@ class Formatter
 		for (i in 0...data_fields.length)
 		{
 			var field_name  : String  = data_fields[i];
-			if (field_name.charAt(0) == "$") continue;
+			if(data_type!=null)if (field_name.charAt(0) == "$") continue;
 			var field_value : Dynamic = Reflect.getProperty(d, field_name);
 			
 			if (isrl != null) 
@@ -195,7 +230,10 @@ class Formatter
 		var field_value : Dynamic 		= p_field_value;
 		var isrl 		: ISerializable = Std.is(p_container, ISerializable) ? (cast p_container) : null;
 		
-		if (isrl != null) { if (isrl.OnDeserializeField(this,field_name, field_value)) { return false; } }
+		if (isrl != null) 
+		{ 
+			if (isrl.OnDeserializeField(this,field_name, field_value)) { return false; } 			
+		}
 		
 		var field_input : Dynamic = null;
 		
@@ -208,13 +246,24 @@ class Formatter
 			field_input = DecodeStep(p_container, field_value);
 		}	
 		
+		var idx : Int = -1;
+		
 		if (Std.is(p_container, Array))
 		{
-			var l : Array<Dynamic> = cast p_container;
-			l.push(field_input);
-			return true;
+			var l : Array<Dynamic> = cast p_container;			
+			idx = l.length;
+			l.push(field_input);			
 		}
-		Reflect.setProperty(p_container, field_name, field_input);
+		else
+		{
+			Reflect.setProperty(p_container, field_name, field_input);
+		}
+		
+		if (OnDecodeFieldCallback != null)
+		{
+			OnDecodeFieldCallback(p_container,field_name,field_input,field_value,idx);
+		}
+		
 		return true;
 	}
 	
@@ -240,6 +289,15 @@ class Formatter
 		Reflect.setField(res, "$name", n);
 		Reflect.setField(res, "$index", p_index);
 		
+		IterateFields(t, function(p_field_name:String, p_field_value:Dynamic, p_args:Array<Dynamic>):Void
+		{
+			var auto_parse	: Bool 	  = p_args[0] == null ? true : (p_args[0]);
+			var field_input : Dynamic = null;
+			field_input = OnEncodeField(p_parent, p_field_name, p_field_value, auto_parse, -1);				
+			Reflect.setField(res, p_field_name, field_input);
+		});
+		
+		/*
 		var class_list : Array<Class<Dynamic>> = GetClassPath(t);
 		
 		if (class_list.length <= 0) class_list.push(null);
@@ -263,16 +321,12 @@ class Formatter
 								
 				var field_value 	: Dynamic 		 = Reflect.getProperty(t, field_name);
 				
-				//var field_type 		: Class<Dynamic> = (field_value == null) ? null : Type.getClass(field_value);
-				//var field_type_name : String 		 = (field_type == null) ? "$Dynamic" : Type.getClassName(field_type);				
-				//if (Std.is(field_value, Bool)) field_type_name = "Bool"; else
-				//if (Std.is(field_value, Int))  field_type_name = "Int";
-				
 				var field_input : Dynamic = null;
 				field_input = OnEncodeField(p_parent, field_name, field_value, auto_parse, -1);				
 				Reflect.setField(res, field_name, field_input);
 			}			
 		}
+		//*/
 		return res;		
 	}
 	
@@ -314,6 +368,12 @@ class Formatter
 		var field_name	 : String  		 = p_field_name;
 		var field_value  : Dynamic 		 = p_field_value;
 		var field_input  : Dynamic 		 = null;
+		
+		if (OnEncodeFieldCallback != null)
+		{
+			OnEncodeFieldCallback(p_parent, p_field_name, p_field_value, p_index);	
+		}
+		
 		
 		if (field_value == null)
 		{
@@ -386,17 +446,29 @@ class Formatter
 	}
 	
 	/**
+	 * Checks if a given encoded string belongs to the specified type.
+	 * @param	p_str
+	 * @param	p_type
+	 * @return
+	 */
+	public function EncodedStringIsType(p_str : String, p_type:Class<Dynamic>):Bool
+	{	
+		var enc_types : Array<Class<Dynamic>> = Resource.GetClassPath(CodeToType(p_str));
+		for (i in 0...enc_types.length) if (enc_types[i] == p_type) return true;
+		return false;
+	}
+	
+	/**
 	 * Returns the list of classes from base to the current type.
 	 * @param	p_var
 	 * @return
 	 */
-	private function GetClassPath(p_var : Dynamic) : Array<Class<Dynamic>>
+	static private function GetVarClassPath(p_var : Dynamic) : Array<Class<Dynamic>>
 	{
-		var res : Array<Class<Dynamic>> = [];
-		var c : Class<Dynamic> = Type.getClass(p_var);		
-		while (c != null) {	res.unshift(c); c = Type.getSuperClass(c); }		
-		return res;	
+		return Resource.GetClassPath(Type.getClass(p_var));
 	}
+	
+	
 	
 	/**
 	 * Converts an int to 2 byte string code.
@@ -454,12 +526,29 @@ class Formatter
 	 */
 	private function CodeToTypeName(p_code:String):String
 	{
-		if (p_code == UNKNOWN) return null;
-		if (p_code == NULL)    return null;
-		var c : Int = FromStringCode(p_code);		
+		var cs : String = p_code.substr(0, 2);
+		if (cs == UNKNOWN) return null;
+		if (cs == NULL)    return null;
+		var c : Int = FromStringCode(cs);		
 		if (c >= m_class_names.length) return null;
 		return m_class_names[c];
 	}
+	
+	/**
+	 * Returns the stored type indexed by the string code.
+	 * @param	p_code
+	 * @return
+	 */
+	private function CodeToType(p_code:String):Class<Dynamic>
+	{
+		var cs : String = p_code.substr(0, 2);
+		if (cs == UNKNOWN) return null;
+		if (cs == NULL)    return null;
+		var c : Int = FromStringCode(cs);		
+		if (c >= m_class_names.length) return null;
+		return m_class_types[c];
+	}
+	
 	
 		
 }

@@ -125,7 +125,8 @@ class RendererContext
 		var t   : ComputeTexture = jf ? smr.m_jt : smr.m_bmt;		
 		if (t == null) return;		
 		var f32 : FloatArray = cast t.data.buffer;
-		var vl  : Array<Float32> = jf ? smr.m_jf32 : smr.m_bmf32;		
+		var vl  : Array<Float32> = jf ? smr.m_jf32 : smr.m_bmf32;
+		//trace("update skinning [" + (jf ? "joints" : "bindings") + "] len["+vl.length+"] mat["+Std.int(vl.length/12)+"]");
 		for (i in 0...vl.length) f32.Set(i, vl[i]);		
 		t.Apply();				
 		if (jf)

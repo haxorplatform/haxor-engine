@@ -308,7 +308,7 @@ class EngineContext
 		return null;
 		//*/
 		
-		for (i in 0...len) if (l[i] != null) if (l[i].guid == p_guid) return l[i];
+		for (i in 0...len) if (l[(len-1)-i] != null) if (l[(len-1)-i].guid == p_guid) return l[(len-1)-i];
 		return null;
 	}
 	
@@ -329,7 +329,7 @@ class EngineContext
 			{
 				el.push(n.entity);
 				return true;
-			});			
+			},true);			
 			for (e in el)
 			{
 				for (c in e.m_components) ScheduleDestroy(c);

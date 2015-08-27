@@ -48,6 +48,7 @@ class CameraOrbit extends Behaviour implements IUpdateable
 		}
 		return m_pivot; 
 	}
+	@serialize
 	var m_pivot : Transform;
 	
 	@serialize

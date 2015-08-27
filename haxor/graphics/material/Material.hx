@@ -664,6 +664,18 @@ class Material extends Resource implements ISerializable
 							}
 						}				
 					}
+					
+					if (fmt.EncodedStringIsType(un.texture, Resource))
+					{
+						var mu : MaterialUniform = m.GetUniform(name);
+						if (mu.texture == null)
+						{
+							if (fmt.OnDecodeFieldCallback != null)
+							{
+								fmt.OnDecodeFieldCallback(mu, "texture",null, un.texture,-1);
+							}
+						}						
+					}
 				}
 				//*/
 				
@@ -721,6 +733,9 @@ class MaterialUniform
 	 */
 	@serialize
 	public var texture : Texture;
+	private function get_texture():Texture { return m_texture; }
+	private function set_texture(v:Texture):Texture { SetTexture(v); return v; }
+	private var m_texture : Texture;
 	
 	/**
 	 * Flag that indicates if the data is made of floats otherwise is int.

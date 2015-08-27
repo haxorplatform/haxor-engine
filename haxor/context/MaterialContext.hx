@@ -18,6 +18,7 @@ import haxor.graphics.material.Shader;
 import haxor.graphics.material.UberShader;
 import haxor.graphics.mesh.Mesh;
 import haxor.graphics.mesh.Mesh.MeshAttrib;
+import haxor.graphics.mesh.Model;
 import haxor.graphics.texture.Texture2D;
 import haxor.io.FloatArray;
 import haxor.io.Int32Array;
@@ -266,6 +267,28 @@ class MaterialContext
 		//Enables scissor test
 		GL.Enable(GL.SCISSOR_TEST);
 		
+		//Create default stuff.
+		Shader.Flat;
+		Shader.FlatParticle;
+		Shader.FlatTexture;
+		Shader.FlatTextureSkin;
+		Texture2D.black;
+		Texture2D.gray25;
+		Texture2D.gray50;
+		Texture2D.green;
+		Texture2D.random;
+		Texture2D.red;
+		Texture2D.white;
+		Model.cube;
+		Model.planeXY;
+		Model.planeXZ;
+		Model.planeYZ;
+		Model.point;
+		Model.screen;
+		#if model_pack
+		Model.sphere;
+		#end
+		Model.tetrahedron;
 		
 	}
 	
@@ -355,7 +378,7 @@ class MaterialContext
 		
 		if (!s.hasError)
 		{
-			Console.Log("Shader> Compilation Success [" + s.name+"]");			
+			//Console.Log("Shader> Compilation Success [" + s.name+"]");			
 			shader_list.push(s);			
 		}
 		

@@ -22,7 +22,7 @@ import haxor.io.serialization.Formatter;
  */
 class HaxorFormatter extends Formatter
 {
-
+	
 	/**
 	 * CTOR
 	 */
@@ -56,10 +56,14 @@ class HaxorFormatter extends Formatter
 		if (Std.is(d, Array))
 		{
 			var l : Array<Dynamic> = cast res;
-			for (i in 0...l.length) if (Std.is(l[i], Entity)) { var e : Entity = cast l[i]; e.ResetGUID(); }
+			//for (i in 0...l.length) if (Std.is(l[i], Entity)) { var e : Entity = cast l[i]; e.ResetGUID(); }
 		}
 		else
-		if (Std.is(res, Entity)) { var e : Entity = cast res; e.ResetGUID(); }
+		if (Std.is(res, Entity)) 
+		{ 
+			var e : Entity = cast res; 
+			//e.ResetGUID(); 			
+		}
 		return res;
 	}
 	
@@ -112,7 +116,11 @@ class HaxorFormatter extends Formatter
 		if (p_t == "haxor.io.Int32Array") 	return Int32Array.Parse(p_v, ",", true);
 		if (p_t == "haxor.io.UInt16Array") 	return UInt16Array.Parse(p_v, ",", true);
 		if (p_t == "haxor.io.Buffer") 		return Buffer.Parse(p_v, ",", true);
-		if (p_t == "haxor.core.Resource")	return Resource.FindByGUID(p_v);
+		if (p_t == "haxor.core.Resource")
+		{
+			var res : Resource = Resource.FindByGUID(p_v);
+			return res;
+		}
 		return null;
 	}
 	

@@ -58,6 +58,19 @@ class Resource implements IDisposable
 	}
 	
 	/**
+	 * Get class path for a given type.
+	 * @param	p_var
+	 * @return
+	 */
+	static public function GetClassPath(p_type : Class<Dynamic>) : Array<Class<Dynamic>>
+	{
+		var res : Array<Class<Dynamic>> = [];
+		var c : Class<Dynamic> = p_type;	
+		while (c != null) {	res.unshift(c); c = Type.getSuperClass(c); }		
+		return res;	
+	}
+	
+	/**
 	 * Schedule this resource to be destroyed.
 	 * @param	p_target
 	 */
@@ -220,6 +233,12 @@ class Resource implements IDisposable
 	 * @return
 	 */
 	public inline function GetTypeFullName():String { return m_type_full_name; }
+	
+	/**
+	 * Returns the list of types the makes this instance.
+	 * @return
+	 */
+	public inline function GetTypes():Array<Class<Dynamic>> { return GetClassPath(m_type_class); }
 	
 	/**
 	 * Method called when the resource is destroyed by the engine.

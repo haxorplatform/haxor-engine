@@ -78,8 +78,6 @@ class MeshReader
 		var mesh_binds		 : String        = tokens.length <= 5 ? "" : tokens[5];
 		var mesh_attribs	 : String		 = tokens.length <= 6 ? "" : tokens[6];
 		
-		
-		
 		var mesh : Mesh = Type.createInstance(mesh_type,[mesh_name]);
 		mesh.mode 		= mesh_mode;
 		mesh.primitive	= mesh_primitive;
@@ -96,7 +94,7 @@ class MeshReader
 				var f32:Array<Float32> = [];
 				for (j in 0...16)
 				{
-					f32.push(bf32.Get(p++));
+					f32.push(bf32.Get(mp++));
 				}
 				ml.push(Matrix4.FromArray(f32));
 			}
@@ -112,13 +110,13 @@ class MeshReader
 		
 		for (i in 0...tokens.length)
 		{
-			var attrib_tokens : Array<String> = tokens[i].split(attrib_sep);
-			if (attrib_tokens.length < 3) continue;
+			var attrib_tokens : Array<String> = tokens[i].split(attrib_sep);			
+			if (attrib_tokens.length < 3) { continue; }
 			var attrib_name   : String = attrib_tokens[0];
 			var attrib_offset : Int    = Std.parseInt(attrib_tokens[1]);
-			if (Mathf.IsNaN(attrib_offset)) continue;
+			if (Mathf.IsNaN(attrib_offset)) { continue; }
 			var attrib_length : Int    = Std.parseInt(attrib_tokens[2]);
-			if (Mathf.IsNaN(attrib_length)) continue;
+			if (Mathf.IsNaN(attrib_length)) { continue; }
 			
 			var ab : Buffer;
 			
@@ -128,17 +126,15 @@ class MeshReader
 			}
 			else
 			{
-				ab = new FloatArray(attrib_length);
+				ab = new FloatArray(Std.int(attrib_length / 4));
 			}
 			
 			
 			for (i in 0...attrib_length)
 			{
-				if (p >= b.byteLength) break;
+				if (p >= b.byteLength) { break; }
 				ab.SetByte(i, b.GetByte(p++));
 			}
-			
-			if (p >= b.byteLength) break;			
 			
 			if (attrib_name == "$topology")
 			{
@@ -146,6 +142,7 @@ class MeshReader
 			}
 			else
 			{
+				var vc : Int = Std.int(ab.length / attrib_offset);				
 				mesh.Set(attrib_name, ab, attrib_offset);
 			}
 		}

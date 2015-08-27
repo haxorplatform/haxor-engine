@@ -254,10 +254,12 @@ class Entity extends Resource implements ISerializable
 					
 					var fields : Array<String> = cn.GetFields();
 					for (i in 0...fields.length)
-					{
-						var field_name		: String  = fields[i];
-						if (field_name.charAt(0) == "$") continue;
-						var field_value 	: Dynamic = Reflect.getProperty(cn,field_name);
+					{						
+						var field_name		: String  = fields[i];						
+						//if (field_name.charAt(0) == "$") continue;
+						var field_value 	: Dynamic = Reflect.getProperty(cn, field_name);
+						fmt.OnDecodeField(c, field_name, field_value);
+						/*
 						var field_input 	: String  = null;
 						var field_type_name : String  = "";
 						if (Std.is(field_value, String))
@@ -275,7 +277,8 @@ class Entity extends Resource implements ISerializable
 							//trace(c.name+" guid["+field_value+"] res["+field_input+"]");
 						}
 						
-						Reflect.setProperty(c, field_name, field_input);											
+						Reflect.setProperty(c, field_name, field_input);
+						//*/
 					}					
 				}
 				return true;

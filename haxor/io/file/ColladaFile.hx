@@ -383,7 +383,7 @@ class ColladaFile extends AssetXML
 			var skr : SkinnedMeshRenderer = skinned_meshes[i];
 			var cc	: ColladaController   = cm.exists(skr.transform) ? cm.get(skr.transform) : null;
 			if (cc == null) continue;				
-			skr.joints  	= [];	
+			//skr.joints  	= [];	
 			skr.m_root_name = joint_root == null ? skr.transform.parent.name : joint_root;			
 			//skr.jointsm = [];			
 			for (j in 0...cc.joints.length)				
