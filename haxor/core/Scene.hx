@@ -123,12 +123,10 @@ class Scene extends Resource
 	{
 		dependencies = [];
 		assets		 = [];
-		path		 = "";
+		path		 = p_path;
 		
 		p_root.Traverse(function(t:Transform, d:Int):Bool
 		{
-			if (t == p_root) return true;
-			
 			var e : Entity 					= t.entity;
 			var cl : Array<Component> 		= cast e.GetComponents(Component);			
 			var rl : Array<Resource> 		= [e];
