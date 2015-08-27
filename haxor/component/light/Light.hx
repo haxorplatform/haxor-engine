@@ -52,11 +52,13 @@ class Light extends Behaviour
 	/**
 	 * Color of this light.
 	 */
+	@serialize
 	public var color	 : Color;
 	
 	/**
 	 * Intensity of this light.
 	 */
+	@serialize
 	public var intensity : Float32;
 
 	/**

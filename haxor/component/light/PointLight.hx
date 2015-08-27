@@ -32,11 +32,13 @@ class PointLight extends Light
 	/**
 	 * Attenuation exponent.
 	 */
+	@serialize
 	public var atten : Float32;
 
 	/**
 	 * Light radius.
 	 */
+	@serialize
 	public var radius : Float32;
 	
 	/**
