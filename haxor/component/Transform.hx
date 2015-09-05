@@ -115,6 +115,24 @@ class Transform extends Component
 	private inline function get_childCount():Int { return m_hierarchy.length; }
 	
 	/**
+	 * Index of this Transform on this parent's hierarchy.
+	 */
+	public var index(get, set):Int;
+	private function get_index():Int { return parent.m_hierarchy.indexOf(this); }
+	private function set_index(v:Int):Int
+	{
+		if (v == index) return v;
+		var l : Array<Transform> = parent.m_hierarchy;
+		l.remove(this);
+		if (v <= 0)        { l.unshift(this); v = 0; } else
+		if (v >= l.length) { l.push(this);    v = l.length - 1; } else
+		{
+			l.insert(v, this);
+		}
+		return v;
+	}
+	
+	/**
 	 * Get/set the local position of this transform.
 	 */
 	@serialize

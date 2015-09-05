@@ -127,6 +127,7 @@ class Scene extends Resource
 		
 		p_root.Traverse(function(t:Transform, d:Int):Bool
 		{
+			if (t == p_root) return true;
 			var e : Entity 					= t.entity;
 			var cl : Array<Component> 		= cast e.GetComponents(Component);			
 			var rl : Array<Resource> 		= [e];
@@ -168,6 +169,7 @@ class Scene extends Resource
 		m_count 	 	= 0.0;
 		m_retries 	 	= [];
 		m_load_callback = p_callback;
+		
 		if (m_operations <= 0)
 		{
 			if (m_load_callback != null) m_load_callback(1.0);
@@ -233,7 +235,8 @@ class Scene extends Resource
 			if (online)
 			{
 				DownloadResource(d.guid, c, function(r:Resource, p:Float32)
-				{					
+				{	
+					//Console.Log("Scene> Dependency Download ["+d.guid+"] p["+p+"]",1);
 					if (p >= 1.0)
 					{						
 						dependencies.shift();
@@ -249,6 +252,11 @@ class Scene extends Resource
 			else
 			{
 				//Load from disk or bundle
+				dependencies.shift();
+				m_op_progress = 0.0;
+				m_count++;
+				if (m_load_callback != null) m_load_callback(GetProgress()*0.9);
+				ProcessDependency();
 			}
 			
 			
@@ -271,7 +279,7 @@ class Scene extends Resource
 	 */
 	private function DecodeAssets():Void 
 	{
-		//Console.Log("Scene> Decode Assets!",2);
+		Console.Log("Scene> Decode Assets!",2);
 		Activity.Run(function(t:Float32):Bool
 		{
 			if (assets.length <= 0)
@@ -283,10 +291,14 @@ class Scene extends Resource
 			var e : Entity = m_formatter.FromObject(a);			
 			if (e != null) 
 			{ 
-				//Console.Log("Scene> name[" + e.name+"] guid[" + e.guid + "]", 2); 
-				trace(e);
+				//Console.Log("Scene> Found Entity name[" + e.name+"] guid[" + e.guid + "]", 2); 
+				//trace(e);
 				 
-			}else { trace(a); }
+			}
+			else 
+			{ 
+				trace(a); 				
+			}
 			m_count++;			
 			if (m_load_callback != null) m_load_callback(GetProgress()*0.9);
 			return true;
@@ -300,7 +312,7 @@ class Scene extends Resource
 	{		
 		if (m_retries.length <= 0)
 		{
-			Console.Log("Scene> Load Complete!",2);
+			//Console.Log("Scene> Load Complete!",2);
 			if (m_load_callback != null) m_load_callback(GetProgress());
 			return;
 		}
@@ -315,7 +327,7 @@ class Scene extends Resource
 				var fn : Void->Bool = m_retries[it];
 				if (fn())
 				{
-					m_retries.remove(fn);
+					m_retries.splice(it, 1);
 					var r : Float32 = 1.0 - (m_retries.length / count);
 					r = Mathf.Clamp01(0.9 + (0.1 * r))*0.999;
 					if (m_load_callback != null) m_load_callback(r);
