@@ -22,7 +22,7 @@ import haxor.context.Process;
 class RenderEngine
 {
 
-	static public var onfinish : Void->Void;
+	static public var onfinish : Camera->Void;
 	
 	static private function Render():Void
 	{
@@ -81,14 +81,17 @@ class RenderEngine
 			RenderCameraLayer(l, c);
 		}		
 		
-		
-		
 		//Filters
-		if (c == Camera.main)
-		{
-			if (onfinish != null) onfinish();
-			EngineContext.gizmo.Render();
-		}
+		
+		var gizmo_camera : Camera = Camera.main;
+				
+		#if editor
+		gizmo_camera = Camera.editor;
+		#end
+		
+		if (onfinish != null) onfinish(c);
+		
+		if (c == gizmo_camera) EngineContext.gizmo.Render();
 		
 		EngineContext.camera.Unbind(c);
 	}

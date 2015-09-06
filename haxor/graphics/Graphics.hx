@@ -52,7 +52,8 @@ class Graphics
 	 */
 	static public function Clear(p_camera : Camera):Void
 	{
-		var c : Camera = p_camera;		
+		var c : Camera = p_camera;
+				
 		Viewport(p_camera.m_pixelViewport);		
 		if (c.clear != ClearFlag.None)
 		{

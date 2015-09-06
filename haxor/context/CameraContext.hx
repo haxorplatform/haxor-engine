@@ -189,10 +189,23 @@ class CameraContext
 		w = sw < 1.0 ? 1.0 : sw;
 		h = sh < 1.0 ? 1.0 : sh;
 		
-		var vx: Float32 = Std.int(c.m_viewport.x * w);
-		var vy: Float32 = Std.int(c.m_viewport.y * h);            
-		var aw: Float32 = (c.m_viewport.width  * w);
-		var ah: Float32 = (c.m_viewport.height * h);
+		var nvx : Float32 = c.m_viewport.x;
+		var nvy : Float32 = c.m_viewport.y;
+		var nvw : Float32 = c.m_viewport.width;
+		var nvh : Float32 = c.m_viewport.height;
+		
+		#if editor
+		var vpo : Vector4 = Camera.viewportOffset;
+		nvw *= vpo.z;
+		nvh *= vpo.w;
+		nvx -= vpo.x;
+		nvy += vpo.y;
+		#end
+		
+		var vx: Float32 = Std.int(nvx * w);
+		var vy: Float32 = Std.int(nvy * h);            
+		var aw: Float32 = (nvw  * w);
+		var ah: Float32 = (nvh * h);
 		
 		c.m_pixelViewport.x 	  = vx;
 		c.m_pixelViewport.y 	  = h - ah - vy;

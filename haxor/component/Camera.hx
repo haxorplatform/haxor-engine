@@ -52,13 +52,32 @@ class Camera extends Behaviour implements IResizeable
 	 */
 	static public var main(get_main,set_main) : Camera;
 	static private inline function get_main():Camera 
-	{ 
+	{ 		
 		if (m_main == null) { m_main = list[0]; } else
 		if (m_main.destroyed) { m_main = list[0]; }
 		return m_main; 		
 	}
 	static private inline function set_main(v:Camera):Camera { return m_main=v; }
 	static private var m_main : Camera;
+	
+	#if editor
+	
+	/**
+	 * Editor internals.
+	 */
+	static public var editor : Camera;	
+	static public var viewportOffset(get, set) : Vector4;
+	static private function get_viewportOffset():Vector4 { return m_viewport_offset; }
+	static private function set_viewportOffset(v:Vector4):Vector4 
+	{ 
+		m_viewport_offset.Set4(v);
+		for (i in 0...list.length) { EngineContext.camera.UpdateViewport(list[i]); }
+		return m_viewport_offset;
+	}
+	static private var m_viewport_offset : Vector4;
+	
+	
+	#end
 	
 	/**
 	 * Frustum culling id.
