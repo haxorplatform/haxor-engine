@@ -39,7 +39,7 @@ class MainApp extends Application
 ## Build/Run
 
 ### HTML
-* Create a `index.html`file with the container `<div id='haxor-content'>`.
+* Create an `index.html`file with the container `<div id='haxor-content'>`.
 * Build your app
   * `haxe -lib haxor -js path/to/app.js -D html -D js-es5 -D js-flatten -main pack.to.MainApp`
 * Run your page and check the console for Haxor's initialization procedures.
