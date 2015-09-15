@@ -537,7 +537,8 @@ void main()
 	wpos /= wpos.w;
 	wpos = wpos * ViewMatrixInverse;
 	v_view_dir = wpos.xyz - CameraPosition;      		
-	gl_Position = vec4(vertex,1.0);
+	
+	gl_Position = vec4(vertex,1.0);	
 }
 ';
 	
@@ -552,6 +553,252 @@ void main()
 { 
 	gl_FragColor = textureCube(SkyboxTexture, normalize(v_view_dir));
 }	
+';
+
+	/**
+	 * Shader responsible by the camera clear function with cubemaps.
+	 */
+	static private var vs_pbs : String =
+'
+uniform mat4  WorldMatrix;
+uniform mat4  ViewMatrix;
+uniform mat4  ProjectionMatrix;		
+uniform vec4  Tint;
+
+attribute vec3 vertex;					
+attribute vec4 color;
+attribute vec3 normal;
+
+#ifdef NORMAL_TEXTURE
+attribute vec4 tangent;
+#endif
+
+attribute vec2 uv0;
+
+uniform vec2 UVScale0;
+
+varying vec2 v_uv0;
+varying vec3 v_normal;
+varying vec3 v_binormal;
+varying vec3 v_tangent;
+varying vec4 v_color;
+varying vec4 v_wsVertex;	
+
+#ifdef SECONDARY_MAP
+attribute vec2 uv1;
+uniform   vec2 UVScale1;
+varying   vec2 v_uv1;
+#endif
+
+vec3 binormal(vec3 n,vec4 t) { return cross(n,t.xyz) * t.w; }
+
+void main(void) 
+{		
+	v_wsVertex  = vec4(vertex, 1.0) * WorldMatrix;	
+	gl_Position = (v_wsVertex * ViewMatrix) * ProjectionMatrix;	
+	v_uv0    	= uv0 * UVScale0;
+	
+	#ifdef SECONDARY_MAP
+	v_uv1    	= uv1 * UVScale1;
+	#endif
+	
+	v_color  	= color * Tint;
+	mat3 nm    	= mat3(WorldMatrix);
+	v_normal   	= normal   * nm;	
+	
+	#ifdef NORMAL_TEXTURE
+	v_tangent  	= tangent.xyz  * nm;
+	v_binormal 	= binormal(v_normal,vec4(v_tangent,tangent.w));
+	#endif
+}	
+';
+
+static private var fs_pbs : String =
+'
+#ifdef GLOBAL_SKYBOX
+#define SKYBOX_TEXTURE SkyboxMain
+#else
+#define SKYBOX_TEXTURE SkyboxTexture
+#endif
+		
+uniform vec4 Lights[MAX_LIGHTS*3];
+	
+varying vec2 v_uv0;
+varying vec3 v_normal;
+
+varying vec4 v_color;
+varying vec4 v_wsVertex;	
+
+uniform vec4        Ambient;
+
+uniform vec3        CameraPosition;
+
+uniform sampler2D   DiffuseTexture;
+uniform vec4        DiffuseColor;
+uniform float       DiffuseGain;
+
+#ifdef NORMAL_TEXTURE
+uniform sampler2D   NormalTexture;
+varying vec3 v_binormal;
+varying vec3 v_tangent;
+#endif
+
+#ifdef SPECULAR_TEXTURE
+uniform sampler2D   SpecularTexture;
+uniform vec4        SpecularColor;
+uniform float       SpecularExp;
+#endif
+
+uniform sampler2D   SmoothTexture;
+uniform float       SmoothMax;
+uniform float       SmoothRatio;
+
+#ifdef OCCLUSION_TEXTURE
+uniform sampler2D   OcclusionTexture;
+uniform float       OcclusionFactor;
+#endif
+
+#ifdef EMISSION_TEXTURE
+uniform sampler2D   EmissionTexture;
+uniform vec4        EmissionColor;
+#endif
+
+uniform samplerCube SKYBOX_TEXTURE;
+
+uniform float FresnelExp;
+uniform float FresnelFactor;
+
+#ifdef SECONDARY_MAP
+varying vec2 v_uv1;
+#endif
+
+vec4 LightAttrib(int p_id)   { 	if(p_id==0) return Lights[0];		if(p_id==1) return Lights[3];		if(p_id==2) return Lights[6];		if(p_id==3) return Lights[9];		return vec4(-1,0,0,0);  }
+vec3 LightPosition(int p_id) { 	if(p_id==0) return Lights[0+1].xyz;	if(p_id==1) return Lights[3+1].xyz; if(p_id==2) return Lights[6+1].xyz;	if(p_id==3) return Lights[9+1].xyz;	return vec3(0,0,0); 	}
+vec4 LightColor(int p_id)    { 	if(p_id==0) return Lights[0+2];		if(p_id==1) return Lights[3+2];		if(p_id==2) return Lights[6+2];		if(p_id==3) return Lights[9+2]; 	return vec4(0,0,0,1); 	}
+
+mat3 transpose(mat3 m) {	vec3 l0 = m[0], l1 = m[1], l2 = m[2]; return mat3(vec3(l0.x, l1.x, l2.x), vec3(l0.y, l1.y, l2.y), vec3(l0.z, l1.z, l2.z)); }
+mat4 transpose(mat4 m) {	vec4 l0 = m[0], l1 = m[1], l2 = m[2], l3 = m[3]; return mat4(vec4(l0.x, l1.x, l2.x,l3.x), vec4(l0.y, l1.y, l2.y,l3.y), vec4(l0.z, l1.z, l2.z,l3.z),vec4(l0.w, l1.w, l2.w,l3.w)); }
+
+vec3 LightingDiffuse(float p_intensity,vec3 p_light_dir,vec3 p_color,vec3 p_normal) { return p_color.xyz * clamp(dot(p_normal,p_light_dir),0.0,1.0) * p_intensity; }
+
+vec3 LightingSpecular(float p_intensity,vec3 p_light_dir,vec3 p_color, vec3 p_normal, vec3 p_view, float p_shininess)
+{
+	vec3 rdir = normalize(reflect(p_light_dir, p_normal));  
+	return pow(max(dot(rdir, p_view), 0.0), p_shininess) * p_color * p_intensity;	
+}
+
+vec3 Lighting(vec3 p_position,vec3 p_normal,vec3 p_color,vec3 p_view,vec3 p_specular,float p_shininess)
+{
+    vec3 c = vec3(0.0);
+    
+    for(int i=0;i<MAX_LIGHTS;i++)
+	{
+		vec4 la 	= LightAttrib(i);
+		vec3 lp 	= LightPosition(i);
+		vec3 lc 	= LightColor(i).xyz;
+		int t   	= int(la.x); //type
+		float m		= la.y; 	 //intensity
+		float r 	= la.z*0.5;	 //radius
+		float atten = la.w; 	 //attenuation
+		if(t>=0)
+		{
+			vec3 v   = -(p_position - lp);
+			float a  = t == 0 ? (1.0 - clamp(length(v) / r, 0.0,1.0)) : 1.0;					
+			vec3 dir = t == 0 ? normalize(v) : normalize(lp);						
+			
+			float intensity = m * a;
+			
+			c += LightingDiffuse (intensity, dir, lc * p_color   , p_normal);
+			
+			#ifdef SPECULAR_TEXTURE
+			c += LightingSpecular(intensity, dir, lc * p_specular, p_normal, p_view, p_shininess);
+			#endif
+			
+			//vec3 rdir = normalize(reflect(v,p_normal));  
+		    //c += pow(max(dot(rdir,p_view),0.0),p_shinniness) * p_specular * lc * a * m;
+			
+		}
+	}
+	return c;
+}
+
+void main(void) 
+{	
+    vec3 c = vec3(0.0);
+    vec3 n = vec3(0.0);
+	
+    #ifdef NORMAL_TEXTURE
+    n = ((texture2D(NormalTexture,    v_uv0.xy).xyz - 0.5) * 2.0);
+	n = n * transpose(mat3(normalize(v_tangent),normalize(v_binormal),normalize(v_normal)));
+    #else    
+    n = normalize(v_normal);
+	#endif
+    
+    vec3 view_dir       = normalize(v_wsVertex.xyz - CameraPosition);
+	vec3 reflect_dir    = reflect(view_dir,n);
+    
+	
+	//Sample the Diffuse Term
+    vec4  tex_diffuse   = texture2D(DiffuseTexture,   v_uv0.xy) * DiffuseColor;
+    
+	//Set Diffuse Color
+	c = tex_diffuse.xyz;
+	
+	//Sample Smoothing Factor
+	//SmoothMax   -> Max Mipmap Level
+	//SmoothRatio -> Blend between constant and sampled smooth.
+	vec3  tex_smooth    = texture2D(SmoothTexture,    v_uv0.xy).xyz;
+    float smooth_factor = (1.0-tex_smooth.x) * SmoothMax * (1.0-SmoothRatio);
+    
+	//Sample Global Illumination from Skybox
+	vec3  tex_ambient   = textureCube(SKYBOX_TEXTURE, reflect(view_dir,n),smooth_factor).xyz * Ambient.xyz;
+	
+	//Default Specular data
+    vec4  tex_specular  =  vec4(0, 0, 0, 0);
+	float exp_specular  =  1.0;
+	
+	#ifdef SPECULAR_TEXTURE
+	//Sample Specular data
+	tex_specular = texture2D(SpecularTexture,  v_uv0.xy) * SpecularColor;
+	exp_specular = SpecularExp;
+	#endif
+	
+	//Calculate Lighting for Diffuse and Specular Terms (if enabled)
+	c  = Lighting(v_wsVertex.xyz, n, c, view_dir, tex_specular.xyz, exp_specular);
+	
+	//Compose the result using the Global Illumination sample and a Contant "gain" to finetune the final color.
+	c += (tex_ambient * tex_diffuse.xyz * (DiffuseGain + 1.0));
+	
+	//Sample the Skybox again for Fresnel term.
+	vec4  tex_skybox    = textureCube(SKYBOX_TEXTURE, reflect(view_dir, n));	
+	
+	//Calculates the falloff term.
+	float falloff       = pow(1.0 - clamp(dot(-view_dir, n),0.0,1.0),FresnelExp) * FresnelFactor;
+	
+	//Adds the Fresnel term.
+    c  = c + (tex_skybox.xyz - c) * falloff;
+	
+	#ifdef OCCLUSION_TEXTURE
+	//Sample Occlusion Texture.
+    vec4  tex_occlusion = texture2D(OcclusionTexture, v_uv0.xy);
+	tex_occlusion       = vec4(1.0) + (tex_occlusion - vec4(1.0)) * OcclusionFactor;
+	
+	//Attenuate the fragment color based on it.
+	c *= tex_occlusion.xyz;	
+	#endif
+    
+	#ifdef EMISSION_TEXTURE
+	//Sample the Emission Texture
+	vec4  tex_emission  = texture2D(EmissionTexture,  v_uv0.xy) * EmissionColor;
+	
+	//Adds the emission to the final color.
+	c += tex_emission.xyz;
+	#endif
+	
+	//Sets the final color and alpha
+	gl_FragColor.xyz = c.xyz;
+	gl_FragColor.a 	 = tex_diffuse.a * v_color.a;
+}
 ';
 	
 }

@@ -1,7 +1,8 @@
 package haxor.io.file;
 import haxor.core.Resource;
+import haxor.graphics.texture.Texture2D;
 import haxor.platform.Types.Float32;
-
+import haxor.io.file.AssetJson;
 
 /**
  * Base class that describes an Asset in the Editor context.
@@ -14,6 +15,12 @@ class AssetFile extends Resource
 	 */
 	public var asset(get_asset, null):Dynamic;
 	private function get_asset():Dynamic { return null; }
+	
+	/**
+	 * Returns a list of images files if any.
+	 */
+	public var images(get, never):Array<ImageFile>;
+	private function get_images() : Array<ImageFile> { return []; }
 	
 	/**
 	 * Creates a new AssetFile class.
@@ -75,6 +82,8 @@ class AssetFile extends Resource
 		}
 		return a;
 	}
+	
+	private function assert(v:Dynamic, d:Dynamic):Dynamic { return v == null ? d : v; }
 	
 	
 }

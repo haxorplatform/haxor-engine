@@ -11,6 +11,8 @@ import haxor.component.Transform;
 import haxor.context.EngineContext;
 import haxor.io.serialization.Formatter;
 import haxor.io.serialization.ISerializable;
+import haxor.component.util.SkyboxSelector;
+
 
 /**
  * Class that represents all entities in the application scope.
@@ -245,9 +247,10 @@ class Entity extends Resource implements ISerializable
 			{				
 				
 				var cnl : Array<Dynamic> = cast p_value;
+				
 				for (i in 0...cnl.length)
 				{
-					var cn : FormatterData 		= cnl[i];			
+					var cn : FormatterData 		= cnl[i];								
 					var ct : Class<Component> 	= cast cn.GetType();
 					if (ct == null) continue;					
 					var c 	: Component 		= AddComponent(ct);
@@ -255,30 +258,9 @@ class Entity extends Resource implements ISerializable
 					var fields : Array<String> = cn.GetFields();
 					for (i in 0...fields.length)
 					{						
-						var field_name		: String  = fields[i];						
-						//if (field_name.charAt(0) == "$") continue;
+						var field_name		: String  = fields[i];												
 						var field_value 	: Dynamic = Reflect.getProperty(cn, field_name);
-						fmt.OnDecodeField(c, field_name, field_value);
-						/*
-						var field_input 	: String  = null;
-						var field_type_name : String  = "";
-						if (Std.is(field_value, String))
-						{							
-							field_type_name = fmt.CodeToTypeName(field_value);
-							field_input = fmt.FromEncodedString(field_value);							
-						}
-						else
-						{
-							field_input = fmt.FromObject(field_value);
-						}
-						
-						if (field_name == "material")
-						{
-							//trace(c.name+" guid["+field_value+"] res["+field_input+"]");
-						}
-						
-						Reflect.setProperty(c, field_name, field_input);
-						//*/
+						fmt.OnDecodeField(c, field_name, field_value);						
 					}					
 				}
 				return true;

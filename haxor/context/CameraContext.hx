@@ -182,8 +182,6 @@ class CameraContext
 			h = cast c.m_target.height;
 		}
 		
-		c.m_aspect = w / h;
-		
 		var sw : Float32 = w * c.m_quality;
 		var sh : Float32 = h * c.m_quality;
 		w = sw < 1.0 ? 1.0 : sw;
@@ -195,11 +193,13 @@ class CameraContext
 		var nvh : Float32 = c.m_viewport.height;
 		
 		#if editor
-		var vpo : Vector4 = Camera.viewportOffset;
+		var vpo : Vector4  = Camera.viewportOffset;
+		var offw : Float32 = (1.0 - vpo.z);
+		var offh : Float32 = (1.0 - vpo.w);
+		nvx = (nvx * vpo.z) - vpo.x;
+		nvy = (nvy * vpo.w) + vpo.y;
 		nvw *= vpo.z;
-		nvh *= vpo.w;
-		nvx -= vpo.x;
-		nvy += vpo.y;
+		nvh *= vpo.w;		
 		#end
 		
 		var vx: Float32 = Std.int(nvx * w);
@@ -211,6 +211,8 @@ class CameraContext
 		c.m_pixelViewport.y 	  = h - ah - vy;
 		c.m_pixelViewport.width   = aw;
 		c.m_pixelViewport.height  = ah;
+		
+		c.m_aspect = aw / ah;
 		
 		var tw : Int = cast aw;
 		var th : Int = cast ah;

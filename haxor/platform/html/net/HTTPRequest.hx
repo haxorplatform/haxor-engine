@@ -1,6 +1,7 @@
 #if (html || nodejs)
 
 package haxor.platform.html.net;
+import js.html.XMLHttpRequestResponseType;
 import js.html.Event;
 import js.html.ErrorEvent;
 import haxor.net.HTTPRequestTask;
@@ -31,6 +32,7 @@ class HTTPRequest extends HTTPRequestTask<XMLHttpRequest,Dynamic>
 		#end
 		if (request.withCredentials){ request.withCredentials = false; }		
 		if (request.overrideMimeType != null) {  request.overrideMimeType(p_binary ? "application/octet-stream" : "text/plain");  }				
+		if (p_binary) request.responseType = XMLHttpRequestResponseType.ARRAYBUFFER;
 		request.onprogress 	= function(e : Dynamic)
 		{
 			bytesLoaded = e.loaded;

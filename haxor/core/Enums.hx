@@ -661,7 +661,8 @@ class ShaderFeature
 }
 
 /**
- * Enumeration that defines the 
+ * Enumeration that defines the combination of precisions for shaders.
+ * 000000
  */
 class ShaderPrecision
 {

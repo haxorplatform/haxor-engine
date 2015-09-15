@@ -18,14 +18,14 @@ class Texture extends Resource
 	 * Width of this texture.
 	 */
 	public var width(get_width, never):Int;	
-	private inline function get_width():Int { return m_width; }	
+	private function get_width():Int { return m_width; }	
 	private var m_width : Int;
 	
 	/**
 	 * Height of this texture.
 	 */
 	public var height(get_height, never):Int;	
-	private inline function get_height():Int { return m_height; }	
+	private function get_height():Int { return m_height; }	
 	private var m_height : Int;
 	
 	/**

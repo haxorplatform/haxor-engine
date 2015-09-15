@@ -36,7 +36,7 @@ class MeshLoader extends HTTPLoader<Uint8Array>
 	{		
 		super(p_url, true, OnBufferCallback);		
 		m_mesh_callback = p_callback;
-		request.responseType = XMLHttpRequestResponseType.ARRAYBUFFER;
+		
 	}
 	
 	/**
@@ -52,9 +52,9 @@ class MeshLoader extends HTTPLoader<Uint8Array>
 		}
 		else
 		{
-			if (p_data == null) return;
+			if (p_data == null) return;			
 			var b : Buffer = new Buffer(p_data.length);
-			for (i in 0...b.length) b.SetByte(i, p_data[i]);
+			for (i in 0...b.length) b.SetByte(i, p_data[i]);			
 			var m : Mesh = MeshReader.Read(b);
 			m_mesh_callback(m, 1.0);			
 		}

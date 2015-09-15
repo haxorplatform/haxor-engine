@@ -98,7 +98,7 @@ class ColladaFile extends AssetXML
 	/**
 	 * Images Library
 	 */
-	public var images	   : Array<ColladaImage>;
+	public var textures	   : Array<ColladaImage>;
 	
 	/**
 	 * Controllers Library
@@ -136,7 +136,7 @@ class ColladaFile extends AssetXML
 		version 		= "";		
 		data 			= new ColladaAssetData();		
 		geometries 		= [];
-		images			= [];
+		textures		= [];
 		controllers		= [];
 		materials		= [];
 		animations		= [];
@@ -498,7 +498,7 @@ class ColladaFile extends AssetXML
 		var muv0 : Array<Vector3> 	= cp.GetTriangulatedVectorArray("texcoord", 0);
 		var muv1 : Array<Vector3> 	= cp.GetTriangulatedVectorArray("texcoord", 1);
 		var mbn  : Array<Vector3> 	= cp.GetTriangulatedVectorArray("texbinormal");
-		var mtg  : Array<Vector3> 	= cp.GetTriangulatedVectorArray("textangent");
+		var mtg  : Array<Vector4> 	= cp.GetTriangulatedVectorArray("textangent");
 		
 		var is_skinned : Bool = Std.is(r, SkinnedMeshRenderer);
 		
@@ -529,14 +529,26 @@ class ColladaFile extends AssetXML
 				for (i in 0...mv.length)  { mv[i]  = (bsm.Transform3x4(mv[i].clone));   }
 				for (i in 0...mn.length)  { mn[i]  = (bsm.Transform3x3(mn[i].clone));  }
 				for (i in 0...mbn.length) { mbn[i] = (bsm.Transform3x3(mbn[i].clone)); }
-				for (i in 0...mtg.length) { mtg[i] = (bsm.Transform3x3(mtg[i].clone)); }
+				for (i in 0...mtg.length) 
+				{
+					var tmp : Vector3 = Vector3.temp.Set4(mtg[i]);
+					bsm.Transform3x3(tmp);
+					mtg[i] = mtg[i].clone.Set3(tmp);
+				}
 				//*/
 			}
 		}			
 		if (mv.length > 0)   m.vertex   = mv;
 		if (mn.length > 0)   m.normal   = mn;
 		if (mbn.length > 0)  m.binormal = mbn;
-		if (mtg.length > 0)  m.tangent  = mtg;	
+		if (mtg.length > 0)
+		{
+			m.tangent  = mtg;	
+		}
+		else
+		{
+			m.GenerateTangents();
+		}
 		
 		
 		
@@ -937,7 +949,7 @@ class ColladaFile extends AssetXML
 			img.height	= Std.parseInt(_a(n, "height", "-1"));
 			img.depth	= Std.parseInt(_a(n, "depth", "-1"));
 			//img.data	= _i16a(...); //Will not use for now
-			images.push(img);
+			textures.push(img);
 		}
 	}
 	
@@ -1375,7 +1387,15 @@ class ColladaInput
 			{
 				case 1: v = values[i];
 				case 2: v = new Vector2(values[i], values[i + 1]);
-				case 3: v = semantic == "color" ? new Color(values[i], values[i + 1], values[i + 2]) : new Vector3(values[i], values[i + 1], values[i + 2]);
+				case 3: 
+				{
+					switch(semantic)
+					{
+						case "color": 		v = new Color(values[i], values[i + 1], values[i + 2]);
+						case "textangent":  v = new Vector4(values[i], values[i + 1], values[i + 2], 1.0);
+						default:			v = new Vector3(values[i], values[i + 1], values[i + 2]);
+					}					
+				}
 				case 4: v = semantic == "color" ? new Color(values[i], values[i + 1], values[i + 2], values[i + 3]) : new Vector4(values[i], values[i + 1], values[i + 2], values[i + 3]);
 			}						
 			if (v == null) continue;

@@ -1,6 +1,8 @@
 package haxor.core;
+import haxe.Json;
 import haxe.Timer;
 import haxor.component.Component;
+import haxor.component.light.Light;
 import haxor.component.Transform;
 import haxor.core.Scene.SceneDependency;
 import haxor.graphics.Bitmap;
@@ -13,6 +15,7 @@ import haxor.graphics.texture.TextureCube;
 import haxor.io.serialization.Formatter;
 import haxor.io.serialization.Formatter.FormatterData;
 import haxor.io.serialization.HaxorFormatter;
+import haxor.math.Color;
 import haxor.math.Mathf;
 import haxor.net.Web;
 import haxor.platform.Types.Float32;
@@ -70,6 +73,12 @@ class Scene extends Resource
 	public var path : String;
 	
 	/**
+	 * Global Ambient 
+	 */
+	@serialize
+	public var ambient : Color;
+	
+	/**
 	 * Flag that indicates the path for dependencies is online.
 	 */
 	public var online(get, never):Bool;
@@ -109,6 +118,7 @@ class Scene extends Resource
 		m_operations 	= 0;
 		m_count 		= 0;
 		path 			= "";
+		ambient			= Color.black;
 		
 		m_formatter  = new HaxorFormatter();
 		m_formatter.OnEncodeFieldCallback  = OnFieldEncode;
@@ -124,6 +134,8 @@ class Scene extends Resource
 		dependencies = [];
 		assets		 = [];
 		path		 = p_path;
+		
+		ambient.SetColor(Light.ambient);
 		
 		p_root.Traverse(function(t:Transform, d:Int):Bool
 		{
@@ -170,13 +182,15 @@ class Scene extends Resource
 		m_retries 	 	= [];
 		m_load_callback = p_callback;
 		
+		Light.ambient.SetColor(ambient);
+		
 		if (m_operations <= 0)
 		{
 			if (m_load_callback != null) m_load_callback(1.0);
 			return;
 		}
 				
-		//Console.Log("Scene> Load dependencies[" + dependencies.length + "] assets[" + assets.length + "] total[" + m_operations + "]", 1);
+		Console.Log("Scene> Load dependencies[" + dependencies.length + "] assets[" + assets.length + "] total[" + m_operations + "]", 1);
 		
 		if (m_load_callback != null) m_load_callback(0.0);
 		
@@ -235,10 +249,10 @@ class Scene extends Resource
 			if (online)
 			{
 				DownloadResource(d.guid, c, function(r:Resource, p:Float32)
-				{	
-					//Console.Log("Scene> Dependency Download ["+d.guid+"] p["+p+"]",1);
+				{						
 					if (p >= 1.0)
 					{						
+						Console.Log("Scene> Complete guid["+d.guid+"] type["+d.type+"]",1);
 						dependencies.shift();
 						m_op_progress = 0.0;
 						m_count++;
@@ -312,32 +326,36 @@ class Scene extends Resource
 	{		
 		if (m_retries.length <= 0)
 		{
-			//Console.Log("Scene> Load Complete!",2);
+			Console.Log("Scene> Load Complete!",2);
 			if (m_load_callback != null) m_load_callback(GetProgress());
 			return;
 		}
 		else
-		{
-			//Console.Log("Scene> Recover Missing Refs count["+m_retries.length+"]",2);
+		{			
 			var count : Float32 = m_retries.length;
 			var retries : Int = m_retries.length * 5;
+			
+			//Console.Log("Scene> Recover Missing Refs count[" + m_retries.length + "] steps[" + retries + "]", 2);
+			
 			var it : Int = 0;
 			Activity.Run(function(t:Float32):Bool
 			{				
 				var fn : Void->Bool = m_retries[it];
 				if (fn())
-				{
+				{					
 					m_retries.splice(it, 1);
+					//Console.Log("Scene> Reference Solved count["+m_retries.length+"]", 2);
 					var r : Float32 = 1.0 - (m_retries.length / count);
 					r = Mathf.Clamp01(0.9 + (0.1 * r))*0.999;
 					if (m_load_callback != null) m_load_callback(r);
 				}
 				else
-				{
+				{					
 					it = (it + 1) % m_retries.length;
 				}				
 				
 				retries--;
+				//Console.Log("Scene> Reference Solved retries["+retries+"]", 2);
 				
 				if ((m_retries.length <= 0) || (retries<=0))
 				{
@@ -358,7 +376,7 @@ class Scene extends Resource
 	private function DownloadResource(p_guid:String, p_type:Class<Dynamic>,p_callback:Dynamic->Float32->Void):Void
 	{
 		var c   : Class<Dynamic> = p_type;
-		var url : String 		 = path + guid;
+		var url : String 		 = path + p_guid;
 		if (c == Texture2D)
 		{
 			//Loads directly the texture asset.
@@ -374,6 +392,7 @@ class Scene extends Resource
 		else 
 		if (c == Mesh)
 		{
+			
 			//Loads directly the mesh asset.
 			Web.LoadMesh(url, function(res:Mesh, p:Float32):Void			
 			{
@@ -397,6 +416,18 @@ class Scene extends Resource
 						var fmt : HaxorFormatter = new HaxorFormatter();				
 						var d : Dynamic = fmt.Deserialize(res);
 						if (Std.is(d, Resource)) r = cast d;
+						if (Std.is(d, TextureCube))
+						{
+							trace(Json.parse(res));
+							//var tex : TextureCube = cast d;
+							//tex.Apply();
+						}
+						if (Std.is(d, Shader))
+						{
+							var shd : Shader = cast d;
+							shd.Compile();
+							Console.Log("Scene> Shader guid["+shd.guid+"] compilation["+(!shd.hasError)+"]",2);
+						}
 					}
 				}
 				if (r != null) r.guid = p_guid;
@@ -418,12 +449,11 @@ class Scene extends Resource
 		{
 			var res : Resource = p_value;
 			var rp  : Int 	   = GetPriority(res);
+			
 			if (rp < 0) return;
 			
-			if (Std.is(res, Material))
-			{
-				m_formatter.ToObject(res);
-			}
+			if (Std.is(res, Material))    { m_formatter.ToObject(res); 	}
+			if (Std.is(res, TextureCube)) { m_formatter.ToObject(res); 	}
 			
 			var d 	: SceneDependency = new SceneDependency();
 			d.guid 		= res.guid;
@@ -445,20 +475,29 @@ class Scene extends Resource
 	{
 		//A null thing is coming
 		if (p_value == null)
-		{
+		{			
 			//Encoded data is a special encoded string
 			if (Std.is(p_encoded, String))
 			{
+				var es : String = cast p_encoded;
+				
 				//String 2 first bytes describes a Resource
-				if (m_formatter.EncodedStringIsType(p_encoded, Resource))
+				if (m_formatter.EncodedStringIsType(es, Resource))
 				{
+					//var gs : String = m_formatter.FromEncodedString(es);					
+					
+					
 					//This means the encoded resource GUID failed to hit the variable
 					//The scene should try again because later in the decode the guid might exist.
 					var fn : Void->Bool =
 					function()
-					{
-						var guid : String    = m_formatter.FromEncodedString(p_encoded);
+					{						
+						var guid : String    = es.substr(2);
 						var v    : Resource  = Resource.FindByGUID(guid);
+						
+						//Console.Log("Scene> field[" + p_field + "] guid[" + guid + "] status["+(v!=null)+"]");
+						//trace(p_instance);
+						
 						if (v == null) return false;
 						if (Std.is(p_instance, Array))
 						{

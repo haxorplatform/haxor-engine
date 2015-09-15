@@ -43,7 +43,7 @@ import haxor.platform.Types.UniformLocation;
 @:allow(haxor)
 class MaterialContext
 {
-	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix","WorldMatrixInverse","WorldMatrixIT", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse","Lights","Fog","CameraProjection","Joints","Binds"];
+	private var uniform_globals : Array<String> = ["ViewMatrix", "ProjectionMatrix", "WorldMatrix","WorldMatrixInverse","WorldMatrixIT", "Time", "RandomSeed", "RandomTexture", "ScreenTexture", "ScreenDepth", "Ambient", "CameraPosition", "ProjectionMatrixInverse", "ViewMatrixInverse","Lights","Fog","CameraProjection","Joints","Binds","SkyboxMain"];
 	/**
 	 * List of global uniforms.
 	 */
@@ -405,11 +405,13 @@ class MaterialContext
 		var flag_high : Int  = (is_vs ? ShaderPrecision.VertexHigh : ShaderPrecision.FragmentHigh) & sp;
 		var error_title:String = is_vs ? "[vert] " : "[frag]";
 		
-		if (flag_low  != 0) ss += "precision lowp float;\n"; else
+		if (flag_low  != 0) ss += "precision lowp float;\n";    else
 		if (flag_med  != 0) ss += "precision mediump float;\n"; else
 		if (flag_high != 0) ss += "precision highp float;\n";
 		
-		if (Shader.globalPreprocessor != "") ss += Shader.globalPreprocessor + "\n";		
+		ss += "#define MAX_LIGHTS " + Light.max + "\n";
+		
+		if (Shader.globalPreprocessor != "") ss += Shader.globalPreprocessor + " \n ";				
 		if(s.preprocessor!="") ss += s.preprocessor + "\n";		
 		
 		for (i in 0...ss.length) if (ss.charAt(i) == "\n") res.offset++;
@@ -544,6 +546,7 @@ class MaterialContext
 					case "Ambient":					m.SetColor(un, Color.temp.Set(1,1,1,1));					
 					case "Time":					m.SetFloat(un, 0.0);					
 					case "RandomSeed":				m.SetFloat(un, 0.0);
+					case "SkyboxMain":				if (Camera.main != null) if (Camera.main.skybox != null) m.SetTexture(un, Camera.main.skybox);
 					case "RandomTexture":			m.SetTexture(un, Texture2D.random);
 					//case "ScreenTexture":			if (current.grab) current.SetTexture("ScreenTexture", current.screen);						
 					//case "ScreenDepth":			current.SetTexture("ScreenDepth",   p_camera.m_grab.depth);						
@@ -900,9 +903,16 @@ class MaterialContext
 			case "CameraPosition": 			if(ucv) u.SetVector3(c.transform.position);
 			case "CameraProjection":		if(ucv) u.SetVector3(Vector3.temp.Set(c.near, c.far, 0));
 			case "ViewMatrix":				if(ucv) u.SetMatrix4(c.transform.WorldMatrixInverse);
-			case "ViewMatrixInverse":		if(ucv) u.SetMatrix4(c.transform.WorldMatrix);					
+			case "ViewMatrixInverse":		if(ucv) u.SetMatrix4(c.transform.WorldMatrix);			
 			case "ProjectionMatrix":  		if(ucp)	u.SetMatrix4(c.ProjectionMatrix);					
 			case "ProjectionMatrixInverse": if(ucp)	u.SetMatrix4(c.ProjectionMatrixInverse);										
+			case "SkyboxMain":
+			{				
+				if (Camera.main != null)
+				{					
+					if (Camera.main.skybox != null) u.SetTexture(Camera.main.skybox);
+				}
+			}
 		}	
 	}
 	

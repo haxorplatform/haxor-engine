@@ -1,6 +1,7 @@
 #if (html || nodejs)
 
 package haxor.platform.html.net;
+import js.html.Uint8Array;
 import haxor.platform.Types.Float32;
 
 /**
@@ -29,8 +30,16 @@ class HTTPLoader<T> extends HTTPRequest
 	{ 
 		if (callback == null) return;
 		if (request == null) { callback(null, 1.0); return; }	
-		response = request.response;		
-		if (binary) callback(cast request.response, 1.0); else callback(cast request.responseText, 1.0); 
+		
+		if (binary)
+		{
+			response = new Uint8Array(request.response);
+			callback(cast response, 1.0); 
+		}
+		else
+		{
+			callback(cast request.responseText, 1.0); 
+		}
 	}
 }
 

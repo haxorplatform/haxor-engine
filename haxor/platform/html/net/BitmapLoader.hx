@@ -63,8 +63,9 @@ class BitmapLoader extends HTTPLoader<Uint8Array>
 					var g : CanvasRenderingContext2D = Browser.document.createCanvasElement().getContext2d();
 					g.canvas.width 	= img.width;
 					g.canvas.height = img.height;			
-					g.scale(1.0,-1.0); 						//Set scale to flip the image in Y
-					g.drawImage(img, 0,-img.height); 		//Draw the image flipped.				
+					//g.scale(1.0,-1.0); 						//Set scale to flip the image in Y
+					//g.drawImage(img, 0,-img.height); 		//Draw the image flipped.				
+					g.drawImage(img, 0,0);
 					data = g.getImageData(0, 0, g.canvas.width, g.canvas.height);					
 					w = data.width;
 					h = data.height;

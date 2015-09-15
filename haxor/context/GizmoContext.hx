@@ -72,6 +72,16 @@ class GizmoContext
 	private var point_renderer 		 : PointGizmo;
 	private var canvas_renderer		 : CanvasGizmo;	
 	
+	private var gizmo_camera(get, never):Camera;
+	private function get_gizmo_camera():Camera
+	{
+		#if editor
+		return Camera.editor == null ? Camera.main : Camera.editor;
+		#else
+		return Camera.main;
+		#end
+	}
+	
 	private function new() { }
 	
 	
@@ -173,8 +183,8 @@ class GizmoContext
 	private function DrawGrid(p_area:Float32,p_color:Color=null):Void
 	{
 		gizmo_material.SetFloat("Area", p_area);
-		if (p_color != null) gizmo_material.SetColor("Tint", p_color);							
-		Graphics.Render(grid, gizmo_material,null,Camera.main);
+		if (p_color != null) gizmo_material.SetColor("Tint", p_color);		
+		Graphics.Render(grid, gizmo_material, null, gizmo_camera);		
 	}
 		
 	/**
@@ -431,12 +441,14 @@ class Gizmo
 			}
 		}
 		
+		var cam : Camera = EngineContext.gizmo.gizmo_camera;
+		
 		if (Debug.transform)
 		{
 			Transform.root.Traverse(function(p_t : Transform, p_d : Int):Bool
 			{
 				if (p_t == Transform.root) return true;
-				if (p_t == Camera.main.transform) return true;
+				if (p_t == cam.transform) return true;				
 				Debug.Transform(p_t);
 				return true;
 			});
@@ -453,15 +465,16 @@ class Gizmo
 		
 		if (m_render_count > 0)
 		{			
+			
 			data.Apply();
 			material.SetInt("Count", m_render_count);
-			var np : Float32 = Camera.main.near;
-			var fp : Float32 = Camera.main.far;
-			Camera.main.near = 0.0001;
-			Camera.main.far  = 50000;
-			Graphics.Render(mesh, material, null, Camera.main);			
-			Camera.main.near = np;
-			Camera.main.far = fp;
+			var np : Float32 = cam.near;
+			var fp : Float32 = cam.far;
+			cam.near = 0.0001;
+			cam.far  = 50000;
+			Graphics.Render(mesh, material, null, cam);			
+			cam.near = np;
+			cam.far = fp;
 		}
 	}
 	

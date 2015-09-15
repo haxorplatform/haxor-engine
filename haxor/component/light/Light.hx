@@ -1,6 +1,7 @@
 package haxor.component.light;
 
 import haxor.core.Entity;
+import haxor.graphics.material.Shader;
 import haxor.io.FloatArray;
 import haxor.math.Color;
 import haxor.math.Vector3;
@@ -22,7 +23,16 @@ class Light extends Behaviour
 	/**
 	 * Max number of lights.
 	 */
-	static public var max : Int = 8;
+	static public var max(get, set) : Int;
+	static private function get_max():Int { return m_max; }
+	static private function set_max(v:Int):Int 
+	{ 
+		m_max = v;		
+		//Force all shaders recompilation to handle the new max
+		Shader.globalPreprocessor = Shader.globalPreprocessor;
+		return v;
+	}
+	static private var m_max : Int = 6;
 	
 	/**
 	 * Float array that will contain the raw light information for shaders.

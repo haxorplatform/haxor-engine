@@ -1,4 +1,5 @@
 package haxor.graphics.material;
+import haxor.component.light.Light;
 import haxor.context.EngineContext;
 import haxor.context.ShaderContext;
 import haxor.core.Enums.ShaderFeature;
@@ -7,6 +8,7 @@ import haxor.core.Resource;
 import haxor.graphics.material.shader.FlexShader;
 import haxor.graphics.material.Shader.ShaderCompilation;
 import haxor.graphics.material.Shader.ShaderCompileResult;
+import haxor.graphics.material.PBShader;
 
 /**
  * Class that holds the sources for Vertex and Fragment shaders.
@@ -33,7 +35,12 @@ class Shader extends Resource
 	 */
 	static public var globalPreprocessor(get, set) : String;
 	static private function get_globalPreprocessor():String {  return m_global_preprocessor; }
-	static private function set_globalPreprocessor(v:String):String {  m_global_preprocessor = v; for (s in list) s.Compile(); return v; }
+	static private function set_globalPreprocessor(v:String):String 
+	{  
+		m_global_preprocessor = v; 		
+		for (s in list) s.Compile(); 		
+		return m_global_preprocessor; 		
+	}
 	static private var m_global_preprocessor : String = "";
 	
 	/**

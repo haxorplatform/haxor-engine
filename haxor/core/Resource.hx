@@ -2,6 +2,8 @@ package haxor.core;
 import haxe.Timer;
 import haxor.component.Behaviour;
 import haxor.component.Component;
+import haxor.component.DataComponent;
+import haxor.component.Rotator;
 import haxor.context.EngineContext;
 import haxor.io.serialization.HaxorFormatter;
 

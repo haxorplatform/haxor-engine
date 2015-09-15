@@ -79,6 +79,7 @@ class TextureContext
 	 */
 	private var is_flip_y : Bool;
 	
+	
 	/**
 	 * Creates the TextureContext.
 	 */
@@ -108,6 +109,7 @@ class TextureContext
 			framebuffers.push(GL.INVALID);
 			renderbuffers.push(GL.INVALID);
 		}		
+		
 	}
 	
 	/**
@@ -123,9 +125,15 @@ class TextureContext
 		var chn_type : Int  = FormatToChannelType(p_texture.m_format);
 		var tex_type : Int  = TextureToTarget(p_texture);
 		
-		Bind(p_texture);		
-		GL.TexImage2DAlloc(tex_type, 0, chn_fmt, w, h, 0, chn_bit, chn_type);
-		
+		if (Std.is(p_texture,haxor.graphics.texture.TextureCube))
+		{			
+			Update(p_texture);
+		}
+		else
+		{
+			Bind(p_texture);		
+			GL.TexImage2DAlloc(tex_type, 0, chn_fmt, w, h, 0, chn_bit, chn_type);
+		}
 	}
 	
 	/**
@@ -180,7 +188,7 @@ class TextureContext
 			GL.BindRenderbuffer(GL.RENDERBUFFER, GL.NULL);
 			Unbind();
 		}
-		
+		Unbind();
 	}
 	
 	/**
@@ -282,7 +290,6 @@ class TextureContext
 		GL.TexParameteri(target, GL.TEXTURE_WRAP_S, (p_texture.wrap & TextureWrap.ClampX) != 0 ?  GL.CLAMP_TO_EDGE : GL.REPEAT);		
 		GL.TexParameteri(target, GL.TEXTURE_WRAP_T, (p_texture.wrap & TextureWrap.ClampY) != 0 ?  GL.CLAMP_TO_EDGE : GL.REPEAT);
 		
-		
 		if(GL.TEXTURE_ANISOTROPY_ENABLED) GL.TexParameterf(target, GL.TEXTURE_ANISOTROPY,cast Math.max(1, p_texture.aniso));
 		
 		var minf : Int = p_texture.minFilter;
@@ -346,20 +353,57 @@ class TextureContext
 	private function Update(p_texture:Texture):Void
 	{
 		var target:Int = TextureToTarget(p_texture);		
+		var is_tex2d : Bool = p_texture == null ? false : (p_texture.type == TextureType.Texture2D);
 		
-		Bind(p_texture);
+		Bind(p_texture);		
+		
 		if (target == GL.TEXTURE_CUBE_MAP)
 		{
+			#if html
+			GL.PixelStorei(GL.UNPACK_FLIP_Y_WEBGL, 0);
+			#end
 			var tc : TextureCube = cast p_texture;
+			
+			var tid : Array<Int> = 
+			[			
+				GL.TEXTURE_CUBE_MAP_POSITIVE_X	  ,
+				GL.TEXTURE_CUBE_MAP_POSITIVE_X + 1,
+				GL.TEXTURE_CUBE_MAP_POSITIVE_X + 2,
+				GL.TEXTURE_CUBE_MAP_POSITIVE_X + 3,
+				GL.TEXTURE_CUBE_MAP_POSITIVE_X + 4,
+				GL.TEXTURE_CUBE_MAP_POSITIVE_X + 5
+			];
+			
+			var dft : Texture2D = haxor.graphics.texture.Texture2D.black;
+			var fl : Array<Texture> =
+			[
+				tc.px == null ? dft : tc.px,
+				tc.nx == null ? dft : tc.nx,
+				tc.py == null ? dft : tc.py,
+				tc.ny == null ? dft : tc.ny,
+				tc.pz == null ? dft : tc.pz,
+				tc.nz == null ? dft : tc.nz
+			];
+			
+			for (i in 0...fl.length)
+			{
+				WriteTexture(tid[i], fl[i]);
+			}
+			/*
 			if (tc.px != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X	  , tc.px);
 			if (tc.nx != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 1, tc.nx);			
 			if (tc.py != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 2, tc.py);
 			if (tc.ny != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 3, tc.ny);
 			if (tc.pz != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 4, tc.pz);
-			if (tc.nz != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 5, tc.nz);			
+			if (tc.nz != null) WriteTexture(GL.TEXTURE_CUBE_MAP_POSITIVE_X + 5, tc.nz);
+			//*/
 		}
 		else
 		{	
+			#if html
+			GL.PixelStorei(GL.UNPACK_FLIP_Y_WEBGL, is_tex2d ? 1 : 0);			
+			#end
+			
 			WriteTexture(target, p_texture);
 		}
 		
@@ -369,7 +413,7 @@ class TextureContext
 	 * Upload all pixels of the Texture2D async.
 	 * @param	p_texture
 	 */
-	private function UploadTexture(p_texture:Texture2D,p_x:Int,p_y:Int,p_width:Int,p_height:Int,p_steps:Int,p_on_complete:Void->Void=null):Void
+	private function UploadTexture(p_texture:Texture2D,p_x:Int,p_y:Int,p_width:Int,p_height:Int,p_steps:Int,p_on_complete:Void->Void=null,p_flip:Bool=false):Void
 	{	
 		var b : Bitmap = p_texture.data;
 		var py : Int 		= p_y;
@@ -382,6 +426,11 @@ class TextureContext
 		{
 			if (py >= p_height) { if (p_on_complete != null) p_on_complete(); return false; }
 			Bind(p_texture);
+			
+			#if html
+			GL.PixelStorei(GL.UNPACK_FLIP_Y_WEBGL,p_flip ? 1 : 0);				
+			#end
+			
 			for (i in 0...steps)
 			{
 				if (py < 0) { py++; continue; }
@@ -491,9 +540,15 @@ class TextureContext
 	 */
 	public function UpdateMipmaps(p_texture:Texture):Void
 	{
+		var tw : Int = p_texture.width;
+		var th : Int = p_texture.height;		
+		if (!Mathf.IsPOT(tw)) return;
+		if (!Mathf.IsPOT(th)) return;
+		if (tw <= 0) return;
+		if (th <= 0) return;
 		Bind(p_texture);
 		var target:Int = TextureToTarget(p_texture);
-		GL.GenerateMipmap(target);		
+		GL.GenerateMipmap(target);
 	}
 	
 	/**
