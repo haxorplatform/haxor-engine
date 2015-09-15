@@ -33,8 +33,7 @@ class MainApp extends Application
  	{
  	  Console.Log("Hello World");
  	}
-	
-	}
+}
 ```
  
 ## Build/Run
